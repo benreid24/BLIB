@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['y_0',['Y',['../a03414.html#a0ad76dfeab6a857e006035aaea668bfd',1,'bl::input::controllers::Xbox360']]]
+  ['x_0',['x',['../a05610.html#a3ba56ba15870ebe5be08e61f1d1df225',1,'bl::rc::sri::TargetSize::Size::x'],['../a04058.html#a0a3d2264df2101a7534148659b3b8734',1,'bl::input::controllers::Xbox360::X']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Cameras/2D/CameraAffector2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,49 +79,55 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_ce0cefa5b1d3b64155b48c92eb17890c.html">2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">CameraAffector2D.hpp</div></div>
+  <div class="headertitle"><div class="title">SlideshowFactory.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00908.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_2D_CAMERAAFFECTOR2D_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_2D_CAMERAAFFECTOR2D_HPP</span></div>
+<a href="a00908.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_SLIDESHOWFACTORY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_SLIDESHOWFACTORY_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08488.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>cam</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>dsi</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
 <div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a02570.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02570.html">CameraAffector2D</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a02570.html#a4d9c78fcc8b312545e0d4a01fd9798d5">   21</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a02570.html#a4d9c78fcc8b312545e0d4a01fd9798d5">~CameraAffector2D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02570.html#add831e36ba4f55892120ac666b718a3f">update</a>(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span>&amp; recomputeView, <span class="keywordtype">bool</span>&amp; recomputeProj);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02570.html#a00249fdd22bbbefc0572a86a6b4a7b3f">applyOnView</a>(<span class="keywordtype">float</span>&amp; rotation);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a02570.html#aeddb09aeaf0e999d9c27a84453534d1b">applyOnProj</a>(glm::vec2&amp; center, glm::vec2&amp; size);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>};</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04862.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a04862.html">SlideshowFactory</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04874.html">ds::DescriptorSetFactory</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04862.html#a0a0ed8c4eafa700dc25b21660fce37d2">   22</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04862.html#a0a0ed8c4eafa700dc25b21660fce37d2">~SlideshowFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="a03698.html">engine::Engine</a>* engine;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">virtual</span> std::unique_ptr&lt;ds::DescriptorSetInstance&gt; createDescriptorSet() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">virtual</span> std::type_index creates() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>};</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace cam</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02570_html"><div class="ttname"><a href="a02570.html">bl::cam::CameraAffector2D</a></div><div class="ttdoc">Base class for affectors that can be applied to 2d cameras. An affecter modifies the behavior of the ...</div><div class="ttdef"><b>Definition</b> <a href="a00908_source.html#l00017">CameraAffector2D.hpp:17</a></div></div>
-<div class="ttc" id="aa02570_html_a00249fdd22bbbefc0572a86a6b4a7b3f"><div class="ttname"><a href="a02570.html#a00249fdd22bbbefc0572a86a6b4a7b3f">bl::cam::CameraAffector2D::applyOnView</a></div><div class="ttdeci">virtual void applyOnView(float &amp;rotation)</div><div class="ttdoc">Base method does nothing. Use this to make changes to the parameters used to construct the camera's v...</div><div class="ttdef"><b>Definition</b> <a href="a02015_source.html#l00009">CameraAffector2D.cpp:9</a></div></div>
-<div class="ttc" id="aa02570_html_a4d9c78fcc8b312545e0d4a01fd9798d5"><div class="ttname"><a href="a02570.html#a4d9c78fcc8b312545e0d4a01fd9798d5">bl::cam::CameraAffector2D::~CameraAffector2D</a></div><div class="ttdeci">virtual ~CameraAffector2D()=default</div><div class="ttdoc">Destroys the affector.</div></div>
-<div class="ttc" id="aa02570_html_add831e36ba4f55892120ac666b718a3f"><div class="ttname"><a href="a02570.html#add831e36ba4f55892120ac666b718a3f">bl::cam::CameraAffector2D::update</a></div><div class="ttdeci">virtual void update(float dt, bool &amp;recomputeView, bool &amp;recomputeProj)</div><div class="ttdoc">Updates the affector.</div><div class="ttdef"><b>Definition</b> <a href="a02015_source.html#l00007">CameraAffector2D.cpp:7</a></div></div>
-<div class="ttc" id="aa02570_html_aeddb09aeaf0e999d9c27a84453534d1b"><div class="ttname"><a href="a02570.html#aeddb09aeaf0e999d9c27a84453534d1b">bl::cam::CameraAffector2D::applyOnProj</a></div><div class="ttdeci">virtual void applyOnProj(glm::vec2 &amp;center, glm::vec2 &amp;size)</div><div class="ttdoc">Base method does nothing. Use this to make changes to the parameters used to construct the camera's p...</div><div class="ttdef"><b>Definition</b> <a href="a02015_source.html#l00011">CameraAffector2D.cpp:11</a></div></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace dsi</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa04862_html"><div class="ttname"><a href="a04862.html">bl::rc::dsi::SlideshowFactory</a></div><div class="ttdoc">Descriptor set factory for slideshow descriptor sets.</div><div class="ttdef"><b>Definition</b> <a href="a00908_source.html#l00017">SlideshowFactory.hpp:17</a></div></div>
+<div class="ttc" id="aa04862_html_a0a0ed8c4eafa700dc25b21660fce37d2"><div class="ttname"><a href="a04862.html#a0a0ed8c4eafa700dc25b21660fce37d2">bl::rc::dsi::SlideshowFactory::~SlideshowFactory</a></div><div class="ttdeci">virtual ~SlideshowFactory()=default</div><div class="ttdoc">Destroys the factory.</div></div>
+<div class="ttc" id="aa04874_html"><div class="ttname"><a href="a04874.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition</b> <a href="a08488_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa08488_html"><div class="ttname"><a href="a08488.html">DescriptorSetFactory.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

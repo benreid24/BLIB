@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: Signals</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,6 +51,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,30 +73,50 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02418.html">ecs</a></li><li class="navelem"><a class="el" href="a02423.html">trait</a></li><li class="navelem"><a class="el" href="a02986.html">Versioned</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::ecs::trait::Versioned Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">Signals</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02986.html">bl::ecs::trait::Versioned</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02986.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a>() const</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02986.html#a82719504b4bec76caa559aeedeb4d214">incrementVersion</a>()</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02986.html#af74f6fc90047136a9973f12ea6ddb1ec">operator=</a>(const Versioned &amp;)=default</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02986.html#a366db3225c45eaf6efadf5e32ba3ac83">operator=</a>(Versioned &amp;&amp;)=default</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02986.html#ab9537058ab47e8d5a944039880d72362">Versioned</a>()</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02986.html#a45cdaab81be9507f40b484c906f4f6d7">Versioned</a>(const Versioned &amp;)=default</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02986.html#a86bb85cc0bdfd26d2d217ffe826e71e3">Versioned</a>(Versioned &amp;&amp;)=default</td><td class="entry"><a class="el" href="a02986.html">bl::ecs::trait::Versioned</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Module that provides signal dispatch and listening.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06366.html">bl::sig::Channel</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A collection of signal streams. Listeners and emitters can connect to channels to send and receive signals. Channels can be freely instantiated and used wherever, and can also be used and managed through the central channel <a class="el" href="a06406.html" title="Global signal channel table that allows for central management and access to channels.">Table</a>.  <a href="a06366.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06370.html">bl::sig::Collector&lt; TSignal &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal collector that collects signals of a single type and allows for draining them later.  <a href="a06370.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06374.html">bl::sig::Emitter&lt; TSignals &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signal emitter that connects to a channel and allows the sending of signals.  <a href="a06374.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06382.html">bl::sig::Handler&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for signal listeners that handles a single type of signal. Not intended for direct use, use <a class="el" href="a06386.html" title="Base class for signal listeners. Create classes that derive from this to process signals.">Listener</a> instead.  <a href="a06382.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06386.html">bl::sig::Listener&lt; TSignals &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for signal listeners. Create classes that derive from this to process signals.  <a href="a06386.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06398.html">bl::sig::Router&lt; TSignals &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to route signals to callbacks. Is instantiated and callbacks are registered for specific signal types. Allows a single class to subscribe to multiple channels via the use of multiple Routers.  <a href="a06398.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06378.html">bl::sig::Stream&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a06378.html" title="Stream of signals of a single type. Owned by Channel. Use Channel to send and subscribe to signals.">Stream</a> of signals of a single type. Owned by <a class="el" href="a06366.html" title="A collection of signal streams. Listeners and emitters can connect to channels to send and receive si...">Channel</a>. Use <a class="el" href="a06366.html" title="A collection of signal streams. Listeners and emitters can connect to channels to send and receive si...">Channel</a> to send and subscribe to signals.  <a href="a06378.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06406.html">bl::sig::Table</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Global signal channel table that allows for central management and access to channels.  <a href="a06406.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Module that provides signal dispatch and listening. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

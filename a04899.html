@@ -74,24 +74,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02452.html">binary</a></li><li class="navelem"><a class="el" href="a04902.html">Serializer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03056.html">ds</a></li><li class="navelem"><a class="el" href="a04902.html">ObjectBufferBinding</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::serial::binary::Serializer&lt; T, bool &gt; Member List</div></div>
+  <div class="headertitle"><div class="title">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt; Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04902.html">bl::serial::binary::Serializer&lt; T, bool &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04902.html#ae6050208537dd1364dd2779ffe36d057">deserialize</a>(InputStream &amp;input, T &amp;result)</td><td class="entry"><a class="el" href="a04902.html">bl::serial::binary::Serializer&lt; T, bool &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04902.html#a5f0be3d348bae8bf6823f4d2a3a98b9b">serialize</a>(OutputStream &amp;output, const T &amp;value)</td><td class="entry"><a class="el" href="a04902.html">bl::serial::binary::Serializer&lt; T, bool &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a1205a1aa47d4ea47fd67e1559e2eded3">size</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a04902.html">bl::serial::binary::Serializer&lt; T, bool &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a45bb29c4b30642c69a03476d4c239dea">allocateObject</a>(ecs::Entity entity, scene::Key key) override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04894.html#af0952d1f16aa276a9822d4dc57268dc7">Binding</a>(VkDescriptorType type)</td><td class="entry"><a class="el" href="a04894.html">bl::rc::ds::Binding</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#abdfd8d47a585e802a1e10a9e61826c41">dynamicDescriptorUpdateRequired</a>() const override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04894.html#a5ea4fcfcb55892bd3dc0a493669c71d0">getBindingIndex</a>() const</td><td class="entry"><a class="el" href="a04894.html">bl::rc::ds::Binding</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a275932b188a06c42db974ac50db93b7b">getBindMode</a>() const override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04894.html#ab03ca013c004f2341bd5abce8ded224e">getDescriptorType</a>() const</td><td class="entry"><a class="el" href="a04894.html">bl::rc::ds::Binding</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04894.html#a86308849b9e410519b9f6b7b6511eced">getDynamicOffsetForPipeline</a>(scene::SceneRenderContext &amp;ctx, VkPipelineLayout layout, std::uint32_t setIndex, UpdateSpeed updateFreq)</td><td class="entry"><a class="el" href="a04894.html">bl::rc::ds::Binding</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04902.html#a94a87a5c32363d0be49b84a68a5392bd">getSpeedMode</a>() const override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a84ce0b2bd3ac022b942746755f513851">init</a>(vk::VulkanLayer &amp;vulkanState, InitContext &amp;ctx) override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04894.html#ace1b299914ba8309b2adba375bb91636">isDynamic</a>() const</td><td class="entry"><a class="el" href="a04894.html">bl::rc::ds::Binding</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a75e625b668317564f01d1d0d8fe03955">ObjectBufferBinding</a>()</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04902.html#a2e8d6d7b351ef747b4d9b6b719956361">onFrameStart</a>() override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#aebac807bf076c37f7c03e129f2e929a0">releaseObject</a>(ecs::Entity entity, scene::Key key) override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04902.html#a76317fce77ba4c3be4f0355c19fff6e8">staticDescriptorUpdateRequired</a>() const override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a2f572a97df3e2bd975e45256c88a204b">writeSet</a>(SetWriteHelper &amp;writer, VkDescriptorSet set, UpdateSpeed speed, std::uint32_t frameIndex) override</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a04894.html#aa610fc8b67930a4033cb31b6987d0ba8">~Binding</a>()=default</td><td class="entry"><a class="el" href="a04894.html">bl::rc::ds::Binding</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a04902.html#a63a82e87f9a97bfdd02487afdb6021b4">~ObjectBufferBinding</a>()=default</td><td class="entry"><a class="el" href="a04902.html">bl::rc::ds::ObjectBufferBinding&lt; TShaderResource, ResourceKey, DescriptorType, Optional &gt;</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

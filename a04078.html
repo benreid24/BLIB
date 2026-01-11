@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::ds::Scene3DFactory Class Reference</title>
+<title>BLIB: bl::input::Listener Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,55 +74,143 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02458.html">ds</a></li><li class="navelem"><a class="el" href="a04078.html">Scene3DFactory</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03027.html">input</a></li><li class="navelem"><a class="el" href="a04078.html">Listener</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a04075.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::ds::Scene3DFactory Class Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::input::Listener Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02972.html">Input</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Placeholder factory for scene descriptor sets. Factory itself only provides the descriptor set layout. It does not instantiate the instances.  
+<p>Base class for input listeners that can subscribe to an <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. The base class keeps the input system updated if it gets copied, moved, or destructed.  
  <a href="a04078.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01385_source.html">Scene3DFactory.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a07984_source.html">Listener.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::ds::Scene3DFactory:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::input::Listener:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a04078.png" usemap="#bl::rc::ds::Scene3DFactory_map" alt=""/>
-  <map id="bl::rc::ds::Scene3DFactory_map" name="bl::rc::ds::Scene3DFactory_map">
-<area href="a04118.html" title="Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and..." alt="bl::rc::ds::DescriptorSetFactory" shape="rect" coords="0,0,186,24"/>
+  <img src="a04078.png" usemap="#bl::input::Listener_map" alt=""/>
+  <map id="bl::input::Listener_map" name="bl::input::Listener_map">
+<area href="a04082.html" title="Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid..." alt="bl::input::ListenerBoundary" shape="rect" coords="0,56,548,80"/>
+<area href="a04382.html" title="Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed ..." alt="bl::menu::MovementDriver&lt; MovementControl, ActivateTrigger &gt;" shape="rect" coords="558,56,1106,80"/>
+<area href="a04386.html" title="Helper class to receive user input from the InputSystem and drive a menu with it. Must be subscribed ..." alt="bl::menu::TriggerDriver&lt; UpTrigger, RightTrigger, DownTrigger, LeftTrigger, ActivateTrigger &gt;" shape="rect" coords="1116,56,1664,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8808ecbc28f4d4f0e221ee6bd3210a12" id="r_a8808ecbc28f4d4f0e221ee6bd3210a12"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#a8808ecbc28f4d4f0e221ee6bd3210a12">~Scene3DFactory</a> ()</td></tr>
-<tr class="memdesc:a8808ecbc28f4d4f0e221ee6bd3210a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the factory.  <br /></td></tr>
-<tr class="separator:a8808ecbc28f4d4f0e221ee6bd3210a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7ffc734a548699e33a9c6e85e95b760" id="r_ae7ffc734a548699e33a9c6e85e95b760"><td class="memItemLeft" align="right" valign="top">constexpr VkDescriptorSetLayout&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04118.html#ae7ffc734a548699e33a9c6e85e95b760">getDescriptorLayout</a> () const</td></tr>
-<tr class="memdesc:ae7ffc734a548699e33a9c6e85e95b760"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the layout of the descriptor set that this factory creates.  <br /></td></tr>
-<tr class="separator:ae7ffc734a548699e33a9c6e85e95b760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a079b505ecaed9f6afd8278bbb7f38a44" id="r_a079b505ecaed9f6afd8278bbb7f38a44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener</a> ()</td></tr>
+<tr class="memdesc:a079b505ecaed9f6afd8278bbb7f38a44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a04078.html" title="Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...">Listener</a> object.  <br /></td></tr>
+<tr class="separator:a079b505ecaed9f6afd8278bbb7f38a44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3540d1af77f94edd329e089eec2da82" id="r_ae3540d1af77f94edd329e089eec2da82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#ae3540d1af77f94edd329e089eec2da82">Listener</a> (const <a class="el" href="a04078.html">Listener</a> &amp;copy)</td></tr>
+<tr class="memdesc:ae3540d1af77f94edd329e089eec2da82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from the other listener. If subscribed, replaces the other listener with this one in the <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>.  <br /></td></tr>
+<tr class="separator:ae3540d1af77f94edd329e089eec2da82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29b323fc5a97661724c3a97790d72758" id="r_a29b323fc5a97661724c3a97790d72758"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#a29b323fc5a97661724c3a97790d72758">Listener</a> (<a class="el" href="a04078.html">Listener</a> &amp;&amp;moved)</td></tr>
+<tr class="memdesc:a29b323fc5a97661724c3a97790d72758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from the other listener. If subscribed, replaces the other listener with this one in the <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>.  <br /></td></tr>
+<tr class="separator:a29b323fc5a97661724c3a97790d72758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a483ff531396a8a888ece355a945985cd" id="r_a483ff531396a8a888ece355a945985cd"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#a483ff531396a8a888ece355a945985cd">~Listener</a> ()</td></tr>
+<tr class="memdesc:a483ff531396a8a888ece355a945985cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the listener if subscribed.  <br /></td></tr>
+<tr class="separator:a483ff531396a8a888ece355a945985cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a181ea3ab33bd70036b0498cc90198902" id="r_a181ea3ab33bd70036b0498cc90198902"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#a181ea3ab33bd70036b0498cc90198902">observe</a> (const <a class="el" href="a04038.html">Actor</a> &amp;actor, unsigned int activatedControl, <a class="el" href="a02972.html#ga9b480cda76caba52b2ab392fea396ce3">DispatchType</a> eventType, bool eventTriggered)=0</td></tr>
+<tr class="memdesc:a181ea3ab33bd70036b0498cc90198902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies the listener of an input event. Listeners are notified in the reverse order of when they subscribed to the <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>.  <br /></td></tr>
+<tr class="separator:a181ea3ab33bd70036b0498cc90198902"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a272948ed73908bcc35626a495366cba6" id="r_a272948ed73908bcc35626a495366cba6"><td class="memItemLeft" align="right" valign="top">VkDescriptorSetLayout&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04118.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a></td></tr>
-<tr class="separator:a272948ed73908bcc35626a495366cba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ae4af50bf1743d112cb2c2c784bea21c8" id="r_ae4af50bf1743d112cb2c2c784bea21c8"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04078.html#ae4af50bf1743d112cb2c2c784bea21c8">Actor</a></td></tr>
+<tr class="separator:ae4af50bf1743d112cb2c2c784bea21c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Placeholder factory for scene descriptor sets. Factory itself only provides the descriptor set layout. It does not instantiate the instances. </p>
+<div class="textblock"><p>Base class for input listeners that can subscribe to an <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. The base class keeps the input system updated if it gets copied, moved, or destructed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01385_source.html#l00023">23</a> of file <a class="el" href="a01385_source.html">Scene3DFactory.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07984_source.html#l00019">19</a> of file <a class="el" href="a07984_source.html">Listener.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8808ecbc28f4d4f0e221ee6bd3210a12" name="a8808ecbc28f4d4f0e221ee6bd3210a12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8808ecbc28f4d4f0e221ee6bd3210a12">&#9670;&#160;</a></span>~Scene3DFactory()</h2>
+<a id="a079b505ecaed9f6afd8278bbb7f38a44" name="a079b505ecaed9f6afd8278bbb7f38a44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a079b505ecaed9f6afd8278bbb7f38a44">&#9670;&#160;</a></span>Listener() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::input::Listener::Listener </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a04078.html" title="Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...">Listener</a> object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00009">9</a> of file <a class="el" href="a01943_source.html">Listener.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae3540d1af77f94edd329e089eec2da82" name="ae3540d1af77f94edd329e089eec2da82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3540d1af77f94edd329e089eec2da82">&#9670;&#160;</a></span>Listener() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::input::Listener::Listener </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04078.html">Listener</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies from the other listener. If subscribed, replaces the other listener with this one in the <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The listener to replace </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00012">12</a> of file <a class="el" href="a01943_source.html">Listener.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a29b323fc5a97661724c3a97790d72758" name="a29b323fc5a97661724c3a97790d72758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29b323fc5a97661724c3a97790d72758">&#9670;&#160;</a></span>Listener() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::input::Listener::Listener </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04078.html">Listener</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>moved</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies from the other listener. If subscribed, replaces the other listener with this one in the <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">moved</td><td>The listener to replace </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00018">18</a> of file <a class="el" href="a01943_source.html">Listener.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a483ff531396a8a888ece355a945985cd" name="a483ff531396a8a888ece355a945985cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a483ff531396a8a888ece355a945985cd">&#9670;&#160;</a></span>~Listener()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +219,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::ds::Scene3DFactory::~Scene3DFactory </td>
+          <td class="memname">bl::input::Listener::~Listener </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -144,15 +232,15 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys the factory. </p>
+<p>Unsubscribes the listener if subscribed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02339_source.html#l00012">12</a> of file <a class="el" href="a02339_source.html">Scene3DFactory.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01943_source.html#l00024">24</a> of file <a class="el" href="a01943_source.html">Listener.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae7ffc734a548699e33a9c6e85e95b760" name="ae7ffc734a548699e33a9c6e85e95b760"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae7ffc734a548699e33a9c6e85e95b760">&#9670;&#160;</a></span>getDescriptorLayout()</h2>
+<a id="a181ea3ab33bd70036b0498cc90198902" name="a181ea3ab33bd70036b0498cc90198902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a181ea3ab33bd70036b0498cc90198902">&#9670;&#160;</a></span>observe()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -161,28 +249,59 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr VkDescriptorSetLayout bl::rc::ds::DescriptorSetFactory::getDescriptorLayout </td>
+          <td class="memname">virtual bool bl::input::Listener::observe </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">const <a class="el" href="a04038.html">Actor</a> &amp;&#160;</td>
+          <td class="paramname"><em>actor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>activatedControl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02972.html#ga9b480cda76caba52b2ab392fea396ce3">DispatchType</a>&#160;</td>
+          <td class="paramname"><em>eventType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>eventTriggered</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the layout of the descriptor set that this factory creates. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06847_source.html#l00071">71</a> of file <a class="el" href="a06847_source.html">DescriptorSetFactory.hpp</a>.</p>
+<p>Notifies the listener of an input event. Listeners are notified in the reverse order of when they subscribed to the <a class="el" href="a04038.html" title="Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...">Actor</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">actor</td><td>The input system </td></tr>
+    <tr><td class="paramname">activatedControl</td><td>The control that was activated, or is activated </td></tr>
+    <tr><td class="paramname">eventType</td><td>Provides additional context on the control type </td></tr>
+    <tr><td class="paramname">eventTriggered</td><td>True for controls triggered by user input, false for continuous notification of active controls </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True to consume the event and stop the dispatches, false to send to other listeners </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a272948ed73908bcc35626a495366cba6" name="a272948ed73908bcc35626a495366cba6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a272948ed73908bcc35626a495366cba6">&#9670;&#160;</a></span>descriptorSetLayout</h2>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="ae4af50bf1743d112cb2c2c784bea21c8" name="ae4af50bf1743d112cb2c2c784bea21c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4af50bf1743d112cb2c2c784bea21c8">&#9670;&#160;</a></span>Actor</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -191,29 +310,29 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkDescriptorSetLayout bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</td>
+          <td class="memname">friend class <a class="el" href="a04038.html">Actor</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06847_source.html#l00066">66</a> of file <a class="el" href="a06847_source.html">DescriptorSetFactory.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07984_source.html#l00066">66</a> of file <a class="el" href="a07984_source.html">Listener.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Descriptors/Builtin/<a class="el" href="a01385_source.html">Scene3DFactory.hpp</a></li>
-<li>src/Render/Descriptors/Builtin/<a class="el" href="a02339_source.html">Scene3DFactory.cpp</a></li>
+<li>include/BLIB/Input/<a class="el" href="a07984_source.html">Listener.hpp</a></li>
+<li>src/Input/<a class="el" href="a01943_source.html">Listener.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

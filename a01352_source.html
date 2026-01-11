@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Materials/Material.hpp Source File</title>
+<title>BLIB: include/BLIB/Components/OverlayScaler.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,69 +79,185 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bf39dadf608a9a18b0a7e4d31e31778c.html">Materials</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Material.hpp</div></div>
+  <div class="headertitle"><div class="title">OverlayScaler.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01352.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_MATERIALS_MATERIAL_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_MATERIALS_MATERIAL_HPP</span></div>
+<a href="a01352.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_COMPONENTS_OVERLAYSCALER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_COMPONENTS_OVERLAYSCALER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>mat</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04298.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a04298.html">Material</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_function" href="a04298.html#a004c5496d431bda87f459fd2180c303a">Material</a>();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a04298.html#a4ba7c5a506ce404aeb2c72772073337b">   27</a></span>    <a class="code hl_function" href="a04298.html#a4ba7c5a506ce404aeb2c72772073337b">Material</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04298.html">Material</a>&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04298.html#a674e41ac398b60f25e81c66a4c848daf">   32</a></span>    <a class="code hl_function" href="a04298.html#a674e41ac398b60f25e81c66a4c848daf">Material</a>(<a class="code hl_class" href="a04298.html">Material</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_function" href="a04298.html#a004c5496d431bda87f459fd2180c303a">Material</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04402.html">res::TextureRef</a>&amp; texture);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04298.html#ad350f3fa4e4daf9ad89c51e00501d0f2">   44</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a04402.html">res::TextureRef</a>&amp; <a class="code hl_function" href="a04298.html#ad350f3fa4e4daf9ad89c51e00501d0f2">getTexture</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> texture; }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a04298.html#a599218f6ecf2e98a57d4819a124662b8">   49</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a04402.html">res::TextureRef</a>&amp; <a class="code hl_function" href="a04298.html#a599218f6ecf2e98a57d4819a124662b8">getNormalMap</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> normalMap; }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04298.html#aac65263f839c50c444fe8d72f1ecd208">   54</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a04402.html">res::TextureRef</a>&amp; <a class="code hl_function" href="a04298.html#aac65263f839c50c444fe8d72f1ecd208">getUVMap</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> uvMap; }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="a04402.html">res::TextureRef</a> texture;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a04402.html">res::TextureRef</a> normalMap;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="a04402.html">res::TextureRef</a> uvMap;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// TODO - other parameters?</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a07945.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01571.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>sys</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>OverlayScalerSystem;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03005.html">   18</a></span><span class="keyword">namespace </span>gfx</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03006.html">   20</a></span><span class="keyword">namespace </span>bcom</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span><a class="code hl_class" href="a03898.html">OverlayScalable</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace mat</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">TextureRef.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04298_html"><div class="ttname"><a href="a04298.html">bl::rc::mat::Material</a></div><div class="ttdoc">Stores all data for a material.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00017">Material.hpp:17</a></div></div>
-<div class="ttc" id="aa04298_html_a004c5496d431bda87f459fd2180c303a"><div class="ttname"><a href="a04298.html#a004c5496d431bda87f459fd2180c303a">bl::rc::mat::Material::Material</a></div><div class="ttdeci">Material()</div><div class="ttdoc">Creates an empty material.</div><div class="ttdef"><b>Definition</b> <a href="a02306_source.html#l00009">Material.cpp:9</a></div></div>
-<div class="ttc" id="aa04298_html_a4ba7c5a506ce404aeb2c72772073337b"><div class="ttname"><a href="a04298.html#a4ba7c5a506ce404aeb2c72772073337b">bl::rc::mat::Material::Material</a></div><div class="ttdeci">Material(const Material &amp;)=default</div><div class="ttdoc">Copies the material.</div></div>
-<div class="ttc" id="aa04298_html_a599218f6ecf2e98a57d4819a124662b8"><div class="ttname"><a href="a04298.html#a599218f6ecf2e98a57d4819a124662b8">bl::rc::mat::Material::getNormalMap</a></div><div class="ttdeci">const res::TextureRef &amp; getNormalMap() const</div><div class="ttdoc">Returns the normal texture of this material.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00049">Material.hpp:49</a></div></div>
-<div class="ttc" id="aa04298_html_a674e41ac398b60f25e81c66a4c848daf"><div class="ttname"><a href="a04298.html#a674e41ac398b60f25e81c66a4c848daf">bl::rc::mat::Material::Material</a></div><div class="ttdeci">Material(Material &amp;&amp;)=default</div><div class="ttdoc">Copies the material.</div></div>
-<div class="ttc" id="aa04298_html_aac65263f839c50c444fe8d72f1ecd208"><div class="ttname"><a href="a04298.html#aac65263f839c50c444fe8d72f1ecd208">bl::rc::mat::Material::getUVMap</a></div><div class="ttdeci">const res::TextureRef &amp; getUVMap() const</div><div class="ttdoc">Returns the uv texture of this material.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00054">Material.hpp:54</a></div></div>
-<div class="ttc" id="aa04298_html_ad350f3fa4e4daf9ad89c51e00501d0f2"><div class="ttname"><a href="a04298.html#ad350f3fa4e4daf9ad89c51e00501d0f2">bl::rc::mat::Material::getTexture</a></div><div class="ttdeci">const res::TextureRef &amp; getTexture() const</div><div class="ttdoc">Returns the diffuse texture of this material.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00044">Material.hpp:44</a></div></div>
-<div class="ttc" id="aa04402_html"><div class="ttname"><a href="a04402.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition</b> <a href="a01082_source.html#l00027">TextureRef.hpp:27</a></div></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace gfx</span></div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">class </span>Overlay;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">namespace </span>com</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>{</div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="};">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03290.html">   40</a></span><span class="keyword">class </span><a class="code hl_class" href="a03290.html">OverlayScaler</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03630.html">ecs::trait::ParentAware</a>&lt;OverlayScaler&gt; {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a03290.html#ac2e99e622554b9e47590b73cd3c44f39">   42</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a03290.html#ac2e99e622554b9e47590b73cd3c44f39">OnScale</a> = std::function&lt;void()&gt;;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="};">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a03290.html#a10e3c7c111c570a34f8845082711e823">   47</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="a03290.html#a10e3c7c111c570a34f8845082711e823">ScissorMode</a> {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a03290.html#a10e3c7c111c570a34f8845082711e823ac4aed26d75a8b2d913a17acfaa312063">   49</a></span>        <a class="code hl_enumvalue" href="a03290.html#a10e3c7c111c570a34f8845082711e823ac4aed26d75a8b2d913a17acfaa312063">ScissorInherit</a>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a03290.html#a10e3c7c111c570a34f8845082711e823a8187f994b9695a583af04c4d2ef3c48b">   52</a></span>        <a class="code hl_enumvalue" href="a03290.html#a10e3c7c111c570a34f8845082711e823a8187f994b9695a583af04c4d2ef3c48b">ScissorSelf</a>,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a03290.html#a10e3c7c111c570a34f8845082711e823af89d7a43b6fdc2230548c53b6b1a2a5a">   55</a></span>        <a class="code hl_enumvalue" href="a03290.html#a10e3c7c111c570a34f8845082711e823af89d7a43b6fdc2230548c53b6b1a2a5a">ScissorSelfConstrained</a>,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a03290.html#a10e3c7c111c570a34f8845082711e823a0cc491ed4fb768b904714e6f2d82dcca">   58</a></span>        <a class="code hl_enumvalue" href="a03290.html#a10e3c7c111c570a34f8845082711e823a0cc491ed4fb768b904714e6f2d82dcca">ScissorObserver</a>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_enumvalue" href="a03290.html#a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50">ScissorFixed</a></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a03290.html#a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50">   62</a></span>    };</div>
+</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_function" href="a03290.html#a94e798ff2c82e55677f2eee8b41f0bf1">OverlayScaler</a>();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a02e0dc86460e59ccd97e964078c44bbd">scaleToWidthPercent</a>(<span class="keywordtype">float</span> percent);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a6047cc62c0737324810c78355df8c117">scaleToHeightPercent</a>(<span class="keywordtype">float</span> percent);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a9e7fd2a5159d6cb12cb27baa1444993d">scaleToHeightRatio</a>(<span class="keywordtype">float</span> localLineHeight, <span class="keywordtype">float</span> overlayLineHeight);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#ac550a946b3fca76bba8049cc588d1668">scaleToSizePercent</a>(<span class="keyword">const</span> glm::vec2&amp; percents);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#ab5dc40a449f1ed3ec7343f34276a768e">mapToTargetPixels</a>(<span class="keywordtype">float</span> ratio = 1.f);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a6a3a68b9465589411d774639303968f4">stopScaling</a>();</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a30514be96ed2f37bc00eb2e1798cc7b5">setEntityBounds</a>(<span class="keyword">const</span> sf::FloatRect&amp; bounds);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> sf::FloatRect&amp; <a class="code hl_function" href="a03290.html#a902fc4976248d0a8b26c3a99a945813b">getEntityBounds</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a74ceaef3f307d7c236cdc3c16f1a03e2">setScissorMode</a>(<a class="code hl_enumeration" href="a03290.html#a10e3c7c111c570a34f8845082711e823">ScissorMode</a> mode);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#abeed632de44a59aa1bfee410784b8862">setFixedScissor</a>(<span class="keyword">const</span> sf::IntRect&amp; scissor);</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#adefce53c3dc29493a9d9b488fe6c603d">positionInParentSpace</a>(<span class="keyword">const</span> glm::vec2&amp; position);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#af94bd6a6cb00b1684f282ab46487fd1b">stopPositioning</a>();</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03290.html#a4b3555d13e66c81c2c96bdfea8f4186d">isDirty</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03350.html">com::Transform2D</a>* transform = <span class="keyword">nullptr</span>) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03290.html#a55e13604e6201593c951075ea50b87ae">setScaleCallback</a>(<a class="code hl_typedef" href="a03290.html#ac2e99e622554b9e47590b73cd3c44f39">OnScale</a>&amp;&amp; onScale);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">enum</span> ScaleType { None, WidthPercent, HeightPercent, SizePercent, PixelRatio, LineHeight };</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keyword">enum</span> PositionType { NoPosition, ParentSpace };</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <a class="code hl_typedef" href="a03290.html#ac2e99e622554b9e47590b73cd3c44f39">OnScale</a> onScale;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    sf::FloatRect cachedObjectBounds;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    sf::FloatRect cachedTargetRegion;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    glm::vec2 cachedScaledOrigin;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    ScaleType scaleType;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">union </span>{</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="a03290.html#a9ecde633935343a2467f36efb6a0825c">  173</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="a03290.html#a9ecde633935343a2467f36efb6a0825c">pixelRatio</a>;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno"><a class="line" href="a03290.html#a356f8db1cab0a41fa56849b29473ec3a">  174</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="a03290.html#a356f8db1cab0a41fa56849b29473ec3a">widthPercent</a>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a03290.html#a5a5d620fd3b60bfaca28befa9c62eecf">  175</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="a03290.html#a5a5d620fd3b60bfaca28befa9c62eecf">heightPercent</a>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="a03290.html#a8c2561468d36b2320f6d1580c95ba448">  176</a></span>        glm::vec2 <a class="code hl_variable" href="a03290.html#a8c2561468d36b2320f6d1580c95ba448">sizePercent</a>;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="a03290.html#a5a827c8435ba47a1dc4d5f50b544f40c">  177</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="a03290.html#a5a827c8435ba47a1dc4d5f50b544f40c">overlayRatio</a>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    };</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    PositionType posType;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keyword">union </span>{</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="a03290.html#ae195619832cdffb0d02ae17ca6466dba">  181</a></span>        glm::vec2 <a class="code hl_variable" href="a03290.html#ae195619832cdffb0d02ae17ca6466dba">parentPosition</a>;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    };</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_enumeration" href="a03290.html#a10e3c7c111c570a34f8845082711e823">ScissorMode</a> scissorMode;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keyword">union </span>{</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="a03290.html#af5b5851a5580880a6e4cefe7c0210def">  185</a></span>        sf::IntRect <a class="code hl_variable" href="a03290.html#af5b5851a5580880a6e4cefe7c0210def">fixedScissor</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    };</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    std::uint16_t transformVersion;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="a03290.html#a4a6a3be2932b640ceb285770c5346ff3">  190</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a06430.html">sys::OverlayScalerSystem</a>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="a03290.html#ae965abe33c967f45ce73685301ae0d0e">  191</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03898.html">gfx::bcom::OverlayScalable</a>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="a03290.html#a682564558cf88c67e5ea34240bb8c37c">  192</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05298.html">rc::Overlay</a>;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
+</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="foldopen" id="foldopen00197" data-start="{" data-end="}">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="a03290.html#a902fc4976248d0a8b26c3a99a945813b">  197</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> sf::FloatRect&amp; <a class="code hl_function" href="a03290.html#a902fc4976248d0a8b26c3a99a945813b">OverlayScaler::getEntityBounds</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">return</span> cachedObjectBounds;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>}</div>
+</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>} <span class="comment">// namespace com</span></div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01571_html"><div class="ttname"><a href="a01571.html">ParentAware.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03290_html"><div class="ttname"><a href="a03290.html">bl::com::OverlayScaler</a></div><div class="ttdoc">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00040">OverlayScaler.hpp:40</a></div></div>
+<div class="ttc" id="aa03290_html_a02e0dc86460e59ccd97e964078c44bbd"><div class="ttname"><a href="a03290.html#a02e0dc86460e59ccd97e964078c44bbd">bl::com::OverlayScaler::scaleToWidthPercent</a></div><div class="ttdeci">void scaleToWidthPercent(float percent)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay width. Maintains aspect ratio.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00017">OverlayScaler.cpp:17</a></div></div>
+<div class="ttc" id="aa03290_html_a10e3c7c111c570a34f8845082711e823"><div class="ttname"><a href="a03290.html#a10e3c7c111c570a34f8845082711e823">bl::com::OverlayScaler::ScissorMode</a></div><div class="ttdeci">ScissorMode</div><div class="ttdoc">Represents the scissor behavior for an entity controlled by an overlay scaler.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00047">OverlayScaler.hpp:47</a></div></div>
+<div class="ttc" id="aa03290_html_a10e3c7c111c570a34f8845082711e823a0cc491ed4fb768b904714e6f2d82dcca"><div class="ttname"><a href="a03290.html#a10e3c7c111c570a34f8845082711e823a0cc491ed4fb768b904714e6f2d82dcca">bl::com::OverlayScaler::ScissorObserver</a></div><div class="ttdeci">@ ScissorObserver</div><div class="ttdoc">Sets the scissor to the top-level observer scissor.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00058">OverlayScaler.hpp:58</a></div></div>
+<div class="ttc" id="aa03290_html_a10e3c7c111c570a34f8845082711e823a8187f994b9695a583af04c4d2ef3c48b"><div class="ttname"><a href="a03290.html#a10e3c7c111c570a34f8845082711e823a8187f994b9695a583af04c4d2ef3c48b">bl::com::OverlayScaler::ScissorSelf</a></div><div class="ttdeci">@ ScissorSelf</div><div class="ttdoc">Sets the scissor to the bounds of the object.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00052">OverlayScaler.hpp:52</a></div></div>
+<div class="ttc" id="aa03290_html_a10e3c7c111c570a34f8845082711e823ac4aed26d75a8b2d913a17acfaa312063"><div class="ttname"><a href="a03290.html#a10e3c7c111c570a34f8845082711e823ac4aed26d75a8b2d913a17acfaa312063">bl::com::OverlayScaler::ScissorInherit</a></div><div class="ttdeci">@ ScissorInherit</div><div class="ttdoc">Default setting. Uses same scissor as parent, or Observer scissor for root elements.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00049">OverlayScaler.hpp:49</a></div></div>
+<div class="ttc" id="aa03290_html_a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50"><div class="ttname"><a href="a03290.html#a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50">bl::com::OverlayScaler::ScissorFixed</a></div><div class="ttdeci">@ ScissorFixed</div><div class="ttdoc">Sets the scissor to a fixed value.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00062">OverlayScaler.hpp:61</a></div></div>
+<div class="ttc" id="aa03290_html_a10e3c7c111c570a34f8845082711e823af89d7a43b6fdc2230548c53b6b1a2a5a"><div class="ttname"><a href="a03290.html#a10e3c7c111c570a34f8845082711e823af89d7a43b6fdc2230548c53b6b1a2a5a">bl::com::OverlayScaler::ScissorSelfConstrained</a></div><div class="ttdeci">@ ScissorSelfConstrained</div><div class="ttdoc">Sets the scissor to the bounds of the object and constrains against the parent scissor.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00055">OverlayScaler.hpp:55</a></div></div>
+<div class="ttc" id="aa03290_html_a30514be96ed2f37bc00eb2e1798cc7b5"><div class="ttname"><a href="a03290.html#a30514be96ed2f37bc00eb2e1798cc7b5">bl::com::OverlayScaler::setEntityBounds</a></div><div class="ttdeci">void setEntityBounds(const sf::FloatRect &amp;bounds)</div><div class="ttdoc">Sets the pre-transform bounds of the entity. Used in scaling calculations.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00052">OverlayScaler.cpp:52</a></div></div>
+<div class="ttc" id="aa03290_html_a356f8db1cab0a41fa56849b29473ec3a"><div class="ttname"><a href="a03290.html#a356f8db1cab0a41fa56849b29473ec3a">bl::com::OverlayScaler::widthPercent</a></div><div class="ttdeci">float widthPercent</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00174">OverlayScaler.hpp:174</a></div></div>
+<div class="ttc" id="aa03290_html_a4b3555d13e66c81c2c96bdfea8f4186d"><div class="ttname"><a href="a03290.html#a4b3555d13e66c81c2c96bdfea8f4186d">bl::com::OverlayScaler::isDirty</a></div><div class="ttdeci">bool isDirty(const com::Transform2D *transform=nullptr) const</div><div class="ttdoc">Returns whether or not the scale needs to be re-computed.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00081">OverlayScaler.cpp:81</a></div></div>
+<div class="ttc" id="aa03290_html_a55e13604e6201593c951075ea50b87ae"><div class="ttname"><a href="a03290.html#a55e13604e6201593c951075ea50b87ae">bl::com::OverlayScaler::setScaleCallback</a></div><div class="ttdeci">void setScaleCallback(OnScale &amp;&amp;onScale)</div><div class="ttdoc">Sets the callback to call when the entity is scaled.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00079">OverlayScaler.cpp:79</a></div></div>
+<div class="ttc" id="aa03290_html_a5a5d620fd3b60bfaca28befa9c62eecf"><div class="ttname"><a href="a03290.html#a5a5d620fd3b60bfaca28befa9c62eecf">bl::com::OverlayScaler::heightPercent</a></div><div class="ttdeci">float heightPercent</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00175">OverlayScaler.hpp:175</a></div></div>
+<div class="ttc" id="aa03290_html_a5a827c8435ba47a1dc4d5f50b544f40c"><div class="ttname"><a href="a03290.html#a5a827c8435ba47a1dc4d5f50b544f40c">bl::com::OverlayScaler::overlayRatio</a></div><div class="ttdeci">float overlayRatio</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00177">OverlayScaler.hpp:177</a></div></div>
+<div class="ttc" id="aa03290_html_a6047cc62c0737324810c78355df8c117"><div class="ttname"><a href="a03290.html#a6047cc62c0737324810c78355df8c117">bl::com::OverlayScaler::scaleToHeightPercent</a></div><div class="ttdeci">void scaleToHeightPercent(float percent)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay height. Maintains AR.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00023">OverlayScaler.cpp:23</a></div></div>
+<div class="ttc" id="aa03290_html_a6a3a68b9465589411d774639303968f4"><div class="ttname"><a href="a03290.html#a6a3a68b9465589411d774639303968f4">bl::com::OverlayScaler::stopScaling</a></div><div class="ttdeci">void stopScaling()</div><div class="ttdoc">Disables auto-scaling.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00047">OverlayScaler.cpp:47</a></div></div>
+<div class="ttc" id="aa03290_html_a74ceaef3f307d7c236cdc3c16f1a03e2"><div class="ttname"><a href="a03290.html#a74ceaef3f307d7c236cdc3c16f1a03e2">bl::com::OverlayScaler::setScissorMode</a></div><div class="ttdeci">void setScissorMode(ScissorMode mode)</div><div class="ttdoc">Sets the behavior of the scissor when rendering this entity.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00057">OverlayScaler.cpp:57</a></div></div>
+<div class="ttc" id="aa03290_html_a8c2561468d36b2320f6d1580c95ba448"><div class="ttname"><a href="a03290.html#a8c2561468d36b2320f6d1580c95ba448">bl::com::OverlayScaler::sizePercent</a></div><div class="ttdeci">glm::vec2 sizePercent</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00176">OverlayScaler.hpp:176</a></div></div>
+<div class="ttc" id="aa03290_html_a902fc4976248d0a8b26c3a99a945813b"><div class="ttname"><a href="a03290.html#a902fc4976248d0a8b26c3a99a945813b">bl::com::OverlayScaler::getEntityBounds</a></div><div class="ttdeci">constexpr const sf::FloatRect &amp; getEntityBounds() const</div><div class="ttdoc">Returns the pre-transform size of the entity.</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00197">OverlayScaler.hpp:197</a></div></div>
+<div class="ttc" id="aa03290_html_a94e798ff2c82e55677f2eee8b41f0bf1"><div class="ttname"><a href="a03290.html#a94e798ff2c82e55677f2eee8b41f0bf1">bl::com::OverlayScaler::OverlayScaler</a></div><div class="ttdeci">OverlayScaler()</div><div class="ttdoc">Initializes the component to have no scaling effect.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00007">OverlayScaler.cpp:7</a></div></div>
+<div class="ttc" id="aa03290_html_a9e7fd2a5159d6cb12cb27baa1444993d"><div class="ttname"><a href="a03290.html#a9e7fd2a5159d6cb12cb27baa1444993d">bl::com::OverlayScaler::scaleToHeightRatio</a></div><div class="ttdeci">void scaleToHeightRatio(float localLineHeight, float overlayLineHeight)</div><div class="ttdoc">Scales so that the given local height corresponds to the given overlay height. Used for Text scaling.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00029">OverlayScaler.cpp:29</a></div></div>
+<div class="ttc" id="aa03290_html_a9ecde633935343a2467f36efb6a0825c"><div class="ttname"><a href="a03290.html#a9ecde633935343a2467f36efb6a0825c">bl::com::OverlayScaler::pixelRatio</a></div><div class="ttdeci">float pixelRatio</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00173">OverlayScaler.hpp:173</a></div></div>
+<div class="ttc" id="aa03290_html_ab5dc40a449f1ed3ec7343f34276a768e"><div class="ttname"><a href="a03290.html#ab5dc40a449f1ed3ec7343f34276a768e">bl::com::OverlayScaler::mapToTargetPixels</a></div><div class="ttdeci">void mapToTargetPixels(float ratio=1.f)</div><div class="ttdoc">Scales to the given ratio of entity-local texels to target screen-space pixels.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00041">OverlayScaler.cpp:41</a></div></div>
+<div class="ttc" id="aa03290_html_abeed632de44a59aa1bfee410784b8862"><div class="ttname"><a href="a03290.html#abeed632de44a59aa1bfee410784b8862">bl::com::OverlayScaler::setFixedScissor</a></div><div class="ttdeci">void setFixedScissor(const sf::IntRect &amp;scissor)</div><div class="ttdoc">Sets the scissor to a fixed value.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00062">OverlayScaler.cpp:62</a></div></div>
+<div class="ttc" id="aa03290_html_ac2e99e622554b9e47590b73cd3c44f39"><div class="ttname"><a href="a03290.html#ac2e99e622554b9e47590b73cd3c44f39">bl::com::OverlayScaler::OnScale</a></div><div class="ttdeci">std::function&lt; void()&gt; OnScale</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00042">OverlayScaler.hpp:42</a></div></div>
+<div class="ttc" id="aa03290_html_ac550a946b3fca76bba8049cc588d1668"><div class="ttname"><a href="a03290.html#ac550a946b3fca76bba8049cc588d1668">bl::com::OverlayScaler::scaleToSizePercent</a></div><div class="ttdeci">void scaleToSizePercent(const glm::vec2 &amp;percents)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay size. Does not maintain AR.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00035">OverlayScaler.cpp:35</a></div></div>
+<div class="ttc" id="aa03290_html_adefce53c3dc29493a9d9b488fe6c603d"><div class="ttname"><a href="a03290.html#adefce53c3dc29493a9d9b488fe6c603d">bl::com::OverlayScaler::positionInParentSpace</a></div><div class="ttdeci">void positionInParentSpace(const glm::vec2 &amp;position)</div><div class="ttdoc">Updates the entity position relative to the parent region.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00068">OverlayScaler.cpp:68</a></div></div>
+<div class="ttc" id="aa03290_html_ae195619832cdffb0d02ae17ca6466dba"><div class="ttname"><a href="a03290.html#ae195619832cdffb0d02ae17ca6466dba">bl::com::OverlayScaler::parentPosition</a></div><div class="ttdeci">glm::vec2 parentPosition</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00181">OverlayScaler.hpp:181</a></div></div>
+<div class="ttc" id="aa03290_html_af5b5851a5580880a6e4cefe7c0210def"><div class="ttname"><a href="a03290.html#af5b5851a5580880a6e4cefe7c0210def">bl::com::OverlayScaler::fixedScissor</a></div><div class="ttdeci">sf::IntRect fixedScissor</div><div class="ttdef"><b>Definition</b> <a href="a01352_source.html#l00185">OverlayScaler.hpp:185</a></div></div>
+<div class="ttc" id="aa03290_html_af94bd6a6cb00b1684f282ab46487fd1b"><div class="ttname"><a href="a03290.html#af94bd6a6cb00b1684f282ab46487fd1b">bl::com::OverlayScaler::stopPositioning</a></div><div class="ttdeci">void stopPositioning()</div><div class="ttdoc">Stops any positioning of the entity.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00074">OverlayScaler.cpp:74</a></div></div>
+<div class="ttc" id="aa03350_html"><div class="ttname"><a href="a03350.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a07945_source.html#l00018">Transform2D.hpp:20</a></div></div>
+<div class="ttc" id="aa03630_html"><div class="ttname"><a href="a03630.html">bl::ecs::trait::ParentAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition</b> <a href="a01571_source.html#l00025">ParentAware.hpp:25</a></div></div>
+<div class="ttc" id="aa03898_html"><div class="ttname"><a href="a03898.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition</b> <a href="a01634_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
+<div class="ttc" id="aa05298_html"><div class="ttname"><a href="a05298.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition</b> <a href="a00797_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="ttc" id="aa06430_html"><div class="ttname"><a href="a06430.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition</b> <a href="a00221_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
+<div class="ttc" id="aa07945_html"><div class="ttname"><a href="a07945.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

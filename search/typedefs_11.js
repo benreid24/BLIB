@@ -1,25 +1,5 @@
 var searchData=
 [
-  ['t_0',['t',['../a03014.html#a80e362fbed5442049d5731891f2f61a9',1,'bl::ecs::txp::TxEntityResolve&lt; tx::EntityRead &gt;::T'],['../a03018.html#a8ff873723381a4ddc2a0ce2de5cb71bc',1,'bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt;::T'],['../a04710.html#a3ba48f1eca77be66fbfb3bf3bf8aff45',1,'bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;::T'],['../a04930.html#a679037fc749855a345ddf0f50fdba25e',1,'bl::serial::binary::Serializer&lt; std::array&lt; U, N &gt;, false &gt;::T'],['../a04994.html#a46ba78f94a230e243e79a4939248fe23',1,'bl::serial::binary::Serializer&lt; U *, false &gt;::T'],['../a05086.html#a53879fa3af86e1eecd53089e7337b020',1,'bl::serial::json::Serializer&lt; U *, false &gt;::T'],['../a05098.html#ac01585e8d7556257e39e89ed5721ba7e',1,'bl::serial::json::Serializer&lt; std::array&lt; U, N &gt;, false &gt;::T'],['../a05114.html#a86ab25bc68916bab84c9bdb7e8340ecf',1,'bl::serial::json::Serializer&lt; std::unordered_map&lt; U, V &gt;, false &gt;::T'],['../a05362.html#a7641b785399bb91075719694604c6001',1,'bl::util::Random::CharHelper&lt; char &gt;::T'],['../a05366.html#a37a340b4a7ab8a27351519ab3ed29984',1,'bl::util::Random::CharHelper&lt; unsigned char &gt;::T'],['../a03010.html#ae9c698e2896d246c8a1d97715e70f246',1,'bl::ecs::txp::TxEntityResolve&lt; tx::EntityUnlocked &gt;::T']]],
-  ['taffector_1',['TAffector',['../a03870.html#ac5eb8261974094952dea57ca5c7d198c',1,'bl::pcl::ParticleManager']]],
-  ['task_2',['task',['../a03134.html#a0f4d079b76e506c0a630dfe30c0cbc2f',1,'bl::engine::Systems::Task'],['../a05414.html#a1da062602c1bbf14d5d17ce12e777697',1,'bl::util::ThreadPool::Task']]],
-  ['tcomponent_3',['tcomponent',['../a03930.html#a25b84b4c5b6d2ff153cff5828bea586c',1,'bl::pcl::RenderComponentMap::TComponent'],['../a03946.html#a3920f869a922a3f140fbb91de17c943f',1,'bl::pcl::Renderer::TComponent']]],
-  ['tcomponentset_4',['TComponentSet',['../a02970.html#a34b820b564749a72719a52d651aea170',1,'bl::ecs::Tags&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;']]],
-  ['temitter_5',['TEmitter',['../a03870.html#ade0831b76cf841ea460dc1cb818c3315',1,'bl::pcl::ParticleManager']]],
-  ['texturebinding_6',['TextureBinding',['../a02459.html#a3d70683a1ae08d9ecb63649106e25f1c',1,'bl::rc::ds::priv']]],
-  ['texturedescriptorsystem_7',['TextureDescriptorSystem',['../a02392.html#gaf2debe999af7d5803f498f421a51d266',1,'bl::sys']]],
-  ['tglobalpayload_8',['TGlobalPayload',['../a03910.html#a11085274a4667b51b5bf008e94dc2c76',1,'bl::pcl::Link']]],
-  ['tglobalspayload_9',['TGlobalsPayload',['../a03946.html#ae1863a4350353c5569324d0c20e019f0',1,'bl::pcl::Renderer']]],
-  ['tilemapdirection_10',['TilemapDirection',['../a02375.html#gaa6517d7c0b017b507186810bfe4671bb',1,'bl::com']]],
-  ['tilemapposition_11',['TilemapPosition',['../a02375.html#ga859ac3c030c40a2e92b5eb3c46ead8d4',1,'bl::com']]],
-  ['tpayload_12',['tpayload',['../a04142.html#a302c4651f9712f309ea8fbc82fcbe76f',1,'bl::rc::ds::GlobalStorageBuffer::TPayload'],['../a04138.html#a9823004f48a9581a658805ef61b31419',1,'bl::rc::ds::Binding::TPayload'],['../a04146.html#aa6382208851093daa0b453afc7269639',1,'bl::rc::ds::GlobalUniformBuffer::TPayload'],['../a04150.html#ae78b78f99c76af666998db3f011c59ae',1,'bl::rc::ds::ObjectStorageBuffer::TPayload']]],
-  ['transform2dbinding_13',['Transform2DBinding',['../a02459.html#ae0a04d3d4d1a5562dbb14376f1a2f33e',1,'bl::rc::ds::priv']]],
-  ['transform3dbinding_14',['Transform3DBinding',['../a02459.html#a32f3b6227b36ec6b2134c0d3bf915fc3',1,'bl::rc::ds::priv']]],
-  ['transform3ddescriptorsystem_15',['Transform3DDescriptorSystem',['../a02392.html#ga8de8e24f3a0b8643626494bcd58a745c',1,'bl::sys']]],
-  ['trenderer_16',['trenderer',['../a03950.html#a3c81321bc3ea624891d0c3775de9fcfd',1,'bl::pcl::RenderTypeMap::TRenderer'],['../a03870.html#a8789788a812c910d0fa097c08f38ebda',1,'bl::pcl::ParticleManager::TRenderer']]],
-  ['trow_17',['TRow',['../a03038.html#ac1d31bec21de0c5776b75b0cb68e7f3b',1,'bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;']]],
-  ['tsink_18',['TSink',['../a03870.html#a98ad6049ef2be2fb36c331d35d808811',1,'bl::pcl::ParticleManager']]],
-  ['tupdater_19',['TUpdater',['../a03870.html#a5078a592cb0adacb2b8e4ec341b0125f',1,'bl::pcl::ParticleManager']]],
-  ['tview_20',['TView',['../a02970.html#a05e7639eb8563e15336b0252c5ffd601',1,'bl::ecs::Tags&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;']]],
-  ['type_21',['type',['../a05426.html#a5f74c7105c35498fe4eeea79c781ac6a',1,'bl::util::UnderlyingType&lt; U, false &gt;::type'],['../a05430.html#a00abb8857d89214f8bae80045528003b',1,'bl::util::UnderlyingType&lt; U, true &gt;::type'],['../a03838.html#a7aead111e234327c018e49a75c20f702',1,'bl::parser::Node::Type'],['../a03502.html#a08b01a219bb53909c992b722d6624e1a',1,'bl::gui::Icon::Type'],['../a03314.html#a07e43e72d66506b3131b6e4da2df3fe6',1,'bl::gfx::Icon::Type'],['../a03258.html#aaf42e3e7c236dd1342a29176cea971a8',1,'bl::gfx::BatchIcon::Type']]]
+  ['underlyingtypet_0',['UnderlyingTypeT',['../a03075.html#aa8853668ec5ed0e2e9cc964b2e38334d',1,'bl::util']]],
+  ['updatefunction_1',['UpdateFunction',['../a04686.html#ac97bdc4a2d1ce6d95ecff6419ce49fab',1,'bl::particle::System']]]
 ];

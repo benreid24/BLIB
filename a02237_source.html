@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Buffer.cpp Source File</title>
+<title>BLIB: src/Render/Graph/GraphAssetPool.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,245 +79,188 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Buffer.cpp</div></div>
+  <div class="headertitle"><div class="title">GraphAssetPool.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02237.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01295.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
+<a href="a02237.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00590.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01319.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>vk</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04534.html#ae8599c386307d38472556aff229f855d">   11</a></span><a class="code hl_function" href="a04534.html#ae8599c386307d38472556aff229f855d">Buffer::Buffer</a>()</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: vulkanState(nullptr)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(nullptr)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, alloc{}</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, mapped(nullptr)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, allocFlags(0)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, size(0)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, memPool{}</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, usage{} {}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rg</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05050.html#a54bb399d6ae205a8c4107ee6ccc5e426">   15</a></span><a class="code hl_function" href="a05050.html#a54bb399d6ae205a8c4107ee6ccc5e426">GraphAssetPool::GraphAssetPool</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer, <a class="code hl_class" href="a04982.html">AssetPool</a>&amp; pool, <a class="code hl_class" href="a05334.html">RenderTarget</a>* owner,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                               <a class="code hl_class" href="a05450.html">Scene</a>* scene)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: owner(owner)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, scene(scene)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, pool(pool) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    emitter.connect(renderer.<a class="code hl_function" href="a05330.html#a743526c33f2fa24840c00326554fe64f">getSignalChannel</a>());</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04534.html#a85ef6f357cd442e1a25fcff18e5cb134">   21</a></span><a class="code hl_function" href="a04534.html#a85ef6f357cd442e1a25fcff18e5cb134">Buffer::~Buffer</a>() { <a class="code hl_function" href="a04534.html#afdc83a0683dd29514aacdac9b8ed13d6">deferDestruction</a>(); }</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04534.html#a5b36ff08918b967ac273d064993c9e0f">   23</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04534.html#a5b36ff08918b967ac273d064993c9e0f">Buffer::create</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                    VkBufferUsageFlags use, VmaAllocationCreateFlags flags) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    doDefer();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    vulkanState = &amp;vs;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    memPool     = memProps;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    size        = bsize;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    usage       = use;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    allocFlags  = flags;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">return</span> doCreate();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05050.html#ad67e17e872f263eaa2bf665cf3aea80a">   23</a></span><a class="code hl_class" href="a04990.html">AssetRef</a> <a class="code hl_function" href="a05050.html#ad67e17e872f263eaa2bf665cf3aea80a">GraphAssetPool::getAssetForAsset</a>(std::string_view tag, std::string_view purpose) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">auto</span> it = assets.find(tag);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (it != assets.end() &amp;&amp; !it-&gt;second.empty()) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (it-&gt;second.size() &gt; 1) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_define" href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;More than one asset found for asset dependency: &quot;</span> &lt;&lt; tag</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                        &lt;&lt; <span class="stringliteral">&quot;. Choosing first&quot;</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> it-&gt;second.front().asset;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (it == assets.end()) { it = assets.try_emplace(tag).first; }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_struct" href="a05046.html">GraphAsset</a>&amp; ga = it-&gt;second.emplace_back(pool.<a class="code hl_function" href="a04982.html#a6af42836614b9d28b9227bb2d9665876">getOrCreateAsset</a>(tag, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    setPurpose(ga, purpose);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> ga.<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">bool</span> Buffer::doCreate() {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    VkBufferCreateInfo bufferInfo{};</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    bufferInfo.sType       = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    bufferInfo.size        = size;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    bufferInfo.usage       = usage;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    VmaAllocationCreateInfo allocInfo{};</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    allocInfo.requiredFlags = memPool;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    allocInfo.usage         = VMA_MEMORY_USAGE_AUTO;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    allocInfo.flags         = allocFlags;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    std::unique_lock lock(vulkanState-&gt;<a class="code hl_variable" href="a04694.html#aadfc3bf8541aed38c7817c90e6277f6f">bufferAllocMutex</a>);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    VmaAllocationInfo resultInfo{};</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">const</span> VkResult result = vmaCreateBuffer(</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, &amp;bufferInfo, &amp;allocInfo, &amp;buffer, &amp;alloc, &amp;resultInfo);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (result != VK_SUCCESS) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        vulkanState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        size        = 0;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    mapped = resultInfo.pMappedData;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a04534.html#a31906a1fd51a5140e0649968ad381786">   60</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04534.html#a31906a1fd51a5140e0649968ad381786">Buffer::createWithFallback</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs, VkDeviceSize bsize, VkMemoryPropertyFlags memProps,</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                                VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags use,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                                VmaAllocationCreateFlags flags) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="a04534.html#a5b36ff08918b967ac273d064993c9e0f">create</a>(vs, bsize, memProps, use, flags)) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="a04534.html#a5b36ff08918b967ac273d064993c9e0f">create</a>(vs, bsize, fallbackPool, use, flags);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a05050.html#a63a3e675fdb6fa2095e17e1d05d3f57a">   38</a></span><a class="code hl_struct" href="a05046.html">GraphAsset</a>* <a class="code hl_function" href="a05050.html#a63a3e675fdb6fa2095e17e1d05d3f57a">GraphAssetPool::getFinalOutput</a>() {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">auto</span>&amp; set = assets[<a class="code hl_variable" href="a05038.html#ae7fa88a06ee1be0c8f575b9eeaa29fa0">AssetTags::FinalFrameOutput</a>];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (set.size() != 1) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Swap frame output is missing from asset pool&quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> &amp;set.front();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a04534.html#a309978f0b161def0aa4b67ce4f763946">   69</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04534.html#a309978f0b161def0aa4b67ce4f763946">Buffer::destroy</a>() {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04534.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">created</a>()) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        vmaDestroyBuffer(vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, buffer, alloc);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        vulkanState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        size        = 0;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05050.html#a5f93b21507f5b0943195eb8555aad197">   46</a></span><a class="code hl_struct" href="a05046.html">GraphAsset</a>* <a class="code hl_function" href="a05050.html#a5f93b21507f5b0943195eb8555aad197">GraphAssetPool::getAssetForOutput</a>(std::string_view tag, <a class="code hl_class" href="a05098.html">Task</a>* <a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                              std::string_view purpose) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a04974.html">Asset</a>* asset = pool.<a class="code hl_function" href="a04982.html#a37a92b67a2a1afb525ff1d45099610a6">getAsset</a>(tag, <a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a> != <span class="keyword">nullptr</span> ? <span class="keyword">this</span> : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span> (asset) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="comment">// dont return non-external assets for inputs</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a> &amp;&amp; !asset-&gt;<a class="code hl_function" href="a04974.html#a41d5c8b6593d33a48d60872677275822">isExternal</a>()) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">auto</span>&amp; set            = assets[tag];</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> createNew = !asset-&gt;<a class="code hl_function" href="a04974.html#a41d5c8b6593d33a48d60872677275822">isExternal</a>() || set.empty();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_struct" href="a05046.html">GraphAsset</a>* ga       = createNew ? &amp;set.emplace_back(asset) : &amp;set.front();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        setPurpose(*ga, purpose);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (createNew) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            emitter.emit&lt;<a class="code hl_struct" href="a04934.html">event::SceneGraphAssetCreated</a>&gt;(</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                {.target = owner, .scene = scene, .asset = ga});</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">return</span> ga;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a04534.html#afdc83a0683dd29514aacdac9b8ed13d6">   77</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04534.html#afdc83a0683dd29514aacdac9b8ed13d6">Buffer::deferDestruction</a>() {</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    doDefer();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    vulkanState = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    size        = 0;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a05050.html#ad9775f60e2f18bf281982d09d783d014">   66</a></span><a class="code hl_struct" href="a05046.html">GraphAsset</a>* <a class="code hl_function" href="a05050.html#ad9775f60e2f18bf281982d09d783d014">GraphAssetPool::getAssetForSharedOutput</a>(</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    std::string_view tag, <span class="keyword">const</span> <span class="keyword">decltype</span>(<a class="code hl_variable" href="a05118.html#a0a1e6725343f67aa915f12711a1dfb55">TaskOutput::sharedWith</a>)&amp; sharedWith,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    std::string_view purpose) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = assets.find(tag);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (it != assets.end()) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; asset : it-&gt;second) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>* other : asset.outputtedBy) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; tag : sharedWith) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    <span class="keywordflow">if</span> (other-&gt;getId() == tag) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                        setPurpose(asset, purpose);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                        <span class="keywordflow">return</span> &amp;asset;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keywordtype">void</span> Buffer::doDefer() {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04534.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">created</a>()) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a0c4eb8115deab88591131a3d5afd4eea">cleanupManager</a>.<a class="code hl_function" href="a04538.html#a0be2d519d4e836c5040713fda94e8cee">add</a>([vs = vulkanState, buffer = buffer, alloc = alloc]() {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            vmaDestroyBuffer(vs-&gt;vmaAllocator, buffer, alloc);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        });</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a04534.html#a6957a18c79ee307ec194b6968ee9574f">   91</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04534.html#a6957a18c79ee307ec194b6968ee9574f">Buffer::ensureSize</a>(VkDeviceSize newSize, <span class="keywordtype">bool</span> skipCopy) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">if</span> (newSize &gt; size) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        doDefer();</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keyword">const</span> VkDeviceSize oldSize = size;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keyword">const</span> VkBuffer oldBuffer   = buffer;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        size                       = newSize;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">if</span> (!doCreate()) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to resize buffer&quot;</span>); }</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> (!skipCopy) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keyword">auto</span> commandBuffer = vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a5b02fb160c174a40b35d8f92232a87f2">sharedCommandPool</a>.<a class="code hl_function" href="a04654.html#ae09cf3a9764408f8a9ef74fc48913983">createBuffer</a>();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <span class="comment">// barrier to ensure writes to old buffer are complete</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            VkBufferMemoryBarrier barrier{};</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            barrier.buffer        = oldBuffer;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            barrier.offset        = 0;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            barrier.size          = oldSize;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            barrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            barrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            vkCmdPipelineBarrier(commandBuffer,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                                 VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                                 VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                                 VK_DEPENDENCY_BY_REGION_BIT,</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                                 0,</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>                                 <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                                 1,</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>                                 &amp;barrier,</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                                 0,</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                                 <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            <span class="comment">// copy old buffer into new</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>            VkBufferCopy copyCmd{};</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            copyCmd.dstOffset = 0;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            copyCmd.size      = oldSize;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>            copyCmd.srcOffset = 0;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            vkCmdCopyBuffer(commandBuffer, oldBuffer, buffer, 1, &amp;copyCmd);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="comment">// insert pipeline barrier</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            VkBufferMemoryBarrier bufBarrier{};</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            bufBarrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            bufBarrier.srcAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            bufBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            bufBarrier.buffer        = buffer;</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            bufBarrier.offset        = 0;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            bufBarrier.size          = oldSize;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            vkCmdPipelineBarrier(commandBuffer,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                                 VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                                 VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                                 VK_DEPENDENCY_BY_REGION_BIT,</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                                 0,</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                                 <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                                 1,</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                                 &amp;bufBarrier,</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>                                 0,</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                                 <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            commandBuffer.submit();</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        }</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05050.html#a8ac87df76a2f7472fd3fc9bcba726908">   85</a></span><a class="code hl_struct" href="a05046.html">GraphAsset</a>* <a class="code hl_function" href="a05050.html#a8ac87df76a2f7472fd3fc9bcba726908">GraphAssetPool::getAssetForInput</a>(std::string_view tag, std::string_view purpose) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// search for existing asset before falling back onto pool</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = assets.find(tag);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (it != assets.end() &amp;&amp; it-&gt;second.size() == 1) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        setPurpose(it-&gt;second.front(), purpose);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> &amp;it-&gt;second.front();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// fallback into pool to find external asset</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05050.html#a5f93b21507f5b0943195eb8555aad197">getAssetForOutput</a>(tag, <span class="keyword">nullptr</span>, purpose);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
 </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="foldopen" id="foldopen00156" data-start="{" data-end="}">
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="a04534.html#a59f9f42618fdfb237afec34ca505ac32">  156</a></span><span class="keywordtype">void</span>* <a class="code hl_function" href="a04534.html#a59f9f42618fdfb237afec34ca505ac32">Buffer::mapMemory</a>() {</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    vmaMapMemory(vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, alloc, &amp;mapped);</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">return</span> mapped;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a05050.html#a2856f61c1bec3c0083efc29610516288">   97</a></span><a class="code hl_struct" href="a05046.html">GraphAsset</a>* <a class="code hl_function" href="a05050.html#a2856f61c1bec3c0083efc29610516288">GraphAssetPool::createAsset</a>(std::string_view tag, std::string_view purpose) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">auto</span>&amp; set         = assets[tag];</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_struct" href="a05046.html">GraphAsset</a>&amp; asset = set.emplace_back(pool.<a class="code hl_function" href="a04982.html#a6af42836614b9d28b9227bb2d9665876">getOrCreateAsset</a>(tag, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    setPurpose(asset, purpose);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    emitter.emit&lt;<a class="code hl_struct" href="a04934.html">event::SceneGraphAssetCreated</a>&gt;({.target = owner, .scene = scene, .asset = &amp;asset});</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> &amp;asset;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
 </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="a04534.html#abf2405a0936e0fd85a481405e6435552">  161</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04534.html#abf2405a0936e0fd85a481405e6435552">Buffer::unMapMemory</a>() { vmaUnmapMemory(vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a>, alloc); }</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="foldopen" id="foldopen00163" data-start="{" data-end="}">
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="a04534.html#a72d4d58d118f62ae3f58818a5a50187f">  163</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04534.html#a72d4d58d118f62ae3f58818a5a50187f">Buffer::insertPipelineBarrierBeforeChange</a>() {</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">auto</span> cb = vulkanState-&gt;<a class="code hl_variable" href="a04694.html#a5b02fb160c174a40b35d8f92232a87f2">sharedCommandPool</a>.<a class="code hl_function" href="a04654.html#ae09cf3a9764408f8a9ef74fc48913983">createBuffer</a>();</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    VkBufferMemoryBarrier barrier{};</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    barrier.sType         = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    barrier.buffer        = buffer;</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    barrier.offset        = 0;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    barrier.size          = size;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    barrier.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    barrier.dstAccessMask = VK_ACCESS_MEMORY_WRITE_BIT;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    vkCmdPipelineBarrier(cb,</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>                         VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT,</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>                         VK_PIPELINE_STAGE_TRANSFER_BIT,</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>                         VK_DEPENDENCY_BY_REGION_BIT,</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>                         0,</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>                         <span class="keyword">nullptr</span>,</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                         1,</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                         &amp;barrier,</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                         0,</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                         <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    cb.submit();</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>}</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a05050.html#a099f1d0022b8e681b04e91c422c991dd">  105</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05050.html#a099f1d0022b8e681b04e91c422c991dd">GraphAssetPool::reset</a>() {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    pool.<a class="code hl_function" href="a04982.html#ab583deaf609eccab3a4d1bc42bbe5b6d">reset</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    assets.clear();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
 </div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>} <span class="comment">// namespace vk</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01295_html"><div class="ttname"><a href="a01295.html">Buffer.hpp</a></div></div>
-<div class="ttc" id="aa01319_html"><div class="ttname"><a href="a01319.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa02366_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02366_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04534_html_a3004808ef5c84f0150d8bbf5f7c8ad7d"><div class="ttname"><a href="a04534.html#a3004808ef5c84f0150d8bbf5f7c8ad7d">bl::rc::vk::Buffer::created</a></div><div class="ttdeci">constexpr bool created() const</div><div class="ttdoc">Returns whether or not the buffer is currently created.</div><div class="ttdef"><b>Definition</b> <a href="a01295_source.html#l00138">Buffer.hpp:138</a></div></div>
-<div class="ttc" id="aa04534_html_a309978f0b161def0aa4b67ce4f763946"><div class="ttname"><a href="a04534.html#a309978f0b161def0aa4b67ce4f763946">bl::rc::vk::Buffer::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the buffer immediately.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00069">Buffer.cpp:69</a></div></div>
-<div class="ttc" id="aa04534_html_a31906a1fd51a5140e0649968ad381786"><div class="ttname"><a href="a04534.html#a31906a1fd51a5140e0649968ad381786">bl::rc::vk::Buffer::createWithFallback</a></div><div class="ttdeci">bool createWithFallback(VulkanState &amp;vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</div><div class="ttdoc">Creates the buffer with the given parameters and a backup memory type.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00060">Buffer.cpp:60</a></div></div>
-<div class="ttc" id="aa04534_html_a59f9f42618fdfb237afec34ca505ac32"><div class="ttname"><a href="a04534.html#a59f9f42618fdfb237afec34ca505ac32">bl::rc::vk::Buffer::mapMemory</a></div><div class="ttdeci">void * mapMemory()</div><div class="ttdoc">Maps the buffer. Does not check if buffer is map-able or if it is already mapped.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00156">Buffer.cpp:156</a></div></div>
-<div class="ttc" id="aa04534_html_a5b36ff08918b967ac273d064993c9e0f"><div class="ttname"><a href="a04534.html#a5b36ff08918b967ac273d064993c9e0f">bl::rc::vk::Buffer::create</a></div><div class="ttdeci">bool create(VulkanState &amp;vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</div><div class="ttdoc">Creates the buffer with the given parameters.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00023">Buffer.cpp:23</a></div></div>
-<div class="ttc" id="aa04534_html_a6957a18c79ee307ec194b6968ee9574f"><div class="ttname"><a href="a04534.html#a6957a18c79ee307ec194b6968ee9574f">bl::rc::vk::Buffer::ensureSize</a></div><div class="ttdeci">bool ensureSize(VkDeviceSize size, bool skipCopy=false)</div><div class="ttdoc">If the buffer size is less than the required size, re-creates the buffer to be at least the given siz...</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00091">Buffer.cpp:91</a></div></div>
-<div class="ttc" id="aa04534_html_a72d4d58d118f62ae3f58818a5a50187f"><div class="ttname"><a href="a04534.html#a72d4d58d118f62ae3f58818a5a50187f">bl::rc::vk::Buffer::insertPipelineBarrierBeforeChange</a></div><div class="ttdeci">void insertPipelineBarrierBeforeChange()</div><div class="ttdoc">Records a pipeline barrier to prevent writes from occurring before fragment shader reads are complete...</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00163">Buffer.cpp:163</a></div></div>
-<div class="ttc" id="aa04534_html_a85ef6f357cd442e1a25fcff18e5cb134"><div class="ttname"><a href="a04534.html#a85ef6f357cd442e1a25fcff18e5cb134">bl::rc::vk::Buffer::~Buffer</a></div><div class="ttdeci">~Buffer()</div><div class="ttdoc">Destroys the buffer if created.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00021">Buffer.cpp:21</a></div></div>
-<div class="ttc" id="aa04534_html_abf2405a0936e0fd85a481405e6435552"><div class="ttname"><a href="a04534.html#abf2405a0936e0fd85a481405e6435552">bl::rc::vk::Buffer::unMapMemory</a></div><div class="ttdeci">void unMapMemory()</div><div class="ttdoc">Unmaps the buffer. Does not check if the buffer is currently mapped.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00161">Buffer.cpp:161</a></div></div>
-<div class="ttc" id="aa04534_html_ae8599c386307d38472556aff229f855d"><div class="ttname"><a href="a04534.html#ae8599c386307d38472556aff229f855d">bl::rc::vk::Buffer::Buffer</a></div><div class="ttdeci">Buffer()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00011">Buffer.cpp:11</a></div></div>
-<div class="ttc" id="aa04534_html_afdc83a0683dd29514aacdac9b8ed13d6"><div class="ttname"><a href="a04534.html#afdc83a0683dd29514aacdac9b8ed13d6">bl::rc::vk::Buffer::deferDestruction</a></div><div class="ttdeci">void deferDestruction()</div><div class="ttdoc">Defers destruction of the buffer for Config::MaxConcurrentFrames + 1 frames. Buffer can be re-used im...</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00077">Buffer.cpp:77</a></div></div>
-<div class="ttc" id="aa04538_html_a0be2d519d4e836c5040713fda94e8cee"><div class="ttname"><a href="a04538.html#a0be2d519d4e836c5040713fda94e8cee">bl::rc::vk::CleanupManager::add</a></div><div class="ttdeci">void add(Callback &amp;&amp;cb)</div><div class="ttdoc">Adds the given callback to the queue.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00031">CleanupManager.cpp:31</a></div></div>
-<div class="ttc" id="aa04654_html_ae09cf3a9764408f8a9ef74fc48913983"><div class="ttname"><a href="a04654.html#ae09cf3a9764408f8a9ef74fc48913983">bl::rc::vk::SharedCommandPool::createBuffer</a></div><div class="ttdeci">SharedCommandBuffer createBuffer(VkCommandBufferUsageFlags usage=0)</div><div class="ttdoc">Allocates a buffer from the shared pool.</div><div class="ttdef"><b>Definition</b> <a href="a02222_source.html#l00030">SharedCommandPool.cpp:30</a></div></div>
-<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa04694_html_a0c4eb8115deab88591131a3d5afd4eea"><div class="ttname"><a href="a04694.html#a0c4eb8115deab88591131a3d5afd4eea">bl::rc::vk::VulkanState::cleanupManager</a></div><div class="ttdeci">CleanupManager cleanupManager</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00232">VulkanState.hpp:232</a></div></div>
-<div class="ttc" id="aa04694_html_a5b02fb160c174a40b35d8f92232a87f2"><div class="ttname"><a href="a04694.html#a5b02fb160c174a40b35d8f92232a87f2">bl::rc::vk::VulkanState::sharedCommandPool</a></div><div class="ttdeci">SharedCommandPool sharedCommandPool</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00226">VulkanState.hpp:226</a></div></div>
-<div class="ttc" id="aa04694_html_a781a2fe56188f13e65f1b511d9db23f6"><div class="ttname"><a href="a04694.html#a781a2fe56188f13e65f1b511d9db23f6">bl::rc::vk::VulkanState::vmaAllocator</a></div><div class="ttdeci">VmaAllocator vmaAllocator</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00223">VulkanState.hpp:223</a></div></div>
-<div class="ttc" id="aa04694_html_aadfc3bf8541aed38c7817c90e6277f6f"><div class="ttname"><a href="a04694.html#aadfc3bf8541aed38c7817c90e6277f6f">bl::rc::vk::VulkanState::bufferAllocMutex</a></div><div class="ttdeci">std::mutex bufferAllocMutex</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00235">VulkanState.hpp:235</a></div></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">void</span> GraphAssetPool::setPurpose(<a class="code hl_struct" href="a05046.html">GraphAsset</a>&amp; asset, std::string_view purpose) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">if</span> (!asset.<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose.empty() &amp;&amp; !purpose.empty() &amp;&amp; asset.<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose != purpose) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_define" href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Same asset (&quot;</span> &lt;&lt; asset.<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;<a class="code hl_function" href="a04974.html#a21f7426568111c24acf8af2ccf3dafd8">getTag</a>()</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    &lt;&lt; <span class="stringliteral">&quot;) used for multiple purposes: &quot;</span> &lt;&lt; asset.<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose &lt;&lt; <span class="stringliteral">&quot; and &quot;</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    &lt;&lt; purpose &lt;&lt; <span class="stringliteral">&quot;. This may cause issues with descriptor sets&quot;</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    asset.<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose = purpose;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>} <span class="comment">// namespace rg</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00590_html"><div class="ttname"><a href="a00590.html">GraphAssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">AssetTags.hpp</a></div></div>
+<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">Task.hpp</a></div></div>
+<div class="ttc" id="aa01586_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa02183_html_adac025b94121ea5ab5dd2a3a715ca778"><div class="ttname"><a href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a></div><div class="ttdeci">Task * task</div><div class="ttdef"><b>Definition</b> <a href="a02183_source.html#l00023">Timeline.cpp:23</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04934_html"><div class="ttname"><a href="a04934.html">bl::rc::event::SceneGraphAssetCreated</a></div><div class="ttdoc">Fired when a new asset is created for a scene render graph. The asset will not have been initialized ...</div><div class="ttdef"><b>Definition</b> <a href="a00377_source.html#l00024">GraphEvents.hpp:24</a></div></div>
+<div class="ttc" id="aa04974_html"><div class="ttname"><a href="a04974.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa04974_html_a21f7426568111c24acf8af2ccf3dafd8"><div class="ttname"><a href="a04974.html#a21f7426568111c24acf8af2ccf3dafd8">bl::rc::rg::Asset::getTag</a></div><div class="ttdeci">std::string_view getTag() const</div><div class="ttdoc">Returns the tag of this asset.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00092">Asset.hpp:92</a></div></div>
+<div class="ttc" id="aa04974_html_a41d5c8b6593d33a48d60872677275822"><div class="ttname"><a href="a04974.html#a41d5c8b6593d33a48d60872677275822">bl::rc::rg::Asset::isExternal</a></div><div class="ttdeci">bool isExternal() const</div><div class="ttdoc">Returns true if the asset was manually created, false if created by the factory.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00102">Asset.hpp:102</a></div></div>
+<div class="ttc" id="aa04982_html"><div class="ttname"><a href="a04982.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00028">AssetPool.hpp:28</a></div></div>
+<div class="ttc" id="aa04982_html_a37a92b67a2a1afb525ff1d45099610a6"><div class="ttname"><a href="a04982.html#a37a92b67a2a1afb525ff1d45099610a6">bl::rc::rg::AssetPool::getAsset</a></div><div class="ttdeci">Asset * getAsset(std::string_view tag, GraphAssetPool *requester)</div><div class="ttdoc">Fetches an existing asset from the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00024">AssetPool.cpp:24</a></div></div>
+<div class="ttc" id="aa04982_html_a6af42836614b9d28b9227bb2d9665876"><div class="ttname"><a href="a04982.html#a6af42836614b9d28b9227bb2d9665876">bl::rc::rg::AssetPool::getOrCreateAsset</a></div><div class="ttdeci">Asset * getOrCreateAsset(std::string_view tag, GraphAssetPool *requester)</div><div class="ttdoc">Gets or creates an asset of the given tag for the given pool.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00040">AssetPool.cpp:40</a></div></div>
+<div class="ttc" id="aa04982_html_ab583deaf609eccab3a4d1bc42bbe5b6d"><div class="ttname"><a href="a04982.html#ab583deaf609eccab3a4d1bc42bbe5b6d">bl::rc::rg::AssetPool::reset</a></div><div class="ttdeci">void reset(GraphAssetPool *pool)</div><div class="ttdoc">Resets resources used by the given pool.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00062">AssetPool.cpp:62</a></div></div>
+<div class="ttc" id="aa04990_html"><div class="ttname"><a href="a04990.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00017">AssetRef.hpp:17</a></div></div>
+<div class="ttc" id="aa05038_html_ae7fa88a06ee1be0c8f575b9eeaa29fa0"><div class="ttname"><a href="a05038.html#ae7fa88a06ee1be0c8f575b9eeaa29fa0">bl::rc::rg::AssetTags::FinalFrameOutput</a></div><div class="ttdeci">static constexpr std::string_view FinalFrameOutput</div><div class="ttdef"><b>Definition</b> <a href="a00620_source.html#l00021">AssetTags.hpp:21</a></div></div>
+<div class="ttc" id="aa05046_html"><div class="ttname"><a href="a05046.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00021">GraphAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa05046_html_a6215eb2ba33408469b3d677370b66c1c"><div class="ttname"><a href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">bl::rc::rg::GraphAsset::asset</a></div><div class="ttdeci">AssetRef asset</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00022">GraphAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa05050_html_a099f1d0022b8e681b04e91c422c991dd"><div class="ttname"><a href="a05050.html#a099f1d0022b8e681b04e91c422c991dd">bl::rc::rg::GraphAssetPool::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Releases all held assets to allow rebuilding of the graph.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00105">GraphAssetPool.cpp:105</a></div></div>
+<div class="ttc" id="aa05050_html_a2856f61c1bec3c0083efc29610516288"><div class="ttname"><a href="a05050.html#a2856f61c1bec3c0083efc29610516288">bl::rc::rg::GraphAssetPool::createAsset</a></div><div class="ttdeci">GraphAsset * createAsset(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Creates a new asset with the given tag and creator.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00097">GraphAssetPool.cpp:97</a></div></div>
+<div class="ttc" id="aa05050_html_a54bb399d6ae205a8c4107ee6ccc5e426"><div class="ttname"><a href="a05050.html#a54bb399d6ae205a8c4107ee6ccc5e426">bl::rc::rg::GraphAssetPool::GraphAssetPool</a></div><div class="ttdeci">GraphAssetPool(Renderer &amp;renderer, AssetPool &amp;pool, RenderTarget *owner, Scene *scene)</div><div class="ttdoc">Creates the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00015">GraphAssetPool.cpp:15</a></div></div>
+<div class="ttc" id="aa05050_html_a5f93b21507f5b0943195eb8555aad197"><div class="ttname"><a href="a05050.html#a5f93b21507f5b0943195eb8555aad197">bl::rc::rg::GraphAssetPool::getAssetForOutput</a></div><div class="ttdeci">GraphAsset * getAssetForOutput(std::string_view tag, Task *task, std::string_view purpose)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as an output.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00046">GraphAssetPool.cpp:46</a></div></div>
+<div class="ttc" id="aa05050_html_a63a3e675fdb6fa2095e17e1d05d3f57a"><div class="ttname"><a href="a05050.html#a63a3e675fdb6fa2095e17e1d05d3f57a">bl::rc::rg::GraphAssetPool::getFinalOutput</a></div><div class="ttdeci">GraphAsset * getFinalOutput()</div><div class="ttdoc">Fetches the swap frame asset from the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00038">GraphAssetPool.cpp:38</a></div></div>
+<div class="ttc" id="aa05050_html_a8ac87df76a2f7472fd3fc9bcba726908"><div class="ttname"><a href="a05050.html#a8ac87df76a2f7472fd3fc9bcba726908">bl::rc::rg::GraphAssetPool::getAssetForInput</a></div><div class="ttdeci">GraphAsset * getAssetForInput(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as an input. Only use for external assets....</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00085">GraphAssetPool.cpp:85</a></div></div>
+<div class="ttc" id="aa05050_html_ad67e17e872f263eaa2bf665cf3aea80a"><div class="ttname"><a href="a05050.html#ad67e17e872f263eaa2bf665cf3aea80a">bl::rc::rg::GraphAssetPool::getAssetForAsset</a></div><div class="ttdeci">AssetRef getAssetForAsset(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Gets or creates an asset to be used by another asset.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00023">GraphAssetPool.cpp:23</a></div></div>
+<div class="ttc" id="aa05050_html_ad9775f60e2f18bf281982d09d783d014"><div class="ttname"><a href="a05050.html#ad9775f60e2f18bf281982d09d783d014">bl::rc::rg::GraphAssetPool::getAssetForSharedOutput</a></div><div class="ttdeci">GraphAsset * getAssetForSharedOutput(std::string_view tag, const decltype(TaskOutput::sharedWith)&amp;sharedWith, std::string_view purpose)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as a shared output.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00066">GraphAssetPool.cpp:66</a></div></div>
+<div class="ttc" id="aa05098_html"><div class="ttname"><a href="a05098.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition</b> <a href="a00698_source.html#l00030">Task.hpp:30</a></div></div>
+<div class="ttc" id="aa05118_html_a0a1e6725343f67aa915f12711a1dfb55"><div class="ttname"><a href="a05118.html#a0a1e6725343f67aa915f12711a1dfb55">bl::rc::rg::TaskOutput::sharedWith</a></div><div class="ttdeci">ctr::StaticVector&lt; std::string_view, 4 &gt; sharedWith</div><div class="ttdef"><b>Definition</b> <a href="a00701_source.html#l00087">TaskOutput.hpp:87</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05330_html_a743526c33f2fa24840c00326554fe64f"><div class="ttname"><a href="a05330.html#a743526c33f2fa24840c00326554fe64f">bl::rc::Renderer::getSignalChannel</a></div><div class="ttdeci">sig::Channel &amp; getSignalChannel()</div><div class="ttdoc">Returns the channel for renderer events.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00459">Renderer.hpp:459</a></div></div>
+<div class="ttc" id="aa05334_html"><div class="ttname"><a href="a05334.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

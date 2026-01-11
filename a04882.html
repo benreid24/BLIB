@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::script::Value Class Reference</title>
+<title>BLIB: bl::rc::ds::DescriptorSetInstance Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,274 +74,189 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02469.html">script</a></li><li class="navelem"><a class="el" href="a04882.html">Value</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03056.html">ds</a></li><li class="navelem"><a class="el" href="a04882.html">DescriptorSetInstance</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a04879.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::script::Value Class Reference<div class="ingroups"><a class="el" href="a02390.html">Scripts</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::ds::DescriptorSetInstance Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Main representation of a value in scripts.  
+<p>Base class for descriptor sets that exist for each scene. Derived classes are created by <a class="el" href="a04874.html" title="Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...">DescriptorSetFactory</a> classes that exist per pipeline config. This allows custom descriptor sets to be used by scenes.  
  <a href="a04882.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00518_source.html">Value.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::script::Value:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::ds::DescriptorSetInstance:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a04882.png" alt=""/>
- </div></div>
+  <img src="a04882.png" usemap="#bl::rc::ds::DescriptorSetInstance_map" alt=""/>
+  <map id="bl::rc::ds::DescriptorSetInstance_map" name="bl::rc::ds::DescriptorSetInstance_map">
+<area href="a04610.html" title="Descriptor set instance for the default descriptor set used by the default renderer...." alt="bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt;" shape="rect" coords="0,56,313,80"/>
+<area href="a04918.html" title="Generic descriptor set comprised of arbitrary bindings." alt="bl::rc::ds::GenericDescriptorSetInstance&lt; TBindings &gt;" shape="rect" coords="323,56,636,80"/>
+<area href="a04822.html" title="Descriptor set instance that contains renderer global data such as texture and material pools." alt="bl::rc::dsi::GlobalDataInstance" shape="rect" coords="646,56,959,80"/>
+<area href="a04830.html" title="Descriptor set instance that provides bindings for an entire attachment set." alt="bl::rc::dsi::InputAttachmentInstance" shape="rect" coords="969,56,1282,80"/>
+<area href="a04846.html" title="Descriptor set instance for 2d scene data." alt="bl::rc::dsi::Scene2DInstance" shape="rect" coords="1292,56,1605,80"/>
+<area href="a04854.html" title="Descriptor set instance for common scene data." alt="bl::rc::dsi::Scene3DInstance" shape="rect" coords="1615,56,1928,80"/>
+<area href="a04866.html" title="Provides slideshow data for animations to render." alt="bl::rc::dsi::SlideshowInstance" shape="rect" coords="1938,56,2251,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a587b054106ae5b4911a145a1d2928eaa" id="r_a587b054106ae5b4911a145a1d2928eaa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a> { <a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">Bindless</a>
+, <a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c">Bindful</a>
+ }</td></tr>
+<tr class="memdesc:a587b054106ae5b4911a145a1d2928eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind mode of the descriptor set.  <a href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">More...</a><br /></td></tr>
+<tr class="separator:a587b054106ae5b4911a145a1d2928eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d01a7643e3e65933db3c5a957db66f" id="r_a56d01a7643e3e65933db3c5a957db66f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> { <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd">RebindForNewSpeed</a>
+, <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">SpeedAgnostic</a>
+ }</td></tr>
+<tr class="memdesc:a56d01a7643e3e65933db3c5a957db66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the descriptor set needs to be re-bound for different update speeds.  <a href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">More...</a><br /></td></tr>
+<tr class="separator:a56d01a7643e3e65933db3c5a957db66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a00820f27021ac33d72b92b990a789cc2" id="r_a00820f27021ac33d72b92b990a789cc2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a00820f27021ac33d72b92b990a789cc2">Value</a> (const <a class="el" href="a04882.html">Value</a> &amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:a00820f27021ac33d72b92b990a789cc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies a value.  <br /></td></tr>
-<tr class="separator:a00820f27021ac33d72b92b990a789cc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11efaa51ae55f87e714d03a7baef2f4e" id="r_a11efaa51ae55f87e714d03a7baef2f4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a11efaa51ae55f87e714d03a7baef2f4e">Value</a> (<a class="el" href="a04882.html">Value</a> &amp;&amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:a11efaa51ae55f87e714d03a7baef2f4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves from a value.  <br /></td></tr>
-<tr class="separator:a11efaa51ae55f87e714d03a7baef2f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9acf16d7aa1878033d4d5955f59dc2e2" id="r_a9acf16d7aa1878033d4d5955f59dc2e2"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:a9acf16d7aa1878033d4d5955f59dc2e2"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04882.html#a9acf16d7aa1878033d4d5955f59dc2e2">Value</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a9acf16d7aa1878033d4d5955f59dc2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a primitive value in-place.  <br /></td></tr>
-<tr class="separator:a9acf16d7aa1878033d4d5955f59dc2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15d7ac4122f7d65f36610a37d13bbc34" id="r_a15d7ac4122f7d65f36610a37d13bbc34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a15d7ac4122f7d65f36610a37d13bbc34">Value</a> (const <a class="el" href="a04858.html">PrimitiveValue</a> &amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:a15d7ac4122f7d65f36610a37d13bbc34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create from a primitive value.  <br /></td></tr>
-<tr class="separator:a15d7ac4122f7d65f36610a37d13bbc34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2edb2c10b83ed487cd2221dbadfceed" id="r_aa2edb2c10b83ed487cd2221dbadfceed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#aa2edb2c10b83ed487cd2221dbadfceed">Value</a> (<a class="el" href="a04858.html">PrimitiveValue</a> &amp;&amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:aa2edb2c10b83ed487cd2221dbadfceed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create from a primitive value.  <br /></td></tr>
-<tr class="separator:aa2edb2c10b83ed487cd2221dbadfceed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab00043951fb27516975784c4a1d66d93" id="r_ab00043951fb27516975784c4a1d66d93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04882.html">Value</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#ab00043951fb27516975784c4a1d66d93">operator=</a> (const <a class="el" href="a04882.html">Value</a> &amp;)</td></tr>
-<tr class="memdesc:ab00043951fb27516975784c4a1d66d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value.  <br /></td></tr>
-<tr class="separator:ab00043951fb27516975784c4a1d66d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fddbe9bcbae567fdbb2f08d8e36dc76" id="r_a3fddbe9bcbae567fdbb2f08d8e36dc76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04882.html">Value</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a3fddbe9bcbae567fdbb2f08d8e36dc76">operator=</a> (<a class="el" href="a04882.html">Value</a> &amp;&amp;)</td></tr>
-<tr class="memdesc:a3fddbe9bcbae567fdbb2f08d8e36dc76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy the value.  <br /></td></tr>
-<tr class="separator:a3fddbe9bcbae567fdbb2f08d8e36dc76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75f8c147378f2543f7696a0572ce6d78" id="r_a75f8c147378f2543f7696a0572ce6d78"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04882.html">Value</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a75f8c147378f2543f7696a0572ce6d78">operator=</a> (const <a class="el" href="a04858.html">PrimitiveValue</a> &amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:a75f8c147378f2543f7696a0572ce6d78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create from a primitive value.  <br /></td></tr>
-<tr class="separator:a75f8c147378f2543f7696a0572ce6d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a399e9444d59dcd95013f9ccfcadc57a7" id="r_a399e9444d59dcd95013f9ccfcadc57a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04882.html">Value</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a399e9444d59dcd95013f9ccfcadc57a7">operator=</a> (<a class="el" href="a04858.html">PrimitiveValue</a> &amp;&amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:a399e9444d59dcd95013f9ccfcadc57a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create from a primitive value.  <br /></td></tr>
-<tr class="separator:a399e9444d59dcd95013f9ccfcadc57a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a162bc1963f48334f3c64e1de7b2a82a8" id="r_a162bc1963f48334f3c64e1de7b2a82a8"><td class="memTemplParams" colspan="2">template&lt;typename TArg &gt; </td></tr>
-<tr class="memitem:a162bc1963f48334f3c64e1de7b2a82a8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a04882.html">Value</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04882.html#a162bc1963f48334f3c64e1de7b2a82a8">operator=</a> (TArg args)</td></tr>
-<tr class="memdesc:a162bc1963f48334f3c64e1de7b2a82a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assignment operator for primitive values.  <br /></td></tr>
-<tr class="separator:a162bc1963f48334f3c64e1de7b2a82a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3613acbcdfa329399fad51dcda41209" id="r_ab3613acbcdfa329399fad51dcda41209"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04858.html">PrimitiveValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a> ()</td></tr>
-<tr class="memdesc:ab3613acbcdfa329399fad51dcda41209"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the primitive value of this value.  <br /></td></tr>
-<tr class="separator:ab3613acbcdfa329399fad51dcda41209"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af56a6d667a28d2779ff08a418373d9b8" id="r_af56a6d667a28d2779ff08a418373d9b8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04858.html">PrimitiveValue</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#af56a6d667a28d2779ff08a418373d9b8">value</a> () const</td></tr>
-<tr class="memdesc:af56a6d667a28d2779ff08a418373d9b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the primitive value of this value.  <br /></td></tr>
-<tr class="separator:af56a6d667a28d2779ff08a418373d9b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79dc8ab9fb64be03b7a6eb3f2e0a3272" id="r_a79dc8ab9fb64be03b7a6eb3f2e0a3272"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04858.html">PrimitiveValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a79dc8ab9fb64be03b7a6eb3f2e0a3272">noDerefValue</a> () const</td></tr>
-<tr class="memdesc:a79dc8ab9fb64be03b7a6eb3f2e0a3272"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contained value without dereferencing.  <br /></td></tr>
-<tr class="separator:a79dc8ab9fb64be03b7a6eb3f2e0a3272"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a821da2a8c1875fe641f52ec0b2094e0c" id="r_a821da2a8c1875fe641f52ec0b2094e0c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a821da2a8c1875fe641f52ec0b2094e0c">makeSafe</a> ()</td></tr>
-<tr class="memdesc:a821da2a8c1875fe641f52ec0b2094e0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes any contained references safe to pass back up the stack.  <br /></td></tr>
-<tr class="separator:a821da2a8c1875fe641f52ec0b2094e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07e67700519d1285606a8cf720f5ad1b" id="r_a07e67700519d1285606a8cf720f5ad1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04866.html">ReferenceValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a07e67700519d1285606a8cf720f5ad1b">getRef</a> () const</td></tr>
-<tr class="memdesc:a07e67700519d1285606a8cf720f5ad1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a properly constructed reference to this value.  <br /></td></tr>
-<tr class="separator:a07e67700519d1285606a8cf720f5ad1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26c2da3f3172be70a1e719aa792cdcc5" id="r_a26c2da3f3172be70a1e719aa792cdcc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04866.html">ReferenceValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a26c2da3f3172be70a1e719aa792cdcc5">getProperty</a> (const std::string &amp;name, bool create)</td></tr>
-<tr class="memdesc:a26c2da3f3172be70a1e719aa792cdcc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a property on this value. Will throw an <a class="el" href="a04842.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a> if the property does not exist.  <br /></td></tr>
-<tr class="separator:a26c2da3f3172be70a1e719aa792cdcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accb0abd3b49bac10c29cfc2e665c7419" id="r_accb0abd3b49bac10c29cfc2e665c7419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04866.html">ReferenceValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#accb0abd3b49bac10c29cfc2e665c7419">getProperty</a> (const std::string &amp;name, bool create) const</td></tr>
-<tr class="memdesc:accb0abd3b49bac10c29cfc2e665c7419"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a property on this value. Will throw an <a class="el" href="a04842.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a> if the property does not exist.  <br /></td></tr>
-<tr class="separator:accb0abd3b49bac10c29cfc2e665c7419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7ef81eb42d8aa0c5168dd9d8cd03699" id="r_aa7ef81eb42d8aa0c5168dd9d8cd03699"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#aa7ef81eb42d8aa0c5168dd9d8cd03699">setProperty</a> (const std::string &amp;name, const <a class="el" href="a04866.html">ReferenceValue</a> &amp;<a class="el" href="a04882.html#ab3613acbcdfa329399fad51dcda41209">value</a>)</td></tr>
-<tr class="memdesc:aa7ef81eb42d8aa0c5168dd9d8cd03699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a property on this value. Will throw an <a class="el" href="a04842.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a> if the property is not writable.  <br /></td></tr>
-<tr class="separator:aa7ef81eb42d8aa0c5168dd9d8cd03699"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acabc8077d1d1e9c3f536692fe16bd744" id="r_acabc8077d1d1e9c3f536692fe16bd744"><td class="memItemLeft" align="right" valign="top">const std::unordered_map&lt; std::string, <a class="el" href="a04866.html">ReferenceValue</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#acabc8077d1d1e9c3f536692fe16bd744">allProperties</a> () const</td></tr>
-<tr class="memdesc:acabc8077d1d1e9c3f536692fe16bd744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all properties on this value.  <br /></td></tr>
-<tr class="separator:acabc8077d1d1e9c3f536692fe16bd744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa70664371828bfffff77ffd75ce2136e" id="r_aa70664371828bfffff77ffd75ce2136e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#aa70664371828bfffff77ffd75ce2136e">~DescriptorSetInstance</a> ()=default</td></tr>
+<tr class="memdesc:aa70664371828bfffff77ffd75ce2136e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the descriptor set instance.  <br /></td></tr>
+<tr class="separator:aa70664371828bfffff77ffd75ce2136e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb553018731d61ad6abb7d12a163e4c" id="r_a7fb553018731d61ad6abb7d12a163e4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a7fb553018731d61ad6abb7d12a163e4c">isBindless</a> () const</td></tr>
+<tr class="memdesc:a7fb553018731d61ad6abb7d12a163e4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this descriptor set needs to be bound per-object.  <br /></td></tr>
+<tr class="separator:a7fb553018731d61ad6abb7d12a163e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea80b223f67b0a6b1daf4d526171471b" id="r_aea80b223f67b0a6b1daf4d526171471b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#aea80b223f67b0a6b1daf4d526171471b">needsRebindForNewSpeed</a> () const</td></tr>
+<tr class="memdesc:aea80b223f67b0a6b1daf4d526171471b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the descriptor set needs to be re-bound for new speed.  <br /></td></tr>
+<tr class="separator:aea80b223f67b0a6b1daf4d526171471b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d2615a8f170c45a26a58531936327eb" id="r_a7d2615a8f170c45a26a58531936327eb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a7d2615a8f170c45a26a58531936327eb">init</a> (<a class="el" href="a04922.html">InitContext</a> &amp;<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)=0</td></tr>
+<tr class="memdesc:a7d2615a8f170c45a26a58531936327eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once after the instance is created.  <br /></td></tr>
+<tr class="separator:a7d2615a8f170c45a26a58531936327eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a149c32afd1bac4d5417412d41e11db53" id="r_a149c32afd1bac4d5417412d41e11db53"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a149c32afd1bac4d5417412d41e11db53">bindForPipeline</a> (<a class="el" href="a05494.html">scene::SceneRenderContext</a> &amp;<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout, std::uint32_t setIndex, <a class="el" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) const =0</td></tr>
+<tr class="memdesc:a149c32afd1bac4d5417412d41e11db53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once after the pipeline is bound. This should bind the descriptor set.  <br /></td></tr>
+<tr class="separator:a149c32afd1bac4d5417412d41e11db53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e0ea55d6c929c82a464523b983e0c22" id="r_a2e0ea55d6c929c82a464523b983e0c22"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a2e0ea55d6c929c82a464523b983e0c22">bindForObject</a> (<a class="el" href="a05494.html">scene::SceneRenderContext</a> &amp;<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout, std::uint32_t setIndex, <a class="el" href="a05438.html">scene::Key</a> objectKey) const =0</td></tr>
+<tr class="memdesc:a2e0ea55d6c929c82a464523b983e0c22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called per-object by the scene if this instance has per-object logic.  <br /></td></tr>
+<tr class="separator:a2e0ea55d6c929c82a464523b983e0c22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba205af3f1d551707d5144f1bd9f7ca" id="r_a2ba205af3f1d551707d5144f1bd9f7ca"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a2ba205af3f1d551707d5144f1bd9f7ca">allocateObject</a> (<a class="el" href="a03542.html">ecs::Entity</a> entity, <a class="el" href="a05438.html">scene::Key</a> key)=0</td></tr>
+<tr class="memdesc:a2ba205af3f1d551707d5144f1bd9f7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the scene when new objects are created that require this set.  <br /></td></tr>
+<tr class="separator:a2ba205af3f1d551707d5144f1bd9f7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3226380a4dc14215c5f1738b169dbee" id="r_ab3226380a4dc14215c5f1738b169dbee"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#ab3226380a4dc14215c5f1738b169dbee">releaseObject</a> (<a class="el" href="a03542.html">ecs::Entity</a> entity, <a class="el" href="a05438.html">scene::Key</a> key)=0</td></tr>
+<tr class="memdesc:ab3226380a4dc14215c5f1738b169dbee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the scene when an object is destroyed.  <br /></td></tr>
+<tr class="separator:ab3226380a4dc14215c5f1738b169dbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d7a587bded5472c465f2a6947ec63fa" id="r_a1d7a587bded5472c465f2a6947ec63fa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a1d7a587bded5472c465f2a6947ec63fa">updateDescriptors</a> ()=0</td></tr>
+<tr class="memdesc:a1d7a587bded5472c465f2a6947ec63fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once each frame. Use to update modifed descriptors.  <br /></td></tr>
+<tr class="separator:a1d7a587bded5472c465f2a6947ec63fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a88d4fbeb08c0d2c81309f6a2b0a0bd13" id="r_a88d4fbeb08c0d2c81309f6a2b0a0bd13"><td class="memTemplParams" colspan="2">template&lt;PrimitiveValue::Type... Types&gt; </td></tr>
-<tr class="memitem:a88d4fbeb08c0d2c81309f6a2b0a0bd13"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04882.html#a88d4fbeb08c0d2c81309f6a2b0a0bd13">validateArgs</a> (const std::string &amp;func, const std::vector&lt; <a class="el" href="a04882.html">Value</a> &gt; &amp;args)</td></tr>
-<tr class="memdesc:a88d4fbeb08c0d2c81309f6a2b0a0bd13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to validate the number and type of arguments passed into functions.  <br /></td></tr>
-<tr class="separator:a88d4fbeb08c0d2c81309f6a2b0a0bd13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a70378810ee0899d883eaa1284b251a4d" id="r_a70378810ee0899d883eaa1284b251a4d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a70378810ee0899d883eaa1284b251a4d">ReferenceValue</a></td></tr>
-<tr class="separator:a70378810ee0899d883eaa1284b251a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a251468a362a276e66b0a71379d187b4d" id="r_a251468a362a276e66b0a71379d187b4d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a251468a362a276e66b0a71379d187b4d">DescriptorSetInstance</a> (<a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a> bindMode, <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> speedSetting)</td></tr>
+<tr class="memdesc:a251468a362a276e66b0a71379d187b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a04882.html" title="Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...">DescriptorSetInstance</a>.  <br /></td></tr>
+<tr class="separator:a251468a362a276e66b0a71379d187b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Main representation of a value in scripts. </p>
+<div class="textblock"><p>Base class for descriptor sets that exist for each scene. Derived classes are created by <a class="el" href="a04874.html" title="Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...">DescriptorSetFactory</a> classes that exist per pipeline config. This allows custom descriptor sets to be used by scenes. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00022">22</a> of file <a class="el" href="a00518_source.html">Value.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a00820f27021ac33d72b92b990a789cc2" name="a00820f27021ac33d72b92b990a789cc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00820f27021ac33d72b92b990a789cc2">&#9670;&#160;</a></span>Value() <span class="overload">[1/5]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00030">30</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a587b054106ae5b4911a145a1d2928eaa" name="a587b054106ae5b4911a145a1d2928eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a587b054106ae5b4911a145a1d2928eaa">&#9670;&#160;</a></span>EntityBindMode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::script::Value::Value </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04882.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copies a value. </p>
+<p>Bind mode of the descriptor set. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957" name="a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957"></a>Bindless&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c" name="a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c"></a>Bindful&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00026">26</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00033">33</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a11efaa51ae55f87e714d03a7baef2f4e" name="a11efaa51ae55f87e714d03a7baef2f4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11efaa51ae55f87e714d03a7baef2f4e">&#9670;&#160;</a></span>Value() <span class="overload">[2/5]</span></h2>
+<a id="a56d01a7643e3e65933db3c5a957db66f" name="a56d01a7643e3e65933db3c5a957db66f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d01a7643e3e65933db3c5a957db66f">&#9670;&#160;</a></span>SpeedBucketSetting</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::script::Value::Value </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04882.html">Value</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Moves from a value. </p>
+<p>Whether or not the descriptor set needs to be re-bound for different update speeds. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd" name="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd"></a>RebindForNewSpeed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d" name="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"></a>SpeedAgnostic&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00034">34</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00036">36</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9acf16d7aa1878033d4d5955f59dc2e2" name="a9acf16d7aa1878033d4d5955f59dc2e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9acf16d7aa1878033d4d5955f59dc2e2">&#9670;&#160;</a></span>Value() <span class="overload">[3/5]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa70664371828bfffff77ffd75ce2136e" name="aa70664371828bfffff77ffd75ce2136e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa70664371828bfffff77ffd75ce2136e">&#9670;&#160;</a></span>~DescriptorSetInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::script::Value::Value </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs a primitive value in-place. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TArgs</td><td>Arguments to the <a class="el" href="a04858.html" title="Represents the lowest level values in scripts.">PrimitiveValue</a> </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">args</td><td>The arguments to construct with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00202">202</a> of file <a class="el" href="a00518_source.html">Value.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a15d7ac4122f7d65f36610a37d13bbc34" name="a15d7ac4122f7d65f36610a37d13bbc34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15d7ac4122f7d65f36610a37d13bbc34">&#9670;&#160;</a></span>Value() <span class="overload">[4/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::script::Value::Value </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04858.html">PrimitiveValue</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create from a primitive value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00023">23</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa2edb2c10b83ed487cd2221dbadfceed" name="aa2edb2c10b83ed487cd2221dbadfceed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2edb2c10b83ed487cd2221dbadfceed">&#9670;&#160;</a></span>Value() <span class="overload">[5/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::script::Value::Value </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04858.html">PrimitiveValue</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create from a primitive value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00040">40</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="acabc8077d1d1e9c3f536692fe16bd744" name="acabc8077d1d1e9c3f536692fe16bd744"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acabc8077d1d1e9c3f536692fe16bd744">&#9670;&#160;</a></span>allProperties()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::unordered_map&lt; std::string, <a class="el" href="a04866.html">ReferenceValue</a> &gt; &amp; bl::script::Value::allProperties </td>
+          <td class="memname">virtual bl::rc::ds::DescriptorSetInstance::~DescriptorSetInstance </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns all properties on this value. </p>
+<p>Destroys the descriptor set instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00151">151</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
+<p>Reimplemented in <a class="el" href="a04610.html#a2a83c9f8f74688ab3d496871e1d4208b">bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a26c2da3f3172be70a1e719aa792cdcc5" name="a26c2da3f3172be70a1e719aa792cdcc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26c2da3f3172be70a1e719aa792cdcc5">&#9670;&#160;</a></span>getProperty() <span class="overload">[1/2]</span></h2>
+<a id="a251468a362a276e66b0a71379d187b4d" name="a251468a362a276e66b0a71379d187b4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a251468a362a276e66b0a71379d187b4d">&#9670;&#160;</a></span>DescriptorSetInstance()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04866.html">ReferenceValue</a> bl::script::Value::getProperty </td>
+          <td class="memname">bl::rc::ds::DescriptorSetInstance::DescriptorSetInstance </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype"><a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a>&#160;</td>
+          <td class="paramname"><em>bindMode</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>create</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a>&#160;</td>
+          <td class="paramname"><em>speedSetting</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -349,38 +264,105 @@ template&lt;typename... TArgs&gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Get a property on this value. Will throw an <a class="el" href="a04842.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a> if the property does not exist. </p>
+<p>Creates a new <a class="el" href="a04882.html" title="Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...">DescriptorSetInstance</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the property to get </td></tr>
+    <tr><td class="paramname">bindMode</td><td>The bind mode of the descriptor set </td></tr>
+    <tr><td class="paramname">speedSetting</td><td>The speed re-bind setting of the descriptor set </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04866.html" title="Reference type for values. Wrapper around std::shared_ptr.">ReferenceValue</a> A reference to the property </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00102">102</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02354_source.html#l00011">11</a> of file <a class="el" href="a02354_source.html">DescriptorSetInstance.cpp</a>.</p>
 
 </div>
 </div>
-<a id="accb0abd3b49bac10c29cfc2e665c7419" name="accb0abd3b49bac10c29cfc2e665c7419"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accb0abd3b49bac10c29cfc2e665c7419">&#9670;&#160;</a></span>getProperty() <span class="overload">[2/2]</span></h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2ba205af3f1d551707d5144f1bd9f7ca" name="a2ba205af3f1d551707d5144f1bd9f7ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba205af3f1d551707d5144f1bd9f7ca">&#9670;&#160;</a></span>allocateObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04866.html">ReferenceValue</a> bl::script::Value::getProperty </td>
+          <td class="memname">virtual bool bl::rc::ds::DescriptorSetInstance::allocateObject </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>create</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a05438.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called by the scene when new objects are created that require this set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity id of this object in the ECS </td></tr>
+    <tr><td class="paramname">key</td><td>The scene key of the new object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the object could be added, false otherwise </dd></dl>
+
+</div>
+</div>
+<a id="a2e0ea55d6c929c82a464523b983e0c22" name="a2e0ea55d6c929c82a464523b983e0c22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e0ea55d6c929c82a464523b983e0c22">&#9670;&#160;</a></span>bindForObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::rc::ds::DescriptorSetInstance::bindForObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05494.html">scene::SceneRenderContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkPipelineLayout&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>setIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05438.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>objectKey</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -388,271 +370,197 @@ template&lt;typename... TArgs&gt; </div>
           <td></td><td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Get a property on this value. Will throw an <a class="el" href="a04842.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a> if the property does not exist. </p>
+<p>Called per-object by the scene if this instance has per-object logic. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the property to get </td></tr>
-    <tr><td class="paramname">create</td><td>Ignored, but here to prevent accidentily calling this version </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04866.html" title="Reference type for values. Wrapper around std::shared_ptr.">ReferenceValue</a> A reference to the property </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00121">121</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a07e67700519d1285606a8cf720f5ad1b" name="a07e67700519d1285606a8cf720f5ad1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07e67700519d1285606a8cf720f5ad1b">&#9670;&#160;</a></span>getRef()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04866.html">ReferenceValue</a> bl::script::Value::getRef </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets a properly constructed reference to this value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00072">72</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a821da2a8c1875fe641f52ec0b2094e0c" name="a821da2a8c1875fe641f52ec0b2094e0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a821da2a8c1875fe641f52ec0b2094e0c">&#9670;&#160;</a></span>makeSafe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::script::Value::makeSafe </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Makes any contained references safe to pass back up the stack. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00098">98</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a79dc8ab9fb64be03b7a6eb3f2e0a3272" name="a79dc8ab9fb64be03b7a6eb3f2e0a3272"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79dc8ab9fb64be03b7a6eb3f2e0a3272">&#9670;&#160;</a></span>noDerefValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04858.html">PrimitiveValue</a> bl::script::Value::noDerefValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the contained value without dereferencing. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00091">91</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a75f8c147378f2543f7696a0572ce6d78" name="a75f8c147378f2543f7696a0572ce6d78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75f8c147378f2543f7696a0572ce6d78">&#9670;&#160;</a></span>operator=() <span class="overload">[1/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04882.html">Value</a> &amp; bl::script::Value::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04858.html">PrimitiveValue</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create from a primitive value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00048">48</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab00043951fb27516975784c4a1d66d93" name="ab00043951fb27516975784c4a1d66d93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab00043951fb27516975784c4a1d66d93">&#9670;&#160;</a></span>operator=() <span class="overload">[2/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04882.html">Value</a> &amp; bl::script::Value::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04882.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copy the value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00053">53</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a399e9444d59dcd95013f9ccfcadc57a7" name="a399e9444d59dcd95013f9ccfcadc57a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a399e9444d59dcd95013f9ccfcadc57a7">&#9670;&#160;</a></span>operator=() <span class="overload">[3/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04882.html">Value</a> &amp; bl::script::Value::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04858.html">PrimitiveValue</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Create from a primitive value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00043">43</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a162bc1963f48334f3c64e1de7b2a82a8" name="a162bc1963f48334f3c64e1de7b2a82a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a162bc1963f48334f3c64e1de7b2a82a8">&#9670;&#160;</a></span>operator=() <span class="overload">[4/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TArg &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04882.html">Value</a> &amp; bl::script::Value::operator= </td>
-          <td>(</td>
-          <td class="paramtype">TArg&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Assignment operator for primitive values. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TArgs</td><td>The assignment argument type </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">arg</td><td>The argument to the primitive value assignment operator </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04882.html" title="Main representation of a value in scripts.">Value</a>&amp; This value </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00206">206</a> of file <a class="el" href="a00518_source.html">Value.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3fddbe9bcbae567fdbb2f08d8e36dc76" name="a3fddbe9bcbae567fdbb2f08d8e36dc76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3fddbe9bcbae567fdbb2f08d8e36dc76">&#9670;&#160;</a></span>operator=() <span class="overload">[5/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04882.html">Value</a> &amp; bl::script::Value::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04882.html">Value</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copy the value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00064">64</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa7ef81eb42d8aa0c5168dd9d8cd03699" name="aa7ef81eb42d8aa0c5168dd9d8cd03699"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7ef81eb42d8aa0c5168dd9d8cd03699">&#9670;&#160;</a></span>setProperty()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::script::Value::setProperty </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a04866.html">ReferenceValue</a> &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets a property on this value. Will throw an <a class="el" href="a04842.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a> if the property is not writable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the property to set </td></tr>
-    <tr><td class="paramname">value</td><td>The value of the property to set </td></tr>
+    <tr><td class="paramname">ctx</td><td>Render context containing necessary data </td></tr>
+    <tr><td class="paramname">layout</td><td>Pipeline layout of the currently bound pipeline </td></tr>
+    <tr><td class="paramname">setIndex</td><td>The index of the descriptor set in the owning scene </td></tr>
+    <tr><td class="paramname">objectKey</td><td>The key of the current object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00136">136</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a88d4fbeb08c0d2c81309f6a2b0a0bd13" name="a88d4fbeb08c0d2c81309f6a2b0a0bd13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88d4fbeb08c0d2c81309f6a2b0a0bd13">&#9670;&#160;</a></span>validateArgs()</h2>
+<a id="a149c32afd1bac4d5417412d41e11db53" name="a149c32afd1bac4d5417412d41e11db53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a149c32afd1bac4d5417412d41e11db53">&#9670;&#160;</a></span>bindForPipeline()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;PrimitiveValue::Type... Types&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::script::Value::validateArgs </td>
+          <td class="memname">virtual void bl::rc::ds::DescriptorSetInstance::bindForPipeline </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
+          <td class="paramtype"><a class="el" href="a05494.html">scene::SceneRenderContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a04882.html">Value</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
+          <td class="paramtype">VkPipelineLayout&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>setIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>updateFreq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once after the pipeline is bound. This should bind the descriptor set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>Render context containing necessary data </td></tr>
+    <tr><td class="paramname">layout</td><td>Pipeline layout of the currently bound pipeline </td></tr>
+    <tr><td class="paramname">setIndex</td><td>The index of the descriptor set in the owning scene </td></tr>
+    <tr><td class="paramname">updateFreq</td><td>The update frequency of the descriptors to bind </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7d2615a8f170c45a26a58531936327eb" name="a7d2615a8f170c45a26a58531936327eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d2615a8f170c45a26a58531936327eb">&#9670;&#160;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::rc::ds::DescriptorSetInstance::init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04922.html">InitContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once after the instance is created. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The init context to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7fb553018731d61ad6abb7d12a163e4c" name="a7fb553018731d61ad6abb7d12a163e4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb553018731d61ad6abb7d12a163e4c">&#9670;&#160;</a></span>isBindless()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::DescriptorSetInstance::isBindless </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this descriptor set needs to be bound per-object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00120">120</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aea80b223f67b0a6b1daf4d526171471b" name="aea80b223f67b0a6b1daf4d526171471b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea80b223f67b0a6b1daf4d526171471b">&#9670;&#160;</a></span>needsRebindForNewSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::DescriptorSetInstance::needsRebindForNewSpeed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the descriptor set needs to be re-bound for new speed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00122">122</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab3226380a4dc14215c5f1738b169dbee" name="ab3226380a4dc14215c5f1738b169dbee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3226380a4dc14215c5f1738b169dbee">&#9670;&#160;</a></span>releaseObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::rc::ds::DescriptorSetInstance::releaseObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05438.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -662,75 +570,24 @@ template&lt;PrimitiveValue::Type... Types&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Helper function to validate the number and type of arguments passed into functions. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Types</td><td>The order and number of argument types expected </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Called by the scene when an object is destroyed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">func</td><td>The name of the function for error reporting </td></tr>
-    <tr><td class="paramname">args</td><td>The arguments passed in </td></tr>
+    <tr><td class="paramname">entity</td><td>The ECS id of the object being removed </td></tr>
+    <tr><td class="paramname">key</td><td>The scene key of the object being removed </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00212">212</a> of file <a class="el" href="a00518_source.html">Value.hpp</a>.</p>
-
 </div>
 </div>
-<a id="ab3613acbcdfa329399fad51dcda41209" name="ab3613acbcdfa329399fad51dcda41209"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3613acbcdfa329399fad51dcda41209">&#9670;&#160;</a></span>value() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04858.html">PrimitiveValue</a> &amp; bl::script::Value::value </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Access the primitive value of this value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00087">87</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af56a6d667a28d2779ff08a418373d9b8" name="af56a6d667a28d2779ff08a418373d9b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af56a6d667a28d2779ff08a418373d9b8">&#9670;&#160;</a></span>value() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a04858.html">PrimitiveValue</a> &amp; bl::script::Value::value </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Access the primitive value of this value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01721_source.html#l00089">89</a> of file <a class="el" href="a01721_source.html">Value.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a70378810ee0899d883eaa1284b251a4d" name="a70378810ee0899d883eaa1284b251a4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70378810ee0899d883eaa1284b251a4d">&#9670;&#160;</a></span>ReferenceValue</h2>
+<a id="a1d7a587bded5472c465f2a6947ec63fa" name="a1d7a587bded5472c465f2a6947ec63fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d7a587bded5472c465f2a6947ec63fa">&#9670;&#160;</a></span>updateDescriptors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -739,29 +596,32 @@ template&lt;PrimitiveValue::Type... Types&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04866.html">ReferenceValue</a></td>
+          <td class="memname">virtual void bl::rc::ds::DescriptorSetInstance::updateDescriptors </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00196">196</a> of file <a class="el" href="a00518_source.html">Value.hpp</a>.</p>
+<p>Called once each frame. Use to update modifed descriptors. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Scripts/<a class="el" href="a00518_source.html">Value.hpp</a></li>
-<li>src/Scripts/<a class="el" href="a01721_source.html">Value.cpp</a></li>
+<li>include/BLIB/Render/Descriptors/<a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a></li>
+<li>src/Render/Descriptors/<a class="el" href="a02354_source.html">DescriptorSetInstance.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

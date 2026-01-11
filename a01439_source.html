@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Models/NodeSet.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,191 +79,67 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_600ddcc7b79895ce322a22c27a3d925e.html">Generic</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_dea097b7efa3121d8e11b185c993d8b3.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">GlobalUniformBuffer.hpp</div></div>
+  <div class="headertitle"><div class="title">NodeSet.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01439.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_GLOBALUNIFORMBUFFER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_GENERIC_GLOBALUNIFORMBUFFER_HPP</span></div>
+<a href="a01439.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MODELS_NODESET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MODELS_NODESET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01346.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a06874.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01430.html">BLIB/Render/Descriptors/Generic/Binding.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04146.html">   21</a></span><span class="keyword">class </span><a class="code hl_class" href="a04146.html">GlobalUniformBuffer</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04138.html">Binding</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04146.html#aa6382208851093daa0b453afc7269639">   23</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a04146.html#aa6382208851093daa0b453afc7269639">TPayload</a> = T;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04146.html#a55b2496483925a9cf68ade7355e30f94">   28</a></span>    <a class="code hl_function" href="a04146.html#a55b2496483925a9cf68ade7355e30f94">GlobalUniformBuffer</a>()</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    : <a class="code hl_class" href="a04138.html">Binding</a>(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER)</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    , staticWritten(false)</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    , dynamicWritten(<a class="code hl_struct" href="a04038.html">Config</a>::MaxConcurrentFrames) {}</div>
-</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04146.html#a0682baf8c62ae5f7d61bf80cfb435e96">   36</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04146.html#a0682baf8c62ae5f7d61bf80cfb435e96">~GlobalUniformBuffer</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_enumeration" href="a04126.html#a0d2abd5826961d67047b9e5b4d60e611">DescriptorSetInstance::BindMode</a> <a class="code hl_function" href="a04146.html#a08246f29c206a90f73915f28963952fe">getBindMode</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_enumeration" href="a04126.html#a56d01a7643e3e65933db3c5a957db66f">DescriptorSetInstance::SpeedBucketSetting</a> <a class="code hl_function" href="a04146.html#a85dfe29b231532a4a3849bdf8041b0b2">getSpeedMode</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#aafe49d0626a51ac146bf0f2167b27723">init</a>(<a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vulkanState, <a class="code hl_class" href="a04114.html">DescriptorComponentStorageCache</a>&amp; storageCache) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#a0c1e023465792e4a7c922e4c7e3f6fa8">writeSet</a>(<a class="code hl_class" href="a04174.html">SetWriteHelper</a>&amp; writer, <a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed, std::uint32_t frameIndex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04146.html#a0bc4cf2b63cb9037049bef1015354148">allocateObject</a>(<a class="code hl_struct" href="a02890.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a04434.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#a871f8c2ebab8c5a42c67b9d37053f6d8">releaseObject</a>(<a class="code hl_struct" href="a02890.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a04434.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#aec0c5b905b6cf97f72817d1541854800">onFrameStart</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span>* <a class="code hl_function" href="a04146.html#af70063ecd171eb66f1d175fbcadb1135">getPayload</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04146.html#ab34590e59436079d241663302eb5bac0">staticDescriptorUpdateRequired</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04146.html#a7c2dd623fc6ed74635b780532f6ecada">dynamicDescriptorUpdateRequired</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08035.html">BLIB/Models/Node.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>mdl</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a04522.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a04522.html">NodeSet</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04522.html#acbf58dda00034ce95b957d9f0f1d5e95">   21</a></span>    <a class="code hl_function" href="a04522.html#acbf58dda00034ce95b957d9f0f1d5e95">NodeSet</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04522.html#a9c6f671281e90c1ea10e56303c774f0e">reserveSpace</a>(<span class="keyword">const</span> aiScene* scene);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a04522.html#a2c3ec4ec298b3ba6e3da51d2477879e4">   33</a></span>    std::size_t <a class="code hl_function" href="a04522.html#a2c3ec4ec298b3ba6e3da51d2477879e4">size</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nodes.size(); }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04522.html#aa2a65a2e9cf6dafb66583e3f43535ec4">   40</a></span>    <a class="code hl_class" href="a04518.html">Node</a>&amp; <a class="code hl_function" href="a04522.html#aa2a65a2e9cf6dafb66583e3f43535ec4">getNode</a>(std::size_t index) { <span class="keywordflow">return</span> nodes[index]; }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a04522.html#ae5c1119570068eb31ceffa48d5293b2e">   47</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a04518.html">Node</a>&amp; <a class="code hl_function" href="a04522.html#ae5c1119570068eb31ceffa48d5293b2e">getNode</a>(std::size_t index)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nodes[index]; }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    T value;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="a04002.html">buf::UniformBuffer&lt;T&gt;</a> buffer;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">bool</span> staticWritten;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">int</span> dynamicWritten;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">const</span> <a class="code hl_class" href="a04518.html">Node</a>* <a class="code hl_function" href="a04522.html#aa2a65a2e9cf6dafb66583e3f43535ec4">getNode</a>(std::string_view name) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_class" href="a04518.html">Node</a>&amp; <a class="code hl_function" href="a04522.html#a36bb04ab6dd80e329cdebae39c4ade15">addNode</a>(std::uint32_t parent);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04522.html#afbf11a3471fbc62269033021dad919e5">clearAllButRoot</a>();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    std::vector&lt;Node&gt; nodes;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a04146.html#a08246f29c206a90f73915f28963952fe">   59</a></span><a class="code hl_enumeration" href="a04126.html#a0d2abd5826961d67047b9e5b4d60e611">DescriptorSetInstance::BindMode</a> <a class="code hl_function" href="a04146.html#a08246f29c206a90f73915f28963952fe">GlobalUniformBuffer&lt;T&gt;::getBindMode</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a04126.html#a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957">DescriptorSetInstance::BindMode::Bindless</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
-</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a04146.html#a85dfe29b231532a4a3849bdf8041b0b2">   64</a></span><a class="code hl_enumeration" href="a04126.html#a56d01a7643e3e65933db3c5a957db66f">DescriptorSetInstance::SpeedBucketSetting</a> <a class="code hl_function" href="a04146.html#a85dfe29b231532a4a3849bdf8041b0b2">GlobalUniformBuffer&lt;T&gt;::getSpeedMode</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a04126.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic</a>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
-</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a04146.html#aafe49d0626a51ac146bf0f2167b27723">   69</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#aafe49d0626a51ac146bf0f2167b27723">GlobalUniformBuffer&lt;T&gt;::init</a>(<a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vs, <a class="code hl_class" href="a04114.html">DescriptorComponentStorageCache</a>&amp;) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.<a class="code hl_function" href="a04002.html#a32e0fa0667e66c4c9d6fb9f79bd87384">create</a>(vs, 1);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.transferEveryFrame();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a04146.html#a0c1e023465792e4a7c922e4c7e3f6fa8">   75</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#a0c1e023465792e4a7c922e4c7e3f6fa8">GlobalUniformBuffer&lt;T&gt;::writeSet</a>(<a class="code hl_class" href="a04174.html">SetWriteHelper</a>&amp; writer, <a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                                      std::uint32_t frameIndex) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    VkDescriptorBufferInfo&amp; bufferInfo = writer.<a class="code hl_function" href="a04174.html#a433b306bf314004c3e53421c64613233">getNewBufferInfo</a>();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    bufferInfo.buffer                  = <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.gpuBufferHandles().getRaw(frameIndex).getBuffer();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    bufferInfo.offset                  = 0;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    bufferInfo.range                   = <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.alignedUniformSize();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    VkWriteDescriptorSet&amp; setWrite = writer.<a class="code hl_function" href="a04174.html#a8597f2843287775364e93b6dc161a322">getNewSetWrite</a>();</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    setWrite.dstBinding            = getBindingIndex();</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    setWrite.pBufferInfo           = &amp;bufferInfo;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    setWrite.descriptorType        = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (speed == <a class="code hl_enumvalue" href="a02388.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">UpdateSpeed::Static</a>) { staticWritten = <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">else</span> { --dynamicWritten; }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
-</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a04146.html#a0bc4cf2b63cb9037049bef1015354148">   92</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04146.html#a0bc4cf2b63cb9037049bef1015354148">GlobalUniformBuffer&lt;T&gt;::allocateObject</a>(<a class="code hl_struct" href="a02890.html">ecs::Entity</a>, <a class="code hl_struct" href="a04434.html">scene::Key</a>) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// noop, we are global</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
-</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00098" data-start="{" data-end="}">
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="a04146.html#a871f8c2ebab8c5a42c67b9d37053f6d8">   98</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#a871f8c2ebab8c5a42c67b9d37053f6d8">GlobalUniformBuffer&lt;T&gt;::releaseObject</a>(<a class="code hl_struct" href="a02890.html">ecs::Entity</a>, <a class="code hl_struct" href="a04434.html">scene::Key</a>) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">// noop, we are global</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
-</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a04146.html#aec0c5b905b6cf97f72817d1541854800">  103</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04146.html#aec0c5b905b6cf97f72817d1541854800">GlobalUniformBuffer&lt;T&gt;::onFrameStart</a>() {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>[0] = value;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
-</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00108" data-start="{" data-end="}">
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a04146.html#af70063ecd171eb66f1d175fbcadb1135">  108</a></span><span class="keywordtype">void</span>* <a class="code hl_function" href="a04146.html#af70063ecd171eb66f1d175fbcadb1135">GlobalUniformBuffer&lt;T&gt;::getPayload</a>() {</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">return</span> &amp;value;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>}</div>
-</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a04146.html#ab34590e59436079d241663302eb5bac0">  113</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04146.html#ab34590e59436079d241663302eb5bac0">GlobalUniformBuffer&lt;T&gt;::staticDescriptorUpdateRequired</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> !staticWritten;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
-</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a04146.html#a7c2dd623fc6ed74635b780532f6ecada">  118</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04146.html#a7c2dd623fc6ed74635b780532f6ecada">GlobalUniformBuffer&lt;T&gt;::dynamicDescriptorUpdateRequired</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">return</span> dynamicWritten &gt; 0;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
-</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01346_html"><div class="ttname"><a href="a01346.html">UniformBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01430_html"><div class="ttname"><a href="a01430.html">Binding.hpp</a></div></div>
-<div class="ttc" id="aa02366_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02366_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02388_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02388_html_gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16"><div class="ttname"><a href="a02388.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">bl::rc::UpdateSpeed::Static</a></div><div class="ttdeci">@ Static</div><div class="ttdoc">Objects or data are not expected to update often after creation.</div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04002_html"><div class="ttname"><a href="a04002.html">bl::rc::buf::UniformBuffer</a></div><div class="ttdoc">Device-local, staged, uniform buffer array. Intended for small, dynamic data such as per-frame scene ...</div><div class="ttdef"><b>Definition</b> <a href="a01346_source.html#l00026">UniformBuffer.hpp:26</a></div></div>
-<div class="ttc" id="aa04002_html_a32e0fa0667e66c4c9d6fb9f79bd87384"><div class="ttname"><a href="a04002.html#a32e0fa0667e66c4c9d6fb9f79bd87384">bl::rc::buf::UniformBuffer::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t size)</div><div class="ttdoc">Creates a new UniformBuffer.</div><div class="ttdef"><b>Definition</b> <a href="a01346_source.html#l00110">UniformBuffer.hpp:110</a></div></div>
-<div class="ttc" id="aa04038_html"><div class="ttname"><a href="a04038.html">bl::rc::Config</a></div><div class="ttdoc">Collection of constants and settings for the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a06874_source.html#l00017">Config.hpp:17</a></div></div>
-<div class="ttc" id="aa04114_html"><div class="ttname"><a href="a04114.html">bl::rc::ds::DescriptorComponentStorageCache</a></div><div class="ttdoc">Cache for component storage modules for descriptor sets. Storage modules are instantiated once and sh...</div><div class="ttdef"><b>Definition</b> <a href="a01379_source.html#l00021">DescriptorComponentStorageCache.hpp:21</a></div></div>
-<div class="ttc" id="aa04126_html_a0d2abd5826961d67047b9e5b4d60e611"><div class="ttname"><a href="a04126.html#a0d2abd5826961d67047b9e5b4d60e611">bl::rc::ds::DescriptorSetInstance::BindMode</a></div><div class="ttdeci">BindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
-<div class="ttc" id="aa04126_html_a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957"><div class="ttname"><a href="a04126.html#a0d2abd5826961d67047b9e5b4d60e611aca3f770200fb26547b3e7b354d670957">bl::rc::ds::DescriptorSetInstance::Bindless</a></div><div class="ttdeci">@ Bindless</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
-<div class="ttc" id="aa04126_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a04126.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
-<div class="ttc" id="aa04126_html_a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"><div class="ttname"><a href="a04126.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">bl::rc::ds::DescriptorSetInstance::SpeedAgnostic</a></div><div class="ttdeci">@ SpeedAgnostic</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
-<div class="ttc" id="aa04138_html"><div class="ttname"><a href="a04138.html">bl::rc::ds::Binding</a></div><div class="ttdoc">Base class for generic descriptor set binding providers.</div><div class="ttdef"><b>Definition</b> <a href="a01430_source.html#l00030">Binding.hpp:30</a></div></div>
-<div class="ttc" id="aa04146_html"><div class="ttname"><a href="a04146.html">bl::rc::ds::GlobalUniformBuffer</a></div><div class="ttdoc">Generic binding provider for a global uniform buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00021">GlobalUniformBuffer.hpp:21</a></div></div>
-<div class="ttc" id="aa04146_html_a0682baf8c62ae5f7d61bf80cfb435e96"><div class="ttname"><a href="a04146.html#a0682baf8c62ae5f7d61bf80cfb435e96">bl::rc::ds::GlobalUniformBuffer::~GlobalUniformBuffer</a></div><div class="ttdeci">virtual ~GlobalUniformBuffer()=default</div><div class="ttdoc">Destroys the binding.</div></div>
-<div class="ttc" id="aa04146_html_a08246f29c206a90f73915f28963952fe"><div class="ttname"><a href="a04146.html#a08246f29c206a90f73915f28963952fe">bl::rc::ds::GlobalUniformBuffer::getBindMode</a></div><div class="ttdeci">DescriptorSetInstance::BindMode getBindMode() const override</div><div class="ttdoc">Should return the bind mode required by this binding.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00059">GlobalUniformBuffer.hpp:59</a></div></div>
-<div class="ttc" id="aa04146_html_a0bc4cf2b63cb9037049bef1015354148"><div class="ttname"><a href="a04146.html#a0bc4cf2b63cb9037049bef1015354148">bl::rc::ds::GlobalUniformBuffer::allocateObject</a></div><div class="ttdeci">bool allocateObject(ecs::Entity entity, scene::Key key) override</div><div class="ttdoc">Called when a new object will be using the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00092">GlobalUniformBuffer.hpp:92</a></div></div>
-<div class="ttc" id="aa04146_html_a0c1e023465792e4a7c922e4c7e3f6fa8"><div class="ttname"><a href="a04146.html#a0c1e023465792e4a7c922e4c7e3f6fa8">bl::rc::ds::GlobalUniformBuffer::writeSet</a></div><div class="ttdeci">void writeSet(SetWriteHelper &amp;writer, UpdateSpeed speed, std::uint32_t frameIndex) override</div><div class="ttdoc">Called to write this binding to the given descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00075">GlobalUniformBuffer.hpp:75</a></div></div>
-<div class="ttc" id="aa04146_html_a55b2496483925a9cf68ade7355e30f94"><div class="ttname"><a href="a04146.html#a55b2496483925a9cf68ade7355e30f94">bl::rc::ds::GlobalUniformBuffer::GlobalUniformBuffer</a></div><div class="ttdeci">GlobalUniformBuffer()</div><div class="ttdoc">Creates the binding.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00028">GlobalUniformBuffer.hpp:28</a></div></div>
-<div class="ttc" id="aa04146_html_a7c2dd623fc6ed74635b780532f6ecada"><div class="ttname"><a href="a04146.html#a7c2dd623fc6ed74635b780532f6ecada">bl::rc::ds::GlobalUniformBuffer::dynamicDescriptorUpdateRequired</a></div><div class="ttdeci">bool dynamicDescriptorUpdateRequired() const override</div><div class="ttdoc">Should return whether or not the static descriptor set needs to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00118">GlobalUniformBuffer.hpp:118</a></div></div>
-<div class="ttc" id="aa04146_html_a85dfe29b231532a4a3849bdf8041b0b2"><div class="ttname"><a href="a04146.html#a85dfe29b231532a4a3849bdf8041b0b2">bl::rc::ds::GlobalUniformBuffer::getSpeedMode</a></div><div class="ttdeci">DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const override</div><div class="ttdoc">Should return the speed mode required by this binding.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00064">GlobalUniformBuffer.hpp:64</a></div></div>
-<div class="ttc" id="aa04146_html_a871f8c2ebab8c5a42c67b9d37053f6d8"><div class="ttname"><a href="a04146.html#a871f8c2ebab8c5a42c67b9d37053f6d8">bl::rc::ds::GlobalUniformBuffer::releaseObject</a></div><div class="ttdeci">void releaseObject(ecs::Entity entity, scene::Key key) override</div><div class="ttdoc">Called when an object will no longer be using the set.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00098">GlobalUniformBuffer.hpp:98</a></div></div>
-<div class="ttc" id="aa04146_html_aa6382208851093daa0b453afc7269639"><div class="ttname"><a href="a04146.html#aa6382208851093daa0b453afc7269639">bl::rc::ds::GlobalUniformBuffer::TPayload</a></div><div class="ttdeci">T TPayload</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00023">GlobalUniformBuffer.hpp:23</a></div></div>
-<div class="ttc" id="aa04146_html_aafe49d0626a51ac146bf0f2167b27723"><div class="ttname"><a href="a04146.html#aafe49d0626a51ac146bf0f2167b27723">bl::rc::ds::GlobalUniformBuffer::init</a></div><div class="ttdeci">void init(vk::VulkanState &amp;vulkanState, DescriptorComponentStorageCache &amp;storageCache) override</div><div class="ttdoc">Called once after the descriptor set is created.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00069">GlobalUniformBuffer.hpp:69</a></div></div>
-<div class="ttc" id="aa04146_html_ab34590e59436079d241663302eb5bac0"><div class="ttname"><a href="a04146.html#ab34590e59436079d241663302eb5bac0">bl::rc::ds::GlobalUniformBuffer::staticDescriptorUpdateRequired</a></div><div class="ttdeci">bool staticDescriptorUpdateRequired() const override</div><div class="ttdoc">Should return whether or not the static descriptor set needs to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00113">GlobalUniformBuffer.hpp:113</a></div></div>
-<div class="ttc" id="aa04146_html_aec0c5b905b6cf97f72817d1541854800"><div class="ttname"><a href="a04146.html#aec0c5b905b6cf97f72817d1541854800">bl::rc::ds::GlobalUniformBuffer::onFrameStart</a></div><div class="ttdeci">void onFrameStart() override</div><div class="ttdoc">Called once at the beginning of every frame.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00103">GlobalUniformBuffer.hpp:103</a></div></div>
-<div class="ttc" id="aa04146_html_af70063ecd171eb66f1d175fbcadb1135"><div class="ttname"><a href="a04146.html#af70063ecd171eb66f1d175fbcadb1135">bl::rc::ds::GlobalUniformBuffer::getPayload</a></div><div class="ttdeci">void * getPayload() override</div><div class="ttdoc">Should return a pointer to the provided payload.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00108">GlobalUniformBuffer.hpp:108</a></div></div>
-<div class="ttc" id="aa04174_html"><div class="ttname"><a href="a04174.html">bl::rc::ds::SetWriteHelper</a></div><div class="ttdoc">Utility to perform arbitrary descriptor set writes using stack allocated memory.</div><div class="ttdef"><b>Definition</b> <a href="a01382_source.html#l00017">SetWriteHelper.hpp:17</a></div></div>
-<div class="ttc" id="aa04174_html_a433b306bf314004c3e53421c64613233"><div class="ttname"><a href="a04174.html#a433b306bf314004c3e53421c64613233">bl::rc::ds::SetWriteHelper::getNewBufferInfo</a></div><div class="ttdeci">VkDescriptorBufferInfo &amp; getNewBufferInfo()</div><div class="ttdoc">Creates and returns a buffer info to be used in a write operation.</div><div class="ttdef"><b>Definition</b> <a href="a01382_source.html#l00079">SetWriteHelper.hpp:79</a></div></div>
-<div class="ttc" id="aa04174_html_a8597f2843287775364e93b6dc161a322"><div class="ttname"><a href="a04174.html#a8597f2843287775364e93b6dc161a322">bl::rc::ds::SetWriteHelper::getNewSetWrite</a></div><div class="ttdeci">VkWriteDescriptorSet &amp; getNewSetWrite()</div><div class="ttdoc">Creates and returns a new write operation to be applied.</div><div class="ttdef"><b>Definition</b> <a href="a01382_source.html#l00064">SetWriteHelper.hpp:64</a></div></div>
-<div class="ttc" id="aa04434_html"><div class="ttname"><a href="a04434.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a01136_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa06874_html"><div class="ttname"><a href="a06874.html">Config.hpp</a></div></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace mdl</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04518_html"><div class="ttname"><a href="a04518.html">bl::mdl::Node</a></div><div class="ttdoc">Represents a node in a model hierarchy.</div><div class="ttdef"><b>Definition</b> <a href="a08035_source.html#l00020">Node.hpp:20</a></div></div>
+<div class="ttc" id="aa04522_html"><div class="ttname"><a href="a04522.html">bl::mdl::NodeSet</a></div><div class="ttdoc">Helper to provide linear storage for model nodes.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00016">NodeSet.hpp:16</a></div></div>
+<div class="ttc" id="aa04522_html_a2c3ec4ec298b3ba6e3da51d2477879e4"><div class="ttname"><a href="a04522.html#a2c3ec4ec298b3ba6e3da51d2477879e4">bl::mdl::NodeSet::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the number of nodes in the set.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00033">NodeSet.hpp:33</a></div></div>
+<div class="ttc" id="aa04522_html_a36bb04ab6dd80e329cdebae39c4ade15"><div class="ttname"><a href="a04522.html#a36bb04ab6dd80e329cdebae39c4ade15">bl::mdl::NodeSet::addNode</a></div><div class="ttdeci">Node &amp; addNode(std::uint32_t parent)</div><div class="ttdoc">Adds a node to the set.</div><div class="ttdef"><b>Definition</b> <a href="a02729_source.html#l00022">NodeSet.cpp:22</a></div></div>
+<div class="ttc" id="aa04522_html_a9c6f671281e90c1ea10e56303c774f0e"><div class="ttname"><a href="a04522.html#a9c6f671281e90c1ea10e56303c774f0e">bl::mdl::NodeSet::reserveSpace</a></div><div class="ttdeci">void reserveSpace(const aiScene *scene)</div><div class="ttdoc">Traverses the scene to reserve space for all nodes.</div><div class="ttdef"><b>Definition</b> <a href="a02729_source.html#l00018">NodeSet.cpp:18</a></div></div>
+<div class="ttc" id="aa04522_html_aa2a65a2e9cf6dafb66583e3f43535ec4"><div class="ttname"><a href="a04522.html#aa2a65a2e9cf6dafb66583e3f43535ec4">bl::mdl::NodeSet::getNode</a></div><div class="ttdeci">Node &amp; getNode(std::size_t index)</div><div class="ttdoc">Returns the node at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00040">NodeSet.hpp:40</a></div></div>
+<div class="ttc" id="aa04522_html_acbf58dda00034ce95b957d9f0f1d5e95"><div class="ttname"><a href="a04522.html#acbf58dda00034ce95b957d9f0f1d5e95">bl::mdl::NodeSet::NodeSet</a></div><div class="ttdeci">NodeSet()=default</div><div class="ttdoc">Constructs a new NodeSet.</div></div>
+<div class="ttc" id="aa04522_html_ae5c1119570068eb31ceffa48d5293b2e"><div class="ttname"><a href="a04522.html#ae5c1119570068eb31ceffa48d5293b2e">bl::mdl::NodeSet::getNode</a></div><div class="ttdeci">const Node &amp; getNode(std::size_t index) const</div><div class="ttdoc">Returns the node at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00047">NodeSet.hpp:47</a></div></div>
+<div class="ttc" id="aa04522_html_afbf11a3471fbc62269033021dad919e5"><div class="ttname"><a href="a04522.html#afbf11a3471fbc62269033021dad919e5">bl::mdl::NodeSet::clearAllButRoot</a></div><div class="ttdeci">void clearAllButRoot()</div><div class="ttdoc">Used by mergeChildren to remove all nodes except the root.</div><div class="ttdef"><b>Definition</b> <a href="a02729_source.html#l00024">NodeSet.cpp:24</a></div></div>
+<div class="ttc" id="aa08035_html"><div class="ttname"><a href="a08035.html">Node.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

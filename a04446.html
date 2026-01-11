@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::Scene Class Reference</title>
+<title>BLIB: bl::interface::GhostWriter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,853 +74,340 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a04446.html">Scene</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03034.html">interface</a></li><li class="navelem"><a class="el" href="a04446.html">GhostWriter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a04443.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::Scene Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::interface::GhostWriter Class Reference<div class="ingroups"><a class="el" href="a02973.html">Interface</a> &raquo; <a class="el" href="a02991.html">InterfaceUtilities</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for all scene types and overlays. Provides common scene logic and object management. Derived classes must provide storage for SceneObject (or derived)  
+<p>Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal, in characters per second, is managed by the "blib.interface.ghost_speed" configuration key.  
  <a href="a04446.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01127_source.html">Scene.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::Scene:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a04446.png" usemap="#bl::rc::Scene_map" alt=""/>
-  <map id="bl::rc::Scene_map" name="bl::rc::Scene_map">
-<area href="a04322.html" title="Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr..." alt="bl::rc::Overlay" shape="rect" coords="0,56,168,80"/>
-<area href="a04406.html" title="Primary scene class for the renderer. Provides batched rendering of objects by pipeline...." alt="bl::rc::scene::BatchedScene" shape="rect" coords="178,56,346,80"/>
-<area href="a04422.html" title="A special type of scene that performs rendering by deferring to a user-provided callback that then is..." alt="bl::rc::scene::CodeScene" shape="rect" coords="356,56,524,80"/>
-<area href="a04458.html" title="2d scene implementation" alt="bl::rc::scene::Scene2D" shape="rect" coords="89,112,257,136"/>
-<area href="a04462.html" title="3d scene implementation" alt="bl::rc::scene::Scene3D" shape="rect" coords="267,112,435,136"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01310_source.html">GhostWriter.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04450.html">BatchChange</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">POD containing data for when an object needs to be re-batched.  <a href="a04450.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:add8355bcc5509c7934796e77c65192d7" id="r_add8355bcc5509c7934796e77c65192d7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#add8355bcc5509c7934796e77c65192d7">~Scene</a> ()=default</td></tr>
-<tr class="memdesc:add8355bcc5509c7934796e77c65192d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a>.  <br /></td></tr>
-<tr class="separator:add8355bcc5509c7934796e77c65192d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef7b0b3bdfc8af60adc1c11aa19ebcc1" id="r_aef7b0b3bdfc8af60adc1c11aa19ebcc1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#aef7b0b3bdfc8af60adc1c11aa19ebcc1">renderScene</a> (<a class="el" href="a04490.html">scene::SceneRenderContext</a> &amp;context)=0</td></tr>
-<tr class="memdesc:aef7b0b3bdfc8af60adc1c11aa19ebcc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should record render commands in here.  <br /></td></tr>
-<tr class="separator:aef7b0b3bdfc8af60adc1c11aa19ebcc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ed24cc0930efc08ec33ed45d5be025f" id="r_a7ed24cc0930efc08ec33ed45d5be025f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a7ed24cc0930efc08ec33ed45d5be025f">addGraphTasks</a> (<a class="el" href="a04246.html">rg::RenderGraph</a> &amp;graph)</td></tr>
-<tr class="memdesc:a7ed24cc0930efc08ec33ed45d5be025f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds scene specific tasks to the render graph. Default adds nothing.  <br /></td></tr>
-<tr class="separator:a7ed24cc0930efc08ec33ed45d5be025f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c354f807aab67609f848c98ee406296" id="r_a2c354f807aab67609f848c98ee406296"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a2c354f807aab67609f848c98ee406296"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04446.html#a2c354f807aab67609f848c98ee406296">getDescriptorSet</a> ()</td></tr>
-<tr class="memdesc:a2c354f807aab67609f848c98ee406296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides direct access to the descriptor set of the given type. Creates it if not already created. May be slow, cache the result.  <br /></td></tr>
-<tr class="separator:a2c354f807aab67609f848c98ee406296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9324d79488b3762fc240eefab3ab7ca4" id="r_a9324d79488b3762fc240eefab3ab7ca4"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="a02602.html">cam::Camera</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a9324d79488b3762fc240eefab3ab7ca4">createDefaultCamera</a> ()=0</td></tr>
-<tr class="memdesc:a9324d79488b3762fc240eefab3ab7ca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a default camera for the scene.  <br /></td></tr>
-<tr class="separator:a9324d79488b3762fc240eefab3ab7ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd05fb4d9ea3fd8d66ec820a08f62fe5" id="r_afd05fb4d9ea3fd8d66ec820a08f62fe5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#afd05fb4d9ea3fd8d66ec820a08f62fe5">setDefaultNearAndFarPlanes</a> (<a class="el" href="a02602.html">cam::Camera</a> &amp;camera) const =0</td></tr>
-<tr class="memdesc:afd05fb4d9ea3fd8d66ec820a08f62fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once when a new camera is created by someone other than the scene. Not called for cameras created in <a class="el" href="a04446.html#a9324d79488b3762fc240eefab3ab7ca4" title="Creates a default camera for the scene.">createDefaultCamera()</a>  <br /></td></tr>
-<tr class="separator:afd05fb4d9ea3fd8d66ec820a08f62fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a4e219f41197fee495672b70f9fe68605" id="r_a4e219f41197fee495672b70f9fe68605"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a4e219f41197fee495672b70f9fe68605">DefaultSceneObjectCapacity</a> = 128</td></tr>
-<tr class="separator:a4e219f41197fee495672b70f9fe68605"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a8e32eabe8605c45c1486fff2ea39ffc1" id="r_a8e32eabe8605c45c1486fff2ea39ffc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a8e32eabe8605c45c1486fff2ea39ffc1">Scene</a> (<a class="el" href="a03046.html">engine::Engine</a> &amp;<a class="el" href="a04446.html#ae269da1deff50997662a17a14af08b33">engine</a>, const <a class="el" href="a04102.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> &amp;entityCb)</td></tr>
-<tr class="memdesc:a8e32eabe8605c45c1486fff2ea39ffc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a>.  <br /></td></tr>
-<tr class="separator:a8e32eabe8605c45c1486fff2ea39ffc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a245c02dc09bc216ee29e0797dcfccf1e" id="r_a245c02dc09bc216ee29e0797dcfccf1e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a04466.html">scene::SceneObject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a245c02dc09bc216ee29e0797dcfccf1e">doAdd</a> (<a class="el" href="a02890.html">ecs::Entity</a> entity, <a class="el" href="a04030.html">rcom::DrawableBase</a> &amp;object, <a class="el" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq)=0</td></tr>
-<tr class="memdesc:a245c02dc09bc216ee29e0797dcfccf1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an object is added to the scene. Derived should create the SceneObject here and initialize descriptor sets.  <br /></td></tr>
-<tr class="separator:a245c02dc09bc216ee29e0797dcfccf1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cabe63dc61bbfac6666f33ae5041baf" id="r_a7cabe63dc61bbfac6666f33ae5041baf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a7cabe63dc61bbfac6666f33ae5041baf">removeObject</a> (<a class="el" href="a04466.html">scene::SceneObject</a> *object)</td></tr>
-<tr class="memdesc:a7cabe63dc61bbfac6666f33ae5041baf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to remove an object from the scene. Removal is queued.  <br /></td></tr>
-<tr class="separator:a7cabe63dc61bbfac6666f33ae5041baf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76b230f50687702d1eed7ad7a77b5708" id="r_a76b230f50687702d1eed7ad7a77b5708"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a76b230f50687702d1eed7ad7a77b5708">doBatchChange</a> (const <a class="el" href="a04450.html">BatchChange</a> &amp;change, <a class="el" href="a04306.html">mat::MaterialPipeline</a> *ogPipeline)=0</td></tr>
-<tr class="memdesc:a76b230f50687702d1eed7ad7a77b5708"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a> in handleDescriptorSync for objects that need to be re-batched.  <br /></td></tr>
-<tr class="separator:a76b230f50687702d1eed7ad7a77b5708"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f698c7a0896ab8fd9a53e3df0019c9a" id="r_a2f698c7a0896ab8fd9a53e3df0019c9a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a2f698c7a0896ab8fd9a53e3df0019c9a">doObjectRemoval</a> (<a class="el" href="a04466.html">scene::SceneObject</a> *object, <a class="el" href="a04306.html">mat::MaterialPipeline</a> *pipeline)=0</td></tr>
-<tr class="memdesc:a2f698c7a0896ab8fd9a53e3df0019c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an object should be removed from the scene.  <br /></td></tr>
-<tr class="separator:a2f698c7a0896ab8fd9a53e3df0019c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ae269da1deff50997662a17a14af08b33" id="r_ae269da1deff50997662a17a14af08b33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03046.html">engine::Engine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#ae269da1deff50997662a17a14af08b33">engine</a></td></tr>
-<tr class="separator:ae269da1deff50997662a17a14af08b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1271be3423fb2fa15441b6bb85edbb7" id="r_aa1271be3423fb2fa15441b6bb85edbb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04346.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#aa1271be3423fb2fa15441b6bb85edbb7">renderer</a></td></tr>
-<tr class="separator:aa1271be3423fb2fa15441b6bb85edbb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a702822030d73f65170e1ad4edfe7bc73" id="r_a702822030d73f65170e1ad4edfe7bc73"><td class="memItemLeft" align="right" valign="top">std::recursive_mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a702822030d73f65170e1ad4edfe7bc73">objectMutex</a></td></tr>
-<tr class="separator:a702822030d73f65170e1ad4edfe7bc73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24ec5ec8e3adb16fc02cfa70283b6860" id="r_a24ec5ec8e3adb16fc02cfa70283b6860"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04122.html">ds::DescriptorSetFactoryCache</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a24ec5ec8e3adb16fc02cfa70283b6860">descriptorFactories</a></td></tr>
-<tr class="separator:a24ec5ec8e3adb16fc02cfa70283b6860"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea9547c6926f5fbb69b785a185ce16ee" id="r_aea9547c6926f5fbb69b785a185ce16ee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04130.html">ds::DescriptorSetInstanceCache</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#aea9547c6926f5fbb69b785a185ce16ee">descriptorSets</a></td></tr>
-<tr class="separator:aea9547c6926f5fbb69b785a185ce16ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8041c874a49425eabdab91da03b20fa" id="r_ae8041c874a49425eabdab91da03b20fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04114.html">ds::DescriptorComponentStorageCache</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#ae8041c874a49425eabdab91da03b20fa">descriptorComponents</a></td></tr>
-<tr class="separator:ae8041c874a49425eabdab91da03b20fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:acabc012c1e7b354c0794e5778628b2da" id="r_acabc012c1e7b354c0794e5778628b2da"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#acabc012c1e7b354c0794e5778628b2da">scene::SceneSync</a></td></tr>
-<tr class="separator:acabc012c1e7b354c0794e5778628b2da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5afc6f82b7b587ed5ada4d227ce32aa" id="r_aa5afc6f82b7b587ed5ada4d227ce32aa"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#aa5afc6f82b7b587ed5ada4d227ce32aa">RenderTarget</a></td></tr>
-<tr class="separator:aa5afc6f82b7b587ed5ada4d227ce32aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e3e776e6321b85dc4def653bc028051" id="r_a5e3e776e6321b85dc4def653bc028051"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a5e3e776e6321b85dc4def653bc028051">res::ScenePool</a></td></tr>
-<tr class="separator:a5e3e776e6321b85dc4def653bc028051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a860037fd734fa641d5107b67ed948e" id="r_a3a860037fd734fa641d5107b67ed948e"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a3a860037fd734fa641d5107b67ed948e">vk::RenderTexture</a></td></tr>
-<tr class="separator:a3a860037fd734fa641d5107b67ed948e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0696c150fa8293cbd2914b36eb0f7d3a" id="r_a0696c150fa8293cbd2914b36eb0f7d3a"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a0696c150fa8293cbd2914b36eb0f7d3a">rcom::DrawableBase</a></td></tr>
-<tr class="separator:a0696c150fa8293cbd2914b36eb0f7d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3e6ba246fc0e9cec8eae65a6702998d" id="r_ac3e6ba246fc0e9cec8eae65a6702998d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#ac3e6ba246fc0e9cec8eae65a6702998d">GhostWriter</a> ()</td></tr>
+<tr class="memdesc:ac3e6ba246fc0e9cec8eae65a6702998d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a04446.html" title="Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal,...">GhostWriter</a> with empty content.  <br /></td></tr>
+<tr class="separator:ac3e6ba246fc0e9cec8eae65a6702998d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dd9ed9a3f52c7426ba83a23d64bc3ed" id="r_a5dd9ed9a3f52c7426ba83a23d64bc3ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a5dd9ed9a3f52c7426ba83a23d64bc3ed">GhostWriter</a> (const std::string &amp;content)</td></tr>
+<tr class="memdesc:a5dd9ed9a3f52c7426ba83a23d64bc3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a04446.html" title="Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal,...">GhostWriter</a> with the given content.  <br /></td></tr>
+<tr class="separator:a5dd9ed9a3f52c7426ba83a23d64bc3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3baa128cabca4d11a196cfa2deceb10b" id="r_a3baa128cabca4d11a196cfa2deceb10b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a3baa128cabca4d11a196cfa2deceb10b">setContent</a> (const std::string &amp;content)</td></tr>
+<tr class="memdesc:a3baa128cabca4d11a196cfa2deceb10b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the content to display. Resets to showing 0 characters.  <br /></td></tr>
+<tr class="separator:a3baa128cabca4d11a196cfa2deceb10b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a905ee8e94ae389c4a4025bb94458df22" id="r_a905ee8e94ae389c4a4025bb94458df22"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a905ee8e94ae389c4a4025bb94458df22">getContent</a> () const</td></tr>
+<tr class="memdesc:a905ee8e94ae389c4a4025bb94458df22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the full content of the writer.  <br /></td></tr>
+<tr class="separator:a905ee8e94ae389c4a4025bb94458df22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f44b42d6074a27161940c7104501ae2" id="r_a1f44b42d6074a27161940c7104501ae2"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a1f44b42d6074a27161940c7104501ae2">getVisible</a> () const</td></tr>
+<tr class="memdesc:a1f44b42d6074a27161940c7104501ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the visible portion of the content of the writer.  <br /></td></tr>
+<tr class="separator:a1f44b42d6074a27161940c7104501ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c732d31f2ac5b10eade6baba81d5d9" id="r_a40c732d31f2ac5b10eade6baba81d5d9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a40c732d31f2ac5b10eade6baba81d5d9">update</a> (float dt)</td></tr>
+<tr class="memdesc:a40c732d31f2ac5b10eade6baba81d5d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the writer and reveals more characters based on time elapsed.  <br /></td></tr>
+<tr class="separator:a40c732d31f2ac5b10eade6baba81d5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbc49a8343e43cc5829c52999c3368a7" id="r_abbc49a8343e43cc5829c52999c3368a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#abbc49a8343e43cc5829c52999c3368a7">showAll</a> ()</td></tr>
+<tr class="memdesc:abbc49a8343e43cc5829c52999c3368a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immediately shows all characters.  <br /></td></tr>
+<tr class="separator:abbc49a8343e43cc5829c52999c3368a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0849712c86901dea7556e87ac77778e" id="r_ab0849712c86901dea7556e87ac77778e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#ab0849712c86901dea7556e87ac77778e">finished</a> () const</td></tr>
+<tr class="memdesc:ab0849712c86901dea7556e87ac77778e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not all characters are visible.  <br /></td></tr>
+<tr class="separator:ab0849712c86901dea7556e87ac77778e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa43023f9933e4675d2be09e5853fd9ba" id="r_aa43023f9933e4675d2be09e5853fd9ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#aa43023f9933e4675d2be09e5853fd9ba">manage</a> (<a class="el" href="a03998.html">gfx::Text</a> &amp;text)</td></tr>
+<tr class="memdesc:aa43023f9933e4675d2be09e5853fd9ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ghost writer will update the first section of text.  <br /></td></tr>
+<tr class="separator:aa43023f9933e4675d2be09e5853fd9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad518d7df820637ebb3c4c681f18e353a" id="r_ad518d7df820637ebb3c4c681f18e353a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#ad518d7df820637ebb3c4c681f18e353a">manage</a> (<a class="el" href="a04010.html">gfx::txt::BasicText</a> &amp;section)</td></tr>
+<tr class="memdesc:ad518d7df820637ebb3c4c681f18e353a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ghost writer will update the given section of text.  <br /></td></tr>
+<tr class="separator:ad518d7df820637ebb3c4c681f18e353a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a389e510116010f8b73ef6d4cdaf55dac" id="r_a389e510116010f8b73ef6d4cdaf55dac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04446.html#a389e510116010f8b73ef6d4cdaf55dac">stopManaging</a> ()</td></tr>
+<tr class="memdesc:a389e510116010f8b73ef6d4cdaf55dac"><td class="mdescLeft">&#160;</td><td class="mdescRight">The ghost writer will stop managing graphical text.  <br /></td></tr>
+<tr class="separator:a389e510116010f8b73ef6d4cdaf55dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for all scene types and overlays. Provides common scene logic and object management. Derived classes must provide storage for SceneObject (or derived) </p>
+<div class="textblock"><p>Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal, in characters per second, is managed by the "blib.interface.ghost_speed" configuration key. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00056">56</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01310_source.html#l00020">20</a> of file <a class="el" href="a01310_source.html">GhostWriter.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="add8355bcc5509c7934796e77c65192d7" name="add8355bcc5509c7934796e77c65192d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add8355bcc5509c7934796e77c65192d7">&#9670;&#160;</a></span>~Scene()</h2>
+<a id="ac3e6ba246fc0e9cec8eae65a6702998d" name="ac3e6ba246fc0e9cec8eae65a6702998d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3e6ba246fc0e9cec8eae65a6702998d">&#9670;&#160;</a></span>GhostWriter() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::rc::Scene::~Scene </td>
+          <td class="memname">bl::interface::GhostWriter::GhostWriter </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destroys the <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a>. </p>
+<p>Construct a new <a class="el" href="a04446.html" title="Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal,...">GhostWriter</a> with empty content. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00010">10</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8e32eabe8605c45c1486fff2ea39ffc1" name="a8e32eabe8605c45c1486fff2ea39ffc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e32eabe8605c45c1486fff2ea39ffc1">&#9670;&#160;</a></span>Scene()</h2>
+<a id="a5dd9ed9a3f52c7426ba83a23d64bc3ed" name="a5dd9ed9a3f52c7426ba83a23d64bc3ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dd9ed9a3f52c7426ba83a23d64bc3ed">&#9670;&#160;</a></span>GhostWriter() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::Scene::Scene </td>
+          <td class="memname">bl::interface::GhostWriter::GhostWriter </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03046.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>content</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a04102.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> &amp;&#160;</td>
-          <td class="paramname"><em>entityCb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Initializes the <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a>. </p>
+<p>Construct a new <a class="el" href="a04446.html" title="Basic string wrapper that allows for text to be unhidden over time. The speed of text reveal,...">GhostWriter</a> with the given content. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The engine instance </td></tr>
-    <tr><td class="paramname">entityCb</td><td>Callback to map scene id to ECS id </td></tr>
+    <tr><td class="paramname">content</td><td>The string to show </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02141_source.html#l00012">12</a> of file <a class="el" href="a02141_source.html">Scene.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00016">16</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7ed24cc0930efc08ec33ed45d5be025f" name="a7ed24cc0930efc08ec33ed45d5be025f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ed24cc0930efc08ec33ed45d5be025f">&#9670;&#160;</a></span>addGraphTasks()</h2>
+<a id="ab0849712c86901dea7556e87ac77778e" name="ab0849712c86901dea7556e87ac77778e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0849712c86901dea7556e87ac77778e">&#9670;&#160;</a></span>finished()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::Scene::addGraphTasks </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04246.html">rg::RenderGraph</a> &amp;&#160;</td>
-          <td class="paramname"><em>graph</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds scene specific tasks to the render graph. Default adds nothing. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">graph</td><td>The graph to populate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02141_source.html#l00133">133</a> of file <a class="el" href="a02141_source.html">Scene.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9324d79488b3762fc240eefab3ab7ca4" name="a9324d79488b3762fc240eefab3ab7ca4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9324d79488b3762fc240eefab3ab7ca4">&#9670;&#160;</a></span>createDefaultCamera()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::unique_ptr&lt; <a class="el" href="a02602.html">cam::Camera</a> &gt; bl::rc::Scene::createDefaultCamera </td>
+          <td class="memname">bool bl::interface::GhostWriter::finished </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a default camera for the scene. </p>
-<dl class="section return"><dt>Returns</dt><dd>The default camera to use </dd></dl>
-
-<p>Implemented in <a class="el" href="a04322.html#a8409763260e9d617ab38a7dafe7d5c3e">bl::rc::Overlay</a>, <a class="el" href="a04458.html#ad8c1d742fe524a90c34a53716dc7a580">bl::rc::scene::Scene2D</a>, and <a class="el" href="a04462.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">bl::rc::scene::Scene3D</a>.</p>
-
-</div>
-</div>
-<a id="a245c02dc09bc216ee29e0797dcfccf1e" name="a245c02dc09bc216ee29e0797dcfccf1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a245c02dc09bc216ee29e0797dcfccf1e">&#9670;&#160;</a></span>doAdd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual <a class="el" href="a04466.html">scene::SceneObject</a> * bl::rc::Scene::doAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04030.html">rcom::DrawableBase</a> &amp;&#160;</td>
-          <td class="paramname"><em>object</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when an object is added to the scene. Derived should create the SceneObject here and initialize descriptor sets. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The ECS entity of the new object </td></tr>
-    <tr><td class="paramname">object</td><td>The ECS component being added </td></tr>
-    <tr><td class="paramname">updateFreq</td><td>The update speed of the new object </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new scene object </dd></dl>
-
-<p>Implemented in <a class="el" href="a04322.html#a75c75bc5c48e77bf06960487c490c2ef">bl::rc::Overlay</a>, and <a class="el" href="a04406.html#a7ab2a0593229f89693aa2aa2ac77edc9">bl::rc::scene::BatchedScene</a>.</p>
-
-</div>
-</div>
-<a id="a76b230f50687702d1eed7ad7a77b5708" name="a76b230f50687702d1eed7ad7a77b5708"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76b230f50687702d1eed7ad7a77b5708">&#9670;&#160;</a></span>doBatchChange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::rc::Scene::doBatchChange </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04450.html">BatchChange</a> &amp;&#160;</td>
-          <td class="paramname"><em>change</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04306.html">mat::MaterialPipeline</a> *&#160;</td>
-          <td class="paramname"><em>ogPipeline</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called by <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a> in handleDescriptorSync for objects that need to be re-batched. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">change</td><td>Details of the change </td></tr>
-    <tr><td class="paramname">ogPipeline</td><td>The original pipeline of the object being changed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a04322.html#a854178582059895b5b59a0f918dd8da9">bl::rc::Overlay</a>, and <a class="el" href="a04406.html#abc2e86fc3dbda8f5d2716678799dfc0a">bl::rc::scene::BatchedScene</a>.</p>
-
-</div>
-</div>
-<a id="a2f698c7a0896ab8fd9a53e3df0019c9a" name="a2f698c7a0896ab8fd9a53e3df0019c9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f698c7a0896ab8fd9a53e3df0019c9a">&#9670;&#160;</a></span>doObjectRemoval()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::rc::Scene::doObjectRemoval </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04466.html">scene::SceneObject</a> *&#160;</td>
-          <td class="paramname"><em>object</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04306.html">mat::MaterialPipeline</a> *&#160;</td>
-          <td class="paramname"><em>pipeline</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when an object should be removed from the scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td>The object to be removed </td></tr>
-    <tr><td class="paramname">pipeline</td><td>The pipeline used to render the object being removed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a04322.html#a96b7ec1978cde5aa184e7d38a79008b2">bl::rc::Overlay</a>, and <a class="el" href="a04406.html#a7b5b4b80d093bc5252e57ad0ac18f4e1">bl::rc::scene::BatchedScene</a>.</p>
-
-</div>
-</div>
-<a id="a2c354f807aab67609f848c98ee406296" name="a2c354f807aab67609f848c98ee406296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c354f807aab67609f848c98ee406296">&#9670;&#160;</a></span>getDescriptorSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T &amp; bl::rc::Scene::getDescriptorSet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Provides direct access to the descriptor set of the given type. Creates it if not already created. May be slow, cache the result. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The descriptor set type to fetch or create </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The descriptor set of the given type </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00211">211</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7cabe63dc61bbfac6666f33ae5041baf" name="a7cabe63dc61bbfac6666f33ae5041baf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cabe63dc61bbfac6666f33ae5041baf">&#9670;&#160;</a></span>removeObject()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::Scene::removeObject </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04466.html">scene::SceneObject</a> *&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Call to remove an object from the scene. Removal is queued. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td>The object being removed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02141_source.html#l00085">85</a> of file <a class="el" href="a02141_source.html">Scene.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aef7b0b3bdfc8af60adc1c11aa19ebcc1" name="aef7b0b3bdfc8af60adc1c11aa19ebcc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef7b0b3bdfc8af60adc1c11aa19ebcc1">&#9670;&#160;</a></span>renderScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::rc::Scene::renderScene </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04490.html">scene::SceneRenderContext</a> &amp;&#160;</td>
-          <td class="paramname"><em>context</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Derived classes should record render commands in here. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">context</td><td>Render context containing scene render data </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a04322.html#a71f4df3107e9cbbcd50c1ef315f05ea1">bl::rc::Overlay</a>, and <a class="el" href="a04406.html#a844bab2164f6053272be0a87df5e0571">bl::rc::scene::BatchedScene</a>.</p>
-
-</div>
-</div>
-<a id="afd05fb4d9ea3fd8d66ec820a08f62fe5" name="afd05fb4d9ea3fd8d66ec820a08f62fe5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd05fb4d9ea3fd8d66ec820a08f62fe5">&#9670;&#160;</a></span>setDefaultNearAndFarPlanes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::rc::Scene::setDefaultNearAndFarPlanes </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02602.html">cam::Camera</a> &amp;&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Called once when a new camera is created by someone other than the scene. Not called for cameras created in <a class="el" href="a04446.html#a9324d79488b3762fc240eefab3ab7ca4" title="Creates a default camera for the scene.">createDefaultCamera()</a> </p>
+<p>Returns whether or not all characters are visible. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00052">52</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a905ee8e94ae389c4a4025bb94458df22" name="a905ee8e94ae389c4a4025bb94458df22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a905ee8e94ae389c4a4025bb94458df22">&#9670;&#160;</a></span>getContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; bl::interface::GhostWriter::getContent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the full content of the writer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00029">29</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f44b42d6074a27161940c7104501ae2" name="a1f44b42d6074a27161940c7104501ae2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f44b42d6074a27161940c7104501ae2">&#9670;&#160;</a></span>getVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view bl::interface::GhostWriter::getVisible </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the visible portion of the content of the writer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00031">31</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa43023f9933e4675d2be09e5853fd9ba" name="aa43023f9933e4675d2be09e5853fd9ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa43023f9933e4675d2be09e5853fd9ba">&#9670;&#160;</a></span>manage() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::interface::GhostWriter::manage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03998.html">gfx::Text</a> &amp;&#160;</td>
+          <td class="paramname"><em>text</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The ghost writer will update the first section of text. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">camera</td><td>The camera to initialize </td></tr>
+    <tr><td class="paramname">text</td><td>The text object to manage </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="a04322.html#a54cb8f23d898300520b6d8c7e96f1270">bl::rc::Overlay</a>, <a class="el" href="a04458.html#ac981b461c72a08b16cdb7635fcdb4b79">bl::rc::scene::Scene2D</a>, and <a class="el" href="a04462.html#ad3722c0cc57b7d59306f68fcdddfe15d">bl::rc::scene::Scene3D</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00059">59</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a0696c150fa8293cbd2914b36eb0f7d3a" name="a0696c150fa8293cbd2914b36eb0f7d3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0696c150fa8293cbd2914b36eb0f7d3a">&#9670;&#160;</a></span>rcom::DrawableBase</h2>
+<a id="ad518d7df820637ebb3c4c681f18e353a" name="ad518d7df820637ebb3c4c681f18e353a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad518d7df820637ebb3c4c681f18e353a">&#9670;&#160;</a></span>manage() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend struct <a class="el" href="a04030.html">rcom::DrawableBase</a></td>
+          <td class="memname">void bl::interface::GhostWriter::manage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04010.html">gfx::txt::BasicText</a> &amp;&#160;</td>
+          <td class="paramname"><em>section</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00207">207</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p>The ghost writer will update the given section of text. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">section</td><td>The specific section of text to manage </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00064">64</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa5afc6f82b7b587ed5ada4d227ce32aa" name="aa5afc6f82b7b587ed5ada4d227ce32aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5afc6f82b7b587ed5ada4d227ce32aa">&#9670;&#160;</a></span>RenderTarget</h2>
+<a id="a3baa128cabca4d11a196cfa2deceb10b" name="a3baa128cabca4d11a196cfa2deceb10b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3baa128cabca4d11a196cfa2deceb10b">&#9670;&#160;</a></span>setContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04350.html">RenderTarget</a></td>
+          <td class="memname">void bl::interface::GhostWriter::setContent </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>content</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00204">204</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p>Set the content to display. Resets to showing 0 characters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">content</td><td>The string to slowly reveal </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00023">23</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5e3e776e6321b85dc4def653bc028051" name="a5e3e776e6321b85dc4def653bc028051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e3e776e6321b85dc4def653bc028051">&#9670;&#160;</a></span>res::ScenePool</h2>
+<a id="abbc49a8343e43cc5829c52999c3368a7" name="abbc49a8343e43cc5829c52999c3368a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbc49a8343e43cc5829c52999c3368a7">&#9670;&#160;</a></span>showAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04382.html">res::ScenePool</a></td>
+          <td class="memname">void bl::interface::GhostWriter::showAll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00205">205</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p>Immediately shows all characters. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00054">54</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acabc012c1e7b354c0794e5778628b2da" name="acabc012c1e7b354c0794e5778628b2da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acabc012c1e7b354c0794e5778628b2da">&#9670;&#160;</a></span>scene::SceneSync</h2>
+<a id="a389e510116010f8b73ef6d4cdaf55dac" name="a389e510116010f8b73ef6d4cdaf55dac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a389e510116010f8b73ef6d4cdaf55dac">&#9670;&#160;</a></span>stopManaging()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04494.html">scene::SceneSync</a></td>
+          <td class="memname">void bl::interface::GhostWriter::stopManaging </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00203">203</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p>The ghost writer will stop managing graphical text. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00069">69</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3a860037fd734fa641d5107b67ed948e" name="a3a860037fd734fa641d5107b67ed948e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a860037fd734fa641d5107b67ed948e">&#9670;&#160;</a></span>vk::RenderTexture</h2>
+<a id="a40c732d31f2ac5b10eade6baba81d5d9" name="a40c732d31f2ac5b10eade6baba81d5d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40c732d31f2ac5b10eade6baba81d5d9">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04638.html">vk::RenderTexture</a></td>
+          <td class="memname">bool bl::interface::GhostWriter::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00206">206</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p>Updates the writer and reveals more characters based on time elapsed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if any new characters were revealed, false if unchanged </dd></dl>
 
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a4e219f41197fee495672b70f9fe68605" name="a4e219f41197fee495672b70f9fe68605"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e219f41197fee495672b70f9fe68605">&#9670;&#160;</a></span>DefaultSceneObjectCapacity</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t bl::rc::Scene::DefaultSceneObjectCapacity = 128</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00058">58</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae8041c874a49425eabdab91da03b20fa" name="ae8041c874a49425eabdab91da03b20fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8041c874a49425eabdab91da03b20fa">&#9670;&#160;</a></span>descriptorComponents</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04114.html">ds::DescriptorComponentStorageCache</a> bl::rc::Scene::descriptorComponents</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00119">119</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a24ec5ec8e3adb16fc02cfa70283b6860" name="a24ec5ec8e3adb16fc02cfa70283b6860"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24ec5ec8e3adb16fc02cfa70283b6860">&#9670;&#160;</a></span>descriptorFactories</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04122.html">ds::DescriptorSetFactoryCache</a>&amp; bl::rc::Scene::descriptorFactories</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00117">117</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aea9547c6926f5fbb69b785a185ce16ee" name="aea9547c6926f5fbb69b785a185ce16ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea9547c6926f5fbb69b785a185ce16ee">&#9670;&#160;</a></span>descriptorSets</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04130.html">ds::DescriptorSetInstanceCache</a> bl::rc::Scene::descriptorSets</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00118">118</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae269da1deff50997662a17a14af08b33" name="ae269da1deff50997662a17a14af08b33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae269da1deff50997662a17a14af08b33">&#9670;&#160;</a></span>engine</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03046.html">engine::Engine</a>&amp; bl::rc::Scene::engine</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00114">114</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a702822030d73f65170e1ad4edfe7bc73" name="a702822030d73f65170e1ad4edfe7bc73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a702822030d73f65170e1ad4edfe7bc73">&#9670;&#160;</a></span>objectMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::recursive_mutex bl::rc::Scene::objectMutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00116">116</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa1271be3423fb2fa15441b6bb85edbb7" name="aa1271be3423fb2fa15441b6bb85edbb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1271be3423fb2fa15441b6bb85edbb7">&#9670;&#160;</a></span>renderer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04346.html">Renderer</a>&amp; bl::rc::Scene::renderer</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01127_source.html#l00115">115</a> of file <a class="el" href="a01127_source.html">Scene.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02633_source.html#l00033">33</a> of file <a class="el" href="a02633_source.html">GhostWriter.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Scenes/<a class="el" href="a01127_source.html">Scene.hpp</a></li>
-<li>src/Render/Scenes/<a class="el" href="a02141_source.html">Scene.cpp</a></li>
+<li>include/BLIB/Interfaces/Utilities/<a class="el" href="a01310_source.html">GhostWriter.hpp</a></li>
+<li>src/Interfaces/Utilities/<a class="el" href="a02633_source.html">GhostWriter.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

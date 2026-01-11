@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::tfr::TextureExporter Class Reference</title>
+<title>BLIB: bl::mdl::MaterialSet Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,147 +74,184 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02466.html">tfr</a></li><li class="navelem"><a class="el" href="a04502.html">TextureExporter</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04502.html">MaterialSet</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a04499.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::tfr::TextureExporter Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::mdl::MaterialSet Class Reference<div class="ingroups"><a class="el" href="a02976.html">Models</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Export manager that handles copying device local images to host visible buffers.  
+<p>Contains the set of materials in a model.  
  <a href="a04502.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01118_source.html">TextureExporter.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01415_source.html">MaterialSet.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac9c08543164c70a29a6515002be1d014" id="r_ac9c08543164c70a29a6515002be1d014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04498.html">TextureExport</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#ac9c08543164c70a29a6515002be1d014">exportSwapImage</a> ()</td></tr>
-<tr class="memdesc:ac9c08543164c70a29a6515002be1d014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues a transfer of the swap frame output for the end of the current frame.  <br /></td></tr>
-<tr class="separator:ac9c08543164c70a29a6515002be1d014"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a605328d7e7a7f724ca73bd9028353a7d" id="r_a605328d7e7a7f724ca73bd9028353a7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04498.html">TextureExport</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#a605328d7e7a7f724ca73bd9028353a7d">exportTexture</a> (const <a class="el" href="a04402.html">res::TextureRef</a> &amp;texture)</td></tr>
-<tr class="memdesc:a605328d7e7a7f724ca73bd9028353a7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues a transfer of a texture for the end of the current frame.  <br /></td></tr>
-<tr class="separator:a605328d7e7a7f724ca73bd9028353a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a30b0c455034f8cfc9f5da2c6355d94a5" id="r_a30b0c455034f8cfc9f5da2c6355d94a5"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#a30b0c455034f8cfc9f5da2c6355d94a5">TextureExport</a></td></tr>
-<tr class="separator:a30b0c455034f8cfc9f5da2c6355d94a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2cc13185ddec619c41d90af5e836399" id="r_aa2cc13185ddec619c41d90af5e836399"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#aa2cc13185ddec619c41d90af5e836399">::bl::rc::Renderer</a></td></tr>
-<tr class="separator:aa2cc13185ddec619c41d90af5e836399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd733779ce23f71f9283fa45fade7033" id="r_abd733779ce23f71f9283fa45fade7033"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#abd733779ce23f71f9283fa45fade7033">MaterialSet</a> ()=default</td></tr>
+<tr class="memdesc:abd733779ce23f71f9283fa45fade7033"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty material set.  <br /></td></tr>
+<tr class="separator:abd733779ce23f71f9283fa45fade7033"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4454563b681e379401e952a01b80db41" id="r_a4454563b681e379401e952a01b80db41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#a4454563b681e379401e952a01b80db41">populate</a> (const aiScene *scene, const std::string &amp;modelPath)</td></tr>
+<tr class="memdesc:a4454563b681e379401e952a01b80db41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the material set from the given model.  <br /></td></tr>
+<tr class="separator:a4454563b681e379401e952a01b80db41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a796c6ff8d1e3bbae951f180e6e8fdd45" id="r_a796c6ff8d1e3bbae951f180e6e8fdd45"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04494.html">Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#a796c6ff8d1e3bbae951f180e6e8fdd45">getMaterial</a> (unsigned int i) const</td></tr>
+<tr class="memdesc:a796c6ff8d1e3bbae951f180e6e8fdd45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the material with the given index.  <br /></td></tr>
+<tr class="separator:a796c6ff8d1e3bbae951f180e6e8fdd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59d33bcef1d4eb3a6db4845182d2747b" id="r_a59d33bcef1d4eb3a6db4845182d2747b"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04502.html#a59d33bcef1d4eb3a6db4845182d2747b">numMaterials</a> () const</td></tr>
+<tr class="memdesc:a59d33bcef1d4eb3a6db4845182d2747b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of materials in the set.  <br /></td></tr>
+<tr class="separator:a59d33bcef1d4eb3a6db4845182d2747b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Export manager that handles copying device local images to host visible buffers. </p>
+<div class="textblock"><p>Contains the set of materials in a model. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01118_source.html#l00022">22</a> of file <a class="el" href="a01118_source.html">TextureExporter.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac9c08543164c70a29a6515002be1d014" name="ac9c08543164c70a29a6515002be1d014"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9c08543164c70a29a6515002be1d014">&#9670;&#160;</a></span>exportSwapImage()</h2>
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00018">18</a> of file <a class="el" href="a01415_source.html">MaterialSet.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abd733779ce23f71f9283fa45fade7033" name="abd733779ce23f71f9283fa45fade7033"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd733779ce23f71f9283fa45fade7033">&#9670;&#160;</a></span>MaterialSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04498.html">TextureExport</a> * bl::rc::tfr::TextureExporter::exportSwapImage </td>
+          <td class="memname">bl::mdl::MaterialSet::MaterialSet </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Queues a transfer of the swap frame output for the end of the current frame. </p>
-<dl class="section return"><dt>Returns</dt><dd>An export object pointer that can be awaited </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02132_source.html#l00057">57</a> of file <a class="el" href="a02132_source.html">TextureExporter.cpp</a>.</p>
+<p>Creates an empty material set. </p>
 
 </div>
 </div>
-<a id="a605328d7e7a7f724ca73bd9028353a7d" name="a605328d7e7a7f724ca73bd9028353a7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a605328d7e7a7f724ca73bd9028353a7d">&#9670;&#160;</a></span>exportTexture()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a796c6ff8d1e3bbae951f180e6e8fdd45" name="a796c6ff8d1e3bbae951f180e6e8fdd45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a796c6ff8d1e3bbae951f180e6e8fdd45">&#9670;&#160;</a></span>getMaterial()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04498.html">TextureExport</a> * bl::rc::tfr::TextureExporter::exportTexture </td>
+          <td class="memname">const <a class="el" href="a04494.html">Material</a> &amp; bl::mdl::MaterialSet::getMaterial </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04402.html">res::TextureRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the material with the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index of the materials to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The material at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00039">39</a> of file <a class="el" href="a01415_source.html">MaterialSet.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a59d33bcef1d4eb3a6db4845182d2747b" name="a59d33bcef1d4eb3a6db4845182d2747b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59d33bcef1d4eb3a6db4845182d2747b">&#9670;&#160;</a></span>numMaterials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::mdl::MaterialSet::numMaterials </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of materials in the set. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00044">44</a> of file <a class="el" href="a01415_source.html">MaterialSet.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4454563b681e379401e952a01b80db41" name="a4454563b681e379401e952a01b80db41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4454563b681e379401e952a01b80db41">&#9670;&#160;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::mdl::MaterialSet::populate </td>
+          <td>(</td>
+          <td class="paramtype">const aiScene *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>modelPath</em>&#160;</td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Queues a transfer of a texture for the end of the current frame. </p>
-<dl class="section return"><dt>Returns</dt><dd>An export object pointer that can be awaited </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02132_source.html#l00072">72</a> of file <a class="el" href="a02132_source.html">TextureExporter.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="aa2cc13185ddec619c41d90af5e836399" name="aa2cc13185ddec619c41d90af5e836399"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2cc13185ddec619c41d90af5e836399">&#9670;&#160;</a></span>::bl::rc::Renderer</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04346.html">::bl::rc::Renderer</a></td>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01118_source.html#l00051">51</a> of file <a class="el" href="a01118_source.html">TextureExporter.hpp</a>.</p>
+<p>Populates the material set from the given model. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The assimp scene to load from </td></tr>
+    <tr><td class="paramname">modelPath</td><td>The path the model was loaded from </td></tr>
+  </table>
+  </dd>
+</dl>
 
-</div>
-</div>
-<a id="a30b0c455034f8cfc9f5da2c6355d94a5" name="a30b0c455034f8cfc9f5da2c6355d94a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a30b0c455034f8cfc9f5da2c6355d94a5">&#9670;&#160;</a></span>TextureExport</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a04498.html">TextureExport</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01118_source.html#l00050">50</a> of file <a class="el" href="a01118_source.html">TextureExporter.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02708_source.html#l00009">9</a> of file <a class="el" href="a02708_source.html">MaterialSet.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Transfers/<a class="el" href="a01118_source.html">TextureExporter.hpp</a></li>
-<li>src/Render/Transfers/<a class="el" href="a02132_source.html">TextureExporter.cpp</a></li>
+<li>include/BLIB/Models/<a class="el" href="a01415_source.html">MaterialSet.hpp</a></li>
+<li>src/Models/<a class="el" href="a02708_source.html">MaterialSet.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

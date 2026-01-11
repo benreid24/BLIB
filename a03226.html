@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gfx::a2d::AnimationData Class Reference</title>
+<title>BLIB: bl::cam::Camera Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,149 +74,500 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02414.html">gfx</a></li><li class="navelem"><a class="el" href="a02431.html">a2d</a></li><li class="navelem"><a class="el" href="a03226.html">AnimationData</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a02998.html">cam</a></li><li class="navelem"><a class="el" href="a03226.html">Camera</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03223.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gfx::a2d::AnimationData Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::cam::Camera Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02965.html">Cameras</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data class for 2d animations. Provides the backing for slideshows and skeletal animations. Multiple <a class="el" href="a03226.html" title="Data class for 2d animations. Provides the backing for slideshows and skeletal animations....">AnimationData</a> objects can be combined to create a stateful animation.  
+<p>Base class for all cameras.  
  <a href="a03226.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00965_source.html">AnimationData.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00230_source.html">Camera.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::cam::Camera:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03226.png" usemap="#bl::cam::Camera_map" alt=""/>
+  <map id="bl::cam::Camera_map" name="bl::cam::Camera_map">
+<area href="a03190.html" title="Camera for 2d scenes." alt="bl::cam::Camera2D" shape="rect" coords="0,56,147,80"/>
+<area href="a03210.html" title="Camera for 3d scenes." alt="bl::cam::Camera3D" shape="rect" coords="157,56,304,80"/>
+<area href="a03230.html" title="Special camera that provides a fixed view for overlays." alt="bl::cam::OverlayCamera" shape="rect" coords="314,56,461,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03230.html">Frame</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing a single frame within an animation.  <a href="a03230.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1bd859349429077e2de1979d15c1ade2" id="r_a1bd859349429077e2de1979d15c1ade2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a1bd859349429077e2de1979d15c1ade2">AnimationData</a> ()</td></tr>
-<tr class="memdesc:a1bd859349429077e2de1979d15c1ade2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create empty <a class="el" href="a03226.html" title="Data class for 2d animations. Provides the backing for slideshows and skeletal animations....">AnimationData</a> to be loaded later.  <br /></td></tr>
-<tr class="separator:a1bd859349429077e2de1979d15c1ade2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a356a9325b334b17c7737660af38d1fd2" id="r_a356a9325b334b17c7737660af38d1fd2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a356a9325b334b17c7737660af38d1fd2">loadFromFile</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a356a9325b334b17c7737660af38d1fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the animation from the given file, overwriting internal data Spritesheets are searched for in the same directory as the file. If not found then <a class="el" href="a03042.html#a16ccc4c43de9ec4c519772ad476e2671" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used.  <br /></td></tr>
-<tr class="separator:a356a9325b334b17c7737660af38d1fd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a649a534c5017ee0df847c56712b43ff4" id="r_a649a534c5017ee0df847c56712b43ff4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a649a534c5017ee0df847c56712b43ff4">loadFromFileForBundling</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a649a534c5017ee0df847c56712b43ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so that it may be directly added to the bundle.  <br /></td></tr>
-<tr class="separator:a649a534c5017ee0df847c56712b43ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aef7ec2981c8f70da4ad9dd2686c836" id="r_a7aef7ec2981c8f70da4ad9dd2686c836"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a7aef7ec2981c8f70da4ad9dd2686c836">saveToBundle</a> (std::ostream &amp;output) const</td></tr>
-<tr class="memdesc:a7aef7ec2981c8f70da4ad9dd2686c836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the animation data to the bundle.  <br /></td></tr>
-<tr class="separator:a7aef7ec2981c8f70da4ad9dd2686c836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3a6f3c9ce23f73a743b47a150e64308" id="r_ac3a6f3c9ce23f73a743b47a150e64308"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#ac3a6f3c9ce23f73a743b47a150e64308">loadFromMemory</a> (const char *<a class="el" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, const std::string &amp;originalPath)</td></tr>
-<tr class="memdesc:ac3a6f3c9ce23f73a743b47a150e64308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the <a class="el" href="a03226.html" title="Data class for 2d animations. Provides the backing for slideshows and skeletal animations....">AnimationData</a> from the given file. Spritesheets are searched for in the same directory as the animation file. If not found then <a class="el" href="a03042.html#a16ccc4c43de9ec4c519772ad476e2671" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used.  <br /></td></tr>
-<tr class="separator:ac3a6f3c9ce23f73a743b47a150e64308"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a607d12f4ec60fe3da673878856f380ff" id="r_a607d12f4ec60fe3da673878856f380ff"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a607d12f4ec60fe3da673878856f380ff">spritesheetFile</a> () const</td></tr>
-<tr class="memdesc:a607d12f4ec60fe3da673878856f380ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the filename of the spritesheet.  <br /></td></tr>
-<tr class="separator:a607d12f4ec60fe3da673878856f380ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b9f282d3cecce25ccb4d6338d3311b0" id="r_a8b9f282d3cecce25ccb4d6338d3311b0"><td class="memItemLeft" align="right" valign="top">constexpr const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a8b9f282d3cecce25ccb4d6338d3311b0">resolvedSpritesheet</a> () const</td></tr>
-<tr class="memdesc:a8b9f282d3cecce25ccb4d6338d3311b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resolved spritesheet path.  <br /></td></tr>
-<tr class="separator:a8b9f282d3cecce25ccb4d6338d3311b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67055981dacefb22a9757e0fe48a639c" id="r_a67055981dacefb22a9757e0fe48a639c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a67055981dacefb22a9757e0fe48a639c">isLooping</a> () const</td></tr>
-<tr class="memdesc:a67055981dacefb22a9757e0fe48a639c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns if the animation is set to loop on end. Can be overridden in Animation.  <br /></td></tr>
-<tr class="separator:a67055981dacefb22a9757e0fe48a639c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af460124df96bf0fd53c08cbc2f7be720" id="r_af460124df96bf0fd53c08cbc2f7be720"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#af460124df96bf0fd53c08cbc2f7be720">getLength</a> () const</td></tr>
-<tr class="memdesc:af460124df96bf0fd53c08cbc2f7be720"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total length of the animation in seconds.  <br /></td></tr>
-<tr class="separator:af460124df96bf0fd53c08cbc2f7be720"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbbeda74b85b2b62551eb001607fc642" id="r_abbbeda74b85b2b62551eb001607fc642"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#abbbeda74b85b2b62551eb001607fc642">frameCount</a> () const</td></tr>
-<tr class="memdesc:abbbeda74b85b2b62551eb001607fc642"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of frames in the animation.  <br /></td></tr>
-<tr class="separator:abbbeda74b85b2b62551eb001607fc642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad400fb648c2c1e0b45e5c7355f3123b1" id="r_ad400fb648c2c1e0b45e5c7355f3123b1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03230.html">Frame</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#ad400fb648c2c1e0b45e5c7355f3123b1">getFrame</a> (std::size_t frameIndex) const</td></tr>
-<tr class="memdesc:ad400fb648c2c1e0b45e5c7355f3123b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch a specific frame within the animation.  <br /></td></tr>
-<tr class="separator:ad400fb648c2c1e0b45e5c7355f3123b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fe68feab562b4ecab8cc815bb850a7f" id="r_a5fe68feab562b4ecab8cc815bb850a7f"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a5fe68feab562b4ecab8cc815bb850a7f">getFrameSize</a> (std::size_t frameIndex) const</td></tr>
-<tr class="memdesc:a5fe68feab562b4ecab8cc815bb850a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width and height of the given frame.  <br /></td></tr>
-<tr class="separator:a5fe68feab562b4ecab8cc815bb850a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9236956ed460a17cafca62141b32497d" id="r_a9236956ed460a17cafca62141b32497d"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a9236956ed460a17cafca62141b32497d">getMaxSize</a> () const</td></tr>
-<tr class="memdesc:a9236956ed460a17cafca62141b32497d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the largest frame.  <br /></td></tr>
-<tr class="separator:a9236956ed460a17cafca62141b32497d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48ad62048db09bd724e2d1f14e56b86a" id="r_a48ad62048db09bd724e2d1f14e56b86a"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a48ad62048db09bd724e2d1f14e56b86a">getNextFrame</a> (std::size_t currentFrame) const</td></tr>
-<tr class="memdesc:a48ad62048db09bd724e2d1f14e56b86a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the next frame from the current frame.  <br /></td></tr>
-<tr class="separator:a48ad62048db09bd724e2d1f14e56b86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac894f27cdfded620b25ca118709947d6" id="r_ac894f27cdfded620b25ca118709947d6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#ac894f27cdfded620b25ca118709947d6">getFrameLength</a> (std::size_t frameIndex)</td></tr>
-<tr class="memdesc:ac894f27cdfded620b25ca118709947d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the length of the given frame in seconds.  <br /></td></tr>
-<tr class="separator:ac894f27cdfded620b25ca118709947d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22c8cc9f6ba0e1283815d514e5728898" id="r_a22c8cc9f6ba0e1283815d514e5728898"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a22c8cc9f6ba0e1283815d514e5728898">prepareForStates</a> (std::size_t stateCount)</td></tr>
-<tr class="memdesc:a22c8cc9f6ba0e1283815d514e5728898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares this animation to be a combination of animations for various possible entity states.  <br /></td></tr>
-<tr class="separator:a22c8cc9f6ba0e1283815d514e5728898"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cd634cb0b1f335b19b3352a70ea796a" id="r_a9cd634cb0b1f335b19b3352a70ea796a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a9cd634cb0b1f335b19b3352a70ea796a">addState</a> (std::size_t stateIndex, const <a class="el" href="a03226.html">AnimationData</a> &amp;stateAnim, bool enforceSlideshow=true)</td></tr>
-<tr class="memdesc:a9cd634cb0b1f335b19b3352a70ea796a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines the stateAnim into this one and updates the next frame lookups. May fail if the animation is not compatible with this one. Compatible animations have the same number of shards per frame. Same spritesheet must also be used. State 0 is always this base animation.  <br /></td></tr>
-<tr class="separator:a9cd634cb0b1f335b19b3352a70ea796a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa609b43daebf969a21aa978dac20e6a4" id="r_aa609b43daebf969a21aa978dac20e6a4"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#aa609b43daebf969a21aa978dac20e6a4">getFrameForState</a> (std::size_t stateIndex)</td></tr>
-<tr class="memdesc:aa609b43daebf969a21aa978dac20e6a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the starting frame for the given state.  <br /></td></tr>
-<tr class="separator:aa609b43daebf969a21aa978dac20e6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04c27fbb27b7c04c99c7e6236d206d54" id="r_a04c27fbb27b7c04c99c7e6236d206d54"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a04c27fbb27b7c04c99c7e6236d206d54">getStateFromFrame</a> (std::size_t frameIndex) const</td></tr>
-<tr class="memdesc:a04c27fbb27b7c04c99c7e6236d206d54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the state index for the given frame. Even animations with no states added have an implicit 0 state.  <br /></td></tr>
-<tr class="separator:a04c27fbb27b7c04c99c7e6236d206d54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3295113748bc5bd9ec2e3e3480320ba" id="r_af3295113748bc5bd9ec2e3e3480320ba"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#af3295113748bc5bd9ec2e3e3480320ba">isSlideshow</a> () const</td></tr>
-<tr class="memdesc:af3295113748bc5bd9ec2e3e3480320ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the animation is a slideshow.  <br /></td></tr>
-<tr class="separator:af3295113748bc5bd9ec2e3e3480320ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a481505ec0cc57d57820188da78063994" id="r_a481505ec0cc57d57820188da78063994"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a481505ec0cc57d57820188da78063994">shardsAreCentered</a> () const</td></tr>
-<tr class="memdesc:a481505ec0cc57d57820188da78063994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not shards should be centered.  <br /></td></tr>
-<tr class="separator:a481505ec0cc57d57820188da78063994"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbf9af00b4ce33e90819b0ea42fa9073" id="r_acbf9af00b4ce33e90819b0ea42fa9073"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#acbf9af00b4ce33e90819b0ea42fa9073">debugInitialize</a> (const std::string &amp;spritesheet, std::vector&lt; <a class="el" href="a03230.html">Frame</a> &gt; &amp;&amp;frames, bool loop, bool centerShards=false)</td></tr>
-<tr class="memdesc:acbf9af00b4ce33e90819b0ea42fa9073"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the animation frames directly.  <br /></td></tr>
-<tr class="separator:acbf9af00b4ce33e90819b0ea42fa9073"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a434913b782c5325363c947a70959f3c9" id="r_a434913b782c5325363c947a70959f3c9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a434913b782c5325363c947a70959f3c9">~Camera</a> ()=default</td></tr>
+<tr class="memdesc:a434913b782c5325363c947a70959f3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a03226.html" title="Base class for all cameras.">Camera</a> object.  <br /></td></tr>
+<tr class="separator:a434913b782c5325363c947a70959f3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcc126b9a6540652fe62605674fcd190" id="r_afcc126b9a6540652fe62605674fcd190"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#afcc126b9a6540652fe62605674fcd190">update</a> (float dt)=0</td></tr>
+<tr class="memdesc:afcc126b9a6540652fe62605674fcd190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the camera.  <br /></td></tr>
+<tr class="separator:afcc126b9a6540652fe62605674fcd190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7d175dedf0a83d5acb4abdd7931109f" id="r_aa7d175dedf0a83d5acb4abdd7931109f"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#aa7d175dedf0a83d5acb4abdd7931109f">getViewMatrix</a> ()</td></tr>
+<tr class="memdesc:aa7d175dedf0a83d5acb4abdd7931109f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the view matrix of this camera.  <br /></td></tr>
+<tr class="separator:aa7d175dedf0a83d5acb4abdd7931109f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf354685b1d274c379fe085076fa4051" id="r_acf354685b1d274c379fe085076fa4051"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#acf354685b1d274c379fe085076fa4051">getProjectionMatrix</a> (const VkViewport &amp;viewport)</td></tr>
+<tr class="memdesc:acf354685b1d274c379fe085076fa4051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix of this camera for the given viewport.  <br /></td></tr>
+<tr class="separator:acf354685b1d274c379fe085076fa4051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a395d70678534a5f5b6495bbb5c832598" id="r_a395d70678534a5f5b6495bbb5c832598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a395d70678534a5f5b6495bbb5c832598">setNearPlane</a> (float nearValue)</td></tr>
+<tr class="memdesc:a395d70678534a5f5b6495bbb5c832598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the near plane distance.  <br /></td></tr>
+<tr class="separator:a395d70678534a5f5b6495bbb5c832598"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a5b4868ae35b77f52c2f878b18bcc59" id="r_a5a5b4868ae35b77f52c2f878b18bcc59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a5a5b4868ae35b77f52c2f878b18bcc59">setFarPlane</a> (float farValue)</td></tr>
+<tr class="memdesc:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the far plane distance.  <br /></td></tr>
+<tr class="separator:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60e436aa6a89793a9e3fd8c3b0378fbf" id="r_a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a> (float nearValue, float farValue)</td></tr>
+<tr class="memdesc:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the distance to the near and far planes.  <br /></td></tr>
+<tr class="separator:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd51f430037b1527bd8f6be0c2ba91b" id="r_a3cd51f430037b1527bd8f6be0c2ba91b"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a3cd51f430037b1527bd8f6be0c2ba91b">getViewerSize</a> () const =0</td></tr>
+<tr class="memdesc:a3cd51f430037b1527bd8f6be0c2ba91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the rendered pane in camera units. Used by the particle system to scale particles based on window size.  <br /></td></tr>
+<tr class="separator:a3cd51f430037b1527bd8f6be0c2ba91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3831a9c4f8624e383dd7ae143d83452" id="r_af3831a9c4f8624e383dd7ae143d83452"><td class="memItemLeft" align="right" valign="top">virtual glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#af3831a9c4f8624e383dd7ae143d83452">getObserverPosition</a> () const =0</td></tr>
+<tr class="memdesc:af3831a9c4f8624e383dd7ae143d83452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position that the camera is observing from.  <br /></td></tr>
+<tr class="separator:af3831a9c4f8624e383dd7ae143d83452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a371f8cb60ba6a690287f556a91163fa8" id="r_a371f8cb60ba6a690287f556a91163fa8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a371f8cb60ba6a690287f556a91163fa8">Camera</a> ()</td></tr>
+<tr class="memdesc:a371f8cb60ba6a690287f556a91163fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a03226.html" title="Base class for all cameras.">Camera</a>.  <br /></td></tr>
+<tr class="separator:a371f8cb60ba6a690287f556a91163fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a194c42e28c9bc4558095265ca862e761" id="r_a194c42e28c9bc4558095265ca862e761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a> ()</td></tr>
+<tr class="memdesc:a194c42e28c9bc4558095265ca862e761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the view matrix as needing to be refreshed on next use.  <br /></td></tr>
+<tr class="separator:a194c42e28c9bc4558095265ca862e761"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db0b22739ed85a8dc29ec7082d04640" id="r_a8db0b22739ed85a8dc29ec7082d04640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a> ()</td></tr>
+<tr class="memdesc:a8db0b22739ed85a8dc29ec7082d04640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the projection matrix as needing to be refreshed on next use.  <br /></td></tr>
+<tr class="separator:a8db0b22739ed85a8dc29ec7082d04640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad997afe84942385e1fc059ad44d59782" id="r_ad997afe84942385e1fc059ad44d59782"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a> (glm::mat4 &amp;view)=0</td></tr>
+<tr class="memdesc:ad997afe84942385e1fc059ad44d59782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the view matrix needs to be refreshed.  <br /></td></tr>
+<tr class="separator:ad997afe84942385e1fc059ad44d59782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad84589ac3d7c29b7ef31ba89729c4860" id="r_ad84589ac3d7c29b7ef31ba89729c4860"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a> (glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</td></tr>
+<tr class="memdesc:ad84589ac3d7c29b7ef31ba89729c4860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the projection matrix needs to be refreshed.  <br /></td></tr>
+<tr class="separator:ad84589ac3d7c29b7ef31ba89729c4860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c66151fa1d297f82526d18b38836c2f" id="r_a9c66151fa1d297f82526d18b38836c2f"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a9c66151fa1d297f82526d18b38836c2f">nearPlane</a> () const</td></tr>
+<tr class="memdesc:a9c66151fa1d297f82526d18b38836c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance to the near plane.  <br /></td></tr>
+<tr class="separator:a9c66151fa1d297f82526d18b38836c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e2441211f24e3d0c682ea3ecfe1b168" id="r_a8e2441211f24e3d0c682ea3ecfe1b168"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03226.html#a8e2441211f24e3d0c682ea3ecfe1b168">farPlane</a> () const</td></tr>
+<tr class="memdesc:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance to the far plane.  <br /></td></tr>
+<tr class="separator:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data class for 2d animations. Provides the backing for slideshows and skeletal animations. Multiple <a class="el" href="a03226.html" title="Data class for 2d animations. Provides the backing for slideshows and skeletal animations....">AnimationData</a> objects can be combined to create a stateful animation. </p>
-<dl class="section see"><dt>See also</dt><dd>Animation </dd></dl>
+<div class="textblock"><p>Base class for all cameras. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00022">22</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00230_source.html#l00017">17</a> of file <a class="el" href="a00230_source.html">Camera.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1bd859349429077e2de1979d15c1ade2" name="a1bd859349429077e2de1979d15c1ade2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bd859349429077e2de1979d15c1ade2">&#9670;&#160;</a></span>AnimationData()</h2>
+<a id="a434913b782c5325363c947a70959f3c9" name="a434913b782c5325363c947a70959f3c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a434913b782c5325363c947a70959f3c9">&#9670;&#160;</a></span>~Camera()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gfx::a2d::AnimationData::AnimationData </td>
+          <td class="memname">virtual bl::cam::Camera::~Camera </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Create empty <a class="el" href="a03226.html" title="Data class for 2d animations. Provides the backing for slideshows and skeletal animations....">AnimationData</a> to be loaded later. </p>
+<p>Destroy the <a class="el" href="a03226.html" title="Base class for all cameras.">Camera</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00068">68</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
+</div>
+</div>
+<a id="a371f8cb60ba6a690287f556a91163fa8" name="a371f8cb60ba6a690287f556a91163fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371f8cb60ba6a690287f556a91163fa8">&#9670;&#160;</a></span>Camera()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::cam::Camera::Camera </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a03226.html" title="Base class for all cameras.">Camera</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00009">9</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9cd634cb0b1f335b19b3352a70ea796a" name="a9cd634cb0b1f335b19b3352a70ea796a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cd634cb0b1f335b19b3352a70ea796a">&#9670;&#160;</a></span>addState()</h2>
+<a id="a8e2441211f24e3d0c682ea3ecfe1b168" name="a8e2441211f24e3d0c682ea3ecfe1b168"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e2441211f24e3d0c682ea3ecfe1b168">&#9670;&#160;</a></span>farPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float bl::cam::Camera::farPlane </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the distance to the far plane. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00230_source.html#l00132">132</a> of file <a class="el" href="a00230_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af3831a9c4f8624e383dd7ae143d83452" name="af3831a9c4f8624e383dd7ae143d83452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3831a9c4f8624e383dd7ae143d83452">&#9670;&#160;</a></span>getObserverPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual glm::vec3 bl::cam::Camera::getObserverPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the position that the camera is observing from. </p>
+
+<p>Implemented in <a class="el" href="a03190.html#a88d1cfd5a93cc007a3959b24b338ff6a">bl::cam::Camera2D</a>, <a class="el" href="a03210.html#abf70ddc279e984a6c35ad9e292273778">bl::cam::Camera3D</a>, and <a class="el" href="a03230.html#a223705641443e996c3e42154527092e0">bl::cam::OverlayCamera</a>.</p>
+
+</div>
+</div>
+<a id="acf354685b1d274c379fe085076fa4051" name="acf354685b1d274c379fe085076fa4051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf354685b1d274c379fe085076fa4051">&#9670;&#160;</a></span>getProjectionMatrix()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::addState </td>
+          <td class="memname">const glm::mat4 &amp; bl::cam::Camera::getProjectionMatrix </td>
           <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>stateIndex</em>, </td>
+          <td class="paramtype">const VkViewport &amp;&#160;</td>
+          <td class="paramname"><em>viewport</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the projection matrix of this camera for the given viewport. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">viewport</td><td>The viewport to project to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The projection matrix to use </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00043">43</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3cd51f430037b1527bd8f6be0c2ba91b" name="a3cd51f430037b1527bd8f6be0c2ba91b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd51f430037b1527bd8f6be0c2ba91b">&#9670;&#160;</a></span>getViewerSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual glm::vec2 bl::cam::Camera::getViewerSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the size of the rendered pane in camera units. Used by the particle system to scale particles based on window size. </p>
+
+<p>Implemented in <a class="el" href="a03190.html#aebdabda0114b8bf56e8590e30a4cf53a">bl::cam::Camera2D</a>, <a class="el" href="a03210.html#ae9561ec16a55f170d612de4c0ff75ff6">bl::cam::Camera3D</a>, and <a class="el" href="a03230.html#ab4604b5619a5ccd968abf6242668517b">bl::cam::OverlayCamera</a>.</p>
+
+</div>
+</div>
+<a id="aa7d175dedf0a83d5acb4abdd7931109f" name="aa7d175dedf0a83d5acb4abdd7931109f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7d175dedf0a83d5acb4abdd7931109f">&#9670;&#160;</a></span>getViewMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::mat4 &amp; bl::cam::Camera::getViewMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the view matrix of this camera. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00035">35</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8db0b22739ed85a8dc29ec7082d04640" name="a8db0b22739ed85a8dc29ec7082d04640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db0b22739ed85a8dc29ec7082d04640">&#9670;&#160;</a></span>markProjDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::markProjDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks the projection matrix as needing to be refreshed on next use. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00055">55</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a194c42e28c9bc4558095265ca862e761" name="a194c42e28c9bc4558095265ca862e761"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194c42e28c9bc4558095265ca862e761">&#9670;&#160;</a></span>markViewDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::markViewDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mark the view matrix as needing to be refreshed on next use. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00053">53</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c66151fa1d297f82526d18b38836c2f" name="a9c66151fa1d297f82526d18b38836c2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c66151fa1d297f82526d18b38836c2f">&#9670;&#160;</a></span>nearPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float bl::cam::Camera::nearPlane </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the distance to the near plane. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00230_source.html#l00130">130</a> of file <a class="el" href="a00230_source.html">Camera.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad84589ac3d7c29b7ef31ba89729c4860" name="ad84589ac3d7c29b7ef31ba89729c4860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad84589ac3d7c29b7ef31ba89729c4860">&#9670;&#160;</a></span>refreshProjMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::cam::Camera::refreshProjMatrix </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>proj</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a03226.html">AnimationData</a> &amp;&#160;</td>
-          <td class="paramname"><em>stateAnim</em>, </td>
+          <td class="paramtype">const VkViewport &amp;&#160;</td>
+          <td class="paramname"><em>viewport</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the projection matrix needs to be refreshed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proj</td><td>Reference to the matrix to populate </td></tr>
+    <tr><td class="paramname">viewport</td><td>The viewport to project to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad997afe84942385e1fc059ad44d59782" name="ad997afe84942385e1fc059ad44d59782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad997afe84942385e1fc059ad44d59782">&#9670;&#160;</a></span>refreshViewMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::cam::Camera::refreshViewMatrix </td>
+          <td>(</td>
+          <td class="paramtype">glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>view</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the view matrix needs to be refreshed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">view</td><td>Reference to the matrix to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5a5b4868ae35b77f52c2f878b18bcc59" name="a5a5b4868ae35b77f52c2f878b18bcc59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5b4868ae35b77f52c2f878b18bcc59">&#9670;&#160;</a></span>setFarPlane()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::setFarPlane </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>farValue</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the far plane distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">far</td><td>The far plane distance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00024">24</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a60e436aa6a89793a9e3fd8c3b0378fbf" name="a60e436aa6a89793a9e3fd8c3b0378fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60e436aa6a89793a9e3fd8c3b0378fbf">&#9670;&#160;</a></span>setNearAndFarPlanes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::cam::Camera::setNearAndFarPlanes </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nearValue</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>enforceSlideshow</em> = <code>true</code>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>farValue</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -226,76 +577,49 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Combines the stateAnim into this one and updates the next frame lookups. May fail if the animation is not compatible with this one. Compatible animations have the same number of shards per frame. Same spritesheet must also be used. State 0 is always this base animation. </p>
+<p>Sets the distance to the near and far planes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stateIndex</td><td>The 0-based index of the state that the given animation is for </td></tr>
-    <tr><td class="paramname">stateAnim</td><td>The animation to combine into this one </td></tr>
-    <tr><td class="paramname">enforceSlideshow</td><td>True to also validate that slideshow status is the same or better </td></tr>
+    <tr><td class="paramname">near</td><td>Distance to the near plane </td></tr>
+    <tr><td class="paramname">far</td><td>Distance to the far plane </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the animation could be combined, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00268">268</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00029">29</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acbf9af00b4ce33e90819b0ea42fa9073" name="acbf9af00b4ce33e90819b0ea42fa9073"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbf9af00b4ce33e90819b0ea42fa9073">&#9670;&#160;</a></span>debugInitialize()</h2>
+<a id="a395d70678534a5f5b6495bbb5c832598" name="a395d70678534a5f5b6495bbb5c832598"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a395d70678534a5f5b6495bbb5c832598">&#9670;&#160;</a></span>setNearPlane()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gfx::a2d::AnimationData::debugInitialize </td>
+          <td class="memname">void bl::cam::Camera::setNearPlane </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>spritesheet</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>nearValue</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a03230.html">Frame</a> &gt; &amp;&amp;&#160;</td>
-          <td class="paramname"><em>frames</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>loop</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>centerShards</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the animation frames directly. </p>
+<p>Sets the near plane distance. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">spritesheet</td><td>The spritesheet path to use. Performs no resolution </td></tr>
-    <tr><td class="paramname">frames</td><td>The frames of the animation </td></tr>
-    <tr><td class="paramname">loop</td><td>Whether to loop the animation </td></tr>
-    <tr><td class="paramname">centerShards</td><td>Whether to center the shards before transforming </td></tr>
+    <tr><td class="paramname">near</td><td>The near plane distance </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00326">326</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02009_source.html#l00019">19</a> of file <a class="el" href="a02009_source.html">Camera.cpp</a>.</p>
 
 </div>
 </div>
-<a id="abbbeda74b85b2b62551eb001607fc642" name="abbbeda74b85b2b62551eb001607fc642"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbbeda74b85b2b62551eb001607fc642">&#9670;&#160;</a></span>frameCount()</h2>
+<a id="afcc126b9a6540652fe62605674fcd190" name="afcc126b9a6540652fe62605674fcd190"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcc126b9a6540652fe62605674fcd190">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,582 +628,41 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t bl::gfx::a2d::AnimationData::frameCount </td>
+          <td class="memname">virtual void bl::cam::Camera::update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of frames in the animation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00242">242</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad400fb648c2c1e0b45e5c7355f3123b1" name="ad400fb648c2c1e0b45e5c7355f3123b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad400fb648c2c1e0b45e5c7355f3123b1">&#9670;&#160;</a></span>getFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a03230.html">AnimationData::Frame</a> &amp; bl::gfx::a2d::AnimationData::getFrame </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>frameIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Fetch a specific frame within the animation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">frameIndex</td><td>The frame index to fetch </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the given frame </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00244">244</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa609b43daebf969a21aa978dac20e6a4" name="aa609b43daebf969a21aa978dac20e6a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa609b43daebf969a21aa978dac20e6a4">&#9670;&#160;</a></span>getFrameForState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t bl::gfx::a2d::AnimationData::getFrameForState </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>stateIndex</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the starting frame for the given state. </p>
+<p>Updates the camera. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stateIndex</td><td>The 0-based index of the state to get the frame index for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The frame index where the requested state animation begins </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00254">254</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac894f27cdfded620b25ca118709947d6" name="ac894f27cdfded620b25ca118709947d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac894f27cdfded620b25ca118709947d6">&#9670;&#160;</a></span>getFrameLength()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::a2d::AnimationData::getFrameLength </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>frameIndex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the length of the given frame in seconds. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">frameIndex</td><td>The frame to get the length of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The length of the frame in seconds </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00252">252</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5fe68feab562b4ecab8cc815bb850a7f" name="a5fe68feab562b4ecab8cc815bb850a7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fe68feab562b4ecab8cc815bb850a7f">&#9670;&#160;</a></span>getFrameSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const sf::Vector2f &amp; bl::gfx::a2d::AnimationData::getFrameSize </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>frameIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the width and height of the given frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">frameIndex</td><td>Index of the frame to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sf::Vector2f Size of the frame </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00256">256</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af460124df96bf0fd53c08cbc2f7be720" name="af460124df96bf0fd53c08cbc2f7be720"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af460124df96bf0fd53c08cbc2f7be720">&#9670;&#160;</a></span>getLength()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::a2d::AnimationData::getLength </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the total length of the animation in seconds. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00234">234</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9236956ed460a17cafca62141b32497d" name="a9236956ed460a17cafca62141b32497d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9236956ed460a17cafca62141b32497d">&#9670;&#160;</a></span>getMaxSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::gfx::a2d::AnimationData::getMaxSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the size of the largest frame. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00256">256</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a48ad62048db09bd724e2d1f14e56b86a" name="a48ad62048db09bd724e2d1f14e56b86a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48ad62048db09bd724e2d1f14e56b86a">&#9670;&#160;</a></span>getNextFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t bl::gfx::a2d::AnimationData::getNextFrame </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>currentFrame</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the index of the next frame from the current frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentFrame</td><td>The current frame </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The frame that comes after the current frame </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00248">248</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a04c27fbb27b7c04c99c7e6236d206d54" name="a04c27fbb27b7c04c99c7e6236d206d54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04c27fbb27b7c04c99c7e6236d206d54">&#9670;&#160;</a></span>getStateFromFrame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t bl::gfx::a2d::AnimationData::getStateFromFrame </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>frameIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the state index for the given frame. Even animations with no states added have an implicit 0 state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">frameIndex</td><td>The frame to get the state of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The state index for the given frame </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00318">318</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a67055981dacefb22a9757e0fe48a639c" name="a67055981dacefb22a9757e0fe48a639c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67055981dacefb22a9757e0fe48a639c">&#9670;&#160;</a></span>isLooping()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::isLooping </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns if the animation is set to loop on end. Can be overridden in Animation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00232">232</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af3295113748bc5bd9ec2e3e3480320ba" name="af3295113748bc5bd9ec2e3e3480320ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3295113748bc5bd9ec2e3e3480320ba">&#9670;&#160;</a></span>isSlideshow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::gfx::a2d::AnimationData::isSlideshow </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the animation is a slideshow. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00264">264</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a356a9325b334b17c7737660af38d1fd2" name="a356a9325b334b17c7737660af38d1fd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a356a9325b334b17c7737660af38d1fd2">&#9670;&#160;</a></span>loadFromFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::loadFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the animation from the given file, overwriting internal data Spritesheets are searched for in the same directory as the file. If not found then <a class="el" href="a03042.html#a16ccc4c43de9ec4c519772ad476e2671" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>The file to load from </td></tr>
-    <tr><td class="paramname">spritesheetDir</td><td>Optional additional directory to search for spritesheets </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if the animation could be loaded, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00074">74</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a649a534c5017ee0df847c56712b43ff4" name="a649a534c5017ee0df847c56712b43ff4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a649a534c5017ee0df847c56712b43ff4">&#9670;&#160;</a></span>loadFromFileForBundling()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::loadFromFileForBundling </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so that it may be directly added to the bundle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>Path to the animation to load </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the animation could be loaded, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00079">79</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac3a6f3c9ce23f73a743b47a150e64308" name="ac3a6f3c9ce23f73a743b47a150e64308"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3a6f3c9ce23f73a743b47a150e64308">&#9670;&#160;</a></span>loadFromMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::loadFromMemory </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>len</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>originalPath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the <a class="el" href="a03226.html" title="Data class for 2d animations. Provides the backing for slideshows and skeletal animations....">AnimationData</a> from the given file. Spritesheets are searched for in the same directory as the animation file. If not found then <a class="el" href="a03042.html#a16ccc4c43de9ec4c519772ad476e2671" title="Returns the stored value for the given configuration type and key. If the key does not exist or is a ...">engine::Configuration::get</a>("blib.animation.spritesheet_path") is used. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td>The memory buffer to load from </td></tr>
-    <tr><td class="paramname">len</td><td>Size of the buffer to load from </td></tr>
-    <tr><td class="paramname">originalPath</td><td>The original file path of the animation. Used to help locate spritesheet </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the animation could be loaded, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00112">112</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a22c8cc9f6ba0e1283815d514e5728898" name="a22c8cc9f6ba0e1283815d514e5728898"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22c8cc9f6ba0e1283815d514e5728898">&#9670;&#160;</a></span>prepareForStates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::a2d::AnimationData::prepareForStates </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>stateCount</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Prepares this animation to be a combination of animations for various possible entity states. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stateCount</td><td>The number of different states that will be added </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed since last call to update </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00266">266</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8b9f282d3cecce25ccb4d6338d3311b0" name="a8b9f282d3cecce25ccb4d6338d3311b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b9f282d3cecce25ccb4d6338d3311b0">&#9670;&#160;</a></span>resolvedSpritesheet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const std::string &amp; bl::gfx::a2d::AnimationData::resolvedSpritesheet </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the resolved spritesheet path. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00260">260</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7aef7ec2981c8f70da4ad9dd2686c836" name="a7aef7ec2981c8f70da4ad9dd2686c836"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7aef7ec2981c8f70da4ad9dd2686c836">&#9670;&#160;</a></span>saveToBundle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::saveToBundle </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Saves the animation data to the bundle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>The bundle to save to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the data was written, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00084">84</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a481505ec0cc57d57820188da78063994" name="a481505ec0cc57d57820188da78063994"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a481505ec0cc57d57820188da78063994">&#9670;&#160;</a></span>shardsAreCentered()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::gfx::a2d::AnimationData::shardsAreCentered </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not shards should be centered. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00266">266</a> of file <a class="el" href="a00965_source.html">AnimationData.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a607d12f4ec60fe3da673878856f380ff" name="a607d12f4ec60fe3da673878856f380ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a607d12f4ec60fe3da673878856f380ff">&#9670;&#160;</a></span>spritesheetFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; bl::gfx::a2d::AnimationData::spritesheetFile </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the filename of the spritesheet. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02069_source.html#l00230">230</a> of file <a class="el" href="a02069_source.html">AnimationData.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a03230.html#a402baa1503640cbf7478cda6bb232a19">bl::cam::OverlayCamera</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Graphics/Animation2D/<a class="el" href="a00965_source.html">AnimationData.hpp</a></li>
-<li>src/Graphics/Animation2D/<a class="el" href="a02069_source.html">AnimationData.cpp</a></li>
+<li>include/BLIB/Cameras/<a class="el" href="a00230_source.html">Camera.hpp</a></li>
+<li>src/Cameras/<a class="el" href="a02009_source.html">Camera.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

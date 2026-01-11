@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::buf::IndexBufferT&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::gfx::Sphere Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,199 +74,269 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02451.html">buf</a></li><li class="navelem"><a class="el" href="a03990.html">IndexBufferT</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03005.html">gfx</a></li><li class="navelem"><a class="el" href="a03990.html">Sphere</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03987.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::buf::IndexBufferT&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gfx::Sphere Class Reference<div class="ingroups"><a class="el" href="a02971.html">Graphics</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic index buffer class built on top of <a class="el" href="a04534.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data.  
+<p>Basic drawable for 3d spheres.  
  <a href="a03990.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01334_source.html">IndexBuffer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01616_source.html">Sphere.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::buf::IndexBufferT&lt; T &gt;:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gfx::Sphere:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a03990.png" usemap="#bl::rc::buf::IndexBufferT_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::rc::buf::IndexBufferT_3C_20T_20_3E_map" name="bl::rc::buf::IndexBufferT_3C_20T_20_3E_map">
-<area href="a04506.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE..." alt="bl::rc::tfr::Transferable" shape="rect" coords="0,0,173,24"/>
+  <img src="a03990.png" usemap="#bl::gfx::Sphere_map" alt=""/>
+  <map id="bl::gfx::Sphere_map" name="bl::gfx::Sphere_map">
+<area href="a03922.html" alt="bl::gfx::Drawable&lt; com::BasicMesh &gt;" shape="rect" coords="0,56,220,80"/>
+<area href="a03910.html" title="Base component class for Drawables that require a 3d transform." alt="bl::gfx::bcom::Transform3D" shape="rect" coords="230,56,450,80"/>
+<area href="a03894.html" title="Component that adds an outline to 3d objects when rendered." alt="bl::gfx::bcom::Outline3D" shape="rect" coords="460,56,680,80"/>
+<area href="a03550.html" title="Base class for ECS-backed objects. Useful for nice class interfaces while using ECS as backing for co..." alt="bl::ecs::EntityBacked" shape="rect" coords="0,0,220,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a109f9d7acc098649830f276c266b47d0" id="r_a109f9d7acc098649830f276c266b47d0"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> { <a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>
-, <a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a>
- }</td></tr>
-<tr class="memdesc:a109f9d7acc098649830f276c266b47d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum containing requirements for when transfers may start.  <a href="a04506.html#a109f9d7acc098649830f276c266b47d0">More...</a><br /></td></tr>
-<tr class="separator:a109f9d7acc098649830f276c266b47d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a15912a7adcce91cad59e05c70e116a40" id="r_a15912a7adcce91cad59e05c70e116a40"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a15912a7adcce91cad59e05c70e116a40">~IndexBufferT</a> ()</td></tr>
-<tr class="memdesc:a15912a7adcce91cad59e05c70e116a40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defers destruction of the buffers.  <br /></td></tr>
-<tr class="separator:a15912a7adcce91cad59e05c70e116a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0b395bc88a2cf9c8cce245b5d9763bf" id="r_ad0b395bc88a2cf9c8cce245b5d9763bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a> (<a class="el" href="a04694.html">vk::VulkanState</a> &amp;<a class="el" href="a04506.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a>, std::uint32_t <a class="el" href="a03990.html#af358a9ed58565725299d95bddcfe9f72">vertexCount</a>, std::uint32_t <a class="el" href="a03990.html#a689811ec81ac21a1fd68d0ce45746051">indexCount</a>)</td></tr>
-<tr class="memdesc:ad0b395bc88a2cf9c8cce245b5d9763bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the vertex and index buffers.  <br /></td></tr>
-<tr class="separator:ad0b395bc88a2cf9c8cce245b5d9763bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a164310dc7cc198cc6849a6b3db71f8ef" id="r_a164310dc7cc198cc6849a6b3db71f8ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a164310dc7cc198cc6849a6b3db71f8ef">destroy</a> ()</td></tr>
-<tr class="memdesc:a164310dc7cc198cc6849a6b3db71f8ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees both the vertex buffer and index buffer.  <br /></td></tr>
-<tr class="separator:a164310dc7cc198cc6849a6b3db71f8ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26d8cce563e9ee6eae8ccf2c8f61e12b" id="r_a26d8cce563e9ee6eae8ccf2c8f61e12b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a26d8cce563e9ee6eae8ccf2c8f61e12b">deferDestruction</a> ()</td></tr>
-<tr class="memdesc:a26d8cce563e9ee6eae8ccf2c8f61e12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues the buffer to be erased in a deferred manner.  <br /></td></tr>
-<tr class="separator:a26d8cce563e9ee6eae8ccf2c8f61e12b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ab311d1edf2121ba1b570b9f61fd145" id="r_a8ab311d1edf2121ba1b570b9f61fd145"><td class="memItemLeft" align="right" valign="top">constexpr std::vector&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a8ab311d1edf2121ba1b570b9f61fd145">vertices</a> ()</td></tr>
-<tr class="memdesc:a8ab311d1edf2121ba1b570b9f61fd145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertex buffer.  <br /></td></tr>
-<tr class="separator:a8ab311d1edf2121ba1b570b9f61fd145"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08bddf999980c347edc6ae67bdf2e269" id="r_a08bddf999980c347edc6ae67bdf2e269"><td class="memItemLeft" align="right" valign="top">constexpr const std::vector&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a08bddf999980c347edc6ae67bdf2e269">vertices</a> () const</td></tr>
-<tr class="memdesc:a08bddf999980c347edc6ae67bdf2e269"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertex buffer.  <br /></td></tr>
-<tr class="separator:a08bddf999980c347edc6ae67bdf2e269"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae08f6375209ad3754477497237e0f6e7" id="r_ae08f6375209ad3754477497237e0f6e7"><td class="memItemLeft" align="right" valign="top">constexpr std::vector&lt; std::uint32_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#ae08f6375209ad3754477497237e0f6e7">indices</a> ()</td></tr>
-<tr class="memdesc:ae08f6375209ad3754477497237e0f6e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index buffer.  <br /></td></tr>
-<tr class="separator:ae08f6375209ad3754477497237e0f6e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a340a12673d1d2ee954714001c46558de" id="r_a340a12673d1d2ee954714001c46558de"><td class="memItemLeft" align="right" valign="top">constexpr const std::vector&lt; std::uint32_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a340a12673d1d2ee954714001c46558de">indices</a> () const</td></tr>
-<tr class="memdesc:a340a12673d1d2ee954714001c46558de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index buffer.  <br /></td></tr>
-<tr class="separator:a340a12673d1d2ee954714001c46558de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af615777e9f82e5c6bdad436203b4f024" id="r_af615777e9f82e5c6bdad436203b4f024"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04330.html">prim::DrawParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a> () const</td></tr>
-<tr class="memdesc:af615777e9f82e5c6bdad436203b4f024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds and returns the parameters required to render the index buffer.  <br /></td></tr>
-<tr class="separator:af615777e9f82e5c6bdad436203b4f024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a689811ec81ac21a1fd68d0ce45746051" id="r_a689811ec81ac21a1fd68d0ce45746051"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a689811ec81ac21a1fd68d0ce45746051">indexCount</a> () const</td></tr>
-<tr class="memdesc:a689811ec81ac21a1fd68d0ce45746051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of indices in the buffer.  <br /></td></tr>
-<tr class="separator:a689811ec81ac21a1fd68d0ce45746051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af358a9ed58565725299d95bddcfe9f72" id="r_af358a9ed58565725299d95bddcfe9f72"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#af358a9ed58565725299d95bddcfe9f72">vertexCount</a> () const</td></tr>
-<tr class="memdesc:af358a9ed58565725299d95bddcfe9f72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of vertices in the buffer.  <br /></td></tr>
-<tr class="separator:af358a9ed58565725299d95bddcfe9f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41abc2c1b23bb4929fa9d2a1d0552654" id="r_a41abc2c1b23bb4929fa9d2a1d0552654"><td class="memItemLeft" align="right" valign="top">constexpr VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a41abc2c1b23bb4929fa9d2a1d0552654">vertexBufferHandle</a> () const</td></tr>
-<tr class="memdesc:a41abc2c1b23bb4929fa9d2a1d0552654"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan handle of the vertex buffer.  <br /></td></tr>
-<tr class="separator:a41abc2c1b23bb4929fa9d2a1d0552654"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e8bb0b433b0de2b7b6b8c17427ba924" id="r_a0e8bb0b433b0de2b7b6b8c17427ba924"><td class="memItemLeft" align="right" valign="top">constexpr VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a0e8bb0b433b0de2b7b6b8c17427ba924">indexBufferHandle</a> () const</td></tr>
-<tr class="memdesc:a0e8bb0b433b0de2b7b6b8c17427ba924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan handle of the index buffer.  <br /></td></tr>
-<tr class="separator:a0e8bb0b433b0de2b7b6b8c17427ba924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d4e198cde1a857772dcde98c4bd21e1" id="r_a5d4e198cde1a857772dcde98c4bd21e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a5d4e198cde1a857772dcde98c4bd21e1">insertBarrierBeforeWrite</a> ()</td></tr>
-<tr class="memdesc:a5d4e198cde1a857772dcde98c4bd21e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Records a pipeline barrier to prevent writes from occurring before fragment shader reads are completed.  <br /></td></tr>
-<tr class="separator:a5d4e198cde1a857772dcde98c4bd21e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a478d5039a3ae1905ea7db7094097909b" id="r_a478d5039a3ae1905ea7db7094097909b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a478d5039a3ae1905ea7db7094097909b">ensureSize</a> (std::uint32_t <a class="el" href="a03990.html#af358a9ed58565725299d95bddcfe9f72">vertexCount</a>, std::uint32_t <a class="el" href="a03990.html#a689811ec81ac21a1fd68d0ce45746051">indexCount</a>)</td></tr>
-<tr class="memdesc:a478d5039a3ae1905ea7db7094097909b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that the buffer has the requested number of indices and vertices, resizing if required. If resized then all pointers and buffer handles are invalidated.  <br /></td></tr>
-<tr class="separator:a478d5039a3ae1905ea7db7094097909b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8c8dcea98c2ebf1ef841fa11654e626" id="r_af8c8dcea98c2ebf1ef841fa11654e626"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#af8c8dcea98c2ebf1ef841fa11654e626">configureWriteRange</a> (std::uint32_t vertexWriteStart, std::uint32_t vertexWriteCount, std::uint32_t indexWriteStart, std::uint32_t indexWriteCount)</td></tr>
-<tr class="memdesc:af8c8dcea98c2ebf1ef841fa11654e626"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the range of vertices and indices to write on next transfer. Gets reset if resized.  <br /></td></tr>
-<tr class="separator:af8c8dcea98c2ebf1ef841fa11654e626"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2cddcfa3664702cb39bba2e304e5074" id="r_af2cddcfa3664702cb39bba2e304e5074"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a> (<a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq=<a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>)</td></tr>
-<tr class="memdesc:af2cddcfa3664702cb39bba2e304e5074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues this object with the <a class="el" href="a04514.html" title="Utility class to manage the synchronized transfer of data to the GPU.">TransferEngine</a> to be transfered on the next frame.  <br /></td></tr>
-<tr class="separator:af2cddcfa3664702cb39bba2e304e5074"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affdc9c965d73f5227f2d3e0c8a17064e" id="r_affdc9c965d73f5227f2d3e0c8a17064e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a> (<a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq=<a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>)</td></tr>
-<tr class="memdesc:affdc9c965d73f5227f2d3e0c8a17064e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures this <a class="el" href="a04506.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...">Transferable</a> to transfer every frame with the given sync requirement.  <br /></td></tr>
-<tr class="separator:affdc9c965d73f5227f2d3e0c8a17064e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a998a9c05422f6188b474d275866a6b2b" id="r_a998a9c05422f6188b474d275866a6b2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a> ()</td></tr>
-<tr class="memdesc:a998a9c05422f6188b474d275866a6b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this <a class="el" href="a04506.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...">Transferable</a> from the queue that gets transferred every frame.  <br /></td></tr>
-<tr class="separator:a998a9c05422f6188b474d275866a6b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fbe7414a05994b43584022f6d333c0d" id="r_a2fbe7414a05994b43584022f6d333c0d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#a2fbe7414a05994b43584022f6d333c0d">isQueued</a> () const</td></tr>
-<tr class="memdesc:a2fbe7414a05994b43584022f6d333c0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a transfer is queued, either individually or every frame.  <br /></td></tr>
-<tr class="separator:a2fbe7414a05994b43584022f6d333c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7eb35d2804ad40e76823182f4eae9c8" id="r_ac7eb35d2804ad40e76823182f4eae9c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#ac7eb35d2804ad40e76823182f4eae9c8">cancelQueuedTransfer</a> ()</td></tr>
-<tr class="memdesc:ac7eb35d2804ad40e76823182f4eae9c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels the scheduled transfer. Also cancels transfers that occur every frame.  <br /></td></tr>
-<tr class="separator:ac7eb35d2804ad40e76823182f4eae9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36135a63bd2bf1dbe45cbac126c38b55" id="r_a36135a63bd2bf1dbe45cbac126c38b55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a36135a63bd2bf1dbe45cbac126c38b55">Sphere</a> ()</td></tr>
+<tr class="memdesc:a36135a63bd2bf1dbe45cbac126c38b55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <br /></td></tr>
+<tr class="separator:a36135a63bd2bf1dbe45cbac126c38b55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3843d0b329f40d8c7f205c7dc64aa6f" id="r_ab3843d0b329f40d8c7f205c7dc64aa6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#ab3843d0b329f40d8c7f205c7dc64aa6f">Sphere</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, float radius, int detailLevel, const <a class="el" href="a05358.html">bl::rc::res::MaterialRef</a> &amp;<a class="el" href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">material</a>={}, std::uint32_t materialPipelineId=<a class="el" href="a04786.html#afef6896666d10f729ca3463c401bcb45">rc::cfg::MaterialPipelineIds::Mesh3D</a>)</td></tr>
+<tr class="memdesc:ab3843d0b329f40d8c7f205c7dc64aa6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the sphere with a given size and material.  <br /></td></tr>
+<tr class="separator:ab3843d0b329f40d8c7f205c7dc64aa6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a245965f2a5dcf3030e8e044cf136daac" id="r_a245965f2a5dcf3030e8e044cf136daac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac">create</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, float radius, int detailLevel, const <a class="el" href="a05358.html">bl::rc::res::MaterialRef</a> &amp;<a class="el" href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">material</a>={}, std::uint32_t materialPipelineId=<a class="el" href="a04786.html#afef6896666d10f729ca3463c401bcb45">rc::cfg::MaterialPipelineIds::Mesh3D</a>)</td></tr>
+<tr class="memdesc:a245965f2a5dcf3030e8e044cf136daac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the sphere with a given size and material.  <br /></td></tr>
+<tr class="separator:a245965f2a5dcf3030e8e044cf136daac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a828c0938b5e4c7a5a12b985fc5c96445" id="r_a828c0938b5e4c7a5a12b985fc5c96445"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a828c0938b5e4c7a5a12b985fc5c96445">setColor</a> (const <a class="el" href="a04746.html">rc::Color</a> &amp;color)</td></tr>
+<tr class="memdesc:a828c0938b5e4c7a5a12b985fc5c96445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of the sphere.  <br /></td></tr>
+<tr class="separator:a828c0938b5e4c7a5a12b985fc5c96445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81b5a660ce27fcf2df19235449a66bfb" id="r_a81b5a660ce27fcf2df19235449a66bfb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a81b5a660ce27fcf2df19235449a66bfb">addToScene</a> (<a class="el" href="a05450.html">rc::Scene</a> *scene, <a class="el" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq)</td></tr>
+<tr class="memdesc:a81b5a660ce27fcf2df19235449a66bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds this entity to the given scene.  <br /></td></tr>
+<tr class="separator:a81b5a660ce27fcf2df19235449a66bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19db87d39580618a4131ef9227abd5d7" id="r_a19db87d39580618a4131ef9227abd5d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a19db87d39580618a4131ef9227abd5d7">setHidden</a> (bool hide)</td></tr>
+<tr class="memdesc:a19db87d39580618a4131ef9227abd5d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the entity is hidden or not. May only be called on entities in a scene.  <br /></td></tr>
+<tr class="separator:a19db87d39580618a4131ef9227abd5d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef1c33b5c27b23b473aef9385af60064" id="r_aef1c33b5c27b23b473aef9385af60064"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#aef1c33b5c27b23b473aef9385af60064">removeFromScene</a> ()</td></tr>
+<tr class="memdesc:aef1c33b5c27b23b473aef9385af60064"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the entity from the scene or overlay that it is in.  <br /></td></tr>
+<tr class="separator:aef1c33b5c27b23b473aef9385af60064"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a523e68d7d309b26f171a26121cfe6347" id="r_a523e68d7d309b26f171a26121cfe6347"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a523e68d7d309b26f171a26121cfe6347">component</a> ()</td></tr>
+<tr class="memdesc:a523e68d7d309b26f171a26121cfe6347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the drawable component. Only call after <a class="el" href="a03922.html#a476ca497ff297fe7322fad079e22dda2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <br /></td></tr>
+<tr class="separator:a523e68d7d309b26f171a26121cfe6347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b38fa7868116c77a3164c1bebb8f8c7" id="r_a9b38fa7868116c77a3164c1bebb8f8c7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a9b38fa7868116c77a3164c1bebb8f8c7">component</a> () const</td></tr>
+<tr class="memdesc:a9b38fa7868116c77a3164c1bebb8f8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the drawable component. Only call after <a class="el" href="a03922.html#a476ca497ff297fe7322fad079e22dda2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <br /></td></tr>
+<tr class="separator:a9b38fa7868116c77a3164c1bebb8f8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a0fe998b75eb7f8fc5ea7fb5891f031" id="r_a0a0fe998b75eb7f8fc5ea7fb5891f031"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03274.html">com::MaterialInstance</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">material</a> ()</td></tr>
+<tr class="memdesc:a0a0fe998b75eb7f8fc5ea7fb5891f031"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the material instance for this entity. Only call after <a class="el" href="a03922.html#a476ca497ff297fe7322fad079e22dda2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <br /></td></tr>
+<tr class="separator:a0a0fe998b75eb7f8fc5ea7fb5891f031"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a543d285ca787b39c185d13251ada8ab0" id="r_a543d285ca787b39c185d13251ada8ab0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03274.html">com::MaterialInstance</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a543d285ca787b39c185d13251ada8ab0">material</a> () const</td></tr>
+<tr class="memdesc:a543d285ca787b39c185d13251ada8ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the material instance for this entity. Only call after <a class="el" href="a03922.html#a476ca497ff297fe7322fad079e22dda2" title="Creates the ECS entity and drawable component. Will destroy the prior instance if any.">create()</a>  <br /></td></tr>
+<tr class="separator:a543d285ca787b39c185d13251ada8ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f8a05d41d18baf44696c0a0698e7b16" id="r_a3f8a05d41d18baf44696c0a0698e7b16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a3f8a05d41d18baf44696c0a0698e7b16">flash</a> (float onPeriod, float offPeriod)</td></tr>
+<tr class="memdesc:a3f8a05d41d18baf44696c0a0698e7b16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Causes the drawable to flash with the given settings.  <br /></td></tr>
+<tr class="separator:a3f8a05d41d18baf44696c0a0698e7b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1461782b80210c1a8e549342d89fa3fc" id="r_a1461782b80210c1a8e549342d89fa3fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a1461782b80210c1a8e549342d89fa3fc">resetFlash</a> ()</td></tr>
+<tr class="memdesc:a1461782b80210c1a8e549342d89fa3fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">If actively flashing: Resets state to visible and restarts flash timer.  <br /></td></tr>
+<tr class="separator:a1461782b80210c1a8e549342d89fa3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d1c85d6ba086a46ea3b26b68a256094" id="r_a5d1c85d6ba086a46ea3b26b68a256094"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a5d1c85d6ba086a46ea3b26b68a256094">stopFlashing</a> ()</td></tr>
+<tr class="memdesc:a5d1c85d6ba086a46ea3b26b68a256094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the component from flashing.  <br /></td></tr>
+<tr class="separator:a5d1c85d6ba086a46ea3b26b68a256094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9570c58ddf4da8bbb5cc9131dec548ca" id="r_a9570c58ddf4da8bbb5cc9131dec548ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a9570c58ddf4da8bbb5cc9131dec548ca">draw</a> (<a class="el" href="a05426.html">rc::scene::CodeScene::RenderContext</a> &amp;<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</td></tr>
+<tr class="memdesc:a9570c58ddf4da8bbb5cc9131dec548ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually issue the required commands to draw this object. Must be called within the context of a CodeScene.  <br /></td></tr>
+<tr class="separator:a9570c58ddf4da8bbb5cc9131dec548ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad682add183fd9da32f32a84b5e203c07" id="r_ad682add183fd9da32f32a84b5e203c07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#ad682add183fd9da32f32a84b5e203c07">entity</a> () const</td></tr>
+<tr class="memdesc:ad682add183fd9da32f32a84b5e203c07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ECS entity of this drawable.  <br /></td></tr>
+<tr class="separator:ad682add183fd9da32f32a84b5e203c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45ec17a5d2aa2e51c2105d1e3f1791ca" id="r_a45ec17a5d2aa2e51c2105d1e3f1791ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#a45ec17a5d2aa2e51c2105d1e3f1791ca">destroy</a> ()</td></tr>
+<tr class="memdesc:a45ec17a5d2aa2e51c2105d1e3f1791ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the ECS entity and component.  <br /></td></tr>
+<tr class="separator:a45ec17a5d2aa2e51c2105d1e3f1791ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af608fdfb20d8ef7314dab276918b80f1" id="r_af608fdfb20d8ef7314dab276918b80f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#af608fdfb20d8ef7314dab276918b80f1">setParent</a> (const <a class="el" href="a03550.html#ac1283787c5e149741db0159e0bedfebf">EntityBacked</a> &amp;parent)</td></tr>
+<tr class="memdesc:af608fdfb20d8ef7314dab276918b80f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to parent this drawable to another.  <br /></td></tr>
+<tr class="separator:af608fdfb20d8ef7314dab276918b80f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13913d8baa9908eae02992c0d62827c1" id="r_a13913d8baa9908eae02992c0d62827c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#a13913d8baa9908eae02992c0d62827c1">setParent</a> (<a class="el" href="a03542.html">ecs::Entity</a> parent)</td></tr>
+<tr class="memdesc:a13913d8baa9908eae02992c0d62827c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to parent this drawable.  <br /></td></tr>
+<tr class="separator:a13913d8baa9908eae02992c0d62827c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1b7d951f297c1a46d1de176b3c3baf6" id="r_aa1b7d951f297c1a46d1de176b3c3baf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#aa1b7d951f297c1a46d1de176b3c3baf6">removeParent</a> ()</td></tr>
+<tr class="memdesc:aa1b7d951f297c1a46d1de176b3c3baf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to remove the parent of this drawable, if any.  <br /></td></tr>
+<tr class="separator:aa1b7d951f297c1a46d1de176b3c3baf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7856773231629b1e04c73964a939712" id="r_ac7856773231629b1e04c73964a939712"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#ac7856773231629b1e04c73964a939712">deleteEntityOnDestroy</a> (bool deleteEntity)</td></tr>
+<tr class="memdesc:ac7856773231629b1e04c73964a939712"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures whether or not to destroy the ECS entity when this object is destroyed.  <br /></td></tr>
+<tr class="separator:ac7856773231629b1e04c73964a939712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a030d25d25bc767c41a46687406603f4d" id="r_a030d25d25bc767c41a46687406603f4d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#a030d25d25bc767c41a46687406603f4d">entityIsDeletedOnDestruction</a> () const</td></tr>
+<tr class="memdesc:a030d25d25bc767c41a46687406603f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the underlying entity is destroyed when this object is.  <br /></td></tr>
+<tr class="separator:a030d25d25bc767c41a46687406603f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a679bf7927b2e279b75c7687d257c0e01" id="r_a679bf7927b2e279b75c7687d257c0e01"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#a679bf7927b2e279b75c7687d257c0e01">exists</a> () const</td></tr>
+<tr class="memdesc:a679bf7927b2e279b75c7687d257c0e01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the underlying entity exists.  <br /></td></tr>
+<tr class="separator:a679bf7927b2e279b75c7687d257c0e01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad432cbd60a78a1b4daea7306af479f46" id="r_ad432cbd60a78a1b4daea7306af479f46"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03354.html">com::Transform3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03910.html#ad432cbd60a78a1b4daea7306af479f46">getTransform</a> ()</td></tr>
+<tr class="memdesc:ad432cbd60a78a1b4daea7306af479f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transform. Must only be called after <a class="el" href="a03910.html#a7cbdfcadfca125386941e1e219c9a187" title="Creates the transform in the ECS.">create()</a>  <br /></td></tr>
+<tr class="separator:ad432cbd60a78a1b4daea7306af479f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71b6e39d69e20d62a1de6f90467866c4" id="r_a71b6e39d69e20d62a1de6f90467866c4"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03354.html">com::Transform3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03910.html#a71b6e39d69e20d62a1de6f90467866c4">getTransform</a> () const</td></tr>
+<tr class="memdesc:a71b6e39d69e20d62a1de6f90467866c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transform. Must only be called after <a class="el" href="a03910.html#a7cbdfcadfca125386941e1e219c9a187" title="Creates the transform in the ECS.">create()</a>  <br /></td></tr>
+<tr class="separator:a71b6e39d69e20d62a1de6f90467866c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a568b28cab81814c12bffb9ab0bcf33a9" id="r_a568b28cab81814c12bffb9ab0bcf33a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#a568b28cab81814c12bffb9ab0bcf33a9">showOutline</a> (const <a class="el" href="a04746.html">rc::Color</a> &amp;color, float thickness)</td></tr>
+<tr class="memdesc:a568b28cab81814c12bffb9ab0bcf33a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates or modifies the outline around this object.  <br /></td></tr>
+<tr class="separator:a568b28cab81814c12bffb9ab0bcf33a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a06983544c37b72e3e6a38fb6ffe27e" id="r_a8a06983544c37b72e3e6a38fb6ffe27e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#a8a06983544c37b72e3e6a38fb6ffe27e">removeOutline</a> (std::uint32_t specialization=std::numeric_limits&lt; std::uint32_t &gt;::max())</td></tr>
+<tr class="memdesc:a8a06983544c37b72e3e6a38fb6ffe27e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the outline around this object.  <br /></td></tr>
+<tr class="separator:a8a06983544c37b72e3e6a38fb6ffe27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad73e8ff255226c8678f107faa45ccacc" id="r_ad73e8ff255226c8678f107faa45ccacc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03286.html">com::Outline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#ad73e8ff255226c8678f107faa45ccacc">getOutline</a> ()</td></tr>
+<tr class="memdesc:ad73e8ff255226c8678f107faa45ccacc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the outline. Only call if an outline is present.  <br /></td></tr>
+<tr class="separator:ad73e8ff255226c8678f107faa45ccacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50d3184f6d98acc99d982c96b19a6b10" id="r_a50d3184f6d98acc99d982c96b19a6b10"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03286.html">com::Outline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#a50d3184f6d98acc99d982c96b19a6b10">getOutline</a> () const</td></tr>
+<tr class="memdesc:a50d3184f6d98acc99d982c96b19a6b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the outline. Only call if an outline is present.  <br /></td></tr>
+<tr class="separator:a50d3184f6d98acc99d982c96b19a6b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa32e31aa3fd553baeeba3a64e5d813a6" id="r_aa32e31aa3fd553baeeba3a64e5d813a6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#aa32e31aa3fd553baeeba3a64e5d813a6">hasOutline</a> () const</td></tr>
+<tr class="memdesc:aa32e31aa3fd553baeeba3a64e5d813a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this object has an outline or not.  <br /></td></tr>
+<tr class="separator:aa32e31aa3fd553baeeba3a64e5d813a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8392519ea3df311e4cc129f0d7039abb" id="r_a8392519ea3df311e4cc129f0d7039abb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#a8392519ea3df311e4cc129f0d7039abb">setOutlineSpecialization</a> (std::uint32_t specialization)</td></tr>
+<tr class="memdesc:a8392519ea3df311e4cc129f0d7039abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets a different pipeline specialization to use for the first pass. Only needed if using custom pipelines that don't use Specializations3D::OutlineMainPass.  <br /></td></tr>
+<tr class="separator:a8392519ea3df311e4cc129f0d7039abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a97600659a596051a04944dbb357eb622" id="r_a97600659a596051a04944dbb357eb622"><td class="memItemLeft" align="right" valign="top">static constexpr VkIndexType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#a97600659a596051a04944dbb357eb622">IndexType</a> = VK_INDEX_TYPE_UINT32</td></tr>
-<tr class="separator:a97600659a596051a04944dbb357eb622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af17ccc249c2ae2fee24989388451d45f" id="r_af17ccc249c2ae2fee24989388451d45f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03990.html#af17ccc249c2ae2fee24989388451d45f">makeSphere</a> (float radius, int detailLevel, std::vector&lt; <a class="el" href="a05322.html">rc::prim::Vertex3D</a> &gt; &amp;outVertices, std::vector&lt; std::uint32_t &gt; &amp;outIndices)</td></tr>
+<tr class="memdesc:af17ccc249c2ae2fee24989388451d45f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the given vectors with vertices and indices to make a sphere.  <br /></td></tr>
+<tr class="separator:af17ccc249c2ae2fee24989388451d45f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ae134133a20147f77b4feae59dc9b447d" id="r_ae134133a20147f77b4feae59dc9b447d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04694.html">vk::VulkanState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04506.html#ae134133a20147f77b4feae59dc9b447d">vulkanState</a></td></tr>
-<tr class="separator:ae134133a20147f77b4feae59dc9b447d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a476ca497ff297fe7322fad079e22dda2" id="r_a476ca497ff297fe7322fad079e22dda2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a476ca497ff297fe7322fad079e22dda2">create</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a476ca497ff297fe7322fad079e22dda2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ECS entity and drawable component. Will destroy the prior instance if any.  <br /></td></tr>
+<tr class="separator:a476ca497ff297fe7322fad079e22dda2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c2668dae514b1b6ccdc629c82618f9d" id="r_a6c2668dae514b1b6ccdc629c82618f9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a6c2668dae514b1b6ccdc629c82618f9d">createWithMaterial</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, std::uint32_t materialPipelineId, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a6c2668dae514b1b6ccdc629c82618f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ECS entity and drawable component using specific material parameters. Will destroy the prior instance if any.  <br /></td></tr>
+<tr class="separator:a6c2668dae514b1b6ccdc629c82618f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f2fc297a01fcc9c1b86d52f7e8f8fb4" id="r_a8f2fc297a01fcc9c1b86d52f7e8f8fb4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a8f2fc297a01fcc9c1b86d52f7e8f8fb4">createWithMaterial</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, std::uint32_t materialPipelineId, const <a class="el" href="a05358.html">bl::rc::res::MaterialRef</a> &amp;<a class="el" href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">material</a>, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a8f2fc297a01fcc9c1b86d52f7e8f8fb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ECS entity and drawable component using specific material parameters. Will destroy the prior instance if any.  <br /></td></tr>
+<tr class="separator:a8f2fc297a01fcc9c1b86d52f7e8f8fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd2a13101beda5e6160c3d9d98137e04" id="r_abd2a13101beda5e6160c3d9d98137e04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#abd2a13101beda5e6160c3d9d98137e04">createComponentOnly</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, <a class="el" href="a03542.html">ecs::Entity</a> existingEntity, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:abd2a13101beda5e6160c3d9d98137e04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component for the drawable. Must only be called after entity creation.  <br /></td></tr>
+<tr class="separator:abd2a13101beda5e6160c3d9d98137e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79520de783b85f014081d0df82193c00" id="r_a79520de783b85f014081d0df82193c00"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a79520de783b85f014081d0df82193c00">onAdd</a> (<a class="el" href="a05450.html">rc::Scene</a> *scene, <a class="el" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq)</td></tr>
+<tr class="memdesc:a79520de783b85f014081d0df82193c00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the entity is added to a scene. Allows derived to sync data if required.  <br /></td></tr>
+<tr class="separator:a79520de783b85f014081d0df82193c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a893d012ef3a78a3e7adef0e3417a13dd" id="r_a893d012ef3a78a3e7adef0e3417a13dd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#a893d012ef3a78a3e7adef0e3417a13dd">onRemove</a> ()</td></tr>
+<tr class="memdesc:a893d012ef3a78a3e7adef0e3417a13dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the entity is removed from a scene.  <br /></td></tr>
+<tr class="separator:a893d012ef3a78a3e7adef0e3417a13dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0dc68b0a2ce7bfaa841f5528379a33e" id="r_ac0dc68b0a2ce7bfaa841f5528379a33e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03922.html#ac0dc68b0a2ce7bfaa841f5528379a33e">setRequiresComponentOnSelf</a> (bool require)</td></tr>
+<tr class="memdesc:ac0dc68b0a2ce7bfaa841f5528379a33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether the component must be created on the root entity for scene add.  <br /></td></tr>
+<tr class="separator:ac0dc68b0a2ce7bfaa841f5528379a33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a762310bebf8752f517c150b262a82a6b" id="r_a762310bebf8752f517c150b262a82a6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#a762310bebf8752f517c150b262a82a6b">createEntityOnly</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, <a class="el" href="a02968.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags=<a class="el" href="a02968.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>)</td></tr>
+<tr class="memdesc:a762310bebf8752f517c150b262a82a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the ECS entity for the drawable.  <br /></td></tr>
+<tr class="separator:a762310bebf8752f517c150b262a82a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af808767b94c4b06d060792342e68b3d4" id="r_af808767b94c4b06d060792342e68b3d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#af808767b94c4b06d060792342e68b3d4">createFromExistingEntity</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, <a class="el" href="a03542.html">ecs::Entity</a> <a class="el" href="a03550.html#ad682add183fd9da32f32a84b5e203c07">entity</a>)</td></tr>
+<tr class="memdesc:af808767b94c4b06d060792342e68b3d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes using an existing entity instead of creating one.  <br /></td></tr>
+<tr class="separator:af808767b94c4b06d060792342e68b3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad29553a8037da3a396535700891bf39f" id="r_ad29553a8037da3a396535700891bf39f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">engine::Engine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03550.html#ad29553a8037da3a396535700891bf39f">engine</a> ()</td></tr>
+<tr class="memdesc:ad29553a8037da3a396535700891bf39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the game engine instance. Only call after create()  <br /></td></tr>
+<tr class="separator:ad29553a8037da3a396535700891bf39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cbdfcadfca125386941e1e219c9a187" id="r_a7cbdfcadfca125386941e1e219c9a187"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
+<tr class="memitem:a7cbdfcadfca125386941e1e219c9a187"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03910.html#a7cbdfcadfca125386941e1e219c9a187">create</a> (<a class="el" href="a03590.html">ecs::Registry</a> &amp;registry, <a class="el" href="a03542.html">ecs::Entity</a> <a class="el" href="a03550.html#ad682add183fd9da32f32a84b5e203c07">entity</a>, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a7cbdfcadfca125386941e1e219c9a187"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the transform in the ECS.  <br /></td></tr>
+<tr class="separator:a7cbdfcadfca125386941e1e219c9a187"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbad8fb4182b1f112432191d0b2ef828" id="r_abbad8fb4182b1f112432191d0b2ef828"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03894.html#abbad8fb4182b1f112432191d0b2ef828">init</a> (<a class="el" href="a03590.html">ecs::Registry</a> &amp;registry, <a class="el" href="a03542.html">ecs::Entity</a> <a class="el" href="a03550.html#ad682add183fd9da32f32a84b5e203c07">entity</a>, <a class="el" href="a04766.html">rc::rcom::DrawableBase</a> *drawable)</td></tr>
+<tr class="memdesc:abbad8fb4182b1f112432191d0b2ef828"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the outline component.  <br /></td></tr>
+<tr class="separator:abbad8fb4182b1f112432191d0b2ef828"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class bl::rc::buf::IndexBufferT&lt; T &gt;</div><p>Basic index buffer class built on top of <a class="el" href="a04534.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">vk::Buffer</a>. Intended for static mesh data. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of vertex to index into </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>Basic drawable for 3d spheres. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00026">26</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a109f9d7acc098649830f276c266b47d0" name="a109f9d7acc098649830f276c266b47d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a109f9d7acc098649830f276c266b47d0">&#9670;&#160;</a></span>SyncRequirement</h2>
+<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00020">20</a> of file <a class="el" href="a01616_source.html">Sphere.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a36135a63bd2bf1dbe45cbac126c38b55" name="a36135a63bd2bf1dbe45cbac126c38b55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36135a63bd2bf1dbe45cbac126c38b55">&#9670;&#160;</a></span>Sphere() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum struct <a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Enum containing requirements for when transfers may start. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1" name="a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"></a>Immediate&#160;</td><td class="fielddoc"><p>Transfers with this requirement may be started immediately. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0" name="a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"></a>DeviceIdle&#160;</td><td class="fielddoc"><p>Transfers with this requirement cannot start until the device is idle. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a01112_source.html#l00028">28</a> of file <a class="el" href="a01112_source.html">Transferable.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a15912a7adcce91cad59e05c70e116a40" name="a15912a7adcce91cad59e05c70e116a40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a15912a7adcce91cad59e05c70e116a40">&#9670;&#160;</a></span>~IndexBufferT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::~<a class="el" href="a03990.html">IndexBufferT</a> </td>
+          <td class="memname">bl::gfx::Sphere::Sphere </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Defers destruction of the buffers. </p>
+<p>Does nothing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00144">144</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02795_source.html#l00071">71</a> of file <a class="el" href="a02795_source.html">Sphere.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab3843d0b329f40d8c7f205c7dc64aa6f" name="ab3843d0b329f40d8c7f205c7dc64aa6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3843d0b329f40d8c7f205c7dc64aa6f">&#9670;&#160;</a></span>Sphere() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gfx::Sphere::Sphere </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>detailLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a05358.html">bl::rc::res::MaterialRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>material</em> = <code>{}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>materialPipelineId</em> = <code><a class="el" href="a04786.html#afef6896666d10f729ca3463c401bcb45">rc::cfg::MaterialPipelineIds::Mesh3D</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the sphere with a given size and material. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create the sphere in </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the sphere in world coordinates </td></tr>
+    <tr><td class="paramname">detailLevel</td><td>How detailed to make the sphere. <a class="el" href="a04026.html" title="Basic renderable triangle that can be added to scenes.">Triangle</a> count = detail * 20 </td></tr>
+    <tr><td class="paramname">material</td><td>The material to assign to the sphere </td></tr>
+    <tr><td class="paramname">materialPipelineId</td><td>The id of the material pipeline to render with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02795_source.html#l00073">73</a> of file <a class="el" href="a02795_source.html">Sphere.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac7eb35d2804ad40e76823182f4eae9c8" name="ac7eb35d2804ad40e76823182f4eae9c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7eb35d2804ad40e76823182f4eae9c8">&#9670;&#160;</a></span>cancelQueuedTransfer()</h2>
+<a id="a81b5a660ce27fcf2df19235449a66bfb" name="a81b5a660ce27fcf2df19235449a66bfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81b5a660ce27fcf2df19235449a66bfb">&#9670;&#160;</a></span>addToScene()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +345,54 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::tfr::Transferable::cancelQueuedTransfer </td>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::addToScene </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05450.html">rc::Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>updateFreq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds this entity to the given scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
+    <tr><td class="paramname">updateFreq</td><td>Whether the entity is expected to be dynamic or static </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00064">64</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a523e68d7d309b26f171a26121cfe6347" name="a523e68d7d309b26f171a26121cfe6347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a523e68d7d309b26f171a26121cfe6347">&#9670;&#160;</a></span>component() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &amp; <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::component </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -288,43 +405,138 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Cancels the scheduled transfer. Also cancels transfers that occur every frame. </p>
+<p>Returns the drawable component. Only call after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00024">24</a> of file <a class="el" href="a02129_source.html">Transferable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00081">81</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af8c8dcea98c2ebf1ef841fa11654e626" name="af8c8dcea98c2ebf1ef841fa11654e626"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8c8dcea98c2ebf1ef841fa11654e626">&#9670;&#160;</a></span>configureWriteRange()</h2>
+<a id="a9b38fa7868116c77a3164c1bebb8f8c7" name="a9b38fa7868116c77a3164c1bebb8f8c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b38fa7868116c77a3164c1bebb8f8c7">&#9670;&#160;</a></span>component() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &amp; <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::component </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the drawable component. Only call after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00086">86</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7cbdfcadfca125386941e1e219c9a187" name="a7cbdfcadfca125386941e1e219c9a187"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cbdfcadfca125386941e1e219c9a187">&#9670;&#160;</a></span>create() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::configureWriteRange </td>
+          <td class="memname">void bl::gfx::bcom::Transform3D::create </td>
           <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>vertexWriteStart</em>, </td>
+          <td class="paramtype"><a class="el" href="a03590.html">ecs::Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the transform in the ECS. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the transform constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">registry</td><td>The ECS registry instance </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity id </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to the transform constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a07954_source.html#l00059">59</a> of file <a class="el" href="a07954_source.html">Transform3D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a245965f2a5dcf3030e8e044cf136daac" name="a245965f2a5dcf3030e8e044cf136daac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a245965f2a5dcf3030e8e044cf136daac">&#9670;&#160;</a></span>create() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::Sphere::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>detailLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a05358.html">bl::rc::res::MaterialRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>material</em> = <code>{}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>vertexWriteCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>indexWriteStart</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>indexWriteCount</em>&#160;</td>
+          <td class="paramname"><em>materialPipelineId</em> = <code><a class="el" href="a04786.html#afef6896666d10f729ca3463c401bcb45">rc::cfg::MaterialPipelineIds::Mesh3D</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -334,46 +546,42 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Configures the range of vertices and indices to write on next transfer. Gets reset if resized. </p>
+<p>Creates the sphere with a given size and material. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vertexWriteStart</td><td>The first vertex to write </td></tr>
-    <tr><td class="paramname">vertexWriteCount</td><td>The number of vertices to write </td></tr>
-    <tr><td class="paramname">indexWriteStart</td><td>The first index to write </td></tr>
-    <tr><td class="paramname">indexWriteCount</td><td>The number of indices to write </td></tr>
+    <tr><td class="paramname">world</td><td>The world to create the sphere in </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the sphere in world coordinates </td></tr>
+    <tr><td class="paramname">detailLevel</td><td>How detailed to make the sphere. <a class="el" href="a04026.html" title="Basic renderable triangle that can be added to scenes.">Triangle</a> count = detail * 20 </td></tr>
+    <tr><td class="paramname">material</td><td>The material to assign to the sphere </td></tr>
+    <tr><td class="paramname">materialPipelineId</td><td>The id of the material pipeline to render with </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00262">262</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02795_source.html#l00078">78</a> of file <a class="el" href="a02795_source.html">Sphere.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad0b395bc88a2cf9c8cce245b5d9763bf" name="ad0b395bc88a2cf9c8cce245b5d9763bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0b395bc88a2cf9c8cce245b5d9763bf">&#9670;&#160;</a></span>create()</h2>
+<a id="a476ca497ff297fe7322fad079e22dda2" name="a476ca497ff297fe7322fad079e22dda2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a476ca497ff297fe7322fad079e22dda2">&#9670;&#160;</a></span>create() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::create </td>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04694.html">vk::VulkanState</a> &amp;&#160;</td>
-          <td class="paramname"><em>vulkanState</em>, </td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>vertexCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>indexCount</em>&#160;</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -381,95 +589,58 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates the vertex and index buffers. </p>
+<p>Creates the ECS entity and drawable component. Will destroy the prior instance if any. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the component's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">vulkanState</td><td>The renderer vulkan state </td></tr>
-    <tr><td class="paramname">vertexCount</td><td>The number of vertices </td></tr>
-    <tr><td class="paramname">indexCount</td><td>The number of indices </td></tr>
+    <tr><td class="paramname">world</td><td>The world to create the object in </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to the component's constructor </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00149">149</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00145">145</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a26d8cce563e9ee6eae8ccf2c8f61e12b" name="a26d8cce563e9ee6eae8ccf2c8f61e12b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26d8cce563e9ee6eae8ccf2c8f61e12b">&#9670;&#160;</a></span>deferDestruction()</h2>
+<a id="abd2a13101beda5e6160c3d9d98137e04" name="abd2a13101beda5e6160c3d9d98137e04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd2a13101beda5e6160c3d9d98137e04">&#9670;&#160;</a></span>createComponentOnly()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::deferDestruction </td>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::createComponentOnly </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Queues the buffer to be erased in a deferred manner. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00180">180</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a164310dc7cc198cc6849a6b3db71f8ef" name="a164310dc7cc198cc6849a6b3db71f8ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a164310dc7cc198cc6849a6b3db71f8ef">&#9670;&#160;</a></span>destroy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::destroy </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Frees both the vertex buffer and index buffer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00172">172</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a478d5039a3ae1905ea7db7094097909b" name="a478d5039a3ae1905ea7db7094097909b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a478d5039a3ae1905ea7db7094097909b">&#9670;&#160;</a></span>ensureSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::ensureSize </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>vertexCount</em>, </td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>indexCount</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>existingEntity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -477,120 +648,301 @@ template&lt;typename T &gt; </div>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Ensures that the buffer has the requested number of indices and vertices, resizing if required. If resized then all pointers and buffer handles are invalidated. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vertexCount</td><td>The number of vertices to have </td></tr>
-    <tr><td class="paramname">indexCount</td><td>The number of indices to have </td></tr>
+<p>Creates the component for the drawable. Must only be called after entity creation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the components constructor </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a resize occurred, false if both buffers were already large enough </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create the object in </td></tr>
+    <tr><td class="paramname">existingEntity</td><td>An already existing entity to add components to </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to the components constructor </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00242">242</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00183">183</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af615777e9f82e5c6bdad436203b4f024" name="af615777e9f82e5c6bdad436203b4f024"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af615777e9f82e5c6bdad436203b4f024">&#9670;&#160;</a></span>getDrawParameters()</h2>
+<a id="a762310bebf8752f517c150b262a82a6b" name="a762310bebf8752f517c150b262a82a6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a762310bebf8752f517c150b262a82a6b">&#9670;&#160;</a></span>createEntityOnly()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04330.html">prim::DrawParameters</a> <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::getDrawParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Builds and returns the parameters required to render the index buffer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00208">208</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0e8bb0b433b0de2b7b6b8c17427ba924" name="a0e8bb0b433b0de2b7b6b8c17427ba924"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e8bb0b433b0de2b7b6b8c17427ba924">&#9670;&#160;</a></span>indexBufferHandle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr VkBuffer <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::indexBufferHandle </td>
+          <td class="memname">void bl::ecs::EntityBacked::createEntityOnly </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02968.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a>&#160;</td>
+          <td class="paramname"><em>flags</em> = <code><a class="el" href="a02968.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the Vulkan handle of the index buffer. </p>
+<p>Creates the ECS entity for the drawable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create the entity in </td></tr>
+    <tr><td class="paramname">flags</td><td>The flags to create the entity with </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00237">237</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00047">47</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a689811ec81ac21a1fd68d0ce45746051" name="a689811ec81ac21a1fd68d0ce45746051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a689811ec81ac21a1fd68d0ce45746051">&#9670;&#160;</a></span>indexCount()</h2>
+<a id="af808767b94c4b06d060792342e68b3d4" name="af808767b94c4b06d060792342e68b3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af808767b94c4b06d060792342e68b3d4">&#9670;&#160;</a></span>createFromExistingEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint32_t <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::indexCount </td>
+          <td class="memname">void bl::ecs::EntityBacked::createFromExistingEntity </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the number of indices in the buffer. </p>
+<p>Initializes using an existing entity instead of creating one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create the entity in </td></tr>
+    <tr><td class="paramname">entity</td><td>The existing entity to use </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00222">222</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00052">52</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae08f6375209ad3754477497237e0f6e7" name="ae08f6375209ad3754477497237e0f6e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae08f6375209ad3754477497237e0f6e7">&#9670;&#160;</a></span>indices() <span class="overload">[1/2]</span></h2>
+<a id="a8f2fc297a01fcc9c1b86d52f7e8f8fb4" name="a8f2fc297a01fcc9c1b86d52f7e8f8fb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f2fc297a01fcc9c1b86d52f7e8f8fb4">&#9670;&#160;</a></span>createWithMaterial() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::vector&lt; std::uint32_t &gt; &amp; <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::indices </td>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::createWithMaterial </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>materialPipelineId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a05358.html">bl::rc::res::MaterialRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>material</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the ECS entity and drawable component using specific material parameters. Will destroy the prior instance if any. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the component's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create the object in </td></tr>
+    <tr><td class="paramname">materialPipelineId</td><td>The material pipeline id to render with </td></tr>
+    <tr><td class="paramname">material</td><td>The material to use </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to the component's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00171">171</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c2668dae514b1b6ccdc629c82618f9d" name="a6c2668dae514b1b6ccdc629c82618f9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c2668dae514b1b6ccdc629c82618f9d">&#9670;&#160;</a></span>createWithMaterial() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::createWithMaterial </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>materialPipelineId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the ECS entity and drawable component using specific material parameters. Will destroy the prior instance if any. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the component's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create the object in </td></tr>
+    <tr><td class="paramname">materialPipelineId</td><td>The material pipeline id to render with </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to the component's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00157">157</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7856773231629b1e04c73964a939712" name="ac7856773231629b1e04c73964a939712"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7856773231629b1e04c73964a939712">&#9670;&#160;</a></span>deleteEntityOnDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::EntityBacked::deleteEntityOnDestroy </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>deleteEntity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configures whether or not to destroy the ECS entity when this object is destroyed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deleteEntity</td><td>True to destroy, false to keep. Default is true </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00057">57</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a45ec17a5d2aa2e51c2105d1e3f1791ca" name="a45ec17a5d2aa2e51c2105d1e3f1791ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45ec17a5d2aa2e51c2105d1e3f1791ca">&#9670;&#160;</a></span>destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::EntityBacked::destroy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -598,73 +950,84 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the index buffer. </p>
+<p>Destroys the ECS entity and component. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00198">198</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00039">39</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a340a12673d1d2ee954714001c46558de" name="a340a12673d1d2ee954714001c46558de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a340a12673d1d2ee954714001c46558de">&#9670;&#160;</a></span>indices() <span class="overload">[2/2]</span></h2>
+<a id="a9570c58ddf4da8bbb5cc9131dec548ca" name="a9570c58ddf4da8bbb5cc9131dec548ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9570c58ddf4da8bbb5cc9131dec548ca">&#9670;&#160;</a></span>draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const std::vector&lt; std::uint32_t &gt; &amp; <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::indices </td>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::draw </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a05426.html">rc::scene::CodeScene::RenderContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the index buffer. </p>
+<p>Manually issue the required commands to draw this object. Must be called within the context of a CodeScene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The CodeScene rendering context </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00203">203</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00129">129</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5d4e198cde1a857772dcde98c4bd21e1" name="a5d4e198cde1a857772dcde98c4bd21e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d4e198cde1a857772dcde98c4bd21e1">&#9670;&#160;</a></span>insertBarrierBeforeWrite()</h2>
+<a id="ad29553a8037da3a396535700891bf39f" name="ad29553a8037da3a396535700891bf39f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad29553a8037da3a396535700891bf39f">&#9670;&#160;</a></span>engine()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::insertBarrierBeforeWrite </td>
+          <td class="memname"><a class="el" href="a03698.html">engine::Engine</a> &amp; bl::ecs::EntityBacked::engine </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Records a pipeline barrier to prevent writes from occurring before fragment shader reads are completed. </p>
+<p>Returns the game engine instance. Only call after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00325">325</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01535_source.html#l00138">138</a> of file <a class="el" href="a01535_source.html">EntityBacked.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2fbe7414a05994b43584022f6d333c0d" name="a2fbe7414a05994b43584022f6d333c0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fbe7414a05994b43584022f6d333c0d">&#9670;&#160;</a></span>isQueued()</h2>
+<a id="ad682add183fd9da32f32a84b5e203c07" name="ad682add183fd9da32f32a84b5e203c07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad682add183fd9da32f32a84b5e203c07">&#9670;&#160;</a></span>entity()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -673,7 +1036,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::tfr::Transferable::isQueued </td>
+          <td class="memname"><a class="el" href="a03542.html">ecs::Entity</a> bl::ecs::EntityBacked::entity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -686,14 +1049,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not a transfer is queued, either individually or every frame. </p>
+<p>Returns the ECS entity of this drawable. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01112_source.html#l00064">64</a> of file <a class="el" href="a01112_source.html">Transferable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01535_source.html#l00136">136</a> of file <a class="el" href="a01535_source.html">EntityBacked.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af2cddcfa3664702cb39bba2e304e5074" name="af2cddcfa3664702cb39bba2e304e5074"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2cddcfa3664702cb39bba2e304e5074">&#9670;&#160;</a></span>queueTransfer()</h2>
+<a id="a030d25d25bc767c41a46687406603f4d" name="a030d25d25bc767c41a46687406603f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a030d25d25bc767c41a46687406603f4d">&#9670;&#160;</a></span>entityIsDeletedOnDestruction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -702,11 +1065,39 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::tfr::Transferable::queueTransfer </td>
+          <td class="memname">bool bl::ecs::EntityBacked::entityIsDeletedOnDestruction </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a>&#160;</td>
-          <td class="paramname"><em>syncReq</em> = <code><a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a></code></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the underlying entity is destroyed when this object is. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01535_source.html#l00098">98</a> of file <a class="el" href="a01535_source.html">EntityBacked.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a679bf7927b2e279b75c7687d257c0e01" name="a679bf7927b2e279b75c7687d257c0e01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a679bf7927b2e279b75c7687d257c0e01">&#9670;&#160;</a></span>exists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::ecs::EntityBacked::exists </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -716,21 +1107,62 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Queues this object with the TransferEngine to be transfered on the next frame. </p>
+<p>Returns whether or not the underlying entity exists. </p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00069">69</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f8a05d41d18baf44696c0a0698e7b16" name="a3f8a05d41d18baf44696c0a0698e7b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f8a05d41d18baf44696c0a0698e7b16">&#9670;&#160;</a></span>flash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::flash </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>onPeriod</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>offPeriod</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Causes the drawable to flash with the given settings. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">syncReq</td><td>Synchronization requirements for the transfer </td></tr>
+    <tr><td class="paramname">onPeriod</td><td>The amount of time to be visible, in seconds </td></tr>
+    <tr><td class="paramname">offPeriod</td><td>The amount of time to be hidden, in seconds </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the transfer was scheduled, false if already scheduled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00029">29</a> of file <a class="el" href="a02129_source.html">Transferable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00104">104</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a998a9c05422f6188b474d275866a6b2b" name="a998a9c05422f6188b474d275866a6b2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a998a9c05422f6188b474d275866a6b2b">&#9670;&#160;</a></span>stopTransferringEveryFrame()</h2>
+<a id="ad73e8ff255226c8678f107faa45ccacc" name="ad73e8ff255226c8678f107faa45ccacc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad73e8ff255226c8678f107faa45ccacc">&#9670;&#160;</a></span>getOutline() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -739,7 +1171,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::tfr::Transferable::stopTransferringEveryFrame </td>
+          <td class="memname"><a class="el" href="a03286.html">com::Outline</a> &amp; bl::gfx::bcom::Outline3D::getOutline </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -747,19 +1179,19 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes this Transferable from the queue that gets transferred every frame. </p>
+<p>Returns the outline. Only call if an outline is present. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00056">56</a> of file <a class="el" href="a02129_source.html">Transferable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00050">50</a> of file <a class="el" href="a01637_source.html">Outline3D.hpp</a>.</p>
 
 </div>
 </div>
-<a id="affdc9c965d73f5227f2d3e0c8a17064e" name="affdc9c965d73f5227f2d3e0c8a17064e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#affdc9c965d73f5227f2d3e0c8a17064e">&#9670;&#160;</a></span>transferEveryFrame()</h2>
+<a id="a50d3184f6d98acc99d982c96b19a6b10" name="a50d3184f6d98acc99d982c96b19a6b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50d3184f6d98acc99d982c96b19a6b10">&#9670;&#160;</a></span>getOutline() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -768,45 +1200,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::tfr::Transferable::transferEveryFrame </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a>&#160;</td>
-          <td class="paramname"><em>syncReq</em> = <code><a class="el" href="a04506.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a></code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Configures this Transferable to transfer every frame with the given sync requirement. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">syncReq</td><td>Synchronization requirements for the transfer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00045">45</a> of file <a class="el" href="a02129_source.html">Transferable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a41abc2c1b23bb4929fa9d2a1d0552654" name="a41abc2c1b23bb4929fa9d2a1d0552654"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41abc2c1b23bb4929fa9d2a1d0552654">&#9670;&#160;</a></span>vertexBufferHandle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr VkBuffer <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::vertexBufferHandle </td>
+          <td class="memname">const <a class="el" href="a03286.html">com::Outline</a> &amp; bl::gfx::bcom::Outline3D::getOutline </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -814,61 +1208,28 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the Vulkan handle of the vertex buffer. </p>
+<p>Returns the outline. Only call if an outline is present. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00232">232</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00055">55</a> of file <a class="el" href="a01637_source.html">Outline3D.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af358a9ed58565725299d95bddcfe9f72" name="af358a9ed58565725299d95bddcfe9f72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af358a9ed58565725299d95bddcfe9f72">&#9670;&#160;</a></span>vertexCount()</h2>
+<a id="ad432cbd60a78a1b4daea7306af479f46" name="ad432cbd60a78a1b4daea7306af479f46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad432cbd60a78a1b4daea7306af479f46">&#9670;&#160;</a></span>getTransform() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint32_t <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::vertexCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of vertices in the buffer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00227">227</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8ab311d1edf2121ba1b570b9f61fd145" name="a8ab311d1edf2121ba1b570b9f61fd145"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ab311d1edf2121ba1b570b9f61fd145">&#9670;&#160;</a></span>vertices() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::vector&lt; T &gt; &amp; <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::vertices </td>
+          <td class="memname"><a class="el" href="a03354.html">com::Transform3D</a> &amp; bl::gfx::bcom::Transform3D::getTransform </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -876,30 +1237,28 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the vertex buffer. </p>
+<p>Returns the transform. Must only be called after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00188">188</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07954_source.html#l00054">54</a> of file <a class="el" href="a07954_source.html">Transform3D.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a08bddf999980c347edc6ae67bdf2e269" name="a08bddf999980c347edc6ae67bdf2e269"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08bddf999980c347edc6ae67bdf2e269">&#9670;&#160;</a></span>vertices() <span class="overload">[2/2]</span></h2>
+<a id="a71b6e39d69e20d62a1de6f90467866c4" name="a71b6e39d69e20d62a1de6f90467866c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71b6e39d69e20d62a1de6f90467866c4">&#9670;&#160;</a></span>getTransform() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const std::vector&lt; T &gt; &amp; <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::vertices </td>
+          <td class="memname">const <a class="el" href="a03354.html">com::Transform3D</a> &amp; bl::gfx::bcom::Transform3D::getTransform </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -907,46 +1266,48 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the vertex buffer. </p>
+<p>Returns the transform. Must only be called after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00193">193</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07954_source.html#l00056">56</a> of file <a class="el" href="a07954_source.html">Transform3D.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a97600659a596051a04944dbb357eb622" name="a97600659a596051a04944dbb357eb622"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97600659a596051a04944dbb357eb622">&#9670;&#160;</a></span>IndexType</h2>
+<a id="aa32e31aa3fd553baeeba3a64e5d813a6" name="aa32e31aa3fd553baeeba3a64e5d813a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32e31aa3fd553baeeba3a64e5d813a6">&#9670;&#160;</a></span>hasOutline()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr VkIndexType <a class="el" href="a03990.html">bl::rc::buf::IndexBufferT</a>&lt; T &gt;::IndexType = VK_INDEX_TYPE_UINT32</td>
+          <td class="memname">bool bl::gfx::bcom::Outline3D::hasOutline </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01334_source.html#l00028">28</a> of file <a class="el" href="a01334_source.html">IndexBuffer.hpp</a>.</p>
+<p>Returns whether this object has an outline or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01637_source.html#l00060">60</a> of file <a class="el" href="a01637_source.html">Outline3D.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae134133a20147f77b4feae59dc9b447d" name="ae134133a20147f77b4feae59dc9b447d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae134133a20147f77b4feae59dc9b447d">&#9670;&#160;</a></span>vulkanState</h2>
+<a id="abbad8fb4182b1f112432191d0b2ef828" name="abbad8fb4182b1f112432191d0b2ef828"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbad8fb4182b1f112432191d0b2ef828">&#9670;&#160;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -955,7 +1316,27 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04694.html">vk::VulkanState</a>* bl::rc::tfr::Transferable::vulkanState</td>
+          <td class="memname">void bl::gfx::bcom::Outline3D::init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03590.html">ecs::Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04766.html">rc::rcom::DrawableBase</a> *&#160;</td>
+          <td class="paramname"><em>drawable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -965,18 +1346,631 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01112_source.html#l00072">72</a> of file <a class="el" href="a01112_source.html">Transferable.hpp</a>.</p>
+<p>Initializes the outline component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">registry</td><td>The ECS registry </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity of the object to outline </td></tr>
+    <tr><td class="paramname">drawable</td><td>The drawable component of the object to outline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02831_source.html#l00021">21</a> of file <a class="el" href="a02831_source.html">Outline3D.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Buffers/<a class="el" href="a01334_source.html">IndexBuffer.hpp</a></li>
+<a id="af17ccc249c2ae2fee24989388451d45f" name="af17ccc249c2ae2fee24989388451d45f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af17ccc249c2ae2fee24989388451d45f">&#9670;&#160;</a></span>makeSphere()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::Sphere::makeSphere </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>detailLevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="a05322.html">rc::prim::Vertex3D</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>outVertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::uint32_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>outIndices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Populates the given vectors with vertices and indices to make a sphere. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>The radius of the sphere </td></tr>
+    <tr><td class="paramname">detailLevel</td><td>How detailed to make the sphere. <a class="el" href="a04026.html" title="Basic renderable triangle that can be added to scenes.">Triangle</a> count = detail * 20 </td></tr>
+    <tr><td class="paramname">outVertices</td><td>The output vertices container </td></tr>
+    <tr><td class="paramname">outIndices</td><td>The output indices container </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02795_source.html#l00098">98</a> of file <a class="el" href="a02795_source.html">Sphere.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a0fe998b75eb7f8fc5ea7fb5891f031" name="a0a0fe998b75eb7f8fc5ea7fb5891f031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a0fe998b75eb7f8fc5ea7fb5891f031">&#9670;&#160;</a></span>material() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03274.html">com::MaterialInstance</a> &amp; <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::material </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the material instance for this entity. Only call after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00091">91</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a543d285ca787b39c185d13251ada8ab0" name="a543d285ca787b39c185d13251ada8ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a543d285ca787b39c185d13251ada8ab0">&#9670;&#160;</a></span>material() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a03274.html">com::MaterialInstance</a> &amp; <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::material </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the material instance for this entity. Only call after <a class="el" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac" title="Creates the sphere with a given size and material.">create()</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00096">96</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a79520de783b85f014081d0df82193c00" name="a79520de783b85f014081d0df82193c00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79520de783b85f014081d0df82193c00">&#9670;&#160;</a></span>onAdd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::onAdd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05450.html">rc::Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>updateFreq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called after the entity is added to a scene. Allows derived to sync data if required. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The scene the object is being added to </td></tr>
+    <tr><td class="paramname">updateFreq</td><td>The expected update frequency of the object's descriptors </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00191">191</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a893d012ef3a78a3e7adef0e3417a13dd" name="a893d012ef3a78a3e7adef0e3417a13dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a893d012ef3a78a3e7adef0e3417a13dd">&#9670;&#160;</a></span>onRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::onRemove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called after the entity is removed from a scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00196">196</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aef1c33b5c27b23b473aef9385af60064" name="aef1c33b5c27b23b473aef9385af60064"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef1c33b5c27b23b473aef9385af60064">&#9670;&#160;</a></span>removeFromScene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::removeFromScene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the entity from the scene or overlay that it is in. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00076">76</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8a06983544c37b72e3e6a38fb6ffe27e" name="a8a06983544c37b72e3e6a38fb6ffe27e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a06983544c37b72e3e6a38fb6ffe27e">&#9670;&#160;</a></span>removeOutline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::bcom::Outline3D::removeOutline </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>specialization</em> = <code>std::numeric_limits&lt;std::uint32_t&gt;::max()</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the outline around this object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">specialization</td><td>The specialization to reset the object to. Defaults to what the specialization was prior to the outline being added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02831_source.html#l00037">37</a> of file <a class="el" href="a02831_source.html">Outline3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1b7d951f297c1a46d1de176b3c3baf6" name="aa1b7d951f297c1a46d1de176b3c3baf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1b7d951f297c1a46d1de176b3c3baf6">&#9670;&#160;</a></span>removeParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::EntityBacked::removeParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method to remove the parent of this drawable, if any. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00067">67</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1461782b80210c1a8e549342d89fa3fc" name="a1461782b80210c1a8e549342d89fa3fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1461782b80210c1a8e549342d89fa3fc">&#9670;&#160;</a></span>resetFlash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::resetFlash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If actively flashing: Resets state to visible and restarts flash timer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00109">109</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a828c0938b5e4c7a5a12b985fc5c96445" name="a828c0938b5e4c7a5a12b985fc5c96445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a828c0938b5e4c7a5a12b985fc5c96445">&#9670;&#160;</a></span>setColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::Sphere::setColor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04746.html">rc::Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the color of the sphere. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color to assign to all the vertices </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02795_source.html#l00139">139</a> of file <a class="el" href="a02795_source.html">Sphere.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a19db87d39580618a4131ef9227abd5d7" name="a19db87d39580618a4131ef9227abd5d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19db87d39580618a4131ef9227abd5d7">&#9670;&#160;</a></span>setHidden()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::setHidden </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hide</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Set whether the entity is hidden or not. May only be called on entities in a scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hide</td><td>True to block rendering, false to render normally </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00071">71</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8392519ea3df311e4cc129f0d7039abb" name="a8392519ea3df311e4cc129f0d7039abb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8392519ea3df311e4cc129f0d7039abb">&#9670;&#160;</a></span>setOutlineSpecialization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::bcom::Outline3D::setOutlineSpecialization </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>specialization</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets a different pipeline specialization to use for the first pass. Only needed if using custom pipelines that don't use Specializations3D::OutlineMainPass. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">specialization</td><td>The specialization to use for the main pass </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02831_source.html#l00048">48</a> of file <a class="el" href="a02831_source.html">Outline3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af608fdfb20d8ef7314dab276918b80f1" name="af608fdfb20d8ef7314dab276918b80f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af608fdfb20d8ef7314dab276918b80f1">&#9670;&#160;</a></span>setParent() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::EntityBacked::setParent </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03550.html">EntityBacked</a> &amp;&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method to parent this drawable to another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent of this drawable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00059">59</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a13913d8baa9908eae02992c0d62827c1" name="a13913d8baa9908eae02992c0d62827c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13913d8baa9908eae02992c0d62827c1">&#9670;&#160;</a></span>setParent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::ecs::EntityBacked::setParent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method to parent this drawable. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent entity of this drawable </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02777_source.html#l00063">63</a> of file <a class="el" href="a02777_source.html">EntityBacked.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0dc68b0a2ce7bfaa841f5528379a33e" name="ac0dc68b0a2ce7bfaa841f5528379a33e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0dc68b0a2ce7bfaa841f5528379a33e">&#9670;&#160;</a></span>setRequiresComponentOnSelf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::setRequiresComponentOnSelf </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>require</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets whether the component must be created on the root entity for scene add. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">require</td><td>True to require, false to not </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00203">203</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a568b28cab81814c12bffb9ab0bcf33a9" name="a568b28cab81814c12bffb9ab0bcf33a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a568b28cab81814c12bffb9ab0bcf33a9">&#9670;&#160;</a></span>showOutline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gfx::bcom::Outline3D::showOutline </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04746.html">rc::Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>thickness</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates or modifies the outline around this object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>The color of the outline </td></tr>
+    <tr><td class="paramname">thickness</td><td>The thickness of the outline in world units </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02831_source.html#l00027">27</a> of file <a class="el" href="a02831_source.html">Outline3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5d1c85d6ba086a46ea3b26b68a256094" name="a5d1c85d6ba086a46ea3b26b68a256094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d1c85d6ba086a46ea3b26b68a256094">&#9670;&#160;</a></span>stopFlashing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03922.html">bl::gfx::Drawable</a>&lt; <a class="el" href="a02966.html#gaf44de7641db214f62bfad778e6eb2d53">com::BasicMesh</a>  &gt;::stopFlashing </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops the component from flashing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01604_source.html#l00114">114</a> of file <a class="el" href="a01604_source.html">Drawable.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Graphics/<a class="el" href="a01616_source.html">Sphere.hpp</a></li>
+<li>src/Graphics/<a class="el" href="a02795_source.html">Sphere.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

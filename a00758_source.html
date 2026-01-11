@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Elements/ProgressBar.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,80 +79,347 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bb95439065f6a606d9dbc4385f71a79c.html">ShaderResources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ProgressBar.hpp</div></div>
+  <div class="headertitle"><div class="title">EntityComponentShaderResource.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00758.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_PROGRESSBAR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_ELEMENTS_PROGRESSBAR_HPP</span></div>
+<a href="a00758.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_ENTITYCOMPONENTSHADERINPUT_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_ENTITYCOMPONENTSHADERINPUT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gui</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03522.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a03522.html">ProgressBar</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03498.html">Element</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03522.html#a458394231b8a73e25d0f28f417a23b07">   18</a></span>    <span class="keyword">typedef</span> std::shared_ptr&lt;ProgressBar&gt; <a class="code hl_typedef" href="a03522.html#a458394231b8a73e25d0f28f417a23b07">Ptr</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03522.html#a4006bc935e7bb59efa0407ddf18e2d64">   20</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03522.html#a4006bc935e7bb59efa0407ddf18e2d64">~ProgressBar</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa04edcab9ae0fb5a787acb6c77fe37673">   23</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> { <a class="code hl_enumvalue" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa7790eb0ab32f5269b3c5b1cf3cc00b68">LeftToRight</a>, <a class="code hl_enumvalue" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaab85dcbdfb43dba72586f4c8a1a0330cf">RightToLeft</a>, <a class="code hl_enumvalue" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa013c1ce2b8e3886a51be67388e918e37">TopToBottom</a>, <a class="code hl_enumvalue" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa04edcab9ae0fb5a787acb6c77fe37673">BottomToTop</a> };</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">static</span> <a class="code hl_typedef" href="a03522.html#a458394231b8a73e25d0f28f417a23b07">Ptr</a> <a class="code hl_function" href="a03522.html#a2b40265987ebb9ea174865495059c872">create</a>(<a class="code hl_enumeration" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> fillDir = <a class="code hl_enumvalue" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa7790eb0ab32f5269b3c5b1cf3cc00b68">LeftToRight</a>);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03522.html#a5030a527dcddc8ab829be257eefc90e6">setProgress</a>(<span class="keywordtype">float</span> progress);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03522.html#a04c4dcd4a3094bd49bda7d9c5ddc64a4">getProgress</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_enumeration" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> <a class="code hl_function" href="a03522.html#a7169c6b7fa60dac134e38d7bdf2a670d">getFillDirection</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a03522.html">ProgressBar</a>(<a class="code hl_enumeration" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> fillDir);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">virtual</span> sf::Vector2f <a class="code hl_function" href="a03522.html#af438e3a03292fc70b7777f9934405351">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a03674.html">rdr::Component</a>* <a class="code hl_function" href="a03522.html#a558d581864228c8bf29244d82a111783">doPrepareRender</a>(<a class="code hl_class" href="a03714.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfa">FillDirection</a> direction;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordtype">float</span> progress;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01409.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08542.html">BLIB/Engine/HeaderHelpers.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00551.html">BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a08527.html">BLIB/Render/Config/Constants.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/Render/Config/Limits.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a08560.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00767.html">BLIB/Render/ShaderResources/ShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00452.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>sr</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05542.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="a05542.html">EntityComponentShaderResourceBase</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05570.html">sr::ShaderResource</a> {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a05546.html">   34</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="a05546.html">DirtyRange</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05546.html#a8e5bffef75441ad148ce3ad5a06879b4">   35</a></span>        std::uint32_t <a class="code hl_variable" href="a05546.html#a8e5bffef75441ad148ce3ad5a06879b4">start</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a05546.html#a61e24e4097bf002fab570a02992c597c">   36</a></span>        std::uint32_t <a class="code hl_variable" href="a05546.html#a61e24e4097bf002fab570a02992c597c">end</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a05546.html#a5d0314fd2263b5a4bb3b9d59705b744c">   38</a></span>        <a class="code hl_function" href="a05546.html#a5d0314fd2263b5a4bb3b9d59705b744c">DirtyRange</a>()</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        : <a class="code hl_variable" href="a05546.html#a8e5bffef75441ad148ce3ad5a06879b4">start</a>(1)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        , <a class="code hl_variable" href="a05546.html#a61e24e4097bf002fab570a02992c597c">end</a>(0) {}</div>
 </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">Element.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03498_html"><div class="ttname"><a href="a03498.html">bl::gui::Element</a></div><div class="ttdoc">Base class for all GUI elements. Provides the common interface used for positioning,...</div><div class="ttdef"><b>Definition</b> <a href="a00752_source.html#l00031">Element.hpp:33</a></div></div>
-<div class="ttc" id="aa03522_html"><div class="ttname"><a href="a03522.html">bl::gui::ProgressBar</a></div><div class="ttdoc">Simple progress bar.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00016">ProgressBar.hpp:16</a></div></div>
-<div class="ttc" id="aa03522_html_a04c4dcd4a3094bd49bda7d9c5ddc64a4"><div class="ttname"><a href="a03522.html#a04c4dcd4a3094bd49bda7d9c5ddc64a4">bl::gui::ProgressBar::getProgress</a></div><div class="ttdeci">float getProgress() const</div><div class="ttdoc">Get the progress of the bar.</div><div class="ttdef"><b>Definition</b> <a href="a01901_source.html#l00023">ProgressBar.cpp:23</a></div></div>
-<div class="ttc" id="aa03522_html_a2b40265987ebb9ea174865495059c872"><div class="ttname"><a href="a03522.html#a2b40265987ebb9ea174865495059c872">bl::gui::ProgressBar::create</a></div><div class="ttdeci">static Ptr create(FillDirection fillDir=LeftToRight)</div><div class="ttdoc">Create a new ProgressBar.</div><div class="ttdef"><b>Definition</b> <a href="a01901_source.html#l00009">ProgressBar.cpp:9</a></div></div>
-<div class="ttc" id="aa03522_html_a4006bc935e7bb59efa0407ddf18e2d64"><div class="ttname"><a href="a03522.html#a4006bc935e7bb59efa0407ddf18e2d64">bl::gui::ProgressBar::~ProgressBar</a></div><div class="ttdeci">virtual ~ProgressBar()=default</div></div>
-<div class="ttc" id="aa03522_html_a458394231b8a73e25d0f28f417a23b07"><div class="ttname"><a href="a03522.html#a458394231b8a73e25d0f28f417a23b07">bl::gui::ProgressBar::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ProgressBar &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00018">ProgressBar.hpp:18</a></div></div>
-<div class="ttc" id="aa03522_html_a5030a527dcddc8ab829be257eefc90e6"><div class="ttname"><a href="a03522.html#a5030a527dcddc8ab829be257eefc90e6">bl::gui::ProgressBar::setProgress</a></div><div class="ttdeci">void setProgress(float progress)</div><div class="ttdoc">Set the progress of the bar. In the range [0,1].</div><div class="ttdef"><b>Definition</b> <a href="a01901_source.html#l00016">ProgressBar.cpp:16</a></div></div>
-<div class="ttc" id="aa03522_html_a558d581864228c8bf29244d82a111783"><div class="ttname"><a href="a03522.html#a558d581864228c8bf29244d82a111783">bl::gui::ProgressBar::doPrepareRender</a></div><div class="ttdeci">virtual rdr::Component * doPrepareRender(rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the visual component for this element.</div><div class="ttdef"><b>Definition</b> <a href="a01901_source.html#l00029">ProgressBar.cpp:29</a></div></div>
-<div class="ttc" id="aa03522_html_a7169c6b7fa60dac134e38d7bdf2a670d"><div class="ttname"><a href="a03522.html#a7169c6b7fa60dac134e38d7bdf2a670d">bl::gui::ProgressBar::getFillDirection</a></div><div class="ttdeci">FillDirection getFillDirection() const</div><div class="ttdoc">Get the direction the bar is filling in.</div><div class="ttdef"><b>Definition</b> <a href="a01901_source.html#l00025">ProgressBar.cpp:25</a></div></div>
-<div class="ttc" id="aa03522_html_aba6a25c601d8802fe1767c4b64b81cfa"><div class="ttname"><a href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfa">bl::gui::ProgressBar::FillDirection</a></div><div class="ttdeci">FillDirection</div><div class="ttdoc">Direction the bar should fill in as progress is made.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00023">ProgressBar.hpp:23</a></div></div>
-<div class="ttc" id="aa03522_html_aba6a25c601d8802fe1767c4b64b81cfaa013c1ce2b8e3886a51be67388e918e37"><div class="ttname"><a href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa013c1ce2b8e3886a51be67388e918e37">bl::gui::ProgressBar::TopToBottom</a></div><div class="ttdeci">@ TopToBottom</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00023">ProgressBar.hpp:23</a></div></div>
-<div class="ttc" id="aa03522_html_aba6a25c601d8802fe1767c4b64b81cfaa04edcab9ae0fb5a787acb6c77fe37673"><div class="ttname"><a href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa04edcab9ae0fb5a787acb6c77fe37673">bl::gui::ProgressBar::BottomToTop</a></div><div class="ttdeci">@ BottomToTop</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00023">ProgressBar.hpp:23</a></div></div>
-<div class="ttc" id="aa03522_html_aba6a25c601d8802fe1767c4b64b81cfaa7790eb0ab32f5269b3c5b1cf3cc00b68"><div class="ttname"><a href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaa7790eb0ab32f5269b3c5b1cf3cc00b68">bl::gui::ProgressBar::LeftToRight</a></div><div class="ttdeci">@ LeftToRight</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00023">ProgressBar.hpp:23</a></div></div>
-<div class="ttc" id="aa03522_html_aba6a25c601d8802fe1767c4b64b81cfaab85dcbdfb43dba72586f4c8a1a0330cf"><div class="ttname"><a href="a03522.html#aba6a25c601d8802fe1767c4b64b81cfaab85dcbdfb43dba72586f4c8a1a0330cf">bl::gui::ProgressBar::RightToLeft</a></div><div class="ttdeci">@ RightToLeft</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00023">ProgressBar.hpp:23</a></div></div>
-<div class="ttc" id="aa03522_html_af438e3a03292fc70b7777f9934405351"><div class="ttname"><a href="a03522.html#af438e3a03292fc70b7777f9934405351">bl::gui::ProgressBar::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns (5,5)</div><div class="ttdef"><b>Definition</b> <a href="a01901_source.html#l00027">ProgressBar.cpp:27</a></div></div>
-<div class="ttc" id="aa03674_html"><div class="ttname"><a href="a03674.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a00599_source.html#l00032">Component.hpp:32</a></div></div>
-<div class="ttc" id="aa03714_html"><div class="ttname"><a href="a03714.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition</b> <a href="a06856_source.html#l00029">Renderer.hpp:29</a></div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    };</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05542.html#a929df66ac0dac4e01bbc9be408604632">   46</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05542.html#a929df66ac0dac4e01bbc9be408604632">~EntityComponentShaderResourceBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05542.html#a5e69e4012d3283881150162d21da5209">markObjectDirty</a>(<a class="code hl_struct" href="a05438.html">scene::Key</a> key);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a05546.html">DirtyRange</a>&amp; <a class="code hl_function" href="a05542.html#afe71fe3ec25f1a2db7033e07524e0aa8">dirtyDynamicRange</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a05546.html">DirtyRange</a>&amp; <a class="code hl_function" href="a05542.html#aab96aee578e3ef1e09f5be43850f110a">dirtyStaticRange</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a05542.html#aa349bc36c0e741db000ca063eb3b9854">   66</a></span>    <a class="code hl_struct" href="a05546.html">DirtyRange</a> <a class="code hl_variable" href="a05542.html#aa349bc36c0e741db000ca063eb3b9854">dirtyDynamic</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a05542.html#a7b22d59eca6e84305218adfb42c08b39">   67</a></span>    <a class="code hl_struct" href="a05546.html">DirtyRange</a> <a class="code hl_variable" href="a05542.html#a7b22d59eca6e84305218adfb42c08b39">dirtyStatic</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>         <span class="keyword">typename</span> TDynamicStorage = <a class="code hl_class" href="a04722.html">buf::BufferDoubleHostVisibleSourced&lt;TPayload&gt;</a>,</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>         <span class="keyword">typename</span> TStaticStorage  = <a class="code hl_class" href="a04734.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;TPayload&gt;</a>&gt;</div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a05550.html">   82</a></span><span class="keyword">class </span><a class="code hl_class" href="a05550.html">EntityComponentShaderResource</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05542.html">EntityComponentShaderResourceBase</a> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="a05550.html#a19359334f2cde675d0933cefa530c670">EntityComponentShaderResource</a>();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a05550.html#a345adb44f041371f8e05cd924949e31c">   92</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05550.html#a345adb44f041371f8e05cd924949e31c">~EntityComponentShaderResource</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a5231b35ded2618d490761d956f57c466">init</a>(<a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05334.html">RenderTarget</a>&amp; owner) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a8ddd5717e20c7304dee4ddde3b7f31bb">cleanup</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05550.html#a04a9c5099c42775808b17bdccdb018ff">allocateObject</a>(<a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05438.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a2399e882f8680ebfd01b567fcdc3c25e">releaseObject</a>(<a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05438.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#aa0867598cac9bb1244c171cce61ac899">performTransfer</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a5e6cbd9c8df8d51ebb3c249681c90148">copyFromSource</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    TDynamicStorage&amp; <a class="code hl_function" href="a05550.html#ada3338f29df85d38fbae56a778271e02">getDynamicBuffer</a>();</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    TStaticStorage&amp; <a class="code hl_function" href="a05550.html#a33d0f083c8ef3c5b23cc208ae0d3a654">getStaticBuffer</a>();</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05550.html#a21e9ecc125f541618d079dca2f764b78">dynamicDescriptorUpdateRequired</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05550.html#abe484b51ce6bbc7de0c7f75d21642cd6">staticDescriptorUpdateRequired</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <a class="code hl_class" href="a03590.html">ecs::Registry</a>* registry;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    std::vector&lt;TCom*&gt; srcStaticComponents;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    std::vector&lt;TCom*&gt; srcDynamicComponents;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    TDynamicStorage dynamicBuffer;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    TStaticStorage staticBuffer;</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    std::uint8_t dynamicRefresh;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    std::uint8_t staticRefresh;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>};</div>
+</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="foldopen" id="foldopen00166" data-start="{" data-end="}">
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="a05542.html#a5e69e4012d3283881150162d21da5209">  166</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05542.html#a5e69e4012d3283881150162d21da5209">EntityComponentShaderResourceBase::markObjectDirty</a>(<a class="code hl_struct" href="a05438.html">scene::Key</a> key) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keyword">auto</span>&amp; range = key.<a class="code hl_variable" href="a05438.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code hl_enumvalue" href="a02979.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">UpdateSpeed::Dynamic</a> ? <a class="code hl_variable" href="a05542.html#aa349bc36c0e741db000ca063eb3b9854">dirtyDynamic</a> : <a class="code hl_variable" href="a05542.html#a7b22d59eca6e84305218adfb42c08b39">dirtyStatic</a>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">if</span> (range.start &gt; range.end) {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        range.<a class="code hl_variable" href="a05546.html#a8e5bffef75441ad148ce3ad5a06879b4">start</a> = key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        range.end   = key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>;</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        range.start = key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &lt; range.start ? key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> : range.start;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        range.end   = key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> &gt; range.end ? key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> : range.end;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>}</div>
+</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keyword">inline</span> <span class="keyword">const</span> <a class="code hl_struct" href="a05546.html">EntityComponentShaderResourceBase::DirtyRange</a>&amp;</div>
+<div class="foldopen" id="foldopen00179" data-start="{" data-end="}">
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="a05542.html#afe71fe3ec25f1a2db7033e07524e0aa8">  179</a></span><a class="code hl_function" href="a05542.html#afe71fe3ec25f1a2db7033e07524e0aa8">EntityComponentShaderResourceBase::dirtyDynamicRange</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a05542.html#aa349bc36c0e741db000ca063eb3b9854">dirtyDynamic</a>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>}</div>
+</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="keyword">inline</span> <span class="keyword">const</span> <a class="code hl_struct" href="a05546.html">EntityComponentShaderResourceBase::DirtyRange</a>&amp;</div>
+<div class="foldopen" id="foldopen00184" data-start="{" data-end="}">
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="a05542.html#aab96aee578e3ef1e09f5be43850f110a">  184</a></span><a class="code hl_function" href="a05542.html#aab96aee578e3ef1e09f5be43850f110a">EntityComponentShaderResourceBase::dirtyStaticRange</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a05542.html#a7b22d59eca6e84305218adfb42c08b39">dirtyStatic</a>;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>}</div>
+</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span><a class="code hl_class" href="a05550.html">EntityComponentShaderResource</a>&lt;TCom, TPayload, TDynamicStorage,</div>
+<div class="foldopen" id="foldopen00190" data-start="{" data-end="}">
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="a05550.html#a19359334f2cde675d0933cefa530c670">  190</a></span>                              TStaticStorage&gt;::EntityComponentShaderResource()</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>: dynamicRefresh(0x1 &lt;&lt; cfg::Limits::MaxConcurrentFrames)</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>, staticRefresh(0x1 &lt;&lt; cfg::Limits::MaxConcurrentFrames) {}</div>
+</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="foldopen" id="foldopen00195" data-start="{" data-end="}">
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a05550.html#a5231b35ded2618d490761d956f57c466">  195</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a5231b35ded2618d490761d956f57c466">EntityComponentShaderResource&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;::init</a>(</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05334.html">RenderTarget</a>&amp;) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    registry = &amp;<a class="code hl_function" href="a03746.html#ac381f07cf0d0db9623e8577390131529">engine::HeaderHelpers::getRegistry</a>(engine);</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    dynamicBuffer.create(<a class="code hl_function" href="a03746.html#ae4d8f7cc69703bf51ae12b7b395a7b9d">engine::HeaderHelpers::getRenderer</a>(engine),</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                         <a class="code hl_variable" href="a04778.html#a98f1880df89f690e3718a5e461a65256">cfg::Constants::DefaultSceneObjectCapacity</a>);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    staticBuffer.create(<a class="code hl_function" href="a03746.html#ae4d8f7cc69703bf51ae12b7b395a7b9d">engine::HeaderHelpers::getRenderer</a>(engine),</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>                        <a class="code hl_variable" href="a04778.html#a98f1880df89f690e3718a5e461a65256">cfg::Constants::DefaultSceneObjectCapacity</a>);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    dynamicBuffer.transferEveryFrame();</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    srcDynamicComponents.reserve(<a class="code hl_variable" href="a04778.html#a98f1880df89f690e3718a5e461a65256">cfg::Constants::DefaultSceneObjectCapacity</a>);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    srcStaticComponents.reserve(<a class="code hl_variable" href="a04778.html#a98f1880df89f690e3718a5e461a65256">cfg::Constants::DefaultSceneObjectCapacity</a>);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>}</div>
+</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="foldopen" id="foldopen00208" data-start="{" data-end="}">
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="a05550.html#a8ddd5717e20c7304dee4ddde3b7f31bb">  208</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a8ddd5717e20c7304dee4ddde3b7f31bb">EntityComponentShaderResource&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;::cleanup</a>() {</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">// handled by destructors</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
+</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="a05550.html#a04a9c5099c42775808b17bdccdb018ff">  213</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05550.html#a04a9c5099c42775808b17bdccdb018ff">EntityComponentShaderResource&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;::allocateObject</a>(</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05438.html">scene::Key</a> key) {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    TCom* component = registry-&gt;getComponent&lt;TCom&gt;(entity);</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">if</span> (!component) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span> (key.<a class="code hl_variable" href="a05438.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code hl_enumvalue" href="a02979.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">UpdateSpeed::Dynamic</a>) {</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <span class="keywordflow">if</span> (dynamicBuffer.ensureSize(key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> + 1)) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            dynamicRefresh = 0x1 &lt;&lt; <a class="code hl_variable" href="a04782.html#a6c9c20e6956b85cd0d15deafd998575c">cfg::Limits::MaxConcurrentFrames</a>;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        }</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        component-&gt;link(<span class="keyword">this</span>, key);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>        <span class="keywordflow">if</span> (srcDynamicComponents.size() &lt;= key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>) {</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            srcDynamicComponents.resize(key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> + 1, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        }</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        srcDynamicComponents[key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>] = component;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">if</span> (staticBuffer.ensureSize(key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> + 1)) {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            staticRefresh = 0x1 &lt;&lt; <a class="code hl_variable" href="a04782.html#a6c9c20e6956b85cd0d15deafd998575c">cfg::Limits::MaxConcurrentFrames</a>;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>        component-&gt;link(<span class="keyword">this</span>, key);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="keywordflow">if</span> (srcStaticComponents.size() &lt;= key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>) {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            srcStaticComponents.resize(key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> + 1, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        }</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>        srcStaticComponents[key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>] = component;</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    }</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    markObjectDirty(key);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>}</div>
+</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="foldopen" id="foldopen00243" data-start="{" data-end="}">
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="a05550.html#a2399e882f8680ebfd01b567fcdc3c25e">  243</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05550.html#a2399e882f8680ebfd01b567fcdc3c25e">EntityComponentShaderResource&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;::releaseObject</a>(</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05438.html">scene::Key</a> key) {</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    TCom* component = registry-&gt;getComponent&lt;TCom&gt;(entity);</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">if</span> (component) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        component-&gt;unlink();</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keyword">auto</span>&amp; src =</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            key.<a class="code hl_variable" href="a05438.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a> == <a class="code hl_enumvalue" href="a02979.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">UpdateSpeed::Dynamic</a> ? srcDynamicComponents : srcStaticComponents;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        src[key.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>] = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    }</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="keywordtype">void</span> <a class="code hl_class" href="a05550.html">EntityComponentShaderResource</a>&lt;TCom, TPayload, TDynamicStorage,</div>
+<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="a05550.html#aa0867598cac9bb1244c171cce61ac899">  256</a></span>                                   TStaticStorage&gt;::performTransfer() {</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">if</span> (dirtyStatic.end &gt;= dirtyStatic.start) {</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        staticBuffer.<a class="code hl_function" href="a04714.html#acbd63c754e76cfd83bbf757252b6c568">markDirty</a>(dirtyStatic.start, dirtyStatic.end - dirtyStatic.start + 1);</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        staticBuffer.queueTransfer();</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        dirtyStatic = <a class="code hl_struct" href="a05546.html">DirtyRange</a>();</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordflow">if</span> (dirtyDynamic.end &gt;= dirtyDynamic.start) {</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        dynamicBuffer.markDirty(dirtyDynamic.start, dirtyDynamic.end - dirtyDynamic.start + 1);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        dirtyDynamic = <a class="code hl_struct" href="a05546.html">DirtyRange</a>();</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    }</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    dynamicRefresh = dynamicRefresh &gt;&gt; 1;</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    staticRefresh  = staticRefresh &gt;&gt; 1;</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>}</div>
+</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="keywordtype">void</span> <a class="code hl_class" href="a05550.html">EntityComponentShaderResource</a>&lt;TCom, TPayload, TDynamicStorage,</div>
+<div class="foldopen" id="foldopen00272" data-start="{" data-end="}">
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="a05550.html#a5e6cbd9c8df8d51ebb3c249681c90148">  272</a></span>                                   TStaticStorage&gt;::copyFromSource() {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">for</span> (TCom* com : srcDynamicComponents) {</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <span class="keywordflow">if</span> (com &amp;&amp; com-&gt;isDirty()) {</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <span class="keyword">auto</span>&amp; payload     = dynamicBuffer[com-&gt;getSceneKey().sceneId];</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            <span class="keyword">using </span>PayloadType = std::remove_reference_t&lt;<span class="keyword">decltype</span>(payload)&gt;;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            com-&gt;template refresh&lt;PayloadType&gt;(payload);</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>            markObjectDirty(com-&gt;getSceneKey());</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        }</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <span class="keywordflow">for</span> (TCom* com : srcStaticComponents) {</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">if</span> (com &amp;&amp; com-&gt;isDirty()) {</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <span class="keyword">auto</span>&amp; payload     = staticBuffer[com-&gt;getSceneKey().sceneId];</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            <span class="keyword">using </span>PayloadType = std::remove_reference_t&lt;<span class="keyword">decltype</span>(payload)&gt;;</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            com-&gt;template refresh&lt;PayloadType&gt;(payload);</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            markObjectDirty(com-&gt;getSceneKey());</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>        }</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    }</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>}</div>
+</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>TDynamicStorage&amp;</div>
+<div class="foldopen" id="foldopen00293" data-start="{" data-end="}">
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno"><a class="line" href="a05550.html#ada3338f29df85d38fbae56a778271e02">  293</a></span><a class="code hl_function" href="a05550.html#ada3338f29df85d38fbae56a778271e02">EntityComponentShaderResource&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;::getDynamicBuffer</a>() {</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">return</span> dynamicBuffer;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>}</div>
+</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>TStaticStorage&amp;</div>
+<div class="foldopen" id="foldopen00299" data-start="{" data-end="}">
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno"><a class="line" href="a05550.html#a33d0f083c8ef3c5b23cc208ae0d3a654">  299</a></span><a class="code hl_function" href="a05550.html#a33d0f083c8ef3c5b23cc208ae0d3a654">EntityComponentShaderResource&lt;TCom, TPayload, TDynamicStorage, TStaticStorage&gt;::getStaticBuffer</a>() {</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">return</span> staticBuffer;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>}</div>
+</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="keywordtype">bool</span> <a class="code hl_class" href="a05550.html">EntityComponentShaderResource</a>&lt;TCom, TPayload, TDynamicStorage,</div>
+<div class="foldopen" id="foldopen00305" data-start="{" data-end="}">
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="a05550.html#a21e9ecc125f541618d079dca2f764b78">  305</a></span>                                   TStaticStorage&gt;::dynamicDescriptorUpdateRequired()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keywordflow">return</span> dynamicRefresh != 0;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>}</div>
+</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload, <span class="keyword">typename</span> TDynamicStorage, <span class="keyword">typename</span> TStaticStorage&gt;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="keywordtype">bool</span> <a class="code hl_class" href="a05550.html">EntityComponentShaderResource</a>&lt;TCom, TPayload, TDynamicStorage,</div>
+<div class="foldopen" id="foldopen00311" data-start="{" data-end="}">
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno"><a class="line" href="a05550.html#abe484b51ce6bbc7de0c7f75d21642cd6">  311</a></span>                                   TStaticStorage&gt;::staticDescriptorUpdateRequired()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <span class="keywordflow">return</span> staticRefresh != 0;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>}</div>
+</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>} <span class="comment">// namespace sr</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
+<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">BufferSingleDeviceLocalSourced.hpp</a></div></div>
+<div class="ttc" id="aa00551_html"><div class="ttname"><a href="a00551.html">BufferDoubleHostVisibleSourced.hpp</a></div></div>
+<div class="ttc" id="aa00767_html"><div class="ttname"><a href="a00767.html">ShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">Limits.hpp</a></div></div>
+<div class="ttc" id="aa01409_html"><div class="ttname"><a href="a01409.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa02979_html_gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c"><div class="ttname"><a href="a02979.html#gga305dcc5dda3e28bd193ab31444664848a971fd8cc345d8bd9f92e9f7d88fdf20c">bl::rc::UpdateSpeed::Dynamic</a></div><div class="ttdeci">@ Dynamic</div><div class="ttdoc">Objects or data are expected to update once per frame or similar.</div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03590_html"><div class="ttname"><a href="a03590.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa03746_html_ac381f07cf0d0db9623e8577390131529"><div class="ttname"><a href="a03746.html#ac381f07cf0d0db9623e8577390131529">bl::engine::HeaderHelpers::getRegistry</a></div><div class="ttdeci">static ecs::Registry &amp; getRegistry(engine::Engine &amp;engine)</div><div class="ttdoc">Returns the engine ECS registry.</div><div class="ttdef"><b>Definition</b> <a href="a08710_source.html#l00014">HeaderHelpers.cpp:14</a></div></div>
+<div class="ttc" id="aa03746_html_ae4d8f7cc69703bf51ae12b7b395a7b9d"><div class="ttname"><a href="a03746.html#ae4d8f7cc69703bf51ae12b7b395a7b9d">bl::engine::HeaderHelpers::getRenderer</a></div><div class="ttdeci">static rc::Renderer &amp; getRenderer(engine::Engine &amp;engine)</div><div class="ttdoc">Returns the engine renderer instance.</div><div class="ttdef"><b>Definition</b> <a href="a08710_source.html#l00008">HeaderHelpers.cpp:8</a></div></div>
+<div class="ttc" id="aa04714_html_acbd63c754e76cfd83bbf757252b6c568"><div class="ttname"><a href="a04714.html#acbd63c754e76cfd83bbf757252b6c568">bl::rc::buf::base::BindableBuffer::markDirty</a></div><div class="ttdeci">void markDirty(std::uint32_t i, std::uint32_t n=1)</div><div class="ttdoc">Marks the given range dirty. Derived classes may use dirty ranges to inform copies.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00148">BindableBuffer.hpp:148</a></div></div>
+<div class="ttc" id="aa04722_html"><div class="ttname"><a href="a04722.html">bl::rc::buf::base::BindableBufferDoubleSourced</a></div><div class="ttdoc">Double buffered buffer class that provides buffer management and direct access for mapped buffers tha...</div><div class="ttdef"><b>Definition</b> <a href="a00521_source.html#l00032">BindableBufferDoubleSourced.hpp:33</a></div></div>
+<div class="ttc" id="aa04734_html"><div class="ttname"><a href="a04734.html">bl::rc::buf::base::BindableBufferSingleSourced</a></div><div class="ttdoc">Single buffered buffer class that provides buffer management and direct access for mapped buffers tha...</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00032">BindableBufferSingleSourced.hpp:33</a></div></div>
+<div class="ttc" id="aa04778_html_a98f1880df89f690e3718a5e461a65256"><div class="ttname"><a href="a04778.html#a98f1880df89f690e3718a5e461a65256">bl::rc::cfg::Constants::DefaultSceneObjectCapacity</a></div><div class="ttdeci">static constexpr std::uint32_t DefaultSceneObjectCapacity</div><div class="ttdef"><b>Definition</b> <a href="a08527_source.html#l00023">Constants.hpp:23</a></div></div>
+<div class="ttc" id="aa04782_html_a6c9c20e6956b85cd0d15deafd998575c"><div class="ttname"><a href="a04782.html#a6c9c20e6956b85cd0d15deafd998575c">bl::rc::cfg::Limits::MaxConcurrentFrames</a></div><div class="ttdeci">static constexpr unsigned int MaxConcurrentFrames</div><div class="ttdef"><b>Definition</b> <a href="a01016_source.html#l00019">Limits.hpp:19</a></div></div>
+<div class="ttc" id="aa05334_html"><div class="ttname"><a href="a05334.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa05438_html"><div class="ttname"><a href="a05438.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa05438_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00027">Key.hpp:27</a></div></div>
+<div class="ttc" id="aa05438_html_abc689f231a25b15808c61dde6fda1d08"><div class="ttname"><a href="a05438.html#abc689f231a25b15808c61dde6fda1d08">bl::rc::scene::Key::updateFreq</a></div><div class="ttdeci">UpdateSpeed updateFreq</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00026">Key.hpp:26</a></div></div>
+<div class="ttc" id="aa05542_html"><div class="ttname"><a href="a05542.html">bl::rc::sr::EntityComponentShaderResourceBase</a></div><div class="ttdoc">Base class for shader inputs derived from ECS components.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00029">EntityComponentShaderResource.hpp:29</a></div></div>
+<div class="ttc" id="aa05542_html_a5e69e4012d3283881150162d21da5209"><div class="ttname"><a href="a05542.html#a5e69e4012d3283881150162d21da5209">bl::rc::sr::EntityComponentShaderResourceBase::markObjectDirty</a></div><div class="ttdeci">void markObjectDirty(scene::Key key)</div><div class="ttdoc">Marks the given object's descriptors dirty for this frame.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00166">EntityComponentShaderResource.hpp:166</a></div></div>
+<div class="ttc" id="aa05542_html_a7b22d59eca6e84305218adfb42c08b39"><div class="ttname"><a href="a05542.html#a7b22d59eca6e84305218adfb42c08b39">bl::rc::sr::EntityComponentShaderResourceBase::dirtyStatic</a></div><div class="ttdeci">DirtyRange dirtyStatic</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00067">EntityComponentShaderResource.hpp:67</a></div></div>
+<div class="ttc" id="aa05542_html_a929df66ac0dac4e01bbc9be408604632"><div class="ttname"><a href="a05542.html#a929df66ac0dac4e01bbc9be408604632">bl::rc::sr::EntityComponentShaderResourceBase::~EntityComponentShaderResourceBase</a></div><div class="ttdeci">virtual ~EntityComponentShaderResourceBase()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa05542_html_aa349bc36c0e741db000ca063eb3b9854"><div class="ttname"><a href="a05542.html#aa349bc36c0e741db000ca063eb3b9854">bl::rc::sr::EntityComponentShaderResourceBase::dirtyDynamic</a></div><div class="ttdeci">DirtyRange dirtyDynamic</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00066">EntityComponentShaderResource.hpp:66</a></div></div>
+<div class="ttc" id="aa05542_html_aab96aee578e3ef1e09f5be43850f110a"><div class="ttname"><a href="a05542.html#aab96aee578e3ef1e09f5be43850f110a">bl::rc::sr::EntityComponentShaderResourceBase::dirtyStaticRange</a></div><div class="ttdeci">const DirtyRange &amp; dirtyStaticRange() const</div><div class="ttdoc">Returns the ranges of static dynamic elements.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00184">EntityComponentShaderResource.hpp:184</a></div></div>
+<div class="ttc" id="aa05542_html_afe71fe3ec25f1a2db7033e07524e0aa8"><div class="ttname"><a href="a05542.html#afe71fe3ec25f1a2db7033e07524e0aa8">bl::rc::sr::EntityComponentShaderResourceBase::dirtyDynamicRange</a></div><div class="ttdeci">const DirtyRange &amp; dirtyDynamicRange() const</div><div class="ttdoc">Returns the ranges of dirty dynamic elements.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00179">EntityComponentShaderResource.hpp:179</a></div></div>
+<div class="ttc" id="aa05546_html"><div class="ttname"><a href="a05546.html">bl::rc::sr::EntityComponentShaderResourceBase::DirtyRange</a></div><div class="ttdoc">Represents a range of dirty elements.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00034">EntityComponentShaderResource.hpp:34</a></div></div>
+<div class="ttc" id="aa05546_html_a5d0314fd2263b5a4bb3b9d59705b744c"><div class="ttname"><a href="a05546.html#a5d0314fd2263b5a4bb3b9d59705b744c">bl::rc::sr::EntityComponentShaderResourceBase::DirtyRange::DirtyRange</a></div><div class="ttdeci">DirtyRange()</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00038">EntityComponentShaderResource.hpp:38</a></div></div>
+<div class="ttc" id="aa05546_html_a61e24e4097bf002fab570a02992c597c"><div class="ttname"><a href="a05546.html#a61e24e4097bf002fab570a02992c597c">bl::rc::sr::EntityComponentShaderResourceBase::DirtyRange::end</a></div><div class="ttdeci">std::uint32_t end</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00036">EntityComponentShaderResource.hpp:36</a></div></div>
+<div class="ttc" id="aa05546_html_a8e5bffef75441ad148ce3ad5a06879b4"><div class="ttname"><a href="a05546.html#a8e5bffef75441ad148ce3ad5a06879b4">bl::rc::sr::EntityComponentShaderResourceBase::DirtyRange::start</a></div><div class="ttdeci">std::uint32_t start</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00035">EntityComponentShaderResource.hpp:35</a></div></div>
+<div class="ttc" id="aa05550_html"><div class="ttname"><a href="a05550.html">bl::rc::sr::EntityComponentShaderResource</a></div><div class="ttdoc">Generic class to provide per-object storage for descriptor set components.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00082">EntityComponentShaderResource.hpp:82</a></div></div>
+<div class="ttc" id="aa05550_html_a04a9c5099c42775808b17bdccdb018ff"><div class="ttname"><a href="a05550.html#a04a9c5099c42775808b17bdccdb018ff">bl::rc::sr::EntityComponentShaderResource::allocateObject</a></div><div class="ttdeci">virtual bool allocateObject(ecs::Entity entity, scene::Key key) override</div><div class="ttdoc">Ensures storage capacity and links the component to this buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00213">EntityComponentShaderResource.hpp:213</a></div></div>
+<div class="ttc" id="aa05550_html_a19359334f2cde675d0933cefa530c670"><div class="ttname"><a href="a05550.html#a19359334f2cde675d0933cefa530c670">bl::rc::sr::EntityComponentShaderResource::EntityComponentShaderResource</a></div><div class="ttdeci">EntityComponentShaderResource()</div><div class="ttdoc">Creates a new component backed shader input.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00190">EntityComponentShaderResource.hpp:190</a></div></div>
+<div class="ttc" id="aa05550_html_a21e9ecc125f541618d079dca2f764b78"><div class="ttname"><a href="a05550.html#a21e9ecc125f541618d079dca2f764b78">bl::rc::sr::EntityComponentShaderResource::dynamicDescriptorUpdateRequired</a></div><div class="ttdeci">virtual bool dynamicDescriptorUpdateRequired() const override</div><div class="ttdoc">Returns true if the dynamic descriptor sets need to be updated this frame.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00305">EntityComponentShaderResource.hpp:305</a></div></div>
+<div class="ttc" id="aa05550_html_a2399e882f8680ebfd01b567fcdc3c25e"><div class="ttname"><a href="a05550.html#a2399e882f8680ebfd01b567fcdc3c25e">bl::rc::sr::EntityComponentShaderResource::releaseObject</a></div><div class="ttdeci">virtual void releaseObject(ecs::Entity entity, scene::Key key) override</div><div class="ttdoc">Unlinks the component from this buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00243">EntityComponentShaderResource.hpp:243</a></div></div>
+<div class="ttc" id="aa05550_html_a33d0f083c8ef3c5b23cc208ae0d3a654"><div class="ttname"><a href="a05550.html#a33d0f083c8ef3c5b23cc208ae0d3a654">bl::rc::sr::EntityComponentShaderResource::getStaticBuffer</a></div><div class="ttdeci">TStaticStorage &amp; getStaticBuffer()</div><div class="ttdoc">Returns a reference to the underlying static buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00299">EntityComponentShaderResource.hpp:299</a></div></div>
+<div class="ttc" id="aa05550_html_a345adb44f041371f8e05cd924949e31c"><div class="ttname"><a href="a05550.html#a345adb44f041371f8e05cd924949e31c">bl::rc::sr::EntityComponentShaderResource::~EntityComponentShaderResource</a></div><div class="ttdeci">virtual ~EntityComponentShaderResource()=default</div><div class="ttdoc">Frees resources.</div></div>
+<div class="ttc" id="aa05550_html_a5231b35ded2618d490761d956f57c466"><div class="ttname"><a href="a05550.html#a5231b35ded2618d490761d956f57c466">bl::rc::sr::EntityComponentShaderResource::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine, RenderTarget &amp;owner) override</div><div class="ttdoc">Creates storage buffers.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00195">EntityComponentShaderResource.hpp:195</a></div></div>
+<div class="ttc" id="aa05550_html_a5e6cbd9c8df8d51ebb3c249681c90148"><div class="ttname"><a href="a05550.html#a5e6cbd9c8df8d51ebb3c249681c90148">bl::rc::sr::EntityComponentShaderResource::copyFromSource</a></div><div class="ttdeci">virtual void copyFromSource() override</div><div class="ttdoc">Performs the copy from ECS components to renderer buffers.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00272">EntityComponentShaderResource.hpp:272</a></div></div>
+<div class="ttc" id="aa05550_html_a8ddd5717e20c7304dee4ddde3b7f31bb"><div class="ttname"><a href="a05550.html#a8ddd5717e20c7304dee4ddde3b7f31bb">bl::rc::sr::EntityComponentShaderResource::cleanup</a></div><div class="ttdeci">virtual void cleanup() override</div><div class="ttdoc">Releases resources.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00208">EntityComponentShaderResource.hpp:208</a></div></div>
+<div class="ttc" id="aa05550_html_aa0867598cac9bb1244c171cce61ac899"><div class="ttname"><a href="a05550.html#aa0867598cac9bb1244c171cce61ac899">bl::rc::sr::EntityComponentShaderResource::performTransfer</a></div><div class="ttdeci">virtual void performTransfer() override</div><div class="ttdoc">Flushes underlying buffers for changed components.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00256">EntityComponentShaderResource.hpp:256</a></div></div>
+<div class="ttc" id="aa05550_html_abe484b51ce6bbc7de0c7f75d21642cd6"><div class="ttname"><a href="a05550.html#abe484b51ce6bbc7de0c7f75d21642cd6">bl::rc::sr::EntityComponentShaderResource::staticDescriptorUpdateRequired</a></div><div class="ttdeci">virtual bool staticDescriptorUpdateRequired() const override</div><div class="ttdoc">Returns true if the static descriptor sets need to be updated this frame.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00311">EntityComponentShaderResource.hpp:311</a></div></div>
+<div class="ttc" id="aa05550_html_ada3338f29df85d38fbae56a778271e02"><div class="ttname"><a href="a05550.html#ada3338f29df85d38fbae56a778271e02">bl::rc::sr::EntityComponentShaderResource::getDynamicBuffer</a></div><div class="ttdeci">TDynamicStorage &amp; getDynamicBuffer()</div><div class="ttdoc">Returns a reference to the underlying dynamic buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00293">EntityComponentShaderResource.hpp:293</a></div></div>
+<div class="ttc" id="aa05570_html"><div class="ttname"><a href="a05570.html">bl::rc::sr::ShaderResource</a></div><div class="ttdoc">Base class for shader inputs. Shader inputs are the images and buffers that descriptors point to....</div><div class="ttdef"><b>Definition</b> <a href="a00767_source.html#l00032">ShaderResource.hpp:32</a></div></div>
+<div class="ttc" id="aa08527_html"><div class="ttname"><a href="a08527.html">Constants.hpp</a></div></div>
+<div class="ttc" id="aa08542_html"><div class="ttname"><a href="a08542.html">HeaderHelpers.hpp</a></div></div>
+<div class="ttc" id="aa08560_html"><div class="ttname"><a href="a08560.html">Key.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

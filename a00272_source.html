@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/Emitter.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/RefPoolDirect.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,94 +79,297 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Emitter.hpp</div></div>
+  <div class="headertitle"><div class="title">RefPoolDirect.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00272.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_PARTICLES_EMITTER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_PARTICLES_EMITTER_HPP</span></div>
+<a href="a00272.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_REFPOOLDIRECT_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_REFPOOLDIRECT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>pcl</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>ParticleManager;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03898.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a03898.html">Emitter</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03902.html">   25</a></span>    <span class="keyword">class </span><a class="code hl_class" href="a03902.html">Proxy</a> {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a03902.html#a07c7f40d1b6fecc3ff92d1bdd8c9fdeb">   35</a></span>        T&amp; <a class="code hl_function" href="a03902.html#a07c7f40d1b6fecc3ff92d1bdd8c9fdeb">emit</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            <span class="keywordflow">if</span> (!freeList.empty()) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                T* val = <span class="keyword">new</span> (&amp;storage[freeList.back()]) T(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                freeList.pop_back();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                <span class="keywordflow">return</span> *val;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                storage.emplace_back(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <span class="keywordflow">return</span> storage.back();</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        }</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>ctr</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">class </span>RefPoolDirect;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>RefDirect;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03474.html">   23</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03474.html">PayloadDirect</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03474.html#a656132660b8d92a2c84175c74e71bb3b">   24</a></span>    <a class="code hl_class" href="a03466.html">RefPoolDirect&lt;T&gt;</a>* <a class="code hl_variable" href="a03474.html#a656132660b8d92a2c84175c74e71bb3b">owner</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03474.html#a94000348aea837859c78dbc4c8a8b753">   25</a></span>    T <a class="code hl_variable" href="a03474.html#a94000348aea837859c78dbc4c8a8b753">value</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a03474.html#adf1dea8f22fe82e8ca0c721a77d79e6b">   26</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a03474.html#adf1dea8f22fe82e8ca0c721a77d79e6b">refCount</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a03474.html#ac119d1a4a6f4997f2443f58b08985c94">   29</a></span>    <a class="code hl_function" href="a03474.html#ac119d1a4a6f4997f2443f58b08985c94">PayloadDirect</a>(<a class="code hl_class" href="a03466.html">RefPoolDirect&lt;T&gt;</a>* <a class="code hl_variable" href="a03474.html#a656132660b8d92a2c84175c74e71bb3b">owner</a>, TArgs&amp;&amp;... args)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    : <a class="code hl_variable" href="a03474.html#a656132660b8d92a2c84175c74e71bb3b">owner</a>(<a class="code hl_variable" href="a03474.html#a656132660b8d92a2c84175c74e71bb3b">owner</a>)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    , <a class="code hl_variable" href="a03474.html#adf1dea8f22fe82e8ca0c721a77d79e6b">refCount</a>(0)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    , <a class="code hl_variable" href="a03474.html#a94000348aea837859c78dbc4c8a8b753">value</a>(<a class="code hl_namespace" href="a03011.html">std</a>::forward&lt;TArgs&gt;(args)...) {}</div>
 </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a03902.html#a911a1b52cc564909ec8fc4cf0d169141">   50</a></span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a03902.html#a911a1b52cc564909ec8fc4cf0d169141">eraseMe</a>() { erased = <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a03902.html#ae49a23605def6ae51d299e247fdd07f0">   55</a></span>        <span class="keyword">const</span> <a class="code hl_class" href="a03870.html">ParticleManager&lt;T&gt;</a>&amp; <a class="code hl_function" href="a03902.html#ae49a23605def6ae51d299e247fdd07f0">getManager</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> manager; }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_class" href="a03870.html">ParticleManager&lt;T&gt;</a>&amp; manager;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        std::vector&lt;T&gt;&amp; storage;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        std::vector&lt;std::size_t&gt;&amp; freeList;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordtype">bool</span> erased;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_class" href="a03902.html">Proxy</a>(<a class="code hl_class" href="a03870.html">ParticleManager&lt;T&gt;</a>&amp; manager, std::vector&lt;T&gt;&amp; storage,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>              std::vector&lt;std::size_t&gt;&amp; freeList)</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        : manager(manager)</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        , storage(storage)</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        , freeList(freeList)</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        , erased(false) {}</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a03902.html#a2ebd68a709a096e577a8a554b5d28f32">   70</a></span>        <span class="keywordtype">void</span> reset() { erased = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03870.html">ParticleManager</a>&lt;T&gt;;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    };</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a> <a class="code hl_function" href="a03474.html#ad3abdb4fd77d5c8998250f2778371ecd">makeRef</a>();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>};</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>} <span class="comment">// namespace priv</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="};">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03470.html">   46</a></span><span class="keyword">class </span><a class="code hl_class" href="a03470.html">RefDirect</a> {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a03470.html#a4185d228bcbab0082ab4dd66cf13d6f4">   51</a></span>    <a class="code hl_function" href="a03470.html#a4185d228bcbab0082ab4dd66cf13d6f4">RefDirect</a>()</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    : payload(nullptr) {}</div>
+</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a03470.html#a8ea3bfd3f57f7e46a71ec08e78f1d710">   60</a></span>    <a class="code hl_function" href="a03470.html#a8ea3bfd3f57f7e46a71ec08e78f1d710">RefDirect</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03470.html">RefDirect</a>&amp; other)</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    : <a class="code hl_class" href="a03470.html">RefDirect</a>() {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        *<span class="keyword">this</span> = other;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a03470.html#aaa1331523811da0807e038a90a45c0a0">   70</a></span>    <a class="code hl_function" href="a03470.html#aaa1331523811da0807e038a90a45c0a0">RefDirect</a>(<a class="code hl_class" href="a03470.html">RefDirect</a>&amp;&amp; other)</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    : <a class="code hl_class" href="a03470.html">RefDirect</a>() {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        *<span class="keyword">this</span> = std::forward&lt;RefDirect&gt;(other);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    }</div>
 </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a03898.html#ac9c151a153754f2741cb9b85281731a4">   78</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03898.html#ac9c151a153754f2741cb9b85281731a4">~Emitter</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a03470.html#a649a185c387392f731f9b24f24fcf14a">   78</a></span>    <a class="code hl_function" href="a03470.html#a649a185c387392f731f9b24f24fcf14a">~RefDirect</a>() { <a class="code hl_function" href="a03470.html#a9258621e06868147136c9534e1b15d1a">release</a>(); }</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a03898.html#a891643b8c6832f100674f7c6ee995755">   87</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03898.html#a891643b8c6832f100674f7c6ee995755">update</a>(<a class="code hl_class" href="a03902.html">Proxy</a>&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) = 0;</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>};</div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a03470.html#a2dca8e2cea2d978f1be8e5566fadcd04">   86</a></span>    <a class="code hl_class" href="a03470.html">RefDirect</a>&amp; <a class="code hl_function" href="a03470.html#a2dca8e2cea2d978f1be8e5566fadcd04">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03470.html">RefDirect</a>&amp; other) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        decrement();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        payload = other.payload;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">if</span> (payload) { increment(); }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
 </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>} <span class="comment">// namespace bl</span></div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03870_html"><div class="ttname"><a href="a03870.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition</b> <a href="a00329_source.html#l00029">ParticleManager.hpp:29</a></div></div>
-<div class="ttc" id="aa03898_html"><div class="ttname"><a href="a03898.html">bl::pcl::Emitter</a></div><div class="ttdoc">Base class for all particle emitters. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00020">Emitter.hpp:20</a></div></div>
-<div class="ttc" id="aa03898_html_a891643b8c6832f100674f7c6ee995755"><div class="ttname"><a href="a03898.html#a891643b8c6832f100674f7c6ee995755">bl::pcl::Emitter::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float realDt)=0</div><div class="ttdoc">Called once per frame. Emitters should create new particles in here.</div></div>
-<div class="ttc" id="aa03898_html_ac9c151a153754f2741cb9b85281731a4"><div class="ttname"><a href="a03898.html#ac9c151a153754f2741cb9b85281731a4">bl::pcl::Emitter::~Emitter</a></div><div class="ttdeci">virtual ~Emitter()=default</div><div class="ttdoc">Destroys the emitter.</div></div>
-<div class="ttc" id="aa03902_html"><div class="ttname"><a href="a03902.html">bl::pcl::Emitter::Proxy</a></div><div class="ttdoc">Proxy interface used by emitters to create new particles.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00025">Emitter.hpp:25</a></div></div>
-<div class="ttc" id="aa03902_html_a07c7f40d1b6fecc3ff92d1bdd8c9fdeb"><div class="ttname"><a href="a03902.html#a07c7f40d1b6fecc3ff92d1bdd8c9fdeb">bl::pcl::Emitter::Proxy::emit</a></div><div class="ttdeci">T &amp; emit(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new particle with the given constructor arguments.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00035">Emitter.hpp:35</a></div></div>
-<div class="ttc" id="aa03902_html_a911a1b52cc564909ec8fc4cf0d169141"><div class="ttname"><a href="a03902.html#a911a1b52cc564909ec8fc4cf0d169141">bl::pcl::Emitter::Proxy::eraseMe</a></div><div class="ttdeci">void eraseMe()</div><div class="ttdoc">Call if the emitter needs to remove itself from the particle system.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00050">Emitter.hpp:50</a></div></div>
-<div class="ttc" id="aa03902_html_ae49a23605def6ae51d299e247fdd07f0"><div class="ttname"><a href="a03902.html#ae49a23605def6ae51d299e247fdd07f0">bl::pcl::Emitter::Proxy::getManager</a></div><div class="ttdeci">const ParticleManager&lt; T &gt; &amp; getManager() const</div><div class="ttdoc">Access the particle manager that owns this emitter.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00055">Emitter.hpp:55</a></div></div>
+<div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a03470.html#afb94a308aec5e7783e309c1753094e2d">   99</a></span>    <a class="code hl_class" href="a03470.html">RefDirect</a>&amp; <a class="code hl_function" href="a03470.html#afb94a308aec5e7783e309c1753094e2d">operator=</a>(<a class="code hl_class" href="a03470.html">RefDirect</a>&amp;&amp; other) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        decrement();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        payload       = other.payload;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        other.payload = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a03470.html#a9ee1b3ac136f02d53cc05f842253a992">  109</a></span>    T&amp; <a class="code hl_function" href="a03470.html#a9ee1b3ac136f02d53cc05f842253a992">operator*</a>() { <span class="keywordflow">return</span> payload-&gt;value; }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a03470.html#aeb1b2d0c5694b01e4d0726e272bcec51">  114</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03470.html#aeb1b2d0c5694b01e4d0726e272bcec51">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> payload-&gt;value; }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a03470.html#a89198161a5fca712f605cd228e01268e">  119</a></span>    T* <a class="code hl_function" href="a03470.html#a89198161a5fca712f605cd228e01268e">operator-&gt;</a>() { <span class="keywordflow">return</span> &amp;payload-&gt;value; }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="a03470.html#a24920ebf6fb9d9af2e6accf12ba221d1">  124</a></span>    <span class="keyword">const</span> T* <a class="code hl_function" href="a03470.html#a24920ebf6fb9d9af2e6accf12ba221d1">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;payload-&gt;value; }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="a03470.html#aaabe8c4fa7fb5204bbc1ffcc705987f3">  129</a></span>    T* <a class="code hl_function" href="a03470.html#aaabe8c4fa7fb5204bbc1ffcc705987f3">get</a>() { <span class="keywordflow">return</span> &amp;payload-&gt;value; }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="a03470.html#ac4a6b0d94d9546071840a18805797928">  134</a></span>    <span class="keyword">const</span> T* <a class="code hl_function" href="a03470.html#ac4a6b0d94d9546071840a18805797928">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;payload-&gt;value; }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="a03470.html#a35310103dd094bb3172ea8203479c8a2">  139</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a03470.html#a35310103dd094bb3172ea8203479c8a2">refCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> payload-&gt;refCount; }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="a03470.html#ad45a5fb0175b632cb02b97f4f0aec453">  144</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03470.html#ad45a5fb0175b632cb02b97f4f0aec453">isValid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> payload != <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="a03470.html#acee9b46d15c621052aad3f5f0565405a">  149</a></span>    <span class="keyword">operator</span> bool()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> payload != <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="}">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="a03470.html#a9258621e06868147136c9534e1b15d1a">  154</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03470.html#a9258621e06868147136c9534e1b15d1a">release</a>() {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">if</span> (payload) {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            decrement();</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            payload = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    }</div>
+</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_struct" href="a03474.html">priv::PayloadDirect&lt;T&gt;</a>* payload;</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <a class="code hl_function" href="a03470.html#a4185d228bcbab0082ab4dd66cf13d6f4">RefDirect</a>(<a class="code hl_struct" href="a03474.html">priv::PayloadDirect&lt;T&gt;</a>* payload)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    : payload(payload) {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        increment();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    }</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordtype">void</span> increment();</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="a03470.html#a56417a61dd0cde2954fcf661065fae64">  170</a></span>    <span class="keywordtype">void</span> decrement();</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03466.html">RefPoolDirect</a>&lt;T&gt;;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a03474.html">priv::PayloadDirect</a>&lt;T&gt;;</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>};</div>
+</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00184" data-start="{" data-end="};">
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno"><a class="line" href="a03466.html">  184</a></span><span class="keyword">class </span><a class="code hl_class" href="a03466.html">RefPoolDirect</a> {</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00189" data-start="{" data-end="};">
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="a03478.html">  189</a></span>    <span class="keyword">class </span><a class="code hl_class" href="a03478.html">Iterator</a> {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00196" data-start="{" data-end="}">
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="a03478.html#a255db06913032444e01b3efdf61d4e10">  196</a></span>        <a class="code hl_class" href="a03478.html">Iterator</a>&amp; <a class="code hl_function" href="a03478.html#a255db06913032444e01b3efdf61d4e10">operator++</a>() {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            ++it;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        }</div>
+</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="foldopen" id="foldopen00207" data-start="{" data-end="}">
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="a03478.html#a2af16d8a5c3aef11e6f5cc5c523759c6">  207</a></span>        <a class="code hl_class" href="a03478.html">Iterator</a> <a class="code hl_function" href="a03478.html#a2af16d8a5c3aef11e6f5cc5c523759c6">operator++</a>(<span class="keywordtype">int</span>) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>            <a class="code hl_class" href="a03478.html">Iterator</a> copy = *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>            ++it;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            <span class="keywordflow">return</span> copy;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        }</div>
+</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="a03478.html#ae0fc12358f336be1f4cc0343e2f65328">  219</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="a03478.html#ae0fc12358f336be1f4cc0343e2f65328">operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03478.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> it != other.it; }</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno"><a class="line" href="a03478.html#a200cfa785104db4727dc119f99327d4b">  227</a></span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="a03478.html#a200cfa785104db4727dc119f99327d4b">operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03478.html">Iterator</a>&amp; other)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> it == other.it; }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno"><a class="line" href="a03478.html#ae4693bdcfd417dc26efd0f0c01c35079">  232</a></span>        T&amp; <a class="code hl_function" href="a03478.html#ae4693bdcfd417dc26efd0f0c01c35079">operator*</a>() { <span class="keywordflow">return</span> it-&gt;value; }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno"><a class="line" href="a03478.html#a6b9c020406e2b0747e91dd644f3de885">  237</a></span>        T* <a class="code hl_function" href="a03478.html#a6b9c020406e2b0747e91dd644f3de885">operator-&gt;</a>() { <span class="keywordflow">return</span> &amp;it-&gt;value; }</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a03478.html#abbef6093e0b940350d107a22b4d995cc">  244</a></span>        <a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a> <a class="code hl_function" href="a03478.html#abbef6093e0b940350d107a22b4d995cc">makeRef</a>() { <span class="keywordflow">return</span> it-&gt;makeRef(); }</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keyword">typename</span> std::list&lt;priv::PayloadDirect&lt;T&gt;&gt;::iterator it;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno"><a class="line" href="a03478.html#af096e05cbde1699eb013655be030cdb4">  249</a></span>        <a class="code hl_class" href="a03478.html">Iterator</a>(<span class="keyword">typename</span> std::list&lt;<a class="code hl_struct" href="a03474.html">priv::PayloadDirect&lt;T&gt;</a>&gt;::iterator it)</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        : it(it) {}</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03466.html">RefPoolDirect</a>&lt;T&gt;;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    };</div>
+</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a> <a class="code hl_function" href="a03466.html#a640a6b3826f1f8329665a11cf119159f">emplace</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno"><a class="line" href="a03466.html#a28a5b7a4869a7e6b7013233ea5cca5f4">  268</a></span>    <a class="code hl_class" href="a03478.html">Iterator</a> <a class="code hl_function" href="a03466.html#a28a5b7a4869a7e6b7013233ea5cca5f4">begin</a>() { <span class="keywordflow">return</span> <a class="code hl_class" href="a03478.html">Iterator</a>(storage.begin()); }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno"><a class="line" href="a03466.html#aecc2d0f77b2fcebae970a828e7c17ece">  273</a></span>    <a class="code hl_class" href="a03478.html">Iterator</a> <a class="code hl_function" href="a03466.html#aecc2d0f77b2fcebae970a828e7c17ece">end</a>() { <span class="keywordflow">return</span> <a class="code hl_class" href="a03478.html">Iterator</a>(storage.end()); }</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03466.html#ae566ff09dce79b8fe0db5523ec5c945d">clear</a>();</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span> </div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    std::list&lt;priv::PayloadDirect&lt;T&gt;&gt; storage;</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno"><a class="line" href="a03466.html#a17cf6ac57bfd5c1f80c096fa45f3ac52">  283</a></span>    <span class="keywordtype">void</span> release(<a class="code hl_struct" href="a03474.html">priv::PayloadDirect&lt;T&gt;</a>* value);</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03470.html">RefDirect</a>&lt;T&gt;;</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>};</div>
+</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span> </div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span><span class="keywordtype">void</span> <a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;::increment</a>() {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    ++payload-&gt;<a class="code hl_function" href="a03470.html#a35310103dd094bb3172ea8203479c8a2">refCount</a>;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>}</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span><span class="keywordtype">void</span> RefDirect&lt;T&gt;::decrement() {</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="keywordflow">if</span> (payload) {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        --payload-&gt;refCount;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>        <span class="keywordflow">if</span> (payload-&gt;refCount == 0) { payload-&gt;owner-&gt;release(payload); }</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    }</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>}</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00304" data-start="{" data-end="}">
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno"><a class="line" href="a03466.html#ae566ff09dce79b8fe0db5523ec5c945d">  304</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03466.html#ae566ff09dce79b8fe0db5523ec5c945d">RefPoolDirect&lt;T&gt;::clear</a>() {</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    storage.clear();</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>}</div>
+</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span><span class="keywordtype">void</span> <a class="code hl_class" href="a03466.html">RefPoolDirect&lt;T&gt;::release</a>(<a class="code hl_struct" href="a03474.html">priv::PayloadDirect&lt;T&gt;</a>* value) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = storage.begin(); it != storage.end(); ++it) {</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        <span class="keywordflow">if</span> (&amp;*it == value) {</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            storage.erase(it);</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>            <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        }</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    }</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>}</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span> </div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00320" data-start="{" data-end="}">
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno"><a class="line" href="a03466.html#a640a6b3826f1f8329665a11cf119159f">  320</a></span><a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a> <a class="code hl_function" href="a03466.html#a640a6b3826f1f8329665a11cf119159f">RefPoolDirect&lt;T&gt;::emplace</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="keyword">auto</span>&amp; created = storage.emplace_back(<span class="keyword">this</span>, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a>(&amp;created);</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>}</div>
+</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>{</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00328" data-start="{" data-end="}">
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="a03474.html#ad3abdb4fd77d5c8998250f2778371ecd">  328</a></span><a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a> <a class="code hl_function" href="a03474.html#ad3abdb4fd77d5c8998250f2778371ecd">PayloadDirect&lt;T&gt;::makeRef</a>() {</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="a03470.html">RefDirect&lt;T&gt;</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>}</div>
+</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>} <span class="comment">// namespace priv</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>} <span class="comment">// namespace ctr</span></div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span> </div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03011_html"><div class="ttname"><a href="a03011.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00193">Entity.hpp:194</a></div></div>
+<div class="ttc" id="aa03466_html"><div class="ttname"><a href="a03466.html">bl::ctr::RefPoolDirect</a></div><div class="ttdoc">Utility to manage a pool of ref counted resources.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00184">RefPoolDirect.hpp:184</a></div></div>
+<div class="ttc" id="aa03466_html_a28a5b7a4869a7e6b7013233ea5cca5f4"><div class="ttname"><a href="a03466.html#a28a5b7a4869a7e6b7013233ea5cca5f4">bl::ctr::RefPoolDirect::begin</a></div><div class="ttdeci">Iterator begin()</div><div class="ttdoc">Returns an iterator to the first value in the pool.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00268">RefPoolDirect.hpp:268</a></div></div>
+<div class="ttc" id="aa03466_html_a640a6b3826f1f8329665a11cf119159f"><div class="ttname"><a href="a03466.html#a640a6b3826f1f8329665a11cf119159f">bl::ctr::RefPoolDirect::emplace</a></div><div class="ttdeci">RefDirect&lt; T &gt; emplace(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new resource.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00320">RefPoolDirect.hpp:320</a></div></div>
+<div class="ttc" id="aa03466_html_ae566ff09dce79b8fe0db5523ec5c945d"><div class="ttname"><a href="a03466.html#ae566ff09dce79b8fe0db5523ec5c945d">bl::ctr::RefPoolDirect::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears all managed resources, ignoring ref counts.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00304">RefPoolDirect.hpp:304</a></div></div>
+<div class="ttc" id="aa03466_html_aecc2d0f77b2fcebae970a828e7c17ece"><div class="ttname"><a href="a03466.html#aecc2d0f77b2fcebae970a828e7c17ece">bl::ctr::RefPoolDirect::end</a></div><div class="ttdeci">Iterator end()</div><div class="ttdoc">Returns an iterator to the end of the pool.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00273">RefPoolDirect.hpp:273</a></div></div>
+<div class="ttc" id="aa03470_html"><div class="ttname"><a href="a03470.html">bl::ctr::RefDirect</a></div><div class="ttdoc">Utility for lightweight ref counting of resources.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00046">RefPoolDirect.hpp:46</a></div></div>
+<div class="ttc" id="aa03470_html_a24920ebf6fb9d9af2e6accf12ba221d1"><div class="ttname"><a href="a03470.html#a24920ebf6fb9d9af2e6accf12ba221d1">bl::ctr::RefDirect::operator-&gt;</a></div><div class="ttdeci">const T * operator-&gt;() const</div><div class="ttdoc">Access the underlying resource value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00124">RefPoolDirect.hpp:124</a></div></div>
+<div class="ttc" id="aa03470_html_a2dca8e2cea2d978f1be8e5566fadcd04"><div class="ttname"><a href="a03470.html#a2dca8e2cea2d978f1be8e5566fadcd04">bl::ctr::RefDirect::operator=</a></div><div class="ttdeci">RefDirect &amp; operator=(const RefDirect &amp;other)</div><div class="ttdoc">Initializes this ref from another.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00086">RefPoolDirect.hpp:86</a></div></div>
+<div class="ttc" id="aa03470_html_a35310103dd094bb3172ea8203479c8a2"><div class="ttname"><a href="a03470.html#a35310103dd094bb3172ea8203479c8a2">bl::ctr::RefDirect::refCount</a></div><div class="ttdeci">unsigned int refCount() const</div><div class="ttdoc">Returns the number of refs pointing to the underlying resource.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00139">RefPoolDirect.hpp:139</a></div></div>
+<div class="ttc" id="aa03470_html_a4185d228bcbab0082ab4dd66cf13d6f4"><div class="ttname"><a href="a03470.html#a4185d228bcbab0082ab4dd66cf13d6f4">bl::ctr::RefDirect::RefDirect</a></div><div class="ttdeci">RefDirect()</div><div class="ttdoc">Creates an invalid ref.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00051">RefPoolDirect.hpp:51</a></div></div>
+<div class="ttc" id="aa03470_html_a649a185c387392f731f9b24f24fcf14a"><div class="ttname"><a href="a03470.html#a649a185c387392f731f9b24f24fcf14a">bl::ctr::RefDirect::~RefDirect</a></div><div class="ttdeci">~RefDirect()</div><div class="ttdoc">Releases the ref and possibly the resource if the ref count is zero.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00078">RefPoolDirect.hpp:78</a></div></div>
+<div class="ttc" id="aa03470_html_a89198161a5fca712f605cd228e01268e"><div class="ttname"><a href="a03470.html#a89198161a5fca712f605cd228e01268e">bl::ctr::RefDirect::operator-&gt;</a></div><div class="ttdeci">T * operator-&gt;()</div><div class="ttdoc">Access the underlying resource value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00119">RefPoolDirect.hpp:119</a></div></div>
+<div class="ttc" id="aa03470_html_a8ea3bfd3f57f7e46a71ec08e78f1d710"><div class="ttname"><a href="a03470.html#a8ea3bfd3f57f7e46a71ec08e78f1d710">bl::ctr::RefDirect::RefDirect</a></div><div class="ttdeci">RefDirect(const RefDirect &amp;other)</div><div class="ttdoc">Initializes this ref from another.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00060">RefPoolDirect.hpp:60</a></div></div>
+<div class="ttc" id="aa03470_html_a9258621e06868147136c9534e1b15d1a"><div class="ttname"><a href="a03470.html#a9258621e06868147136c9534e1b15d1a">bl::ctr::RefDirect::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases this handle on the underlying resource.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00154">RefPoolDirect.hpp:154</a></div></div>
+<div class="ttc" id="aa03470_html_a9ee1b3ac136f02d53cc05f842253a992"><div class="ttname"><a href="a03470.html#a9ee1b3ac136f02d53cc05f842253a992">bl::ctr::RefDirect::operator*</a></div><div class="ttdeci">T &amp; operator*()</div><div class="ttdoc">Access the underlying resource value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00109">RefPoolDirect.hpp:109</a></div></div>
+<div class="ttc" id="aa03470_html_aaa1331523811da0807e038a90a45c0a0"><div class="ttname"><a href="a03470.html#aaa1331523811da0807e038a90a45c0a0">bl::ctr::RefDirect::RefDirect</a></div><div class="ttdeci">RefDirect(RefDirect &amp;&amp;other)</div><div class="ttdoc">Takes over ownership from another ref.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00070">RefPoolDirect.hpp:70</a></div></div>
+<div class="ttc" id="aa03470_html_aaabe8c4fa7fb5204bbc1ffcc705987f3"><div class="ttname"><a href="a03470.html#aaabe8c4fa7fb5204bbc1ffcc705987f3">bl::ctr::RefDirect::get</a></div><div class="ttdeci">T * get()</div><div class="ttdoc">Access the underlying resource value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00129">RefPoolDirect.hpp:129</a></div></div>
+<div class="ttc" id="aa03470_html_ac4a6b0d94d9546071840a18805797928"><div class="ttname"><a href="a03470.html#ac4a6b0d94d9546071840a18805797928">bl::ctr::RefDirect::get</a></div><div class="ttdeci">const T * get() const</div><div class="ttdoc">Access the underlying resource value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00134">RefPoolDirect.hpp:134</a></div></div>
+<div class="ttc" id="aa03470_html_ad45a5fb0175b632cb02b97f4f0aec453"><div class="ttname"><a href="a03470.html#ad45a5fb0175b632cb02b97f4f0aec453">bl::ctr::RefDirect::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether this ref points to a resource or not.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00144">RefPoolDirect.hpp:144</a></div></div>
+<div class="ttc" id="aa03470_html_aeb1b2d0c5694b01e4d0726e272bcec51"><div class="ttname"><a href="a03470.html#aeb1b2d0c5694b01e4d0726e272bcec51">bl::ctr::RefDirect::operator*</a></div><div class="ttdeci">const T &amp; operator*() const</div><div class="ttdoc">Access the underlying resource value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00114">RefPoolDirect.hpp:114</a></div></div>
+<div class="ttc" id="aa03470_html_afb94a308aec5e7783e309c1753094e2d"><div class="ttname"><a href="a03470.html#afb94a308aec5e7783e309c1753094e2d">bl::ctr::RefDirect::operator=</a></div><div class="ttdeci">RefDirect &amp; operator=(RefDirect &amp;&amp;other)</div><div class="ttdoc">Takes over ownership from another ref.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00099">RefPoolDirect.hpp:99</a></div></div>
+<div class="ttc" id="aa03474_html"><div class="ttname"><a href="a03474.html">bl::ctr::priv::PayloadDirect</a></div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00023">RefPoolDirect.hpp:23</a></div></div>
+<div class="ttc" id="aa03474_html_a656132660b8d92a2c84175c74e71bb3b"><div class="ttname"><a href="a03474.html#a656132660b8d92a2c84175c74e71bb3b">bl::ctr::priv::PayloadDirect::owner</a></div><div class="ttdeci">RefPoolDirect&lt; T &gt; * owner</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00024">RefPoolDirect.hpp:24</a></div></div>
+<div class="ttc" id="aa03474_html_a94000348aea837859c78dbc4c8a8b753"><div class="ttname"><a href="a03474.html#a94000348aea837859c78dbc4c8a8b753">bl::ctr::priv::PayloadDirect::value</a></div><div class="ttdeci">T value</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00025">RefPoolDirect.hpp:25</a></div></div>
+<div class="ttc" id="aa03474_html_ac119d1a4a6f4997f2443f58b08985c94"><div class="ttname"><a href="a03474.html#ac119d1a4a6f4997f2443f58b08985c94">bl::ctr::priv::PayloadDirect::PayloadDirect</a></div><div class="ttdeci">PayloadDirect(RefPoolDirect&lt; T &gt; *owner, TArgs &amp;&amp;... args)</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00029">RefPoolDirect.hpp:29</a></div></div>
+<div class="ttc" id="aa03474_html_ad3abdb4fd77d5c8998250f2778371ecd"><div class="ttname"><a href="a03474.html#ad3abdb4fd77d5c8998250f2778371ecd">bl::ctr::priv::PayloadDirect::makeRef</a></div><div class="ttdeci">RefDirect&lt; T &gt; makeRef()</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00328">RefPoolDirect.hpp:328</a></div></div>
+<div class="ttc" id="aa03474_html_adf1dea8f22fe82e8ca0c721a77d79e6b"><div class="ttname"><a href="a03474.html#adf1dea8f22fe82e8ca0c721a77d79e6b">bl::ctr::priv::PayloadDirect::refCount</a></div><div class="ttdeci">unsigned int refCount</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00026">RefPoolDirect.hpp:26</a></div></div>
+<div class="ttc" id="aa03478_html"><div class="ttname"><a href="a03478.html">bl::ctr::RefPoolDirect::Iterator</a></div><div class="ttdoc">Basic iterator for the ref pool.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00189">RefPoolDirect.hpp:189</a></div></div>
+<div class="ttc" id="aa03478_html_a200cfa785104db4727dc119f99327d4b"><div class="ttname"><a href="a03478.html#a200cfa785104db4727dc119f99327d4b">bl::ctr::RefPoolDirect::Iterator::operator==</a></div><div class="ttdeci">bool operator==(const Iterator &amp;other) const</div><div class="ttdoc">Tests whether two iterators are equal.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00227">RefPoolDirect.hpp:227</a></div></div>
+<div class="ttc" id="aa03478_html_a255db06913032444e01b3efdf61d4e10"><div class="ttname"><a href="a03478.html#a255db06913032444e01b3efdf61d4e10">bl::ctr::RefPoolDirect::Iterator::operator++</a></div><div class="ttdeci">Iterator &amp; operator++()</div><div class="ttdoc">Increments the iterator to the next value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00196">RefPoolDirect.hpp:196</a></div></div>
+<div class="ttc" id="aa03478_html_a2af16d8a5c3aef11e6f5cc5c523759c6"><div class="ttname"><a href="a03478.html#a2af16d8a5c3aef11e6f5cc5c523759c6">bl::ctr::RefPoolDirect::Iterator::operator++</a></div><div class="ttdeci">Iterator operator++(int)</div><div class="ttdoc">Increments the iterator to the next value and returns the previous value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00207">RefPoolDirect.hpp:207</a></div></div>
+<div class="ttc" id="aa03478_html_a6b9c020406e2b0747e91dd644f3de885"><div class="ttname"><a href="a03478.html#a6b9c020406e2b0747e91dd644f3de885">bl::ctr::RefPoolDirect::Iterator::operator-&gt;</a></div><div class="ttdeci">T * operator-&gt;()</div><div class="ttdoc">Returns the underlying value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00237">RefPoolDirect.hpp:237</a></div></div>
+<div class="ttc" id="aa03478_html_abbef6093e0b940350d107a22b4d995cc"><div class="ttname"><a href="a03478.html#abbef6093e0b940350d107a22b4d995cc">bl::ctr::RefPoolDirect::Iterator::makeRef</a></div><div class="ttdeci">RefDirect&lt; T &gt; makeRef()</div><div class="ttdoc">Create a ref to the value this iterator points to.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00244">RefPoolDirect.hpp:244</a></div></div>
+<div class="ttc" id="aa03478_html_ae0fc12358f336be1f4cc0343e2f65328"><div class="ttname"><a href="a03478.html#ae0fc12358f336be1f4cc0343e2f65328">bl::ctr::RefPoolDirect::Iterator::operator!=</a></div><div class="ttdeci">bool operator!=(const Iterator &amp;other) const</div><div class="ttdoc">Tests whether two iterators are equal.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00219">RefPoolDirect.hpp:219</a></div></div>
+<div class="ttc" id="aa03478_html_ae4693bdcfd417dc26efd0f0c01c35079"><div class="ttname"><a href="a03478.html#ae4693bdcfd417dc26efd0f0c01c35079">bl::ctr::RefPoolDirect::Iterator::operator*</a></div><div class="ttdeci">T &amp; operator*()</div><div class="ttdoc">Returns the underlying value.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00232">RefPoolDirect.hpp:232</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

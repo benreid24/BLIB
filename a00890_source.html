@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Cameras/3D/Camera3D.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Transfers/Transferable.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,210 +79,100 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_16143c1cad0071199776cd10198d1f9a.html">3D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Camera3D.hpp</div></div>
+  <div class="headertitle"><div class="title">Transferable.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_3D_CAMERA3D_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_3D_CAMERA3D_HPP</span></div>
+<a href="a00890.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_TRANSFERABLE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Cameras/3D/CameraAffector3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00887.html">BLIB/Cameras/3D/CameraController3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00053.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>cam</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00887.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>tfr</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a02586.html">   21</a></span><span class="keyword">class </span><a class="code hl_class" href="a02586.html">Camera3D</a> : <span class="keyword">public</span> <a class="code hl_class" href="a02602.html">Camera</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a02586.html">Camera3D</a>(<span class="keyword">const</span> glm::vec3&amp; pos = {}, <span class="keywordtype">float</span> yaw = 0.f, <span class="keywordtype">float</span> pitch = 0.f, <span class="keywordtype">float</span> fov = 75.f,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>             <span class="keywordtype">float</span> roll = 0.f);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a02586.html">Camera3D</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec3&amp; lookAt, <span class="keywordtype">float</span> fov = 75.f, <span class="keywordtype">float</span> roll = 0.f);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a02586.html#a9a7101823cb914220a044819a521c0b0">   47</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a02586.html#a9a7101823cb914220a044819a521c0b0">~Camera3D</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#ab920717d1389423460224e924d8fe2af">setPosition</a>(<span class="keyword">const</span> glm::vec3&amp; pos);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#af5eb7c876fbb3d5009ecba69fce6180e">move</a>(<span class="keyword">const</span> glm::vec3&amp; offset);</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05622.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a05622.html">Transferable</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05622.html#a109f9d7acc098649830f276c266b47d0">   25</a></span>    <span class="keyword">enum struct</span> <a class="code hl_enumeration" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_enumvalue" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <a class="code hl_enumvalue" href="a05622.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    };</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05622.html#a05233a758f0875563aea077dde3096f6">~Transferable</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05622.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a>(<a class="code hl_enumeration" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code hl_enumvalue" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05622.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a>(<a class="code hl_enumeration" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq = <a class="code hl_enumvalue" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05622.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a05622.html#a2fbe7414a05994b43584022f6d333c0d">   61</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05622.html#a2fbe7414a05994b43584022f6d333c0d">isQueued</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> queued || perFrame != NotPerFrame; }</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> glm::vec3&amp; <a class="code hl_function" href="a02586.html#a33ff4c8bc64ce4482ffc1bb2a61a7000">getPosition</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05622.html#ac7eb35d2804ad40e76823182f4eae9c8">cancelQueuedTransfer</a>();</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_class" href="a02654.html">com::Orientation3D</a>&amp; <a class="code hl_function" href="a02586.html#a361d1f5a76905e4ef6c1b1d08a8317fd">getOrientation</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_class" href="a02654.html">com::Orientation3D</a>&amp; <a class="code hl_function" href="a02586.html#a44c9f6fa15da797e673386db4949327e">getOrientationForChange</a>();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#ad91815fbd49586e0218ca6a755583e02">setFov</a>(<span class="keywordtype">float</span> fov);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_function" href="a02586.html#abfd4fb2dc717fd8248805b3ee4736ccb">getFov</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TController, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    TController* <a class="code hl_function" href="a02586.html#adf2752bec6b4e329b9060de12cc12f32">setController</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TController&gt;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    TController* <a class="code hl_function" href="a02586.html#adf2752bec6b4e329b9060de12cc12f32">setController</a>(std::unique_ptr&lt;TController&gt;&amp;&amp; controller);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    TAffector* <a class="code hl_function" href="a02586.html#ae10bda6856899de6a32a446082b35c33">addAffector</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector&gt;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    TAffector* <a class="code hl_function" href="a02586.html#a97c0df83c0bb8a16b86c089c2d190ad9">getAffector</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector&gt;</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#aba5e32a703871da0c5fd773833e8209b">removeAffector</a>();</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector&gt;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#af38539340a690c3fc28246bfb8511a57">removeAffectors</a>();</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#aba5e32a703871da0c5fd773833e8209b">removeAffector</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a02590.html">CameraAffector3D</a>* affector);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keyword">virtual</span> glm::vec2 <a class="code hl_function" href="a02586.html#ae9561ec16a55f170d612de4c0ff75ff6">getViewerSize</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    glm::vec3 position;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <a class="code hl_class" href="a02654.html">com::Orientation3D</a> orientation;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordtype">float</span> fov;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    glm::vec2 cachedViewportSize;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    std::unique_ptr&lt;CameraController3D&gt; controller;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    std::vector&lt;std::unique_ptr&lt;CameraAffector3D&gt;&gt; affectors;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshProjMatrix(glm::mat4&amp; proj, <span class="keyword">const</span> VkViewport&amp; viewport) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> refreshViewMatrix(glm::mat4&amp; view) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>};</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">   69</a></span>    <a class="code hl_class" href="a05330.html">Renderer</a>* <a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_function" href="a05622.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_function" href="a05622.html#a168f2c871b5f008471d22febc6fed7c1">Transferable</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; <a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a05622.html#a45c235479910a695c7e770d79f3c528d">   90</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05622.html#a45c235479910a695c7e770d79f3c528d">executeTransfer</a>(VkCommandBuffer commandBuffer, <a class="code hl_class" href="a05626.html">TransferContext</a>&amp; context) = 0;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_enumeration" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> NotPerFrame =</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>) +</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                     <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="a05622.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">SyncRequirement::DeviceIdle</a>) + 1);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <a class="code hl_enumeration" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> perFrame;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">bool</span> queued;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a05622.html#ac07143e1010fb3b1749e621c1bc1931f">  100</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05630.html">TransferEngine</a>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>};</div>
 </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="a02586.html#a33ff4c8bc64ce4482ffc1bb2a61a7000">  176</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> glm::vec3&amp; <a class="code hl_function" href="a02586.html#a33ff4c8bc64ce4482ffc1bb2a61a7000">Camera3D::getPosition</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> position; }</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="a02586.html#abfd4fb2dc717fd8248805b3ee4736ccb">  178</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_function" href="a02586.html#abfd4fb2dc717fd8248805b3ee4736ccb">Camera3D::getFov</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> fov; }</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TController, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00181" data-start="{" data-end="}">
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="a02586.html#adf2752bec6b4e329b9060de12cc12f32">  181</a></span>TController* <a class="code hl_function" href="a02586.html#adf2752bec6b4e329b9060de12cc12f32">Camera3D::setController</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;CameraController3D, TController&gt;::value,</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                  <span class="stringliteral">&quot;Controller must inherit from CameraController3D&quot;</span>);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    TController* c = <span class="keyword">new</span> TController(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    controller.reset(c);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    controller-&gt;setCam(*<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">return</span> c;</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
-</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TController&gt;</div>
-<div class="foldopen" id="foldopen00192" data-start="{" data-end="}">
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="a02586.html#a16840138254ec9e908aef7ade854e295">  192</a></span>TController* <a class="code hl_function" href="a02586.html#adf2752bec6b4e329b9060de12cc12f32">Camera3D::setController</a>(std::unique_ptr&lt;TController&gt;&amp;&amp; c) {</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;CameraController3D, TController&gt;::value,</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>                  <span class="stringliteral">&quot;Controller must inherit from CameraController3D&quot;</span>);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    TController* cr = c.get();</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    controller.release();</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    controller.swap(c);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    controller-&gt;setCam(*<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordflow">return</span> c;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>}</div>
-</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="a02586.html#a361d1f5a76905e4ef6c1b1d08a8317fd">  203</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_class" href="a02654.html">com::Orientation3D</a>&amp; <a class="code hl_function" href="a02586.html#a361d1f5a76905e4ef6c1b1d08a8317fd">Camera3D::getOrientation</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> orientation; }</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00206" data-start="{" data-end="}">
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="a02586.html#ae10bda6856899de6a32a446082b35c33">  206</a></span>TAffector* <a class="code hl_function" href="a02586.html#ae10bda6856899de6a32a446082b35c33">Camera3D::addAffector</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;CameraAffector3D, TAffector&gt;::value,</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>                  <span class="stringliteral">&quot;Affector must inherit from CameraAffector3D&quot;</span>);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    TAffector* a = <span class="keyword">new</span> TAffector(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    affectors.emplace_back(a);</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordflow">return</span> a;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
-</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector&gt;</div>
-<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="a02586.html#a97c0df83c0bb8a16b86c089c2d190ad9">  216</a></span>TAffector* <a class="code hl_function" href="a02586.html#a97c0df83c0bb8a16b86c089c2d190ad9">Camera3D::getAffector</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;CameraAffector3D, TAffector&gt;::value,</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                  <span class="stringliteral">&quot;Affector must inherit from CameraAffector3D&quot;</span>);</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; a : affectors) {</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        TAffector* af = <span class="keyword">dynamic_cast&lt;</span>TAffector*<span class="keyword">&gt;</span>(a.get());</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">if</span> (af) { <span class="keywordflow">return</span> af; }</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    }</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
-</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector&gt;</div>
-<div class="foldopen" id="foldopen00228" data-start="{" data-end="}">
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="a02586.html#aba5e32a703871da0c5fd773833e8209b">  228</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#aba5e32a703871da0c5fd773833e8209b">Camera3D::removeAffector</a>() {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;CameraAffector3D, TAffector&gt;::value,</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                  <span class="stringliteral">&quot;Affector must inherit from CameraAffector3D&quot;</span>);</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = affectors.begin(); it != affectors.end(); ++it) {</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        TAffector* a = <span class="keyword">dynamic_cast&lt;</span>TAffector*<span class="keyword">&gt;</span>(it-&gt;get());</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="keywordflow">if</span> (a) {</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            affectors.erase(it);</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        }</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>}</div>
-</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TAffector&gt;</div>
-<div class="foldopen" id="foldopen00242" data-start="{" data-end="}">
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="a02586.html#af38539340a690c3fc28246bfb8511a57">  242</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02586.html#af38539340a690c3fc28246bfb8511a57">Camera3D::removeAffectors</a>() {</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;CameraAffector3D, TAffector&gt;::value,</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>                  <span class="stringliteral">&quot;Affector must inherit from CameraAffector3D&quot;</span>);</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = affectors.size(); i &gt;= 0; --i) {</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        TAffector* a = <span class="keyword">dynamic_cast&lt;</span>TAffector*<span class="keyword">&gt;</span>(affectors[i].get());</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        <span class="keywordflow">if</span> (a) { affectors.erase(affectors.begin() + i); }</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    }</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>}</div>
-</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>} <span class="comment">// namespace cam</span></div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00053_html"><div class="ttname"><a href="a00053.html">Orientation3D.hpp</a></div></div>
-<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">CameraAffector3D.hpp</a></div></div>
-<div class="ttc" id="aa00887_html"><div class="ttname"><a href="a00887.html">CameraController3D.hpp</a></div></div>
-<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">Camera.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02586_html"><div class="ttname"><a href="a02586.html">bl::cam::Camera3D</a></div><div class="ttdoc">Camera for 3d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00021">Camera3D.hpp:21</a></div></div>
-<div class="ttc" id="aa02586_html_a33ff4c8bc64ce4482ffc1bb2a61a7000"><div class="ttname"><a href="a02586.html#a33ff4c8bc64ce4482ffc1bb2a61a7000">bl::cam::Camera3D::getPosition</a></div><div class="ttdeci">constexpr const glm::vec3 &amp; getPosition() const</div><div class="ttdoc">Returns the position of the camera in world space.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00176">Camera3D.hpp:176</a></div></div>
-<div class="ttc" id="aa02586_html_a361d1f5a76905e4ef6c1b1d08a8317fd"><div class="ttname"><a href="a02586.html#a361d1f5a76905e4ef6c1b1d08a8317fd">bl::cam::Camera3D::getOrientation</a></div><div class="ttdeci">constexpr const com::Orientation3D &amp; getOrientation() const</div><div class="ttdoc">Returns the orientation of the camera.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00203">Camera3D.hpp:203</a></div></div>
-<div class="ttc" id="aa02586_html_a44c9f6fa15da797e673386db4949327e"><div class="ttname"><a href="a02586.html#a44c9f6fa15da797e673386db4949327e">bl::cam::Camera3D::getOrientationForChange</a></div><div class="ttdeci">com::Orientation3D &amp; getOrientationForChange()</div><div class="ttdoc">Returns the orientation of the camera and marks the camera as needing to refresh the view matrix....</div><div class="ttdef"><b>Definition</b> <a href="a01994_source.html#l00032">Camera3D.cpp:32</a></div></div>
-<div class="ttc" id="aa02586_html_a97c0df83c0bb8a16b86c089c2d190ad9"><div class="ttname"><a href="a02586.html#a97c0df83c0bb8a16b86c089c2d190ad9">bl::cam::Camera3D::getAffector</a></div><div class="ttdeci">TAffector * getAffector() const</div><div class="ttdoc">Helper function to fetch a particular affector on this camera.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00216">Camera3D.hpp:216</a></div></div>
-<div class="ttc" id="aa02586_html_a9a7101823cb914220a044819a521c0b0"><div class="ttname"><a href="a02586.html#a9a7101823cb914220a044819a521c0b0">bl::cam::Camera3D::~Camera3D</a></div><div class="ttdeci">virtual ~Camera3D()=default</div><div class="ttdoc">Destroys the camera.</div></div>
-<div class="ttc" id="aa02586_html_ab920717d1389423460224e924d8fe2af"><div class="ttname"><a href="a02586.html#ab920717d1389423460224e924d8fe2af">bl::cam::Camera3D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec3 &amp;pos)</div><div class="ttdoc">Set the world position of the camera.</div><div class="ttdef"><b>Definition</b> <a href="a01994_source.html#l00022">Camera3D.cpp:22</a></div></div>
-<div class="ttc" id="aa02586_html_aba5e32a703871da0c5fd773833e8209b"><div class="ttname"><a href="a02586.html#aba5e32a703871da0c5fd773833e8209b">bl::cam::Camera3D::removeAffector</a></div><div class="ttdeci">void removeAffector()</div><div class="ttdoc">Removes the first affector found of the given type from this camera.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00228">Camera3D.hpp:228</a></div></div>
-<div class="ttc" id="aa02586_html_abfd4fb2dc717fd8248805b3ee4736ccb"><div class="ttname"><a href="a02586.html#abfd4fb2dc717fd8248805b3ee4736ccb">bl::cam::Camera3D::getFov</a></div><div class="ttdeci">constexpr float getFov() const</div><div class="ttdoc">Returns the FOV of the camera.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00178">Camera3D.hpp:178</a></div></div>
-<div class="ttc" id="aa02586_html_ad91815fbd49586e0218ca6a755583e02"><div class="ttname"><a href="a02586.html#ad91815fbd49586e0218ca6a755583e02">bl::cam::Camera3D::setFov</a></div><div class="ttdeci">void setFov(float fov)</div><div class="ttdoc">Set the FOV of the camera.</div><div class="ttdef"><b>Definition</b> <a href="a01994_source.html#l00037">Camera3D.cpp:37</a></div></div>
-<div class="ttc" id="aa02586_html_adf2752bec6b4e329b9060de12cc12f32"><div class="ttname"><a href="a02586.html#adf2752bec6b4e329b9060de12cc12f32">bl::cam::Camera3D::setController</a></div><div class="ttdeci">TController * setController(TArgs &amp;&amp;... args)</div><div class="ttdoc">Sets the controller of this camera, freeing the previous controller, if any.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00181">Camera3D.hpp:181</a></div></div>
-<div class="ttc" id="aa02586_html_ae10bda6856899de6a32a446082b35c33"><div class="ttname"><a href="a02586.html#ae10bda6856899de6a32a446082b35c33">bl::cam::Camera3D::addAffector</a></div><div class="ttdeci">TAffector * addAffector(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates and adds an affector to the camera.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00206">Camera3D.hpp:206</a></div></div>
-<div class="ttc" id="aa02586_html_ae9561ec16a55f170d612de4c0ff75ff6"><div class="ttname"><a href="a02586.html#ae9561ec16a55f170d612de4c0ff75ff6">bl::cam::Camera3D::getViewerSize</a></div><div class="ttdeci">virtual glm::vec2 getViewerSize() const override</div><div class="ttdoc">Returns the size of the viewport.</div><div class="ttdef"><b>Definition</b> <a href="a01994_source.html#l00086">Camera3D.cpp:86</a></div></div>
-<div class="ttc" id="aa02586_html_af38539340a690c3fc28246bfb8511a57"><div class="ttname"><a href="a02586.html#af38539340a690c3fc28246bfb8511a57">bl::cam::Camera3D::removeAffectors</a></div><div class="ttdeci">void removeAffectors()</div><div class="ttdoc">Removes all affectors of the given type from the camera.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00242">Camera3D.hpp:242</a></div></div>
-<div class="ttc" id="aa02586_html_af5eb7c876fbb3d5009ecba69fce6180e"><div class="ttname"><a href="a02586.html#af5eb7c876fbb3d5009ecba69fce6180e">bl::cam::Camera3D::move</a></div><div class="ttdeci">void move(const glm::vec3 &amp;offset)</div><div class="ttdoc">Applies an offset to the camera's position.</div><div class="ttdef"><b>Definition</b> <a href="a01994_source.html#l00027">Camera3D.cpp:27</a></div></div>
-<div class="ttc" id="aa02590_html"><div class="ttname"><a href="a02590.html">bl::cam::CameraAffector3D</a></div><div class="ttdoc">Base class for affectors that can be applied to 3d cameras. An affecter modifies the behavior of the ...</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00018">CameraAffector3D.hpp:18</a></div></div>
-<div class="ttc" id="aa02602_html"><div class="ttname"><a href="a02602.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition</b> <a href="a00896_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02654_html"><div class="ttname"><a href="a02654.html">bl::com::Orientation3D</a></div><div class="ttdoc">Angle-axis representation of a 3d orientation.</div><div class="ttdef"><b>Definition</b> <a href="a00053_source.html#l00015">Orientation3D.hpp:15</a></div></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>} <span class="comment">// namespace tfr</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa00887_html"><div class="ttname"><a href="a00887.html">TransferContext.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05622_html"><div class="ttname"><a href="a05622.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00022">Transferable.hpp:22</a></div></div>
+<div class="ttc" id="aa05622_html_a05233a758f0875563aea077dde3096f6"><div class="ttname"><a href="a05622.html#a05233a758f0875563aea077dde3096f6">bl::rc::tfr::Transferable::~Transferable</a></div><div class="ttdeci">virtual ~Transferable()</div><div class="ttdoc">Destroy the transferable object.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00022">Transferable.cpp:22</a></div></div>
+<div class="ttc" id="aa05622_html_a109f9d7acc098649830f276c266b47d0"><div class="ttname"><a href="a05622.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></div><div class="ttdeci">SyncRequirement</div><div class="ttdoc">Enum containing requirements for when transfers may start.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00025">Transferable.hpp:25</a></div></div>
+<div class="ttc" id="aa05622_html_a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"><div class="ttname"><a href="a05622.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">bl::rc::tfr::Transferable::SyncRequirement::DeviceIdle</a></div><div class="ttdeci">@ DeviceIdle</div><div class="ttdoc">Transfers with this requirement cannot start until the device is idle.</div></div>
+<div class="ttc" id="aa05622_html_a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"><div class="ttname"><a href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">bl::rc::tfr::Transferable::SyncRequirement::Immediate</a></div><div class="ttdeci">@ Immediate</div><div class="ttdoc">Transfers with this requirement may be started immediately.</div></div>
+<div class="ttc" id="aa05622_html_a168f2c871b5f008471d22febc6fed7c1"><div class="ttname"><a href="a05622.html#a168f2c871b5f008471d22febc6fed7c1">bl::rc::tfr::Transferable::Transferable</a></div><div class="ttdeci">Transferable()</div><div class="ttdoc">Sets vulkanState to nullptr.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00012">Transferable.cpp:12</a></div></div>
+<div class="ttc" id="aa05622_html_a2f74400304d3f1cbacf8d4d88cb2db14"><div class="ttname"><a href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">bl::rc::tfr::Transferable::renderer</a></div><div class="ttdeci">Renderer * renderer</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00069">Transferable.hpp:69</a></div></div>
+<div class="ttc" id="aa05622_html_a2fbe7414a05994b43584022f6d333c0d"><div class="ttname"><a href="a05622.html#a2fbe7414a05994b43584022f6d333c0d">bl::rc::tfr::Transferable::isQueued</a></div><div class="ttdeci">bool isQueued() const</div><div class="ttdoc">Returns whether or not a transfer is queued, either individually or every frame.</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00061">Transferable.hpp:61</a></div></div>
+<div class="ttc" id="aa05622_html_a45c235479910a695c7e770d79f3c528d"><div class="ttname"><a href="a05622.html#a45c235479910a695c7e770d79f3c528d">bl::rc::tfr::Transferable::executeTransfer</a></div><div class="ttdeci">virtual void executeTransfer(VkCommandBuffer commandBuffer, TransferContext &amp;context)=0</div><div class="ttdoc">Derived classes should perform their transfers here. Barriers should be registered with transferEngin...</div></div>
+<div class="ttc" id="aa05622_html_a998a9c05422f6188b474d275866a6b2b"><div class="ttname"><a href="a05622.html#a998a9c05422f6188b474d275866a6b2b">bl::rc::tfr::Transferable::stopTransferringEveryFrame</a></div><div class="ttdeci">void stopTransferringEveryFrame()</div><div class="ttdoc">Removes this Transferable from the queue that gets transferred every frame.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00055">Transferable.cpp:55</a></div></div>
+<div class="ttc" id="aa05622_html_ac7eb35d2804ad40e76823182f4eae9c8"><div class="ttname"><a href="a05622.html#ac7eb35d2804ad40e76823182f4eae9c8">bl::rc::tfr::Transferable::cancelQueuedTransfer</a></div><div class="ttdeci">void cancelQueuedTransfer()</div><div class="ttdoc">Cancels the scheduled transfer. Also cancels transfers that occur every frame.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00024">Transferable.cpp:24</a></div></div>
+<div class="ttc" id="aa05622_html_af2cddcfa3664702cb39bba2e304e5074"><div class="ttname"><a href="a05622.html#af2cddcfa3664702cb39bba2e304e5074">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">bool queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00029">Transferable.cpp:29</a></div></div>
+<div class="ttc" id="aa05622_html_affdc9c965d73f5227f2d3e0c8a17064e"><div class="ttname"><a href="a05622.html#affdc9c965d73f5227f2d3e0c8a17064e">bl::rc::tfr::Transferable::transferEveryFrame</a></div><div class="ttdeci">void transferEveryFrame(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Configures this Transferable to transfer every frame with the given sync requirement.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00045">Transferable.cpp:45</a></div></div>
+<div class="ttc" id="aa05626_html"><div class="ttname"><a href="a05626.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition</b> <a href="a00887_source.html#l00019">TransferContext.hpp:19</a></div></div>
+<div class="ttc" id="aa05630_html"><div class="ttname"><a href="a05630.html">bl::rc::tfr::TransferEngine</a></div><div class="ttdoc">Utility class to manage the synchronized transfer of data to the GPU.</div><div class="ttdef"><b>Definition</b> <a href="a00884_source.html#l00025">TransferEngine.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

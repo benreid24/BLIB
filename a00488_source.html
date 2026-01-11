@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/Timer.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/Pipeline.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,69 +79,123 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Timer.hpp</div></div>
+  <div class="headertitle"><div class="title">Pipeline.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00488.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_UTIL_TIMER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_UTIL_TIMER_HPP</span></div>
+<a href="a00488.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_PIPELINE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_PIPELINE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00476.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;SFML/System.hpp&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>util</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05418.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a05418.html">Timer</a> : <span class="keyword">private</span> <a class="code hl_class" href="a05346.html">util::NonCopyable</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">static</span> <a class="code hl_class" href="a05418.html">Timer</a>&amp; <a class="code hl_function" href="a05418.html#aecde32b54c94ec7f5c2eca40e0975584">get</a>();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05418.html#a04d476133cd5a6559d4a7cbd5fbe2d48">timeElapsedSeconds</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a05418.html#af2414c20069843d3a9a7b98efa5b3b83">timeElapsedMilliseconds</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    sf::Time <a class="code hl_function" href="a05418.html#ac99ffbd80e0e1af189f47fdecdacdb26">timeElapsed</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    sf::Time <a class="code hl_function" href="a05418.html#a57708d1e70962d8764fc11839425d332">timeElapsedRaw</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/Render/Config/Limits.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00992.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00383.html">BLIB/Render/Events/RenderPassInvalidated.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00392.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00434.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00467.html">BLIB/Render/Vulkan/PipelineParameters.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a07987.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;variant&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">class </span>PipelineCache;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a05726.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="a05726.html">Pipeline</a> : <span class="keyword">public</span> <a class="code hl_class" href="a06386.html">sig::Listener</a>&lt;event::SettingsChanged, event::RenderPassInvalidated&gt; {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a05726.html">Pipeline</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer, std::uint32_t <span class="keywordtype">id</span>, <a class="code hl_class" href="a05754.html">PipelineParameters</a>&amp;&amp; params);</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05418.html#a4bb92a9c02daeb62980e97e37c258a8f">pause</a>();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05418.html#a3493011738abc4ec4481f297c053fc50">resume</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="a05418.html">Timer</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_function" href="a05726.html#a1d57975a718d565a44e8c07c95332326">~Pipeline</a>();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">const</span> <a class="code hl_class" href="a05738.html">PipelineLayout</a>&amp; <a class="code hl_function" href="a05726.html#a0395c7a9dcaab9a64b5453f87ae7f60d">pipelineLayout</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    sf::Clock clock;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    sf::Time timePaused, offset;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">bool</span> paused;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
-</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace util</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    VkPipeline <a class="code hl_function" href="a05726.html#a65254b92858feea9fef47fe1853e1865">rawPipeline</a>(std::uint32_t renderPassId, std::uint32_t specializationId);</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00476_html"><div class="ttname"><a href="a00476.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05346_html"><div class="ttname"><a href="a05346.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a00476_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa05418_html"><div class="ttname"><a href="a05418.html">bl::util::Timer</a></div><div class="ttdoc">Global class for tracking time. Implemented over the top of sf::Clock to allow for pausing.</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00017">Timer.hpp:17</a></div></div>
-<div class="ttc" id="aa05418_html_a04d476133cd5a6559d4a7cbd5fbe2d48"><div class="ttname"><a href="a05418.html#a04d476133cd5a6559d4a7cbd5fbe2d48">bl::util::Timer::timeElapsedSeconds</a></div><div class="ttdeci">float timeElapsedSeconds() const</div><div class="ttdoc">Returns the time elapsed in seconds.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00023">Timer.cpp:23</a></div></div>
-<div class="ttc" id="aa05418_html_a3493011738abc4ec4481f297c053fc50"><div class="ttname"><a href="a05418.html#a3493011738abc4ec4481f297c053fc50">bl::util::Timer::resume</a></div><div class="ttdeci">void resume()</div><div class="ttdoc">Resumes the timer.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00032">Timer.cpp:32</a></div></div>
-<div class="ttc" id="aa05418_html_a4bb92a9c02daeb62980e97e37c258a8f"><div class="ttname"><a href="a05418.html#a4bb92a9c02daeb62980e97e37c258a8f">bl::util::Timer::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdoc">Pauses the timer.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00027">Timer.cpp:27</a></div></div>
-<div class="ttc" id="aa05418_html_a57708d1e70962d8764fc11839425d332"><div class="ttname"><a href="a05418.html#a57708d1e70962d8764fc11839425d332">bl::util::Timer::timeElapsedRaw</a></div><div class="ttdeci">sf::Time timeElapsedRaw() const</div><div class="ttdoc">Returns the raw elapsed time. Does not compensate for pausing.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00015">Timer.cpp:15</a></div></div>
-<div class="ttc" id="aa05418_html_ac99ffbd80e0e1af189f47fdecdacdb26"><div class="ttname"><a href="a05418.html#ac99ffbd80e0e1af189f47fdecdacdb26">bl::util::Timer::timeElapsed</a></div><div class="ttdeci">sf::Time timeElapsed() const</div><div class="ttdoc">Returns the elapsed time.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00017">Timer.cpp:17</a></div></div>
-<div class="ttc" id="aa05418_html_aecde32b54c94ec7f5c2eca40e0975584"><div class="ttname"><a href="a05418.html#aecde32b54c94ec7f5c2eca40e0975584">bl::util::Timer::get</a></div><div class="ttdeci">static Timer &amp; get()</div><div class="ttdoc">Returns the global timer object.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00010">Timer.cpp:10</a></div></div>
-<div class="ttc" id="aa05418_html_af2414c20069843d3a9a7b98efa5b3b83"><div class="ttname"><a href="a05418.html#af2414c20069843d3a9a7b98efa5b3b83">bl::util::Timer::timeElapsedMilliseconds</a></div><div class="ttdeci">unsigned long int timeElapsedMilliseconds() const</div><div class="ttdoc">Returns the time elapsed in milliseconds.</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00025">Timer.cpp:25</a></div></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05726.html#a8c59408f0b7059ba644cd732ce499265">bind</a>(VkCommandBuffer commandBuffer, std::uint32_t renderPassId,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>              std::uint32_t specializationId);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">const</span> <a class="code hl_class" href="a05754.html">PipelineParameters</a>&amp; <a class="code hl_function" href="a05726.html#aaef5ac16b31e30831125292ee90bd0ad">getCreationParameters</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a05726.html#a22c837bea86278740f11430e43474bd0">   84</a></span>    std::uint32_t <a class="code hl_function" href="a05726.html#a22c837bea86278740f11430e43474bd0">getId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> id; }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    std::uint32_t id;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="a05738.html">PipelineLayout</a>* layout;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    std::array&lt;std::array&lt;VkPipeline, cfg::Limits::MaxRenderPasses&gt;,</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>               <a class="code hl_variable" href="a04782.html#aca153350fad6a5511c13ebd125b5d8e4">cfg::Limits::MaxPipelineSpecializations</a>&gt;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        pipelines;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <a class="code hl_class" href="a05754.html">PipelineParameters</a> createParams;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> recreateForRenderPass(std::uint32_t rpid);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">void</span> createForRenderPass(std::uint32_t rpid, std::uint32_t spec);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a04954.html">event::SettingsChanged</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a04942.html">event::RenderPassInvalidated</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="a05726.html#a3c6e79faddcf860d9ddab95307145e2f">  101</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_friend" href="a05726.html#a3c6e79faddcf860d9ddab95307145e2f">PipelineCache</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>};</div>
+</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a05726.html#a0395c7a9dcaab9a64b5453f87ae7f60d">  106</a></span><span class="keyword">inline</span> <span class="keyword">const</span> <a class="code hl_class" href="a05738.html">PipelineLayout</a>&amp; <a class="code hl_function" href="a05726.html#a0395c7a9dcaab9a64b5453f87ae7f60d">Pipeline::pipelineLayout</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *layout; }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="foldopen" id="foldopen00108" data-start="{" data-end="}">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a05726.html#a65254b92858feea9fef47fe1853e1865">  108</a></span><span class="keyword">inline</span> VkPipeline <a class="code hl_function" href="a05726.html#a65254b92858feea9fef47fe1853e1865">Pipeline::rawPipeline</a>(std::uint32_t rpid, std::uint32_t spec) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span> (!pipelines[spec][rpid]) { createForRenderPass(rpid, spec); }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">return</span> pipelines[spec][rpid];</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a05726.html#aaef5ac16b31e30831125292ee90bd0ad">  113</a></span><span class="keyword">inline</span> <span class="keyword">const</span> <a class="code hl_class" href="a05754.html">PipelineParameters</a>&amp; <a class="code hl_function" href="a05726.html#aaef5ac16b31e30831125292ee90bd0ad">Pipeline::getCreationParameters</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> createParams; }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa00383_html"><div class="ttname"><a href="a00383.html">RenderPassInvalidated.hpp</a></div></div>
+<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">SettingsChanged.hpp</a></div></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
+<div class="ttc" id="aa00434_html"><div class="ttname"><a href="a00434.html">PipelineLayout.hpp</a></div></div>
+<div class="ttc" id="aa00467_html"><div class="ttname"><a href="a00467.html">PipelineParameters.hpp</a></div></div>
+<div class="ttc" id="aa00992_html"><div class="ttname"><a href="a00992.html">DescriptorSetInstanceCache.hpp</a></div></div>
+<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">Limits.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04782_html_aca153350fad6a5511c13ebd125b5d8e4"><div class="ttname"><a href="a04782.html#aca153350fad6a5511c13ebd125b5d8e4">bl::rc::cfg::Limits::MaxPipelineSpecializations</a></div><div class="ttdeci">static constexpr std::uint32_t MaxPipelineSpecializations</div><div class="ttdef"><b>Definition</b> <a href="a01016_source.html#l00029">Limits.hpp:29</a></div></div>
+<div class="ttc" id="aa04942_html"><div class="ttname"><a href="a04942.html">bl::rc::event::RenderPassInvalidated</a></div><div class="ttdoc">Fired when a render pass is recreated for any reason.</div><div class="ttdef"><b>Definition</b> <a href="a00383_source.html#l00019">RenderPassInvalidated.hpp:19</a></div></div>
+<div class="ttc" id="aa04954_html"><div class="ttname"><a href="a04954.html">bl::rc::event::SettingsChanged</a></div><div class="ttdoc">Fired when renderer settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00017">SettingsChanged.hpp:17</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05726_html"><div class="ttname"><a href="a05726.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00033">Pipeline.hpp:33</a></div></div>
+<div class="ttc" id="aa05726_html_a0395c7a9dcaab9a64b5453f87ae7f60d"><div class="ttname"><a href="a05726.html#a0395c7a9dcaab9a64b5453f87ae7f60d">bl::rc::vk::Pipeline::pipelineLayout</a></div><div class="ttdeci">const PipelineLayout &amp; pipelineLayout() const</div><div class="ttdoc">Returns the layout of this pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00106">Pipeline.hpp:106</a></div></div>
+<div class="ttc" id="aa05726_html_a1d57975a718d565a44e8c07c95332326"><div class="ttname"><a href="a05726.html#a1d57975a718d565a44e8c07c95332326">bl::rc::vk::Pipeline::~Pipeline</a></div><div class="ttdeci">~Pipeline()</div><div class="ttdoc">Destroy the Pipeline and frees Vulkan resources.</div><div class="ttdef"><b>Definition</b> <a href="a02168_source.html#l00020">Pipeline.cpp:20</a></div></div>
+<div class="ttc" id="aa05726_html_a22c837bea86278740f11430e43474bd0"><div class="ttname"><a href="a05726.html#a22c837bea86278740f11430e43474bd0">bl::rc::vk::Pipeline::getId</a></div><div class="ttdeci">std::uint32_t getId() const</div><div class="ttdoc">Returns the id of this pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00084">Pipeline.hpp:84</a></div></div>
+<div class="ttc" id="aa05726_html_a3c6e79faddcf860d9ddab95307145e2f"><div class="ttname"><a href="a05726.html#a3c6e79faddcf860d9ddab95307145e2f">bl::rc::vk::Pipeline::PipelineCache</a></div><div class="ttdeci">friend class PipelineCache</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00101">Pipeline.hpp:101</a></div></div>
+<div class="ttc" id="aa05726_html_a65254b92858feea9fef47fe1853e1865"><div class="ttname"><a href="a05726.html#a65254b92858feea9fef47fe1853e1865">bl::rc::vk::Pipeline::rawPipeline</a></div><div class="ttdeci">VkPipeline rawPipeline(std::uint32_t renderPassId, std::uint32_t specializationId)</div><div class="ttdoc">Returns the underlying Vulkan pipeline handle.</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00108">Pipeline.hpp:108</a></div></div>
+<div class="ttc" id="aa05726_html_a8c59408f0b7059ba644cd732ce499265"><div class="ttname"><a href="a05726.html#a8c59408f0b7059ba644cd732ce499265">bl::rc::vk::Pipeline::bind</a></div><div class="ttdeci">void bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId, std::uint32_t specializationId)</div><div class="ttdoc">Issues the command to bind the pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a02168_source.html#l00030">Pipeline.cpp:30</a></div></div>
+<div class="ttc" id="aa05726_html_aaef5ac16b31e30831125292ee90bd0ad"><div class="ttname"><a href="a05726.html#aaef5ac16b31e30831125292ee90bd0ad">bl::rc::vk::Pipeline::getCreationParameters</a></div><div class="ttdeci">const PipelineParameters &amp; getCreationParameters() const</div><div class="ttdoc">Returns a new copy of PipelineParameters identical to the ones used to create this pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00113">Pipeline.hpp:113</a></div></div>
+<div class="ttc" id="aa05738_html"><div class="ttname"><a href="a05738.html">bl::rc::vk::PipelineLayout</a></div><div class="ttdoc">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on b...</div><div class="ttdef"><b>Definition</b> <a href="a00434_source.html#l00031">PipelineLayout.hpp:31</a></div></div>
+<div class="ttc" id="aa05754_html"><div class="ttname"><a href="a05754.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition</b> <a href="a00467_source.html#l00036">PipelineParameters.hpp:36</a></div></div>
+<div class="ttc" id="aa06386_html"><div class="ttname"><a href="a06386.html">bl::sig::Listener</a></div><div class="ttdoc">Base class for signal listeners. Create classes that derive from this to process signals.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00023">Listener.hpp:23</a></div></div>
+<div class="ttc" id="aa07987_html"><div class="ttname"><a href="a07987.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

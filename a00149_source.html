@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Loader.hpp Source File</title>
+<title>BLIB: include/BLIB/Signals/Priv/StreamBase.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,272 +79,59 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_dd0aec3634d4c6491063bbb471cd5b1e.html">Signals</a></li><li class="navelem"><a class="el" href="dir_8bc2fe9d55efee1e19c70807a6010324.html">Priv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Loader.hpp</div></div>
+  <div class="headertitle"><div class="title">StreamBase.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00149.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RESOURCES_RESOURCELOADER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RESOURCES_RESOURCELOADER_HPP</span></div>
+<a href="a00149.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SIGNALS_PRIV_STREAMBASE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SIGNALS_PRIV_STREAMBASE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00965.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00929.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01475.html">BLIB/Audio/Playlist.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00155.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00161.html">BLIB/Resources/Resource.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;istream&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00275.html">BLIB/Containers/FastEraseVector.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>sig</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>EmitterBase;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>resource</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TResourceType&gt;</div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a04770.html">   26</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04770.html">LoaderBase</a> {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04770.html#afa92f9ae38b25886b9cd07142812e92d">   31</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04770.html#afa92f9ae38b25886b9cd07142812e92d">~LoaderBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a04770.html#a60bcbb603a810caf73adec7ea14f105a">   42</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04770.html#a60bcbb603a810caf73adec7ea14f105a">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                      std::istream&amp; input, TResourceType&amp; result) = 0;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a06394.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="a06394.html">StreamBase</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a06394.html#a19289bbe26e4b0519b3ef18a7667e51a">~StreamBase</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a06394.html#a135c69b53d63372f59fe6441fd99f4fa">   19</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a06394.html#a135c69b53d63372f59fe6441fd99f4fa">syncDeferred</a>() = 0;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    std::mutex emitterMutex;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="a03374.html">ctr::FastEraseVector&lt;EmitterBase*&gt;</a> emitters;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a06394.html#a66cdc79a03bbd6fe67b9b31d78d5b0c6">   25</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a06390.html">EmitterBase</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TResourceType&gt;</div>
-<div class="foldopen" id="foldopen00054" data-start="{" data-end="};">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04774.html">   54</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04774.html">NullLoader</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;TResourceType&gt; {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a04774.html#ad80f4e9b908e39fb17e6c100f48c1b43">   59</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04774.html#ad80f4e9b908e39fb17e6c100f48c1b43">~NullLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a04774.html#a44e6ac4ed2dd18ef58156991af81942b">   67</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04774.html#a44e6ac4ed2dd18ef58156991af81942b">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                      TResourceType&amp;)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Attempted to load &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; <span class="keyword">typeid</span>(TResourceType).name()</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                    &lt;&lt; <span class="stringliteral">&quot;) with NullLoader&quot;</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
-</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00083" data-start="{" data-end="};">
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="a04778.html">   83</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;T&gt; {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a04778.html#a0d9f5f4060c6cda3704b50532d023064">   84</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04778.html#a0d9f5f4060c6cda3704b50532d023064">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a04778.html#ac7fb1a1ab08afffa4c04c2221f830a9b">   86</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04778.html#ac7fb1a1ab08afffa4c04c2221f830a9b">load</a>(<span class="keyword">const</span> std::string&amp;, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;, T&amp;)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <a class="code hl_define" href="a00230.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;DefaultLoader being used for resource &quot;</span> &lt;&lt; <span class="keyword">typeid</span>(T).name();</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
-</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>};</div>
-</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00095" data-start="{" data-end="};">
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a04782.html">   95</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a02435.html">sf</a>::Texture&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;sf::Texture&gt; {</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a04782.html#ab230141233d927a46e1363c1902d10df">   96</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04782.html#ab230141233d927a46e1363c1902d10df">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="foldopen" id="foldopen00098" data-start="{" data-end="}">
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="a04782.html#a2456fe4b4967caa3c8cac571fc667407">   98</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04782.html#a2456fe4b4967caa3c8cac571fc667407">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                      sf::Texture&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load texture: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
-</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>};</div>
-</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00109" data-start="{" data-end="};">
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a04786.html">  109</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a02435.html">sf</a>::SoundBuffer&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;sf::SoundBuffer&gt; {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a04786.html#a3f7999be9a772641a7345320a68c5152">  110</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04786.html#a3f7999be9a772641a7345320a68c5152">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a04786.html#a54e61c4f7549a088d540e5a222a1c99b">  112</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04786.html#a54e61c4f7549a088d540e5a222a1c99b">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                      sf::SoundBuffer&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load sound: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
-</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>};</div>
-</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00123" data-start="{" data-end="};">
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a04790.html">  123</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;audio::Playlist&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;audio::Playlist&gt; {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="a04790.html#aeaada35e18f38925898443fc2c62430a">  124</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04790.html#aeaada35e18f38925898443fc2c62430a">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a04790.html#a11b5e4d6c6cc1e69cee3c110c57b4682">  126</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04790.html#a11b5e4d6c6cc1e69cee3c110c57b4682">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                      <a class="code hl_class" href="a02554.html">audio::Playlist</a>&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a02554.html#a60c66c9f721c21d9f296df4939f9f2e7">loadJson</a>(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
-</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>};</div>
-</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a02467.html#a57bbbec57da37d77f6076b52e8665fa8">  136</a></span><span class="keyword">using </span><a class="code hl_struct" href="a04790.html">RawPlaylistLoader</a> = <a class="code hl_struct" href="a04778.html">DefaultLoader&lt;audio::Playlist&gt;</a>;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="foldopen" id="foldopen00138" data-start="{" data-end="};">
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="a04794.html">  138</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04794.html">BundledPlaylistLoader</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;audio::Playlist&gt; {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="a04794.html#a2b509a86dff6689ee223d89fc0e28546">  139</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04794.html#a2b509a86dff6689ee223d89fc0e28546">~BundledPlaylistLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="foldopen" id="foldopen00141" data-start="{" data-end="}">
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="a04794.html#ad77031e03da4a3bd2abd530cd68652f9">  141</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04794.html#ad77031e03da4a3bd2abd530cd68652f9">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                      <a class="code hl_class" href="a02554.html">audio::Playlist</a>&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a02554.html#a06fe97d87293ce054d604a3ec51e7029">loadBinary</a>(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        }</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
-</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>};</div>
-</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00152" data-start="{" data-end="};">
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a04798.html">  152</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a02435.html">sf</a>::Font&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;sf::Font&gt; {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="a04798.html#aa52ee3ba50606bad01b85ec19cfd8207">  153</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04798.html#aa52ee3ba50606bad01b85ec19cfd8207">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="a04798.html#a827fa5db72dd235b3c58f2fdb3b6007d">  155</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04798.html#a827fa5db72dd235b3c58f2fdb3b6007d">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>                      sf::Font&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load font: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        }</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    }</div>
-</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>};</div>
-</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00166" data-start="{" data-end="};">
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="a04802.html">  166</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a02435.html">sf</a>::VulkanFont&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;sf::VulkanFont&gt; {</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="a04802.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">  167</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04802.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a04802.html#aa31f26345b34e0ef52afdd8d632ce744">  169</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04802.html#aa31f26345b34e0ef52afdd8d632ce744">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>                      <a class="code hl_class" href="a03374.html">sf::VulkanFont</a>&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a03374.html#af31fb7799224533a0edd78b79d425e0c">loadFromMemory</a>(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load font: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        }</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    }</div>
-</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>};</div>
-</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00180" data-start="{" data-end="};">
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="a04806.html">  180</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a02435.html">sf</a>::Image&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;sf::Image&gt; {</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="a04806.html#a44c1b2a09d3f936d301e574cdd60e00d">  181</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04806.html#a44c1b2a09d3f936d301e574cdd60e00d">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span> </div>
-<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="a04806.html#ac75afa63bed299d29c0353ed88a1586f">  183</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04806.html#ac75afa63bed299d29c0353ed88a1586f">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                      sf::Image&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load image: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        }</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    }</div>
-</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>};</div>
-</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span><span class="keyword">template</span>&lt;&gt;</div>
-<div class="foldopen" id="foldopen00194" data-start="{" data-end="};">
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="a04810.html">  194</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04778.html">DefaultLoader</a>&lt;gfx::a2d::AnimationData&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a04770.html">LoaderBase</a>&lt;gfx::a2d::AnimationData&gt; {</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a04810.html#a63b2d6008ad287e74d2d16934f2e1b2d">  195</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04810.html#a63b2d6008ad287e74d2d16934f2e1b2d">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="foldopen" id="foldopen00197" data-start="{" data-end="}">
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="a04810.html#a842987b3f9d6e9c34195c681006a49d4">  197</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04810.html#a842987b3f9d6e9c34195c681006a49d4">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                      <a class="code hl_class" href="a03226.html">gfx::a2d::AnimationData</a>&amp; result)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a03226.html#ac3a6f3c9ce23f73a743b47a150e64308">loadFromMemory</a>(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len, path)) {</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        }</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
-</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>};</div>
-</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>} <span class="comment">// namespace resource</span></div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">Ref.hpp</a></div></div>
-<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">Resource.hpp</a></div></div>
-<div class="ttc" id="aa00230_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00230_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00230.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00230_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00929_html"><div class="ttname"><a href="a00929.html">VulkanFont.hpp</a></div></div>
-<div class="ttc" id="aa00965_html"><div class="ttname"><a href="a00965.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa01475_html"><div class="ttname"><a href="a01475.html">Playlist.hpp</a></div></div>
-<div class="ttc" id="aa02366_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02366_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02435_html"><div class="ttname"><a href="a02435.html">sf</a></div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00054">VulkanFont.hpp:55</a></div></div>
-<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition</b> <a href="a01475_source.html#l00020">Playlist.hpp:20</a></div></div>
-<div class="ttc" id="aa02554_html_a06fe97d87293ce054d604a3ec51e7029"><div class="ttname"><a href="a02554.html#a06fe97d87293ce054d604a3ec51e7029">bl::audio::Playlist::loadBinary</a></div><div class="ttdeci">bool loadBinary(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the binary format.</div><div class="ttdef"><b>Definition</b> <a href="a02369_source.html#l00073">Playlist.cpp:73</a></div></div>
-<div class="ttc" id="aa02554_html_a60c66c9f721c21d9f296df4939f9f2e7"><div class="ttname"><a href="a02554.html#a60c66c9f721c21d9f296df4939f9f2e7">bl::audio::Playlist::loadJson</a></div><div class="ttdeci">bool loadJson(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the json format.</div><div class="ttdef"><b>Definition</b> <a href="a02369_source.html#l00086">Playlist.cpp:86</a></div></div>
-<div class="ttc" id="aa03226_html"><div class="ttname"><a href="a03226.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition</b> <a href="a00965_source.html#l00022">AnimationData.hpp:22</a></div></div>
-<div class="ttc" id="aa03226_html_ac3a6f3c9ce23f73a743b47a150e64308"><div class="ttname"><a href="a03226.html#ac3a6f3c9ce23f73a743b47a150e64308">bl::gfx::a2d::AnimationData::loadFromMemory</a></div><div class="ttdeci">bool loadFromMemory(const char *buffer, std::size_t len, const std::string &amp;originalPath)</div><div class="ttdoc">Loads the AnimationData from the given file. Spritesheets are searched for in the same directory as t...</div><div class="ttdef"><b>Definition</b> <a href="a02069_source.html#l00112">AnimationData.cpp:112</a></div></div>
-<div class="ttc" id="aa03374_html"><div class="ttname"><a href="a03374.html">sf::VulkanFont</a></div><div class="ttdoc">Adaptation of sf::Font for use with Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="a00929_source.html#l00063">VulkanFont.hpp:63</a></div></div>
-<div class="ttc" id="aa03374_html_af31fb7799224533a0edd78b79d425e0c"><div class="ttname"><a href="a03374.html#af31fb7799224533a0edd78b79d425e0c">sf::VulkanFont::loadFromMemory</a></div><div class="ttdeci">bool loadFromMemory(const void *data, std::size_t sizeInBytes)</div><div class="ttdoc">Loads the font from the given memory.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00208">VulkanFont.cpp:208</a></div></div>
-<div class="ttc" id="aa04770_html"><div class="ttname"><a href="a04770.html">bl::resource::LoaderBase</a></div><div class="ttdoc">Templated resource loader. Must be implemented for any resource type that is intended to be managed.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00026">Loader.hpp:26</a></div></div>
-<div class="ttc" id="aa04770_html_a60bcbb603a810caf73adec7ea14f105a"><div class="ttname"><a href="a04770.html#a60bcbb603a810caf73adec7ea14f105a">bl::resource::LoaderBase::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;input, TResourceType &amp;result)=0</div><div class="ttdoc">Load the resource as identified by the uri.</div></div>
-<div class="ttc" id="aa04770_html_afa92f9ae38b25886b9cd07142812e92d"><div class="ttname"><a href="a04770.html#afa92f9ae38b25886b9cd07142812e92d">bl::resource::LoaderBase::~LoaderBase</a></div><div class="ttdeci">virtual ~LoaderBase()=default</div><div class="ttdoc">Destroy the Loader Base object.</div></div>
-<div class="ttc" id="aa04774_html"><div class="ttname"><a href="a04774.html">bl::resource::NullLoader</a></div><div class="ttdoc">Helper loader to use if no more of a given resource type should be loaded. Does not perform any loadi...</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00054">Loader.hpp:54</a></div></div>
-<div class="ttc" id="aa04774_html_a44e6ac4ed2dd18ef58156991af81942b"><div class="ttname"><a href="a04774.html#a44e6ac4ed2dd18ef58156991af81942b">bl::resource::NullLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *, std::size_t, std::istream &amp;, TResourceType &amp;) override</div><div class="ttdoc">Logs a warning if called.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00067">Loader.hpp:67</a></div></div>
-<div class="ttc" id="aa04774_html_ad80f4e9b908e39fb17e6c100f48c1b43"><div class="ttname"><a href="a04774.html#ad80f4e9b908e39fb17e6c100f48c1b43">bl::resource::NullLoader::~NullLoader</a></div><div class="ttdeci">virtual ~NullLoader()=default</div><div class="ttdoc">Destroy the Null Loader object.</div></div>
-<div class="ttc" id="aa04778_html"><div class="ttname"><a href="a04778.html">bl::resource::DefaultLoader</a></div><div class="ttdoc">Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer,...</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00083">Loader.hpp:83</a></div></div>
-<div class="ttc" id="aa04778_html_a0d9f5f4060c6cda3704b50532d023064"><div class="ttname"><a href="a04778.html#a0d9f5f4060c6cda3704b50532d023064">bl::resource::DefaultLoader::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04778_html_ac7fb1a1ab08afffa4c04c2221f830a9b"><div class="ttname"><a href="a04778.html#ac7fb1a1ab08afffa4c04c2221f830a9b">bl::resource::DefaultLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;, const char *, std::size_t, std::istream &amp;, T &amp;) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00086">Loader.hpp:86</a></div></div>
-<div class="ttc" id="aa04782_html_a2456fe4b4967caa3c8cac571fc667407"><div class="ttname"><a href="a04782.html#a2456fe4b4967caa3c8cac571fc667407">bl::resource::DefaultLoader&lt; sf::Texture &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::Texture &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00098">Loader.hpp:98</a></div></div>
-<div class="ttc" id="aa04782_html_ab230141233d927a46e1363c1902d10df"><div class="ttname"><a href="a04782.html#ab230141233d927a46e1363c1902d10df">bl::resource::DefaultLoader&lt; sf::Texture &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04786_html_a3f7999be9a772641a7345320a68c5152"><div class="ttname"><a href="a04786.html#a3f7999be9a772641a7345320a68c5152">bl::resource::DefaultLoader&lt; sf::SoundBuffer &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04786_html_a54e61c4f7549a088d540e5a222a1c99b"><div class="ttname"><a href="a04786.html#a54e61c4f7549a088d540e5a222a1c99b">bl::resource::DefaultLoader&lt; sf::SoundBuffer &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::SoundBuffer &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00112">Loader.hpp:112</a></div></div>
-<div class="ttc" id="aa04790_html"><div class="ttname"><a href="a04790.html">bl::resource::DefaultLoader&lt; audio::Playlist &gt;</a></div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00123">Loader.hpp:123</a></div></div>
-<div class="ttc" id="aa04790_html_a11b5e4d6c6cc1e69cee3c110c57b4682"><div class="ttname"><a href="a04790.html#a11b5e4d6c6cc1e69cee3c110c57b4682">bl::resource::DefaultLoader&lt; audio::Playlist &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, audio::Playlist &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00126">Loader.hpp:126</a></div></div>
-<div class="ttc" id="aa04790_html_aeaada35e18f38925898443fc2c62430a"><div class="ttname"><a href="a04790.html#aeaada35e18f38925898443fc2c62430a">bl::resource::DefaultLoader&lt; audio::Playlist &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04794_html"><div class="ttname"><a href="a04794.html">bl::resource::BundledPlaylistLoader</a></div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00138">Loader.hpp:138</a></div></div>
-<div class="ttc" id="aa04794_html_a2b509a86dff6689ee223d89fc0e28546"><div class="ttname"><a href="a04794.html#a2b509a86dff6689ee223d89fc0e28546">bl::resource::BundledPlaylistLoader::~BundledPlaylistLoader</a></div><div class="ttdeci">virtual ~BundledPlaylistLoader()=default</div></div>
-<div class="ttc" id="aa04794_html_ad77031e03da4a3bd2abd530cd68652f9"><div class="ttname"><a href="a04794.html#ad77031e03da4a3bd2abd530cd68652f9">bl::resource::BundledPlaylistLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, audio::Playlist &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00141">Loader.hpp:141</a></div></div>
-<div class="ttc" id="aa04798_html_a827fa5db72dd235b3c58f2fdb3b6007d"><div class="ttname"><a href="a04798.html#a827fa5db72dd235b3c58f2fdb3b6007d">bl::resource::DefaultLoader&lt; sf::Font &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::Font &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00155">Loader.hpp:155</a></div></div>
-<div class="ttc" id="aa04798_html_aa52ee3ba50606bad01b85ec19cfd8207"><div class="ttname"><a href="a04798.html#aa52ee3ba50606bad01b85ec19cfd8207">bl::resource::DefaultLoader&lt; sf::Font &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04802_html_a90fef3a6e2f5ab9ada1d38f8fa0f66b4"><div class="ttname"><a href="a04802.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04802_html_aa31f26345b34e0ef52afdd8d632ce744"><div class="ttname"><a href="a04802.html#aa31f26345b34e0ef52afdd8d632ce744">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::VulkanFont &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00169">Loader.hpp:169</a></div></div>
-<div class="ttc" id="aa04806_html_a44c1b2a09d3f936d301e574cdd60e00d"><div class="ttname"><a href="a04806.html#a44c1b2a09d3f936d301e574cdd60e00d">bl::resource::DefaultLoader&lt; sf::Image &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04806_html_ac75afa63bed299d29c0353ed88a1586f"><div class="ttname"><a href="a04806.html#ac75afa63bed299d29c0353ed88a1586f">bl::resource::DefaultLoader&lt; sf::Image &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::Image &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00183">Loader.hpp:183</a></div></div>
-<div class="ttc" id="aa04810_html_a63b2d6008ad287e74d2d16934f2e1b2d"><div class="ttname"><a href="a04810.html#a63b2d6008ad287e74d2d16934f2e1b2d">bl::resource::DefaultLoader&lt; gfx::a2d::AnimationData &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
-<div class="ttc" id="aa04810_html_a842987b3f9d6e9c34195c681006a49d4"><div class="ttname"><a href="a04810.html#a842987b3f9d6e9c34195c681006a49d4">bl::resource::DefaultLoader&lt; gfx::a2d::AnimationData &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, gfx::a2d::AnimationData &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00197">Loader.hpp:197</a></div></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace priv</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace sig</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00275_html"><div class="ttname"><a href="a00275.html">FastEraseVector.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03374_html"><div class="ttname"><a href="a03374.html">bl::ctr::FastEraseVector</a></div><div class="ttdoc">A thin reskin of std::vector, this vector replaces the O(n) erase() methods of vector with a constant...</div><div class="ttdef"><b>Definition</b> <a href="a00275_source.html#l00022">FastEraseVector.hpp:22</a></div></div>
+<div class="ttc" id="aa06390_html"><div class="ttname"><a href="a06390.html">bl::sig::priv::EmitterBase</a></div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00015">EmitterBase.hpp:15</a></div></div>
+<div class="ttc" id="aa06394_html"><div class="ttname"><a href="a06394.html">bl::sig::priv::StreamBase</a></div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00015">StreamBase.hpp:15</a></div></div>
+<div class="ttc" id="aa06394_html_a135c69b53d63372f59fe6441fd99f4fa"><div class="ttname"><a href="a06394.html#a135c69b53d63372f59fe6441fd99f4fa">bl::sig::priv::StreamBase::syncDeferred</a></div><div class="ttdeci">virtual void syncDeferred()=0</div></div>
+<div class="ttc" id="aa06394_html_a19289bbe26e4b0519b3ef18a7667e51a"><div class="ttname"><a href="a06394.html#a19289bbe26e4b0519b3ef18a7667e51a">bl::sig::priv::StreamBase::~StreamBase</a></div><div class="ttdeci">virtual ~StreamBase()</div><div class="ttdef"><b>Definition</b> <a href="a01967_source.html#l00011">StreamBase.cpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

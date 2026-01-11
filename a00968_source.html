@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/BatchSprite.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,93 +79,112 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">BatchSprite.hpp</div></div>
+  <div class="headertitle"><div class="title">DescriptorSetFactoryCache.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00968.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_BATCHSPRITE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_BATCHSPRITE_HPP</span></div>
+<a href="a00968.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORYCACHE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORYCACHE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06322.html">BLIB/Graphics/BatchedSprites.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gfx</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03274.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="a03274.html">BatchSprite</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_function" href="a03274.html#aef2e11dea37955f849fd53a4a5f55d76">BatchSprite</a>();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="a03274.html#aef2e11dea37955f849fd53a4a5f55d76">BatchSprite</a>(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a03254.html">BatchedSprites</a>&amp; batch, <span class="keyword">const</span> sf::FloatRect&amp; textureSource);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_function" href="a03274.html#a8b0ad12756637303691ebc28ea88a2b3">~BatchSprite</a>();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#af38ba97c73b88635bb572ad313054730">create</a>(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a03254.html">BatchedSprites</a>&amp; batch, <span class="keyword">const</span> sf::FloatRect&amp; textureSource);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#a49822bff31a9332eb1490c1588f5cce0">updateSourceRect</a>(<span class="keyword">const</span> sf::FloatRect&amp; textureSource);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08488.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>Engine;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04878.html">   28</a></span><span class="keyword">class </span><a class="code hl_class" href="a04878.html">DescriptorSetFactoryCache</a> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    T* <a class="code hl_function" href="a04878.html#ae7fa86995060f4e006707e0472f4627a">getFactory</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="a04874.html">DescriptorSetFactory</a>* <a class="code hl_function" href="a04878.html#a28f61c708e0e041938fce05317a1c071">getOrAddFactory</a>(std::type_index derivedType,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                          std::unique_ptr&lt;DescriptorSetFactory&gt;&amp;&amp; factory);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#a9be66da0ac9ef43ad1f9f3938f2421f1">scaleToSize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a03274.html#a559a0df750b16fb7e7544ee81382e9d5">   61</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a02702.html">com::Transform2D</a>&amp; <a class="code hl_function" href="a03274.html#a559a0df750b16fb7e7544ee81382e9d5">getLocalTransform</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> transform; }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_class" href="a02702.html">com::Transform2D</a>&amp; <a class="code hl_function" href="a03274.html#a559a0df750b16fb7e7544ee81382e9d5">getLocalTransform</a>();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#a14ac233511f99fe9d02bdd17604f411d">remove</a>();</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#a4a15a1e97c5b4a636c5985b4ec4911d9">orphan</a>();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03274.html#ae70cb7e7d33b9b1505266bab48129e07">isCreated</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#ac8efb6c19787727ef5947724995f7906">disableAutoCommit</a>(<span class="keywordtype">bool</span> disable);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03274.html#adf0fcffc18f3a55d43e82e7d62a44baa">commit</a>();</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_class" href="a03046.html">engine::Engine</a>* engine;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_class" href="a03254.html">BatchedSprites</a>* owner;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    sf::FloatRect source;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_class" href="a02702.html">com::Transform2D</a> transform;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <a class="code hl_class" href="a03974.html">rc::buf::BatchIndexBuffer::AllocHandle</a> alloc;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">bool</span> dirty;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">bool</span> autoCommit;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_class" href="a03138.html">engine::Systems::TaskHandle</a> updateHandle;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">void</span> markDirty();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    T* <a class="code hl_function" href="a04878.html#a96cacebb79b14ad001e964c308ef1af9">getOrCreateFactory</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="a04874.html">DescriptorSetFactory</a>* <a class="code hl_function" href="a04878.html#a349f65a441a42ef4cf1542185a914f06">getFactoryThatMakes</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::unordered_map&lt;std::type_index, std::unique_ptr&lt;DescriptorSetFactory&gt;&gt; cache;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_class" href="a04878.html">DescriptorSetFactoryCache</a>(<a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a04878.html#a1fc8c4ea65463b448e068f1287349540">   79</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05330.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
 </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a04878.html#ae7fa86995060f4e006707e0472f4627a">   85</a></span><span class="keyword">inline</span> T* <a class="code hl_function" href="a04878.html#ae7fa86995060f4e006707e0472f4627a">DescriptorSetFactoryCache::getFactory</a>() {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (it == cache.end()) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a04878.html#a96cacebb79b14ad001e964c308ef1af9">   92</a></span>T* <a class="code hl_function" href="a04878.html#a96cacebb79b14ad001e964c308ef1af9">DescriptorSetFactoryCache::getOrCreateFactory</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (it == cache.end()) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        it = cache.try_emplace(<span class="keyword">typeid</span>(T), std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...)).first;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        it-&gt;second-&gt;init(engine, renderer);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a04878.html#a349f65a441a42ef4cf1542185a914f06">  102</a></span><a class="code hl_class" href="a04874.html">DescriptorSetFactory</a>* <a class="code hl_function" href="a04878.html#a349f65a441a42ef4cf1542185a914f06">DescriptorSetFactoryCache::getFactoryThatMakes</a>() {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : cache) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> (p.second-&gt;creates() == <span class="keyword">typeid</span>(T)) { <span class="keywordflow">return</span> p.second.get(); }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace ds</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace rc</span></div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>} <span class="comment">// namespace bl</span></div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02702_html"><div class="ttname"><a href="a02702.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a06361_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl::engine::Systems::TaskHandle</a></div><div class="ttdoc">Handle to a task submitted to Systems.</div><div class="ttdef"><b>Definition</b> <a href="a06895_source.html#l00042">Systems.hpp:42</a></div></div>
-<div class="ttc" id="aa03254_html"><div class="ttname"><a href="a03254.html">bl::gfx::BatchedSprites</a></div><div class="ttdoc">Set of sprites batched into one entity.</div><div class="ttdef"><b>Definition</b> <a href="a06322_source.html#l00018">BatchedSprites.hpp:21</a></div></div>
-<div class="ttc" id="aa03274_html"><div class="ttname"><a href="a03274.html">bl::gfx::BatchSprite</a></div><div class="ttdoc">A single sprite in a batch of sprites.</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00015">BatchSprite.hpp:15</a></div></div>
-<div class="ttc" id="aa03274_html_a14ac233511f99fe9d02bdd17604f411d"><div class="ttname"><a href="a03274.html#a14ac233511f99fe9d02bdd17604f411d">bl::gfx::BatchSprite::remove</a></div><div class="ttdeci">void remove()</div><div class="ttdoc">Removes the sprite from the batch.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00045">BatchSprite.cpp:45</a></div></div>
-<div class="ttc" id="aa03274_html_a49822bff31a9332eb1490c1588f5cce0"><div class="ttname"><a href="a03274.html#a49822bff31a9332eb1490c1588f5cce0">bl::gfx::BatchSprite::updateSourceRect</a></div><div class="ttdeci">void updateSourceRect(const sf::FloatRect &amp;textureSource)</div><div class="ttdoc">Changes the source texture coordinates. Must already be created.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00031">BatchSprite.cpp:31</a></div></div>
-<div class="ttc" id="aa03274_html_a4a15a1e97c5b4a636c5985b4ec4911d9"><div class="ttname"><a href="a03274.html#a4a15a1e97c5b4a636c5985b4ec4911d9">bl::gfx::BatchSprite::orphan</a></div><div class="ttdeci">void orphan()</div><div class="ttdoc">Detaches this sprite from the batch, invalidating this object but leaving the vertices....</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00054">BatchSprite.cpp:54</a></div></div>
-<div class="ttc" id="aa03274_html_a559a0df750b16fb7e7544ee81382e9d5"><div class="ttname"><a href="a03274.html#a559a0df750b16fb7e7544ee81382e9d5">bl::gfx::BatchSprite::getLocalTransform</a></div><div class="ttdeci">const com::Transform2D &amp; getLocalTransform() const</div><div class="ttdoc">Returns the local transform of the sprite. Determines the positions of the vertices within the batch.</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00061">BatchSprite.hpp:61</a></div></div>
-<div class="ttc" id="aa03274_html_a8b0ad12756637303691ebc28ea88a2b3"><div class="ttname"><a href="a03274.html#a8b0ad12756637303691ebc28ea88a2b3">bl::gfx::BatchSprite::~BatchSprite</a></div><div class="ttdeci">~BatchSprite()</div><div class="ttdoc">Releases its allocation from its owner and updates draw command.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00021">BatchSprite.cpp:21</a></div></div>
-<div class="ttc" id="aa03274_html_a9be66da0ac9ef43ad1f9f3938f2421f1"><div class="ttname"><a href="a03274.html#a9be66da0ac9ef43ad1f9f3938f2421f1">bl::gfx::BatchSprite::scaleToSize</a></div><div class="ttdeci">void scaleToSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Helper method to scale the sprite to the given size in batch coordinates.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00036">BatchSprite.cpp:36</a></div></div>
-<div class="ttc" id="aa03274_html_ac8efb6c19787727ef5947724995f7906"><div class="ttname"><a href="a03274.html#ac8efb6c19787727ef5947724995f7906">bl::gfx::BatchSprite::disableAutoCommit</a></div><div class="ttdeci">void disableAutoCommit(bool disable)</div><div class="ttdoc">Disables auto-commit of the geometry when parameters change.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00120">BatchSprite.cpp:120</a></div></div>
-<div class="ttc" id="aa03274_html_adf0fcffc18f3a55d43e82e7d62a44baa"><div class="ttname"><a href="a03274.html#adf0fcffc18f3a55d43e82e7d62a44baa">bl::gfx::BatchSprite::commit</a></div><div class="ttdeci">void commit()</div><div class="ttdoc">Manually commit the geometry to the batch. Only required if auto-commit is off.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00073">BatchSprite.cpp:73</a></div></div>
-<div class="ttc" id="aa03274_html_ae70cb7e7d33b9b1505266bab48129e07"><div class="ttname"><a href="a03274.html#ae70cb7e7d33b9b1505266bab48129e07">bl::gfx::BatchSprite::isCreated</a></div><div class="ttdeci">bool isCreated() const</div><div class="ttdoc">Returns whether or not the sprite has been created.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00063">BatchSprite.cpp:63</a></div></div>
-<div class="ttc" id="aa03274_html_aef2e11dea37955f849fd53a4a5f55d76"><div class="ttname"><a href="a03274.html#aef2e11dea37955f849fd53a4a5f55d76">bl::gfx::BatchSprite::BatchSprite</a></div><div class="ttdeci">BatchSprite()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00009">BatchSprite.cpp:9</a></div></div>
-<div class="ttc" id="aa03274_html_af38ba97c73b88635bb572ad313054730"><div class="ttname"><a href="a03274.html#af38ba97c73b88635bb572ad313054730">bl::gfx::BatchSprite::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedSprites &amp;batch, const sf::FloatRect &amp;textureSource)</div><div class="ttdoc">Creates the sprite in the given batch.</div><div class="ttdef"><b>Definition</b> <a href="a02057_source.html#l00023">BatchSprite.cpp:23</a></div></div>
-<div class="ttc" id="aa03974_html"><div class="ttname"><a href="a03974.html">bl::rc::buf::BatchIndexBufferT::AllocHandle</a></div><div class="ttdoc">Handle to an allocation from the index buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01331_source.html#l00040">BatchIndexBuffer.hpp:40</a></div></div>
-<div class="ttc" id="aa06322_html"><div class="ttname"><a href="a06322.html">BatchedSprites.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa04874_html"><div class="ttname"><a href="a04874.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition</b> <a href="a08488_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
+<div class="ttc" id="aa04878_html"><div class="ttname"><a href="a04878.html">bl::rc::ds::DescriptorSetFactoryCache</a></div><div class="ttdoc">Internal cache for descriptor set factories. Ensures that only one instance of each derived factory t...</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00028">DescriptorSetFactoryCache.hpp:28</a></div></div>
+<div class="ttc" id="aa04878_html_a28f61c708e0e041938fce05317a1c071"><div class="ttname"><a href="a04878.html#a28f61c708e0e041938fce05317a1c071">bl::rc::ds::DescriptorSetFactoryCache::getOrAddFactory</a></div><div class="ttdeci">DescriptorSetFactory * getOrAddFactory(std::type_index derivedType, std::unique_ptr&lt; DescriptorSetFactory &gt; &amp;&amp;factory)</div><div class="ttdoc">Returns a pointer to the correct instance of the factory to use for the given derived type....</div><div class="ttdef"><b>Definition</b> <a href="a02393_source.html#l00015">DescriptorSetFactoryCache.cpp:15</a></div></div>
+<div class="ttc" id="aa04878_html_a349f65a441a42ef4cf1542185a914f06"><div class="ttname"><a href="a04878.html#a349f65a441a42ef4cf1542185a914f06">bl::rc::ds::DescriptorSetFactoryCache::getFactoryThatMakes</a></div><div class="ttdeci">DescriptorSetFactory * getFactoryThatMakes()</div><div class="ttdoc">Returns the factory that creates the given type.</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00102">DescriptorSetFactoryCache.hpp:102</a></div></div>
+<div class="ttc" id="aa04878_html_a96cacebb79b14ad001e964c308ef1af9"><div class="ttname"><a href="a04878.html#a96cacebb79b14ad001e964c308ef1af9">bl::rc::ds::DescriptorSetFactoryCache::getOrCreateFactory</a></div><div class="ttdeci">T * getOrCreateFactory(TArgs &amp;&amp;... args)</div><div class="ttdoc">Helper method for fetching or creating a factory without unnecessarily allocating a new factory if on...</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00092">DescriptorSetFactoryCache.hpp:92</a></div></div>
+<div class="ttc" id="aa04878_html_ae7fa86995060f4e006707e0472f4627a"><div class="ttname"><a href="a04878.html#ae7fa86995060f4e006707e0472f4627a">bl::rc::ds::DescriptorSetFactoryCache::getFactory</a></div><div class="ttdeci">T * getFactory()</div><div class="ttdoc">Returns a pointer to a contained factory of the given type, or nullptr if not found.</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00085">DescriptorSetFactoryCache.hpp:85</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa08488_html"><div class="ttname"><a href="a08488.html">DescriptorSetFactory.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

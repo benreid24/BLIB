@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::defcoms::OverlayHighlightProvider Class Reference</title>
+<title>BLIB: bl::ecs::trait::ParentAwareVersioned&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,154 +74,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02438.html">gui</a></li><li class="navelem"><a class="el" href="a02440.html">defcoms</a></li><li class="navelem"><a class="el" href="a03634.html">OverlayHighlightProvider</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03014.html">trait</a></li><li class="navelem"><a class="el" href="a03634.html">ParentAwareVersioned</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03631.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui::defcoms::OverlayHighlightProvider Class Reference<div class="ingroups"><a class="el" href="a02383.html">Interface</a> &raquo; <a class="el" href="a02397.html">GUI</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ecs::trait::ParentAwareVersioned&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02968.html">ECS</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides mouse highlights by rendering a partially transparent rectangle over the target.  
+<p>Combined trait that is both parent aware and versioned. Maintains an internal dirty state that derived classes can use to determine if they need to refresh themselves. The dirty state is recursively defined with the entire parent tree.  
  <a href="a03634.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00629_source.html">OverlayHighlightProvider.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01562_source.html">ParentAwareVersioned.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::defcoms::OverlayHighlightProvider:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::trait::ParentAwareVersioned&lt; T &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a03634.png" usemap="#bl::gui::defcoms::OverlayHighlightProvider_map" alt=""/>
-  <map id="bl::gui::defcoms::OverlayHighlightProvider_map" name="bl::gui::defcoms::OverlayHighlightProvider_map">
-<area href="a03694.html" title="Base class for providers of element highlights. This provider type handles when elements are clicked ..." alt="bl::gui::rdr::HighlightProvider" shape="rect" coords="0,0,248,24"/>
+  <img src="a03634.png" usemap="#bl::ecs::trait::ParentAwareVersioned_3C_20T_20_3E_map" alt=""/>
+  <map id="bl::ecs::trait::ParentAwareVersioned_3C_20T_20_3E_map" name="bl::ecs::trait::ParentAwareVersioned_3C_20T_20_3E_map">
+<area href="a03630.html" title="Component trait for components that are parent-able. Parent is set in the Registry as an entity-level..." alt="bl::ecs::trait::ParentAware&lt; T &gt;" shape="rect" coords="0,0,244,24"/>
+<area href="a03638.html" title="Component trait for versions. Versions are a more robust dirty state, allowing observers of the compo..." alt="bl::ecs::trait::Versioned" shape="rect" coords="254,0,498,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a66ac6d9dbccb33fbf459435d7e99ed24" id="r_a66ac6d9dbccb33fbf459435d7e99ed24"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03694.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a> = std::unique_ptr&lt; HighlightProvider &gt;</td></tr>
-<tr class="separator:a66ac6d9dbccb33fbf459435d7e99ed24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bdd75df981da3a3f6502e36b8935076" id="r_a5bdd75df981da3a3f6502e36b8935076"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03694.html#a5bdd75df981da3a3f6502e36b8935076">Factory</a> = std::function&lt; <a class="el" href="a03694.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a>()&gt;</td></tr>
-<tr class="separator:a5bdd75df981da3a3f6502e36b8935076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a94804936a8c2bd443aa6d0d6c0b18b9e" id="r_a94804936a8c2bd443aa6d0d6c0b18b9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a94804936a8c2bd443aa6d0d6c0b18b9e">OverlayHighlightProvider</a> ()</td></tr>
-<tr class="memdesc:a94804936a8c2bd443aa6d0d6c0b18b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the provider.  <br /></td></tr>
-<tr class="separator:a94804936a8c2bd443aa6d0d6c0b18b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9040f1afd5a560c83230071788bcd95a" id="r_a9040f1afd5a560c83230071788bcd95a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a9040f1afd5a560c83230071788bcd95a">~OverlayHighlightProvider</a> ()=default</td></tr>
-<tr class="memdesc:a9040f1afd5a560c83230071788bcd95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the provider.  <br /></td></tr>
-<tr class="separator:a9040f1afd5a560c83230071788bcd95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a816693bc40064599840321c37d39e890" id="r_a816693bc40064599840321c37d39e890"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a816693bc40064599840321c37d39e890">update</a> (float dt) override</td></tr>
-<tr class="memdesc:a816693bc40064599840321c37d39e890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <br /></td></tr>
-<tr class="separator:a816693bc40064599840321c37d39e890"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d60ee47a321ccc8264cb74fb0ce1e0c" id="r_a6d60ee47a321ccc8264cb74fb0ce1e0c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a6d60ee47a321ccc8264cb74fb0ce1e0c">notifyUIState</a> (<a class="el" href="a03498.html">Element</a> *element, <a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">rdr::Component::UIState</a> state) override</td></tr>
-<tr class="memdesc:a6d60ee47a321ccc8264cb74fb0ce1e0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element changes state and needs a new highlight.  <br /></td></tr>
-<tr class="separator:a6d60ee47a321ccc8264cb74fb0ce1e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac8b46b6b0e31c5afb6e890413787413" id="r_aac8b46b6b0e31c5afb6e890413787413"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#aac8b46b6b0e31c5afb6e890413787413">doCreate</a> (<a class="el" href="a03162.html">engine::World</a> &amp;world) override</td></tr>
-<tr class="memdesc:aac8b46b6b0e31c5afb6e890413787413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the overlay rectangle.  <br /></td></tr>
-<tr class="separator:aac8b46b6b0e31c5afb6e890413787413"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a099623e811b66ecfb7f0b08bf588ca7b" id="r_a099623e811b66ecfb7f0b08bf588ca7b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a099623e811b66ecfb7f0b08bf588ca7b">doSceneAdd</a> (<a class="el" href="a04322.html">rc::Overlay</a> *overlay) override</td></tr>
-<tr class="memdesc:a099623e811b66ecfb7f0b08bf588ca7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the rectangle to the scene.  <br /></td></tr>
-<tr class="separator:a099623e811b66ecfb7f0b08bf588ca7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4b4bf4391515858de9ef72e7ca3156a" id="r_aa4b4bf4391515858de9ef72e7ca3156a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#aa4b4bf4391515858de9ef72e7ca3156a">doSceneRemove</a> () override</td></tr>
-<tr class="memdesc:aa4b4bf4391515858de9ef72e7ca3156a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be removed from the scene.  <br /></td></tr>
-<tr class="separator:aa4b4bf4391515858de9ef72e7ca3156a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add9103c0360fa97cbae4674ac74ea4b5" id="r_add9103c0360fa97cbae4674ac74ea4b5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#add9103c0360fa97cbae4674ac74ea4b5">notifyDestroyed</a> (const <a class="el" href="a03498.html">Element</a> *element) override</td></tr>
-<tr class="memdesc:add9103c0360fa97cbae4674ac74ea4b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element is destroyed or removed.  <br /></td></tr>
-<tr class="separator:add9103c0360fa97cbae4674ac74ea4b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25713b56a0155f6a27985c90c7028fbd" id="r_a25713b56a0155f6a27985c90c7028fbd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a25713b56a0155f6a27985c90c7028fbd">ParentAwareVersioned</a> ()</td></tr>
+<tr class="memdesc:a25713b56a0155f6a27985c90c7028fbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the trait and registers as dirty.  <br /></td></tr>
+<tr class="separator:a25713b56a0155f6a27985c90c7028fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e718ab7c98a9f55df78b46933c07c8f" id="r_a7e718ab7c98a9f55df78b46933c07c8f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a7e718ab7c98a9f55df78b46933c07c8f">ParentAwareVersioned</a> (const <a class="el" href="a03634.html">ParentAwareVersioned</a> &amp;)=default</td></tr>
+<tr class="memdesc:a7e718ab7c98a9f55df78b46933c07c8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy constructor.  <br /></td></tr>
+<tr class="separator:a7e718ab7c98a9f55df78b46933c07c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0918e4fdb98af1efc77c5ad01a7606ab" id="r_a0918e4fdb98af1efc77c5ad01a7606ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a0918e4fdb98af1efc77c5ad01a7606ab">ParentAwareVersioned</a> (<a class="el" href="a03634.html">ParentAwareVersioned</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a0918e4fdb98af1efc77c5ad01a7606ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move constructor.  <br /></td></tr>
+<tr class="separator:a0918e4fdb98af1efc77c5ad01a7606ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d4fc054125374e77cfb8a3938297a56" id="r_a7d4fc054125374e77cfb8a3938297a56"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03634.html">ParentAwareVersioned</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a7d4fc054125374e77cfb8a3938297a56">operator=</a> (const <a class="el" href="a03634.html">ParentAwareVersioned</a> &amp;)=default</td></tr>
+<tr class="memdesc:a7d4fc054125374e77cfb8a3938297a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assignment.  <br /></td></tr>
+<tr class="separator:a7d4fc054125374e77cfb8a3938297a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71cd2c964eeb68c6a5e028a206e2abac" id="r_a71cd2c964eeb68c6a5e028a206e2abac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03634.html">ParentAwareVersioned</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a71cd2c964eeb68c6a5e028a206e2abac">operator=</a> (<a class="el" href="a03634.html">ParentAwareVersioned</a> &amp;&amp;)=default</td></tr>
+<tr class="memdesc:a71cd2c964eeb68c6a5e028a206e2abac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default move assignment.  <br /></td></tr>
+<tr class="separator:a71cd2c964eeb68c6a5e028a206e2abac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a304a6ded9ccb6c48fa1e788e17887d90" id="r_a304a6ded9ccb6c48fa1e788e17887d90"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a304a6ded9ccb6c48fa1e788e17887d90">refreshRequired</a> () const</td></tr>
+<tr class="memdesc:a304a6ded9ccb6c48fa1e788e17887d90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this component needs to be refreshed. Takes into account parent state as well, including parent changes.  <br /></td></tr>
+<tr class="separator:a304a6ded9ccb6c48fa1e788e17887d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab780c69836a6fda54b7bb9d14c536c7f" id="r_ab780c69836a6fda54b7bb9d14c536c7f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03630.html#ab780c69836a6fda54b7bb9d14c536c7f">hasParent</a> () const</td></tr>
+<tr class="memdesc:ab780c69836a6fda54b7bb9d14c536c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a parent has been set.  <br /></td></tr>
+<tr class="separator:ab780c69836a6fda54b7bb9d14c536c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af956a8665be493c1af3a83e7b8b46b39" id="r_af956a8665be493c1af3a83e7b8b46b39"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03630.html#af956a8665be493c1af3a83e7b8b46b39">getParent</a> ()</td></tr>
+<tr class="memdesc:af956a8665be493c1af3a83e7b8b46b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component.  <br /></td></tr>
+<tr class="separator:af956a8665be493c1af3a83e7b8b46b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b7753db78666c80beeec8d09d7f8727" id="r_a6b7753db78666c80beeec8d09d7f8727"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03630.html#a6b7753db78666c80beeec8d09d7f8727">getParent</a> () const</td></tr>
+<tr class="memdesc:a6b7753db78666c80beeec8d09d7f8727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component.  <br /></td></tr>
+<tr class="separator:a6b7753db78666c80beeec8d09d7f8727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa588c79bb8fcd9436a0e57628859d41d" id="r_aa588c79bb8fcd9436a0e57628859d41d"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03638.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a> () const</td></tr>
+<tr class="memdesc:aa588c79bb8fcd9436a0e57628859d41d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current version of the component. The value itself is not important, only changes in the value.  <br /></td></tr>
+<tr class="separator:aa588c79bb8fcd9436a0e57628859d41d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82719504b4bec76caa559aeedeb4d214" id="r_a82719504b4bec76caa559aeedeb4d214"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03638.html#a82719504b4bec76caa559aeedeb4d214">incrementVersion</a> ()</td></tr>
+<tr class="memdesc:a82719504b4bec76caa559aeedeb4d214"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments the version. Call when the component changes.  <br /></td></tr>
+<tr class="separator:a82719504b4bec76caa559aeedeb4d214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a1318a18bf58404bb724762666ee8c971" id="r_a1318a18bf58404bb724762666ee8c971"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a1318a18bf58404bb724762666ee8c971">markRefreshed</a> ()</td></tr>
+<tr class="memdesc:a1318a18bf58404bb724762666ee8c971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the component as refreshed.  <br /></td></tr>
+<tr class="separator:a1318a18bf58404bb724762666ee8c971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Provides mouse highlights by rendering a partially transparent rectangle over the target. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::ecs::trait::ParentAwareVersioned&lt; T &gt;</div><p>Combined trait that is both parent aware and versioned. Maintains an internal dirty state that derived classes can use to determine if they need to refresh themselves. The dirty state is recursively defined with the entire parent tree. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The derived component type </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00629_source.html#l00018">18</a> of file <a class="el" href="a00629_source.html">OverlayHighlightProvider.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a5bdd75df981da3a3f6502e36b8935076" name="a5bdd75df981da3a3f6502e36b8935076"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bdd75df981da3a3f6502e36b8935076">&#9670;&#160;</a></span>Factory</h2>
+<p class="definition">Definition at line <a class="el" href="a01562_source.html#l00023">23</a> of file <a class="el" href="a01562_source.html">ParentAwareVersioned.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a25713b56a0155f6a27985c90c7028fbd" name="a25713b56a0155f6a27985c90c7028fbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25713b56a0155f6a27985c90c7028fbd">&#9670;&#160;</a></span>ParentAwareVersioned() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a03694.html#a5bdd75df981da3a3f6502e36b8935076">bl::gui::rdr::HighlightProvider::Factory</a> =  std::function&lt;<a class="el" href="a03694.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a>()&gt;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00024">24</a> of file <a class="el" href="a00692_source.html">HighlightProvider.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a66ac6d9dbccb33fbf459435d7e99ed24" name="a66ac6d9dbccb33fbf459435d7e99ed24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66ac6d9dbccb33fbf459435d7e99ed24">&#9670;&#160;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a03694.html#a66ac6d9dbccb33fbf459435d7e99ed24">bl::gui::rdr::HighlightProvider::Ptr</a> =  std::unique_ptr&lt;HighlightProvider&gt;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00023">23</a> of file <a class="el" href="a00692_source.html">HighlightProvider.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a94804936a8c2bd443aa6d0d6c0b18b9e" name="a94804936a8c2bd443aa6d0d6c0b18b9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94804936a8c2bd443aa6d0d6c0b18b9e">&#9670;&#160;</a></span>OverlayHighlightProvider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gui::defcoms::OverlayHighlightProvider::OverlayHighlightProvider </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the provider. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00012">12</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9040f1afd5a560c83230071788bcd95a" name="a9040f1afd5a560c83230071788bcd95a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9040f1afd5a560c83230071788bcd95a">&#9670;&#160;</a></span>~OverlayHighlightProvider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::gui::defcoms::OverlayHighlightProvider::~OverlayHighlightProvider </td>
+          <td class="memname"><a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::ParentAwareVersioned </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -229,103 +177,91 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys the provider. </p>
+<p>Creates the trait and registers as dirty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01562_source.html#l00030">30</a> of file <a class="el" href="a01562_source.html">ParentAwareVersioned.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e718ab7c98a9f55df78b46933c07c8f" name="a7e718ab7c98a9f55df78b46933c07c8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e718ab7c98a9f55df78b46933c07c8f">&#9670;&#160;</a></span>ParentAwareVersioned() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::ParentAwareVersioned </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03634.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy constructor. </p>
+
+</div>
+</div>
+<a id="a0918e4fdb98af1efc77c5ad01a7606ab" name="a0918e4fdb98af1efc77c5ad01a7606ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0918e4fdb98af1efc77c5ad01a7606ab">&#9670;&#160;</a></span>ParentAwareVersioned() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::ParentAwareVersioned </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03634.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default move constructor. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac8b46b6b0e31c5afb6e890413787413" name="aac8b46b6b0e31c5afb6e890413787413"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac8b46b6b0e31c5afb6e890413787413">&#9670;&#160;</a></span>doCreate()</h2>
+<a id="af956a8665be493c1af3a83e7b8b46b39" name="af956a8665be493c1af3a83e7b8b46b39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af956a8665be493c1af3a83e7b8b46b39">&#9670;&#160;</a></span>getParent() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::OverlayHighlightProvider::doCreate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03162.html">engine::World</a> &amp;&#160;</td>
-          <td class="paramname"><em>world</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the overlay rectangle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">world</td><td>The world to create entities in </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a03694.html#ab51a60f5891d59d9532fac07135bb6d1">bl::gui::rdr::HighlightProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00049">49</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a099623e811b66ecfb7f0b08bf588ca7b" name="a099623e811b66ecfb7f0b08bf588ca7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a099623e811b66ecfb7f0b08bf588ca7b">&#9670;&#160;</a></span>doSceneAdd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::OverlayHighlightProvider::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04322.html">rc::Overlay</a> *&#160;</td>
-          <td class="paramname"><em>overlay</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds the rectangle to the scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a03694.html#a1bff69c3498ec327c58ebbca397f6208">bl::gui::rdr::HighlightProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00060">60</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa4b4bf4391515858de9ef72e7ca3156a" name="aa4b4bf4391515858de9ef72e7ca3156a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4b4bf4391515858de9ef72e7ca3156a">&#9670;&#160;</a></span>doSceneRemove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::OverlayHighlightProvider::doSceneRemove </td>
+          <td class="memname">T &amp; <a class="el" href="a03630.html">bl::ecs::trait::ParentAware</a>&lt; T &gt;::getParent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -333,21 +269,50 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the provider should be removed from the scene. </p>
+<p>Returns the parent component. </p>
 
-<p>Implements <a class="el" href="a03694.html#aff9a93395070b9c72494a2949b5907c8">bl::gui::rdr::HighlightProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00065">65</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01571_source.html#l00065">65</a> of file <a class="el" href="a01571_source.html">ParentAware.hpp</a>.</p>
 
 </div>
 </div>
-<a id="add9103c0360fa97cbae4674ac74ea4b5" name="add9103c0360fa97cbae4674ac74ea4b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add9103c0360fa97cbae4674ac74ea4b5">&#9670;&#160;</a></span>notifyDestroyed()</h2>
+<a id="a6b7753db78666c80beeec8d09d7f8727" name="a6b7753db78666c80beeec8d09d7f8727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b7753db78666c80beeec8d09d7f8727">&#9670;&#160;</a></span>getParent() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a03630.html">bl::ecs::trait::ParentAware</a>&lt; T &gt;::getParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the parent component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01571_source.html#l00070">70</a> of file <a class="el" href="a01571_source.html">ParentAware.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa588c79bb8fcd9436a0e57628859d41d" name="aa588c79bb8fcd9436a0e57628859d41d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa588c79bb8fcd9436a0e57628859d41d">&#9670;&#160;</a></span>getVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -356,36 +321,58 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::OverlayHighlightProvider::notifyDestroyed </td>
+          <td class="memname">std::uint16_t bl::ecs::trait::Versioned::getVersion </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03498.html">Element</a> *&#160;</td>
-          <td class="paramname"><em>element</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when an element is destroyed or removed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">element</td><td>The element being destroyed or removed </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns the current version of the component. The value itself is not important, only changes in the value. </p>
 
-<p>Implements <a class="el" href="a03694.html#a933e9bc39a62e6852148900c01ede638">bl::gui::rdr::HighlightProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00067">67</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01568_source.html#l00050">50</a> of file <a class="el" href="a01568_source.html">Versioned.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6d60ee47a321ccc8264cb74fb0ce1e0c" name="a6d60ee47a321ccc8264cb74fb0ce1e0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d60ee47a321ccc8264cb74fb0ce1e0c">&#9670;&#160;</a></span>notifyUIState()</h2>
+<a id="ab780c69836a6fda54b7bb9d14c536c7f" name="ab780c69836a6fda54b7bb9d14c536c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab780c69836a6fda54b7bb9d14c536c7f">&#9670;&#160;</a></span>hasParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03630.html">bl::ecs::trait::ParentAware</a>&lt; T &gt;::hasParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not a parent has been set. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01571_source.html#l00060">60</a> of file <a class="el" href="a01571_source.html">ParentAware.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a82719504b4bec76caa559aeedeb4d214" name="a82719504b4bec76caa559aeedeb4d214"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82719504b4bec76caa559aeedeb4d214">&#9670;&#160;</a></span>incrementVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -394,92 +381,155 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::OverlayHighlightProvider::notifyUIState </td>
+          <td class="memname">void bl::ecs::trait::Versioned::incrementVersion </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03498.html">Element</a> *&#160;</td>
-          <td class="paramname"><em>element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">rdr::Component::UIState</a>&#160;</td>
-          <td class="paramname"><em>state</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when an element changes state and needs a new highlight. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">element</td><td>The element changing state </td></tr>
-    <tr><td class="paramname">state</td><td>The new state of the element </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Increments the version. Call when the component changes. </p>
 
-<p>Implements <a class="el" href="a03694.html#a60749735671cf295f331f83de84dbd33">bl::gui::rdr::HighlightProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00017">17</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01568_source.html#l00055">55</a> of file <a class="el" href="a01568_source.html">Versioned.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a816693bc40064599840321c37d39e890" name="a816693bc40064599840321c37d39e890"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a816693bc40064599840321c37d39e890">&#9670;&#160;</a></span>update()</h2>
+<a id="a1318a18bf58404bb724762666ee8c971" name="a1318a18bf58404bb724762666ee8c971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1318a18bf58404bb724762666ee8c971">&#9670;&#160;</a></span>markRefreshed()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::OverlayHighlightProvider::update </td>
+          <td class="memname">void <a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::markRefreshed </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Does nothing. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Elapsed time in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Marks the component as refreshed. </p>
 
-<p>Implements <a class="el" href="a03694.html#a260abd6d749fc5fb4e19850a0fe439d1">bl::gui::rdr::HighlightProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01790_source.html#l00015">15</a> of file <a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01562_source.html#l00074">74</a> of file <a class="el" href="a01562_source.html">ParentAwareVersioned.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Renderer/Basic/<a class="el" href="a00629_source.html">OverlayHighlightProvider.hpp</a></li>
-<li>src/Interfaces/GUI/Renderer/Basic/<a class="el" href="a01790_source.html">OverlayHighlightProvider.cpp</a></li>
+<a id="a7d4fc054125374e77cfb8a3938297a56" name="a7d4fc054125374e77cfb8a3938297a56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d4fc054125374e77cfb8a3938297a56">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03634.html">ParentAwareVersioned</a> &amp; <a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03634.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy assignment. </p>
+
+</div>
+</div>
+<a id="a71cd2c964eeb68c6a5e028a206e2abac" name="a71cd2c964eeb68c6a5e028a206e2abac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71cd2c964eeb68c6a5e028a206e2abac">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03634.html">ParentAwareVersioned</a> &amp; <a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03634.html">ParentAwareVersioned</a>&lt; T &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default move assignment. </p>
+
+</div>
+</div>
+<a id="a304a6ded9ccb6c48fa1e788e17887d90" name="a304a6ded9ccb6c48fa1e788e17887d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a304a6ded9ccb6c48fa1e788e17887d90">&#9670;&#160;</a></span>refreshRequired()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03634.html">bl::ecs::trait::ParentAwareVersioned</a>&lt; T &gt;::refreshRequired </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this component needs to be refreshed. Takes into account parent state as well, including parent changes. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01562_source.html#l00059">59</a> of file <a class="el" href="a01562_source.html">ParentAwareVersioned.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/ECS/Traits/<a class="el" href="a01562_source.html">ParentAwareVersioned.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/Binary/InputFile.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Components/DrawableBase.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,45 +74,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_16181c53270a1447d0a8c102e5a0532b.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">InputFile.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">DrawableBase.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00848_source.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00869_source.html">BLIB/Serialization/Buffers/StreamInputBuffer.hpp</a>&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01550_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00854_source.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00857_source.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00872_source.html">BLIB/Render/UpdateSpeed.hpp</a>&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
 </div>
 <p><a href="a00851_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04886.html">bl::serial::binary::InputFile</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience wrapper around ifstream, <a class="el" href="a05038.html" title="Input buffer that operates on C++ streams.">StreamInputBuffer</a>, and BinaryInputStream.  <a href="a04886.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04766.html">bl::rc::rcom::DrawableBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for drawable scene components for the ECS. Provides common members.  <a href="a04766.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02405" id="r_a02405"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02405.html">bl::serial</a></td></tr>
-<tr class="memdesc:a02405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="memitem:a03003" id="r_a03003"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03003.html">bl::com</a></td></tr>
+<tr class="memdesc:a03003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of built-in ECS components. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02452" id="r_a02452"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02452.html">bl::serial::binary</a></td></tr>
-<tr class="memdesc:a02452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Module for serializing and deserializing binary data. <br /></td></tr>
+<tr class="memitem:a03009" id="r_a03009"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03009.html">bl::ecs</a></td></tr>
+<tr class="memdesc:a03009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a03542.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03004" id="r_a03004"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03004.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03004"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05330.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03048" id="r_a03048"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03048.html">bl::rc::scene</a></td></tr>
+<tr class="memdesc:a03048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of core rendering functionality for rendering scenes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03049" id="r_a03049"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03049.html">bl::rc::mat</a></td></tr>
+<tr class="memdesc:a03049"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing classes and functionality related to materials. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03022" id="r_a03022"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03022.html">bl::rc::rcom</a></td></tr>
+<tr class="memdesc:a03022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of ECS components for the renderer. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

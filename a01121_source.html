@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Transfers/TransferContext.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/Basic/ComboBoxComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,82 +79,133 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1371b99667ed992b8332faf3b4f2dec9.html">Transfers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_c6abb0a9a0ffd97b434d53646f50bd53.html">Basic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TransferContext.hpp</div></div>
+  <div class="headertitle"><div class="title">ComboBoxComponent.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01121.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_TRANSFERS_TRANSFERCONTEXT_HPP</span></div>
+<a href="a01121.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>vk</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span>VulkanState;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>tfr</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01679.html">BLIB/Graphics/BatchRectangle.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a07894.html">BLIB/Graphics/BatchedShapes2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01646.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a07942.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01658.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01247.html">BLIB/Interfaces/GUI/RenderSettings.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>gui</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>defcoms</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04510.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a04510.html">TransferContext</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04510.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer&amp; bufferResult,</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                      <span class="keywordtype">void</span>** mappedMemory);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04510.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(<span class="keyword">const</span> VkMemoryBarrier&amp; barrier);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04510.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(<span class="keyword">const</span> VkBufferMemoryBarrier&amp; barrier);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04510.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(<span class="keyword">const</span> VkImageMemoryBarrier&amp; barrier);</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04250.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a04250.html">ComboBoxComponent</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04318.html">rdr::Component</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_function" href="a04250.html#aa0c999fbd0be6212616b1aef6b1fe8f0">ComboBoxComponent</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a04250.html#ad478260bc01b6a73a679ea8817105463">   34</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04250.html#ad478260bc01b6a73a679ea8817105463">~ComboBoxComponent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#a09da83b35713b4b46515a15f57496a0c">setVisible</a>(<span class="keywordtype">bool</span> visible) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#af1e08ce60baa5a99c2fc2a88c1721444">onElementUpdated</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#a6571203f2c626ebdf462c19312c988ba">onRenderSettingChange</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    VkDevice <a class="code hl_function" href="a04510.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="a03542.html">ecs::Entity</a> <a class="code hl_function" href="a04250.html#a9be5133ede1b01efed6e971ebad8379d">getEntity</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_class" href="a04510.html">TransferContext</a>(std::mutex&amp; bucketMutex, <a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vulkanState,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs,</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    std::mutex&amp; bucketMutex;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_struct" href="a04694.html">vk::VulkanState</a>&amp; vulkanState;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    std::vector&lt;VkBuffer&gt;&amp; stagingBuffers;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::vector&lt;VmaAllocation&gt;&amp; stagingAllocs;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::vector&lt;VkMemoryBarrier&gt;&amp; memoryBarriers;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    std::vector&lt;VkBufferMemoryBarrier&gt;&amp; bufferBarriers;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::vector&lt;VkImageMemoryBarrier&gt;&amp; imageBarriers;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">virtual</span> sf::Vector2f <a class="code hl_function" href="a04250.html#a7e5465bfc08f42e5b5176f9c029dd1c8">getRequisition</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#a441189c3c40bfc9e7619c6b2bb172a11">doCreate</a>(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <a class="code hl_class" href="a04358.html">rdr::Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#a546a7b3c1f12d2dadc5564a6efc2f051">doSceneAdd</a>(<a class="code hl_class" href="a05298.html">rc::Overlay</a>* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#ac0164f3fca66c3f1ac4bb4c75d0dfea5">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#a282103b31fc1899d9e99d0336a9be879">handleAcquisition</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04250.html#a72beb28f775703bafb4f8b7b0aa6ade7">handleMove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">struct </span>Option {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <a class="code hl_class" href="a03862.html">gfx::BatchRectangle</a> background;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <a class="code hl_class" href="a03998.html">gfx::Text</a> text;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">bool</span> created;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        Option()</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        : created(false) {}</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    };</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_class" href="a03806.html">engine::World</a>* worldPtr;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_class" href="a05298.html">rc::Overlay</a>* currentOverlay;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_class" href="a03950.html">gfx::Rectangle</a> box;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <a class="code hl_class" href="a03950.html">gfx::Rectangle</a> arrowBox;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_class" href="a04026.html">gfx::Triangle</a> arrow;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="comment">// closed elements</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_class" href="a03998.html">gfx::Text</a> selectedOption;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="comment">// open elements</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <a class="code hl_class" href="a03950.html">gfx::Rectangle</a> openBackground;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <a class="code hl_class" href="a03846.html">gfx::BatchedShapes2D</a> openOptionBoxes;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    std::list&lt;Option&gt; openOptions;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordtype">void</span> configureText(<a class="code hl_class" href="a03998.html">gfx::Text</a>&amp; text, <span class="keyword">const</span> <a class="code hl_struct" href="a04370.html">RenderSettings</a>&amp; settings);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordtype">void</span> updateOptions();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordtype">bool</span> optionsOutdated() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordtype">void</span> positionSelectedText();</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordtype">void</span> highlightMoused();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>};</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>} <span class="comment">// namespace tfr</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04510_html"><div class="ttname"><a href="a04510.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition</b> <a href="a01121_source.html#l00019">TransferContext.hpp:19</a></div></div>
-<div class="ttc" id="aa04510_html_a0095891b196aaca7b289210a8a774bee"><div class="ttname"><a href="a04510.html#a0095891b196aaca7b289210a8a774bee">bl::rc::tfr::TransferContext::createTemporaryStagingBuffer</a></div><div class="ttdeci">void createTemporaryStagingBuffer(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</div><div class="ttdoc">Creates a staging buffer of the given size. Should only be called from Transferable::executeTransferA...</div><div class="ttdef"><b>Definition</b> <a href="a02126_source.html#l00025">TransferContext.cpp:25</a></div></div>
-<div class="ttc" id="aa04510_html_a0516ada22d07c935ad2a1dbff375a55f"><div class="ttname"><a href="a04510.html#a0516ada22d07c935ad2a1dbff375a55f">bl::rc::tfr::TransferContext::registerMemoryBarrier</a></div><div class="ttdeci">void registerMemoryBarrier(const VkMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition</b> <a href="a02126_source.html#l00044">TransferContext.cpp:44</a></div></div>
-<div class="ttc" id="aa04510_html_a37f3aa2f09d5a38a8c6761f09ac26d8c"><div class="ttname"><a href="a04510.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">bl::rc::tfr::TransferContext::device</a></div><div class="ttdeci">VkDevice device() const</div><div class="ttdoc">Returns the logical device to be used.</div><div class="ttdef"><b>Definition</b> <a href="a02126_source.html#l00059">TransferContext.cpp:59</a></div></div>
-<div class="ttc" id="aa04510_html_ab4518b0ecbee6232e04ea2aab04f05aa"><div class="ttname"><a href="a04510.html#ab4518b0ecbee6232e04ea2aab04f05aa">bl::rc::tfr::TransferContext::registerImageBarrier</a></div><div class="ttdeci">void registerImageBarrier(const VkImageMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition</b> <a href="a02126_source.html#l00054">TransferContext.cpp:54</a></div></div>
-<div class="ttc" id="aa04510_html_ad3498b85b2352fb77251503598d24bf0"><div class="ttname"><a href="a04510.html#ad3498b85b2352fb77251503598d24bf0">bl::rc::tfr::TransferContext::registerBufferBarrier</a></div><div class="ttdeci">void registerBufferBarrier(const VkBufferMemoryBarrier &amp;barrier)</div><div class="ttdoc">Registers the given barrier to be recorded after all transfers are started.</div><div class="ttdef"><b>Definition</b> <a href="a02126_source.html#l00049">TransferContext.cpp:49</a></div></div>
-<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>} <span class="comment">// namespace defcoms</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>} <span class="comment">// namespace gui</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa01247_html"><div class="ttname"><a href="a01247.html">RenderSettings.hpp</a></div></div>
+<div class="ttc" id="aa01646_html"><div class="ttname"><a href="a01646.html">Rectangle.hpp</a></div></div>
+<div class="ttc" id="aa01658_html"><div class="ttname"><a href="a01658.html">Triangle.hpp</a></div></div>
+<div class="ttc" id="aa01679_html"><div class="ttname"><a href="a01679.html">BatchRectangle.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03806_html"><div class="ttname"><a href="a03806.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01496_source.html#l00022">World.hpp:22</a></div></div>
+<div class="ttc" id="aa03846_html"><div class="ttname"><a href="a03846.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition</b> <a href="a07894_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
+<div class="ttc" id="aa03862_html"><div class="ttname"><a href="a03862.html">bl::gfx::BatchRectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape for use in batched shapes.</div><div class="ttdef"><b>Definition</b> <a href="a01679_source.html#l00016">BatchRectangle.hpp:16</a></div></div>
+<div class="ttc" id="aa03950_html"><div class="ttname"><a href="a03950.html">bl::gfx::Rectangle</a></div><div class="ttdoc">Renderable 2d rectangle shape.</div><div class="ttdef"><b>Definition</b> <a href="a01646_source.html#l00016">Rectangle.hpp:16</a></div></div>
+<div class="ttc" id="aa03998_html"><div class="ttname"><a href="a03998.html">bl::gfx::Text</a></div><div class="ttdoc">Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...</div><div class="ttdef"><b>Definition</b> <a href="a07942_source.html#l00032">Text.hpp:35</a></div></div>
+<div class="ttc" id="aa04026_html"><div class="ttname"><a href="a04026.html">bl::gfx::Triangle</a></div><div class="ttdoc">Basic renderable triangle that can be added to scenes.</div><div class="ttdef"><b>Definition</b> <a href="a01658_source.html#l00016">Triangle.hpp:16</a></div></div>
+<div class="ttc" id="aa04250_html"><div class="ttname"><a href="a04250.html">bl::gui::defcoms::ComboBoxComponent</a></div><div class="ttdoc">Default component type for ComboBox elements.</div><div class="ttdef"><b>Definition</b> <a href="a01121_source.html#l00024">ComboBoxComponent.hpp:24</a></div></div>
+<div class="ttc" id="aa04250_html_a09da83b35713b4b46515a15f57496a0c"><div class="ttname"><a href="a04250.html#a09da83b35713b4b46515a15f57496a0c">bl::gui::defcoms::ComboBoxComponent::setVisible</a></div><div class="ttdeci">virtual void setVisible(bool visible) override</div><div class="ttdoc">Toggle the visibility of the UI component.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00023">ComboBoxComponent.cpp:23</a></div></div>
+<div class="ttc" id="aa04250_html_a282103b31fc1899d9e99d0336a9be879"><div class="ttname"><a href="a04250.html#a282103b31fc1899d9e99d0336a9be879">bl::gui::defcoms::ComboBoxComponent::handleAcquisition</a></div><div class="ttdeci">virtual void handleAcquisition() override</div><div class="ttdoc">Configures the component for the new acquisition.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00116">ComboBoxComponent.cpp:116</a></div></div>
+<div class="ttc" id="aa04250_html_a441189c3c40bfc9e7619c6b2bb172a11"><div class="ttname"><a href="a04250.html#a441189c3c40bfc9e7619c6b2bb172a11">bl::gui::defcoms::ComboBoxComponent::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::World &amp;world, rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00062">ComboBoxComponent.cpp:62</a></div></div>
+<div class="ttc" id="aa04250_html_a546a7b3c1f12d2dadc5564a6efc2f051"><div class="ttname"><a href="a04250.html#a546a7b3c1f12d2dadc5564a6efc2f051">bl::gui::defcoms::ComboBoxComponent::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Overlay *overlay) override</div><div class="ttdoc">Adds the component to the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00097">ComboBoxComponent.cpp:97</a></div></div>
+<div class="ttc" id="aa04250_html_a6571203f2c626ebdf462c19312c988ba"><div class="ttname"><a href="a04250.html#a6571203f2c626ebdf462c19312c988ba">bl::gui::defcoms::ComboBoxComponent::onRenderSettingChange</a></div><div class="ttdeci">virtual void onRenderSettingChange() override</div><div class="ttdoc">Called when the owning elements render settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00046">ComboBoxComponent.cpp:46</a></div></div>
+<div class="ttc" id="aa04250_html_a72beb28f775703bafb4f8b7b0aa6ade7"><div class="ttname"><a href="a04250.html#a72beb28f775703bafb4f8b7b0aa6ade7">bl::gui::defcoms::ComboBoxComponent::handleMove</a></div><div class="ttdeci">virtual void handleMove() override</div><div class="ttdoc">Positions the component when it should move.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00142">ComboBoxComponent.cpp:142</a></div></div>
+<div class="ttc" id="aa04250_html_a7e5465bfc08f42e5b5176f9c029dd1c8"><div class="ttname"><a href="a04250.html#a7e5465bfc08f42e5b5176f9c029dd1c8">bl::gui::defcoms::ComboBoxComponent::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition() const override</div><div class="ttdoc">Returns the space required to render the largest text option.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00157">ComboBoxComponent.cpp:157</a></div></div>
+<div class="ttc" id="aa04250_html_a9be5133ede1b01efed6e971ebad8379d"><div class="ttname"><a href="a04250.html#a9be5133ede1b01efed6e971ebad8379d">bl::gui::defcoms::ComboBoxComponent::getEntity</a></div><div class="ttdeci">virtual ecs::Entity getEntity() const override</div><div class="ttdoc">Derived classes should return the ECS entity that children should parent themselves to.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00060">ComboBoxComponent.cpp:60</a></div></div>
+<div class="ttc" id="aa04250_html_aa0c999fbd0be6212616b1aef6b1fe8f0"><div class="ttname"><a href="a04250.html#aa0c999fbd0be6212616b1aef6b1fe8f0">bl::gui::defcoms::ComboBoxComponent::ComboBoxComponent</a></div><div class="ttdeci">ComboBoxComponent()</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00018">ComboBoxComponent.cpp:18</a></div></div>
+<div class="ttc" id="aa04250_html_ac0164f3fca66c3f1ac4bb4c75d0dfea5"><div class="ttname"><a href="a04250.html#ac0164f3fca66c3f1ac4bb4c75d0dfea5">bl::gui::defcoms::ComboBoxComponent::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Removes the component from the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00111">ComboBoxComponent.cpp:111</a></div></div>
+<div class="ttc" id="aa04250_html_ad478260bc01b6a73a679ea8817105463"><div class="ttname"><a href="a04250.html#ad478260bc01b6a73a679ea8817105463">bl::gui::defcoms::ComboBoxComponent::~ComboBoxComponent</a></div><div class="ttdeci">virtual ~ComboBoxComponent()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="ttc" id="aa04250_html_af1e08ce60baa5a99c2fc2a88c1721444"><div class="ttname"><a href="a04250.html#af1e08ce60baa5a99c2fc2a88c1721444">bl::gui::defcoms::ComboBoxComponent::onElementUpdated</a></div><div class="ttdeci">virtual void onElementUpdated() override</div><div class="ttdoc">Called when element state changes. This is element specific, but can mean toggle state,...</div><div class="ttdef"><b>Definition</b> <a href="a02492_source.html#l00025">ComboBoxComponent.cpp:25</a></div></div>
+<div class="ttc" id="aa04318_html"><div class="ttname"><a href="a04318.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a01088_source.html#l00032">Component.hpp:32</a></div></div>
+<div class="ttc" id="aa04358_html"><div class="ttname"><a href="a04358.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition</b> <a href="a08503_source.html#l00029">Renderer.hpp:29</a></div></div>
+<div class="ttc" id="aa04370_html"><div class="ttname"><a href="a04370.html">bl::gui::RenderSettings</a></div><div class="ttdoc">Data class to override rendering settings for GUI Elements. Overrides can be done by group or id....</div><div class="ttdef"><b>Definition</b> <a href="a01247_source.html#l00022">RenderSettings.hpp:22</a></div></div>
+<div class="ttc" id="aa05298_html"><div class="ttname"><a href="a05298.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition</b> <a href="a00797_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="ttc" id="aa07894_html"><div class="ttname"><a href="a07894.html">BatchedShapes2D.hpp</a></div></div>
+<div class="ttc" id="aa07942_html"><div class="ttname"><a href="a07942.html">Text.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gfx::txt::BasicText Class Reference</title>
+<title>BLIB: bl::ctr::Cache&lt; TKey, TPayload &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,715 +74,488 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02414.html">gfx</a></li><li class="navelem"><a class="el" href="a02433.html">txt</a></li><li class="navelem"><a class="el" href="a03370.html">BasicText</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03007.html">ctr</a></li><li class="navelem"><a class="el" href="a03370.html">Cache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a03367.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gfx::txt::BasicText Class Reference<div class="ingroups"><a class="el" href="a02381.html">Graphics</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ctr::Cache&lt; TKey, TPayload &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02967.html">Containers</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03306.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> for a single section of text. Similar to sf::Text. Do not use directly, use <a class="el" href="a03358.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> class to create and manage <a class="el" href="a03370.html" title="Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...">BasicText</a> segments.  
+<p>Auto-evicting cache with several policy options and programmable watermarks.  
  <a href="a03370.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00926_source.html">BasicText.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00278_source.html">Cache.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:abce31da194ab681dd7b828bab3f2803c" id="r_abce31da194ab681dd7b828bab3f2803c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a> { <a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">LeastRecentlyAccessed</a>
+, <a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2">LeastRecentlyModified</a>
+, <a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e">FirstInFirstOut</a>
+ }</td></tr>
+<tr class="memdesc:abce31da194ab681dd7b828bab3f2803c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Policy that dictates which items are removed when the high watermark is reached.  <a href="a03370.html#abce31da194ab681dd7b828bab3f2803c">More...</a><br /></td></tr>
+<tr class="separator:abce31da194ab681dd7b828bab3f2803c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa28858b622353170b0df73c9f1f21809" id="r_aa28858b622353170b0df73c9f1f21809"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; TPayload &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#aa28858b622353170b0df73c9f1f21809">Item</a></td></tr>
+<tr class="separator:aa28858b622353170b0df73c9f1f21809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a90314edc755412fc745deeb4360957d9" id="r_a90314edc755412fc745deeb4360957d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a90314edc755412fc745deeb4360957d9">BasicText</a> (<a class="el" href="a03358.html">bl::gfx::Text</a> &amp;owner)</td></tr>
-<tr class="memdesc:a90314edc755412fc745deeb4360957d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a basic text object with sane defaults.  <br /></td></tr>
-<tr class="separator:a90314edc755412fc745deeb4360957d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accd434943eeb28494c8d3964c28e7b22" id="r_accd434943eeb28494c8d3964c28e7b22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#accd434943eeb28494c8d3964c28e7b22">setString</a> (const sf::String &amp;content)</td></tr>
-<tr class="memdesc:accd434943eeb28494c8d3964c28e7b22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the content of this text.  <br /></td></tr>
-<tr class="separator:accd434943eeb28494c8d3964c28e7b22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a070558695e350560b8dbfb3495965d6b" id="r_a070558695e350560b8dbfb3495965d6b"><td class="memItemLeft" align="right" valign="top">const sf::String &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a070558695e350560b8dbfb3495965d6b">getString</a> () const</td></tr>
-<tr class="memdesc:a070558695e350560b8dbfb3495965d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string that will be rendered.  <br /></td></tr>
-<tr class="separator:a070558695e350560b8dbfb3495965d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a377f1bcde608ebfc706f8bf69872d985" id="r_a377f1bcde608ebfc706f8bf69872d985"><td class="memItemLeft" align="right" valign="top">const sf::String &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a377f1bcde608ebfc706f8bf69872d985">getWordWrappedString</a> () const</td></tr>
-<tr class="memdesc:a377f1bcde608ebfc706f8bf69872d985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string that will be rendered, including newlines added for wrapping.  <br /></td></tr>
-<tr class="separator:a377f1bcde608ebfc706f8bf69872d985"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d3a6e449d7f4e383fa2673a8a40dc69" id="r_a9d3a6e449d7f4e383fa2673a8a40dc69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a9d3a6e449d7f4e383fa2673a8a40dc69">setStyle</a> (std::uint32_t style)</td></tr>
-<tr class="memdesc:a9d3a6e449d7f4e383fa2673a8a40dc69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the style of the text. See sf::Text::Style.  <br /></td></tr>
-<tr class="separator:a9d3a6e449d7f4e383fa2673a8a40dc69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64a299397721b39f1ae3cab1bbab4f3e" id="r_a64a299397721b39f1ae3cab1bbab4f3e"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a64a299397721b39f1ae3cab1bbab4f3e">getStyle</a> () const</td></tr>
-<tr class="memdesc:a64a299397721b39f1ae3cab1bbab4f3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the style of the rendered text.  <br /></td></tr>
-<tr class="separator:a64a299397721b39f1ae3cab1bbab4f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a720fc28e575804f169b4265473ce9c3f" id="r_a720fc28e575804f169b4265473ce9c3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a720fc28e575804f169b4265473ce9c3f">setFillColor</a> (const <a class="el" href="a04010.html">rc::Color</a> &amp;color)</td></tr>
-<tr class="memdesc:a720fc28e575804f169b4265473ce9c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of the text.  <br /></td></tr>
-<tr class="separator:a720fc28e575804f169b4265473ce9c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5db7dcc06c4423aa30e18ff53265a0e7" id="r_a5db7dcc06c4423aa30e18ff53265a0e7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04010.html">rc::Color</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a5db7dcc06c4423aa30e18ff53265a0e7">getFillColor</a> () const</td></tr>
-<tr class="memdesc:a5db7dcc06c4423aa30e18ff53265a0e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the text.  <br /></td></tr>
-<tr class="separator:a5db7dcc06c4423aa30e18ff53265a0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af25928c7137d66d69542650214d3823e" id="r_af25928c7137d66d69542650214d3823e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#af25928c7137d66d69542650214d3823e">setOutlineColor</a> (const <a class="el" href="a04010.html">rc::Color</a> &amp;color)</td></tr>
-<tr class="memdesc:af25928c7137d66d69542650214d3823e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the color of the outline around the text.  <br /></td></tr>
-<tr class="separator:af25928c7137d66d69542650214d3823e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af14c849cf89f74309d1c3c70b90e61f2" id="r_af14c849cf89f74309d1c3c70b90e61f2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04010.html">rc::Color</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#af14c849cf89f74309d1c3c70b90e61f2">getOutlineColor</a> () const</td></tr>
-<tr class="memdesc:af14c849cf89f74309d1c3c70b90e61f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the text outline.  <br /></td></tr>
-<tr class="separator:af14c849cf89f74309d1c3c70b90e61f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d55bc39067290cf1f7d4041476b401d" id="r_a2d55bc39067290cf1f7d4041476b401d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a2d55bc39067290cf1f7d4041476b401d">setCharacterSize</a> (unsigned int size)</td></tr>
-<tr class="memdesc:a2d55bc39067290cf1f7d4041476b401d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the character size of the text.  <br /></td></tr>
-<tr class="separator:a2d55bc39067290cf1f7d4041476b401d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af11c45ab0fe08b9acb851667e12336fe" id="r_af11c45ab0fe08b9acb851667e12336fe"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#af11c45ab0fe08b9acb851667e12336fe">getCharacterSize</a> () const</td></tr>
-<tr class="memdesc:af11c45ab0fe08b9acb851667e12336fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the character size of the text.  <br /></td></tr>
-<tr class="separator:af11c45ab0fe08b9acb851667e12336fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7890d2bc12caa4388c69bc4af376fa52" id="r_a7890d2bc12caa4388c69bc4af376fa52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a7890d2bc12caa4388c69bc4af376fa52">setOutlineThickness</a> (unsigned int thickness)</td></tr>
-<tr class="memdesc:a7890d2bc12caa4388c69bc4af376fa52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the outline thickness in pixels.  <br /></td></tr>
-<tr class="separator:a7890d2bc12caa4388c69bc4af376fa52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac565135254e331f621873f98369b0ca0" id="r_ac565135254e331f621873f98369b0ca0"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#ac565135254e331f621873f98369b0ca0">getOutlineThickness</a> () const</td></tr>
-<tr class="memdesc:ac565135254e331f621873f98369b0ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the outline thickness of the text in pixels.  <br /></td></tr>
-<tr class="separator:ac565135254e331f621873f98369b0ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa14f0eb711a033542d14e6532b40724b" id="r_aa14f0eb711a033542d14e6532b40724b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#aa14f0eb711a033542d14e6532b40724b">computeGlyphWidth</a> (const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:aa14f0eb711a033542d14e6532b40724b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of glyphs when using the given font.  <br /></td></tr>
-<tr class="separator:aa14f0eb711a033542d14e6532b40724b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1b71dd31196e70fa0f86b573fd218da" id="r_ac1b71dd31196e70fa0f86b573fd218da"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#ac1b71dd31196e70fa0f86b573fd218da">computeLetterSpacing</a> (const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:ac1b71dd31196e70fa0f86b573fd218da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the letter spacing when using the given font.  <br /></td></tr>
-<tr class="separator:ac1b71dd31196e70fa0f86b573fd218da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1beaa2f49436f74c05d160f0bd7f6c57" id="r_a1beaa2f49436f74c05d160f0bd7f6c57"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a1beaa2f49436f74c05d160f0bd7f6c57">computeWhitespaceWidth</a> (const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:a1beaa2f49436f74c05d160f0bd7f6c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of whitespace when using the given font.  <br /></td></tr>
-<tr class="separator:a1beaa2f49436f74c05d160f0bd7f6c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95da0c61b66e406e416855d84fc647c9" id="r_a95da0c61b66e406e416855d84fc647c9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a95da0c61b66e406e416855d84fc647c9">computeLineSpacing</a> (const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;font) const</td></tr>
-<tr class="memdesc:a95da0c61b66e406e416855d84fc647c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the line spacing when using the given font.  <br /></td></tr>
-<tr class="separator:a95da0c61b66e406e416855d84fc647c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ee4afe668f715aa2e2ba4e8e577737b" id="r_a3ee4afe668f715aa2e2ba4e8e577737b"><td class="memItemLeft" align="right" valign="top">const sf::Glyph &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a3ee4afe668f715aa2e2ba4e8e577737b">getGlyph</a> (const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;font, std::uint32_t code) const</td></tr>
-<tr class="memdesc:a3ee4afe668f715aa2e2ba4e8e577737b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the glyph for the given character using the settings from this text.  <br /></td></tr>
-<tr class="separator:a3ee4afe668f715aa2e2ba4e8e577737b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a915e5439aa343a0406d686f7c281be00" id="r_a915e5439aa343a0406d686f7c281be00"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a915e5439aa343a0406d686f7c281be00">bl::gfx::Text</a></td></tr>
-<tr class="separator:a915e5439aa343a0406d686f7c281be00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a194882e4066d740241371d9f7d71edce" id="r_a194882e4066d740241371d9f7d71edce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a194882e4066d740241371d9f7d71edce">Cache</a> (<a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a> policy=<a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">LeastRecentlyAccessed</a>, unsigned int lowWatermark=1000, unsigned int highWatermark=2000)</td></tr>
+<tr class="memdesc:a194882e4066d740241371d9f7d71edce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new cache with the given eviction policy and watermarks.  <br /></td></tr>
+<tr class="separator:a194882e4066d740241371d9f7d71edce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35949d8d2eaa5e2a5f96167e2646fa83" id="r_a35949d8d2eaa5e2a5f96167e2646fa83"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a35949d8d2eaa5e2a5f96167e2646fa83">add</a> (const TKey &amp;key, const <a class="el" href="a03370.html#aa28858b622353170b0df73c9f1f21809">Item</a> &amp;item)</td></tr>
+<tr class="memdesc:a35949d8d2eaa5e2a5f96167e2646fa83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an item to the cache. Will fail if the key is already in use.  <br /></td></tr>
+<tr class="separator:a35949d8d2eaa5e2a5f96167e2646fa83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab706682affd2ef47d3534a9f06177c7c" id="r_ab706682affd2ef47d3534a9f06177c7c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#ab706682affd2ef47d3534a9f06177c7c">add</a> (const TKey &amp;key, const TPayload &amp;item)</td></tr>
+<tr class="memdesc:ab706682affd2ef47d3534a9f06177c7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an item to the cache. Will fail if the key is already in use.  <br /></td></tr>
+<tr class="separator:ab706682affd2ef47d3534a9f06177c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29b89eac559197479b0dc62dd4fc9ee7" id="r_a29b89eac559197479b0dc62dd4fc9ee7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03370.html#aa28858b622353170b0df73c9f1f21809">Item</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a29b89eac559197479b0dc62dd4fc9ee7">getForOwn</a> (const TKey &amp;key)</td></tr>
+<tr class="memdesc:a29b89eac559197479b0dc62dd4fc9ee7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the storage object to allow calling code to take ownership of the stored item, if found.  <br /></td></tr>
+<tr class="separator:a29b89eac559197479b0dc62dd4fc9ee7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b9b16d4a5edf2b3f08dc26be605ec2a" id="r_a7b9b16d4a5edf2b3f08dc26be605ec2a"><td class="memItemLeft" align="right" valign="top">TPayload *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a7b9b16d4a5edf2b3f08dc26be605ec2a">getForWrite</a> (const TKey &amp;key)</td></tr>
+<tr class="memdesc:a7b9b16d4a5edf2b3f08dc26be605ec2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the given item to be modified, if found.  <br /></td></tr>
+<tr class="separator:a7b9b16d4a5edf2b3f08dc26be605ec2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bbff396c97cfe9a036c48ae7a956fc0" id="r_a6bbff396c97cfe9a036c48ae7a956fc0"><td class="memItemLeft" align="right" valign="top">const TPayload *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a6bbff396c97cfe9a036c48ae7a956fc0">getForRead</a> (const TKey &amp;key) const</td></tr>
+<tr class="memdesc:a6bbff396c97cfe9a036c48ae7a956fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an immutible item for reading, if found.  <br /></td></tr>
+<tr class="separator:a6bbff396c97cfe9a036c48ae7a956fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5949a436c3ee5da5ab558a9780ae92cd" id="r_a5949a436c3ee5da5ab558a9780ae92cd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a5949a436c3ee5da5ab558a9780ae92cd">erase</a> (const TKey &amp;key)</td></tr>
+<tr class="memdesc:a5949a436c3ee5da5ab558a9780ae92cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the item from the cache and reports if successful.  <br /></td></tr>
+<tr class="separator:a5949a436c3ee5da5ab558a9780ae92cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ecf6588b624c44b317d8f4401d1c08" id="r_a55ecf6588b624c44b317d8f4401d1c08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a55ecf6588b624c44b317d8f4401d1c08">empty</a> () const</td></tr>
+<tr class="memdesc:a55ecf6588b624c44b317d8f4401d1c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the cache is empty.  <br /></td></tr>
+<tr class="separator:a55ecf6588b624c44b317d8f4401d1c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9ac10bba8d695517e08bdbb0d9758b8" id="r_ad9ac10bba8d695517e08bdbb0d9758b8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#ad9ac10bba8d695517e08bdbb0d9758b8">size</a> () const</td></tr>
+<tr class="memdesc:ad9ac10bba8d695517e08bdbb0d9758b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how many elements are currently contained.  <br /></td></tr>
+<tr class="separator:ad9ac10bba8d695517e08bdbb0d9758b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41254faa86419c89ea579c598b88de58" id="r_a41254faa86419c89ea579c598b88de58"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; TKey, TPayload &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a41254faa86419c89ea579c598b88de58">begin</a> ()</td></tr>
+<tr class="memdesc:a41254faa86419c89ea579c598b88de58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the first element in the cache.  <br /></td></tr>
+<tr class="separator:a41254faa86419c89ea579c598b88de58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a214d334199384ab8acec0c21336076ed" id="r_a214d334199384ab8acec0c21336076ed"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; TKey, TPayload &gt;::iterator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03370.html#a214d334199384ab8acec0c21336076ed">end</a> ()</td></tr>
+<tr class="memdesc:a214d334199384ab8acec0c21336076ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterator to the last element in the cache.  <br /></td></tr>
+<tr class="separator:a214d334199384ab8acec0c21336076ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03306.html" title="Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...">Drawable</a> for a single section of text. Similar to sf::Text. Do not use directly, use <a class="el" href="a03358.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> class to create and manage <a class="el" href="a03370.html" title="Drawable for a single section of text. Similar to sf::Text. Do not use directly, use Text class to cr...">BasicText</a> segments. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00029">29</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a90314edc755412fc745deeb4360957d9" name="a90314edc755412fc745deeb4360957d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90314edc755412fc745deeb4360957d9">&#9670;&#160;</a></span>BasicText()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gfx::txt::BasicText::BasicText </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03358.html">bl::gfx::Text</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a basic text object with sane defaults. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">owner</td><td>The owning <a class="el" href="a03358.html" title="Drawable component for format-able text. Similar to sf::Text except that multiple formatted sections ...">Text</a> object </td></tr>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename TKey, typename TPayload&gt;<br />
+class bl::ctr::Cache&lt; TKey, TPayload &gt;</div><p>Auto-evicting cache with several policy options and programmable watermarks. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TKey</td><td>Key type for the cache </td></tr>
+    <tr><td class="paramname">TPayload</td><td>The type of data to store in the cache </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00088">88</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa14f0eb711a033542d14e6532b40724b" name="aa14f0eb711a033542d14e6532b40724b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa14f0eb711a033542d14e6532b40724b">&#9670;&#160;</a></span>computeGlyphWidth()</h2>
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00023">23</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aa28858b622353170b0df73c9f1f21809" name="aa28858b622353170b0df73c9f1f21809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa28858b622353170b0df73c9f1f21809">&#9670;&#160;</a></span>Item</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeGlyphWidth </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">typedef std::shared_ptr&lt;TPayload&gt; <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::Item</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the width of glyphs when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the glyph width for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The glyph width in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00200">200</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00025">25</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac1b71dd31196e70fa0f86b573fd218da" name="ac1b71dd31196e70fa0f86b573fd218da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1b71dd31196e70fa0f86b573fd218da">&#9670;&#160;</a></span>computeLetterSpacing()</h2>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="abce31da194ab681dd7b828bab3f2803c" name="abce31da194ab681dd7b828bab3f2803c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce31da194ab681dd7b828bab3f2803c">&#9670;&#160;</a></span>EvictionPolicy</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeLetterSpacing </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">enum <a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803c">bl::ctr::Cache::EvictionPolicy</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the letter spacing when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the letter spacing for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The letter spacing in local units </dd></dl>
+<p>Policy that dictates which items are removed when the high watermark is reached. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8" name="abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8"></a>LeastRecentlyAccessed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2" name="abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2"></a>LeastRecentlyModified&#160;</td><td class="fielddoc"><p>Items that were not read or written recently are purged. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e" name="abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e"></a>FirstInFirstOut&#160;</td><td class="fielddoc"><p>Items that were not written recently are purged. </p>
+<p>Items are purged in the same order they were added in </p>
+</td></tr>
+</table>
 
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00204">204</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00031">31</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a95da0c61b66e406e416855d84fc647c9" name="a95da0c61b66e406e416855d84fc647c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95da0c61b66e406e416855d84fc647c9">&#9670;&#160;</a></span>computeLineSpacing()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a194882e4066d740241371d9f7d71edce" name="a194882e4066d740241371d9f7d71edce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194882e4066d740241371d9f7d71edce">&#9670;&#160;</a></span>Cache()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeLineSpacing </td>
+          <td class="memname"><a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::Cache </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the line spacing when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the line spacing for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The line spacing in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00212">212</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1beaa2f49436f74c05d160f0bd7f6c57" name="a1beaa2f49436f74c05d160f0bd7f6c57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1beaa2f49436f74c05d160f0bd7f6c57">&#9670;&#160;</a></span>computeWhitespaceWidth()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::gfx::txt::BasicText::computeWhitespaceWidth </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the width of whitespace when using the given font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">font</td><td>The font to get the whitespace width for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The whitespace width in local units </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00208">208</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af11c45ab0fe08b9acb851667e12336fe" name="af11c45ab0fe08b9acb851667e12336fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af11c45ab0fe08b9acb851667e12336fe">&#9670;&#160;</a></span>getCharacterSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int bl::gfx::txt::BasicText::getCharacterSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the character size of the text. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00194">194</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5db7dcc06c4423aa30e18ff53265a0e7" name="a5db7dcc06c4423aa30e18ff53265a0e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5db7dcc06c4423aa30e18ff53265a0e7">&#9670;&#160;</a></span>getFillColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a04010.html">rc::Color</a> &amp; bl::gfx::txt::BasicText::getFillColor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the color of the text. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00190">190</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3ee4afe668f715aa2e2ba4e8e577737b" name="a3ee4afe668f715aa2e2ba4e8e577737b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ee4afe668f715aa2e2ba4e8e577737b">&#9670;&#160;</a></span>getGlyph()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const sf::Glyph &amp; bl::gfx::txt::BasicText::getGlyph </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">sf::VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>font</em>, </td>
+          <td class="paramtype"><a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a>&#160;</td>
+          <td class="paramname"><em>policy</em> = <code><a class="el" href="a03370.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">LeastRecentlyAccessed</a></code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>code</em>&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>lowWatermark</em> = <code>1000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>highWatermark</em> = <code>2000</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the glyph for the given character using the settings from this text. </p>
+<p>Creates a new cache with the given eviction policy and watermarks. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">font</td><td>The font to use </td></tr>
-    <tr><td class="paramname">code</td><td>The character to get the glyph for </td></tr>
+    <tr><td class="paramname">policy</td><td>Eviction policy to use </td></tr>
+    <tr><td class="paramname">lowWatermark</td><td><a class="el" href="a03370.html" title="Auto-evicting cache with several policy options and programmable watermarks.">Cache</a> size is reduced to lowWatermark when a purge is triggered </td></tr>
+    <tr><td class="paramname">highWatermark</td><td><a class="el" href="a03370.html" title="Auto-evicting cache with several policy options and programmable watermarks.">Cache</a> is purged when this many items are stored </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The glyph of the given character </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00360">360</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00137">137</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af14c849cf89f74309d1c3c70b90e61f2" name="af14c849cf89f74309d1c3c70b90e61f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af14c849cf89f74309d1c3c70b90e61f2">&#9670;&#160;</a></span>getOutlineColor()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a35949d8d2eaa5e2a5f96167e2646fa83" name="a35949d8d2eaa5e2a5f96167e2646fa83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35949d8d2eaa5e2a5f96167e2646fa83">&#9670;&#160;</a></span>add() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a04010.html">rc::Color</a> &amp; bl::gfx::txt::BasicText::getOutlineColor </td>
+          <td class="memname">bool <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a03370.html#aa28858b622353170b0df73c9f1f21809">Item</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add an item to the cache. Will fail if the key is already in use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to store </td></tr>
+    <tr><td class="paramname">item</td><td>The item to store </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00149">149</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab706682affd2ef47d3534a9f06177c7c" name="ab706682affd2ef47d3534a9f06177c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab706682affd2ef47d3534a9f06177c7c">&#9670;&#160;</a></span>add() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::add </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TPayload &amp;&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Add an item to the cache. Will fail if the key is already in use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to store </td></tr>
+    <tr><td class="paramname">item</td><td>The item to store </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00144">144</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41254faa86419c89ea579c598b88de58" name="a41254faa86419c89ea579c598b88de58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41254faa86419c89ea579c598b88de58">&#9670;&#160;</a></span>begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; TKey, TPayload &gt;::iterator <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::begin </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the first element in the cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00206">206</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a55ecf6588b624c44b317d8f4401d1c08" name="a55ecf6588b624c44b317d8f4401d1c08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55ecf6588b624c44b317d8f4401d1c08">&#9670;&#160;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::empty </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the color of the text outline. </p>
+<p>Returns whether or not the cache is empty. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00192">192</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00216">216</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac565135254e331f621873f98369b0ca0" name="ac565135254e331f621873f98369b0ca0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac565135254e331f621873f98369b0ca0">&#9670;&#160;</a></span>getOutlineThickness()</h2>
+<a id="a214d334199384ab8acec0c21336076ed" name="a214d334199384ab8acec0c21336076ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a214d334199384ab8acec0c21336076ed">&#9670;&#160;</a></span>end()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int bl::gfx::txt::BasicText::getOutlineThickness </td>
+          <td class="memname">std::unordered_map&lt; TKey, TPayload &gt;::iterator <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::end </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterator to the last element in the cache. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00211">211</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5949a436c3ee5da5ab558a9780ae92cd" name="a5949a436c3ee5da5ab558a9780ae92cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5949a436c3ee5da5ab558a9780ae92cd">&#9670;&#160;</a></span>erase()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::erase </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the item from the cache and reports if successful. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the item was removed, false if not contained </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00193">193</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a29b89eac559197479b0dc62dd4fc9ee7" name="a29b89eac559197479b0dc62dd4fc9ee7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29b89eac559197479b0dc62dd4fc9ee7">&#9670;&#160;</a></span>getForOwn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03370.html">Cache</a>&lt; TKey, TPayload &gt;<a class="el" href="a03370.html#aa28858b622353170b0df73c9f1f21809">::Item</a> <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::getForOwn </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the storage object to allow calling code to take ownership of the stored item, if found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to retrieve </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Item The item with the given key, or nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00162">162</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6bbff396c97cfe9a036c48ae7a956fc0" name="a6bbff396c97cfe9a036c48ae7a956fc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bbff396c97cfe9a036c48ae7a956fc0">&#9670;&#160;</a></span>getForRead()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const TPayload * <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::getForRead </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an immutible item for reading, if found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to read </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const TPayload* Pointer to the item to read, nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00172">172</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7b9b16d4a5edf2b3f08dc26be605ec2a" name="a7b9b16d4a5edf2b3f08dc26be605ec2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b9b16d4a5edf2b3f08dc26be605ec2a">&#9670;&#160;</a></span>getForWrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">TPayload * <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::getForWrite </td>
+          <td>(</td>
+          <td class="paramtype">const TKey &amp;&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the given item to be modified, if found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Key of the item to modify </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>TPayload* Pointer to the given item, nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00182">182</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad9ac10bba8d695517e08bdbb0d9758b8" name="ad9ac10bba8d695517e08bdbb0d9758b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9ac10bba8d695517e08bdbb0d9758b8">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TKey , typename TPayload &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="a03370.html">bl::ctr::Cache</a>&lt; TKey, TPayload &gt;::size </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the outline thickness of the text in pixels. </p>
+<p>Returns how many elements are currently contained. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00196">196</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a070558695e350560b8dbfb3495965d6b" name="a070558695e350560b8dbfb3495965d6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a070558695e350560b8dbfb3495965d6b">&#9670;&#160;</a></span>getString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const sf::String &amp; bl::gfx::txt::BasicText::getString </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the string that will be rendered. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00184">184</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00221">221</a> of file <a class="el" href="a00278_source.html">Cache.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a64a299397721b39f1ae3cab1bbab4f3e" name="a64a299397721b39f1ae3cab1bbab4f3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64a299397721b39f1ae3cab1bbab4f3e">&#9670;&#160;</a></span>getStyle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::gfx::txt::BasicText::getStyle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the style of the rendered text. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00188">188</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a377f1bcde608ebfc706f8bf69872d985" name="a377f1bcde608ebfc706f8bf69872d985"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a377f1bcde608ebfc706f8bf69872d985">&#9670;&#160;</a></span>getWordWrappedString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const sf::String &amp; bl::gfx::txt::BasicText::getWordWrappedString </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the string that will be rendered, including newlines added for wrapping. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00186">186</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2d55bc39067290cf1f7d4041476b401d" name="a2d55bc39067290cf1f7d4041476b401d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d55bc39067290cf1f7d4041476b401d">&#9670;&#160;</a></span>setCharacterSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setCharacterSize </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the character size of the text. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>Point size of the rendered text </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00118">118</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a720fc28e575804f169b4265473ce9c3f" name="a720fc28e575804f169b4265473ce9c3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a720fc28e575804f169b4265473ce9c3f">&#9670;&#160;</a></span>setFillColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setFillColor </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04010.html">rc::Color</a> &amp;&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the color of the text. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">color</td><td>The color of the rendered text </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00108">108</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af25928c7137d66d69542650214d3823e" name="af25928c7137d66d69542650214d3823e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af25928c7137d66d69542650214d3823e">&#9670;&#160;</a></span>setOutlineColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setOutlineColor </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04010.html">rc::Color</a> &amp;&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the color of the outline around the text. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">color</td><td>The color of the outline if the thickness is greater than 0 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00113">113</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7890d2bc12caa4388c69bc4af376fa52" name="a7890d2bc12caa4388c69bc4af376fa52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7890d2bc12caa4388c69bc4af376fa52">&#9670;&#160;</a></span>setOutlineThickness()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setOutlineThickness </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>thickness</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the outline thickness in pixels. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">thickness</td><td>The outline thickness in pixels </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00123">123</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<a id="accd434943eeb28494c8d3964c28e7b22" name="accd434943eeb28494c8d3964c28e7b22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accd434943eeb28494c8d3964c28e7b22">&#9670;&#160;</a></span>setString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setString </td>
-          <td>(</td>
-          <td class="paramtype">const sf::String &amp;&#160;</td>
-          <td class="paramname"><em>content</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the content of this text. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">content</td><td>The content to render </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00098">98</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9d3a6e449d7f4e383fa2673a8a40dc69" name="a9d3a6e449d7f4e383fa2673a8a40dc69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d3a6e449d7f4e383fa2673a8a40dc69">&#9670;&#160;</a></span>setStyle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gfx::txt::BasicText::setStyle </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>style</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the style of the text. See sf::Text::Style. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">style</td><td>A combination of sf::Text::Style flags </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02036_source.html#l00103">103</a> of file <a class="el" href="a02036_source.html">BasicText.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a915e5439aa343a0406d686f7c281be00" name="a915e5439aa343a0406d686f7c281be00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a915e5439aa343a0406d686f7c281be00">&#9670;&#160;</a></span>bl::gfx::Text</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a03358.html">bl::gfx::Text</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00179">179</a> of file <a class="el" href="a00926_source.html">BasicText.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Graphics/Text/<a class="el" href="a00926_source.html">BasicText.hpp</a></li>
-<li>src/Graphics/Text/<a class="el" href="a02036_source.html">BasicText.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00278_source.html">Cache.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

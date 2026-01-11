@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Error.cpp Source File</title>
+<title>BLIB: include/BLIB/Resources/Bundling/Manifest.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,65 +79,84 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Error.cpp</div></div>
+  <div class="headertitle"><div class="title">Manifest.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01745.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00512.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<a href="a01745.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RESOURCES_BUNDLING_MANIFEST_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RESOURCES_BUNDLING_MANIFEST_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>script</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00197.html">BLIB/Serialization.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>std::string buildMsg(<span class="keyword">const</span> std::string&amp; err, <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    std::stringstream ss;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    ss &lt;&lt; <span class="stringliteral">&quot;Line &quot;</span> &lt;&lt; src-&gt;sourceLine &lt;&lt; <span class="stringliteral">&quot; position &quot;</span> &lt;&lt; src-&gt;sourceColumn &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; err;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> ss.str();</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04842.html#aff6398a2a255bf7a3ad554af2761bc98">   17</a></span><a class="code hl_function" href="a04842.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>: error(msg)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, stack(msg) {}</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>resource</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>bundle</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05906.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a05906.html">Manifest</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_class" href="a05906.html">Manifest</a>(<span class="keyword">const</span> std::string&amp; bundleDirectory);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a05906.html#a08c1a66c93a9a3be6dfcfef542a36641">getBundleForFile</a>(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05906.html#aee7a024f8a9c42b55fff3bb8e698067f">containsFile</a>(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05906.html#aca7902260a13be82a88daf307a696f76">registerFileBundle</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; bundleFile);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05906.html#a994b50ede5fce659271f4f7f69030349">load</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05906.html#a47daef9aeca0e9a61462484a92129904">save</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> std::string manifestFile;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a05906.html#ad134bde82677e5e32d6ee33a6e42c518">   70</a></span>    std::unordered_map&lt;std::string, std::string&gt; manifest;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a06358.html">serial::SerializableObject</a>&lt;<a class="code hl_class" href="a05906.html">Manifest</a>&gt;;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>};</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04842.html#adb15b3075a9c7aeebaa80bf997ea5214">   21</a></span><a class="code hl_function" href="a04842.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: error(buildMsg(msg, src))</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>, stack(error) {}</div>
-</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a04842.html#ac99cb5f39c84b2f623ea6f4c49810f3d">   25</a></span><a class="code hl_function" href="a04842.html#aff6398a2a255bf7a3ad554af2761bc98">Error::Error</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; src, <span class="keyword">const</span> <a class="code hl_class" href="a04842.html">Error</a>&amp; prev)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>: error(buildMsg(msg, src))</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>, stack(error + <span class="stringliteral">&quot;\n    &quot;</span> + prev.stack) {}</div>
-</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04842.html#a95abc9d3c1314074a22834fa7e6a2dfd">   29</a></span><span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a04842.html#a95abc9d3c1314074a22834fa7e6a2dfd">Error::message</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> error; }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04842.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">   31</a></span><span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a04842.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">Error::stacktrace</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stack; }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace script</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03838_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00011_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04842_html"><div class="ttname"><a href="a04842.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa04842_html_a95abc9d3c1314074a22834fa7e6a2dfd"><div class="ttname"><a href="a04842.html#a95abc9d3c1314074a22834fa7e6a2dfd">bl::script::Error::message</a></div><div class="ttdeci">const std::string &amp; message() const</div><div class="ttdoc">Returns the contained error message.</div><div class="ttdef"><b>Definition</b> <a href="a01745_source.html#l00029">Error.cpp:29</a></div></div>
-<div class="ttc" id="aa04842_html_ab1e1a09a7f8dfda9edcac4bd6d1df391"><div class="ttname"><a href="a04842.html#ab1e1a09a7f8dfda9edcac4bd6d1df391">bl::script::Error::stacktrace</a></div><div class="ttdeci">const std::string &amp; stacktrace() const</div><div class="ttdoc">Returns the full stack trace, formatted.</div><div class="ttdef"><b>Definition</b> <a href="a01745_source.html#l00031">Error.cpp:31</a></div></div>
-<div class="ttc" id="aa04842_html_aff6398a2a255bf7a3ad554af2761bc98"><div class="ttname"><a href="a04842.html#aff6398a2a255bf7a3ad554af2761bc98">bl::script::Error::Error</a></div><div class="ttdeci">Error(const std::string &amp;error)</div><div class="ttdoc">Constructs a root Error with an empty call stack.</div><div class="ttdef"><b>Definition</b> <a href="a01745_source.html#l00017">Error.cpp:17</a></div></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace bundle</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace resource</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">namespace </span>serial</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>{</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">struct </span>SerializableObject&lt;resource::bundle::Manifest&gt; : <span class="keyword">public</span> SerializableObjectBase {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">using </span>T = <a class="code hl_class" href="a05906.html">resource::bundle::Manifest</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    SerializableField&lt;1, T, std::unordered_map&lt;std::string, std::string&gt;&gt; manifest;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    SerializableObject()</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    : SerializableObjectBase(<span class="stringliteral">&quot;BundleManifest&quot;</span>)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    , manifest(<span class="stringliteral">&quot;manifest&quot;</span>, *this, &amp;T::manifest, <a class="code hl_friend" href="a06354.html#ade1750e4bbdaed679daf2d8fe82235d2">SerializableFieldBase</a>::Required{}) {}</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>};</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>} <span class="comment">// namespace serial</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00197_html"><div class="ttname"><a href="a00197.html">Serialization.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05906_html"><div class="ttname"><a href="a05906.html">bl::resource::bundle::Manifest</a></div><div class="ttdoc">Top level manifest that maps original file paths to the bundle path they are in. Bundle paths in the ...</div><div class="ttdef"><b>Definition</b> <a href="a01745_source.html#l00020">Manifest.hpp:20</a></div></div>
+<div class="ttc" id="aa05906_html_a08c1a66c93a9a3be6dfcfef542a36641"><div class="ttname"><a href="a05906.html#a08c1a66c93a9a3be6dfcfef542a36641">bl::resource::bundle::Manifest::getBundleForFile</a></div><div class="ttdeci">const std::string &amp; getBundleForFile(const std::string &amp;path) const</div><div class="ttdoc">Returns the fully qualified path to the bundle containing the given path. Returns an empty string if ...</div><div class="ttdef"><b>Definition</b> <a href="a02906_source.html#l00014">Manifest.cpp:14</a></div></div>
+<div class="ttc" id="aa05906_html_a47daef9aeca0e9a61462484a92129904"><div class="ttname"><a href="a05906.html#a47daef9aeca0e9a61462484a92129904">bl::resource::bundle::Manifest::save</a></div><div class="ttdeci">bool save() const</div><div class="ttdoc">Saves the manifest file to disk.</div><div class="ttdef"><b>Definition</b> <a href="a02906_source.html#l00035">Manifest.cpp:35</a></div></div>
+<div class="ttc" id="aa05906_html_a994b50ede5fce659271f4f7f69030349"><div class="ttname"><a href="a05906.html#a994b50ede5fce659271f4f7f69030349">bl::resource::bundle::Manifest::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the manifest from disk.</div><div class="ttdef"><b>Definition</b> <a href="a02906_source.html#l00029">Manifest.cpp:29</a></div></div>
+<div class="ttc" id="aa05906_html_aca7902260a13be82a88daf307a696f76"><div class="ttname"><a href="a05906.html#aca7902260a13be82a88daf307a696f76">bl::resource::bundle::Manifest::registerFileBundle</a></div><div class="ttdeci">void registerFileBundle(const std::string &amp;path, const std::string &amp;bundleFile)</div><div class="ttdoc">Registers the given path as being part of the given bundle.</div><div class="ttdef"><b>Definition</b> <a href="a02906_source.html#l00025">Manifest.cpp:25</a></div></div>
+<div class="ttc" id="aa05906_html_aee7a024f8a9c42b55fff3bb8e698067f"><div class="ttname"><a href="a05906.html#aee7a024f8a9c42b55fff3bb8e698067f">bl::resource::bundle::Manifest::containsFile</a></div><div class="ttdeci">bool containsFile(const std::string &amp;path) const</div><div class="ttdoc">Returns whether or not the given path is in the manifest.</div><div class="ttdef"><b>Definition</b> <a href="a02906_source.html#l00020">Manifest.cpp:20</a></div></div>
+<div class="ttc" id="aa06354_html_ade1750e4bbdaed679daf2d8fe82235d2"><div class="ttname"><a href="a06354.html#ade1750e4bbdaed679daf2d8fe82235d2">bl::serial::SerializableObjectBase::SerializableFieldBase</a></div><div class="ttdeci">friend class SerializableFieldBase</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00129">SerializableObject.hpp:129</a></div></div>
+<div class="ttc" id="aa06358_html"><div class="ttname"><a href="a06358.html">bl::serial::SerializableObject</a></div><div class="ttdoc">Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00144">SerializableObject.hpp:144</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

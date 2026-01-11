@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/CleanupManager.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Assets/FinalSwapframeAsset.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,81 +79,228 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_be4517bec2734308d87aa8b601dda893.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">CleanupManager.cpp</div></div>
+  <div class="headertitle"><div class="title">FinalSwapframeAsset.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02228.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01262.html">BLIB/Render/Vulkan/CleanupManager.hpp</a>&gt;</span></div>
+<a href="a02228.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>vk</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>CleanupManager::CleanupManager()</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: clearIndex(0)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, isClearing(false) {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; v : buckets) { v.reserve(64); }</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    addedDuringClear.reserve(4);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">void</span> CleanupManager::flush() {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::unique_lock lock(mutex);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; bucket : buckets) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cb : bucket) { cb(); }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04538.html#aa8511d9ff0c759834c2c63a525363e8d">   23</a></span><span class="keywordtype">void</span> CleanupManager::add(<span class="keyword">const</span> <a class="code hl_typedef" href="a04538.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp; cb) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (!isClearing) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        std::unique_lock lock(mutex);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        buckets[addIndex()].emplace_back(cb);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">else</span> { addedDuringClear.emplace_back(cb); }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a07963.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Config/RenderPassIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00677.html">BLIB/Render/Graph/Assets/DepthBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05006.html#a672984c61fe0a9e930ebaf316eb220ba">   15</a></span><a class="code hl_function" href="a05006.html#a672984c61fe0a9e930ebaf316eb220ba">FinalSwapframeAsset::FinalSwapframeAsset</a>(<span class="keyword">const</span> VkViewport&amp; viewport, <span class="keyword">const</span> VkRect2D&amp; scissor,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                         <span class="keyword">const</span> VkClearValue* clearColors,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                                         <span class="keyword">const</span> std::uint32_t clearColorCount)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>: <a class="code hl_class" href="a05010.html">FramebufferAsset</a>(rg::AssetTags::FinalFrameOutput, true, cfg::RenderPassIds::SwapchainPass,</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                   viewport, scissor, clearColors, clearColorCount)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, engine(nullptr) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_function" href="a04974.html#a10db5fc41697b72ea81b8bbcbbb9e125">addDependency</a>(<a class="code hl_variable" href="a05038.html#ac8b1198c8352a2067a7fa1bb7f8b1a10">rg::AssetTags::DepthBuffer</a>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_function" href="a05010.html#af2be3d638a1ff23d3e142f17556df779">setShouldClearOnRestart</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> FinalSwapframeAsset::doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05054.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    engine     = &amp;<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.engine;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    window     = &amp;<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.renderer.getWindow();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="a05010.html#a146954ae1351c2bfa089889af6a3ab60">renderPass</a> = &amp;<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.renderer.<a class="code hl_function" href="a05330.html#a78088be551b272e054fc4034b5aaf31e">renderPassCache</a>().<a class="code hl_function" href="a05370.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(<a class="code hl_variable" href="a05010.html#aa076fbdd14348dffd311d4db4e7f31ba">renderPassId</a>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    swapchain  = &amp;<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.renderer.<a class="code hl_function" href="a05330.html#a056bdc12e80e959d4e72e9143454bee1">getSwapchain</a>();</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04538.html#a0be2d519d4e836c5040713fda94e8cee">   31</a></span><span class="keywordtype">void</span> CleanupManager::add(<a class="code hl_typedef" href="a04538.html#a7231a9195e01c0dba86bc19ce2f56544">Callback</a>&amp;&amp; cb) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (!isClearing) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        std::unique_lock lock(mutex);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        buckets[addIndex()].emplace_back(std::forward&lt;Callback&gt;(cb));</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">else</span> { addedDuringClear.emplace_back(std::forward&lt;Callback&gt;(cb)); }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    depthBufferAsset = <span class="keyword">dynamic_cast&lt;</span><a class="code hl_class" href="a04998.html">DepthBuffer</a>*<span class="keyword">&gt;</span>(<a class="code hl_function" href="a04974.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">getDependency</a>(0));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (!depthBufferAsset) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;FinalSwapframeAsset requires a DepthBuffer dependency&quot;</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <span class="keyword">auto</span> size = window-&gt;<a class="code hl_function" href="a05842.html#af57de66785be56dfa0d89e7c942b68eb">getSfWindow</a>().getSize();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i  = 0;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    attachmentSets.init(*swapchain, [<span class="keyword">this</span>, &amp;i, &amp;size](<a class="code hl_class" href="a05642.html">vk::AttachmentSet</a>&amp; set) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        set.<a class="code hl_function" href="a05642.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">setRenderExtent</a>({size.x, size.y});</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        updateAttachments(i);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        ++i;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    });</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    onResize({});</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    i = 0;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    framebuffers.init(*swapchain, [<span class="keyword">this</span>, &amp;<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, &amp;i](vk::Framebuffer&amp; fb) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        fb.create(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.renderer, <a class="code hl_variable" href="a05010.html#a146954ae1351c2bfa089889af6a3ab60">renderPass</a>, attachmentSets.getRaw(i));</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        ++i;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    });</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_function" href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">subscribe</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.renderer.getSignalChannel());</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> FinalSwapframeAsset::doPrepareForInput(<span class="keyword">const</span> rg::ExecutionContext&amp;) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">// noop, handled by render pass</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> FinalSwapframeAsset::doStartOutput(<span class="keyword">const</span> rg::ExecutionContext&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// TODO - consider events for swapchain invalidation</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    updateAttachments(engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a05330.html#a056bdc12e80e959d4e72e9143454bee1">getSwapchain</a>().<a class="code hl_function" href="a05814.html#a9960a3212b9a9249eeb346ca41ed0cd6">currentIndex</a>());</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    framebuffers.current().recreateIfChanged(attachmentSets.current());</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_function" href="a05010.html#a84d3a36679360c35b91667b9bd7c9694">beginRender</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.commandBuffer, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_function" href="a05010.html#af2be3d638a1ff23d3e142f17556df779">setShouldClearOnRestart</a>(<span class="keyword">false</span>);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> FinalSwapframeAsset::doEndOutput(<span class="keyword">const</span> rg::ExecutionContext&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_function" href="a05010.html#a37fe3d65698fff42b989ce126d2b3249">finishRender</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.commandBuffer);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a05006.html#a641f497cb00382e619933f64f6e0f209">   71</a></span><a class="code hl_class" href="a05702.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a05006.html#a641f497cb00382e619933f64f6e0f209">FinalSwapframeAsset::currentFramebuffer</a>() { <span class="keywordflow">return</span> framebuffers.current(); }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a05006.html#aa28e7b9704ee2e8aba2bc6e9fb28c6e6">   73</a></span><a class="code hl_class" href="a05702.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a05006.html#aa28e7b9704ee2e8aba2bc6e9fb28c6e6">FinalSwapframeAsset::getFramebuffer</a>(std::uint32_t i) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">return</span> framebuffers.getRaw(i);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
 </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> CleanupManager::onFrameStart() {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    isClearing = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    std::unique_lock lock(mutex);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; cb : buckets[clearIndex]) { cb(); }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> <span class="keyword">auto</span> indexToClear = clearIndex;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    clearIndex              = clearIndex &lt; Config::MaxConcurrentFrames ? clearIndex + 1 : 0;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    lock.unlock();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    isClearing = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    buckets[indexToClear].swap(addedDuringClear);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    addedDuringClear.clear();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace vk</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01262_html"><div class="ttname"><a href="a01262.html">CleanupManager.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04538_html_a7231a9195e01c0dba86bc19ce2f56544"><div class="ttname"><a href="a04538.html#a7231a9195e01c0dba86bc19ce2f56544">bl::rc::vk::CleanupManager::Callback</a></div><div class="ttdeci">std::function&lt; void()&gt; Callback</div><div class="ttdoc">Signature of cleanup callbacks.</div><div class="ttdef"><b>Definition</b> <a href="a01262_source.html#l00026">CleanupManager.hpp:26</a></div></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keywordtype">void</span> FinalSwapframeAsset::onResize(glm::u32vec2) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (engine) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size = window-&gt;<a class="code hl_function" href="a05842.html#af57de66785be56dfa0d89e7c942b68eb">getSfWindow</a>().getSize();</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        attachmentSets.visit(</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            [<span class="keyword">this</span>, &amp;size](<a class="code hl_class" href="a05642.html">vk::AttachmentSet</a>&amp; set) { set.<a class="code hl_function" href="a05642.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">setRenderExtent</a>({size.x, size.y}); });</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        ensureSampledImage();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        depthBufferAsset-&gt;<a class="code hl_function" href="a04998.html#abfcc6d8459c763c7d79ede3086d2ef1e">ensureValid</a>({size.x, size.y},</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                      engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().getSettings().getMSAASampleCount());</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        updateAllAttachments();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keywordtype">void</span> FinalSwapframeAsset::onReset() { <a class="code hl_function" href="a05010.html#af2be3d638a1ff23d3e142f17556df779">setShouldClearOnRestart</a>(<span class="keyword">true</span>); }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keywordtype">void</span> FinalSwapframeAsset::updateAttachments(std::uint32_t i) {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> useMsaa =</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#abde39f7140f25b8690c473a03da69d81">getAntiAliasing</a>() != Settings::AntiAliasing::None;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">auto</span>&amp; set                          = attachmentSets.getRaw(i);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">auto</span>&amp; chain                        = engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a05330.html#a056bdc12e80e959d4e72e9143454bee1">getSwapchain</a>();</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> swapIndex       = useMsaa ? 1 : 0;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> depthIndex      = useMsaa ? 2 : 1;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> attachmentCount = useMsaa ? 3 : 2;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    ensureSampledImage();</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    set.<a class="code hl_function" href="a05642.html#a5448d2f850024ddff3db7579d24d029d">setAttachment</a>(swapIndex,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                      chain.swapFrameAtIndex(i).getImage(0),</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                      chain.swapFrameAtIndex(i).getImageView(0));</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    set.<a class="code hl_function" href="a05642.html#ae1d87e5a7e3909cf07b4150f35339c3f">setAttachmentAspect</a>(swapIndex, VK_IMAGE_ASPECT_COLOR_BIT);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    set.<a class="code hl_function" href="a05642.html#a5448d2f850024ddff3db7579d24d029d">setAttachment</a>(depthIndex, depthBufferAsset-&gt;<a class="code hl_function" href="a04998.html#aca1c49be1a24e3e3031fde0f6d26e6d2">getBuffer</a>());</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> (useMsaa) { set.<a class="code hl_function" href="a05642.html#a5448d2f850024ddff3db7579d24d029d">setAttachment</a>(0, sampledImage); }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    set.<a class="code hl_function" href="a05642.html#a2c7ba3d7abfa43edd30a3422a40e92f4">setAttachmentCount</a>(attachmentCount);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    set.<a class="code hl_function" href="a05642.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">setRenderExtent</a>(chain.swapFrameAtIndex(i).getRenderExtent());</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    set.<a class="code hl_function" href="a05642.html#a74760f8c324ac07118c8db704f20d206">setOutputIndex</a>(swapIndex);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>}</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keywordtype">void</span> FinalSwapframeAsset::updateAllAttachments() {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    attachmentSets.visit([<span class="keyword">this</span>, &amp;i](vk::AttachmentSet&amp;) { updateAttachments(i++); });</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="keywordtype">void</span> FinalSwapframeAsset::process(<span class="keyword">const</span> event::SettingsChanged&amp; changeEvent) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (changeEvent.setting == <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645faa20696e560a977fb925fdb068d42d03f">event::SettingsChanged::AntiAliasing</a>) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        ensureSampledImage();</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        updateAllAttachments();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keywordtype">void</span> FinalSwapframeAsset::ensureSampledImage() {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> useMsaa =</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#abde39f7140f25b8690c473a03da69d81">getAntiAliasing</a>() != Settings::AntiAliasing::None;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="keywordflow">if</span> (useMsaa) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keyword">const</span> <span class="keyword">auto</span> size = window-&gt;<a class="code hl_function" href="a05842.html#af57de66785be56dfa0d89e7c942b68eb">getSfWindow</a>().getSize();</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordtype">bool</span> transition = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">if</span> (!sampledImage.<a class="code hl_function" href="a05706.html#a1634c0bd4b541eff78a24913043a7953">isCreated</a>() ||</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            sampledImage.<a class="code hl_function" href="a05706.html#ad1d6ced37ae1ca475bacf8c6f0c0ac09">getSampleCount</a>() !=</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>                engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#ab5bc9f6368bb1dd379d93c1ae55c6280">getMSAASampleCount</a>()) {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            sampledImage.<a class="code hl_function" href="a05706.html#a0ce3c3c937b407bb6ca540954befb0d3">create</a>(</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>(),</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                {.type       = vk::ImageOptions::Type::Image2D,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                 .format     = engine-&gt;renderer().getSwapchain().swapImageFormat(),</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                 .usage      = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                 .extent     = {size.x, size.y},</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                 .aspect     = VK_IMAGE_ASPECT_COLOR_BIT,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                 .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                 .samples    = engine-&gt;<a class="code hl_function" href="a03698.html#a04332dee562be55a73c43b5eed176837">renderer</a>().<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#ab5bc9f6368bb1dd379d93c1ae55c6280">getMSAASampleCount</a>()});</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            transition = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        }</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sampledImage.<a class="code hl_function" href="a05706.html#a2d62e76bfc1f24b603c1d092d590c285">getSize</a>().width != size.x ||</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                 sampledImage.<a class="code hl_function" href="a05706.html#a2d62e76bfc1f24b603c1d092d590c285">getSize</a>().height != size.y) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            sampledImage.<a class="code hl_function" href="a05706.html#a32b4fc279c015c62879d5a450409ada4">resize</a>({size.x, size.y}, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            transition = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        }</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keywordflow">if</span> (transition) { sampledImage.<a class="code hl_function" href="a05706.html#a000d8f85feecc25ee941331e3e051924">transitionLayout</a>(VK_IMAGE_LAYOUT_PRESENT_SRC_KHR); }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    }</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keywordflow">else</span> { sampledImage.deferDestroy(); }</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>}</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">AssetTags.hpp</a></div></div>
+<div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">FinalSwapframeAsset.hpp</a></div></div>
+<div class="ttc" id="aa00677_html"><div class="ttname"><a href="a00677.html">DepthBuffer.hpp</a></div></div>
+<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">RenderPassIds.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03698_html_a04332dee562be55a73c43b5eed176837"><div class="ttname"><a href="a03698.html#a04332dee562be55a73c43b5eed176837">bl::engine::Engine::renderer</a></div><div class="ttdeci">rc::Renderer &amp; renderer()</div><div class="ttdoc">Returns the rendering system of the engine.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00290">Engine.hpp:290</a></div></div>
+<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645faa20696e560a977fb925fdb068d42d03f"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645faa20696e560a977fb925fdb068d42d03f">bl::rc::event::SettingsChanged::AntiAliasing</a></div><div class="ttdeci">@ AntiAliasing</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00030">SettingsChanged.hpp:30</a></div></div>
+<div class="ttc" id="aa04974_html_a10db5fc41697b72ea81b8bbcbbb9e125"><div class="ttname"><a href="a04974.html#a10db5fc41697b72ea81b8bbcbbb9e125">bl::rc::rg::Asset::addDependency</a></div><div class="ttdeci">void addDependency(std::string_view depTag)</div><div class="ttdoc">Registers a dependency on another asset. This must be called from the constructor.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00022">Asset.cpp:22</a></div></div>
+<div class="ttc" id="aa04974_html_a4dfd154a7e02bc2cbd1cc74f62791f0f"><div class="ttname"><a href="a04974.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">bl::rc::rg::Asset::getDependency</a></div><div class="ttdeci">Asset * getDependency(std::string_view depTag)</div><div class="ttdoc">Returns the dependency asset with the given tag. Prefer the index version for performance....</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00031">Asset.cpp:31</a></div></div>
+<div class="ttc" id="aa04998_html"><div class="ttname"><a href="a04998.html">bl::rc::rgi::DepthBuffer</a></div><div class="ttdoc">Wrapper asset around the global renderer depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00677_source.html#l00023">DepthBuffer.hpp:23</a></div></div>
+<div class="ttc" id="aa04998_html_abfcc6d8459c763c7d79ede3086d2ef1e"><div class="ttname"><a href="a04998.html#abfcc6d8459c763c7d79ede3086d2ef1e">bl::rc::rgi::DepthBuffer::ensureValid</a></div><div class="ttdeci">void ensureValid(const glm::u32vec2 &amp;size, VkSampleCountFlagBits sampleCount)</div><div class="ttdoc">Recreates the depth buffer with the given size and sample count if it does not match.</div><div class="ttdef"><b>Definition</b> <a href="a02225_source.html#l00043">DepthBuffer.cpp:43</a></div></div>
+<div class="ttc" id="aa04998_html_aca1c49be1a24e3e3031fde0f6d26e6d2"><div class="ttname"><a href="a04998.html#aca1c49be1a24e3e3031fde0f6d26e6d2">bl::rc::rgi::DepthBuffer::getBuffer</a></div><div class="ttdeci">vk::Image &amp; getBuffer()</div><div class="ttdoc">Returns the depth buffer image.</div><div class="ttdef"><b>Definition</b> <a href="a00677_source.html#l00033">DepthBuffer.hpp:33</a></div></div>
+<div class="ttc" id="aa05006_html_a641f497cb00382e619933f64f6e0f209"><div class="ttname"><a href="a05006.html#a641f497cb00382e619933f64f6e0f209">bl::rc::rgi::FinalSwapframeAsset::currentFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; currentFramebuffer() override</div><div class="ttdoc">Returns the current framebuffer to use.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00071">FinalSwapframeAsset.cpp:71</a></div></div>
+<div class="ttc" id="aa05006_html_a672984c61fe0a9e930ebaf316eb220ba"><div class="ttname"><a href="a05006.html#a672984c61fe0a9e930ebaf316eb220ba">bl::rc::rgi::FinalSwapframeAsset::FinalSwapframeAsset</a></div><div class="ttdeci">FinalSwapframeAsset(const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</div><div class="ttdoc">Creates a new asset.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00015">FinalSwapframeAsset.cpp:15</a></div></div>
+<div class="ttc" id="aa05006_html_aa28e7b9704ee2e8aba2bc6e9fb28c6e6"><div class="ttname"><a href="a05006.html#aa28e7b9704ee2e8aba2bc6e9fb28c6e6">bl::rc::rgi::FinalSwapframeAsset::getFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; getFramebuffer(std::uint32_t i) override</div><div class="ttdoc">Returns the framebuffer at the given swap frame index.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00073">FinalSwapframeAsset.cpp:73</a></div></div>
+<div class="ttc" id="aa05010_html"><div class="ttname"><a href="a05010.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00022">FramebufferAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa05010_html_a146954ae1351c2bfa089889af6a3ab60"><div class="ttname"><a href="a05010.html#a146954ae1351c2bfa089889af6a3ab60">bl::rc::rgi::FramebufferAsset::renderPass</a></div><div class="ttdeci">const vk::RenderPass * renderPass</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00099">FramebufferAsset.hpp:99</a></div></div>
+<div class="ttc" id="aa05010_html_a37fe3d65698fff42b989ce126d2b3249"><div class="ttname"><a href="a05010.html#a37fe3d65698fff42b989ce126d2b3249">bl::rc::rgi::FramebufferAsset::finishRender</a></div><div class="ttdeci">void finishRender(VkCommandBuffer commandBuffer)</div><div class="ttdoc">Ends the render pass for this framebuffer asset.</div><div class="ttdef"><b>Definition</b> <a href="a02219_source.html#l00036">FramebufferAsset.cpp:36</a></div></div>
+<div class="ttc" id="aa05010_html_a84d3a36679360c35b91667b9bd7c9694"><div class="ttname"><a href="a05010.html#a84d3a36679360c35b91667b9bd7c9694">bl::rc::rgi::FramebufferAsset::beginRender</a></div><div class="ttdeci">void beginRender(VkCommandBuffer commandBuffer, bool setViewport)</div><div class="ttdoc">Begins the render pass for this framebuffer asset.</div><div class="ttdef"><b>Definition</b> <a href="a02219_source.html#l00025">FramebufferAsset.cpp:25</a></div></div>
+<div class="ttc" id="aa05010_html_aa076fbdd14348dffd311d4db4e7f31ba"><div class="ttname"><a href="a05010.html#aa076fbdd14348dffd311d4db4e7f31ba">bl::rc::rgi::FramebufferAsset::renderPassId</a></div><div class="ttdeci">const std::uint32_t renderPassId</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00093">FramebufferAsset.hpp:93</a></div></div>
+<div class="ttc" id="aa05010_html_af2be3d638a1ff23d3e142f17556df779"><div class="ttname"><a href="a05010.html#af2be3d638a1ff23d3e142f17556df779">bl::rc::rgi::FramebufferAsset::setShouldClearOnRestart</a></div><div class="ttdeci">void setShouldClearOnRestart(bool shouldClear)</div><div class="ttdoc">Sets whether the framebuffer should clear its attachments if beginRender is called more than once.</div><div class="ttdef"><b>Definition</b> <a href="a02219_source.html#l00023">FramebufferAsset.cpp:23</a></div></div>
+<div class="ttc" id="aa05038_html_ac8b1198c8352a2067a7fa1bb7f8b1a10"><div class="ttname"><a href="a05038.html#ac8b1198c8352a2067a7fa1bb7f8b1a10">bl::rc::rg::AssetTags::DepthBuffer</a></div><div class="ttdeci">static constexpr std::string_view DepthBuffer</div><div class="ttdef"><b>Definition</b> <a href="a00620_source.html#l00026">AssetTags.hpp:26</a></div></div>
+<div class="ttc" id="aa05054_html"><div class="ttname"><a href="a05054.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08539_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa05330_html_a056bdc12e80e959d4e72e9143454bee1"><div class="ttname"><a href="a05330.html#a056bdc12e80e959d4e72e9143454bee1">bl::rc::Renderer::getSwapchain</a></div><div class="ttdeci">vk::Swapchain &amp; getSwapchain()</div><div class="ttdoc">Returns the swapchain manager.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00299">Renderer.hpp:299</a></div></div>
+<div class="ttc" id="aa05330_html_a78088be551b272e054fc4034b5aaf31e"><div class="ttname"><a href="a05330.html#a78088be551b272e054fc4034b5aaf31e">bl::rc::Renderer::renderPassCache</a></div><div class="ttdeci">res::RenderPassCache &amp; renderPassCache()</div><div class="ttdoc">Returns the render pass cache of this renderer.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00408">Renderer.hpp:408</a></div></div>
+<div class="ttc" id="aa05330_html_ab2b956c5cdf751ef4db0cac0ed3df91d"><div class="ttname"><a href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">bl::rc::Renderer::getSettings</a></div><div class="ttdeci">Settings &amp; getSettings()</div><div class="ttdoc">Returns the render settings which can be changed.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00455">Renderer.hpp:455</a></div></div>
+<div class="ttc" id="aa05370_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a05370.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition</b> <a href="a02435_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
+<div class="ttc" id="aa05506_html_ab5bc9f6368bb1dd379d93c1ae55c6280"><div class="ttname"><a href="a05506.html#ab5bc9f6368bb1dd379d93c1ae55c6280">bl::rc::Settings::getMSAASampleCount</a></div><div class="ttdeci">VkSampleCountFlagBits getMSAASampleCount() const</div><div class="ttdoc">Returns the sample count used for MSAA.</div><div class="ttdef"><b>Definition</b> <a href="a08725_source.html#l00136">Settings.cpp:136</a></div></div>
+<div class="ttc" id="aa05506_html_abde39f7140f25b8690c473a03da69d81"><div class="ttname"><a href="a05506.html#abde39f7140f25b8690c473a03da69d81">bl::rc::Settings::getAntiAliasing</a></div><div class="ttdeci">AntiAliasing getAntiAliasing() const</div><div class="ttdoc">Returns the anti-aliasing mode used by the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00325">Settings.hpp:325</a></div></div>
+<div class="ttc" id="aa05642_html"><div class="ttname"><a href="a05642.html">bl::rc::vk::AttachmentSet</a></div><div class="ttdoc">Basic class containing a set of attachments for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a00491_source.html#l00024">AttachmentSet.hpp:24</a></div></div>
+<div class="ttc" id="aa05642_html_a2c7ba3d7abfa43edd30a3422a40e92f4"><div class="ttname"><a href="a05642.html#a2c7ba3d7abfa43edd30a3422a40e92f4">bl::rc::vk::AttachmentSet::setAttachmentCount</a></div><div class="ttdeci">void setAttachmentCount(std::uint32_t count)</div><div class="ttdoc">Sets the number of attachments in the set.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00051">AttachmentSet.cpp:51</a></div></div>
+<div class="ttc" id="aa05642_html_a5448d2f850024ddff3db7579d24d029d"><div class="ttname"><a href="a05642.html#a5448d2f850024ddff3db7579d24d029d">bl::rc::vk::AttachmentSet::setAttachment</a></div><div class="ttdeci">void setAttachment(std::uint32_t index, VkImage image, VkImageView view)</div><div class="ttdoc">Sets a single attachment.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00053">AttachmentSet.cpp:53</a></div></div>
+<div class="ttc" id="aa05642_html_a5f7aaaa7edf6d66939fffcb84b1b23cd"><div class="ttname"><a href="a05642.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">bl::rc::vk::AttachmentSet::setRenderExtent</a></div><div class="ttdeci">void setRenderExtent(const VkExtent2D &amp;extent)</div><div class="ttdoc">Sets the render extent of this attachment set.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00083">AttachmentSet.cpp:83</a></div></div>
+<div class="ttc" id="aa05642_html_a74760f8c324ac07118c8db704f20d206"><div class="ttname"><a href="a05642.html#a74760f8c324ac07118c8db704f20d206">bl::rc::vk::AttachmentSet::setOutputIndex</a></div><div class="ttdeci">void setOutputIndex(std::uint32_t index)</div><div class="ttdoc">Sets the index of the first output attachment in the set.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00081">AttachmentSet.cpp:81</a></div></div>
+<div class="ttc" id="aa05642_html_ae1d87e5a7e3909cf07b4150f35339c3f"><div class="ttname"><a href="a05642.html#ae1d87e5a7e3909cf07b4150f35339c3f">bl::rc::vk::AttachmentSet::setAttachmentAspect</a></div><div class="ttdeci">void setAttachmentAspect(std::uint32_t index, VkImageAspectFlags aspect)</div><div class="ttdoc">Set the aspect of the attachment at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00059">AttachmentSet.cpp:59</a></div></div>
+<div class="ttc" id="aa05702_html"><div class="ttname"><a href="a05702.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition</b> <a href="a00509_source.html#l00024">Framebuffer.hpp:24</a></div></div>
+<div class="ttc" id="aa05706_html_a000d8f85feecc25ee941331e3e051924"><div class="ttname"><a href="a05706.html#a000d8f85feecc25ee941331e3e051924">bl::rc::vk::Image::transitionLayout</a></div><div class="ttdeci">void transitionLayout(VkImageLayout newLayout, bool useUndefinedPreviousLayout=false)</div><div class="ttdoc">Issues a pipeline barrier to a temporary command buffer to transition the image layout.</div><div class="ttdef"><b>Definition</b> <a href="a08731_source.html#l00258">Image.cpp:258</a></div></div>
+<div class="ttc" id="aa05706_html_a0ce3c3c937b407bb6ca540954befb0d3"><div class="ttname"><a href="a05706.html#a0ce3c3c937b407bb6ca540954befb0d3">bl::rc::vk::Image::create</a></div><div class="ttdeci">void create(Renderer &amp;vulkanState, const ImageOptions &amp;options)</div><div class="ttdoc">Creates or resizes the image. Noop if extent is unchanged.</div><div class="ttdef"><b>Definition</b> <a href="a08731_source.html#l00050">Image.cpp:50</a></div></div>
+<div class="ttc" id="aa05706_html_a1634c0bd4b541eff78a24913043a7953"><div class="ttname"><a href="a05706.html#a1634c0bd4b541eff78a24913043a7953">bl::rc::vk::Image::isCreated</a></div><div class="ttdeci">bool isCreated() const</div><div class="ttdoc">Returns whether the image has been created or not.</div><div class="ttdef"><b>Definition</b> <a href="a08575_source.html#l00293">Image.hpp:293</a></div></div>
+<div class="ttc" id="aa05706_html_a2d62e76bfc1f24b603c1d092d590c285"><div class="ttname"><a href="a05706.html#a2d62e76bfc1f24b603c1d092d590c285">bl::rc::vk::Image::getSize</a></div><div class="ttdeci">const VkExtent2D &amp; getSize() const</div><div class="ttdoc">Returns the size of the image.</div><div class="ttdef"><b>Definition</b> <a href="a08575_source.html#l00279">Image.hpp:279</a></div></div>
+<div class="ttc" id="aa05706_html_a32b4fc279c015c62879d5a450409ada4"><div class="ttname"><a href="a05706.html#a32b4fc279c015c62879d5a450409ada4">bl::rc::vk::Image::resize</a></div><div class="ttdeci">void resize(const glm::u32vec2 &amp;newSize, bool copyContents)</div><div class="ttdoc">Resizes the image to the new size, optionally copying over the old contents.</div><div class="ttdef"><b>Definition</b> <a href="a08731_source.html#l00099">Image.cpp:99</a></div></div>
+<div class="ttc" id="aa05706_html_ad1d6ced37ae1ca475bacf8c6f0c0ac09"><div class="ttname"><a href="a05706.html#ad1d6ced37ae1ca475bacf8c6f0c0ac09">bl::rc::vk::Image::getSampleCount</a></div><div class="ttdeci">VkSampleCountFlagBits getSampleCount() const</div><div class="ttdoc">Returns the number of samples in the image.</div><div class="ttdef"><b>Definition</b> <a href="a08575_source.html#l00295">Image.hpp:295</a></div></div>
+<div class="ttc" id="aa05814_html_a9960a3212b9a9249eeb346ca41ed0cd6"><div class="ttname"><a href="a05814.html#a9960a3212b9a9249eeb346ca41ed0cd6">bl::rc::vk::Swapchain::currentIndex</a></div><div class="ttdeci">std::uint32_t currentIndex() const</div><div class="ttdoc">Returns the current swap chain image index.</div><div class="ttdef"><b>Definition</b> <a href="a00476_source.html#l00143">Swapchain.hpp:143</a></div></div>
+<div class="ttc" id="aa05842_html_af57de66785be56dfa0d89e7c942b68eb"><div class="ttname"><a href="a05842.html#af57de66785be56dfa0d89e7c942b68eb">bl::rc::Window::getSfWindow</a></div><div class="ttdeci">constexpr SfWindow &amp; getSfWindow()</div><div class="ttdoc">Returns the underlying SFML window. Do not use methods that are also provided here.</div><div class="ttdef"><b>Definition</b> <a href="a08587_source.html#l00225">Window.hpp:225</a></div></div>
+<div class="ttc" id="aa06386_html_a2a0a601a22ad69c515047cf2f81a34ac"><div class="ttname"><a href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">bl::sig::Listener&lt; event::SettingsChanged &gt;::subscribe</a></div><div class="ttdeci">void subscribe(Channel &amp;channel)</div><div class="ttdoc">Subscribes to the given channel. Use subscribeDeferred if calling from a signal handler.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00041">Listener.hpp:81</a></div></div>
+<div class="ttc" id="aa07963_html"><div class="ttname"><a href="a07963.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Lighting/Light2D.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/RenderTexture.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,131 +79,113 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_077a91722faf10a1bec56ff571c2f693.html">Lighting</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Light2D.cpp</div></div>
+  <div class="headertitle"><div class="title">RenderTexture.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02165.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01166.html">BLIB/Render/Lighting/Light2D.hpp</a>&gt;</span></div>
+<a href="a02165.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01418.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01169.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00254.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Config/RenderPassIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>lgt</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a04290.html#a43cd82166fd1c7ed7b6af2cfcd36f708">   13</a></span><a class="code hl_function" href="a04290.html#a43cd82166fd1c7ed7b6af2cfcd36f708">Light2D::Light2D</a>()</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>: owner(nullptr)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, index(<a class="code hl_class" href="a04294.html">Scene2DLighting</a>::MaxLightCount) {}</div>
-</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><a class="code hl_function" href="a04290.html#a43cd82166fd1c7ed7b6af2cfcd36f708">Light2D::Light2D</a>(<a class="code hl_class" href="a04294.html">Scene2DLighting</a>&amp; owner, std::uint32_t i)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>: owner(&amp;owner)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, index(i) {}</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">   21</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">Light2D::isValid</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> owner != <span class="keyword">nullptr</span> &amp;&amp; index &lt; <a class="code hl_variable" href="a04294.html#a2f89fe0988c984ee95a05b336a0a17a0">Scene2DLighting::MaxLightCount</a> &amp;&amp;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>           owner-&gt;allocations[index] &lt; <a class="code hl_variable" href="a04294.html#a2f89fe0988c984ee95a05b336a0a17a0">Scene2DLighting::MaxLightCount</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
-</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a04290.html#a5ba0373bd289ac322c76cc4f898682f1">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04290.html#a5ba0373bd289ac322c76cc4f898682f1">Light2D::removeFromScene</a>() {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) { owner-&gt;<a class="code hl_function" href="a04294.html#af187eb5826bc7b71f2e938294c0fd8e4">removeLight</a>(*<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>RenderTexture::RenderTexture(engine::Engine&amp; engine, Renderer&amp; renderer, rg::AssetFactory&amp; factory,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                             <span class="keyword">const</span> glm::u32vec2&amp; size, <a class="code hl_enumeration" href="a05794.html#ac9da6fd7b62add359338074a7af36f2d">SamplerOptions::Type</a> sampler)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: RenderTarget(engine, renderer, factory, true) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    commandBuffers.create(renderer.vulkanState());</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    scissor.extent.width  = size.x;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    scissor.extent.height = size.y;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    scissor.offset        = {0, 0};</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    viewport.minDepth     = 0.f;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    viewport.maxDepth     = 1.f;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    viewport.x            = 0.f;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    viewport.y            = 0.f;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    viewport.width        = size.x;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    viewport.height       = size.y;</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a04290.html#a0301ba098aa7cd8064fe5b6ad2cf296b">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04290.html#a0301ba098aa7cd8064fe5b6ad2cf296b">Light2D::setColor</a>(<span class="keyword">const</span> glm::vec3&amp; color) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        glm::vec4&amp; c = owner-&gt;lighting.lights[owner-&gt;allocations[index]].color;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        c            = glm::vec4(color, c.w);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">else</span> { <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot set the color of an invalid light&quot;</span>; }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// TODO - should recreate on settings change</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    texture = renderer.texturePool().createRenderTexture(</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        size,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        renderer.getTextureFormatManager().getFormat(vk::SemanticTextureFormat::Color),</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        sampler);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    resize(size);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    renderingTo = graphAssets.putAsset&lt;rgi::FinalRenderTextureAsset&gt;(</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        texture, viewport, scissor, clearColors, std::size(clearColors));</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05782.html#a675ff7fe0fabaf0f4aa90c9dd48a00e0">   41</a></span>RenderTexture::~RenderTexture() {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    destroy();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    commandBuffers.destroy();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a04290.html#ae82958a6ff0088c1bf85ece6f1711901">   38</a></span>glm::vec3 <a class="code hl_function" href="a04290.html#ae82958a6ff0088c1bf85ece6f1711901">Light2D::getColor</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        glm::vec4&amp; c = owner-&gt;lighting.lights[owner-&gt;allocations[index]].color;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> glm::vec3(c.x, c.y, c.z);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot get the color of an invalid light&quot;</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> glm::vec3(0.f);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
-</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05782.html#a05cdb4fa3bb44c51b5cdfab121bfaee7">   46</a></span><span class="keywordtype">void</span> RenderTexture::resize(<span class="keyword">const</span> glm::u32vec2&amp; size) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (getSize() != size) { texture-&gt;resize(size); }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a04290.html#a33971eb2a3a6e3b06bd3642400db37a8">   49</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04290.html#a33971eb2a3a6e3b06bd3642400db37a8">Light2D::setRadius</a>(<span class="keywordtype">float</span> r) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) { owner-&gt;lighting.lights[owner-&gt;allocations[index]].color.z = r; }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">else</span> { <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot set the radius of an invalid light&quot;</span>; }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    scissor.extent.width  = size.x;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    scissor.extent.height = size.y;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    viewport.width        = size.x;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    viewport.height       = size.y;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04290.html#a4dc95659e0c68f8f5575507fe09a8bee">   54</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a04290.html#a4dc95659e0c68f8f5575507fe09a8bee">Light2D::getRadius</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) { <span class="keywordflow">return</span> owner-&gt;lighting.lights[owner-&gt;allocations[index]].color.z; }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot get the radius of an invalid light&quot;</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> 0.f;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05782.html#a56d442e0c77d46924396934d91ae48b1">   55</a></span><span class="keywordtype">void</span> RenderTexture::destroy() {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        clearScenes();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        texture.release();</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a04290.html#a647675a28ff3e9343f93076275ba2b5a">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04290.html#a647675a28ff3e9343f93076275ba2b5a">Light2D::setPosition</a>(<span class="keyword">const</span> glm::vec2&amp; pos) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) { owner-&gt;lighting.lights[owner-&gt;allocations[index]].position = pos; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">else</span> { <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot set the position of an invalid light&quot;</span>; }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> RenderTexture::render() {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">auto</span> commandBuffer = commandBuffers.begin();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        renderScene(commandBuffer);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        commandBuffers.submit();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a05786.html#a01ab39f2b39a3dfb44b32a0e60fbe81b">   70</a></span><span class="keywordtype">void</span> RenderTexture::Handle::release() {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (texture) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        renderer-&gt;destroyRenderTexture(texture);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        texture = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a04290.html#a94a2496b74b6d5255ace2cb00c7220c5">   67</a></span>glm::vec2 <a class="code hl_function" href="a04290.html#a94a2496b74b6d5255ace2cb00c7220c5">Light2D::getPosition</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">isValid</a>()) { <span class="keywordflow">return</span> owner-&gt;lighting.lights[owner-&gt;allocations[index]].position; }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_define" href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Cannot get the position of an invalid light&quot;</span>;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> glm::vec2(0.f);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace lgt</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00230_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00230.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00104">Logger.hpp:104</a></div></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01166_html"><div class="ttname"><a href="a01166.html">Light2D.hpp</a></div></div>
-<div class="ttc" id="aa01169_html"><div class="ttname"><a href="a01169.html">Scene2DLighting.hpp</a></div></div>
-<div class="ttc" id="aa01418_html"><div class="ttname"><a href="a01418.html">Scene2DInstance.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04290_html_a0301ba098aa7cd8064fe5b6ad2cf296b"><div class="ttname"><a href="a04290.html#a0301ba098aa7cd8064fe5b6ad2cf296b">bl::rc::lgt::Light2D::setColor</a></div><div class="ttdeci">void setColor(const glm::vec3 &amp;color)</div><div class="ttdoc">Sets the color of the light. Light color is multiplied by fragment color.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00030">Light2D.cpp:30</a></div></div>
-<div class="ttc" id="aa04290_html_a33971eb2a3a6e3b06bd3642400db37a8"><div class="ttname"><a href="a04290.html#a33971eb2a3a6e3b06bd3642400db37a8">bl::rc::lgt::Light2D::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the radius of the light. The color fades to 0 at the radius.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00049">Light2D.cpp:49</a></div></div>
-<div class="ttc" id="aa04290_html_a43cd82166fd1c7ed7b6af2cfcd36f708"><div class="ttname"><a href="a04290.html#a43cd82166fd1c7ed7b6af2cfcd36f708">bl::rc::lgt::Light2D::Light2D</a></div><div class="ttdeci">Light2D()</div><div class="ttdoc">Creates an invalid light handle.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00013">Light2D.cpp:13</a></div></div>
-<div class="ttc" id="aa04290_html_a4dc95659e0c68f8f5575507fe09a8bee"><div class="ttname"><a href="a04290.html#a4dc95659e0c68f8f5575507fe09a8bee">bl::rc::lgt::Light2D::getRadius</a></div><div class="ttdeci">float getRadius() const</div><div class="ttdoc">Returns the radius of the light in world coordinates.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00054">Light2D.cpp:54</a></div></div>
-<div class="ttc" id="aa04290_html_a5ba0373bd289ac322c76cc4f898682f1"><div class="ttname"><a href="a04290.html#a5ba0373bd289ac322c76cc4f898682f1">bl::rc::lgt::Light2D::removeFromScene</a></div><div class="ttdeci">void removeFromScene()</div><div class="ttdoc">Removes the light from the scene. Invalidates the handle and any other handles to the same light....</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00026">Light2D.cpp:26</a></div></div>
-<div class="ttc" id="aa04290_html_a647675a28ff3e9343f93076275ba2b5a"><div class="ttname"><a href="a04290.html#a647675a28ff3e9343f93076275ba2b5a">bl::rc::lgt::Light2D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec2 &amp;position)</div><div class="ttdoc">Sets the position of the light in world coordinates.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00062">Light2D.cpp:62</a></div></div>
-<div class="ttc" id="aa04290_html_a94a2496b74b6d5255ace2cb00c7220c5"><div class="ttname"><a href="a04290.html#a94a2496b74b6d5255ace2cb00c7220c5">bl::rc::lgt::Light2D::getPosition</a></div><div class="ttdeci">glm::vec2 getPosition() const</div><div class="ttdoc">Returns the position of the light in world coordinates.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00067">Light2D.cpp:67</a></div></div>
-<div class="ttc" id="aa04290_html_acf5dfc9dde077de5325b86afe70840bd"><div class="ttname"><a href="a04290.html#acf5dfc9dde077de5325b86afe70840bd">bl::rc::lgt::Light2D::isValid</a></div><div class="ttdeci">bool isValid() const</div><div class="ttdoc">Returns whether or not this handle references a valid light.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00021">Light2D.cpp:21</a></div></div>
-<div class="ttc" id="aa04290_html_ae82958a6ff0088c1bf85ece6f1711901"><div class="ttname"><a href="a04290.html#ae82958a6ff0088c1bf85ece6f1711901">bl::rc::lgt::Light2D::getColor</a></div><div class="ttdeci">glm::vec3 getColor() const</div><div class="ttdoc">Returns the color of the light.</div><div class="ttdef"><b>Definition</b> <a href="a02165_source.html#l00038">Light2D.cpp:38</a></div></div>
-<div class="ttc" id="aa04294_html"><div class="ttname"><a href="a04294.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a01169_source.html#l00028">Scene2DLighting.hpp:28</a></div></div>
-<div class="ttc" id="aa04294_html_a2f89fe0988c984ee95a05b336a0a17a0"><div class="ttname"><a href="a04294.html#a2f89fe0988c984ee95a05b336a0a17a0">bl::rc::lgt::Scene2DLighting::MaxLightCount</a></div><div class="ttdeci">static constexpr std::uint32_t MaxLightCount</div><div class="ttdef"><b>Definition</b> <a href="a01169_source.html#l00030">Scene2DLighting.hpp:30</a></div></div>
-<div class="ttc" id="aa04294_html_af187eb5826bc7b71f2e938294c0fd8e4"><div class="ttname"><a href="a04294.html#af187eb5826bc7b71f2e938294c0fd8e4">bl::rc::lgt::Scene2DLighting::removeLight</a></div><div class="ttdeci">void removeLight(Light2D light)</div><div class="ttdoc">Removes the given light from the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02168_source.html#l00030">Scene2DLighting.cpp:30</a></div></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">Camera3D.hpp</a></div></div>
+<div class="ttc" id="aa00254_html"><div class="ttname"><a href="a00254.html">Camera2D.hpp</a></div></div>
+<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">RenderTexture.hpp</a></div></div>
+<div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">FinalRenderTextureAsset.hpp</a></div></div>
+<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">RenderPassIds.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2d"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2d">bl::rc::vk::SamplerOptions::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Preset sampler types.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00019">SamplerOptions.hpp:19</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

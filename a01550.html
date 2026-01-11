@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundler.cpp File Reference</title>
+<title>BLIB: include/BLIB/ECS/Entity.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,50 +74,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Bundler.cpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">Entity.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00152_source.html">BLIB/Resources/Bundler.hpp</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="a01562_source.html">Bundling/Utils.hpp</a>&quot;</code><br />
-<code>#include &lt;<a class="el" href="a00266_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00113_source.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00143_source.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00425_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a07972_source.html">BLIB/ECS/Flags.hpp</a>&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;limits&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
 <code>#include &lt;sstream&gt;</code><br />
 </div>
 <p><a href="a01550_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05530.html">bl::resource::bundle::Stats</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03542.html">bl::ecs::Entity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03542.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is simply an id. Components are added via a <a class="el" href="a03590.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> and they own all the relevant properties. Systems can query lists of Entities with certain components and perform logic and updates.  <a href="a03542.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05534.html">bl::resource::bundle::BundleCreator</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03546.html">std::hash&lt; bl::ecs::Entity &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02467" id="r_a02467"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html">bl::resource</a></td></tr>
-<tr class="memdesc:a02467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
+<tr class="memitem:a03009" id="r_a03009"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03009.html">bl::ecs</a></td></tr>
+<tr class="memdesc:a03009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a03542.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02468" id="r_a02468"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02468.html">bl::resource::bundle</a></td></tr>
-<tr class="memdesc:a02468"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04822.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. <br /></td></tr>
+<tr class="memitem:a03011" id="r_a03011"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03011.html">std</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a01655307bcb32baf2884e18213123917" id="r_a01655307bcb32baf2884e18213123917"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a03542.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03009.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a> = <a class="el" href="a03542.html">Entity</a>()</td></tr>
+<tr class="memdesc:a01655307bcb32baf2884e18213123917"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate that an <a class="el" href="a03542.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> is not valid.  <br /></td></tr>
+<tr class="separator:a01655307bcb32baf2884e18213123917"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

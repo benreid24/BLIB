@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::IdAllocator&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::rc::prim::Vertex3D Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,289 +74,485 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02474.html">util</a></li><li class="navelem"><a class="el" href="a05322.html">IdAllocator</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03062.html">prim</a></li><li class="navelem"><a class="el" href="a05322.html">Vertex3D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05319.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::util::IdAllocator&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02394.html">Util</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::prim::Vertex3D Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order.  
+<p><a class="el" href="a05318.html" title="Base Vertex primitive for the renderer.">Vertex</a> type used in 3d pipelines.  
  <a href="a05322.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00464_source.html">IdAllocator.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00866_source.html">Vertex3D.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a84d27d7a1840b55554a33714467e68f9" id="r_a84d27d7a1840b55554a33714467e68f9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a84d27d7a1840b55554a33714467e68f9">IdAllocator</a> (std::size_t totalIdCount)</td></tr>
-<tr class="memdesc:a84d27d7a1840b55554a33714467e68f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Id Allocator. Ids will be in range [0, totalIdCount)  <br /></td></tr>
-<tr class="separator:a84d27d7a1840b55554a33714467e68f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afae55550466c97d1fcc00e5c8c3691d9" id="r_afae55550466c97d1fcc00e5c8c3691d9"><td class="memItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#afae55550466c97d1fcc00e5c8c3691d9">highestId</a> () const</td></tr>
-<tr class="memdesc:afae55550466c97d1fcc00e5c8c3691d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current highest id that has been allocated.  <br /></td></tr>
-<tr class="separator:afae55550466c97d1fcc00e5c8c3691d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a2dece49fd8749c6c12f91c079fff66" id="r_a7a2dece49fd8749c6c12f91c079fff66"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a7a2dece49fd8749c6c12f91c079fff66">isAllocated</a> (T id) const</td></tr>
-<tr class="memdesc:a7a2dece49fd8749c6c12f91c079fff66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given id is allocated.  <br /></td></tr>
-<tr class="separator:a7a2dece49fd8749c6c12f91c079fff66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e4335decc172e313f218e337173021a" id="r_a0e4335decc172e313f218e337173021a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a0e4335decc172e313f218e337173021a">available</a> () const</td></tr>
-<tr class="memdesc:a0e4335decc172e313f218e337173021a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not any ids are available to be allocated. It is undefined behavior to call <a class="el" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9" title="Allocates an id for use. Undefined behavior if available() returns false.">allocate()</a> if this returns false.  <br /></td></tr>
-<tr class="separator:a0e4335decc172e313f218e337173021a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af110687b026e2b4d9bcbf3cd557e2bc9" id="r_af110687b026e2b4d9bcbf3cd557e2bc9"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9">allocate</a> ()</td></tr>
-<tr class="memdesc:af110687b026e2b4d9bcbf3cd557e2bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates an id for use. Undefined behavior if <a class="el" href="a05322.html#a0e4335decc172e313f218e337173021a" title="Returns whether or not any ids are available to be allocated. It is undefined behavior to call alloca...">available()</a> returns false.  <br /></td></tr>
-<tr class="separator:af110687b026e2b4d9bcbf3cd557e2bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacb7d0882aa9261efa1fbfb538f73a59" id="r_aacb7d0882aa9261efa1fbfb538f73a59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#aacb7d0882aa9261efa1fbfb538f73a59">release</a> (T id)</td></tr>
-<tr class="memdesc:aacb7d0882aa9261efa1fbfb538f73a59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given id as being available for use again.  <br /></td></tr>
-<tr class="separator:aacb7d0882aa9261efa1fbfb538f73a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88a336a850d9499e8f1378430558e88c" id="r_a88a336a850d9499e8f1378430558e88c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a88a336a850d9499e8f1378430558e88c">releaseAll</a> ()</td></tr>
-<tr class="memdesc:a88a336a850d9499e8f1378430558e88c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the state of the entire allocator and marks all ids as free.  <br /></td></tr>
-<tr class="separator:a88a336a850d9499e8f1378430558e88c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25944e7625d1729b9c3c94005812090e" id="r_a25944e7625d1729b9c3c94005812090e"><td class="memItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a25944e7625d1729b9c3c94005812090e">totalIds</a> () const</td></tr>
-<tr class="memdesc:a25944e7625d1729b9c3c94005812090e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of ids that can be allocated.  <br /></td></tr>
-<tr class="separator:a25944e7625d1729b9c3c94005812090e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6324dfb87824b6ea055029ab3e3f2ea3" id="r_a6324dfb87824b6ea055029ab3e3f2ea3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a6324dfb87824b6ea055029ab3e3f2ea3">Vertex3D</a> ()</td></tr>
+<tr class="memdesc:a6324dfb87824b6ea055029ab3e3f2ea3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a white vertex at the origin.  <br /></td></tr>
+<tr class="separator:a6324dfb87824b6ea055029ab3e3f2ea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a968b53132b5cc461fd0f7d41e8ed3bfc" id="r_a968b53132b5cc461fd0f7d41e8ed3bfc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a968b53132b5cc461fd0f7d41e8ed3bfc">Vertex3D</a> (const glm::vec3 &amp;<a class="el" href="a05322.html#aa8661d363dd255fbb9d56471275f8dc3">pos</a>, const glm::vec2 &amp;<a class="el" href="a05322.html#aec7dd0a180820e2955e468132cf50a2d">texCoord</a>={})</td></tr>
+<tr class="memdesc:a968b53132b5cc461fd0f7d41e8ed3bfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex with the given position and texture coordinate.  <br /></td></tr>
+<tr class="separator:a968b53132b5cc461fd0f7d41e8ed3bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3cb4306462c474df759c4a72916268a" id="r_ac3cb4306462c474df759c4a72916268a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#ac3cb4306462c474df759c4a72916268a">Vertex3D</a> (const glm::vec3 &amp;<a class="el" href="a05322.html#aa8661d363dd255fbb9d56471275f8dc3">pos</a>, const glm::vec4 &amp;<a class="el" href="a05322.html#a231360f025c5908bf2ca91ae1c38538a">color</a>)</td></tr>
+<tr class="memdesc:ac3cb4306462c474df759c4a72916268a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex with the given position and color.  <br /></td></tr>
+<tr class="separator:ac3cb4306462c474df759c4a72916268a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc69e0bd9af6f38d33c83adeae88ac79" id="r_adc69e0bd9af6f38d33c83adeae88ac79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05322.html">Vertex3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#adc69e0bd9af6f38d33c83adeae88ac79">operator=</a> (const <a class="el" href="a04534.html">mdl::Vertex</a> &amp;vertex)</td></tr>
+<tr class="memdesc:adc69e0bd9af6f38d33c83adeae88ac79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies this vertex from a model vertex.  <br /></td></tr>
+<tr class="separator:adc69e0bd9af6f38d33c83adeae88ac79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af5ae69233fe2d165488ae31c29dac714" id="r_af5ae69233fe2d165488ae31c29dac714"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#af5ae69233fe2d165488ae31c29dac714">computeTBN</a> (<a class="el" href="a05322.html">Vertex3D</a> *vertices, std::size_t nVertices)</td></tr>
+<tr class="memdesc:af5ae69233fe2d165488ae31c29dac714"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes TBN vectors for the group of vertices (assumed to be triangle list)  <br /></td></tr>
+<tr class="separator:af5ae69233fe2d165488ae31c29dac714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab273eb12ed578bd32c5b7261fa2bf1a5" id="r_ab273eb12ed578bd32c5b7261fa2bf1a5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#ab273eb12ed578bd32c5b7261fa2bf1a5">computeTBN</a> (<a class="el" href="a05322.html">Vertex3D</a> *vertices, std::uint32_t *indices, std::size_t nIndices)</td></tr>
+<tr class="memdesc:ab273eb12ed578bd32c5b7261fa2bf1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes TBN vectors for the group of vertices as an index buffer.  <br /></td></tr>
+<tr class="separator:ab273eb12ed578bd32c5b7261fa2bf1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c15f145930494a301bceb6197e197ed" id="r_a5c15f145930494a301bceb6197e197ed"><td class="memItemLeft" align="right" valign="top">static VkVertexInputBindingDescription&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a5c15f145930494a301bceb6197e197ed">bindingDescription</a> ()</td></tr>
+<tr class="memdesc:a5c15f145930494a301bceb6197e197ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertex binding description for the renderer.  <br /></td></tr>
+<tr class="separator:a5c15f145930494a301bceb6197e197ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f440423ebeff5d5d017b833f5ba024a" id="r_a1f440423ebeff5d5d017b833f5ba024a"><td class="memItemLeft" align="right" valign="top">static std::array&lt; VkVertexInputAttributeDescription, 5 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a1f440423ebeff5d5d017b833f5ba024a">attributeDescriptions</a> ()</td></tr>
+<tr class="memdesc:a1f440423ebeff5d5d017b833f5ba024a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the attribute descriptions for each vertex attribute.  <br /></td></tr>
+<tr class="separator:a1f440423ebeff5d5d017b833f5ba024a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a907dbbc6ec9de01bb3f0ab1a1fcf876e" id="r_a907dbbc6ec9de01bb3f0ab1a1fcf876e"><td class="memItemLeft" align="right" valign="top">static std::array&lt; VkVertexInputAttributeDescription, 1 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a907dbbc6ec9de01bb3f0ab1a1fcf876e">attributeDescriptionsPositionsOnly</a> ()</td></tr>
+<tr class="memdesc:a907dbbc6ec9de01bb3f0ab1a1fcf876e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the attribute descriptions for only the positions.  <br /></td></tr>
+<tr class="separator:a907dbbc6ec9de01bb3f0ab1a1fcf876e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa8661d363dd255fbb9d56471275f8dc3" id="r_aa8661d363dd255fbb9d56471275f8dc3"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#aa8661d363dd255fbb9d56471275f8dc3">pos</a></td></tr>
+<tr class="separator:aa8661d363dd255fbb9d56471275f8dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a231360f025c5908bf2ca91ae1c38538a" id="r_a231360f025c5908bf2ca91ae1c38538a"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a231360f025c5908bf2ca91ae1c38538a">color</a></td></tr>
+<tr class="separator:a231360f025c5908bf2ca91ae1c38538a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec7dd0a180820e2955e468132cf50a2d" id="r_aec7dd0a180820e2955e468132cf50a2d"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#aec7dd0a180820e2955e468132cf50a2d">texCoord</a></td></tr>
+<tr class="separator:aec7dd0a180820e2955e468132cf50a2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ec0289d716412787809c0192d7f1c82" id="r_a4ec0289d716412787809c0192d7f1c82"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a4ec0289d716412787809c0192d7f1c82">tangent</a></td></tr>
+<tr class="separator:a4ec0289d716412787809c0192d7f1c82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ec68ccaa99e107de28eaad990717afc" id="r_a5ec68ccaa99e107de28eaad990717afc"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html#a5ec68ccaa99e107de28eaad990717afc">normal</a></td></tr>
+<tr class="separator:a5ec68ccaa99e107de28eaad990717afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class bl::util::IdAllocator&lt; T &gt;</div><p>Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks the current highest id to allow for tighter iteration over the id range. Ids are allocated in linear order. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The integral type to use for ids </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p><a class="el" href="a05318.html" title="Base Vertex primitive for the renderer.">Vertex</a> type used in 3d pipelines. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00020">20</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00020">20</a> of file <a class="el" href="a00866_source.html">Vertex3D.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a84d27d7a1840b55554a33714467e68f9" name="a84d27d7a1840b55554a33714467e68f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84d27d7a1840b55554a33714467e68f9">&#9670;&#160;</a></span>IdAllocator()</h2>
+<a id="a6324dfb87824b6ea055029ab3e3f2ea3" name="a6324dfb87824b6ea055029ab3e3f2ea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6324dfb87824b6ea055029ab3e3f2ea3">&#9670;&#160;</a></span>Vertex3D() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::IdAllocator </td>
+          <td class="memname">bl::rc::prim::Vertex3D::Vertex3D </td>
           <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>totalIdCount</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Id Allocator. Ids will be in range [0, totalIdCount) </p>
+<p>Creates a white vertex at the origin. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00038">38</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a968b53132b5cc461fd0f7d41e8ed3bfc" name="a968b53132b5cc461fd0f7d41e8ed3bfc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a968b53132b5cc461fd0f7d41e8ed3bfc">&#9670;&#160;</a></span>Vertex3D() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::Vertex3D::Vertex3D </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>texCoord</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vertex with the given position and texture coordinate. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">totalIdCount</td><td>The total number of ids </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the vertex </td></tr>
+    <tr><td class="paramname">texCoord</td><td>The texture coordinate of the vertex </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00088">88</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00045">45</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac3cb4306462c474df759c4a72916268a" name="ac3cb4306462c474df759c4a72916268a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3cb4306462c474df759c4a72916268a">&#9670;&#160;</a></span>Vertex3D() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::Vertex3D::Vertex3D </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vertex with the given position and color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position of the vertex </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the vertex </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00052">52</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af110687b026e2b4d9bcbf3cd557e2bc9" name="af110687b026e2b4d9bcbf3cd557e2bc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af110687b026e2b4d9bcbf3cd557e2bc9">&#9670;&#160;</a></span>allocate()</h2>
+<a id="a1f440423ebeff5d5d017b833f5ba024a" name="a1f440423ebeff5d5d017b833f5ba024a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f440423ebeff5d5d017b833f5ba024a">&#9670;&#160;</a></span>attributeDescriptions()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::allocate </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates an id for use. Undefined behavior if <a class="el" href="a05322.html#a0e4335decc172e313f218e337173021a" title="Returns whether or not any ids are available to be allocated. It is undefined behavior to call alloca...">available()</a> returns false. </p>
-<dl class="section return"><dt>Returns</dt><dd>T The newly allocated id </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00110">110</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0e4335decc172e313f218e337173021a" name="a0e4335decc172e313f218e337173021a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e4335decc172e313f218e337173021a">&#9670;&#160;</a></span>available()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::available </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not any ids are available to be allocated. It is undefined behavior to call <a class="el" href="a05322.html#af110687b026e2b4d9bcbf3cd557e2bc9" title="Allocates an id for use. Undefined behavior if available() returns false.">allocate()</a> if this returns false. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if at least one id can be allocated, false if all ids are in use </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00105">105</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afae55550466c97d1fcc00e5c8c3691d9" name="afae55550466c97d1fcc00e5c8c3691d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae55550466c97d1fcc00e5c8c3691d9">&#9670;&#160;</a></span>highestId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr T <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::highestId </td>
+          <td class="memname">std::array&lt; VkVertexInputAttributeDescription, 5 &gt; bl::rc::prim::Vertex3D::attributeDescriptions </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the current highest id that has been allocated. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr T The highest id currently in use </dd></dl>
+<p>Returns the attribute descriptions for each vertex attribute. </p>
+<dl class="section return"><dt>Returns</dt><dd>Descriptions for each attribute </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00095">95</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00092">92</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7a2dece49fd8749c6c12f91c079fff66" name="a7a2dece49fd8749c6c12f91c079fff66"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a2dece49fd8749c6c12f91c079fff66">&#9670;&#160;</a></span>isAllocated()</h2>
+<a id="a907dbbc6ec9de01bb3f0ab1a1fcf876e" name="a907dbbc6ec9de01bb3f0ab1a1fcf876e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a907dbbc6ec9de01bb3f0ab1a1fcf876e">&#9670;&#160;</a></span>attributeDescriptionsPositionsOnly()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::isAllocated </td>
+          <td class="memname">std::array&lt; VkVertexInputAttributeDescription, 1 &gt; bl::rc::prim::Vertex3D::attributeDescriptionsPositionsOnly </td>
           <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given id is allocated. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the id is in use, false if it is free </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00100">100</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aacb7d0882aa9261efa1fbfb538f73a59" name="aacb7d0882aa9261efa1fbfb538f73a59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacb7d0882aa9261efa1fbfb538f73a59">&#9670;&#160;</a></span>release()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::release </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Marks the given id as being available for use again. </p>
+<p>Returns the attribute descriptions for only the positions. </p>
+<dl class="section return"><dt>Returns</dt><dd>Descriptions for only the positions </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00135">135</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5c15f145930494a301bceb6197e197ed" name="a5c15f145930494a301bceb6197e197ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c15f145930494a301bceb6197e197ed">&#9670;&#160;</a></span>bindingDescription()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkVertexInputBindingDescription bl::rc::prim::Vertex3D::bindingDescription </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the vertex binding description for the renderer. </p>
+<dl class="section return"><dt>Returns</dt><dd>VkVertexInputBindingDescription The vertex binding description </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00084">84</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af5ae69233fe2d165488ae31c29dac714" name="af5ae69233fe2d165488ae31c29dac714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5ae69233fe2d165488ae31c29dac714">&#9670;&#160;</a></span>computeTBN() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::prim::Vertex3D::computeTBN </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05322.html">Vertex3D</a> *&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>nVertices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes TBN vectors for the group of vertices (assumed to be triangle list) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>The id to mark as free </td></tr>
+    <tr><td class="paramname">vertices</td><td>Pointer to the first vertex </td></tr>
+    <tr><td class="paramname">nVertices</td><td>The number of vertices to process </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00124">124</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00059">59</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a88a336a850d9499e8f1378430558e88c" name="a88a336a850d9499e8f1378430558e88c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88a336a850d9499e8f1378430558e88c">&#9670;&#160;</a></span>releaseAll()</h2>
+<a id="ab273eb12ed578bd32c5b7261fa2bf1a5" name="ab273eb12ed578bd32c5b7261fa2bf1a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab273eb12ed578bd32c5b7261fa2bf1a5">&#9670;&#160;</a></span>computeTBN() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::releaseAll </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears the state of the entire allocator and marks all ids as free. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00131">131</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a25944e7625d1729b9c3c94005812090e" name="a25944e7625d1729b9c3c94005812090e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25944e7625d1729b9c3c94005812090e">&#9670;&#160;</a></span>totalIds()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::size_t <a class="el" href="a05322.html">bl::util::IdAllocator</a>&lt; T &gt;::totalIds </td>
+          <td class="memname">void bl::rc::prim::Vertex3D::computeTBN </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a05322.html">Vertex3D</a> *&#160;</td>
+          <td class="paramname"><em>vertices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t *&#160;</td>
+          <td class="paramname"><em>indices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>nIndices</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the total number of ids that can be allocated. </p>
+<p>Computes TBN vectors for the group of vertices as an index buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vertices</td><td>Pointer to the first vertex </td></tr>
+    <tr><td class="paramname">indices</td><td>Pointer to the first index </td></tr>
+    <tr><td class="paramname">nIndices</td><td>The number of indices to process </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00140">140</a> of file <a class="el" href="a00464_source.html">IdAllocator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00067">67</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a00464_source.html">IdAllocator.hpp</a></li>
+<a id="adc69e0bd9af6f38d33c83adeae88ac79" name="adc69e0bd9af6f38d33c83adeae88ac79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc69e0bd9af6f38d33c83adeae88ac79">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05322.html">Vertex3D</a> &amp; bl::rc::prim::Vertex3D::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04534.html">mdl::Vertex</a> &amp;&#160;</td>
+          <td class="paramname"><em>vertex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies this vertex from a model vertex. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vertex</td><td>The model vertex to update from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this vertex </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00075">75</a> of file <a class="el" href="a02318_source.html">Vertex3D.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a231360f025c5908bf2ca91ae1c38538a" name="a231360f025c5908bf2ca91ae1c38538a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a231360f025c5908bf2ca91ae1c38538a">&#9670;&#160;</a></span>color</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 bl::rc::prim::Vertex3D::color</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00022">22</a> of file <a class="el" href="a00866_source.html">Vertex3D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ec68ccaa99e107de28eaad990717afc" name="a5ec68ccaa99e107de28eaad990717afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ec68ccaa99e107de28eaad990717afc">&#9670;&#160;</a></span>normal</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec3 bl::rc::prim::Vertex3D::normal</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00025">25</a> of file <a class="el" href="a00866_source.html">Vertex3D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8661d363dd255fbb9d56471275f8dc3" name="aa8661d363dd255fbb9d56471275f8dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8661d363dd255fbb9d56471275f8dc3">&#9670;&#160;</a></span>pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec3 bl::rc::prim::Vertex3D::pos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00021">21</a> of file <a class="el" href="a00866_source.html">Vertex3D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4ec0289d716412787809c0192d7f1c82" name="a4ec0289d716412787809c0192d7f1c82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ec0289d716412787809c0192d7f1c82">&#9670;&#160;</a></span>tangent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec3 bl::rc::prim::Vertex3D::tangent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00024">24</a> of file <a class="el" href="a00866_source.html">Vertex3D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aec7dd0a180820e2955e468132cf50a2d" name="aec7dd0a180820e2955e468132cf50a2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec7dd0a180820e2955e468132cf50a2d">&#9670;&#160;</a></span>texCoord</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 bl::rc::prim::Vertex3D::texCoord</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00023">23</a> of file <a class="el" href="a00866_source.html">Vertex3D.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Render/Primitives/<a class="el" href="a00866_source.html">Vertex3D.hpp</a></li>
+<li>src/Render/Primitives/<a class="el" href="a02318_source.html">Vertex3D.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

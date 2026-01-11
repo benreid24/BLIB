@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Serializer&lt; U[N], false &gt; Struct Template Reference</title>
+<title>BLIB: bl::rc::rg::Strategy Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,301 +74,222 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02453.html">json</a></li><li class="navelem"><a class="el" href="a05094.html">Serializer&lt; U[N], false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03059.html">rg</a></li><li class="navelem"><a class="el" href="a05094.html">Strategy</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a05091.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::json::Serializer&lt; U[N], false &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::Strategy Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a06889_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created.  
+ <a href="a05094.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00572_source.html">Strategy.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rg::Strategy:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a05094.png" usemap="#bl::rc::rg::Strategy_map" alt=""/>
+  <map id="bl::rc::rg::Strategy_map" name="bl::rc::rg::Strategy_map">
+<area href="a05078.html" title="Render strategy for Overlay scenes. Simply adds the RenderOverlayTask." alt="bl::rc::rgi::OverlayRenderStrategy" shape="rect" coords="0,56,258,80"/>
+<area href="a05082.html" title="Render strategy for 2d scenes." alt="bl::rc::rgi::Scene2DRenderStrategy" shape="rect" coords="268,56,526,80"/>
+<area href="a05086.html" title="Deferred render strategy for 3d scenes." alt="bl::rc::rgi::Scene3DDeferredRenderStrategy" shape="rect" coords="536,56,794,80"/>
+<area href="a05090.html" title="Forward render strategy for 3d scenes." alt="bl::rc::rgi::Scene3DForwardRenderStrategy" shape="rect" coords="804,56,1062,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae84f15398c84e6b719e690783a282425" id="r_ae84f15398c84e6b719e690783a282425"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#ae84f15398c84e6b719e690783a282425">deserialize</a> (U *result, const <a class="el" href="a05058.html">Value</a> &amp;v)</td></tr>
-<tr class="separator:ae84f15398c84e6b719e690783a282425"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8ba29f25b504c6f2c63b46d05a27791f" id="r_a8ba29f25b504c6f2c63b46d05a27791f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a8ba29f25b504c6f2c63b46d05a27791f">deserializeFrom</a> (const <a class="el" href="a05058.html">Value</a> &amp;val, const std::string &amp;name, U *result)</td></tr>
-<tr class="separator:a8ba29f25b504c6f2c63b46d05a27791f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1a1463d0cfed6490da84b2022c03e94" id="r_aa1a1463d0cfed6490da84b2022c03e94"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a05058.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#aa1a1463d0cfed6490da84b2022c03e94">serialize</a> (const U *val)</td></tr>
-<tr class="separator:aa1a1463d0cfed6490da84b2022c03e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f81480e33cd6b1dcde9c6eab08b3ac2" id="r_a4f81480e33cd6b1dcde9c6eab08b3ac2"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a4f81480e33cd6b1dcde9c6eab08b3ac2">serializeInto</a> (<a class="el" href="a05054.html">Group</a> &amp;result, const std::string &amp;name, const U *val)</td></tr>
-<tr class="separator:a4f81480e33cd6b1dcde9c6eab08b3ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3082d715511d1ccc019fc2eb98fddf73" id="r_a3082d715511d1ccc019fc2eb98fddf73"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a3082d715511d1ccc019fc2eb98fddf73">deserializeStream</a> (std::istream &amp;stream, U *result)</td></tr>
-<tr class="separator:a3082d715511d1ccc019fc2eb98fddf73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab47d122c849abd5282c06f99b325ee5d" id="r_ab47d122c849abd5282c06f99b325ee5d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#ab47d122c849abd5282c06f99b325ee5d">serializeStream</a> (std::ostream &amp;stream, const U *value, unsigned int tabSize, unsigned int currentIndent)</td></tr>
-<tr class="separator:ab47d122c849abd5282c06f99b325ee5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a52d8932e923fc4ceac54ded8232d3e0a" id="r_a52d8932e923fc4ceac54ded8232d3e0a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a> ()=default</td></tr>
+<tr class="memdesc:a52d8932e923fc4ceac54ded8232d3e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the strategy.  <br /></td></tr>
+<tr class="separator:a52d8932e923fc4ceac54ded8232d3e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55bc09629c3a1a0b3e4026cd3044b36" id="r_ae55bc09629c3a1a0b3e4026cd3044b36"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a> (<a class="el" href="a05074.html">RenderGraph</a> &amp;graph)=0</td></tr>
+<tr class="memdesc:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the given graph with tasks.  <br /></td></tr>
+<tr class="separator:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a579a52d9d6363a354c6e4a82938620b7" id="r_a579a52d9d6363a354c6e4a82938620b7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a579a52d9d6363a354c6e4a82938620b7">getVersion</a> () const</td></tr>
+<tr class="memdesc:a579a52d9d6363a354c6e4a82938620b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version of the strategy. This is used to rebuild graphs on settings change.  <br /></td></tr>
+<tr class="separator:a579a52d9d6363a354c6e4a82938620b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a0287f9790da42916bced7e9a22983633" id="r_a0287f9790da42916bced7e9a22983633"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a0287f9790da42916bced7e9a22983633">Strategy</a> ()</td></tr>
+<tr class="memdesc:a0287f9790da42916bced7e9a22983633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the strategy.  <br /></td></tr>
+<tr class="separator:a0287f9790da42916bced7e9a22983633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bcc11e0775e3e075568142ecaa1f60d" id="r_a0bcc11e0775e3e075568142ecaa1f60d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">invalidateGraphs</a> ()</td></tr>
+<tr class="memdesc:a0bcc11e0775e3e075568142ecaa1f60d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Causes all created graphs to be rebuilt lazily.  <br /></td></tr>
+<tr class="separator:a0bcc11e0775e3e075568142ecaa1f60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename U, std::size_t N&gt;<br />
-struct bl::serial::json::Serializer&lt; U[N], false &gt;</div>
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00339">339</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae84f15398c84e6b719e690783a282425" name="ae84f15398c84e6b719e690783a282425"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae84f15398c84e6b719e690783a282425">&#9670;&#160;</a></span>deserialize()</h2>
+<div class="textblock"><p>Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00018">18</a> of file <a class="el" href="a00572_source.html">Strategy.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a52d8932e923fc4ceac54ded8232d3e0a" name="a52d8932e923fc4ceac54ded8232d3e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d8932e923fc4ceac54ded8232d3e0a">&#9670;&#160;</a></span>~Strategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; U[N], false &gt;::deserialize </td>
+          <td class="memname">virtual bl::rc::rg::Strategy::~Strategy </td>
           <td>(</td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a05058.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00340">340</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Destroys the strategy. </p>
 
 </div>
 </div>
-<a id="a8ba29f25b504c6f2c63b46d05a27791f" name="a8ba29f25b504c6f2c63b46d05a27791f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ba29f25b504c6f2c63b46d05a27791f">&#9670;&#160;</a></span>deserializeFrom()</h2>
+<a id="a0287f9790da42916bced7e9a22983633" name="a0287f9790da42916bced7e9a22983633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0287f9790da42916bced7e9a22983633">&#9670;&#160;</a></span>Strategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; U[N], false &gt;::deserializeFrom </td>
+          <td class="memname">bl::rc::rg::Strategy::Strategy </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05058.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00350">350</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Creates the strategy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00041">41</a> of file <a class="el" href="a00572_source.html">Strategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3082d715511d1ccc019fc2eb98fddf73" name="a3082d715511d1ccc019fc2eb98fddf73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3082d715511d1ccc019fc2eb98fddf73">&#9670;&#160;</a></span>deserializeStream()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a579a52d9d6363a354c6e4a82938620b7" name="a579a52d9d6363a354c6e4a82938620b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a579a52d9d6363a354c6e4a82938620b7">&#9670;&#160;</a></span>getVersion()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; U[N], false &gt;::deserializeStream </td>
+          <td class="memname">unsigned int bl::rc::rg::Strategy::getVersion </td>
           <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">U *&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00367">367</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Returns the version of the strategy. This is used to rebuild graphs on settings change. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00035">35</a> of file <a class="el" href="a00572_source.html">Strategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa1a1463d0cfed6490da84b2022c03e94" name="aa1a1463d0cfed6490da84b2022c03e94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1a1463d0cfed6490da84b2022c03e94">&#9670;&#160;</a></span>serialize()</h2>
+<a id="a0bcc11e0775e3e075568142ecaa1f60d" name="a0bcc11e0775e3e075568142ecaa1f60d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bcc11e0775e3e075568142ecaa1f60d">&#9670;&#160;</a></span>invalidateGraphs()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="a05058.html">Value</a> <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; U[N], false &gt;::serialize </td>
+          <td class="memname">void bl::rc::rg::Strategy::invalidateGraphs </td>
           <td>(</td>
-          <td class="paramtype">const U *&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00354">354</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Causes all created graphs to be rebuilt lazily. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00572_source.html#l00047">47</a> of file <a class="el" href="a00572_source.html">Strategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4f81480e33cd6b1dcde9c6eab08b3ac2" name="a4f81480e33cd6b1dcde9c6eab08b3ac2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f81480e33cd6b1dcde9c6eab08b3ac2">&#9670;&#160;</a></span>serializeInto()</h2>
+<a id="ae55bc09629c3a1a0b3e4026cd3044b36" name="ae55bc09629c3a1a0b3e4026cd3044b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55bc09629c3a1a0b3e4026cd3044b36">&#9670;&#160;</a></span>populate()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; U[N], false &gt;::serializeInto </td>
+          <td class="memname">virtual void bl::rc::rg::Strategy::populate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a05054.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a05074.html">RenderGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const U *&#160;</td>
-          <td class="paramname"><em>val</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00363">363</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Populates the given graph with tasks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a05078.html#a89612278c84cbdd2e8f14bc40c4c269b">bl::rc::rgi::OverlayRenderStrategy</a>, <a class="el" href="a05082.html#a852b7d1f374008880db230fb9997762b">bl::rc::rgi::Scene2DRenderStrategy</a>, <a class="el" href="a05086.html#a52b84dc9157164210d330cfcbd031a0f">bl::rc::rgi::Scene3DDeferredRenderStrategy</a>, and <a class="el" href="a05090.html#a6c9293e1b04c0b3a6ce4b28c041b0e53">bl::rc::rgi::Scene3DForwardRenderStrategy</a>.</p>
 
 </div>
 </div>
-<a id="ab47d122c849abd5282c06f99b325ee5d" name="ab47d122c849abd5282c06f99b325ee5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab47d122c849abd5282c06f99b325ee5d">&#9670;&#160;</a></span>serializeStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , std::size_t N&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; U[N], false &gt;::serializeStream </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const U *&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>tabSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>currentIndent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00391">391</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a06889_source.html">Serializer.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00572_source.html">Strategy.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::scene Namespace Reference</title>
+<title>BLIB: src/Interfaces/GUI/Renderer/Basic/ImageComponent.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,62 +74,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02456.html">scene</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_59ef65236e7fdeb00a9af0ac4004e497.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_0346e656cb71435e5a3eb7e0bc8d1aec.html">Basic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::scene Namespace Reference</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">ImageComponent.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of core rendering functionality for rendering scenes.  
-<a href="a02456.html#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a01133_source.html">BLIB/Interfaces/GUI/Renderer/Basic/ImageComponent.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a07963_source.html">BLIB/Engine/Engine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a08572_source.html">BLIB/Interfaces/GUI/Elements/Image.hpp</a>&gt;</code><br />
+</div>
+<p><a href="a02456_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04406.html">BatchedScene</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary scene class for the renderer. Provides batched rendering of objects by pipeline. Renders transparent objects after rendering all opaque objects.  <a href="a04406.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04422.html">CodeScene</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A special type of scene that performs rendering by deferring to a user-provided callback that then issues draw commands manually. Useful for complex rendering logic that is hard to represent with the provided scene types.  <a href="a04422.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a03029" id="r_a03029"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03029.html">bl::gui</a></td></tr>
+<tr class="memdesc:a03029"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04430.html">CodeSceneObject</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special scene object for code driven scenes.  <a href="a04430.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04434.html">Key</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04434.html" title="Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...">Key</a> for objects in scenes. Contains update speed and scene id. <a class="el" href="a04446.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a> ids are not unique across update speeds.  <a href="a04434.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04458.html">Scene2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2d scene implementation  <a href="a04458.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04462.html">Scene3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">3d scene implementation  <a href="a04462.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04466.html">SceneObject</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base renderable object. Everything that is rendered will reference an instance of this. Exists within the renderer and is batched per pipeline. Other classes reference into the renderer to modify this. The renderer itself will rip through these to render everything.  <a href="a04466.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html">SceneObjectECSAdaptor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="a04478.html" title="Storage for scene objects. Splits objects by update frequency.">SceneObjectStorage</a>, but uses the ECS as underlying storage.  <a href="a04470.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04478.html">SceneObjectStorage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Storage for scene objects. Splits objects by update frequency.  <a href="a04478.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html">SceneRenderContext</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container class that holds the required parameters to render a scene and provides methods for descriptor set management and object rendering.  <a href="a04490.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04494.html">SceneSync</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An instance of this object will be owned by the <a class="el" href="a04346.html" title="Top level rendering system of the game engine.">Renderer</a> to synchronize entities in the ECS to the scenes that they are added to and removed from via the Rendered component.  <a href="a04494.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a03031" id="r_a03031"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03031.html">bl::gui::defcoms</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of core rendering functionality for rendering scenes. </p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

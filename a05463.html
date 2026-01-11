@@ -74,30 +74,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02474.html">util</a></li><li class="navelem"><a class="el" href="a05466.html">Waiter</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03048.html">scene</a></li><li class="navelem"><a class="el" href="a05466.html">Scene3D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::util::Waiter Member List</div></div>
+  <div class="headertitle"><div class="title">bl::rc::scene::Scene3D Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05466.html">bl::util::Waiter</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a05466.html">bl::rc::scene::Scene3D</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05466.html#a0229d0595985f66dcbd9e5066a62cc49">allUnblocked</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a0d85b2b63b9a8826b37e14799b6b3f1b">reset</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05466.html#ad318a99de375b3c8fce4f10d611f0841">unblock</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a8e35bb3db177d9587407b6baefcbaf1d">unblockAll</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05466.html#adb601206dd155032d5634c2504b3b6c3">wait</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a757ce0749ea3754a0289c9344ccc8fad">Waiter</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05466.html#ab18842baad424ae363690f3f018836a3">waitFor</a>(const std::chrono::duration&lt; Rep, Period &gt; &amp;timeout)</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a1452bb16386e9f68434e415b4645b3f3">wasUnblocked</a>() const</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05466.html#ad4fd3e5e6d40d4e8165d9320ca038a3e">~Waiter</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::util::Waiter</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05402.html#a819ebc7b0a5303a5e82ecb6cf2971f08">BatchedScene</a>(engine::Engine &amp;engine)</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a0dcf3ebaa6fac1ff72e2264fd57ab435">createDefaultCamera</a>() override</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05402.html#a7ab2a0593229f89693aa2aa2ac77edc9">doAdd</a>(ecs::Entity entity, rcom::DrawableBase &amp;object, UpdateSpeed updateFreq) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05402.html#abc2e86fc3dbda8f5d2716678799dfc0a">doBatchChange</a>(const BatchChange &amp;change, mat::MaterialPipeline *ogPipeline) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05402.html#a7b5b4b80d093bc5252e57ad0ac18f4e1">doObjectRemoval</a>(scene::SceneObject *object, mat::MaterialPipeline *pipeline) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05402.html#ad443187fad2bda8858bf132206fef60d">doRegisterObserver</a>(RenderTarget *target, std::uint32_t observerIndex) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05402.html#a8763ec1ea17b30f4910b851283a7fe12">doUnregisterObserver</a>(RenderTarget *target, std::uint32_t observerIndex) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a7b6d28acb8e50fa987d6a599733bfad0">getLighting</a>()</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05466.html#a9fa1b3d832b585fbd4eca4cc16ae8af5">getRenderStrategy</a>() override</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05450.html#a932c385a9609602478f89b55ffaa4cd0">getShaderResources</a>()</td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05450.html#a702822030d73f65170e1ad4edfe7bc73">objectMutex</a></td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a7f1aefe3e600885667b770e7cd8e097e">onShaderResourceSync</a>() override</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05450.html#a7cabe63dc61bbfac6666f33ae5041baf">removeObject</a>(scene::SceneObject *object)</td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05450.html#aa1271be3423fb2fa15441b6bb85edbb7">renderer</a></td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05402.html#a33ca6d35c26cd1bdc7820dddfcb68c64">renderOpaqueObjects</a>(scene::SceneRenderContext &amp;context) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05450.html#a117b10cb3ae12c00c74aa0e554d6fc5b">renderScene</a>(scene::SceneRenderContext &amp;context)</td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05402.html#a72b1815fc0d1673302f12ccbcf19dbf5">renderTransparentObjects</a>(scene::SceneRenderContext &amp;context) override</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05450.html#ab0db73520eac6b5d05f1ae4405feb4ad">Scene</a>(engine::Engine &amp;engine)</td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05466.html#ab1b8fcf847d7cbe9493b0ecfbebedad4">Scene3D</a>(engine::Engine &amp;engine)</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#ad3722c0cc57b7d59306f68fcdddfe15d">setDefaultNearAndFarPlanes</a>(cam::Camera &amp;camera) const override</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05450.html#a258481be49eb10d5026ae6ec325c62d3">shaderInputStore</a></td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05450.html#a41c35634a8c5a7c449b5f4ecc68768b6">targetTable</a></td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05466.html#a8a3fed157601f1fa173f0ef0343d168f">useRenderStrategy</a>(rg::Strategy *strategy)</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05402.html#a9f99ccac44ac7c2407e8e789828c0446">~BatchedScene</a>()</td><td class="entry"><a class="el" href="a05402.html">bl::rc::scene::BatchedScene</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a05450.html#add8355bcc5509c7934796e77c65192d7">~Scene</a>()=default</td><td class="entry"><a class="el" href="a05450.html">bl::rc::Scene</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a05466.html#a41b7ad7a30c23ed83cb1cb55b55bf1a5">~Scene3D</a>()=default</td><td class="entry"><a class="el" href="a05466.html">bl::rc::scene::Scene3D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

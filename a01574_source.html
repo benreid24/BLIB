@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/AnimationHandler.cpp Source File</title>
+<title>BLIB: include/BLIB/ECS/TransactionImpl.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,58 +79,68 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">AnimationHandler.cpp</div></div>
+  <div class="headertitle"><div class="title">TransactionImpl.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00965.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;<a class="code" href="a00125.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
+<a href="a01574.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ECS_TRANSACTIONIMPL_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ECS_TRANSACTIONIMPL_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>resource</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>bundle</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a04742.html#adf22a2d2b974daba7cf8ec92a0bdcf89">   10</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04742.html#adf22a2d2b974daba7cf8ec92a0bdcf89">AnimationHandler::processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>                                   <a class="code hl_class" href="a04738.html">FileHandlerContext</a>&amp; <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_class" href="a03226.html">gfx::a2d::AnimationData</a> anim;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">if</span> (!anim.<a class="code hl_function" href="a03226.html#a649a534c5017ee0df847c56712b43ff4">loadFromFileForBundling</a>(path)) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (!anim.<a class="code hl_function" href="a03226.html#a7aef7ec2981c8f70da4ad9dd2686c836">saveToBundle</a>(output)) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to save animation: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.addDependencyFile(anim.<a class="code hl_function" href="a03226.html#a607d12f4ec60fe3da673878856f380ff">spritesheetFile</a>());</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef BLIB_ECS_REGISTRY_HPP</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#error &quot;Internal file included out of order&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01577.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>txp</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03654.html#ac5558cc57b191558be1b109d9963f0a3">   16</a></span><span class="keyword">inline</span> <a class="code hl_function" href="a03654.html#ab889047d4deb21861e71926ab52befd4">TransactionEntityWrite::TransactionEntityWrite</a>(<a class="code hl_class" href="a03590.html">Registry</a>&amp; r)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: lock(r.entityLock) {}</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bundle</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace resource</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00125_html"><div class="ttname"><a href="a00125.html">AnimationHandler.hpp</a></div></div>
-<div class="ttc" id="aa00230_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00965_html"><div class="ttname"><a href="a00965.html">AnimationData.hpp</a></div></div>
-<div class="ttc" id="aa01673_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03226_html"><div class="ttname"><a href="a03226.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition</b> <a href="a00965_source.html#l00022">AnimationData.hpp:22</a></div></div>
-<div class="ttc" id="aa03226_html_a607d12f4ec60fe3da673878856f380ff"><div class="ttname"><a href="a03226.html#a607d12f4ec60fe3da673878856f380ff">bl::gfx::a2d::AnimationData::spritesheetFile</a></div><div class="ttdeci">const std::string &amp; spritesheetFile() const</div><div class="ttdoc">Returns the filename of the spritesheet.</div><div class="ttdef"><b>Definition</b> <a href="a02069_source.html#l00230">AnimationData.cpp:230</a></div></div>
-<div class="ttc" id="aa03226_html_a649a534c5017ee0df847c56712b43ff4"><div class="ttname"><a href="a03226.html#a649a534c5017ee0df847c56712b43ff4">bl::gfx::a2d::AnimationData::loadFromFileForBundling</a></div><div class="ttdeci">bool loadFromFileForBundling(const std::string &amp;filename)</div><div class="ttdoc">Same as loadFromFile, but rewrites the spritesheet source to be the full path to the spritesheet so t...</div><div class="ttdef"><b>Definition</b> <a href="a02069_source.html#l00079">AnimationData.cpp:79</a></div></div>
-<div class="ttc" id="aa03226_html_a7aef7ec2981c8f70da4ad9dd2686c836"><div class="ttname"><a href="a03226.html#a7aef7ec2981c8f70da4ad9dd2686c836">bl::gfx::a2d::AnimationData::saveToBundle</a></div><div class="ttdeci">bool saveToBundle(std::ostream &amp;output) const</div><div class="ttdoc">Saves the animation data to the bundle.</div><div class="ttdef"><b>Definition</b> <a href="a02069_source.html#l00084">AnimationData.cpp:84</a></div></div>
-<div class="ttc" id="aa04738_html"><div class="ttname"><a href="a04738.html">bl::resource::bundle::FileHandlerContext</a></div><div class="ttdoc">Context data that is provided to FileHandler objects when processing files.</div><div class="ttdef"><b>Definition</b> <a href="a00119_source.html#l00023">FileHandlerContext.hpp:23</a></div></div>
-<div class="ttc" id="aa04742_html_adf22a2d2b974daba7cf8ec92a0bdcf89"><div class="ttname"><a href="a04742.html#adf22a2d2b974daba7cf8ec92a0bdcf89">bl::resource::bundle::AnimationHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, FileHandlerContext &amp;context) override</div><div class="ttdoc">Process the given file and add its data to the bundle.</div><div class="ttdef"><b>Definition</b> <a href="a01574_source.html#l00010">AnimationHandler.cpp:10</a></div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03650.html#ad0e82151d0b078bd7b603b95ce8d090e">   19</a></span><span class="keyword">inline</span> <a class="code hl_function" href="a03650.html#a97f9c1cf5e7f28bb3d5b4cad01281a1c">TransactionEntityRead::TransactionEntityRead</a>(<a class="code hl_class" href="a03590.html">Registry</a>&amp; r)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>: lock(r.entityLock) {}</div>
+</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03674.html#aa53b4848e8aa90f3675dbb5ac070f7da">   23</a></span><a class="code hl_function" href="a03674.html#accba2f76b789c05da3c1cabdfb23c9a6">TransactionComponentRead&lt;T&gt;::TransactionComponentRead</a>(<a class="code hl_class" href="a03590.html">Registry</a>&amp; registry)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>: lock(registry.getPool&lt;T&gt;().poolLock) {}</div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a03642.html#a7e5017a306e7c013c0f142ab23fc9540">   27</a></span><a class="code hl_function" href="a03642.html#af9976349754ab9e9514436ed8641e2bf">TransactionComponentWrite&lt;T&gt;::TransactionComponentWrite</a>(<a class="code hl_class" href="a03590.html">Registry</a>&amp; registry)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>: lock(registry.getPool&lt;T&gt;().poolLock) {}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace txp</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01577_html"><div class="ttname"><a href="a01577.html">Transaction.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03590_html"><div class="ttname"><a href="a03590.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa03642_html_af9976349754ab9e9514436ed8641e2bf"><div class="ttname"><a href="a03642.html#af9976349754ab9e9514436ed8641e2bf">bl::ecs::txp::TransactionComponentWrite::TransactionComponentWrite</a></div><div class="ttdeci">TransactionComponentWrite(const TransactionComponentWrite &amp;)</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00130">Transaction.hpp:130</a></div></div>
+<div class="ttc" id="aa03650_html_a97f9c1cf5e7f28bb3d5b4cad01281a1c"><div class="ttname"><a href="a03650.html#a97f9c1cf5e7f28bb3d5b4cad01281a1c">bl::ecs::txp::TransactionEntityRead::TransactionEntityRead</a></div><div class="ttdeci">TransactionEntityRead(const TransactionEntityWrite &amp;)</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00067">Transaction.hpp:67</a></div></div>
+<div class="ttc" id="aa03654_html_ab889047d4deb21861e71926ab52befd4"><div class="ttname"><a href="a03654.html#ab889047d4deb21861e71926ab52befd4">bl::ecs::txp::TransactionEntityWrite::TransactionEntityWrite</a></div><div class="ttdeci">TransactionEntityWrite(const TransactionEntityWrite &amp;)</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00080">Transaction.hpp:80</a></div></div>
+<div class="ttc" id="aa03674_html_accba2f76b789c05da3c1cabdfb23c9a6"><div class="ttname"><a href="a03674.html#accba2f76b789c05da3c1cabdfb23c9a6">bl::ecs::txp::TransactionComponentRead::TransactionComponentRead</a></div><div class="ttdeci">TransactionComponentRead(const TransactionComponentWrite&lt; T &gt; &amp;)</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00111">Transaction.hpp:111</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

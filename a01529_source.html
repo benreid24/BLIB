@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/Mesh.cpp Source File</title>
+<title>BLIB: include/BLIB/ECS/ComponentSet.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,42 +79,76 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Mesh.cpp</div></div>
+  <div class="headertitle"><div class="title">ComponentSet.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01529.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00071.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>com</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a02650.html#af0c0061167c1dded9dc5c2b8a71aa93d">    7</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02650.html#af0c0061167c1dded9dc5c2b8a71aa93d">Mesh::create</a>(<a class="code hl_struct" href="a04694.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                  std::uint32_t indexCount) {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <a class="code hl_variable" href="a02650.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code hl_function" href="a03990.html#ad0b395bc88a2cf9c8cce245b5d9763bf">create</a>(vulkanState, vertexCount, indexCount);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_variable" href="a04030.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a> = <a class="code hl_variable" href="a02650.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>.<a class="code hl_function" href="a03990.html#af615777e9f82e5c6bdad436203b4f024">getDrawParameters</a>();</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<a href="a01529.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ECS_COMPONENTSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ECS_COMPONENTSET_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01550.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01526.html">BLIB/ECS/Tags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01577.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>Registry;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a03010.html">   14</a></span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03526.html">   24</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03526.html">ComponentSetMember</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03526.html#a819b0aa66bf6e3ca7c4564b158a5ccda">   25</a></span>    T* <a class="code hl_variable" href="a03526.html#a819b0aa66bf6e3ca7c4564b158a5ccda">component</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="a03526.html#aa7a132531191378299e6c54bdfbaa07c">ComponentSetMember</a>();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03526.html#ab09b7835539c1f7cfd6bc045b6eff484">populate</a>(<a class="code hl_class" href="a03590.html">Registry</a>&amp; registry, <a class="code hl_struct" href="a03542.html">Entity</a> owner,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                  <span class="keyword">const</span> <a class="code hl_class" href="a03678.html">Transaction</a>&lt;<a class="code hl_enumvalue" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="code hl_struct" href="a03598.html">tx::ComponentRead&lt;T&gt;</a>&gt;&amp; transaction);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03526.html#af7365a98e7ac0be555352a31d2dba628">nullout</a>(<span class="keywordtype">void</span>* com);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace com</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">Mesh.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02650_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a02650.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00018">Mesh.hpp:18</a></div></div>
-<div class="ttc" id="aa02650_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a02650.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition</b> <a href="a01529_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa03990_html_ad0b395bc88a2cf9c8cce245b5d9763bf"><div class="ttname"><a href="a03990.html#ad0b395bc88a2cf9c8cce245b5d9763bf">bl::rc::buf::IndexBufferT::create</a></div><div class="ttdeci">void create(vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Creates the vertex and index buffers.</div><div class="ttdef"><b>Definition</b> <a href="a01334_source.html#l00149">IndexBuffer.hpp:149</a></div></div>
-<div class="ttc" id="aa03990_html_af615777e9f82e5c6bdad436203b4f024"><div class="ttname"><a href="a03990.html#af615777e9f82e5c6bdad436203b4f024">bl::rc::buf::IndexBufferT::getDrawParameters</a></div><div class="ttdeci">prim::DrawParameters getDrawParameters() const</div><div class="ttdoc">Builds and returns the parameters required to render the index buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01334_source.html#l00208">IndexBuffer.hpp:208</a></div></div>
-<div class="ttc" id="aa04030_html_a9c3ad2caaf2846e720343ec52eaf1073"><div class="ttname"><a href="a04030.html#a9c3ad2caaf2846e720343ec52eaf1073">bl::rc::rcom::DrawableBase::drawParams</a></div><div class="ttdeci">prim::DrawParameters drawParams</div><div class="ttdef"><b>Definition</b> <a href="a01067_source.html#l00139">DrawableBase.hpp:139</a></div></div>
-<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace priv</span></div>
+</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TRequire, <span class="keyword">typename</span> TOptional = Optional&lt;&gt;&gt;</div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="};">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03530.html">   43</a></span><span class="keyword">class </span><a class="code hl_class" href="a03530.html">ComponentSet</a> {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">static_assert</span>(std::is_same_v&lt;TRequire, void&gt;,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                  <span class="stringliteral">&quot;ComponentSet requires tagged types: ComponentSet&lt;Require&lt;int, char&gt;, &quot;</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                  <span class="stringliteral">&quot;Optional&lt;std::string&gt;&gt;&quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>};</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01526_html"><div class="ttname"><a href="a01526.html">Tags.hpp</a></div></div>
+<div class="ttc" id="aa01550_html"><div class="ttname"><a href="a01550.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa01577_html"><div class="ttname"><a href="a01577.html">Transaction.hpp</a></div></div>
+<div class="ttc" id="aa02968_html_ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32"><div class="ttname"><a href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">bl::ecs::tx::EntityUnlocked</a></div><div class="ttdeci">@ EntityUnlocked</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00025">Transaction.hpp:25</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03526_html"><div class="ttname"><a href="a03526.html">bl::ecs::priv::ComponentSetMember</a></div><div class="ttdoc">Helper class to compose component sets.</div><div class="ttdef"><b>Definition</b> <a href="a01529_source.html#l00024">ComponentSet.hpp:24</a></div></div>
+<div class="ttc" id="aa03526_html_a819b0aa66bf6e3ca7c4564b158a5ccda"><div class="ttname"><a href="a03526.html#a819b0aa66bf6e3ca7c4564b158a5ccda">bl::ecs::priv::ComponentSetMember::component</a></div><div class="ttdeci">T * component</div><div class="ttdef"><b>Definition</b> <a href="a01529_source.html#l00025">ComponentSet.hpp:25</a></div></div>
+<div class="ttc" id="aa03526_html_aa7a132531191378299e6c54bdfbaa07c"><div class="ttname"><a href="a03526.html#aa7a132531191378299e6c54bdfbaa07c">bl::ecs::priv::ComponentSetMember::ComponentSetMember</a></div><div class="ttdeci">ComponentSetMember()</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00018">ComponentSetImpl.hpp:18</a></div></div>
+<div class="ttc" id="aa03526_html_ab09b7835539c1f7cfd6bc045b6eff484"><div class="ttname"><a href="a03526.html#ab09b7835539c1f7cfd6bc045b6eff484">bl::ecs::priv::ComponentSetMember::populate</a></div><div class="ttdeci">bool populate(Registry &amp;registry, Entity owner, const Transaction&lt; tx::EntityUnlocked, tx::ComponentRead&lt; T &gt; &gt; &amp;transaction)</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00022">ComponentSetImpl.hpp:22</a></div></div>
+<div class="ttc" id="aa03526_html_af7365a98e7ac0be555352a31d2dba628"><div class="ttname"><a href="a03526.html#af7365a98e7ac0be555352a31d2dba628">bl::ecs::priv::ComponentSetMember::nullout</a></div><div class="ttdeci">void nullout(void *com)</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00030">ComponentSetImpl.hpp:30</a></div></div>
+<div class="ttc" id="aa03530_html"><div class="ttname"><a href="a03530.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition</b> <a href="a01529_source.html#l00043">ComponentSet.hpp:43</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03590_html"><div class="ttname"><a href="a03590.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa03598_html"><div class="ttname"><a href="a03598.html">bl::ecs::tx::ComponentRead</a></div><div class="ttdoc">Deduction helper to use to create transactions to read certain types of components.</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00034">Transaction.hpp:34</a></div></div>
+<div class="ttc" id="aa03678_html"><div class="ttname"><a href="a03678.html">bl::ecs::Transaction</a></div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00149">Transaction.hpp:149</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

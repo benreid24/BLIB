@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/Transform2DDescriptorSystem.hpp File Reference</title>
+<title>BLIB: include/BLIB/Resources.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,42 +74,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Transform2DDescriptorSystem.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Resources.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a06361_source.html">BLIB/Components/Transform2D.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00107_source.html">BLIB/Components/Velocity2D.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00236_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a06865_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01715_source.html">BLIB/Resources/FileSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01706_source.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01751_source.html">BLIB/Resources/Loader.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01700_source.html">BLIB/Resources/Ref.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01709_source.html">BLIB/Resources/Resource.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01703_source.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01712_source.html">BLIB/Resources/Bundler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01724_source.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01727_source.html">BLIB/Resources/Bundling/BundleSource.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01742_source.html">BLIB/Resources/Bundling/BundledFileMetadata.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a08023_source.html">BLIB/Resources/Bundling/Config.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01748_source.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01718_source.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01733_source.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01736_source.html">BLIB/Resources/Bundling/FileHandlers/DefaultHandler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01730_source.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01745_source.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00263_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05270.html">bl::sys::Transform2DDescriptorSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that updates 2d transforms into renderer descriptor sets. Also performs interpolation for entities that also have velocity.  <a href="a05270.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02409" id="r_a02409"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html">bl::sys</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

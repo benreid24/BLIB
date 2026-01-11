@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::ds::SetWriteHelper Class Reference</title>
+<title>BLIB: bl::gui::RadioButton::Group Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,183 +74,125 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02458.html">ds</a></li><li class="navelem"><a class="el" href="a04174.html">SetWriteHelper</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03029.html">gui</a></li><li class="navelem"><a class="el" href="a04170.html">RadioButton</a></li><li class="navelem"><a class="el" href="a04174.html">Group</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a04171.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::ds::SetWriteHelper Class Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gui::RadioButton::Group Class Reference<div class="ingroups"><a class="el" href="a02973.html">Interface</a> &raquo; <a class="el" href="a02989.html">GUI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility to perform arbitrary descriptor set writes using stack allocated memory.  
+<p>A group of radio buttons. Used to disable buttons.  
  <a href="a04174.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01382_source.html">SetWriteHelper.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01190_source.html">RadioButton.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a07953137749e9b88cbdf39afd6de1c48" id="r_a07953137749e9b88cbdf39afd6de1c48"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a07953137749e9b88cbdf39afd6de1c48">SetWriteHelper</a> (VkDescriptorSet set)</td></tr>
-<tr class="memdesc:a07953137749e9b88cbdf39afd6de1c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a noop writer.  <br /></td></tr>
-<tr class="separator:a07953137749e9b88cbdf39afd6de1c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8597f2843287775364e93b6dc161a322" id="r_a8597f2843287775364e93b6dc161a322"><td class="memItemLeft" align="right" valign="top">VkWriteDescriptorSet &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a8597f2843287775364e93b6dc161a322">getNewSetWrite</a> ()</td></tr>
-<tr class="memdesc:a8597f2843287775364e93b6dc161a322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a new write operation to be applied.  <br /></td></tr>
-<tr class="separator:a8597f2843287775364e93b6dc161a322"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a433b306bf314004c3e53421c64613233" id="r_a433b306bf314004c3e53421c64613233"><td class="memItemLeft" align="right" valign="top">VkDescriptorBufferInfo &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a433b306bf314004c3e53421c64613233">getNewBufferInfo</a> ()</td></tr>
-<tr class="memdesc:a433b306bf314004c3e53421c64613233"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a buffer info to be used in a write operation.  <br /></td></tr>
-<tr class="separator:a433b306bf314004c3e53421c64613233"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81f145a0ccbfb50a4cf033a7f78db661" id="r_a81f145a0ccbfb50a4cf033a7f78db661"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a81f145a0ccbfb50a4cf033a7f78db661">performWrite</a> (VkDevice device)</td></tr>
-<tr class="memdesc:a81f145a0ccbfb50a4cf033a7f78db661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the descriptor write of the created operations.  <br /></td></tr>
-<tr class="separator:a81f145a0ccbfb50a4cf033a7f78db661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c76591ff3b665c54341e26fcbab3903" id="r_a8c76591ff3b665c54341e26fcbab3903"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04170.html">RadioButton</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a8c76591ff3b665c54341e26fcbab3903">getActiveButton</a> ()</td></tr>
+<tr class="memdesc:a8c76591ff3b665c54341e26fcbab3903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently selected radio button. May be null.  <br /></td></tr>
+<tr class="separator:a8c76591ff3b665c54341e26fcbab3903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a68a7a035376150a6d6fd2cf1e16251" id="r_a6a68a7a035376150a6d6fd2cf1e16251"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a6a68a7a035376150a6d6fd2cf1e16251">setActiveButton</a> (<a class="el" href="a04170.html">RadioButton</a> *button)</td></tr>
+<tr class="memdesc:a6a68a7a035376150a6d6fd2cf1e16251"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the currently active button. Deactivates the rest.  <br /></td></tr>
+<tr class="separator:a6a68a7a035376150a6d6fd2cf1e16251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a894022a048993dca367ba1a01423b844" id="r_a894022a048993dca367ba1a01423b844"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04174.html#a894022a048993dca367ba1a01423b844">RadioButton</a></td></tr>
+<tr class="separator:a894022a048993dca367ba1a01423b844"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Utility to perform arbitrary descriptor set writes using stack allocated memory. </p>
+<div class="textblock"><p>A group of radio buttons. Used to disable buttons. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01382_source.html#l00017">17</a> of file <a class="el" href="a01382_source.html">SetWriteHelper.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a07953137749e9b88cbdf39afd6de1c48" name="a07953137749e9b88cbdf39afd6de1c48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07953137749e9b88cbdf39afd6de1c48">&#9670;&#160;</a></span>SetWriteHelper()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::ds::SetWriteHelper::SetWriteHelper </td>
-          <td>(</td>
-          <td class="paramtype">VkDescriptorSet&#160;</td>
-          <td class="paramname"><em>set</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a noop writer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">set</td><td>The set to write to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01382_source.html#l00059">59</a> of file <a class="el" href="a01382_source.html">SetWriteHelper.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a433b306bf314004c3e53421c64613233" name="a433b306bf314004c3e53421c64613233"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a433b306bf314004c3e53421c64613233">&#9670;&#160;</a></span>getNewBufferInfo()</h2>
+<p class="definition">Definition at line <a class="el" href="a01190_source.html#l00026">26</a> of file <a class="el" href="a01190_source.html">RadioButton.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8c76591ff3b665c54341e26fcbab3903" name="a8c76591ff3b665c54341e26fcbab3903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c76591ff3b665c54341e26fcbab3903">&#9670;&#160;</a></span>getActiveButton()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkDescriptorBufferInfo &amp; bl::rc::ds::SetWriteHelper::getNewBufferInfo </td>
+          <td class="memname"><a class="el" href="a04170.html">RadioButton</a> * bl::gui::RadioButton::Group::getActiveButton </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates and returns a buffer info to be used in a write operation. </p>
-<dl class="section return"><dt>Returns</dt><dd>The buffer info to be populated </dd></dl>
+<p>Returns the currently selected radio button. May be null. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01382_source.html#l00079">79</a> of file <a class="el" href="a01382_source.html">SetWriteHelper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02573_source.html#l00050">50</a> of file <a class="el" href="a02573_source.html">RadioButton.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8597f2843287775364e93b6dc161a322" name="a8597f2843287775364e93b6dc161a322"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8597f2843287775364e93b6dc161a322">&#9670;&#160;</a></span>getNewSetWrite()</h2>
+<a id="a6a68a7a035376150a6d6fd2cf1e16251" name="a6a68a7a035376150a6d6fd2cf1e16251"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a68a7a035376150a6d6fd2cf1e16251">&#9670;&#160;</a></span>setActiveButton()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkWriteDescriptorSet &amp; bl::rc::ds::SetWriteHelper::getNewSetWrite </td>
+          <td class="memname">void bl::gui::RadioButton::Group::setActiveButton </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a04170.html">RadioButton</a> *&#160;</td>
+          <td class="paramname"><em>button</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates and returns a new write operation to be applied. </p>
-<dl class="section return"><dt>Returns</dt><dd>The write operation to be populated </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01382_source.html#l00064">64</a> of file <a class="el" href="a01382_source.html">SetWriteHelper.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a81f145a0ccbfb50a4cf033a7f78db661" name="a81f145a0ccbfb50a4cf033a7f78db661"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81f145a0ccbfb50a4cf033a7f78db661">&#9670;&#160;</a></span>performWrite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::ds::SetWriteHelper::performWrite </td>
-          <td>(</td>
-          <td class="paramtype">VkDevice&#160;</td>
-          <td class="paramname"><em>device</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Performs the descriptor write of the created operations. </p>
+<p>Set the currently active button. Deactivates the rest. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">device</td><td>The Vulkan device to use </td></tr>
+    <tr><td class="paramname">button</td><td></td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01382_source.html#l00092">92</a> of file <a class="el" href="a01382_source.html">SetWriteHelper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02573_source.html#l00052">52</a> of file <a class="el" href="a02573_source.html">RadioButton.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Descriptors/<a class="el" href="a01382_source.html">SetWriteHelper.hpp</a></li>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a894022a048993dca367ba1a01423b844" name="a894022a048993dca367ba1a01423b844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a894022a048993dca367ba1a01423b844">&#9670;&#160;</a></span>RadioButton</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a04170.html">RadioButton</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01190_source.html#l00048">48</a> of file <a class="el" href="a01190_source.html">RadioButton.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Interfaces/GUI/Elements/<a class="el" href="a01190_source.html">RadioButton.hpp</a></li>
+<li>src/Interfaces/GUI/Elements/<a class="el" href="a02573_source.html">RadioButton.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

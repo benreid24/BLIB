@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/SamplerCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,260 +79,152 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Render.hpp</div></div>
+  <div class="headertitle"><div class="title">SamplerCache.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01052.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_HPP</span></div>
+<a href="a01052.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_COMMONSAMPLERS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a06373.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01349.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01337.html">BLIB/Render/Buffers/FullyDynamicSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01334.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a01340.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a01346.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a01469.html">BLIB/Render/Color.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a01073.html">BLIB/Render/Components/DescriptorComponentBase.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a01067.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a06874.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a01421.html">BLIB/Render/Descriptors/Builtin/FadeEffectFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Render/Descriptors/Builtin/Object2DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a01391.html">BLIB/Render/Descriptors/Builtin/Object2DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a01394.html">BLIB/Render/Descriptors/Builtin/Object3DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a01400.html">BLIB/Render/Descriptors/Builtin/Object3DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="a01388.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a01418.html">BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="a01385.html">BLIB/Render/Descriptors/Builtin/Scene3DFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;<a class="code" href="a01409.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Render/Descriptors/Builtin/SlideshowFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;<a class="code" href="a01424.html">BLIB/Render/Descriptors/Builtin/SlideshowInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;<a class="code" href="a01406.html">BLIB/Render/Descriptors/Builtin/TexturePoolFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;<a class="code" href="a01397.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;<a class="code" href="a01373.html">BLIB/Render/Descriptors/DescriptorComponentStorage.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;<a class="code" href="a01379.html">BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;<a class="code" href="a06847.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &lt;<a class="code" href="a01448.html">BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &lt;<a class="code" href="a06853.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &lt;<a class="code" href="a01451.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &lt;<a class="code" href="a01430.html">BLIB/Render/Descriptors/Generic/Binding.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#include &lt;<a class="code" href="a01433.html">BLIB/Render/Descriptors/Generic/GlobalStorageBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#include &lt;<a class="code" href="a01439.html">BLIB/Render/Descriptors/Generic/GlobalUniformBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#include &lt;<a class="code" href="a01436.html">BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#include &lt;<a class="code" href="a01376.html">BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#include &lt;<a class="code" href="a01442.html">BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#include &lt;<a class="code" href="a01445.html">BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#include &lt;<a class="code" href="a01382.html">BLIB/Render/Descriptors/SetWriteHelper.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#include &lt;<a class="code" href="a01367.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#include &lt;<a class="code" href="a01370.html">BLIB/Render/Events/SceneObjectRemoved.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#include &lt;<a class="code" href="a01208.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#include &lt;<a class="code" href="a01187.html">BLIB/Render/Graph/AssetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#include &lt;<a class="code" href="a01181.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#include &lt;<a class="code" href="a01205.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">#include &lt;<a class="code" href="a01211.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#include &lt;<a class="code" href="a01190.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#include &lt;<a class="code" href="a01214.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#include &lt;<a class="code" href="a01226.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#include &lt;<a class="code" href="a01220.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="preprocessor">#include &lt;<a class="code" href="a01223.html">BLIB/Render/Graph/Assets/StandardTargetAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#include &lt;<a class="code" href="a01241.html">BLIB/Render/Graph/ExecutionContext.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">#include &lt;<a class="code" href="a01199.html">BLIB/Render/Graph/GraphAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#include &lt;<a class="code" href="a01175.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#include &lt;<a class="code" href="a01184.html">BLIB/Render/Graph/Providers/StandardTargetProvider.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#include &lt;<a class="code" href="a01232.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Render/Graph/Strategies/ForwardRenderStrategy.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#include &lt;<a class="code" href="a01229.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#include &lt;<a class="code" href="a01196.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#include &lt;<a class="code" href="a01202.html">BLIB/Render/Graph/TaskAssetTags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#include &lt;<a class="code" href="a01178.html">BLIB/Render/Graph/TaskAssets.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#include &lt;<a class="code" href="a01172.html">BLIB/Render/Graph/TaskInput.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#include &lt;<a class="code" href="a01238.html">BLIB/Render/Graph/Tasks/FadeEffectTask.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#include &lt;<a class="code" href="a01235.html">BLIB/Render/Graph/Tasks/ForwardRenderTask.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">#include &lt;<a class="code" href="a01352.html">BLIB/Render/Materials/Material.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#include &lt;<a class="code" href="a01361.html">BLIB/Render/Materials/MaterialPipeline.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#include &lt;<a class="code" href="a01355.html">BLIB/Render/Materials/MaterialPipelineSettings.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="preprocessor">#include &lt;<a class="code" href="a01124.html">BLIB/Render/Observer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#include &lt;<a class="code" href="a01463.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#include &lt;<a class="code" href="a01466.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="preprocessor">#include &lt;<a class="code" href="a01457.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#include &lt;<a class="code" href="a01454.html">BLIB/Render/Primitives/Vertex.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="preprocessor">#include &lt;<a class="code" href="a01364.html">BLIB/Render/RenderTarget.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#include &lt;<a class="code" href="a06862.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#include &lt;<a class="code" href="a01091.html">BLIB/Render/Resources/BindlessTextureArray.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#include &lt;<a class="code" href="a01097.html">BLIB/Render/Resources/MaterialPipelineCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Render/Resources/PipelineCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#include &lt;<a class="code" href="a01106.html">BLIB/Render/Resources/PipelineLayoutCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#include &lt;<a class="code" href="a01100.html">BLIB/Render/Resources/RenderPassCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#include &lt;<a class="code" href="a01079.html">BLIB/Render/Resources/ScenePool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#include &lt;<a class="code" href="a01103.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#include &lt;<a class="code" href="a01076.html">BLIB/Render/Resources/TexturePool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="preprocessor">#include &lt;<a class="code" href="a01082.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#include &lt;<a class="code" href="a01133.html">BLIB/Render/Scenes/BatchedScene.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#include &lt;<a class="code" href="a01154.html">BLIB/Render/Scenes/CodeScene.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#include &lt;<a class="code" href="a01136.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#include &lt;<a class="code" href="a01127.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">#include &lt;<a class="code" href="a01130.html">BLIB/Render/Scenes/Scene2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#include &lt;<a class="code" href="a01148.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#include &lt;<a class="code" href="a01160.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#include &lt;<a class="code" href="a01157.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#include &lt;<a class="code" href="a01142.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#include &lt;<a class="code" href="a01121.html">BLIB/Render/Transfers/TransferContext.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#include &lt;<a class="code" href="a01115.html">BLIB/Render/Transfers/TransferEngine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#include &lt;<a class="code" href="a01112.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#include &lt;<a class="code" href="a01163.html">BLIB/Render/UpdateSpeed.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#include &lt;<a class="code" href="a01280.html">BLIB/Render/Vulkan/AlignedBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#include &lt;<a class="code" href="a01265.html">BLIB/Render/Vulkan/AttachmentBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#include &lt;<a class="code" href="a01277.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#include &lt;<a class="code" href="a01295.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#include &lt;<a class="code" href="a01262.html">BLIB/Render/Vulkan/CleanupManager.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#include &lt;<a class="code" href="a01247.html">BLIB/Render/Vulkan/CommonSamplers.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#include &lt;<a class="code" href="a01310.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#include &lt;<a class="code" href="a01292.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#include &lt;<a class="code" href="a01307.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#include &lt;<a class="code" href="a01316.html">BLIB/Render/Vulkan/PerFrameVector.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#include &lt;<a class="code" href="a01244.html">BLIB/Render/Vulkan/PerSwapFrame.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#include &lt;<a class="code" href="a01289.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#include &lt;<a class="code" href="a01313.html">BLIB/Render/Vulkan/PipelineLayout.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#include &lt;<a class="code" href="a01259.html">BLIB/Render/Vulkan/PipelineParameters.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#include &lt;<a class="code" href="a01283.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#include &lt;<a class="code" href="a01286.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#include &lt;<a class="code" href="a01301.html">BLIB/Render/Vulkan/RenderTexture.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#include &lt;<a class="code" href="a01328.html">BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#include &lt;<a class="code" href="a01322.html">BLIB/Render/Vulkan/StandardAttachmentSet.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#include &lt;<a class="code" href="a01256.html">BLIB/Render/Vulkan/Swapchain.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#include &lt;<a class="code" href="a01274.html">BLIB/Render/Vulkan/Texture.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#include &lt;<a class="code" href="a01271.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#include &lt;<a class="code" href="a01319.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01067_html"><div class="ttname"><a href="a01067.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">SceneObjectRef.hpp</a></div></div>
-<div class="ttc" id="aa01073_html"><div class="ttname"><a href="a01073.html">DescriptorComponentBase.hpp</a></div></div>
-<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">TexturePool.hpp</a></div></div>
-<div class="ttc" id="aa01079_html"><div class="ttname"><a href="a01079.html">ScenePool.hpp</a></div></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">TextureRef.hpp</a></div></div>
-<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">PipelineCache.hpp</a></div></div>
-<div class="ttc" id="aa01091_html"><div class="ttname"><a href="a01091.html">BindlessTextureArray.hpp</a></div></div>
-<div class="ttc" id="aa01097_html"><div class="ttname"><a href="a01097.html">MaterialPipelineCache.hpp</a></div></div>
-<div class="ttc" id="aa01100_html"><div class="ttname"><a href="a01100.html">RenderPassCache.hpp</a></div></div>
-<div class="ttc" id="aa01103_html"><div class="ttname"><a href="a01103.html">ShaderModuleCache.hpp</a></div></div>
-<div class="ttc" id="aa01106_html"><div class="ttname"><a href="a01106.html">PipelineLayoutCache.hpp</a></div></div>
-<div class="ttc" id="aa01112_html"><div class="ttname"><a href="a01112.html">Transferable.hpp</a></div></div>
-<div class="ttc" id="aa01115_html"><div class="ttname"><a href="a01115.html">TransferEngine.hpp</a></div></div>
-<div class="ttc" id="aa01121_html"><div class="ttname"><a href="a01121.html">TransferContext.hpp</a></div></div>
-<div class="ttc" id="aa01124_html"><div class="ttname"><a href="a01124.html">Observer.hpp</a></div></div>
-<div class="ttc" id="aa01127_html"><div class="ttname"><a href="a01127.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa01130_html"><div class="ttname"><a href="a01130.html">Scene2D.hpp</a></div></div>
-<div class="ttc" id="aa01133_html"><div class="ttname"><a href="a01133.html">BatchedScene.hpp</a></div></div>
-<div class="ttc" id="aa01136_html"><div class="ttname"><a href="a01136.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa01142_html"><div class="ttname"><a href="a01142.html">SceneRenderContext.hpp</a></div></div>
-<div class="ttc" id="aa01148_html"><div class="ttname"><a href="a01148.html">Scene3D.hpp</a></div></div>
-<div class="ttc" id="aa01154_html"><div class="ttname"><a href="a01154.html">CodeScene.hpp</a></div></div>
-<div class="ttc" id="aa01157_html"><div class="ttname"><a href="a01157.html">SceneObjectStorage.hpp</a></div></div>
-<div class="ttc" id="aa01160_html"><div class="ttname"><a href="a01160.html">SceneObject.hpp</a></div></div>
-<div class="ttc" id="aa01163_html"><div class="ttname"><a href="a01163.html">UpdateSpeed.hpp</a></div></div>
-<div class="ttc" id="aa01172_html"><div class="ttname"><a href="a01172.html">TaskInput.hpp</a></div></div>
-<div class="ttc" id="aa01175_html"><div class="ttname"><a href="a01175.html">GraphAssetPool.hpp</a></div></div>
-<div class="ttc" id="aa01178_html"><div class="ttname"><a href="a01178.html">TaskAssets.hpp</a></div></div>
-<div class="ttc" id="aa01181_html"><div class="ttname"><a href="a01181.html">AssetPool.hpp</a></div></div>
-<div class="ttc" id="aa01184_html"><div class="ttname"><a href="a01184.html">StandardTargetProvider.hpp</a></div></div>
-<div class="ttc" id="aa01187_html"><div class="ttname"><a href="a01187.html">AssetFactory.hpp</a></div></div>
-<div class="ttc" id="aa01190_html"><div class="ttname"><a href="a01190.html">AssetTags.hpp</a></div></div>
-<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">ForwardRenderStrategy.hpp</a></div></div>
-<div class="ttc" id="aa01196_html"><div class="ttname"><a href="a01196.html">Task.hpp</a></div></div>
-<div class="ttc" id="aa01199_html"><div class="ttname"><a href="a01199.html">GraphAsset.hpp</a></div></div>
-<div class="ttc" id="aa01202_html"><div class="ttname"><a href="a01202.html">TaskAssetTags.hpp</a></div></div>
-<div class="ttc" id="aa01205_html"><div class="ttname"><a href="a01205.html">AssetProvider.hpp</a></div></div>
-<div class="ttc" id="aa01208_html"><div class="ttname"><a href="a01208.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa01211_html"><div class="ttname"><a href="a01211.html">AssetRef.hpp</a></div></div>
-<div class="ttc" id="aa01214_html"><div class="ttname"><a href="a01214.html">FinalSwapframeAsset.hpp</a></div></div>
-<div class="ttc" id="aa01220_html"><div class="ttname"><a href="a01220.html">SceneAsset.hpp</a></div></div>
-<div class="ttc" id="aa01223_html"><div class="ttname"><a href="a01223.html">StandardTargetAsset.hpp</a></div></div>
-<div class="ttc" id="aa01226_html"><div class="ttname"><a href="a01226.html">FramebufferAsset.hpp</a></div></div>
-<div class="ttc" id="aa01229_html"><div class="ttname"><a href="a01229.html">Strategy.hpp</a></div></div>
-<div class="ttc" id="aa01232_html"><div class="ttname"><a href="a01232.html">RenderGraph.hpp</a></div></div>
-<div class="ttc" id="aa01235_html"><div class="ttname"><a href="a01235.html">ForwardRenderTask.hpp</a></div></div>
-<div class="ttc" id="aa01238_html"><div class="ttname"><a href="a01238.html">FadeEffectTask.hpp</a></div></div>
-<div class="ttc" id="aa01241_html"><div class="ttname"><a href="a01241.html">ExecutionContext.hpp</a></div></div>
-<div class="ttc" id="aa01244_html"><div class="ttname"><a href="a01244.html">PerSwapFrame.hpp</a></div></div>
-<div class="ttc" id="aa01247_html"><div class="ttname"><a href="a01247.html">CommonSamplers.hpp</a></div></div>
-<div class="ttc" id="aa01256_html"><div class="ttname"><a href="a01256.html">Swapchain.hpp</a></div></div>
-<div class="ttc" id="aa01259_html"><div class="ttname"><a href="a01259.html">PipelineParameters.hpp</a></div></div>
-<div class="ttc" id="aa01262_html"><div class="ttname"><a href="a01262.html">CleanupManager.hpp</a></div></div>
-<div class="ttc" id="aa01265_html"><div class="ttname"><a href="a01265.html">AttachmentBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01271_html"><div class="ttname"><a href="a01271.html">VkCheck.hpp</a></div></div>
-<div class="ttc" id="aa01274_html"><div class="ttname"><a href="a01274.html">Texture.hpp</a></div></div>
-<div class="ttc" id="aa01277_html"><div class="ttname"><a href="a01277.html">AttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa01280_html"><div class="ttname"><a href="a01280.html">AlignedBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01283_html"><div class="ttname"><a href="a01283.html">RenderPass.hpp</a></div></div>
-<div class="ttc" id="aa01286_html"><div class="ttname"><a href="a01286.html">RenderPassParameters.hpp</a></div></div>
-<div class="ttc" id="aa01289_html"><div class="ttname"><a href="a01289.html">Pipeline.hpp</a></div></div>
-<div class="ttc" id="aa01292_html"><div class="ttname"><a href="a01292.html">Framebuffer.hpp</a></div></div>
-<div class="ttc" id="aa01295_html"><div class="ttname"><a href="a01295.html">Buffer.hpp</a></div></div>
-<div class="ttc" id="aa01301_html"><div class="ttname"><a href="a01301.html">RenderTexture.hpp</a></div></div>
-<div class="ttc" id="aa01307_html"><div class="ttname"><a href="a01307.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01310_html"><div class="ttname"><a href="a01310.html">DescriptorPool.hpp</a></div></div>
-<div class="ttc" id="aa01313_html"><div class="ttname"><a href="a01313.html">PipelineLayout.hpp</a></div></div>
-<div class="ttc" id="aa01316_html"><div class="ttname"><a href="a01316.html">PerFrameVector.hpp</a></div></div>
-<div class="ttc" id="aa01319_html"><div class="ttname"><a href="a01319.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa01322_html"><div class="ttname"><a href="a01322.html">StandardAttachmentSet.hpp</a></div></div>
-<div class="ttc" id="aa01328_html"><div class="ttname"><a href="a01328.html">StandardAttachmentBuffers.hpp</a></div></div>
-<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01337_html"><div class="ttname"><a href="a01337.html">FullyDynamicSSBO.hpp</a></div></div>
-<div class="ttc" id="aa01340_html"><div class="ttname"><a href="a01340.html">StaticSSBO.hpp</a></div></div>
-<div class="ttc" id="aa01346_html"><div class="ttname"><a href="a01346.html">UniformBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01349_html"><div class="ttname"><a href="a01349.html">DynamicSSBO.hpp</a></div></div>
-<div class="ttc" id="aa01352_html"><div class="ttname"><a href="a01352.html">Material.hpp</a></div></div>
-<div class="ttc" id="aa01355_html"><div class="ttname"><a href="a01355.html">MaterialPipelineSettings.hpp</a></div></div>
-<div class="ttc" id="aa01361_html"><div class="ttname"><a href="a01361.html">MaterialPipeline.hpp</a></div></div>
-<div class="ttc" id="aa01364_html"><div class="ttname"><a href="a01364.html">RenderTarget.hpp</a></div></div>
-<div class="ttc" id="aa01367_html"><div class="ttname"><a href="a01367.html">SceneDestroyed.hpp</a></div></div>
-<div class="ttc" id="aa01370_html"><div class="ttname"><a href="a01370.html">SceneObjectRemoved.hpp</a></div></div>
-<div class="ttc" id="aa01373_html"><div class="ttname"><a href="a01373.html">DescriptorComponentStorage.hpp</a></div></div>
-<div class="ttc" id="aa01376_html"><div class="ttname"><a href="a01376.html">GenericDescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa01379_html"><div class="ttname"><a href="a01379.html">DescriptorComponentStorageCache.hpp</a></div></div>
-<div class="ttc" id="aa01382_html"><div class="ttname"><a href="a01382.html">SetWriteHelper.hpp</a></div></div>
-<div class="ttc" id="aa01385_html"><div class="ttname"><a href="a01385.html">Scene3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa01388_html"><div class="ttname"><a href="a01388.html">Scene2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa01391_html"><div class="ttname"><a href="a01391.html">Object2DInstance.hpp</a></div></div>
-<div class="ttc" id="aa01394_html"><div class="ttname"><a href="a01394.html">Object3DFactory.hpp</a></div></div>
-<div class="ttc" id="aa01397_html"><div class="ttname"><a href="a01397.html">TexturePoolInstance.hpp</a></div></div>
-<div class="ttc" id="aa01400_html"><div class="ttname"><a href="a01400.html">Object3DInstance.hpp</a></div></div>
-<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">SlideshowFactory.hpp</a></div></div>
-<div class="ttc" id="aa01406_html"><div class="ttname"><a href="a01406.html">TexturePoolFactory.hpp</a></div></div>
-<div class="ttc" id="aa01409_html"><div class="ttname"><a href="a01409.html">Scene3DInstance.hpp</a></div></div>
-<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Object2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa01418_html"><div class="ttname"><a href="a01418.html">Scene2DInstance.hpp</a></div></div>
-<div class="ttc" id="aa01421_html"><div class="ttname"><a href="a01421.html">FadeEffectFactory.hpp</a></div></div>
-<div class="ttc" id="aa01424_html"><div class="ttname"><a href="a01424.html">SlideshowInstance.hpp</a></div></div>
-<div class="ttc" id="aa01430_html"><div class="ttname"><a href="a01430.html">Binding.hpp</a></div></div>
-<div class="ttc" id="aa01433_html"><div class="ttname"><a href="a01433.html">GlobalStorageBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01436_html"><div class="ttname"><a href="a01436.html">ObjectStorageBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01439_html"><div class="ttname"><a href="a01439.html">GlobalUniformBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01442_html"><div class="ttname"><a href="a01442.html">GenericDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa01445_html"><div class="ttname"><a href="a01445.html">SceneDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa01448_html"><div class="ttname"><a href="a01448.html">DescriptorSetFactoryCache.hpp</a></div></div>
-<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">DescriptorSetInstanceCache.hpp</a></div></div>
-<div class="ttc" id="aa01454_html"><div class="ttname"><a href="a01454.html">Vertex.hpp</a></div></div>
-<div class="ttc" id="aa01457_html"><div class="ttname"><a href="a01457.html">DrawParameters.hpp</a></div></div>
-<div class="ttc" id="aa01463_html"><div class="ttname"><a href="a01463.html">Overlay.hpp</a></div></div>
-<div class="ttc" id="aa01466_html"><div class="ttname"><a href="a01466.html">OverlayObject.hpp</a></div></div>
-<div class="ttc" id="aa01469_html"><div class="ttname"><a href="a01469.html">Color.hpp</a></div></div>
-<div class="ttc" id="aa06373_html"><div class="ttname"><a href="a06373.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa06847_html"><div class="ttname"><a href="a06847.html">DescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa06853_html"><div class="ttname"><a href="a06853.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa06862_html"><div class="ttname"><a href="a06862.html">Renderer.hpp</a></div></div>
-<div class="ttc" id="aa06874_html"><div class="ttname"><a href="a06874.html">Config.hpp</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00425.html">BLIB/Render/Vulkan/Sampler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00422.html">BLIB/Render/Vulkan/SamplerOptions.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">struct </span>VulkanLayer;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>res</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05374.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a05374.html">SamplerCache</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    VkSampler <a class="code hl_function" href="a05374.html#aa34d5b7ec3daeee9c64e1973db55590e">noFilterBorderClamped</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    VkSampler <a class="code hl_function" href="a05374.html#a238b3e3a1420609c83093556782b4618">noFilterEdgeClamped</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    VkSampler <a class="code hl_function" href="a05374.html#aeec20547155fc90060ac0f96ba56dd7b">minFilterBorderClamped</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    VkSampler <a class="code hl_function" href="a05374.html#a37c437c895fd223b531067357f0836ed">magFilterBorderClamped</a>();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    VkSampler <a class="code hl_function" href="a05374.html#a5b740b9edfe17b920ad1f8ec62ec8d5a">filteredBorderClamped</a>();</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    VkSampler <a class="code hl_function" href="a05374.html#a11fdb5bc066860145d80504ae9298f92">filteredEdgeClamped</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    VkSampler <a class="code hl_function" href="a05374.html#af0eb0f3e26e94a5ae7725e1227da012f">filteredRepeated</a>();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    VkSampler <a class="code hl_function" href="a05374.html#a0116f8bee6dbf4fea23222d616edd33b">shadowMap</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_class" href="a05790.html">vk::Sampler</a> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a05794.html">vk::SamplerOptions</a>&amp; options);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    VkSamplerCreateInfo createTable[<a class="code hl_variable" href="a05794.html#a1c945fed1c1d5e68859bff2598d43a89">vk::SamplerOptions::TypeCount</a>];</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    VkSampler samplerTable[<a class="code hl_variable" href="a05794.html#a1c945fed1c1d5e68859bff2598d43a89">vk::SamplerOptions::TypeCount</a>];</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_class" href="a05374.html">SamplerCache</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; r);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">void</span> init();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05374.html#a1fc8c4ea65463b448e068f1287349540">   85</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05330.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>};</div>
+</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a05374.html#aa34d5b7ec3daeee9c64e1973db55590e">   90</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#aa34d5b7ec3daeee9c64e1973db55590e">SamplerCache::noFilterBorderClamped</a>() {</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2daa344610d02c2dfb2da639efc8126d25f">vk::SamplerOptions::NoFilterBorderClamped</a>});</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a05374.html#a238b3e3a1420609c83093556782b4618">   94</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#a238b3e3a1420609c83093556782b4618">SamplerCache::noFilterEdgeClamped</a>() {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2dabf0acf8f364e6ab165ed88b26c5b783f">vk::SamplerOptions::NoFilterEdgeClamped</a>});</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>}</div>
+</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="foldopen" id="foldopen00098" data-start="{" data-end="}">
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="a05374.html#aeec20547155fc90060ac0f96ba56dd7b">   98</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#aeec20547155fc90060ac0f96ba56dd7b">SamplerCache::minFilterBorderClamped</a>() {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2daf4b42d3e1ec17fbd9d94e2344a320d79">vk::SamplerOptions::MinFilterBorderClamped</a>});</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a05374.html#a37c437c895fd223b531067357f0836ed">  102</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#a37c437c895fd223b531067357f0836ed">SamplerCache::magFilterBorderClamped</a>() {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2dac6f3cd565360c8161b432d18fce33345">vk::SamplerOptions::MagFilterBorderClamped</a>});</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a05374.html#a5b740b9edfe17b920ad1f8ec62ec8d5a">  106</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#a5b740b9edfe17b920ad1f8ec62ec8d5a">SamplerCache::filteredBorderClamped</a>() {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2da255580fdddac0c62e3fabd5414a8af07">vk::SamplerOptions::FilteredBorderClamped</a>});</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a05374.html#a11fdb5bc066860145d80504ae9298f92">  110</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#a11fdb5bc066860145d80504ae9298f92">SamplerCache::filteredEdgeClamped</a>() {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2da435d809e69534976af655cf9554859d6">vk::SamplerOptions::FilteredEdgeClamped</a>});</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
+</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a05374.html#af0eb0f3e26e94a5ae7725e1227da012f">  114</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#af0eb0f3e26e94a5ae7725e1227da012f">SamplerCache::filteredRepeated</a>() {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2da924a3272a1652c1b08fdd45c99c2ae8d">vk::SamplerOptions::FilteredRepeated</a>});</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>}</div>
+</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="foldopen" id="foldopen00118" data-start="{" data-end="}">
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a05374.html#a0116f8bee6dbf4fea23222d616edd33b">  118</a></span><span class="keyword">inline</span> VkSampler <a class="code hl_function" href="a05374.html#a0116f8bee6dbf4fea23222d616edd33b">SamplerCache::shadowMap</a>() {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a>({.type = <a class="code hl_enumvalue" href="a05794.html#ac9da6fd7b62add359338074a7af36f2da1ad80fbe3b45b3cf764959aa3e1bb86d">vk::SamplerOptions::ShadowMap</a>});</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
+</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace res</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa00422_html"><div class="ttname"><a href="a00422.html">SamplerOptions.hpp</a></div></div>
+<div class="ttc" id="aa00425_html"><div class="ttname"><a href="a00425.html">Sampler.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05374_html"><div class="ttname"><a href="a05374.html">bl::rc::res::SamplerCache</a></div><div class="ttdoc">Helper class containing some common samplers to save on boilerplate.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00026">SamplerCache.hpp:26</a></div></div>
+<div class="ttc" id="aa05374_html_a0116f8bee6dbf4fea23222d616edd33b"><div class="ttname"><a href="a05374.html#a0116f8bee6dbf4fea23222d616edd33b">bl::rc::res::SamplerCache::shadowMap</a></div><div class="ttdeci">VkSampler shadowMap()</div><div class="ttdoc">Returns the sampler to use for reading shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00118">SamplerCache.hpp:118</a></div></div>
+<div class="ttc" id="aa05374_html_a11fdb5bc066860145d80504ae9298f92"><div class="ttname"><a href="a05374.html#a11fdb5bc066860145d80504ae9298f92">bl::rc::res::SamplerCache::filteredEdgeClamped</a></div><div class="ttdeci">VkSampler filteredEdgeClamped()</div><div class="ttdoc">Returns a sampler with filtering and clamped to edge. Max anisotropy.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00110">SamplerCache.hpp:110</a></div></div>
+<div class="ttc" id="aa05374_html_a238b3e3a1420609c83093556782b4618"><div class="ttname"><a href="a05374.html#a238b3e3a1420609c83093556782b4618">bl::rc::res::SamplerCache::noFilterEdgeClamped</a></div><div class="ttdeci">VkSampler noFilterEdgeClamped()</div><div class="ttdoc">Returns a sampler with no filtering and clamped to edge. Max anisotropy.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00094">SamplerCache.hpp:94</a></div></div>
+<div class="ttc" id="aa05374_html_a37c437c895fd223b531067357f0836ed"><div class="ttname"><a href="a05374.html#a37c437c895fd223b531067357f0836ed">bl::rc::res::SamplerCache::magFilterBorderClamped</a></div><div class="ttdeci">VkSampler magFilterBorderClamped()</div><div class="ttdoc">Returns a sampler with mag filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00102">SamplerCache.hpp:102</a></div></div>
+<div class="ttc" id="aa05374_html_a5b740b9edfe17b920ad1f8ec62ec8d5a"><div class="ttname"><a href="a05374.html#a5b740b9edfe17b920ad1f8ec62ec8d5a">bl::rc::res::SamplerCache::filteredBorderClamped</a></div><div class="ttdeci">VkSampler filteredBorderClamped()</div><div class="ttdoc">Returns a sampler with filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00106">SamplerCache.hpp:106</a></div></div>
+<div class="ttc" id="aa05374_html_aa34d5b7ec3daeee9c64e1973db55590e"><div class="ttname"><a href="a05374.html#aa34d5b7ec3daeee9c64e1973db55590e">bl::rc::res::SamplerCache::noFilterBorderClamped</a></div><div class="ttdeci">VkSampler noFilterBorderClamped()</div><div class="ttdoc">Returns a sampler with no filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00090">SamplerCache.hpp:90</a></div></div>
+<div class="ttc" id="aa05374_html_ad2c9c44546e3a214be2307d88a0b71c3"><div class="ttname"><a href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">bl::rc::res::SamplerCache::getSampler</a></div><div class="ttdeci">vk::Sampler getSampler(const vk::SamplerOptions &amp;options)</div><div class="ttdoc">Creates or fetches a sampler for the given options.</div><div class="ttdef"><b>Definition</b> <a href="a02423_source.html#l00114">SamplerCache.cpp:114</a></div></div>
+<div class="ttc" id="aa05374_html_aeec20547155fc90060ac0f96ba56dd7b"><div class="ttname"><a href="a05374.html#aeec20547155fc90060ac0f96ba56dd7b">bl::rc::res::SamplerCache::minFilterBorderClamped</a></div><div class="ttdeci">VkSampler minFilterBorderClamped()</div><div class="ttdoc">Returns a sampler with min filtering and clamped to border. Max anisotropy.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00098">SamplerCache.hpp:98</a></div></div>
+<div class="ttc" id="aa05374_html_af0eb0f3e26e94a5ae7725e1227da012f"><div class="ttname"><a href="a05374.html#af0eb0f3e26e94a5ae7725e1227da012f">bl::rc::res::SamplerCache::filteredRepeated</a></div><div class="ttdeci">VkSampler filteredRepeated()</div><div class="ttdoc">Returns a sampler with filtering and repeated addressing.</div><div class="ttdef"><b>Definition</b> <a href="a01052_source.html#l00114">SamplerCache.hpp:114</a></div></div>
+<div class="ttc" id="aa05790_html"><div class="ttname"><a href="a05790.html">bl::rc::vk::Sampler</a></div><div class="ttdoc">Thin wrapper for managed VkSampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a00425_source.html#l00019">Sampler.hpp:19</a></div></div>
+<div class="ttc" id="aa05794_html"><div class="ttname"><a href="a05794.html">bl::rc::vk::SamplerOptions</a></div><div class="ttdoc">Options used for creating sampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00017">SamplerOptions.hpp:17</a></div></div>
+<div class="ttc" id="aa05794_html_a1c945fed1c1d5e68859bff2598d43a89"><div class="ttname"><a href="a05794.html#a1c945fed1c1d5e68859bff2598d43a89">bl::rc::vk::SamplerOptions::TypeCount</a></div><div class="ttdeci">static constexpr std::size_t TypeCount</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00048">SamplerOptions.hpp:48</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2da1ad80fbe3b45b3cf764959aa3e1bb86d"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2da1ad80fbe3b45b3cf764959aa3e1bb86d">bl::rc::vk::SamplerOptions::ShadowMap</a></div><div class="ttdeci">@ ShadowMap</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00042">SamplerOptions.hpp:42</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2da255580fdddac0c62e3fabd5414a8af07"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2da255580fdddac0c62e3fabd5414a8af07">bl::rc::vk::SamplerOptions::FilteredBorderClamped</a></div><div class="ttdeci">@ FilteredBorderClamped</div><div class="ttdoc">Filtering, clamped to border.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00033">SamplerOptions.hpp:33</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2da435d809e69534976af655cf9554859d6"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2da435d809e69534976af655cf9554859d6">bl::rc::vk::SamplerOptions::FilteredEdgeClamped</a></div><div class="ttdeci">@ FilteredEdgeClamped</div><div class="ttdoc">Filtering, clamped to edge.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00036">SamplerOptions.hpp:36</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2da924a3272a1652c1b08fdd45c99c2ae8d"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2da924a3272a1652c1b08fdd45c99c2ae8d">bl::rc::vk::SamplerOptions::FilteredRepeated</a></div><div class="ttdeci">@ FilteredRepeated</div><div class="ttdoc">Filtering, repeated.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00039">SamplerOptions.hpp:39</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2daa344610d02c2dfb2da639efc8126d25f"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2daa344610d02c2dfb2da639efc8126d25f">bl::rc::vk::SamplerOptions::NoFilterBorderClamped</a></div><div class="ttdeci">@ NoFilterBorderClamped</div><div class="ttdoc">No filtering, clamped to border.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00021">SamplerOptions.hpp:21</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2dabf0acf8f364e6ab165ed88b26c5b783f"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2dabf0acf8f364e6ab165ed88b26c5b783f">bl::rc::vk::SamplerOptions::NoFilterEdgeClamped</a></div><div class="ttdeci">@ NoFilterEdgeClamped</div><div class="ttdoc">No filtering, clamped to edge.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00024">SamplerOptions.hpp:24</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2dac6f3cd565360c8161b432d18fce33345"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2dac6f3cd565360c8161b432d18fce33345">bl::rc::vk::SamplerOptions::MagFilterBorderClamped</a></div><div class="ttdeci">@ MagFilterBorderClamped</div><div class="ttdoc">Magnification filtering, clamped to border.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00030">SamplerOptions.hpp:30</a></div></div>
+<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2daf4b42d3e1ec17fbd9d94e2344a320d79"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2daf4b42d3e1ec17fbd9d94e2344a320d79">bl::rc::vk::SamplerOptions::MinFilterBorderClamped</a></div><div class="ttdeci">@ MinFilterBorderClamped</div><div class="ttdoc">Minification filtering, clamped to border.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00027">SamplerOptions.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

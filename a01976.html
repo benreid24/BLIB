@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/StreamInputBuffer.cpp File Reference</title>
+<title>BLIB: src/Signals/Table.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,33 +74,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_623dcdcea289b09e4d96d917dec4586c.html">Signals</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">StreamInputBuffer.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Table.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00869_source.html">BLIB/Serialization/Buffers/StreamInputBuffer.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00155_source.html">BLIB/Signals/Table.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 </div>
 <p><a href="a01976_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02405" id="r_a02405"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02405.html">bl::serial</a></td></tr>
-<tr class="memdesc:a02405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="memitem:a03072" id="r_a03072"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03072.html">bl::sig</a></td></tr>
+<tr class="memdesc:a03072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains all the classes and functionality for signals. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a2a7c68c4f8ac423e07c3a7c6b49411e0" name="a2a7c68c4f8ac423e07c3a7c6b49411e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a7c68c4f8ac423e07c3a7c6b49411e0">&#9670;&#160;</a></span>channelsByPointer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;void*, ChannelPtr&gt; channelsByPointer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01976_source.html#l00031">31</a> of file <a class="el" href="a01976_source.html">Table.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aefc98f610ed081719b781a209bae9ee0" name="aefc98f610ed081719b781a209bae9ee0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefc98f610ed081719b781a209bae9ee0">&#9670;&#160;</a></span>channelsByString</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt;std::string, ChannelPtr&gt; channelsByString</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01976_source.html#l00030">30</a> of file <a class="el" href="a01976_source.html">Table.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a57027b5e542f0b5b957880263ed8dbe7" name="a57027b5e542f0b5b957880263ed8dbe7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57027b5e542f0b5b957880263ed8dbe7">&#9670;&#160;</a></span>globalChannel</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Channel globalChannel</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01976_source.html#l00032">32</a> of file <a class="el" href="a01976_source.html">Table.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1be3f7fa26e4521098de5f1ec0f865f3" name="a1be3f7fa26e4521098de5f1ec0f865f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be3f7fa26e4521098de5f1ec0f865f3">&#9670;&#160;</a></span>mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01976_source.html#l00029">29</a> of file <a class="el" href="a01976_source.html">Table.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

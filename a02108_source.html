@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Resources/MaterialPool.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/Utils/QueueFamilyLocator.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,46 +79,54 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_9db9147e11516848db92abd3a50398f1.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">MaterialPool.cpp</div></div>
+  <div class="headertitle"><div class="title">QueueFamilyLocator.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02108.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01094.html">BLIB/Render/Resources/MaterialPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>res</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>MaterialPool::MaterialPool(Renderer&amp; renderer)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: renderer(renderer) {}</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a04366.html#a4549a5747b2b1e96d489260702457daf">   12</a></span><a class="code hl_class" href="a02818.html">MaterialRef</a> MaterialPool::getOrCreateFromTexture(<span class="keyword">const</span> <a class="code hl_class" href="a04402.html">res::TextureRef</a>&amp; texture) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = materials.begin(); it != materials.end(); ++it) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">if</span> (it-&gt;getTexture().id() == texture.<a class="code hl_function" href="a04402.html#a38724c98a4c59986b1423e1b5a5aef1c">id</a>()) { <span class="keywordflow">return</span> it.makeRef(); }</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">return</span> materials.emplace(texture);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
-</div>
+<a href="a02108.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_UTILS_QUEUEFAMILYLOCATOR_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a06746.html">   12</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06746.html">QueueFamilyLocator</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a06746.html#ab88679f0de04a766f7cd93b6b8330c95">   13</a></span>    std::optional&lt;std::uint32_t&gt; <a class="code hl_variable" href="a06746.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a06746.html#a8ec71bc186887ea633c17e7c85d0fff4">   14</a></span>    std::optional&lt;std::uint32_t&gt; <a class="code hl_variable" href="a06746.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a06746.html#ab5c31507770656779a3aa5fa99c59e54">   16</a></span>    <a class="code hl_function" href="a06746.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_function" href="a06746.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace res</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01094_html"><div class="ttname"><a href="a01094.html">MaterialPool.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02818_html"><div class="ttname"><a href="a02818.html">bl::ctr::RefDirect&lt; mat::Material &gt;</a></div></div>
-<div class="ttc" id="aa04402_html"><div class="ttname"><a href="a04402.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition</b> <a href="a01082_source.html#l00027">TextureRef.hpp:27</a></div></div>
-<div class="ttc" id="aa04402_html_a38724c98a4c59986b1423e1b5a5aef1c"><div class="ttname"><a href="a04402.html#a38724c98a4c59986b1423e1b5a5aef1c">bl::rc::res::TextureRef::id</a></div><div class="ttdeci">std::uint32_t id() const</div><div class="ttdoc">Returns the internal id of this texture.</div><div class="ttdef"><b>Definition</b> <a href="a01082_source.html#l00151">TextureRef.hpp:151</a></div></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a06746.html#ad1c1d597b0e1b2a45334ae128242570b">populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a06746.html#aecff064c1d89b3dee0d7344bd84c6b74">complete</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa06746_html"><div class="ttname"><a href="a06746.html">bl::rc::QueueFamilyLocator</a></div><div class="ttdef"><b>Definition</b> <a href="a02108_source.html#l00012">QueueFamilyLocator.hpp:12</a></div></div>
+<div class="ttc" id="aa06746_html_a8ec71bc186887ea633c17e7c85d0fff4"><div class="ttname"><a href="a06746.html#a8ec71bc186887ea633c17e7c85d0fff4">bl::rc::QueueFamilyLocator::presentFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; presentFamily</div><div class="ttdef"><b>Definition</b> <a href="a02108_source.html#l00014">QueueFamilyLocator.hpp:14</a></div></div>
+<div class="ttc" id="aa06746_html_ab5c31507770656779a3aa5fa99c59e54"><div class="ttname"><a href="a06746.html#ab5c31507770656779a3aa5fa99c59e54">bl::rc::QueueFamilyLocator::QueueFamilyLocator</a></div><div class="ttdeci">QueueFamilyLocator()=default</div></div>
+<div class="ttc" id="aa06746_html_ab88679f0de04a766f7cd93b6b8330c95"><div class="ttname"><a href="a06746.html#ab88679f0de04a766f7cd93b6b8330c95">bl::rc::QueueFamilyLocator::graphicsFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; graphicsFamily</div><div class="ttdef"><b>Definition</b> <a href="a02108_source.html#l00013">QueueFamilyLocator.hpp:13</a></div></div>
+<div class="ttc" id="aa06746_html_ad1c1d597b0e1b2a45334ae128242570b"><div class="ttname"><a href="a06746.html#ad1c1d597b0e1b2a45334ae128242570b">bl::rc::QueueFamilyLocator::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition</b> <a href="a02111_source.html#l00014">QueueFamilyLocator.cpp:14</a></div></div>
+<div class="ttc" id="aa06746_html_aecff064c1d89b3dee0d7344bd84c6b74"><div class="ttname"><a href="a06746.html#aecff064c1d89b3dee0d7344bd84c6b74">bl::rc::QueueFamilyLocator::complete</a></div><div class="ttdeci">bool complete() const</div><div class="ttdef"><b>Definition</b> <a href="a02111_source.html#l00035">QueueFamilyLocator.cpp:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

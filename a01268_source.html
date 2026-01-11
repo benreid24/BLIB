@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Vulkan/SharedCommandBuffer.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/Utilities.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,72 +79,25 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SharedCommandBuffer.hpp</div></div>
+  <div class="headertitle"><div class="title">Utilities.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01268.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_SHAREDCOMMANDBUFFER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_SHAREDCOMMANDBUFFER_HPP</span></div>
+<a href="a01268.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_INTERFACES_UTILITIES_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_INTERFACES_UTILITIES_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>vk</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>SharedCommandPool;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04650.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a04650.html">SharedCommandBuffer</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>(<a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>&amp;&amp; move);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_function" href="a04650.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">~SharedCommandBuffer</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04650.html#ae75d11501e1a6cf450305876b89b5bd0">   36</a></span>    <span class="keyword">operator</span> VkCommandBuffer() { <span class="keywordflow">return</span> buffer; }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04650.html#a851b76460f481d6fa35c8f7145778a6c">   41</a></span>    VkCommandBuffer <a class="code hl_function" href="a04650.html#a851b76460f481d6fa35c8f7145778a6c">get</a>() { <span class="keywordflow">return</span> buffer; }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04650.html#a9672efb9777484cc47217323b31567b4">submit</a>();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="a04654.html">SharedCommandPool</a>* owner;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    VkFence fence;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    VkCommandBuffer buffer;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>(<a class="code hl_class" href="a04654.html">SharedCommandPool</a>* owner, VkFence fence, VkCommandBuffer buffer);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>()                                      = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>&amp;)            = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>&amp; operator=(<span class="keyword">const</span> <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>&amp; operator=(<a class="code hl_class" href="a04650.html">SharedCommandBuffer</a>&amp;&amp; move) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a04650.html#a6ac3aafff0382c8f5ab76dc990667e5b">   60</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04654.html">SharedCommandPool</a>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>};</div>
-</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace vk</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04650_html"><div class="ttname"><a href="a04650.html">bl::rc::vk::SharedCommandBuffer</a></div><div class="ttdoc">Wrapper around a command buffer allocated from a SharedCommandPool.</div><div class="ttdef"><b>Definition</b> <a href="a01268_source.html#l00019">SharedCommandBuffer.hpp:19</a></div></div>
-<div class="ttc" id="aa04650_html_a3d4ca4bd67e357a4a5580b1b1aa0cd52"><div class="ttname"><a href="a04650.html#a3d4ca4bd67e357a4a5580b1b1aa0cd52">bl::rc::vk::SharedCommandBuffer::~SharedCommandBuffer</a></div><div class="ttdeci">~SharedCommandBuffer()</div><div class="ttdoc">Releases the lock on the pool if not already submitted.</div><div class="ttdef"><b>Definition</b> <a href="a02231_source.html#l00026">SharedCommandBuffer.cpp:26</a></div></div>
-<div class="ttc" id="aa04650_html_a851b76460f481d6fa35c8f7145778a6c"><div class="ttname"><a href="a04650.html#a851b76460f481d6fa35c8f7145778a6c">bl::rc::vk::SharedCommandBuffer::get</a></div><div class="ttdeci">VkCommandBuffer get()</div><div class="ttdoc">Access the underlying command buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01268_source.html#l00041">SharedCommandBuffer.hpp:41</a></div></div>
-<div class="ttc" id="aa04650_html_a9672efb9777484cc47217323b31567b4"><div class="ttname"><a href="a04650.html#a9672efb9777484cc47217323b31567b4">bl::rc::vk::SharedCommandBuffer::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the buffer and releases the lock on the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02231_source.html#l00033">SharedCommandBuffer.cpp:33</a></div></div>
-<div class="ttc" id="aa04654_html"><div class="ttname"><a href="a04654.html">bl::rc::vk::SharedCommandPool</a></div><div class="ttdoc">Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers....</div><div class="ttdef"><b>Definition</b> <a href="a01250_source.html#l00023">SharedCommandPool.hpp:23</a></div></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01310.html">BLIB/Interfaces/Utilities/GhostWriter.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01310_html"><div class="ttname"><a href="a01310.html">GhostWriter.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

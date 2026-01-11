@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/Assets/FramebufferAsset.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,58 +79,127 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_be4517bec2734308d87aa8b601dda893.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_838c988e0ffb30f80d8a7dca6d2e696f.html">Strategies</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">FramebufferAsset.cpp</div></div>
+  <div class="headertitle"><div class="title">Scene3DDeferredRenderStrategy.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02204.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01226.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
+<a href="a02204.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00626.html">BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rgi</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04214.html#a3fc28ba6c24994e7665d516409ba46a3">    9</a></span><a class="code hl_function" href="a04214.html#a3fc28ba6c24994e7665d516409ba46a3">FramebufferAsset::FramebufferAsset</a>(std::string_view tag, std::uint32_t renderPassId,</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>                                   <span class="keyword">const</span> VkViewport&amp; viewport, <span class="keyword">const</span> VkRect2D&amp; scissor,</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>                                   <span class="keyword">const</span> VkClearValue* clearColors,</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                                   <span class="keyword">const</span> std::uint32_t clearColorCount)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: Asset(tag)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, renderPassId(renderPassId)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, viewport(viewport)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, scissor(scissor)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, renderPass(nullptr)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, clearColors(clearColors)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, clearColorCount(clearColorCount)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, cachedSize(0, 0) {}</div>
-</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00695.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00731.html">BLIB/Render/Graph/Tasks/AutoExposureAccumulateTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00725.html">BLIB/Render/Graph/Tasks/AutoExposureAdjustTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00734.html">BLIB/Render/Graph/Tasks/BloomTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00713.html">BLIB/Render/Graph/Tasks/DeferredCompositeTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00722.html">BLIB/Render/Graph/Tasks/DeferredRenderTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00740.html">BLIB/Render/Graph/Tasks/ForwardRenderTransparentTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00737.html">BLIB/Render/Graph/Tasks/Outline3DTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Graph/Tasks/PostProcess3DTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00716.html">BLIB/Render/Graph/Tasks/SSAOTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00719.html">BLIB/Render/Graph/Tasks/ShadowMapTask.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04214.html#a409660b3905d16d4d3fb9208e674c99c">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04214.html#a409660b3905d16d4d3fb9208e674c99c">FramebufferAsset::notifyResize</a>(glm::u32vec2 newSize) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">if</span> (newSize != cachedSize) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        cachedSize = newSize;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <a class="code hl_function" href="a04214.html#ace30b9b5cedf18504dbc17fd21023afa">onResize</a>(newSize);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05086.html#a24a4f933a8a799a5af8e9cd979b0dd28">   22</a></span><a class="code hl_function" href="a05086.html#a24a4f933a8a799a5af8e9cd979b0dd28">Scene3DDeferredRenderStrategy::Scene3DDeferredRenderStrategy</a>()</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>: renderer(nullptr) {}</div>
 </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01226_html"><div class="ttname"><a href="a01226.html">FramebufferAsset.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04214_html_a3fc28ba6c24994e7665d516409ba46a3"><div class="ttname"><a href="a04214.html#a3fc28ba6c24994e7665d516409ba46a3">bl::rc::rgi::FramebufferAsset::FramebufferAsset</a></div><div class="ttdeci">FramebufferAsset(std::string_view tag, std::uint32_t renderPassId, const VkViewport &amp;viewport, const VkRect2D &amp;scissor, const VkClearValue *clearColors, const std::uint32_t clearColorCount)</div><div class="ttdoc">Creates the asset.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00009">FramebufferAsset.cpp:9</a></div></div>
-<div class="ttc" id="aa04214_html_a409660b3905d16d4d3fb9208e674c99c"><div class="ttname"><a href="a04214.html#a409660b3905d16d4d3fb9208e674c99c">bl::rc::rgi::FramebufferAsset::notifyResize</a></div><div class="ttdeci">void notifyResize(glm::u32vec2 newSize)</div><div class="ttdoc">Intended to be called by observer when it resizes.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00022">FramebufferAsset.cpp:22</a></div></div>
-<div class="ttc" id="aa04214_html_ace30b9b5cedf18504dbc17fd21023afa"><div class="ttname"><a href="a04214.html#ace30b9b5cedf18504dbc17fd21023afa">bl::rc::rgi::FramebufferAsset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)=0</div><div class="ttdoc">Called when the observer render region changes size.</div></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05086.html#a52b84dc9157164210d330cfcbd031a0f">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05086.html#a52b84dc9157164210d330cfcbd031a0f">Scene3DDeferredRenderStrategy::populate</a>(<a class="code hl_class" href="a05074.html">rg::RenderGraph</a>&amp; graph) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05142.html">DeferredRenderTask</a>&gt;();</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05138.html">DeferredCompositeTask</a>&gt;();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05154.html">ForwardRenderTransparentTask</a>&gt;();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05166.html">rgi::PostProcess3DTask</a>&gt;();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05174.html">rgi::ShadowMapTask</a>&gt;();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05158.html">rgi::Outline3DTask</a>&gt;();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (renderer-&gt;<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#a8b6c7a1115d4632c359ed4a90428fcd0">getBloomEnabled</a>()) { graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05134.html">rgi::BloomTask</a>&gt;(); }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (renderer-&gt;<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#a7e66a841f9935fca54e13342729ca5bf">getSSAO</a>() != Settings::SSAO::None) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05178.html">rgi::SSAOTask</a>&gt;();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (renderer-&gt;<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#aa3b2b16439483e75bd226bb5c5c19320">getAutoHDREnabled</a>()) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05126.html">rgi::AutoExposureAccumulateTask</a>&gt;();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        graph.<a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;<a class="code hl_class" href="a05130.html">rgi::AutoExposureAdjustTask</a>&gt;();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a05086.html#ac8d79a861d46cb6985971f7ba4ac2e0a">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05086.html#ac8d79a861d46cb6985971f7ba4ac2e0a">Scene3DDeferredRenderStrategy::init</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    this-&gt;renderer = &amp;renderer;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_function" href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">subscribe</a>(renderer.<a class="code hl_function" href="a05330.html#a743526c33f2fa24840c00326554fe64f">getSignalChannel</a>());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keywordtype">void</span> Scene3DDeferredRenderStrategy::process(<span class="keyword">const</span> <a class="code hl_struct" href="a04954.html">event::SettingsChanged</a>&amp; signal) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">switch</span> (signal.<a class="code hl_variable" href="a04954.html#adc25e67b502327cc735570f2d526f232">setting</a>) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645fa15f269ec13ee659663fb30051c89aaed">event::SettingsChanged::Setting::BloomEnabled</a>:</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">event::SettingsChanged::Setting::SSAO</a>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645fa064c408ceb60efbdba38470cb2d31fce">event::SettingsChanged::Setting::AutoHDR</a>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_function" href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">invalidateGraphs</a>();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00626_html"><div class="ttname"><a href="a00626.html">Scene3DDeferredRenderStrategy.hpp</a></div></div>
+<div class="ttc" id="aa00695_html"><div class="ttname"><a href="a00695.html">RenderGraph.hpp</a></div></div>
+<div class="ttc" id="aa00713_html"><div class="ttname"><a href="a00713.html">DeferredCompositeTask.hpp</a></div></div>
+<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">SSAOTask.hpp</a></div></div>
+<div class="ttc" id="aa00719_html"><div class="ttname"><a href="a00719.html">ShadowMapTask.hpp</a></div></div>
+<div class="ttc" id="aa00722_html"><div class="ttname"><a href="a00722.html">DeferredRenderTask.hpp</a></div></div>
+<div class="ttc" id="aa00725_html"><div class="ttname"><a href="a00725.html">AutoExposureAdjustTask.hpp</a></div></div>
+<div class="ttc" id="aa00731_html"><div class="ttname"><a href="a00731.html">AutoExposureAccumulateTask.hpp</a></div></div>
+<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">BloomTask.hpp</a></div></div>
+<div class="ttc" id="aa00737_html"><div class="ttname"><a href="a00737.html">Outline3DTask.hpp</a></div></div>
+<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">ForwardRenderTransparentTask.hpp</a></div></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">PostProcess3DTask.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04954_html"><div class="ttname"><a href="a04954.html">bl::rc::event::SettingsChanged</a></div><div class="ttdoc">Fired when renderer settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00017">SettingsChanged.hpp:17</a></div></div>
+<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645fa064c408ceb60efbdba38470cb2d31fce"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645fa064c408ceb60efbdba38470cb2d31fce">bl::rc::event::SettingsChanged::AutoHDR</a></div><div class="ttdeci">@ AutoHDR</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00022">SettingsChanged.hpp:22</a></div></div>
+<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645fa15f269ec13ee659663fb30051c89aaed"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645fa15f269ec13ee659663fb30051c89aaed">bl::rc::event::SettingsChanged::BloomEnabled</a></div><div class="ttdeci">@ BloomEnabled</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00024">SettingsChanged.hpp:24</a></div></div>
+<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">bl::rc::event::SettingsChanged::SSAO</a></div><div class="ttdeci">@ SSAO</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00031">SettingsChanged.hpp:31</a></div></div>
+<div class="ttc" id="aa04954_html_adc25e67b502327cc735570f2d526f232"><div class="ttname"><a href="a04954.html#adc25e67b502327cc735570f2d526f232">bl::rc::event::SettingsChanged::setting</a></div><div class="ttdeci">const Setting setting</div><div class="ttdoc">The setting that was changed.</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00042">SettingsChanged.hpp:42</a></div></div>
+<div class="ttc" id="aa05074_html"><div class="ttname"><a href="a05074.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00031">RenderGraph.hpp:31</a></div></div>
+<div class="ttc" id="aa05074_html_a79c16f27d764bee3672771fe624db547"><div class="ttname"><a href="a05074.html#a79c16f27d764bee3672771fe624db547">bl::rc::rg::RenderGraph::putTask</a></div><div class="ttdeci">T * putTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00054">RenderGraph.hpp:54</a></div></div>
+<div class="ttc" id="aa05086_html_a24a4f933a8a799a5af8e9cd979b0dd28"><div class="ttname"><a href="a05086.html#a24a4f933a8a799a5af8e9cd979b0dd28">bl::rc::rgi::Scene3DDeferredRenderStrategy::Scene3DDeferredRenderStrategy</a></div><div class="ttdeci">Scene3DDeferredRenderStrategy()</div><div class="ttdoc">Creates the strategy.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00022">Scene3DDeferredRenderStrategy.cpp:22</a></div></div>
+<div class="ttc" id="aa05086_html_a52b84dc9157164210d330cfcbd031a0f"><div class="ttname"><a href="a05086.html#a52b84dc9157164210d330cfcbd031a0f">bl::rc::rgi::Scene3DDeferredRenderStrategy::populate</a></div><div class="ttdeci">virtual void populate(rg::RenderGraph &amp;graph) override</div><div class="ttdoc">Adds the rendering tasks to the given graph.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00025">Scene3DDeferredRenderStrategy.cpp:25</a></div></div>
+<div class="ttc" id="aa05086_html_ac8d79a861d46cb6985971f7ba4ac2e0a"><div class="ttname"><a href="a05086.html#ac8d79a861d46cb6985971f7ba4ac2e0a">bl::rc::rgi::Scene3DDeferredRenderStrategy::init</a></div><div class="ttdeci">void init(Renderer &amp;renderer)</div><div class="ttdoc">Must call at least once before use.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00042">Scene3DDeferredRenderStrategy.cpp:42</a></div></div>
+<div class="ttc" id="aa05094_html_a0bcc11e0775e3e075568142ecaa1f60d"><div class="ttname"><a href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">bl::rc::rg::Strategy::invalidateGraphs</a></div><div class="ttdeci">void invalidateGraphs()</div><div class="ttdoc">Causes all created graphs to be rebuilt lazily.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00047">Strategy.hpp:47</a></div></div>
+<div class="ttc" id="aa05126_html"><div class="ttname"><a href="a05126.html">bl::rc::rgi::AutoExposureAccumulateTask</a></div><div class="ttdoc">Task that kicks off the auto exposure accumulation compute pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00020">AutoExposureAccumulateTask.hpp:20</a></div></div>
+<div class="ttc" id="aa05130_html"><div class="ttname"><a href="a05130.html">bl::rc::rgi::AutoExposureAdjustTask</a></div><div class="ttdoc">Task that kicks off the auto exposure adjustment compute pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00725_source.html#l00018">AutoExposureAdjustTask.hpp:18</a></div></div>
+<div class="ttc" id="aa05134_html"><div class="ttname"><a href="a05134.html">bl::rc::rgi::BloomTask</a></div><div class="ttdoc">Task that creates the bloom filter for the post processing task to apply.</div><div class="ttdef"><b>Definition</b> <a href="a00734_source.html#l00022">BloomTask.hpp:22</a></div></div>
+<div class="ttc" id="aa05138_html"><div class="ttname"><a href="a05138.html">bl::rc::rgi::DeferredCompositeTask</a></div><div class="ttdoc">Deferred render task that composites the GBuffer and renders transparent objects.</div><div class="ttdef"><b>Definition</b> <a href="a00713_source.html#l00024">DeferredCompositeTask.hpp:24</a></div></div>
+<div class="ttc" id="aa05142_html"><div class="ttname"><a href="a05142.html">bl::rc::rgi::DeferredRenderTask</a></div><div class="ttdoc">Deferred render task that calls scene render opaque method.</div><div class="ttdef"><b>Definition</b> <a href="a00722_source.html#l00018">DeferredRenderTask.hpp:18</a></div></div>
+<div class="ttc" id="aa05154_html"><div class="ttname"><a href="a05154.html">bl::rc::rgi::ForwardRenderTransparentTask</a></div><div class="ttdoc">Basic forward render task that calls scene render transparent method.</div><div class="ttdef"><b>Definition</b> <a href="a00740_source.html#l00019">ForwardRenderTransparentTask.hpp:19</a></div></div>
+<div class="ttc" id="aa05158_html"><div class="ttname"><a href="a05158.html">bl::rc::rgi::Outline3DTask</a></div><div class="ttdef"><b>Definition</b> <a href="a00737_source.html#l00023">Outline3DTask.hpp:27</a></div></div>
+<div class="ttc" id="aa05166_html"><div class="ttname"><a href="a05166.html">bl::rc::rgi::PostProcess3DTask</a></div><div class="ttdoc">Render graph task that performs post-processing for 3D scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00743_source.html#l00022">PostProcess3DTask.hpp:22</a></div></div>
+<div class="ttc" id="aa05174_html"><div class="ttname"><a href="a05174.html">bl::rc::rgi::ShadowMapTask</a></div><div class="ttdoc">Task that renders shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00719_source.html#l00023">ShadowMapTask.hpp:23</a></div></div>
+<div class="ttc" id="aa05178_html"><div class="ttname"><a href="a05178.html">bl::rc::rgi::SSAOTask</a></div><div class="ttdoc">Task that performs SSAO on 3d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00716_source.html#l00026">SSAOTask.hpp:26</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05330_html_a743526c33f2fa24840c00326554fe64f"><div class="ttname"><a href="a05330.html#a743526c33f2fa24840c00326554fe64f">bl::rc::Renderer::getSignalChannel</a></div><div class="ttdeci">sig::Channel &amp; getSignalChannel()</div><div class="ttdoc">Returns the channel for renderer events.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00459">Renderer.hpp:459</a></div></div>
+<div class="ttc" id="aa05330_html_ab2b956c5cdf751ef4db0cac0ed3df91d"><div class="ttname"><a href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">bl::rc::Renderer::getSettings</a></div><div class="ttdeci">Settings &amp; getSettings()</div><div class="ttdoc">Returns the render settings which can be changed.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00455">Renderer.hpp:455</a></div></div>
+<div class="ttc" id="aa05506_html_a7e66a841f9935fca54e13342729ca5bf"><div class="ttname"><a href="a05506.html#a7e66a841f9935fca54e13342729ca5bf">bl::rc::Settings::getSSAO</a></div><div class="ttdeci">SSAO getSSAO() const</div><div class="ttdoc">Returns the current SSAO setting.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00329">Settings.hpp:329</a></div></div>
+<div class="ttc" id="aa05506_html_a8b6c7a1115d4632c359ed4a90428fcd0"><div class="ttname"><a href="a05506.html#a8b6c7a1115d4632c359ed4a90428fcd0">bl::rc::Settings::getBloomEnabled</a></div><div class="ttdeci">bool getBloomEnabled() const</div><div class="ttdoc">Returns whether bloom is enabled.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00293">Settings.hpp:293</a></div></div>
+<div class="ttc" id="aa05506_html_aa3b2b16439483e75bd226bb5c5c19320"><div class="ttname"><a href="a05506.html#aa3b2b16439483e75bd226bb5c5c19320">bl::rc::Settings::getAutoHDREnabled</a></div><div class="ttdeci">bool getAutoHDREnabled() const</div><div class="ttdoc">Returns whether auto-hdr exposure adjustment is enabled.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00291">Settings.hpp:291</a></div></div>
+<div class="ttc" id="aa06386_html_a2a0a601a22ad69c515047cf2f81a34ac"><div class="ttname"><a href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">bl::sig::Listener&lt; event::SettingsChanged &gt;::subscribe</a></div><div class="ttdeci">void subscribe(Channel &amp;channel)</div><div class="ttdoc">Subscribes to the given channel. Use subscribeDeferred if calling from a signal handler.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00041">Listener.hpp:81</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

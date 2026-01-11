@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::sys::Physics2D::EntityCollisionEndEvent Struct Reference</title>
+<title>BLIB: bl::rc::lgt::Scene2DLighting::Lighting Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,74 +74,92 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02409.html">sys</a></li><li class="navelem"><a class="el" href="a05238.html">Physics2D</a></li><li class="navelem"><a class="el" href="a05246.html">EntityCollisionEndEvent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03054.html">lgt</a></li><li class="navelem"><a class="el" href="a05238.html">Scene2DLighting</a></li><li class="navelem"><a class="el" href="a05246.html">Lighting</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05243.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::sys::Physics2D::EntityCollisionEndEvent Struct Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::lgt::Scene2DLighting::Lighting Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Event that is fired when an entity collision ends.  
+<p>POD for 2d scene lighting data.  
  <a href="a05246.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a06334_source.html">Physics2D.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:af910f36803f472f89a5614eea9611c9b" id="r_af910f36803f472f89a5614eea9611c9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html#af910f36803f472f89a5614eea9611c9b">entityA</a></td></tr>
-<tr class="separator:af910f36803f472f89a5614eea9611c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaf0acf009fd6c44be13e8142cbaabee" id="r_abaf0acf009fd6c44be13e8142cbaabee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html#abaf0acf009fd6c44be13e8142cbaabee">entityB</a></td></tr>
-<tr class="separator:abaf0acf009fd6c44be13e8142cbaabee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2f20b484e82270ca3a8c54dcd2b0b1a" id="r_af2f20b484e82270ca3a8c54dcd2b0b1a"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html#af2f20b484e82270ca3a8c54dcd2b0b1a">lightCount</a></td></tr>
+<tr class="separator:af2f20b484e82270ca3a8c54dcd2b0b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b1f33be04e39e41c3ac0ac6cf0e9a52" id="r_a0b1f33be04e39e41c3ac0ac6cf0e9a52"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html#a0b1f33be04e39e41c3ac0ac6cf0e9a52">ambient</a></td></tr>
+<tr class="separator:a0b1f33be04e39e41c3ac0ac6cf0e9a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae26f81cefaea7207b7ba183013b552f5" id="r_ae26f81cefaea7207b7ba183013b552f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05242.html">Light</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html#ae26f81cefaea7207b7ba183013b552f5">lights</a> [<a class="el" href="a05238.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a>]</td></tr>
+<tr class="separator:ae26f81cefaea7207b7ba183013b552f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Event that is fired when an entity collision ends. </p>
+<div class="textblock"><p>POD for 2d scene lighting data. </p>
 
-<p class="definition">Definition at line <a class="el" href="a06334_source.html#l00042">42</a> of file <a class="el" href="a06334_source.html">Physics2D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00045">45</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="af910f36803f472f89a5614eea9611c9b" name="af910f36803f472f89a5614eea9611c9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af910f36803f472f89a5614eea9611c9b">&#9670;&#160;</a></span>entityA</h2>
+<a id="a0b1f33be04e39e41c3ac0ac6cf0e9a52" name="a0b1f33be04e39e41c3ac0ac6cf0e9a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b1f33be04e39e41c3ac0ac6cf0e9a52">&#9670;&#160;</a></span>ambient</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02890.html">ecs::Entity</a> bl::sys::Physics2D::EntityCollisionEndEvent::entityA</td>
+          <td class="memname">glm::vec3 bl::rc::lgt::Scene2DLighting::Lighting::ambient</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06334_source.html#l00043">43</a> of file <a class="el" href="a06334_source.html">Physics2D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00047">47</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abaf0acf009fd6c44be13e8142cbaabee" name="abaf0acf009fd6c44be13e8142cbaabee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaf0acf009fd6c44be13e8142cbaabee">&#9670;&#160;</a></span>entityB</h2>
+<a id="af2f20b484e82270ca3a8c54dcd2b0b1a" name="af2f20b484e82270ca3a8c54dcd2b0b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2f20b484e82270ca3a8c54dcd2b0b1a">&#9670;&#160;</a></span>lightCount</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02890.html">ecs::Entity</a> bl::sys::Physics2D::EntityCollisionEndEvent::entityB</td>
+          <td class="memname">std::uint32_t bl::rc::lgt::Scene2DLighting::Lighting::lightCount</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06334_source.html#l00044">44</a> of file <a class="el" href="a06334_source.html">Physics2D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00046">46</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae26f81cefaea7207b7ba183013b552f5" name="ae26f81cefaea7207b7ba183013b552f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae26f81cefaea7207b7ba183013b552f5">&#9670;&#160;</a></span>lights</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05242.html">Light</a> bl::rc::lgt::Scene2DLighting::Lighting::lights[<a class="el" href="a05238.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00048">48</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Systems/<a class="el" href="a06334_source.html">Physics2D.hpp</a></li>
+<li>include/BLIB/Render/Lighting/<a class="el" href="a00821_source.html">Scene2DLighting.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

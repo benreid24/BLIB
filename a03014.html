@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::txp::TxEntityResolve&lt; tx::EntityRead &gt; Struct Reference</title>
+<title>BLIB: bl::ecs::trait Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,52 +74,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02418.html">ecs</a></li><li class="navelem"><a class="el" href="a02424.html">txp</a></li><li class="navelem"><a class="el" href="a03014.html">TxEntityResolve&lt; tx::EntityRead &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03014.html">trait</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="a03011.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::ecs::txp::TxEntityResolve&lt; tx::EntityRead &gt; Struct Reference</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">bl::ecs::trait Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="a01028_source.html">Transaction.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a80e362fbed5442049d5731891f2f61a9" id="r_a80e362fbed5442049d5731891f2f61a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03014.html#a80e362fbed5442049d5731891f2f61a9">T</a> = <a class="el" href="a02998.html">TransactionEntityRead</a></td></tr>
-<tr class="separator:a80e362fbed5442049d5731891f2f61a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03626.html">ChildAware</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component trait for components that are parent-able. Parent is set in the <a class="el" href="a03590.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> as an entity-level relationship. Components should inherit this trait and pass their own type as the type parameter T. This trait provides a vector of child pointers on the component.  <a href="a03626.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03630.html">ParentAware</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component trait for components that are parent-able. Parent is set in the <a class="el" href="a03590.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a> as an entity-level relationship. Components should inherit this trait and pass their own type as the type parameter T. This trait provides a pointer to the parent component.  <a href="a03630.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html">ParentAwareVersioned</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combined trait that is both parent aware and versioned. Maintains an internal dirty state that derived classes can use to determine if they need to refresh themselves. The dirty state is recursively defined with the entire parent tree.  <a href="a03634.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03638.html">Versioned</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component trait for versions. Versions are a more robust dirty state, allowing observers of the component to independently identify if they need to refresh or not.  <a href="a03638.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00099">99</a> of file <a class="el" href="a01028_source.html">Transaction.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a80e362fbed5442049d5731891f2f61a9" name="a80e362fbed5442049d5731891f2f61a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80e362fbed5442049d5731891f2f61a9">&#9670;&#160;</a></span>T</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a03006.html">bl::ecs::txp::TxEntityResolve</a>&lt; <a class="el" href="a02377.html#ggab7b7c35153d32dc8b4427c68d1acb36ea34c6fd06b4829cf1e31bb016c6e2736a">tx::EntityRead</a> &gt;::T =  <a class="el" href="a02998.html">TransactionEntityRead</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00100">100</a> of file <a class="el" href="a01028_source.html">Transaction.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a01028_source.html">Transaction.hpp</a></li>
-</ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

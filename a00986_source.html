@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Shapes2D/TriangleBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Generic/Binding.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,145 +79,147 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_886502d98260abb236f1d1310d59e9a0.html">Shapes2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_600ddcc7b79895ce322a22c27a3d925e.html">Generic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TriangleBase.hpp</div></div>
+  <div class="headertitle"><div class="title">Binding.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00986.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_SHAPES2D_TRIANGLEBASE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_SHAPES2D_TRIANGLEBASE_HPP</span></div>
+<a href="a00986.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_BINDING_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_GENERIC_BINDING_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00983.html">BLIB/Graphics/Shapes2D/SingleShape2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>gfx</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>s2d</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01550.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08494.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">BLIB/Render/Descriptors/SetWriteHelper.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08560.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/ShaderResources/ShaderResourceStore.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a03346.html">   21</a></span><span class="keyword">class </span><a class="code hl_class" href="a03346.html">TriangleBase</a> : <span class="keyword">public</span> B {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;Shape2D, B&gt;, <span class="stringliteral">&quot;B must derive from Shape2D&quot;</span>);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a03346.html#a2c92f242fc973e205d7cafcf4e490699">   28</a></span>    <a class="code hl_function" href="a03346.html#a2c92f242fc973e205d7cafcf4e490699">TriangleBase</a>();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03346.html#aec63bf250e507e530e966ad8e2517399">   37</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#aec63bf250e507e530e966ad8e2517399">setPoints</a>(<span class="keyword">const</span> glm::vec2&amp; p0, <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03346.html#abefc6c796ec909bd606bafee4752c6df">   44</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#abefc6c796ec909bd606bafee4752c6df">setPoints</a>(<span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; points);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a03346.html#a90fab2d8a1b457d45737aa9f6091fc3c">   53</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#a90fab2d8a1b457d45737aa9f6091fc3c">setColorGradient</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04010.html">rc::Color</a>&amp; c0, <span class="keyword">const</span> <a class="code hl_class" href="a04010.html">rc::Color</a>&amp; c1, <span class="keyword">const</span> <a class="code hl_class" href="a04010.html">rc::Color</a>&amp; c2);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a03346.html#a461c98d352e761fa55788eb67b728593">   58</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#a461c98d352e761fa55788eb67b728593">removeColorGradient</a>();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    glm::vec2 points[3];</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_class" href="a04010.html">rc::Color</a> colors[3];</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">bool</span> hasColorOverride;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getVertexCount() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> populateVertex(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index, <a class="code hl_struct" href="a04342.html">rc::prim::Vertex</a>&amp; vertex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a03346.html#a2c92f242fc973e205d7cafcf4e490699">   72</a></span><a class="code hl_function" href="a03346.html#a2c92f242fc973e205d7cafcf4e490699">TriangleBase&lt;B&gt;::TriangleBase</a>()</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>: B()</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>, points{}</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>, colors{}</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>, hasColorOverride(false) {}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Engine;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>Bindings;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04894.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="a04894.html">Binding</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04894.html#aa610fc8b67930a4033cb31b6987d0ba8">   36</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04894.html#aa610fc8b67930a4033cb31b6987d0ba8">~Binding</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04894.html#ab03ca013c004f2341bd5abce8ded224e">   41</a></span>    VkDescriptorType <a class="code hl_function" href="a04894.html#ab03ca013c004f2341bd5abce8ded224e">getDescriptorType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a04894.html#ace1b299914ba8309b2adba375bb91636">   46</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04894.html#ace1b299914ba8309b2adba375bb91636">isDynamic</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> type == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC ||</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>               type == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a03346.html#aec63bf250e507e530e966ad8e2517399">   79</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#aec63bf250e507e530e966ad8e2517399">TriangleBase&lt;B&gt;::setPoints</a>(<span class="keyword">const</span> glm::vec2&amp; p0, <span class="keyword">const</span> glm::vec2&amp; p1, <span class="keyword">const</span> glm::vec2&amp; p2) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    points[0] = p0;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    points[1] = p1;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    points[2] = p2;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    B::notifyDirty();</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
-</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="foldopen" id="foldopen00087" data-start="{" data-end="}">
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="a03346.html#abefc6c796ec909bd606bafee4752c6df">   87</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#aec63bf250e507e530e966ad8e2517399">TriangleBase&lt;B&gt;::setPoints</a>(<span class="keyword">const</span> std::array&lt;glm::vec2, 3&gt;&amp; p) {</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    points[0] = p[0];</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    points[1] = p[1];</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    points[2] = p[2];</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    B::notifyDirty();</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04894.html#a5ea4fcfcb55892bd3dc0a493669c71d0">   54</a></span>    std::uint32_t <a class="code hl_function" href="a04894.html#a5ea4fcfcb55892bd3dc0a493669c71d0">getBindingIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index; }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a04894.html#a3903aa64997cb22ff251107c8c057aa8">   59</a></span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">DescriptorSetInstance::EntityBindMode</a> <a class="code hl_function" href="a04894.html#a3903aa64997cb22ff251107c8c057aa8">getBindMode</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a04894.html#a6fe9ffa398cbad55cf190d981ac315a2">   64</a></span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">DescriptorSetInstance::SpeedBucketSetting</a> <a class="code hl_function" href="a04894.html#a6fe9ffa398cbad55cf190d981ac315a2">getSpeedMode</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a04894.html#af295ade562756910b84fbe652643069a">   72</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04894.html#af295ade562756910b84fbe652643069a">init</a>(<a class="code hl_struct" href="a05838.html">vk::VulkanLayer</a>&amp; vulkanState, <a class="code hl_struct" href="a04922.html">InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) = 0;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a04894.html#a6e8912139d20f11525b01e739f8f49ce">   82</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04894.html#a6e8912139d20f11525b01e739f8f49ce">writeSet</a>(<a class="code hl_class" href="a04930.html">SetWriteHelper</a>&amp; writer, VkDescriptorSet set, <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed,</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                          std::uint32_t frameIndex) = 0;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a04894.html#a4b4d2b0d313180b3ba7e8abdcbf330a5">   92</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04894.html#a4b4d2b0d313180b3ba7e8abdcbf330a5">allocateObject</a>(<a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05438.html">scene::Key</a> key) = 0;</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a03346.html#a90fab2d8a1b457d45737aa9f6091fc3c">   95</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#a90fab2d8a1b457d45737aa9f6091fc3c">TriangleBase&lt;B&gt;::setColorGradient</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04010.html">rc::Color</a>&amp; c0, <span class="keyword">const</span> <a class="code hl_class" href="a04010.html">rc::Color</a>&amp; c1,</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                                       <span class="keyword">const</span> <a class="code hl_class" href="a04010.html">rc::Color</a>&amp; c2) {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    colors[0]        = c0;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    colors[1]        = c1;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    colors[2]        = c2;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    hasColorOverride = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    B::notifyDirty();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>}</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a04894.html#ac0179f419b44444c9d9d6a7f324a708b">  100</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04894.html#ac0179f419b44444c9d9d6a7f324a708b">releaseObject</a>(<a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05438.html">scene::Key</a> key) = 0;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a04894.html#a273b895d89fd4a5d48bf18aa462a3562">  105</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04894.html#a273b895d89fd4a5d48bf18aa462a3562">onFrameStart</a>() = 0;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a04894.html#a42605fbadc79a57f54a031ea48a6af57">  110</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04894.html#a42605fbadc79a57f54a031ea48a6af57">staticDescriptorUpdateRequired</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a04894.html#a463e6623181e0b826caaa65293557ac9">  115</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04894.html#a463e6623181e0b826caaa65293557ac9">dynamicDescriptorUpdateRequired</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a04894.html#a86308849b9e410519b9f6b7b6511eced">  126</a></span>    <span class="keyword">virtual</span> std::uint32_t <a class="code hl_function" href="a04894.html#a86308849b9e410519b9f6b7b6511eced">getDynamicOffsetForPipeline</a>(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>,</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                                                      VkPipelineLayout layout,</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                                                      std::uint32_t setIndex,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                                                      <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        (void)<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        (void)layout;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        (void)setIndex;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        (void)updateFreq;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">return</span> std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
 </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a03346.html#a461c98d352e761fa55788eb67b728593">  105</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03346.html#a461c98d352e761fa55788eb67b728593">TriangleBase&lt;B&gt;::removeColorGradient</a>() {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    hasColorOverride = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    B::notifyDirty();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a04894.html#af0952d1f16aa276a9822d4dc57268dc7">  143</a></span>    <a class="code hl_function" href="a04894.html#af0952d1f16aa276a9822d4dc57268dc7">Binding</a>(VkDescriptorType type)</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    : type(type)</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    , index(0) {}</div>
 </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">const</span> VkDescriptorType type;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    std::uint32_t index;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a04894.html#a5aa561a9f69080c19f2f69336777458e">  152</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04890.html">Bindings</a>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>};</div>
 </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_class" href="a03346.html">TriangleBase&lt;B&gt;::getVertexCount</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordflow">return</span> 3;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> B&gt;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keywordtype">void</span> TriangleBase&lt;B&gt;::populateVertex(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <a class="code hl_struct" href="a04342.html">rc::prim::Vertex</a>&amp; vertex) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    vertex.<a class="code hl_variable" href="a04342.html#aedd9c74835faffffa3fad63d0220783b">pos</a> = {points[i], 0.f};</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (hasColorOverride) { vertex.<a class="code hl_variable" href="a04342.html#a16b8a1f1ea8391b3341ad465eb4e1100">color</a> = colors[i]; }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace s2d</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#endif</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="ttc" id="aa00983_html"><div class="ttname"><a href="a00983.html">SingleShape2D.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03346_html"><div class="ttname"><a href="a03346.html">bl::gfx::s2d::TriangleBase</a></div><div class="ttdoc">Intermediate base class for triangles. Use gfx::TriangleBase or BatchedTriangle.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00021">TriangleBase.hpp:21</a></div></div>
-<div class="ttc" id="aa03346_html_a2c92f242fc973e205d7cafcf4e490699"><div class="ttname"><a href="a03346.html#a2c92f242fc973e205d7cafcf4e490699">bl::gfx::s2d::TriangleBase::TriangleBase</a></div><div class="ttdeci">TriangleBase()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00072">TriangleBase.hpp:72</a></div></div>
-<div class="ttc" id="aa03346_html_a461c98d352e761fa55788eb67b728593"><div class="ttname"><a href="a03346.html#a461c98d352e761fa55788eb67b728593">bl::gfx::s2d::TriangleBase::removeColorGradient</a></div><div class="ttdeci">void removeColorGradient()</div><div class="ttdoc">Removes the color gradient and falls back to the fill color.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00105">TriangleBase.hpp:105</a></div></div>
-<div class="ttc" id="aa03346_html_a90fab2d8a1b457d45737aa9f6091fc3c"><div class="ttname"><a href="a03346.html#a90fab2d8a1b457d45737aa9f6091fc3c">bl::gfx::s2d::TriangleBase::setColorGradient</a></div><div class="ttdeci">void setColorGradient(const rc::Color &amp;c0, const rc::Color &amp;c1, const rc::Color &amp;c2)</div><div class="ttdoc">Overrides the fill color to create a gradient with each point having it's own color.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00095">TriangleBase.hpp:95</a></div></div>
-<div class="ttc" id="aa03346_html_abefc6c796ec909bd606bafee4752c6df"><div class="ttname"><a href="a03346.html#abefc6c796ec909bd606bafee4752c6df">bl::gfx::s2d::TriangleBase::setPoints</a></div><div class="ttdeci">void setPoints(const std::array&lt; glm::vec2, 3 &gt; &amp;points)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00087">TriangleBase.hpp:87</a></div></div>
-<div class="ttc" id="aa03346_html_aec63bf250e507e530e966ad8e2517399"><div class="ttname"><a href="a03346.html#aec63bf250e507e530e966ad8e2517399">bl::gfx::s2d::TriangleBase::setPoints</a></div><div class="ttdeci">void setPoints(const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Sets the points to make the triangle with.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00079">TriangleBase.hpp:79</a></div></div>
-<div class="ttc" id="aa04010_html"><div class="ttname"><a href="a04010.html">bl::rc::Color</a></div><div class="ttdoc">Basic color class meant to wrap sf::Color and glm::vec4 to provide interoperability.</div><div class="ttdef"><b>Definition</b> <a href="a01469_source.html#l00021">Color.hpp:21</a></div></div>
-<div class="ttc" id="aa04342_html"><div class="ttname"><a href="a04342.html">bl::rc::prim::Vertex</a></div><div class="ttdoc">Base Vertex primitive for the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a01454_source.html#l00022">Vertex.hpp:22</a></div></div>
-<div class="ttc" id="aa04342_html_a16b8a1f1ea8391b3341ad465eb4e1100"><div class="ttname"><a href="a04342.html#a16b8a1f1ea8391b3341ad465eb4e1100">bl::rc::prim::Vertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition</b> <a href="a01454_source.html#l00024">Vertex.hpp:24</a></div></div>
-<div class="ttc" id="aa04342_html_aedd9c74835faffffa3fad63d0220783b"><div class="ttname"><a href="a04342.html#aedd9c74835faffffa3fad63d0220783b">bl::rc::prim::Vertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition</b> <a href="a01454_source.html#l00023">Vertex.hpp:23</a></div></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>} <span class="comment">// namespace ds</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
+<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">ShaderResourceStore.hpp</a></div></div>
+<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">SetWriteHelper.hpp</a></div></div>
+<div class="ttc" id="aa01550_html"><div class="ttname"><a href="a01550.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa04882_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a08494_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa04882_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a08494_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa04890_html"><div class="ttname"><a href="a04890.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a00989_source.html#l00023">Bindings.hpp:23</a></div></div>
+<div class="ttc" id="aa04894_html"><div class="ttname"><a href="a04894.html">bl::rc::ds::Binding</a></div><div class="ttdoc">Base class for generic descriptor set binding providers.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00031">Binding.hpp:31</a></div></div>
+<div class="ttc" id="aa04894_html_a273b895d89fd4a5d48bf18aa462a3562"><div class="ttname"><a href="a04894.html#a273b895d89fd4a5d48bf18aa462a3562">bl::rc::ds::Binding::onFrameStart</a></div><div class="ttdeci">virtual void onFrameStart()=0</div><div class="ttdoc">Called once at the beginning of every frame.</div></div>
+<div class="ttc" id="aa04894_html_a3903aa64997cb22ff251107c8c057aa8"><div class="ttname"><a href="a04894.html#a3903aa64997cb22ff251107c8c057aa8">bl::rc::ds::Binding::getBindMode</a></div><div class="ttdeci">virtual DescriptorSetInstance::EntityBindMode getBindMode() const =0</div><div class="ttdoc">Should return the bind mode required by this binding.</div></div>
+<div class="ttc" id="aa04894_html_a42605fbadc79a57f54a031ea48a6af57"><div class="ttname"><a href="a04894.html#a42605fbadc79a57f54a031ea48a6af57">bl::rc::ds::Binding::staticDescriptorUpdateRequired</a></div><div class="ttdeci">virtual bool staticDescriptorUpdateRequired() const =0</div><div class="ttdoc">Should return whether or not the static descriptor set needs to be updated.</div></div>
+<div class="ttc" id="aa04894_html_a463e6623181e0b826caaa65293557ac9"><div class="ttname"><a href="a04894.html#a463e6623181e0b826caaa65293557ac9">bl::rc::ds::Binding::dynamicDescriptorUpdateRequired</a></div><div class="ttdeci">virtual bool dynamicDescriptorUpdateRequired() const =0</div><div class="ttdoc">Should return whether or not the static descriptor set needs to be updated.</div></div>
+<div class="ttc" id="aa04894_html_a4b4d2b0d313180b3ba7e8abdcbf330a5"><div class="ttname"><a href="a04894.html#a4b4d2b0d313180b3ba7e8abdcbf330a5">bl::rc::ds::Binding::allocateObject</a></div><div class="ttdeci">virtual bool allocateObject(ecs::Entity entity, scene::Key key)=0</div><div class="ttdoc">Called when a new object will be using the descriptor set.</div></div>
+<div class="ttc" id="aa04894_html_a5ea4fcfcb55892bd3dc0a493669c71d0"><div class="ttname"><a href="a04894.html#a5ea4fcfcb55892bd3dc0a493669c71d0">bl::rc::ds::Binding::getBindingIndex</a></div><div class="ttdeci">std::uint32_t getBindingIndex() const</div><div class="ttdoc">Returns the binding index of this binding.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00054">Binding.hpp:54</a></div></div>
+<div class="ttc" id="aa04894_html_a6e8912139d20f11525b01e739f8f49ce"><div class="ttname"><a href="a04894.html#a6e8912139d20f11525b01e739f8f49ce">bl::rc::ds::Binding::writeSet</a></div><div class="ttdeci">virtual void writeSet(SetWriteHelper &amp;writer, VkDescriptorSet set, UpdateSpeed speed, std::uint32_t frameIndex)=0</div><div class="ttdoc">Called to write this binding to the given descriptor set.</div></div>
+<div class="ttc" id="aa04894_html_a6fe9ffa398cbad55cf190d981ac315a2"><div class="ttname"><a href="a04894.html#a6fe9ffa398cbad55cf190d981ac315a2">bl::rc::ds::Binding::getSpeedMode</a></div><div class="ttdeci">virtual DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const =0</div><div class="ttdoc">Should return the speed mode required by this binding.</div></div>
+<div class="ttc" id="aa04894_html_a86308849b9e410519b9f6b7b6511eced"><div class="ttname"><a href="a04894.html#a86308849b9e410519b9f6b7b6511eced">bl::rc::ds::Binding::getDynamicOffsetForPipeline</a></div><div class="ttdeci">virtual std::uint32_t getDynamicOffsetForPipeline(scene::SceneRenderContext &amp;ctx, VkPipelineLayout layout, std::uint32_t setIndex, UpdateSpeed updateFreq)</div><div class="ttdoc">Returns the dynamic offset to use at pipeline bind time.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00126">Binding.hpp:126</a></div></div>
+<div class="ttc" id="aa04894_html_aa610fc8b67930a4033cb31b6987d0ba8"><div class="ttname"><a href="a04894.html#aa610fc8b67930a4033cb31b6987d0ba8">bl::rc::ds::Binding::~Binding</a></div><div class="ttdeci">virtual ~Binding()=default</div><div class="ttdoc">Destroys the binding.</div></div>
+<div class="ttc" id="aa04894_html_ab03ca013c004f2341bd5abce8ded224e"><div class="ttname"><a href="a04894.html#ab03ca013c004f2341bd5abce8ded224e">bl::rc::ds::Binding::getDescriptorType</a></div><div class="ttdeci">VkDescriptorType getDescriptorType() const</div><div class="ttdoc">Returns the descriptor type of this binding.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00041">Binding.hpp:41</a></div></div>
+<div class="ttc" id="aa04894_html_ac0179f419b44444c9d9d6a7f324a708b"><div class="ttname"><a href="a04894.html#ac0179f419b44444c9d9d6a7f324a708b">bl::rc::ds::Binding::releaseObject</a></div><div class="ttdeci">virtual void releaseObject(ecs::Entity entity, scene::Key key)=0</div><div class="ttdoc">Called when an object will no longer be using the set.</div></div>
+<div class="ttc" id="aa04894_html_ace1b299914ba8309b2adba375bb91636"><div class="ttname"><a href="a04894.html#ace1b299914ba8309b2adba375bb91636">bl::rc::ds::Binding::isDynamic</a></div><div class="ttdeci">bool isDynamic() const</div><div class="ttdoc">Returns whether this descriptor binding is dynamic.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00046">Binding.hpp:46</a></div></div>
+<div class="ttc" id="aa04894_html_af0952d1f16aa276a9822d4dc57268dc7"><div class="ttname"><a href="a04894.html#af0952d1f16aa276a9822d4dc57268dc7">bl::rc::ds::Binding::Binding</a></div><div class="ttdeci">Binding(VkDescriptorType type)</div><div class="ttdoc">Creates the binding.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00143">Binding.hpp:143</a></div></div>
+<div class="ttc" id="aa04894_html_af295ade562756910b84fbe652643069a"><div class="ttname"><a href="a04894.html#af295ade562756910b84fbe652643069a">bl::rc::ds::Binding::init</a></div><div class="ttdeci">virtual void init(vk::VulkanLayer &amp;vulkanState, InitContext &amp;ctx)=0</div><div class="ttdoc">Called once after the descriptor set is created.</div></div>
+<div class="ttc" id="aa04922_html"><div class="ttname"><a href="a04922.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a08536_source.html#l00030">InitContext.hpp:30</a></div></div>
+<div class="ttc" id="aa04930_html"><div class="ttname"><a href="a04930.html">bl::rc::ds::SetWriteHelper</a></div><div class="ttdoc">Utility to perform arbitrary descriptor set writes using stack allocated memory.</div><div class="ttdef"><b>Definition</b> <a href="a00974_source.html#l00018">SetWriteHelper.hpp:18</a></div></div>
+<div class="ttc" id="aa05438_html"><div class="ttname"><a href="a05438.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa05494_html"><div class="ttname"><a href="a05494.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="ttc" id="aa05838_html"><div class="ttname"><a href="a05838.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a00401_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
+<div class="ttc" id="aa08494_html"><div class="ttname"><a href="a08494.html">DescriptorSetInstance.hpp</a></div></div>
+<div class="ttc" id="aa08560_html"><div class="ttname"><a href="a08560.html">Key.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Lighting/Color3D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,66 +79,142 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2c9d1cc57df5d3d4ff35e854d1955f53.html">Drivers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_91f9057575a339ed5473f88b0062d2bc.html">Lighting</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">MouseDriver.hpp</div></div>
+  <div class="headertitle"><div class="title">Color3D.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00812.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MENU_DRIVERS_MOUSEDRIVER_HPP</span></div>
+<a href="a00812.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_LIGHTING_COLOR3D_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_LIGHTING_COLOR3D_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00800.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a06415.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>menu</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00803.html">BLIB/Render/Color.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08527.html">BLIB/Render/Config/Constants.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>lgt</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03734.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a03734.html">MouseDriver</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03186.html">bl::event::Listener</a>&lt;sf::Event&gt; {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05210.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a05210.html">Color3D</a> {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_class" href="a03734.html">MouseDriver</a>(<a class="code hl_class" href="a03786.html">Menu</a>&amp; menu, <span class="keywordtype">bool</span> allowClickActivate = <span class="keyword">true</span>,</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                sf::Mouse::Button activateButton = sf::Mouse::Left);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03734.html#a78b5b19a962df1aba0380023a65f5aab">setMouseActivateButton</a>(sf::Mouse::Button activateButton);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03734.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">setAllowButtonActivate</a>(<span class="keywordtype">bool</span> allow);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a03734.html#a176cf3a02017ff46359e4bb97e60fc42">   47</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03734.html#a176cf3a02017ff46359e4bb97e60fc42">~MouseDriver</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03734.html#aaa57126748fdfef3f300ceec40761725">observe</a>(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="a03786.html">Menu</a>&amp; menu;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">bool</span> clickActivates;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    sf::Mouse::Button activateButton;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a05210.html#a5594fdfc4580a6e592b0b460d23fa252">   24</a></span>    <a class="code hl_function" href="a05210.html#a5594fdfc4580a6e592b0b460d23fa252">Color3D</a>() { <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(glm::vec3(1.f, 1.f, 1.f)); }</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">   35</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(<span class="keyword">const</span> glm::vec3&amp; color, <span class="keywordtype">float</span> brightness = 1.f,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                     <span class="keywordtype">float</span> specularFactor = <a class="code hl_variable" href="a04778.html#a35ffe41971464543c07cd25a88c8a40d">cfg::Constants::DefaultSpecularLightFactor</a>,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                     <span class="keywordtype">float</span> diffuseFactor  = <a class="code hl_variable" href="a04778.html#aeeb166238ff6c995de3173ba1494c933">cfg::Constants::DefaultDiffuseLightFactor</a>,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                     <span class="keywordtype">float</span> ambientFactor  = <a class="code hl_variable" href="a04778.html#af0d56ad429575fbb6ac800991f33994f">cfg::Constants::DefaultAmbientLightFactor</a>) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        ambient  = glm::vec4(color * ambientFactor * brightness, brightness);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        diffuse  = glm::vec4(color * diffuseFactor * brightness, specularFactor);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        specular = color * specularFactor * brightness;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a05210.html#afb550b19b72b0c806ef3d96f526ee521">   49</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#afb550b19b72b0c806ef3d96f526ee521">setColor</a>(<span class="keyword">const</span> glm::vec3&amp; color) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(color, ambient.w, diffuse.w, <a class="code hl_function" href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">getDiffuseFactor</a>(), <a class="code hl_function" href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">getAmbientFactor</a>());</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a05210.html#a06b256c4d7969ed4133ae8741233478c">   58</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#a06b256c4d7969ed4133ae8741233478c">setBrightness</a>(<span class="keywordtype">float</span> brightness) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(<a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>(), brightness, diffuse.w, <a class="code hl_function" href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">getDiffuseFactor</a>(), <a class="code hl_function" href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">getAmbientFactor</a>());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
 </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace menu</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00800_html"><div class="ttname"><a href="a00800.html">Item.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03186_html"><div class="ttname"><a href="a03186.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition</b> <a href="a06394_source.html#l00049">Listener.hpp:49</a></div></div>
-<div class="ttc" id="aa03734_html"><div class="ttname"><a href="a03734.html">bl::menu::MouseDriver</a></div><div class="ttdoc">Basic helper class to map mouse input to menu events.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00019">MouseDriver.hpp:19</a></div></div>
-<div class="ttc" id="aa03734_html_a176cf3a02017ff46359e4bb97e60fc42"><div class="ttname"><a href="a03734.html#a176cf3a02017ff46359e4bb97e60fc42">bl::menu::MouseDriver::~MouseDriver</a></div><div class="ttdeci">virtual ~MouseDriver()=default</div><div class="ttdoc">Destroy the Mouse Driver object.</div></div>
-<div class="ttc" id="aa03734_html_a4a9cc6c526d12fe1b7a4e2010a8fbeec"><div class="ttname"><a href="a03734.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">bl::menu::MouseDriver::setAllowButtonActivate</a></div><div class="ttdeci">void setAllowButtonActivate(bool allow)</div><div class="ttdoc">Sets whether or not clicking the mouse sends activation events.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00012">MouseDriver.cpp:12</a></div></div>
-<div class="ttc" id="aa03734_html_a78b5b19a962df1aba0380023a65f5aab"><div class="ttname"><a href="a03734.html#a78b5b19a962df1aba0380023a65f5aab">bl::menu::MouseDriver::setMouseActivateButton</a></div><div class="ttdeci">void setMouseActivateButton(sf::Mouse::Button activateButton)</div><div class="ttdoc">Set the mouse button bound to activate events.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00014">MouseDriver.cpp:14</a></div></div>
-<div class="ttc" id="aa03734_html_aaa57126748fdfef3f300ceec40761725"><div class="ttname"><a href="a03734.html#aaa57126748fdfef3f300ceec40761725">bl::menu::MouseDriver::observe</a></div><div class="ttdeci">virtual void observe(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition</b> <a href="a01952_source.html#l00016">MouseDriver.cpp:16</a></div></div>
-<div class="ttc" id="aa03786_html"><div class="ttname"><a href="a03786.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a06415_source.html#l00033">Menu.hpp:33</a></div></div>
-<div class="ttc" id="aa06415_html"><div class="ttname"><a href="a06415.html">Menu.hpp</a></div></div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a05210.html#a5db2e655f34fb5ab9cd236af3d1e5719">   67</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#a5db2e655f34fb5ab9cd236af3d1e5719">setSpecularFactor</a>(<span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(<a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>(), ambient.w, factor, <a class="code hl_function" href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">getDiffuseFactor</a>(), <a class="code hl_function" href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">getAmbientFactor</a>());</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="foldopen" id="foldopen00076" data-start="{" data-end="}">
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno"><a class="line" href="a05210.html#a35444428bacdd1c1df249917d90c36dc">   76</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#a35444428bacdd1c1df249917d90c36dc">setDiffuseFactor</a>(<span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(<a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>(), ambient.w, diffuse.w, factor, <a class="code hl_function" href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">getAmbientFactor</a>());</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    }</div>
+</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05210.html#a1a7d5a8d7d9ee61b62dfcbb8385e15c6">   85</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#a1a7d5a8d7d9ee61b62dfcbb8385e15c6">setAmbientFactor</a>(<span class="keywordtype">float</span> factor) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <a class="code hl_function" href="a05210.html#a6b8fe872c79c36ee914005498c57d315">setLighting</a>(<a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>(), ambient.w, diffuse.w, <a class="code hl_function" href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">getDiffuseFactor</a>(), factor);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
+</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a05210.html#aa7f84f9ad8bec775733244ce8226a49c">   92</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05210.html#aa7f84f9ad8bec775733244ce8226a49c">getBrightness</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ambient.w; }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">   97</a></span>    glm::vec3 <a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> specular / ambient.w / diffuse.w; }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a05210.html#a695a721ffdc8dd2a3c3196d384afd508">  102</a></span>    <span class="keyword">const</span> glm::vec3&amp; <a class="code hl_function" href="a05210.html#a695a721ffdc8dd2a3c3196d384afd508">getSpecularColor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> specular; }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a05210.html#a056943ac3fefab1cbb4ccb51e0069e72">  107</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05210.html#a056943ac3fefab1cbb4ccb51e0069e72">getSpecularFactor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> diffuse.w; }</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a05210.html#ad4ef55f3c588afc952f4be100a140114">  112</a></span>    glm::vec3 <a class="code hl_function" href="a05210.html#ad4ef55f3c588afc952f4be100a140114">getDiffuseColor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> diffuse; }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">  117</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">getDiffuseFactor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> diffuse.r / (<a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>().r * ambient.w); }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a05210.html#ab61d37313e5d00b972e0360cd709cad8">  122</a></span>    glm::vec3 <a class="code hl_function" href="a05210.html#ab61d37313e5d00b972e0360cd709cad8">getAmbientColor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ambient; }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">  127</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">getAmbientFactor</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ambient.r / (<a class="code hl_function" href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">getColor</a>().r * ambient.w); }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="foldopen" id="foldopen00132" data-start="{" data-end="}">
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="a05210.html#a281e0aef12f14d4044c31bc49835448f">  132</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05210.html#a281e0aef12f14d4044c31bc49835448f">getMaxLightLevel</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">return</span> std::max({ambient.r,</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>                         ambient.g,</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>                         ambient.b,</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                         diffuse.r,</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>                         diffuse.g,</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                         diffuse.b,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                         specular.r,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>                         specular.g,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                         specular.b});</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    glm::vec4 ambient; <span class="comment">// w = brightness</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    glm::vec4 diffuse; <span class="comment">// w = specularFactor</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">alignas</span>(16) glm::vec3 specular;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>};</div>
+</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>} <span class="comment">// namespace lgt</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00803_html"><div class="ttname"><a href="a00803.html">Color.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04778_html_a35ffe41971464543c07cd25a88c8a40d"><div class="ttname"><a href="a04778.html#a35ffe41971464543c07cd25a88c8a40d">bl::rc::cfg::Constants::DefaultSpecularLightFactor</a></div><div class="ttdeci">static constexpr float DefaultSpecularLightFactor</div><div class="ttdef"><b>Definition</b> <a href="a08527_source.html#l00046">Constants.hpp:46</a></div></div>
+<div class="ttc" id="aa04778_html_aeeb166238ff6c995de3173ba1494c933"><div class="ttname"><a href="a04778.html#aeeb166238ff6c995de3173ba1494c933">bl::rc::cfg::Constants::DefaultDiffuseLightFactor</a></div><div class="ttdeci">static constexpr float DefaultDiffuseLightFactor</div><div class="ttdef"><b>Definition</b> <a href="a08527_source.html#l00047">Constants.hpp:47</a></div></div>
+<div class="ttc" id="aa04778_html_af0d56ad429575fbb6ac800991f33994f"><div class="ttname"><a href="a04778.html#af0d56ad429575fbb6ac800991f33994f">bl::rc::cfg::Constants::DefaultAmbientLightFactor</a></div><div class="ttdeci">static constexpr float DefaultAmbientLightFactor</div><div class="ttdef"><b>Definition</b> <a href="a08527_source.html#l00048">Constants.hpp:48</a></div></div>
+<div class="ttc" id="aa05210_html"><div class="ttname"><a href="a05210.html">bl::rc::lgt::Color3D</a></div><div class="ttdoc">Basic struct containing the color of a 3d light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00019">Color3D.hpp:19</a></div></div>
+<div class="ttc" id="aa05210_html_a056943ac3fefab1cbb4ccb51e0069e72"><div class="ttname"><a href="a05210.html#a056943ac3fefab1cbb4ccb51e0069e72">bl::rc::lgt::Color3D::getSpecularFactor</a></div><div class="ttdeci">float getSpecularFactor() const</div><div class="ttdoc">Returns the specular factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00107">Color3D.hpp:107</a></div></div>
+<div class="ttc" id="aa05210_html_a06b256c4d7969ed4133ae8741233478c"><div class="ttname"><a href="a05210.html#a06b256c4d7969ed4133ae8741233478c">bl::rc::lgt::Color3D::setBrightness</a></div><div class="ttdeci">void setBrightness(float brightness)</div><div class="ttdoc">Sets the linear brightness factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00058">Color3D.hpp:58</a></div></div>
+<div class="ttc" id="aa05210_html_a0cb39ec044d8e0058761b33ab9583293"><div class="ttname"><a href="a05210.html#a0cb39ec044d8e0058761b33ab9583293">bl::rc::lgt::Color3D::getDiffuseFactor</a></div><div class="ttdeci">float getDiffuseFactor() const</div><div class="ttdoc">Returns the diffuse factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00117">Color3D.hpp:117</a></div></div>
+<div class="ttc" id="aa05210_html_a1a7d5a8d7d9ee61b62dfcbb8385e15c6"><div class="ttname"><a href="a05210.html#a1a7d5a8d7d9ee61b62dfcbb8385e15c6">bl::rc::lgt::Color3D::setAmbientFactor</a></div><div class="ttdeci">void setAmbientFactor(float factor)</div><div class="ttdoc">Sets the ambient factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00085">Color3D.hpp:85</a></div></div>
+<div class="ttc" id="aa05210_html_a281e0aef12f14d4044c31bc49835448f"><div class="ttname"><a href="a05210.html#a281e0aef12f14d4044c31bc49835448f">bl::rc::lgt::Color3D::getMaxLightLevel</a></div><div class="ttdeci">float getMaxLightLevel() const</div><div class="ttdoc">Returns the maximum light level across all channels and light types.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00132">Color3D.hpp:132</a></div></div>
+<div class="ttc" id="aa05210_html_a34d46bc892a3da8e12f536bfb341bd9d"><div class="ttname"><a href="a05210.html#a34d46bc892a3da8e12f536bfb341bd9d">bl::rc::lgt::Color3D::getColor</a></div><div class="ttdeci">glm::vec3 getColor() const</div><div class="ttdoc">Returns the base color of the light before brightness is applied.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00097">Color3D.hpp:97</a></div></div>
+<div class="ttc" id="aa05210_html_a35444428bacdd1c1df249917d90c36dc"><div class="ttname"><a href="a05210.html#a35444428bacdd1c1df249917d90c36dc">bl::rc::lgt::Color3D::setDiffuseFactor</a></div><div class="ttdeci">void setDiffuseFactor(float factor)</div><div class="ttdoc">Sets the diffuse factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00076">Color3D.hpp:76</a></div></div>
+<div class="ttc" id="aa05210_html_a5594fdfc4580a6e592b0b460d23fa252"><div class="ttname"><a href="a05210.html#a5594fdfc4580a6e592b0b460d23fa252">bl::rc::lgt::Color3D::Color3D</a></div><div class="ttdeci">Color3D()</div><div class="ttdoc">Initializes the light to white with default factors.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00024">Color3D.hpp:24</a></div></div>
+<div class="ttc" id="aa05210_html_a5741561b83b67cf710ca07b74c85b3d9"><div class="ttname"><a href="a05210.html#a5741561b83b67cf710ca07b74c85b3d9">bl::rc::lgt::Color3D::getAmbientFactor</a></div><div class="ttdeci">float getAmbientFactor() const</div><div class="ttdoc">Returns the ambient factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00127">Color3D.hpp:127</a></div></div>
+<div class="ttc" id="aa05210_html_a5db2e655f34fb5ab9cd236af3d1e5719"><div class="ttname"><a href="a05210.html#a5db2e655f34fb5ab9cd236af3d1e5719">bl::rc::lgt::Color3D::setSpecularFactor</a></div><div class="ttdeci">void setSpecularFactor(float factor)</div><div class="ttdoc">Sets the specular factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00067">Color3D.hpp:67</a></div></div>
+<div class="ttc" id="aa05210_html_a695a721ffdc8dd2a3c3196d384afd508"><div class="ttname"><a href="a05210.html#a695a721ffdc8dd2a3c3196d384afd508">bl::rc::lgt::Color3D::getSpecularColor</a></div><div class="ttdeci">const glm::vec3 &amp; getSpecularColor() const</div><div class="ttdoc">Returns the adjusted specular color of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00102">Color3D.hpp:102</a></div></div>
+<div class="ttc" id="aa05210_html_a6b8fe872c79c36ee914005498c57d315"><div class="ttname"><a href="a05210.html#a6b8fe872c79c36ee914005498c57d315">bl::rc::lgt::Color3D::setLighting</a></div><div class="ttdeci">void setLighting(const glm::vec3 &amp;color, float brightness=1.f, float specularFactor=cfg::Constants::DefaultSpecularLightFactor, float diffuseFactor=cfg::Constants::DefaultDiffuseLightFactor, float ambientFactor=cfg::Constants::DefaultAmbientLightFactor)</div><div class="ttdoc">Sets the color of the light using a single color and a set of factors.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00035">Color3D.hpp:35</a></div></div>
+<div class="ttc" id="aa05210_html_aa7f84f9ad8bec775733244ce8226a49c"><div class="ttname"><a href="a05210.html#aa7f84f9ad8bec775733244ce8226a49c">bl::rc::lgt::Color3D::getBrightness</a></div><div class="ttdeci">float getBrightness() const</div><div class="ttdoc">Returns the brightness factor of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00092">Color3D.hpp:92</a></div></div>
+<div class="ttc" id="aa05210_html_ab61d37313e5d00b972e0360cd709cad8"><div class="ttname"><a href="a05210.html#ab61d37313e5d00b972e0360cd709cad8">bl::rc::lgt::Color3D::getAmbientColor</a></div><div class="ttdeci">glm::vec3 getAmbientColor() const</div><div class="ttdoc">Returns the adjusted ambient color of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00122">Color3D.hpp:122</a></div></div>
+<div class="ttc" id="aa05210_html_ad4ef55f3c588afc952f4be100a140114"><div class="ttname"><a href="a05210.html#ad4ef55f3c588afc952f4be100a140114">bl::rc::lgt::Color3D::getDiffuseColor</a></div><div class="ttdeci">glm::vec3 getDiffuseColor() const</div><div class="ttdoc">Returns the adjusted diffuse color of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00112">Color3D.hpp:112</a></div></div>
+<div class="ttc" id="aa05210_html_afb550b19b72b0c806ef3d96f526ee521"><div class="ttname"><a href="a05210.html#afb550b19b72b0c806ef3d96f526ee521">bl::rc::lgt::Color3D::setColor</a></div><div class="ttdeci">void setColor(const glm::vec3 &amp;color)</div><div class="ttdoc">Sets the base color of the light. Will be adjusted by brightness and factors.</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00049">Color3D.hpp:49</a></div></div>
+<div class="ttc" id="aa08527_html"><div class="ttname"><a href="a08527.html">Constants.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

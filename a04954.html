@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::Serializer&lt; sf::Vector3&lt; U &gt;, false &gt; Struct Template Reference</title>
+<title>BLIB: bl::rc::event::SettingsChanged Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,80 +74,130 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02452.html">binary</a></li><li class="navelem"><a class="el" href="a04954.html">Serializer&lt; sf::Vector3&lt; U &gt;, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03060.html">event</a></li><li class="navelem"><a class="el" href="a04954.html">SettingsChanged</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04951.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::binary::Serializer&lt; sf::Vector3&lt; U &gt;, false &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::event::SettingsChanged Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a06886_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Fired when renderer settings are changed.  
+ <a href="a04954.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00392_source.html">SettingsChanged.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aea4d36ec98cd61768817cd88ad85071b" id="r_aea4d36ec98cd61768817cd88ad85071b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#aea4d36ec98cd61768817cd88ad85071b">S</a> = <a class="el" href="a04902.html">Serializer</a>&lt; U &gt;</td></tr>
-<tr class="separator:aea4d36ec98cd61768817cd88ad85071b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a832be84d31150bc197a14abaa412645f" id="r_a832be84d31150bc197a14abaa412645f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645f">Setting</a> { <br />
+&#160;&#160;<a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa70667a60d89c55672a67a4ef66b6b685">Gamma</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fafe67ba8cee50aac41252155a86c2ec0b">HDR</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645faac001c5a4cb01137ca1d5bbff28186a7">ExposureFactor</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa064c408ceb60efbdba38470cb2d31fce">AutoHDR</a>
+, <br />
+&#160;&#160;<a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa5155cae95e3a5b48115e6e219eaa050b">AutoHDRParams</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa15f269ec13ee659663fb30051c89aaed">BloomEnabled</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645faeccdace4e6cb7ddfe34a9545831d7af7">BloomHighlightThreshold</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa8582fc3879cd8dddd1546c6db0b73b87">BloomPassCount</a>
+, <br />
+&#160;&#160;<a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa503d57847ab82d3349d50f63188464b3">BloomFilters</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fae90ea0d0b87eac649efc72283f383522">ShadowMapResolution</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa6b3fca475007c6c97ba0f5d3a8d9913f">ShadowMapDepthBias</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645faa20696e560a977fb925fdb068d42d03f">AntiAliasing</a>
+, <br />
+&#160;&#160;<a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">SSAO</a>
+, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104">SSAOParams</a>
+<br />
+ }</td></tr>
+<tr class="separator:a832be84d31150bc197a14abaa412645f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a32433f054c8be4b2fd9716db20ba16a2" id="r_a32433f054c8be4b2fd9716db20ba16a2"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#a32433f054c8be4b2fd9716db20ba16a2">serialize</a> (<a class="el" href="a04898.html">OutputStream</a> &amp;output, const sf::Vector3&lt; U &gt; &amp;v)</td></tr>
-<tr class="separator:a32433f054c8be4b2fd9716db20ba16a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17fea349b8d214418f8a76f231178d32" id="r_a17fea349b8d214418f8a76f231178d32"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#a17fea349b8d214418f8a76f231178d32">deserialize</a> (<a class="el" href="a04890.html">InputStream</a> &amp;input, sf::Vector3&lt; U &gt; &amp;v)</td></tr>
-<tr class="separator:a17fea349b8d214418f8a76f231178d32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae64a5629b0a8d9d57dda64da11aabb10" id="r_ae64a5629b0a8d9d57dda64da11aabb10"><td class="memItemLeft" align="right" valign="top">static std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#ae64a5629b0a8d9d57dda64da11aabb10">size</a> (const sf::Vector3&lt; U &gt; &amp;v)</td></tr>
-<tr class="separator:ae64a5629b0a8d9d57dda64da11aabb10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a583954d08381e036a55483810b6098e6" id="r_a583954d08381e036a55483810b6098e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#a583954d08381e036a55483810b6098e6">SettingsChanged</a> (<a class="el" href="a05330.html">Renderer</a> &amp;<a class="el" href="a04954.html#a505c393b26e36634df838f7c27151320">renderer</a>, const <a class="el" href="a05506.html">Settings</a> &amp;<a class="el" href="a04954.html#ab1449e8d546f882341f0b594b06dee23">settings</a>, <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645f">Setting</a> <a class="el" href="a04954.html#adc25e67b502327cc735570f2d526f232">setting</a>)</td></tr>
+<tr class="memdesc:a583954d08381e036a55483810b6098e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs the event with the given settings.  <br /></td></tr>
+<tr class="separator:a583954d08381e036a55483810b6098e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a505c393b26e36634df838f7c27151320" id="r_a505c393b26e36634df838f7c27151320"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#a505c393b26e36634df838f7c27151320">renderer</a></td></tr>
+<tr class="memdesc:a505c393b26e36634df838f7c27151320"><td class="mdescLeft">&#160;</td><td class="mdescRight">The renderer instance.  <br /></td></tr>
+<tr class="separator:a505c393b26e36634df838f7c27151320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1449e8d546f882341f0b594b06dee23" id="r_ab1449e8d546f882341f0b594b06dee23"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#ab1449e8d546f882341f0b594b06dee23">settings</a></td></tr>
+<tr class="memdesc:ab1449e8d546f882341f0b594b06dee23"><td class="mdescLeft">&#160;</td><td class="mdescRight">The renderer settings.  <br /></td></tr>
+<tr class="separator:ab1449e8d546f882341f0b594b06dee23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc25e67b502327cc735570f2d526f232" id="r_adc25e67b502327cc735570f2d526f232"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645f">Setting</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04954.html#adc25e67b502327cc735570f2d526f232">setting</a></td></tr>
+<tr class="memdesc:adc25e67b502327cc735570f2d526f232"><td class="mdescLeft">&#160;</td><td class="mdescRight">The setting that was changed.  <br /></td></tr>
+<tr class="separator:adc25e67b502327cc735570f2d526f232"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename U&gt;<br />
-struct bl::serial::binary::Serializer&lt; sf::Vector3&lt; U &gt;, false &gt;</div>
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00368">368</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aea4d36ec98cd61768817cd88ad85071b" name="aea4d36ec98cd61768817cd88ad85071b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea4d36ec98cd61768817cd88ad85071b">&#9670;&#160;</a></span>S</h2>
+<div class="textblock"><p>Fired when renderer settings are changed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00017">17</a> of file <a class="el" href="a00392_source.html">SettingsChanged.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a832be84d31150bc197a14abaa412645f" name="a832be84d31150bc197a14abaa412645f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a832be84d31150bc197a14abaa412645f">&#9670;&#160;</a></span>Setting</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; sf::Vector3&lt; U &gt;, false &gt;::S =  <a class="el" href="a04902.html">Serializer</a>&lt;U&gt;</td>
+          <td class="memname">enum <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645f">bl::rc::event::SettingsChanged::Setting</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa70667a60d89c55672a67a4ef66b6b685" name="a832be84d31150bc197a14abaa412645fa70667a60d89c55672a67a4ef66b6b685"></a>Gamma&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fafe67ba8cee50aac41252155a86c2ec0b" name="a832be84d31150bc197a14abaa412645fafe67ba8cee50aac41252155a86c2ec0b"></a>HDR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645faac001c5a4cb01137ca1d5bbff28186a7" name="a832be84d31150bc197a14abaa412645faac001c5a4cb01137ca1d5bbff28186a7"></a>ExposureFactor&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa064c408ceb60efbdba38470cb2d31fce" name="a832be84d31150bc197a14abaa412645fa064c408ceb60efbdba38470cb2d31fce"></a>AutoHDR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa5155cae95e3a5b48115e6e219eaa050b" name="a832be84d31150bc197a14abaa412645fa5155cae95e3a5b48115e6e219eaa050b"></a>AutoHDRParams&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa15f269ec13ee659663fb30051c89aaed" name="a832be84d31150bc197a14abaa412645fa15f269ec13ee659663fb30051c89aaed"></a>BloomEnabled&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645faeccdace4e6cb7ddfe34a9545831d7af7" name="a832be84d31150bc197a14abaa412645faeccdace4e6cb7ddfe34a9545831d7af7"></a>BloomHighlightThreshold&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa8582fc3879cd8dddd1546c6db0b73b87" name="a832be84d31150bc197a14abaa412645fa8582fc3879cd8dddd1546c6db0b73b87"></a>BloomPassCount&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa503d57847ab82d3349d50f63188464b3" name="a832be84d31150bc197a14abaa412645fa503d57847ab82d3349d50f63188464b3"></a>BloomFilters&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fae90ea0d0b87eac649efc72283f383522" name="a832be84d31150bc197a14abaa412645fae90ea0d0b87eac649efc72283f383522"></a>ShadowMapResolution&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa6b3fca475007c6c97ba0f5d3a8d9913f" name="a832be84d31150bc197a14abaa412645fa6b3fca475007c6c97ba0f5d3a8d9913f"></a>ShadowMapDepthBias&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645faa20696e560a977fb925fdb068d42d03f" name="a832be84d31150bc197a14abaa412645faa20696e560a977fb925fdb068d42d03f"></a>AntiAliasing&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089" name="a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089"></a>SSAO&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104" name="a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104"></a>SSAOParams&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00369">369</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00018">18</a> of file <a class="el" href="a00392_source.html">SettingsChanged.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a17fea349b8d214418f8a76f231178d32" name="a17fea349b8d214418f8a76f231178d32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17fea349b8d214418f8a76f231178d32">&#9670;&#160;</a></span>deserialize()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a583954d08381e036a55483810b6098e6" name="a583954d08381e036a55483810b6098e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a583954d08381e036a55483810b6098e6">&#9670;&#160;</a></span>SettingsChanged()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; sf::Vector3&lt; U &gt;, false &gt;::deserialize </td>
+          <td class="memname">bl::rc::event::SettingsChanged::SettingsChanged </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04890.html">InputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">sf::Vector3&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a05506.html">Settings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645f">Setting</a>&#160;</td>
+          <td class="paramname"><em>setting</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -157,93 +207,88 @@ template&lt;typename U &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00376">376</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p>Constructs the event with the given settings. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>The renderer that the settings were changed for </td></tr>
+    <tr><td class="paramname">settings</td><td>The settings that were changed </td></tr>
+    <tr><td class="paramname">setting</td><td>The setting that was changed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00051">51</a> of file <a class="el" href="a00392_source.html">SettingsChanged.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a32433f054c8be4b2fd9716db20ba16a2" name="a32433f054c8be4b2fd9716db20ba16a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32433f054c8be4b2fd9716db20ba16a2">&#9670;&#160;</a></span>serialize()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a505c393b26e36634df838f7c27151320" name="a505c393b26e36634df838f7c27151320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a505c393b26e36634df838f7c27151320">&#9670;&#160;</a></span>renderer</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; sf::Vector3&lt; U &gt;, false &gt;::serialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04898.html">OutputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector3&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a05330.html">Renderer</a>&amp; bl::rc::event::SettingsChanged::renderer</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00370">370</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p>The renderer instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00036">36</a> of file <a class="el" href="a00392_source.html">SettingsChanged.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae64a5629b0a8d9d57dda64da11aabb10" name="ae64a5629b0a8d9d57dda64da11aabb10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae64a5629b0a8d9d57dda64da11aabb10">&#9670;&#160;</a></span>size()</h2>
+<a id="adc25e67b502327cc735570f2d526f232" name="adc25e67b502327cc735570f2d526f232"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc25e67b502327cc735570f2d526f232">&#9670;&#160;</a></span>setting</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::uint32_t <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; sf::Vector3&lt; U &gt;, false &gt;::size </td>
-          <td>(</td>
-          <td class="paramtype">const sf::Vector3&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
-          <td></td>
+          <td class="memname">const <a class="el" href="a04954.html#a832be84d31150bc197a14abaa412645f">Setting</a> bl::rc::event::SettingsChanged::setting</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00382">382</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p>The setting that was changed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00042">42</a> of file <a class="el" href="a00392_source.html">SettingsChanged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1449e8d546f882341f0b594b06dee23" name="ab1449e8d546f882341f0b594b06dee23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1449e8d546f882341f0b594b06dee23">&#9670;&#160;</a></span>settings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05506.html">Settings</a>&amp; bl::rc::event::SettingsChanged::settings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The renderer settings. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00039">39</a> of file <a class="el" href="a00392_source.html">SettingsChanged.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a06886_source.html">Serializer.hpp</a></li>
+<li>include/BLIB/Render/Events/<a class="el" href="a00392_source.html">SettingsChanged.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::parser::Grammar Class Reference</title>
+<title>BLIB: bl::game::Game Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,421 +74,357 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02446.html">parser</a></li><li class="navelem"><a class="el" href="a03818.html">Grammar</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03020.html">game</a></li><li class="navelem"><a class="el" href="a03818.html">Game</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03815.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::parser::Grammar Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::game::Game Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a grammar for a <a class="el" href="a03846.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> to build a parse tree with from a token sequence.  
+<p>Base class for the main game instance. Apps using the BLIB-provided entrypoint should create a derived class and instantiate one instance globally before main()  
  <a href="a03818.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00026_source.html">Grammar.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00143_source.html">Game.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03826.html">Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="a03822.html" title="Helper struct to represent grammar productions.">Production</a> with a cursor representing current parser position.  <a href="a03826.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03830.html">ItemSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A set of unique Items.  <a href="a03830.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03822.html">Production</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct to represent grammar productions.  <a href="a03822.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aef6ca4ab7dcb504b9248d559ae8a3a8a" id="r_aef6ca4ab7dcb504b9248d559ae8a3a8a"><td class="memTemplParams" colspan="2">template&lt;typename T  = Game&gt; </td></tr>
+<tr class="memitem:aef6ca4ab7dcb504b9248d559ae8a3a8a"><td class="memTemplItemLeft" align="right" valign="top">static T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03818.html#aef6ca4ab7dcb504b9248d559ae8a3a8a">getInstance</a> ()</td></tr>
+<tr class="memdesc:aef6ca4ab7dcb504b9248d559ae8a3a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the main <a class="el" href="a03818.html" title="Base class for the main game instance. Apps using the BLIB-provided entrypoint should create a derive...">Game</a> instance.  <br /></td></tr>
+<tr class="separator:aef6ca4ab7dcb504b9248d559ae8a3a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1775cb991e31b645b3e0af99db03b1df" id="r_a1775cb991e31b645b3e0af99db03b1df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a1775cb991e31b645b3e0af99db03b1df">setStart</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> start)</td></tr>
-<tr class="memdesc:a1775cb991e31b645b3e0af99db03b1df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Start <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> type.  <br /></td></tr>
-<tr class="separator:a1775cb991e31b645b3e0af99db03b1df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64b93b0f4eb88cebd899b193a8e46307" id="r_a64b93b0f4eb88cebd899b193a8e46307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a64b93b0f4eb88cebd899b193a8e46307">addTerminal</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> <a class="el" href="a03818.html#a4216447cf017313da081fddab0ac23b5">terminal</a>)</td></tr>
-<tr class="memdesc:a64b93b0f4eb88cebd899b193a8e46307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> type as a terminal.  <br /></td></tr>
-<tr class="separator:a64b93b0f4eb88cebd899b193a8e46307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3727dc96e94a21264e1b248fb6d71fb1" id="r_a3727dc96e94a21264e1b248fb6d71fb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a3727dc96e94a21264e1b248fb6d71fb1">addNonTerminal</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> <a class="el" href="a03818.html#a82044ef9b7fcf632393cf5b887114a26">nonterminal</a>)</td></tr>
-<tr class="memdesc:a3727dc96e94a21264e1b248fb6d71fb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a new <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> type as a nonterminal.  <br /></td></tr>
-<tr class="separator:a3727dc96e94a21264e1b248fb6d71fb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27582803bee33aa113723692c7a53d29" id="r_a27582803bee33aa113723692c7a53d29"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a27582803bee33aa113723692c7a53d29">addRule</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> result, const <a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> &amp;elements)</td></tr>
-<tr class="memdesc:a27582803bee33aa113723692c7a53d29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a grammar rule.  <br /></td></tr>
-<tr class="separator:a27582803bee33aa113723692c7a53d29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66126e9c88532244b37c1f97e71e6a10" id="r_a66126e9c88532244b37c1f97e71e6a10"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a66126e9c88532244b37c1f97e71e6a10">addRule</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> result, <a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> rhs)</td></tr>
-<tr class="memdesc:a66126e9c88532244b37c1f97e71e6a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience rule construction.  <br /></td></tr>
-<tr class="separator:a66126e9c88532244b37c1f97e71e6a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cf51447f336daeb9be8c75070926cbf" id="r_a6cf51447f336daeb9be8c75070926cbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a6cf51447f336daeb9be8c75070926cbf">getStart</a> () const</td></tr>
-<tr class="memdesc:a6cf51447f336daeb9be8c75070926cbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the start symbol.  <br /></td></tr>
-<tr class="separator:a6cf51447f336daeb9be8c75070926cbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4216447cf017313da081fddab0ac23b5" id="r_a4216447cf017313da081fddab0ac23b5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a4216447cf017313da081fddab0ac23b5">terminal</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> t) const</td></tr>
-<tr class="memdesc:a4216447cf017313da081fddab0ac23b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the symbol is a terminal.  <br /></td></tr>
-<tr class="separator:a4216447cf017313da081fddab0ac23b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82044ef9b7fcf632393cf5b887114a26" id="r_a82044ef9b7fcf632393cf5b887114a26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a82044ef9b7fcf632393cf5b887114a26">nonterminal</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> t) const</td></tr>
-<tr class="memdesc:a82044ef9b7fcf632393cf5b887114a26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the symbol is a nonterminal.  <br /></td></tr>
-<tr class="separator:a82044ef9b7fcf632393cf5b887114a26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6d3051ad3d4974ddc24c26aefc67475" id="r_ac6d3051ad3d4974ddc24c26aefc67475"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#ac6d3051ad3d4974ddc24c26aefc67475">followSet</a> (<a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> t, <a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> *recurseGuard=nullptr) const</td></tr>
-<tr class="memdesc:ac6d3051ad3d4974ddc24c26aefc67475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the follow set of the given symbol.  <br /></td></tr>
-<tr class="separator:ac6d3051ad3d4974ddc24c26aefc67475"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d216d342ea853ae429f454a9687930" id="r_ab1d216d342ea853ae429f454a9687930"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03830.html">ItemSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#ab1d216d342ea853ae429f454a9687930">closure</a> (const <a class="el" href="a03826.html">Item</a> &amp;item, <a class="el" href="a03830.html">ItemSet</a> *result=nullptr) const</td></tr>
-<tr class="memdesc:ab1d216d342ea853ae429f454a9687930"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the closure of an <a class="el" href="a03826.html" title="A Production with a cursor representing current parser position.">Item</a>.  <br /></td></tr>
-<tr class="separator:ab1d216d342ea853ae429f454a9687930"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a340a1fee9bf1025d9c10c41f75d217" id="r_a3a340a1fee9bf1025d9c10c41f75d217"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03830.html">ItemSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a3a340a1fee9bf1025d9c10c41f75d217">closure</a> (const <a class="el" href="a03830.html">ItemSet</a> &amp;itemSet) const</td></tr>
-<tr class="memdesc:a3a340a1fee9bf1025d9c10c41f75d217"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the union of the closures of each <a class="el" href="a03826.html" title="A Production with a cursor representing current parser position.">Item</a> in the set.  <br /></td></tr>
-<tr class="separator:a3a340a1fee9bf1025d9c10c41f75d217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ae606b7bc91ecd1faec943845115e0ef5" id="r_ae606b7bc91ecd1faec943845115e0ef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#ae606b7bc91ecd1faec943845115e0ef5">Game</a> ()</td></tr>
+<tr class="memdesc:ae606b7bc91ecd1faec943845115e0ef5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets this instance to be the main instance.  <br /></td></tr>
+<tr class="separator:ae606b7bc91ecd1faec943845115e0ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05b503932a5bb7858dffa3b8b0acfd34" id="r_a05b503932a5bb7858dffa3b8b0acfd34"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a05b503932a5bb7858dffa3b8b0acfd34">performEarlyStartup</a> (int argc, char **argv)=0</td></tr>
+<tr class="memdesc:a05b503932a5bb7858dffa3b8b0acfd34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at the beginning of main(). Apps should load their configs here.  <br /></td></tr>
+<tr class="separator:a05b503932a5bb7858dffa3b8b0acfd34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ca9efd485f4d58a788e2112a47acb5c" id="r_a5ca9efd485f4d58a788e2112a47acb5c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a03766.html">bl::engine::Settings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a5ca9efd485f4d58a788e2112a47acb5c">createStartupParameters</a> ()=0</td></tr>
+<tr class="memdesc:a5ca9efd485f4d58a788e2112a47acb5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should return the engine creation parameters to use.  <br /></td></tr>
+<tr class="separator:a5ca9efd485f4d58a788e2112a47acb5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7212b0b6c1949d54d942b5c267926e31" id="r_a7212b0b6c1949d54d942b5c267926e31"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a7212b0b6c1949d54d942b5c267926e31">completeStartup</a> (<a class="el" href="a03698.html">engine::Engine</a> &amp;engine)=0</td></tr>
+<tr class="memdesc:a7212b0b6c1949d54d942b5c267926e31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once the Engine is created. Apps should configure inputs, register systems, and perform any other startup tasks here.  <br /></td></tr>
+<tr class="separator:a7212b0b6c1949d54d942b5c267926e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912ed92b201e47dde4dcdd5d3b7e8e6e" id="r_a912ed92b201e47dde4dcdd5d3b7e8e6e"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a03770.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a912ed92b201e47dde4dcdd5d3b7e8e6e">createInitialEngineState</a> ()=0</td></tr>
+<tr class="memdesc:a912ed92b201e47dde4dcdd5d3b7e8e6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should create and return the engine state to begin executing.  <br /></td></tr>
+<tr class="separator:a912ed92b201e47dde4dcdd5d3b7e8e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfbe12354b9ed70f50fa53d10010bcc9" id="r_abfbe12354b9ed70f50fa53d10010bcc9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#abfbe12354b9ed70f50fa53d10010bcc9">startShutdown</a> ()=0</td></tr>
+<tr class="memdesc:abfbe12354b9ed70f50fa53d10010bcc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called after the main engine loop while the engine instance exists.  <br /></td></tr>
+<tr class="separator:abfbe12354b9ed70f50fa53d10010bcc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adab7646fb9c37730172900d26945ca3c" id="r_adab7646fb9c37730172900d26945ca3c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#adab7646fb9c37730172900d26945ca3c">completeShutdown</a> ()=0</td></tr>
+<tr class="memdesc:adab7646fb9c37730172900d26945ca3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at the end of main() after the engine instance is destroyed.  <br /></td></tr>
+<tr class="separator:adab7646fb9c37730172900d26945ca3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a9129d0ec30349438c5a9e611fd5d232a" id="r_a9129d0ec30349438c5a9e611fd5d232a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03818.html#a9129d0ec30349438c5a9e611fd5d232a">engine::Engine</a></td></tr>
+<tr class="separator:a9129d0ec30349438c5a9e611fd5d232a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a grammar for a <a class="el" href="a03846.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> to build a parse tree with from a token sequence. </p>
+<div class="textblock"><p>Base class for the main game instance. Apps using the BLIB-provided entrypoint should create a derived class and instantiate one instance globally before main() </p>
+<p>#ingroup <a class="el" href="a03818.html" title="Base class for the main game instance. Apps using the BLIB-provided entrypoint should create a derive...">Game</a> </p>
 
-<p class="definition">Definition at line <a class="el" href="a00026_source.html#l00016">16</a> of file <a class="el" href="a00026_source.html">Grammar.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3727dc96e94a21264e1b248fb6d71fb1" name="a3727dc96e94a21264e1b248fb6d71fb1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3727dc96e94a21264e1b248fb6d71fb1">&#9670;&#160;</a></span>addNonTerminal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::parser::Grammar::addNonTerminal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>nonterminal</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Register a new <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> type as a nonterminal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nonterminal</td><td>The nonterminal symbol </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00078">78</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a27582803bee33aa113723692c7a53d29" name="a27582803bee33aa113723692c7a53d29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27582803bee33aa113723692c7a53d29">&#9670;&#160;</a></span>addRule() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a00143_source.html#l00027">27</a> of file <a class="el" href="a00143_source.html">Game.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae606b7bc91ecd1faec943845115e0ef5" name="ae606b7bc91ecd1faec943845115e0ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae606b7bc91ecd1faec943845115e0ef5">&#9670;&#160;</a></span>Game()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::parser::Grammar::addRule </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> &amp;&#160;</td>
-          <td class="paramname"><em>elements</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a grammar rule. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>The non-terminal <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> to create </td></tr>
-    <tr><td class="paramname">elements</td><td>The list of Nodes that constitute the non-terminal </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00020">20</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a66126e9c88532244b37c1f97e71e6a10" name="a66126e9c88532244b37c1f97e71e6a10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66126e9c88532244b37c1f97e71e6a10">&#9670;&#160;</a></span>addRule() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::parser::Grammar::addRule </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Convenience rule construction. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>The non-terminal to generate </td></tr>
-    <tr><td class="paramname">rhs</td><td>The terminal or non-terminal node to reduce from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00035">35</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a64b93b0f4eb88cebd899b193a8e46307" name="a64b93b0f4eb88cebd899b193a8e46307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64b93b0f4eb88cebd899b193a8e46307">&#9670;&#160;</a></span>addTerminal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::parser::Grammar::addTerminal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>terminal</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Register a new <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> type as a terminal. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">terminal</td><td>The terminal symbol </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00072">72</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab1d216d342ea853ae429f454a9687930" name="ab1d216d342ea853ae429f454a9687930"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1d216d342ea853ae429f454a9687930">&#9670;&#160;</a></span>closure() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03830.html">Grammar::ItemSet</a> bl::parser::Grammar::closure </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03826.html">Item</a> &amp;&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03830.html">ItemSet</a> *&#160;</td>
-          <td class="paramname"><em>result</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Computes the closure of an <a class="el" href="a03826.html" title="A Production with a cursor representing current parser position.">Item</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td><a class="el" href="a03826.html" title="A Production with a cursor representing current parser position.">Item</a> to take the closure of </td></tr>
-    <tr><td class="paramname">result</td><td>Internal implementation only </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03830.html" title="A set of unique Items.">ItemSet</a> The closure </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00040">40</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3a340a1fee9bf1025d9c10c41f75d217" name="a3a340a1fee9bf1025d9c10c41f75d217"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a340a1fee9bf1025d9c10c41f75d217">&#9670;&#160;</a></span>closure() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03830.html">Grammar::ItemSet</a> bl::parser::Grammar::closure </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03830.html">ItemSet</a> &amp;&#160;</td>
-          <td class="paramname"><em>itemSet</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the union of the closures of each <a class="el" href="a03826.html" title="A Production with a cursor representing current parser position.">Item</a> in the set. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">itemSet</td><td>Items to take the closure of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03830.html" title="A set of unique Items.">ItemSet</a> Union of all closures </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00053">53</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac6d3051ad3d4974ddc24c26aefc67475" name="ac6d3051ad3d4974ddc24c26aefc67475"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6d3051ad3d4974ddc24c26aefc67475">&#9670;&#160;</a></span>followSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> bl::parser::Grammar::followSet </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> *&#160;</td>
-          <td class="paramname"><em>recurseGuard</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the follow set of the given symbol. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">t</td><td>Symbol to determine follow set of </td></tr>
-    <tr><td class="paramname">recurseGuard</td><td>Internal implementation only </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03838.html#afa29f085be0b57c51abc6f33d9619af2">Node::Sequence</a> The terminal symbols that can follow t </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00080">80</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6cf51447f336daeb9be8c75070926cbf" name="a6cf51447f336daeb9be8c75070926cbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cf51447f336daeb9be8c75070926cbf">&#9670;&#160;</a></span>getStart()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a> bl::parser::Grammar::getStart </td>
+          <td class="memname">bl::game::Game::Game </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Get the start symbol. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00018">18</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a82044ef9b7fcf632393cf5b887114a26" name="a82044ef9b7fcf632393cf5b887114a26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82044ef9b7fcf632393cf5b887114a26">&#9670;&#160;</a></span>nonterminal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::parser::Grammar::nonterminal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns true if the symbol is a nonterminal. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00074">74</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1775cb991e31b645b3e0af99db03b1df" name="a1775cb991e31b645b3e0af99db03b1df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1775cb991e31b645b3e0af99db03b1df">&#9670;&#160;</a></span>setStart()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::parser::Grammar::setStart </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>start</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Set the Start <a class="el" href="a03838.html" title="Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.">Node</a> type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">start</td><td>The root node type of the grammar </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Sets this instance to be the main instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00010">10</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00143_source.html#l00049">49</a> of file <a class="el" href="a00143_source.html">Game.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4216447cf017313da081fddab0ac23b5" name="a4216447cf017313da081fddab0ac23b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4216447cf017313da081fddab0ac23b5">&#9670;&#160;</a></span>terminal()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="adab7646fb9c37730172900d26945ca3c" name="adab7646fb9c37730172900d26945ca3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adab7646fb9c37730172900d26945ca3c">&#9670;&#160;</a></span>completeShutdown()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::parser::Grammar::terminal </td>
+          <td class="memname">virtual void bl::game::Game::completeShutdown </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03838.html#a7aead111e234327c018e49a75c20f702">Node::Type</a>&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns true if the symbol is a terminal. </p>
+<p>Called at the end of main() after the engine instance is destroyed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01481_source.html#l00070">70</a> of file <a class="el" href="a01481_source.html">Grammar.cpp</a>.</p>
+</div>
+</div>
+<a id="a7212b0b6c1949d54d942b5c267926e31" name="a7212b0b6c1949d54d942b5c267926e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7212b0b6c1949d54d942b5c267926e31">&#9670;&#160;</a></span>completeStartup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool bl::game::Game::completeStartup </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03698.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once the Engine is created. Apps should configure inputs, register systems, and perform any other startup tasks here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false to exit </dd></dl>
+
+</div>
+</div>
+<a id="a912ed92b201e47dde4dcdd5d3b7e8e6e" name="a912ed92b201e47dde4dcdd5d3b7e8e6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a912ed92b201e47dde4dcdd5d3b7e8e6e">&#9670;&#160;</a></span>createInitialEngineState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a03770.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a> bl::game::Game::createInitialEngineState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Derived classes should create and return the engine state to begin executing. </p>
+
+</div>
+</div>
+<a id="a5ca9efd485f4d58a788e2112a47acb5c" name="a5ca9efd485f4d58a788e2112a47acb5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ca9efd485f4d58a788e2112a47acb5c">&#9670;&#160;</a></span>createStartupParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a03766.html">bl::engine::Settings</a> bl::game::Game::createStartupParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Derived classes should return the engine creation parameters to use. </p>
+
+</div>
+</div>
+<a id="aef6ca4ab7dcb504b9248d559ae8a3a8a" name="aef6ca4ab7dcb504b9248d559ae8a3a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef6ca4ab7dcb504b9248d559ae8a3a8a">&#9670;&#160;</a></span>getInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T  = Game&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static T &amp; bl::game::Game::getInstance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the main <a class="el" href="a03818.html" title="Base class for the main game instance. Apps using the BLIB-provided entrypoint should create a derive...">Game</a> instance. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Optional derived class to cast to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The main game instance </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00143_source.html#l00036">36</a> of file <a class="el" href="a00143_source.html">Game.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a05b503932a5bb7858dffa3b8b0acfd34" name="a05b503932a5bb7858dffa3b8b0acfd34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05b503932a5bb7858dffa3b8b0acfd34">&#9670;&#160;</a></span>performEarlyStartup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool bl::game::Game::performEarlyStartup </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>argv</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called at the beginning of main(). Apps should load their configs here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argc</td><td>The number of arguments passed to main() </td></tr>
+    <tr><td class="paramname">argv</td><td>The arguments passed to main() </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false to exit </dd></dl>
+
+</div>
+</div>
+<a id="abfbe12354b9ed70f50fa53d10010bcc9" name="abfbe12354b9ed70f50fa53d10010bcc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfbe12354b9ed70f50fa53d10010bcc9">&#9670;&#160;</a></span>startShutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::game::Game::startShutdown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called after the main engine loop while the engine instance exists. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a9129d0ec30349438c5a9e611fd5d232a" name="a9129d0ec30349438c5a9e611fd5d232a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9129d0ec30349438c5a9e611fd5d232a">&#9670;&#160;</a></span>engine::Engine</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03698.html">engine::Engine</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00143_source.html#l00096">96</a> of file <a class="el" href="a00143_source.html">Game.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Parser/<a class="el" href="a00026_source.html">Grammar.hpp</a></li>
-<li>src/Parser/<a class="el" href="a01481_source.html">Grammar.cpp</a></li>
+<li>include/BLIB/<a class="el" href="a00143_source.html">Game.hpp</a></li>
+<li>src/<a class="el" href="a02870_source.html">main.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

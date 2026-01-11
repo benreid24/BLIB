@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/AssetRef.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Elements/ToggleButton.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,122 +79,77 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">AssetRef.hpp</div></div>
+  <div class="headertitle"><div class="title">ToggleButton.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01211.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETREF_HPP</span></div>
+<a href="a01211.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_ELEMENTS_TOGGLEBUTTON_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01208.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01193.html">BLIB/Interfaces/GUI/Elements/CompositeElement.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gui</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rg</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04202.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a04202.html">AssetRef</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04202.html#a5a81c661cbf6ea266a7fa88547a7acaa">   22</a></span>    <a class="code hl_function" href="a04202.html#a5a81c661cbf6ea266a7fa88547a7acaa">AssetRef</a>()</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    : asset(nullptr) {}</div>
-</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a04202.html#a118ed65194e08a2947b3fe139cec8cff">   30</a></span>    <a class="code hl_function" href="a04202.html#a118ed65194e08a2947b3fe139cec8cff">AssetRef</a>(<a class="code hl_class" href="a04186.html">Asset</a>* asset)</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    : asset(asset) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        ++asset-&gt;refCount;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
-</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04202.html#aed4703553ade357ce0514c67c6061fea">   40</a></span>    <a class="code hl_function" href="a04202.html#aed4703553ade357ce0514c67c6061fea">AssetRef</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04202.html">AssetRef</a>&amp; copy)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    : asset(copy.asset) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="a04202.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
-</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a04198.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a04198.html">ToggleButton</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04134.html">CompositeElement</a>&lt;1&gt; {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04198.html#aa91f33dad2ca51f5db34c42f8105949d">   21</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04198.html#aa91f33dad2ca51f5db34c42f8105949d">~ToggleButton</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04198.html#a71939ab1391a764c092c1d46c7ce9bca">getValue</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04198.html#a88e2b9a03134b8d5636256b46b9ccce8">setValue</a>(<span class="keywordtype">bool</span> value);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04198.html#acf731f588d7929c34803e9161b218a53">setToggleSize</a>(<span class="keywordtype">float</span> size);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a04198.html#a45b4e979061922952cfda4b1c0f5bfe8">getToggleSize</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a04202.html#a2747cde93ed5512f614f888359e7dede">   50</a></span>    <a class="code hl_function" href="a04202.html#a2747cde93ed5512f614f888359e7dede">AssetRef</a>(<a class="code hl_class" href="a04202.html">AssetRef</a>&amp;&amp; move) noexcept</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    : asset(move.asset) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        move.asset = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="a04198.html">ToggleButton</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a04142.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; child);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">virtual</span> sf::Vector2f <a class="code hl_function" href="a04198.html#acd5020bde0e4b13c438c9deecb017219">minimumRequisition</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04198.html#a45e03702947acdb0bceb4e2435932e70">onClick</a>();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04198.html#a15e67fe8f675fe3a0bbb10d727cf4205">propagateEvent</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04206.html">Event</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04198.html#ae763589f6b2bb1153975901351e35646">onAcquisition</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_typedef" href="a04142.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> child;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">bool</span> value;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">mutable</span> <span class="keywordtype">float</span> toggleSize;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a04202.html#a068183cd30a4f7d52ba6d164bc54057c">   58</a></span>    <a class="code hl_function" href="a04202.html#a068183cd30a4f7d52ba6d164bc54057c">~AssetRef</a>() {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="a04202.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) --asset-&gt;refCount;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
-</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a04202.html#a255011110381fa8220960bd965f41437">   68</a></span>    <a class="code hl_class" href="a04202.html">AssetRef</a>&amp; <a class="code hl_function" href="a04202.html#a255011110381fa8220960bd965f41437">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04202.html">AssetRef</a>&amp; copy) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        asset = copy.asset;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="a04202.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()) ++asset-&gt;refCount;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="a04202.html#ac5904e69bdc9183ddd6a6122256ed28f">   80</a></span>    <a class="code hl_class" href="a04202.html">AssetRef</a>&amp; <a class="code hl_function" href="a04202.html#ac5904e69bdc9183ddd6a6122256ed28f">operator=</a>(<a class="code hl_class" href="a04202.html">AssetRef</a>&amp;&amp; move) <span class="keyword">noexcept</span> {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        asset      = move.asset;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        move.asset = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
-</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a04202.html#a1f775d073caebc816df1909f9b76f66a">   89</a></span>    <span class="keyword">constexpr</span> <a class="code hl_class" href="a04186.html">Asset</a>&amp; <a class="code hl_function" href="a04202.html#a1f775d073caebc816df1909f9b76f66a">operator*</a>() { <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a04202.html#a2f17480b7859338e643180a21d431d84">   94</a></span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_class" href="a04186.html">Asset</a>&amp; <a class="code hl_function" href="a04202.html#a2f17480b7859338e643180a21d431d84">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a04202.html#ada491eabebb3971c4687be87753c013e">   99</a></span>    <span class="keyword">constexpr</span> <a class="code hl_class" href="a04186.html">Asset</a>* <a class="code hl_function" href="a04202.html#ada491eabebb3971c4687be87753c013e">operator-&gt;</a>() { <span class="keywordflow">return</span> asset; }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a04202.html#aa963efcb4d52410dc518e96e4b390a63">  104</a></span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_class" href="a04186.html">Asset</a>* <a class="code hl_function" href="a04202.html#aa963efcb4d52410dc518e96e4b390a63">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset; }</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a04202.html#a018eba88559d0db5c313a1aaf3a94e57">  109</a></span>    <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04202.html#a018eba88559d0db5c313a1aaf3a94e57">valid</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> asset != <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a04202.html#aece3302436e9d31ebe28038e40b07879">  114</a></span>    <span class="keyword">constexpr</span> <a class="code hl_class" href="a04186.html">Asset</a>&amp; <a class="code hl_function" href="a04202.html#aece3302436e9d31ebe28038e40b07879">get</a>() { <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a04202.html#a30dc549df6b5f426e59c3b4d2838e243">  119</a></span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> <a class="code hl_class" href="a04186.html">Asset</a>&amp; <a class="code hl_function" href="a04202.html#a30dc549df6b5f426e59c3b4d2838e243">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *asset; }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_class" href="a04186.html">Asset</a>* asset;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>};</div>
-</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace rg</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01208_html"><div class="ttname"><a href="a01208.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04186_html"><div class="ttname"><a href="a04186.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a01208_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa04202_html"><div class="ttname"><a href="a04202.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00017">AssetRef.hpp:17</a></div></div>
-<div class="ttc" id="aa04202_html_a018eba88559d0db5c313a1aaf3a94e57"><div class="ttname"><a href="a04202.html#a018eba88559d0db5c313a1aaf3a94e57">bl::rc::rg::AssetRef::valid</a></div><div class="ttdeci">constexpr bool valid() const</div><div class="ttdoc">Returns whether or not the handle is valid. Only valid handles should be dereferenced.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00109">AssetRef.hpp:109</a></div></div>
-<div class="ttc" id="aa04202_html_a068183cd30a4f7d52ba6d164bc54057c"><div class="ttname"><a href="a04202.html#a068183cd30a4f7d52ba6d164bc54057c">bl::rc::rg::AssetRef::~AssetRef</a></div><div class="ttdeci">~AssetRef()</div><div class="ttdoc">Decrements the ref count on the underlying asset if any.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00058">AssetRef.hpp:58</a></div></div>
-<div class="ttc" id="aa04202_html_a118ed65194e08a2947b3fe139cec8cff"><div class="ttname"><a href="a04202.html#a118ed65194e08a2947b3fe139cec8cff">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(Asset *asset)</div><div class="ttdoc">Creates a handle to the given asset.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00030">AssetRef.hpp:30</a></div></div>
-<div class="ttc" id="aa04202_html_a1f775d073caebc816df1909f9b76f66a"><div class="ttname"><a href="a04202.html#a1f775d073caebc816df1909f9b76f66a">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr Asset &amp; operator*()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00089">AssetRef.hpp:89</a></div></div>
-<div class="ttc" id="aa04202_html_a255011110381fa8220960bd965f41437"><div class="ttname"><a href="a04202.html#a255011110381fa8220960bd965f41437">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00068">AssetRef.hpp:68</a></div></div>
-<div class="ttc" id="aa04202_html_a2747cde93ed5512f614f888359e7dede"><div class="ttname"><a href="a04202.html#a2747cde93ed5512f614f888359e7dede">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00050">AssetRef.hpp:50</a></div></div>
-<div class="ttc" id="aa04202_html_a2f17480b7859338e643180a21d431d84"><div class="ttname"><a href="a04202.html#a2f17480b7859338e643180a21d431d84">bl::rc::rg::AssetRef::operator*</a></div><div class="ttdeci">constexpr const Asset &amp; operator*() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00094">AssetRef.hpp:94</a></div></div>
-<div class="ttc" id="aa04202_html_a30dc549df6b5f426e59c3b4d2838e243"><div class="ttname"><a href="a04202.html#a30dc549df6b5f426e59c3b4d2838e243">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr const Asset &amp; get() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00119">AssetRef.hpp:119</a></div></div>
-<div class="ttc" id="aa04202_html_a5a81c661cbf6ea266a7fa88547a7acaa"><div class="ttname"><a href="a04202.html#a5a81c661cbf6ea266a7fa88547a7acaa">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef()</div><div class="ttdoc">Creates an empty handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00022">AssetRef.hpp:22</a></div></div>
-<div class="ttc" id="aa04202_html_aa963efcb4d52410dc518e96e4b390a63"><div class="ttname"><a href="a04202.html#aa963efcb4d52410dc518e96e4b390a63">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr const Asset * operator-&gt;() const</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00104">AssetRef.hpp:104</a></div></div>
-<div class="ttc" id="aa04202_html_ac5904e69bdc9183ddd6a6122256ed28f"><div class="ttname"><a href="a04202.html#ac5904e69bdc9183ddd6a6122256ed28f">bl::rc::rg::AssetRef::operator=</a></div><div class="ttdeci">AssetRef &amp; operator=(AssetRef &amp;&amp;move) noexcept</div><div class="ttdoc">Assumes ownership from the given handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00080">AssetRef.hpp:80</a></div></div>
-<div class="ttc" id="aa04202_html_ada491eabebb3971c4687be87753c013e"><div class="ttname"><a href="a04202.html#ada491eabebb3971c4687be87753c013e">bl::rc::rg::AssetRef::operator-&gt;</a></div><div class="ttdeci">constexpr Asset * operator-&gt;()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00099">AssetRef.hpp:99</a></div></div>
-<div class="ttc" id="aa04202_html_aece3302436e9d31ebe28038e40b07879"><div class="ttname"><a href="a04202.html#aece3302436e9d31ebe28038e40b07879">bl::rc::rg::AssetRef::get</a></div><div class="ttdeci">constexpr Asset &amp; get()</div><div class="ttdoc">Dereferences the handle.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00114">AssetRef.hpp:114</a></div></div>
-<div class="ttc" id="aa04202_html_aed4703553ade357ce0514c67c6061fea"><div class="ttname"><a href="a04202.html#aed4703553ade357ce0514c67c6061fea">bl::rc::rg::AssetRef::AssetRef</a></div><div class="ttdeci">AssetRef(const AssetRef &amp;copy)</div><div class="ttdoc">Assigns this handle to the given copy.</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00040">AssetRef.hpp:40</a></div></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>} <span class="comment">// namespace gui</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01193_html"><div class="ttname"><a href="a01193.html">CompositeElement.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04134_html"><div class="ttname"><a href="a04134.html">bl::gui::CompositeElement</a></div><div class="ttdoc">Intermediate class for elements that consist of other elements. Provides some helper methods to ensur...</div><div class="ttdef"><b>Definition</b> <a href="a01193_source.html#l00017">CompositeElement.hpp:17</a></div></div>
+<div class="ttc" id="aa04142_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a04142.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01235_source.html#l00035">Element.hpp:35</a></div></div>
+<div class="ttc" id="aa04198_html"><div class="ttname"><a href="a04198.html">bl::gui::ToggleButton</a></div><div class="ttdoc">Base class for toggle-able buttons. RadioButton and CheckBox are derived from this....</div><div class="ttdef"><b>Definition</b> <a href="a01211_source.html#l00016">ToggleButton.hpp:16</a></div></div>
+<div class="ttc" id="aa04198_html_a15e67fe8f675fe3a0bbb10d727cf4205"><div class="ttname"><a href="a04198.html#a15e67fe8f675fe3a0bbb10d727cf4205">bl::gui::ToggleButton::propagateEvent</a></div><div class="ttdeci">virtual bool propagateEvent(const Event &amp;event) override</div><div class="ttdoc">Passes the event to the child then returns false always.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00066">ToggleButton.cpp:66</a></div></div>
+<div class="ttc" id="aa04198_html_a45b4e979061922952cfda4b1c0f5bfe8"><div class="ttname"><a href="a04198.html#a45b4e979061922952cfda4b1c0f5bfe8">bl::gui::ToggleButton::getToggleSize</a></div><div class="ttdeci">float getToggleSize() const</div><div class="ttdoc">Returns the size of the toggle indicator in overlay coordinates.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00052">ToggleButton.cpp:52</a></div></div>
+<div class="ttc" id="aa04198_html_a45e03702947acdb0bceb4e2435932e70"><div class="ttname"><a href="a04198.html#a45e03702947acdb0bceb4e2435932e70">bl::gui::ToggleButton::onClick</a></div><div class="ttdeci">virtual void onClick()</div><div class="ttdoc">Handler for clicks. Default behavior toggles the value.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00040">ToggleButton.cpp:40</a></div></div>
+<div class="ttc" id="aa04198_html_a71939ab1391a764c092c1d46c7ce9bca"><div class="ttname"><a href="a04198.html#a71939ab1391a764c092c1d46c7ce9bca">bl::gui::ToggleButton::getValue</a></div><div class="ttdeci">bool getValue() const</div><div class="ttdoc">Returns the current state of the toggle.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00024">ToggleButton.cpp:24</a></div></div>
+<div class="ttc" id="aa04198_html_a88e2b9a03134b8d5636256b46b9ccce8"><div class="ttname"><a href="a04198.html#a88e2b9a03134b8d5636256b46b9ccce8">bl::gui::ToggleButton::setValue</a></div><div class="ttdeci">void setValue(bool value)</div><div class="ttdoc">Set the state of the toggle.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00026">ToggleButton.cpp:26</a></div></div>
+<div class="ttc" id="aa04198_html_aa91f33dad2ca51f5db34c42f8105949d"><div class="ttname"><a href="a04198.html#aa91f33dad2ca51f5db34c42f8105949d">bl::gui::ToggleButton::~ToggleButton</a></div><div class="ttdeci">virtual ~ToggleButton()=default</div><div class="ttdoc">Destroys the toggle button.</div></div>
+<div class="ttc" id="aa04198_html_acd5020bde0e4b13c438c9deecb017219"><div class="ttname"><a href="a04198.html#acd5020bde0e4b13c438c9deecb017219">bl::gui::ToggleButton::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the size required to display the full button text.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00034">ToggleButton.cpp:34</a></div></div>
+<div class="ttc" id="aa04198_html_acf731f588d7929c34803e9161b218a53"><div class="ttname"><a href="a04198.html#acf731f588d7929c34803e9161b218a53">bl::gui::ToggleButton::setToggleSize</a></div><div class="ttdeci">void setToggleSize(float size)</div><div class="ttdoc">Sets the size, in overlay coordinates, of the toggle indicator.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00046">ToggleButton.cpp:46</a></div></div>
+<div class="ttc" id="aa04198_html_ae763589f6b2bb1153975901351e35646"><div class="ttname"><a href="a04198.html#ae763589f6b2bb1153975901351e35646">bl::gui::ToggleButton::onAcquisition</a></div><div class="ttdeci">virtual void onAcquisition() override</div><div class="ttdoc">Called when a new acquisition is assigned.</div><div class="ttdef"><b>Definition</b> <a href="a02564_source.html#l00057">ToggleButton.cpp:57</a></div></div>
+<div class="ttc" id="aa04206_html"><div class="ttname"><a href="a04206.html">bl::gui::Event</a></div><div class="ttdoc">GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.</div><div class="ttdef"><b>Definition</b> <a href="a08002_source.html#l00019">Event.hpp:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

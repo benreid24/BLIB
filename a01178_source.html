@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/TaskAssets.hpp Source File</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/NullComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,60 +79,70 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TaskAssets.hpp</div></div>
+  <div class="headertitle"><div class="title">NullComponent.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01178.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKASSETS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKASSETS_HPP</span></div>
+<a href="a01178.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_RENDERER_NULLCOMPONENT_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_RENDERER_NULLCOMPONENT_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01202.html">BLIB/Render/Graph/TaskAssetTags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01088.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gui</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rdr</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rg</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">struct </span>GraphAsset;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04270.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04270.html">TaskAssets</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04270.html#a721b54079c2c3517cabda5a851154b52">   23</a></span>    <a class="code hl_struct" href="a04234.html">GraphAsset</a>* <a class="code hl_variable" href="a04270.html#a721b54079c2c3517cabda5a851154b52">output</a>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04270.html#a5c54cf96c3a6980a60264cd77b57ea0d">   24</a></span>    std::vector&lt;GraphAsset*&gt; <a class="code hl_variable" href="a04270.html#a5c54cf96c3a6980a60264cd77b57ea0d">requiredInputs</a>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a04270.html#ac323e645d78eef3de573a933b6c04eea">   25</a></span>    std::vector&lt;GraphAsset*&gt; <a class="code hl_variable" href="a04270.html#ac323e645d78eef3de573a933b6c04eea">optionalInputs</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_function" href="a04270.html#aff149b2e77e78be28685552a116ceb8d">TaskAssets</a>();</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04270.html#a0df9b2131b064f2d488c02fd9a3cbc7d">init</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04274.html">TaskAssetTags</a>&amp; tags);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04342.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a04342.html">NullComponent</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04318.html">rdr::Component</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04342.html#a99a96017121074d7fcd0466b86157c21">   22</a></span>    <a class="code hl_function" href="a04342.html#a99a96017121074d7fcd0466b86157c21">NullComponent</a>()</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    : <a class="code hl_class" href="a04318.html">Component</a>(<a class="code hl_enumeration" href="a04318.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a>::<a class="code hl_enumvalue" href="a04318.html#ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84">IgnoresMouse</a>) {}</div>
 </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace rg</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01202_html"><div class="ttname"><a href="a01202.html">TaskAssetTags.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04234_html"><div class="ttname"><a href="a04234.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition</b> <a href="a01199_source.html#l00019">GraphAsset.hpp:19</a></div></div>
-<div class="ttc" id="aa04270_html"><div class="ttname"><a href="a04270.html">bl::rc::rg::TaskAssets</a></div><div class="ttdoc">Basic struct containing the assets for a task. Corresponds to TaskAssetTags. Indices are consistent w...</div><div class="ttdef"><b>Definition</b> <a href="a01178_source.html#l00022">TaskAssets.hpp:22</a></div></div>
-<div class="ttc" id="aa04270_html_a0df9b2131b064f2d488c02fd9a3cbc7d"><div class="ttname"><a href="a04270.html#a0df9b2131b064f2d488c02fd9a3cbc7d">bl::rc::rg::TaskAssets::init</a></div><div class="ttdeci">void init(const TaskAssetTags &amp;tags)</div><div class="ttdoc">Sizes the inputs and sets all pointers to nullptr.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00012">TaskAssets.cpp:12</a></div></div>
-<div class="ttc" id="aa04270_html_a5c54cf96c3a6980a60264cd77b57ea0d"><div class="ttname"><a href="a04270.html#a5c54cf96c3a6980a60264cd77b57ea0d">bl::rc::rg::TaskAssets::requiredInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; requiredInputs</div><div class="ttdef"><b>Definition</b> <a href="a01178_source.html#l00024">TaskAssets.hpp:24</a></div></div>
-<div class="ttc" id="aa04270_html_a721b54079c2c3517cabda5a851154b52"><div class="ttname"><a href="a04270.html#a721b54079c2c3517cabda5a851154b52">bl::rc::rg::TaskAssets::output</a></div><div class="ttdeci">GraphAsset * output</div><div class="ttdef"><b>Definition</b> <a href="a01178_source.html#l00023">TaskAssets.hpp:23</a></div></div>
-<div class="ttc" id="aa04270_html_ac323e645d78eef3de573a933b6c04eea"><div class="ttname"><a href="a04270.html#ac323e645d78eef3de573a933b6c04eea">bl::rc::rg::TaskAssets::optionalInputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; optionalInputs</div><div class="ttdef"><b>Definition</b> <a href="a01178_source.html#l00025">TaskAssets.hpp:25</a></div></div>
-<div class="ttc" id="aa04270_html_aff149b2e77e78be28685552a116ceb8d"><div class="ttname"><a href="a04270.html#aff149b2e77e78be28685552a116ceb8d">bl::rc::rg::TaskAssets::TaskAssets</a></div><div class="ttdeci">TaskAssets()</div><div class="ttdoc">Creates an empty asset set.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00009">TaskAssets.cpp:9</a></div></div>
-<div class="ttc" id="aa04274_html"><div class="ttname"><a href="a04274.html">bl::rc::rg::TaskAssetTags</a></div><div class="ttdoc">Basic struct containing the tags for a task for linking within a graph.</div><div class="ttdef"><b>Definition</b> <a href="a01202_source.html#l00019">TaskAssetTags.hpp:19</a></div></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04342.html#a065388da17ce96f9798d0b93d0b08e3b">   28</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04342.html#a065388da17ce96f9798d0b93d0b08e3b">~NullComponent</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setVisible(<span class="keywordtype">bool</span>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onElementUpdated()<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onRenderSettingChange()<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="a03542.html">ecs::Entity</a> getEntity()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">ecs::InvalidEntity</a>; }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(engine::World&amp;, <a class="code hl_friend" href="a04318.html#a70538530bc36e033e360880ef311df61">Renderer</a>&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doSceneAdd(rc::Overlay*)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doSceneRemove()<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> notifyUIState(<a class="code hl_enumeration" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleAcquisition()<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> handleMove()<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
+</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace gui</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01088_html"><div class="ttname"><a href="a01088.html">Component.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03009_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a03009.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00188">Entity.hpp:188</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa04318_html"><div class="ttname"><a href="a04318.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a01088_source.html#l00032">Component.hpp:32</a></div></div>
+<div class="ttc" id="aa04318_html_a70538530bc36e033e360880ef311df61"><div class="ttname"><a href="a04318.html#a70538530bc36e033e360880ef311df61">bl::gui::rdr::Component::Renderer</a></div><div class="ttdeci">friend class Renderer</div><div class="ttdef"><b>Definition</b> <a href="a01088_source.html#l00244">Component.hpp:244</a></div></div>
+<div class="ttc" id="aa04318_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a04318.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition</b> <a href="a01088_source.html#l00040">Component.hpp:40</a></div></div>
+<div class="ttc" id="aa04318_html_ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84"><div class="ttname"><a href="a04318.html#ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84">bl::gui::rdr::Component::HighlightState::IgnoresMouse</a></div><div class="ttdeci">@ IgnoresMouse</div></div>
+<div class="ttc" id="aa04318_html_ae8067b9f5370e7a570688e694a15f6ef"><div class="ttname"><a href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></div><div class="ttdeci">UIState</div><div class="ttdoc">Visible state of the element.</div><div class="ttdef"><b>Definition</b> <a href="a01088_source.html#l00037">Component.hpp:37</a></div></div>
+<div class="ttc" id="aa04342_html"><div class="ttname"><a href="a04342.html">bl::gui::rdr::NullComponent</a></div><div class="ttdoc">Empty component that noops all operations and renders nothing.</div><div class="ttdef"><b>Definition</b> <a href="a01178_source.html#l00017">NullComponent.hpp:17</a></div></div>
+<div class="ttc" id="aa04342_html_a065388da17ce96f9798d0b93d0b08e3b"><div class="ttname"><a href="a04342.html#a065388da17ce96f9798d0b93d0b08e3b">bl::gui::rdr::NullComponent::~NullComponent</a></div><div class="ttdeci">virtual ~NullComponent()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="ttc" id="aa04342_html_a99a96017121074d7fcd0466b86157c21"><div class="ttname"><a href="a04342.html#a99a96017121074d7fcd0466b86157c21">bl::gui::rdr::NullComponent::NullComponent</a></div><div class="ttdeci">NullComponent()</div><div class="ttdoc">Creates a new NullComponent.</div><div class="ttdef"><b>Definition</b> <a href="a01178_source.html#l00022">NullComponent.hpp:22</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

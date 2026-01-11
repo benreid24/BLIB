@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::sys::Physics2D Class Reference</title>
+<title>BLIB: bl::rc::lgt::Scene2DLighting Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,447 +74,174 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02409.html">sys</a></li><li class="navelem"><a class="el" href="a05238.html">Physics2D</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03054.html">lgt</a></li><li class="navelem"><a class="el" href="a05238.html">Scene2DLighting</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a05235.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::sys::Physics2D Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02392.html">Systems</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::lgt::Scene2DLighting Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Physics system for 2d physics. Wraps Box2D and adapts the ECS to it.  
+<p><a class="el" href="a05246.html" title="POD for 2d scene lighting data.">Lighting</a> manager for 2d scenes.  
  <a href="a05238.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a06334_source.html">Physics2D.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::sys::Physics2D:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05238.png" usemap="#bl::sys::Physics2D_map" alt=""/>
-  <map id="bl::sys::Physics2D_map" name="bl::sys::Physics2D_map">
-<area href="a03130.html" title="Base class for Engine systems which can be registered in the Systems registry." alt="bl::engine::System" shape="rect" coords="0,56,774,80"/>
-<area href="a03186.html" alt="bl::event::Listener&lt; ecs::event::ComponentRemoved&lt; com::Physics2D &gt;, engine::event::WorldCreated, engine::event::WorldDestroyed &gt;" shape="rect" coords="784,56,1558,80"/>
-<area href="a03182.html" alt="bl::event::ListenerBase&lt; TEvents &gt;" shape="rect" coords="784,0,1558,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05242.html">EntityCollisionBeginEvent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event that is fired when an entity collision begins.  <a href="a05242.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05242.html">Light</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">POD of a 2d light.  <a href="a05242.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html">EntityCollisionEndEvent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event that is fired when an entity collision ends.  <a href="a05246.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05250.html">EntityCollisionHitEvent</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event that is fired when an entity hit event occurs.  <a href="a05250.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05254.html">SensorEntered</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event that is fired when an entity enters a sensor.  <a href="a05254.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05258.html">SensorExited</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event that is fired when an entity exits a sensor.  <a href="a05258.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05246.html">Lighting</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">POD for 2d scene lighting data.  <a href="a05246.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a54c239ed1a506eb9f1afaeee645b476a" id="r_a54c239ed1a506eb9f1afaeee645b476a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a54c239ed1a506eb9f1afaeee645b476a">Physics2D</a> ()</td></tr>
-<tr class="memdesc:a54c239ed1a506eb9f1afaeee645b476a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the system.  <br /></td></tr>
-<tr class="separator:a54c239ed1a506eb9f1afaeee645b476a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcb117ebd27523e253bf0cae4ab3082a" id="r_abcb117ebd27523e253bf0cae4ab3082a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#abcb117ebd27523e253bf0cae4ab3082a">~Physics2D</a> ()=default</td></tr>
-<tr class="memdesc:abcb117ebd27523e253bf0cae4ab3082a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the system.  <br /></td></tr>
-<tr class="separator:abcb117ebd27523e253bf0cae4ab3082a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2869d28fe92fb0f1c6b81d2580a443fd" id="r_a2869d28fe92fb0f1c6b81d2580a443fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02674.html">com::Physics2D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a2869d28fe92fb0f1c6b81d2580a443fd">addPhysicsToEntity</a> (<a class="el" href="a02890.html">ecs::Entity</a> entity, b2BodyDef bodyDef=b2DefaultBodyDef(), b2ShapeDef shapeDef=b2DefaultShapeDef())</td></tr>
-<tr class="memdesc:a2869d28fe92fb0f1c6b81d2580a443fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds physics simulation to the given entity. The entity must have a Transform2D and Hitbox2D component.  <br /></td></tr>
-<tr class="separator:a2869d28fe92fb0f1c6b81d2580a443fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b60df3d9e74600d7b2655d67bfd0ce8" id="r_a9b60df3d9e74600d7b2655d67bfd0ce8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02674.html">com::Physics2D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a9b60df3d9e74600d7b2655d67bfd0ce8">findEntityAtPosition</a> (const <a class="el" href="a03170.html">engine::World2D</a> &amp;world, const glm::vec2 &amp;pos, b2QueryFilter filter=b2DefaultQueryFilter()) const</td></tr>
-<tr class="memdesc:a9b60df3d9e74600d7b2655d67bfd0ce8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the world and finds the entity whose collision shape(s) contain the given position.  <br /></td></tr>
-<tr class="separator:a9b60df3d9e74600d7b2655d67bfd0ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7162521b6e5fa037e650c006dd67ae0d" id="r_a7162521b6e5fa037e650c006dd67ae0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a7162521b6e5fa037e650c006dd67ae0d">createSensorForEntity</a> (<a class="el" href="a02890.html">ecs::Entity</a> entity, b2Filter filter=b2DefaultFilter())</td></tr>
-<tr class="memdesc:a7162521b6e5fa037e650c006dd67ae0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a physics sensor for the given entity. Must have a Transform2D and Hitbox2D.  <br /></td></tr>
-<tr class="separator:a7162521b6e5fa037e650c006dd67ae0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd00fdd22664f08bd72f70e7ee0239aa" id="r_acd00fdd22664f08bd72f70e7ee0239aa"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#acd00fdd22664f08bd72f70e7ee0239aa">getWorldToBoxScale</a> (unsigned int worldIndex) const</td></tr>
-<tr class="memdesc:acd00fdd22664f08bd72f70e7ee0239aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scale from world coordinates to Box2D coordinates for the given world.  <br /></td></tr>
-<tr class="separator:acd00fdd22664f08bd72f70e7ee0239aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0b61a9c1c17ae2449eceaae6e80decb" id="r_ae0b61a9c1c17ae2449eceaae6e80decb"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#ae0b61a9c1c17ae2449eceaae6e80decb">getWorldToBoxScale</a> (<a class="el" href="a02890.html">ecs::Entity</a> entity) const</td></tr>
-<tr class="memdesc:ae0b61a9c1c17ae2449eceaae6e80decb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scale from world coordinates to Box2D coordinates for the given entity.  <br /></td></tr>
-<tr class="separator:ae0b61a9c1c17ae2449eceaae6e80decb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad54860ab304e448edd55571f4e039634" id="r_ad54860ab304e448edd55571f4e039634"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html#ad54860ab304e448edd55571f4e039634">notifyFrameStart</a> ()</td></tr>
-<tr class="memdesc:ad54860ab304e448edd55571f4e039634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once each frame immediately after OS events are processed and before update.  <br /></td></tr>
-<tr class="separator:ad54860ab304e448edd55571f4e039634"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ea4afb54444b6a57c92edf15e07e54e" id="r_a0ea4afb54444b6a57c92edf15e07e54e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html#a0ea4afb54444b6a57c92edf15e07e54e">earlyCleanup</a> ()</td></tr>
-<tr class="memdesc:a0ea4afb54444b6a57c92edf15e07e54e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional early cleanup hook that is called when the engine is destructing prior to entities and resources all being freed.  <br /></td></tr>
-<tr class="separator:a0ea4afb54444b6a57c92edf15e07e54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5297276cfbb757ede3391eb9d525832" id="r_ae5297276cfbb757ede3391eb9d525832"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03182.html#ae5297276cfbb757ede3391eb9d525832">observe</a> (const TEvents &amp;event)=0</td></tr>
-<tr class="memdesc:ae5297276cfbb757ede3391eb9d525832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Observe the given.  <br /></td></tr>
-<tr class="separator:ae5297276cfbb757ede3391eb9d525832"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38461218e995f3bfabd9517c39cc0063" id="r_a38461218e995f3bfabd9517c39cc0063"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a38461218e995f3bfabd9517c39cc0063">Scene2DLighting</a> (<a class="el" href="a05246.html">Lighting</a> &amp;lightingBuffer)</td></tr>
+<tr class="memdesc:a38461218e995f3bfabd9517c39cc0063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the lighting manager.  <br /></td></tr>
+<tr class="separator:a38461218e995f3bfabd9517c39cc0063"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a374e3f575fb684315c072b7152a68c25" id="r_a374e3f575fb684315c072b7152a68c25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a374e3f575fb684315c072b7152a68c25">setAmbientLight</a> (const glm::vec3 &amp;ambient)</td></tr>
+<tr class="memdesc:a374e3f575fb684315c072b7152a68c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the ambient light color. Default is white (full light)  <br /></td></tr>
+<tr class="separator:a374e3f575fb684315c072b7152a68c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a159cca89859e89140b5e7c241ec03b6a" id="r_a159cca89859e89140b5e7c241ec03b6a"><td class="memItemLeft" align="right" valign="top">const glm::vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a159cca89859e89140b5e7c241ec03b6a">getAmbientLight</a> () const</td></tr>
+<tr class="memdesc:a159cca89859e89140b5e7c241ec03b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current ambient light color.  <br /></td></tr>
+<tr class="separator:a159cca89859e89140b5e7c241ec03b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83a8a20763448498e679aa8cd3267ce9" id="r_a83a8a20763448498e679aa8cd3267ce9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05214.html">Light2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a83a8a20763448498e679aa8cd3267ce9">addLight</a> (const glm::vec2 &amp;position, float radius, const glm::vec3 &amp;color=glm::vec3(1.f))</td></tr>
+<tr class="memdesc:a83a8a20763448498e679aa8cd3267ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a light to the scene.  <br /></td></tr>
+<tr class="separator:a83a8a20763448498e679aa8cd3267ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af187eb5826bc7b71f2e938294c0fd8e4" id="r_af187eb5826bc7b71f2e938294c0fd8e4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#af187eb5826bc7b71f2e938294c0fd8e4">removeLight</a> (<a class="el" href="a05214.html">Light2D</a> light)</td></tr>
+<tr class="memdesc:af187eb5826bc7b71f2e938294c0fd8e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given light from the scene.  <br /></td></tr>
+<tr class="separator:af187eb5826bc7b71f2e938294c0fd8e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa32628730bf3be92433c8a1e932a3520" id="r_aa32628730bf3be92433c8a1e932a3520"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#aa32628730bf3be92433c8a1e932a3520">removeAllLights</a> ()</td></tr>
+<tr class="memdesc:aa32628730bf3be92433c8a1e932a3520"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all lights from the scene.  <br /></td></tr>
+<tr class="separator:aa32628730bf3be92433c8a1e932a3520"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8491abc77e7b4171c58f0ab98debb88" id="r_ac8491abc77e7b4171c58f0ab98debb88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05214.html">Light2D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#ac8491abc77e7b4171c58f0ab98debb88">getLight</a> (std::uint32_t id)</td></tr>
+<tr class="memdesc:ac8491abc77e7b4171c58f0ab98debb88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a light handle for the given light. Does not check validity.  <br /></td></tr>
+<tr class="separator:ac8491abc77e7b4171c58f0ab98debb88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae26fe097457e92bce06111184c162d91" id="r_ae26fe097457e92bce06111184c162d91"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02674.html">com::Physics2D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#ae26fe097457e92bce06111184c162d91">getPhysicsComponentFromShape</a> (b2ShapeId shapeId)</td></tr>
-<tr class="memdesc:ae26fe097457e92bce06111184c162d91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to get the physics component from a Box2D shape id.  <br /></td></tr>
-<tr class="separator:ae26fe097457e92bce06111184c162d91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a522c0bdb1dfb842a8f422214fe077b5d" id="r_a522c0bdb1dfb842a8f422214fe077b5d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02890.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a522c0bdb1dfb842a8f422214fe077b5d">getEntityFromShape</a> (b2ShapeId shapeId)</td></tr>
-<tr class="memdesc:a522c0bdb1dfb842a8f422214fe077b5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to get an entity from a Box2D shape id.  <br /></td></tr>
-<tr class="separator:a522c0bdb1dfb842a8f422214fe077b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a2f89fe0988c984ee95a05b336a0a17a0" id="r_a2f89fe0988c984ee95a05b336a0a17a0"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a2f89fe0988c984ee95a05b336a0a17a0">MaxLightCount</a> = 500</td></tr>
+<tr class="separator:a2f89fe0988c984ee95a05b336a0a17a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a9f844b9595c55e5db4fc3f58b07418ef" id="r_a9f844b9595c55e5db4fc3f58b07418ef"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a9f844b9595c55e5db4fc3f58b07418ef">scene::Scene2D</a></td></tr>
+<tr class="separator:a9f844b9595c55e5db4fc3f58b07418ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b95a710fbc937fe941e1ec993c860f" id="r_a97b95a710fbc937fe941e1ec993c860f"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05238.html#a97b95a710fbc937fe941e1ec993c860f">Light2D</a></td></tr>
+<tr class="separator:a97b95a710fbc937fe941e1ec993c860f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Physics system for 2d physics. Wraps Box2D and adapts the ECS to it. </p>
+<div class="textblock"><p><a class="el" href="a05246.html" title="POD for 2d scene lighting data.">Lighting</a> manager for 2d scenes. </p>
 
-<p class="definition">Definition at line <a class="el" href="a06334_source.html#l00026">26</a> of file <a class="el" href="a06334_source.html">Physics2D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00030">30</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a54c239ed1a506eb9f1afaeee645b476a" name="a54c239ed1a506eb9f1afaeee645b476a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54c239ed1a506eb9f1afaeee645b476a">&#9670;&#160;</a></span>Physics2D()</h2>
+<a id="a38461218e995f3bfabd9517c39cc0063" name="a38461218e995f3bfabd9517c39cc0063"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38461218e995f3bfabd9517c39cc0063">&#9670;&#160;</a></span>Scene2DLighting()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::sys::Physics2D::Physics2D </td>
+          <td class="memname">bl::rc::lgt::Scene2DLighting::Scene2DLighting </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05246.html">Lighting</a> &amp;&#160;</td>
+          <td class="paramname"><em>lightingBuffer</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the system. </p>
+<p>Creates the lighting manager. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lightingBuffer</td><td>The lighting buffer to update with light data </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00022">22</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abcb117ebd27523e253bf0cae4ab3082a" name="abcb117ebd27523e253bf0cae4ab3082a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcb117ebd27523e253bf0cae4ab3082a">&#9670;&#160;</a></span>~Physics2D()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::sys::Physics2D::~Physics2D </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the system. </p>
+<p class="definition">Definition at line <a class="el" href="a02303_source.html#l00011">11</a> of file <a class="el" href="a02303_source.html">Scene2DLighting.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2869d28fe92fb0f1c6b81d2580a443fd" name="a2869d28fe92fb0f1c6b81d2580a443fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2869d28fe92fb0f1c6b81d2580a443fd">&#9670;&#160;</a></span>addPhysicsToEntity()</h2>
+<a id="a83a8a20763448498e679aa8cd3267ce9" name="a83a8a20763448498e679aa8cd3267ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a8a20763448498e679aa8cd3267ce9">&#9670;&#160;</a></span>addLight()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02674.html">com::Physics2D</a> * bl::sys::Physics2D::addPhysicsToEntity </td>
+          <td class="memname"><a class="el" href="a05214.html">Light2D</a> bl::rc::lgt::Scene2DLighting::addLight </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">b2BodyDef&#160;</td>
-          <td class="paramname"><em>bodyDef</em> = <code>b2DefaultBodyDef()</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">b2ShapeDef&#160;</td>
-          <td class="paramname"><em>shapeDef</em> = <code>b2DefaultShapeDef()</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds physics simulation to the given entity. The entity must have a Transform2D and Hitbox2D component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to add physics to </td></tr>
-    <tr><td class="paramname">bodyDef</td><td>The body parameters for Box2D </td></tr>
-    <tr><td class="paramname">shapeDef</td><td>The shape parameters for Box2D </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The created physics component, or nullptr on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00027">27</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7162521b6e5fa037e650c006dd67ae0d" name="a7162521b6e5fa037e650c006dd67ae0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7162521b6e5fa037e650c006dd67ae0d">&#9670;&#160;</a></span>createSensorForEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::sys::Physics2D::createSensorForEntity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">b2Filter&#160;</td>
-          <td class="paramname"><em>filter</em> = <code>b2DefaultFilter()</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a physics sensor for the given entity. Must have a Transform2D and Hitbox2D. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to create a sensor on </td></tr>
-    <tr><td class="paramname">filter</td><td>Optional collision filter for the sensor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00051">51</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0ea4afb54444b6a57c92edf15e07e54e" name="a0ea4afb54444b6a57c92edf15e07e54e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea4afb54444b6a57c92edf15e07e54e">&#9670;&#160;</a></span>earlyCleanup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void bl::engine::System::earlyCleanup </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Optional early cleanup hook that is called when the engine is destructing prior to entities and resources all being freed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a06865_source.html#l00055">55</a> of file <a class="el" href="a06865_source.html">System.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9b60df3d9e74600d7b2655d67bfd0ce8" name="a9b60df3d9e74600d7b2655d67bfd0ce8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b60df3d9e74600d7b2655d67bfd0ce8">&#9670;&#160;</a></span>findEntityAtPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02674.html">com::Physics2D</a> * bl::sys::Physics2D::findEntityAtPosition </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03170.html">engine::World2D</a> &amp;&#160;</td>
-          <td class="paramname"><em>world</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramname"><em>position</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">b2QueryFilter&#160;</td>
-          <td class="paramname"><em>filter</em> = <code>b2DefaultQueryFilter()</code>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>color</em> = <code>glm::vec3(1.f)</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Queries the world and finds the entity whose collision shape(s) contain the given position. </p>
+<p>Adds a light to the scene. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">world</td><td>The world to query </td></tr>
-    <tr><td class="paramname">pos</td><td>The position to query for </td></tr>
-    <tr><td class="paramname">filter</td><td>Optional Box2D filter to use during the world query </td></tr>
+    <tr><td class="paramname">position</td><td>The position of the light in world coordinates </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius of the light in world units </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the light </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The physics component of the entity at the given position. May be nullptr </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A handle to manage the newly created light </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00037">37</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a522c0bdb1dfb842a8f422214fe077b5d" name="a522c0bdb1dfb842a8f422214fe077b5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a522c0bdb1dfb842a8f422214fe077b5d">&#9670;&#160;</a></span>getEntityFromShape()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02890.html">ecs::Entity</a> bl::sys::Physics2D::getEntityFromShape </td>
-          <td>(</td>
-          <td class="paramtype">b2ShapeId&#160;</td>
-          <td class="paramname"><em>shapeId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method to get an entity from a Box2D shape id. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shapeId</td><td>The shape to get the entity for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The entity the shape belongs to </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00135">135</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02303_source.html#l00021">21</a> of file <a class="el" href="a02303_source.html">Scene2DLighting.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae26fe097457e92bce06111184c162d91" name="ae26fe097457e92bce06111184c162d91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae26fe097457e92bce06111184c162d91">&#9670;&#160;</a></span>getPhysicsComponentFromShape()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02674.html">com::Physics2D</a> * bl::sys::Physics2D::getPhysicsComponentFromShape </td>
-          <td>(</td>
-          <td class="paramtype">b2ShapeId&#160;</td>
-          <td class="paramname"><em>shapeId</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method to get the physics component from a Box2D shape id. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shapeId</td><td>The shape to get the physics component for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Pointer to the physics component. May be nullptr (but should not be) </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00130">130</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae0b61a9c1c17ae2449eceaae6e80decb" name="ae0b61a9c1c17ae2449eceaae6e80decb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0b61a9c1c17ae2449eceaae6e80decb">&#9670;&#160;</a></span>getWorldToBoxScale() <span class="overload">[1/2]</span></h2>
+<a id="a159cca89859e89140b5e7c241ec03b6a" name="a159cca89859e89140b5e7c241ec03b6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a159cca89859e89140b5e7c241ec03b6a">&#9670;&#160;</a></span>getAmbientLight()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float bl::sys::Physics2D::getWorldToBoxScale </td>
+          <td class="memname">const glm::vec3 &amp; bl::rc::lgt::Scene2DLighting::getAmbientLight </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the scale from world coordinates to Box2D coordinates for the given entity. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">worldIndex</td><td>The entity to get the scale for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The scale mapping world space to box2d space </dd></dl>
+<p>Returns the current ambient light color. </p>
 
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00145">145</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02303_source.html#l00019">19</a> of file <a class="el" href="a02303_source.html">Scene2DLighting.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acd00fdd22664f08bd72f70e7ee0239aa" name="acd00fdd22664f08bd72f70e7ee0239aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd00fdd22664f08bd72f70e7ee0239aa">&#9670;&#160;</a></span>getWorldToBoxScale() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::sys::Physics2D::getWorldToBoxScale </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>worldIndex</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the scale from world coordinates to Box2D coordinates for the given world. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">worldIndex</td><td>The world index to get the scale for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The scale mapping world space to box2d space </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a06943_source.html#l00140">140</a> of file <a class="el" href="a06943_source.html">Physics2D.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad54860ab304e448edd55571f4e039634" name="ad54860ab304e448edd55571f4e039634"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad54860ab304e448edd55571f4e039634">&#9670;&#160;</a></span>notifyFrameStart()</h2>
+<a id="ac8491abc77e7b4171c58f0ab98debb88" name="ac8491abc77e7b4171c58f0ab98debb88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8491abc77e7b4171c58f0ab98debb88">&#9670;&#160;</a></span>getLight()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -523,27 +250,113 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::engine::System::notifyFrameStart </td>
+          <td class="memname"><a class="el" href="a05214.html">Light2D</a> bl::rc::lgt::Scene2DLighting::getLight </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a light handle for the given light. Does not check validity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the light to construct a handle for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A handle to the light </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00099">99</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa32628730bf3be92433c8a1e932a3520" name="aa32628730bf3be92433c8a1e932a3520"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32628730bf3be92433c8a1e932a3520">&#9670;&#160;</a></span>removeAllLights()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::lgt::Scene2DLighting::removeAllLights </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Called once each frame immediately after OS events are processed and before update. </p>
+<p>Removes all lights from the scene. </p>
 
-<p class="definition">Definition at line <a class="el" href="a06865_source.html#l00049">49</a> of file <a class="el" href="a06865_source.html">System.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02303_source.html#l00055">55</a> of file <a class="el" href="a02303_source.html">Scene2DLighting.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae5297276cfbb757ede3391eb9d525832" name="ae5297276cfbb757ede3391eb9d525832"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5297276cfbb757ede3391eb9d525832">&#9670;&#160;</a></span>observe()</h2>
+<a id="af187eb5826bc7b71f2e938294c0fd8e4" name="af187eb5826bc7b71f2e938294c0fd8e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af187eb5826bc7b71f2e938294c0fd8e4">&#9670;&#160;</a></span>removeLight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::lgt::Scene2DLighting::removeLight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05214.html">Light2D</a>&#160;</td>
+          <td class="paramname"><em>light</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given light from the scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">light</td><td>The light to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02303_source.html#l00030">30</a> of file <a class="el" href="a02303_source.html">Scene2DLighting.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a374e3f575fb684315c072b7152a68c25" name="a374e3f575fb684315c072b7152a68c25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a374e3f575fb684315c072b7152a68c25">&#9670;&#160;</a></span>setAmbientLight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::lgt::Scene2DLighting::setAmbientLight </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>ambient</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the ambient light color. Default is white (full light) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ambient</td><td>The ambient light color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02303_source.html#l00017">17</a> of file <a class="el" href="a02303_source.html">Scene2DLighting.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a97b95a710fbc937fe941e1ec993c860f" name="a97b95a710fbc937fe941e1ec993c860f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97b95a710fbc937fe941e1ec993c860f">&#9670;&#160;</a></span>Light2D</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -552,39 +365,78 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void <a class="el" href="a03182.html">bl::event::ListenerBase</a>&lt; TEvents  &gt;::observe </td>
-          <td>(</td>
-          <td class="paramtype">const TEvents  &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
-          <td></td>
+          <td class="memname">friend class <a class="el" href="a05214.html">Light2D</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Observe the given. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00107">107</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9f844b9595c55e5db4fc3f58b07418ef" name="a9f844b9595c55e5db4fc3f58b07418ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f844b9595c55e5db4fc3f58b07418ef">&#9670;&#160;</a></span>scene::Scene2D</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05462.html">scene::Scene2D</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00106">106</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a2f89fe0988c984ee95a05b336a0a17a0" name="a2f89fe0988c984ee95a05b336a0a17a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f89fe0988c984ee95a05b336a0a17a0">&#9670;&#160;</a></span>MaxLightCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::lgt::Scene2DLighting::MaxLightCount = 500</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00821_source.html#l00032">32</a> of file <a class="el" href="a00821_source.html">Scene2DLighting.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Systems/<a class="el" href="a06334_source.html">Physics2D.hpp</a></li>
-<li>src/Systems/<a class="el" href="a06943_source.html">Physics2D.cpp</a></li>
+<li>include/BLIB/Render/Lighting/<a class="el" href="a00821_source.html">Scene2DLighting.hpp</a></li>
+<li>src/Render/Lighting/<a class="el" href="a02303_source.html">Scene2DLighting.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

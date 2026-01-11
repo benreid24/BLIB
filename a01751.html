@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Function.cpp File Reference</title>
+<title>BLIB: include/BLIB/Resources/Loader.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,38 +74,81 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Function.cpp File Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
+  <div class="headertitle"><div class="title">Loader.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00500_source.html">BLIB/Scripts/Function.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00512_source.html">BLIB/Scripts/Error.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00503_source.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00518_source.html">BLIB/Scripts/Value.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a06841_source.html">Scripts/Parser.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01733_source.html">Scripts/ScriptImpl.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00185_source.html">BLIB/Audio/Playlist.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01670_source.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01625_source.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01427_source.html">BLIB/Models/Importer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01421_source.html">BLIB/Models/Model.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01700_source.html">BLIB/Resources/Ref.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01709_source.html">BLIB/Resources/Resource.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Audio.hpp&gt;</code><br />
+<code>#include &lt;SFML/Graphics.hpp&gt;</code><br />
+<code>#include &lt;istream&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 </div>
 <p><a href="a01751_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05922.html">bl::resource::LoaderBase&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Templated resource loader. Must be implemented for any resource type that is intended to be managed.  <a href="a05922.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05926.html">bl::resource::NullLoader&lt; TResourceType &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper loader to use if no more of a given resource type should be loaded. Does not perform any loading and logs warnings when resource loading is attempted.  <a href="a05926.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05930.html">bl::resource::DefaultLoader&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer, <a class="el" href="a03178.html" title="A playable, serializable music playlist. Can be manually manipulated or loaded from files.">bl::audio::Playlist</a>, bl::rc::AnimationData, <a class="el" href="a04014.html" title="Adaptation of sf::Font for use with Vulkan.">sf::VulkanFont</a>.  <a href="a05930.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05934.html">bl::resource::DefaultLoader&lt; sf::Texture &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05938.html">bl::resource::DefaultLoader&lt; sf::SoundBuffer &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05942.html">bl::resource::DefaultLoader&lt; audio::Playlist &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05946.html">bl::resource::BundledPlaylistLoader</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05950.html">bl::resource::DefaultLoader&lt; sf::Font &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05954.html">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05958.html">bl::resource::DefaultLoader&lt; sf::Image &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05962.html">bl::resource::DefaultLoader&lt; gfx::a2d::AnimationData &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05966.html">bl::resource::DefaultLoader&lt; mdl::Model &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02469" id="r_a02469"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02469.html">bl::script</a></td></tr>
-<tr class="memdesc:a02469"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04870.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> interpreter for bScript. <br /></td></tr>
+<tr class="memitem:a03066" id="r_a03066"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03066.html">bl::resource</a></td></tr>
+<tr class="memdesc:a03066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a57bbbec57da37d77f6076b52e8665fa8" id="r_a57bbbec57da37d77f6076b52e8665fa8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03066.html#a57bbbec57da37d77f6076b52e8665fa8">bl::resource::RawPlaylistLoader</a> = <a class="el" href="a05930.html">DefaultLoader</a>&lt; <a class="el" href="a03178.html">audio::Playlist</a> &gt;</td></tr>
+<tr class="separator:a57bbbec57da37d77f6076b52e8665fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Input/Listener.cpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Sphere.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,63 +79,83 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_25af87635f61d97ebff867d1c53b4626.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Listener.cpp</div></div>
+  <div class="headertitle"><div class="title">Sphere.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01616.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a06397.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00176.html">BLIB/Input/Actor.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>input</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a03434.html#a079b505ecaed9f6afd8278bbb7f38a44">    9</a></span><a class="code hl_function" href="a03434.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>()</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: owner(nullptr) {}</div>
+<a href="a01616.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_SPHERE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_SPHERE_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a07915.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01637.html">BLIB/Graphics/Components/Outline3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a07954.html">BLIB/Graphics/Components/Transform3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01604.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/Render/Config/MaterialPipelineIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Render/Resources/MaterialPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>gfx</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03990.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a03990.html">Sphere</a></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>: <span class="keyword">public</span> <a class="code hl_class" href="a03922.html">Drawable</a>&lt;com::BasicMesh&gt;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>, <span class="keyword">public</span> <a class="code hl_class" href="a03910.html">bcom::Transform3D</a></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>, <span class="keyword">public</span> <a class="code hl_class" href="a03894.html">bcom::Outline3D</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="a03990.html#a36135a63bd2bf1dbe45cbac126c38b55">Sphere</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_function" href="a03990.html#a36135a63bd2bf1dbe45cbac126c38b55">Sphere</a>(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <span class="keywordtype">float</span> radius, <span class="keywordtype">int</span> detailLevel,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>           <span class="keyword">const</span> <a class="code hl_class" href="a05358.html">bl::rc::res::MaterialRef</a>&amp; <a class="code hl_function" href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">material</a> = {},</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>           std::uint32_t materialPipelineId         = <a class="code hl_variable" href="a04786.html#afef6896666d10f729ca3463c401bcb45">rc::cfg::MaterialPipelineIds::Mesh3D</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03990.html#a245965f2a5dcf3030e8e044cf136daac">create</a>(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <span class="keywordtype">float</span> radius, <span class="keywordtype">int</span> detailLevel,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <span class="keyword">const</span> <a class="code hl_class" href="a05358.html">bl::rc::res::MaterialRef</a>&amp; <a class="code hl_function" href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">material</a> = {},</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                std::uint32_t materialPipelineId         = <a class="code hl_variable" href="a04786.html#afef6896666d10f729ca3463c401bcb45">rc::cfg::MaterialPipelineIds::Mesh3D</a>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03990.html#af17ccc249c2ae2fee24989388451d45f">makeSphere</a>(<span class="keywordtype">float</span> radius, <span class="keywordtype">int</span> detailLevel,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                           std::vector&lt;rc::prim::Vertex3D&gt;&amp; outVertices,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                           std::vector&lt;std::uint32_t&gt;&amp; outIndices);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03990.html#a828c0938b5e4c7a5a12b985fc5c96445">setColor</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04746.html">rc::Color</a>&amp; color);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> scaleToSize(<span class="keyword">const</span> glm::vec2&amp; size) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>};</div>
 </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a03434.html#ae3540d1af77f94edd329e089eec2da82">   12</a></span><a class="code hl_function" href="a03434.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03434.html">Listener</a>&amp; l)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: owner(l.owner) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_class" href="a03434.html">Listener</a>&amp; c = <span class="keyword">const_cast&lt;</span><a class="code hl_class" href="a03434.html">Listener</a>&amp;<span class="keyword">&gt;</span>(l);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code hl_function" href="a03394.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(c, *<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
-</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03434.html#a29b323fc5a97661724c3a97790d72758">   18</a></span><a class="code hl_function" href="a03434.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener::Listener</a>(<a class="code hl_class" href="a03434.html">Listener</a>&amp;&amp; l)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>: owner(l.owner) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code hl_function" href="a03394.html#a863a02458bc5d034b2fdb33076ea58b3">replaceListener</a>(l, *<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    l.owner = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03434.html#a483ff531396a8a888ece355a945985cd">   24</a></span><a class="code hl_function" href="a03434.html#a483ff531396a8a888ece355a945985cd">Listener::~Listener</a>() {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (owner) { owner-&gt;<a class="code hl_function" href="a03394.html#a56283b2fa7496cb11af9ce65ea40a5d6">removeListener</a>(*<span class="keyword">this</span>); }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace input</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">Actor.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03394_html_a56283b2fa7496cb11af9ce65ea40a5d6"><div class="ttname"><a href="a03394.html#a56283b2fa7496cb11af9ce65ea40a5d6">bl::input::Actor::removeListener</a></div><div class="ttdeci">void removeListener(input::Listener &amp;listener)</div><div class="ttdoc">Removes the given listener. Does not have to be the active listener.</div><div class="ttdef"><b>Definition</b> <a href="a01619_source.html#l00168">Actor.cpp:168</a></div></div>
-<div class="ttc" id="aa03394_html_a863a02458bc5d034b2fdb33076ea58b3"><div class="ttname"><a href="a03394.html#a863a02458bc5d034b2fdb33076ea58b3">bl::input::Actor::replaceListener</a></div><div class="ttdeci">void replaceListener(input::Listener &amp;oldListener, input::Listener &amp;newListener)</div><div class="ttdoc">Replaces the old listener with the new, keeping it at the same position in the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01619_source.html#l00178">Actor.cpp:178</a></div></div>
-<div class="ttc" id="aa03434_html"><div class="ttname"><a href="a03434.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition</b> <a href="a06397_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa03434_html_a079b505ecaed9f6afd8278bbb7f38a44"><div class="ttname"><a href="a03434.html#a079b505ecaed9f6afd8278bbb7f38a44">bl::input::Listener::Listener</a></div><div class="ttdeci">Listener()</div><div class="ttdoc">Construct a new Listener object.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00009">Listener.cpp:9</a></div></div>
-<div class="ttc" id="aa03434_html_a483ff531396a8a888ece355a945985cd"><div class="ttname"><a href="a03434.html#a483ff531396a8a888ece355a945985cd">bl::input::Listener::~Listener</a></div><div class="ttdeci">virtual ~Listener()</div><div class="ttdoc">Unsubscribes the listener if subscribed.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00024">Listener.cpp:24</a></div></div>
-<div class="ttc" id="aa06397_html"><div class="ttname"><a href="a06397.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">MaterialPipelineIds.hpp</a></div></div>
+<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">MaterialPool.hpp</a></div></div>
+<div class="ttc" id="aa01604_html"><div class="ttname"><a href="a01604.html">Drawable.hpp</a></div></div>
+<div class="ttc" id="aa01637_html"><div class="ttname"><a href="a01637.html">Outline3D.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03806_html"><div class="ttname"><a href="a03806.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01496_source.html#l00022">World.hpp:22</a></div></div>
+<div class="ttc" id="aa03894_html"><div class="ttname"><a href="a03894.html">bl::gfx::bcom::Outline3D</a></div><div class="ttdoc">Component that adds an outline to 3d objects when rendered.</div><div class="ttdef"><b>Definition</b> <a href="a01637_source.html#l00029">Outline3D.hpp:29</a></div></div>
+<div class="ttc" id="aa03910_html"><div class="ttname"><a href="a03910.html">bl::gfx::bcom::Transform3D</a></div><div class="ttdoc">Base component class for Drawables that require a 3d transform.</div><div class="ttdef"><b>Definition</b> <a href="a07954_source.html#l00019">Transform3D.hpp:19</a></div></div>
+<div class="ttc" id="aa03922_html"><div class="ttname"><a href="a03922.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition</b> <a href="a01604_source.html#l00033">Drawable.hpp:33</a></div></div>
+<div class="ttc" id="aa03922_html_a0a0fe998b75eb7f8fc5ea7fb5891f031"><div class="ttname"><a href="a03922.html#a0a0fe998b75eb7f8fc5ea7fb5891f031">bl::gfx::Drawable&lt; com::BasicMesh &gt;::material</a></div><div class="ttdeci">com::MaterialInstance &amp; material()</div><div class="ttdoc">Returns the material instance for this entity. Only call after create()</div><div class="ttdef"><b>Definition</b> <a href="a01604_source.html#l00091">Drawable.hpp:280</a></div></div>
+<div class="ttc" id="aa03990_html"><div class="ttname"><a href="a03990.html">bl::gfx::Sphere</a></div><div class="ttdoc">Basic drawable for 3d spheres.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00020">Sphere.hpp:23</a></div></div>
+<div class="ttc" id="aa03990_html_a245965f2a5dcf3030e8e044cf136daac"><div class="ttname"><a href="a03990.html#a245965f2a5dcf3030e8e044cf136daac">bl::gfx::Sphere::create</a></div><div class="ttdeci">void create(engine::World &amp;world, float radius, int detailLevel, const bl::rc::res::MaterialRef &amp;material={}, std::uint32_t materialPipelineId=rc::cfg::MaterialPipelineIds::Mesh3D)</div><div class="ttdoc">Creates the sphere with a given size and material.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00078">Sphere.cpp:78</a></div></div>
+<div class="ttc" id="aa03990_html_a36135a63bd2bf1dbe45cbac126c38b55"><div class="ttname"><a href="a03990.html#a36135a63bd2bf1dbe45cbac126c38b55">bl::gfx::Sphere::Sphere</a></div><div class="ttdeci">Sphere()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00071">Sphere.cpp:71</a></div></div>
+<div class="ttc" id="aa03990_html_a828c0938b5e4c7a5a12b985fc5c96445"><div class="ttname"><a href="a03990.html#a828c0938b5e4c7a5a12b985fc5c96445">bl::gfx::Sphere::setColor</a></div><div class="ttdeci">void setColor(const rc::Color &amp;color)</div><div class="ttdoc">Sets the color of the sphere.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00139">Sphere.cpp:139</a></div></div>
+<div class="ttc" id="aa03990_html_af17ccc249c2ae2fee24989388451d45f"><div class="ttname"><a href="a03990.html#af17ccc249c2ae2fee24989388451d45f">bl::gfx::Sphere::makeSphere</a></div><div class="ttdeci">static void makeSphere(float radius, int detailLevel, std::vector&lt; rc::prim::Vertex3D &gt; &amp;outVertices, std::vector&lt; std::uint32_t &gt; &amp;outIndices)</div><div class="ttdoc">Populates the given vectors with vertices and indices to make a sphere.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00098">Sphere.cpp:98</a></div></div>
+<div class="ttc" id="aa04746_html"><div class="ttname"><a href="a04746.html">bl::rc::Color</a></div><div class="ttdoc">Basic color class meant to wrap sf::Color and glm::vec4 to provide interoperability.</div><div class="ttdef"><b>Definition</b> <a href="a00803_source.html#l00021">Color.hpp:21</a></div></div>
+<div class="ttc" id="aa04786_html_afef6896666d10f729ca3463c401bcb45"><div class="ttname"><a href="a04786.html#afef6896666d10f729ca3463c401bcb45">bl::rc::cfg::MaterialPipelineIds::Mesh3D</a></div><div class="ttdeci">static constexpr std::uint32_t Mesh3D</div><div class="ttdef"><b>Definition</b> <a href="a00998_source.html#l00018">MaterialPipelineIds.hpp:18</a></div></div>
+<div class="ttc" id="aa05358_html"><div class="ttname"><a href="a05358.html">bl::rc::res::MaterialRef</a></div><div class="ttdoc">Reference to a material in the material pool.</div><div class="ttdef"><b>Definition</b> <a href="a01037_source.html#l00021">MaterialRef.hpp:21</a></div></div>
+<div class="ttc" id="aa07915_html"><div class="ttname"><a href="a07915.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa07954_html"><div class="ttname"><a href="a07954.html">Transform3D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

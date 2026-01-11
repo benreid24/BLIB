@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::input::Encoder Struct Reference</title>
+<title>BLIB: bl::rc::scene::TargetTable Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,38 +74,50 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02436.html">input</a></li><li class="navelem"><a class="el" href="a05502.html">Encoder</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03048.html">scene</a></li><li class="navelem"><a class="el" href="a05502.html">TargetTable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a05499.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::input::Encoder Struct Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::scene::TargetTable Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a01625_source.html">Encoder.hpp</a>&gt;</code></p>
+<p>Helper class to manage a list of render targets and provide indices for them.  
+ <a href="a05502.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00356_source.html">TargetTable.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html">ControlInfo</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad694af1810e4034a02e11ab6d8aeb746" id="r_ad694af1810e4034a02e11ab6d8aeb746"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#ad694af1810e4034a02e11ab6d8aeb746">toString</a> (const <a class="el" href="a05506.html">ControlInfo</a> &amp;control)</td></tr>
-<tr class="separator:ad694af1810e4034a02e11ab6d8aeb746"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fdc8eff250a238ee096f3383fbbff1a" id="r_a4fdc8eff250a238ee096f3383fbbff1a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a05506.html">ControlInfo</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#a4fdc8eff250a238ee096f3383fbbff1a">fromString</a> (const std::string &amp;encoded)</td></tr>
-<tr class="separator:a4fdc8eff250a238ee096f3383fbbff1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5c4256299ba72ea52ebee22276701ae5" id="r_a5c4256299ba72ea52ebee22276701ae5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#a5c4256299ba72ea52ebee22276701ae5">TargetTable</a> ()=default</td></tr>
+<tr class="memdesc:a5c4256299ba72ea52ebee22276701ae5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty table.  <br /></td></tr>
+<tr class="separator:a5c4256299ba72ea52ebee22276701ae5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a983b6bfa8aa67ad76de78ee534647a4f" id="r_a983b6bfa8aa67ad76de78ee534647a4f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#a983b6bfa8aa67ad76de78ee534647a4f">addTarget</a> (<a class="el" href="a05334.html">RenderTarget</a> *target)</td></tr>
+<tr class="memdesc:a983b6bfa8aa67ad76de78ee534647a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a render target to the table. Does not check if already present.  <br /></td></tr>
+<tr class="separator:a983b6bfa8aa67ad76de78ee534647a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2b5f41241555b294e270206afd59379" id="r_af2b5f41241555b294e270206afd59379"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#af2b5f41241555b294e270206afd59379">getTargetIndex</a> (<a class="el" href="a05334.html">RenderTarget</a> *target) const</td></tr>
+<tr class="memdesc:af2b5f41241555b294e270206afd59379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the target in the table, or max uint if not present.  <br /></td></tr>
+<tr class="separator:af2b5f41241555b294e270206afd59379"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9bd9f931ff9daf0d2d8657878dc6d99" id="r_ac9bd9f931ff9daf0d2d8657878dc6d99"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05334.html">RenderTarget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#ac9bd9f931ff9daf0d2d8657878dc6d99">getTarget</a> (unsigned int index) const</td></tr>
+<tr class="memdesc:ac9bd9f931ff9daf0d2d8657878dc6d99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the render target at the given index.  <br /></td></tr>
+<tr class="separator:ac9bd9f931ff9daf0d2d8657878dc6d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a786e04d91374214e819fd7445708c85f" id="r_a786e04d91374214e819fd7445708c85f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05334.html">RenderTarget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#a786e04d91374214e819fd7445708c85f">removeTarget</a> (unsigned int index)</td></tr>
+<tr class="memdesc:a786e04d91374214e819fd7445708c85f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given target from the table.  <br /></td></tr>
+<tr class="separator:a786e04d91374214e819fd7445708c85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c084904c5a84f13959c9f1af166709d" id="r_a2c084904c5a84f13959c9f1af166709d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05502.html#a2c084904c5a84f13959c9f1af166709d">nextId</a> () const</td></tr>
+<tr class="memdesc:a2c084904c5a84f13959c9f1af166709d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next index id which is also the size of the table.  <br /></td></tr>
+<tr class="separator:a2c084904c5a84f13959c9f1af166709d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00012">12</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4fdc8eff250a238ee096f3383fbbff1a" name="a4fdc8eff250a238ee096f3383fbbff1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fdc8eff250a238ee096f3383fbbff1a">&#9670;&#160;</a></span>fromString()</h2>
+<div class="textblock"><p>Helper class to manage a list of render targets and provide indices for them. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00019">19</a> of file <a class="el" href="a00356_source.html">TargetTable.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a5c4256299ba72ea52ebee22276701ae5" name="a5c4256299ba72ea52ebee22276701ae5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c4256299ba72ea52ebee22276701ae5">&#9670;&#160;</a></span>TargetTable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,61 +126,170 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a05506.html">Encoder::ControlInfo</a> bl::input::Encoder::fromString </td>
+          <td class="memname">bl::rc::scene::TargetTable::TargetTable </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>encoded</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00114">114</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Creates an empty table. </p>
 
 </div>
 </div>
-<a id="ad694af1810e4034a02e11ab6d8aeb746" name="ad694af1810e4034a02e11ab6d8aeb746"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad694af1810e4034a02e11ab6d8aeb746">&#9670;&#160;</a></span>toString()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a983b6bfa8aa67ad76de78ee534647a4f" name="a983b6bfa8aa67ad76de78ee534647a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a983b6bfa8aa67ad76de78ee534647a4f">&#9670;&#160;</a></span>addTarget()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string bl::input::Encoder::toString </td>
+          <td class="memname">unsigned int bl::rc::scene::TargetTable::addTarget </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05506.html">ControlInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>control</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05334.html">RenderTarget</a> *&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00144">144</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Adds a render target to the table. Does not check if already present. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The target to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The index of the added target </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02063_source.html#l00011">11</a> of file <a class="el" href="a02063_source.html">TargetTable.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/Input/<a class="el" href="a01625_source.html">Encoder.hpp</a></li>
-<li>src/Input/<a class="el" href="a01595_source.html">Encoder.cpp</a></li>
+<a id="ac9bd9f931ff9daf0d2d8657878dc6d99" name="ac9bd9f931ff9daf0d2d8657878dc6d99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9bd9f931ff9daf0d2d8657878dc6d99">&#9670;&#160;</a></span>getTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05334.html">RenderTarget</a> * bl::rc::scene::TargetTable::getTarget </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the render target at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index to fetch, must be valid </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the render target at the specified index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02063_source.html#l00028">28</a> of file <a class="el" href="a02063_source.html">TargetTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af2b5f41241555b294e270206afd59379" name="af2b5f41241555b294e270206afd59379"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b5f41241555b294e270206afd59379">&#9670;&#160;</a></span>getTargetIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::rc::scene::TargetTable::getTargetIndex </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05334.html">RenderTarget</a> *&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the index of the target in the table, or max uint if not present. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The target to find the index of </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The index of the target, or max uint if not present </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02063_source.html#l00021">21</a> of file <a class="el" href="a02063_source.html">TargetTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2c084904c5a84f13959c9f1af166709d" name="a2c084904c5a84f13959c9f1af166709d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c084904c5a84f13959c9f1af166709d">&#9670;&#160;</a></span>nextId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::rc::scene::TargetTable::nextId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the next index id which is also the size of the table. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02063_source.html#l00036">36</a> of file <a class="el" href="a02063_source.html">TargetTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a786e04d91374214e819fd7445708c85f" name="a786e04d91374214e819fd7445708c85f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a786e04d91374214e819fd7445708c85f">&#9670;&#160;</a></span>removeTarget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05334.html">RenderTarget</a> * bl::rc::scene::TargetTable::removeTarget </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given target from the table. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index of the target to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The removed target pointer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02063_source.html#l00030">30</a> of file <a class="el" href="a02063_source.html">TargetTable.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Scenes/<a class="el" href="a00356_source.html">TargetTable.hpp</a></li>
+<li>src/Render/Scenes/<a class="el" href="a02063_source.html">TargetTable.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

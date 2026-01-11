@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Binary/InputFile.cpp Source File</title>
+<title>BLIB: src/Signals/Priv/StreamBase.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,46 +79,42 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_0dbe044ffc6a709740d6a25d09c3d747.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_623dcdcea289b09e4d96d917dec4586c.html">Signals</a></li><li class="navelem"><a class="el" href="dir_d0999a13722c9f4d88716872982727b1.html">Priv</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">InputFile.cpp</div></div>
+  <div class="headertitle"><div class="title">StreamBase.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01967.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00851.html">BLIB/Serialization/Binary/InputFile.hpp</a>&gt;</span></div>
+<a href="a01967.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00149.html">BLIB/Signals/Priv/StreamBase.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>serial</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00152.html">BLIB/Signals/Priv/EmitterBase.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>binary</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sig</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04886.html#aa6659b98d2fc65579eb58eecc981d01e">    9</a></span><a class="code hl_function" href="a04886.html#aa6659b98d2fc65579eb58eecc981d01e">InputFile::InputFile</a>(<span class="keyword">const</span> std::string&amp; path)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: <a class="code hl_class" href="a04890.html">InputStream</a>(<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, file(path)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, input(path.c_str(), <a class="code hl_namespace" href="a02420.html">std</a>::ios::in | <a class="code hl_namespace" href="a02420.html">std</a>::ios::binary)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, <a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(input) {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a06394.html#a19289bbe26e4b0519b3ef18a7667e51a">   11</a></span><a class="code hl_function" href="a06394.html#a19289bbe26e4b0519b3ef18a7667e51a">StreamBase::~StreamBase</a>() {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="a06390.html">EmitterBase</a>* emitter : emitters) { emitter-&gt;disconnectForStreamDesctruction(); }</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04886.html#a7763b6551d4cef2cc2c5325b94030bb7">   15</a></span><span class="keyword">const</span> std::string&amp; <a class="code hl_function" href="a04886.html#a7763b6551d4cef2cc2c5325b94030bb7">InputFile::filename</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> file; }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace binary</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace serial</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00851_html"><div class="ttname"><a href="a00851.html">InputFile.hpp</a></div></div>
-<div class="ttc" id="aa02366_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02366_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02420_html"><div class="ttname"><a href="a02420.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00193">Entity.hpp:194</a></div></div>
-<div class="ttc" id="aa04886_html_a7763b6551d4cef2cc2c5325b94030bb7"><div class="ttname"><a href="a04886.html#a7763b6551d4cef2cc2c5325b94030bb7">bl::serial::binary::InputFile::filename</a></div><div class="ttdeci">const std::string &amp; filename() const</div><div class="ttdoc">Returns the filename used to open the file.</div><div class="ttdef"><b>Definition</b> <a href="a01967_source.html#l00015">InputFile.cpp:15</a></div></div>
-<div class="ttc" id="aa04886_html_aa6659b98d2fc65579eb58eecc981d01e"><div class="ttname"><a href="a04886.html#aa6659b98d2fc65579eb58eecc981d01e">bl::serial::binary::InputFile::InputFile</a></div><div class="ttdeci">InputFile(const std::string &amp;path)</div><div class="ttdoc">Construct a new Binary Input File from a file path.</div><div class="ttdef"><b>Definition</b> <a href="a01967_source.html#l00009">InputFile.cpp:9</a></div></div>
-<div class="ttc" id="aa04890_html"><div class="ttname"><a href="a04890.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00029">InputStream.hpp:29</a></div></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <span class="comment">// namespace priv</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace sig</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">StreamBase.hpp</a></div></div>
+<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">EmitterBase.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa06390_html"><div class="ttname"><a href="a06390.html">bl::sig::priv::EmitterBase</a></div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00015">EmitterBase.hpp:15</a></div></div>
+<div class="ttc" id="aa06394_html_a19289bbe26e4b0519b3ef18a7667e51a"><div class="ttname"><a href="a06394.html#a19289bbe26e4b0519b3ef18a7667e51a">bl::sig::priv::StreamBase::~StreamBase</a></div><div class="ttdeci">virtual ~StreamBase()</div><div class="ttdef"><b>Definition</b> <a href="a01967_source.html#l00011">StreamBase.cpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

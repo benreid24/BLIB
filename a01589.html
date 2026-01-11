@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/ResourceManager.cpp File Reference</title>
+<title>BLIB: include/BLIB/Logging/Outputters.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,34 +74,223 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_cde0df6af65f4871d5c46345537df011.html">Logging</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">ResourceManager.cpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">Outputters.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00164_source.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00146_source.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
+<code>#include &lt;SFML/System/Vector2.hpp&gt;</code><br />
+<code>#include &lt;SFML/System/Vector3.hpp&gt;</code><br />
+<code>#include &lt;glm/glm.hpp&gt;</code><br />
+<code>#include &lt;ostream&gt;</code><br />
+<code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a01589_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03026" id="r_a03026"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03026.html">sf</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02467" id="r_a02467"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html">bl::resource</a></td></tr>
-<tr class="memdesc:a02467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:afdf4f8378d3d4c79cdb980c90294bd13" id="r_afdf4f8378d3d4c79cdb980c90294bd13"><td class="memTemplParams" colspan="2">template&lt;typename E &gt; </td></tr>
+<tr class="memitem:afdf4f8378d3d4c79cdb980c90294bd13"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if&lt; std::is_enum&lt; E &gt;::value, std::ostream &amp; &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01589.html#afdf4f8378d3d4c79cdb980c90294bd13">operator&lt;&lt;</a> (std::ostream &amp;os, E v)</td></tr>
+<tr class="separator:afdf4f8378d3d4c79cdb980c90294bd13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addb2ceb363c8adb9029ff47c96a46c42" id="r_addb2ceb363c8adb9029ff47c96a46c42"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:addb2ceb363c8adb9029ff47c96a46c42"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03026.html#addb2ceb363c8adb9029ff47c96a46c42">sf::operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Vector2&lt; T &gt; &amp;v)</td></tr>
+<tr class="separator:addb2ceb363c8adb9029ff47c96a46c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1017bda3a3a8b32ac8339ab4e8b2bf1b" id="r_a1017bda3a3a8b32ac8339ab4e8b2bf1b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a1017bda3a3a8b32ac8339ab4e8b2bf1b"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03026.html#a1017bda3a3a8b32ac8339ab4e8b2bf1b">sf::operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Vector3&lt; T &gt; &amp;v)</td></tr>
+<tr class="separator:a1017bda3a3a8b32ac8339ab4e8b2bf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a034791858222f297429c8b1818ac8a" id="r_a5a034791858222f297429c8b1818ac8a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5a034791858222f297429c8b1818ac8a"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03026.html#a5a034791858222f297429c8b1818ac8a">sf::operator&lt;&lt;</a> (std::ostream &amp;os, const sf::Rect&lt; T &gt; &amp;r)</td></tr>
+<tr class="separator:a5a034791858222f297429c8b1818ac8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03990db925eec1764024025ed8ccda2b" id="r_a03990db925eec1764024025ed8ccda2b"><td class="memTemplParams" colspan="2">template&lt;typename T , glm::qualifier Q&gt; </td></tr>
+<tr class="memitem:a03990db925eec1764024025ed8ccda2b"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01589.html#a03990db925eec1764024025ed8ccda2b">operator&lt;&lt;</a> (std::ostream &amp;os, const glm::vec&lt; 1, T, Q &gt; &amp;v)</td></tr>
+<tr class="separator:a03990db925eec1764024025ed8ccda2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19f42e2ea7e42269ea79a9b0814504b6" id="r_a19f42e2ea7e42269ea79a9b0814504b6"><td class="memTemplParams" colspan="2">template&lt;typename T , glm::qualifier Q&gt; </td></tr>
+<tr class="memitem:a19f42e2ea7e42269ea79a9b0814504b6"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01589.html#a19f42e2ea7e42269ea79a9b0814504b6">operator&lt;&lt;</a> (std::ostream &amp;os, const glm::vec&lt; 2, T, Q &gt; &amp;v)</td></tr>
+<tr class="separator:a19f42e2ea7e42269ea79a9b0814504b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd6691c034cd49cb321136f89a5ccf35" id="r_abd6691c034cd49cb321136f89a5ccf35"><td class="memTemplParams" colspan="2">template&lt;typename T , glm::qualifier Q&gt; </td></tr>
+<tr class="memitem:abd6691c034cd49cb321136f89a5ccf35"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01589.html#abd6691c034cd49cb321136f89a5ccf35">operator&lt;&lt;</a> (std::ostream &amp;os, const glm::vec&lt; 3, T, Q &gt; &amp;v)</td></tr>
+<tr class="separator:abd6691c034cd49cb321136f89a5ccf35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef8c7bdda1e8420d2d5eae6a3029506e" id="r_aef8c7bdda1e8420d2d5eae6a3029506e"><td class="memTemplParams" colspan="2">template&lt;typename T , glm::qualifier Q&gt; </td></tr>
+<tr class="memitem:aef8c7bdda1e8420d2d5eae6a3029506e"><td class="memTemplItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a01589.html#aef8c7bdda1e8420d2d5eae6a3029506e">operator&lt;&lt;</a> (std::ostream &amp;os, const glm::vec&lt; 4, T, Q &gt; &amp;v)</td></tr>
+<tr class="separator:aef8c7bdda1e8420d2d5eae6a3029506e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a03990db925eec1764024025ed8ccda2b" name="a03990db925eec1764024025ed8ccda2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03990db925eec1764024025ed8ccda2b">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , glm::qualifier Q&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec&lt; 1, T, Q &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01589_source.html#l00044">44</a> of file <a class="el" href="a01589_source.html">Outputters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a19f42e2ea7e42269ea79a9b0814504b6" name="a19f42e2ea7e42269ea79a9b0814504b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19f42e2ea7e42269ea79a9b0814504b6">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , glm::qualifier Q&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec&lt; 2, T, Q &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01589_source.html#l00050">50</a> of file <a class="el" href="a01589_source.html">Outputters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abd6691c034cd49cb321136f89a5ccf35" name="abd6691c034cd49cb321136f89a5ccf35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abd6691c034cd49cb321136f89a5ccf35">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , glm::qualifier Q&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec&lt; 3, T, Q &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01589_source.html#l00056">56</a> of file <a class="el" href="a01589_source.html">Outputters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aef8c7bdda1e8420d2d5eae6a3029506e" name="aef8c7bdda1e8420d2d5eae6a3029506e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8c7bdda1e8420d2d5eae6a3029506e">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , glm::qualifier Q&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec&lt; 4, T, Q &gt; &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01589_source.html#l00062">62</a> of file <a class="el" href="a01589_source.html">Outputters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afdf4f8378d3d4c79cdb980c90294bd13" name="afdf4f8378d3d4c79cdb980c90294bd13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdf4f8378d3d4c79cdb980c90294bd13">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename E &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if&lt; std::is_enum&lt; E &gt;::value, std::ostream &amp; &gt;::type operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">E&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01589_source.html#l00012">12</a> of file <a class="el" href="a01589_source.html">Outputters.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

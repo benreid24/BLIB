@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Systems/Transform2DDescriptorSystem.cpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/Components/Textured.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,58 +79,74 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_900c20bb70493231141df6997ccd6b87.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_58ecc6b00f968b16d73d81661642db7f.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Transform2DDescriptorSystem.cpp</div></div>
+  <div class="headertitle"><div class="title">Textured.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01640.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00263.html">BLIB/Systems/Transform2DDescriptorSystem.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a06373.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sys</div>
+<a href="a01640.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_COMPONENTS_TEXTURED_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Components/MaterialInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01409.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05270.html#a7ea148facfb8b44362e26c299efd2f19">    9</a></span><a class="code hl_function" href="a05270.html#a7ea148facfb8b44362e26c299efd2f19">Transform2DDescriptorSystem::Transform2DDescriptorSystem</a>()</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: interpView(nullptr)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, posOnlyView(nullptr) {}</div>
-</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">void</span> Transform2DDescriptorSystem::update(std::mutex&amp;, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span> lag, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    posOnlyView-&gt;forEach([](PosTags::TComponentSet&amp; cset) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_class" href="a02702.html">com::Transform2D</a>&amp; t = *cset.get&lt;<a class="code hl_class" href="a02702.html">com::Transform2D</a>&gt;();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">if</span> (t.<a class="code hl_function" href="a02702.html#a99c2578e93ea241946820339fc875c8d">requiresRefresh</a>()) { t.<a class="code hl_function" href="a04026.html#af508c9d87790a7fbf3e243653bbd20e9">refresh</a>&lt;glm::mat4&gt;(); }</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    });</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    interpView-&gt;forEach([lag](InterpTags::TComponentSet&amp; cset) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        com::Transform2D t = *cset.get&lt;com::Transform2D&gt;();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        cset.get&lt;com::Velocity2D&gt;()-&gt;apply(t, lag);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        t.refresh&lt;glm::mat4&gt;();</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    });</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>gfx</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>bcom</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03902.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a03902.html">Textured</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03902.html#ad282d57c51ee8abc4f699fa587f6a693">   23</a></span>    <a class="code hl_function" href="a03902.html#ad282d57c51ee8abc4f699fa587f6a693">Textured</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> Transform2DDescriptorSystem::init(engine::Engine&amp; e) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    interpView  = InterpTags::getView(e.ecs());</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    posOnlyView = PosTags::getView(e.ecs());</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace sys</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00263_html"><div class="ttname"><a href="a00263.html">Transform2DDescriptorSystem.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02702_html"><div class="ttname"><a href="a02702.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a06361_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa02702_html_a99c2578e93ea241946820339fc875c8d"><div class="ttname"><a href="a02702.html#a99c2578e93ea241946820339fc875c8d">bl::com::Transform2D::requiresRefresh</a></div><div class="ttdeci">bool requiresRefresh() const</div><div class="ttdoc">Returns whether or not the transform requires a refresh. Prefer this to inherited methods from ecs tr...</div><div class="ttdef"><b>Definition</b> <a href="a06361_source.html#l00210">Transform2D.hpp:210</a></div></div>
-<div class="ttc" id="aa04026_html_af508c9d87790a7fbf3e243653bbd20e9"><div class="ttname"><a href="a04026.html#af508c9d87790a7fbf3e243653bbd20e9">bl::rc::rcom::DescriptorComponentBase::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdoc">Refreshes and syncs the descriptor value and marks as clean.</div><div class="ttdef"><b>Definition</b> <a href="a01073_source.html#l00140">DescriptorComponentBase.hpp:140</a></div></div>
-<div class="ttc" id="aa05270_html_a7ea148facfb8b44362e26c299efd2f19"><div class="ttname"><a href="a05270.html#a7ea148facfb8b44362e26c299efd2f19">bl::sys::Transform2DDescriptorSystem::Transform2DDescriptorSystem</a></div><div class="ttdeci">Transform2DDescriptorSystem()</div><div class="ttdoc">Initializes the system.</div><div class="ttdef"><b>Definition</b> <a href="a01640_source.html#l00009">Transform2DDescriptorSystem.cpp:9</a></div></div>
-<div class="ttc" id="aa06373_html"><div class="ttname"><a href="a06373.html">Engine.hpp</a></div></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03902.html#a79d8b21916f163236dd37ecb6f1b8ac8">setTexture</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05398.html">rc::res::TextureRef</a>&amp; texture);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">const</span> <a class="code hl_class" href="a05398.html">rc::res::TextureRef</a>&amp; <a class="code hl_function" href="a03902.html#af7fe2449a04882eb53417e73ea284134">getTexture</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03902.html#ae1208bf8cb40df8f48b64f3a2840cbda">create</a>(<a class="code hl_class" href="a05330.html">rc::Renderer</a>&amp; renderer, <a class="code hl_class" href="a03274.html">com::MaterialInstance</a>* material,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                <span class="keyword">const</span> <a class="code hl_class" href="a05398.html">rc::res::TextureRef</a>&amp; texture);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="a05330.html">rc::Renderer</a>* renderer;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_class" href="a03274.html">com::MaterialInstance</a>* handle;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a03902.html#af7fe2449a04882eb53417e73ea284134">   55</a></span><span class="keyword">inline</span> <span class="keyword">const</span> <a class="code hl_class" href="a05398.html">rc::res::TextureRef</a>&amp; <a class="code hl_function" href="a03902.html#af7fe2449a04882eb53417e73ea284134">Textured::getTexture</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> handle-&gt;<a class="code hl_function" href="a03274.html#a0b4cffcb1bf328c33dc938908a136d89">getMaterial</a>()-&gt;<a class="code hl_function" href="a05270.html#ad350f3fa4e4daf9ad89c51e00501d0f2">getTexture</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace bcom</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">MaterialInstance.hpp</a></div></div>
+<div class="ttc" id="aa01409_html"><div class="ttname"><a href="a01409.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03274_html"><div class="ttname"><a href="a03274.html">bl::com::MaterialInstance</a></div><div class="ttdoc">Component that binds a material and pipeline to an entity.</div><div class="ttdef"><b>Definition</b> <a href="a01403_source.html#l00025">MaterialInstance.hpp:26</a></div></div>
+<div class="ttc" id="aa03274_html_a0b4cffcb1bf328c33dc938908a136d89"><div class="ttname"><a href="a03274.html#a0b4cffcb1bf328c33dc938908a136d89">bl::com::MaterialInstance::getMaterial</a></div><div class="ttdeci">const rc::res::MaterialRef &amp; getMaterial() const</div><div class="ttdoc">Returns the material used by the entity.</div><div class="ttdef"><b>Definition</b> <a href="a01403_source.html#l00140">MaterialInstance.hpp:140</a></div></div>
+<div class="ttc" id="aa03902_html"><div class="ttname"><a href="a03902.html">bl::gfx::bcom::Textured</a></div><div class="ttdoc">Base component class for textured Drawables.</div><div class="ttdef"><b>Definition</b> <a href="a01640_source.html#l00018">Textured.hpp:18</a></div></div>
+<div class="ttc" id="aa03902_html_a79d8b21916f163236dd37ecb6f1b8ac8"><div class="ttname"><a href="a03902.html#a79d8b21916f163236dd37ecb6f1b8ac8">bl::gfx::bcom::Textured::setTexture</a></div><div class="ttdeci">void setTexture(const rc::res::TextureRef &amp;texture)</div><div class="ttdoc">Changes the texture for this drawable.</div><div class="ttdef"><b>Definition</b> <a href="a02834_source.html#l00018">Textured.cpp:18</a></div></div>
+<div class="ttc" id="aa03902_html_ad282d57c51ee8abc4f699fa587f6a693"><div class="ttname"><a href="a03902.html#ad282d57c51ee8abc4f699fa587f6a693">bl::gfx::bcom::Textured::Textured</a></div><div class="ttdeci">Textured()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa03902_html_ae1208bf8cb40df8f48b64f3a2840cbda"><div class="ttname"><a href="a03902.html#ae1208bf8cb40df8f48b64f3a2840cbda">bl::gfx::bcom::Textured::create</a></div><div class="ttdeci">void create(rc::Renderer &amp;renderer, com::MaterialInstance *material, const rc::res::TextureRef &amp;texture)</div><div class="ttdoc">Creates the texture component.</div><div class="ttdef"><b>Definition</b> <a href="a02834_source.html#l00011">Textured.cpp:11</a></div></div>
+<div class="ttc" id="aa03902_html_af7fe2449a04882eb53417e73ea284134"><div class="ttname"><a href="a03902.html#af7fe2449a04882eb53417e73ea284134">bl::gfx::bcom::Textured::getTexture</a></div><div class="ttdeci">const rc::res::TextureRef &amp; getTexture() const</div><div class="ttdoc">Returns the texture. Must only be called after create()</div><div class="ttdef"><b>Definition</b> <a href="a01640_source.html#l00055">Textured.hpp:55</a></div></div>
+<div class="ttc" id="aa05270_html_ad350f3fa4e4daf9ad89c51e00501d0f2"><div class="ttname"><a href="a05270.html#ad350f3fa4e4daf9ad89c51e00501d0f2">bl::rc::mat::Material::getTexture</a></div><div class="ttdeci">const res::TextureRef &amp; getTexture() const</div><div class="ttdoc">Returns the diffuse texture of this material.</div><div class="ttdef"><b>Definition</b> <a href="a08551_source.html#l00068">Material.hpp:68</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05398_html"><div class="ttname"><a href="a05398.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition</b> <a href="a01067_source.html#l00025">TextureRef.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

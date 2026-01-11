@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/Animation2DSystem.hpp File Reference</title>
+<title>BLIB: include/BLIB/Cameras/2D/Controllers/ConstrainedFollower.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,54 +74,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_ce0cefa5b1d3b64155b48c92eb17890c.html">2D</a></li><li class="navelem"><a class="el" href="dir_6d8118606a55f09fb8c43633a428c04c.html">Controllers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Animation2DSystem.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">ConstrainedFollower.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a06295_source.html">BLIB/Components/Animation2D.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a06301_source.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00998_source.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a06376_source.html">BLIB/ECS/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a06865_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00404_source.html">BLIB/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01349_source.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01334_source.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01340_source.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01304_source.html">BLIB/Render/Vulkan/DescriptorSet.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01307_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00428_source.html">BLIB/Util/IdAllocatorUnbounded.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00482_source.html">BLIB/Util/RangeAllocatorUnbounded.hpp</a>&gt;</code><br />
-<code>#include &lt;glm/glm.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00257_source.html">BLIB/Cameras/2D/CameraController2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a07945_source.html">BLIB/Components/Transform2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01409_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
 </div>
 <p><a href="a00260_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05210.html">bl::sys::Animation2DSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Systems that updates and advances all 2d animations. Also manages GPU local buffers containing animation data.  <a href="a05210.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05222.html">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03202.html">bl::cam::c2d::ConstrainedFollower</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2d camera controller that centers a camera on an entity while keeping the visible region constrained to a given region. If the camera view is too large it centers on the region  <a href="a03202.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02409" id="r_a02409"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html">bl::sys</a></td></tr>
+<tr class="memitem:a02998" id="r_a02998"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02998.html">bl::cam</a></td></tr>
+<tr class="memdesc:a02998"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine defined cameras. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02999" id="r_a02999"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02999.html">bl::cam::c2d</a></td></tr>
+<tr class="memdesc:a02999"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instances of 2d camera affectors and controllers. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

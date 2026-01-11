@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components/Mesh.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,58 +79,55 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Mesh.hpp</div></div>
+  <div class="headertitle"><div class="title">Engine.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00071.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_COMPONENTS_MESH_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_COMPONENTS_MESH_HPP</span></div>
+<a href="a00071.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01334.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01067.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>com</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a02650.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a02650.html">Mesh</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a04030.html">rc::rcom::DrawableBase</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a02650.html#a11a861d64d0ccbf3609b15778808ae30">   18</a></span>    <a class="code hl_class" href="a03990.html">rc::buf::IndexBuffer</a> <a class="code hl_variable" href="a02650.html#a11a861d64d0ccbf3609b15778808ae30">gpuBuffer</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02650.html#af0c0061167c1dded9dc5c2b8a71aa93d">create</a>(<a class="code hl_struct" href="a04694.html">rc::vk::VulkanState</a>&amp; vulkanState, std::uint32_t vertexCount,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                std::uint32_t indexCount);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a02650.html#ab1cde45a5f371d71554a6de489de5458">   33</a></span>    <span class="keyword">virtual</span> std::uint32_t <a class="code hl_function" href="a02650.html#ab1cde45a5f371d71554a6de489de5458">getDefaultMaterialPipelineId</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="a04050.html#a04eb7f5b9211039532f2d0c21a094953">rc::Config::MaterialPipelineIds::Mesh3DSkinned</a>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
-</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace com</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01067_html"><div class="ttname"><a href="a01067.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02650_html"><div class="ttname"><a href="a02650.html">bl::com::Mesh</a></div><div class="ttdoc">ECS component for a basic mesh from an index buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00017">Mesh.hpp:17</a></div></div>
-<div class="ttc" id="aa02650_html_a11a861d64d0ccbf3609b15778808ae30"><div class="ttname"><a href="a02650.html#a11a861d64d0ccbf3609b15778808ae30">bl::com::Mesh::gpuBuffer</a></div><div class="ttdeci">rc::buf::IndexBuffer gpuBuffer</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00018">Mesh.hpp:18</a></div></div>
-<div class="ttc" id="aa02650_html_ab1cde45a5f371d71554a6de489de5458"><div class="ttname"><a href="a02650.html#ab1cde45a5f371d71554a6de489de5458">bl::com::Mesh::getDefaultMaterialPipelineId</a></div><div class="ttdeci">virtual std::uint32_t getDefaultMaterialPipelineId() const override</div><div class="ttdoc">Returns the default material pipeline for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a00071_source.html#l00033">Mesh.hpp:33</a></div></div>
-<div class="ttc" id="aa02650_html_af0c0061167c1dded9dc5c2b8a71aa93d"><div class="ttname"><a href="a02650.html#af0c0061167c1dded9dc5c2b8a71aa93d">bl::com::Mesh::create</a></div><div class="ttdeci">void create(rc::vk::VulkanState &amp;vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount)</div><div class="ttdoc">Helper method to initialize all the mesh data.</div><div class="ttdef"><b>Definition</b> <a href="a01529_source.html#l00007">Mesh.cpp:7</a></div></div>
-<div class="ttc" id="aa03990_html"><div class="ttname"><a href="a03990.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition</b> <a href="a01334_source.html#l00026">IndexBuffer.hpp:26</a></div></div>
-<div class="ttc" id="aa04030_html"><div class="ttname"><a href="a04030.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition</b> <a href="a01067_source.html#l00043">DrawableBase.hpp:43</a></div></div>
-<div class="ttc" id="aa04050_html_a04eb7f5b9211039532f2d0c21a094953"><div class="ttname"><a href="a04050.html#a04eb7f5b9211039532f2d0c21a094953">bl::rc::Config::MaterialPipelineIds::Mesh3DSkinned</a></div><div class="ttdeci">static constexpr std::uint32_t Mesh3DSkinned</div><div class="ttdef"><b>Definition</b> <a href="a06874_source.html#l00099">Config.hpp:99</a></div></div>
-<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01487.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a07963.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a07969.html">BLIB/Engine/Events.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01475.html">BLIB/Engine/Events/Worlds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a07975.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a01484.html">BLIB/Engine/FrameStage.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a01481.html">BLIB/Engine/Player.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a01451.html">BLIB/Engine/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a08566.html">BLIB/Engine/Settings.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a07978.html">BLIB/Engine/State.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a08512.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a08605.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a01499.html">BLIB/Engine/Worker.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a01496.html">BLIB/Engine/World.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a01493.html">BLIB/Engine/Worlds/BasicWorld.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a01490.html">BLIB/Engine/Worlds/World2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01451_html"><div class="ttname"><a href="a01451.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa01475_html"><div class="ttname"><a href="a01475.html">Worlds.hpp</a></div></div>
+<div class="ttc" id="aa01481_html"><div class="ttname"><a href="a01481.html">Player.hpp</a></div></div>
+<div class="ttc" id="aa01484_html"><div class="ttname"><a href="a01484.html">FrameStage.hpp</a></div></div>
+<div class="ttc" id="aa01487_html"><div class="ttname"><a href="a01487.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa01490_html"><div class="ttname"><a href="a01490.html">World2D.hpp</a></div></div>
+<div class="ttc" id="aa01493_html"><div class="ttname"><a href="a01493.html">BasicWorld.hpp</a></div></div>
+<div class="ttc" id="aa01496_html"><div class="ttname"><a href="a01496.html">World.hpp</a></div></div>
+<div class="ttc" id="aa01499_html"><div class="ttname"><a href="a01499.html">Worker.hpp</a></div></div>
+<div class="ttc" id="aa07963_html"><div class="ttname"><a href="a07963.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa07969_html"><div class="ttname"><a href="a07969.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa07975_html"><div class="ttname"><a href="a07975.html">Flags.hpp</a></div></div>
+<div class="ttc" id="aa07978_html"><div class="ttname"><a href="a07978.html">State.hpp</a></div></div>
+<div class="ttc" id="aa08512_html"><div class="ttname"><a href="a08512.html">System.hpp</a></div></div>
+<div class="ttc" id="aa08566_html"><div class="ttname"><a href="a08566.html">Settings.hpp</a></div></div>
+<div class="ttc" id="aa08605_html"><div class="ttname"><a href="a08605.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

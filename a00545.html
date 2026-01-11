@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,38 +74,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Util.hpp File Reference</div></div>
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
+  <div class="headertitle"><div class="title">BufferSingleDeviceLocalSourced.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00431_source.html">BLIB/Util/BufferIstreamBuf.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00425_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00473_source.html">BLIB/Util/HashCombine.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00479_source.html">BLIB/Util/Hashes.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00464_source.html">BLIB/Util/IdAllocator.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00422_source.html">BLIB/Util/ImageStitcher.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00491_source.html">BLIB/Util/LastVariadic.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00476_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00485_source.html">BLIB/Util/Random.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00446_source.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a06901_source.html">BLIB/Util/Signal.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00458_source.html">BLIB/Util/StreamUtil.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00461_source.html">BLIB/Util/ThreadPool.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00488_source.html">BLIB/Util/Timer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00443_source.html">BLIB/Util/TupleLoop.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00467_source.html">BLIB/Util/UnderlyingType.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00437_source.html">BLIB/Util/VariadicHelpers.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00434_source.html">BLIB/Util/Waiter.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00554_source.html">BLIB/Render/Buffers/AlignedBuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00890_source.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00410_source.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00452_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00533_source.html">BLIB/Render/Buffers/Interfaces/BindableBufferSingleSourced.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00557_source.html">BLIB/Render/Buffers/Role.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00545_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03004" id="r_a03004"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03004.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03004"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05330.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03043" id="r_a03043"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03043.html">bl::rc::buf</a></td></tr>
+<tr class="memdesc:a03043"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of common buffer classes. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga2767a8a7aac78f0d5c8c90e577f09354" id="r_ga2767a8a7aac78f0d5c8c90e577f09354"><td class="memTemplParams" colspan="2">template&lt;typename T , <a class="el" href="a02979.html#ga595f62bb551384281dfba770588c9d63">Role</a> TRole&gt; </td></tr>
+<tr class="memitem:ga2767a8a7aac78f0d5c8c90e577f09354"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02979.html#ga2767a8a7aac78f0d5c8c90e577f09354">bl::rc::buf::BufferSingleDeviceLocalSourced</a> = <a class="el" href="a04734.html">base::BindableBufferSingleSourced</a>&lt; T, <a class="el" href="a04738.html">RoleInfo</a>&lt; TRole &gt;::DataAlignment, <a class="el" href="a04738.html">RoleInfo</a>&lt; TRole &gt;::Usage|VK_BUFFER_USAGE_TRANSFER_SRC_BIT|VK_BUFFER_USAGE_TRANSFER_DST_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT &gt;</td></tr>
+<tr class="memdesc:ga2767a8a7aac78f0d5c8c90e577f09354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single buffered device local buffer with host source buffer and lazily created staging buffers on transfer.  <br /></td></tr>
+<tr class="separator:ga2767a8a7aac78f0d5c8c90e577f09354"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga12a271875dc985edf0404fdb5b4b4a6b" id="r_ga12a271875dc985edf0404fdb5b4b4a6b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga12a271875dc985edf0404fdb5b4b4a6b"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02979.html#ga12a271875dc985edf0404fdb5b4b4a6b">bl::rc::buf::BufferSingleDeviceLocalSourcedSSBO</a> = <a class="el" href="a02979.html#ga2767a8a7aac78f0d5c8c90e577f09354">BufferSingleDeviceLocalSourced</a>&lt; T, <a class="el" href="a02979.html#gga595f62bb551384281dfba770588c9d63a1ee0faaac033f7b2add2d1991bfcabdc">Role::SSBO</a> &gt;</td></tr>
+<tr class="memdesc:ga12a271875dc985edf0404fdb5b4b4a6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of BufferSingleDeviceLocalSourced for SSBO's.  <br /></td></tr>
+<tr class="separator:ga12a271875dc985edf0404fdb5b4b4a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f5f18d0b0c6c15c269eadad98299d0d" id="r_ga1f5f18d0b0c6c15c269eadad98299d0d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga1f5f18d0b0c6c15c269eadad98299d0d"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02979.html#ga1f5f18d0b0c6c15c269eadad98299d0d">bl::rc::buf::BufferSingleDeviceLocalSourcedUBO</a> = <a class="el" href="a02979.html#ga2767a8a7aac78f0d5c8c90e577f09354">BufferSingleDeviceLocalSourced</a>&lt; T, <a class="el" href="a02979.html#gga595f62bb551384281dfba770588c9d63a7532e170efdb78e58b0b4122c3bc179b">Role::UBO</a> &gt;</td></tr>
+<tr class="memdesc:ga1f5f18d0b0c6c15c269eadad98299d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of BufferSingleDeviceLocalSourced for UBO's.  <br /></td></tr>
+<tr class="separator:ga1f5f18d0b0c6c15c269eadad98299d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

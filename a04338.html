@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::prim::SlideshowVertex Struct Reference</title>
+<title>BLIB: bl::gui::rdr::HighlightProvider Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,241 +74,134 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02465.html">prim</a></li><li class="navelem"><a class="el" href="a04338.html">SlideshowVertex</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03029.html">gui</a></li><li class="navelem"><a class="el" href="a03032.html">rdr</a></li><li class="navelem"><a class="el" href="a04338.html">HighlightProvider</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04335.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::prim::SlideshowVertex Struct Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gui::rdr::HighlightProvider Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02973.html">Interface</a> &raquo; <a class="el" href="a02989.html">GUI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a04342.html" title="Base Vertex primitive for the renderer.">Vertex</a> type used by slideshows.  
+<p>Base class for providers of element highlights. This provider type handles when elements are clicked and moused over.  
  <a href="a04338.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01460_source.html">SlideshowVertex.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01100_source.html">HighlightProvider.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::rdr::HighlightProvider:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04338.png" usemap="#bl::gui::rdr::HighlightProvider_map" alt=""/>
+  <map id="bl::gui::rdr::HighlightProvider_map" name="bl::gui::rdr::HighlightProvider_map">
+<area href="a04278.html" title="Provides mouse highlights by rendering a partially transparent rectangle over the target." alt="bl::gui::defcoms::OverlayHighlightProvider" shape="rect" coords="0,56,248,80"/>
+<area href="a04350.html" title="Does nothing." alt="bl::gui::rdr::NullHighlightProvider" shape="rect" coords="258,56,506,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a66ac6d9dbccb33fbf459435d7e99ed24" id="r_a66ac6d9dbccb33fbf459435d7e99ed24"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a04338.html">HighlightProvider</a> &gt;</td></tr>
+<tr class="separator:a66ac6d9dbccb33fbf459435d7e99ed24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bdd75df981da3a3f6502e36b8935076" id="r_a5bdd75df981da3a3f6502e36b8935076"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a5bdd75df981da3a3f6502e36b8935076">Factory</a> = std::function&lt; <a class="el" href="a04338.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a>()&gt;</td></tr>
+<tr class="separator:a5bdd75df981da3a3f6502e36b8935076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a121498a5fa54786376ff7c0831a9ce09" id="r_a121498a5fa54786376ff7c0831a9ce09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a> ()</td></tr>
-<tr class="memdesc:a121498a5fa54786376ff7c0831a9ce09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 0-initialized vertex.  <br /></td></tr>
-<tr class="separator:a121498a5fa54786376ff7c0831a9ce09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4508cdf4184ee25e0114c3eb3ce4f4a" id="r_af4508cdf4184ee25e0114c3eb3ce4f4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#af4508cdf4184ee25e0114c3eb3ce4f4a">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a04338.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>)</td></tr>
-<tr class="memdesc:af4508cdf4184ee25e0114c3eb3ce4f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position.  <br /></td></tr>
-<tr class="separator:af4508cdf4184ee25e0114c3eb3ce4f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9133269ec196901121e1c164e7d76c49" id="r_a9133269ec196901121e1c164e7d76c49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a9133269ec196901121e1c164e7d76c49">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a04338.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, const glm::vec4 &amp;<a class="el" href="a04338.html#adb10a179cc86f188853725a3f37edc1b">color</a>)</td></tr>
-<tr class="memdesc:a9133269ec196901121e1c164e7d76c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position and color.  <br /></td></tr>
-<tr class="separator:a9133269ec196901121e1c164e7d76c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58af7eb7e2faca1e6c44960a9d48f181" id="r_a58af7eb7e2faca1e6c44960a9d48f181"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a58af7eb7e2faca1e6c44960a9d48f181">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a04338.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, std::uint32_t <a class="el" href="a04338.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>)</td></tr>
-<tr class="memdesc:a58af7eb7e2faca1e6c44960a9d48f181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position and slideshow index.  <br /></td></tr>
-<tr class="separator:a58af7eb7e2faca1e6c44960a9d48f181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac85a968a5f3d98ace14cee3bc81f81b9" id="r_ac85a968a5f3d98ace14cee3bc81f81b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#ac85a968a5f3d98ace14cee3bc81f81b9">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a04338.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, const glm::vec4 &amp;<a class="el" href="a04338.html#adb10a179cc86f188853725a3f37edc1b">color</a>, std::uint32_t <a class="el" href="a04338.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>)</td></tr>
-<tr class="memdesc:ac85a968a5f3d98ace14cee3bc81f81b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position, slideshow index, and color.  <br /></td></tr>
-<tr class="separator:ac85a968a5f3d98ace14cee3bc81f81b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a57e7e23524bdecf24684db8a29482df6" id="r_a57e7e23524bdecf24684db8a29482df6"><td class="memItemLeft" align="right" valign="top">static VkVertexInputBindingDescription&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a> ()</td></tr>
-<tr class="memdesc:a57e7e23524bdecf24684db8a29482df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertex binding description for the renderer.  <br /></td></tr>
-<tr class="separator:a57e7e23524bdecf24684db8a29482df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39ce870fd005672ebcecb0eaec0de796" id="r_a39ce870fd005672ebcecb0eaec0de796"><td class="memItemLeft" align="right" valign="top">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a> ()</td></tr>
-<tr class="memdesc:a39ce870fd005672ebcecb0eaec0de796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the attribute descriptions for each vertex attribute.  <br /></td></tr>
-<tr class="separator:a39ce870fd005672ebcecb0eaec0de796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a9fa9607bba2f9074d3dc04c26238fb15" id="r_a9fa9607bba2f9074d3dc04c26238fb15"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a></td></tr>
-<tr class="separator:a9fa9607bba2f9074d3dc04c26238fb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb10a179cc86f188853725a3f37edc1b" id="r_adb10a179cc86f188853725a3f37edc1b"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#adb10a179cc86f188853725a3f37edc1b">color</a></td></tr>
-<tr class="separator:adb10a179cc86f188853725a3f37edc1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e8d1e28479aefac2b4398830a349bc5" id="r_a0e8d1e28479aefac2b4398830a349bc5"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a></td></tr>
-<tr class="separator:a0e8d1e28479aefac2b4398830a349bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8b0917b9f805603fc131256e73faa5f" id="r_ab8b0917b9f805603fc131256e73faa5f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#ab8b0917b9f805603fc131256e73faa5f">~HighlightProvider</a> ()=default</td></tr>
+<tr class="memdesc:ab8b0917b9f805603fc131256e73faa5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the provider.  <br /></td></tr>
+<tr class="separator:ab8b0917b9f805603fc131256e73faa5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260abd6d749fc5fb4e19850a0fe439d1" id="r_a260abd6d749fc5fb4e19850a0fe439d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a260abd6d749fc5fb4e19850a0fe439d1">update</a> (float dt)=0</td></tr>
+<tr class="memdesc:a260abd6d749fc5fb4e19850a0fe439d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the provider.  <br /></td></tr>
+<tr class="separator:a260abd6d749fc5fb4e19850a0fe439d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60749735671cf295f331f83de84dbd33" id="r_a60749735671cf295f331f83de84dbd33"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a60749735671cf295f331f83de84dbd33">notifyUIState</a> (<a class="el" href="a04142.html">Element</a> *element, <a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">Component::UIState</a> state)=0</td></tr>
+<tr class="memdesc:a60749735671cf295f331f83de84dbd33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element changes state and needs a new highlight.  <br /></td></tr>
+<tr class="separator:a60749735671cf295f331f83de84dbd33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab51a60f5891d59d9532fac07135bb6d1" id="r_ab51a60f5891d59d9532fac07135bb6d1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#ab51a60f5891d59d9532fac07135bb6d1">doCreate</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world)=0</td></tr>
+<tr class="memdesc:ab51a60f5891d59d9532fac07135bb6d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once before use. Derived classes should create resources here.  <br /></td></tr>
+<tr class="separator:ab51a60f5891d59d9532fac07135bb6d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bff69c3498ec327c58ebbca397f6208" id="r_a1bff69c3498ec327c58ebbca397f6208"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a1bff69c3498ec327c58ebbca397f6208">doSceneAdd</a> (<a class="el" href="a05298.html">rc::Overlay</a> *overlay)=0</td></tr>
+<tr class="memdesc:a1bff69c3498ec327c58ebbca397f6208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be added to a scene.  <br /></td></tr>
+<tr class="separator:a1bff69c3498ec327c58ebbca397f6208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff9a93395070b9c72494a2949b5907c8" id="r_aff9a93395070b9c72494a2949b5907c8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#aff9a93395070b9c72494a2949b5907c8">doSceneRemove</a> ()=0</td></tr>
+<tr class="memdesc:aff9a93395070b9c72494a2949b5907c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be removed from the scene.  <br /></td></tr>
+<tr class="separator:aff9a93395070b9c72494a2949b5907c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a933e9bc39a62e6852148900c01ede638" id="r_a933e9bc39a62e6852148900c01ede638"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04338.html#a933e9bc39a62e6852148900c01ede638">notifyDestroyed</a> (const <a class="el" href="a04142.html">Element</a> *element)=0</td></tr>
+<tr class="memdesc:a933e9bc39a62e6852148900c01ede638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element is destroyed or removed.  <br /></td></tr>
+<tr class="separator:a933e9bc39a62e6852148900c01ede638"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a04342.html" title="Base Vertex primitive for the renderer.">Vertex</a> type used by slideshows. </p>
+<div class="textblock"><p>Base class for providers of element highlights. This provider type handles when elements are clicked and moused over. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01460_source.html#l00019">19</a> of file <a class="el" href="a01460_source.html">SlideshowVertex.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a121498a5fa54786376ff7c0831a9ce09" name="a121498a5fa54786376ff7c0831a9ce09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a121498a5fa54786376ff7c0831a9ce09">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[1/5]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01100_source.html#l00021">21</a> of file <a class="el" href="a01100_source.html">HighlightProvider.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5bdd75df981da3a3f6502e36b8935076" name="a5bdd75df981da3a3f6502e36b8935076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdd75df981da3a3f6502e36b8935076">&#9670;&#160;</a></span>Factory</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
+          <td class="memname">using <a class="el" href="a04338.html#a5bdd75df981da3a3f6502e36b8935076">bl::gui::rdr::HighlightProvider::Factory</a> =  std::function&lt;<a class="el" href="a04338.html#a66ac6d9dbccb33fbf459435d7e99ed24">Ptr</a>()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01100_source.html#l00024">24</a> of file <a class="el" href="a01100_source.html">HighlightProvider.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a66ac6d9dbccb33fbf459435d7e99ed24" name="a66ac6d9dbccb33fbf459435d7e99ed24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66ac6d9dbccb33fbf459435d7e99ed24">&#9670;&#160;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a04338.html#a66ac6d9dbccb33fbf459435d7e99ed24">bl::gui::rdr::HighlightProvider::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a04338.html">HighlightProvider</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01100_source.html#l00023">23</a> of file <a class="el" href="a01100_source.html">HighlightProvider.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab8b0917b9f805603fc131256e73faa5f" name="ab8b0917b9f805603fc131256e73faa5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8b0917b9f805603fc131256e73faa5f">&#9670;&#160;</a></span>~HighlightProvider()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::gui::rdr::HighlightProvider::~HighlightProvider </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates a 0-initialized vertex. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00009">9</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af4508cdf4184ee25e0114c3eb3ce4f4a" name="af4508cdf4184ee25e0114c3eb3ce4f4a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4508cdf4184ee25e0114c3eb3ce4f4a">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[2/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>pos</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a vertex from the given position. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position of the vertex </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00014">14</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9133269ec196901121e1c164e7d76c49" name="a9133269ec196901121e1c164e7d76c49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9133269ec196901121e1c164e7d76c49">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[3/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a vertex from the given position and color. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position of the vertex </td></tr>
-    <tr><td class="paramname">color</td><td>The color of the vertex </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00019">19</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a58af7eb7e2faca1e6c44960a9d48f181" name="a58af7eb7e2faca1e6c44960a9d48f181"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58af7eb7e2faca1e6c44960a9d48f181">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[4/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>slideshowIndex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a vertex from the given position and slideshow index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The vertex position </td></tr>
-    <tr><td class="paramname">slideshowIndex</td><td>The slideshow index </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00024">24</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac85a968a5f3d98ace14cee3bc81f81b9" name="ac85a968a5f3d98ace14cee3bc81f81b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac85a968a5f3d98ace14cee3bc81f81b9">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[5/5]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
-          <td class="paramname"><em>color</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>slideshowIndex</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a vertex from the given position, slideshow index, and color. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The vertex position </td></tr>
-    <tr><td class="paramname">color</td><td>The color of the vertex </td></tr>
-    <tr><td class="paramname">slideshowIndex</td><td>The slideshow index </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00029">29</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
+<p>Destroys the provider. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a39ce870fd005672ebcecb0eaec0de796" name="a39ce870fd005672ebcecb0eaec0de796"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39ce870fd005672ebcecb0eaec0de796">&#9670;&#160;</a></span>attributeDescriptions()</h2>
+<a id="ab51a60f5891d59d9532fac07135bb6d1" name="ab51a60f5891d59d9532fac07135bb6d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab51a60f5891d59d9532fac07135bb6d1">&#9670;&#160;</a></span>doCreate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -317,28 +210,34 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::array&lt; VkVertexInputAttributeDescription, 3 &gt; bl::rc::prim::SlideshowVertex::attributeDescriptions </td>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::doCreate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the attribute descriptions for each vertex attribute. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::array&lt;VkVertexInputAttributeDescription, 3&gt; Descriptions for each attribute </dd></dl>
+<p>Called once before use. Derived classes should create resources here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create entities in </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00043">43</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04278.html#aac8b46b6b0e31c5afb6e890413787413">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
 
 </div>
 </div>
-<a id="a57e7e23524bdecf24684db8a29482df6" name="a57e7e23524bdecf24684db8a29482df6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57e7e23524bdecf24684db8a29482df6">&#9670;&#160;</a></span>bindingDescription()</h2>
+<a id="a1bff69c3498ec327c58ebbca397f6208" name="a1bff69c3498ec327c58ebbca397f6208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bff69c3498ec327c58ebbca397f6208">&#9670;&#160;</a></span>doSceneAdd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,7 +246,43 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkVertexInputBindingDescription bl::rc::prim::SlideshowVertex::bindingDescription </td>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05298.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the provider should be added to a scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a04278.html#a099623e811b66ecfb7f0b08bf588ca7b">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
+
+</div>
+</div>
+<a id="aff9a93395070b9c72494a2949b5907c8" name="aff9a93395070b9c72494a2949b5907c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9a93395070b9c72494a2949b5907c8">&#9670;&#160;</a></span>doSceneRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::doSceneRemove </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -355,76 +290,144 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the vertex binding description for the renderer. </p>
-<dl class="section return"><dt>Returns</dt><dd>VkVertexInputBindingDescription The vertex binding description </dd></dl>
+<p>Called when the provider should be removed from the scene. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02357_source.html#l00035">35</a> of file <a class="el" href="a02357_source.html">SlideshowVertex.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04278.html#aa4b4bf4391515858de9ef72e7ca3156a">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="adb10a179cc86f188853725a3f37edc1b" name="adb10a179cc86f188853725a3f37edc1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb10a179cc86f188853725a3f37edc1b">&#9670;&#160;</a></span>color</h2>
+<a id="a933e9bc39a62e6852148900c01ede638" name="a933e9bc39a62e6852148900c01ede638"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a933e9bc39a62e6852148900c01ede638">&#9670;&#160;</a></span>notifyDestroyed()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec4 bl::rc::prim::SlideshowVertex::color</td>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::notifyDestroyed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04142.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01460_source.html#l00021">21</a> of file <a class="el" href="a01460_source.html">SlideshowVertex.hpp</a>.</p>
+<p>Called when an element is destroyed or removed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>The element being destroyed or removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a04278.html#add9103c0360fa97cbae4674ac74ea4b5">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
 
 </div>
 </div>
-<a id="a9fa9607bba2f9074d3dc04c26238fb15" name="a9fa9607bba2f9074d3dc04c26238fb15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fa9607bba2f9074d3dc04c26238fb15">&#9670;&#160;</a></span>pos</h2>
+<a id="a60749735671cf295f331f83de84dbd33" name="a60749735671cf295f331f83de84dbd33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60749735671cf295f331f83de84dbd33">&#9670;&#160;</a></span>notifyUIState()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec3 bl::rc::prim::SlideshowVertex::pos</td>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::notifyUIState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04142.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">Component::UIState</a>&#160;</td>
+          <td class="paramname"><em>state</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01460_source.html#l00020">20</a> of file <a class="el" href="a01460_source.html">SlideshowVertex.hpp</a>.</p>
+<p>Called when an element changes state and needs a new highlight. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>The element changing state </td></tr>
+    <tr><td class="paramname">state</td><td>The new state of the element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a04278.html#a6d60ee47a321ccc8264cb74fb0ce1e0c">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
 
 </div>
 </div>
-<a id="a0e8d1e28479aefac2b4398830a349bc5" name="a0e8d1e28479aefac2b4398830a349bc5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e8d1e28479aefac2b4398830a349bc5">&#9670;&#160;</a></span>slideshowIndex</h2>
+<a id="a260abd6d749fc5fb4e19850a0fe439d1" name="a260abd6d749fc5fb4e19850a0fe439d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a260abd6d749fc5fb4e19850a0fe439d1">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t bl::rc::prim::SlideshowVertex::slideshowIndex</td>
+          <td class="memname">virtual void bl::gui::rdr::HighlightProvider::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01460_source.html#l00022">22</a> of file <a class="el" href="a01460_source.html">SlideshowVertex.hpp</a>.</p>
+<p>Updates the provider. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Elapsed time in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a04278.html#a816693bc40064599840321c37d39e890">bl::gui::defcoms::OverlayHighlightProvider</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Render/Primitives/<a class="el" href="a01460_source.html">SlideshowVertex.hpp</a></li>
-<li>src/Render/Primitives/<a class="el" href="a02357_source.html">SlideshowVertex.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Interfaces/GUI/Renderer/<a class="el" href="a01100_source.html">HighlightProvider.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

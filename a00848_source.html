@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/Binary/InputStream.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Components/DescriptorComponentBase.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,135 +79,185 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_16181c53270a1447d0a8c102e5a0532b.html">Binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1fe4435017a66f2c0b1af7ce232fd611.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">InputStream.hpp</div></div>
+  <div class="headertitle"><div class="title">DescriptorComponentBase.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00848.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SERIALIZATION_INPUTSTREAM_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SERIALIZATION_INPUTSTREAM_HPP</span></div>
+<a href="a00848.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_COMPONENTS_DESCRIPTORCOMPONENTBASE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00872.html">BLIB/Serialization/Buffers/InputBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00425.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>serial</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>binary</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01550.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a08560.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00758.html">BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">struct </span>VulkanLayer;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>rcom</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04890.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="a04890.html">InputStream</a> {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="a04890.html">InputStream</a>(<a class="code hl_class" href="a05022.html">InputBuffer</a>&amp; underlying);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">typename</span> std::enable_if&lt;std::is_integral_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt;::type <a class="code hl_function" href="a04890.html#a74c75cb1a560331f068aa003bbfd4efc">read</a>(T&amp; output);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">typename</span> std::enable_if&lt;std::is_integral_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt;::type <a class="code hl_function" href="a04890.html#ad1f019caed52ee29e47d3735fc62d388">peek</a>(T&amp; output);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04890.html#a74c75cb1a560331f068aa003bbfd4efc">read</a>(std::string&amp; output);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04890.html#a52c344d6b62df73e91238b6d5ec1477a">skip</a>(std::size_t bytes);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04890.html#a28531b507eb45cf5b8f3a01eb51e0803">good</a>();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_class" href="a05022.html">InputBuffer</a>&amp; underlying;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>};</div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03047.html">   23</a></span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TPayload&gt;</div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="};">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a04758.html">   33</a></span><span class="keyword">class </span><a class="code hl_class" href="a04758.html">DescriptorComponentPayloadBase</a> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04758.html#a5e5022b2f00fbd38223b05bc620bfb4f">   40</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04758.html#a5e5022b2f00fbd38223b05bc620bfb4f">refreshDescriptor</a>(TPayload&amp; payload) = 0;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
 </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace priv</span></div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="};">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a04762.html">   53</a></span><span class="keyword">class </span><a class="code hl_class" href="a04762.html">DescriptorComponentBase</a></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>: <span class="keyword">public</span> <a class="code hl_class" href="a04758.html">priv::DescriptorComponentPayloadBase</a>&lt;TCom, TFirstPayload&gt;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>, <span class="keyword">public</span> <a class="code hl_class" href="a04758.html">priv::DescriptorComponentPayloadBase</a>&lt;TCom, TPayloads&gt;... {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a04762.html#a718ef02038aefd277e00fe8aa9a09b12">   60</a></span>    <a class="code hl_function" href="a04762.html#a718ef02038aefd277e00fe8aa9a09b12">DescriptorComponentBase</a>();</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a04762.html#a9657710f7a0ff46df8d20291b13324cb">   68</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04762.html#a9657710f7a0ff46df8d20291b13324cb">link</a>(<a class="code hl_class" href="a05542.html">sr::EntityComponentShaderResourceBase</a>* descriptorSet, <a class="code hl_struct" href="a05438.html">scene::Key</a> sceneKey);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="foldopen" id="foldopen00073" data-start="{" data-end="}">
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="a04762.html#a4b870e46356ba76e139e08c914077d56">   73</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04762.html#a4b870e46356ba76e139e08c914077d56">unlink</a>();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TPayload = TFirstPayload&gt;</div>
+<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a04762.html#a12a1e8e649ecfec00da754f5626b5cb2">   79</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04762.html#a12a1e8e649ecfec00da754f5626b5cb2">refresh</a>(TPayload&amp; payload);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a04762.html#a5b7058b24cfbb3294a9b565d392fccfe">   84</a></span>    <a class="code hl_struct" href="a05438.html">scene::Key</a> <a class="code hl_function" href="a04762.html#a5b7058b24cfbb3294a9b565d392fccfe">getSceneKey</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> sceneKey; }</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a04890.html#ab9885deef9116f3fa2f8c76f43b43c18">   86</a></span><span class="keyword">inline</span> <a class="code hl_function" href="a04890.html#ab9885deef9116f3fa2f8c76f43b43c18">InputStream::InputStream</a>(<a class="code hl_class" href="a05022.html">InputBuffer</a>&amp; u)</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>: underlying(u) {}</div>
-</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00090" data-start="{" data-end="}">
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="a04890.html#a74c75cb1a560331f068aa003bbfd4efc">   90</a></span><span class="keyword">typename</span> std::enable_if&lt;std::is_integral_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt;::type <a class="code hl_function" href="a04890.html#a74c75cb1a560331f068aa003bbfd4efc">InputStream::read</a>(T&amp; output) {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">if</span> (!underlying.<a class="code hl_function" href="a05022.html#a336a0ba9e3f7d61911d544bef1f029cb">good</a>()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">constexpr</span> std::size_t size = <span class="keyword">sizeof</span>(T);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordtype">char</span>* bytes                = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span>*<span class="keyword">&gt;</span>(&amp;output));</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    output       = 0;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> r = underlying.<a class="code hl_function" href="a05022.html#a38ac83c01be85da3086625673aa6350e">read</a>(bytes, size);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (size &gt; 1) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="a05302.html#a24bafb4d915943d65df75390c0584fe3">util::FileUtil::isBigEndian</a>()) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; size / 2; ++i) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                std::swap(bytes[i], bytes[size - i - 1]);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span> r;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>}</div>
-</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00109" data-start="{" data-end="}">
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a04890.html#ad1f019caed52ee29e47d3735fc62d388">  109</a></span><span class="keyword">typename</span> std::enable_if&lt;std::is_integral_v&lt;T&gt;, <span class="keywordtype">bool</span>&gt;::type <a class="code hl_function" href="a04890.html#ad1f019caed52ee29e47d3735fc62d388">InputStream::peek</a>(T&amp; output) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">const</span> std::size_t s = <span class="keyword">sizeof</span>(T);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> r        = read&lt;T&gt;(output);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    underlying.<a class="code hl_function" href="a05022.html#ab25d70d2602b7da92f4d52d5dd6bfd93">seekg</a>(underlying.<a class="code hl_function" href="a05022.html#a72fa86e855cbcb2adfad17add80b0ce7">tellg</a>() - s);</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> r;</div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a04762.html#ad82b6bfa50aa0cecca73b934498884f7">   89</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04762.html#ad82b6bfa50aa0cecca73b934498884f7">isDirty</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a04762.html#aef303297a943e7a714fa1224d752d2c6">   97</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04762.html#aef303297a943e7a714fa1224d752d2c6">markDirty</a>();</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_class" href="a05542.html">sr::EntityComponentShaderResourceBase</a>* descriptorSet;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_struct" href="a05438.html">scene::Key</a> sceneKey;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>};</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="foldopen" id="foldopen00108" data-start="{" data-end="}">
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a04762.html#a718ef02038aefd277e00fe8aa9a09b12">  108</a></span><a class="code hl_function" href="a04762.html#a718ef02038aefd277e00fe8aa9a09b12">DescriptorComponentBase&lt;TCom, TFirstPayload, TPayloads...&gt;::DescriptorComponentBase</a>()</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>: descriptorSet(nullptr)</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>, dirty(false) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">static_assert</span>(</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        std::is_base_of_v&lt;<a class="code hl_class" href="a04762.html">DescriptorComponentBase</a>&lt;TCom, TFirstPayload, TPayloads...&gt;, TCom&gt;,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="stringliteral">&quot;Descriptor component must inherit DescriptorComponentBase&quot;</span>);</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
 </div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a04890.html#ae210e68d7b43990a0a9ae6c287b8a36f">  116</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04890.html#a74c75cb1a560331f068aa003bbfd4efc">InputStream::read</a>(std::string&amp; output) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (!underlying.<a class="code hl_function" href="a05022.html#a336a0ba9e3f7d61911d544bef1f029cb">good</a>()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    std::uint32_t size;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">if</span> (!read&lt;std::uint32_t&gt;(size)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    output.clear();</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    output.resize(size);</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> underlying.<a class="code hl_function" href="a05022.html#a38ac83c01be85da3086625673aa6350e">read</a>(output.data(), size);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a04762.html#a9657710f7a0ff46df8d20291b13324cb">  117</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04762.html#a9657710f7a0ff46df8d20291b13324cb">DescriptorComponentBase&lt;TCom, TFirstPayload, TPayloads...&gt;::link</a>(</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_class" href="a05542.html">sr::EntityComponentShaderResourceBase</a>* set, <a class="code hl_struct" href="a05438.html">scene::Key</a> k) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">if</span> (descriptorSet != <span class="keyword">nullptr</span> &amp;&amp; descriptorSet != set) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Component is used in more than one descriptor set component module&quot;</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    descriptorSet = set;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span> (k.<a class="code hl_variable" href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a> != <a class="code hl_variable" href="a05438.html#a580d79a30be461bc410fefee59c32ac3">scene::Key::InvalidSceneId</a>) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        sceneKey = k;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        dirty    = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        markDirty();</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
 </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a04890.html#a52c344d6b62df73e91238b6d5ec1477a">  125</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04890.html#a52c344d6b62df73e91238b6d5ec1477a">InputStream::skip</a>(std::size_t bytes) {</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">return</span> underlying.<a class="code hl_function" href="a05022.html#ab25d70d2602b7da92f4d52d5dd6bfd93">seekg</a>(underlying.<a class="code hl_function" href="a05022.html#a72fa86e855cbcb2adfad17add80b0ce7">tellg</a>() + bytes);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="foldopen" id="foldopen00133" data-start="{" data-end="}">
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno"><a class="line" href="a04762.html#a4b870e46356ba76e139e08c914077d56">  133</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04762.html#a4b870e46356ba76e139e08c914077d56">DescriptorComponentBase&lt;TCom, TFirstPayload, TPayloads...&gt;::unlink</a>() {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    descriptorSet = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    dirty         = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>}</div>
 </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="foldopen" id="foldopen00129" data-start="{" data-end="}">
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="a04890.html#a28531b507eb45cf5b8f3a01eb51e0803">  129</a></span><span class="keyword">inline</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04890.html#a28531b507eb45cf5b8f3a01eb51e0803">InputStream::good</a>() {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> eof = underlying.<a class="code hl_function" href="a05022.html#aa91d37abeb75649020924a3ce8ef72d7">peek</a>() == EOF;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">return</span> underlying.<a class="code hl_function" href="a05022.html#a336a0ba9e3f7d61911d544bef1f029cb">good</a>() &amp;&amp; !eof;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
-</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>} <span class="comment">// namespace binary</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>} <span class="comment">// namespace serial</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>} <span class="comment">// namespace bl</span></div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00425_html"><div class="ttname"><a href="a00425.html">FileUtil.hpp</a></div></div>
-<div class="ttc" id="aa00872_html"><div class="ttname"><a href="a00872.html">InputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04890_html"><div class="ttname"><a href="a04890.html">bl::serial::binary::InputStream</a></div><div class="ttdoc">A readable stream for binary deserialization.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00029">InputStream.hpp:29</a></div></div>
-<div class="ttc" id="aa04890_html_a28531b507eb45cf5b8f3a01eb51e0803"><div class="ttname"><a href="a04890.html#a28531b507eb45cf5b8f3a01eb51e0803">bl::serial::binary::InputStream::good</a></div><div class="ttdeci">bool good()</div><div class="ttdoc">Returns the status of the underlying.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00129">InputStream.hpp:129</a></div></div>
-<div class="ttc" id="aa04890_html_a52c344d6b62df73e91238b6d5ec1477a"><div class="ttname"><a href="a04890.html#a52c344d6b62df73e91238b6d5ec1477a">bl::serial::binary::InputStream::skip</a></div><div class="ttdeci">bool skip(std::size_t bytes)</div><div class="ttdoc">Skips the given number of bytes.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00125">InputStream.hpp:125</a></div></div>
-<div class="ttc" id="aa04890_html_a74c75cb1a560331f068aa003bbfd4efc"><div class="ttname"><a href="a04890.html#a74c75cb1a560331f068aa003bbfd4efc">bl::serial::binary::InputStream::read</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type read(T &amp;output)</div><div class="ttdoc">Reads the integral type from the underlying.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00090">InputStream.hpp:90</a></div></div>
-<div class="ttc" id="aa04890_html_ab9885deef9116f3fa2f8c76f43b43c18"><div class="ttname"><a href="a04890.html#ab9885deef9116f3fa2f8c76f43b43c18">bl::serial::binary::InputStream::InputStream</a></div><div class="ttdeci">InputStream(InputBuffer &amp;underlying)</div><div class="ttdoc">Construct a new Binary Input Stream.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00086">InputStream.hpp:86</a></div></div>
-<div class="ttc" id="aa04890_html_ad1f019caed52ee29e47d3735fc62d388"><div class="ttname"><a href="a04890.html#ad1f019caed52ee29e47d3735fc62d388">bl::serial::binary::InputStream::peek</a></div><div class="ttdeci">std::enable_if&lt; std::is_integral_v&lt; T &gt;, bool &gt;::type peek(T &amp;output)</div><div class="ttdoc">Peeks the integral type from the underlying without moving the cursor.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00109">InputStream.hpp:109</a></div></div>
-<div class="ttc" id="aa05022_html"><div class="ttname"><a href="a05022.html">bl::serial::InputBuffer</a></div><div class="ttdoc">Buffer interface for reading data to be deserialized.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00017">InputBuffer.hpp:17</a></div></div>
-<div class="ttc" id="aa05022_html_a336a0ba9e3f7d61911d544bef1f029cb"><div class="ttname"><a href="a05022.html#a336a0ba9e3f7d61911d544bef1f029cb">bl::serial::InputBuffer::good</a></div><div class="ttdeci">virtual bool good() const =0</div><div class="ttdoc">Returns whether or not the buffer is in a valid state.</div></div>
-<div class="ttc" id="aa05022_html_a38ac83c01be85da3086625673aa6350e"><div class="ttname"><a href="a05022.html#a38ac83c01be85da3086625673aa6350e">bl::serial::InputBuffer::read</a></div><div class="ttdeci">virtual bool read(char *data, std::size_t len)=0</div><div class="ttdoc">Reads data from the buffer.</div></div>
-<div class="ttc" id="aa05022_html_a72fa86e855cbcb2adfad17add80b0ce7"><div class="ttname"><a href="a05022.html#a72fa86e855cbcb2adfad17add80b0ce7">bl::serial::InputBuffer::tellg</a></div><div class="ttdeci">virtual std::size_t tellg() const =0</div><div class="ttdoc">Returns the current position of the read head in the buffer.</div></div>
-<div class="ttc" id="aa05022_html_aa91d37abeb75649020924a3ce8ef72d7"><div class="ttname"><a href="a05022.html#aa91d37abeb75649020924a3ce8ef72d7">bl::serial::InputBuffer::peek</a></div><div class="ttdeci">virtual char peek() const =0</div><div class="ttdoc">Returns the next byte value to be read. May return EOF.</div></div>
-<div class="ttc" id="aa05022_html_ab25d70d2602b7da92f4d52d5dd6bfd93"><div class="ttname"><a href="a05022.html#ab25d70d2602b7da92f4d52d5dd6bfd93">bl::serial::InputBuffer::seekg</a></div><div class="ttdeci">virtual bool seekg(std::size_t pos)=0</div><div class="ttdoc">Sets the position of the read head in the buffer.</div></div>
-<div class="ttc" id="aa05302_html_a24bafb4d915943d65df75390c0584fe3"><div class="ttname"><a href="a05302.html#a24bafb4d915943d65df75390c0584fe3">bl::util::FileUtil::isBigEndian</a></div><div class="ttdeci">static bool isBigEndian()</div><div class="ttdoc">Returns the endianness of the current system. Endianness is abstracted away by File but may still be ...</div><div class="ttdef"><b>Definition</b> <a href="a01712_source.html#l00035">FileUtil.cpp:35</a></div></div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TPayload&gt;</div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="}">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a04762.html#a12a1e8e649ecfec00da754f5626b5cb2">  140</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04762.html#a12a1e8e649ecfec00da754f5626b5cb2">DescriptorComponentBase&lt;TCom, TFirstPayload, TPayloads...&gt;::refresh</a>(TPayload&amp; payload) {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keyword">using </span>PayloadBase = <a class="code hl_class" href="a04758.html">priv::DescriptorComponentPayloadBase&lt;TCom, TPayload&gt;</a>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keyword">static_cast&lt;</span>PayloadBase*<span class="keyword">&gt;</span>(<span class="keyword">this</span>)-&gt;refreshDescriptor(payload);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    dirty = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}</div>
+</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="a04762.html#aef303297a943e7a714fa1224d752d2c6">  147</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04762.html#aef303297a943e7a714fa1224d752d2c6">DescriptorComponentBase&lt;TCom, TFirstPayload, TPayloads...&gt;::markDirty</a>() {</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordflow">if</span> (!dirty &amp;&amp; descriptorSet != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        dirty = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TCom, <span class="keyword">typename</span> TFirstPayload, <span class="keyword">typename</span>... TPayloads&gt;</div>
+<div class="foldopen" id="foldopen00156" data-start="{" data-end="}">
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="a04762.html#ad82b6bfa50aa0cecca73b934498884f7">  156</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04762.html#ad82b6bfa50aa0cecca73b934498884f7">DescriptorComponentBase&lt;TCom, TFirstPayload, TPayloads...&gt;::isDirty</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">return</span> dirty;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>} <span class="comment">// namespace rcom</span></div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="preprocessor">#endif</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">EntityComponentShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01550_html"><div class="ttname"><a href="a01550.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa01586_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04758_html"><div class="ttname"><a href="a04758.html">bl::rc::rcom::priv::DescriptorComponentPayloadBase</a></div><div class="ttdoc">Base class helper for DescriptorComponentBase. Provides the interface for refreshing a single payload...</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00033">DescriptorComponentBase.hpp:33</a></div></div>
+<div class="ttc" id="aa04758_html_a5e5022b2f00fbd38223b05bc620bfb4f"><div class="ttname"><a href="a04758.html#a5e5022b2f00fbd38223b05bc620bfb4f">bl::rc::rcom::priv::DescriptorComponentPayloadBase::refreshDescriptor</a></div><div class="ttdeci">virtual void refreshDescriptor(TPayload &amp;payload)=0</div><div class="ttdoc">Derived classes should implement this to perform refresh+sync logic.</div></div>
+<div class="ttc" id="aa04762_html"><div class="ttname"><a href="a04762.html">bl::rc::rcom::DescriptorComponentBase</a></div><div class="ttdoc">Base class for ECS components that map into descriptor sets.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00053">DescriptorComponentBase.hpp:55</a></div></div>
+<div class="ttc" id="aa04762_html_a12a1e8e649ecfec00da754f5626b5cb2"><div class="ttname"><a href="a04762.html#a12a1e8e649ecfec00da754f5626b5cb2">bl::rc::rcom::DescriptorComponentBase::refresh</a></div><div class="ttdeci">void refresh(TPayload &amp;payload)</div><div class="ttdoc">Refreshes and syncs the descriptor value and marks as clean.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00140">DescriptorComponentBase.hpp:140</a></div></div>
+<div class="ttc" id="aa04762_html_a4b870e46356ba76e139e08c914077d56"><div class="ttname"><a href="a04762.html#a4b870e46356ba76e139e08c914077d56">bl::rc::rcom::DescriptorComponentBase::unlink</a></div><div class="ttdeci">void unlink()</div><div class="ttdoc">Unlinks the component from a scene object.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00133">DescriptorComponentBase.hpp:133</a></div></div>
+<div class="ttc" id="aa04762_html_a5b7058b24cfbb3294a9b565d392fccfe"><div class="ttname"><a href="a04762.html#a5b7058b24cfbb3294a9b565d392fccfe">bl::rc::rcom::DescriptorComponentBase::getSceneKey</a></div><div class="ttdeci">scene::Key getSceneKey() const</div><div class="ttdoc">Returns the scene key of this entity.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00084">DescriptorComponentBase.hpp:84</a></div></div>
+<div class="ttc" id="aa04762_html_a718ef02038aefd277e00fe8aa9a09b12"><div class="ttname"><a href="a04762.html#a718ef02038aefd277e00fe8aa9a09b12">bl::rc::rcom::DescriptorComponentBase::DescriptorComponentBase</a></div><div class="ttdeci">DescriptorComponentBase()</div><div class="ttdoc">Performs basic setup.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00108">DescriptorComponentBase.hpp:108</a></div></div>
+<div class="ttc" id="aa04762_html_a9657710f7a0ff46df8d20291b13324cb"><div class="ttname"><a href="a04762.html#a9657710f7a0ff46df8d20291b13324cb">bl::rc::rcom::DescriptorComponentBase::link</a></div><div class="ttdeci">void link(sr::EntityComponentShaderResourceBase *descriptorSet, scene::Key sceneKey)</div><div class="ttdoc">Links this component to an object in a scene.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00117">DescriptorComponentBase.hpp:117</a></div></div>
+<div class="ttc" id="aa04762_html_ad82b6bfa50aa0cecca73b934498884f7"><div class="ttname"><a href="a04762.html#ad82b6bfa50aa0cecca73b934498884f7">bl::rc::rcom::DescriptorComponentBase::isDirty</a></div><div class="ttdeci">bool isDirty() const</div><div class="ttdoc">Returns whether the object has been marked dirty and has not been refreshed yet.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00156">DescriptorComponentBase.hpp:156</a></div></div>
+<div class="ttc" id="aa04762_html_aef303297a943e7a714fa1224d752d2c6"><div class="ttname"><a href="a04762.html#aef303297a943e7a714fa1224d752d2c6">bl::rc::rcom::DescriptorComponentBase::markDirty</a></div><div class="ttdeci">bool markDirty()</div><div class="ttdoc">Call this when the component is modified.</div><div class="ttdef"><b>Definition</b> <a href="a00848_source.html#l00147">DescriptorComponentBase.hpp:147</a></div></div>
+<div class="ttc" id="aa05438_html"><div class="ttname"><a href="a05438.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa05438_html_a580d79a30be461bc410fefee59c32ac3"><div class="ttname"><a href="a05438.html#a580d79a30be461bc410fefee59c32ac3">bl::rc::scene::Key::InvalidSceneId</a></div><div class="ttdeci">static constexpr std::uint32_t InvalidSceneId</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00024">Key.hpp:24</a></div></div>
+<div class="ttc" id="aa05438_html_a5fa4592fd53a220f89ac7814aebfa6d6"><div class="ttname"><a href="a05438.html#a5fa4592fd53a220f89ac7814aebfa6d6">bl::rc::scene::Key::sceneId</a></div><div class="ttdeci">std::uint32_t sceneId</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00027">Key.hpp:27</a></div></div>
+<div class="ttc" id="aa05542_html"><div class="ttname"><a href="a05542.html">bl::rc::sr::EntityComponentShaderResourceBase</a></div><div class="ttdoc">Base class for shader inputs derived from ECS components.</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00029">EntityComponentShaderResource.hpp:29</a></div></div>
+<div class="ttc" id="aa08560_html"><div class="ttname"><a href="a08560.html">Key.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

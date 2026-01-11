@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/EmplaceHelper.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/ShaderParameters.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,48 +79,61 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">EmplaceHelper.hpp</div></div>
+  <div class="headertitle"><div class="title">ShaderParameters.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00449.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_UTIL_EMPLACEHELPER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_UTIL_EMPLACEHELPER_HPP</span></div>
+<a href="a00449.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_SHADERPARAMETERS_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_SHADERPARAMETERS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>util</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> F&gt;</div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05298.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="a05298.html">EmplaceHelper</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05298.html#ad605c507449f7e372740e4e6a9e23907">   22</a></span>    <a class="code hl_function" href="a05298.html#ad605c507449f7e372740e4e6a9e23907">EmplaceHelper</a>(F&amp;&amp; f)</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    : factory(f) {}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a05798.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05798.html">ShaderParameters</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05798.html#aa83d34e51725f24989a62945ee03a1f6">   19</a></span>    std::string <a class="code hl_variable" href="a05798.html#aa83d34e51725f24989a62945ee03a1f6">path</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05798.html#af26455c677a099b1eadf7c69feb244e7">   20</a></span>    VkShaderStageFlags <a class="code hl_variable" href="a05798.html#af26455c677a099b1eadf7c69feb244e7">stage</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05798.html#a06c3310893a19aecfb63309a4f446cf9">   21</a></span>    std::string <a class="code hl_variable" href="a05798.html#a06c3310893a19aecfb63309a4f446cf9">entrypoint</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05798.html#aaf1d95d1268aab4900ec345d04d416db">   26</a></span>    <a class="code hl_function" href="a05798.html#aaf1d95d1268aab4900ec345d04d416db">ShaderParameters</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05798.html#a4ccc2b675f44283821777a3841594990">   35</a></span>    <a class="code hl_function" href="a05798.html#a4ccc2b675f44283821777a3841594990">ShaderParameters</a>(<span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="a05798.html#aa83d34e51725f24989a62945ee03a1f6">path</a>, VkShaderStageFlags <a class="code hl_variable" href="a05798.html#af26455c677a099b1eadf7c69feb244e7">stage</a>,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                     <span class="keyword">const</span> std::string&amp; <a class="code hl_variable" href="a05798.html#a06c3310893a19aecfb63309a4f446cf9">entrypoint</a>)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    : <a class="code hl_variable" href="a05798.html#aa83d34e51725f24989a62945ee03a1f6">path</a>(<a class="code hl_variable" href="a05798.html#aa83d34e51725f24989a62945ee03a1f6">path</a>)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    , <a class="code hl_variable" href="a05798.html#af26455c677a099b1eadf7c69feb244e7">stage</a>(<a class="code hl_variable" href="a05798.html#af26455c677a099b1eadf7c69feb244e7">stage</a>)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    , <a class="code hl_variable" href="a05798.html#a06c3310893a19aecfb63309a4f446cf9">entrypoint</a>(<a class="code hl_variable" href="a05798.html#a06c3310893a19aecfb63309a4f446cf9">entrypoint</a>) {}</div>
 </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a05298.html#aad949e03235996e475b0e7c993ca6ba3">   28</a></span>    <span class="keyword">operator</span> <span class="keyword">auto</span>() { <span class="keywordflow">return</span> factory(); }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    F&amp; factory;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>};</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace util</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05298_html"><div class="ttname"><a href="a05298.html">bl::util::EmplaceHelper</a></div><div class="ttdoc">Helper to emplace non-constructible objects (private constructor, factory methods,...</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00015">EmplaceHelper.hpp:15</a></div></div>
-<div class="ttc" id="aa05298_html_ad605c507449f7e372740e4e6a9e23907"><div class="ttname"><a href="a05298.html#ad605c507449f7e372740e4e6a9e23907">bl::util::EmplaceHelper::EmplaceHelper</a></div><div class="ttdeci">EmplaceHelper(F &amp;&amp;f)</div><div class="ttdoc">Creates the helper with the given object factory.</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00022">EmplaceHelper.hpp:22</a></div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05798_html"><div class="ttname"><a href="a05798.html">bl::rc::vk::ShaderParameters</a></div><div class="ttdoc">Parameters for creating a shader module.</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00018">ShaderParameters.hpp:18</a></div></div>
+<div class="ttc" id="aa05798_html_a06c3310893a19aecfb63309a4f446cf9"><div class="ttname"><a href="a05798.html#a06c3310893a19aecfb63309a4f446cf9">bl::rc::vk::ShaderParameters::entrypoint</a></div><div class="ttdeci">std::string entrypoint</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00021">ShaderParameters.hpp:21</a></div></div>
+<div class="ttc" id="aa05798_html_a4ccc2b675f44283821777a3841594990"><div class="ttname"><a href="a05798.html#a4ccc2b675f44283821777a3841594990">bl::rc::vk::ShaderParameters::ShaderParameters</a></div><div class="ttdeci">ShaderParameters(const std::string &amp;path, VkShaderStageFlags stage, const std::string &amp;entrypoint)</div><div class="ttdoc">Sets the shader parameters.</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00035">ShaderParameters.hpp:35</a></div></div>
+<div class="ttc" id="aa05798_html_aa83d34e51725f24989a62945ee03a1f6"><div class="ttname"><a href="a05798.html#aa83d34e51725f24989a62945ee03a1f6">bl::rc::vk::ShaderParameters::path</a></div><div class="ttdeci">std::string path</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00019">ShaderParameters.hpp:19</a></div></div>
+<div class="ttc" id="aa05798_html_aaf1d95d1268aab4900ec345d04d416db"><div class="ttname"><a href="a05798.html#aaf1d95d1268aab4900ec345d04d416db">bl::rc::vk::ShaderParameters::ShaderParameters</a></div><div class="ttdeci">ShaderParameters()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa05798_html_af26455c677a099b1eadf7c69feb244e7"><div class="ttname"><a href="a05798.html#af26455c677a099b1eadf7c69feb244e7">bl::rc::vk::ShaderParameters::stage</a></div><div class="ttdeci">VkShaderStageFlags stage</div><div class="ttdef"><b>Definition</b> <a href="a00449_source.html#l00020">ShaderParameters.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

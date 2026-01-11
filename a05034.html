@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::OutputBuffer Class Reference</title>
+<title>BLIB: bl::rc::rgi::TaggedEmptyAsset Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,53 +74,86 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a05034.html">OutputBuffer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03055.html">rgi</a></li><li class="navelem"><a class="el" href="a05034.html">TaggedEmptyAsset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a05031.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::OutputBuffer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02391.html">Serialization</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::rgi::TaggedEmptyAsset Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface for outputting serialized data.  
+<p>Empty asset that can be used for creating dependencies between tasks.  
  <a href="a05034.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00863_source.html">OutputBuffer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00686_source.html">TaggedEmptyAsset.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::OutputBuffer:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rgi::TaggedEmptyAsset:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a05034.png" usemap="#bl::serial::OutputBuffer_map" alt=""/>
-  <map id="bl::serial::OutputBuffer_map" name="bl::serial::OutputBuffer_map">
-<area href="a05030.html" title="Buffer that allows serializing data to an in-memory buffer." alt="bl::serial::MemoryOutputBuffer" shape="rect" coords="0,56,183,80"/>
-<area href="a05042.html" title="Output buffer that allows writing to C++ streams." alt="bl::serial::StreamOutputBuffer" shape="rect" coords="193,56,376,80"/>
+  <img src="a05034.png" usemap="#bl::rc::rgi::TaggedEmptyAsset_map" alt=""/>
+  <map id="bl::rc::rgi::TaggedEmptyAsset_map" name="bl::rc::rgi::TaggedEmptyAsset_map">
+<area href="a04974.html" title="Base class for assets in render graphs." alt="bl::rc::rg::Asset" shape="rect" coords="0,0,174,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4b6f2634ce8ec5ed69dd60e1979d7f29" id="r_a4b6f2634ce8ec5ed69dd60e1979d7f29"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05034.html#a4b6f2634ce8ec5ed69dd60e1979d7f29">~OutputBuffer</a> ()=default</td></tr>
-<tr class="memdesc:a4b6f2634ce8ec5ed69dd60e1979d7f29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Output Buffer object.  <br /></td></tr>
-<tr class="separator:a4b6f2634ce8ec5ed69dd60e1979d7f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3873541dba334d85540d95f4cf1f86cb" id="r_a3873541dba334d85540d95f4cf1f86cb"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05034.html#a3873541dba334d85540d95f4cf1f86cb">write</a> (const char *data, std::size_t len)=0</td></tr>
-<tr class="memdesc:a3873541dba334d85540d95f4cf1f86cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write some data to the buffer.  <br /></td></tr>
-<tr class="separator:a3873541dba334d85540d95f4cf1f86cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11768f89bd5cadbcc6c33714793cca69" id="r_a11768f89bd5cadbcc6c33714793cca69"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05034.html#a11768f89bd5cadbcc6c33714793cca69">good</a> () const =0</td></tr>
-<tr class="memdesc:a11768f89bd5cadbcc6c33714793cca69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is in a good state.  <br /></td></tr>
-<tr class="separator:a11768f89bd5cadbcc6c33714793cca69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97286e6c65db74e79e526f27b349c71b" id="r_a97286e6c65db74e79e526f27b349c71b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05034.html#a97286e6c65db74e79e526f27b349c71b">TaggedEmptyAsset</a> (std::string_view tag, bool terminal)</td></tr>
+<tr class="memdesc:a97286e6c65db74e79e526f27b349c71b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty asset with the given tag.  <br /></td></tr>
+<tr class="separator:a97286e6c65db74e79e526f27b349c71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86aaa499021e8051696e20346888877a" id="r_a86aaa499021e8051696e20346888877a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05034.html#a86aaa499021e8051696e20346888877a">~TaggedEmptyAsset</a> ()=default</td></tr>
+<tr class="memdesc:a86aaa499021e8051696e20346888877a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the asset.  <br /></td></tr>
+<tr class="separator:a86aaa499021e8051696e20346888877a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fd6583ff53289c920ab7ebddf4ec7be" id="r_a4fd6583ff53289c920ab7ebddf4ec7be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a4fd6583ff53289c920ab7ebddf4ec7be">onResize</a> (glm::u32vec2 newSize)</td></tr>
+<tr class="memdesc:a4fd6583ff53289c920ab7ebddf4ec7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the observer render region changes size.  <br /></td></tr>
+<tr class="separator:a4fd6583ff53289c920ab7ebddf4ec7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade5f0792cd101a716faa2d6a693c2807" id="r_ade5f0792cd101a716faa2d6a693c2807"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#ade5f0792cd101a716faa2d6a693c2807">onReset</a> ()</td></tr>
+<tr class="memdesc:ade5f0792cd101a716faa2d6a693c2807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the asset is reset before the graph is executed.  <br /></td></tr>
+<tr class="separator:ade5f0792cd101a716faa2d6a693c2807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21f7426568111c24acf8af2ccf3dafd8" id="r_a21f7426568111c24acf8af2ccf3dafd8"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a21f7426568111c24acf8af2ccf3dafd8">getTag</a> () const</td></tr>
+<tr class="memdesc:a21f7426568111c24acf8af2ccf3dafd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the tag of this asset.  <br /></td></tr>
+<tr class="separator:a21f7426568111c24acf8af2ccf3dafd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07e273f81b20f19a0fc963ab01fb5bc9" id="r_a07e273f81b20f19a0fc963ab01fb5bc9"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a07e273f81b20f19a0fc963ab01fb5bc9">getPurpose</a> () const</td></tr>
+<tr class="memdesc:a07e273f81b20f19a0fc963ab01fb5bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the purpose of this asset.  <br /></td></tr>
+<tr class="separator:a07e273f81b20f19a0fc963ab01fb5bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d5c8b6593d33a48d60872677275822" id="r_a41d5c8b6593d33a48d60872677275822"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a41d5c8b6593d33a48d60872677275822">isExternal</a> () const</td></tr>
+<tr class="memdesc:a41d5c8b6593d33a48d60872677275822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the asset was manually created, false if created by the factory.  <br /></td></tr>
+<tr class="separator:a41d5c8b6593d33a48d60872677275822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25fec39141a5791587bee24b40c264de" id="r_a25fec39141a5791587bee24b40c264de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a25fec39141a5791587bee24b40c264de">isTerminal</a> () const</td></tr>
+<tr class="memdesc:a25fec39141a5791587bee24b40c264de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this asset is terminal or if it is intended to be consumed in frame.  <br /></td></tr>
+<tr class="separator:a25fec39141a5791587bee24b40c264de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a10db5fc41697b72ea81b8bbcbbb9e125" id="r_a10db5fc41697b72ea81b8bbcbbb9e125"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a10db5fc41697b72ea81b8bbcbbb9e125">addDependency</a> (std::string_view depTag)</td></tr>
+<tr class="memdesc:a10db5fc41697b72ea81b8bbcbbb9e125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a dependency on another asset. This must be called from the constructor.  <br /></td></tr>
+<tr class="separator:a10db5fc41697b72ea81b8bbcbbb9e125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dfd154a7e02bc2cbd1cc74f62791f0f" id="r_a4dfd154a7e02bc2cbd1cc74f62791f0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">getDependency</a> (std::string_view depTag)</td></tr>
+<tr class="memdesc:a4dfd154a7e02bc2cbd1cc74f62791f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the dependency asset with the given tag. Prefer the index version for performance. Assets are ordered by the order they were added.  <br /></td></tr>
+<tr class="separator:a4dfd154a7e02bc2cbd1cc74f62791f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223b5b5b9c58ebf7d8e77157cf26c9c4" id="r_a223b5b5b9c58ebf7d8e77157cf26c9c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a223b5b5b9c58ebf7d8e77157cf26c9c4">getDependency</a> (unsigned int index)</td></tr>
+<tr class="memdesc:a223b5b5b9c58ebf7d8e77157cf26c9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the dependency asset at the given index. Does not bounds check.  <br /></td></tr>
+<tr class="separator:a223b5b5b9c58ebf7d8e77157cf26c9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44e2891487a2dc1ce36351c6bed01bc" id="r_ae44e2891487a2dc1ce36351c6bed01bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#ae44e2891487a2dc1ce36351c6bed01bc">isCreated</a> () const</td></tr>
+<tr class="memdesc:ae44e2891487a2dc1ce36351c6bed01bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the asset has had create() called.  <br /></td></tr>
+<tr class="separator:ae44e2891487a2dc1ce36351c6bed01bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28fda3e5a56cea20550b53c6d2a1a33b" id="r_a28fda3e5a56cea20550b53c6d2a1a33b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04974.html#abacf305295a7e9309bf9f9f79cd7db41">GraphAssetPool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a28fda3e5a56cea20550b53c6d2a1a33b">getOwnerForLastCreate</a> () const</td></tr>
+<tr class="memdesc:a28fda3e5a56cea20550b53c6d2a1a33b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the owner that create() was called with. Only valid in doCreate.  <br /></td></tr>
+<tr class="separator:a28fda3e5a56cea20550b53c6d2a1a33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface for outputting serialized data. </p>
+<div class="textblock"><p>Empty asset that can be used for creating dependencies between tasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00016">16</a> of file <a class="el" href="a00863_source.html">OutputBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00017">17</a> of file <a class="el" href="a00686_source.html">TaggedEmptyAsset.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4b6f2634ce8ec5ed69dd60e1979d7f29" name="a4b6f2634ce8ec5ed69dd60e1979d7f29"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b6f2634ce8ec5ed69dd60e1979d7f29">&#9670;&#160;</a></span>~OutputBuffer()</h2>
+<a id="a97286e6c65db74e79e526f27b349c71b" name="a97286e6c65db74e79e526f27b349c71b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97286e6c65db74e79e526f27b349c71b">&#9670;&#160;</a></span>TaggedEmptyAsset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,73 +162,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::serial::OutputBuffer::~OutputBuffer </td>
+          <td class="memname">bl::rc::rgi::TaggedEmptyAsset::TaggedEmptyAsset </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the Output Buffer object. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a11768f89bd5cadbcc6c33714793cca69" name="a11768f89bd5cadbcc6c33714793cca69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11768f89bd5cadbcc6c33714793cca69">&#9670;&#160;</a></span>good()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool bl::serial::OutputBuffer::good </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the buffer is in a good state. </p>
-
-<p>Implemented in <a class="el" href="a05030.html#ab78ef537e0bd074e9c965e4535632fb0">bl::serial::MemoryOutputBuffer</a>, and <a class="el" href="a05042.html#aaff97d946d1f1b37ae4a46255678904a">bl::serial::StreamOutputBuffer</a>.</p>
-
-</div>
-</div>
-<a id="a3873541dba334d85540d95f4cf1f86cb" name="a3873541dba334d85540d95f4cf1f86cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3873541dba334d85540d95f4cf1f86cb">&#9670;&#160;</a></span>write()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool bl::serial::OutputBuffer::write </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>terminal</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -205,33 +181,409 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Write some data to the buffer. </p>
+<p>Creates an empty asset with the given tag. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>The data to write </td></tr>
-    <tr><td class="paramname">len</td><td>The length of the data to write </td></tr>
+    <tr><td class="paramname">tag</td><td>The tag of the asset </td></tr>
+    <tr><td class="paramname">terminal</td><td>Whether the asset is terminal </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success false on error </dd></dl>
 
-<p>Implemented in <a class="el" href="a05030.html#aa14425bbf68b5d3a49ea56ca30c2f15b">bl::serial::MemoryOutputBuffer</a>, and <a class="el" href="a05042.html#ae11ddac8af8eb2ab7f3130f393d99e5c">bl::serial::StreamOutputBuffer</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00025">25</a> of file <a class="el" href="a00686_source.html">TaggedEmptyAsset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a86aaa499021e8051696e20346888877a" name="a86aaa499021e8051696e20346888877a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86aaa499021e8051696e20346888877a">&#9670;&#160;</a></span>~TaggedEmptyAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rgi::TaggedEmptyAsset::~TaggedEmptyAsset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the asset. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a10db5fc41697b72ea81b8bbcbbb9e125" name="a10db5fc41697b72ea81b8bbcbbb9e125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10db5fc41697b72ea81b8bbcbbb9e125">&#9670;&#160;</a></span>addDependency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::Asset::addDependency </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>depTag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registers a dependency on another asset. This must be called from the constructor. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">depTag</td><td>The tag of the dependency to register </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00022">22</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4dfd154a7e02bc2cbd1cc74f62791f0f" name="a4dfd154a7e02bc2cbd1cc74f62791f0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dfd154a7e02bc2cbd1cc74f62791f0f">&#9670;&#160;</a></span>getDependency() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> * bl::rc::rg::Asset::getDependency </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>depTag</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the dependency asset with the given tag. Prefer the index version for performance. Assets are ordered by the order they were added. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">depTag</td><td>The tag of the dependency to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The dependency asset with the given tag, or nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00031">31</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a223b5b5b9c58ebf7d8e77157cf26c9c4" name="a223b5b5b9c58ebf7d8e77157cf26c9c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223b5b5b9c58ebf7d8e77157cf26c9c4">&#9670;&#160;</a></span>getDependency() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> * bl::rc::rg::Asset::getDependency </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the dependency asset at the given index. Does not bounds check. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index of the dependency to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The dependency asset at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00044">44</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a28fda3e5a56cea20550b53c6d2a1a33b" name="a28fda3e5a56cea20550b53c6d2a1a33b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28fda3e5a56cea20550b53c6d2a1a33b">&#9670;&#160;</a></span>getOwnerForLastCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04974.html#abacf305295a7e9309bf9f9f79cd7db41">GraphAssetPool</a> * bl::rc::rg::Asset::getOwnerForLastCreate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the owner that create() was called with. Only valid in doCreate. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00150">150</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a07e273f81b20f19a0fc963ab01fb5bc9" name="a07e273f81b20f19a0fc963ab01fb5bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e273f81b20f19a0fc963ab01fb5bc9">&#9670;&#160;</a></span>getPurpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view bl::rc::rg::Asset::getPurpose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the purpose of this asset. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00097">97</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a21f7426568111c24acf8af2ccf3dafd8" name="a21f7426568111c24acf8af2ccf3dafd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21f7426568111c24acf8af2ccf3dafd8">&#9670;&#160;</a></span>getTag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view bl::rc::rg::Asset::getTag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the tag of this asset. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00092">92</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae44e2891487a2dc1ce36351c6bed01bc" name="ae44e2891487a2dc1ce36351c6bed01bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44e2891487a2dc1ce36351c6bed01bc">&#9670;&#160;</a></span>isCreated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::Asset::isCreated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the asset has had create() called. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00145">145</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41d5c8b6593d33a48d60872677275822" name="a41d5c8b6593d33a48d60872677275822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d5c8b6593d33a48d60872677275822">&#9670;&#160;</a></span>isExternal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::Asset::isExternal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the asset was manually created, false if created by the factory. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00102">102</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a25fec39141a5791587bee24b40c264de" name="a25fec39141a5791587bee24b40c264de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25fec39141a5791587bee24b40c264de">&#9670;&#160;</a></span>isTerminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::Asset::isTerminal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this asset is terminal or if it is intended to be consumed in frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00107">107</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ade5f0792cd101a716faa2d6a693c2807" name="ade5f0792cd101a716faa2d6a693c2807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade5f0792cd101a716faa2d6a693c2807">&#9670;&#160;</a></span>onReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::rc::rg::Asset::onReset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the asset is reset before the graph is executed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00087">87</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4fd6583ff53289c920ab7ebddf4ec7be" name="a4fd6583ff53289c920ab7ebddf4ec7be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fd6583ff53289c920ab7ebddf4ec7be">&#9670;&#160;</a></span>onResize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::Asset::onResize </td>
+          <td>(</td>
+          <td class="paramtype">glm::u32vec2&#160;</td>
+          <td class="paramname"><em>newSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the observer render region changes size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newSize</td><td>The new size of the observer render region </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00110">110</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Buffers/<a class="el" href="a00863_source.html">OutputBuffer.hpp</a></li>
+<li>include/BLIB/Render/Graph/Assets/<a class="el" href="a00686_source.html">TaggedEmptyAsset.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

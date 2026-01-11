@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['idtype_0',['IdType',['../a02890.html#a6f20d4f5035759797eb767204c24ddf8',1,'bl::ecs::Entity']]],
-  ['indexbuffer_1',['IndexBuffer',['../a02388.html#gaefb3729dcc560378d43cc72e50f7d438',1,'bl::rc::buf']]],
-  ['item_2',['Item',['../a02718.html#aa28858b622353170b0df73c9f1f21809',1,'bl::ctr::Cache']]],
-  ['iterator_3',['iterator',['../a02722.html#a8ecb676ceae1d63d038aeaf1027fc3ea',1,'bl::ctr::FastEraseVector::iterator'],['../a02750.html#a9a583355cc2d019f686ca2011c069f87',1,'bl::ctr::ObjectPool::Iterator']]]
+  ['last_0',['Last',['../a06534.html#af272ecfc09083f9cec3776a769bd2509',1,'bl::util::LastVariadic']]],
+  ['layoutsets_1',['LayoutSets',['../a04926.html#a5e47dd5fd8cd88d284d99aefa003b70a',1,'bl::rc::ds::InstanceTable']]],
+  ['lightingbuffer2d_2',['LightingBuffer2D',['../a02979.html#gaaadc9e8e2ff32fc01fe68f391bc88158',1,'bl::rc::sri']]],
+  ['lightingbuffer3d_3',['LightingBuffer3D',['../a02979.html#gaeee495c9866c961b96148a2158fe37ce',1,'bl::rc::sri']]],
+  ['list_4',['List',['../a03046.html#a1651c2f4db91ae08cdd9015e247eef67',1,'bl::serial::json']]]
 ];

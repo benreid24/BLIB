@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: EngineEvents</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,6 +51,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,29 +73,47 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02418.html">ecs</a></li><li class="navelem"><a class="el" href="a02424.html">txp</a></li><li class="navelem"><a class="el" href="a02990.html">TransactionComponentWrite</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::ecs::txp::TransactionComponentWrite&lt; T &gt; Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">EngineEvents<div class="ingroups"><a class="el" href="a02969.html">Engine</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02990.html#a727797cc5af45fee114e1450b68fe1df">::bl::ecs::ComponentPool&lt; T &gt;</a></td><td class="entry"><a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02990.html#a673117a9da67c7f00601242768d0c4d2">::bl::ecs::Registry</a></td><td class="entry"><a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02990.html#af9976349754ab9e9514436ed8641e2bf">TransactionComponentWrite</a>(const TransactionComponentWrite &amp;)</td><td class="entry"><a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02990.html#a7e5017a306e7c013c0f142ab23fc9540">TransactionComponentWrite</a>(Registry &amp;registry)</td><td class="entry"><a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02990.html#a461214cbb44fe5550be9fc012ebfe130">TransactionComponentWrite</a>(util::ReadWriteLock &amp;lock)</td><td class="entry"><a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02990.html#a72ed9fbb3468203b187c65636c39f00b">unlock</a>()</td><td class="entry"><a class="el" href="a02990.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-</table></div><!-- contents -->
+<p>Collection of event classes that fire as the Engine runs.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03702.html">bl::engine::event::Paused</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine is paused.  <a href="a03702.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03706.html">bl::engine::event::PlayerAdded</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a player is added to the engine.  <a href="a03706.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html">bl::engine::event::PlayerRemoved</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a player is removed from the engine.  <a href="a03710.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03714.html">bl::engine::event::Resumed</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine is resumed.  <a href="a03714.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03718.html">bl::engine::event::Shutdown</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the <a class="el" href="a03698.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> shuts down.  <a href="a03718.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03722.html">bl::engine::event::Startup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine is first started.  <a href="a03722.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03726.html">bl::engine::event::StateChange</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the engine switches states.  <a href="a03726.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of event classes that fire as the Engine runs. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::bundle::BundledFileMetadata Struct Reference</title>
+<title>BLIB: bl::rc::buf::DirtyRange Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,7 +74,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02467.html">resource</a></li><li class="navelem"><a class="el" href="a02468.html">bundle</a></li><li class="navelem"><a class="el" href="a04706.html">BundledFileMetadata</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03043.html">buf</a></li><li class="navelem"><a class="el" href="a04706.html">DirtyRange</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -82,87 +82,83 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04703.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::resource::bundle::BundledFileMetadata Struct Reference<div class="ingroups"><a class="el" href="a02389.html">Resources</a> &raquo; <a class="el" href="a02400.html">Bundling</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::buf::DirtyRange Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic struct containing metadata about a file in a bundle.  
+<p>Basic helper struct to track dirty ranges of buffers.  
  <a href="a04706.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00512_source.html">DirtyRange.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afddbff8274ef5051019d0aa27a9f11fa" id="r_afddbff8274ef5051019d0aa27a9f11fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#afddbff8274ef5051019d0aa27a9f11fa">BundledFileMetadata</a> ()</td></tr>
-<tr class="memdesc:afddbff8274ef5051019d0aa27a9f11fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an empty Bundled File Metadata.  <br /></td></tr>
-<tr class="separator:afddbff8274ef5051019d0aa27a9f11fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a44dbce75236d42cc1ec2c2ae749d5d" id="r_a5a44dbce75236d42cc1ec2c2ae749d5d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a5a44dbce75236d42cc1ec2c2ae749d5d">BundledFileMetadata</a> (std::int64_t <a class="el" href="a04706.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a>, std::int64_t <a class="el" href="a04706.html#a783336c2da607da4cc7b5c30fc8b48d5">length</a>)</td></tr>
-<tr class="memdesc:a5a44dbce75236d42cc1ec2c2ae749d5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Bundled File Metadata from the given information.  <br /></td></tr>
-<tr class="separator:a5a44dbce75236d42cc1ec2c2ae749d5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf9e2ca4ef47978c4afcae2e7db9d882" id="r_abf9e2ca4ef47978c4afcae2e7db9d882"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#abf9e2ca4ef47978c4afcae2e7db9d882">DirtyRange</a> ()</td></tr>
+<tr class="memdesc:abf9e2ca4ef47978c4afcae2e7db9d882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty dirty range.  <br /></td></tr>
+<tr class="separator:abf9e2ca4ef47978c4afcae2e7db9d882"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c508c8c0ac8315877e02f11c29beba5" id="r_a3c508c8c0ac8315877e02f11c29beba5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a3c508c8c0ac8315877e02f11c29beba5">DirtyRange</a> (std::uint32_t <a class="el" href="a04706.html#a586746e32a23e6c2508633a27947d39c">start</a>, std::uint32_t n=1)</td></tr>
+<tr class="memdesc:a3c508c8c0ac8315877e02f11c29beba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a dirty range from the given indices.  <br /></td></tr>
+<tr class="separator:a3c508c8c0ac8315877e02f11c29beba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a773b98d39ede673ac327a336d5251f69" id="r_a773b98d39ede673ac327a336d5251f69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a773b98d39ede673ac327a336d5251f69">combine</a> (const <a class="el" href="a04706.html">DirtyRange</a> &amp;other)</td></tr>
+<tr class="memdesc:a773b98d39ede673ac327a336d5251f69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines this range to include the union of itself and another range.  <br /></td></tr>
+<tr class="separator:a773b98d39ede673ac327a336d5251f69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75ac3cfeed1bfc1d81da84a6c4c50629" id="r_a75ac3cfeed1bfc1d81da84a6c4c50629"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a75ac3cfeed1bfc1d81da84a6c4c50629">reset</a> ()</td></tr>
+<tr class="memdesc:a75ac3cfeed1bfc1d81da84a6c4c50629"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the range to be empty.  <br /></td></tr>
+<tr class="separator:a75ac3cfeed1bfc1d81da84a6c4c50629"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba3e550a315ba7ff4de32a4a7457f7a2" id="r_aba3e550a315ba7ff4de32a4a7457f7a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#aba3e550a315ba7ff4de32a4a7457f7a2">markDirty</a> (std::uint32_t i, std::uint32_t n=1)</td></tr>
+<tr class="memdesc:aba3e550a315ba7ff4de32a4a7457f7a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given range as dirty, expanding this range to include itself and it.  <br /></td></tr>
+<tr class="separator:aba3e550a315ba7ff4de32a4a7457f7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a621069bb47edd12e2f1670ee79a5eb1f" id="r_a621069bb47edd12e2f1670ee79a5eb1f"><td class="memItemLeft" align="right" valign="top">std::int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a621069bb47edd12e2f1670ee79a5eb1f">offset</a></td></tr>
-<tr class="memdesc:a621069bb47edd12e2f1670ee79a5eb1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">The offset of the file in the bundle, relative to the start of the file.  <br /></td></tr>
-<tr class="separator:a621069bb47edd12e2f1670ee79a5eb1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a783336c2da607da4cc7b5c30fc8b48d5" id="r_a783336c2da607da4cc7b5c30fc8b48d5"><td class="memItemLeft" align="right" valign="top">std::int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a783336c2da607da4cc7b5c30fc8b48d5">length</a></td></tr>
-<tr class="memdesc:a783336c2da607da4cc7b5c30fc8b48d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of bytes the file has.  <br /></td></tr>
-<tr class="separator:a783336c2da607da4cc7b5c30fc8b48d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a586746e32a23e6c2508633a27947d39c" id="r_a586746e32a23e6c2508633a27947d39c"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a586746e32a23e6c2508633a27947d39c">start</a></td></tr>
+<tr class="separator:a586746e32a23e6c2508633a27947d39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4feb246291b92440dd7c6807fd14b529" id="r_a4feb246291b92440dd7c6807fd14b529"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html#a4feb246291b92440dd7c6807fd14b529">size</a></td></tr>
+<tr class="separator:a4feb246291b92440dd7c6807fd14b529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic struct containing metadata about a file in a bundle. </p>
+<div class="textblock"><p>Basic helper struct to track dirty ranges of buffers. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00019">19</a> of file <a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00512_source.html#l00017">17</a> of file <a class="el" href="a00512_source.html">DirtyRange.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="afddbff8274ef5051019d0aa27a9f11fa" name="afddbff8274ef5051019d0aa27a9f11fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afddbff8274ef5051019d0aa27a9f11fa">&#9670;&#160;</a></span>BundledFileMetadata() <span class="overload">[1/2]</span></h2>
+<a id="abf9e2ca4ef47978c4afcae2e7db9d882" name="abf9e2ca4ef47978c4afcae2e7db9d882"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf9e2ca4ef47978c4afcae2e7db9d882">&#9670;&#160;</a></span>DirtyRange() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::resource::bundle::BundledFileMetadata::BundledFileMetadata </td>
+          <td class="memname">bl::rc::buf::DirtyRange::DirtyRange </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct an empty Bundled File Metadata. </p>
+<p>Creates an empty dirty range. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00030">30</a> of file <a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02174_source.html#l00011">11</a> of file <a class="el" href="a02174_source.html">DirtyRange.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5a44dbce75236d42cc1ec2c2ae749d5d" name="a5a44dbce75236d42cc1ec2c2ae749d5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a44dbce75236d42cc1ec2c2ae749d5d">&#9670;&#160;</a></span>BundledFileMetadata() <span class="overload">[2/2]</span></h2>
+<a id="a3c508c8c0ac8315877e02f11c29beba5" name="a3c508c8c0ac8315877e02f11c29beba5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c508c8c0ac8315877e02f11c29beba5">&#9670;&#160;</a></span>DirtyRange() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::resource::bundle::BundledFileMetadata::BundledFileMetadata </td>
+          <td class="memname">bl::rc::buf::DirtyRange::DirtyRange </td>
           <td>(</td>
-          <td class="paramtype">std::int64_t&#160;</td>
-          <td class="paramname"><em>offset</em>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::int64_t&#160;</td>
-          <td class="paramname"><em>length</em>&#160;</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>n</em> = <code>1</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -170,71 +166,152 @@ Public Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Bundled File Metadata from the given information. </p>
+<p>Creates a dirty range from the given indices. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>The offset from the start of the bundle file </td></tr>
-    <tr><td class="paramname">length</td><td>The number of bytes in the file </td></tr>
+    <tr><td class="paramname">start</td><td>The start index of the dirty range </td></tr>
+    <tr><td class="paramname">n</td><td>The number of dirty elements </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00040">40</a> of file <a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02174_source.html#l00015">15</a> of file <a class="el" href="a02174_source.html">DirtyRange.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a773b98d39ede673ac327a336d5251f69" name="a773b98d39ede673ac327a336d5251f69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a773b98d39ede673ac327a336d5251f69">&#9670;&#160;</a></span>combine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::buf::DirtyRange::combine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04706.html">DirtyRange</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Combines this range to include the union of itself and another range. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The range to combine with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02174_source.html#l00019">19</a> of file <a class="el" href="a02174_source.html">DirtyRange.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aba3e550a315ba7ff4de32a4a7457f7a2" name="aba3e550a315ba7ff4de32a4a7457f7a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba3e550a315ba7ff4de32a4a7457f7a2">&#9670;&#160;</a></span>markDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::buf::DirtyRange::markDirty </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>n</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Marks the given range as dirty, expanding this range to include itself and it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The first index of the dirty element </td></tr>
+    <tr><td class="paramname">n</td><td>The number of dirty elements </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02174_source.html#l00030">30</a> of file <a class="el" href="a02174_source.html">DirtyRange.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a75ac3cfeed1bfc1d81da84a6c4c50629" name="a75ac3cfeed1bfc1d81da84a6c4c50629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75ac3cfeed1bfc1d81da84a6c4c50629">&#9670;&#160;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::buf::DirtyRange::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the range to be empty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02174_source.html#l00025">25</a> of file <a class="el" href="a02174_source.html">DirtyRange.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a783336c2da607da4cc7b5c30fc8b48d5" name="a783336c2da607da4cc7b5c30fc8b48d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a783336c2da607da4cc7b5c30fc8b48d5">&#9670;&#160;</a></span>length</h2>
+<a id="a4feb246291b92440dd7c6807fd14b529" name="a4feb246291b92440dd7c6807fd14b529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4feb246291b92440dd7c6807fd14b529">&#9670;&#160;</a></span>size</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::int64_t bl::resource::bundle::BundledFileMetadata::length</td>
+          <td class="memname">std::uint32_t bl::rc::buf::DirtyRange::size</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The number of bytes the file has. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00024">24</a> of file <a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00512_source.html#l00019">19</a> of file <a class="el" href="a00512_source.html">DirtyRange.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a621069bb47edd12e2f1670ee79a5eb1f" name="a621069bb47edd12e2f1670ee79a5eb1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a621069bb47edd12e2f1670ee79a5eb1f">&#9670;&#160;</a></span>offset</h2>
+<a id="a586746e32a23e6c2508633a27947d39c" name="a586746e32a23e6c2508633a27947d39c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a586746e32a23e6c2508633a27947d39c">&#9670;&#160;</a></span>start</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::int64_t bl::resource::bundle::BundledFileMetadata::offset</td>
+          <td class="memname">std::uint32_t bl::rc::buf::DirtyRange::start</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The offset of the file in the bundle, relative to the start of the file. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00021">21</a> of file <a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00512_source.html#l00018">18</a> of file <a class="el" href="a00512_source.html">DirtyRange.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Resources/Bundling/<a class="el" href="a00122_source.html">BundledFileMetadata.hpp</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Render/Buffers/<a class="el" href="a00512_source.html">DirtyRange.hpp</a></li>
+<li>src/Render/Buffers/<a class="el" href="a02174_source.html">DirtyRange.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

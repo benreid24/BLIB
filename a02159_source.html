@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Scenes/Scene2D.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/AttachmentImageSet.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,70 +79,147 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Scene2D.cpp</div></div>
+  <div class="headertitle"><div class="title">AttachmentImageSet.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02159.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01130.html">BLIB/Render/Scenes/Scene2D.hpp</a>&gt;</span></div>
+<a href="a02159.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00431.html">BLIB/Render/Vulkan/AttachmentImageSet.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01388.html">BLIB/Render/Descriptors/Builtin/Scene2DFactory.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>scene</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>vk</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">constexpr</span> <span class="keywordtype">float</span> DefaultNear = 0.f;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">constexpr</span> <span class="keywordtype">float</span> DefaultFar  = 1000.f;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04458.html#a2f2d22fdda116259119c86a527e22f8a">   18</a></span><a class="code hl_function" href="a04458.html#a2f2d22fdda116259119c86a527e22f8a">Scene2D::Scene2D</a>(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; e)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>: <a class="code hl_class" href="a04406.html">BatchedScene</a>(e)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, lighting(static_cast&lt;ds::Scene2DInstance*&gt;(descriptorSets.getDescriptorSet(</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>      descriptorFactories.getOrCreateFactory&lt;ds::Scene2DFactory&gt;()))) {}</div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a05638.html#a511ffbf3e89dd22085b19108b950bf37">   12</a></span><a class="code hl_function" href="a05638.html#a511ffbf3e89dd22085b19108b950bf37">AttachmentImageSet::AttachmentImageSet</a>()</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: owner(nullptr) {}</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04458.html#ad8c1d742fe524a90c34a53716dc7a580">   23</a></span>std::unique_ptr&lt;cam::Camera&gt; <a class="code hl_function" href="a04458.html#ad8c1d742fe524a90c34a53716dc7a580">Scene2D::createDefaultCamera</a>() {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">auto</span> cam = std::make_unique&lt;cam::Camera2D&gt;(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    cam-&gt;setNearAndFarPlanes(DefaultNear, -DefaultFar);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> cam;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05638.html#a3591f831086b851a841b90ff29e3b7ab">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05638.html#a3591f831086b851a841b90ff29e3b7ab">AttachmentImageSet::create</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count, <span class="keyword">const</span> VkExtent2D&amp; size,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                <span class="keyword">const</span> <a class="code hl_enumeration" href="a02979.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>* bufferFormats,</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                                <span class="keyword">const</span> VkImageUsageFlags* usages, VkSampleCountFlagBits samples,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                                std::uint32_t firstResolveAttachment) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    owner = &amp;renderer;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    attachments.<a class="code hl_function" href="a05642.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">setRenderExtent</a>(size);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">auto</span> commandBuffer = owner-&gt;<a class="code hl_function" href="a05330.html#acf3792e95e4bb35093a6d883941544de">getSharedCommandPool</a>().<a class="code hl_function" href="a05806.html#ae09cf3a9764408f8a9ef74fc48913983">createBuffer</a>();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::array&lt;VkImageAspectFlags, MaxBufferCount&gt; aspects;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; count; ++i) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        formats[i] = bufferFormats[i];</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        aspects[i] = <a class="code hl_function" href="a05838.html#a67637b9dfa94ebd711567bff69eb01d5">VulkanLayer::guessImageAspect</a>(bufferFormats[i]);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        buffers[i].create(renderer,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                          {.type   = <a class="code hl_enumvalue" href="a05710.html#aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9">ImageOptions::Type::Image2D</a>,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                           .format = renderer.<a class="code hl_function" href="a05330.html#ab4a29c84a0e67d7308392157d2284d2a">getTextureFormatManager</a>().getFormat(bufferFormats[i]),</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                           .usage  = usages[i],</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                           .extent = size,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                           .aspect = aspects[i],</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                           .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                           .samples    = samples});</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        images[i] = buffers[i].getImage();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        views[i]  = buffers[i].getView();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        buffers[i].clearAndTransition(commandBuffer,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                                      VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                                      {.color = {{0.f, 0.f, 0.f, 1.f}}});</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    commandBuffer.submit();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    attachments.<a class="code hl_function" href="a05642.html#af076c1ebbb6e16c38c3c56af7d75e5c6">init</a>(</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        count, images.data(), views.data(), aspects.data(), size, buffers[0].getLayerCount());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    attachments.<a class="code hl_function" href="a05642.html#a74760f8c324ac07118c8db704f20d206">setOutputIndex</a>(firstResolveAttachment);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
 </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04458.html#ac981b461c72a08b16cdb7635fcdb4b79">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04458.html#ac981b461c72a08b16cdb7635fcdb4b79">Scene2D::setDefaultNearAndFarPlanes</a>(<a class="code hl_class" href="a02602.html">cam::Camera</a>&amp; cam)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    cam.<a class="code hl_function" href="a02602.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a>(DefaultNear, -DefaultFar);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a05638.html#a2269fd27c6b35e67c3ddd8565cbb336b">   48</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05638.html#a2269fd27c6b35e67c3ddd8565cbb336b">AttachmentImageSet::destroy</a>() {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span> (owner != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        owner = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; b : buffers) { b.destroy(); }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace scene</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">Camera2D.hpp</a></div></div>
-<div class="ttc" id="aa01130_html"><div class="ttname"><a href="a01130.html">Scene2D.hpp</a></div></div>
-<div class="ttc" id="aa01388_html"><div class="ttname"><a href="a01388.html">Scene2DFactory.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02602_html"><div class="ttname"><a href="a02602.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition</b> <a href="a00896_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa02602_html_a60e436aa6a89793a9e3fd8c3b0378fbf"><div class="ttname"><a href="a02602.html#a60e436aa6a89793a9e3fd8c3b0378fbf">bl::cam::Camera::setNearAndFarPlanes</a></div><div class="ttdeci">void setNearAndFarPlanes(float nearValue, float farValue)</div><div class="ttdoc">Sets the distance to the near and far planes.</div><div class="ttdef"><b>Definition</b> <a href="a01991_source.html#l00029">Camera.cpp:29</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa04406_html"><div class="ttname"><a href="a04406.html">bl::rc::scene::BatchedScene</a></div><div class="ttdoc">Primary scene class for the renderer. Provides batched rendering of objects by pipeline....</div><div class="ttdef"><b>Definition</b> <a href="a01133_source.html#l00019">BatchedScene.hpp:19</a></div></div>
-<div class="ttc" id="aa04458_html_a2f2d22fdda116259119c86a527e22f8a"><div class="ttname"><a href="a04458.html#a2f2d22fdda116259119c86a527e22f8a">bl::rc::scene::Scene2D::Scene2D</a></div><div class="ttdeci">Scene2D(engine::Engine &amp;engine)</div><div class="ttdoc">Creates the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00018">Scene2D.cpp:18</a></div></div>
-<div class="ttc" id="aa04458_html_ac981b461c72a08b16cdb7635fcdb4b79"><div class="ttname"><a href="a04458.html#ac981b461c72a08b16cdb7635fcdb4b79">bl::rc::scene::Scene2D::setDefaultNearAndFarPlanes</a></div><div class="ttdeci">virtual void setDefaultNearAndFarPlanes(cam::Camera &amp;camera) const override</div><div class="ttdoc">Sets the default near and far planes on the given camera.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00029">Scene2D.cpp:29</a></div></div>
-<div class="ttc" id="aa04458_html_ad8c1d742fe524a90c34a53716dc7a580"><div class="ttname"><a href="a04458.html#ad8c1d742fe524a90c34a53716dc7a580">bl::rc::scene::Scene2D::createDefaultCamera</a></div><div class="ttdeci">virtual std::unique_ptr&lt; cam::Camera &gt; createDefaultCamera() override</div><div class="ttdoc">Creates a 2d camera.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00023">Scene2D.cpp:23</a></div></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05638.html#a495f35914f3d9cbeab46e513f9d45516">   55</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05638.html#a495f35914f3d9cbeab46e513f9d45516">AttachmentImageSet::deferDestroy</a>() {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (owner != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        owner = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; b : buffers) { b.deferDestroy(); }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a05638.html#ac07f775e055951d0efd4829d0261e1d0">   62</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05638.html#ac07f775e055951d0efd4829d0261e1d0">AttachmentImageSet::recreateForFormatChange</a>() {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">if</span> (owner == <span class="keyword">nullptr</span>) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">bool</span> recreated = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    std::array&lt;VkImageAspectFlags, MaxBufferCount&gt; aspects;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; attachments.<a class="code hl_function" href="a05642.html#ab89a0f004931808c1d704ddf85c6252c">getAttachmentCount</a>(); ++i) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">const</span> VkFormat actualFormat = owner-&gt;<a class="code hl_function" href="a05330.html#ab4a29c84a0e67d7308392157d2284d2a">getTextureFormatManager</a>().<a class="code hl_function" href="a05830.html#a1a9a8c47f81ff975815181d20647d2b0">getFormat</a>(formats[i]);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (buffers[i].getFormat() != actualFormat) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            recreated  = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            aspects[i] = <a class="code hl_function" href="a05838.html#a67637b9dfa94ebd711567bff69eb01d5">VulkanLayer::guessImageAspect</a>(formats[i]);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            buffers[i].create(*owner,</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                              {.type       = <a class="code hl_enumvalue" href="a05710.html#aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9">ImageOptions::Type::Image2D</a>,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                               .format     = actualFormat,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                               .usage      = buffers[i].getUsage(),</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                               .extent     = attachments.<a class="code hl_function" href="a05642.html#a2213480ca2ab3c5024605bc26672c5d1">getRenderExtent</a>(),</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                               .aspect     = aspects[i],</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                               .allocFlags = VMA_ALLOCATION_CREATE_DEDICATED_MEMORY_BIT,</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                               .samples    = buffers[i].getSampleCount()});</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            images[i] = buffers[i].getImage();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            views[i]  = buffers[i].getView();</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">if</span> (recreated) {</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        attachments.<a class="code hl_function" href="a05642.html#af076c1ebbb6e16c38c3c56af7d75e5c6">init</a>(attachments.<a class="code hl_function" href="a05642.html#ab89a0f004931808c1d704ddf85c6252c">getAttachmentCount</a>(),</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                         images.data(),</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                         views.data(),</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                         aspects.data(),</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                         attachments.<a class="code hl_function" href="a05642.html#a2213480ca2ab3c5024605bc26672c5d1">getRenderExtent</a>(),</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                         buffers[0].getLayerCount());</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> recreated;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
+</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
+<div class="ttc" id="aa00431_html"><div class="ttname"><a href="a00431.html">AttachmentImageSet.hpp</a></div></div>
+<div class="ttc" id="aa02979_html_ga5edbf7bf53f275665e759e042079f4b2"><div class="ttname"><a href="a02979.html#ga5edbf7bf53f275665e759e042079f4b2">bl::rc::vk::SemanticTextureFormat</a></div><div class="ttdeci">SemanticTextureFormat</div><div class="ttdoc">Represents a semantic texture format. Underlying formats can be changed at runtime.</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00015">SemanticTextureFormat.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05330_html_ab4a29c84a0e67d7308392157d2284d2a"><div class="ttname"><a href="a05330.html#ab4a29c84a0e67d7308392157d2284d2a">bl::rc::Renderer::getTextureFormatManager</a></div><div class="ttdeci">vk::TextureFormatManager &amp; getTextureFormatManager()</div><div class="ttdoc">Returns the texture format manager.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00324">Renderer.hpp:324</a></div></div>
+<div class="ttc" id="aa05330_html_acf3792e95e4bb35093a6d883941544de"><div class="ttname"><a href="a05330.html#acf3792e95e4bb35093a6d883941544de">bl::rc::Renderer::getSharedCommandPool</a></div><div class="ttdeci">vk::SharedCommandPool &amp; getSharedCommandPool()</div><div class="ttdoc">Returns the shared command pool for allocating transient command buffers.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00294">Renderer.hpp:294</a></div></div>
+<div class="ttc" id="aa05638_html_a2269fd27c6b35e67c3ddd8565cbb336b"><div class="ttname"><a href="a05638.html#a2269fd27c6b35e67c3ddd8565cbb336b">bl::rc::vk::AttachmentImageSet::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destroys the images, views, sampler, and frees GPU memory.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00048">AttachmentImageSet.cpp:48</a></div></div>
+<div class="ttc" id="aa05638_html_a3591f831086b851a841b90ff29e3b7ab"><div class="ttname"><a href="a05638.html#a3591f831086b851a841b90ff29e3b7ab">bl::rc::vk::AttachmentImageSet::create</a></div><div class="ttdeci">void create(Renderer &amp;renderer, unsigned int count, const VkExtent2D &amp;size, const vk::SemanticTextureFormat *bufferFormats, const VkImageUsageFlags *usages, VkSampleCountFlagBits sampleCount=VK_SAMPLE_COUNT_1_BIT, std::uint32_t firstResolveAttachment=0)</div><div class="ttdoc">Frees prior images, if any, and creates new attachment buffers.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00015">AttachmentImageSet.cpp:15</a></div></div>
+<div class="ttc" id="aa05638_html_a495f35914f3d9cbeab46e513f9d45516"><div class="ttname"><a href="a05638.html#a495f35914f3d9cbeab46e513f9d45516">bl::rc::vk::AttachmentImageSet::deferDestroy</a></div><div class="ttdeci">void deferDestroy()</div><div class="ttdoc">Queues destruction for later.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00055">AttachmentImageSet.cpp:55</a></div></div>
+<div class="ttc" id="aa05638_html_a511ffbf3e89dd22085b19108b950bf37"><div class="ttname"><a href="a05638.html#a511ffbf3e89dd22085b19108b950bf37">bl::rc::vk::AttachmentImageSet::AttachmentImageSet</a></div><div class="ttdeci">AttachmentImageSet()</div><div class="ttdoc">Creates an empty render buffer with no resources.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00012">AttachmentImageSet.cpp:12</a></div></div>
+<div class="ttc" id="aa05638_html_ac07f775e055951d0efd4829d0261e1d0"><div class="ttname"><a href="a05638.html#ac07f775e055951d0efd4829d0261e1d0">bl::rc::vk::AttachmentImageSet::recreateForFormatChange</a></div><div class="ttdeci">bool recreateForFormatChange()</div><div class="ttdoc">Re-creates any attachments that have had their format changed.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00062">AttachmentImageSet.cpp:62</a></div></div>
+<div class="ttc" id="aa05642_html_a2213480ca2ab3c5024605bc26672c5d1"><div class="ttname"><a href="a05642.html#a2213480ca2ab3c5024605bc26672c5d1">bl::rc::vk::AttachmentSet::getRenderExtent</a></div><div class="ttdeci">const VkExtent2D &amp; getRenderExtent() const</div><div class="ttdoc">Returns the size of the renderable area.</div><div class="ttdef"><b>Definition</b> <a href="a00491_source.html#l00233">AttachmentSet.hpp:233</a></div></div>
+<div class="ttc" id="aa05642_html_a5f7aaaa7edf6d66939fffcb84b1b23cd"><div class="ttname"><a href="a05642.html#a5f7aaaa7edf6d66939fffcb84b1b23cd">bl::rc::vk::AttachmentSet::setRenderExtent</a></div><div class="ttdeci">void setRenderExtent(const VkExtent2D &amp;extent)</div><div class="ttdoc">Sets the render extent of this attachment set.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00083">AttachmentSet.cpp:83</a></div></div>
+<div class="ttc" id="aa05642_html_a74760f8c324ac07118c8db704f20d206"><div class="ttname"><a href="a05642.html#a74760f8c324ac07118c8db704f20d206">bl::rc::vk::AttachmentSet::setOutputIndex</a></div><div class="ttdeci">void setOutputIndex(std::uint32_t index)</div><div class="ttdoc">Sets the index of the first output attachment in the set.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00081">AttachmentSet.cpp:81</a></div></div>
+<div class="ttc" id="aa05642_html_ab89a0f004931808c1d704ddf85c6252c"><div class="ttname"><a href="a05642.html#ab89a0f004931808c1d704ddf85c6252c">bl::rc::vk::AttachmentSet::getAttachmentCount</a></div><div class="ttdeci">std::uint32_t getAttachmentCount() const</div><div class="ttdoc">Returns the number of attachments in the set.</div><div class="ttdef"><b>Definition</b> <a href="a00491_source.html#l00231">AttachmentSet.hpp:231</a></div></div>
+<div class="ttc" id="aa05642_html_af076c1ebbb6e16c38c3c56af7d75e5c6"><div class="ttname"><a href="a05642.html#af076c1ebbb6e16c38c3c56af7d75e5c6">bl::rc::vk::AttachmentSet::init</a></div><div class="ttdeci">void init(std::uint32_t attachmentCount, VkImage *images, VkImageView *views, VkImageAspectFlags *aspects, VkExtent2D extent, std::uint32_t layerCount=1)</div><div class="ttdoc">Updates the attachment set with the given images and views.</div><div class="ttdef"><b>Definition</b> <a href="a02171_source.html#l00030">AttachmentSet.cpp:30</a></div></div>
+<div class="ttc" id="aa05710_html_aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9"><div class="ttname"><a href="a05710.html#aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9">bl::rc::vk::ImageOptions::Type::Image2D</a></div><div class="ttdeci">@ Image2D</div></div>
+<div class="ttc" id="aa05806_html_ae09cf3a9764408f8a9ef74fc48913983"><div class="ttname"><a href="a05806.html#ae09cf3a9764408f8a9ef74fc48913983">bl::rc::vk::SharedCommandPool::createBuffer</a></div><div class="ttdeci">SharedCommandBuffer createBuffer(VkCommandBufferUsageFlags usage=0)</div><div class="ttdoc">Allocates a buffer from the shared pool.</div><div class="ttdef"><b>Definition</b> <a href="a02153_source.html#l00030">SharedCommandPool.cpp:30</a></div></div>
+<div class="ttc" id="aa05830_html_a1a9a8c47f81ff975815181d20647d2b0"><div class="ttname"><a href="a05830.html#a1a9a8c47f81ff975815181d20647d2b0">bl::rc::vk::TextureFormatManager::getFormat</a></div><div class="ttdeci">VkFormat getFormat(SemanticTextureFormat format)</div><div class="ttdoc">Returns the VkFormat for the given semantic format.</div><div class="ttdef"><b>Definition</b> <a href="a02144_source.html#l00023">TextureFormatManager.cpp:23</a></div></div>
+<div class="ttc" id="aa05838_html_a67637b9dfa94ebd711567bff69eb01d5"><div class="ttname"><a href="a05838.html#a67637b9dfa94ebd711567bff69eb01d5">bl::rc::vk::VulkanLayer::guessImageAspect</a></div><div class="ttdeci">static VkImageAspectFlags guessImageAspect(VkFormat format, VkImageUsageFlags usage)</div><div class="ttdoc">Helper method to guess the aspect of an image based on its format and usage.</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00713">VulkanLayer.cpp:713</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/ListenerBoundary.hpp Source File</title>
+<title>BLIB: include/BLIB/Signals.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,48 +79,37 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ListenerBoundary.hpp</div></div>
+  <div class="headertitle"><div class="title">Signals.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00203.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_INPUT_LISTENER_BOUNDARY_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_INPUT_LISTENER_BOUNDARY_HPP</span></div>
+<a href="a00203.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SIGNALS_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SIGNALS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06397.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>input</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03438.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a03438.html">ListenerBoundary</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03434.html">Listener</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a03438.html#a069bdca8ecb766d1b09bdadd3e0ede56">   23</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03438.html#a069bdca8ecb766d1b09bdadd3e0ede56">~ListenerBoundary</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> <a class="code hl_class" href="a03394.html">Actor</a>&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>, <a class="code hl_enumeration" href="a02382.html#ga9b480cda76caba52b2ab392fea396ce3">DispatchType</a>, <span class="keywordtype">bool</span>)<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
-</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace input</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02382_html_ga9b480cda76caba52b2ab392fea396ce3"><div class="ttname"><a href="a02382.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></div><div class="ttdeci">DispatchType</div><div class="ttdoc">Indicates if a control notification is the first activation of that control or if it is a repeated si...</div><div class="ttdef"><b>Definition</b> <a href="a00197_source.html#l00016">DispatchType.hpp:16</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03394_html"><div class="ttname"><a href="a03394.html">bl::input::Actor</a></div><div class="ttdoc">Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...</div><div class="ttdef"><b>Definition</b> <a href="a00176_source.html#l00023">Actor.hpp:23</a></div></div>
-<div class="ttc" id="aa03434_html"><div class="ttname"><a href="a03434.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition</b> <a href="a06397_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa03438_html"><div class="ttname"><a href="a03438.html">bl::input::ListenerBoundary</a></div><div class="ttdoc">Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid...</div><div class="ttdef"><b>Definition</b> <a href="a00203_source.html#l00017">ListenerBoundary.hpp:17</a></div></div>
-<div class="ttc" id="aa03438_html_a069bdca8ecb766d1b09bdadd3e0ede56"><div class="ttname"><a href="a03438.html#a069bdca8ecb766d1b09bdadd3e0ede56">bl::input::ListenerBoundary::~ListenerBoundary</a></div><div class="ttdeci">virtual ~ListenerBoundary()=default</div><div class="ttdoc">Destroy the Listener Boundary object.</div></div>
-<div class="ttc" id="aa06397_html"><div class="ttname"><a href="a06397.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/Signals/Channel.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00161.html">BLIB/Signals/Collector.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a08500.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a07987.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00158.html">BLIB/Signals/Router.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a08602.html">BLIB/Signals/Stream.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00155.html">BLIB/Signals/Table.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">Table.hpp</a></div></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">Router.hpp</a></div></div>
+<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">Collector.hpp</a></div></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Channel.hpp</a></div></div>
+<div class="ttc" id="aa07987_html"><div class="ttname"><a href="a07987.html">Listener.hpp</a></div></div>
+<div class="ttc" id="aa08500_html"><div class="ttname"><a href="a08500.html">Emitter.hpp</a></div></div>
+<div class="ttc" id="aa08602_html"><div class="ttname"><a href="a08602.html">Stream.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

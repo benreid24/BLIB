@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/ParticleManagerBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/CodeScene.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,71 +79,129 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ParticleManagerBase.hpp</div></div>
+  <div class="headertitle"><div class="title">CodeScene.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00326.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_PARTICLES_PARTICLEMANAGERBASE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_PARTICLES_PARTICLEMANAGERBASE_HPP</span></div>
+<a href="a00326.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_SCENES_CODESCENE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_SCENES_CODESCENE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00461.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>engine</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">class </span>Engine;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>World;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>} <span class="comment">// namespace engine</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00851.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00380.html">BLIB/Render/Events/SceneObjectRemoved.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00821.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00335.html">BLIB/Render/Scenes/CodeSceneObject.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00359.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00329.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a08500.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>Scene;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>pcl</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>scene</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
 <div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a03922.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a03922.html">ParticleManagerBase</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05422.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a05422.html">CodeScene</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05450.html">Scene</a> {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a03922.html#a1194bc0eb50f94c735db26b839b245ab">   31</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03922.html#a1194bc0eb50f94c735db26b839b245ab">~ParticleManagerBase</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a03922.html#a52866bea1d4f7c30c095e4563157c6cf">   38</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03922.html#a52866bea1d4f7c30c095e4563157c6cf">init</a>(<a class="code hl_class" href="a03162.html">engine::World</a>&amp; world) = 0;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a03922.html#aefd57e33311977e45b7c9753a99397d8">   47</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03922.html#aefd57e33311977e45b7c9753a99397d8">update</a>(<a class="code hl_class" href="a05414.html">util::ThreadPool</a>&amp; <a class="code hl_variable" href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a>, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) = 0;</div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05426.html">   31</a></span>    <span class="keyword">class </span><a class="code hl_class" href="a05426.html">RenderContext</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05426.html#a574e2bdfd78517820fd2d687d482a9e9">renderObject</a>(<a class="code hl_struct" href="a04766.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05426.html#af023b8f7cd5eaa1042e9aaa908be3625">setViewport</a>(<span class="keyword">const</span> VkViewport&amp; viewport, <span class="keywordtype">bool</span> <a class="code hl_function" href="a05426.html#a9df3086c68c68b50b51d2a261062c6ea">setScissor</a> = <span class="keyword">true</span>);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a03922.html#a847efab86bc8aa104a7db11b51bb669a">   52</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03922.html#a847efab86bc8aa104a7db11b51bb669a">clearAndReset</a>() = 0;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a03922.html#ad9ffb033c516945471e183b2c06156a8">   60</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03922.html#ad9ffb033c516945471e183b2c06156a8">addToScene</a>(<a class="code hl_class" href="a04446.html">rc::Scene</a>* scene) = 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05426.html#a9df3086c68c68b50b51d2a261062c6ea">setScissor</a>(<span class="keyword">const</span> VkRect2D&amp; scissor, <span class="keywordtype">bool</span> <a class="code hl_function" href="a05426.html#af023b8f7cd5eaa1042e9aaa908be3625">setViewport</a> = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05426.html#ac00afe1885338b150c835825ac6c798b">resetScissor</a>();</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a03922.html#ae39442d15d865d0033d19e2fbf7463fc">   65</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03922.html#ae39442d15d865d0033d19e2fbf7463fc">removeFromScene</a>() = 0;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05426.html#ac1d6f7c4e0dc033647a3e06a602ebea3">resetViewport</a>();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05426.html#a6fbab84a3c928f958460d3e3aeb34ee5">resetViewportAndScissor</a>();</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; renderContext;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_class" href="a05426.html">RenderContext</a>(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; renderContext);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a05426.html#a606ff0893787f48fc3e95cf4b3730d94">   77</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05422.html">CodeScene</a>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
 </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00461_html"><div class="ttname"><a href="a00461.html">ThreadPool.hpp</a></div></div>
-<div class="ttc" id="aa01673_html_a96323642920a8b43095d6ec28ffb0e8d"><div class="ttname"><a href="a01673.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a></div><div class="ttdeci">util::ThreadPool &amp; threadPool</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00029">World2D.cpp:29</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03162_html"><div class="ttname"><a href="a03162.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a00350_source.html#l00021">World.hpp:21</a></div></div>
-<div class="ttc" id="aa03922_html"><div class="ttname"><a href="a03922.html">bl::pcl::ParticleManagerBase</a></div><div class="ttdoc">Base class for particle managers. Particle managers own and manage specific particle types.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00026">ParticleManagerBase.hpp:26</a></div></div>
-<div class="ttc" id="aa03922_html_a1194bc0eb50f94c735db26b839b245ab"><div class="ttname"><a href="a03922.html#a1194bc0eb50f94c735db26b839b245ab">bl::pcl::ParticleManagerBase::~ParticleManagerBase</a></div><div class="ttdeci">virtual ~ParticleManagerBase()=default</div><div class="ttdoc">Destroys the particle manager.</div></div>
-<div class="ttc" id="aa03922_html_a52866bea1d4f7c30c095e4563157c6cf"><div class="ttname"><a href="a03922.html#a52866bea1d4f7c30c095e4563157c6cf">bl::pcl::ParticleManagerBase::init</a></div><div class="ttdeci">virtual void init(engine::World &amp;world)=0</div><div class="ttdoc">Called once after being constructed.</div></div>
-<div class="ttc" id="aa03922_html_a847efab86bc8aa104a7db11b51bb669a"><div class="ttname"><a href="a03922.html#a847efab86bc8aa104a7db11b51bb669a">bl::pcl::ParticleManagerBase::clearAndReset</a></div><div class="ttdeci">virtual void clearAndReset()=0</div><div class="ttdoc">Destroys all particles, affectors, emitters, and sinks.</div></div>
-<div class="ttc" id="aa03922_html_ad9ffb033c516945471e183b2c06156a8"><div class="ttname"><a href="a03922.html#ad9ffb033c516945471e183b2c06156a8">bl::pcl::ParticleManagerBase::addToScene</a></div><div class="ttdeci">virtual void addToScene(rc::Scene *scene)=0</div><div class="ttdoc">Called when the particle manager should be rendered in the given scene. May be called multiple times ...</div></div>
-<div class="ttc" id="aa03922_html_ae39442d15d865d0033d19e2fbf7463fc"><div class="ttname"><a href="a03922.html#ae39442d15d865d0033d19e2fbf7463fc">bl::pcl::ParticleManagerBase::removeFromScene</a></div><div class="ttdeci">virtual void removeFromScene()=0</div><div class="ttdoc">Called when the particles should be removed from its current scene.</div></div>
-<div class="ttc" id="aa03922_html_aefd57e33311977e45b7c9753a99397d8"><div class="ttname"><a href="a03922.html#aefd57e33311977e45b7c9753a99397d8">bl::pcl::ParticleManagerBase::update</a></div><div class="ttdeci">virtual void update(util::ThreadPool &amp;threadPool, float dt, float realDt)=0</div><div class="ttdoc">Updates all the particles in the particle manager.</div></div>
-<div class="ttc" id="aa04446_html"><div class="ttname"><a href="a04446.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a01127_source.html#l00056">Scene.hpp:56</a></div></div>
-<div class="ttc" id="aa05414_html"><div class="ttname"><a href="a05414.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition</b> <a href="a00461_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a05422.html#ae493432ff27af23b11953639a1dc0c41">   81</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a05422.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a> = std::function&lt;void(<a class="code hl_class" href="a05426.html">RenderContext</a>&amp;)&gt;;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="a05422.html">CodeScene</a>(<a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; <a class="code hl_variable" href="a05450.html#ae269da1deff50997662a17a14af08b33">engine</a>, <a class="code hl_typedef" href="a05422.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a>&amp;&amp; renderCallback);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05422.html#a3c824c709243a14dbb33a429acb0942d">~CodeScene</a>();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a05422.html#a66fe7cd8b321b2a4c5158503ca0dd3bd">   99</a></span>    <a class="code hl_class" href="a05238.html">lgt::Scene2DLighting</a>&amp; <a class="code hl_function" href="a05422.html#a66fe7cd8b321b2a4c5158503ca0dd3bd">getLighting</a>() { <span class="keywordflow">return</span> lighting; }</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a05422.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a> renderCallback;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_class" href="a05482.html">SceneObjectStorage&lt;CodeSceneObject&gt;</a> objects;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_class" href="a05238.html">lgt::Scene2DLighting</a> lighting;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_class" href="a06374.html">sig::Emitter&lt;event::SceneObjectRemoved&gt;</a> emitter;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderOpaqueObjects(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderTransparentObjects(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; createDefaultCamera() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setDefaultNearAndFarPlanes(<a class="code hl_class" href="a03226.html">cam::Camera</a>&amp; camera) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="a05470.html">SceneObject</a>* doAdd(<a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a04766.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                               <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doBatchChange(<span class="keyword">const</span> BatchChange&amp; change,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                               <a class="code hl_class" href="a05282.html">mat::MaterialPipeline</a>* ogPipeline) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doObjectRemoval(<a class="code hl_struct" href="a05470.html">SceneObject</a>* <span class="keywordtype">object</span>, <a class="code hl_class" href="a05282.html">mat::MaterialPipeline</a>* pipeline) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doRegisterObserver(<a class="code hl_class" href="a05334.html">RenderTarget</a>* target, std::uint32_t observerIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doUnregisterObserver(<a class="code hl_class" href="a05334.html">RenderTarget</a>* target, std::uint32_t observerIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>};</div>
+</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} <span class="comment">// namespace scene</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">SceneObjectStorage.hpp</a></div></div>
+<div class="ttc" id="aa00335_html"><div class="ttname"><a href="a00335.html">CodeSceneObject.hpp</a></div></div>
+<div class="ttc" id="aa00359_html"><div class="ttname"><a href="a00359.html">Scene.hpp</a></div></div>
+<div class="ttc" id="aa00380_html"><div class="ttname"><a href="a00380.html">SceneObjectRemoved.hpp</a></div></div>
+<div class="ttc" id="aa00821_html"><div class="ttname"><a href="a00821.html">Scene2DLighting.hpp</a></div></div>
+<div class="ttc" id="aa00851_html"><div class="ttname"><a href="a00851.html">DrawableBase.hpp</a></div></div>
+<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03226_html"><div class="ttname"><a href="a03226.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00017">Camera.hpp:17</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa04766_html"><div class="ttname"><a href="a04766.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition</b> <a href="a00851_source.html#l00043">DrawableBase.hpp:43</a></div></div>
+<div class="ttc" id="aa05238_html"><div class="ttname"><a href="a05238.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00821_source.html#l00030">Scene2DLighting.hpp:30</a></div></div>
+<div class="ttc" id="aa05282_html"><div class="ttname"><a href="a05282.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a00371_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
+<div class="ttc" id="aa05334_html"><div class="ttname"><a href="a05334.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa05422_html"><div class="ttname"><a href="a05422.html">bl::rc::scene::CodeScene</a></div><div class="ttdoc">A special type of scene that performs rendering by deferring to a user-provided callback that then is...</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00026">CodeScene.hpp:26</a></div></div>
+<div class="ttc" id="aa05422_html_a3c824c709243a14dbb33a429acb0942d"><div class="ttname"><a href="a05422.html#a3c824c709243a14dbb33a429acb0942d">bl::rc::scene::CodeScene::~CodeScene</a></div><div class="ttdeci">virtual ~CodeScene()</div><div class="ttdoc">Destroys the code scene.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00049">CodeScene.cpp:49</a></div></div>
+<div class="ttc" id="aa05422_html_a66fe7cd8b321b2a4c5158503ca0dd3bd"><div class="ttname"><a href="a05422.html#a66fe7cd8b321b2a4c5158503ca0dd3bd">bl::rc::scene::CodeScene::getLighting</a></div><div class="ttdeci">lgt::Scene2DLighting &amp; getLighting()</div><div class="ttdoc">Returns the scene lighting manager for this scene.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00099">CodeScene.hpp:99</a></div></div>
+<div class="ttc" id="aa05422_html_ae493432ff27af23b11953639a1dc0c41"><div class="ttname"><a href="a05422.html#ae493432ff27af23b11953639a1dc0c41">bl::rc::scene::CodeScene::RenderCallback</a></div><div class="ttdeci">std::function&lt; void(RenderContext &amp;)&gt; RenderCallback</div><div class="ttdoc">Signature of the callback that is called when rendering occurs.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00081">CodeScene.hpp:81</a></div></div>
+<div class="ttc" id="aa05426_html"><div class="ttname"><a href="a05426.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00031">CodeScene.hpp:31</a></div></div>
+<div class="ttc" id="aa05426_html_a574e2bdfd78517820fd2d687d482a9e9"><div class="ttname"><a href="a05426.html#a574e2bdfd78517820fd2d687d482a9e9">bl::rc::scene::CodeScene::RenderContext::renderObject</a></div><div class="ttdeci">void renderObject(rcom::DrawableBase &amp;object)</div><div class="ttdoc">Issues the commands to render the given object. All BLIB renderable classes provide their own methods...</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00107">CodeScene.cpp:107</a></div></div>
+<div class="ttc" id="aa05426_html_a6fbab84a3c928f958460d3e3aeb34ee5"><div class="ttname"><a href="a05426.html#a6fbab84a3c928f958460d3e3aeb34ee5">bl::rc::scene::CodeScene::RenderContext::resetViewportAndScissor</a></div><div class="ttdeci">void resetViewportAndScissor()</div><div class="ttdoc">Resets both the viewport and scissor to their original values.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00160">CodeScene.cpp:160</a></div></div>
+<div class="ttc" id="aa05426_html_a9df3086c68c68b50b51d2a261062c6ea"><div class="ttname"><a href="a05426.html#a9df3086c68c68b50b51d2a261062c6ea">bl::rc::scene::CodeScene::RenderContext::setScissor</a></div><div class="ttdeci">void setScissor(const VkRect2D &amp;scissor, bool setViewport=false)</div><div class="ttdoc">Sets the scissor to use for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00144">CodeScene.cpp:144</a></div></div>
+<div class="ttc" id="aa05426_html_ac00afe1885338b150c835825ac6c798b"><div class="ttname"><a href="a05426.html#ac00afe1885338b150c835825ac6c798b">bl::rc::scene::CodeScene::RenderContext::resetScissor</a></div><div class="ttdeci">void resetScissor()</div><div class="ttdoc">Resets the scissor to its original value.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00156">CodeScene.cpp:156</a></div></div>
+<div class="ttc" id="aa05426_html_ac1d6f7c4e0dc033647a3e06a602ebea3"><div class="ttname"><a href="a05426.html#ac1d6f7c4e0dc033647a3e06a602ebea3">bl::rc::scene::CodeScene::RenderContext::resetViewport</a></div><div class="ttdeci">void resetViewport()</div><div class="ttdoc">Resets the viewport to its original value.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00152">CodeScene.cpp:152</a></div></div>
+<div class="ttc" id="aa05426_html_af023b8f7cd5eaa1042e9aaa908be3625"><div class="ttname"><a href="a05426.html#af023b8f7cd5eaa1042e9aaa908be3625">bl::rc::scene::CodeScene::RenderContext::setViewport</a></div><div class="ttdeci">void setViewport(const VkViewport &amp;viewport, bool setScissor=true)</div><div class="ttdoc">Issues the command to set the viewport used for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a02066_source.html#l00136">CodeScene.cpp:136</a></div></div>
+<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="ttc" id="aa05450_html_ae269da1deff50997662a17a14af08b33"><div class="ttname"><a href="a05450.html#ae269da1deff50997662a17a14af08b33">bl::rc::Scene::engine</a></div><div class="ttdeci">engine::Engine &amp; engine</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00123">Scene.hpp:123</a></div></div>
+<div class="ttc" id="aa05470_html"><div class="ttname"><a href="a05470.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition</b> <a href="a00341_source.html#l00030">SceneObject.hpp:30</a></div></div>
+<div class="ttc" id="aa05482_html"><div class="ttname"><a href="a05482.html">bl::rc::scene::SceneObjectStorage</a></div><div class="ttdoc">Storage for scene objects. Splits objects by update frequency.</div><div class="ttdef"><b>Definition</b> <a href="a00329_source.html#l00028">SceneObjectStorage.hpp:28</a></div></div>
+<div class="ttc" id="aa05494_html"><div class="ttname"><a href="a05494.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="ttc" id="aa06374_html"><div class="ttname"><a href="a06374.html">bl::sig::Emitter</a></div><div class="ttdoc">Signal emitter that connects to a channel and allows the sending of signals.</div><div class="ttdef"><b>Definition</b> <a href="a08500_source.html#l00022">Emitter.hpp:22</a></div></div>
+<div class="ttc" id="aa08500_html"><div class="ttname"><a href="a08500.html">Emitter.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

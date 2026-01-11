@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::PipelineParameters Class Reference</title>
+<title>BLIB: bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,829 +74,241 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02413.html">vk</a></li><li class="navelem"><a class="el" href="a04610.html">PipelineParameters</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03040.html">pcl</a></li><li class="navelem"><a class="el" href="a04610.html">DescriptorSetInstance</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a04607.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::vk::PipelineParameters Class Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02978.html">Particles</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Parameters used to create a <a class="el" href="a04590.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a>. This class performs some basic validation and provides sane defaults.  
+<p>Descriptor set instance for the default descriptor set used by the default renderer. Provides an array of particle structs as well as a singular global object of config data to the shaders. Types must be specified in a specialization of <a class="el" href="a04666.html" title="Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...">RenderConfigMap</a>.  
  <a href="a04610.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01259_source.html">PipelineParameters.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a08491_source.html">DescriptorSetInstance.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04610.png" usemap="#bl::pcl::DescriptorSetInstance_3C_20T_2C_20GpuT_20_3E_map" alt=""/>
+  <map id="bl::pcl::DescriptorSetInstance_3C_20T_2C_20GpuT_20_3E_map" name="bl::pcl::DescriptorSetInstance_3C_20T_2C_20GpuT_20_3E_map">
+<area href="a04882.html" title="Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe..." alt="bl::rc::ds::DescriptorSetInstance" shape="rect" coords="0,0,245,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a587b054106ae5b4911a145a1d2928eaa" id="r_a587b054106ae5b4911a145a1d2928eaa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a> { <a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">Bindless</a>
+, <a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c">Bindful</a>
+ }</td></tr>
+<tr class="memdesc:a587b054106ae5b4911a145a1d2928eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind mode of the descriptor set.  <a href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">More...</a><br /></td></tr>
+<tr class="separator:a587b054106ae5b4911a145a1d2928eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d01a7643e3e65933db3c5a957db66f" id="r_a56d01a7643e3e65933db3c5a957db66f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> { <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd">RebindForNewSpeed</a>
+, <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">SpeedAgnostic</a>
+ }</td></tr>
+<tr class="memdesc:a56d01a7643e3e65933db3c5a957db66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the descriptor set needs to be re-bound for different update speeds.  <a href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">More...</a><br /></td></tr>
+<tr class="separator:a56d01a7643e3e65933db3c5a957db66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9153120de77f61afb80f43fabdee84b0" id="r_a9153120de77f61afb80f43fabdee84b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a9153120de77f61afb80f43fabdee84b0">PipelineParameters</a> ()</td></tr>
-<tr class="memdesc:a9153120de77f61afb80f43fabdee84b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the parameters using sane defaults.  <br /></td></tr>
-<tr class="separator:a9153120de77f61afb80f43fabdee84b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a747a354655d99827b897d52763fb0208" id="r_a747a354655d99827b897d52763fb0208"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a747a354655d99827b897d52763fb0208">PipelineParameters</a> (const <a class="el" href="a04610.html">PipelineParameters</a> &amp;copy)</td></tr>
-<tr class="memdesc:a747a354655d99827b897d52763fb0208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the pipeline parameters.  <br /></td></tr>
-<tr class="separator:a747a354655d99827b897d52763fb0208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeddc4614e9d26aef1eeaa72eae595c9f" id="r_aeddc4614e9d26aef1eeaa72eae595c9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#aeddc4614e9d26aef1eeaa72eae595c9f">withShaders</a> (const std::string &amp;vertexPath, const std::string &amp;fragPath)</td></tr>
-<tr class="memdesc:aeddc4614e9d26aef1eeaa72eae595c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to setup vertex and fragment shaders for the pipeline.  <br /></td></tr>
-<tr class="separator:aeddc4614e9d26aef1eeaa72eae595c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a998c1bae116ca005901b9b2a4e22ac11" id="r_a998c1bae116ca005901b9b2a4e22ac11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a998c1bae116ca005901b9b2a4e22ac11">withShader</a> (const std::string &amp;path, VkShaderStageFlagBits stage, const std::string &amp;entrypoint=&quot;main&quot;)</td></tr>
-<tr class="memdesc:a998c1bae116ca005901b9b2a4e22ac11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a single shader to this pipeline.  <br /></td></tr>
-<tr class="separator:a998c1bae116ca005901b9b2a4e22ac11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4537c0b0993779ea683596deb52bb4c3" id="r_a4537c0b0993779ea683596deb52bb4c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a4537c0b0993779ea683596deb52bb4c3">removeShader</a> (VkShaderStageFlagBits stage)</td></tr>
-<tr class="memdesc:a4537c0b0993779ea683596deb52bb4c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the given shader stage and replaces it with a noop.  <br /></td></tr>
-<tr class="separator:a4537c0b0993779ea683596deb52bb4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac19e076b4dce1fb1cc808f6209ac2daa" id="r_ac19e076b4dce1fb1cc808f6209ac2daa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#ac19e076b4dce1fb1cc808f6209ac2daa">withDynamicStates</a> (const std::initializer_list&lt; VkDynamicState &gt; &amp;states)</td></tr>
-<tr class="memdesc:ac19e076b4dce1fb1cc808f6209ac2daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures which pipeline states are dynamic. Viewport and scissor are always dynamic.  <br /></td></tr>
-<tr class="separator:ac19e076b4dce1fb1cc808f6209ac2daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3d859c566a66387d30ef8df23ab5fec" id="r_af3d859c566a66387d30ef8df23ab5fec"><td class="memTemplParams" colspan="2">template&lt;std::size_t N&gt; </td></tr>
-<tr class="memitem:af3d859c566a66387d30ef8df23ab5fec"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04610.html#af3d859c566a66387d30ef8df23ab5fec">withVertexFormat</a> (const VkVertexInputBindingDescription &amp;binding, const std::array&lt; VkVertexInputAttributeDescription, N &gt; &amp;attributes)</td></tr>
-<tr class="memdesc:af3d859c566a66387d30ef8df23ab5fec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the vertex format and attributes for the vertices that will be rendered by this pipeline. Defaults to Vertex if not specified.  <br /></td></tr>
-<tr class="separator:af3d859c566a66387d30ef8df23ab5fec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7371c1c4690f0fd0b3b74db933d3835" id="r_aa7371c1c4690f0fd0b3b74db933d3835"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#aa7371c1c4690f0fd0b3b74db933d3835">withPrimitiveType</a> (VkPrimitiveTopology primitiveType)</td></tr>
-<tr class="memdesc:aa7371c1c4690f0fd0b3b74db933d3835"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the primitive type that the vertices within this pipeline represent. Defaults to triangle list.  <br /></td></tr>
-<tr class="separator:aa7371c1c4690f0fd0b3b74db933d3835"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7408542445a62a8f222f2e50da9a0af" id="r_ab7408542445a62a8f222f2e50da9a0af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#ab7408542445a62a8f222f2e50da9a0af">withRasterizer</a> (const VkPipelineRasterizationStateCreateInfo &amp;rasterizer)</td></tr>
-<tr class="memdesc:ab7408542445a62a8f222f2e50da9a0af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the rasterizer for this pipeline. Defaults to sane values.  <br /></td></tr>
-<tr class="separator:ab7408542445a62a8f222f2e50da9a0af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0df88f11c6fbb11053a415c302ef80e1" id="r_a0df88f11c6fbb11053a415c302ef80e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a0df88f11c6fbb11053a415c302ef80e1">withMSAA</a> (const VkPipelineMultisampleStateCreateInfo &amp;msaaParams)</td></tr>
-<tr class="memdesc:a0df88f11c6fbb11053a415c302ef80e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures MSAA for this pipeline. MSAA is disabled by default.  <br /></td></tr>
-<tr class="separator:a0df88f11c6fbb11053a415c302ef80e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae74424489b454f5d8d65fa47ddd96ea8" id="r_ae74424489b454f5d8d65fa47ddd96ea8"><td class="memTemplParams" colspan="2">template&lt;typename TFactory , typename... TArgs&gt; </td></tr>
-<tr class="memitem:ae74424489b454f5d8d65fa47ddd96ea8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04610.html#ae74424489b454f5d8d65fa47ddd96ea8">addDescriptorSet</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ae74424489b454f5d8d65fa47ddd96ea8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a descriptor set factory to the pipeline. The factory is allocated here and then deduped on actual pipeline creation. Descriptor set indices are determined by the order they are added in.  <br /></td></tr>
-<tr class="separator:ae74424489b454f5d8d65fa47ddd96ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c7fdb30a33a019b5886e70dd71da6ed" id="r_a3c7fdb30a33a019b5886e70dd71da6ed"><td class="memTemplParams" colspan="2">template&lt;typename TFactory , typename... TArgs&gt; </td></tr>
-<tr class="memitem:a3c7fdb30a33a019b5886e70dd71da6ed"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04610.html#a3c7fdb30a33a019b5886e70dd71da6ed">replaceDescriptorSet</a> (unsigned int i, TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a3c7fdb30a33a019b5886e70dd71da6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Like addDescriptorSet but replaces an existing descriptor set factory at the given index (which must be valid)  <br /></td></tr>
-<tr class="separator:a3c7fdb30a33a019b5886e70dd71da6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3411a333c4828d00634c455bcb7eef9f" id="r_a3411a333c4828d00634c455bcb7eef9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a3411a333c4828d00634c455bcb7eef9f">removeDescriptorSet</a> (unsigned int i)</td></tr>
-<tr class="memdesc:a3411a333c4828d00634c455bcb7eef9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the descriptor set factory at the given index.  <br /></td></tr>
-<tr class="separator:a3411a333c4828d00634c455bcb7eef9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a976d94faf7e4504121c937a8b886ab58" id="r_a976d94faf7e4504121c937a8b886ab58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a976d94faf7e4504121c937a8b886ab58">addPushConstantRange</a> (std::uint32_t offset, std::uint32_t size, VkShaderStageFlags shaderStages=VK_SHADER_STAGE_ALL_GRAPHICS)</td></tr>
-<tr class="memdesc:a976d94faf7e4504121c937a8b886ab58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a push constant range config to this pipeline. All pipelines are configured to accept PushConstants at the beginning of the range. This may be called to allow custom push constants to be used in addition to the defaults.  <br /></td></tr>
-<tr class="separator:a976d94faf7e4504121c937a8b886ab58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72ff2784c3dd6ee0f3279c79e6bd18ca" id="r_a72ff2784c3dd6ee0f3279c79e6bd18ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a72ff2784c3dd6ee0f3279c79e6bd18ca">addColorAttachmentBlendState</a> (const VkPipelineColorBlendAttachmentState &amp;blendState)</td></tr>
-<tr class="memdesc:a72ff2784c3dd6ee0f3279c79e6bd18ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an alpha blending config for a color attachment for this pipeline. Blend configs are ordered by the order that this method is called in. Defaults to a single blend config with standard alpha blending if not overridden.  <br /></td></tr>
-<tr class="separator:a72ff2784c3dd6ee0f3279c79e6bd18ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02fb615ec1f5de4e074845e53bff11d0" id="r_a02fb615ec1f5de4e074845e53bff11d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a02fb615ec1f5de4e074845e53bff11d0">withColorBlendStateConfig</a> (VkLogicOp operation, float blendConstant0, float blendConstant1, float blendConstant2, float blendConstant3)</td></tr>
-<tr class="memdesc:a02fb615ec1f5de4e074845e53bff11d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the blend configuration for all color attachments for this pipeline. Defaults to disabled.  <br /></td></tr>
-<tr class="separator:a02fb615ec1f5de4e074845e53bff11d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c65ab8d0986145067d0072d058440b5" id="r_a4c65ab8d0986145067d0072d058440b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a4c65ab8d0986145067d0072d058440b5">withDepthStencilState</a> (VkPipelineDepthStencilStateCreateInfo *depthStencil)</td></tr>
-<tr class="memdesc:a4c65ab8d0986145067d0072d058440b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures depth and stencil testing for this pipeline.  <br /></td></tr>
-<tr class="separator:a4c65ab8d0986145067d0072d058440b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52e9b55ec352b57342d79a5bb96b1194" id="r_a52e9b55ec352b57342d79a5bb96b1194"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a52e9b55ec352b57342d79a5bb96b1194">withSimpleDepthStencil</a> (bool depthTestingEnabled)</td></tr>
-<tr class="memdesc:a52e9b55ec352b57342d79a5bb96b1194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to populate the depth stencil state based on depth testing setting.  <br /></td></tr>
-<tr class="separator:a52e9b55ec352b57342d79a5bb96b1194"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5d82d8652c3d79571b6c9e4cc6267df" id="r_aa5d82d8652c3d79571b6c9e4cc6267df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#aa5d82d8652c3d79571b6c9e4cc6267df">build</a> ()</td></tr>
-<tr class="memdesc:aa5d82d8652c3d79571b6c9e4cc6267df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs final validation and defaulting, then returns an rvalue reference to this object to be used for pipeline creation.  <br /></td></tr>
-<tr class="separator:aa5d82d8652c3d79571b6c9e4cc6267df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a615863072153c43dd90390529ef58977" id="r_a615863072153c43dd90390529ef58977"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a615863072153c43dd90390529ef58977">operator==</a> (const <a class="el" href="a04610.html">PipelineParameters</a> &amp;right) const</td></tr>
-<tr class="memdesc:a615863072153c43dd90390529ef58977"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests whether these parameters are equal to the given parameters.  <br /></td></tr>
-<tr class="separator:a615863072153c43dd90390529ef58977"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61fefbde3a81358c89a4bd81ea604ec8" id="r_a61fefbde3a81358c89a4bd81ea604ec8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a61fefbde3a81358c89a4bd81ea604ec8">operator!=</a> (const <a class="el" href="a04610.html">PipelineParameters</a> &amp;right) const</td></tr>
-<tr class="memdesc:a61fefbde3a81358c89a4bd81ea604ec8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests whether these parameters are not equal to the given parameters.  <br /></td></tr>
-<tr class="separator:a61fefbde3a81358c89a4bd81ea604ec8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:af9f0f1adbd5baee7830839447205af8d" id="r_af9f0f1adbd5baee7830839447205af8d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#af9f0f1adbd5baee7830839447205af8d">Pipeline</a></td></tr>
-<tr class="separator:af9f0f1adbd5baee7830839447205af8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64579b535b3a846d316a12b290324cae" id="r_a64579b535b3a846d316a12b290324cae"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a64579b535b3a846d316a12b290324cae">std::hash&lt; PipelineParameters &gt;</a></td></tr>
-<tr class="separator:a64579b535b3a846d316a12b290324cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7db18eee9d023808ccf2110a5f73262" id="r_ae7db18eee9d023808ccf2110a5f73262"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#ae7db18eee9d023808ccf2110a5f73262">DescriptorSetInstance</a> (<a class="el" href="a03698.html">engine::Engine</a> &amp;engine, VkDescriptorSetLayout layout)</td></tr>
+<tr class="memdesc:ae7db18eee9d023808ccf2110a5f73262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the descriptor set instance.  <br /></td></tr>
+<tr class="separator:ae7db18eee9d023808ccf2110a5f73262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a83c9f8f74688ab3d496871e1d4208b" id="r_a2a83c9f8f74688ab3d496871e1d4208b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html#a2a83c9f8f74688ab3d496871e1d4208b">~DescriptorSetInstance</a> ()=default</td></tr>
+<tr class="memdesc:a2a83c9f8f74688ab3d496871e1d4208b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the descriptor set.  <br /></td></tr>
+<tr class="separator:a2a83c9f8f74688ab3d496871e1d4208b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb553018731d61ad6abb7d12a163e4c" id="r_a7fb553018731d61ad6abb7d12a163e4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#a7fb553018731d61ad6abb7d12a163e4c">isBindless</a> () const</td></tr>
+<tr class="memdesc:a7fb553018731d61ad6abb7d12a163e4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this descriptor set needs to be bound per-object.  <br /></td></tr>
+<tr class="separator:a7fb553018731d61ad6abb7d12a163e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea80b223f67b0a6b1daf4d526171471b" id="r_aea80b223f67b0a6b1daf4d526171471b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04882.html#aea80b223f67b0a6b1daf4d526171471b">needsRebindForNewSpeed</a> () const</td></tr>
+<tr class="memdesc:aea80b223f67b0a6b1daf4d526171471b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the descriptor set needs to be re-bound for new speed.  <br /></td></tr>
+<tr class="separator:aea80b223f67b0a6b1daf4d526171471b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Parameters used to create a <a class="el" href="a04590.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a>. This class performs some basic validation and provides sane defaults. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T, typename GpuT&gt;<br />
+class bl::pcl::DescriptorSetInstance&lt; T, GpuT &gt;</div><p>Descriptor set instance for the default descriptor set used by the default renderer. Provides an array of particle structs as well as a singular global object of config data to the shaders. Types must be specified in a specialization of <a class="el" href="a04666.html" title="Compile-time mapping struct for use with the default Renderer&lt;T&gt; implementation. Specialize this for ...">RenderConfigMap</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The particle type </td></tr>
+    <tr><td class="paramname">GpuT</td><td>The particle type to use in the GPU-visible buffers. Must be assignable from T </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01259_source.html#l00032">32</a> of file <a class="el" href="a01259_source.html">PipelineParameters.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9153120de77f61afb80f43fabdee84b0" name="a9153120de77f61afb80f43fabdee84b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9153120de77f61afb80f43fabdee84b0">&#9670;&#160;</a></span>PipelineParameters() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a08491_source.html#l00028">28</a> of file <a class="el" href="a08491_source.html">DescriptorSetInstance.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a587b054106ae5b4911a145a1d2928eaa" name="a587b054106ae5b4911a145a1d2928eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a587b054106ae5b4911a145a1d2928eaa">&#9670;&#160;</a></span>EntityBindMode</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::PipelineParameters::PipelineParameters </td>
+          <td class="memname">enum <a class="el" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bind mode of the descriptor set. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957" name="a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957"></a>Bindless&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c" name="a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c"></a>Bindful&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00033">33</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a56d01a7643e3e65933db3c5a957db66f" name="a56d01a7643e3e65933db3c5a957db66f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d01a7643e3e65933db3c5a957db66f">&#9670;&#160;</a></span>SpeedBucketSetting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether or not the descriptor set needs to be re-bound for different update speeds. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd" name="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd"></a>RebindForNewSpeed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d" name="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"></a>SpeedAgnostic&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00036">36</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae7db18eee9d023808ccf2110a5f73262" name="ae7db18eee9d023808ccf2110a5f73262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7db18eee9d023808ccf2110a5f73262">&#9670;&#160;</a></span>DescriptorSetInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename GpuT &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04610.html">bl::pcl::DescriptorSetInstance</a>&lt; T, GpuT &gt;::DescriptorSetInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03698.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkDescriptorSetLayout&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the descriptor set instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+    <tr><td class="paramname">layout</td><td>The descriptor set layout to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00012">12</a> of file <a class="el" href="a00005_source.html">DescriptorSetInstance.inl</a>.</p>
+
+</div>
+</div>
+<a id="a2a83c9f8f74688ab3d496871e1d4208b" name="a2a83c9f8f74688ab3d496871e1d4208b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a83c9f8f74688ab3d496871e1d4208b">&#9670;&#160;</a></span>~DescriptorSetInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename GpuT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a04610.html">bl::pcl::DescriptorSetInstance</a>&lt; T, GpuT &gt;::~<a class="el" href="a04610.html">DescriptorSetInstance</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates the parameters using sane defaults. </p>
+<p>Destroys the descriptor set. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00015">15</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a747a354655d99827b897d52763fb0208" name="a747a354655d99827b897d52763fb0208"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a747a354655d99827b897d52763fb0208">&#9670;&#160;</a></span>PipelineParameters() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::PipelineParameters::PipelineParameters </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copies the pipeline parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">copy</td><td>The parameters to copy </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00053">53</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
+<p>Reimplemented from <a class="el" href="a04882.html#aa70664371828bfffff77ffd75ce2136e">bl::rc::ds::DescriptorSetInstance</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a72ff2784c3dd6ee0f3279c79e6bd18ca" name="a72ff2784c3dd6ee0f3279c79e6bd18ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72ff2784c3dd6ee0f3279c79e6bd18ca">&#9670;&#160;</a></span>addColorAttachmentBlendState()</h2>
+<a id="a7fb553018731d61ad6abb7d12a163e4c" name="a7fb553018731d61ad6abb7d12a163e4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb553018731d61ad6abb7d12a163e4c">&#9670;&#160;</a></span>isBindless()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::addColorAttachmentBlendState </td>
-          <td>(</td>
-          <td class="paramtype">const VkPipelineColorBlendAttachmentState &amp;&#160;</td>
-          <td class="paramname"><em>blendState</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds an alpha blending config for a color attachment for this pipeline. Blend configs are ordered by the order that this method is called in. Defaults to a single blend config with standard alpha blending if not overridden. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">blendState</td><td>The blend config to add </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00159">159</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae74424489b454f5d8d65fa47ddd96ea8" name="ae74424489b454f5d8d65fa47ddd96ea8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae74424489b454f5d8d65fa47ddd96ea8">&#9670;&#160;</a></span>addDescriptorSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::addDescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a descriptor set factory to the pipeline. The factory is allocated here and then deduped on actual pipeline creation. Descriptor set indices are determined by the order they are added in. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TFactory</td><td>The type of descriptor set factory to create and add </td></tr>
-    <tr><td class="paramname">...TArgs</td><td>Types of arguments to the factory's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...args</td><td>Arguments to the factory's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01259_source.html#l00288">288</a> of file <a class="el" href="a01259_source.html">PipelineParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a976d94faf7e4504121c937a8b886ab58" name="a976d94faf7e4504121c937a8b886ab58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a976d94faf7e4504121c937a8b886ab58">&#9670;&#160;</a></span>addPushConstantRange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::addPushConstantRange </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>offset</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkShaderStageFlags&#160;</td>
-          <td class="paramname"><em>shaderStages</em> = <code>VK_SHADER_STAGE_ALL_GRAPHICS</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a push constant range config to this pipeline. All pipelines are configured to accept PushConstants at the beginning of the range. This may be called to allow custom push constants to be used in addition to the defaults. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">offset</td><td>The offset to place the push constant at </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the push constant </td></tr>
-    <tr><td class="paramname">shaderStages</td><td>The shader stages to expose the constant to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00137">137</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa5d82d8652c3d79571b6c9e4cc6267df" name="aa5d82d8652c3d79571b6c9e4cc6267df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5d82d8652c3d79571b6c9e4cc6267df">&#9670;&#160;</a></span>build()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp;&amp; bl::rc::vk::PipelineParameters::build </td>
+          <td class="memname">bool bl::rc::ds::DescriptorSetInstance::isBindless </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Performs final validation and defaulting, then returns an rvalue reference to this object to be used for pipeline creation. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp;&amp; An rvalue reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00203">203</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a61fefbde3a81358c89a4bd81ea604ec8" name="a61fefbde3a81358c89a4bd81ea604ec8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61fefbde3a81358c89a4bd81ea604ec8">&#9670;&#160;</a></span>operator!=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::PipelineParameters::operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Tests whether these parameters are not equal to the given parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The parameters to compare to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the parameters are not equal, false otherwise </dd></dl>
+<p>Returns whether or not this descriptor set needs to be bound per-object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00355">355</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00120">120</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a615863072153c43dd90390529ef58977" name="a615863072153c43dd90390529ef58977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a615863072153c43dd90390529ef58977">&#9670;&#160;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::PipelineParameters::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04610.html">PipelineParameters</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tests whether these parameters are equal to the given parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The parameters to compare to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the parameters are equal, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00228">228</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3411a333c4828d00634c455bcb7eef9f" name="a3411a333c4828d00634c455bcb7eef9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3411a333c4828d00634c455bcb7eef9f">&#9670;&#160;</a></span>removeDescriptorSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::removeDescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the descriptor set factory at the given index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>The index of the descriptor set to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00132">132</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4537c0b0993779ea683596deb52bb4c3" name="a4537c0b0993779ea683596deb52bb4c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4537c0b0993779ea683596deb52bb4c3">&#9670;&#160;</a></span>removeShader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::removeShader </td>
-          <td>(</td>
-          <td class="paramtype">VkShaderStageFlagBits&#160;</td>
-          <td class="paramname"><em>stage</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears the given shader stage and replaces it with a noop. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stage</td><td>The stage of the shader to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00099">99</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3c7fdb30a33a019b5886e70dd71da6ed" name="a3c7fdb30a33a019b5886e70dd71da6ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c7fdb30a33a019b5886e70dd71da6ed">&#9670;&#160;</a></span>replaceDescriptorSet()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TFactory , typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::replaceDescriptorSet </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Like addDescriptorSet but replaces an existing descriptor set factory at the given index (which must be valid) </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TFactory</td><td>The type of descriptor set factory to create and add </td></tr>
-    <tr><td class="paramname">...TArgs</td><td>Types of arguments to the factory's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>The index of the descriptor set to replace </td></tr>
-    <tr><td class="paramname">...args</td><td>Arguments to the factory's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01259_source.html#l00294">294</a> of file <a class="el" href="a01259_source.html">PipelineParameters.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a02fb615ec1f5de4e074845e53bff11d0" name="a02fb615ec1f5de4e074845e53bff11d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02fb615ec1f5de4e074845e53bff11d0">&#9670;&#160;</a></span>withColorBlendStateConfig()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withColorBlendStateConfig </td>
-          <td>(</td>
-          <td class="paramtype">VkLogicOp&#160;</td>
-          <td class="paramname"><em>operation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>blendConstant0</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>blendConstant1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>blendConstant2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>blendConstant3</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Overrides the blend configuration for all color attachments for this pipeline. Defaults to disabled. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">operation</td><td>The blend operation to use </td></tr>
-    <tr><td class="paramname">blendConstant0</td><td>The R blend constant </td></tr>
-    <tr><td class="paramname">blendConstant1</td><td>The G blend constant </td></tr>
-    <tr><td class="paramname">blendConstant2</td><td>The B blend constant </td></tr>
-    <tr><td class="paramname">blendConstant3</td><td>The A blend constant </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00165">165</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4c65ab8d0986145067d0072d058440b5" name="a4c65ab8d0986145067d0072d058440b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c65ab8d0986145067d0072d058440b5">&#9670;&#160;</a></span>withDepthStencilState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withDepthStencilState </td>
-          <td>(</td>
-          <td class="paramtype">VkPipelineDepthStencilStateCreateInfo *&#160;</td>
-          <td class="paramname"><em>depthStencil</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures depth and stencil testing for this pipeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">depthStencil</td><td>Pointer to the depth/stencil config. Must remain valid until created </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00179">179</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac19e076b4dce1fb1cc808f6209ac2daa" name="ac19e076b4dce1fb1cc808f6209ac2daa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac19e076b4dce1fb1cc808f6209ac2daa">&#9670;&#160;</a></span>withDynamicStates()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withDynamicStates </td>
-          <td>(</td>
-          <td class="paramtype">const std::initializer_list&lt; VkDynamicState &gt; &amp;&#160;</td>
-          <td class="paramname"><em>states</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures which pipeline states are dynamic. Viewport and scissor are always dynamic. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">states</td><td>A set of states to be made dynamic in this pipeline </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00109">109</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0df88f11c6fbb11053a415c302ef80e1" name="a0df88f11c6fbb11053a415c302ef80e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0df88f11c6fbb11053a415c302ef80e1">&#9670;&#160;</a></span>withMSAA()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withMSAA </td>
-          <td>(</td>
-          <td class="paramtype">const VkPipelineMultisampleStateCreateInfo &amp;&#160;</td>
-          <td class="paramname"><em>msaaParams</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures MSAA for this pipeline. MSAA is disabled by default. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">msaaParams</td><td>The MSAA parameters </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00127">127</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa7371c1c4690f0fd0b3b74db933d3835" name="aa7371c1c4690f0fd0b3b74db933d3835"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7371c1c4690f0fd0b3b74db933d3835">&#9670;&#160;</a></span>withPrimitiveType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withPrimitiveType </td>
-          <td>(</td>
-          <td class="paramtype">VkPrimitiveTopology&#160;</td>
-          <td class="paramname"><em>primitiveType</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the primitive type that the vertices within this pipeline represent. Defaults to triangle list. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">primitiveType</td><td>The primitive type to be rendered </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00116">116</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab7408542445a62a8f222f2e50da9a0af" name="ab7408542445a62a8f222f2e50da9a0af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7408542445a62a8f222f2e50da9a0af">&#9670;&#160;</a></span>withRasterizer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withRasterizer </td>
-          <td>(</td>
-          <td class="paramtype">const VkPipelineRasterizationStateCreateInfo &amp;&#160;</td>
-          <td class="paramname"><em>rasterizer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures the rasterizer for this pipeline. Defaults to sane values. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rasterizer</td><td>The rasterizer config </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00121">121</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a998c1bae116ca005901b9b2a4e22ac11" name="a998c1bae116ca005901b9b2a4e22ac11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a998c1bae116ca005901b9b2a4e22ac11">&#9670;&#160;</a></span>withShader()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withShader </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkShaderStageFlagBits&#160;</td>
-          <td class="paramname"><em>stage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>entrypoint</em> = <code>&quot;main&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds a single shader to this pipeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The resource path of the shader to add </td></tr>
-    <tr><td class="paramname">stage</td><td>The stage of the shader to add </td></tr>
-    <tr><td class="paramname">entrypoint</td><td>The entrypoint inside the shader to run </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00085">85</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aeddc4614e9d26aef1eeaa72eae595c9f" name="aeddc4614e9d26aef1eeaa72eae595c9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeddc4614e9d26aef1eeaa72eae595c9f">&#9670;&#160;</a></span>withShaders()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withShaders </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>vertexPath</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>fragPath</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper method to setup vertex and fragment shaders for the pipeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vertexPath</td><td>The resource path of the vertex shader </td></tr>
-    <tr><td class="paramname">fragPath</td><td>The resource path of the fragment shader </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00070">70</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a52e9b55ec352b57342d79a5bb96b1194" name="a52e9b55ec352b57342d79a5bb96b1194"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52e9b55ec352b57342d79a5bb96b1194">&#9670;&#160;</a></span>withSimpleDepthStencil()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withSimpleDepthStencil </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>depthTestingEnabled</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to populate the depth stencil state based on depth testing setting. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">depthTestingEnabled</td><td>Whether or not to enable depth testing </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02258_source.html#l00185">185</a> of file <a class="el" href="a02258_source.html">PipelineParameters.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af3d859c566a66387d30ef8df23ab5fec" name="af3d859c566a66387d30ef8df23ab5fec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3d859c566a66387d30ef8df23ab5fec">&#9670;&#160;</a></span>withVertexFormat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;std::size_t N&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04610.html">PipelineParameters</a> &amp; bl::rc::vk::PipelineParameters::withVertexFormat </td>
-          <td>(</td>
-          <td class="paramtype">const VkVertexInputBindingDescription &amp;&#160;</td>
-          <td class="paramname"><em>binding</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::array&lt; VkVertexInputAttributeDescription, N &gt; &amp;&#160;</td>
-          <td class="paramname"><em>attributes</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Configures the vertex format and attributes for the vertices that will be rendered by this pipeline. Defaults to Vertex if not specified. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">N</td><td>The number of vertex attributes </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">binding</td><td>The vertex binding description </td></tr>
-    <tr><td class="paramname">attributes</td><td>The vertex attributes </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a04610.html" title="Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...">PipelineParameters</a>&amp; A reference to this object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01259_source.html#l00278">278</a> of file <a class="el" href="a01259_source.html">PipelineParameters.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="af9f0f1adbd5baee7830839447205af8d" name="af9f0f1adbd5baee7830839447205af8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9f0f1adbd5baee7830839447205af8d">&#9670;&#160;</a></span>Pipeline</h2>
+<a id="aea80b223f67b0a6b1daf4d526171471b" name="aea80b223f67b0a6b1daf4d526171471b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea80b223f67b0a6b1daf4d526171471b">&#9670;&#160;</a></span>needsRebindForNewSpeed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -905,53 +317,34 @@ template&lt;std::size_t N&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04590.html">Pipeline</a></td>
+          <td class="memname">bool bl::rc::ds::DescriptorSetInstance::needsRebindForNewSpeed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01259_source.html#l00271">271</a> of file <a class="el" href="a01259_source.html">PipelineParameters.hpp</a>.</p>
+<p>Returns whether or not the descriptor set needs to be re-bound for new speed. </p>
 
-</div>
-</div>
-<a id="a64579b535b3a846d316a12b290324cae" name="a64579b535b3a846d316a12b290324cae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64579b535b3a846d316a12b290324cae">&#9670;&#160;</a></span>std::hash&lt; PipelineParameters &gt;</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend struct std::hash&lt; <a class="el" href="a04610.html">PipelineParameters</a> &gt;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01259_source.html#l00271">271</a> of file <a class="el" href="a01259_source.html">PipelineParameters.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08494_source.html#l00122">122</a> of file <a class="el" href="a08494_source.html">DescriptorSetInstance.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a01259_source.html">PipelineParameters.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a02258_source.html">PipelineParameters.cpp</a></li>
+<li>include/BLIB/Particles/<a class="el" href="a08491_source.html">DescriptorSetInstance.hpp</a></li>
+<li>include/BLIB/Particles/<a class="el" href="a00005_source.html">DescriptorSetInstance.inl</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

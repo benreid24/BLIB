@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/Animation2DSystem.hpp Source File</title>
+<title>BLIB: include/BLIB/Cameras/2D/Controllers/ConstrainedFollower.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,166 +79,70 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c04a943c4d3cd1d05b5d3c5b1d0dd453.html">Cameras</a></li><li class="navelem"><a class="el" href="dir_ce0cefa5b1d3b64155b48c92eb17890c.html">2D</a></li><li class="navelem"><a class="el" href="dir_6d8118606a55f09fb8c43633a428c04c.html">Controllers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Animation2DSystem.hpp</div></div>
+  <div class="headertitle"><div class="title">ConstrainedFollower.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00260.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SYSTEMS_ANIMATION2DPLAYER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SYSTEMS_ANIMATION2DPLAYER_HPP</span></div>
+<a href="a00260.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_2D_CONTROLLERS_CONSTRAINEDFOLLOWER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_2D_CONTROLLERS_CONSTRAINEDFOLLOWER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06295.html">BLIB/Components/Animation2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a06301.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a06376.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a06865.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00404.html">BLIB/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01349.html">BLIB/Render/Buffers/DynamicSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01334.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01340.html">BLIB/Render/Buffers/StaticSSBO.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01304.html">BLIB/Render/Vulkan/DescriptorSet.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a01307.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00428.html">BLIB/Util/IdAllocatorUnbounded.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00482.html">BLIB/Util/RangeAllocatorUnbounded.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>sys</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05210.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="a05210.html">Animation2DSystem</a></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>: <span class="keyword">public</span> <a class="code hl_class" href="a03130.html">engine::System</a></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>, <span class="keyword">public</span> <a class="code hl_class" href="a03186.html">event::Listener</a>&lt;ecs::event::ComponentAdded&lt;com::Animation2DPlayer&gt;,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                         ecs::event::ComponentRemoved&lt;com::Animation2DPlayer&gt;,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                         ecs::event::ComponentRemoved&lt;com::Animation2D&gt;&gt; {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="a05210.html">Animation2DSystem</a>(<a class="code hl_class" href="a04346.html">rc::Renderer</a>&amp; renderer);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00257.html">BLIB/Cameras/2D/CameraController2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a07945.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01409.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>cam</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>c2d</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03202.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a03202.html">ConstrainedFollower</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a03198.html">CameraController2D</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="a03202.html">ConstrainedFollower</a>(<a class="code hl_class" href="a03590.html">ecs::Registry</a>&amp; registry, <a class="code hl_struct" href="a03542.html">ecs::Entity</a> follow, <span class="keyword">const</span> sf::FloatRect&amp; area,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                        <span class="keywordtype">bool</span> followRotation = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a03202.html#aabd1daba5bd87b141592bc605095bf53">   38</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03202.html#aabd1daba5bd87b141592bc605095bf53">~ConstrainedFollower</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05210.html#a62df2b67545e58ab776e95803ffcea68">~Animation2DSystem</a>();</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05210.html#a84b3eb16dcc329cb4280379086f3cadd">bindSlideshowSet</a>(VkCommandBuffer commandBuffer, VkPipelineLayout layout,</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                          std::uint32_t setIndex);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">struct </span>SlideshowFrame {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keyword">alignas</span>(16) glm::vec2 texCoords[4];</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keyword">alignas</span>(16) <span class="keywordtype">float</span> opacity;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    };</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">struct </span>VertexAnimation {</div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="};">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a05222.html">   62</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="a05222.html">DrawIndices</a> {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a05222.html#af95f70c6adfe48edff99f36d46887742">   63</a></span>            std::uint32_t <a class="code hl_variable" href="a05222.html#af95f70c6adfe48edff99f36d46887742">vertexStart</a>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a05222.html#a3dafc5df0318f1476f37a3b964453150">   64</a></span>            std::uint32_t <a class="code hl_variable" href="a05222.html#a3dafc5df0318f1476f37a3b964453150">indexStart</a>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a05222.html#a4286e288b32cad1448126722d98201a2">   65</a></span>            std::uint32_t <a class="code hl_variable" href="a05222.html#a4286e288b32cad1448126722d98201a2">indexCount</a>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        };</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03202.html#a2c4a03acbe1f94fcdbeec19ced239756">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a03518.html">ecs::ComponentPool&lt;com::Transform2D&gt;</a>* pool;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_struct" href="a03542.html">ecs::Entity</a> follow;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> sf::FloatRect area;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span> followRotation;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">bool</span> warned;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
 </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_class" href="a03990.html">rc::buf::IndexBuffer</a> indexBuffer;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        std::vector&lt;DrawIndices&gt; frameToIndices;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> useCount;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        VertexAnimation(<a class="code hl_class" href="a04346.html">rc::Renderer</a>&amp; renderer, <span class="keyword">const</span> <a class="code hl_class" href="a03226.html">gfx::a2d::AnimationData</a>&amp; anim);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    };</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_class" href="a04346.html">rc::Renderer</a>&amp; renderer;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    VkDescriptorSetLayout descriptorLayout;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_class" href="a02866.html">ecs::ComponentPool&lt;com::Animation2DPlayer&gt;</a>* players;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <a class="code hl_class" href="a02866.html">ecs::ComponentPool&lt;com::Animation2D&gt;</a>* vertexPool;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_class" href="a04818.html">resource::Ref&lt;gfx::a2d::AnimationData&gt;</a> errorAnim;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// slideshow data</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    std::unordered_map&lt;const gfx::a2d::AnimationData*, std::uint32_t&gt; slideshowFrameMap;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    std::unordered_map&lt;const gfx::a2d::AnimationData*, std::uint32_t&gt; slideshowDataRefCounts;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_class" href="a05326.html">util::IdAllocatorUnbounded&lt;std::uint32_t&gt;</a> slideshowPlayerIds;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_class" href="a05370.html">util::RangeAllocatorUnbounded&lt;std::uint32_t&gt;</a> slideshowFrameRangeAllocator;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_class" href="a03994.html">rc::buf::StaticSSBO&lt;SlideshowFrame&gt;</a> slideshowFramesSSBO;     <span class="comment">// all anim frames</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_class" href="a03994.html">rc::buf::StaticSSBO&lt;std::uint32_t&gt;</a> slideshowFrameOffsetSSBO; <span class="comment">// playerIndex -&gt; frame index</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_class" href="a03994.html">rc::buf::StaticSSBO&lt;std::uint32_t&gt;</a> slideshowTextureSSBO;     <span class="comment">// playerIndex -&gt; texture id</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="a03978.html">rc::buf::DynamicSSBO&lt;std::uint32_t&gt;</a> slideshowPlayerCurrentFrameSSBO; <span class="comment">//     -&gt; current frame</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_class" href="a04578.html">rc::vk::PerFrame&lt;rc::vk::DescriptorSet&gt;</a> slideshowDescriptorSets;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    std::uint8_t slideshowRefreshRequired;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    std::uint8_t slideshowLastFrameUpdated; <span class="comment">// renderer frame index to prevent multiple updates</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="comment">// non-slideshow data</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    std::unordered_map&lt;const gfx::a2d::AnimationData*, VertexAnimation&gt; vertexAnimationData;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    std::vector&lt;com::Animation2D*&gt; vertexAnimations;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code hl_struct" href="a02910.html">ecs::event::ComponentAdded&lt;com::Animation2DPlayer&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keyword">const</span> <a class="code hl_struct" href="a02914.html">ecs::event::ComponentRemoved&lt;com::Animation2DPlayer&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code hl_struct" href="a02914.html">ecs::event::ComponentRemoved&lt;com::Animation2D&gt;</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> earlyCleanup() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="comment">// slideshow methods</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">void</span> doSlideshowAdd(<a class="code hl_struct" href="a02614.html">com::Animation2DPlayer</a>&amp; player);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">void</span> doSlideshowFree(<span class="keyword">const</span> <a class="code hl_struct" href="a02614.html">com::Animation2DPlayer</a>&amp; player);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordtype">void</span> ensureSlideshowDescriptorsUpdated();</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordtype">void</span> updateSlideshowDescriptorSets();</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">// non-slideshow methods</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordtype">void</span> createNonSlideshow(<a class="code hl_struct" href="a02610.html">com::Animation2D</a>&amp; anim, <span class="keyword">const</span> <a class="code hl_struct" href="a02614.html">com::Animation2DPlayer</a>&amp; player);</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    VertexAnimation* doNonSlideshowCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a02614.html">com::Animation2DPlayer</a>&amp; player);</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordtype">void</span> doNonSlideshowRemove(<span class="keyword">const</span> <a class="code hl_struct" href="a02610.html">com::Animation2D</a>&amp; anim);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordtype">void</span> tryFreeVertexData(<span class="keyword">const</span> <a class="code hl_struct" href="a02614.html">com::Animation2DPlayer</a>&amp; player);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno"><a class="line" href="a05210.html#abb3f588f866494c3e1c5ebab966ffa4c">  118</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04346.html">rc::Renderer</a>;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="a05210.html#a32ed24c088a3a599dec3931831550148">  119</a></span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a02610.html">com::Animation2D</a>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>};</div>
-</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace sys</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa00428_html"><div class="ttname"><a href="a00428.html">IdAllocatorUnbounded.hpp</a></div></div>
-<div class="ttc" id="aa00482_html"><div class="ttname"><a href="a00482.html">RangeAllocatorUnbounded.hpp</a></div></div>
-<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">ComponentPool.hpp</a></div></div>
-<div class="ttc" id="aa01304_html"><div class="ttname"><a href="a01304.html">DescriptorSet.hpp</a></div></div>
-<div class="ttc" id="aa01307_html"><div class="ttname"><a href="a01307.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">IndexBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01340_html"><div class="ttname"><a href="a01340.html">StaticSSBO.hpp</a></div></div>
-<div class="ttc" id="aa01349_html"><div class="ttname"><a href="a01349.html">DynamicSSBO.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02610_html"><div class="ttname"><a href="a02610.html">bl::com::Animation2D</a></div><div class="ttdoc">Component for non-slideshow 2d animations.</div><div class="ttdef"><b>Definition</b> <a href="a06295_source.html#l00026">Animation2D.hpp:26</a></div></div>
-<div class="ttc" id="aa02614_html"><div class="ttname"><a href="a02614.html">bl::com::Animation2DPlayer</a></div><div class="ttdoc">Owns play state for 2d animations. Intended to be owned by entities with animations,...</div><div class="ttdef"><b>Definition</b> <a href="a06301_source.html#l00025">Animation2DPlayer.hpp:25</a></div></div>
-<div class="ttc" id="aa02866_html"><div class="ttname"><a href="a02866.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition</b> <a href="a00998_source.html#l00079">ComponentPool.hpp:79</a></div></div>
-<div class="ttc" id="aa02910_html"><div class="ttname"><a href="a02910.html">bl::ecs::event::ComponentAdded</a></div><div class="ttdoc">Fired when a component is added to an entity.</div><div class="ttdef"><b>Definition</b> <a href="a06376_source.html#l00045">Events.hpp:45</a></div></div>
-<div class="ttc" id="aa02914_html"><div class="ttname"><a href="a02914.html">bl::ecs::event::ComponentRemoved</a></div><div class="ttdoc">Fired right before a component is removed from an entity.</div><div class="ttdef"><b>Definition</b> <a href="a06376_source.html#l00070">Events.hpp:70</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa03130_html"><div class="ttname"><a href="a03130.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition</b> <a href="a06865_source.html#l00018">System.hpp:18</a></div></div>
-<div class="ttc" id="aa03186_html"><div class="ttname"><a href="a03186.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition</b> <a href="a06394_source.html#l00049">Listener.hpp:49</a></div></div>
-<div class="ttc" id="aa03226_html"><div class="ttname"><a href="a03226.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition</b> <a href="a00965_source.html#l00022">AnimationData.hpp:22</a></div></div>
-<div class="ttc" id="aa03978_html"><div class="ttname"><a href="a03978.html">bl::rc::buf::DynamicSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for dynamic objects.</div><div class="ttdef"><b>Definition</b> <a href="a01349_source.html#l00025">DynamicSSBO.hpp:25</a></div></div>
-<div class="ttc" id="aa03990_html"><div class="ttname"><a href="a03990.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition</b> <a href="a01334_source.html#l00026">IndexBuffer.hpp:26</a></div></div>
-<div class="ttc" id="aa03994_html"><div class="ttname"><a href="a03994.html">bl::rc::buf::StaticSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for static objects.</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00022">StaticSSBO.hpp:22</a></div></div>
-<div class="ttc" id="aa04346_html"><div class="ttname"><a href="a04346.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00043">Renderer.hpp:43</a></div></div>
-<div class="ttc" id="aa04578_html"><div class="ttname"><a href="a04578.html">bl::rc::vk::PerFrame</a></div><div class="ttdoc">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...</div><div class="ttdef"><b>Definition</b> <a href="a01307_source.html#l00024">PerFrame.hpp:24</a></div></div>
-<div class="ttc" id="aa04818_html"><div class="ttname"><a href="a04818.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition</b> <a href="a00155_source.html#l00026">Ref.hpp:26</a></div></div>
-<div class="ttc" id="aa05210_html"><div class="ttname"><a href="a05210.html">bl::sys::Animation2DSystem</a></div><div class="ttdoc">Systems that updates and advances all 2d animations. Also manages GPU local buffers containing animat...</div><div class="ttdef"><b>Definition</b> <a href="a00260_source.html#l00029">Animation2DSystem.hpp:33</a></div></div>
-<div class="ttc" id="aa05210_html_a62df2b67545e58ab776e95803ffcea68"><div class="ttname"><a href="a05210.html#a62df2b67545e58ab776e95803ffcea68">bl::sys::Animation2DSystem::~Animation2DSystem</a></div><div class="ttdeci">virtual ~Animation2DSystem()</div><div class="ttdoc">Destroys the animation system.</div><div class="ttdef"><b>Definition</b> <a href="a01643_source.html#l00078">Animation2DSystem.cpp:78</a></div></div>
-<div class="ttc" id="aa05210_html_a84b3eb16dcc329cb4280379086f3cadd"><div class="ttname"><a href="a05210.html#a84b3eb16dcc329cb4280379086f3cadd">bl::sys::Animation2DSystem::bindSlideshowSet</a></div><div class="ttdeci">void bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipelineLayout layout, std::uint32_t setIndex)</div><div class="ttdoc">Binds the animation descriptor set for slideshow animations.</div><div class="ttdef"><b>Definition</b> <a href="a01643_source.html#l00090">Animation2DSystem.cpp:90</a></div></div>
-<div class="ttc" id="aa05222_html"><div class="ttname"><a href="a05222.html">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices</a></div><div class="ttdef"><b>Definition</b> <a href="a00260_source.html#l00062">Animation2DSystem.hpp:62</a></div></div>
-<div class="ttc" id="aa05222_html_a3dafc5df0318f1476f37a3b964453150"><div class="ttname"><a href="a05222.html#a3dafc5df0318f1476f37a3b964453150">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices::indexStart</a></div><div class="ttdeci">std::uint32_t indexStart</div><div class="ttdef"><b>Definition</b> <a href="a00260_source.html#l00064">Animation2DSystem.hpp:64</a></div></div>
-<div class="ttc" id="aa05222_html_a4286e288b32cad1448126722d98201a2"><div class="ttname"><a href="a05222.html#a4286e288b32cad1448126722d98201a2">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices::indexCount</a></div><div class="ttdeci">std::uint32_t indexCount</div><div class="ttdef"><b>Definition</b> <a href="a00260_source.html#l00065">Animation2DSystem.hpp:65</a></div></div>
-<div class="ttc" id="aa05222_html_af95f70c6adfe48edff99f36d46887742"><div class="ttname"><a href="a05222.html#af95f70c6adfe48edff99f36d46887742">bl::sys::Animation2DSystem::VertexAnimation::DrawIndices::vertexStart</a></div><div class="ttdeci">std::uint32_t vertexStart</div><div class="ttdef"><b>Definition</b> <a href="a00260_source.html#l00063">Animation2DSystem.hpp:63</a></div></div>
-<div class="ttc" id="aa05326_html"><div class="ttname"><a href="a05326.html">bl::util::IdAllocatorUnbounded</a></div><div class="ttdoc">Similar to IdAllocator, but with no max id restriction.</div><div class="ttdef"><b>Definition</b> <a href="a00428_source.html#l00019">IdAllocatorUnbounded.hpp:19</a></div></div>
-<div class="ttc" id="aa05370_html"><div class="ttname"><a href="a05370.html">bl::util::RangeAllocatorUnbounded</a></div><div class="ttdoc">Utility class to manage allocation of integer ranges.</div><div class="ttdef"><b>Definition</b> <a href="a00482_source.html#l00020">RangeAllocatorUnbounded.hpp:20</a></div></div>
-<div class="ttc" id="aa06295_html"><div class="ttname"><a href="a06295.html">Animation2D.hpp</a></div></div>
-<div class="ttc" id="aa06301_html"><div class="ttname"><a href="a06301.html">Animation2DPlayer.hpp</a></div></div>
-<div class="ttc" id="aa06376_html"><div class="ttname"><a href="a06376.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa06865_html"><div class="ttname"><a href="a06865.html">System.hpp</a></div></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace c2d</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace cam</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00257_html"><div class="ttname"><a href="a00257.html">CameraController2D.hpp</a></div></div>
+<div class="ttc" id="aa01409_html"><div class="ttname"><a href="a01409.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03198_html"><div class="ttname"><a href="a03198.html">bl::cam::CameraController2D</a></div><div class="ttdoc">Base class for 2d camera controllers.</div><div class="ttdef"><b>Definition</b> <a href="a00257_source.html#l00015">CameraController2D.hpp:15</a></div></div>
+<div class="ttc" id="aa03202_html"><div class="ttname"><a href="a03202.html">bl::cam::c2d::ConstrainedFollower</a></div><div class="ttdoc">2d camera controller that centers a camera on an entity while keeping the visible region constrained ...</div><div class="ttdef"><b>Definition</b> <a href="a00260_source.html#l00022">ConstrainedFollower.hpp:22</a></div></div>
+<div class="ttc" id="aa03202_html_a2c4a03acbe1f94fcdbeec19ced239756"><div class="ttname"><a href="a03202.html#a2c4a03acbe1f94fcdbeec19ced239756">bl::cam::c2d::ConstrainedFollower::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the controller to keep the camera centered.</div><div class="ttdef"><b>Definition</b> <a href="a02030_source.html#l00023">ConstrainedFollower.cpp:23</a></div></div>
+<div class="ttc" id="aa03202_html_aabd1daba5bd87b141592bc605095bf53"><div class="ttname"><a href="a03202.html#aabd1daba5bd87b141592bc605095bf53">bl::cam::c2d::ConstrainedFollower::~ConstrainedFollower</a></div><div class="ttdeci">virtual ~ConstrainedFollower()=default</div><div class="ttdoc">Destroys the controller.</div></div>
+<div class="ttc" id="aa03518_html"><div class="ttname"><a href="a03518.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00079">ComponentPool.hpp:79</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03590_html"><div class="ttname"><a href="a03590.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa07945_html"><div class="ttname"><a href="a07945.html">Transform2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

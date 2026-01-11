@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::GridPacker Class Reference</title>
+<title>BLIB: bl::ecs::event::EntityParentSet Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,126 +74,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02438.html">gui</a></li><li class="navelem"><a class="el" href="a03570.html">GridPacker</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03012.html">event</a></li><li class="navelem"><a class="el" href="a03570.html">EntityParentSet</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a03567.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui::GridPacker Class Reference<div class="ingroups"><a class="el" href="a02383.html">Interface</a> &raquo; <a class="el" href="a02397.html">GUI</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ecs::event::EntityParentSet Struct Reference<div class="ingroups"><a class="el" href="a02968.html">ECS</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03578.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> that can pack elements into grids.  
+<p>Fired when an entity has a parent set.  
  <a href="a03570.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00707_source.html">GridPacker.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::GridPacker:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03570.png" usemap="#bl::gui::GridPacker_map" alt=""/>
-  <map id="bl::gui::GridPacker_map" name="bl::gui::GridPacker_map">
-<area href="a03578.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container...." alt="bl::gui::Packer" shape="rect" coords="0,56,127,80"/>
-<area href="a05346.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,127,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a07966_source.html">Events.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a8866a71cf9b5665134713f242cadd94a" id="r_a8866a71cf9b5665134713f242cadd94a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> { <a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">Rows</a>
-, <a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94aaae131615a2e84c76992e7c1d803564c4">Columns</a>
- }</td></tr>
-<tr class="memdesc:a8866a71cf9b5665134713f242cadd94a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indicates whether to pack in rows or columns.  <a href="a03570.html#a8866a71cf9b5665134713f242cadd94a">More...</a><br /></td></tr>
-<tr class="separator:a8866a71cf9b5665134713f242cadd94a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5213d33ba71adc25f1f870120b2b2c45" id="r_a5213d33ba71adc25f1f870120b2b2c45"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a03570.html">GridPacker</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a></td></tr>
-<tr class="separator:a5213d33ba71adc25f1f870120b2b2c45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a36a922cad484aa072de4bc06fb7940ab" id="r_a36a922cad484aa072de4bc06fb7940ab"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a36a922cad484aa072de4bc06fb7940ab">getRequisition</a> (const std::vector&lt; <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;elements) override</td></tr>
-<tr class="memdesc:a36a922cad484aa072de4bc06fb7940ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the space required to pack the given list of elements.  <br /></td></tr>
-<tr class="separator:a36a922cad484aa072de4bc06fb7940ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c5f6901d35cb15627386cdeaa0351e2" id="r_a5c5f6901d35cb15627386cdeaa0351e2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a5c5f6901d35cb15627386cdeaa0351e2">pack</a> (const sf::FloatRect &amp;acquisition, const std::vector&lt; <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;elements) override</td></tr>
-<tr class="memdesc:a5c5f6901d35cb15627386cdeaa0351e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs the given list of elements into the given region.  <br /></td></tr>
-<tr class="separator:a5c5f6901d35cb15627386cdeaa0351e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad18d90db2b0e50e44390bf1147699490" id="r_ad18d90db2b0e50e44390bf1147699490"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#ad18d90db2b0e50e44390bf1147699490">~GridPacker</a> ()=default</td></tr>
-<tr class="memdesc:ad18d90db2b0e50e44390bf1147699490"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Grid <a class="el" href="a03578.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a>.  <br /></td></tr>
-<tr class="separator:ad18d90db2b0e50e44390bf1147699490"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75659154c078deb98840fb8e4cc71a82" id="r_a75659154c078deb98840fb8e4cc71a82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a75659154c078deb98840fb8e4cc71a82">EntityParentSet</a> (<a class="el" href="a03542.html">Entity</a> <a class="el" href="a03570.html#a1f377fdb70735136c5810f21804c7e00">parent</a>, <a class="el" href="a03542.html">Entity</a> <a class="el" href="a03570.html#a30e3d32ebb533b564b0fcea3fddc418b">child</a>)</td></tr>
+<tr class="memdesc:a75659154c078deb98840fb8e4cc71a82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new parent event.  <br /></td></tr>
+<tr class="separator:a75659154c078deb98840fb8e4cc71a82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a95ba394a9c7fdc7944db41f62c20aac1" id="r_a95ba394a9c7fdc7944db41f62c20aac1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03570.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a95ba394a9c7fdc7944db41f62c20aac1">createFixedGrid</a> (<a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, unsigned int wrapCount, float padding=2)</td></tr>
-<tr class="memdesc:a95ba394a9c7fdc7944db41f62c20aac1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a03570.html" title="Packer that can pack elements into grids.">GridPacker</a> that has a fixed number of elements on each row or column.  <br /></td></tr>
-<tr class="separator:a95ba394a9c7fdc7944db41f62c20aac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a503b1a3c6143538393e2420278e4d22d" id="r_a503b1a3c6143538393e2420278e4d22d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03570.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a503b1a3c6143538393e2420278e4d22d">createDynamicGrid</a> (<a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, unsigned int size, float padding=2)</td></tr>
-<tr class="memdesc:a503b1a3c6143538393e2420278e4d22d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a03570.html" title="Packer that can pack elements into grids.">GridPacker</a> that has a dynamic number of elements on each row or column.  <br /></td></tr>
-<tr class="separator:a503b1a3c6143538393e2420278e4d22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b254eb49aea88a8a35d4407dfe7cce5" id="r_a4b254eb49aea88a8a35d4407dfe7cce5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03578.html#a4b254eb49aea88a8a35d4407dfe7cce5">manuallyPackElement</a> (const <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;element, const sf::FloatRect &amp;area, bool force=false)</td></tr>
-<tr class="memdesc:a4b254eb49aea88a8a35d4407dfe7cce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually pack the element. Note that the acquisition is relative to the parent element and likely does not correspond to screen coordinates.  <br /></td></tr>
-<tr class="separator:a4b254eb49aea88a8a35d4407dfe7cce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2b942eb90604a301008c4b26d6209793" id="r_a2b942eb90604a301008c4b26d6209793"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03578.html#a2b942eb90604a301008c4b26d6209793">packElementIntoSpace</a> (const <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;element, const sf::FloatRect &amp;space)</td></tr>
-<tr class="memdesc:a2b942eb90604a301008c4b26d6209793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs an element into the given space. Obeys <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> expand properties.  <br /></td></tr>
-<tr class="separator:a2b942eb90604a301008c4b26d6209793"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a1f377fdb70735136c5810f21804c7e00" id="r_a1f377fdb70735136c5810f21804c7e00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03542.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a1f377fdb70735136c5810f21804c7e00">parent</a></td></tr>
+<tr class="memdesc:a1f377fdb70735136c5810f21804c7e00"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity's new parent.  <br /></td></tr>
+<tr class="separator:a1f377fdb70735136c5810f21804c7e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30e3d32ebb533b564b0fcea3fddc418b" id="r_a30e3d32ebb533b564b0fcea3fddc418b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03542.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a30e3d32ebb533b564b0fcea3fddc418b">child</a></td></tr>
+<tr class="memdesc:a30e3d32ebb533b564b0fcea3fddc418b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that had the parent set.  <br /></td></tr>
+<tr class="separator:a30e3d32ebb533b564b0fcea3fddc418b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03578.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> that can pack elements into grids. </p>
+<div class="textblock"><p>Fired when an entity has a parent set. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00016">16</a> of file <a class="el" href="a00707_source.html">GridPacker.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a5213d33ba71adc25f1f870120b2b2c45" name="a5213d33ba71adc25f1f870120b2b2c45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5213d33ba71adc25f1f870120b2b2c45">&#9670;&#160;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a03570.html">GridPacker</a>&gt; <a class="el" href="a03570.html#a5213d33ba71adc25f1f870120b2b2c45">bl::gui::GridPacker::Ptr</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00018">18</a> of file <a class="el" href="a00707_source.html">GridPacker.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a8866a71cf9b5665134713f242cadd94a" name="a8866a71cf9b5665134713f242cadd94a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8866a71cf9b5665134713f242cadd94a">&#9670;&#160;</a></span>Direction</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94a">bl::gui::GridPacker::Direction</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Indicates whether to pack in rows or columns. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7" name="a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7"></a>Rows&#160;</td><td class="fielddoc"><p>Elements are packed horizontally in rows and wrapped into multiple rows. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a8866a71cf9b5665134713f242cadd94aaae131615a2e84c76992e7c1d803564c4" name="a8866a71cf9b5665134713f242cadd94aaae131615a2e84c76992e7c1d803564c4"></a>Columns&#160;</td><td class="fielddoc"><p>Elements are packed vertically in columns and wrapped into extra columns. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00024">24</a> of file <a class="el" href="a00707_source.html">GridPacker.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad18d90db2b0e50e44390bf1147699490" name="ad18d90db2b0e50e44390bf1147699490"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad18d90db2b0e50e44390bf1147699490">&#9670;&#160;</a></span>~GridPacker()</h2>
+<p class="definition">Definition at line <a class="el" href="a07966_source.html#l00093">93</a> of file <a class="el" href="a07966_source.html">Events.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a75659154c078deb98840fb8e4cc71a82" name="a75659154c078deb98840fb8e4cc71a82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75659154c078deb98840fb8e4cc71a82">&#9670;&#160;</a></span>EntityParentSet()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,50 +121,16 @@ Static Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::gui::GridPacker::~GridPacker </td>
+          <td class="memname">bl::ecs::event::EntityParentSet::EntityParentSet </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the Grid <a class="el" href="a03578.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a>. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a503b1a3c6143538393e2420278e4d22d" name="a503b1a3c6143538393e2420278e4d22d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a503b1a3c6143538393e2420278e4d22d">&#9670;&#160;</a></span>createDynamicGrid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03570.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> bl::gui::GridPacker::createDynamicGrid </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94a">Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em>, </td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>padding</em> = <code>2</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>child</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -255,279 +140,69 @@ Static Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="a03570.html" title="Packer that can pack elements into grids.">GridPacker</a> that has a dynamic number of elements on each row or column. </p>
+<p>Creates a new parent event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dir</td><td>Whether to pack into rows or columns </td></tr>
-    <tr><td class="paramname">size</td><td>Size to use to determine when to wrap elements </td></tr>
-    <tr><td class="paramname">padding</td><td>Padding between packed elements </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent entity id </td></tr>
+    <tr><td class="paramname">child</td><td>The child entity that had the parent set </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Ptr The new <a class="el" href="a03570.html" title="Packer that can pack elements into grids.">GridPacker</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01853_source.html#l00007">7</a> of file <a class="el" href="a01853_source.html">GridPacker.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07966_source.html#l00106">106</a> of file <a class="el" href="a07966_source.html">Events.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a95ba394a9c7fdc7944db41f62c20aac1" name="a95ba394a9c7fdc7944db41f62c20aac1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95ba394a9c7fdc7944db41f62c20aac1">&#9670;&#160;</a></span>createFixedGrid()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a30e3d32ebb533b564b0fcea3fddc418b" name="a30e3d32ebb533b564b0fcea3fddc418b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30e3d32ebb533b564b0fcea3fddc418b">&#9670;&#160;</a></span>child</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03570.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> bl::gui::GridPacker::createFixedGrid </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03570.html#a8866a71cf9b5665134713f242cadd94a">Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>wrapCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>padding</em> = <code>2</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a03542.html">Entity</a> bl::ecs::event::EntityParentSet::child</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="a03570.html" title="Packer that can pack elements into grids.">GridPacker</a> that has a fixed number of elements on each row or column. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dir</td><td>Whether to pack into rows or columns </td></tr>
-    <tr><td class="paramname">wrapCount</td><td>Size to use to determine when to wrap elements </td></tr>
-    <tr><td class="paramname">padding</td><td>Padding between packed elements </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Ptr The new <a class="el" href="a03570.html" title="Packer that can pack elements into grids.">GridPacker</a> </dd></dl>
+<p>The entity that had the parent set. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01853_source.html#l00011">11</a> of file <a class="el" href="a01853_source.html">GridPacker.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07966_source.html#l00098">98</a> of file <a class="el" href="a07966_source.html">Events.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a36a922cad484aa072de4bc06fb7940ab" name="a36a922cad484aa072de4bc06fb7940ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36a922cad484aa072de4bc06fb7940ab">&#9670;&#160;</a></span>getRequisition()</h2>
+<a id="a1f377fdb70735136c5810f21804c7e00" name="a1f377fdb70735136c5810f21804c7e00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f377fdb70735136c5810f21804c7e00">&#9670;&#160;</a></span>parent</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Vector2f bl::gui::GridPacker::getRequisition </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>elements</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a03542.html">Entity</a> bl::ecs::event::EntityParentSet::parent</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the space required to pack the given list of elements. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">elements</td><td>The list of elements to pack </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>sf::Vector2i The space required to pack </dd></dl>
+<p>The entity's new parent. </p>
 
-<p>Implements <a class="el" href="a03578.html#ab4fb247af12fe31d556bc30af296f6bc">bl::gui::Packer</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01853_source.html#l00021">21</a> of file <a class="el" href="a01853_source.html">GridPacker.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a07966_source.html#l00095">95</a> of file <a class="el" href="a07966_source.html">Events.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4b254eb49aea88a8a35d4407dfe7cce5" name="a4b254eb49aea88a8a35d4407dfe7cce5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b254eb49aea88a8a35d4407dfe7cce5">&#9670;&#160;</a></span>manuallyPackElement()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::Packer::manuallyPackElement </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>area</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>force</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Manually pack the element. Note that the acquisition is relative to the parent element and likely does not correspond to screen coordinates. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">element</td><td>The element to pack </td></tr>
-    <tr><td class="paramname">area</td><td>The atra to pack it into </td></tr>
-    <tr><td class="paramname">force</td><td>True to set the acquisition exactly, false to use the element's settings </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01856_source.html#l00017">17</a> of file <a class="el" href="a01856_source.html">Packer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c5f6901d35cb15627386cdeaa0351e2" name="a5c5f6901d35cb15627386cdeaa0351e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c5f6901d35cb15627386cdeaa0351e2">&#9670;&#160;</a></span>pack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::GridPacker::pack </td>
-          <td>(</td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>acquisition</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>elements</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Packs the given list of elements into the given region. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">acquisition</td><td>The region to pack into </td></tr>
-    <tr><td class="paramname">elements</td><td>The elements to pack </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a03578.html#a96485d9ff34d93ed37ba8d04ec4950e9">bl::gui::Packer</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01853_source.html#l00031">31</a> of file <a class="el" href="a01853_source.html">GridPacker.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2b942eb90604a301008c4b26d6209793" name="a2b942eb90604a301008c4b26d6209793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b942eb90604a301008c4b26d6209793">&#9670;&#160;</a></span>packElementIntoSpace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::Packer::packElementIntoSpace </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>element</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>space</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Packs an element into the given space. Obeys <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> expand properties. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">element</td><td>The element to pack </td></tr>
-    <tr><td class="paramname">space</td><td>The space to use as computed by the packer </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01856_source.html#l00007">7</a> of file <a class="el" href="a01856_source.html">Packer.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Packers/<a class="el" href="a00707_source.html">GridPacker.hpp</a></li>
-<li>src/Interfaces/GUI/Packers/<a class="el" href="a01853_source.html">GridPacker.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a07966_source.html">Events.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Serialization/Buffers/StreamOutputBuffer.cpp Source File</title>
+<title>BLIB: src/Systems/TogglerSystem.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,45 +79,46 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e7c9606de6dc9534b0042ecacee5f21f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_47ff02213d38b4fcd8e0172b7fa926fb.html">Buffers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_900c20bb70493231141df6997ccd6b87.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">StreamOutputBuffer.cpp</div></div>
+  <div class="headertitle"><div class="title">TogglerSystem.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01985.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00866.html">BLIB/Serialization/Buffers/StreamOutputBuffer.hpp</a>&gt;</span></div>
+<a href="a01985.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00227.html">BLIB/Systems/TogglerSystem.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>serial</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00071.html">BLIB/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a05042.html#acefd99a20e8d086c67a0e9d95ab4f67b">    7</a></span><a class="code hl_function" href="a05042.html#acefd99a20e8d086c67a0e9d95ab4f67b">StreamOutputBuffer::StreamOutputBuffer</a>(std::ostream&amp; os)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: stream(os) {}</div>
-</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a05042.html#ae11ddac8af8eb2ab7f3130f393d99e5c">   10</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05042.html#ae11ddac8af8eb2ab7f3130f393d99e5c">StreamOutputBuffer::write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* buf, std::size_t len) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    stream.write(buf, len);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> stream.good();</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05042.html#aaff97d946d1f1b37ae4a46255678904a">   15</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05042.html#aaff97d946d1f1b37ae4a46255678904a">StreamOutputBuffer::good</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> stream.good(); }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace serial</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00866_html"><div class="ttname"><a href="a00866.html">StreamOutputBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05042_html_aaff97d946d1f1b37ae4a46255678904a"><div class="ttname"><a href="a05042.html#aaff97d946d1f1b37ae4a46255678904a">bl::serial::StreamOutputBuffer::good</a></div><div class="ttdeci">virtual bool good() const override</div><div class="ttdoc">Returns whether or not the buffer is in a good state.</div><div class="ttdef"><b>Definition</b> <a href="a01985_source.html#l00015">StreamOutputBuffer.cpp:15</a></div></div>
-<div class="ttc" id="aa05042_html_acefd99a20e8d086c67a0e9d95ab4f67b"><div class="ttname"><a href="a05042.html#acefd99a20e8d086c67a0e9d95ab4f67b">bl::serial::StreamOutputBuffer::StreamOutputBuffer</a></div><div class="ttdeci">StreamOutputBuffer(std::ostream &amp;stream)</div><div class="ttdoc">Construct a new Stream Output Buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01985_source.html#l00007">StreamOutputBuffer.cpp:7</a></div></div>
-<div class="ttc" id="aa05042_html_ae11ddac8af8eb2ab7f3130f393d99e5c"><div class="ttname"><a href="a05042.html#ae11ddac8af8eb2ab7f3130f393d99e5c">bl::serial::StreamOutputBuffer::write</a></div><div class="ttdeci">virtual bool write(const char *data, std::size_t len) override</div><div class="ttdoc">Write some data to the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01985_source.html#l00010">StreamOutputBuffer.cpp:10</a></div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sys</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keywordtype">void</span> TogglerSystem::init(engine::Engine&amp; engine) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    pool = &amp;engine.ecs().getAllComponents&lt;com::Toggler&gt;();</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">void</span> TogglerSystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    pool-&gt;forEach([dt](ecs::Entity, com::Toggler&amp; tog) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        tog.time += dt;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordtype">float</span> period = *tog.value ? tog.onPeriod : tog.offPeriod;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">if</span> (tog.time &gt;= period) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            *tog.value = !*tog.value;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            tog.time -= std::floor(tog.time / period) * period;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    });</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace sys</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00071_html"><div class="ttname"><a href="a00071.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">TogglerSystem.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

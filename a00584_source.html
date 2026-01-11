@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Containers/Cache.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/GraphAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,251 +79,63 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Cache.hpp</div></div>
+  <div class="headertitle"><div class="title">GraphAsset.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00584.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_CACHE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_CACHE_HPP</span></div>
+<a href="a00584.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_GRAPHASSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_GRAPHASSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00554.html">BLIB/Containers/FastQueue.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;forward_list&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a02416.html">   13</a></span><span class="keyword">namespace </span>ctr</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a02718.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="a02718.html">Cache</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02718.html#aa28858b622353170b0df73c9f1f21809">   25</a></span>    <span class="keyword">typedef</span> std::shared_ptr&lt;TPayload&gt; <a class="code hl_typedef" href="a02718.html#aa28858b622353170b0df73c9f1f21809">Item</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a02718.html#abce31da194ab681dd7b828bab3f2803c">   31</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="a02718.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a> {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a02718.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">   32</a></span>        <a class="code hl_enumvalue" href="a02718.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">LeastRecentlyAccessed</a>, </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a02718.html#abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2">   33</a></span>        <a class="code hl_enumvalue" href="a02718.html#abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2">LeastRecentlyModified</a>, </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_enumvalue" href="a02718.html#abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e">FirstInFirstOut</a>        </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a02718.html#abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e">   35</a></span>    };</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00623.html">BLIB/Render/Graph/AssetRef.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rg</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">class </span>Task;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05046.html">   21</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05046.html">GraphAsset</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">   22</a></span>    <a class="code hl_class" href="a04990.html">AssetRef</a> <a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05046.html#a69717813502845651006ef73afe1d430">   23</a></span>    std::vector&lt;Task*&gt; <a class="code hl_variable" href="a05046.html#a69717813502845651006ef73afe1d430">outputtedBy</a>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a05046.html#a4c84c9c08de0afb30a3e03df8a8ecff1">   24</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a05046.html#a4c84c9c08de0afb30a3e03df8a8ecff1">firstAvailableStep</a>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05046.html#aeb346b0d37370e4a771426f047c99d4e">   31</a></span>    <a class="code hl_function" href="a05046.html#aeb346b0d37370e4a771426f047c99d4e">GraphAsset</a>(<a class="code hl_class" href="a04974.html">Asset</a>* <a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>)</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    : <a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>(<a class="code hl_variable" href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>)</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    , <a class="code hl_variable" href="a05046.html#a4c84c9c08de0afb30a3e03df8a8ecff1">firstAvailableStep</a>(0) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_variable" href="a05046.html#a69717813502845651006ef73afe1d430">outputtedBy</a>.reserve(4);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
 </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="a02718.html">Cache</a>(<a class="code hl_enumeration" href="a02718.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a> policy = <a class="code hl_enumvalue" href="a02718.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">LeastRecentlyAccessed</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lowWatermark = 1000,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>          <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> highWatermark = 2000);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a35949d8d2eaa5e2a5f96167e2646fa83">add</a>(<span class="keyword">const</span> TKey&amp; key, <span class="keyword">const</span> <a class="code hl_typedef" href="a02718.html#aa28858b622353170b0df73c9f1f21809">Item</a>&amp; item);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a35949d8d2eaa5e2a5f96167e2646fa83">add</a>(<span class="keyword">const</span> TKey&amp; key, <span class="keyword">const</span> TPayload&amp; item);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_typedef" href="a02718.html#aa28858b622353170b0df73c9f1f21809">Item</a> <a class="code hl_function" href="a02718.html#a29b89eac559197479b0dc62dd4fc9ee7">getForOwn</a>(<span class="keyword">const</span> TKey&amp; key);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    TPayload* <a class="code hl_function" href="a02718.html#a7b9b16d4a5edf2b3f08dc26be605ec2a">getForWrite</a>(<span class="keyword">const</span> TKey&amp; key);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keyword">const</span> TPayload* <a class="code hl_function" href="a02718.html#a6bbff396c97cfe9a036c48ae7a956fc0">getForRead</a>(<span class="keyword">const</span> TKey&amp; key) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a5949a436c3ee5da5ab558a9780ae92cd">erase</a>(<span class="keyword">const</span> TKey&amp; key);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a55ecf6588b624c44b317d8f4401d1c08">empty</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="a02718.html#ad9ac10bba8d695517e08bdbb0d9758b8">size</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">typename</span> std::unordered_map&lt;TKey, TPayload&gt;::iterator <a class="code hl_function" href="a02718.html#a41254faa86419c89ea579c598b88de58">begin</a>();</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">typename</span> std::unordered_map&lt;TKey, TPayload&gt;::iterator <a class="code hl_function" href="a02718.html#a214d334199384ab8acec0c21336076ed">end</a>();</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="a02718.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a> evictionPolicy;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> highWatermark, lowWatermark;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    std::unordered_map&lt;TKey, std::shared_ptr&lt;TPayload&gt;&gt; cache;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">mutable</span> <a class="code hl_class" href="a02726.html">FastQueue&lt;TKey&gt;</a> readQueue;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <a class="code hl_class" href="a02726.html">FastQueue&lt;TKey&gt;</a> writeQueue;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <a class="code hl_class" href="a02726.html">FastQueue&lt;TKey&gt;</a> orderQueue;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordtype">void</span> checkEviction();</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>};</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>};</div>
 </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a02718.html#a194882e4066d740241371d9f7d71edce">  137</a></span><a class="code hl_function" href="a02718.html#a194882e4066d740241371d9f7d71edce">Cache&lt;TKey, TPayload&gt;::Cache</a>(<a class="code hl_enumeration" href="a02718.html#abce31da194ab681dd7b828bab3f2803c">EvictionPolicy</a> policy, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> lowWatermark,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                             <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> highWatermark)</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>: evictionPolicy(policy)</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>, highWatermark(highWatermark)</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>, lowWatermark(lowWatermark) {}</div>
-</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00144" data-start="{" data-end="}">
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno"><a class="line" href="a02718.html#ab706682affd2ef47d3534a9f06177c7c">  144</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a35949d8d2eaa5e2a5f96167e2646fa83">Cache&lt;TKey, TPayload&gt;::add</a>(<span class="keyword">const</span> TKey&amp; key, <span class="keyword">const</span> TPayload&amp; value) {</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">return</span> add(key, <a class="code hl_typedef" href="a02718.html#aa28858b622353170b0df73c9f1f21809">Item</a>(<span class="keyword">new</span> TPayload(value)));</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
-</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00149" data-start="{" data-end="}">
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="a02718.html#a35949d8d2eaa5e2a5f96167e2646fa83">  149</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a35949d8d2eaa5e2a5f96167e2646fa83">Cache&lt;TKey, TPayload&gt;::add</a>(<span class="keyword">const</span> TKey&amp; key, <span class="keyword">const</span> <a class="code hl_typedef" href="a02718.html#aa28858b622353170b0df73c9f1f21809">Item</a>&amp; value) {</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">if</span> (cache.find(key) == cache.end()) {</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        cache.emplace(key, value);</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        readQueue.push_front(key);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        writeQueue.push_front(key);</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        orderQueue.push_front(key);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        checkEviction();</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    }</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
-</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00162" data-start="{" data-end="}">
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="a02718.html#a29b89eac559197479b0dc62dd4fc9ee7">  162</a></span><span class="keyword">typename</span> <a class="code hl_typedef" href="a02718.html#aa28858b622353170b0df73c9f1f21809">Cache&lt;TKey, TPayload&gt;::Item</a> <a class="code hl_function" href="a02718.html#a29b89eac559197479b0dc62dd4fc9ee7">Cache&lt;TKey, TPayload&gt;::getForOwn</a>(<span class="keyword">const</span> TKey&amp; key) {</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">auto</span> it = cache.find(key);</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">if</span> (it != cache.end) {</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        readQueue.promote_front(key);</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        writeQueue.promote_front(key);</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>        <span class="keywordflow">return</span> it-&gt;second;</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    }</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>}</div>
-</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="a02718.html#a6bbff396c97cfe9a036c48ae7a956fc0">  172</a></span><span class="keyword">const</span> TPayload* <a class="code hl_function" href="a02718.html#a6bbff396c97cfe9a036c48ae7a956fc0">Cache&lt;TKey, TPayload&gt;::getForRead</a>(<span class="keyword">const</span> TKey&amp; key)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keyword">auto</span> it = cache.find(key);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">if</span> (it != cache.end()) {</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        readQueue.promote_front(key);</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">return</span> it-&gt;second.get();</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    }</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>}</div>
-</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00182" data-start="{" data-end="}">
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="a02718.html#a7b9b16d4a5edf2b3f08dc26be605ec2a">  182</a></span>TPayload* <a class="code hl_function" href="a02718.html#a7b9b16d4a5edf2b3f08dc26be605ec2a">Cache&lt;TKey, TPayload&gt;::getForWrite</a>(<span class="keyword">const</span> TKey&amp; key) {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keyword">auto</span> it = cache.find(key);</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">if</span> (it != cache.end()) {</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        readQueue.promote_front(key);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        writeQueue.promote_front(key);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">return</span> it-&gt;second.get();</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    }</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>}</div>
-</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00193" data-start="{" data-end="}">
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="a02718.html#a5949a436c3ee5da5ab558a9780ae92cd">  193</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a5949a436c3ee5da5ab558a9780ae92cd">Cache&lt;TKey, TPayload&gt;::erase</a>(<span class="keyword">const</span> TKey&amp; key) {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keyword">auto</span> it = cache.find(key);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">if</span> (it != cache.end()) {</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        cache.erase(it);</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        readQueue.remove(key);</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        writeQueue.remove(key);</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>        orderQueue.remove(key);</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    }</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
-</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00206" data-start="{" data-end="}">
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="a02718.html#a41254faa86419c89ea579c598b88de58">  206</a></span><span class="keyword">typename</span> std::unordered_map&lt;TKey, TPayload&gt;::iterator <a class="code hl_function" href="a02718.html#a41254faa86419c89ea579c598b88de58">Cache&lt;TKey, TPayload&gt;::begin</a>() {</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordflow">return</span> cache.begin();</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>}</div>
-</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00211" data-start="{" data-end="}">
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="a02718.html#a214d334199384ab8acec0c21336076ed">  211</a></span><span class="keyword">typename</span> std::unordered_map&lt;TKey, TPayload&gt;::iterator <a class="code hl_function" href="a02718.html#a214d334199384ab8acec0c21336076ed">Cache&lt;TKey, TPayload&gt;::end</a>() {</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordflow">return</span> cache.begin();</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
-</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="a02718.html#a55ecf6588b624c44b317d8f4401d1c08">  216</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02718.html#a55ecf6588b624c44b317d8f4401d1c08">Cache&lt;TKey, TPayload&gt;::empty</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keywordflow">return</span> cache.empty();</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
-</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="foldopen" id="foldopen00221" data-start="{" data-end="}">
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="a02718.html#ad9ac10bba8d695517e08bdbb0d9758b8">  221</a></span><span class="keywordtype">size_t</span> <a class="code hl_function" href="a02718.html#ad9ac10bba8d695517e08bdbb0d9758b8">Cache&lt;TKey, TPayload&gt;::size</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">return</span> cache.size();</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
-</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TKey, <span class="keyword">typename</span> TPayload&gt;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span><span class="keywordtype">void</span> <a class="code hl_class" href="a02718.html">Cache&lt;TKey, TPayload&gt;::checkEviction</a>() {</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">if</span> (cache.size() &gt;= highWatermark) {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <a class="code hl_class" href="a02726.html">FastQueue&lt;TKey&gt;</a>* queue = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keywordflow">switch</span> (evictionPolicy) {</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordflow">case</span> LeastRecentlyAccessed:</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            queue = &amp;readQueue;</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <span class="keywordflow">case</span> LeastRecentlyModified:</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            queue = &amp;writeQueue;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        <span class="keywordflow">case</span> FirstInFirstOut:</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>            queue = &amp;orderQueue;</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>            <a class="code hl_define" href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid eviciton policy in queue: &quot;</span> &lt;&lt; evictionPolicy;</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordflow">while</span> (cache.size() &gt; lowWatermark &amp;&amp; !queue-&gt;<a class="code hl_function" href="a02726.html#a3880207a983db6da30ed87e6878d41d1">empty</a>()) {</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            TKey key;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>            queue-&gt;<a class="code hl_function" href="a02726.html#a473e4d50dea6273f67d2a1fac147106a">pop_back</a>(key);</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            cache.erase(key);</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        }</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>} <span class="comment">// namespace ctr</span></div>
-</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00230_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00230.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00554_html"><div class="ttname"><a href="a00554.html">FastQueue.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02718_html"><div class="ttname"><a href="a02718.html">bl::ctr::Cache</a></div><div class="ttdoc">Auto-evicting cache with several policy options and programmable watermarks.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00023">Cache.hpp:23</a></div></div>
-<div class="ttc" id="aa02718_html_a194882e4066d740241371d9f7d71edce"><div class="ttname"><a href="a02718.html#a194882e4066d740241371d9f7d71edce">bl::ctr::Cache::Cache</a></div><div class="ttdeci">Cache(EvictionPolicy policy=LeastRecentlyAccessed, unsigned int lowWatermark=1000, unsigned int highWatermark=2000)</div><div class="ttdoc">Creates a new cache with the given eviction policy and watermarks.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00137">Cache.hpp:137</a></div></div>
-<div class="ttc" id="aa02718_html_a214d334199384ab8acec0c21336076ed"><div class="ttname"><a href="a02718.html#a214d334199384ab8acec0c21336076ed">bl::ctr::Cache::end</a></div><div class="ttdeci">std::unordered_map&lt; TKey, TPayload &gt;::iterator end()</div><div class="ttdoc">Returns an iterator to the last element in the cache.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00211">Cache.hpp:211</a></div></div>
-<div class="ttc" id="aa02718_html_a29b89eac559197479b0dc62dd4fc9ee7"><div class="ttname"><a href="a02718.html#a29b89eac559197479b0dc62dd4fc9ee7">bl::ctr::Cache::getForOwn</a></div><div class="ttdeci">Item getForOwn(const TKey &amp;key)</div><div class="ttdoc">Returns the storage object to allow calling code to take ownership of the stored item,...</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00162">Cache.hpp:162</a></div></div>
-<div class="ttc" id="aa02718_html_a35949d8d2eaa5e2a5f96167e2646fa83"><div class="ttname"><a href="a02718.html#a35949d8d2eaa5e2a5f96167e2646fa83">bl::ctr::Cache::add</a></div><div class="ttdeci">bool add(const TKey &amp;key, const Item &amp;item)</div><div class="ttdoc">Add an item to the cache. Will fail if the key is already in use.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00149">Cache.hpp:149</a></div></div>
-<div class="ttc" id="aa02718_html_a41254faa86419c89ea579c598b88de58"><div class="ttname"><a href="a02718.html#a41254faa86419c89ea579c598b88de58">bl::ctr::Cache::begin</a></div><div class="ttdeci">std::unordered_map&lt; TKey, TPayload &gt;::iterator begin()</div><div class="ttdoc">Returns an iterator to the first element in the cache.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00206">Cache.hpp:206</a></div></div>
-<div class="ttc" id="aa02718_html_a55ecf6588b624c44b317d8f4401d1c08"><div class="ttname"><a href="a02718.html#a55ecf6588b624c44b317d8f4401d1c08">bl::ctr::Cache::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether or not the cache is empty.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00216">Cache.hpp:216</a></div></div>
-<div class="ttc" id="aa02718_html_a5949a436c3ee5da5ab558a9780ae92cd"><div class="ttname"><a href="a02718.html#a5949a436c3ee5da5ab558a9780ae92cd">bl::ctr::Cache::erase</a></div><div class="ttdeci">bool erase(const TKey &amp;key)</div><div class="ttdoc">Removes the item from the cache and reports if successful.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00193">Cache.hpp:193</a></div></div>
-<div class="ttc" id="aa02718_html_a6bbff396c97cfe9a036c48ae7a956fc0"><div class="ttname"><a href="a02718.html#a6bbff396c97cfe9a036c48ae7a956fc0">bl::ctr::Cache::getForRead</a></div><div class="ttdeci">const TPayload * getForRead(const TKey &amp;key) const</div><div class="ttdoc">Returns an immutible item for reading, if found.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00172">Cache.hpp:172</a></div></div>
-<div class="ttc" id="aa02718_html_a7b9b16d4a5edf2b3f08dc26be605ec2a"><div class="ttname"><a href="a02718.html#a7b9b16d4a5edf2b3f08dc26be605ec2a">bl::ctr::Cache::getForWrite</a></div><div class="ttdeci">TPayload * getForWrite(const TKey &amp;key)</div><div class="ttdoc">Returns a pointer to the given item to be modified, if found.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00182">Cache.hpp:182</a></div></div>
-<div class="ttc" id="aa02718_html_aa28858b622353170b0df73c9f1f21809"><div class="ttname"><a href="a02718.html#aa28858b622353170b0df73c9f1f21809">bl::ctr::Cache::Item</a></div><div class="ttdeci">std::shared_ptr&lt; TPayload &gt; Item</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00025">Cache.hpp:25</a></div></div>
-<div class="ttc" id="aa02718_html_abce31da194ab681dd7b828bab3f2803c"><div class="ttname"><a href="a02718.html#abce31da194ab681dd7b828bab3f2803c">bl::ctr::Cache::EvictionPolicy</a></div><div class="ttdeci">EvictionPolicy</div><div class="ttdoc">Policy that dictates which items are removed when the high watermark is reached.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00031">Cache.hpp:31</a></div></div>
-<div class="ttc" id="aa02718_html_abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e"><div class="ttname"><a href="a02718.html#abce31da194ab681dd7b828bab3f2803cacd97f404e85049dd43e8495572ac748e">bl::ctr::Cache::FirstInFirstOut</a></div><div class="ttdeci">@ FirstInFirstOut</div><div class="ttdoc">Items that were not written recently are purged.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00035">Cache.hpp:34</a></div></div>
-<div class="ttc" id="aa02718_html_abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2"><div class="ttname"><a href="a02718.html#abce31da194ab681dd7b828bab3f2803cad1e655b69a2fdac95ec542a638b365d2">bl::ctr::Cache::LeastRecentlyModified</a></div><div class="ttdeci">@ LeastRecentlyModified</div><div class="ttdoc">Items that were not read or written recently are purged.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00033">Cache.hpp:33</a></div></div>
-<div class="ttc" id="aa02718_html_abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8"><div class="ttname"><a href="a02718.html#abce31da194ab681dd7b828bab3f2803caef503c79d6468bae0d19e47dfada47b8">bl::ctr::Cache::LeastRecentlyAccessed</a></div><div class="ttdeci">@ LeastRecentlyAccessed</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00032">Cache.hpp:32</a></div></div>
-<div class="ttc" id="aa02718_html_ad9ac10bba8d695517e08bdbb0d9758b8"><div class="ttname"><a href="a02718.html#ad9ac10bba8d695517e08bdbb0d9758b8">bl::ctr::Cache::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Returns how many elements are currently contained.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00221">Cache.hpp:221</a></div></div>
-<div class="ttc" id="aa02726_html"><div class="ttname"><a href="a02726.html">bl::ctr::FastQueue</a></div><div class="ttdoc">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) ...</div><div class="ttdef"><b>Definition</b> <a href="a00554_source.html#l00020">FastQueue.hpp:20</a></div></div>
-<div class="ttc" id="aa02726_html_a3880207a983db6da30ed87e6878d41d1"><div class="ttname"><a href="a02726.html#a3880207a983db6da30ed87e6878d41d1">bl::ctr::FastQueue::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether or not the queue is empty.</div><div class="ttdef"><b>Definition</b> <a href="a00554_source.html#l00160">FastQueue.hpp:160</a></div></div>
-<div class="ttc" id="aa02726_html_a473e4d50dea6273f67d2a1fac147106a"><div class="ttname"><a href="a02726.html#a473e4d50dea6273f67d2a1fac147106a">bl::ctr::FastQueue::pop_back</a></div><div class="ttdeci">bool pop_back(T &amp;value)</div><div class="ttdoc">Removes the value in the back of the queue and sets the parameter to the removed value.</div><div class="ttdef"><b>Definition</b> <a href="a00554_source.html#l00134">FastQueue.hpp:134</a></div></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>} <span class="comment">// namespace rg</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00623_html"><div class="ttname"><a href="a00623.html">AssetRef.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04974_html"><div class="ttname"><a href="a04974.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa04990_html"><div class="ttname"><a href="a04990.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00017">AssetRef.hpp:17</a></div></div>
+<div class="ttc" id="aa05046_html"><div class="ttname"><a href="a05046.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00021">GraphAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa05046_html_a4c84c9c08de0afb30a3e03df8a8ecff1"><div class="ttname"><a href="a05046.html#a4c84c9c08de0afb30a3e03df8a8ecff1">bl::rc::rg::GraphAsset::firstAvailableStep</a></div><div class="ttdeci">unsigned int firstAvailableStep</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00024">GraphAsset.hpp:24</a></div></div>
+<div class="ttc" id="aa05046_html_a6215eb2ba33408469b3d677370b66c1c"><div class="ttname"><a href="a05046.html#a6215eb2ba33408469b3d677370b66c1c">bl::rc::rg::GraphAsset::asset</a></div><div class="ttdeci">AssetRef asset</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00022">GraphAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa05046_html_a69717813502845651006ef73afe1d430"><div class="ttname"><a href="a05046.html#a69717813502845651006ef73afe1d430">bl::rc::rg::GraphAsset::outputtedBy</a></div><div class="ttdeci">std::vector&lt; Task * &gt; outputtedBy</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00023">GraphAsset.hpp:23</a></div></div>
+<div class="ttc" id="aa05046_html_aeb346b0d37370e4a771426f047c99d4e"><div class="ttname"><a href="a05046.html#aeb346b0d37370e4a771426f047c99d4e">bl::rc::rg::GraphAsset::GraphAsset</a></div><div class="ttdeci">GraphAsset(Asset *asset)</div><div class="ttdoc">Creates a new graph asset.</div><div class="ttdef"><b>Definition</b> <a href="a00584_source.html#l00031">GraphAsset.hpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

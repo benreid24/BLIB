@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::MemoryOutputBuffer Class Reference</title>
+<title>BLIB: bl::rc::rgi::ShadowMapAsset Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,91 +74,126 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a05030.html">MemoryOutputBuffer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03055.html">rgi</a></li><li class="navelem"><a class="el" href="a05030.html">ShadowMapAsset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a05027.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::MemoryOutputBuffer Class Reference<div class="ingroups"><a class="el" href="a02391.html">Serialization</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::rgi::ShadowMapAsset Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Buffer that allows serializing data to an in-memory buffer.  
+<p>Asset that contains framebuffers for shadow maps.  
  <a href="a05030.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00860_source.html">MemoryOutputBuffer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::MemoryOutputBuffer:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rgi::ShadowMapAsset:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a05030.png" usemap="#bl::serial::MemoryOutputBuffer_map" alt=""/>
-  <map id="bl::serial::MemoryOutputBuffer_map" name="bl::serial::MemoryOutputBuffer_map">
-<area href="a05034.html" title="Interface for outputting serialized data." alt="bl::serial::OutputBuffer" shape="rect" coords="0,0,183,24"/>
+  <img src="a05030.png" usemap="#bl::rc::rgi::ShadowMapAsset_map" alt=""/>
+  <map id="bl::rc::rgi::ShadowMapAsset_map" name="bl::rc::rgi::ShadowMapAsset_map">
+<area href="a04974.html" title="Base class for assets in render graphs." alt="bl::rc::rg::Asset" shape="rect" coords="0,0,168,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2f62b218b50089dbc6174a2697d266e6" id="r_a2f62b218b50089dbc6174a2697d266e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a2f62b218b50089dbc6174a2697d266e6">MemoryOutputBuffer</a> ()=default</td></tr>
-<tr class="memdesc:a2f62b218b50089dbc6174a2697d266e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Memory Output Buffer.  <br /></td></tr>
-<tr class="separator:a2f62b218b50089dbc6174a2697d266e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeac8e552b734b515ee6d4103ebd012f1" id="r_aeac8e552b734b515ee6d4103ebd012f1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#aeac8e552b734b515ee6d4103ebd012f1">~MemoryOutputBuffer</a> ()=default</td></tr>
-<tr class="memdesc:aeac8e552b734b515ee6d4103ebd012f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Memory Output Buffer object.  <br /></td></tr>
-<tr class="separator:aeac8e552b734b515ee6d4103ebd012f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29aafd9858e2a2a245f348a457f8a4ad" id="r_a29aafd9858e2a2a245f348a457f8a4ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a29aafd9858e2a2a245f348a457f8a4ad">reserve</a> (std::size_t capacity)</td></tr>
-<tr class="memdesc:a29aafd9858e2a2a245f348a457f8a4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserves capacity for the serialized output.  <br /></td></tr>
-<tr class="separator:a29aafd9858e2a2a245f348a457f8a4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa14425bbf68b5d3a49ea56ca30c2f15b" id="r_aa14425bbf68b5d3a49ea56ca30c2f15b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#aa14425bbf68b5d3a49ea56ca30c2f15b">write</a> (const char *<a class="el" href="a05030.html#a652db0ba56ef55f634172448d71f6909">data</a>, std::size_t len) override</td></tr>
-<tr class="memdesc:aa14425bbf68b5d3a49ea56ca30c2f15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write some data to the buffer.  <br /></td></tr>
-<tr class="separator:aa14425bbf68b5d3a49ea56ca30c2f15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab78ef537e0bd074e9c965e4535632fb0" id="r_ab78ef537e0bd074e9c965e4535632fb0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#ab78ef537e0bd074e9c965e4535632fb0">good</a> () const override</td></tr>
-<tr class="memdesc:ab78ef537e0bd074e9c965e4535632fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is in a good state.  <br /></td></tr>
-<tr class="separator:ab78ef537e0bd074e9c965e4535632fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a652db0ba56ef55f634172448d71f6909" id="r_a652db0ba56ef55f634172448d71f6909"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a652db0ba56ef55f634172448d71f6909">data</a> () const</td></tr>
-<tr class="memdesc:a652db0ba56ef55f634172448d71f6909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the contained data.  <br /></td></tr>
-<tr class="separator:a652db0ba56ef55f634172448d71f6909"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97c1d806d711f9bf2837d0f193e390f1" id="r_a97c1d806d711f9bf2837d0f193e390f1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a97c1d806d711f9bf2837d0f193e390f1">size</a> () const</td></tr>
-<tr class="memdesc:a97c1d806d711f9bf2837d0f193e390f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the buffer.  <br /></td></tr>
-<tr class="separator:a97c1d806d711f9bf2837d0f193e390f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291281bb0ca796666d20d936505803c8" id="r_a291281bb0ca796666d20d936505803c8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a291281bb0ca796666d20d936505803c8">ShadowMapAsset</a> (std::string_view tag)</td></tr>
+<tr class="memdesc:a291281bb0ca796666d20d936505803c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the shadow map asset.  <br /></td></tr>
+<tr class="separator:a291281bb0ca796666d20d936505803c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7275133b77eecdb80ef5605b2a83b83" id="r_ad7275133b77eecdb80ef5605b2a83b83"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#ad7275133b77eecdb80ef5605b2a83b83">~ShadowMapAsset</a> ()=default</td></tr>
+<tr class="memdesc:ad7275133b77eecdb80ef5605b2a83b83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the shadow map asset.  <br /></td></tr>
+<tr class="separator:ad7275133b77eecdb80ef5605b2a83b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b974d1fa9ac94b07826f402c0b641fd" id="r_a5b974d1fa9ac94b07826f402c0b641fd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05706.html">vk::Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a5b974d1fa9ac94b07826f402c0b641fd">getSpotShadowImage</a> (std::uint32_t index) const</td></tr>
+<tr class="memdesc:a5b974d1fa9ac94b07826f402c0b641fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the image of the spot shadow map at the given index.  <br /></td></tr>
+<tr class="separator:a5b974d1fa9ac94b07826f402c0b641fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d94696c52d3d64bf026dc75525f40ac" id="r_a9d94696c52d3d64bf026dc75525f40ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05702.html">vk::Framebuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a9d94696c52d3d64bf026dc75525f40ac">getSpotShadowFramebuffer</a> (std::uint32_t index)</td></tr>
+<tr class="memdesc:a9d94696c52d3d64bf026dc75525f40ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the framebuffer of the spot shadow map at the given index.  <br /></td></tr>
+<tr class="separator:a9d94696c52d3d64bf026dc75525f40ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5301c793f4786ff04c49021bf91158ea" id="r_a5301c793f4786ff04c49021bf91158ea"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05706.html">vk::Image</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a5301c793f4786ff04c49021bf91158ea">getPointShadowImage</a> (std::uint32_t index) const</td></tr>
+<tr class="memdesc:a5301c793f4786ff04c49021bf91158ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the image of the point shadow map at the given index.  <br /></td></tr>
+<tr class="separator:a5301c793f4786ff04c49021bf91158ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7894171ececf472008ba71471a56da1b" id="r_a7894171ececf472008ba71471a56da1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05702.html">vk::Framebuffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05030.html#a7894171ececf472008ba71471a56da1b">getPointShadowFramebuffer</a> (std::uint32_t index)</td></tr>
+<tr class="memdesc:a7894171ececf472008ba71471a56da1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the framebuffer of the point shadow map at the given index.  <br /></td></tr>
+<tr class="separator:a7894171ececf472008ba71471a56da1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fd6583ff53289c920ab7ebddf4ec7be" id="r_a4fd6583ff53289c920ab7ebddf4ec7be"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a4fd6583ff53289c920ab7ebddf4ec7be">onResize</a> (glm::u32vec2 newSize)</td></tr>
+<tr class="memdesc:a4fd6583ff53289c920ab7ebddf4ec7be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the observer render region changes size.  <br /></td></tr>
+<tr class="separator:a4fd6583ff53289c920ab7ebddf4ec7be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade5f0792cd101a716faa2d6a693c2807" id="r_ade5f0792cd101a716faa2d6a693c2807"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#ade5f0792cd101a716faa2d6a693c2807">onReset</a> ()</td></tr>
+<tr class="memdesc:ade5f0792cd101a716faa2d6a693c2807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the asset is reset before the graph is executed.  <br /></td></tr>
+<tr class="separator:ade5f0792cd101a716faa2d6a693c2807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21f7426568111c24acf8af2ccf3dafd8" id="r_a21f7426568111c24acf8af2ccf3dafd8"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a21f7426568111c24acf8af2ccf3dafd8">getTag</a> () const</td></tr>
+<tr class="memdesc:a21f7426568111c24acf8af2ccf3dafd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the tag of this asset.  <br /></td></tr>
+<tr class="separator:a21f7426568111c24acf8af2ccf3dafd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07e273f81b20f19a0fc963ab01fb5bc9" id="r_a07e273f81b20f19a0fc963ab01fb5bc9"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a07e273f81b20f19a0fc963ab01fb5bc9">getPurpose</a> () const</td></tr>
+<tr class="memdesc:a07e273f81b20f19a0fc963ab01fb5bc9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the purpose of this asset.  <br /></td></tr>
+<tr class="separator:a07e273f81b20f19a0fc963ab01fb5bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41d5c8b6593d33a48d60872677275822" id="r_a41d5c8b6593d33a48d60872677275822"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a41d5c8b6593d33a48d60872677275822">isExternal</a> () const</td></tr>
+<tr class="memdesc:a41d5c8b6593d33a48d60872677275822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the asset was manually created, false if created by the factory.  <br /></td></tr>
+<tr class="separator:a41d5c8b6593d33a48d60872677275822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25fec39141a5791587bee24b40c264de" id="r_a25fec39141a5791587bee24b40c264de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a25fec39141a5791587bee24b40c264de">isTerminal</a> () const</td></tr>
+<tr class="memdesc:a25fec39141a5791587bee24b40c264de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this asset is terminal or if it is intended to be consumed in frame.  <br /></td></tr>
+<tr class="separator:a25fec39141a5791587bee24b40c264de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a10db5fc41697b72ea81b8bbcbbb9e125" id="r_a10db5fc41697b72ea81b8bbcbbb9e125"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a10db5fc41697b72ea81b8bbcbbb9e125">addDependency</a> (std::string_view depTag)</td></tr>
+<tr class="memdesc:a10db5fc41697b72ea81b8bbcbbb9e125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a dependency on another asset. This must be called from the constructor.  <br /></td></tr>
+<tr class="separator:a10db5fc41697b72ea81b8bbcbbb9e125"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4dfd154a7e02bc2cbd1cc74f62791f0f" id="r_a4dfd154a7e02bc2cbd1cc74f62791f0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">getDependency</a> (std::string_view depTag)</td></tr>
+<tr class="memdesc:a4dfd154a7e02bc2cbd1cc74f62791f0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the dependency asset with the given tag. Prefer the index version for performance. Assets are ordered by the order they were added.  <br /></td></tr>
+<tr class="separator:a4dfd154a7e02bc2cbd1cc74f62791f0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a223b5b5b9c58ebf7d8e77157cf26c9c4" id="r_a223b5b5b9c58ebf7d8e77157cf26c9c4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a223b5b5b9c58ebf7d8e77157cf26c9c4">getDependency</a> (unsigned int index)</td></tr>
+<tr class="memdesc:a223b5b5b9c58ebf7d8e77157cf26c9c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the dependency asset at the given index. Does not bounds check.  <br /></td></tr>
+<tr class="separator:a223b5b5b9c58ebf7d8e77157cf26c9c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44e2891487a2dc1ce36351c6bed01bc" id="r_ae44e2891487a2dc1ce36351c6bed01bc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#ae44e2891487a2dc1ce36351c6bed01bc">isCreated</a> () const</td></tr>
+<tr class="memdesc:ae44e2891487a2dc1ce36351c6bed01bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the asset has had create() called.  <br /></td></tr>
+<tr class="separator:ae44e2891487a2dc1ce36351c6bed01bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28fda3e5a56cea20550b53c6d2a1a33b" id="r_a28fda3e5a56cea20550b53c6d2a1a33b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04974.html#abacf305295a7e9309bf9f9f79cd7db41">GraphAssetPool</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04974.html#a28fda3e5a56cea20550b53c6d2a1a33b">getOwnerForLastCreate</a> () const</td></tr>
+<tr class="memdesc:a28fda3e5a56cea20550b53c6d2a1a33b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the owner that create() was called with. Only valid in doCreate.  <br /></td></tr>
+<tr class="separator:a28fda3e5a56cea20550b53c6d2a1a33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Buffer that allows serializing data to an in-memory buffer. </p>
+<div class="textblock"><p>Asset that contains framebuffers for shadow maps. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00860_source.html#l00017">17</a> of file <a class="el" href="a00860_source.html">MemoryOutputBuffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00020">20</a> of file <a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2f62b218b50089dbc6174a2697d266e6" name="a2f62b218b50089dbc6174a2697d266e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f62b218b50089dbc6174a2697d266e6">&#9670;&#160;</a></span>MemoryOutputBuffer()</h2>
+<a id="a291281bb0ca796666d20d936505803c8" name="a291281bb0ca796666d20d936505803c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291281bb0ca796666d20d936505803c8">&#9670;&#160;</a></span>ShadowMapAsset()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::MemoryOutputBuffer::MemoryOutputBuffer </td>
+          <td class="memname">bl::rc::rgi::ShadowMapAsset::ShadowMapAsset </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Memory Output Buffer. </p>
+<p>Creates the shadow map asset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The asset tag </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00011">11</a> of file <a class="el" href="a02213_source.html">ShadowMapAsset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aeac8e552b734b515ee6d4103ebd012f1" name="aeac8e552b734b515ee6d4103ebd012f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeac8e552b734b515ee6d4103ebd012f1">&#9670;&#160;</a></span>~MemoryOutputBuffer()</h2>
+<a id="ad7275133b77eecdb80ef5605b2a83b83" name="ad7275133b77eecdb80ef5605b2a83b83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7275133b77eecdb80ef5605b2a83b83">&#9670;&#160;</a></span>~ShadowMapAsset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +202,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::serial::MemoryOutputBuffer::~MemoryOutputBuffer </td>
+          <td class="memname">virtual bl::rc::rgi::ShadowMapAsset::~ShadowMapAsset </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -180,34 +215,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Memory Output Buffer object. </p>
+<p>Destroys the shadow map asset. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a652db0ba56ef55f634172448d71f6909" name="a652db0ba56ef55f634172448d71f6909"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a652db0ba56ef55f634172448d71f6909">&#9670;&#160;</a></span>data()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char * bl::serial::MemoryOutputBuffer::data </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a pointer to the contained data. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00020">20</a> of file <a class="el" href="a01982_source.html">MemoryOutputBuffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab78ef537e0bd074e9c965e4535632fb0" name="ab78ef537e0bd074e9c965e4535632fb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab78ef537e0bd074e9c965e4535632fb0">&#9670;&#160;</a></span>good()</h2>
+<a id="a10db5fc41697b72ea81b8bbcbbb9e125" name="a10db5fc41697b72ea81b8bbcbbb9e125"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10db5fc41697b72ea81b8bbcbbb9e125">&#9670;&#160;</a></span>addDependency()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -216,78 +230,34 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::MemoryOutputBuffer::good </td>
+          <td class="memname">void bl::rc::rg::Asset::addDependency </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>depTag</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the buffer is in a good state. </p>
-
-<p>Implements <a class="el" href="a05034.html#a11768f89bd5cadbcc6c33714793cca69">bl::serial::OutputBuffer</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00018">18</a> of file <a class="el" href="a01982_source.html">MemoryOutputBuffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a29aafd9858e2a2a245f348a457f8a4ad" name="a29aafd9858e2a2a245f348a457f8a4ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29aafd9858e2a2a245f348a457f8a4ad">&#9670;&#160;</a></span>reserve()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::serial::MemoryOutputBuffer::reserve </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>capacity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reserves capacity for the serialized output. </p>
+<p>Registers a dependency on another asset. This must be called from the constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">capacity</td><td>The number of bytes to ensure are available </td></tr>
+    <tr><td class="paramname">depTag</td><td>The tag of the dependency to register </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00009">9</a> of file <a class="el" href="a01982_source.html">MemoryOutputBuffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00022">22</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a97c1d806d711f9bf2837d0f193e390f1" name="a97c1d806d711f9bf2837d0f193e390f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97c1d806d711f9bf2837d0f193e390f1">&#9670;&#160;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t bl::serial::MemoryOutputBuffer::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the size of the buffer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00022">22</a> of file <a class="el" href="a01982_source.html">MemoryOutputBuffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa14425bbf68b5d3a49ea56ca30c2f15b" name="aa14425bbf68b5d3a49ea56ca30c2f15b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa14425bbf68b5d3a49ea56ca30c2f15b">&#9670;&#160;</a></span>write()</h2>
+<a id="a4dfd154a7e02bc2cbd1cc74f62791f0f" name="a4dfd154a7e02bc2cbd1cc74f62791f0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dfd154a7e02bc2cbd1cc74f62791f0f">&#9670;&#160;</a></span>getDependency() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,55 +266,466 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::MemoryOutputBuffer::write </td>
+          <td class="memname"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> * bl::rc::rg::Asset::getDependency </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>depTag</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Write some data to the buffer. </p>
+<p>Returns the dependency asset with the given tag. Prefer the index version for performance. Assets are ordered by the order they were added. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>The data to write </td></tr>
-    <tr><td class="paramname">len</td><td>The length of the data to write </td></tr>
+    <tr><td class="paramname">depTag</td><td>The tag of the dependency to get </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success false on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The dependency asset with the given tag, or nullptr if not found </dd></dl>
 
-<p>Implements <a class="el" href="a05034.html#a3873541dba334d85540d95f4cf1f86cb">bl::serial::OutputBuffer</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00031">31</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a01982_source.html#l00011">11</a> of file <a class="el" href="a01982_source.html">MemoryOutputBuffer.cpp</a>.</p>
+</div>
+</div>
+<a id="a223b5b5b9c58ebf7d8e77157cf26c9c4" name="a223b5b5b9c58ebf7d8e77157cf26c9c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a223b5b5b9c58ebf7d8e77157cf26c9c4">&#9670;&#160;</a></span>getDependency() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04974.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a> * bl::rc::rg::Asset::getDependency </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the dependency asset at the given index. Does not bounds check. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The index of the dependency to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The dependency asset at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00044">44</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a28fda3e5a56cea20550b53c6d2a1a33b" name="a28fda3e5a56cea20550b53c6d2a1a33b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28fda3e5a56cea20550b53c6d2a1a33b">&#9670;&#160;</a></span>getOwnerForLastCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04974.html#abacf305295a7e9309bf9f9f79cd7db41">GraphAssetPool</a> * bl::rc::rg::Asset::getOwnerForLastCreate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the owner that create() was called with. Only valid in doCreate. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00150">150</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7894171ececf472008ba71471a56da1b" name="a7894171ececf472008ba71471a56da1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7894171ececf472008ba71471a56da1b">&#9670;&#160;</a></span>getPointShadowFramebuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05702.html">vk::Framebuffer</a> &amp; bl::rc::rgi::ShadowMapAsset::getPointShadowFramebuffer </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the framebuffer of the point shadow map at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The framebuffer index to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The framebuffer of the point shadow map at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00070">70</a> of file <a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5301c793f4786ff04c49021bf91158ea" name="a5301c793f4786ff04c49021bf91158ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5301c793f4786ff04c49021bf91158ea">&#9670;&#160;</a></span>getPointShadowImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05706.html">vk::Image</a> &amp; bl::rc::rgi::ShadowMapAsset::getPointShadowImage </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the image of the point shadow map at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The image index to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The image of the point shadow map at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00060">60</a> of file <a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a07e273f81b20f19a0fc963ab01fb5bc9" name="a07e273f81b20f19a0fc963ab01fb5bc9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07e273f81b20f19a0fc963ab01fb5bc9">&#9670;&#160;</a></span>getPurpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view bl::rc::rg::Asset::getPurpose </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the purpose of this asset. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00097">97</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d94696c52d3d64bf026dc75525f40ac" name="a9d94696c52d3d64bf026dc75525f40ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d94696c52d3d64bf026dc75525f40ac">&#9670;&#160;</a></span>getSpotShadowFramebuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05702.html">vk::Framebuffer</a> &amp; bl::rc::rgi::ShadowMapAsset::getSpotShadowFramebuffer </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the framebuffer of the spot shadow map at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The framebuffer index to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The framebuffer of the spot shadow map at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00050">50</a> of file <a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5b974d1fa9ac94b07826f402c0b641fd" name="a5b974d1fa9ac94b07826f402c0b641fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b974d1fa9ac94b07826f402c0b641fd">&#9670;&#160;</a></span>getSpotShadowImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05706.html">vk::Image</a> &amp; bl::rc::rgi::ShadowMapAsset::getSpotShadowImage </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the image of the spot shadow map at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The image index to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The image of the spot shadow map at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00040">40</a> of file <a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a21f7426568111c24acf8af2ccf3dafd8" name="a21f7426568111c24acf8af2ccf3dafd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21f7426568111c24acf8af2ccf3dafd8">&#9670;&#160;</a></span>getTag()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view bl::rc::rg::Asset::getTag </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the tag of this asset. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00092">92</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae44e2891487a2dc1ce36351c6bed01bc" name="ae44e2891487a2dc1ce36351c6bed01bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44e2891487a2dc1ce36351c6bed01bc">&#9670;&#160;</a></span>isCreated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::Asset::isCreated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the asset has had create() called. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00145">145</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41d5c8b6593d33a48d60872677275822" name="a41d5c8b6593d33a48d60872677275822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41d5c8b6593d33a48d60872677275822">&#9670;&#160;</a></span>isExternal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::Asset::isExternal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if the asset was manually created, false if created by the factory. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00102">102</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a25fec39141a5791587bee24b40c264de" name="a25fec39141a5791587bee24b40c264de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25fec39141a5791587bee24b40c264de">&#9670;&#160;</a></span>isTerminal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::Asset::isTerminal </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this asset is terminal or if it is intended to be consumed in frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00107">107</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ade5f0792cd101a716faa2d6a693c2807" name="ade5f0792cd101a716faa2d6a693c2807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade5f0792cd101a716faa2d6a693c2807">&#9670;&#160;</a></span>onReset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::rc::rg::Asset::onReset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the asset is reset before the graph is executed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00692_source.html#l00087">87</a> of file <a class="el" href="a00692_source.html">Asset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4fd6583ff53289c920ab7ebddf4ec7be" name="a4fd6583ff53289c920ab7ebddf4ec7be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fd6583ff53289c920ab7ebddf4ec7be">&#9670;&#160;</a></span>onResize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::Asset::onResize </td>
+          <td>(</td>
+          <td class="paramtype">glm::u32vec2&#160;</td>
+          <td class="paramname"><em>newSize</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the observer render region changes size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newSize</td><td>The new size of the observer render region </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02180_source.html#l00110">110</a> of file <a class="el" href="a02180_source.html">Asset.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/Buffers/<a class="el" href="a00860_source.html">MemoryOutputBuffer.hpp</a></li>
-<li>src/Serialization/Buffers/<a class="el" href="a01982_source.html">MemoryOutputBuffer.cpp</a></li>
+<li>include/BLIB/Render/Graph/Assets/<a class="el" href="a00662_source.html">ShadowMapAsset.hpp</a></li>
+<li>src/Render/Graph/Assets/<a class="el" href="a02213_source.html">ShadowMapAsset.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

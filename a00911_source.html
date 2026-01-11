@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics/Components/OverlayScalable.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/ShadowMapBinding.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,144 +79,93 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_58ecc6b00f968b16d73d81661642db7f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">OverlayScalable.hpp</div></div>
+  <div class="headertitle"><div class="title">ShadowMapBinding.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00911.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_COMPONENTS_OVERLAYSCALABLE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_COMPONENTS_OVERLAYSCALABLE_HPP</span></div>
+<a href="a00911.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a06373.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a06364.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/Render/Descriptors/Generic/Binding.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00833.html">BLIB/Render/Lighting/Scene3DLighting.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00785.html">BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>sys</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">class </span>OverlayScalerSystem;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span><a class="code hl_enumvalue" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3">Overlay</a>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>gfx</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>bcom</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03294.html">   30</a></span><span class="keyword">class </span><a class="code hl_class" href="a03294.html">OverlayScalable</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03302.html">Transform2D</a> {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_function" href="a03294.html#ae7b826fbfaae9417fbe9a6a1c7f5f342">OverlayScalable</a>();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a02658.html">com::OverlayScaler</a>&amp; <a class="code hl_function" href="a03294.html#aeec49505849a5429a7616af8fad3933a">getOverlayScaler</a>();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    glm::vec2 <a class="code hl_function" href="a03294.html#aaff14d3d3930d2857327c80177b9cfce">getLocalSize</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    glm::vec2 <a class="code hl_function" href="a03294.html#ab28043f30a2b15854d72dfbd6789634f">getGlobalSize</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>dsi</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Scene3DInstance;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04858.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="a04858.html">ShadowMapBinding</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04894.html">ds::Binding</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="a04858.html#a648db6e7c58badee1b8eb4f41e74719a">ShadowMapBinding</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a05526.html">sri::ShadowMapCameraShaderResource</a>* storage;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">ds::DescriptorSetInstance::EntityBindMode</a> getBindMode()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a04882.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">ds::DescriptorSetInstance::EntityBindMode::Bindless</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">ds::DescriptorSetInstance::SpeedBucketSetting</a> getSpeedMode()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a04882.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">ds::DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_struct" href="a05838.html">vk::VulkanLayer</a>&amp; vulkanState, <a class="code hl_struct" href="a04922.html">ds::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> writeSet(<a class="code hl_class" href="a04930.html">ds::SetWriteHelper</a>&amp; writer, VkDescriptorSet set, <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                          std::uint32_t frameIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> allocateObject(<a class="code hl_struct" href="a03542.html">ecs::Entity</a>, <a class="code hl_struct" href="a05438.html">scene::Key</a>)<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> releaseObject(<a class="code hl_struct" href="a03542.html">ecs::Entity</a>, <a class="code hl_struct" href="a05438.html">scene::Key</a>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onFrameStart() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> staticDescriptorUpdateRequired()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> dynamicDescriptorUpdateRequired()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> std::uint32_t getDynamicOffsetForPipeline(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                                      VkPipelineLayout, std::uint32_t,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                      <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">const</span> sf::FloatRect&amp; <a class="code hl_function" href="a03294.html#a546ad65b2fbaa4a7d97cfe7f52de7901">getTargetRegion</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#a74f720c686e620743c57c1e49b1a5d93">setScissorToSelf</a>(<span class="keywordtype">bool</span> setToSelf = <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">create</a>(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine, <a class="code hl_struct" href="a02890.html">ecs::Entity</a> entity, TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#a4f1e81a4d4e62cbc478b338488fb7202">setLocalSize</a>(<span class="keyword">const</span> glm::vec2&amp; size);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#ad338c1830292172ce58b70c5e65cf349">setLocalBounds</a>(<span class="keyword">const</span> sf::FloatRect&amp; bounds);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a03294.html#af5faca7d5a139a40733983edb5f5b3ae">   95</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#af5faca7d5a139a40733983edb5f5b3ae">ensureLocalSizeUpdated</a>() = 0;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_class" href="a05234.html">sys::OverlayScalerSystem</a>* scalerSystem;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_class" href="a02938.html">ecs::Registry</a>* registry;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_struct" href="a02890.html">ecs::Entity</a> ecsId;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_class" href="a02658.html">com::OverlayScaler</a>* handle;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a03294.html#a4a6a3be2932b640ceb285770c5346ff3">  103</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05234.html">sys::OverlayScalerSystem</a>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a04858.html#a98f9552925093268ac75bc5a878dd013">   53</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04890.html">ds::Bindings</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
 </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno"><a class="line" href="a03294.html#aeec49505849a5429a7616af8fad3933a">  108</a></span><span class="keyword">inline</span> <a class="code hl_class" href="a02658.html">com::OverlayScaler</a>&amp; <a class="code hl_function" href="a03294.html#aeec49505849a5429a7616af8fad3933a">OverlayScalable::getOverlayScaler</a>() { <span class="keywordflow">return</span> *handle; }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00111" data-start="{" data-end="}">
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a03294.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">  111</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">OverlayScalable::create</a>(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine, <a class="code hl_struct" href="a02890.html">ecs::Entity</a> entity, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    scalerSystem = &amp;engine.<a class="code hl_function" href="a03046.html#af6edd720ae9836cefbbd26d99de572ea">systems</a>().<a class="code hl_function" href="a03134.html#aafefb6bd9fcc7e73f643e47167f79849">getSystem</a>&lt;<a class="code hl_class" href="a05234.html">sys::OverlayScalerSystem</a>&gt;();</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    registry     = &amp;engine.<a class="code hl_function" href="a03046.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">ecs</a>();</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    ecsId        = entity;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <a class="code hl_function" href="a03302.html#a5a9b364e0644b04edeb6ecb590886a45">Transform2D::create</a>(*registry, entity, std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    handle = registry-&gt;emplaceComponent&lt;<a class="code hl_class" href="a02658.html">com::OverlayScaler</a>&gt;(entity);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
-</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="a03294.html#a4f1e81a4d4e62cbc478b338488fb7202">  120</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#a4f1e81a4d4e62cbc478b338488fb7202">OverlayScalable::setLocalSize</a>(<span class="keyword">const</span> glm::vec2&amp; size) {</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    handle-&gt;<a class="code hl_function" href="a02658.html#a30514be96ed2f37bc00eb2e1798cc7b5">setEntityBounds</a>({0.f, 0.f, size.x, size.y});</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
-</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="a03294.html#ad338c1830292172ce58b70c5e65cf349">  124</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03294.html#ad338c1830292172ce58b70c5e65cf349">OverlayScalable::setLocalBounds</a>(<span class="keyword">const</span> sf::FloatRect&amp; bounds) {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    handle-&gt;<a class="code hl_function" href="a02658.html#a30514be96ed2f37bc00eb2e1798cc7b5">setEntityBounds</a>(bounds);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
-</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="a03294.html#a546ad65b2fbaa4a7d97cfe7f52de7901">  128</a></span><span class="keyword">inline</span> <span class="keyword">const</span> sf::FloatRect&amp; <a class="code hl_function" href="a03294.html#a546ad65b2fbaa4a7d97cfe7f52de7901">OverlayScalable::getTargetRegion</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">return</span> handle-&gt;cachedTargetRegion;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>}</div>
-</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>} <span class="comment">// namespace bcom</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">OverlayScaler.hpp</a></div></div>
-<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">SceneObjectRef.hpp</a></div></div>
-<div class="ttc" id="aa02388_html_gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3"><div class="ttname"><a href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3">bl::rc::RenderPhase::Overlay</a></div><div class="ttdeci">@ Overlay</div><div class="ttdoc">Represents rendering to UI overlay.</div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02658_html"><div class="ttname"><a href="a02658.html">bl::com::OverlayScaler</a></div><div class="ttdoc">Component used to scale entities in overlays according to fixed rules. sys::Overlay scaler ensures th...</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00040">OverlayScaler.hpp:40</a></div></div>
-<div class="ttc" id="aa02658_html_a30514be96ed2f37bc00eb2e1798cc7b5"><div class="ttname"><a href="a02658.html#a30514be96ed2f37bc00eb2e1798cc7b5">bl::com::OverlayScaler::setEntityBounds</a></div><div class="ttdeci">void setEntityBounds(const sf::FloatRect &amp;bounds)</div><div class="ttdoc">Sets the pre-transform bounds of the entity. Used in scaling calculations.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00052">OverlayScaler.cpp:52</a></div></div>
-<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02938_html"><div class="ttname"><a href="a02938.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00034">Registry.hpp:34</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa03046_html_a25e3869bfc4a1fefd83bcd5773c7a5ef"><div class="ttname"><a href="a03046.html#a25e3869bfc4a1fefd83bcd5773c7a5ef">bl::engine::Engine::ecs</a></div><div class="ttdeci">ecs::Registry &amp; ecs()</div><div class="ttdoc">Returns a reference to the engine wide entity registry.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00299">Engine.hpp:299</a></div></div>
-<div class="ttc" id="aa03046_html_af6edd720ae9836cefbbd26d99de572ea"><div class="ttname"><a href="a03046.html#af6edd720ae9836cefbbd26d99de572ea">bl::engine::Engine::systems</a></div><div class="ttdeci">Systems &amp; systems()</div><div class="ttdoc">Returns the systems registry of the engine.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00301">Engine.hpp:301</a></div></div>
-<div class="ttc" id="aa03134_html_aafefb6bd9fcc7e73f643e47167f79849"><div class="ttname"><a href="a03134.html#aafefb6bd9fcc7e73f643e47167f79849">bl::engine::Systems::getSystem</a></div><div class="ttdeci">T &amp; getSystem()</div><div class="ttdoc">Returns a reference to the given system. System must exist.</div><div class="ttdef"><b>Definition</b> <a href="a06895_source.html#l00229">Systems.hpp:229</a></div></div>
-<div class="ttc" id="aa03294_html"><div class="ttname"><a href="a03294.html">bl::gfx::bcom::OverlayScalable</a></div><div class="ttdoc">Base component that manages and provides a Transform2D, OverlayScaler, and Viewport.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00030">OverlayScalable.hpp:30</a></div></div>
-<div class="ttc" id="aa03294_html_a4f1e81a4d4e62cbc478b338488fb7202"><div class="ttname"><a href="a03294.html#a4f1e81a4d4e62cbc478b338488fb7202">bl::gfx::bcom::OverlayScalable::setLocalSize</a></div><div class="ttdeci">void setLocalSize(const glm::vec2 &amp;size)</div><div class="ttdoc">Sets the pre-transform size of this entity.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00120">OverlayScalable.hpp:120</a></div></div>
-<div class="ttc" id="aa03294_html_a546ad65b2fbaa4a7d97cfe7f52de7901"><div class="ttname"><a href="a03294.html#a546ad65b2fbaa4a7d97cfe7f52de7901">bl::gfx::bcom::OverlayScalable::getTargetRegion</a></div><div class="ttdeci">const sf::FloatRect &amp; getTargetRegion() const</div><div class="ttdoc">Returns the parent bounds in overlay space.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00128">OverlayScalable.hpp:128</a></div></div>
-<div class="ttc" id="aa03294_html_a74f720c686e620743c57c1e49b1a5d93"><div class="ttname"><a href="a03294.html#a74f720c686e620743c57c1e49b1a5d93">bl::gfx::bcom::OverlayScalable::setScissorToSelf</a></div><div class="ttdeci">void setScissorToSelf(bool setToSelf=true)</div><div class="ttdoc">Helper method to set the viewport to the region the drawable is in.</div><div class="ttdef"><b>Definition</b> <a href="a02024_source.html#l00019">OverlayScalable.cpp:19</a></div></div>
-<div class="ttc" id="aa03294_html_aaff14d3d3930d2857327c80177b9cfce"><div class="ttname"><a href="a03294.html#aaff14d3d3930d2857327c80177b9cfce">bl::gfx::bcom::OverlayScalable::getLocalSize</a></div><div class="ttdeci">glm::vec2 getLocalSize() const</div><div class="ttdoc">Returns the pre-transform size of this entity.</div><div class="ttdef"><b>Definition</b> <a href="a02024_source.html#l00024">OverlayScalable.cpp:24</a></div></div>
-<div class="ttc" id="aa03294_html_ab28043f30a2b15854d72dfbd6789634f"><div class="ttname"><a href="a03294.html#ab28043f30a2b15854d72dfbd6789634f">bl::gfx::bcom::OverlayScalable::getGlobalSize</a></div><div class="ttdeci">glm::vec2 getGlobalSize() const</div><div class="ttdoc">Returns the post-transform size in Overlay space.</div><div class="ttdef"><b>Definition</b> <a href="a02024_source.html#l00030">OverlayScalable.cpp:30</a></div></div>
-<div class="ttc" id="aa03294_html_ab91b8fbcaf4f5f397b7ab5d412befb3a"><div class="ttname"><a href="a03294.html#ab91b8fbcaf4f5f397b7ab5d412befb3a">bl::gfx::bcom::OverlayScalable::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, ecs::Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the OverlayScaler and Transform2D in the ECS.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00111">OverlayScalable.hpp:111</a></div></div>
-<div class="ttc" id="aa03294_html_ad338c1830292172ce58b70c5e65cf349"><div class="ttname"><a href="a03294.html#ad338c1830292172ce58b70c5e65cf349">bl::gfx::bcom::OverlayScalable::setLocalBounds</a></div><div class="ttdeci">void setLocalBounds(const sf::FloatRect &amp;bounds)</div><div class="ttdoc">Sets the pre-transform bounds of the entity. Use if bound corner is not (0, 0)</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00124">OverlayScalable.hpp:124</a></div></div>
-<div class="ttc" id="aa03294_html_ae7b826fbfaae9417fbe9a6a1c7f5f342"><div class="ttname"><a href="a03294.html#ae7b826fbfaae9417fbe9a6a1c7f5f342">bl::gfx::bcom::OverlayScalable::OverlayScalable</a></div><div class="ttdeci">OverlayScalable()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a02024_source.html#l00014">OverlayScalable.cpp:14</a></div></div>
-<div class="ttc" id="aa03294_html_aeec49505849a5429a7616af8fad3933a"><div class="ttname"><a href="a03294.html#aeec49505849a5429a7616af8fad3933a">bl::gfx::bcom::OverlayScalable::getOverlayScaler</a></div><div class="ttdeci">com::OverlayScaler &amp; getOverlayScaler()</div><div class="ttdoc">Returns the OverlayScaler of this entity.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00108">OverlayScalable.hpp:108</a></div></div>
-<div class="ttc" id="aa03294_html_af5faca7d5a139a40733983edb5f5b3ae"><div class="ttname"><a href="a03294.html#af5faca7d5a139a40733983edb5f5b3ae">bl::gfx::bcom::OverlayScalable::ensureLocalSizeUpdated</a></div><div class="ttdeci">virtual void ensureLocalSizeUpdated()=0</div><div class="ttdoc">Called when the local size is queried.</div></div>
-<div class="ttc" id="aa03302_html"><div class="ttname"><a href="a03302.html">bl::gfx::bcom::Transform2D</a></div><div class="ttdoc">Base component class for Drawables that require a 2d transform.</div><div class="ttdef"><b>Definition</b> <a href="a06364_source.html#l00019">Transform2D.hpp:19</a></div></div>
-<div class="ttc" id="aa03302_html_a5a9b364e0644b04edeb6ecb590886a45"><div class="ttname"><a href="a03302.html#a5a9b364e0644b04edeb6ecb590886a45">bl::gfx::bcom::Transform2D::create</a></div><div class="ttdeci">void create(ecs::Registry &amp;registry, ecs::Entity entity, TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates the transform in the ECS.</div><div class="ttdef"><b>Definition</b> <a href="a06364_source.html#l00059">Transform2D.hpp:59</a></div></div>
-<div class="ttc" id="aa05234_html"><div class="ttname"><a href="a05234.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition</b> <a href="a00248_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
-<div class="ttc" id="aa06364_html"><div class="ttname"><a href="a06364.html">Transform2D.hpp</a></div></div>
-<div class="ttc" id="aa06373_html"><div class="ttname"><a href="a06373.html">Engine.hpp</a></div></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace dsi</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00785_html"><div class="ttname"><a href="a00785.html">ShadowMapCameraShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa00833_html"><div class="ttname"><a href="a00833.html">Scene3DLighting.hpp</a></div></div>
+<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">Binding.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa04858_html"><div class="ttname"><a href="a04858.html">bl::rc::dsi::ShadowMapBinding</a></div><div class="ttdoc">Binding for light camera matrices for rendering shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00023">ShadowMapBinding.hpp:23</a></div></div>
+<div class="ttc" id="aa04858_html_a648db6e7c58badee1b8eb4f41e74719a"><div class="ttname"><a href="a04858.html#a648db6e7c58badee1b8eb4f41e74719a">bl::rc::dsi::ShadowMapBinding::ShadowMapBinding</a></div><div class="ttdeci">ShadowMapBinding()</div><div class="ttdoc">Creates the binding.</div><div class="ttdef"><b>Definition</b> <a href="a02384_source.html#l00012">ShadowMapBinding.cpp:12</a></div></div>
+<div class="ttc" id="aa04882_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a04882.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a08494_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa04882_html_a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"><div class="ttname"><a href="a04882.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">bl::rc::ds::DescriptorSetInstance::SpeedAgnostic</a></div><div class="ttdeci">@ SpeedAgnostic</div><div class="ttdef"><b>Definition</b> <a href="a08494_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa04882_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a04882.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a08494_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa04882_html_a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957"><div class="ttname"><a href="a04882.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">bl::rc::ds::DescriptorSetInstance::Bindless</a></div><div class="ttdeci">@ Bindless</div><div class="ttdef"><b>Definition</b> <a href="a08494_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa04890_html"><div class="ttname"><a href="a04890.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a00989_source.html#l00023">Bindings.hpp:23</a></div></div>
+<div class="ttc" id="aa04894_html"><div class="ttname"><a href="a04894.html">bl::rc::ds::Binding</a></div><div class="ttdoc">Base class for generic descriptor set binding providers.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00031">Binding.hpp:31</a></div></div>
+<div class="ttc" id="aa04922_html"><div class="ttname"><a href="a04922.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a08536_source.html#l00030">InitContext.hpp:30</a></div></div>
+<div class="ttc" id="aa04930_html"><div class="ttname"><a href="a04930.html">bl::rc::ds::SetWriteHelper</a></div><div class="ttdoc">Utility to perform arbitrary descriptor set writes using stack allocated memory.</div><div class="ttdef"><b>Definition</b> <a href="a00974_source.html#l00018">SetWriteHelper.hpp:18</a></div></div>
+<div class="ttc" id="aa05438_html"><div class="ttname"><a href="a05438.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa05494_html"><div class="ttname"><a href="a05494.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="ttc" id="aa05526_html"><div class="ttname"><a href="a05526.html">bl::rc::sr::BufferShaderResource</a></div><div class="ttdoc">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.</div><div class="ttdef"><b>Definition</b> <a href="a00770_source.html#l00024">BufferShaderResource.hpp:24</a></div></div>
+<div class="ttc" id="aa05838_html"><div class="ttname"><a href="a05838.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a00401_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

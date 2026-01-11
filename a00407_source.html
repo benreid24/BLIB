@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Vulkan/RenderPass.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,57 +79,92 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Engine.hpp</div></div>
+  <div class="headertitle"><div class="title">RenderPass.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00407.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_HPP</span></div>
+<a href="a00407.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_VULKAN_RENDERPASS_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_VULKAN_RENDERPASS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00359.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a06373.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a06379.html">BLIB/Engine/Events.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00380.html">BLIB/Engine/Events/Worlds.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a06385.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00362.html">BLIB/Engine/FrameStage.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00353.html">BLIB/Engine/Player.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Engine/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00356.html">BLIB/Engine/Settings.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a06880.html">BLIB/Engine/State.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a06865.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a06895.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a06388.html">BLIB/Engine/Window.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a00398.html">BLIB/Engine/Worker.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Engine/World.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Engine/Worlds/BasicWorld.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Engine/Worlds/World2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">BasicWorld.hpp</a></div></div>
-<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">World2D.hpp</a></div></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">World.hpp</a></div></div>
-<div class="ttc" id="aa00353_html"><div class="ttname"><a href="a00353.html">Player.hpp</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Settings.hpp</a></div></div>
-<div class="ttc" id="aa00359_html"><div class="ttname"><a href="a00359.html">Configuration.hpp</a></div></div>
-<div class="ttc" id="aa00362_html"><div class="ttname"><a href="a00362.html">FrameStage.hpp</a></div></div>
-<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00380_html"><div class="ttname"><a href="a00380.html">Worlds.hpp</a></div></div>
-<div class="ttc" id="aa00398_html"><div class="ttname"><a href="a00398.html">Worker.hpp</a></div></div>
-<div class="ttc" id="aa06373_html"><div class="ttname"><a href="a06373.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa06379_html"><div class="ttname"><a href="a06379.html">Events.hpp</a></div></div>
-<div class="ttc" id="aa06385_html"><div class="ttname"><a href="a06385.html">Flags.hpp</a></div></div>
-<div class="ttc" id="aa06388_html"><div class="ttname"><a href="a06388.html">Window.hpp</a></div></div>
-<div class="ttc" id="aa06865_html"><div class="ttname"><a href="a06865.html">System.hpp</a></div></div>
-<div class="ttc" id="aa06880_html"><div class="ttname"><a href="a06880.html">State.hpp</a></div></div>
-<div class="ttc" id="aa06895_html"><div class="ttname"><a href="a06895.html">Systems.hpp</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00383.html">BLIB/Render/Events/RenderPassInvalidated.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00392.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00398.html">BLIB/Render/Events/TextureFormatChanged.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00437.html">BLIB/Render/Vulkan/RenderPassParameters.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a08500.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a07987.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05770.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="a05770.html">RenderPass</a> : <span class="keyword">public</span> <a class="code hl_class" href="a06386.html">sig::Listener</a>&lt;event::SettingsChanged, event::TextureFormatChanged&gt; {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="a05770.html">RenderPass</a>(std::uint32_t <span class="keywordtype">id</span>, <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer, <a class="code hl_class" href="a05774.html">RenderPassParameters</a>&amp;&amp; params);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_function" href="a05770.html#abd170528aea214831e7e4f49d515dd62">~RenderPass</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    VkRenderPass <a class="code hl_function" href="a05770.html#af0517713906c41542848e226cffbe65d">rawPass</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::uint32_t <a class="code hl_function" href="a05770.html#a16ceb0e91431dab0f443244ea7fb24cc">getId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05770.html#aab6809ecc5ee766fd1f8bc923739d506">   55</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a05774.html">RenderPassParameters</a>&amp; <a class="code hl_function" href="a05770.html#aab6809ecc5ee766fd1f8bc923739d506">getCreateParams</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> createParams; }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> std::uint32_t id;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="a05774.html">RenderPassParameters</a> createParams;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    VkRenderPass renderPass;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <a class="code hl_class" href="a06374.html">sig::Emitter&lt;event::RenderPassInvalidated&gt;</a> emitter;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a04954.html">event::SettingsChanged</a>&amp; e) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a04962.html">event::TextureFormatChanged</a>&amp; e) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">void</span> recreate();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> doCreate();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a05770.html#af0517713906c41542848e226cffbe65d">   72</a></span><span class="keyword">inline</span> VkRenderPass <a class="code hl_function" href="a05770.html#af0517713906c41542848e226cffbe65d">RenderPass::rawPass</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderPass; }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a05770.html#a16ceb0e91431dab0f443244ea7fb24cc">   74</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a05770.html#a16ceb0e91431dab0f443244ea7fb24cc">RenderPass::getId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> id; }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00383_html"><div class="ttname"><a href="a00383.html">RenderPassInvalidated.hpp</a></div></div>
+<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">SettingsChanged.hpp</a></div></div>
+<div class="ttc" id="aa00398_html"><div class="ttname"><a href="a00398.html">TextureFormatChanged.hpp</a></div></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
+<div class="ttc" id="aa00437_html"><div class="ttname"><a href="a00437.html">RenderPassParameters.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04954_html"><div class="ttname"><a href="a04954.html">bl::rc::event::SettingsChanged</a></div><div class="ttdoc">Fired when renderer settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00017">SettingsChanged.hpp:17</a></div></div>
+<div class="ttc" id="aa04962_html"><div class="ttname"><a href="a04962.html">bl::rc::event::TextureFormatChanged</a></div><div class="ttdoc">Fired when the underlying VkFormat for a semantic texture format changes.</div><div class="ttdef"><b>Definition</b> <a href="a00398_source.html#l00022">TextureFormatChanged.hpp:22</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05770_html"><div class="ttname"><a href="a05770.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition</b> <a href="a00407_source.html#l00025">RenderPass.hpp:25</a></div></div>
+<div class="ttc" id="aa05770_html_a16ceb0e91431dab0f443244ea7fb24cc"><div class="ttname"><a href="a05770.html#a16ceb0e91431dab0f443244ea7fb24cc">bl::rc::vk::RenderPass::getId</a></div><div class="ttdeci">std::uint32_t getId() const</div><div class="ttdoc">Returns the id of the render pass.</div><div class="ttdef"><b>Definition</b> <a href="a00407_source.html#l00074">RenderPass.hpp:74</a></div></div>
+<div class="ttc" id="aa05770_html_aab6809ecc5ee766fd1f8bc923739d506"><div class="ttname"><a href="a05770.html#aab6809ecc5ee766fd1f8bc923739d506">bl::rc::vk::RenderPass::getCreateParams</a></div><div class="ttdeci">const RenderPassParameters &amp; getCreateParams() const</div><div class="ttdoc">Returns the parameters the pass was created with.</div><div class="ttdef"><b>Definition</b> <a href="a00407_source.html#l00055">RenderPass.hpp:55</a></div></div>
+<div class="ttc" id="aa05770_html_abd170528aea214831e7e4f49d515dd62"><div class="ttname"><a href="a05770.html#abd170528aea214831e7e4f49d515dd62">bl::rc::vk::RenderPass::~RenderPass</a></div><div class="ttdeci">~RenderPass()</div><div class="ttdoc">Destroy the Render Pass object.</div><div class="ttdef"><b>Definition</b> <a href="a02093_source.html#l00020">RenderPass.cpp:20</a></div></div>
+<div class="ttc" id="aa05770_html_af0517713906c41542848e226cffbe65d"><div class="ttname"><a href="a05770.html#af0517713906c41542848e226cffbe65d">bl::rc::vk::RenderPass::rawPass</a></div><div class="ttdeci">VkRenderPass rawPass() const</div><div class="ttdoc">Returns the Vulkan render pass handle.</div><div class="ttdef"><b>Definition</b> <a href="a00407_source.html#l00072">RenderPass.hpp:72</a></div></div>
+<div class="ttc" id="aa05774_html"><div class="ttname"><a href="a05774.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a00437_source.html#l00025">RenderPassParameters.hpp:25</a></div></div>
+<div class="ttc" id="aa06374_html"><div class="ttname"><a href="a06374.html">bl::sig::Emitter</a></div><div class="ttdoc">Signal emitter that connects to a channel and allows the sending of signals.</div><div class="ttdef"><b>Definition</b> <a href="a08500_source.html#l00022">Emitter.hpp:22</a></div></div>
+<div class="ttc" id="aa06386_html"><div class="ttname"><a href="a06386.html">bl::sig::Listener</a></div><div class="ttdoc">Base class for signal listeners. Create classes that derive from this to process signals.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00023">Listener.hpp:23</a></div></div>
+<div class="ttc" id="aa07987_html"><div class="ttname"><a href="a07987.html">Listener.hpp</a></div></div>
+<div class="ttc" id="aa08500_html"><div class="ttname"><a href="a08500.html">Emitter.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

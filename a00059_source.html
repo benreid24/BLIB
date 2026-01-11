@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Components/Hitbox2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Particles/GlobalParticleSystemInfo.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,93 +79,42 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_03a2a625e67597eb4ae66cccf6894c5e.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Hitbox2D.hpp</div></div>
+  <div class="headertitle"><div class="title">GlobalParticleSystemInfo.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00059.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_COMPONENTS_HITBOX_2D_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_COMPONENTS_HITBOX_2D_HPP</span></div>
+<a href="a00059.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_PARTICLES_GLOBALPARTICLESYSTEMINFO_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_PARTICLES_GLOBALPARTICLESYSTEMINFO_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06361.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>com</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a02634.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a02634.html">Hitbox2D</a> {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da664663a7e811466dffe74c53aa0405e4">   19</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8d">Type</a> { <a class="code hl_enumvalue" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da33bb5312e1f1f93fbd831fcad5beef00">Point</a>, <a class="code hl_enumvalue" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da664663a7e811466dffe74c53aa0405e4">Circle</a>, <a class="code hl_enumvalue" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da48d216f7e7f1646717dd2e7ead1df4ce">Rectangle</a> };</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a02634.html">Hitbox2D</a>(<a class="code hl_class" href="a02702.html">Transform2D</a>* transform);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_class" href="a02634.html">Hitbox2D</a>(<a class="code hl_class" href="a02702.html">Transform2D</a>* transform, <span class="keywordtype">float</span> <a class="code hl_variable" href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">radius</a>);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a02634.html">Hitbox2D</a>(<a class="code hl_class" href="a02702.html">Transform2D</a>* transform, <span class="keyword">const</span> glm::vec2&amp; <a class="code hl_variable" href="a02634.html#a5df0383821d00f590a37b620b3c350aa">size</a>);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02634.html#a3b6b86e90c8849ad23ac146e27d4619e">intersects</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02634.html">Hitbox2D</a>&amp; other) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02634.html#ae1e3999b99410541e1207c933e63ada6">containsPoint</a>(<span class="keyword">const</span> glm::vec2&amp; point) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02634.html#ab38b5adf89fba99a38650fd31a64f8bd">intersectsCircle</a>(<span class="keyword">const</span> glm::vec2&amp; center, <span class="keywordtype">float</span> <a class="code hl_variable" href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">radius</a>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02634.html#ac042fd1aac26aca3e200d6e0a4abee26">intersectsRect</a>(<span class="keyword">const</span> glm::vec2&amp; corner, <span class="keyword">const</span> glm::vec2&amp; <a class="code hl_variable" href="a02634.html#a5df0383821d00f590a37b620b3c350aa">size</a>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a02634.html#a21388f5585f7f48475f234e4744224b6">   81</a></span>    <a class="code hl_enumeration" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8d">Type</a> <a class="code hl_function" href="a02634.html#a21388f5585f7f48475f234e4744224b6">getType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a02634.html#af3df09c58fc033ffa61ff97101c5be32">   86</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a02634.html#af3df09c58fc033ffa61ff97101c5be32">getRadius</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">radius</a>; }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a02634.html#ac0e59e2147714d0220be1514c78c9300">   91</a></span>    <span class="keyword">const</span> glm::vec2&amp; <a class="code hl_function" href="a02634.html#ac0e59e2147714d0220be1514c78c9300">getSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="a02634.html#a5df0383821d00f590a37b620b3c350aa">size</a>; }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02634.html#af3f036891f936a56e22d0858533fc3f9">makePoint</a>();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02634.html#a1ff3533a15ee3350573024e60c4bec61">makeCircle</a>(<span class="keywordtype">float</span> <a class="code hl_variable" href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">radius</a>);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02634.html#a1d21aa1e02d13656601f44332151f59a">makeRect</a>(<span class="keyword">const</span> glm::vec2&amp; <a class="code hl_variable" href="a02634.html#a5df0383821d00f590a37b620b3c350aa">size</a>);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_class" href="a02702.html">Transform2D</a>* transform;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <a class="code hl_enumeration" href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8d">Type</a> type;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">union </span>{</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a02634.html#a5df0383821d00f590a37b620b3c350aa">  116</a></span>        glm::vec2 <a class="code hl_variable" href="a02634.html#a5df0383821d00f590a37b620b3c350aa">size</a>;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">  117</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">radius</a>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    };</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>pcl</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="a03041.html">    8</a></span><span class="keyword">namespace </span>priv</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a04630.html">   10</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04630.html">GlobalParticleSystemInfo</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04630.html#adc6401affa26a6b4502255f564ef242d">   11</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="a04630.html#adc6401affa26a6b4502255f564ef242d">cameraToWindowScale</a>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>};</div>
 </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace com</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02634_html"><div class="ttname"><a href="a02634.html">bl::com::Hitbox2D</a></div><div class="ttdoc">2D hitbox component that can handle a few different shapes</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00016">Hitbox2D.hpp:16</a></div></div>
-<div class="ttc" id="aa02634_html_a1d21aa1e02d13656601f44332151f59a"><div class="ttname"><a href="a02634.html#a1d21aa1e02d13656601f44332151f59a">bl::com::Hitbox2D::makeRect</a></div><div class="ttdeci">void makeRect(const glm::vec2 &amp;size)</div><div class="ttdoc">Turns this hitbox into a Rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00123">Hitbox2D.cpp:123</a></div></div>
-<div class="ttc" id="aa02634_html_a1ff3533a15ee3350573024e60c4bec61"><div class="ttname"><a href="a02634.html#a1ff3533a15ee3350573024e60c4bec61">bl::com::Hitbox2D::makeCircle</a></div><div class="ttdeci">void makeCircle(float radius)</div><div class="ttdoc">Turns this hitbox into a Circle.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00118">Hitbox2D.cpp:118</a></div></div>
-<div class="ttc" id="aa02634_html_a21388f5585f7f48475f234e4744224b6"><div class="ttname"><a href="a02634.html#a21388f5585f7f48475f234e4744224b6">bl::com::Hitbox2D::getType</a></div><div class="ttdeci">Type getType() const</div><div class="ttdoc">Returns what type of hitbox this is.</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00081">Hitbox2D.hpp:81</a></div></div>
-<div class="ttc" id="aa02634_html_a3b6b86e90c8849ad23ac146e27d4619e"><div class="ttname"><a href="a02634.html#a3b6b86e90c8849ad23ac146e27d4619e">bl::com::Hitbox2D::intersects</a></div><div class="ttdeci">bool intersects(const Hitbox2D &amp;other) const</div><div class="ttdoc">Returns whether this hitbox intersects with the given hitbox.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00038">Hitbox2D.cpp:38</a></div></div>
-<div class="ttc" id="aa02634_html_a5df0383821d00f590a37b620b3c350aa"><div class="ttname"><a href="a02634.html#a5df0383821d00f590a37b620b3c350aa">bl::com::Hitbox2D::size</a></div><div class="ttdeci">glm::vec2 size</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00116">Hitbox2D.hpp:116</a></div></div>
-<div class="ttc" id="aa02634_html_a9f3d9db444fc2e01d35fae8b9b3a7dc4"><div class="ttname"><a href="a02634.html#a9f3d9db444fc2e01d35fae8b9b3a7dc4">bl::com::Hitbox2D::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00117">Hitbox2D.hpp:117</a></div></div>
-<div class="ttc" id="aa02634_html_ab38b5adf89fba99a38650fd31a64f8bd"><div class="ttname"><a href="a02634.html#ab38b5adf89fba99a38650fd31a64f8bd">bl::com::Hitbox2D::intersectsCircle</a></div><div class="ttdeci">bool intersectsCircle(const glm::vec2 &amp;center, float radius) const</div><div class="ttdoc">Returns whether this hitbox intersects the given circle.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00068">Hitbox2D.cpp:68</a></div></div>
-<div class="ttc" id="aa02634_html_ac042fd1aac26aca3e200d6e0a4abee26"><div class="ttname"><a href="a02634.html#ac042fd1aac26aca3e200d6e0a4abee26">bl::com::Hitbox2D::intersectsRect</a></div><div class="ttdeci">bool intersectsRect(const glm::vec2 &amp;corner, const glm::vec2 &amp;size) const</div><div class="ttdoc">Returns whether this hitbox intersects the given rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00091">Hitbox2D.cpp:91</a></div></div>
-<div class="ttc" id="aa02634_html_ac0e59e2147714d0220be1514c78c9300"><div class="ttname"><a href="a02634.html#ac0e59e2147714d0220be1514c78c9300">bl::com::Hitbox2D::getSize</a></div><div class="ttdeci">const glm::vec2 &amp; getSize() const</div><div class="ttdoc">Returns the size of this hitbox. Only valid for Rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00091">Hitbox2D.hpp:91</a></div></div>
-<div class="ttc" id="aa02634_html_ae1e3999b99410541e1207c933e63ada6"><div class="ttname"><a href="a02634.html#ae1e3999b99410541e1207c933e63ada6">bl::com::Hitbox2D::containsPoint</a></div><div class="ttdeci">bool containsPoint(const glm::vec2 &amp;point) const</div><div class="ttdoc">Returns whether this hitbox contains the given point.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00052">Hitbox2D.cpp:52</a></div></div>
-<div class="ttc" id="aa02634_html_aee8a1c3030a8c7f2ba2a4d15ef805b8d"><div class="ttname"><a href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8d">bl::com::Hitbox2D::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The different shapes the hitbox can be.</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00019">Hitbox2D.hpp:19</a></div></div>
-<div class="ttc" id="aa02634_html_aee8a1c3030a8c7f2ba2a4d15ef805b8da33bb5312e1f1f93fbd831fcad5beef00"><div class="ttname"><a href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da33bb5312e1f1f93fbd831fcad5beef00">bl::com::Hitbox2D::Point</a></div><div class="ttdeci">@ Point</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00019">Hitbox2D.hpp:19</a></div></div>
-<div class="ttc" id="aa02634_html_aee8a1c3030a8c7f2ba2a4d15ef805b8da48d216f7e7f1646717dd2e7ead1df4ce"><div class="ttname"><a href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da48d216f7e7f1646717dd2e7ead1df4ce">bl::com::Hitbox2D::Rectangle</a></div><div class="ttdeci">@ Rectangle</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00019">Hitbox2D.hpp:19</a></div></div>
-<div class="ttc" id="aa02634_html_aee8a1c3030a8c7f2ba2a4d15ef805b8da664663a7e811466dffe74c53aa0405e4"><div class="ttname"><a href="a02634.html#aee8a1c3030a8c7f2ba2a4d15ef805b8da664663a7e811466dffe74c53aa0405e4">bl::com::Hitbox2D::Circle</a></div><div class="ttdeci">@ Circle</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00019">Hitbox2D.hpp:19</a></div></div>
-<div class="ttc" id="aa02634_html_af3df09c58fc033ffa61ff97101c5be32"><div class="ttname"><a href="a02634.html#af3df09c58fc033ffa61ff97101c5be32">bl::com::Hitbox2D::getRadius</a></div><div class="ttdeci">float getRadius() const</div><div class="ttdoc">Returns the radius of this hitbox. Only valid for Circle.</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00086">Hitbox2D.hpp:86</a></div></div>
-<div class="ttc" id="aa02634_html_af3f036891f936a56e22d0858533fc3f9"><div class="ttname"><a href="a02634.html#af3f036891f936a56e22d0858533fc3f9">bl::com::Hitbox2D::makePoint</a></div><div class="ttdeci">void makePoint()</div><div class="ttdoc">Turns this hitbox into a Point.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00116">Hitbox2D.cpp:116</a></div></div>
-<div class="ttc" id="aa02702_html"><div class="ttname"><a href="a02702.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a06361_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa06361_html"><div class="ttname"><a href="a06361.html">Transform2D.hpp</a></div></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace priv</span></div>
+</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04630_html"><div class="ttname"><a href="a04630.html">bl::pcl::priv::GlobalParticleSystemInfo</a></div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00010">GlobalParticleSystemInfo.hpp:10</a></div></div>
+<div class="ttc" id="aa04630_html_adc6401affa26a6b4502255f564ef242d"><div class="ttname"><a href="a04630.html#adc6401affa26a6b4502255f564ef242d">bl::pcl::priv::GlobalParticleSystemInfo::cameraToWindowScale</a></div><div class="ttdeci">float cameraToWindowScale</div><div class="ttdef"><b>Definition</b> <a href="a00059_source.html#l00011">GlobalParticleSystemInfo.hpp:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

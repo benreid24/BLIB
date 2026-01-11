@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/ParentGraph.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/BlendParameters.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,142 +79,206 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ParentGraph.cpp</div></div>
+  <div class="headertitle"><div class="title">BlendParameters.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02090.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00995.html">BLIB/ECS/ParentGraph.hpp</a>&gt;</span></div>
+<a href="a02090.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00428.html">BLIB/Render/Vulkan/BlendParameters.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00266.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>vk</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a02934.html#ad26ff71314c9640bc163c7e814445c9d">    9</a></span><a class="code hl_function" href="a02934.html#ad26ff71314c9640bc163c7e814445c9d">ecs::ParentGraph::ParentGraph</a>(std::size_t capacityHint)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: parentMap(capacityHint, <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, childMap(capacityHint) {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05646.html#ab6d11a2b742f87ce3ddc18573aaecd53">    9</a></span><a class="code hl_function" href="a05646.html#ab6d11a2b742f87ce3ddc18573aaecd53">BlendParameters::BlendParameters</a>()</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: colorBlendBehavior(<a class="code hl_enumeration" href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8b">ColorBlendBehavior</a>::AlphaBlend)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, simpleColorBlendAttachmentCount(1)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, colorBlending{} {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    colorBlending.sType             = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    colorBlending.logicOpEnable     = VK_FALSE;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    colorBlending.logicOp           = VK_LOGIC_OP_COPY; <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    colorBlending.blendConstants[0] = 0.0f;             <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    colorBlending.blendConstants[1] = 0.0f;             <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    colorBlending.blendConstants[2] = 0.0f;             <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    colorBlending.blendConstants[3] = 0.0f;             <span class="comment">// Optional</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a02934.html#a9121be6b1da7de47f609491e7b84dd1e">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02934.html#a9121be6b1da7de47f609491e7b84dd1e">ParentGraph::setParent</a>(<a class="code hl_struct" href="a02890.html">Entity</a> child, <a class="code hl_struct" href="a02890.html">Entity</a> parent) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    ensureParentCap(child);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">const</span> std::size_t i   = child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a02890.html">Entity</a> ogParent = parentMap[i];</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (ogParent == parent) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ogParent != <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <a class="code hl_function" href="a02934.html#a965b2d787f0e6ccb2beed91b3d70a815">unParent</a>(child); }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    parentMap[i] = parent;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    childMap.add(parent.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (checkForCycles(child)) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_define" href="a00230.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Cycle created when assigning parent &quot;</span> &lt;&lt; parent &lt;&lt; <span class="stringliteral">&quot; to entity &quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                        &lt;&lt; child;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::abort();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05646.html#a425e2cd54de0cb99c318ed7732d05bf2">   22</a></span><a class="code hl_function" href="a05646.html#ab6d11a2b742f87ce3ddc18573aaecd53">BlendParameters::BlendParameters</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; copy)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>: <a class="code hl_class" href="a05646.html">BlendParameters</a>() {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    *<span class="keyword">this</span> = copy;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a02934.html#a965b2d787f0e6ccb2beed91b3d70a815">   33</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02934.html#a965b2d787f0e6ccb2beed91b3d70a815">ParentGraph::unParent</a>(<a class="code hl_struct" href="a02890.html">Entity</a> child) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> std::size_t i = child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (parentMap.size() &lt;= i) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (parentMap[i] == <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> std::uint32_t j = parentMap[i].getIndex();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    parentMap[i]          = <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    childMap.removeValue(j, child);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a05646.html#a98a8ebb3ed7c54a1e6a2db1d52a208f0">   27</a></span><a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; <a class="code hl_function" href="a05646.html#a98a8ebb3ed7c54a1e6a2db1d52a208f0">BlendParameters::operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; copy) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    colorBlendBehavior              = copy.colorBlendBehavior;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    simpleColorBlendAttachmentCount = copy.simpleColorBlendAttachmentCount;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    colorAttachmentBlendStates      = copy.colorAttachmentBlendStates;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    colorBlending.pAttachments      = colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a2a14c8d01a362b4190eab550a107051d">data</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    colorBlending.attachmentCount   = colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a193bce5b1c717bf9126271f837501bce">size</a>();</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a05646.html#a29e681c943e0701bc8955c9acb1bb337">   36</a></span><a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; <a class="code hl_function" href="a05646.html#a29e681c943e0701bc8955c9acb1bb337">BlendParameters::withSimpleColorBlendState</a>(<a class="code hl_enumeration" href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8b">ColorBlendBehavior</a> blend,</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                                                            std::uint32_t ac) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    colorBlendBehavior              = blend;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    simpleColorBlendAttachmentCount = ac;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a02934.html#ab26869bf08eb3701dc146e226ef887da">   43</a></span><a class="code hl_struct" href="a02890.html">Entity</a> <a class="code hl_function" href="a02934.html#ab26869bf08eb3701dc146e226ef887da">ParentGraph::getParent</a>(<a class="code hl_struct" href="a02890.html">Entity</a> child)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> std::size_t i = child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> i &lt; parentMap.size() ? parentMap[i] : <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a05646.html#a6abe4e60696abd6bbc8f1a304fced77e">   43</a></span><a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; <a class="code hl_function" href="a05646.html#a6abe4e60696abd6bbc8f1a304fced77e">BlendParameters::addColorAttachmentBlendState</a>(</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> VkPipelineColorBlendAttachmentState&amp; ca) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#afc750016956d838122d314467e4b1873">emplace_back</a>(ca);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
 </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a02934.html#ade74b5299fd5c0df5933e636664d07eb">   48</a></span><a class="code hl_struct" href="a02742.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code hl_function" href="a02934.html#ade74b5299fd5c0df5933e636664d07eb">ParentGraph::getChildren</a>(<a class="code hl_struct" href="a02890.html">Entity</a> parent) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> childMap.getValues(parent.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a05646.html#a5de5b43b4023f493f32d8e01d58f8958">   49</a></span><a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; <a class="code hl_function" href="a05646.html#a5de5b43b4023f493f32d8e01d58f8958">BlendParameters::withColorBlendStateConfig</a>(VkLogicOp operation,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                            <span class="keywordtype">float</span> blendConstant0,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                                            <span class="keywordtype">float</span> blendConstant1,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                                            <span class="keywordtype">float</span> blendConstant2,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                                                            <span class="keywordtype">float</span> blendConstant3) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    colorBlending.logicOpEnable     = VK_TRUE;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    colorBlending.logicOp           = operation;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    colorBlending.blendConstants[0] = blendConstant0;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    colorBlending.blendConstants[1] = blendConstant1;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    colorBlending.blendConstants[2] = blendConstant2;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    colorBlending.blendConstants[3] = blendConstant3;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
 </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a02934.html#acbcc3b794d2c338032bb80fc5bbbfc8f">   52</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02934.html#acbcc3b794d2c338032bb80fc5bbbfc8f">ParentGraph::reset</a>() {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    std::fill(parentMap.begin(), parentMap.end(), <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    childMap.clear();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a02934.html#a17db4dda4272bce51c49a7c96b71b03d">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02934.html#a17db4dda4272bce51c49a7c96b71b03d">ParentGraph::removeEntity</a>(<a class="code hl_struct" href="a02890.html">Entity</a> entity) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> std::size_t i = entity.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> (i &gt;= parentMap.size()) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a02890.html">Entity</a> parent = parentMap[i];</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    parentMap[i]        = <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    childMap.remove(entity);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (parent != <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { childMap.removeValue(parent.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), entity); }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
-</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> ParentGraph::ensureParentCap(<a class="code hl_struct" href="a02890.html">Entity</a> child) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> std::size_t cap = child.<a class="code hl_function" href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>() + 1;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (cap &gt; parentMap.size()) { parentMap.resize(cap, <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>); }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keywordtype">void</span> BlendParameters::build() {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#ab299dfbe743e9c1ae3c8d871eef02ca0">empty</a>() &amp;&amp; colorBlendBehavior != <a class="code hl_enumvalue" href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8ba6adf97f83acf6453d4a6a4b1070f3754">ColorBlendBehavior::None</a>) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; simpleColorBlendAttachmentCount; ++i) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#afc750016956d838122d314467e4b1873">emplace_back</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keyword">auto</span>&amp; ca          = colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a8ee5bad16ad74a58646588fa190b07c6">back</a>();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            ca.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT |</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            ca.blendEnable = VK_TRUE;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">bool</span> ParentGraph::checkForCycles(Entity start) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::vector&lt;bool&gt; visited(parentMap.size(), <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::vector&lt;Entity&gt; toVisit;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    toVisit.reserve(32);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    toVisit.emplace_back(start);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">while</span> (!toVisit.empty()) {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> Entity ent = toVisit.back();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        toVisit.pop_back();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">const</span> std::uint32_t i = ent.getIndex();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">if</span> (i &gt;= visited.size()) { visited.resize(i + 1, <span class="keyword">false</span>); }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (visited[i]) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        visited[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">const</span> Entity parent = <a class="code hl_function" href="a02934.html#ab26869bf08eb3701dc146e226ef887da">getParent</a>(ent);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> (parent != <a class="code hl_variable" href="a02418.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { toVisit.emplace_back(parent); }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00230_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a00230.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa00995_html"><div class="ttname"><a href="a00995.html">ParentGraph.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02418_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a02418.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00188">Entity.hpp:188</a></div></div>
-<div class="ttc" id="aa02742_html"><div class="ttname"><a href="a02742.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition</b> <a href="a00560_source.html#l00188">IndexMappedList.hpp:188</a></div></div>
-<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02890_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a02890.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00107">Entity.hpp:107</a></div></div>
-<div class="ttc" id="aa02934_html_a17db4dda4272bce51c49a7c96b71b03d"><div class="ttname"><a href="a02934.html#a17db4dda4272bce51c49a7c96b71b03d">bl::ecs::ParentGraph::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdoc">Removes the given entity from the graph. Does not update children. remove() must be called manually f...</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00057">ParentGraph.cpp:57</a></div></div>
-<div class="ttc" id="aa02934_html_a9121be6b1da7de47f609491e7b84dd1e"><div class="ttname"><a href="a02934.html#a9121be6b1da7de47f609491e7b84dd1e">bl::ecs::ParentGraph::setParent</a></div><div class="ttdeci">void setParent(Entity child, Entity parent)</div><div class="ttdoc">Adds a parent &lt;-&gt; child association.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00013">ParentGraph.cpp:13</a></div></div>
-<div class="ttc" id="aa02934_html_a965b2d787f0e6ccb2beed91b3d70a815"><div class="ttname"><a href="a02934.html#a965b2d787f0e6ccb2beed91b3d70a815">bl::ecs::ParentGraph::unParent</a></div><div class="ttdeci">void unParent(Entity child)</div><div class="ttdoc">Removes the parent from the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00033">ParentGraph.cpp:33</a></div></div>
-<div class="ttc" id="aa02934_html_ab26869bf08eb3701dc146e226ef887da"><div class="ttname"><a href="a02934.html#ab26869bf08eb3701dc146e226ef887da">bl::ecs::ParentGraph::getParent</a></div><div class="ttdeci">Entity getParent(Entity child) const</div><div class="ttdoc">Returns the parent for the given child.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00043">ParentGraph.cpp:43</a></div></div>
-<div class="ttc" id="aa02934_html_acbcc3b794d2c338032bb80fc5bbbfc8f"><div class="ttname"><a href="a02934.html#acbcc3b794d2c338032bb80fc5bbbfc8f">bl::ecs::ParentGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the entire graph to the empty state.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00052">ParentGraph.cpp:52</a></div></div>
-<div class="ttc" id="aa02934_html_ad26ff71314c9640bc163c7e814445c9d"><div class="ttname"><a href="a02934.html#ad26ff71314c9640bc163c7e814445c9d">bl::ecs::ParentGraph::ParentGraph</a></div><div class="ttdeci">ParentGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates an empty graph.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00009">ParentGraph.cpp:9</a></div></div>
-<div class="ttc" id="aa02934_html_ade74b5299fd5c0df5933e636664d07eb"><div class="ttname"><a href="a02934.html#ade74b5299fd5c0df5933e636664d07eb">bl::ecs::ParentGraph::getChildren</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getChildren(Entity parent)</div><div class="ttdoc">Returns a range of children for the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00048">ParentGraph.cpp:48</a></div></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">switch</span> (colorBlendBehavior) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8bada364eb37e143f6b2b5559aa03f5913a">ColorBlendBehavior::Overwrite</a>:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                ca.blendEnable = VK_FALSE;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8baec211f7c20af43e742bf2570c3cb84f9">ColorBlendBehavior::Add</a>:</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                ca.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                ca.colorBlendOp        = VK_BLEND_OP_ADD;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                ca.alphaBlendOp        = VK_BLEND_OP_MAX;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8baaacd89df7585eb749bfd3b129758148f">ColorBlendBehavior::AlphaBlend</a>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                ca.srcColorBlendFactor = VK_BLEND_FACTOR_SRC_ALPHA;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                ca.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                ca.colorBlendOp        = VK_BLEND_OP_ADD;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                ca.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                ca.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                ca.alphaBlendOp        = VK_BLEND_OP_MAX;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    colorBlending.pAttachments    = colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a2a14c8d01a362b4190eab550a107051d">data</a>();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    colorBlending.attachmentCount = colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a193bce5b1c717bf9126271f837501bce">size</a>();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a05646.html#a661eff40bad0c80f95a1b5019d89355f">  102</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05646.html#a661eff40bad0c80f95a1b5019d89355f">BlendParameters::operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05646.html">BlendParameters</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">if</span> (colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a193bce5b1c717bf9126271f837501bce">size</a>() != right.colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a193bce5b1c717bf9126271f837501bce">size</a>()) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; colorAttachmentBlendStates.<a class="code hl_function" href="a03494.html#a193bce5b1c717bf9126271f837501bce">size</a>(); ++i) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].blendEnable !=</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>            right.colorAttachmentBlendStates[i].blendEnable) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].srcColorBlendFactor !=</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>            right.colorAttachmentBlendStates[i].srcColorBlendFactor) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].dstColorBlendFactor !=</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>            right.colorAttachmentBlendStates[i].dstColorBlendFactor) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].colorBlendOp !=</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>            right.colorAttachmentBlendStates[i].colorBlendOp) {</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        }</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].srcAlphaBlendFactor !=</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            right.colorAttachmentBlendStates[i].srcAlphaBlendFactor) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].dstAlphaBlendFactor !=</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>            right.colorAttachmentBlendStates[i].dstAlphaBlendFactor) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].alphaBlendOp !=</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            right.colorAttachmentBlendStates[i].alphaBlendOp) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">if</span> (colorAttachmentBlendStates[i].colorWriteMask !=</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>            right.colorAttachmentBlendStates[i].colorWriteMask) {</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        }</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">if</span> (colorBlending.flags != right.colorBlending.flags) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordflow">if</span> (colorBlending.logicOpEnable != right.colorBlending.logicOpEnable) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span> (colorBlending.logicOp != right.colorBlending.logicOp) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">if</span> (colorBlending.blendConstants[i] != right.colorBlending.blendConstants[i]) {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        }</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00428_html"><div class="ttname"><a href="a00428.html">BlendParameters.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03494_html_a193bce5b1c717bf9126271f837501bce"><div class="ttname"><a href="a03494.html#a193bce5b1c717bf9126271f837501bce">bl::ctr::StaticVector::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the current number of elements in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00308_source.html#l00311">StaticVector.hpp:311</a></div></div>
+<div class="ttc" id="aa03494_html_a2a14c8d01a362b4190eab550a107051d"><div class="ttname"><a href="a03494.html#a2a14c8d01a362b4190eab550a107051d">bl::ctr::StaticVector::data</a></div><div class="ttdeci">T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00308_source.html#l00352">StaticVector.hpp:352</a></div></div>
+<div class="ttc" id="aa03494_html_a8ee5bad16ad74a58646588fa190b07c6"><div class="ttname"><a href="a03494.html#a8ee5bad16ad74a58646588fa190b07c6">bl::ctr::StaticVector::back</a></div><div class="ttdeci">T &amp; back()</div><div class="ttdoc">Returns a reference to the last element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00308_source.html#l00332">StaticVector.hpp:332</a></div></div>
+<div class="ttc" id="aa03494_html_ab299dfbe743e9c1ae3c8d871eef02ca0"><div class="ttname"><a href="a03494.html#ab299dfbe743e9c1ae3c8d871eef02ca0">bl::ctr::StaticVector::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether the vector is empty or not.</div><div class="ttdef"><b>Definition</b> <a href="a00308_source.html#l00327">StaticVector.hpp:327</a></div></div>
+<div class="ttc" id="aa03494_html_afc750016956d838122d314467e4b1873"><div class="ttname"><a href="a03494.html#afc750016956d838122d314467e4b1873">bl::ctr::StaticVector::emplace_back</a></div><div class="ttdeci">T &amp; emplace_back(TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs a new element in place at the end of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00308_source.html#l00254">StaticVector.hpp:254</a></div></div>
+<div class="ttc" id="aa05646_html"><div class="ttname"><a href="a05646.html">bl::rc::vk::BlendParameters</a></div><div class="ttdef"><b>Definition</b> <a href="a00428_source.html#l00016">BlendParameters.hpp:16</a></div></div>
+<div class="ttc" id="aa05646_html_a29e681c943e0701bc8955c9acb1bb337"><div class="ttname"><a href="a05646.html#a29e681c943e0701bc8955c9acb1bb337">bl::rc::vk::BlendParameters::withSimpleColorBlendState</a></div><div class="ttdeci">BlendParameters &amp; withSimpleColorBlendState(ColorBlendBehavior blendState, std::uint32_t attachmentCount=1)</div><div class="ttdoc">Simple way to set common color blend behaviors. Ignored if color blend attachments are manually set.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00036">BlendParameters.cpp:36</a></div></div>
+<div class="ttc" id="aa05646_html_a51014b5bcc02adf74b5f5dac3cee9f8b"><div class="ttname"><a href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8b">bl::rc::vk::BlendParameters::ColorBlendBehavior</a></div><div class="ttdeci">ColorBlendBehavior</div><div class="ttdef"><b>Definition</b> <a href="a00428_source.html#l00020">BlendParameters.hpp:20</a></div></div>
+<div class="ttc" id="aa05646_html_a51014b5bcc02adf74b5f5dac3cee9f8ba6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8ba6adf97f83acf6453d4a6a4b1070f3754">bl::rc::vk::BlendParameters::ColorBlendBehavior::None</a></div><div class="ttdeci">@ None</div></div>
+<div class="ttc" id="aa05646_html_a51014b5bcc02adf74b5f5dac3cee9f8baaacd89df7585eb749bfd3b129758148f"><div class="ttname"><a href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8baaacd89df7585eb749bfd3b129758148f">bl::rc::vk::BlendParameters::ColorBlendBehavior::AlphaBlend</a></div><div class="ttdeci">@ AlphaBlend</div></div>
+<div class="ttc" id="aa05646_html_a51014b5bcc02adf74b5f5dac3cee9f8bada364eb37e143f6b2b5559aa03f5913a"><div class="ttname"><a href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8bada364eb37e143f6b2b5559aa03f5913a">bl::rc::vk::BlendParameters::ColorBlendBehavior::Overwrite</a></div><div class="ttdeci">@ Overwrite</div></div>
+<div class="ttc" id="aa05646_html_a51014b5bcc02adf74b5f5dac3cee9f8baec211f7c20af43e742bf2570c3cb84f9"><div class="ttname"><a href="a05646.html#a51014b5bcc02adf74b5f5dac3cee9f8baec211f7c20af43e742bf2570c3cb84f9">bl::rc::vk::BlendParameters::ColorBlendBehavior::Add</a></div><div class="ttdeci">@ Add</div></div>
+<div class="ttc" id="aa05646_html_a5de5b43b4023f493f32d8e01d58f8958"><div class="ttname"><a href="a05646.html#a5de5b43b4023f493f32d8e01d58f8958">bl::rc::vk::BlendParameters::withColorBlendStateConfig</a></div><div class="ttdeci">BlendParameters &amp; withColorBlendStateConfig(VkLogicOp operation, float blendConstant0, float blendConstant1, float blendConstant2, float blendConstant3)</div><div class="ttdoc">Overrides the blend configuration for all color attachments for this pipeline. Defaults to disabled.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00049">BlendParameters.cpp:49</a></div></div>
+<div class="ttc" id="aa05646_html_a661eff40bad0c80f95a1b5019d89355f"><div class="ttname"><a href="a05646.html#a661eff40bad0c80f95a1b5019d89355f">bl::rc::vk::BlendParameters::operator==</a></div><div class="ttdeci">bool operator==(const BlendParameters &amp;right) const</div><div class="ttdoc">Tests equality between two BlendParameters objects.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00102">BlendParameters.cpp:102</a></div></div>
+<div class="ttc" id="aa05646_html_a6abe4e60696abd6bbc8f1a304fced77e"><div class="ttname"><a href="a05646.html#a6abe4e60696abd6bbc8f1a304fced77e">bl::rc::vk::BlendParameters::addColorAttachmentBlendState</a></div><div class="ttdeci">BlendParameters &amp; addColorAttachmentBlendState(const VkPipelineColorBlendAttachmentState &amp;blendState)</div><div class="ttdoc">Adds an alpha blending config for a color attachment for this pipeline. Blend configs are ordered by ...</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00043">BlendParameters.cpp:43</a></div></div>
+<div class="ttc" id="aa05646_html_a98a8ebb3ed7c54a1e6a2db1d52a208f0"><div class="ttname"><a href="a05646.html#a98a8ebb3ed7c54a1e6a2db1d52a208f0">bl::rc::vk::BlendParameters::operator=</a></div><div class="ttdeci">BlendParameters &amp; operator=(const BlendParameters &amp;copy)</div><div class="ttdoc">Basic assignment operator.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00027">BlendParameters.cpp:27</a></div></div>
+<div class="ttc" id="aa05646_html_ab6d11a2b742f87ce3ddc18573aaecd53"><div class="ttname"><a href="a05646.html#ab6d11a2b742f87ce3ddc18573aaecd53">bl::rc::vk::BlendParameters::BlendParameters</a></div><div class="ttdeci">BlendParameters()</div><div class="ttdoc">Creates the parameters with the default alpha blend state.</div><div class="ttdef"><b>Definition</b> <a href="a02090_source.html#l00009">BlendParameters.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

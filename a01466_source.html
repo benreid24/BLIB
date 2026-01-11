@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Overlays/OverlayObject.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/Events/Paused.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,97 +79,38 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_f985e6d9d3c728bc93d2b173ef2ebe49.html">Overlays</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">OverlayObject.hpp</div></div>
+  <div class="headertitle"><div class="title">Paused.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01466.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_OVERLAYS_OVERLAYOBJECT_HPP</span></div>
+<a href="a01466.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_PAUSED_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_EVENTS_PAUSED_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a06874.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a06853.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01361.html">BLIB/Render/Materials/MaterialPipeline.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01457.html">BLIB/Render/Primitives/DrawParameters.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01136.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01160.html">BLIB/Render/Scenes/SceneObject.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00332.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="a03016.html">    8</a></span><span class="keyword">namespace </span>event</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03702.html">   16</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03702.html">Paused</a> {};</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span><a class="code hl_enumvalue" href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3">Overlay</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02464.html">   25</a></span><span class="keyword">namespace </span>ovy</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a04326.html">   27</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04326.html">OverlayObject</a></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>: <span class="keyword">public</span> <a class="code hl_struct" href="a04466.html">scene::SceneObject</a></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>, <span class="keyword">public</span> <a class="code hl_class" href="a02978.html">ecs::trait::ParentAware</a>&lt;OverlayObject&gt;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>, <span class="keyword">public</span> <a class="code hl_class" href="a02974.html">ecs::trait::ChildAware</a>&lt;OverlayObject&gt; {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_function" href="a04326.html#acfac16c3170845244d5bf29e69ac1cb0">OverlayObject</a>();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04326.html#af7effef65204c4efe087f3e34ef2f067">   36</a></span>    <a class="code hl_struct" href="a02890.html">ecs::Entity</a> <a class="code hl_variable" href="a04326.html#af7effef65204c4efe087f3e34ef2f067">entity</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a04326.html#a0e5ade95c843243c6ab346059dd5c3c9">   37</a></span>    <a class="code hl_class" href="a04322.html">Overlay</a>* <a class="code hl_variable" href="a04326.html#a0e5ade95c843243c6ab346059dd5c3c9">overlay</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a04326.html#a88f848cfed34201a6557eefceb77a02a">   38</a></span>    <a class="code hl_class" href="a04306.html">mat::MaterialPipeline</a>* <a class="code hl_variable" href="a04326.html#a88f848cfed34201a6557eefceb77a02a">pipeline</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a04326.html#a470cc2dbbc56e439a55142f96c20c4e4">   39</a></span>    std::array&lt;ds::DescriptorSetInstance*, Config::MaxDescriptorSets&gt; <a class="code hl_variable" href="a04326.html#a470cc2dbbc56e439a55142f96c20c4e4">descriptors</a>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04326.html#a951986ce800713fa1690a93d6602cb6b">   40</a></span>    std::uint8_t <a class="code hl_variable" href="a04326.html#a951986ce800713fa1690a93d6602cb6b">descriptorCount</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04326.html#a2cbdcb91fcf763ed68251232cc000fdb">   41</a></span>    std::uint8_t <a class="code hl_variable" href="a04326.html#a2cbdcb91fcf763ed68251232cc000fdb">perObjStart</a>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a04326.html#ad0c35d8af435f086f2806b17c7f45ef1">   43</a></span>    VkViewport* <a class="code hl_variable" href="a04326.html#ad0c35d8af435f086f2806b17c7f45ef1">overlayViewport</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04326.html#ab81c6e0a7c467bf497f3807c3f3fcb56">   44</a></span>    VkRect2D <a class="code hl_variable" href="a04326.html#ab81c6e0a7c467bf497f3807c3f3fcb56">cachedScissor</a>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace event</span></div>
 </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace ovy</span></div>
-</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">OverlayScaler.hpp</a></div></div>
-<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">ParentAware.hpp</a></div></div>
-<div class="ttc" id="aa01136_html"><div class="ttname"><a href="a01136.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa01160_html"><div class="ttname"><a href="a01160.html">SceneObject.hpp</a></div></div>
-<div class="ttc" id="aa01361_html"><div class="ttname"><a href="a01361.html">MaterialPipeline.hpp</a></div></div>
-<div class="ttc" id="aa01457_html"><div class="ttname"><a href="a01457.html">DrawParameters.hpp</a></div></div>
-<div class="ttc" id="aa02388_html_gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3"><div class="ttname"><a href="a02388.html#gga2046cc31338d7d8e2a4af56aa599986ba6b551379c3c0b59326abdaf3b4395bd3">bl::rc::RenderPhase::Overlay</a></div><div class="ttdeci">@ Overlay</div><div class="ttdoc">Represents rendering to UI overlay.</div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa02974_html"><div class="ttname"><a href="a02974.html">bl::ecs::trait::ChildAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00026">ChildAware.hpp:26</a></div></div>
-<div class="ttc" id="aa02978_html"><div class="ttname"><a href="a02978.html">bl::ecs::trait::ParentAware</a></div><div class="ttdoc">Component trait for components that are parent-able. Parent is set in the Registry as an entity-level...</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00025">ParentAware.hpp:25</a></div></div>
-<div class="ttc" id="aa04306_html"><div class="ttname"><a href="a04306.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a01361_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
-<div class="ttc" id="aa04322_html"><div class="ttname"><a href="a04322.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition</b> <a href="a01463_source.html#l00036">Overlay.hpp:39</a></div></div>
-<div class="ttc" id="aa04326_html"><div class="ttname"><a href="a04326.html">bl::rc::ovy::OverlayObject</a></div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00027">OverlayObject.hpp:30</a></div></div>
-<div class="ttc" id="aa04326_html_a0e5ade95c843243c6ab346059dd5c3c9"><div class="ttname"><a href="a04326.html#a0e5ade95c843243c6ab346059dd5c3c9">bl::rc::ovy::OverlayObject::overlay</a></div><div class="ttdeci">Overlay * overlay</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00037">OverlayObject.hpp:37</a></div></div>
-<div class="ttc" id="aa04326_html_a2cbdcb91fcf763ed68251232cc000fdb"><div class="ttname"><a href="a04326.html#a2cbdcb91fcf763ed68251232cc000fdb">bl::rc::ovy::OverlayObject::perObjStart</a></div><div class="ttdeci">std::uint8_t perObjStart</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00041">OverlayObject.hpp:41</a></div></div>
-<div class="ttc" id="aa04326_html_a470cc2dbbc56e439a55142f96c20c4e4"><div class="ttname"><a href="a04326.html#a470cc2dbbc56e439a55142f96c20c4e4">bl::rc::ovy::OverlayObject::descriptors</a></div><div class="ttdeci">std::array&lt; ds::DescriptorSetInstance *, Config::MaxDescriptorSets &gt; descriptors</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00039">OverlayObject.hpp:39</a></div></div>
-<div class="ttc" id="aa04326_html_a88f848cfed34201a6557eefceb77a02a"><div class="ttname"><a href="a04326.html#a88f848cfed34201a6557eefceb77a02a">bl::rc::ovy::OverlayObject::pipeline</a></div><div class="ttdeci">mat::MaterialPipeline * pipeline</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00038">OverlayObject.hpp:38</a></div></div>
-<div class="ttc" id="aa04326_html_a951986ce800713fa1690a93d6602cb6b"><div class="ttname"><a href="a04326.html#a951986ce800713fa1690a93d6602cb6b">bl::rc::ovy::OverlayObject::descriptorCount</a></div><div class="ttdeci">std::uint8_t descriptorCount</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00040">OverlayObject.hpp:40</a></div></div>
-<div class="ttc" id="aa04326_html_ab81c6e0a7c467bf497f3807c3f3fcb56"><div class="ttname"><a href="a04326.html#ab81c6e0a7c467bf497f3807c3f3fcb56">bl::rc::ovy::OverlayObject::cachedScissor</a></div><div class="ttdeci">VkRect2D cachedScissor</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00044">OverlayObject.hpp:44</a></div></div>
-<div class="ttc" id="aa04326_html_acfac16c3170845244d5bf29e69ac1cb0"><div class="ttname"><a href="a04326.html#acfac16c3170845244d5bf29e69ac1cb0">bl::rc::ovy::OverlayObject::OverlayObject</a></div><div class="ttdeci">OverlayObject()</div><div class="ttdoc">Construct a new OverlayObject.</div><div class="ttdef"><b>Definition</b> <a href="a02360_source.html#l00009">OverlayObject.cpp:9</a></div></div>
-<div class="ttc" id="aa04326_html_ad0c35d8af435f086f2806b17c7f45ef1"><div class="ttname"><a href="a04326.html#ad0c35d8af435f086f2806b17c7f45ef1">bl::rc::ovy::OverlayObject::overlayViewport</a></div><div class="ttdeci">VkViewport * overlayViewport</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00043">OverlayObject.hpp:43</a></div></div>
-<div class="ttc" id="aa04326_html_af7effef65204c4efe087f3e34ef2f067"><div class="ttname"><a href="a04326.html#af7effef65204c4efe087f3e34ef2f067">bl::rc::ovy::OverlayObject::entity</a></div><div class="ttdeci">ecs::Entity entity</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00036">OverlayObject.hpp:36</a></div></div>
-<div class="ttc" id="aa04466_html"><div class="ttname"><a href="a04466.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition</b> <a href="a01160_source.html#l00029">SceneObject.hpp:29</a></div></div>
-<div class="ttc" id="aa06853_html"><div class="ttname"><a href="a06853.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa06874_html"><div class="ttname"><a href="a06874.html">Config.hpp</a></div></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03702_html"><div class="ttname"><a href="a03702.html">bl::engine::event::Paused</a></div><div class="ttdoc">Fired when the engine is paused.</div><div class="ttdef"><b>Definition</b> <a href="a01466_source.html#l00016">Paused.hpp:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

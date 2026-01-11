@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/TagsImpl.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/ShaderModuleCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,89 +79,67 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TagsImpl.hpp</div></div>
+  <div class="headertitle"><div class="title">ShaderModuleCache.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01040.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ECS_TAGSIMPL_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ECS_TAGSIMPL_HPP</span></div>
+<a href="a01040.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_RESOURCES_SHADERMODULECACHE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#ifndef BLIB_ECS_REGISTRY_HPP</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#error &quot;Internal file included out of order&quot;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01049.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01037.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01034.html">BLIB/ECS/Tags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01031.html">BLIB/ECS/View.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>ecs</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TReqComs, <span class="keyword">typename</span>... TOptComs, <span class="keyword">typename</span>... TExcComs&gt;</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a02970.html#a46e6f3e37fbb602516c9c798f9b80594">   18</a></span><a class="code hl_struct" href="a02854.html">ComponentMask</a> <a class="code hl_struct" href="a02966.html">Tags</a>&lt;<a class="code hl_struct" href="a02954.html">Require</a>&lt;TReqComs...&gt;, <a class="code hl_struct" href="a02958.html">Optional</a>&lt;TOptComs...&gt;, <a class="code hl_struct" href="a02962.html">Exclude</a>&lt;TExcComs...&gt;&gt;::createMask(</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_class" href="a02938.html">Registry</a>&amp; registry) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_struct" href="a02854.html">ComponentMask</a> result;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    result.<a class="code hl_variable" href="a02854.html#a34764b733921cd31f6046f61c6c7611b">required</a> = createHelper&lt;TReqComs...&gt;(registry);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    result.<a class="code hl_variable" href="a02854.html#aad9820388ed7c3f08b25a1b41ec43a6b">excluded</a> = createHelper&lt;TExcComs...&gt;(registry);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    result.<a class="code hl_variable" href="a02854.html#a0ac283e481b4ac1631b2e1ef2b13f258">optional</a> = createHelper&lt;TOptComs...&gt;(registry);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">return</span> result;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">struct </span>VulkanLayer;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>res</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05390.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a05390.html">ShaderModuleCache</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    VkShaderModule <a class="code hl_function" href="a05390.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    VkDevice device;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    std::unordered_map&lt;std::string, VkShaderModule&gt; cache;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a05390.html">ShaderModuleCache</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> init(VkDevice device);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a05390.html#a488e2f7bd6d7bd656986d5ecdd0ddb60">   44</a></span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a05838.html">vk::VulkanLayer</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a05390.html#a1fc8c4ea65463b448e068f1287349540">   45</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05330.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TReqComs, <span class="keyword">typename</span>... TOptComs, <span class="keyword">typename</span>... TExcComs&gt;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">typename</span> <a class="code hl_struct" href="a02966.html">Tags</a>&lt;<a class="code hl_struct" href="a02954.html">Require</a>&lt;TReqComs...&gt;, <a class="code hl_struct" href="a02958.html">Optional</a>&lt;TOptComs...&gt;, <a class="code hl_struct" href="a02962.html">Exclude</a>&lt;TExcComs...&gt;&gt;::TView*</div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a02970.html#a56fc5a032a998ca633162aeccc71cbc7">   29</a></span><a class="code hl_struct" href="a02966.html">Tags</a>&lt;<a class="code hl_struct" href="a02954.html">Require</a>&lt;TReqComs...&gt;, <a class="code hl_struct" href="a02958.html">Optional</a>&lt;TOptComs...&gt;, <a class="code hl_struct" href="a02962.html">Exclude</a>&lt;TExcComs...&gt;&gt;::getView(</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="a02938.html">Registry</a>&amp; registry) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> registry</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        .<a class="code hl_function" href="a02938.html#a97e0e4d1d669d003711b6c8af6fbdf19">getOrCreateView</a>&lt;<a class="code hl_struct" href="a02954.html">Require</a>&lt;TReqComs...&gt;, <a class="code hl_struct" href="a02958.html">Optional</a>&lt;TOptComs...&gt;, <a class="code hl_struct" href="a02962.html">Exclude</a>&lt;TExcComs...&gt;&gt;();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
-</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TReqComs, <span class="keyword">typename</span>... TOptComs, <span class="keyword">typename</span>... TExcComs&gt;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><a class="code hl_typedef" href="a02854.html#aefd97da33d1020c347856657dfb379ef">ComponentMask::SimpleMask</a> <a class="code hl_struct" href="a02966.html">Tags</a>&lt;<a class="code hl_struct" href="a02954.html">Require</a>&lt;TReqComs...&gt;, <a class="code hl_struct" href="a02958.html">Optional</a>&lt;TOptComs...&gt;,</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                               <a class="code hl_struct" href="a02962.html">Exclude</a>&lt;TExcComs...&gt;&gt;::createHelper(<a class="code hl_class" href="a02938.html">Registry</a>&amp; registry) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<span class="keyword">sizeof</span>...(Ts) &gt; 0) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02854.html#aefd97da33d1020c347856657dfb379ef">ComponentMask::SimpleMask</a> One = 0x1;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> ((One &lt;&lt; registry.<a class="code hl_function" href="a02938.html#ad2433cd1f5616de65803be33b792657b">getAllComponents</a>&lt;Ts&gt;().ComponentIndex) | ...);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">else</span> { <span class="keywordflow">return</span> <a class="code hl_variable" href="a02854.html#a281797a712e2ec4b04264000406ea5df">ComponentMask::EmptyMask</a>; }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01031_html"><div class="ttname"><a href="a01031.html">View.hpp</a></div></div>
-<div class="ttc" id="aa01034_html"><div class="ttname"><a href="a01034.html">Tags.hpp</a></div></div>
-<div class="ttc" id="aa01037_html"><div class="ttname"><a href="a01037.html">ComponentSet.hpp</a></div></div>
-<div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">ComponentMask.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02854_html"><div class="ttname"><a href="a02854.html">bl::ecs::ComponentMask</a></div><div class="ttdoc">Helper struct for creating masks representing component types on an entity.</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00018">ComponentMask.hpp:18</a></div></div>
-<div class="ttc" id="aa02854_html_a0ac283e481b4ac1631b2e1ef2b13f258"><div class="ttname"><a href="a02854.html#a0ac283e481b4ac1631b2e1ef2b13f258">bl::ecs::ComponentMask::optional</a></div><div class="ttdeci">SimpleMask optional</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00029">ComponentMask.hpp:29</a></div></div>
-<div class="ttc" id="aa02854_html_a281797a712e2ec4b04264000406ea5df"><div class="ttname"><a href="a02854.html#a281797a712e2ec4b04264000406ea5df">bl::ecs::ComponentMask::EmptyMask</a></div><div class="ttdeci">static constexpr SimpleMask EmptyMask</div><div class="ttdoc">A mask with no components.</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00026">ComponentMask.hpp:26</a></div></div>
-<div class="ttc" id="aa02854_html_a34764b733921cd31f6046f61c6c7611b"><div class="ttname"><a href="a02854.html#a34764b733921cd31f6046f61c6c7611b">bl::ecs::ComponentMask::required</a></div><div class="ttdeci">SimpleMask required</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00028">ComponentMask.hpp:28</a></div></div>
-<div class="ttc" id="aa02854_html_aad9820388ed7c3f08b25a1b41ec43a6b"><div class="ttname"><a href="a02854.html#aad9820388ed7c3f08b25a1b41ec43a6b">bl::ecs::ComponentMask::excluded</a></div><div class="ttdeci">SimpleMask excluded</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00030">ComponentMask.hpp:30</a></div></div>
-<div class="ttc" id="aa02854_html_aefd97da33d1020c347856657dfb379ef"><div class="ttname"><a href="a02854.html#aefd97da33d1020c347856657dfb379ef">bl::ecs::ComponentMask::SimpleMask</a></div><div class="ttdeci">BLIB_ECS_MASK_TYPE SimpleMask</div><div class="ttdoc">The type of the bitmask itself.</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00020">ComponentMask.hpp:20</a></div></div>
-<div class="ttc" id="aa02938_html"><div class="ttname"><a href="a02938.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00034">Registry.hpp:34</a></div></div>
-<div class="ttc" id="aa02938_html_a97e0e4d1d669d003711b6c8af6fbdf19"><div class="ttname"><a href="a02938.html#a97e0e4d1d669d003711b6c8af6fbdf19">bl::ecs::Registry::getOrCreateView</a></div><div class="ttdeci">View&lt; TRequire, TOptional, TExclude &gt; * getOrCreateView()</div><div class="ttdoc">Fetches or creates a view that returns an iterable set of entities that contain the given components.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00773">Registry.hpp:773</a></div></div>
-<div class="ttc" id="aa02938_html_ad2433cd1f5616de65803be33b792657b"><div class="ttname"><a href="a02938.html#ad2433cd1f5616de65803be33b792657b">bl::ecs::Registry::getAllComponents</a></div><div class="ttdeci">ComponentPool&lt; T &gt; &amp; getAllComponents()</div><div class="ttdoc">Returns an iterable component pool for the given component type.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00755">Registry.hpp:755</a></div></div>
-<div class="ttc" id="aa02954_html"><div class="ttname"><a href="a02954.html">bl::ecs::Require</a></div><div class="ttdoc">Tag that indicates a set of components are required.</div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00035">Tags.hpp:35</a></div></div>
-<div class="ttc" id="aa02958_html"><div class="ttname"><a href="a02958.html">bl::ecs::Optional</a></div><div class="ttdoc">Tag that indicates a set of components are optional.</div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00044">Tags.hpp:44</a></div></div>
-<div class="ttc" id="aa02962_html"><div class="ttname"><a href="a02962.html">bl::ecs::Exclude</a></div><div class="ttdoc">Tag that indicates a set of components are excluded.</div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00053">Tags.hpp:53</a></div></div>
-<div class="ttc" id="aa02966_html"><div class="ttname"><a href="a02966.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00056">Tags.hpp:56</a></div></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace res</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05390_html"><div class="ttname"><a href="a05390.html">bl::rc::res::ShaderModuleCache</a></div><div class="ttdoc">Basic cache for shaders to avoid re-loading/re-compiling the same shaders.</div><div class="ttdef"><b>Definition</b> <a href="a01040_source.html#l00026">ShaderModuleCache.hpp:26</a></div></div>
+<div class="ttc" id="aa05390_html_ad10d56d22b2735a5c105b46130ca3bad"><div class="ttname"><a href="a05390.html#ad10d56d22b2735a5c105b46130ca3bad">bl::rc::res::ShaderModuleCache::loadShader</a></div><div class="ttdeci">VkShaderModule loadShader(const std::string &amp;path)</div><div class="ttdoc">Loads a new shader.</div><div class="ttdef"><b>Definition</b> <a href="a02432_source.html#l00017">ShaderModuleCache.cpp:17</a></div></div>
+<div class="ttc" id="aa05838_html"><div class="ttname"><a href="a05838.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a00401_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

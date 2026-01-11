@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::Vector2Hash&lt; T &gt; Struct Template Reference</title>
+<title>BLIB: bl::rc::prim::SlideshowVertex Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,87 +74,357 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02474.html">util</a></li><li class="navelem"><a class="el" href="a05314.html">Vector2Hash</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03062.html">prim</a></li><li class="navelem"><a class="el" href="a05314.html">SlideshowVertex</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05311.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::util::Vector2Hash&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a02394.html">Util</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::prim::SlideshowVertex Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Specialized hash for sf::Vector2.  
+<p><a class="el" href="a05318.html" title="Base Vertex primitive for the renderer.">Vertex</a> type used by slideshows.  
  <a href="a05314.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00479_source.html">Hashes.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00863_source.html">SlideshowVertex.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adb1f1f3f67bf271cb41f13f1c632490c" id="r_adb1f1f3f67bf271cb41f13f1c632490c"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#adb1f1f3f67bf271cb41f13f1c632490c">operator()</a> (const sf::Vector2&lt; T &gt; &amp;value) const</td></tr>
-<tr class="memdesc:adb1f1f3f67bf271cb41f13f1c632490c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash the given vector.  <br /></td></tr>
-<tr class="separator:adb1f1f3f67bf271cb41f13f1c632490c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a121498a5fa54786376ff7c0831a9ce09" id="r_a121498a5fa54786376ff7c0831a9ce09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a121498a5fa54786376ff7c0831a9ce09">SlideshowVertex</a> ()</td></tr>
+<tr class="memdesc:a121498a5fa54786376ff7c0831a9ce09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a 0-initialized vertex.  <br /></td></tr>
+<tr class="separator:a121498a5fa54786376ff7c0831a9ce09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4508cdf4184ee25e0114c3eb3ce4f4a" id="r_af4508cdf4184ee25e0114c3eb3ce4f4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#af4508cdf4184ee25e0114c3eb3ce4f4a">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a05314.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>)</td></tr>
+<tr class="memdesc:af4508cdf4184ee25e0114c3eb3ce4f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position.  <br /></td></tr>
+<tr class="separator:af4508cdf4184ee25e0114c3eb3ce4f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9133269ec196901121e1c164e7d76c49" id="r_a9133269ec196901121e1c164e7d76c49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a9133269ec196901121e1c164e7d76c49">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a05314.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, const glm::vec4 &amp;<a class="el" href="a05314.html#adb10a179cc86f188853725a3f37edc1b">color</a>)</td></tr>
+<tr class="memdesc:a9133269ec196901121e1c164e7d76c49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position and color.  <br /></td></tr>
+<tr class="separator:a9133269ec196901121e1c164e7d76c49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58af7eb7e2faca1e6c44960a9d48f181" id="r_a58af7eb7e2faca1e6c44960a9d48f181"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a58af7eb7e2faca1e6c44960a9d48f181">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a05314.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, std::uint32_t <a class="el" href="a05314.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>)</td></tr>
+<tr class="memdesc:a58af7eb7e2faca1e6c44960a9d48f181"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position and slideshow index.  <br /></td></tr>
+<tr class="separator:a58af7eb7e2faca1e6c44960a9d48f181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac85a968a5f3d98ace14cee3bc81f81b9" id="r_ac85a968a5f3d98ace14cee3bc81f81b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#ac85a968a5f3d98ace14cee3bc81f81b9">SlideshowVertex</a> (const glm::vec3 &amp;<a class="el" href="a05314.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a>, const glm::vec4 &amp;<a class="el" href="a05314.html#adb10a179cc86f188853725a3f37edc1b">color</a>, std::uint32_t <a class="el" href="a05314.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a>)</td></tr>
+<tr class="memdesc:ac85a968a5f3d98ace14cee3bc81f81b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a vertex from the given position, slideshow index, and color.  <br /></td></tr>
+<tr class="separator:ac85a968a5f3d98ace14cee3bc81f81b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a57e7e23524bdecf24684db8a29482df6" id="r_a57e7e23524bdecf24684db8a29482df6"><td class="memItemLeft" align="right" valign="top">static VkVertexInputBindingDescription&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a57e7e23524bdecf24684db8a29482df6">bindingDescription</a> ()</td></tr>
+<tr class="memdesc:a57e7e23524bdecf24684db8a29482df6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertex binding description for the renderer.  <br /></td></tr>
+<tr class="separator:a57e7e23524bdecf24684db8a29482df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39ce870fd005672ebcecb0eaec0de796" id="r_a39ce870fd005672ebcecb0eaec0de796"><td class="memItemLeft" align="right" valign="top">static std::array&lt; VkVertexInputAttributeDescription, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a39ce870fd005672ebcecb0eaec0de796">attributeDescriptions</a> ()</td></tr>
+<tr class="memdesc:a39ce870fd005672ebcecb0eaec0de796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the attribute descriptions for each vertex attribute.  <br /></td></tr>
+<tr class="separator:a39ce870fd005672ebcecb0eaec0de796"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a9fa9607bba2f9074d3dc04c26238fb15" id="r_a9fa9607bba2f9074d3dc04c26238fb15"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a9fa9607bba2f9074d3dc04c26238fb15">pos</a></td></tr>
+<tr class="separator:a9fa9607bba2f9074d3dc04c26238fb15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb10a179cc86f188853725a3f37edc1b" id="r_adb10a179cc86f188853725a3f37edc1b"><td class="memItemLeft" align="right" valign="top">glm::vec4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#adb10a179cc86f188853725a3f37edc1b">color</a></td></tr>
+<tr class="separator:adb10a179cc86f188853725a3f37edc1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e8d1e28479aefac2b4398830a349bc5" id="r_a0e8d1e28479aefac2b4398830a349bc5"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a0e8d1e28479aefac2b4398830a349bc5">slideshowIndex</a></td></tr>
+<tr class="separator:a0e8d1e28479aefac2b4398830a349bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-struct bl::util::Vector2Hash&lt; T &gt;</div><p>Specialized hash for sf::Vector2. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of vector to hash </td></tr>
+<div class="textblock"><p><a class="el" href="a05318.html" title="Base Vertex primitive for the renderer.">Vertex</a> type used by slideshows. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00019">19</a> of file <a class="el" href="a00863_source.html">SlideshowVertex.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a121498a5fa54786376ff7c0831a9ce09" name="a121498a5fa54786376ff7c0831a9ce09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a121498a5fa54786376ff7c0831a9ce09">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a 0-initialized vertex. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00009">9</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af4508cdf4184ee25e0114c3eb3ce4f4a" name="af4508cdf4184ee25e0114c3eb3ce4f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4508cdf4184ee25e0114c3eb3ce4f4a">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vertex from the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position of the vertex </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00479_source.html#l00045">45</a> of file <a class="el" href="a00479_source.html">Hashes.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="adb1f1f3f67bf271cb41f13f1c632490c" name="adb1f1f3f67bf271cb41f13f1c632490c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb1f1f3f67bf271cb41f13f1c632490c">&#9670;&#160;</a></span>operator()()</h2>
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00014">14</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9133269ec196901121e1c164e7d76c49" name="a9133269ec196901121e1c164e7d76c49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9133269ec196901121e1c164e7d76c49">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vertex from the given position and color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position of the vertex </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the vertex </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00019">19</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a58af7eb7e2faca1e6c44960a9d48f181" name="a58af7eb7e2faca1e6c44960a9d48f181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58af7eb7e2faca1e6c44960a9d48f181">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>slideshowIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vertex from the given position and slideshow index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The vertex position </td></tr>
+    <tr><td class="paramname">slideshowIndex</td><td>The slideshow index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00024">24</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac85a968a5f3d98ace14cee3bc81f81b9" name="ac85a968a5f3d98ace14cee3bc81f81b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac85a968a5f3d98ace14cee3bc81f81b9">&#9670;&#160;</a></span>SlideshowVertex() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::SlideshowVertex::SlideshowVertex </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec4 &amp;&#160;</td>
+          <td class="paramname"><em>color</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>slideshowIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a vertex from the given position, slideshow index, and color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The vertex position </td></tr>
+    <tr><td class="paramname">color</td><td>The color of the vertex </td></tr>
+    <tr><td class="paramname">slideshowIndex</td><td>The slideshow index </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00029">29</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a39ce870fd005672ebcecb0eaec0de796" name="a39ce870fd005672ebcecb0eaec0de796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39ce870fd005672ebcecb0eaec0de796">&#9670;&#160;</a></span>attributeDescriptions()</h2>
+
+<div class="memitem">
+<div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="a05314.html">bl::util::Vector2Hash</a>&lt; T &gt;::operator() </td>
+          <td class="memname">std::array&lt; VkVertexInputAttributeDescription, 3 &gt; bl::rc::prim::SlideshowVertex::attributeDescriptions </td>
           <td>(</td>
-          <td class="paramtype">const sf::Vector2&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Hash the given vector. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">value</td><td>The vector to hash </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t The hash of the vector </dd></dl>
+<p>Returns the attribute descriptions for each vertex attribute. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::array&lt;VkVertexInputAttributeDescription, 3&gt; Descriptions for each attribute </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00479_source.html#l00052">52</a> of file <a class="el" href="a00479_source.html">Hashes.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00043">43</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a00479_source.html">Hashes.hpp</a></li>
+<a id="a57e7e23524bdecf24684db8a29482df6" name="a57e7e23524bdecf24684db8a29482df6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57e7e23524bdecf24684db8a29482df6">&#9670;&#160;</a></span>bindingDescription()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkVertexInputBindingDescription bl::rc::prim::SlideshowVertex::bindingDescription </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the vertex binding description for the renderer. </p>
+<dl class="section return"><dt>Returns</dt><dd>VkVertexInputBindingDescription The vertex binding description </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02327_source.html#l00035">35</a> of file <a class="el" href="a02327_source.html">SlideshowVertex.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="adb10a179cc86f188853725a3f37edc1b" name="adb10a179cc86f188853725a3f37edc1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb10a179cc86f188853725a3f37edc1b">&#9670;&#160;</a></span>color</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec4 bl::rc::prim::SlideshowVertex::color</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00021">21</a> of file <a class="el" href="a00863_source.html">SlideshowVertex.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9fa9607bba2f9074d3dc04c26238fb15" name="a9fa9607bba2f9074d3dc04c26238fb15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa9607bba2f9074d3dc04c26238fb15">&#9670;&#160;</a></span>pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec3 bl::rc::prim::SlideshowVertex::pos</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00020">20</a> of file <a class="el" href="a00863_source.html">SlideshowVertex.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0e8d1e28479aefac2b4398830a349bc5" name="a0e8d1e28479aefac2b4398830a349bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e8d1e28479aefac2b4398830a349bc5">&#9670;&#160;</a></span>slideshowIndex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::SlideshowVertex::slideshowIndex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00022">22</a> of file <a class="el" href="a00863_source.html">SlideshowVertex.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Render/Primitives/<a class="el" href="a00863_source.html">SlideshowVertex.hpp</a></li>
+<li>src/Render/Primitives/<a class="el" href="a02327_source.html">SlideshowVertex.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

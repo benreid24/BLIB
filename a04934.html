@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::Serializer&lt; std::vector&lt; U &gt;, false &gt; Struct Template Reference</title>
+<title>BLIB: bl::rc::event::SceneGraphAssetCreated Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,151 +74,92 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02452.html">binary</a></li><li class="navelem"><a class="el" href="a04934.html">Serializer&lt; std::vector&lt; U &gt;, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03060.html">event</a></li><li class="navelem"><a class="el" href="a04934.html">SceneGraphAssetCreated</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04931.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::binary::Serializer&lt; std::vector&lt; U &gt;, false &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::event::SceneGraphAssetCreated Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a06886_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Fired when a new asset is created for a scene render graph. The asset will not have been initialized at this point.  
+ <a href="a04934.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00377_source.html">GraphEvents.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:afd74e5c59b536f39c49c5be316a6581b" id="r_afd74e5c59b536f39c49c5be316a6581b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04934.html#afd74e5c59b536f39c49c5be316a6581b">serialize</a> (<a class="el" href="a04898.html">OutputStream</a> &amp;output, const std::vector&lt; U &gt; &amp;value)</td></tr>
-<tr class="separator:afd74e5c59b536f39c49c5be316a6581b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fb65295d8a2ac332347dd5992829aa1" id="r_a1fb65295d8a2ac332347dd5992829aa1"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04934.html#a1fb65295d8a2ac332347dd5992829aa1">deserialize</a> (<a class="el" href="a04890.html">InputStream</a> &amp;input, std::vector&lt; U &gt; &amp;value)</td></tr>
-<tr class="separator:a1fb65295d8a2ac332347dd5992829aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a846a3304bd5026e866dc479c6bd4f914" id="r_a846a3304bd5026e866dc479c6bd4f914"><td class="memItemLeft" align="right" valign="top">static std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04934.html#a846a3304bd5026e866dc479c6bd4f914">size</a> (const std::vector&lt; U &gt; &amp;v)</td></tr>
-<tr class="separator:a846a3304bd5026e866dc479c6bd4f914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a670737ce1f359b67e48f2e0b7cef8014" id="r_a670737ce1f359b67e48f2e0b7cef8014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05334.html">RenderTarget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04934.html#a670737ce1f359b67e48f2e0b7cef8014">target</a></td></tr>
+<tr class="separator:a670737ce1f359b67e48f2e0b7cef8014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a302f0bf5fd4a1eacc6dd7f2c13775054" id="r_a302f0bf5fd4a1eacc6dd7f2c13775054"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05450.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04934.html#a302f0bf5fd4a1eacc6dd7f2c13775054">scene</a></td></tr>
+<tr class="separator:a302f0bf5fd4a1eacc6dd7f2c13775054"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ff51d95ece007a5b549f93f72b39735" id="r_a9ff51d95ece007a5b549f93f72b39735"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05046.html">rg::GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04934.html#a9ff51d95ece007a5b549f93f72b39735">asset</a></td></tr>
+<tr class="separator:a9ff51d95ece007a5b549f93f72b39735"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename U&gt;<br />
-struct bl::serial::binary::Serializer&lt; std::vector&lt; U &gt;, false &gt;</div>
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00225">225</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1fb65295d8a2ac332347dd5992829aa1" name="a1fb65295d8a2ac332347dd5992829aa1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fb65295d8a2ac332347dd5992829aa1">&#9670;&#160;</a></span>deserialize()</h2>
+<div class="textblock"><p>Fired when a new asset is created for a scene render graph. The asset will not have been initialized at this point. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00024">24</a> of file <a class="el" href="a00377_source.html">GraphEvents.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a9ff51d95ece007a5b549f93f72b39735" name="a9ff51d95ece007a5b549f93f72b39735"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ff51d95ece007a5b549f93f72b39735">&#9670;&#160;</a></span>asset</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; std::vector&lt; U &gt;, false &gt;::deserialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04890.html">InputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a05046.html">rg::GraphAsset</a>* bl::rc::event::SceneGraphAssetCreated::asset</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00234">234</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00027">27</a> of file <a class="el" href="a00377_source.html">GraphEvents.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afd74e5c59b536f39c49c5be316a6581b" name="afd74e5c59b536f39c49c5be316a6581b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd74e5c59b536f39c49c5be316a6581b">&#9670;&#160;</a></span>serialize()</h2>
+<a id="a302f0bf5fd4a1eacc6dd7f2c13775054" name="a302f0bf5fd4a1eacc6dd7f2c13775054"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a302f0bf5fd4a1eacc6dd7f2c13775054">&#9670;&#160;</a></span>scene</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; std::vector&lt; U &gt;, false &gt;::serialize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04898.html">OutputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname"><a class="el" href="a05450.html">Scene</a>* bl::rc::event::SceneGraphAssetCreated::scene</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00226">226</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00026">26</a> of file <a class="el" href="a00377_source.html">GraphEvents.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a846a3304bd5026e866dc479c6bd4f914" name="a846a3304bd5026e866dc479c6bd4f914"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a846a3304bd5026e866dc479c6bd4f914">&#9670;&#160;</a></span>size()</h2>
+<a id="a670737ce1f359b67e48f2e0b7cef8014" name="a670737ce1f359b67e48f2e0b7cef8014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a670737ce1f359b67e48f2e0b7cef8014">&#9670;&#160;</a></span>target</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::uint32_t <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; std::vector&lt; U &gt;, false &gt;::size </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; U &gt; &amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a05334.html">RenderTarget</a>* bl::rc::event::SceneGraphAssetCreated::target</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00245">245</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00025">25</a> of file <a class="el" href="a00377_source.html">GraphEvents.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a06886_source.html">Serializer.hpp</a></li>
+<li>include/BLIB/Render/Events/<a class="el" href="a00377_source.html">GraphEvents.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

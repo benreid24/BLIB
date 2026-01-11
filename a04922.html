@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::Serializer&lt; float &gt; Struct Reference</title>
+<title>BLIB: bl::rc::ds::InitContext Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,34 +74,56 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02452.html">binary</a></li><li class="navelem"><a class="el" href="a04922.html">Serializer&lt; float &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03056.html">ds</a></li><li class="navelem"><a class="el" href="a04922.html">InitContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04919.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::binary::Serializer&lt; float &gt; Struct Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::ds::InitContext Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a06886_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Struct that gets passed to DescriptorSetInstances on init.  
+ <a href="a04922.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a08536_source.html">InitContext.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad42752dc84dbc2f9a6e22ec32893c706" id="r_ad42752dc84dbc2f9a6e22ec32893c706"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#ad42752dc84dbc2f9a6e22ec32893c706">serialize</a> (<a class="el" href="a04898.html">OutputStream</a> &amp;output, const float &amp;value)</td></tr>
-<tr class="separator:ad42752dc84dbc2f9a6e22ec32893c706"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9922dcadeca36f351f2485614d3eec35" id="r_a9922dcadeca36f351f2485614d3eec35"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a9922dcadeca36f351f2485614d3eec35">deserialize</a> (<a class="el" href="a04890.html">InputStream</a> &amp;input, float &amp;result)</td></tr>
-<tr class="separator:a9922dcadeca36f351f2485614d3eec35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c72530237b5e04d281805c351bd72ce" id="r_a8c72530237b5e04d281805c351bd72ce"><td class="memItemLeft" align="right" valign="top">static std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a8c72530237b5e04d281805c351bd72ce">size</a> (const float &amp;s)</td></tr>
-<tr class="separator:a8c72530237b5e04d281805c351bd72ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad1019e73935b5ec07646402cb6e9a600" id="r_ad1019e73935b5ec07646402cb6e9a600"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#ad1019e73935b5ec07646402cb6e9a600">InitContext</a> (<a class="el" href="a03698.html">engine::Engine</a> &amp;<a class="el" href="a04922.html#a25f6448c6265f85ecd30b3c2884811be">engine</a>, <a class="el" href="a05330.html">Renderer</a> &amp;<a class="el" href="a04922.html#aafdaced67b857ade91ecfb363edd1066">renderer</a>, <a class="el" href="a05334.html">RenderTarget</a> &amp;<a class="el" href="a04922.html#a498eee573449d3c6b5e05ae4afa88c60">owner</a>, <a class="el" href="a05450.html">Scene</a> &amp;<a class="el" href="a04922.html#af8fb751612c4ccaf7290496983ae8489">scene</a>, <a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;<a class="el" href="a04922.html#a09cb9f66a522b519222e822f4fc57131">globalShaderResources</a>, <a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;<a class="el" href="a04922.html#aad1c87dac6c7e4cc5da37a39be238b51">observerShaderResources</a>, <a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;<a class="el" href="a04922.html#a296af24ae2b224b85547b4a99a17ae24">sceneShaderResources</a>)</td></tr>
+<tr class="memdesc:ad1019e73935b5ec07646402cb6e9a600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new init context.  <br /></td></tr>
+<tr class="separator:ad1019e73935b5ec07646402cb6e9a600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c2cd7c4cda64e208c3a73ea1ffefe5" id="r_a81c2cd7c4cda64e208c3a73ea1ffefe5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a81c2cd7c4cda64e208c3a73ea1ffefe5">getShaderResourceStore</a> (<a class="el" href="a02979.html#ga3dcc36a289dbe2cd2b0bac51fcf14713">sr::StoreKey</a> key)</td></tr>
+<tr class="memdesc:a81c2cd7c4cda64e208c3a73ea1ffefe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to select the corresponding shader resource store for the given key.  <br /></td></tr>
+<tr class="separator:a81c2cd7c4cda64e208c3a73ea1ffefe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a25f6448c6265f85ecd30b3c2884811be" id="r_a25f6448c6265f85ecd30b3c2884811be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">engine::Engine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a25f6448c6265f85ecd30b3c2884811be">engine</a></td></tr>
+<tr class="separator:a25f6448c6265f85ecd30b3c2884811be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafdaced67b857ade91ecfb363edd1066" id="r_aafdaced67b857ade91ecfb363edd1066"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#aafdaced67b857ade91ecfb363edd1066">renderer</a></td></tr>
+<tr class="separator:aafdaced67b857ade91ecfb363edd1066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498eee573449d3c6b5e05ae4afa88c60" id="r_a498eee573449d3c6b5e05ae4afa88c60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05334.html">RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a498eee573449d3c6b5e05ae4afa88c60">owner</a></td></tr>
+<tr class="separator:a498eee573449d3c6b5e05ae4afa88c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8fb751612c4ccaf7290496983ae8489" id="r_af8fb751612c4ccaf7290496983ae8489"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05450.html">Scene</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#af8fb751612c4ccaf7290496983ae8489">scene</a></td></tr>
+<tr class="separator:af8fb751612c4ccaf7290496983ae8489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09cb9f66a522b519222e822f4fc57131" id="r_a09cb9f66a522b519222e822f4fc57131"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a09cb9f66a522b519222e822f4fc57131">globalShaderResources</a></td></tr>
+<tr class="separator:a09cb9f66a522b519222e822f4fc57131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad1c87dac6c7e4cc5da37a39be238b51" id="r_aad1c87dac6c7e4cc5da37a39be238b51"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#aad1c87dac6c7e4cc5da37a39be238b51">observerShaderResources</a></td></tr>
+<tr class="separator:aad1c87dac6c7e4cc5da37a39be238b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a296af24ae2b224b85547b4a99a17ae24" id="r_a296af24ae2b224b85547b4a99a17ae24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04922.html#a296af24ae2b224b85547b4a99a17ae24">sceneShaderResources</a></td></tr>
+<tr class="separator:a296af24ae2b224b85547b4a99a17ae24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00149">149</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9922dcadeca36f351f2485614d3eec35" name="a9922dcadeca36f351f2485614d3eec35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9922dcadeca36f351f2485614d3eec35">&#9670;&#160;</a></span>deserialize()</h2>
+<div class="textblock"><p>Struct that gets passed to DescriptorSetInstances on init. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00030">30</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad1019e73935b5ec07646402cb6e9a600" name="ad1019e73935b5ec07646402cb6e9a600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1019e73935b5ec07646402cb6e9a600">&#9670;&#160;</a></span>InitContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -110,16 +132,46 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; float &gt;::deserialize </td>
+          <td class="memname">bl::rc::ds::InitContext::InitContext </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04890.html">InputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>input</em>, </td>
+          <td class="paramtype"><a class="el" href="a03698.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05334.html">RenderTarget</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05450.html">Scene</a> &amp;&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td>
+          <td class="paramname"><em>globalShaderResources</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td>
+          <td class="paramname"><em>observerShaderResources</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp;&#160;</td>
+          <td class="paramname"><em>sceneShaderResources</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -129,17 +181,32 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00154">154</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p>Creates a new init context. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The engine instance </td></tr>
+    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">owner</td><td>The render target that owns the descriptor set </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene the descriptor set is for </td></tr>
+    <tr><td class="paramname">globalShaderResources</td><td>Shader resources global to the renderer </td></tr>
+    <tr><td class="paramname">observerShaderResources</td><td>Shader resources of the owner </td></tr>
+    <tr><td class="paramname">sceneShaderResources</td><td>Shader resources of the scene </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00050">50</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad42752dc84dbc2f9a6e22ec32893c706" name="ad42752dc84dbc2f9a6e22ec32893c706"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad42752dc84dbc2f9a6e22ec32893c706">&#9670;&#160;</a></span>serialize()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a81c2cd7c4cda64e208c3a73ea1ffefe5" name="a81c2cd7c4cda64e208c3a73ea1ffefe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c2cd7c4cda64e208c3a73ea1ffefe5">&#9670;&#160;</a></span>getShaderResourceStore()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -148,70 +215,154 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; float &gt;::serialize </td>
+          <td class="memname"><a class="el" href="a05574.html">sr::ShaderResourceStore</a> &amp; bl::rc::ds::InitContext::getShaderResourceStore </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04898.html">OutputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga3dcc36a289dbe2cd2b0bac51fcf14713">sr::StoreKey</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00150">150</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p>Helper function to select the corresponding shader resource store for the given key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key to get the store for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The shader resource store for the given key </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00068">68</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8c72530237b5e04d281805c351bd72ce" name="a8c72530237b5e04d281805c351bd72ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c72530237b5e04d281805c351bd72ce">&#9670;&#160;</a></span>size()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a25f6448c6265f85ecd30b3c2884811be" name="a25f6448c6265f85ecd30b3c2884811be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f6448c6265f85ecd30b3c2884811be">&#9670;&#160;</a></span>engine</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static std::uint32_t <a class="el" href="a04902.html">bl::serial::binary::Serializer</a>&lt; float &gt;::size </td>
-          <td>(</td>
-          <td class="paramtype">const float &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a03698.html">engine::Engine</a>&amp; bl::rc::ds::InitContext::engine</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06886_source.html#l00163">163</a> of file <a class="el" href="a06886_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00031">31</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a09cb9f66a522b519222e822f4fc57131" name="a09cb9f66a522b519222e822f4fc57131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09cb9f66a522b519222e822f4fc57131">&#9670;&#160;</a></span>globalShaderResources</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05574.html">sr::ShaderResourceStore</a>&amp; bl::rc::ds::InitContext::globalShaderResources</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00035">35</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aad1c87dac6c7e4cc5da37a39be238b51" name="aad1c87dac6c7e4cc5da37a39be238b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad1c87dac6c7e4cc5da37a39be238b51">&#9670;&#160;</a></span>observerShaderResources</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05574.html">sr::ShaderResourceStore</a>&amp; bl::rc::ds::InitContext::observerShaderResources</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00036">36</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a498eee573449d3c6b5e05ae4afa88c60" name="a498eee573449d3c6b5e05ae4afa88c60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a498eee573449d3c6b5e05ae4afa88c60">&#9670;&#160;</a></span>owner</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05334.html">RenderTarget</a>&amp; bl::rc::ds::InitContext::owner</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00033">33</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aafdaced67b857ade91ecfb363edd1066" name="aafdaced67b857ade91ecfb363edd1066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafdaced67b857ade91ecfb363edd1066">&#9670;&#160;</a></span>renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05330.html">Renderer</a>&amp; bl::rc::ds::InitContext::renderer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00032">32</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af8fb751612c4ccaf7290496983ae8489" name="af8fb751612c4ccaf7290496983ae8489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8fb751612c4ccaf7290496983ae8489">&#9670;&#160;</a></span>scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05450.html">Scene</a>&amp; bl::rc::ds::InitContext::scene</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00034">34</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a296af24ae2b224b85547b4a99a17ae24" name="a296af24ae2b224b85547b4a99a17ae24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a296af24ae2b224b85547b4a99a17ae24">&#9670;&#160;</a></span>sceneShaderResources</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05574.html">sr::ShaderResourceStore</a>&amp; bl::rc::ds::InitContext::sceneShaderResources</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08536_source.html#l00037">37</a> of file <a class="el" href="a08536_source.html">InitContext.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a06886_source.html">Serializer.hpp</a></li>
+<li>include/BLIB/Render/Descriptors/<a class="el" href="a08536_source.html">InitContext.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

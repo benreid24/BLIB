@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Components/OverlayScaler.cpp Source File</title>
+<title>BLIB: include/BLIB/ECS/ParentGraph.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,158 +79,71 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c610c8504d46288da7634b3c0b18263f.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">OverlayScaler.cpp</div></div>
+  <div class="headertitle"><div class="title">ParentGraph.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01541.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00047.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>com</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a02658.html#a94e798ff2c82e55677f2eee8b41f0bf1">    7</a></span><a class="code hl_function" href="a02658.html#a94e798ff2c82e55677f2eee8b41f0bf1">OverlayScaler::OverlayScaler</a>()</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: cachedObjectBounds(0.f, 0.f, 50.f, 50.f)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, cachedScaledOrigin(0.f, 0.f)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>, scaleType(None)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, sizePercent(0.1f, 0.1f)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, posType(NoPosition)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, scissorMode(ScissorInherit)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, dirty(true)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, transformVersion(0) {}</div>
+<a href="a01541.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ECS_PARENTGRAPH_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ECS_PARENTGRAPH_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00314.html">BLIB/Containers/IndexMappedList.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01550.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03586.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a03586.html">ParentGraph</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="a03586.html">ParentGraph</a>(std::size_t capacityHint);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03586.html#a9121be6b1da7de47f609491e7b84dd1e">setParent</a>(<a class="code hl_struct" href="a03542.html">Entity</a> child, <a class="code hl_struct" href="a03542.html">Entity</a> parent);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03586.html#a965b2d787f0e6ccb2beed91b3d70a815">unParent</a>(<a class="code hl_struct" href="a03542.html">Entity</a> child);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_struct" href="a03542.html">Entity</a> <a class="code hl_function" href="a03586.html#ab26869bf08eb3701dc146e226ef887da">getParent</a>(<a class="code hl_struct" href="a03542.html">Entity</a> child) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_struct" href="a03394.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code hl_function" href="a03586.html#ade74b5299fd5c0df5933e636664d07eb">getChildren</a>(<a class="code hl_struct" href="a03542.html">Entity</a> parent);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03586.html#acbcc3b794d2c338032bb80fc5bbbfc8f">reset</a>();</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03586.html#a17db4dda4272bce51c49a7c96b71b03d">removeEntity</a>(<a class="code hl_struct" href="a03542.html">Entity</a> entity);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    std::vector&lt;Entity&gt; parentMap;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_class" href="a03386.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;</a> childMap;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> ensureParentCap(<a class="code hl_struct" href="a03542.html">Entity</a> child);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">bool</span> checkForCycles(<a class="code hl_struct" href="a03542.html">Entity</a> start);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
 </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a02658.html#a02e0dc86460e59ccd97e964078c44bbd">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a02e0dc86460e59ccd97e964078c44bbd">OverlayScaler::scaleToWidthPercent</a>(<span class="keywordtype">float</span> p) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    scaleType    = WidthPercent;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_variable" href="a02658.html#a356f8db1cab0a41fa56849b29473ec3a">widthPercent</a> = p;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    dirty        = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a02658.html#a6047cc62c0737324810c78355df8c117">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a6047cc62c0737324810c78355df8c117">OverlayScaler::scaleToHeightPercent</a>(<span class="keywordtype">float</span> p) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    scaleType     = HeightPercent;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="a02658.html#a5a5d620fd3b60bfaca28befa9c62eecf">heightPercent</a> = p;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    dirty         = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
-</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="}">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a02658.html#a9e7fd2a5159d6cb12cb27baa1444993d">   29</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a9e7fd2a5159d6cb12cb27baa1444993d">OverlayScaler::scaleToHeightRatio</a>(<span class="keywordtype">float</span> src, <span class="keywordtype">float</span> dst) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    scaleType    = LineHeight;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="a02658.html#a5a827c8435ba47a1dc4d5f50b544f40c">overlayRatio</a> = dst / src;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    dirty        = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
-</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a02658.html#ac550a946b3fca76bba8049cc588d1668">   35</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#ac550a946b3fca76bba8049cc588d1668">OverlayScaler::scaleToSizePercent</a>(<span class="keyword">const</span> glm::vec2&amp; p) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    scaleType   = SizePercent;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_variable" href="a02658.html#a8c2561468d36b2320f6d1580c95ba448">sizePercent</a> = p;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    dirty       = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
-</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a02658.html#ab5dc40a449f1ed3ec7343f34276a768e">   41</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#ab5dc40a449f1ed3ec7343f34276a768e">OverlayScaler::mapToTargetPixels</a>(<span class="keywordtype">float</span> r) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    scaleType  = PixelRatio;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_variable" href="a02658.html#a9ecde633935343a2467f36efb6a0825c">pixelRatio</a> = r;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    dirty      = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
-</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a02658.html#a6a3a68b9465589411d774639303968f4">   47</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a6a3a68b9465589411d774639303968f4">OverlayScaler::stopScaling</a>() {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    scaleType = None;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    dirty     = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
-</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a02658.html#a30514be96ed2f37bc00eb2e1798cc7b5">   52</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a30514be96ed2f37bc00eb2e1798cc7b5">OverlayScaler::setEntityBounds</a>(<span class="keyword">const</span> sf::FloatRect&amp; s) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    cachedObjectBounds = s;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    dirty              = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a02658.html#a74ceaef3f307d7c236cdc3c16f1a03e2">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a74ceaef3f307d7c236cdc3c16f1a03e2">OverlayScaler::setScissorMode</a>(<a class="code hl_enumeration" href="a02658.html#a10e3c7c111c570a34f8845082711e823">ScissorMode</a> m) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    scissorMode = m;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    dirty       = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
-</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a02658.html#abeed632de44a59aa1bfee410784b8862">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#abeed632de44a59aa1bfee410784b8862">OverlayScaler::setFixedScissor</a>(<span class="keyword">const</span> sf::IntRect&amp; scissor) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    scissorMode  = <a class="code hl_enumvalue" href="a02658.html#a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50">ScissorFixed</a>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_variable" href="a02658.html#af5b5851a5580880a6e4cefe7c0210def">fixedScissor</a> = scissor;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    dirty        = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
-</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a02658.html#adefce53c3dc29493a9d9b488fe6c603d">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#adefce53c3dc29493a9d9b488fe6c603d">OverlayScaler::positionInParentSpace</a>(<span class="keyword">const</span> glm::vec2&amp; pos) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    posType        = ParentSpace;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_variable" href="a02658.html#ae195619832cdffb0d02ae17ca6466dba">parentPosition</a> = pos;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    dirty          = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a02658.html#af94bd6a6cb00b1684f282ab46487fd1b">   74</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#af94bd6a6cb00b1684f282ab46487fd1b">OverlayScaler::stopPositioning</a>() {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    dirty   = posType != NoPosition;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    posType = NoPosition;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
-</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a02658.html#a55e13604e6201593c951075ea50b87ae">   79</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02658.html#a55e13604e6201593c951075ea50b87ae">OverlayScaler::setScaleCallback</a>(<a class="code hl_typedef" href="a02658.html#ac2e99e622554b9e47590b73cd3c44f39">OnScale</a>&amp;&amp; cb) { onScale = std::forward&lt;OnScale&gt;(cb); }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a02658.html#a4b3555d13e66c81c2c96bdfea8f4186d">   81</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02658.html#a4b3555d13e66c81c2c96bdfea8f4186d">OverlayScaler::isDirty</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02702.html">com::Transform2D</a>* t)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> dirty || (t &amp;&amp; t-&gt;<a class="code hl_function" href="a02986.html#aa588c79bb8fcd9436a0e57628859d41d">getVersion</a>() != transformVersion);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace com</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">OverlayScaler.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02658_html_a02e0dc86460e59ccd97e964078c44bbd"><div class="ttname"><a href="a02658.html#a02e0dc86460e59ccd97e964078c44bbd">bl::com::OverlayScaler::scaleToWidthPercent</a></div><div class="ttdeci">void scaleToWidthPercent(float percent)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay width. Maintains aspect ratio.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00017">OverlayScaler.cpp:17</a></div></div>
-<div class="ttc" id="aa02658_html_a10e3c7c111c570a34f8845082711e823"><div class="ttname"><a href="a02658.html#a10e3c7c111c570a34f8845082711e823">bl::com::OverlayScaler::ScissorMode</a></div><div class="ttdeci">ScissorMode</div><div class="ttdoc">Represents the scissor behavior for an entity controlled by an overlay scaler.</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00047">OverlayScaler.hpp:47</a></div></div>
-<div class="ttc" id="aa02658_html_a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50"><div class="ttname"><a href="a02658.html#a10e3c7c111c570a34f8845082711e823ada5eaff438e339232aa0c1a2735d8b50">bl::com::OverlayScaler::ScissorFixed</a></div><div class="ttdeci">@ ScissorFixed</div><div class="ttdoc">Sets the scissor to a fixed value.</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00062">OverlayScaler.hpp:61</a></div></div>
-<div class="ttc" id="aa02658_html_a30514be96ed2f37bc00eb2e1798cc7b5"><div class="ttname"><a href="a02658.html#a30514be96ed2f37bc00eb2e1798cc7b5">bl::com::OverlayScaler::setEntityBounds</a></div><div class="ttdeci">void setEntityBounds(const sf::FloatRect &amp;bounds)</div><div class="ttdoc">Sets the pre-transform bounds of the entity. Used in scaling calculations.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00052">OverlayScaler.cpp:52</a></div></div>
-<div class="ttc" id="aa02658_html_a356f8db1cab0a41fa56849b29473ec3a"><div class="ttname"><a href="a02658.html#a356f8db1cab0a41fa56849b29473ec3a">bl::com::OverlayScaler::widthPercent</a></div><div class="ttdeci">float widthPercent</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00174">OverlayScaler.hpp:174</a></div></div>
-<div class="ttc" id="aa02658_html_a4b3555d13e66c81c2c96bdfea8f4186d"><div class="ttname"><a href="a02658.html#a4b3555d13e66c81c2c96bdfea8f4186d">bl::com::OverlayScaler::isDirty</a></div><div class="ttdeci">bool isDirty(const com::Transform2D *transform=nullptr) const</div><div class="ttdoc">Returns whether or not the scale needs to be re-computed.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00081">OverlayScaler.cpp:81</a></div></div>
-<div class="ttc" id="aa02658_html_a55e13604e6201593c951075ea50b87ae"><div class="ttname"><a href="a02658.html#a55e13604e6201593c951075ea50b87ae">bl::com::OverlayScaler::setScaleCallback</a></div><div class="ttdeci">void setScaleCallback(OnScale &amp;&amp;onScale)</div><div class="ttdoc">Sets the callback to call when the entity is scaled.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00079">OverlayScaler.cpp:79</a></div></div>
-<div class="ttc" id="aa02658_html_a5a5d620fd3b60bfaca28befa9c62eecf"><div class="ttname"><a href="a02658.html#a5a5d620fd3b60bfaca28befa9c62eecf">bl::com::OverlayScaler::heightPercent</a></div><div class="ttdeci">float heightPercent</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00175">OverlayScaler.hpp:175</a></div></div>
-<div class="ttc" id="aa02658_html_a5a827c8435ba47a1dc4d5f50b544f40c"><div class="ttname"><a href="a02658.html#a5a827c8435ba47a1dc4d5f50b544f40c">bl::com::OverlayScaler::overlayRatio</a></div><div class="ttdeci">float overlayRatio</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00177">OverlayScaler.hpp:177</a></div></div>
-<div class="ttc" id="aa02658_html_a6047cc62c0737324810c78355df8c117"><div class="ttname"><a href="a02658.html#a6047cc62c0737324810c78355df8c117">bl::com::OverlayScaler::scaleToHeightPercent</a></div><div class="ttdeci">void scaleToHeightPercent(float percent)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay height. Maintains AR.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00023">OverlayScaler.cpp:23</a></div></div>
-<div class="ttc" id="aa02658_html_a6a3a68b9465589411d774639303968f4"><div class="ttname"><a href="a02658.html#a6a3a68b9465589411d774639303968f4">bl::com::OverlayScaler::stopScaling</a></div><div class="ttdeci">void stopScaling()</div><div class="ttdoc">Disables auto-scaling.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00047">OverlayScaler.cpp:47</a></div></div>
-<div class="ttc" id="aa02658_html_a74ceaef3f307d7c236cdc3c16f1a03e2"><div class="ttname"><a href="a02658.html#a74ceaef3f307d7c236cdc3c16f1a03e2">bl::com::OverlayScaler::setScissorMode</a></div><div class="ttdeci">void setScissorMode(ScissorMode mode)</div><div class="ttdoc">Sets the behavior of the scissor when rendering this entity.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00057">OverlayScaler.cpp:57</a></div></div>
-<div class="ttc" id="aa02658_html_a8c2561468d36b2320f6d1580c95ba448"><div class="ttname"><a href="a02658.html#a8c2561468d36b2320f6d1580c95ba448">bl::com::OverlayScaler::sizePercent</a></div><div class="ttdeci">glm::vec2 sizePercent</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00176">OverlayScaler.hpp:176</a></div></div>
-<div class="ttc" id="aa02658_html_a94e798ff2c82e55677f2eee8b41f0bf1"><div class="ttname"><a href="a02658.html#a94e798ff2c82e55677f2eee8b41f0bf1">bl::com::OverlayScaler::OverlayScaler</a></div><div class="ttdeci">OverlayScaler()</div><div class="ttdoc">Initializes the component to have no scaling effect.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00007">OverlayScaler.cpp:7</a></div></div>
-<div class="ttc" id="aa02658_html_a9e7fd2a5159d6cb12cb27baa1444993d"><div class="ttname"><a href="a02658.html#a9e7fd2a5159d6cb12cb27baa1444993d">bl::com::OverlayScaler::scaleToHeightRatio</a></div><div class="ttdeci">void scaleToHeightRatio(float localLineHeight, float overlayLineHeight)</div><div class="ttdoc">Scales so that the given local height corresponds to the given overlay height. Used for Text scaling.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00029">OverlayScaler.cpp:29</a></div></div>
-<div class="ttc" id="aa02658_html_a9ecde633935343a2467f36efb6a0825c"><div class="ttname"><a href="a02658.html#a9ecde633935343a2467f36efb6a0825c">bl::com::OverlayScaler::pixelRatio</a></div><div class="ttdeci">float pixelRatio</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00173">OverlayScaler.hpp:173</a></div></div>
-<div class="ttc" id="aa02658_html_ab5dc40a449f1ed3ec7343f34276a768e"><div class="ttname"><a href="a02658.html#ab5dc40a449f1ed3ec7343f34276a768e">bl::com::OverlayScaler::mapToTargetPixels</a></div><div class="ttdeci">void mapToTargetPixels(float ratio=1.f)</div><div class="ttdoc">Scales to the given ratio of entity-local texels to target screen-space pixels.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00041">OverlayScaler.cpp:41</a></div></div>
-<div class="ttc" id="aa02658_html_abeed632de44a59aa1bfee410784b8862"><div class="ttname"><a href="a02658.html#abeed632de44a59aa1bfee410784b8862">bl::com::OverlayScaler::setFixedScissor</a></div><div class="ttdeci">void setFixedScissor(const sf::IntRect &amp;scissor)</div><div class="ttdoc">Sets the scissor to a fixed value.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00062">OverlayScaler.cpp:62</a></div></div>
-<div class="ttc" id="aa02658_html_ac2e99e622554b9e47590b73cd3c44f39"><div class="ttname"><a href="a02658.html#ac2e99e622554b9e47590b73cd3c44f39">bl::com::OverlayScaler::OnScale</a></div><div class="ttdeci">std::function&lt; void()&gt; OnScale</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00042">OverlayScaler.hpp:42</a></div></div>
-<div class="ttc" id="aa02658_html_ac550a946b3fca76bba8049cc588d1668"><div class="ttname"><a href="a02658.html#ac550a946b3fca76bba8049cc588d1668">bl::com::OverlayScaler::scaleToSizePercent</a></div><div class="ttdeci">void scaleToSizePercent(const glm::vec2 &amp;percents)</div><div class="ttdoc">Scales the entity to take up a percentage of the overlay size. Does not maintain AR.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00035">OverlayScaler.cpp:35</a></div></div>
-<div class="ttc" id="aa02658_html_adefce53c3dc29493a9d9b488fe6c603d"><div class="ttname"><a href="a02658.html#adefce53c3dc29493a9d9b488fe6c603d">bl::com::OverlayScaler::positionInParentSpace</a></div><div class="ttdeci">void positionInParentSpace(const glm::vec2 &amp;position)</div><div class="ttdoc">Updates the entity position relative to the parent region.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00068">OverlayScaler.cpp:68</a></div></div>
-<div class="ttc" id="aa02658_html_ae195619832cdffb0d02ae17ca6466dba"><div class="ttname"><a href="a02658.html#ae195619832cdffb0d02ae17ca6466dba">bl::com::OverlayScaler::parentPosition</a></div><div class="ttdeci">glm::vec2 parentPosition</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00181">OverlayScaler.hpp:181</a></div></div>
-<div class="ttc" id="aa02658_html_af5b5851a5580880a6e4cefe7c0210def"><div class="ttname"><a href="a02658.html#af5b5851a5580880a6e4cefe7c0210def">bl::com::OverlayScaler::fixedScissor</a></div><div class="ttdeci">sf::IntRect fixedScissor</div><div class="ttdef"><b>Definition</b> <a href="a00047_source.html#l00185">OverlayScaler.hpp:185</a></div></div>
-<div class="ttc" id="aa02658_html_af94bd6a6cb00b1684f282ab46487fd1b"><div class="ttname"><a href="a02658.html#af94bd6a6cb00b1684f282ab46487fd1b">bl::com::OverlayScaler::stopPositioning</a></div><div class="ttdeci">void stopPositioning()</div><div class="ttdoc">Stops any positioning of the entity.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00074">OverlayScaler.cpp:74</a></div></div>
-<div class="ttc" id="aa02702_html"><div class="ttname"><a href="a02702.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a06361_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa02986_html_aa588c79bb8fcd9436a0e57628859d41d"><div class="ttname"><a href="a02986.html#aa588c79bb8fcd9436a0e57628859d41d">bl::ecs::trait::Versioned::getVersion</a></div><div class="ttdeci">std::uint16_t getVersion() const</div><div class="ttdoc">Returns the current version of the component. The value itself is not important, only changes in the ...</div><div class="ttdef"><b>Definition</b> <a href="a01013_source.html#l00050">Versioned.hpp:50</a></div></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace ecs</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00314_html"><div class="ttname"><a href="a00314.html">IndexMappedList.hpp</a></div></div>
+<div class="ttc" id="aa01550_html"><div class="ttname"><a href="a01550.html">Entity.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03386_html"><div class="ttname"><a href="a03386.html">bl::ctr::IndexMappedList</a></div><div class="ttdoc">Specialized storage that is like a multimap, but internally is comprised of only a few vectors....</div><div class="ttdef"><b>Definition</b> <a href="a00314_source.html#l00025">IndexMappedList.hpp:25</a></div></div>
+<div class="ttc" id="aa03394_html"><div class="ttname"><a href="a03394.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition</b> <a href="a00314_source.html#l00188">IndexMappedList.hpp:188</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03586_html"><div class="ttname"><a href="a03586.html">bl::ecs::ParentGraph</a></div><div class="ttdoc">Utility class to store and manage child &lt;-&gt; parent entity relationships in the ECS.</div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00016">ParentGraph.hpp:16</a></div></div>
+<div class="ttc" id="aa03586_html_a17db4dda4272bce51c49a7c96b71b03d"><div class="ttname"><a href="a03586.html#a17db4dda4272bce51c49a7c96b71b03d">bl::ecs::ParentGraph::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdoc">Removes the given entity from the graph. Does not update children. remove() must be called manually f...</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00057">ParentGraph.cpp:57</a></div></div>
+<div class="ttc" id="aa03586_html_a9121be6b1da7de47f609491e7b84dd1e"><div class="ttname"><a href="a03586.html#a9121be6b1da7de47f609491e7b84dd1e">bl::ecs::ParentGraph::setParent</a></div><div class="ttdeci">void setParent(Entity child, Entity parent)</div><div class="ttdoc">Adds a parent &lt;-&gt; child association.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00013">ParentGraph.cpp:13</a></div></div>
+<div class="ttc" id="aa03586_html_a965b2d787f0e6ccb2beed91b3d70a815"><div class="ttname"><a href="a03586.html#a965b2d787f0e6ccb2beed91b3d70a815">bl::ecs::ParentGraph::unParent</a></div><div class="ttdeci">void unParent(Entity child)</div><div class="ttdoc">Removes the parent from the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00033">ParentGraph.cpp:33</a></div></div>
+<div class="ttc" id="aa03586_html_ab26869bf08eb3701dc146e226ef887da"><div class="ttname"><a href="a03586.html#ab26869bf08eb3701dc146e226ef887da">bl::ecs::ParentGraph::getParent</a></div><div class="ttdeci">Entity getParent(Entity child) const</div><div class="ttdoc">Returns the parent for the given child.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00043">ParentGraph.cpp:43</a></div></div>
+<div class="ttc" id="aa03586_html_acbcc3b794d2c338032bb80fc5bbbfc8f"><div class="ttname"><a href="a03586.html#acbcc3b794d2c338032bb80fc5bbbfc8f">bl::ecs::ParentGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the entire graph to the empty state.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00052">ParentGraph.cpp:52</a></div></div>
+<div class="ttc" id="aa03586_html_ade74b5299fd5c0df5933e636664d07eb"><div class="ttname"><a href="a03586.html#ade74b5299fd5c0df5933e636664d07eb">bl::ecs::ParentGraph::getChildren</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getChildren(Entity parent)</div><div class="ttdoc">Returns a range of children for the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00048">ParentGraph.cpp:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

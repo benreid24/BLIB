@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::scene::SceneObjectECSAdaptor&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::mdl::BoneAnimation Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,96 +74,111 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02456.html">scene</a></li><li class="navelem"><a class="el" href="a04470.html">SceneObjectECSAdaptor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04470.html">BoneAnimation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a04467.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::scene::SceneObjectECSAdaptor&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::mdl::BoneAnimation Class Reference<div class="ingroups"><a class="el" href="a02976.html">Models</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Similar to <a class="el" href="a04478.html" title="Storage for scene objects. Splits objects by update frequency.">SceneObjectStorage</a>, but uses the ECS as underlying storage.  
+<p>Describes the animation of a single bone in a skeletal animation.  
  <a href="a04470.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01424_source.html">BoneAnimation.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a8fa6477b54dd8f3d2034c004656da911" id="r_a8fa6477b54dd8f3d2034c004656da911"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">Behavior</a> : std::uint8_t { <a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911a8b79cc711e8cc3f942395186c4d7b06e">Default</a> = aiAnimBehaviour_DEFAULT
+, <a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911a6f4a2b915819210844ba3aea0e54ef88">Constant</a> = aiAnimBehaviour_CONSTANT
+, <a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911a400a7243771c5e3466b4d2002d8b4240">Linear</a> = aiAnimBehaviour_LINEAR
+, <a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911a7b611ffaa605e7d54a1b9221ccdbb651">Repeat</a> = aiAnimBehaviour_REPEAT
+ }</td></tr>
+<tr class="memdesc:a8fa6477b54dd8f3d2034c004656da911"><td class="mdescLeft">&#160;</td><td class="mdescRight">The behavior of the animation before and after its keyframes.  <a href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">More...</a><br /></td></tr>
+<tr class="separator:a8fa6477b54dd8f3d2034c004656da911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4571d1a9a04cd7e09cda830661cc30a" id="r_ad4571d1a9a04cd7e09cda830661cc30a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#ad4571d1a9a04cd7e09cda830661cc30a">SceneObjectECSAdaptor</a> (<a class="el" href="a02938.html">ecs::Registry</a> &amp;registry)</td></tr>
-<tr class="memdesc:ad4571d1a9a04cd7e09cda830661cc30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserves some memory.  <br /></td></tr>
-<tr class="separator:ad4571d1a9a04cd7e09cda830661cc30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f2441c81018008dbc33fe00adaea9c7" id="r_a1f2441c81018008dbc33fe00adaea9c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a1f2441c81018008dbc33fe00adaea9c7">~SceneObjectECSAdaptor</a> ()</td></tr>
-<tr class="memdesc:a1f2441c81018008dbc33fe00adaea9c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys all created components.  <br /></td></tr>
-<tr class="separator:a1f2441c81018008dbc33fe00adaea9c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a113892f5b9b3259d8f21efce6a501fbf" id="r_a113892f5b9b3259d8f21efce6a501fbf"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a113892f5b9b3259d8f21efce6a501fbf">allocate</a> (<a class="el" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="el" href="a02890.html">ecs::Entity</a> entity)</td></tr>
-<tr class="memdesc:a113892f5b9b3259d8f21efce6a501fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new scene object.  <br /></td></tr>
-<tr class="separator:a113892f5b9b3259d8f21efce6a501fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3675b9085ef80a5a2355bfa349db9e05" id="r_a3675b9085ef80a5a2355bfa349db9e05"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a3675b9085ef80a5a2355bfa349db9e05">getObjectEntity</a> (<a class="el" href="a04434.html">Key</a> key) const</td></tr>
-<tr class="memdesc:a3675b9085ef80a5a2355bfa349db9e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ECS id for the given object key.  <br /></td></tr>
-<tr class="separator:a3675b9085ef80a5a2355bfa349db9e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a461d9aa846cd343d9691f2c20b9b6f48" id="r_a461d9aa846cd343d9691f2c20b9b6f48"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a461d9aa846cd343d9691f2c20b9b6f48">getObject</a> (<a class="el" href="a04434.html">Key</a> key)</td></tr>
-<tr class="memdesc:a461d9aa846cd343d9691f2c20b9b6f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the object with the given key.  <br /></td></tr>
-<tr class="separator:a461d9aa846cd343d9691f2c20b9b6f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2daae5288111cc543eeec8ee98c3b1dd" id="r_a2daae5288111cc543eeec8ee98c3b1dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a2daae5288111cc543eeec8ee98c3b1dd">release</a> (<a class="el" href="a04434.html">Key</a> key)</td></tr>
-<tr class="memdesc:a2daae5288111cc543eeec8ee98c3b1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given key as being free. Allows future allocation to reuse it.  <br /></td></tr>
-<tr class="separator:a2daae5288111cc543eeec8ee98c3b1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93f7f616563486d05bac28c62f630ea6" id="r_a93f7f616563486d05bac28c62f630ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a93f7f616563486d05bac28c62f630ea6">unlinkAll</a> (<a class="el" href="a04130.html">ds::DescriptorSetInstanceCache</a> &amp;descriptors)</td></tr>
-<tr class="memdesc:a93f7f616563486d05bac28c62f630ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks created objects.  <br /></td></tr>
-<tr class="separator:a93f7f616563486d05bac28c62f630ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2617974b4cb375723a6f0fa52dd7b192" id="r_a2617974b4cb375723a6f0fa52dd7b192"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04102.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a2617974b4cb375723a6f0fa52dd7b192">makeEntityCallback</a> () const</td></tr>
-<tr class="memdesc:a2617974b4cb375723a6f0fa52dd7b192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a usable callback to map scene key to ECS id.  <br /></td></tr>
-<tr class="separator:a2617974b4cb375723a6f0fa52dd7b192"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac083ddffb4f21414e90ef8c208cdadf8" id="r_ac083ddffb4f21414e90ef8c208cdadf8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#ac083ddffb4f21414e90ef8c208cdadf8">BoneAnimation</a> ()</td></tr>
+<tr class="memdesc:ac083ddffb4f21414e90ef8c208cdadf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty bone animation.  <br /></td></tr>
+<tr class="separator:ac083ddffb4f21414e90ef8c208cdadf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa3159a008b71ba06327c7832157be1" id="r_a2aa3159a008b71ba06327c7832157be1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a2aa3159a008b71ba06327c7832157be1">populate</a> (const aiNodeAnim &amp;src, const <a class="el" href="a04522.html">NodeSet</a> &amp;nodes)</td></tr>
+<tr class="memdesc:a2aa3159a008b71ba06327c7832157be1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates from Assimp data.  <br /></td></tr>
+<tr class="separator:a2aa3159a008b71ba06327c7832157be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f49bdd0bbafd5d27720ae6a36de8690" id="r_a5f49bdd0bbafd5d27720ae6a36de8690"><td class="memItemLeft" align="right" valign="top">glm::quat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a5f49bdd0bbafd5d27720ae6a36de8690">interpolateRotation</a> (double time) const</td></tr>
+<tr class="memdesc:a5f49bdd0bbafd5d27720ae6a36de8690"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interpolated rotation at the given time.  <br /></td></tr>
+<tr class="separator:a5f49bdd0bbafd5d27720ae6a36de8690"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a386ffb77da1b9a2d76f26e10950483f3" id="r_a386ffb77da1b9a2d76f26e10950483f3"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a386ffb77da1b9a2d76f26e10950483f3">interpolatePosition</a> (double time) const</td></tr>
+<tr class="memdesc:a386ffb77da1b9a2d76f26e10950483f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interpolated position at the given time.  <br /></td></tr>
+<tr class="separator:a386ffb77da1b9a2d76f26e10950483f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6a7df2cefcf0c0e93f93aecb392e7aa" id="r_aa6a7df2cefcf0c0e93f93aecb392e7aa"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#aa6a7df2cefcf0c0e93f93aecb392e7aa">interpolateScale</a> (double time) const</td></tr>
+<tr class="memdesc:aa6a7df2cefcf0c0e93f93aecb392e7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the interpolated scale at the given time.  <br /></td></tr>
+<tr class="separator:aa6a7df2cefcf0c0e93f93aecb392e7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d55b5b7b3b9d19b21f04e5b61c0c496" id="r_a1d55b5b7b3b9d19b21f04e5b61c0c496"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a1d55b5b7b3b9d19b21f04e5b61c0c496">getBoneName</a> () const</td></tr>
+<tr class="memdesc:a1d55b5b7b3b9d19b21f04e5b61c0c496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the animated bone.  <br /></td></tr>
+<tr class="separator:a1d55b5b7b3b9d19b21f04e5b61c0c496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101b80e5e75fb4805f221ffe86718dc4" id="r_a101b80e5e75fb4805f221ffe86718dc4"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a04490.html">KeyframeVector</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a101b80e5e75fb4805f221ffe86718dc4">getPositionKeys</a> () const</td></tr>
+<tr class="memdesc:a101b80e5e75fb4805f221ffe86718dc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position keyframes of the animation.  <br /></td></tr>
+<tr class="separator:a101b80e5e75fb4805f221ffe86718dc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4821f8429b615989aaade47b1cafc34b" id="r_a4821f8429b615989aaade47b1cafc34b"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a04486.html">KeyframeQuaternion</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a4821f8429b615989aaade47b1cafc34b">getRotationKeys</a> () const</td></tr>
+<tr class="memdesc:a4821f8429b615989aaade47b1cafc34b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rotation keyframes of the animation.  <br /></td></tr>
+<tr class="separator:a4821f8429b615989aaade47b1cafc34b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab501c67dae7d0444f1d6c44c69df1b5b" id="r_ab501c67dae7d0444f1d6c44c69df1b5b"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a04490.html">KeyframeVector</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#ab501c67dae7d0444f1d6c44c69df1b5b">getScaleKeys</a> () const</td></tr>
+<tr class="memdesc:ab501c67dae7d0444f1d6c44c69df1b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scale keyframes of the animation.  <br /></td></tr>
+<tr class="separator:ab501c67dae7d0444f1d6c44c69df1b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a146fffbd26e97681c7d91cb0d6fa05aa" id="r_a146fffbd26e97681c7d91cb0d6fa05aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">Behavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a146fffbd26e97681c7d91cb0d6fa05aa">getPreStartBehavior</a> () const</td></tr>
+<tr class="memdesc:a146fffbd26e97681c7d91cb0d6fa05aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the behavior of the animation before the first keyframe.  <br /></td></tr>
+<tr class="separator:a146fffbd26e97681c7d91cb0d6fa05aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a015821248011f3f8153038020650f7" id="r_a0a015821248011f3f8153038020650f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">Behavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04470.html#a0a015821248011f3f8153038020650f7">getPostDoneBehavior</a> () const</td></tr>
+<tr class="memdesc:a0a015821248011f3f8153038020650f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the behavior of the animation after the last keyframe.  <br /></td></tr>
+<tr class="separator:a0a015821248011f3f8153038020650f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class bl::rc::scene::SceneObjectECSAdaptor&lt; T &gt;</div><p>Similar to <a class="el" href="a04478.html" title="Storage for scene objects. Splits objects by update frequency.">SceneObjectStorage</a>, but uses the ECS as underlying storage. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of <a class="el" href="a04466.html" title="Base renderable object. Everything that is rendered will reference an instance of this....">SceneObject</a> to provide storage for </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>Describes the animation of a single bone in a skeletal animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00028">28</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad4571d1a9a04cd7e09cda830661cc30a" name="ad4571d1a9a04cd7e09cda830661cc30a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4571d1a9a04cd7e09cda830661cc30a">&#9670;&#160;</a></span>SceneObjectECSAdaptor()</h2>
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00021">21</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a8fa6477b54dd8f3d2034c004656da911" name="a8fa6477b54dd8f3d2034c004656da911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fa6477b54dd8f3d2034c004656da911">&#9670;&#160;</a></span>Behavior</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::SceneObjectECSAdaptor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02938.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>registry</em></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">bl::mdl::BoneAnimation::Behavior</a> : std::uint8_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Reserves some memory. </p>
+<p>The behavior of the animation before and after its keyframes. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8fa6477b54dd8f3d2034c004656da911a8b79cc711e8cc3f942395186c4d7b06e" name="a8fa6477b54dd8f3d2034c004656da911a8b79cc711e8cc3f942395186c4d7b06e"></a>Default&#160;</td><td class="fielddoc"><p>The value from the default node transformation is taken. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8fa6477b54dd8f3d2034c004656da911a6f4a2b915819210844ba3aea0e54ef88" name="a8fa6477b54dd8f3d2034c004656da911a6f4a2b915819210844ba3aea0e54ef88"></a>Constant&#160;</td><td class="fielddoc"><p>The nearest key value is used without interpolation. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8fa6477b54dd8f3d2034c004656da911a400a7243771c5e3466b4d2002d8b4240" name="a8fa6477b54dd8f3d2034c004656da911a400a7243771c5e3466b4d2002d8b4240"></a>Linear&#160;</td><td class="fielddoc"><p>The value of the nearest two keys is linearly extrapolated for the current time value. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8fa6477b54dd8f3d2034c004656da911a7b611ffaa605e7d54a1b9221ccdbb651" name="a8fa6477b54dd8f3d2034c004656da911a7b611ffaa605e7d54a1b9221ccdbb651"></a>Repeat&#160;</td><td class="fielddoc"><p>The animation is repeated. </p>
+</td></tr>
+</table>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00120">120</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00026">26</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1f2441c81018008dbc33fe00adaea9c7" name="a1f2441c81018008dbc33fe00adaea9c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f2441c81018008dbc33fe00adaea9c7">&#9670;&#160;</a></span>~SceneObjectECSAdaptor()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac083ddffb4f21414e90ef8c208cdadf8" name="ac083ddffb4f21414e90ef8c208cdadf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac083ddffb4f21414e90ef8c208cdadf8">&#9670;&#160;</a></span>BoneAnimation()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::~<a class="el" href="a04470.html">SceneObjectECSAdaptor</a> </td>
+          <td class="memname">bl::mdl::BoneAnimation::BoneAnimation </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -171,72 +186,27 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys all created components. </p>
+<p>Creates an empty bone animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00124">124</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02735_source.html#l00098">98</a> of file <a class="el" href="a02735_source.html">BoneAnimation.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a113892f5b9b3259d8f21efce6a501fbf" name="a113892f5b9b3259d8f21efce6a501fbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a113892f5b9b3259d8f21efce6a501fbf">&#9670;&#160;</a></span>allocate()</h2>
+<a id="a1d55b5b7b3b9d19b21f04e5b61c0c496" name="a1d55b5b7b3b9d19b21f04e5b61c0c496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d55b5b7b3b9d19b21f04e5b61c0c496">&#9670;&#160;</a></span>getBoneName()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T * <a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::allocate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02890.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Allocates a new scene object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">updateFreq</td><td>The update speed of the new object </td></tr>
-    <tr><td class="paramname">entity</td><td>The ECS id of the new object </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The new scene object </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00136">136</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a461d9aa846cd343d9691f2c20b9b6f48" name="a461d9aa846cd343d9691f2c20b9b6f48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a461d9aa846cd343d9691f2c20b9b6f48">&#9670;&#160;</a></span>getObject()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T &amp; <a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::getObject </td>
+          <td class="memname">const std::string &amp; bl::mdl::BoneAnimation::getBoneName </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04434.html">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -246,141 +216,292 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Fetches the object with the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key of the object to fetch </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the given object </dd></dl>
+<p>Returns the name of the animated bone. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00152">152</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00080">80</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3675b9085ef80a5a2355bfa349db9e05" name="a3675b9085ef80a5a2355bfa349db9e05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3675b9085ef80a5a2355bfa349db9e05">&#9670;&#160;</a></span>getObjectEntity()</h2>
+<a id="a101b80e5e75fb4805f221ffe86718dc4" name="a101b80e5e75fb4805f221ffe86718dc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101b80e5e75fb4805f221ffe86718dc4">&#9670;&#160;</a></span>getPositionKeys()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02890.html">ecs::Entity</a> <a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::getObjectEntity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04434.html">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the ECS id for the given object key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to lookup </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The ECS id for the given key </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00145">145</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2617974b4cb375723a6f0fa52dd7b192" name="a2617974b4cb375723a6f0fa52dd7b192"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2617974b4cb375723a6f0fa52dd7b192">&#9670;&#160;</a></span>makeEntityCallback()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04102.html#a80984df19e4cbb663aa059d56784cf6e">ds::DescriptorComponentStorageBase::EntityCallback</a> <a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::makeEntityCallback </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="a04490.html">KeyframeVector</a> &gt; &amp; bl::mdl::BoneAnimation::getPositionKeys </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns a usable callback to map scene key to ECS id. </p>
+<p>Returns the position keyframes of the animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00176">176</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00085">85</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2daae5288111cc543eeec8ee98c3b1dd" name="a2daae5288111cc543eeec8ee98c3b1dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2daae5288111cc543eeec8ee98c3b1dd">&#9670;&#160;</a></span>release()</h2>
+<a id="a0a015821248011f3f8153038020650f7" name="a0a015821248011f3f8153038020650f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a015821248011f3f8153038020650f7">&#9670;&#160;</a></span>getPostDoneBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::release </td>
+          <td class="memname"><a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">Behavior</a> bl::mdl::BoneAnimation::getPostDoneBehavior </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04434.html">Key</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the behavior of the animation after the last keyframe. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00105">105</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a146fffbd26e97681c7d91cb0d6fa05aa" name="a146fffbd26e97681c7d91cb0d6fa05aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a146fffbd26e97681c7d91cb0d6fa05aa">&#9670;&#160;</a></span>getPreStartBehavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04470.html#a8fa6477b54dd8f3d2034c004656da911">Behavior</a> bl::mdl::BoneAnimation::getPreStartBehavior </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the behavior of the animation before the first keyframe. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00100">100</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4821f8429b615989aaade47b1cafc34b" name="a4821f8429b615989aaade47b1cafc34b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4821f8429b615989aaade47b1cafc34b">&#9670;&#160;</a></span>getRotationKeys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a04486.html">KeyframeQuaternion</a> &gt; &amp; bl::mdl::BoneAnimation::getRotationKeys </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the rotation keyframes of the animation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00090">90</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab501c67dae7d0444f1d6c44c69df1b5b" name="ab501c67dae7d0444f1d6c44c69df1b5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab501c67dae7d0444f1d6c44c69df1b5b">&#9670;&#160;</a></span>getScaleKeys()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a04490.html">KeyframeVector</a> &gt; &amp; bl::mdl::BoneAnimation::getScaleKeys </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the scale keyframes of the animation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01424_source.html#l00095">95</a> of file <a class="el" href="a01424_source.html">BoneAnimation.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a386ffb77da1b9a2d76f26e10950483f3" name="a386ffb77da1b9a2d76f26e10950483f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a386ffb77da1b9a2d76f26e10950483f3">&#9670;&#160;</a></span>interpolatePosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec3 bl::mdl::BoneAnimation::interpolatePosition </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Marks the given key as being free. Allows future allocation to reuse it. </p>
+<p>Returns the interpolated position at the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>The key to release </td></tr>
+    <tr><td class="paramname">time</td><td>The time to sample at </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated position </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00157">157</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02735_source.html#l00209">209</a> of file <a class="el" href="a02735_source.html">BoneAnimation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a93f7f616563486d05bac28c62f630ea6" name="a93f7f616563486d05bac28c62f630ea6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93f7f616563486d05bac28c62f630ea6">&#9670;&#160;</a></span>unlinkAll()</h2>
+<a id="a5f49bdd0bbafd5d27720ae6a36de8690" name="a5f49bdd0bbafd5d27720ae6a36de8690"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f49bdd0bbafd5d27720ae6a36de8690">&#9670;&#160;</a></span>interpolateRotation()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a04470.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::unlinkAll </td>
+          <td class="memname">glm::quat bl::mdl::BoneAnimation::interpolateRotation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04130.html">ds::DescriptorSetInstanceCache</a> &amp;&#160;</td>
-          <td class="paramname"><em>descriptors</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Unlinks created objects. </p>
+<p>Returns the interpolated rotation at the given time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">descriptors</td><td>The descriptor sets to unbind </td></tr>
+    <tr><td class="paramname">time</td><td>The time to sample at </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated rotation </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02735_source.html#l00133">133</a> of file <a class="el" href="a02735_source.html">BoneAnimation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa6a7df2cefcf0c0e93f93aecb392e7aa" name="aa6a7df2cefcf0c0e93f93aecb392e7aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6a7df2cefcf0c0e93f93aecb392e7aa">&#9670;&#160;</a></span>interpolateScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec3 bl::mdl::BoneAnimation::interpolateScale </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the interpolated scale at the given time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>The time to sample at </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The interpolated scale </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02735_source.html#l00213">213</a> of file <a class="el" href="a02735_source.html">BoneAnimation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2aa3159a008b71ba06327c7832157be1" name="a2aa3159a008b71ba06327c7832157be1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aa3159a008b71ba06327c7832157be1">&#9670;&#160;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::mdl::BoneAnimation::populate </td>
+          <td>(</td>
+          <td class="paramtype">const aiNodeAnim &amp;&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a04522.html">NodeSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>nodes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Populates from Assimp data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>The source data </td></tr>
+    <tr><td class="paramname">nodes</td><td>The set of nodes in the model </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01151_source.html#l00163">163</a> of file <a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02735_source.html#l00106">106</a> of file <a class="el" href="a02735_source.html">BoneAnimation.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Scenes/<a class="el" href="a01151_source.html">SceneObjectECSAdaptor.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Models/<a class="el" href="a01424_source.html">BoneAnimation.hpp</a></li>
+<li>src/Models/<a class="el" href="a02735_source.html">BoneAnimation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

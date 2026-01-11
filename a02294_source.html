@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/DedicatedCommandBuffers.cpp Source File</title>
+<title>BLIB: src/Render/ShaderResources/ShadowMapShaderResource.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,130 +79,122 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_63a15366a8c50684425e414ed88de9db.html">ShaderResources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">DedicatedCommandBuffers.cpp</div></div>
+  <div class="headertitle"><div class="title">ShadowMapShaderResource.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02294.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01298.html">BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp</a>&gt;</span></div>
+<a href="a02294.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/ShaderResources/ShadowMapShaderResource.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01319.html">BLIB/Render/Vulkan/VulkanState.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a07963.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Config/RenderPassIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04546.html#a834671906be956f14cf1ebb37fdcdc0c">   11</a></span><a class="code hl_function" href="a04546.html#a834671906be956f14cf1ebb37fdcdc0c">DedicatedCommandBuffers::DedicatedCommandBuffers</a>()</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: vs(nullptr) {}</div>
-</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04546.html#aee78f24e2fee733f3295332c00b22093">   14</a></span><a class="code hl_function" href="a04546.html#aee78f24e2fee733f3295332c00b22093">DedicatedCommandBuffers::~DedicatedCommandBuffers</a>() {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">if</span> (vs) { <a class="code hl_function" href="a04546.html#ad931b2e935c77b713f746bbe7f7aaee9">destroy</a>(); }</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
-</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04546.html#afef96678788def53b43389cb3ea1d512">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04546.html#afef96678788def53b43389cb3ea1d512">DedicatedCommandBuffers::create</a>(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vulkanState) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    vs = &amp;vulkanState;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    payloads.<a class="code hl_function" href="a04578.html#a3cfb2b7b7c657e6fe15fab6403d75721">init</a>(*vs, [<span class="keyword">this</span>](<span class="keyword">auto</span>&amp; p) { p.create(*vs); });</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>sri</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">void</span> ShadowMapShaderResource::createImages() {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    vk::RenderPass&amp; renderPass =</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        renderer-&gt;<a class="code hl_function" href="a05330.html#a78088be551b272e054fc4034b5aaf31e">renderPassCache</a>().<a class="code hl_function" href="a05370.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(<a class="code hl_variable" href="a04794.html#a2e4ccb302b8a563d2ebcf875b7c7e45f">cfg::RenderPassIds::ShadowMapPass</a>);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> VkFormat depthFormat = renderer-&gt;<a class="code hl_function" href="a05330.html#a08a7c4dd10a489527c258f8cac76b13e">vulkanState</a>().<a class="code hl_function" href="a05838.html#a49837bc349162c0c80fe8b4fa6d1c041">findShadowMapFormat</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">const</span> VkImageAspectFlags depthAspect =</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        (depthFormat == VK_FORMAT_D32_SFLOAT || depthFormat == VK_FORMAT_D16_UNORM) ?</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            VK_IMAGE_ASPECT_DEPTH_BIT :</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            (VK_IMAGE_ASPECT_DEPTH_BIT | VK_IMAGE_ASPECT_STENCIL_BIT);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04546.html#ad931b2e935c77b713f746bbe7f7aaee9">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04546.html#ad931b2e935c77b713f746bbe7f7aaee9">DedicatedCommandBuffers::destroy</a>() {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">if</span> (vs) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        payloads.<a class="code hl_function" href="a04578.html#ad0bfc6a2c72077a7f2a11c620acfc68b">cleanup</a>([<span class="keyword">this</span>](<span class="keyword">auto</span>&amp; p) { p.cleanup(*vs); });</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        vs = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a04546.html#a95e1beae39a9c20fb19dc405b8809933">   30</a></span>VkCommandBuffer <a class="code hl_function" href="a04546.html#a95e1beae39a9c20fb19dc405b8809933">DedicatedCommandBuffers::begin</a>() {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">auto</span>&amp; p = payloads.<a class="code hl_function" href="a04578.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkWaitForFences(vs-&gt;<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;p.fence, VK_TRUE, UINT64_MAX));</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetFences(vs-&gt;<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, 1, &amp;p.fence));</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkResetCommandBuffer(p.buffer, 0));</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    VkCommandBufferBeginInfo beginInfo{};</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkBeginCommandBuffer(p.buffer, &amp;beginInfo));</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> p.buffer;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
-</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a04546.html#a6a4f7585da17a006452b474700dbfab3">   46</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04546.html#a6a4f7585da17a006452b474700dbfab3">DedicatedCommandBuffers::submit</a>() {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">auto</span>&amp; p = payloads.<a class="code hl_function" href="a04578.html#a76f94a32e0a5e764699b33b49b629547">current</a>();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkEndCommandBuffer(p.buffer));</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    VkSubmitInfo submitInfo{};</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    submitInfo.sType              = VK_STRUCTURE_TYPE_SUBMIT_INFO;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    submitInfo.commandBufferCount = 1;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    submitInfo.pCommandBuffers    = &amp;p.buffer;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">auto</span> commandBuffer = renderer-&gt;<a class="code hl_function" href="a05330.html#acf3792e95e4bb35093a6d883941544de">getSharedCommandPool</a>().<a class="code hl_function" href="a05806.html#ae09cf3a9764408f8a9ef74fc48913983">createBuffer</a>();</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; map : spotShadowMaps) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        map.image.create(</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            *renderer,</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            {.type       = <a class="code hl_enumvalue" href="a05710.html#aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9">vk::ImageOptions::Type::Image2D</a>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>             .format     = depthFormat,</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>             .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>             .extent     = renderer-&gt;<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().getShadowMapResolution(),</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>             .aspect     = depthAspect,</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>             .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        map.image.clearAndTransition(</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        map.attachmentSet.emplace(map.image);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        map.framebuffer.create(*renderer, &amp;renderPass, map.attachmentSet.value());</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; map : pointShadowMaps) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        map.image.create(</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            *renderer,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            {.type       = <a class="code hl_enumvalue" href="a05710.html#aacca09240e87ce932a6675cf851bb2c8a29b142520cd0349c9f7375be4aa848c0">vk::ImageOptions::Type::Cubemap</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>             .format     = depthFormat,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>             .usage      = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>             .extent     = renderer-&gt;<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().getShadowMapResolution(),</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>             .aspect     = depthAspect,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>             .viewAspect = VK_IMAGE_ASPECT_DEPTH_BIT});</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        map.image.clearAndTransition(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            commandBuffer, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, {.depthStencil = {1.f, 0}});</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        map.attachmentSet.emplace(map.image);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        map.framebuffer.create(*renderer, &amp;renderPass, map.attachmentSet.value());</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    commandBuffer.<a class="code hl_function" href="a05802.html#a9672efb9777484cc47217323b31567b4">submit</a>();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    vs-&gt;<a class="code hl_function" href="a04694.html#a285e8da7cb141e8af5d83b3b0a687010">submitCommandBuffer</a>(submitInfo, p.fence);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
-</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keywordtype">void</span> DedicatedCommandBuffers::Payload::create(<a class="code hl_struct" href="a04694.html">VulkanState</a>&amp; vs) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    pool = vs.<a class="code hl_function" href="a04694.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">createCommandPool</a>(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT |</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                                VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> ShadowMapShaderResource::init(engine::Engine&amp; engine, RenderTarget&amp;) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    renderer = &amp;engine.renderer();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    createImages();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_function" href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">subscribe</a>(renderer-&gt;<a class="code hl_function" href="a05330.html#a743526c33f2fa24840c00326554fe64f">getSignalChannel</a>());</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    emitter.connect(renderer-&gt;<a class="code hl_function" href="a05330.html#a743526c33f2fa24840c00326554fe64f">getSignalChannel</a>());</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    VkCommandBufferAllocateInfo allocInfo{};</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    allocInfo.sType              = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    allocInfo.commandPool        = pool;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    allocInfo.commandBufferCount = 1;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkAllocateCommandBuffers(vs.<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;allocInfo, &amp;<a class="code hl_variable" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>));</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    VkFenceCreateInfo fenceInfo{};</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkCreateFence(vs.<a class="code hl_variable" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a>, &amp;fenceInfo, <span class="keyword">nullptr</span>, &amp;fence));</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="keywordtype">void</span> DedicatedCommandBuffers::Payload::cleanup(VulkanState&amp; vs) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    vkDestroyFence(vs.device, fence, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    vkDestroyCommandPool(vs.device, pool, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace vk</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01271_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa01298_html"><div class="ttname"><a href="a01298.html">DedicatedCommandBuffers.hpp</a></div></div>
-<div class="ttc" id="aa01319_html"><div class="ttname"><a href="a01319.html">VulkanState.hpp</a></div></div>
-<div class="ttc" id="aa02366_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a02366_source.html#l00025">AudioSystem.cpp:25</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04546_html_a6a4f7585da17a006452b474700dbfab3"><div class="ttname"><a href="a04546.html#a6a4f7585da17a006452b474700dbfab3">bl::rc::vk::DedicatedCommandBuffers::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the current command buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02294_source.html#l00046">DedicatedCommandBuffers.cpp:46</a></div></div>
-<div class="ttc" id="aa04546_html_a834671906be956f14cf1ebb37fdcdc0c"><div class="ttname"><a href="a04546.html#a834671906be956f14cf1ebb37fdcdc0c">bl::rc::vk::DedicatedCommandBuffers::DedicatedCommandBuffers</a></div><div class="ttdeci">DedicatedCommandBuffers()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a02294_source.html#l00011">DedicatedCommandBuffers.cpp:11</a></div></div>
-<div class="ttc" id="aa04546_html_a95e1beae39a9c20fb19dc405b8809933"><div class="ttname"><a href="a04546.html#a95e1beae39a9c20fb19dc405b8809933">bl::rc::vk::DedicatedCommandBuffers::begin</a></div><div class="ttdeci">VkCommandBuffer begin()</div><div class="ttdoc">Waits for the command buffer to enter a valid state, begins recording, and returns it.</div><div class="ttdef"><b>Definition</b> <a href="a02294_source.html#l00030">DedicatedCommandBuffers.cpp:30</a></div></div>
-<div class="ttc" id="aa04546_html_ad931b2e935c77b713f746bbe7f7aaee9"><div class="ttname"><a href="a04546.html#ad931b2e935c77b713f746bbe7f7aaee9">bl::rc::vk::DedicatedCommandBuffers::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition</b> <a href="a02294_source.html#l00023">DedicatedCommandBuffers.cpp:23</a></div></div>
-<div class="ttc" id="aa04546_html_aee78f24e2fee733f3295332c00b22093"><div class="ttname"><a href="a04546.html#aee78f24e2fee733f3295332c00b22093">bl::rc::vk::DedicatedCommandBuffers::~DedicatedCommandBuffers</a></div><div class="ttdeci">~DedicatedCommandBuffers()</div><div class="ttdoc">Releases the command pools.</div><div class="ttdef"><b>Definition</b> <a href="a02294_source.html#l00014">DedicatedCommandBuffers.cpp:14</a></div></div>
-<div class="ttc" id="aa04546_html_afef96678788def53b43389cb3ea1d512"><div class="ttname"><a href="a04546.html#afef96678788def53b43389cb3ea1d512">bl::rc::vk::DedicatedCommandBuffers::create</a></div><div class="ttdeci">void create(VulkanState &amp;vulkanState)</div><div class="ttdoc">Creates the command pools and buffers.</div><div class="ttdef"><b>Definition</b> <a href="a02294_source.html#l00018">DedicatedCommandBuffers.cpp:18</a></div></div>
-<div class="ttc" id="aa04578_html_a3cfb2b7b7c657e6fe15fab6403d75721"><div class="ttname"><a href="a04578.html#a3cfb2b7b7c657e6fe15fab6403d75721">bl::rc::vk::PerFrame::init</a></div><div class="ttdeci">void init(VulkanState &amp;vulkanState, const U &amp;visitor)</div><div class="ttdoc">Initialize the buffer and each contained object.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00279">VulkanState.hpp:279</a></div></div>
-<div class="ttc" id="aa04578_html_a76f94a32e0a5e764699b33b49b629547"><div class="ttname"><a href="a04578.html#a76f94a32e0a5e764699b33b49b629547">bl::rc::vk::PerFrame::current</a></div><div class="ttdeci">T &amp; current()</div><div class="ttdoc">Returns the active buffered object for the current frame.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00303">VulkanState.hpp:303</a></div></div>
-<div class="ttc" id="aa04578_html_ad0bfc6a2c72077a7f2a11c620acfc68b"><div class="ttname"><a href="a04578.html#ad0bfc6a2c72077a7f2a11c620acfc68b">bl::rc::vk::PerFrame::cleanup</a></div><div class="ttdeci">void cleanup(const U &amp;visitor)</div><div class="ttdoc">General buffered object visitor intended primarily for cleanup but could be used for anything else re...</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00286">VulkanState.hpp:286</a></div></div>
-<div class="ttc" id="aa04694_html"><div class="ttname"><a href="a04694.html">bl::rc::vk::VulkanState</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00039">VulkanState.hpp:39</a></div></div>
-<div class="ttc" id="aa04694_html_a285e8da7cb141e8af5d83b3b0a687010"><div class="ttname"><a href="a04694.html#a285e8da7cb141e8af5d83b3b0a687010">bl::rc::vk::VulkanState::submitCommandBuffer</a></div><div class="ttdeci">VkResult submitCommandBuffer(const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</div><div class="ttdoc">Performs a synchronized submission of the command buffer to the graphics queue.</div><div class="ttdef"><b>Definition</b> <a href="a02252_source.html#l00549">VulkanState.cpp:549</a></div></div>
-<div class="ttc" id="aa04694_html_a6ad0249d08d9ffb87af35b42f11a1db5"><div class="ttname"><a href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">bl::rc::vk::VulkanState::device</a></div><div class="ttdeci">VkDevice device</div><div class="ttdef"><b>Definition</b> <a href="a01319_source.html#l00222">VulkanState.hpp:222</a></div></div>
-<div class="ttc" id="aa04694_html_acf5368fb8dcc89c2a0952b6d33dd4ccb"><div class="ttname"><a href="a04694.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">bl::rc::vk::VulkanState::createCommandPool</a></div><div class="ttdeci">VkCommandPool createCommandPool(VkCommandPoolCreateFlags flags)</div><div class="ttdoc">Helper method to create a command pool for graphics queue commands.</div><div class="ttdef"><b>Definition</b> <a href="a02252_source.html#l00443">VulkanState.cpp:443</a></div></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="keywordtype">void</span> ShadowMapShaderResource::cleanup() {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment">// handled by dtor</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keywordtype">void</span> ShadowMapShaderResource::performTransfer() { dirtyFrames = dirtyFrames &gt;&gt; 1; }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keywordtype">void</span> ShadowMapShaderResource::copyFromSource() {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// noop</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">bool</span> ShadowMapShaderResource::dynamicDescriptorUpdateRequired()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> dirtyFrames != 0; }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keywordtype">bool</span> ShadowMapShaderResource::staticDescriptorUpdateRequired()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> dirtyFrames != 0; }</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keywordtype">void</span> ShadowMapShaderResource::process(<span class="keyword">const</span> event::SettingsChanged&amp; e) {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (e.setting == <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645fae90ea0d0b87eac649efc72283f383522">event::SettingsChanged::ShadowMapResolution</a>) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        createImages();</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        emitter.emit&lt;event::ShadowMapsInvalidated&gt;({<span class="keyword">this</span>});</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace sri</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">ShadowMapShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">RenderPassIds.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04794_html_a2e4ccb302b8a563d2ebcf875b7c7e45f"><div class="ttname"><a href="a04794.html#a2e4ccb302b8a563d2ebcf875b7c7e45f">bl::rc::cfg::RenderPassIds::ShadowMapPass</a></div><div class="ttdeci">static constexpr std::uint32_t ShadowMapPass</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00022">RenderPassIds.hpp:22</a></div></div>
+<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645fae90ea0d0b87eac649efc72283f383522"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645fae90ea0d0b87eac649efc72283f383522">bl::rc::event::SettingsChanged::ShadowMapResolution</a></div><div class="ttdeci">@ ShadowMapResolution</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00028">SettingsChanged.hpp:28</a></div></div>
+<div class="ttc" id="aa05330_html_a08a7c4dd10a489527c258f8cac76b13e"><div class="ttname"><a href="a05330.html#a08a7c4dd10a489527c258f8cac76b13e">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanLayer &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00398">Renderer.hpp:398</a></div></div>
+<div class="ttc" id="aa05330_html_a743526c33f2fa24840c00326554fe64f"><div class="ttname"><a href="a05330.html#a743526c33f2fa24840c00326554fe64f">bl::rc::Renderer::getSignalChannel</a></div><div class="ttdeci">sig::Channel &amp; getSignalChannel()</div><div class="ttdoc">Returns the channel for renderer events.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00459">Renderer.hpp:459</a></div></div>
+<div class="ttc" id="aa05330_html_a78088be551b272e054fc4034b5aaf31e"><div class="ttname"><a href="a05330.html#a78088be551b272e054fc4034b5aaf31e">bl::rc::Renderer::renderPassCache</a></div><div class="ttdeci">res::RenderPassCache &amp; renderPassCache()</div><div class="ttdoc">Returns the render pass cache of this renderer.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00408">Renderer.hpp:408</a></div></div>
+<div class="ttc" id="aa05330_html_ab2b956c5cdf751ef4db0cac0ed3df91d"><div class="ttname"><a href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">bl::rc::Renderer::getSettings</a></div><div class="ttdeci">Settings &amp; getSettings()</div><div class="ttdoc">Returns the render settings which can be changed.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00455">Renderer.hpp:455</a></div></div>
+<div class="ttc" id="aa05330_html_acf3792e95e4bb35093a6d883941544de"><div class="ttname"><a href="a05330.html#acf3792e95e4bb35093a6d883941544de">bl::rc::Renderer::getSharedCommandPool</a></div><div class="ttdeci">vk::SharedCommandPool &amp; getSharedCommandPool()</div><div class="ttdoc">Returns the shared command pool for allocating transient command buffers.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00294">Renderer.hpp:294</a></div></div>
+<div class="ttc" id="aa05370_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a05370.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition</b> <a href="a02435_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
+<div class="ttc" id="aa05710_html_aacca09240e87ce932a6675cf851bb2c8a29b142520cd0349c9f7375be4aa848c0"><div class="ttname"><a href="a05710.html#aacca09240e87ce932a6675cf851bb2c8a29b142520cd0349c9f7375be4aa848c0">bl::rc::vk::ImageOptions::Type::Cubemap</a></div><div class="ttdeci">@ Cubemap</div></div>
+<div class="ttc" id="aa05710_html_aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9"><div class="ttname"><a href="a05710.html#aacca09240e87ce932a6675cf851bb2c8ab696e5f895616f606a8be85892c374a9">bl::rc::vk::ImageOptions::Type::Image2D</a></div><div class="ttdeci">@ Image2D</div></div>
+<div class="ttc" id="aa05802_html_a9672efb9777484cc47217323b31567b4"><div class="ttname"><a href="a05802.html#a9672efb9777484cc47217323b31567b4">bl::rc::vk::SharedCommandBuffer::submit</a></div><div class="ttdeci">void submit()</div><div class="ttdoc">Submits the buffer and releases the lock on the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02135_source.html#l00033">SharedCommandBuffer.cpp:33</a></div></div>
+<div class="ttc" id="aa05806_html_ae09cf3a9764408f8a9ef74fc48913983"><div class="ttname"><a href="a05806.html#ae09cf3a9764408f8a9ef74fc48913983">bl::rc::vk::SharedCommandPool::createBuffer</a></div><div class="ttdeci">SharedCommandBuffer createBuffer(VkCommandBufferUsageFlags usage=0)</div><div class="ttdoc">Allocates a buffer from the shared pool.</div><div class="ttdef"><b>Definition</b> <a href="a02153_source.html#l00030">SharedCommandPool.cpp:30</a></div></div>
+<div class="ttc" id="aa05838_html_a49837bc349162c0c80fe8b4fa6d1c041"><div class="ttname"><a href="a05838.html#a49837bc349162c0c80fe8b4fa6d1c041">bl::rc::vk::VulkanLayer::findShadowMapFormat</a></div><div class="ttdeci">VkFormat findShadowMapFormat()</div><div class="ttdoc">Finds and returns the best available depth format for shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00511">VulkanLayer.cpp:511</a></div></div>
+<div class="ttc" id="aa06386_html_a2a0a601a22ad69c515047cf2f81a34ac"><div class="ttname"><a href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">bl::sig::Listener&lt; event::SettingsChanged &gt;::subscribe</a></div><div class="ttdeci">void subscribe(Channel &amp;channel)</div><div class="ttdoc">Subscribes to the given channel. Use subscribeDeferred if calling from a signal handler.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00041">Listener.hpp:81</a></div></div>
+<div class="ttc" id="aa07963_html"><div class="ttname"><a href="a07963.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

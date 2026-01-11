@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::scene::SceneRenderContext Class Reference</title>
+<title>BLIB: bl::mdl::KeyframeVector Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,420 +74,190 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02456.html">scene</a></li><li class="navelem"><a class="el" href="a04490.html">SceneRenderContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04490.html">KeyframeVector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a04487.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::scene::SceneRenderContext Class Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::mdl::KeyframeVector Struct Reference<div class="ingroups"><a class="el" href="a02976.html">Models</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Container class that holds the required parameters to render a scene and provides methods for descriptor set management and object rendering.  
+<p>A keyframe for a vector3 value in an animation.  
  <a href="a04490.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01430_source.html">KeyframeVector.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a205109cf04911294bcbe5d1763834359" id="r_a205109cf04911294bcbe5d1763834359"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359">Interpolation</a> : std::uint8_t { <a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359a28dae57eec53f32d9983fa57f7d8a66c">Step</a> = aiAnimInterpolation_Step
+, <a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359a49a41798d472673a227d604ce9999dd9">Linear</a> = aiAnimInterpolation_Linear
+, <a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359a85e604ef8eec527678168d773af929e7">SphericalLinear</a> = aiAnimInterpolation_Spherical_Linear
+, <a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359a68eb34eab0638d28c98de386f014586e">CubicSpline</a> = aiAnimInterpolation_Cubic_Spline
+ }</td></tr>
+<tr class="memdesc:a205109cf04911294bcbe5d1763834359"><td class="mdescLeft">&#160;</td><td class="mdescRight">The interpolation type for the keyframe.  <a href="a04490.html#a205109cf04911294bcbe5d1763834359">More...</a><br /></td></tr>
+<tr class="separator:a205109cf04911294bcbe5d1763834359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad91777bcc74aba2c24a101d9de8bfa49" id="r_ad91777bcc74aba2c24a101d9de8bfa49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#ad91777bcc74aba2c24a101d9de8bfa49">SceneRenderContext</a> (VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport &amp;viewport, <a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> renderPhase, std::uint32_t renderPassId, bool renderingToRenderTexture)</td></tr>
-<tr class="memdesc:ad91777bcc74aba2c24a101d9de8bfa49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a scene render context.  <br /></td></tr>
-<tr class="separator:ad91777bcc74aba2c24a101d9de8bfa49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6456ea55829a550b6f9bd23de1324c0" id="r_ad6456ea55829a550b6f9bd23de1324c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#ad6456ea55829a550b6f9bd23de1324c0">bindPipeline</a> (<a class="el" href="a04306.html">mat::MaterialPipeline</a> &amp;pipeline)</td></tr>
-<tr class="memdesc:ad6456ea55829a550b6f9bd23de1324c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds the given pipeline.  <br /></td></tr>
-<tr class="separator:ad6456ea55829a550b6f9bd23de1324c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f9dafa91dc6025a8ed7c4b4c5c12d3b" id="r_a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bindDescriptors</a> (VkPipelineLayout layout, <a class="el" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="el" href="a04126.html">ds::DescriptorSetInstance</a> **descriptors, std::uint32_t descriptorCount)</td></tr>
-<tr class="memdesc:a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binds the given descriptors. Only issues bind commands for descriptors that changed from the last call to <a class="el" href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b" title="Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...">bindDescriptors()</a>  <br /></td></tr>
-<tr class="separator:a9f9dafa91dc6025a8ed7c4b4c5c12d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25f6ac72e581b7ac3f387d14c51c8ab4" id="r_a25f6ac72e581b7ac3f387d14c51c8ab4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a25f6ac72e581b7ac3f387d14c51c8ab4">renderObject</a> (const <a class="el" href="a04466.html">SceneObject</a> &amp;object)</td></tr>
-<tr class="memdesc:a25f6ac72e581b7ac3f387d14c51c8ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Issues the required commands to render the given scene object.  <br /></td></tr>
-<tr class="separator:a25f6ac72e581b7ac3f387d14c51c8ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57ad0b33b333ac921d0bc193210e938b" id="r_a57ad0b33b333ac921d0bc193210e938b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a57ad0b33b333ac921d0bc193210e938b">getRenderPhase</a> () const</td></tr>
-<tr class="memdesc:a57ad0b33b333ac921d0bc193210e938b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current render phase.  <br /></td></tr>
-<tr class="separator:a57ad0b33b333ac921d0bc193210e938b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c5c79bd74ff1085cf4661469e747c73" id="r_a2c5c79bd74ff1085cf4661469e747c73"><td class="memItemLeft" align="right" valign="top">VkCommandBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a2c5c79bd74ff1085cf4661469e747c73">getCommandBuffer</a> () const</td></tr>
-<tr class="memdesc:a2c5c79bd74ff1085cf4661469e747c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command buffer to use for rendering.  <br /></td></tr>
-<tr class="separator:a2c5c79bd74ff1085cf4661469e747c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b2a1a1eb4af4c31c04efc5dce3a523" id="r_a87b2a1a1eb4af4c31c04efc5dce3a523"><td class="memItemLeft" align="right" valign="top">const VkViewport &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a87b2a1a1eb4af4c31c04efc5dce3a523">parentViewport</a> () const</td></tr>
-<tr class="memdesc:a87b2a1a1eb4af4c31c04efc5dce3a523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the viewport the scene is being rendered to.  <br /></td></tr>
-<tr class="separator:a87b2a1a1eb4af4c31c04efc5dce3a523"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abce4311a40767d910a8197278d506db2" id="r_abce4311a40767d910a8197278d506db2"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#abce4311a40767d910a8197278d506db2">currentRenderPass</a> () const</td></tr>
-<tr class="memdesc:abce4311a40767d910a8197278d506db2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the active render pass.  <br /></td></tr>
-<tr class="separator:abce4311a40767d910a8197278d506db2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37041263e1002a5afda27e24ce22f601" id="r_a37041263e1002a5afda27e24ce22f601"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a37041263e1002a5afda27e24ce22f601">targetIsRenderTexture</a> () const</td></tr>
-<tr class="memdesc:a37041263e1002a5afda27e24ce22f601"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the current target is a render texture.  <br /></td></tr>
-<tr class="separator:a37041263e1002a5afda27e24ce22f601"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a324799753fcad12c036226232086d7e1" id="r_a324799753fcad12c036226232086d7e1"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a324799753fcad12c036226232086d7e1">currentObserverIndex</a> () const</td></tr>
-<tr class="memdesc:a324799753fcad12c036226232086d7e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scene index of the current observer.  <br /></td></tr>
-<tr class="separator:a324799753fcad12c036226232086d7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6887ee6fd1da4f5fe911d9ad9d310169" id="r_a6887ee6fd1da4f5fe911d9ad9d310169"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a6887ee6fd1da4f5fe911d9ad9d310169">KeyframeVector</a> ()</td></tr>
+<tr class="memdesc:a6887ee6fd1da4f5fe911d9ad9d310169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty keyframe.  <br /></td></tr>
+<tr class="separator:a6887ee6fd1da4f5fe911d9ad9d310169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aec412093435f6b5e954a73b567592c" id="r_a3aec412093435f6b5e954a73b567592c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a3aec412093435f6b5e954a73b567592c">populate</a> (const aiVectorKey &amp;src)</td></tr>
+<tr class="memdesc:a3aec412093435f6b5e954a73b567592c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the keyframe from the given assimp vector key.  <br /></td></tr>
+<tr class="separator:a3aec412093435f6b5e954a73b567592c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a4a996a2bb11f6954eed3877b11516bfd" id="r_a4a996a2bb11f6954eed3877b11516bfd"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a4a996a2bb11f6954eed3877b11516bfd">time</a></td></tr>
+<tr class="separator:a4a996a2bb11f6954eed3877b11516bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeed956ada78fad8f91128c546c77f279" id="r_aeed956ada78fad8f91128c546c77f279"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#aeed956ada78fad8f91128c546c77f279">value</a></td></tr>
+<tr class="separator:aeed956ada78fad8f91128c546c77f279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b4519f67ac3f0cb6c7362e7bfcd4b8" id="r_a50b4519f67ac3f0cb6c7362e7bfcd4b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359">Interpolation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04490.html#a50b4519f67ac3f0cb6c7362e7bfcd4b8">interpolation</a></td></tr>
+<tr class="separator:a50b4519f67ac3f0cb6c7362e7bfcd4b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Container class that holds the required parameters to render a scene and provides methods for descriptor set management and object rendering. </p>
+<div class="textblock"><p>A keyframe for a vector3 value in an animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00026">26</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad91777bcc74aba2c24a101d9de8bfa49" name="ad91777bcc74aba2c24a101d9de8bfa49"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad91777bcc74aba2c24a101d9de8bfa49">&#9670;&#160;</a></span>SceneRenderContext()</h2>
+<p class="definition">Definition at line <a class="el" href="a01430_source.html#l00017">17</a> of file <a class="el" href="a01430_source.html">KeyframeVector.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a205109cf04911294bcbe5d1763834359" name="a205109cf04911294bcbe5d1763834359"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a205109cf04911294bcbe5d1763834359">&#9670;&#160;</a></span>Interpolation</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::scene::SceneRenderContext::SceneRenderContext </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>observerIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const VkViewport &amp;&#160;</td>
-          <td class="paramname"><em>viewport</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a>&#160;</td>
-          <td class="paramname"><em>renderPhase</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>renderPassId</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>renderingToRenderTexture</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">enum <a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359">bl::mdl::KeyframeVector::Interpolation</a> : std::uint8_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a scene render context. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record commands into </td></tr>
-    <tr><td class="paramname">observerIndex</td><td>Index of the observer currently rendering the scene </td></tr>
-    <tr><td class="paramname">viewport</td><td>The current viewport </td></tr>
-    <tr><td class="paramname">renderPhase</td><td>The current renderer phase </td></tr>
-    <tr><td class="paramname">renderPassId</td><td>The id of the render pass that is currently active </td></tr>
-    <tr><td class="paramname">renderingToRenderTexture</td><td>True if target is render texture, false otherwise </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>The interpolation type for the keyframe. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a205109cf04911294bcbe5d1763834359a28dae57eec53f32d9983fa57f7d8a66c" name="a205109cf04911294bcbe5d1763834359a28dae57eec53f32d9983fa57f7d8a66c"></a>Step&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a205109cf04911294bcbe5d1763834359a49a41798d472673a227d604ce9999dd9" name="a205109cf04911294bcbe5d1763834359a49a41798d472673a227d604ce9999dd9"></a>Linear&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a205109cf04911294bcbe5d1763834359a85e604ef8eec527678168d773af929e7" name="a205109cf04911294bcbe5d1763834359a85e604ef8eec527678168d773af929e7"></a>SphericalLinear&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a205109cf04911294bcbe5d1763834359a68eb34eab0638d28c98de386f014586e" name="a205109cf04911294bcbe5d1763834359a68eb34eab0638d28c98de386f014586e"></a>CubicSpline&#160;</td><td class="fielddoc"></td></tr>
+</table>
 
-<p class="definition">Definition at line <a class="el" href="a02150_source.html#l00011">11</a> of file <a class="el" href="a02150_source.html">SceneRenderContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01430_source.html#l00021">21</a> of file <a class="el" href="a01430_source.html">KeyframeVector.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6887ee6fd1da4f5fe911d9ad9d310169" name="a6887ee6fd1da4f5fe911d9ad9d310169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6887ee6fd1da4f5fe911d9ad9d310169">&#9670;&#160;</a></span>KeyframeVector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::mdl::KeyframeVector::KeyframeVector </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty keyframe. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02726_source.html#l00009">9</a> of file <a class="el" href="a02726_source.html">KeyframeVector.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9f9dafa91dc6025a8ed7c4b4c5c12d3b" name="a9f9dafa91dc6025a8ed7c4b4c5c12d3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">&#9670;&#160;</a></span>bindDescriptors()</h2>
+<a id="a3aec412093435f6b5e954a73b567592c" name="a3aec412093435f6b5e954a73b567592c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aec412093435f6b5e954a73b567592c">&#9670;&#160;</a></span>populate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::scene::SceneRenderContext::bindDescriptors </td>
+          <td class="memname">void bl::mdl::KeyframeVector::populate </td>
           <td>(</td>
-          <td class="paramtype">VkPipelineLayout&#160;</td>
-          <td class="paramname"><em>layout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const aiVectorKey &amp;&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04126.html">ds::DescriptorSetInstance</a> **&#160;</td>
-          <td class="paramname"><em>descriptors</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>descriptorCount</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Binds the given descriptors. Only issues bind commands for descriptors that changed from the last call to <a class="el" href="a04490.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b" title="Binds the given descriptors. Only issues bind commands for descriptors that changed from the last cal...">bindDescriptors()</a> </p>
+<p>Populates the keyframe from the given assimp vector key. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">layout</td><td>Layout of the pipeline the descriptors are being bound to </td></tr>
-    <tr><td class="paramname">updateFreq</td><td>The update speed of the descriptors to bind </td></tr>
-    <tr><td class="paramname">descriptors</td><td>The list of descriptor sets to bind </td></tr>
-    <tr><td class="paramname">descriptorCount</td><td>The number of descriptors to bind </td></tr>
+    <tr><td class="paramname">src</td><td>The Assimp keyframe </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02150_source.html#l00030">30</a> of file <a class="el" href="a02150_source.html">SceneRenderContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02726_source.html#l00014">14</a> of file <a class="el" href="a02726_source.html">KeyframeVector.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad6456ea55829a550b6f9bd23de1324c0" name="ad6456ea55829a550b6f9bd23de1324c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6456ea55829a550b6f9bd23de1324c0">&#9670;&#160;</a></span>bindPipeline()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a50b4519f67ac3f0cb6c7362e7bfcd4b8" name="a50b4519f67ac3f0cb6c7362e7bfcd4b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b4519f67ac3f0cb6c7362e7bfcd4b8">&#9670;&#160;</a></span>interpolation</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::scene::SceneRenderContext::bindPipeline </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04306.html">mat::MaterialPipeline</a> &amp;&#160;</td>
-          <td class="paramname"><em>pipeline</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a04490.html#a205109cf04911294bcbe5d1763834359">Interpolation</a> bl::mdl::KeyframeVector::interpolation</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Binds the given pipeline. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pipeline</td><td>The pipeline to bind </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02150_source.html#l00026">26</a> of file <a class="el" href="a02150_source.html">SceneRenderContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01430_source.html#l00030">30</a> of file <a class="el" href="a01430_source.html">KeyframeVector.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a324799753fcad12c036226232086d7e1" name="a324799753fcad12c036226232086d7e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a324799753fcad12c036226232086d7e1">&#9670;&#160;</a></span>currentObserverIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::scene::SceneRenderContext::currentObserverIndex </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the scene index of the current observer. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00123">123</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abce4311a40767d910a8197278d506db2" name="abce4311a40767d910a8197278d506db2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abce4311a40767d910a8197278d506db2">&#9670;&#160;</a></span>currentRenderPass()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::scene::SceneRenderContext::currentRenderPass </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the id of the active render pass. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00119">119</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c5c79bd74ff1085cf4661469e747c73" name="a2c5c79bd74ff1085cf4661469e747c73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c5c79bd74ff1085cf4661469e747c73">&#9670;&#160;</a></span>getCommandBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkCommandBuffer bl::rc::scene::SceneRenderContext::getCommandBuffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the command buffer to use for rendering. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00113">113</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a57ad0b33b333ac921d0bc193210e938b" name="a57ad0b33b333ac921d0bc193210e938b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57ad0b33b333ac921d0bc193210e938b">&#9670;&#160;</a></span>getRenderPhase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02388.html#ga2046cc31338d7d8e2a4af56aa599986b">RenderPhase</a> bl::rc::scene::SceneRenderContext::getRenderPhase </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the current render phase. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00117">117</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a87b2a1a1eb4af4c31c04efc5dce3a523" name="a87b2a1a1eb4af4c31c04efc5dce3a523"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87b2a1a1eb4af4c31c04efc5dce3a523">&#9670;&#160;</a></span>parentViewport()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const VkViewport &amp; bl::rc::scene::SceneRenderContext::parentViewport </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the viewport the scene is being rendered to. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00115">115</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a25f6ac72e581b7ac3f387d14c51c8ab4" name="a25f6ac72e581b7ac3f387d14c51c8ab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25f6ac72e581b7ac3f387d14c51c8ab4">&#9670;&#160;</a></span>renderObject()</h2>
+<a id="a4a996a2bb11f6954eed3877b11516bfd" name="a4a996a2bb11f6954eed3877b11516bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a996a2bb11f6954eed3877b11516bfd">&#9670;&#160;</a></span>time</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::scene::SceneRenderContext::renderObject </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a04466.html">SceneObject</a> &amp;&#160;</td>
-          <td class="paramname"><em>object</em></td><td>)</td>
-          <td></td>
+          <td class="memname">double bl::mdl::KeyframeVector::time</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Issues the required commands to render the given scene object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">object</td><td>The object to render </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02150_source.html#l00046">46</a> of file <a class="el" href="a02150_source.html">SceneRenderContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01430_source.html#l00028">28</a> of file <a class="el" href="a01430_source.html">KeyframeVector.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a37041263e1002a5afda27e24ce22f601" name="a37041263e1002a5afda27e24ce22f601"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37041263e1002a5afda27e24ce22f601">&#9670;&#160;</a></span>targetIsRenderTexture()</h2>
+<a id="aeed956ada78fad8f91128c546c77f279" name="aeed956ada78fad8f91128c546c77f279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed956ada78fad8f91128c546c77f279">&#9670;&#160;</a></span>value</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::scene::SceneRenderContext::targetIsRenderTexture </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">glm::vec3 bl::mdl::KeyframeVector::value</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the current target is a render texture. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01142_source.html#l00121">121</a> of file <a class="el" href="a01142_source.html">SceneRenderContext.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01430_source.html#l00029">29</a> of file <a class="el" href="a01430_source.html">KeyframeVector.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Scenes/<a class="el" href="a01142_source.html">SceneRenderContext.hpp</a></li>
-<li>src/Render/Scenes/<a class="el" href="a02150_source.html">SceneRenderContext.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Models/<a class="el" href="a01430_source.html">KeyframeVector.hpp</a></li>
+<li>src/Models/<a class="el" href="a02726_source.html">KeyframeVector.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

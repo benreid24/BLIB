@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Loader Class Reference</title>
+<title>BLIB: bl::rc::rgi::MultiAssetProvider&lt; TProvider, TAsset, N &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,294 +74,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02453.html">json</a></li><li class="navelem"><a class="el" href="a05062.html">Loader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03055.html">rgi</a></li><li class="navelem"><a class="el" href="a05062.html">MultiAssetProvider</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a05059.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::json::Loader Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::rgi::MultiAssetProvider&lt; TProvider, TAsset, N &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Utility class to load JSON objects from input streams or files. Each call consumes from the given file or stream, so only call if you know that content will be present. Prefer the global read/write methods or <a class="el" href="a05066.html" title="Helper class for SerializableField. Specializations are provided for json native types,...">Serializer</a>, this is mainly for internal use.  
+<p>Provider wrapper for MultiAsset.  
  <a href="a05062.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00854_source.html">JSONLoader.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00617_source.html">MultiAssetProvider.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rgi::MultiAssetProvider&lt; TProvider, TAsset, N &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a05062.png" usemap="#bl::rc::rgi::MultiAssetProvider_3C_20TProvider_2C_20TAsset_2C_20N_20_3E_map" alt=""/>
+  <map id="bl::rc::rgi::MultiAssetProvider_3C_20TProvider_2C_20TAsset_2C_20N_20_3E_map" name="bl::rc::rgi::MultiAssetProvider_3C_20TProvider_2C_20TAsset_2C_20N_20_3E_map">
+<area href="a04986.html" title="Base class for an asset provider. AssetProviders are used by AssetFactory." alt="bl::rc::rg::AssetProvider" shape="rect" coords="0,0,319,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:add662a0884aa8275dde4d542b4496808" id="r_add662a0884aa8275dde4d542b4496808"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#add662a0884aa8275dde4d542b4496808">Loader</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:add662a0884aa8275dde4d542b4496808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a05062.html" title="Utility class to load JSON objects from input streams or files. Each call consumes from the given fil...">Loader</a> from a file.  <br /></td></tr>
-<tr class="separator:add662a0884aa8275dde4d542b4496808"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55fbf0c7c10059544a6fec78cab15aec" id="r_a55fbf0c7c10059544a6fec78cab15aec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#a55fbf0c7c10059544a6fec78cab15aec">Loader</a> (std::istream &amp;stream)</td></tr>
-<tr class="memdesc:a55fbf0c7c10059544a6fec78cab15aec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a05062.html" title="Utility class to load JSON objects from input streams or files. Each call consumes from the given fil...">Loader</a> from a stream.  <br /></td></tr>
-<tr class="separator:a55fbf0c7c10059544a6fec78cab15aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a640f7a623c3747f78d5e907042bbe00d" id="r_a640f7a623c3747f78d5e907042bbe00d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#a640f7a623c3747f78d5e907042bbe00d">loadValue</a> (<a class="el" href="a05058.html">Value</a> &amp;result)</td></tr>
-<tr class="memdesc:a640f7a623c3747f78d5e907042bbe00d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a JSON value from the underlying stream.  <br /></td></tr>
-<tr class="separator:a640f7a623c3747f78d5e907042bbe00d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6bfc15da6692b28d4e4e00897b61d2d" id="r_ac6bfc15da6692b28d4e4e00897b61d2d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#ac6bfc15da6692b28d4e4e00897b61d2d">loadString</a> (std::string &amp;result)</td></tr>
-<tr class="memdesc:ac6bfc15da6692b28d4e4e00897b61d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a string value from the underlying stream.  <br /></td></tr>
-<tr class="separator:ac6bfc15da6692b28d4e4e00897b61d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab23d6e79d8879ad0901da4c35904b2c6" id="r_ab23d6e79d8879ad0901da4c35904b2c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#ab23d6e79d8879ad0901da4c35904b2c6">loadNumeric</a> (<a class="el" href="a05058.html">Value</a> &amp;val)</td></tr>
-<tr class="memdesc:ab23d6e79d8879ad0901da4c35904b2c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a numeric value from the underlying stream.  <br /></td></tr>
-<tr class="separator:ab23d6e79d8879ad0901da4c35904b2c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cac8de609d03bdbfbd206d0dd1e590f" id="r_a4cac8de609d03bdbfbd206d0dd1e590f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#a4cac8de609d03bdbfbd206d0dd1e590f">loadBool</a> (bool &amp;result)</td></tr>
-<tr class="memdesc:a4cac8de609d03bdbfbd206d0dd1e590f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a boolean value from the stream.  <br /></td></tr>
-<tr class="separator:a4cac8de609d03bdbfbd206d0dd1e590f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a150e980fab9da56a9e6c78c156281d02" id="r_a150e980fab9da56a9e6c78c156281d02"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#a150e980fab9da56a9e6c78c156281d02">loadList</a> (<a class="el" href="a02453.html#a1651c2f4db91ae08cdd9015e247eef67">List</a> &amp;result)</td></tr>
-<tr class="memdesc:a150e980fab9da56a9e6c78c156281d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a list from the underlying stream.  <br /></td></tr>
-<tr class="separator:a150e980fab9da56a9e6c78c156281d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ace38dd289f4d2f7c9c8129a68b1a81" id="r_a5ace38dd289f4d2f7c9c8129a68b1a81"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#a5ace38dd289f4d2f7c9c8129a68b1a81">loadGroup</a> (<a class="el" href="a05054.html">Group</a> &amp;group)</td></tr>
-<tr class="memdesc:a5ace38dd289f4d2f7c9c8129a68b1a81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a group from the underlying stream.  <br /></td></tr>
-<tr class="separator:a5ace38dd289f4d2f7c9c8129a68b1a81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56b7bb17aa05be62daafb1db406ad2f5" id="r_a56b7bb17aa05be62daafb1db406ad2f5"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
+<tr class="memitem:a56b7bb17aa05be62daafb1db406ad2f5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05062.html#a56b7bb17aa05be62daafb1db406ad2f5">MultiAssetProvider</a> (bool terminal, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a56b7bb17aa05be62daafb1db406ad2f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the multi asset provider.  <br /></td></tr>
+<tr class="separator:a56b7bb17aa05be62daafb1db406ad2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68c4f67cf1d0cef71d08f5eb5715b48d" id="r_a68c4f67cf1d0cef71d08f5eb5715b48d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a04974.html">rg::Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05062.html#a68c4f67cf1d0cef71d08f5eb5715b48d">create</a> (std::string_view tag) override</td></tr>
+<tr class="memdesc:a68c4f67cf1d0cef71d08f5eb5715b48d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new multi asset.  <br /></td></tr>
+<tr class="separator:a68c4f67cf1d0cef71d08f5eb5715b48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Utility class to load JSON objects from input streams or files. Each call consumes from the given file or stream, so only call if you know that content will be present. Prefer the global read/write methods or <a class="el" href="a05066.html" title="Helper class for SerializableField. Specializations are provided for json native types,...">Serializer</a>, this is mainly for internal use. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename TProvider, typename TAsset, std::uint32_t N&gt;<br />
+class bl::rc::rgi::MultiAssetProvider&lt; TProvider, TAsset, N &gt;</div><p>Provider wrapper for MultiAsset. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TProvider</td><td>The underlying provider to use to create the assets </td></tr>
+    <tr><td class="paramname">TAsset</td><td>The asset type to create a MultiAsset of </td></tr>
+    <tr><td class="paramname">N</td><td>How many underlying assets should be created </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00854_source.html#l00021">21</a> of file <a class="el" href="a00854_source.html">JSONLoader.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00021">21</a> of file <a class="el" href="a00617_source.html">MultiAssetProvider.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="add662a0884aa8275dde4d542b4496808" name="add662a0884aa8275dde4d542b4496808"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add662a0884aa8275dde4d542b4496808">&#9670;&#160;</a></span>Loader() <span class="overload">[1/2]</span></h2>
+<a id="a56b7bb17aa05be62daafb1db406ad2f5" name="a56b7bb17aa05be62daafb1db406ad2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56b7bb17aa05be62daafb1db406ad2f5">&#9670;&#160;</a></span>MultiAssetProvider()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TProvider , typename TAsset , std::uint32_t N&gt; </div>
+<div class="memtemplate">
+template&lt;typename... TArgs&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::json::Loader::Loader </td>
+          <td class="memname"><a class="el" href="a05062.html">bl::rc::rgi::MultiAssetProvider</a>&lt; TProvider, TAsset, N &gt;::MultiAssetProvider </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>terminal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a05062.html" title="Utility class to load JSON objects from input streams or files. Each call consumes from the given fil...">Loader</a> from a file. </p>
+<p>Creates the multi asset provider. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the underlying provider's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">filename</td><td>The file to open </td></tr>
+    <tr><td class="paramname">terminal</td><td>Whether the created assets should be terminal </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to the underlying provider's constructor </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00013">13</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a55fbf0c7c10059544a6fec78cab15aec" name="a55fbf0c7c10059544a6fec78cab15aec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55fbf0c7c10059544a6fec78cab15aec">&#9670;&#160;</a></span>Loader() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::serial::json::Loader::Loader </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="a05062.html" title="Utility class to load JSON objects from input streams or files. Each call consumes from the given fil...">Loader</a> from a stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>The stream to read from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00022">22</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00050">50</a> of file <a class="el" href="a00617_source.html">MultiAssetProvider.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4cac8de609d03bdbfbd206d0dd1e590f" name="a4cac8de609d03bdbfbd206d0dd1e590f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cac8de609d03bdbfbd206d0dd1e590f">&#9670;&#160;</a></span>loadBool()</h2>
+<a id="a68c4f67cf1d0cef71d08f5eb5715b48d" name="a68c4f67cf1d0cef71d08f5eb5715b48d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68c4f67cf1d0cef71d08f5eb5715b48d">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename TProvider , typename TAsset , std::uint32_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::serial::json::Loader::loadBool </td>
+          <td class="memname"><a class="el" href="a04974.html">rg::Asset</a> * <a class="el" href="a05062.html">bl::rc::rgi::MultiAssetProvider</a>&lt; TProvider, TAsset, N &gt;::create </td>
           <td>(</td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Loads a boolean value from the stream. </p>
+<p>Creates a new multi asset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">result</td><td>Boolean to place the read value in </td></tr>
+    <tr><td class="paramname">tag</td><td>The tag to create the asset with </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if read successfully, false otherwise </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new asset </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00093">93</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
+<p>Implements <a class="el" href="a04986.html#ae9a1e538d17f529681639b6b2ad3b74b">bl::rc::rg::AssetProvider</a>.</p>
 
-</div>
-</div>
-<a id="a5ace38dd289f4d2f7c9c8129a68b1a81" name="a5ace38dd289f4d2f7c9c8129a68b1a81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ace38dd289f4d2f7c9c8129a68b1a81">&#9670;&#160;</a></span>loadGroup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::Loader::loadGroup </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05054.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>group</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads a group from the underlying stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">group</td><td><a class="el" href="a05054.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ...">Group</a> to load into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a group could be read, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00247">247</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00055">55</a> of file <a class="el" href="a00617_source.html">MultiAssetProvider.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a150e980fab9da56a9e6c78c156281d02" name="a150e980fab9da56a9e6c78c156281d02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a150e980fab9da56a9e6c78c156281d02">&#9670;&#160;</a></span>loadList()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::Loader::loadList </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02453.html#a1651c2f4db91ae08cdd9015e247eef67">List</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads a list from the underlying stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>List to read into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a list was read, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00217">217</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab23d6e79d8879ad0901da4c35904b2c6" name="ab23d6e79d8879ad0901da4c35904b2c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab23d6e79d8879ad0901da4c35904b2c6">&#9670;&#160;</a></span>loadNumeric()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::Loader::loadNumeric </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05058.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads a numeric value from the underlying stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td><a class="el" href="a05058.html" title="Represents any value type in JSON.">Value</a> to store the result in </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a number was read, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00133">133</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac6bfc15da6692b28d4e4e00897b61d2d" name="ac6bfc15da6692b28d4e4e00897b61d2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6bfc15da6692b28d4e4e00897b61d2d">&#9670;&#160;</a></span>loadString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::Loader::loadString </td>
-          <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads a string value from the underlying stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>The string to read into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if read successfully, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00175">175</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a640f7a623c3747f78d5e907042bbe00d" name="a640f7a623c3747f78d5e907042bbe00d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a640f7a623c3747f78d5e907042bbe00d">&#9670;&#160;</a></span>loadValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::serial::json::Loader::loadValue </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05058.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads a JSON value from the underlying stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>The <a class="el" href="a05058.html" title="Represents any value type in JSON.">Value</a> to store the result in </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the value could be loaded, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01973_source.html#l00059">59</a> of file <a class="el" href="a01973_source.html">JSONLoader.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a00854_source.html">JSONLoader.hpp</a></li>
-<li>src/Serialization/JSON/<a class="el" href="a01973_source.html">JSONLoader.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Graph/Providers/<a class="el" href="a00617_source.html">MultiAssetProvider.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

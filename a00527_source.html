@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Events/ListenerGuard.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Buffers/Interfaces/BindableBuffer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,87 +79,218 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_b1ab5f494aad7f0e2da16d9fefe047e9.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_77bce416c82938c0e86eeeeb6fb338bb.html">Buffers</a></li><li class="navelem"><a class="el" href="dir_7447af81a56ad9dc0ab4fdaf661a8512.html">Interfaces</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ListenerGuard.hpp</div></div>
+  <div class="headertitle"><div class="title">BindableBuffer.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00527.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_EVENTS_LISTENERGUARD_HPP</span></div>
+<a href="a00527.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_BUFFERS_INTERFACES_BINDABLEBUFFER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_BUFFERS_INTERFACES_BINDABLEBUFFER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00530.html">BLIB/Events/Dispatcher.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>event</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03190.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a03190.html">ListenerGuard</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a03190.html">ListenerGuard</a>(<a class="code hl_class" href="a03186.html">Listener&lt;TEvents...&gt;</a>* owner);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">~ListenerGuard</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">subscribe</a>(<span class="keywordtype">bool</span> defer = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#a010f7f24a4188f4283499854147a520f">unsubscribe</a>();</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="a03186.html">Listener</a>&lt;TEvents...&gt;* <span class="keyword">const</span> listener;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00539.html">BLIB/Render/Buffers/Alignment.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00512.html">BLIB/Render/Buffers/DirtyRange.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/Render/Config/Limits.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a08545.html">BLIB/Render/HeaderHelpers.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Render/Transfers/Transferable.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00410.html">BLIB/Render/Vulkan/Buffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">class </span>Buffer;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">namespace </span>buf</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>{</div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a03044.html">   32</a></span><span class="keyword">namespace </span>base</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>{</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, Alignment Align&gt;</div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="};">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04714.html">   41</a></span><span class="keyword">class </span><a class="code hl_class" href="a04714.html">BindableBuffer</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05622.html">tfr::Transferable</a> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a04714.html#a191276d7c4c5dec2e92fe04fb413df2d">   46</a></span>    <a class="code hl_function" href="a04714.html#a191276d7c4c5dec2e92fe04fb413df2d">BindableBuffer</a>()</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    : alignment(sizeof(T))</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    , dirtyRanges{}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    , currentDirtyRange(0)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    , copyFullRange(false) {}</div>
 </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a03190.html#a96a8d50a80ae728156a8b5c32e3675e5">   55</a></span><a class="code hl_function" href="a03190.html#a96a8d50a80ae728156a8b5c32e3675e5">ListenerGuard&lt;TEvents...&gt;::ListenerGuard</a>(<a class="code hl_class" href="a03186.html">Listener&lt;TEvents...&gt;</a>* owner)</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>: listener(owner) {}</div>
-</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">   59</a></span><a class="code hl_function" href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">ListenerGuard&lt;TEvents...&gt;::~ListenerGuard</a>() {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    unsubscribe();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>}</div>
-</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">   64</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">ListenerGuard&lt;TEvents...&gt;::subscribe</a>(<span class="keywordtype">bool</span> defer) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    unsubscribe();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_function" href="a03174.html#a36b6226eb7a776e0fc9c798689725bdc">Dispatcher::subscribe</a>(listener, defer);</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a04714.html#acdfd43bd0eeb79205ee4aa5f36630a3c">   55</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04714.html#acdfd43bd0eeb79205ee4aa5f36630a3c">~BindableBuffer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a04714.html#a6e6cb1e8900311e416650da706f80f35">   63</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#a6e6cb1e8900311e416650da706f80f35">create</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; <a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>, std::uint32_t numElements) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        this-&gt;renderer = &amp;<a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        alignment      = <a class="code hl_function" href="a03043.html#aae213d60091b2decccdc41e9b3e67cf6">computeAlignment</a>(<span class="keyword">sizeof</span>(T), Align);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_function" href="a04714.html#a833bd15e1f98076b4c35d0921ff1ffcf">doCreate</a>(<a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>, numElements);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
 </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TEvents&gt;</div>
-<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a03190.html#a010f7f24a4188f4283499854147a520f">   70</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03190.html#a010f7f24a4188f4283499854147a520f">ListenerGuard&lt;TEvents...&gt;::unsubscribe</a>() {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_function" href="a03174.html#a7d6b29860c56388036edd8a38f26a4c7">Dispatcher::unsubscribe</a>(listener);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>}</div>
-</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a04714.html#ae1583e8378e66df4bd4e749b1a2aed75">   72</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#ae1583e8378e66df4bd4e749b1a2aed75">destroy</a>() = 0;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace event</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">Dispatcher.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03174_html_a36b6226eb7a776e0fc9c798689725bdc"><div class="ttname"><a href="a03174.html#a36b6226eb7a776e0fc9c798689725bdc">bl::event::Dispatcher::subscribe</a></div><div class="ttdeci">static void subscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Subscribe the given listener to the event stream for the event types given.</div><div class="ttdef"><b>Definition</b> <a href="a00530_source.html#l00093">Dispatcher.hpp:93</a></div></div>
-<div class="ttc" id="aa03174_html_a7d6b29860c56388036edd8a38f26a4c7"><div class="ttname"><a href="a03174.html#a7d6b29860c56388036edd8a38f26a4c7">bl::event::Dispatcher::unsubscribe</a></div><div class="ttdeci">static void unsubscribe(Listener&lt; TEvents... &gt; *listener, bool defer=false)</div><div class="ttdoc">Removes the given listener and prevents it from receiving any more events.</div><div class="ttdef"><b>Definition</b> <a href="a00530_source.html#l00104">Dispatcher.hpp:104</a></div></div>
-<div class="ttc" id="aa03186_html"><div class="ttname"><a href="a03186.html">bl::event::Listener</a></div><div class="ttdoc">Listener of multiple event types. Listeners should inherit this class with the types of events they w...</div><div class="ttdef"><b>Definition</b> <a href="a06394_source.html#l00049">Listener.hpp:49</a></div></div>
-<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl::event::ListenerGuard</a></div><div class="ttdoc">Version of scope guard but for classes. Classes that subscribe to event buses through a member Listen...</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00018">ListenerGuard.hpp:18</a></div></div>
-<div class="ttc" id="aa03190_html_a010f7f24a4188f4283499854147a520f"><div class="ttname"><a href="a03190.html#a010f7f24a4188f4283499854147a520f">bl::event::ListenerGuard::unsubscribe</a></div><div class="ttdeci">void unsubscribe()</div><div class="ttdoc">Unsubscribes the owner from the given event bus.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00070">ListenerGuard.hpp:70</a></div></div>
-<div class="ttc" id="aa03190_html_a328851620e6bb20d1ddbebc9994a7dd3"><div class="ttname"><a href="a03190.html#a328851620e6bb20d1ddbebc9994a7dd3">bl::event::ListenerGuard::~ListenerGuard</a></div><div class="ttdeci">~ListenerGuard()</div><div class="ttdoc">Unsubscribes if subscribed.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00059">ListenerGuard.hpp:59</a></div></div>
-<div class="ttc" id="aa03190_html_a96a8d50a80ae728156a8b5c32e3675e5"><div class="ttname"><a href="a03190.html#a96a8d50a80ae728156a8b5c32e3675e5">bl::event::ListenerGuard::ListenerGuard</a></div><div class="ttdeci">ListenerGuard(Listener&lt; TEvents... &gt; *owner)</div><div class="ttdoc">Creates an empty guard.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00055">ListenerGuard.hpp:55</a></div></div>
-<div class="ttc" id="aa03190_html_aaf8c7456d69baddfc086251a1fa77ae6"><div class="ttname"><a href="a03190.html#aaf8c7456d69baddfc086251a1fa77ae6">bl::event::ListenerGuard::subscribe</a></div><div class="ttdeci">void subscribe(bool defer=false)</div><div class="ttdoc">Subscribes the owner to the given bus.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00064">ListenerGuard.hpp:64</a></div></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a04714.html#ac652e3968719b6d9dac06f20d17cd51a">   77</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#ac652e3968719b6d9dac06f20d17cd51a">deferDestroy</a>() = 0;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a04714.html#aa638a642d32a3fe903a27db18b865ebf">   84</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#aa638a642d32a3fe903a27db18b865ebf">resize</a>(std::uint32_t size) = 0;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a04714.html#aef67d8d225bc0a5b4d99566b6cadbfb1">   92</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04714.html#aef67d8d225bc0a5b4d99566b6cadbfb1">ensureSize</a>(std::uint32_t size) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">if</span> (size &gt; <a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>()) {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            std::uint32_t newSize = std::max(<a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>(), <span class="keyword">static_cast&lt;</span>std::uint32_t<span class="keyword">&gt;</span>(1)) * 2;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            <span class="keywordflow">while</span> (newSize &lt; size) { newSize *= 2; }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <a class="code hl_function" href="a04714.html#aa638a642d32a3fe903a27db18b865ebf">resize</a>(newSize);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">  105</a></span>    <span class="keyword">virtual</span> std::uint32_t <a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a04714.html#ab736acbf56599056a3cff85fd6100ace">  110</a></span>    std::uint32_t <a class="code hl_function" href="a04714.html#ab736acbf56599056a3cff85fd6100ace">getAlignedElementSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> alignment; }</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a04714.html#a0de7c897ea5a51d3f4e9bbefea7ac35d">  115</a></span>    std::size_t <a class="code hl_function" href="a04714.html#a0de7c897ea5a51d3f4e9bbefea7ac35d">getTotalAlignedSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>() * <a class="code hl_function" href="a04714.html#ab736acbf56599056a3cff85fd6100ace">getAlignedElementSize</a>(); }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a04714.html#a4dfc808fb062cf752f8cd59ad5f29c42">  122</a></span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a05650.html">vk::Buffer</a>&amp; <a class="code hl_function" href="a04714.html#a4dfc808fb062cf752f8cd59ad5f29c42">getBuffer</a>(std::uint32_t frameIndex) = 0;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a04714.html#ab7bedec5714f21bc26f353b90e5b35a2">  127</a></span>    <a class="code hl_class" href="a05650.html">vk::Buffer</a>&amp; <a class="code hl_function" href="a04714.html#ab7bedec5714f21bc26f353b90e5b35a2">getCurrentFrameBuffer</a>() { <span class="keywordflow">return</span> <a class="code hl_function" href="a04714.html#a4dfc808fb062cf752f8cd59ad5f29c42">getBuffer</a>(<a class="code hl_function" href="a04714.html#a7107d3066a1c3cef4e37a5144458a5f3">getVulkanState</a>().currentFrameIndex()); }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a04714.html#ab9586a86e203a4669547ea136c83441a">  135</a></span>    VkBuffer <a class="code hl_function" href="a04714.html#ab9586a86e203a4669547ea136c83441a">getRawBuffer</a>(std::uint32_t frameIndex) { <span class="keywordflow">return</span> <a class="code hl_function" href="a04714.html#a4dfc808fb062cf752f8cd59ad5f29c42">getBuffer</a>(frameIndex).<a class="code hl_function" href="a05650.html#a62ae8ed0b1208ef5a2404f3908203499">getBuffer</a>(); }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a04714.html#a130a865f94f7c92a5e7e7f753f1a7064">  140</a></span>    VkBuffer <a class="code hl_function" href="a04714.html#a130a865f94f7c92a5e7e7f753f1a7064">getCurrentFrameRawBuffer</a>() { <span class="keywordflow">return</span> <a class="code hl_function" href="a04714.html#ab7bedec5714f21bc26f353b90e5b35a2">getCurrentFrameBuffer</a>().<a class="code hl_function" href="a05650.html#a62ae8ed0b1208ef5a2404f3908203499">getBuffer</a>(); }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
+<div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="a04714.html#acbd63c754e76cfd83bbf757252b6c568">  148</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#acbd63c754e76cfd83bbf757252b6c568">markDirty</a>(std::uint32_t i, std::uint32_t n = 1) {</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        dirtyRanges[currentDirtyRange].markDirty(i, n);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <a class="code hl_function" href="a05622.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a>();</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    }</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno"><a class="line" href="a04714.html#a54306fdf2c2a9f8bcad137f5e4918757">  156</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#a54306fdf2c2a9f8bcad137f5e4918757">markFullDirty</a>() { dirtyRanges.fill(<a class="code hl_struct" href="a04706.html">DirtyRange</a>(0, <a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>())); }</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="a04714.html#a9aa2bede875eff16fde1022a7269afff">  164</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#a9aa2bede875eff16fde1022a7269afff">setCopyFullRange</a>(<span class="keywordtype">bool</span> copyFull) { copyFullRange = copyFull; }</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="a04714.html#a5090e7837bf6518d3c6e4aa52ce2565d">  170</a></span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; <a class="code hl_function" href="a04714.html#a5090e7837bf6518d3c6e4aa52ce2565d">getRenderer</a>() { <span class="keywordflow">return</span> *<a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>; }</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="a04714.html#a7107d3066a1c3cef4e37a5144458a5f3">  175</a></span>    <a class="code hl_struct" href="a05838.html">vk::VulkanLayer</a>&amp; <a class="code hl_function" href="a04714.html#a7107d3066a1c3cef4e37a5144458a5f3">getVulkanState</a>() { <span class="keywordflow">return</span> <a class="code hl_function" href="a05202.html#aed20c0318ad6be35b78b4bb475cce803">HeaderHelpers::getVulkanLayer</a>(*<a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>); }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="a04714.html#a833bd15e1f98076b4c35d0921ff1ffcf">  183</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#a833bd15e1f98076b4c35d0921ff1ffcf">doCreate</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; <a class="code hl_variable" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>, std::uint32_t numElements) = 0;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="foldopen" id="foldopen00191" data-start="{" data-end="}">
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno"><a class="line" href="a04714.html#a7db37ed444156261f53351ff62fee42d">  191</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#a7db37ed444156261f53351ff62fee42d">executeTransfer</a>(VkCommandBuffer commandBuffer,</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                                 <a class="code hl_class" href="a05626.html">tfr::TransferContext</a>&amp; context)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        (void)commandBuffer;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        (void)context;</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <a class="code hl_define" href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;executeTransfer called on buffer that does not implement it&quot;</span>;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    }</div>
+</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="foldopen" id="foldopen00201" data-start="{" data-end="}">
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno"><a class="line" href="a04714.html#a88b26c67dd5650faa55b581c52e024b8">  201</a></span>    <a class="code hl_struct" href="a04706.html">DirtyRange</a> <a class="code hl_function" href="a04714.html#a88b26c67dd5650faa55b581c52e024b8">getCurrentDirtyRange</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">return</span> copyFullRange ? <a class="code hl_struct" href="a04706.html">DirtyRange</a>{0, <a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>()} : dirtyRanges[currentDirtyRange];</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    }</div>
+</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="foldopen" id="foldopen00208" data-start="{" data-end="}">
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno"><a class="line" href="a04714.html#aa6829e9de071f3a66ecfb94155462637">  208</a></span>    <a class="code hl_struct" href="a04706.html">DirtyRange</a> <a class="code hl_function" href="a04714.html#aa6829e9de071f3a66ecfb94155462637">getAccumulatedDirtyRange</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="keywordflow">if</span> (copyFullRange) { <span class="keywordflow">return</span> {0, <a class="code hl_function" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">getSize</a>()}; }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        <a class="code hl_struct" href="a04706.html">DirtyRange</a> accum;</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; r : dirtyRanges) { accum.<a class="code hl_function" href="a04706.html#a773b98d39ede673ac327a336d5251f69">combine</a>(r); }</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        <span class="keywordflow">return</span> accum;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    }</div>
+</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="foldopen" id="foldopen00219" data-start="{" data-end="}">
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno"><a class="line" href="a04714.html#ac1b5d8b964f9f4ef52e7dec3933d4e69">  219</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04714.html#ac1b5d8b964f9f4ef52e7dec3933d4e69">markClean</a>() {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        currentDirtyRange              = (currentDirtyRange + 1) % dirtyRanges.size();</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        dirtyRanges[currentDirtyRange] = <a class="code hl_struct" href="a04706.html">DirtyRange</a>();</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    std::uint32_t alignment;</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    std::array&lt;DirtyRange, cfg::Limits::MaxConcurrentFrames&gt; dirtyRanges;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    std::uint32_t currentDirtyRange;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordtype">bool</span> copyFullRange;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>};</div>
+</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>} <span class="comment">// namespace base</span></div>
+</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>} <span class="comment">// namespace buf</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
+<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
+<div class="ttc" id="aa00410_html"><div class="ttname"><a href="a00410.html">Buffer.hpp</a></div></div>
+<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">DirtyRange.hpp</a></div></div>
+<div class="ttc" id="aa00539_html"><div class="ttname"><a href="a00539.html">Alignment.hpp</a></div></div>
+<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">Transferable.hpp</a></div></div>
+<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">Limits.hpp</a></div></div>
+<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01586_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03043_html_aae213d60091b2decccdc41e9b3e67cf6"><div class="ttname"><a href="a03043.html#aae213d60091b2decccdc41e9b3e67cf6">bl::rc::buf::computeAlignment</a></div><div class="ttdeci">VkDeviceSize computeAlignment(VkDeviceSize dataSize, Alignment alignment)</div><div class="ttdoc">Helper to compute data alignment for a certain block size and alignment requirement.</div><div class="ttdef"><b>Definition</b> <a href="a02177_source.html#l00012">Alignment.cpp:12</a></div></div>
+<div class="ttc" id="aa04706_html"><div class="ttname"><a href="a04706.html">bl::rc::buf::DirtyRange</a></div><div class="ttdoc">Basic helper struct to track dirty ranges of buffers.</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00017">DirtyRange.hpp:17</a></div></div>
+<div class="ttc" id="aa04706_html_a773b98d39ede673ac327a336d5251f69"><div class="ttname"><a href="a04706.html#a773b98d39ede673ac327a336d5251f69">bl::rc::buf::DirtyRange::combine</a></div><div class="ttdeci">void combine(const DirtyRange &amp;other)</div><div class="ttdoc">Combines this range to include the union of itself and another range.</div><div class="ttdef"><b>Definition</b> <a href="a02174_source.html#l00019">DirtyRange.cpp:19</a></div></div>
+<div class="ttc" id="aa04714_html"><div class="ttname"><a href="a04714.html">bl::rc::buf::base::BindableBuffer</a></div><div class="ttdoc">Base class for buffers that are intended for use as SSBO's or uniforms.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00041">BindableBuffer.hpp:41</a></div></div>
+<div class="ttc" id="aa04714_html_a0de7c897ea5a51d3f4e9bbefea7ac35d"><div class="ttname"><a href="a04714.html#a0de7c897ea5a51d3f4e9bbefea7ac35d">bl::rc::buf::base::BindableBuffer::getTotalAlignedSize</a></div><div class="ttdeci">std::size_t getTotalAlignedSize() const</div><div class="ttdoc">Returns the total size, in bytes, of the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00115">BindableBuffer.hpp:115</a></div></div>
+<div class="ttc" id="aa04714_html_a130a865f94f7c92a5e7e7f753f1a7064"><div class="ttname"><a href="a04714.html#a130a865f94f7c92a5e7e7f753f1a7064">bl::rc::buf::base::BindableBuffer::getCurrentFrameRawBuffer</a></div><div class="ttdeci">VkBuffer getCurrentFrameRawBuffer()</div><div class="ttdoc">Returns the direct Vulkan handle of the underlying buffer for the current frame.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00140">BindableBuffer.hpp:140</a></div></div>
+<div class="ttc" id="aa04714_html_a191276d7c4c5dec2e92fe04fb413df2d"><div class="ttname"><a href="a04714.html#a191276d7c4c5dec2e92fe04fb413df2d">bl::rc::buf::base::BindableBuffer::BindableBuffer</a></div><div class="ttdeci">BindableBuffer()</div><div class="ttdoc">Creates the buffer wrapper.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00046">BindableBuffer.hpp:46</a></div></div>
+<div class="ttc" id="aa04714_html_a4cfee34de6302e8c1ddb3b36fad5dbd4"><div class="ttname"><a href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">bl::rc::buf::base::BindableBuffer::getSize</a></div><div class="ttdeci">virtual std::uint32_t getSize() const =0</div><div class="ttdoc">Returns the number of data elements in the buffer.</div></div>
+<div class="ttc" id="aa04714_html_a4dfc808fb062cf752f8cd59ad5f29c42"><div class="ttname"><a href="a04714.html#a4dfc808fb062cf752f8cd59ad5f29c42">bl::rc::buf::base::BindableBuffer::getBuffer</a></div><div class="ttdeci">virtual vk::Buffer &amp; getBuffer(std::uint32_t frameIndex)=0</div><div class="ttdoc">Returns the underlying buffer for the given frame index.</div></div>
+<div class="ttc" id="aa04714_html_a5090e7837bf6518d3c6e4aa52ce2565d"><div class="ttname"><a href="a04714.html#a5090e7837bf6518d3c6e4aa52ce2565d">bl::rc::buf::base::BindableBuffer::getRenderer</a></div><div class="ttdeci">Renderer &amp; getRenderer()</div><div class="ttdoc">Returns the renderer instance this buffer is owned by.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00170">BindableBuffer.hpp:170</a></div></div>
+<div class="ttc" id="aa04714_html_a54306fdf2c2a9f8bcad137f5e4918757"><div class="ttname"><a href="a04714.html#a54306fdf2c2a9f8bcad137f5e4918757">bl::rc::buf::base::BindableBuffer::markFullDirty</a></div><div class="ttdeci">void markFullDirty()</div><div class="ttdoc">Marks the entire buffer as dirty.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00156">BindableBuffer.hpp:156</a></div></div>
+<div class="ttc" id="aa04714_html_a6e6cb1e8900311e416650da706f80f35"><div class="ttname"><a href="a04714.html#a6e6cb1e8900311e416650da706f80f35">bl::rc::buf::base::BindableBuffer::create</a></div><div class="ttdeci">void create(Renderer &amp;renderer, std::uint32_t numElements)</div><div class="ttdoc">Creates the buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00063">BindableBuffer.hpp:63</a></div></div>
+<div class="ttc" id="aa04714_html_a7107d3066a1c3cef4e37a5144458a5f3"><div class="ttname"><a href="a04714.html#a7107d3066a1c3cef4e37a5144458a5f3">bl::rc::buf::base::BindableBuffer::getVulkanState</a></div><div class="ttdeci">vk::VulkanLayer &amp; getVulkanState()</div><div class="ttdoc">Returns the renderer Vulkan state.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00175">BindableBuffer.hpp:175</a></div></div>
+<div class="ttc" id="aa04714_html_a7db37ed444156261f53351ff62fee42d"><div class="ttname"><a href="a04714.html#a7db37ed444156261f53351ff62fee42d">bl::rc::buf::base::BindableBuffer::executeTransfer</a></div><div class="ttdeci">virtual void executeTransfer(VkCommandBuffer commandBuffer, tfr::TransferContext &amp;context) override</div><div class="ttdoc">Logs a warning. Derived classes should override this if used.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00191">BindableBuffer.hpp:191</a></div></div>
+<div class="ttc" id="aa04714_html_a833bd15e1f98076b4c35d0921ff1ffcf"><div class="ttname"><a href="a04714.html#a833bd15e1f98076b4c35d0921ff1ffcf">bl::rc::buf::base::BindableBuffer::doCreate</a></div><div class="ttdeci">virtual void doCreate(Renderer &amp;renderer, std::uint32_t numElements)=0</div><div class="ttdoc">Called when the buffer should be created.</div></div>
+<div class="ttc" id="aa04714_html_a88b26c67dd5650faa55b581c52e024b8"><div class="ttname"><a href="a04714.html#a88b26c67dd5650faa55b581c52e024b8">bl::rc::buf::base::BindableBuffer::getCurrentDirtyRange</a></div><div class="ttdeci">DirtyRange getCurrentDirtyRange() const</div><div class="ttdoc">Returns the range of elements marked dirty in the current frame.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00201">BindableBuffer.hpp:201</a></div></div>
+<div class="ttc" id="aa04714_html_a9aa2bede875eff16fde1022a7269afff"><div class="ttname"><a href="a04714.html#a9aa2bede875eff16fde1022a7269afff">bl::rc::buf::base::BindableBuffer::setCopyFullRange</a></div><div class="ttdeci">void setCopyFullRange(bool copyFull)</div><div class="ttdoc">Sets whether to always copy the entire buffer on transfer. Default is false. When false a dirty range...</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00164">BindableBuffer.hpp:164</a></div></div>
+<div class="ttc" id="aa04714_html_aa638a642d32a3fe903a27db18b865ebf"><div class="ttname"><a href="a04714.html#aa638a642d32a3fe903a27db18b865ebf">bl::rc::buf::base::BindableBuffer::resize</a></div><div class="ttdeci">virtual void resize(std::uint32_t size)=0</div><div class="ttdoc">Resizes the buffer.</div></div>
+<div class="ttc" id="aa04714_html_aa6829e9de071f3a66ecfb94155462637"><div class="ttname"><a href="a04714.html#aa6829e9de071f3a66ecfb94155462637">bl::rc::buf::base::BindableBuffer::getAccumulatedDirtyRange</a></div><div class="ttdeci">DirtyRange getAccumulatedDirtyRange() const</div><div class="ttdoc">Returns the total range of elements marked dirty for all frames in flight.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00208">BindableBuffer.hpp:208</a></div></div>
+<div class="ttc" id="aa04714_html_ab736acbf56599056a3cff85fd6100ace"><div class="ttname"><a href="a04714.html#ab736acbf56599056a3cff85fd6100ace">bl::rc::buf::base::BindableBuffer::getAlignedElementSize</a></div><div class="ttdeci">std::uint32_t getAlignedElementSize() const</div><div class="ttdoc">Returns the size, in bytes, of a single data element plus padding for alignment.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00110">BindableBuffer.hpp:110</a></div></div>
+<div class="ttc" id="aa04714_html_ab7bedec5714f21bc26f353b90e5b35a2"><div class="ttname"><a href="a04714.html#ab7bedec5714f21bc26f353b90e5b35a2">bl::rc::buf::base::BindableBuffer::getCurrentFrameBuffer</a></div><div class="ttdeci">vk::Buffer &amp; getCurrentFrameBuffer()</div><div class="ttdoc">Returns the underlying buffer for the current frame.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00127">BindableBuffer.hpp:127</a></div></div>
+<div class="ttc" id="aa04714_html_ab9586a86e203a4669547ea136c83441a"><div class="ttname"><a href="a04714.html#ab9586a86e203a4669547ea136c83441a">bl::rc::buf::base::BindableBuffer::getRawBuffer</a></div><div class="ttdeci">VkBuffer getRawBuffer(std::uint32_t frameIndex)</div><div class="ttdoc">Returns the direct Vulkan handle of the underlying buffer for the given frame.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00135">BindableBuffer.hpp:135</a></div></div>
+<div class="ttc" id="aa04714_html_ac1b5d8b964f9f4ef52e7dec3933d4e69"><div class="ttname"><a href="a04714.html#ac1b5d8b964f9f4ef52e7dec3933d4e69">bl::rc::buf::base::BindableBuffer::markClean</a></div><div class="ttdeci">void markClean()</div><div class="ttdoc">Call after performing a transfer of a dirty range.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00219">BindableBuffer.hpp:219</a></div></div>
+<div class="ttc" id="aa04714_html_ac652e3968719b6d9dac06f20d17cd51a"><div class="ttname"><a href="a04714.html#ac652e3968719b6d9dac06f20d17cd51a">bl::rc::buf::base::BindableBuffer::deferDestroy</a></div><div class="ttdeci">virtual void deferDestroy()=0</div><div class="ttdoc">Queues the buffer to be destroyed after MaxConcurrentFrames.</div></div>
+<div class="ttc" id="aa04714_html_acbd63c754e76cfd83bbf757252b6c568"><div class="ttname"><a href="a04714.html#acbd63c754e76cfd83bbf757252b6c568">bl::rc::buf::base::BindableBuffer::markDirty</a></div><div class="ttdeci">void markDirty(std::uint32_t i, std::uint32_t n=1)</div><div class="ttdoc">Marks the given range dirty. Derived classes may use dirty ranges to inform copies.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00148">BindableBuffer.hpp:148</a></div></div>
+<div class="ttc" id="aa04714_html_acdfd43bd0eeb79205ee4aa5f36630a3c"><div class="ttname"><a href="a04714.html#acdfd43bd0eeb79205ee4aa5f36630a3c">bl::rc::buf::base::BindableBuffer::~BindableBuffer</a></div><div class="ttdeci">virtual ~BindableBuffer()=default</div><div class="ttdoc">Destroys the buffer wrapper.</div></div>
+<div class="ttc" id="aa04714_html_ae1583e8378e66df4bd4e749b1a2aed75"><div class="ttname"><a href="a04714.html#ae1583e8378e66df4bd4e749b1a2aed75">bl::rc::buf::base::BindableBuffer::destroy</a></div><div class="ttdeci">virtual void destroy()=0</div><div class="ttdoc">Immediately destroys the buffer.</div></div>
+<div class="ttc" id="aa04714_html_aef67d8d225bc0a5b4d99566b6cadbfb1"><div class="ttname"><a href="a04714.html#aef67d8d225bc0a5b4d99566b6cadbfb1">bl::rc::buf::base::BindableBuffer::ensureSize</a></div><div class="ttdeci">bool ensureSize(std::uint32_t size)</div><div class="ttdoc">If the buffer is smaller resizes to contain at least the given number of elements.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00092">BindableBuffer.hpp:92</a></div></div>
+<div class="ttc" id="aa05202_html_aed20c0318ad6be35b78b4bb475cce803"><div class="ttname"><a href="a05202.html#aed20c0318ad6be35b78b4bb475cce803">bl::rc::HeaderHelpers::getVulkanLayer</a></div><div class="ttdeci">static vk::VulkanLayer &amp; getVulkanLayer(Renderer &amp;renderer)</div><div class="ttdoc">Returns the vulkan layer of the given renderer.</div><div class="ttdef"><b>Definition</b> <a href="a08713_source.html#l00009">HeaderHelpers.cpp:9</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05622_html"><div class="ttname"><a href="a05622.html">bl::rc::tfr::Transferable</a></div><div class="ttdoc">Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00022">Transferable.hpp:22</a></div></div>
+<div class="ttc" id="aa05622_html_a2f74400304d3f1cbacf8d4d88cb2db14"><div class="ttname"><a href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">bl::rc::tfr::Transferable::renderer</a></div><div class="ttdeci">Renderer * renderer</div><div class="ttdef"><b>Definition</b> <a href="a00890_source.html#l00069">Transferable.hpp:69</a></div></div>
+<div class="ttc" id="aa05622_html_af2cddcfa3664702cb39bba2e304e5074"><div class="ttname"><a href="a05622.html#af2cddcfa3664702cb39bba2e304e5074">bl::rc::tfr::Transferable::queueTransfer</a></div><div class="ttdeci">bool queueTransfer(SyncRequirement syncReq=SyncRequirement::Immediate)</div><div class="ttdoc">Queues this object with the TransferEngine to be transfered on the next frame.</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00029">Transferable.cpp:29</a></div></div>
+<div class="ttc" id="aa05626_html"><div class="ttname"><a href="a05626.html">bl::rc::tfr::TransferContext</a></div><div class="ttdef"><b>Definition</b> <a href="a00887_source.html#l00019">TransferContext.hpp:19</a></div></div>
+<div class="ttc" id="aa05650_html"><div class="ttname"><a href="a05650.html">bl::rc::vk::Buffer</a></div><div class="ttdoc">Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00019">Buffer.hpp:19</a></div></div>
+<div class="ttc" id="aa05650_html_a62ae8ed0b1208ef5a2404f3908203499"><div class="ttname"><a href="a05650.html#a62ae8ed0b1208ef5a2404f3908203499">bl::rc::vk::Buffer::getBuffer</a></div><div class="ttdeci">VkBuffer getBuffer() const</div><div class="ttdoc">Returns the Vulkan buffer handle.</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00158">Buffer.hpp:158</a></div></div>
+<div class="ttc" id="aa05838_html"><div class="ttname"><a href="a05838.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a00401_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
+<div class="ttc" id="aa08545_html"><div class="ttname"><a href="a08545.html">HeaderHelpers.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

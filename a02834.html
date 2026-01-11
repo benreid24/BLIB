@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ctr::RingQueue&lt; T &gt; Class Template Reference</title>
+<title>BLIB: src/Graphics/Components/Textured.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,431 +74,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02416.html">ctr</a></li><li class="navelem"><a class="el" href="a02834.html">RingQueue</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li><li class="navelem"><a class="el" href="dir_261428acfae9a40c25d63e60754720d9.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a02831.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::ctr::RingQueue&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02376.html">Containers</a></div></div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">Textured.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid allocations. The queue cannot hold more elements than it's capacity.  
- <a href="a02834.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00548_source.html">RingQueue.hpp</a>&gt;</code></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a01640_source.html">BLIB/Graphics/Components/Textured.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a08509_source.html">BLIB/Render/Renderer.hpp</a>&gt;</code><br />
+</div>
+<p><a href="a02834_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a7ed864241bad3deb17242e3074ed5602" id="r_a7ed864241bad3deb17242e3074ed5602"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a7ed864241bad3deb17242e3074ed5602">RingQueue</a> (std::size_t <a class="el" href="a02834.html#a9814f5290c72631147ad90f6b4a40c1e">size</a>)</td></tr>
-<tr class="memdesc:a7ed864241bad3deb17242e3074ed5602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Ring Queue with the given size. Allocates all memory here.  <br /></td></tr>
-<tr class="separator:a7ed864241bad3deb17242e3074ed5602"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5009062207c9547ed54bd2b7de39ed0c" id="r_a5009062207c9547ed54bd2b7de39ed0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a5009062207c9547ed54bd2b7de39ed0c">push</a> (const T &amp;val)</td></tr>
-<tr class="memdesc:a5009062207c9547ed54bd2b7de39ed0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push a new value into the queue. May fail if the queue is full.  <br /></td></tr>
-<tr class="separator:a5009062207c9547ed54bd2b7de39ed0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a920124491054719572e4628d5a50cc18" id="r_a920124491054719572e4628d5a50cc18"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a920124491054719572e4628d5a50cc18">push</a> (T &amp;&amp;val)</td></tr>
-<tr class="memdesc:a920124491054719572e4628d5a50cc18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Push a new value into the queue. May fail if the queue is full.  <br /></td></tr>
-<tr class="separator:a920124491054719572e4628d5a50cc18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cb724314fa29dfdb8b962f6235bcab2" id="r_a2cb724314fa29dfdb8b962f6235bcab2"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:a2cb724314fa29dfdb8b962f6235bcab2"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a02834.html#a2cb724314fa29dfdb8b962f6235bcab2">emplace</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a2cb724314fa29dfdb8b962f6235bcab2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a new value at the front of the queue.  <br /></td></tr>
-<tr class="separator:a2cb724314fa29dfdb8b962f6235bcab2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39f3df7bc452c3a5cb6b0c1f47a53ed6" id="r_a39f3df7bc452c3a5cb6b0c1f47a53ed6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a39f3df7bc452c3a5cb6b0c1f47a53ed6">pop</a> ()</td></tr>
-<tr class="memdesc:a39f3df7bc452c3a5cb6b0c1f47a53ed6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the front element from the queue.  <br /></td></tr>
-<tr class="separator:a39f3df7bc452c3a5cb6b0c1f47a53ed6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad3478fc7ca86a6aa593f607b443eae5f" id="r_ad3478fc7ca86a6aa593f607b443eae5f"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#ad3478fc7ca86a6aa593f607b443eae5f">front</a> ()</td></tr>
-<tr class="memdesc:ad3478fc7ca86a6aa593f607b443eae5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the front element in the queue.  <br /></td></tr>
-<tr class="separator:ad3478fc7ca86a6aa593f607b443eae5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae60fcfde18b94e9eeab5bd781f6a29c6" id="r_ae60fcfde18b94e9eeab5bd781f6a29c6"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#ae60fcfde18b94e9eeab5bd781f6a29c6">front</a> () const</td></tr>
-<tr class="memdesc:ae60fcfde18b94e9eeab5bd781f6a29c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the front element in the queue.  <br /></td></tr>
-<tr class="separator:ae60fcfde18b94e9eeab5bd781f6a29c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b6a3d22e798def35754f0cd99c0fd9b" id="r_a9b6a3d22e798def35754f0cd99c0fd9b"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a9b6a3d22e798def35754f0cd99c0fd9b">back</a> ()</td></tr>
-<tr class="memdesc:a9b6a3d22e798def35754f0cd99c0fd9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the back element in the queue.  <br /></td></tr>
-<tr class="separator:a9b6a3d22e798def35754f0cd99c0fd9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49905d3b9c7098d753cfab33d40e7a10" id="r_a49905d3b9c7098d753cfab33d40e7a10"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a49905d3b9c7098d753cfab33d40e7a10">back</a> () const</td></tr>
-<tr class="memdesc:a49905d3b9c7098d753cfab33d40e7a10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the back element in the queue.  <br /></td></tr>
-<tr class="separator:a49905d3b9c7098d753cfab33d40e7a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bfbc70fc6a055de3bf21c578155f273" id="r_a7bfbc70fc6a055de3bf21c578155f273"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a7bfbc70fc6a055de3bf21c578155f273">capacity</a> () const</td></tr>
-<tr class="memdesc:a7bfbc70fc6a055de3bf21c578155f273"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum size of the queue.  <br /></td></tr>
-<tr class="separator:a7bfbc70fc6a055de3bf21c578155f273"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9814f5290c72631147ad90f6b4a40c1e" id="r_a9814f5290c72631147ad90f6b4a40c1e"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a9814f5290c72631147ad90f6b4a40c1e">size</a> () const</td></tr>
-<tr class="memdesc:a9814f5290c72631147ad90f6b4a40c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements in the queue.  <br /></td></tr>
-<tr class="separator:a9814f5290c72631147ad90f6b4a40c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d7b1a12b2a60eb44b696b19863fc62a" id="r_a8d7b1a12b2a60eb44b696b19863fc62a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a8d7b1a12b2a60eb44b696b19863fc62a">empty</a> () const</td></tr>
-<tr class="memdesc:a8d7b1a12b2a60eb44b696b19863fc62a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the queue has any elements.  <br /></td></tr>
-<tr class="separator:a8d7b1a12b2a60eb44b696b19863fc62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bd489edf553ac4b339e54277e01a19b" id="r_a5bd489edf553ac4b339e54277e01a19b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02834.html#a5bd489edf553ac4b339e54277e01a19b">clear</a> ()</td></tr>
-<tr class="memdesc:a5bd489edf553ac4b339e54277e01a19b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements from the queue.  <br /></td></tr>
-<tr class="separator:a5bd489edf553ac4b339e54277e01a19b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03005" id="r_a03005"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03005.html">bl::gfx</a></td></tr>
+<tr class="memdesc:a03005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of SFML-like classes for drawing. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03006" id="r_a03006"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03006.html">bl::gfx::bcom</a></td></tr>
+<tr class="memdesc:a03006"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base component classes for Graphics objects. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class bl::ctr::RingQueue&lt; T &gt;</div><p>Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid allocations. The queue cannot hold more elements than it's capacity. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of object to hold in the queue </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00020">20</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7ed864241bad3deb17242e3074ed5602" name="a7ed864241bad3deb17242e3074ed5602"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ed864241bad3deb17242e3074ed5602">&#9670;&#160;</a></span>RingQueue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::RingQueue </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Ring Queue with the given size. Allocates all memory here. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>The maximum size the queue can hold </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00132">132</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9b6a3d22e798def35754f0cd99c0fd9b" name="a9b6a3d22e798def35754f0cd99c0fd9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b6a3d22e798def35754f0cd99c0fd9b">&#9670;&#160;</a></span>back() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T &amp; <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::back </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the back element in the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>T&amp; The back element </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00187">187</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a49905d3b9c7098d753cfab33d40e7a10" name="a49905d3b9c7098d753cfab33d40e7a10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49905d3b9c7098d753cfab33d40e7a10">&#9670;&#160;</a></span>back() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">const T &amp; <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::back </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the back element in the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>T&amp; The back element </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00193">193</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7bfbc70fc6a055de3bf21c578155f273" name="a7bfbc70fc6a055de3bf21c578155f273"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bfbc70fc6a055de3bf21c578155f273">&#9670;&#160;</a></span>capacity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::capacity </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the maximum size of the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t The number of elements the queue can hold </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00199">199</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5bd489edf553ac4b339e54277e01a19b" name="a5bd489edf553ac4b339e54277e01a19b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5bd489edf553ac4b339e54277e01a19b">&#9670;&#160;</a></span>clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::clear </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes all elements from the queue. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00216">216</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2cb724314fa29dfdb8b962f6235bcab2" name="a2cb724314fa29dfdb8b962f6235bcab2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cb724314fa29dfdb8b962f6235bcab2">&#9670;&#160;</a></span>emplace()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::emplace </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Constructs a new value at the front of the queue. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TArgs</td><td>The argument types to construct with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">args</td><td>The arguments to construct with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the element could be added, false if the queue is full </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00160">160</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8d7b1a12b2a60eb44b696b19863fc62a" name="a8d7b1a12b2a60eb44b696b19863fc62a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d7b1a12b2a60eb44b696b19863fc62a">&#9670;&#160;</a></span>empty()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::empty </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the queue has any elements. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the size is at least 1, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00211">211</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad3478fc7ca86a6aa593f607b443eae5f" name="ad3478fc7ca86a6aa593f607b443eae5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3478fc7ca86a6aa593f607b443eae5f">&#9670;&#160;</a></span>front() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T &amp; <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::front </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the front element in the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>T&amp; The front element </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00177">177</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae60fcfde18b94e9eeab5bd781f6a29c6" name="ae60fcfde18b94e9eeab5bd781f6a29c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae60fcfde18b94e9eeab5bd781f6a29c6">&#9670;&#160;</a></span>front() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">const T &amp; <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::front </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the front element in the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>T&amp; The front element </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00182">182</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a39f3df7bc452c3a5cb6b0c1f47a53ed6" name="a39f3df7bc452c3a5cb6b0c1f47a53ed6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39f3df7bc452c3a5cb6b0c1f47a53ed6">&#9670;&#160;</a></span>pop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::pop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the front element from the queue. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00170">170</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5009062207c9547ed54bd2b7de39ed0c" name="a5009062207c9547ed54bd2b7de39ed0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5009062207c9547ed54bd2b7de39ed0c">&#9670;&#160;</a></span>push() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::push </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Push a new value into the queue. May fail if the queue is full. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>The value to push into the queue </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the element could be added, false if the queue is full </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00139">139</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a920124491054719572e4628d5a50cc18" name="a920124491054719572e4628d5a50cc18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a920124491054719572e4628d5a50cc18">&#9670;&#160;</a></span>push() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::push </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;&amp;&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Push a new value into the queue. May fail if the queue is full. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>The value to push into the queue </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the element could be added, false if the queue is full </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00149">149</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9814f5290c72631147ad90f6b4a40c1e" name="a9814f5290c72631147ad90f6b4a40c1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9814f5290c72631147ad90f6b4a40c1e">&#9670;&#160;</a></span>size()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::size_t <a class="el" href="a02834.html">bl::ctr::RingQueue</a>&lt; T &gt;::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the number of elements in the queue. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::size_t The number of elements currently contained </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00204">204</a> of file <a class="el" href="a00548_source.html">RingQueue.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Containers/<a class="el" href="a00548_source.html">RingQueue.hpp</a></li>
-</ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

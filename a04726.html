@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::resource::bundle::BundleSource Struct Reference</title>
+<title>BLIB: bl::rc::buf::base::BindableBufferDoubleStaged&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,90 +74,230 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02467.html">resource</a></li><li class="navelem"><a class="el" href="a02468.html">bundle</a></li><li class="navelem"><a class="el" href="a04726.html">BundleSource</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03043.html">buf</a></li><li class="navelem"><a class="el" href="a03044.html">base</a></li><li class="navelem"><a class="el" href="a04726.html">BindableBufferDoubleStaged</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a04723.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::resource::bundle::BundleSource Struct Reference<div class="ingroups"><a class="el" href="a02389.html">Resources</a> &raquo; <a class="el" href="a02400.html">Bundling</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::buf::base::BindableBufferDoubleStaged&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a04730.html" title="Bundler configuration class. This determines the behavior of the bundler.">Config</a> struct defining a top level starting point for a bundle.  
+<p>Double buffered buffer class that provides dual device local buffers and dual persistent staging buffers.  
  <a href="a04726.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00116_source.html">BundleSource.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::buf::base::BindableBufferDoubleStaged&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04726.png" usemap="#bl::rc::buf::base::BindableBufferDoubleStaged_3C_20T_2C_20Align_2C_20Usage_2C_20MemoryPool_2C_20AllocFlags_2C_20FallbackMemoryPool_20_3E_map" alt=""/>
+  <map id="bl::rc::buf::base::BindableBufferDoubleStaged_3C_20T_2C_20Align_2C_20Usage_2C_20MemoryPool_2C_20AllocFlags_2C_20FallbackMemoryPool_20_3E_map" name="bl::rc::buf::base::BindableBufferDoubleStaged_3C_20T_2C_20Align_2C_20Usage_2C_20MemoryPool_2C_20AllocFlags_2C_20FallbackMemoryPool_20_3E_map">
+<area href="a04714.html" title="Base class for buffers that are intended for use as SSBO&#39;s or uniforms." alt="bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;" shape="rect" coords="0,56,656,80"/>
+<area href="a05622.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE..." alt="bl::rc::tfr::Transferable" shape="rect" coords="0,0,656,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ad1f5105ed9abad8c4c8bc9f390551583" id="r_ad1f5105ed9abad8c4c8bc9f390551583"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">Policy</a> { <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e">BundleAllFiles</a>
-, <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485">CreateBundleForEachContained</a>
-, <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb">CreateBundleForEachContainedRecursive</a>
+<tr class="memitem:aac235bc3ea6a63fa2d18cf60cc695f7d" id="r_aac235bc3ea6a63fa2d18cf60cc695f7d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#aac235bc3ea6a63fa2d18cf60cc695f7d">TDeviceBuffers</a> = <a class="el" href="a04718.html">BindableBufferDouble</a>&lt; T, Align, Usage|VK_BUFFER_USAGE_TRANSFER_DST_BIT, MemoryPool, AllocFlags, FallbackMemoryPool &gt;</td></tr>
+<tr class="memdesc:aac235bc3ea6a63fa2d18cf60cc695f7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type signature for the device local buffers.  <br /></td></tr>
+<tr class="separator:aac235bc3ea6a63fa2d18cf60cc695f7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1ce78d3203add0c04aaf8a8ec945ea" id="r_a7a1ce78d3203add0c04aaf8a8ec945ea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a7a1ce78d3203add0c04aaf8a8ec945ea">TStagingBuffers</a> = <a class="el" href="a04718.html">BindableBufferDouble</a>&lt; T, Align, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT|VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT|VMA_ALLOCATION_CREATE_MAPPED_BIT &gt;</td></tr>
+<tr class="memdesc:a7a1ce78d3203add0c04aaf8a8ec945ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type signature for the staging buffers.  <br /></td></tr>
+<tr class="separator:a7a1ce78d3203add0c04aaf8a8ec945ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a109f9d7acc098649830f276c266b47d0" id="r_a109f9d7acc098649830f276c266b47d0"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> { <a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">Immediate</a>
+, <a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0">DeviceIdle</a>
  }</td></tr>
-<tr class="memdesc:ad1f5105ed9abad8c4c8bc9f390551583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the behavior when sourcePath is a directory.  <a href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">More...</a><br /></td></tr>
-<tr class="separator:ad1f5105ed9abad8c4c8bc9f390551583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a109f9d7acc098649830f276c266b47d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum containing requirements for when transfers may start.  <a href="a05622.html#a109f9d7acc098649830f276c266b47d0">More...</a><br /></td></tr>
+<tr class="separator:a109f9d7acc098649830f276c266b47d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac92b9b52e49e6a19e630f2416e9c1a0e" id="r_ac92b9b52e49e6a19e630f2416e9c1a0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#ac92b9b52e49e6a19e630f2416e9c1a0e">BundleSource</a> (const std::string &amp;srcPath, <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">Policy</a> <a class="el" href="a04726.html#a44947755a5c3ef9f26bee5a5bdb80fd4">policy</a>, const std::string &amp;<a class="el" href="a04726.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a>=&quot;&quot;, const std::string &amp;<a class="el" href="a04726.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a>=&quot;&quot;)</td></tr>
-<tr class="memdesc:ac92b9b52e49e6a19e630f2416e9c1a0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a04702.html" title="Bundle to be used at runtime by BundleRuntime. Do not use directly.">Bundle</a> Source from the given parameters.  <br /></td></tr>
-<tr class="separator:ac92b9b52e49e6a19e630f2416e9c1a0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a823e4607dab4e182ce4f9c626352bdd0" id="r_a823e4607dab4e182ce4f9c626352bdd0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a823e4607dab4e182ce4f9c626352bdd0">includeFile</a> (const std::string &amp;file) const</td></tr>
-<tr class="memdesc:a823e4607dab4e182ce4f9c626352bdd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given file within this bundle source should be bundled based on the whitelist and blacklist patterns.  <br /></td></tr>
-<tr class="separator:a823e4607dab4e182ce4f9c626352bdd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2332d5a1bc28d03fb9cb7680bc9f0ae" id="r_aa2332d5a1bc28d03fb9cb7680bc9f0ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#aa2332d5a1bc28d03fb9cb7680bc9f0ae">BindableBufferDoubleStaged</a> ()=default</td></tr>
+<tr class="memdesc:aa2332d5a1bc28d03fb9cb7680bc9f0ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer.  <br /></td></tr>
+<tr class="separator:aa2332d5a1bc28d03fb9cb7680bc9f0ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afba1e6892d2a2d17192d9ca1c471462a" id="r_afba1e6892d2a2d17192d9ca1c471462a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#afba1e6892d2a2d17192d9ca1c471462a">~BindableBufferDoubleStaged</a> ()=default</td></tr>
+<tr class="memdesc:afba1e6892d2a2d17192d9ca1c471462a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the buffers.  <br /></td></tr>
+<tr class="separator:afba1e6892d2a2d17192d9ca1c471462a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a805338b47cca117cdbfabba0dbf1293a" id="r_a805338b47cca117cdbfabba0dbf1293a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a805338b47cca117cdbfabba0dbf1293a">resize</a> (std::uint32_t size) override</td></tr>
+<tr class="memdesc:a805338b47cca117cdbfabba0dbf1293a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the buffers.  <br /></td></tr>
+<tr class="separator:a805338b47cca117cdbfabba0dbf1293a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6845d798470d46e712f683aa4a3a9f1" id="r_ae6845d798470d46e712f683aa4a3a9f1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#ae6845d798470d46e712f683aa4a3a9f1">destroy</a> () override</td></tr>
+<tr class="memdesc:ae6845d798470d46e712f683aa4a3a9f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immediately destroys the buffers.  <br /></td></tr>
+<tr class="separator:ae6845d798470d46e712f683aa4a3a9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa04936c8cac443c1ae0009454bf90dfb" id="r_aa04936c8cac443c1ae0009454bf90dfb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#aa04936c8cac443c1ae0009454bf90dfb">deferDestroy</a> () override</td></tr>
+<tr class="memdesc:aa04936c8cac443c1ae0009454bf90dfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues the buffers to be destroyed after MaxConcurrentFrames.  <br /></td></tr>
+<tr class="separator:aa04936c8cac443c1ae0009454bf90dfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19af894f7aaf47675b2fbfcfbfc8548f" id="r_a19af894f7aaf47675b2fbfcfbfc8548f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a05650.html">vk::Buffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a19af894f7aaf47675b2fbfcfbfc8548f">getBuffer</a> (std::uint32_t frameIndex) override</td></tr>
+<tr class="memdesc:a19af894f7aaf47675b2fbfcfbfc8548f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying buffer for the given frame index.  <br /></td></tr>
+<tr class="separator:a19af894f7aaf47675b2fbfcfbfc8548f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08405162e9cec97e106e08f00b31e439" id="r_a08405162e9cec97e106e08f00b31e439"><td class="memItemLeft" align="right" valign="top">virtual std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a08405162e9cec97e106e08f00b31e439">getSize</a> () const override</td></tr>
+<tr class="memdesc:a08405162e9cec97e106e08f00b31e439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of elements currently in the buffer.  <br /></td></tr>
+<tr class="separator:a08405162e9cec97e106e08f00b31e439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5365ad5ccceb38efda2291c21d0ccb48" id="r_a5365ad5ccceb38efda2291c21d0ccb48"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a5365ad5ccceb38efda2291c21d0ccb48"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04726.html#a5365ad5ccceb38efda2291c21d0ccb48">fillDirect</a> (const U &amp;value)</td></tr>
+<tr class="memdesc:a5365ad5ccceb38efda2291c21d0ccb48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fills the current frame buffer with the given value. Only call if the buffers are CPU visible and mapped.  <br /></td></tr>
+<tr class="separator:a5365ad5ccceb38efda2291c21d0ccb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22e05d9cc8e5f0dc31fb6cd84327848d" id="r_a22e05d9cc8e5f0dc31fb6cd84327848d"><td class="memTemplParams" colspan="2">template&lt;typename U &gt; </td></tr>
+<tr class="memitem:a22e05d9cc8e5f0dc31fb6cd84327848d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04726.html#a22e05d9cc8e5f0dc31fb6cd84327848d">writeDirect</a> (U *base, std::size_t len, std::uint32_t start=0)</td></tr>
+<tr class="memdesc:a22e05d9cc8e5f0dc31fb6cd84327848d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes directly to the current frame buffer from the given source. Only call if the buffers are CPU visible and mapped.  <br /></td></tr>
+<tr class="separator:a22e05d9cc8e5f0dc31fb6cd84327848d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2648be07086a06ad777a9933de98597a" id="r_a2648be07086a06ad777a9933de98597a"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a2648be07086a06ad777a9933de98597a">getWriteAddress</a> (std::uint32_t i=0)</td></tr>
+<tr class="memdesc:a2648be07086a06ad777a9933de98597a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the address to write to the given element in the current staging buffer.  <br /></td></tr>
+<tr class="separator:a2648be07086a06ad777a9933de98597a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe4f887a3fadf9addac874e632452622" id="r_abe4f887a3fadf9addac874e632452622"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04726.html#a7a1ce78d3203add0c04aaf8a8ec945ea">TStagingBuffers</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#abe4f887a3fadf9addac874e632452622">getStagingBuffers</a> ()</td></tr>
+<tr class="memdesc:abe4f887a3fadf9addac874e632452622"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the staging buffers.  <br /></td></tr>
+<tr class="separator:abe4f887a3fadf9addac874e632452622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ea6a5046452707ce1ae2a333f8709b8" id="r_a7ea6a5046452707ce1ae2a333f8709b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04726.html#aac235bc3ea6a63fa2d18cf60cc695f7d">TDeviceBuffers</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a7ea6a5046452707ce1ae2a333f8709b8">getDeviceBuffers</a> ()</td></tr>
+<tr class="memdesc:a7ea6a5046452707ce1ae2a333f8709b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the device local buffers.  <br /></td></tr>
+<tr class="separator:a7ea6a5046452707ce1ae2a333f8709b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e6cb1e8900311e416650da706f80f35" id="r_a6e6cb1e8900311e416650da706f80f35"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a6e6cb1e8900311e416650da706f80f35">create</a> (<a class="el" href="a05330.html">Renderer</a> &amp;<a class="el" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>, std::uint32_t numElements)</td></tr>
+<tr class="memdesc:a6e6cb1e8900311e416650da706f80f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer.  <br /></td></tr>
+<tr class="separator:a6e6cb1e8900311e416650da706f80f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef67d8d225bc0a5b4d99566b6cadbfb1" id="r_aef67d8d225bc0a5b4d99566b6cadbfb1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#aef67d8d225bc0a5b4d99566b6cadbfb1">ensureSize</a> (std::uint32_t size)</td></tr>
+<tr class="memdesc:aef67d8d225bc0a5b4d99566b6cadbfb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the buffer is smaller resizes to contain at least the given number of elements.  <br /></td></tr>
+<tr class="separator:aef67d8d225bc0a5b4d99566b6cadbfb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab736acbf56599056a3cff85fd6100ace" id="r_ab736acbf56599056a3cff85fd6100ace"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#ab736acbf56599056a3cff85fd6100ace">getAlignedElementSize</a> () const</td></tr>
+<tr class="memdesc:ab736acbf56599056a3cff85fd6100ace"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size, in bytes, of a single data element plus padding for alignment.  <br /></td></tr>
+<tr class="separator:ab736acbf56599056a3cff85fd6100ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0de7c897ea5a51d3f4e9bbefea7ac35d" id="r_a0de7c897ea5a51d3f4e9bbefea7ac35d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a0de7c897ea5a51d3f4e9bbefea7ac35d">getTotalAlignedSize</a> () const</td></tr>
+<tr class="memdesc:a0de7c897ea5a51d3f4e9bbefea7ac35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total size, in bytes, of the buffer.  <br /></td></tr>
+<tr class="separator:a0de7c897ea5a51d3f4e9bbefea7ac35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7bedec5714f21bc26f353b90e5b35a2" id="r_ab7bedec5714f21bc26f353b90e5b35a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05650.html">vk::Buffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#ab7bedec5714f21bc26f353b90e5b35a2">getCurrentFrameBuffer</a> ()</td></tr>
+<tr class="memdesc:ab7bedec5714f21bc26f353b90e5b35a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying buffer for the current frame.  <br /></td></tr>
+<tr class="separator:ab7bedec5714f21bc26f353b90e5b35a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9586a86e203a4669547ea136c83441a" id="r_ab9586a86e203a4669547ea136c83441a"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#ab9586a86e203a4669547ea136c83441a">getRawBuffer</a> (std::uint32_t frameIndex)</td></tr>
+<tr class="memdesc:ab9586a86e203a4669547ea136c83441a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the direct Vulkan handle of the underlying buffer for the given frame.  <br /></td></tr>
+<tr class="separator:ab9586a86e203a4669547ea136c83441a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a130a865f94f7c92a5e7e7f753f1a7064" id="r_a130a865f94f7c92a5e7e7f753f1a7064"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a130a865f94f7c92a5e7e7f753f1a7064">getCurrentFrameRawBuffer</a> ()</td></tr>
+<tr class="memdesc:a130a865f94f7c92a5e7e7f753f1a7064"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the direct Vulkan handle of the underlying buffer for the current frame.  <br /></td></tr>
+<tr class="separator:a130a865f94f7c92a5e7e7f753f1a7064"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbd63c754e76cfd83bbf757252b6c568" id="r_acbd63c754e76cfd83bbf757252b6c568"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#acbd63c754e76cfd83bbf757252b6c568">markDirty</a> (std::uint32_t i, std::uint32_t n=1)</td></tr>
+<tr class="memdesc:acbd63c754e76cfd83bbf757252b6c568"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given range dirty. Derived classes may use dirty ranges to inform copies.  <br /></td></tr>
+<tr class="separator:acbd63c754e76cfd83bbf757252b6c568"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54306fdf2c2a9f8bcad137f5e4918757" id="r_a54306fdf2c2a9f8bcad137f5e4918757"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a54306fdf2c2a9f8bcad137f5e4918757">markFullDirty</a> ()</td></tr>
+<tr class="memdesc:a54306fdf2c2a9f8bcad137f5e4918757"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the entire buffer as dirty.  <br /></td></tr>
+<tr class="separator:a54306fdf2c2a9f8bcad137f5e4918757"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aa2bede875eff16fde1022a7269afff" id="r_a9aa2bede875eff16fde1022a7269afff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a9aa2bede875eff16fde1022a7269afff">setCopyFullRange</a> (bool copyFull)</td></tr>
+<tr class="memdesc:a9aa2bede875eff16fde1022a7269afff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether to always copy the entire buffer on transfer. Default is false. When false a dirty range is used instead.  <br /></td></tr>
+<tr class="separator:a9aa2bede875eff16fde1022a7269afff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2cddcfa3664702cb39bba2e304e5074" id="r_af2cddcfa3664702cb39bba2e304e5074"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#af2cddcfa3664702cb39bba2e304e5074">queueTransfer</a> (<a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq=<a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>)</td></tr>
+<tr class="memdesc:af2cddcfa3664702cb39bba2e304e5074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues this object with the <a class="el" href="a05630.html" title="Utility class to manage the synchronized transfer of data to the GPU.">TransferEngine</a> to be transfered on the next frame.  <br /></td></tr>
+<tr class="separator:af2cddcfa3664702cb39bba2e304e5074"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affdc9c965d73f5227f2d3e0c8a17064e" id="r_affdc9c965d73f5227f2d3e0c8a17064e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#affdc9c965d73f5227f2d3e0c8a17064e">transferEveryFrame</a> (<a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a> syncReq=<a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a>)</td></tr>
+<tr class="memdesc:affdc9c965d73f5227f2d3e0c8a17064e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures this <a class="el" href="a05622.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...">Transferable</a> to transfer every frame with the given sync requirement.  <br /></td></tr>
+<tr class="separator:affdc9c965d73f5227f2d3e0c8a17064e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a998a9c05422f6188b474d275866a6b2b" id="r_a998a9c05422f6188b474d275866a6b2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#a998a9c05422f6188b474d275866a6b2b">stopTransferringEveryFrame</a> ()</td></tr>
+<tr class="memdesc:a998a9c05422f6188b474d275866a6b2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this <a class="el" href="a05622.html" title="Base class for objects that transfer state or data to the GPU. Used in conjunction with the TransferE...">Transferable</a> from the queue that gets transferred every frame.  <br /></td></tr>
+<tr class="separator:a998a9c05422f6188b474d275866a6b2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fbe7414a05994b43584022f6d333c0d" id="r_a2fbe7414a05994b43584022f6d333c0d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#a2fbe7414a05994b43584022f6d333c0d">isQueued</a> () const</td></tr>
+<tr class="memdesc:a2fbe7414a05994b43584022f6d333c0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a transfer is queued, either individually or every frame.  <br /></td></tr>
+<tr class="separator:a2fbe7414a05994b43584022f6d333c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7eb35d2804ad40e76823182f4eae9c8" id="r_ac7eb35d2804ad40e76823182f4eae9c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#ac7eb35d2804ad40e76823182f4eae9c8">cancelQueuedTransfer</a> ()</td></tr>
+<tr class="memdesc:ac7eb35d2804ad40e76823182f4eae9c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cancels the scheduled transfer. Also cancels transfers that occur every frame.  <br /></td></tr>
+<tr class="separator:ac7eb35d2804ad40e76823182f4eae9c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a41c8e532ea984bf46a2ac786c42e31ed" id="r_a41c8e532ea984bf46a2ac786c42e31ed"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a41c8e532ea984bf46a2ac786c42e31ed">sourcePath</a></td></tr>
-<tr class="memdesc:a41c8e532ea984bf46a2ac786c42e31ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">The top level file or folder to start the bundle with.  <br /></td></tr>
-<tr class="separator:a41c8e532ea984bf46a2ac786c42e31ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44947755a5c3ef9f26bee5a5bdb80fd4" id="r_a44947755a5c3ef9f26bee5a5bdb80fd4"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">bl::resource::bundle::BundleSource::Policy</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a44947755a5c3ef9f26bee5a5bdb80fd4">policy</a></td></tr>
-<tr class="separator:a44947755a5c3ef9f26bee5a5bdb80fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdccec6d14e82a4f391859bb453ef53c" id="r_abdccec6d14e82a4f391859bb453ef53c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#abdccec6d14e82a4f391859bb453ef53c">whitelistPattern</a></td></tr>
-<tr class="memdesc:abdccec6d14e82a4f391859bb453ef53c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regex pattern to whitelist files to include. Leave empty for no whitelist.  <br /></td></tr>
-<tr class="separator:abdccec6d14e82a4f391859bb453ef53c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7272d456efe25b543d7f5b223434adcc" id="r_a7272d456efe25b543d7f5b223434adcc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a7272d456efe25b543d7f5b223434adcc">blacklistPattern</a></td></tr>
-<tr class="memdesc:a7272d456efe25b543d7f5b223434adcc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Regex pattern to whitelist files to exclude. Leave empty for no blacklist.  <br /></td></tr>
-<tr class="separator:a7272d456efe25b543d7f5b223434adcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a58d6741bf6be31d0526fdca5a0051f4c" id="r_a58d6741bf6be31d0526fdca5a0051f4c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a58d6741bf6be31d0526fdca5a0051f4c">doCreate</a> (<a class="el" href="a05330.html">Renderer</a> &amp;<a class="el" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a>, std::uint32_t n) override</td></tr>
+<tr class="memdesc:a58d6741bf6be31d0526fdca5a0051f4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffers. Should be called by derived classes if they override it.  <br /></td></tr>
+<tr class="separator:a58d6741bf6be31d0526fdca5a0051f4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa28a189afb5b1e072f15185ae2c928cc" id="r_aa28a189afb5b1e072f15185ae2c928cc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#aa28a189afb5b1e072f15185ae2c928cc">executeTransfer</a> (VkCommandBuffer commandBuffer, <a class="el" href="a05626.html">tfr::TransferContext</a> &amp;<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) override</td></tr>
+<tr class="memdesc:aa28a189afb5b1e072f15185ae2c928cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the full staging buffer to the device buffer for the current frame.  <br /></td></tr>
+<tr class="separator:aa28a189afb5b1e072f15185ae2c928cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5090e7837bf6518d3c6e4aa52ce2565d" id="r_a5090e7837bf6518d3c6e4aa52ce2565d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a5090e7837bf6518d3c6e4aa52ce2565d">getRenderer</a> ()</td></tr>
+<tr class="memdesc:a5090e7837bf6518d3c6e4aa52ce2565d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the renderer instance this buffer is owned by.  <br /></td></tr>
+<tr class="separator:a5090e7837bf6518d3c6e4aa52ce2565d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7107d3066a1c3cef4e37a5144458a5f3" id="r_a7107d3066a1c3cef4e37a5144458a5f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05838.html">vk::VulkanLayer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a7107d3066a1c3cef4e37a5144458a5f3">getVulkanState</a> ()</td></tr>
+<tr class="memdesc:a7107d3066a1c3cef4e37a5144458a5f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the renderer Vulkan state.  <br /></td></tr>
+<tr class="separator:a7107d3066a1c3cef4e37a5144458a5f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b26c67dd5650faa55b581c52e024b8" id="r_a88b26c67dd5650faa55b581c52e024b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04706.html">DirtyRange</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#a88b26c67dd5650faa55b581c52e024b8">getCurrentDirtyRange</a> () const</td></tr>
+<tr class="memdesc:a88b26c67dd5650faa55b581c52e024b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the range of elements marked dirty in the current frame.  <br /></td></tr>
+<tr class="separator:a88b26c67dd5650faa55b581c52e024b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6829e9de071f3a66ecfb94155462637" id="r_aa6829e9de071f3a66ecfb94155462637"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04706.html">DirtyRange</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#aa6829e9de071f3a66ecfb94155462637">getAccumulatedDirtyRange</a> () const</td></tr>
+<tr class="memdesc:aa6829e9de071f3a66ecfb94155462637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total range of elements marked dirty for all frames in flight.  <br /></td></tr>
+<tr class="separator:aa6829e9de071f3a66ecfb94155462637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b5d8b964f9f4ef52e7dec3933d4e69" id="r_ac1b5d8b964f9f4ef52e7dec3933d4e69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04714.html#ac1b5d8b964f9f4ef52e7dec3933d4e69">markClean</a> ()</td></tr>
+<tr class="memdesc:ac1b5d8b964f9f4ef52e7dec3933d4e69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call after performing a transfer of a dirty range.  <br /></td></tr>
+<tr class="separator:ac1b5d8b964f9f4ef52e7dec3933d4e69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ad782ffb9a2b7382c95b115167ab56650" id="r_ad782ffb9a2b7382c95b115167ab56650"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04726.html#a7a1ce78d3203add0c04aaf8a8ec945ea">TStagingBuffers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#ad782ffb9a2b7382c95b115167ab56650">stagingBuffers</a></td></tr>
+<tr class="separator:ad782ffb9a2b7382c95b115167ab56650"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1489b2b9d4c179e63d35e202232a4c26" id="r_a1489b2b9d4c179e63d35e202232a4c26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04726.html#aac235bc3ea6a63fa2d18cf60cc695f7d">TDeviceBuffers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04726.html#a1489b2b9d4c179e63d35e202232a4c26">deviceBuffers</a></td></tr>
+<tr class="separator:a1489b2b9d4c179e63d35e202232a4c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f74400304d3f1cbacf8d4d88cb2db14" id="r_a2f74400304d3f1cbacf8d4d88cb2db14"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05330.html">Renderer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05622.html#a2f74400304d3f1cbacf8d4d88cb2db14">renderer</a></td></tr>
+<tr class="separator:a2f74400304d3f1cbacf8d4d88cb2db14"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a04730.html" title="Bundler configuration class. This determines the behavior of the bundler.">Config</a> struct defining a top level starting point for a bundle. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T, <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt;<br />
+class bl::rc::buf::base::BindableBufferDoubleStaged&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;</div><p>Double buffered buffer class that provides dual device local buffers and dual persistent staging buffers. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The payload type that the buffer will hold </td></tr>
+    <tr><td class="paramname">Align</td><td>The alignment to use if storing more than one element </td></tr>
+    <tr><td class="paramname">Usage</td><td>The usage type to create the buffers with </td></tr>
+    <tr><td class="paramname">MemoryPool</td><td>The type of memory to allocate the buffer in </td></tr>
+    <tr><td class="paramname">AllocFlags</td><td>Allocation flags to forward to VMA </td></tr>
+    <tr><td class="paramname">FallbackMemoryPool</td><td>Memory pool to use if primary allocation fails </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00021">21</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ad1f5105ed9abad8c4c8bc9f390551583" name="ad1f5105ed9abad8c4c8bc9f390551583"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1f5105ed9abad8c4c8bc9f390551583">&#9670;&#160;</a></span>Policy</h2>
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00029">29</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aac235bc3ea6a63fa2d18cf60cc695f7d" name="aac235bc3ea6a63fa2d18cf60cc695f7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac235bc3ea6a63fa2d18cf60cc695f7d">&#9670;&#160;</a></span>TDeviceBuffers</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">bl::resource::bundle::BundleSource::Policy</a></td>
+          <td class="memname">using <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::TDeviceBuffers =  <a class="el" href="a04718.html">BindableBufferDouble</a>&lt;T, Align, Usage | VK_BUFFER_USAGE_TRANSFER_DST_BIT, MemoryPool, AllocFlags, FallbackMemoryPool&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Determines the behavior when sourcePath is a directory. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e" name="ad1f5105ed9abad8c4c8bc9f390551583ab252b15914fb7417955c32f5c7444a1e"></a>BundleAllFiles&#160;</td><td class="fielddoc"><p>All files are placed in the same bundle. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485" name="ad1f5105ed9abad8c4c8bc9f390551583ad178f08e94f591bd520835960ca34485"></a>CreateBundleForEachContained&#160;</td><td class="fielddoc"><p>Each contained file/folder gets its own bundle. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb" name="ad1f5105ed9abad8c4c8bc9f390551583ad32891334919dab0467b3cdf7ed58dcb"></a>CreateBundleForEachContainedRecursive&#160;</td><td class="fielddoc"><p>Every file gets its own bundle, including files in folders. </p>
-</td></tr>
-</table>
+<p>Type signature for the device local buffers. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00026">26</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00032">32</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac92b9b52e49e6a19e630f2416e9c1a0e" name="ac92b9b52e49e6a19e630f2416e9c1a0e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac92b9b52e49e6a19e630f2416e9c1a0e">&#9670;&#160;</a></span>BundleSource()</h2>
+<a id="a7a1ce78d3203add0c04aaf8a8ec945ea" name="a7a1ce78d3203add0c04aaf8a8ec945ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1ce78d3203add0c04aaf8a8ec945ea">&#9670;&#160;</a></span>TStagingBuffers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::TStagingBuffers =  <a class="el" href="a04718.html">BindableBufferDouble</a>&lt; T, Align, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, VMA_ALLOCATION_CREATE_HOST_ACCESS_SEQUENTIAL_WRITE_BIT | VMA_ALLOCATION_CREATE_MAPPED_BIT&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type signature for the staging buffers. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00036">36</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a109f9d7acc098649830f276c266b47d0" name="a109f9d7acc098649830f276c266b47d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a109f9d7acc098649830f276c266b47d0">&#9670;&#160;</a></span>SyncRequirement</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,28 +306,1230 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::resource::bundle::BundleSource::BundleSource </td>
+          <td class="memname">enum struct <a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0">bl::rc::tfr::Transferable::SyncRequirement</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Enum containing requirements for when transfers may start. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1" name="a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1"></a>Immediate&#160;</td><td class="fielddoc"><p>Transfers with this requirement may be started immediately. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0" name="a109f9d7acc098649830f276c266b47d0a11fb2e916cb91ad9afad4da5711d81d0"></a>DeviceIdle&#160;</td><td class="fielddoc"><p>Transfers with this requirement cannot start until the device is idle. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00890_source.html#l00025">25</a> of file <a class="el" href="a00890_source.html">Transferable.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa2332d5a1bc28d03fb9cb7680bc9f0ae" name="aa2332d5a1bc28d03fb9cb7680bc9f0ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2332d5a1bc28d03fb9cb7680bc9f0ae">&#9670;&#160;</a></span>BindableBufferDoubleStaged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::BindableBufferDoubleStaged </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>srcPath</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the buffer. </p>
+
+</div>
+</div>
+<a id="afba1e6892d2a2d17192d9ca1c471462a" name="afba1e6892d2a2d17192d9ca1c471462a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afba1e6892d2a2d17192d9ca1c471462a">&#9670;&#160;</a></span>~BindableBufferDoubleStaged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::~<a class="el" href="a04726.html">BindableBufferDoubleStaged</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the buffers. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac7eb35d2804ad40e76823182f4eae9c8" name="ac7eb35d2804ad40e76823182f4eae9c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7eb35d2804ad40e76823182f4eae9c8">&#9670;&#160;</a></span>cancelQueuedTransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::tfr::Transferable::cancelQueuedTransfer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cancels the scheduled transfer. Also cancels transfers that occur every frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00024">24</a> of file <a class="el" href="a02348_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e6cb1e8900311e416650da706f80f35" name="a6e6cb1e8900311e416650da706f80f35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e6cb1e8900311e416650da706f80f35">&#9670;&#160;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">Policy</a>&#160;</td>
-          <td class="paramname"><em>policy</em>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>numElements</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">numElements</td><td>The number of data elements to size the buffer for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00063">63</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa04936c8cac443c1ae0009454bf90dfb" name="aa04936c8cac443c1ae0009454bf90dfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa04936c8cac443c1ae0009454bf90dfb">&#9670;&#160;</a></span>deferDestroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::deferDestroy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queues the buffers to be destroyed after MaxConcurrentFrames. </p>
+
+<p>Implements <a class="el" href="a04714.html#ac652e3968719b6d9dac06f20d17cd51a">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00072">72</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae6845d798470d46e712f683aa4a3a9f1" name="ae6845d798470d46e712f683aa4a3a9f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6845d798470d46e712f683aa4a3a9f1">&#9670;&#160;</a></span>destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::destroy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Immediately destroys the buffers. </p>
+
+<p>Implements <a class="el" href="a04714.html#ae1583e8378e66df4bd4e749b1a2aed75">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00064">64</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a58d6741bf6be31d0526fdca5a0051f4c" name="a58d6741bf6be31d0526fdca5a0051f4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58d6741bf6be31d0526fdca5a0051f4c">&#9670;&#160;</a></span>doCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::doCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>whitelistPattern</em> = <code>&quot;&quot;</code>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the buffers. Should be called by derived classes if they override it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">n</td><td>The number of elements to size the buffer for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04714.html#a833bd15e1f98076b4c35d0921ff1ffcf">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00145">145</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aef67d8d225bc0a5b4d99566b6cadbfb1" name="aef67d8d225bc0a5b4d99566b6cadbfb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef67d8d225bc0a5b4d99566b6cadbfb1">&#9670;&#160;</a></span>ensureSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::ensureSize </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>If the buffer is smaller resizes to contain at least the given number of elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The number of elements to ensure storage for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the buffer resized, false if it was already large enough </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00092">92</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa28a189afb5b1e072f15185ae2c928cc" name="aa28a189afb5b1e072f15185ae2c928cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa28a189afb5b1e072f15185ae2c928cc">&#9670;&#160;</a></span>executeTransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::executeTransfer </td>
+          <td>(</td>
+          <td class="paramtype">VkCommandBuffer&#160;</td>
+          <td class="paramname"><em>commandBuffer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>blacklistPattern</em> = <code>&quot;&quot;</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="a05626.html">tfr::TransferContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies the full staging buffer to the device buffer for the current frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record into </td></tr>
+    <tr><td class="paramname">ctx</td><td>The transfer context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="a04714.html#a7db37ed444156261f53351ff62fee42d">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00156">156</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5365ad5ccceb38efda2291c21d0ccb48" name="a5365ad5ccceb38efda2291c21d0ccb48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5365ad5ccceb38efda2291c21d0ccb48">&#9670;&#160;</a></span>fillDirect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::fillDirect </td>
+          <td>(</td>
+          <td class="paramtype">const U &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Fills the current frame buffer with the given value. Only call if the buffers are CPU visible and mapped. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">U</td><td>Some type that can be assigned to T. Overload operator= if required </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to copy into all existing slots </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00099">99</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa6829e9de071f3a66ecfb94155462637" name="aa6829e9de071f3a66ecfb94155462637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6829e9de071f3a66ecfb94155462637">&#9670;&#160;</a></span>getAccumulatedDirtyRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04706.html">DirtyRange</a> <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getAccumulatedDirtyRange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the total range of elements marked dirty for all frames in flight. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00208">208</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab736acbf56599056a3cff85fd6100ace" name="ab736acbf56599056a3cff85fd6100ace"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab736acbf56599056a3cff85fd6100ace">&#9670;&#160;</a></span>getAlignedElementSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getAlignedElementSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the size, in bytes, of a single data element plus padding for alignment. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00110">110</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a19af894f7aaf47675b2fbfcfbfc8548f" name="a19af894f7aaf47675b2fbfcfbfc8548f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19af894f7aaf47675b2fbfcfbfc8548f">&#9670;&#160;</a></span>getBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a05650.html">vk::Buffer</a> &amp; <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::getBuffer </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>frameIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying buffer for the given frame index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">frameIndex</td><td>The frame index to get the buffer for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04714.html#a4dfc808fb062cf752f8cd59ad5f29c42">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00082">82</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a88b26c67dd5650faa55b581c52e024b8" name="a88b26c67dd5650faa55b581c52e024b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b26c67dd5650faa55b581c52e024b8">&#9670;&#160;</a></span>getCurrentDirtyRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04706.html">DirtyRange</a> <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getCurrentDirtyRange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the range of elements marked dirty in the current frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00201">201</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7bedec5714f21bc26f353b90e5b35a2" name="ab7bedec5714f21bc26f353b90e5b35a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7bedec5714f21bc26f353b90e5b35a2">&#9670;&#160;</a></span>getCurrentFrameBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05650.html">vk::Buffer</a> &amp; <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getCurrentFrameBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying buffer for the current frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00127">127</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a130a865f94f7c92a5e7e7f753f1a7064" name="a130a865f94f7c92a5e7e7f753f1a7064"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a130a865f94f7c92a5e7e7f753f1a7064">&#9670;&#160;</a></span>getCurrentFrameRawBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkBuffer <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getCurrentFrameRawBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the direct Vulkan handle of the underlying buffer for the current frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00140">140</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ea6a5046452707ce1ae2a333f8709b8" name="a7ea6a5046452707ce1ae2a333f8709b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea6a5046452707ce1ae2a333f8709b8">&#9670;&#160;</a></span>getDeviceBuffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04726.html#aac235bc3ea6a63fa2d18cf60cc695f7d">TDeviceBuffers</a> &amp; <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::getDeviceBuffers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the device local buffers. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00133">133</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab9586a86e203a4669547ea136c83441a" name="ab9586a86e203a4669547ea136c83441a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9586a86e203a4669547ea136c83441a">&#9670;&#160;</a></span>getRawBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkBuffer <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getRawBuffer </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>frameIndex</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the direct Vulkan handle of the underlying buffer for the given frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">frameIndex</td><td>The index of the frame to get the buffer handle for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The Vulkan buffer handle for the given frame </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00135">135</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5090e7837bf6518d3c6e4aa52ce2565d" name="a5090e7837bf6518d3c6e4aa52ce2565d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5090e7837bf6518d3c6e4aa52ce2565d">&#9670;&#160;</a></span>getRenderer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05330.html">Renderer</a> &amp; <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getRenderer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the renderer instance this buffer is owned by. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00170">170</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a08405162e9cec97e106e08f00b31e439" name="a08405162e9cec97e106e08f00b31e439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08405162e9cec97e106e08f00b31e439">&#9670;&#160;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::uint32_t <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of elements currently in the buffer. </p>
+
+<p>Implements <a class="el" href="a04714.html#a4cfee34de6302e8c1ddb3b36fad5dbd4">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00089">89</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abe4f887a3fadf9addac874e632452622" name="abe4f887a3fadf9addac874e632452622"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe4f887a3fadf9addac874e632452622">&#9670;&#160;</a></span>getStagingBuffers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04726.html#a7a1ce78d3203add0c04aaf8a8ec945ea">TStagingBuffers</a> &amp; <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::getStagingBuffers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the staging buffers. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00128">128</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0de7c897ea5a51d3f4e9bbefea7ac35d" name="a0de7c897ea5a51d3f4e9bbefea7ac35d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0de7c897ea5a51d3f4e9bbefea7ac35d">&#9670;&#160;</a></span>getTotalAlignedSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getTotalAlignedSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the total size, in bytes, of the buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00115">115</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7107d3066a1c3cef4e37a5144458a5f3" name="a7107d3066a1c3cef4e37a5144458a5f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7107d3066a1c3cef4e37a5144458a5f3">&#9670;&#160;</a></span>getVulkanState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05838.html">vk::VulkanLayer</a> &amp; <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::getVulkanState </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the renderer Vulkan state. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00175">175</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2648be07086a06ad777a9933de98597a" name="a2648be07086a06ad777a9933de98597a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2648be07086a06ad777a9933de98597a">&#9670;&#160;</a></span>getWriteAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::getWriteAddress </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em> = <code>0</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the address to write to the given element in the current staging buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to write to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The address of the data at the given index </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00123">123</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2fbe7414a05994b43584022f6d333c0d" name="a2fbe7414a05994b43584022f6d333c0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fbe7414a05994b43584022f6d333c0d">&#9670;&#160;</a></span>isQueued()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::tfr::Transferable::isQueued </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not a transfer is queued, either individually or every frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00890_source.html#l00061">61</a> of file <a class="el" href="a00890_source.html">Transferable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac1b5d8b964f9f4ef52e7dec3933d4e69" name="ac1b5d8b964f9f4ef52e7dec3933d4e69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1b5d8b964f9f4ef52e7dec3933d4e69">&#9670;&#160;</a></span>markClean()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::markClean </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call after performing a transfer of a dirty range. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00219">219</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acbd63c754e76cfd83bbf757252b6c568" name="acbd63c754e76cfd83bbf757252b6c568"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd63c754e76cfd83bbf757252b6c568">&#9670;&#160;</a></span>markDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::markDirty </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>n</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks the given range dirty. Derived classes may use dirty ranges to inform copies. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index of the element to mark dirty </td></tr>
+    <tr><td class="paramname">n</td><td>The number of elements to mark dirty </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00148">148</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a54306fdf2c2a9f8bcad137f5e4918757" name="a54306fdf2c2a9f8bcad137f5e4918757"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54306fdf2c2a9f8bcad137f5e4918757">&#9670;&#160;</a></span>markFullDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::markFullDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Marks the entire buffer as dirty. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00156">156</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af2cddcfa3664702cb39bba2e304e5074" name="af2cddcfa3664702cb39bba2e304e5074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2cddcfa3664702cb39bba2e304e5074">&#9670;&#160;</a></span>queueTransfer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::tfr::Transferable::queueTransfer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a>&#160;</td>
+          <td class="paramname"><em>syncReq</em> = <code><a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Queues this object with the TransferEngine to be transfered on the next frame. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">syncReq</td><td>Synchronization requirements for the transfer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the transfer was scheduled, false if already scheduled </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00029">29</a> of file <a class="el" href="a02348_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a805338b47cca117cdbfabba0dbf1293a" name="a805338b47cca117cdbfabba0dbf1293a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a805338b47cca117cdbfabba0dbf1293a">&#9670;&#160;</a></span>resize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::resize </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resizes the buffers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The new number of data elements to size for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04714.html#aa638a642d32a3fe903a27db18b865ebf">bl::rc::buf::base::BindableBuffer&lt; T, Align &gt;</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00056">56</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9aa2bede875eff16fde1022a7269afff" name="a9aa2bede875eff16fde1022a7269afff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aa2bede875eff16fde1022a7269afff">&#9670;&#160;</a></span>setCopyFullRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04714.html">bl::rc::buf::base::BindableBuffer</a>&lt; T, Align &gt;::setCopyFullRange </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>copyFull</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets whether to always copy the entire buffer on transfer. Default is false. When false a dirty range is used instead. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copyFull</td><td>True to copy the entire buffer, false to only copy the changed sections </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00164">164</a> of file <a class="el" href="a00527_source.html">BindableBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a998a9c05422f6188b474d275866a6b2b" name="a998a9c05422f6188b474d275866a6b2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a998a9c05422f6188b474d275866a6b2b">&#9670;&#160;</a></span>stopTransferringEveryFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::tfr::Transferable::stopTransferringEveryFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes this Transferable from the queue that gets transferred every frame. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00055">55</a> of file <a class="el" href="a02348_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="affdc9c965d73f5227f2d3e0c8a17064e" name="affdc9c965d73f5227f2d3e0c8a17064e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affdc9c965d73f5227f2d3e0c8a17064e">&#9670;&#160;</a></span>transferEveryFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::tfr::Transferable::transferEveryFrame </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0">SyncRequirement</a>&#160;</td>
+          <td class="paramname"><em>syncReq</em> = <code><a class="el" href="a05622.html#a109f9d7acc098649830f276c266b47d0a43f6615bbb2c40a5306ff804094420b1">SyncRequirement::Immediate</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Configures this Transferable to transfer every frame with the given sync requirement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">syncReq</td><td>Synchronization requirements for the transfer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00045">45</a> of file <a class="el" href="a02348_source.html">Transferable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a22e05d9cc8e5f0dc31fb6cd84327848d" name="a22e05d9cc8e5f0dc31fb6cd84327848d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22e05d9cc8e5f0dc31fb6cd84327848d">&#9670;&#160;</a></span>writeDirect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<div class="memtemplate">
+template&lt;typename U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::writeDirect </td>
+          <td>(</td>
+          <td class="paramtype">U *&#160;</td>
+          <td class="paramname"><em>base</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>start</em> = <code>0</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -202,24 +1544,55 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a04702.html" title="Bundle to be used at runtime by BundleRuntime. Do not use directly.">Bundle</a> Source from the given parameters. </p>
+<p>Writes directly to the current frame buffer from the given source. Only call if the buffers are CPU visible and mapped. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">U</td><td>Some type that can be assigned to T. Overload operator= if required </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">srcPath</td><td>The path to search or a single file to include </td></tr>
-    <tr><td class="paramname">policy</td><td>The policy for creating bundles from the source path </td></tr>
-    <tr><td class="paramname">whitelistPattern</td><td>The pattern to whitelist files with. Empty for no whitelist </td></tr>
-    <tr><td class="paramname">blacklistPattern</td><td>The pattern to blacklist files with. Empty for no blacklist </td></tr>
+    <tr><td class="paramname">base</td><td>The first element to copy from </td></tr>
+    <tr><td class="paramname">len</td><td>The number of elements to copy </td></tr>
+    <tr><td class="paramname">start</td><td>The index to start writing at </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00051">51</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00113">113</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a823e4607dab4e182ce4f9c626352bdd0" name="a823e4607dab4e182ce4f9c626352bdd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a823e4607dab4e182ce4f9c626352bdd0">&#9670;&#160;</a></span>includeFile()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1489b2b9d4c179e63d35e202232a4c26" name="a1489b2b9d4c179e63d35e202232a4c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1489b2b9d4c179e63d35e202232a4c26">&#9670;&#160;</a></span>deviceBuffers</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04726.html#aac235bc3ea6a63fa2d18cf60cc695f7d">TDeviceBuffers</a> <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::deviceBuffers</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00137">137</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f74400304d3f1cbacf8d4d88cb2db14" name="a2f74400304d3f1cbacf8d4d88cb2db14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f74400304d3f1cbacf8d4d88cb2db14">&#9670;&#160;</a></span>renderer</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -228,110 +1601,54 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::resource::bundle::BundleSource::includeFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="a05330.html">Renderer</a>* bl::rc::tfr::Transferable::renderer</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the given file within this bundle source should be bundled based on the whitelist and blacklist patterns. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>The file to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the file should be bundled, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00067">67</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00890_source.html#l00069">69</a> of file <a class="el" href="a00890_source.html">Transferable.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7272d456efe25b543d7f5b223434adcc" name="a7272d456efe25b543d7f5b223434adcc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7272d456efe25b543d7f5b223434adcc">&#9670;&#160;</a></span>blacklistPattern</h2>
+<a id="ad782ffb9a2b7382c95b115167ab56650" name="ad782ffb9a2b7382c95b115167ab56650"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad782ffb9a2b7382c95b115167ab56650">&#9670;&#160;</a></span>stagingBuffers</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , <a class="el" href="a02979.html#ga06ae96329f72012e3e0cc6e7b0113226">Alignment</a> Align, VkBufferUsageFlags Usage, VkMemoryPropertyFlags MemoryPool, VmaAllocationCreateFlags AllocFlags = 0, VkMemoryPropertyFlags FallbackMemoryPool = MemoryPool&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string bl::resource::bundle::BundleSource::blacklistPattern</td>
+          <td class="memname"><a class="el" href="a04726.html#a7a1ce78d3203add0c04aaf8a8ec945ea">TStagingBuffers</a> <a class="el" href="a04726.html">bl::rc::buf::base::BindableBufferDoubleStaged</a>&lt; T, Align, Usage, MemoryPool, AllocFlags, FallbackMemoryPool &gt;::stagingBuffers</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Regex pattern to whitelist files to exclude. Leave empty for no blacklist. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00041">41</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00524_source.html#l00136">136</a> of file <a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a44947755a5c3ef9f26bee5a5bdb80fd4" name="a44947755a5c3ef9f26bee5a5bdb80fd4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44947755a5c3ef9f26bee5a5bdb80fd4">&#9670;&#160;</a></span>policy</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a04726.html#ad1f5105ed9abad8c4c8bc9f390551583">bl::resource::bundle::BundleSource::Policy</a> bl::resource::bundle::BundleSource::policy</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a41c8e532ea984bf46a2ac786c42e31ed" name="a41c8e532ea984bf46a2ac786c42e31ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41c8e532ea984bf46a2ac786c42e31ed">&#9670;&#160;</a></span>sourcePath</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string bl::resource::bundle::BundleSource::sourcePath</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The top level file or folder to start the bundle with. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00023">23</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abdccec6d14e82a4f391859bb453ef53c" name="abdccec6d14e82a4f391859bb453ef53c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdccec6d14e82a4f391859bb453ef53c">&#9670;&#160;</a></span>whitelistPattern</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string bl::resource::bundle::BundleSource::whitelistPattern</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Regex pattern to whitelist files to include. Leave empty for no whitelist. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00116_source.html#l00038">38</a> of file <a class="el" href="a00116_source.html">BundleSource.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Resources/Bundling/<a class="el" href="a00116_source.html">BundleSource.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Buffers/Interfaces/<a class="el" href="a00524_source.html">BindableBufferDoubleStaged.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

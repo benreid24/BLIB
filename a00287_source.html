@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Particles/RenderTypeMap.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/ObjectWrapper.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,43 +79,145 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_178847a4158a3437852c70503d67febe.html">Particles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">RenderTypeMap.hpp</div></div>
+  <div class="headertitle"><div class="title">ObjectWrapper.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00287.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_PARTICLES_RENDERTYPEMAP_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_PARTICLES_RENDERTYPEMAP_HPP</span></div>
+<a href="a00287.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_OBJECTWRAPPER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_OBJECTWRAPPER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06859.html">BLIB/Particles/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>pcl</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03950.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03950.html">RenderTypeMap</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a03950.html#a3c81321bc3ea624891d0c3775de9fcfd">   21</a></span>    <span class="keyword">using </span><a class="code hl_class" href="a03946.html">TRenderer</a> = <a class="code hl_class" href="a03946.html">Renderer&lt;T&gt;</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>ctr</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03422.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a03422.html">ObjectWrapper</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">   30</a></span>    <a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03422.html">ObjectWrapper</a>&amp; copy);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>(<a class="code hl_class" href="a03422.html">ObjectWrapper</a>&amp;&amp; copy);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>(std::in_place_t tag, TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">constexpr</span> T&amp; <a class="code hl_function" href="a03422.html#a9575f52f7581320a93a8c2dc70d2fd17">get</a>();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03422.html#a9575f52f7581320a93a8c2dc70d2fd17">get</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">constexpr</span> T&amp;&amp; <a class="code hl_function" href="a03422.html#a6fe1ef62320b39c5ee91a8940fe7d564">getRValue</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03422.html#a298adc9a1992468fab5895661e47d6cb">emplace</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03422.html#ad929075e804a033512689a9f2db51e66">destroy</a>();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">union </span>Buffer {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        std::uint8_t dummy;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        T object;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        Buffer()</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        : dummy(0) {}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        Buffer(<span class="keyword">const</span> Buffer&amp; buf)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        : dummy(0) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            std::memcpy(&amp;<span class="keywordtype">object</span>, &amp;buf.object, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        Buffer(Buffer&amp;&amp; buf)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        : dummy(0) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            std::memcpy(&amp;<span class="keywordtype">object</span>, &amp;buf.object, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        ~Buffer() {}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    } buffer;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>};</div>
 </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03946_html"><div class="ttname"><a href="a03946.html">bl::pcl::Renderer</a></div><div class="ttdoc">Default renderer implementation for particle systems. If you use the default all you need to do is sp...</div><div class="ttdef"><b>Definition</b> <a href="a06859_source.html#l00030">Renderer.hpp:30</a></div></div>
-<div class="ttc" id="aa03950_html"><div class="ttname"><a href="a03950.html">bl::pcl::RenderTypeMap</a></div><div class="ttdoc">Compile-time type map to configure the Renderer type to use for a given particle type....</div><div class="ttdef"><b>Definition</b> <a href="a00287_source.html#l00019">RenderTypeMap.hpp:19</a></div></div>
-<div class="ttc" id="aa06859_html"><div class="ttname"><a href="a06859.html">Renderer.hpp</a></div></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a03422.html#a28db48ac78aa19db6418005c678a969e">  116</a></span><a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper&lt;T&gt;::ObjectWrapper</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03422.html">ObjectWrapper</a>&amp; copy)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>: <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(copy.<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>) {}</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="a03422.html#a8f59bea2075ca53d7855e7103e1d5b62">  120</a></span><a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper&lt;T&gt;::ObjectWrapper</a>(<a class="code hl_class" href="a03422.html">ObjectWrapper</a>&amp;&amp; copy)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>: <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>(<a class="code hl_namespace" href="a03011.html">std</a>::forward&lt;Buffer&gt;(copy.<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>)) {}</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a03422.html#a2634c40cf150946cb2ac241443207b8d">  125</a></span><a class="code hl_function" href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper&lt;T&gt;::ObjectWrapper</a>(std::in_place_t, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">new</span> (&amp;<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.object) T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00130" data-start="{" data-end="}">
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="a03422.html#a9575f52f7581320a93a8c2dc70d2fd17">  130</a></span><span class="keyword">constexpr</span> T&amp; <a class="code hl_function" href="a03422.html#a9575f52f7581320a93a8c2dc70d2fd17">ObjectWrapper&lt;T&gt;::get</a>() {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.object;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a03422.html#ae2ea5fa11e5a6cad308f7eaf5c7596a0">  135</a></span><span class="keyword">constexpr</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03422.html#a9575f52f7581320a93a8c2dc70d2fd17">ObjectWrapper&lt;T&gt;::get</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.object;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="}">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a03422.html#a6fe1ef62320b39c5ee91a8940fe7d564">  140</a></span><span class="keyword">constexpr</span> T&amp;&amp; <a class="code hl_function" href="a03422.html#a6fe1ef62320b39c5ee91a8940fe7d564">ObjectWrapper&lt;T&gt;::getRValue</a>() {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> std::move(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.object);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00146" data-start="{" data-end="}">
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="a03422.html#a298adc9a1992468fab5895661e47d6cb">  146</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03422.html#a298adc9a1992468fab5895661e47d6cb">ObjectWrapper&lt;T&gt;::emplace</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">new</span> (&amp;<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.object) T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
+</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00151" data-start="{" data-end="}">
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="a03422.html#ad929075e804a033512689a9f2db51e66">  151</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03422.html#ad929075e804a033512689a9f2db51e66">ObjectWrapper&lt;T&gt;::destroy</a>() {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>.object.~T();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>} <span class="comment">// namespace ctr</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01982_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a01982_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03011_html"><div class="ttname"><a href="a03011.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00193">Entity.hpp:194</a></div></div>
+<div class="ttc" id="aa03422_html"><div class="ttname"><a href="a03422.html">bl::ctr::ObjectWrapper</a></div><div class="ttdoc">Thin wrapper over objects that functions similar to std::optional but does not have any overhead....</div><div class="ttdef"><b>Definition</b> <a href="a00287_source.html#l00024">ObjectWrapper.hpp:24</a></div></div>
+<div class="ttc" id="aa03422_html_a298adc9a1992468fab5895661e47d6cb"><div class="ttname"><a href="a03422.html#a298adc9a1992468fab5895661e47d6cb">bl::ctr::ObjectWrapper::emplace</a></div><div class="ttdeci">void emplace(TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs a new value in place. Does not destruct the prior value if any.</div><div class="ttdef"><b>Definition</b> <a href="a00287_source.html#l00146">ObjectWrapper.hpp:146</a></div></div>
+<div class="ttc" id="aa03422_html_a6fe1ef62320b39c5ee91a8940fe7d564"><div class="ttname"><a href="a03422.html#a6fe1ef62320b39c5ee91a8940fe7d564">bl::ctr::ObjectWrapper::getRValue</a></div><div class="ttdeci">constexpr T &amp;&amp; getRValue()</div><div class="ttdoc">Returns an RValue reference to the contained object.</div><div class="ttdef"><b>Definition</b> <a href="a00287_source.html#l00140">ObjectWrapper.hpp:140</a></div></div>
+<div class="ttc" id="aa03422_html_a70e074feebf4a987d2eb0bbf696b83b1"><div class="ttname"><a href="a03422.html#a70e074feebf4a987d2eb0bbf696b83b1">bl::ctr::ObjectWrapper::ObjectWrapper</a></div><div class="ttdeci">ObjectWrapper()=default</div><div class="ttdoc">Construct a new Object Wrapper with no value.</div></div>
+<div class="ttc" id="aa03422_html_a9575f52f7581320a93a8c2dc70d2fd17"><div class="ttname"><a href="a03422.html#a9575f52f7581320a93a8c2dc70d2fd17">bl::ctr::ObjectWrapper::get</a></div><div class="ttdeci">constexpr T &amp; get()</div><div class="ttdoc">Access the wrapped value. Undefined behavior if not constructed.</div><div class="ttdef"><b>Definition</b> <a href="a00287_source.html#l00130">ObjectWrapper.hpp:130</a></div></div>
+<div class="ttc" id="aa03422_html_ad929075e804a033512689a9f2db51e66"><div class="ttname"><a href="a03422.html#ad929075e804a033512689a9f2db51e66">bl::ctr::ObjectWrapper::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destructs the contained value. Undefined behavior if no contained value.</div><div class="ttdef"><b>Definition</b> <a href="a00287_source.html#l00151">ObjectWrapper.hpp:151</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

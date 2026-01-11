@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Packers/Packer.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Tasks/DeferredCompositeTask.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,65 +79,90 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_b7a99aa094231fae7c1164cb96a1b40b.html">Packers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_adf8e29d1ba8d413d8ee6c1365267c96.html">Tasks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Packer.hpp</div></div>
+  <div class="headertitle"><div class="title">DeferredCompositeTask.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00713.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_PACKERS_PACKER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_PACKERS_PACKER_HPP</span></div>
+<a href="a00713.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00476.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>gui</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03578.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a03578.html">Packer</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05346.html">bl::util::NonCopyable</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03578.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">   22</a></span>    <span class="keyword">typedef</span> std::shared_ptr&lt;Packer&gt; <a class="code hl_typedef" href="a03578.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Ptr</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03578.html#a87c464eb5ce463ac799ed74231a77295">   24</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03578.html#a87c464eb5ce463ac799ed74231a77295">~Packer</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a03578.html#ab4fb247af12fe31d556bc30af296f6bc">   32</a></span>    <span class="keyword">virtual</span> sf::Vector2f <a class="code hl_function" href="a03578.html#ab4fb247af12fe31d556bc30af296f6bc">getRequisition</a>(<span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) = 0;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03578.html#a96485d9ff34d93ed37ba8d04ec4950e9">   40</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03578.html#a96485d9ff34d93ed37ba8d04ec4950e9">pack</a>(<span class="keyword">const</span> sf::FloatRect&amp; acquisition,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                      <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) = 0;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03578.html#a4b254eb49aea88a8a35d4407dfe7cce5">manuallyPackElement</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; element, <span class="keyword">const</span> sf::FloatRect&amp; area,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                    <span class="keywordtype">bool</span> force = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03578.html#a2b942eb90604a301008c4b26d6209793">packElementIntoSpace</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; element, <span class="keyword">const</span> sf::FloatRect&amp; space);</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01616.html">BLIB/Graphics/Sphere.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00518.html">BLIB/Render/Buffers/IndexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00830.html">BLIB/Render/Lighting/LightingDescriptor3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00488.html">BLIB/Render/Vulkan/Pipeline.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a05138.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a05138.html">DeferredCompositeTask</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05098.html">rg::Task</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_function" href="a05138.html#a264626851ff8e35604abb4d4ac687961">DeferredCompositeTask</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a05138.html#ac8b228f8a6320ca40494cd6a721d0ec1">   34</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05138.html#ac8b228f8a6320ca40494cd6a721d0ec1">~DeferredCompositeTask</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="a05330.html">Renderer</a>* renderer;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="a05334.html">RenderTarget</a>* target;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="a05450.html">Scene</a>* scene;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a04710.html">buf::IndexBuffer3D</a> sunRectBuffer;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="a04710.html">buf::IndexBuffer3D</a> sphereBuffer;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a03990.html">gfx::Sphere</a> sphere;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="a05726.html">vk::Pipeline</a>* pipeline;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="a05526.html">sri::LightingBuffer3D</a>* lightingBuffer;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_class" href="a04854.html">dsi::Scene3DInstance</a>* sceneDescriptor;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    std::optional&lt;dsi::InputAttachmentInstance&gt; gbufferDescriptor;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> create(<span class="keyword">const</span> <a class="code hl_struct" href="a05054.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onGraphInit() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> execute(<span class="keyword">const</span> <a class="code hl_struct" href="a05042.html">rg::ExecutionContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_class" href="a04974.html">rg::Asset</a>* output) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
 </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00476_html"><div class="ttname"><a href="a00476.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">Element.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03498_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00752_source.html#l00035">Element.hpp:35</a></div></div>
-<div class="ttc" id="aa03578_html"><div class="ttname"><a href="a03578.html">bl::gui::Packer</a></div><div class="ttdoc">Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....</div><div class="ttdef"><b>Definition</b> <a href="a00713_source.html#l00020">Packer.hpp:20</a></div></div>
-<div class="ttc" id="aa03578_html_a2b942eb90604a301008c4b26d6209793"><div class="ttname"><a href="a03578.html#a2b942eb90604a301008c4b26d6209793">bl::gui::Packer::packElementIntoSpace</a></div><div class="ttdeci">static void packElementIntoSpace(const Element::Ptr &amp;element, const sf::FloatRect &amp;space)</div><div class="ttdoc">Packs an element into the given space. Obeys Element expand properties.</div><div class="ttdef"><b>Definition</b> <a href="a01856_source.html#l00007">Packer.cpp:7</a></div></div>
-<div class="ttc" id="aa03578_html_a4b254eb49aea88a8a35d4407dfe7cce5"><div class="ttname"><a href="a03578.html#a4b254eb49aea88a8a35d4407dfe7cce5">bl::gui::Packer::manuallyPackElement</a></div><div class="ttdeci">static void manuallyPackElement(const Element::Ptr &amp;element, const sf::FloatRect &amp;area, bool force=false)</div><div class="ttdoc">Manually pack the element. Note that the acquisition is relative to the parent element and likely doe...</div><div class="ttdef"><b>Definition</b> <a href="a01856_source.html#l00017">Packer.cpp:17</a></div></div>
-<div class="ttc" id="aa03578_html_a87c464eb5ce463ac799ed74231a77295"><div class="ttname"><a href="a03578.html#a87c464eb5ce463ac799ed74231a77295">bl::gui::Packer::~Packer</a></div><div class="ttdeci">virtual ~Packer()=default</div></div>
-<div class="ttc" id="aa03578_html_a96485d9ff34d93ed37ba8d04ec4950e9"><div class="ttname"><a href="a03578.html#a96485d9ff34d93ed37ba8d04ec4950e9">bl::gui::Packer::pack</a></div><div class="ttdeci">virtual void pack(const sf::FloatRect &amp;acquisition, const std::vector&lt; Element::Ptr &gt; &amp;elements)=0</div><div class="ttdoc">Pack the elements into the assigned acquisition.</div></div>
-<div class="ttc" id="aa03578_html_ab4fb247af12fe31d556bc30af296f6bc"><div class="ttname"><a href="a03578.html#ab4fb247af12fe31d556bc30af296f6bc">bl::gui::Packer::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition(const std::vector&lt; Element::Ptr &gt; &amp;elements)=0</div><div class="ttdoc">Reports the minimum requisition of the element list given.</div></div>
-<div class="ttc" id="aa03578_html_ae16cb4c26ab7e5dd1d8cbdc5598bf073"><div class="ttname"><a href="a03578.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">bl::gui::Packer::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Packer &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00713_source.html#l00022">Packer.hpp:22</a></div></div>
-<div class="ttc" id="aa05346_html"><div class="ttname"><a href="a05346.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a00476_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00488_html"><div class="ttname"><a href="a00488.html">Pipeline.hpp</a></div></div>
+<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">IndexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">Task.hpp</a></div></div>
+<div class="ttc" id="aa00830_html"><div class="ttname"><a href="a00830.html">LightingDescriptor3D.hpp</a></div></div>
+<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">InputAttachmentInstance.hpp</a></div></div>
+<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">Scene3DInstance.hpp</a></div></div>
+<div class="ttc" id="aa01616_html"><div class="ttname"><a href="a01616.html">Sphere.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03990_html"><div class="ttname"><a href="a03990.html">bl::gfx::Sphere</a></div><div class="ttdoc">Basic drawable for 3d spheres.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00020">Sphere.hpp:23</a></div></div>
+<div class="ttc" id="aa04710_html"><div class="ttname"><a href="a04710.html">bl::rc::buf::IndexBufferT</a></div><div class="ttdoc">Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.</div><div class="ttdef"><b>Definition</b> <a href="a00518_source.html#l00028">IndexBuffer.hpp:28</a></div></div>
+<div class="ttc" id="aa04854_html"><div class="ttname"><a href="a04854.html">bl::rc::dsi::Scene3DInstance</a></div><div class="ttdoc">Descriptor set instance for common scene data.</div><div class="ttdef"><b>Definition</b> <a href="a00902_source.html#l00041">Scene3DInstance.hpp:43</a></div></div>
+<div class="ttc" id="aa04974_html"><div class="ttname"><a href="a04974.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa05042_html"><div class="ttname"><a href="a05042.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa05054_html"><div class="ttname"><a href="a05054.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08539_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa05098_html"><div class="ttname"><a href="a05098.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition</b> <a href="a00698_source.html#l00030">Task.hpp:30</a></div></div>
+<div class="ttc" id="aa05138_html"><div class="ttname"><a href="a05138.html">bl::rc::rgi::DeferredCompositeTask</a></div><div class="ttdoc">Deferred render task that composites the GBuffer and renders transparent objects.</div><div class="ttdef"><b>Definition</b> <a href="a00713_source.html#l00024">DeferredCompositeTask.hpp:24</a></div></div>
+<div class="ttc" id="aa05138_html_a264626851ff8e35604abb4d4ac687961"><div class="ttname"><a href="a05138.html#a264626851ff8e35604abb4d4ac687961">bl::rc::rgi::DeferredCompositeTask::DeferredCompositeTask</a></div><div class="ttdeci">DeferredCompositeTask()</div><div class="ttdoc">Creates the task.</div><div class="ttdef"><b>Definition</b> <a href="a02243_source.html#l00018">DeferredCompositeTask.cpp:18</a></div></div>
+<div class="ttc" id="aa05138_html_ac8b228f8a6320ca40494cd6a721d0ec1"><div class="ttname"><a href="a05138.html#ac8b228f8a6320ca40494cd6a721d0ec1">bl::rc::rgi::DeferredCompositeTask::~DeferredCompositeTask</a></div><div class="ttdeci">virtual ~DeferredCompositeTask()=default</div><div class="ttdoc">Destroys the task.</div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05334_html"><div class="ttname"><a href="a05334.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="ttc" id="aa05526_html"><div class="ttname"><a href="a05526.html">bl::rc::sr::BufferShaderResource</a></div><div class="ttdoc">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.</div><div class="ttdef"><b>Definition</b> <a href="a00770_source.html#l00024">BufferShaderResource.hpp:24</a></div></div>
+<div class="ttc" id="aa05726_html"><div class="ttname"><a href="a05726.html">bl::rc::vk::Pipeline</a></div><div class="ttdoc">Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...</div><div class="ttdef"><b>Definition</b> <a href="a00488_source.html#l00033">Pipeline.hpp:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: src/Models/Importer.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,30 +74,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02416.html">ctr</a></li><li class="navelem"><a class="el" href="a02726.html">FastQueue</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::ctr::FastQueue&lt; T &gt; Member List</div></div>
+  <div class="summary">
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">Importer.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>This is the complete list of members for <a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02726.html#ac18a9a58c3c183246bdc4fdd5dc5206f">back</a>() const</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02726.html#abaa77cb378a322509272db6e3ee9ba5b">clear</a>()</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02726.html#a3880207a983db6da30ed87e6878d41d1">empty</a>() const</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02726.html#a473e4d50dea6273f67d2a1fac147106a">pop_back</a>(T &amp;value)</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02726.html#a9eb8d07e44f81714ab5c724f8f57c788">pop_back</a>()</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02726.html#ab033d3c33b39b3e8617411e35cfd8c3b">promote_front</a>(const T &amp;value, bool addIfNotFound=false)</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02726.html#a05fff1511bac48ffaf33f5e78d139310">push_front</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a02726.html#aa92247b94102e1e7f60bf7026fde9b68">remove</a>(const T &amp;value)</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02726.html#a680b0be9c6d923c33874f26335d23107">size</a>() const</td><td class="entry"><a class="el" href="a02726.html">bl::ctr::FastQueue&lt; T &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<div class="textblock"><code>#include &lt;<a class="el" href="a01427_source.html">BLIB/Models/Importer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00263_source.html">BLIB/Resources.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01811_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
+<code>#include &lt;assimp/DefaultLogger.hpp&gt;</code><br />
+<code>#include &lt;assimp/IOStream.hpp&gt;</code><br />
+<code>#include &lt;assimp/IOSystem.hpp&gt;</code><br />
+<code>#include &lt;assimp/LogStream.hpp&gt;</code><br />
+<code>#include &lt;assimp/Logger.hpp&gt;</code><br />
+<code>#include &lt;assimp/postprocess.h&gt;</code><br />
+<code>#include &lt;fstream&gt;</code><br />
+</div>
+<p><a href="a02723_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03037" id="r_a03037"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03037.html">bl::mdl</a></td></tr>
+<tr class="memdesc:a03037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains data structures and functionality for 3d models and animations. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

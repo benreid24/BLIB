@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Events/Startup.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Events/ShadowMapsInvalidated.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,45 +79,46 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_b1e11ac7deb2d68a3ec768925497826d.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_21e584440d30ea68f12ec1da1ab071c9.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Startup.hpp</div></div>
+  <div class="headertitle"><div class="title">ShadowMapsInvalidated.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00395.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_EVENTS_STARTUP_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_EVENTS_STARTUP_HPP</span></div>
+<a href="a00395.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_EVENTS_SHADOWMAPSINVALIDATED_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_EVENTS_SHADOWMAPSINVALIDATED_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06880.html">BLIB/Engine/State.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>sri</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>event</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03070.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03070.html">Startup</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03070.html#a0351b0a748609d060ae2268947118ef8">   20</a></span>    <a class="code hl_typedef" href="a03122.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> <a class="code hl_variable" href="a03070.html#a0351b0a748609d060ae2268947118ef8">initialState</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">class </span>ShadowMapShaderResource;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>event</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04958.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04958.html">ShadowMapsInvalidated</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04958.html#abd1625f035e629a6a2a98e85516bbd33">   20</a></span>    <a class="code hl_class" href="a05582.html">sri::ShadowMapShaderResource</a>* <a class="code hl_variable" href="a04958.html#abd1625f035e629a6a2a98e85516bbd33">maps</a>;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
 </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace event</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace rc</span></div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03070_html"><div class="ttname"><a href="a03070.html">bl::engine::event::Startup</a></div><div class="ttdoc">Fired when the engine is first started.</div><div class="ttdef"><b>Definition</b> <a href="a00395_source.html#l00018">Startup.hpp:18</a></div></div>
-<div class="ttc" id="aa03070_html_a0351b0a748609d060ae2268947118ef8"><div class="ttname"><a href="a03070.html#a0351b0a748609d060ae2268947118ef8">bl::engine::event::Startup::initialState</a></div><div class="ttdeci">State::Ptr initialState</div><div class="ttdoc">The State the engine has started in.</div><div class="ttdef"><b>Definition</b> <a href="a00395_source.html#l00020">Startup.hpp:20</a></div></div>
-<div class="ttc" id="aa03122_html_af13f7b9dd4d6e317dbc378896ddcf6d5"><div class="ttname"><a href="a03122.html#af13f7b9dd4d6e317dbc378896ddcf6d5">bl::engine::State::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; State &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a06880_source.html#l00025">State.hpp:25</a></div></div>
-<div class="ttc" id="aa06880_html"><div class="ttname"><a href="a06880.html">State.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04958_html"><div class="ttname"><a href="a04958.html">bl::rc::event::ShadowMapsInvalidated</a></div><div class="ttdoc">Fired when shadow maps are re-created and descriptors need to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00395_source.html#l00019">ShadowMapsInvalidated.hpp:19</a></div></div>
+<div class="ttc" id="aa04958_html_abd1625f035e629a6a2a98e85516bbd33"><div class="ttname"><a href="a04958.html#abd1625f035e629a6a2a98e85516bbd33">bl::rc::event::ShadowMapsInvalidated::maps</a></div><div class="ttdeci">sri::ShadowMapShaderResource * maps</div><div class="ttdef"><b>Definition</b> <a href="a00395_source.html#l00020">ShadowMapsInvalidated.hpp:20</a></div></div>
+<div class="ttc" id="aa05582_html"><div class="ttname"><a href="a05582.html">bl::rc::sri::ShadowMapShaderResource</a></div><div class="ttdoc">Shader resource containing the shadow map images and framebuffers.</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00027">ShadowMapShaderResource.hpp:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

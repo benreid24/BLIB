@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['g_0',['G',['../a02469.html#af98b10434d6862ecf69f33b6b5b25f27',1,'bl::script']]],
-  ['globalshaderpayload_1',['globalshaderpayload',['../a03934.html#a2b72136f866f4355fbab46ddea50ea79',1,'bl::pcl::RenderConfigDefaults::GlobalShaderPayload'],['../a03942.html#a5f61f0310bc1642e54f3c93009e48657',1,'bl::pcl::RenderConfigMap::GlobalShaderPayload']]]
+  ['handle_0',['Handle',['../a03174.html#a1976c9cbec3cb0348a2e6f0381ea9906',1,'bl::audio::AudioSystem']]]
 ];

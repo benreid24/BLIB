@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Base Class Reference</title>
+<title>BLIB: bl::rc::rg::GraphAssetPool Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,94 +74,373 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02453.html">json</a></li><li class="navelem"><a class="el" href="a05050.html">Base</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03059.html">rg</a></li><li class="navelem"><a class="el" href="a05050.html">GraphAssetPool</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a05047.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::json::Base Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::GraphAssetPool Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a05050.html" title="Base class for all json types.">Base</a> class for all json types.  
+<p><a class="el" href="a04974.html" title="Base class for assets in render graphs.">Asset</a> pool for individual <a class="el" href="a05074.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instances that exist per scene per observer.  
  <a href="a05050.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a06892_source.html">JSON.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::json::Base:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05050.png" usemap="#bl::serial::json::Base_map" alt=""/>
-  <map id="bl::serial::json::Base_map" name="bl::serial::json::Base_map">
-<area href="a05054.html" title="A collection of fields as (std::string, Value) pairs. This is the top level data type that should be ..." alt="bl::serial::json::Group" shape="rect" coords="0,56,129,80"/>
-<area href="a05058.html" title="Represents any value type in JSON." alt="bl::serial::json::Value" shape="rect" coords="139,56,268,80"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00590_source.html">GraphAssetPool.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a11c09a5670bfe42992ea3a228abe19c8" id="r_a11c09a5670bfe42992ea3a228abe19c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a11c09a5670bfe42992ea3a228abe19c8">setSource</a> (const <a class="el" href="a05046.html">SourceInfo</a> &amp;<a class="el" href="a05050.html#a071b314d6053fa3d0905e1a098cb82e2">source</a>)</td></tr>
-<tr class="separator:a11c09a5670bfe42992ea3a228abe19c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a071b314d6053fa3d0905e1a098cb82e2" id="r_a071b314d6053fa3d0905e1a098cb82e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05046.html">SourceInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a071b314d6053fa3d0905e1a098cb82e2">source</a> () const</td></tr>
-<tr class="separator:a071b314d6053fa3d0905e1a098cb82e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54bb399d6ae205a8c4107ee6ccc5e426" id="r_a54bb399d6ae205a8c4107ee6ccc5e426"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a54bb399d6ae205a8c4107ee6ccc5e426">GraphAssetPool</a> (<a class="el" href="a05330.html">Renderer</a> &amp;renderer, <a class="el" href="a04982.html">AssetPool</a> &amp;pool, <a class="el" href="a05334.html">RenderTarget</a> *owner, <a class="el" href="a05450.html">Scene</a> *scene)</td></tr>
+<tr class="memdesc:a54bb399d6ae205a8c4107ee6ccc5e426"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the pool.  <br /></td></tr>
+<tr class="separator:a54bb399d6ae205a8c4107ee6ccc5e426"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f93b21507f5b0943195eb8555aad197" id="r_a5f93b21507f5b0943195eb8555aad197"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05046.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a5f93b21507f5b0943195eb8555aad197">getAssetForOutput</a> (std::string_view tag, <a class="el" href="a05098.html">Task</a> *<a class="el" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>, std::string_view purpose)</td></tr>
+<tr class="memdesc:a5f93b21507f5b0943195eb8555aad197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch an existing asset from the pool to be used as an output.  <br /></td></tr>
+<tr class="separator:a5f93b21507f5b0943195eb8555aad197"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9775f60e2f18bf281982d09d783d014" id="r_ad9775f60e2f18bf281982d09d783d014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05046.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#ad9775f60e2f18bf281982d09d783d014">getAssetForSharedOutput</a> (std::string_view tag, const decltype(<a class="el" href="a05118.html#a0a1e6725343f67aa915f12711a1dfb55">TaskOutput::sharedWith</a>)&amp;sharedWith, std::string_view purpose)</td></tr>
+<tr class="memdesc:ad9775f60e2f18bf281982d09d783d014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch an existing asset from the pool to be used as a shared output.  <br /></td></tr>
+<tr class="separator:ad9775f60e2f18bf281982d09d783d014"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ac87df76a2f7472fd3fc9bcba726908" id="r_a8ac87df76a2f7472fd3fc9bcba726908"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05046.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a8ac87df76a2f7472fd3fc9bcba726908">getAssetForInput</a> (std::string_view tag, std::string_view purpose)</td></tr>
+<tr class="memdesc:a8ac87df76a2f7472fd3fc9bcba726908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetch an existing asset from the pool to be used as an input. Only use for external assets. Do not call after calls to createAsset.  <br /></td></tr>
+<tr class="separator:a8ac87df76a2f7472fd3fc9bcba726908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2856f61c1bec3c0083efc29610516288" id="r_a2856f61c1bec3c0083efc29610516288"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05046.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a2856f61c1bec3c0083efc29610516288">createAsset</a> (std::string_view tag, std::string_view purpose)</td></tr>
+<tr class="memdesc:a2856f61c1bec3c0083efc29610516288"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new asset with the given tag and creator.  <br /></td></tr>
+<tr class="separator:a2856f61c1bec3c0083efc29610516288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad67e17e872f263eaa2bf665cf3aea80a" id="r_ad67e17e872f263eaa2bf665cf3aea80a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04990.html">AssetRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#ad67e17e872f263eaa2bf665cf3aea80a">getAssetForAsset</a> (std::string_view tag, std::string_view purpose)</td></tr>
+<tr class="memdesc:ad67e17e872f263eaa2bf665cf3aea80a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets or creates an asset to be used by another asset.  <br /></td></tr>
+<tr class="separator:ad67e17e872f263eaa2bf665cf3aea80a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a3e675fdb6fa2095e17e1d05d3f57a" id="r_a63a3e675fdb6fa2095e17e1d05d3f57a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05046.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a63a3e675fdb6fa2095e17e1d05d3f57a">getFinalOutput</a> ()</td></tr>
+<tr class="memdesc:a63a3e675fdb6fa2095e17e1d05d3f57a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the swap frame asset from the pool.  <br /></td></tr>
+<tr class="separator:a63a3e675fdb6fa2095e17e1d05d3f57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a099f1d0022b8e681b04e91c422c991dd" id="r_a099f1d0022b8e681b04e91c422c991dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html#a099f1d0022b8e681b04e91c422c991dd">reset</a> ()</td></tr>
+<tr class="memdesc:a099f1d0022b8e681b04e91c422c991dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all held assets to allow rebuilding of the graph.  <br /></td></tr>
+<tr class="separator:a099f1d0022b8e681b04e91c422c991dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a05050.html" title="Base class for all json types.">Base</a> class for all json types. </p>
+<div class="textblock"><p><a class="el" href="a04974.html" title="Base class for assets in render graphs.">Asset</a> pool for individual <a class="el" href="a05074.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instances that exist per scene per observer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a06892_source.html#l00038">38</a> of file <a class="el" href="a06892_source.html">JSON.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a11c09a5670bfe42992ea3a228abe19c8" name="a11c09a5670bfe42992ea3a228abe19c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11c09a5670bfe42992ea3a228abe19c8">&#9670;&#160;</a></span>setSource()</h2>
+<p class="definition">Definition at line <a class="el" href="a00590_source.html#l00028">28</a> of file <a class="el" href="a00590_source.html">GraphAssetPool.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a54bb399d6ae205a8c4107ee6ccc5e426" name="a54bb399d6ae205a8c4107ee6ccc5e426"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54bb399d6ae205a8c4107ee6ccc5e426">&#9670;&#160;</a></span>GraphAssetPool()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::serial::json::Base::setSource </td>
+          <td class="memname">bl::rc::rg::GraphAssetPool::GraphAssetPool </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05046.html">SourceInfo</a> &amp;&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04982.html">AssetPool</a> &amp;&#160;</td>
+          <td class="paramname"><em>pool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05334.html">RenderTarget</a> *&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05450.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>The renderer that owns this pool </td></tr>
+    <tr><td class="paramname">pool</td><td>The parent asset pool to get assets from </td></tr>
+    <tr><td class="paramname">owner</td><td>The render target that owns the pool </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene that the pool is for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00015">15</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2856f61c1bec3c0083efc29610516288" name="a2856f61c1bec3c0083efc29610516288"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2856f61c1bec3c0083efc29610516288">&#9670;&#160;</a></span>createAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05046.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::createAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>purpose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new asset with the given tag and creator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The asset tag </td></tr>
+    <tr><td class="paramname">purpose</td><td>The purpose of the asset, used to disambiguate assets with the same tag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new asset </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00097">97</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad67e17e872f263eaa2bf665cf3aea80a" name="ad67e17e872f263eaa2bf665cf3aea80a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad67e17e872f263eaa2bf665cf3aea80a">&#9670;&#160;</a></span>getAssetForAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04990.html">AssetRef</a> bl::rc::rg::GraphAssetPool::getAssetForAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>purpose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets or creates an asset to be used by another asset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The tag of the asset to get or create </td></tr>
+    <tr><td class="paramname">purpose</td><td>The purpose of the asset, used to disambiguate assets with the same tag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A ref to the created asset. May be invalid </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00023">23</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8ac87df76a2f7472fd3fc9bcba726908" name="a8ac87df76a2f7472fd3fc9bcba726908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ac87df76a2f7472fd3fc9bcba726908">&#9670;&#160;</a></span>getAssetForInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05046.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getAssetForInput </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>purpose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch an existing asset from the pool to be used as an input. Only use for external assets. Do not call after calls to createAsset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The asset tag to fetch </td></tr>
+    <tr><td class="paramname">purpose</td><td>The purpose of the asset, used to disambiguate assets with the same tag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the contained asset, or nullptr if none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00085">85</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5f93b21507f5b0943195eb8555aad197" name="a5f93b21507f5b0943195eb8555aad197"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f93b21507f5b0943195eb8555aad197">&#9670;&#160;</a></span>getAssetForOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05046.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getAssetForOutput </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05098.html">Task</a> *&#160;</td>
+          <td class="paramname"><em>task</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>purpose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch an existing asset from the pool to be used as an output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The asset tag to fetch </td></tr>
+    <tr><td class="paramname">task</td><td>The task that will be outputting to the asset </td></tr>
+    <tr><td class="paramname">purpose</td><td>The purpose of the asset, used to disambiguate assets with the same tag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the contained asset, or nullptr if none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00046">46</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad9775f60e2f18bf281982d09d783d014" name="ad9775f60e2f18bf281982d09d783d014"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9775f60e2f18bf281982d09d783d014">&#9670;&#160;</a></span>getAssetForSharedOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05046.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getAssetForSharedOutput </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const decltype(<a class="el" href="a05118.html#a0a1e6725343f67aa915f12711a1dfb55">TaskOutput::sharedWith</a>)&amp;&#160;</td>
+          <td class="paramname"><em>sharedWith</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>purpose</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetch an existing asset from the pool to be used as a shared output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The tag of the asset being requested </td></tr>
+    <tr><td class="paramname">sharedWith</td><td>The tags of the tasks that this asset may be shared with </td></tr>
+    <tr><td class="paramname">purpose</td><td>The purpose of the asset, used to disambiguate assets with the same tag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the contained asset, or nullptr if none </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00066">66</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a63a3e675fdb6fa2095e17e1d05d3f57a" name="a63a3e675fdb6fa2095e17e1d05d3f57a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63a3e675fdb6fa2095e17e1d05d3f57a">&#9670;&#160;</a></span>getFinalOutput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05046.html">GraphAsset</a> * bl::rc::rg::GraphAssetPool::getFinalOutput </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01970_source.html#l00034">34</a> of file <a class="el" href="a01970_source.html">JSON.cpp</a>.</p>
+<p>Fetches the swap frame asset from the pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00038">38</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a071b314d6053fa3d0905e1a098cb82e2" name="a071b314d6053fa3d0905e1a098cb82e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a071b314d6053fa3d0905e1a098cb82e2">&#9670;&#160;</a></span>source()</h2>
+<a id="a099f1d0022b8e681b04e91c422c991dd" name="a099f1d0022b8e681b04e91c422c991dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a099f1d0022b8e681b04e91c422c991dd">&#9670;&#160;</a></span>reset()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a05046.html">SourceInfo</a> &amp; bl::serial::json::Base::source </td>
+          <td class="memname">void bl::rc::rg::GraphAssetPool::reset </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01970_source.html#l00036">36</a> of file <a class="el" href="a01970_source.html">JSON.cpp</a>.</p>
+<p>Releases all held assets to allow rebuilding of the graph. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00105">105</a> of file <a class="el" href="a02237_source.html">GraphAssetPool.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a06892_source.html">JSON.hpp</a></li>
-<li>src/Serialization/JSON/<a class="el" href="a01970_source.html">JSON.cpp</a></li>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00590_source.html">GraphAssetPool.hpp</a></li>
+<li>src/Render/Graph/<a class="el" href="a02237_source.html">GraphAssetPool.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/TextEntryComponentBase.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,63 +79,112 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TextEntryComponentBase.hpp</div></div>
+  <div class="headertitle"><div class="title">FinalSwapframeAsset.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00674.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_RENDERER_TEXTENTRYCOMPONENTBASE_HPP</span></div>
+<a href="a00674.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00599.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>gui</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rdr</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03718.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a03718.html">TextEntryComponentBase</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03674.html">Component</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03718.html#aae45ebb0c6c1a855fc5b6ac713243386">   22</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03718.html#aae45ebb0c6c1a855fc5b6ac713243386">~TextEntryComponentBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00392.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00683.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00491.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00509.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a08575.html">BLIB/Render/Vulkan/Image.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00494.html">BLIB/Render/Vulkan/PerSwapFrame.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a07987.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span>Swapchain;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>DepthBuffer;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03718.html#a448b09e0ab4d3607f39b02c1c8283cc4">   30</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a03718.html#a448b09e0ab4d3607f39b02c1c8283cc4">findCursorPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; overlayPos) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a03718.html#a489472fdb69660af52fd27bd8984ae82">   35</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03718.html#a489472fdb69660af52fd27bd8984ae82">onCaratStateUpdate</a>() = 0;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03718.html#a8eb787fab7432c5d02a885bfcdc34c7b">   40</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03718.html#a8eb787fab7432c5d02a885bfcdc34c7b">resetCaratFlash</a>() = 0;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03718.html#a792165dab949e3ea28bf583c4b1b242b">   48</a></span>    <a class="code hl_function" href="a03718.html#a792165dab949e3ea28bf583c4b1b242b">TextEntryComponentBase</a>(<a class="code hl_enumeration" href="a03674.html#ad04144636950185c959ad6394f0c5c52">Component::HighlightState</a> highlightState)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    : <a class="code hl_class" href="a03674.html">Component</a>(highlightState) {}</div>
+<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05006.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="a05006.html">FinalSwapframeAsset</a></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>: <span class="keyword">public</span> <a class="code hl_class" href="a05010.html">FramebufferAsset</a></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>, <span class="keyword">public</span> <a class="code hl_class" href="a06386.html">sig::Listener</a>&lt;event::SettingsChanged&gt; {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a05006.html">FinalSwapframeAsset</a>(<span class="keyword">const</span> VkViewport&amp; <a class="code hl_variable" href="a05010.html#a6382f4fc54a3274be43097cd41accf9b">viewport</a>, <span class="keyword">const</span> VkRect2D&amp; <a class="code hl_variable" href="a05010.html#af79eff1acf691c3e36462cc58f102639">scissor</a>,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                        <span class="keyword">const</span> VkClearValue* <a class="code hl_variable" href="a05010.html#a65b9e38cba06e4d65e4d86da6d23ef6c">clearColors</a>, <span class="keyword">const</span> std::uint32_t <a class="code hl_variable" href="a05010.html#a23d36691b92ad120b391d4709e7d01c0">clearColorCount</a>);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a05006.html#ac8729199e48bc48e4ef48320d232008a">   48</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05006.html#ac8729199e48bc48e4ef48320d232008a">~FinalSwapframeAsset</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a05702.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a05006.html#a641f497cb00382e619933f64f6e0f209">currentFramebuffer</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a05702.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a05006.html#aa28e7b9704ee2e8aba2bc6e9fb28c6e6">getFramebuffer</a>(std::uint32_t i) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_class" href="a03698.html">engine::Engine</a>* engine;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_class" href="a05842.html">RenderWindow</a>* window;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_class" href="a05814.html">vk::Swapchain</a>* swapchain;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <a class="code hl_class" href="a04998.html">DepthBuffer</a>* depthBufferAsset;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_class" href="a05722.html">vk::PerSwapFrame&lt;vk::AttachmentSet&gt;</a> attachmentSets;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="a05722.html">vk::PerSwapFrame&lt;vk::Framebuffer&gt;</a> framebuffers;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_class" href="a05706.html">vk::Image</a> sampledImage;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05054.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code hl_struct" href="a05042.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doStartOutput(<span class="keyword">const</span> <a class="code hl_struct" href="a05042.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doEndOutput(<span class="keyword">const</span> <a class="code hl_struct" href="a05042.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onResize(glm::u32vec2 newSize) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onReset() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a04954.html">event::SettingsChanged</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordtype">void</span> updateAllAttachments();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordtype">void</span> updateAttachments(std::uint32_t swapFrameIndex);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">void</span> ensureSampledImage();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
 </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>};</div>
-</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace rdr</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00599_html"><div class="ttname"><a href="a00599.html">Component.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03674_html"><div class="ttname"><a href="a03674.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a00599_source.html#l00032">Component.hpp:32</a></div></div>
-<div class="ttc" id="aa03674_html_ad04144636950185c959ad6394f0c5c52"><div class="ttname"><a href="a03674.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></div><div class="ttdeci">HighlightState</div><div class="ttdoc">How the component responds to mouse over state.</div><div class="ttdef"><b>Definition</b> <a href="a00599_source.html#l00040">Component.hpp:40</a></div></div>
-<div class="ttc" id="aa03718_html"><div class="ttname"><a href="a03718.html">bl::gui::rdr::TextEntryComponentBase</a></div><div class="ttdoc">Intermediate base class for components of TextEntry elements.</div><div class="ttdef"><b>Definition</b> <a href="a00674_source.html#l00017">TextEntryComponentBase.hpp:17</a></div></div>
-<div class="ttc" id="aa03718_html_a448b09e0ab4d3607f39b02c1c8283cc4"><div class="ttname"><a href="a03718.html#a448b09e0ab4d3607f39b02c1c8283cc4">bl::gui::rdr::TextEntryComponentBase::findCursorPosition</a></div><div class="ttdeci">virtual unsigned int findCursorPosition(const sf::Vector2f &amp;overlayPos) const =0</div><div class="ttdoc">Called to determine what index the carat should move to when the text is clicked.</div></div>
-<div class="ttc" id="aa03718_html_a489472fdb69660af52fd27bd8984ae82"><div class="ttname"><a href="a03718.html#a489472fdb69660af52fd27bd8984ae82">bl::gui::rdr::TextEntryComponentBase::onCaratStateUpdate</a></div><div class="ttdeci">virtual void onCaratStateUpdate()=0</div><div class="ttdoc">Called when the carat changes position or toggles visibility.</div></div>
-<div class="ttc" id="aa03718_html_a792165dab949e3ea28bf583c4b1b242b"><div class="ttname"><a href="a03718.html#a792165dab949e3ea28bf583c4b1b242b">bl::gui::rdr::TextEntryComponentBase::TextEntryComponentBase</a></div><div class="ttdeci">TextEntryComponentBase(Component::HighlightState highlightState)</div><div class="ttdoc">Calls the base Component constructor.</div><div class="ttdef"><b>Definition</b> <a href="a00674_source.html#l00048">TextEntryComponentBase.hpp:48</a></div></div>
-<div class="ttc" id="aa03718_html_a8eb787fab7432c5d02a885bfcdc34c7b"><div class="ttname"><a href="a03718.html#a8eb787fab7432c5d02a885bfcdc34c7b">bl::gui::rdr::TextEntryComponentBase::resetCaratFlash</a></div><div class="ttdeci">virtual void resetCaratFlash()=0</div><div class="ttdoc">Called when the carat flash timer should be reset.</div></div>
-<div class="ttc" id="aa03718_html_aae45ebb0c6c1a855fc5b6ac713243386"><div class="ttname"><a href="a03718.html#aae45ebb0c6c1a855fc5b6ac713243386">bl::gui::rdr::TextEntryComponentBase::~TextEntryComponentBase</a></div><div class="ttdeci">virtual ~TextEntryComponentBase()=default</div><div class="ttdoc">Destroys the component.</div></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">SettingsChanged.hpp</a></div></div>
+<div class="ttc" id="aa00491_html"><div class="ttname"><a href="a00491.html">AttachmentSet.hpp</a></div></div>
+<div class="ttc" id="aa00494_html"><div class="ttname"><a href="a00494.html">PerSwapFrame.hpp</a></div></div>
+<div class="ttc" id="aa00509_html"><div class="ttname"><a href="a00509.html">Framebuffer.hpp</a></div></div>
+<div class="ttc" id="aa00683_html"><div class="ttname"><a href="a00683.html">FramebufferAsset.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa04954_html"><div class="ttname"><a href="a04954.html">bl::rc::event::SettingsChanged</a></div><div class="ttdoc">Fired when renderer settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00017">SettingsChanged.hpp:17</a></div></div>
+<div class="ttc" id="aa04998_html"><div class="ttname"><a href="a04998.html">bl::rc::rgi::DepthBuffer</a></div><div class="ttdoc">Wrapper asset around the global renderer depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00677_source.html#l00023">DepthBuffer.hpp:23</a></div></div>
+<div class="ttc" id="aa05006_html"><div class="ttname"><a href="a05006.html">bl::rc::rgi::FinalSwapframeAsset</a></div><div class="ttdoc">Asset for the swapchain image that an observer renders to.</div><div class="ttdef"><b>Definition</b> <a href="a00674_source.html#l00029">FinalSwapframeAsset.hpp:31</a></div></div>
+<div class="ttc" id="aa05006_html_a641f497cb00382e619933f64f6e0f209"><div class="ttname"><a href="a05006.html#a641f497cb00382e619933f64f6e0f209">bl::rc::rgi::FinalSwapframeAsset::currentFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; currentFramebuffer() override</div><div class="ttdoc">Returns the current framebuffer to use.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00071">FinalSwapframeAsset.cpp:71</a></div></div>
+<div class="ttc" id="aa05006_html_aa28e7b9704ee2e8aba2bc6e9fb28c6e6"><div class="ttname"><a href="a05006.html#aa28e7b9704ee2e8aba2bc6e9fb28c6e6">bl::rc::rgi::FinalSwapframeAsset::getFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; getFramebuffer(std::uint32_t i) override</div><div class="ttdoc">Returns the framebuffer at the given swap frame index.</div><div class="ttdef"><b>Definition</b> <a href="a02228_source.html#l00073">FinalSwapframeAsset.cpp:73</a></div></div>
+<div class="ttc" id="aa05006_html_ac8729199e48bc48e4ef48320d232008a"><div class="ttname"><a href="a05006.html#ac8729199e48bc48e4ef48320d232008a">bl::rc::rgi::FinalSwapframeAsset::~FinalSwapframeAsset</a></div><div class="ttdeci">virtual ~FinalSwapframeAsset()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa05010_html"><div class="ttname"><a href="a05010.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00022">FramebufferAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa05010_html_a23d36691b92ad120b391d4709e7d01c0"><div class="ttname"><a href="a05010.html#a23d36691b92ad120b391d4709e7d01c0">bl::rc::rgi::FramebufferAsset::clearColorCount</a></div><div class="ttdeci">const std::uint32_t clearColorCount</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00097">FramebufferAsset.hpp:97</a></div></div>
+<div class="ttc" id="aa05010_html_a6382f4fc54a3274be43097cd41accf9b"><div class="ttname"><a href="a05010.html#a6382f4fc54a3274be43097cd41accf9b">bl::rc::rgi::FramebufferAsset::viewport</a></div><div class="ttdeci">const VkViewport &amp; viewport</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00094">FramebufferAsset.hpp:94</a></div></div>
+<div class="ttc" id="aa05010_html_a65b9e38cba06e4d65e4d86da6d23ef6c"><div class="ttname"><a href="a05010.html#a65b9e38cba06e4d65e4d86da6d23ef6c">bl::rc::rgi::FramebufferAsset::clearColors</a></div><div class="ttdeci">const VkClearValue * clearColors</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00096">FramebufferAsset.hpp:96</a></div></div>
+<div class="ttc" id="aa05010_html_af79eff1acf691c3e36462cc58f102639"><div class="ttname"><a href="a05010.html#af79eff1acf691c3e36462cc58f102639">bl::rc::rgi::FramebufferAsset::scissor</a></div><div class="ttdeci">const VkRect2D &amp; scissor</div><div class="ttdef"><b>Definition</b> <a href="a00683_source.html#l00095">FramebufferAsset.hpp:95</a></div></div>
+<div class="ttc" id="aa05042_html"><div class="ttname"><a href="a05042.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa05054_html"><div class="ttname"><a href="a05054.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08539_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa05702_html"><div class="ttname"><a href="a05702.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition</b> <a href="a00509_source.html#l00024">Framebuffer.hpp:24</a></div></div>
+<div class="ttc" id="aa05706_html"><div class="ttname"><a href="a05706.html">bl::rc::vk::Image</a></div><div class="ttdoc">Utility class to create and manage an image.</div><div class="ttdef"><b>Definition</b> <a href="a08575_source.html#l00022">Image.hpp:22</a></div></div>
+<div class="ttc" id="aa05722_html"><div class="ttname"><a href="a05722.html">bl::rc::vk::PerSwapFrame</a></div><div class="ttdoc">Utility class to manage objects where one instance is needed per image in the swap chain....</div><div class="ttdef"><b>Definition</b> <a href="a00494_source.html#l00023">PerSwapFrame.hpp:23</a></div></div>
+<div class="ttc" id="aa05814_html"><div class="ttname"><a href="a05814.html">bl::rc::vk::Swapchain</a></div><div class="ttdoc">Utility class for managing the Vulkan swap chain.</div><div class="ttdef"><b>Definition</b> <a href="a00476_source.html#l00030">Swapchain.hpp:30</a></div></div>
+<div class="ttc" id="aa05842_html"><div class="ttname"><a href="a05842.html">bl::rc::Window&lt; sf::WindowBase &gt;</a></div></div>
+<div class="ttc" id="aa06386_html"><div class="ttname"><a href="a06386.html">bl::sig::Listener</a></div><div class="ttdoc">Base class for signal listeners. Create classes that derive from this to process signals.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00023">Listener.hpp:23</a></div></div>
+<div class="ttc" id="aa07987_html"><div class="ttname"><a href="a07987.html">Listener.hpp</a></div></div>
+<div class="ttc" id="aa08575_html"><div class="ttname"><a href="a08575.html">Image.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

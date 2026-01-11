@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::event::PlayerRemoved Struct Reference</title>
+<title>BLIB: bl::rc::sr Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,59 +74,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02410.html">engine</a></li><li class="navelem"><a class="el" href="a02425.html">event</a></li><li class="navelem"><a class="el" href="a03058.html">PlayerRemoved</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03058.html">sr</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a03055.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::engine::event::PlayerRemoved Struct Reference<div class="ingroups"><a class="el" href="a02378.html">Engine</a> &raquo; <a class="el" href="a02395.html">EngineEvents</a></div></div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::sr Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when a player is removed from the engine.  
- <a href="a03058.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00374_source.html">Players.hpp</a>&gt;</code></p>
+<p>Module containing shader resources like images and buffers.  
+<a href="a03058.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a65dd46d6823c664572e7818dcb33c6fd" id="r_a65dd46d6823c664572e7818dcb33c6fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03098.html">Player</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03058.html#a65dd46d6823c664572e7818dcb33c6fd">player</a></td></tr>
-<tr class="memdesc:a65dd46d6823c664572e7818dcb33c6fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The player about to be removed.  <br /></td></tr>
-<tr class="separator:a65dd46d6823c664572e7818dcb33c6fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05526.html">BufferShaderResource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.  <a href="a05526.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05550.html">EntityComponentShaderResource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic class to provide per-object storage for descriptor set components.  <a href="a05550.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05542.html">EntityComponentShaderResourceBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for shader inputs derived from ECS components.  <a href="a05542.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05566.html">Key</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05566.html" title="Key type for a shader resource. Allows encoding both type and id into one value.">Key</a> type for a shader resource. Allows encoding both type and id into one value.  <a href="a05566.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05570.html">ShaderResource</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for shader inputs. Shader inputs are the images and buffers that descriptors point to. Descriptor sets share shader inputs for common data via the <a class="el" href="a05574.html" title="Cache for shader inputs for descriptor sets. Shader inputs are instantiated once and shared across de...">ShaderResourceStore</a>.  <a href="a05570.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05574.html">ShaderResourceStore</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cache for shader inputs for descriptor sets. Shader inputs are instantiated once and shared across descriptor sets.  <a href="a05574.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga3dcc36a289dbe2cd2b0bac51fcf14713" id="r_ga3dcc36a289dbe2cd2b0bac51fcf14713"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02979.html#ga3dcc36a289dbe2cd2b0bac51fcf14713">StoreKey</a> { <a class="el" href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a4cc6684df7b4a92b1dec6fce3264fac8">StoreKey::Global</a>
+, <a class="el" href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a83d694b8b98b155b8817ac412c4d3e9c">StoreKey::Observer</a>
+, <a class="el" href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">StoreKey::Scene</a>
+ }</td></tr>
+<tr class="memdesc:ga3dcc36a289dbe2cd2b0bac51fcf14713"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum representing shader resource stores.  <a href="a02979.html#ga3dcc36a289dbe2cd2b0bac51fcf14713">More...</a><br /></td></tr>
+<tr class="separator:ga3dcc36a289dbe2cd2b0bac51fcf14713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when a player is removed from the engine. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00374_source.html#l00027">27</a> of file <a class="el" href="a00374_source.html">Players.hpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a65dd46d6823c664572e7818dcb33c6fd" name="a65dd46d6823c664572e7818dcb33c6fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65dd46d6823c664572e7818dcb33c6fd">&#9670;&#160;</a></span>player</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03098.html">Player</a>&amp; bl::engine::event::PlayerRemoved::player</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The player about to be removed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00374_source.html#l00029">29</a> of file <a class="el" href="a00374_source.html">Players.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Engine/Events/<a class="el" href="a00374_source.html">Players.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<div class="textblock"><p>Module containing shader resources like images and buffers. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

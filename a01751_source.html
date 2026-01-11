@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Scripts/Function.cpp Source File</title>
+<title>BLIB: include/BLIB/Resources/Loader.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,182 +79,300 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Function.cpp</div></div>
+  <div class="headertitle"><div class="title">Loader.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01751.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00500.html">BLIB/Scripts/Function.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00512.html">BLIB/Scripts/Error.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00503.html">BLIB/Scripts/SymbolTable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00518.html">BLIB/Scripts/Value.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a06841.html">Scripts/Parser.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01733.html">Scripts/ScriptImpl.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>script</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>std::vector&lt;std::string&gt; parseParams(<span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fhead);</div>
+<a href="a01751.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RESOURCES_RESOURCELOADER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RESOURCES_RESOURCELOADER_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00185.html">BLIB/Audio/Playlist.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01670.html">BLIB/Graphics/Animation2D/AnimationData.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01625.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01427.html">BLIB/Models/Importer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01421.html">BLIB/Models/Model.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01700.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01709.html">BLIB/Resources/Resource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;istream&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> ExtraChecks = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">constexpr</span> <span class="keywordtype">bool</span> ExtraChecks = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04850.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">   24</a></span><a class="code hl_function" href="a04850.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function::Function</a>()</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>: data(<a class="code hl_typedef" href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>(nullptr)) {}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>resource</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TResourceType&gt;</div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a05922.html">   28</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05922.html">LoaderBase</a> {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a05922.html#afa92f9ae38b25886b9cd07142812e92d">   33</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05922.html#afa92f9ae38b25886b9cd07142812e92d">~LoaderBase</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a05922.html#a60bcbb603a810caf73adec7ea14f105a">   44</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05922.html#a60bcbb603a810caf73adec7ea14f105a">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len,</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                      std::istream&amp; input, TResourceType&amp; result) = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
 </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a04850.html#a1dc9a03a4439f9f1712dbc27f27e3b5e">   27</a></span><a class="code hl_function" href="a04850.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function::Function</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; tree)</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>: data(tree) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">using </span><a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">G</a>                       = <a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; root = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;data);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ExtraChecks) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">if</span> (root-&gt;type != G::FDef) { <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Expected FDef&quot;</span>); }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">if</span> (root-&gt;children.size() != 2) { <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid FDef children&quot;</span>); }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (root-&gt;children[0]-&gt;type != G::FHead) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid FHead in FDef&quot;</span>, root);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    params = parseParams(root-&gt;children[0]);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TResourceType&gt;</div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a05926.html">   56</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05926.html">NullLoader</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;TResourceType&gt; {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a05926.html#ad80f4e9b908e39fb17e6c100f48c1b43">   61</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05926.html#ad80f4e9b908e39fb17e6c100f48c1b43">~NullLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="foldopen" id="foldopen00069" data-start="{" data-end="}">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a05926.html#a44e6ac4ed2dd18ef58156991af81942b">   69</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05926.html#a44e6ac4ed2dd18ef58156991af81942b">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;,</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                      TResourceType&amp;)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_define" href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Attempted to load &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; <span class="keyword">typeid</span>(TResourceType).name()</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                    &lt;&lt; <span class="stringliteral">&quot;) with NullLoader&quot;</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
 </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04850.html#a0a2c4c548fcff9cdb635ca1a6007f341">   41</a></span><a class="code hl_function" href="a04850.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">Function::Function</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; cb)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>: data(cb) {}</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
 </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04850.html#aa01f0ed7f508bd64c3cd635be88d4b71">   44</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04850.html#aa01f0ed7f508bd64c3cd635be88d4b71">Function::operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04850.html">Function</a>&amp; f)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span> (data.index() != f.data.index()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span> (data.index() == 0) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>* c1 = std::get_if&lt;CustomCB&gt;(&amp;data);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>* c2 = std::get_if&lt;CustomCB&gt;(&amp;f.data);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> c1 == c2;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; r1 = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;data);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; r2 = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;f.data);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span> r1.get() == r2.get();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="};">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05930.html">   85</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;T&gt; {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a05930.html#a0d9f5f4060c6cda3704b50532d023064">   86</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05930.html#a0d9f5f4060c6cda3704b50532d023064">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="a05930.html#ac7fb1a1ab08afffa4c04c2221f830a9b">   88</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05930.html#ac7fb1a1ab08afffa4c04c2221f830a9b">load</a>(<span class="keyword">const</span> std::string&amp;, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;, T&amp;)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;DefaultLoader being used for resource &quot;</span> &lt;&lt; <span class="keyword">typeid</span>(T).name();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a04850.html#a07aec35a2ba40269eebb9550a631165c">   58</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04850.html#a07aec35a2ba40269eebb9550a631165c">Function::operator()</a>(<a class="code hl_class" href="a04878.html">SymbolTable</a>&amp; table, <span class="keyword">const</span> std::vector&lt;Value&gt;&amp; args, <a class="code hl_class" href="a04882.html">Value</a>&amp; result)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>* cbp = std::get_if&lt;CustomCB&gt;(&amp;data);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (cbp) {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">CustomCB</a>&amp; cb = *cbp;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        cb(table, args, result);</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        result.<a class="code hl_function" href="a04882.html#a821da2a8c1875fe641f52ec0b2094e0c">makeSafe</a>();</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">using </span><a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">G</a>                       = <a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; root = *std::get_if&lt;parser::Node::Ptr&gt;(&amp;data);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ExtraChecks) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">if</span> (root-&gt;type != G::FDef) <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Expected FDef&quot;</span>, root);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">if</span> (root-&gt;children.size() != 2)</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid FDef children&quot;</span>, root);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">if</span> (!params.has_value()) <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Null param list&quot;</span>, root);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; plist = params.value();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <span class="keywordflow">if</span> (plist.size() != args.size()) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Function expects &quot;</span> + std::to_string(plist.size()) + <span class="stringliteral">&quot; arguments, &quot;</span> +</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                            std::to_string(args.size()) + <span class="stringliteral">&quot; passed&quot;</span>,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                        root);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        table.<a class="code hl_function" href="a04878.html#a3dbf1b32542bdd1f9d4ccb37cd8aa301">pushFrame</a>();</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; args.size(); ++i) { table.<a class="code hl_function" href="a04878.html#ae08d79fb72d918aa0842c13a3707253c">set</a>(plist[i], args[i], <span class="keyword">true</span>); }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        result = <a class="code hl_function" href="a05546.html#a6b8c371d6bd8211fc97a31e753a2254d">ScriptImpl::runStatementList</a>(root-&gt;children[1], table).value_or(<a class="code hl_class" href="a04882.html">Value</a>());</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        result.<a class="code hl_function" href="a04882.html#a821da2a8c1875fe641f52ec0b2094e0c">makeSafe</a>();</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        table.<a class="code hl_function" href="a04878.html#a520e274abd3b02f57c56a94335050a5e">popFrame</a>();</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
 </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>{</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>std::vector&lt;std::string&gt; recurseParams(<span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; plist) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keyword">using </span><a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">G</a> = <a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ExtraChecks) {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">if</span> (plist-&gt;type != G::ParamList) <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Expected ParamList&quot;</span>, plist);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        <span class="keywordflow">if</span> (plist-&gt;children.size() != 3)</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="a04842.html">Error</a>(<span class="stringliteral">&quot;Internal error: Invalid ParamList children&quot;</span>, plist);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (plist-&gt;children[0]-&gt;type == G::ParamList) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ExtraChecks) {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">if</span> (plist-&gt;children[2]-&gt;type != G::Id)</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Expected Id in ParamList&quot;</span>, plist-&gt;children[2]);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        std::vector&lt;std::string&gt; params = recurseParams(plist-&gt;children[0]);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        params.push_back(plist-&gt;children[2]-&gt;data);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">return</span> params;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="};">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a05934.html">   97</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a03026.html">sf</a>::Texture&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;sf::Texture&gt; {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="a05934.html#ab230141233d927a46e1363c1902d10df">   98</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05934.html#ab230141233d927a46e1363c1902d10df">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="foldopen" id="foldopen00100" data-start="{" data-end="}">
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a05934.html#a2456fe4b4967caa3c8cac571fc667407">  100</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05934.html#a2456fe4b4967caa3c8cac571fc667407">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                      sf::Texture&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load texture: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (plist-&gt;children[0]-&gt;type == G::Id &amp;&amp; plist-&gt;children[2]-&gt;type == G::Id)</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">return</span> {plist-&gt;children[0]-&gt;data, plist-&gt;children[2]-&gt;data};</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid ParamList children types&quot;</span>, plist);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>}</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>std::vector&lt;std::string&gt; parseParams(<span class="keyword">const</span> <a class="code hl_typedef" href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&amp; fhead) {</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keyword">using </span><a class="code hl_typedef" href="a02469.html#af98b10434d6862ecf69f33b6b5b25f27">G</a> = <a class="code hl_enumeration" href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">Parser::Grammar</a>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (fhead-&gt;children.size() == 3) <span class="keywordflow">return</span> {};</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (ExtraChecks) {</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">if</span> (fhead-&gt;children.size() != 4)</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid FHead children&quot;</span>, fhead);</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (fhead-&gt;children[2]-&gt;type == G::Id)</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        <span class="keywordflow">return</span> {fhead-&gt;children[2]-&gt;data};</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fhead-&gt;children[2]-&gt;type == G::ParamList) {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">return</span> recurseParams(fhead-&gt;children[2]);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">throw</span> Error(<span class="stringliteral">&quot;Internal error: Invalid FFead paramlist&quot;</span>, fhead-&gt;children[2]);</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>} <span class="comment">// namespace script</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">Function.hpp</a></div></div>
-<div class="ttc" id="aa00503_html"><div class="ttname"><a href="a00503.html">SymbolTable.hpp</a></div></div>
-<div class="ttc" id="aa00512_html"><div class="ttname"><a href="a00512.html">Error.hpp</a></div></div>
-<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">Value.hpp</a></div></div>
-<div class="ttc" id="aa01733_html"><div class="ttname"><a href="a01733.html">ScriptImpl.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02469_html_af98b10434d6862ecf69f33b6b5b25f27"><div class="ttname"><a href="a02469.html#af98b10434d6862ecf69f33b6b5b25f27">bl::script::G</a></div><div class="ttdeci">Parser::Grammar G</div><div class="ttdef"><b>Definition</b> <a href="a01748_source.html#l00012">ScriptImpl.cpp:12</a></div></div>
-<div class="ttc" id="aa03838_html_a3f49fe9da8742463aa757f89f67a8827"><div class="ttname"><a href="a03838.html#a3f49fe9da8742463aa757f89f67a8827">bl::parser::Node::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Node &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a00011_source.html#l00024">Node.hpp:24</a></div></div>
-<div class="ttc" id="aa04842_html"><div class="ttname"><a href="a04842.html">bl::script::Error</a></div><div class="ttdoc">Script utility class to represent an error. Can be used to build a call stack for script errors.</div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00017">Error.hpp:17</a></div></div>
-<div class="ttc" id="aa04850_html"><div class="ttname"><a href="a04850.html">bl::script::Function</a></div><div class="ttdoc">Utility class for functions defined in scripts themselves.</div><div class="ttdef"><b>Definition</b> <a href="a00500_source.html#l00025">Function.hpp:25</a></div></div>
-<div class="ttc" id="aa04850_html_a07aec35a2ba40269eebb9550a631165c"><div class="ttname"><a href="a04850.html#a07aec35a2ba40269eebb9550a631165c">bl::script::Function::operator()</a></div><div class="ttdeci">void operator()(SymbolTable &amp;table, const std::vector&lt; Value &gt; &amp;args, Value &amp;result) const</div><div class="ttdoc">Calls the function. Error thrown on error.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00058">Function.cpp:58</a></div></div>
-<div class="ttc" id="aa04850_html_a2e1c840d6e1931a14c9f1b8ba963b1e8"><div class="ttname"><a href="a04850.html#a2e1c840d6e1931a14c9f1b8ba963b1e8">bl::script::Function::Function</a></div><div class="ttdeci">Function()</div><div class="ttdoc">Creates an empty, uncallable function.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00024">Function.cpp:24</a></div></div>
-<div class="ttc" id="aa04850_html_a3ca3f959c516d9a90dd20acddeabe172"><div class="ttname"><a href="a04850.html#a3ca3f959c516d9a90dd20acddeabe172">bl::script::Function::CustomCB</a></div><div class="ttdeci">std::function&lt; void(SymbolTable &amp;, const std::vector&lt; Value &gt; &amp;, Value &amp;)&gt; CustomCB</div><div class="ttdoc">Callback type for custom functions. Can be used to provide a built in library Receives the SymbolTabl...</div><div class="ttdef"><b>Definition</b> <a href="a00500_source.html#l00033">Function.hpp:33</a></div></div>
-<div class="ttc" id="aa04850_html_aa01f0ed7f508bd64c3cd635be88d4b71"><div class="ttname"><a href="a04850.html#aa01f0ed7f508bd64c3cd635be88d4b71">bl::script::Function::operator==</a></div><div class="ttdeci">bool operator==(const Function &amp;func) const</div><div class="ttdoc">Comapres against another function.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00044">Function.cpp:44</a></div></div>
-<div class="ttc" id="aa04878_html"><div class="ttname"><a href="a04878.html">bl::script::SymbolTable</a></div><div class="ttdoc">Stack aware symbol table for managing functions and variables Each Script holds a single instance.</div><div class="ttdef"><b>Definition</b> <a href="a00503_source.html#l00026">SymbolTable.hpp:26</a></div></div>
-<div class="ttc" id="aa04878_html_a3dbf1b32542bdd1f9d4ccb37cd8aa301"><div class="ttname"><a href="a04878.html#a3dbf1b32542bdd1f9d4ccb37cd8aa301">bl::script::SymbolTable::pushFrame</a></div><div class="ttdeci">void pushFrame()</div><div class="ttdoc">Pushes a new stack frame on.</div><div class="ttdef"><b>Definition</b> <a href="a01736_source.html#l00031">SymbolTable.cpp:31</a></div></div>
-<div class="ttc" id="aa04878_html_a520e274abd3b02f57c56a94335050a5e"><div class="ttname"><a href="a04878.html#a520e274abd3b02f57c56a94335050a5e">bl::script::SymbolTable::popFrame</a></div><div class="ttdeci">void popFrame()</div><div class="ttdoc">Pops off the top stack frame. Will never pop the global frame.</div><div class="ttdef"><b>Definition</b> <a href="a01736_source.html#l00033">SymbolTable.cpp:33</a></div></div>
-<div class="ttc" id="aa04878_html_ae08d79fb72d918aa0842c13a3707253c"><div class="ttname"><a href="a04878.html#ae08d79fb72d918aa0842c13a3707253c">bl::script::SymbolTable::set</a></div><div class="ttdeci">void set(const std::string &amp;name, const Value &amp;value, bool forceTop=false)</div><div class="ttdoc">Sets a Value in the table in the current frame.</div><div class="ttdef"><b>Definition</b> <a href="a01736_source.html#l00074">SymbolTable.cpp:74</a></div></div>
-<div class="ttc" id="aa04882_html"><div class="ttname"><a href="a04882.html">bl::script::Value</a></div><div class="ttdoc">Main representation of a value in scripts.</div><div class="ttdef"><b>Definition</b> <a href="a00518_source.html#l00022">Value.hpp:22</a></div></div>
-<div class="ttc" id="aa04882_html_a821da2a8c1875fe641f52ec0b2094e0c"><div class="ttname"><a href="a04882.html#a821da2a8c1875fe641f52ec0b2094e0c">bl::script::Value::makeSafe</a></div><div class="ttdeci">void makeSafe()</div><div class="ttdoc">Makes any contained references safe to pass back up the stack.</div><div class="ttdef"><b>Definition</b> <a href="a01721_source.html#l00098">Value.cpp:98</a></div></div>
-<div class="ttc" id="aa05538_html_aab7cdda02e78cc66c150f58063c8b9e4"><div class="ttname"><a href="a05538.html#aab7cdda02e78cc66c150f58063c8b9e4">bl::script::Parser::Grammar</a></div><div class="ttdeci">Grammar</div><div class="ttdef"><b>Definition</b> <a href="a06841_source.html#l00039">Parser.hpp:39</a></div></div>
-<div class="ttc" id="aa05546_html_a6b8c371d6bd8211fc97a31e753a2254d"><div class="ttname"><a href="a05546.html#a6b8c371d6bd8211fc97a31e753a2254d">bl::script::ScriptImpl::runStatementList</a></div><div class="ttdeci">static std::optional&lt; Value &gt; runStatementList(const parser::Node::Ptr &amp;statement, SymbolTable &amp;table)</div><div class="ttdoc">Executes a list of statements. Can take Statement, StmtList, or StmtBlock.</div><div class="ttdef"><b>Definition</b> <a href="a01748_source.html#l00177">ScriptImpl.cpp:177</a></div></div>
-<div class="ttc" id="aa06841_html"><div class="ttname"><a href="a06841.html">Parser.hpp</a></div></div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>};</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00111" data-start="{" data-end="};">
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno"><a class="line" href="a05938.html">  111</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a03026.html">sf</a>::SoundBuffer&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;sf::SoundBuffer&gt; {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a05938.html#a3f7999be9a772641a7345320a68c5152">  112</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05938.html#a3f7999be9a772641a7345320a68c5152">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a05938.html#a54e61c4f7549a088d540e5a222a1c99b">  114</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05938.html#a54e61c4f7549a088d540e5a222a1c99b">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>                      sf::SoundBuffer&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load sound: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>};</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="};">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a05942.html">  125</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;audio::Playlist&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;audio::Playlist&gt; {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a05942.html#aeaada35e18f38925898443fc2c62430a">  126</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05942.html#aeaada35e18f38925898443fc2c62430a">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="foldopen" id="foldopen00128" data-start="{" data-end="}">
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="a05942.html#a11b5e4d6c6cc1e69cee3c110c57b4682">  128</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05942.html#a11b5e4d6c6cc1e69cee3c110c57b4682">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                      <a class="code hl_class" href="a03178.html">audio::Playlist</a>&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a03178.html#a60c66c9f721c21d9f296df4939f9f2e7">loadJson</a>(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        }</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>};</div>
+</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno"><a class="line" href="a03066.html#a57bbbec57da37d77f6076b52e8665fa8">  138</a></span><span class="keyword">using </span><a class="code hl_struct" href="a05942.html">RawPlaylistLoader</a> = <a class="code hl_struct" href="a05930.html">DefaultLoader&lt;audio::Playlist&gt;</a>;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="};">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a05946.html">  140</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05946.html">BundledPlaylistLoader</a> : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;audio::Playlist&gt; {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="a05946.html#a2b509a86dff6689ee223d89fc0e28546">  141</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05946.html#a2b509a86dff6689ee223d89fc0e28546">~BundledPlaylistLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a05946.html#ad77031e03da4a3bd2abd530cd68652f9">  143</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05946.html#ad77031e03da4a3bd2abd530cd68652f9">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                      <a class="code hl_class" href="a03178.html">audio::Playlist</a>&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a03178.html#a06fe97d87293ce054d604a3ec51e7029">loadBinary</a>(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load playlist: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
+</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>};</div>
+</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00154" data-start="{" data-end="};">
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno"><a class="line" href="a05950.html">  154</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a03026.html">sf</a>::Font&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;sf::Font&gt; {</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="a05950.html#aa52ee3ba50606bad01b85ec19cfd8207">  155</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05950.html#aa52ee3ba50606bad01b85ec19cfd8207">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="a05950.html#a827fa5db72dd235b3c58f2fdb3b6007d">  157</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05950.html#a827fa5db72dd235b3c58f2fdb3b6007d">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                      sf::Font&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load font: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    }</div>
+</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>};</div>
+</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00168" data-start="{" data-end="};">
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="a05954.html">  168</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a03026.html">sf</a>::VulkanFont&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;sf::VulkanFont&gt; {</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="a05954.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">  169</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05954.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="a05954.html#aa31f26345b34e0ef52afdd8d632ce744">  171</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05954.html#aa31f26345b34e0ef52afdd8d632ce744">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>                      <a class="code hl_class" href="a04014.html">sf::VulkanFont</a>&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a04014.html#af31fb7799224533a0edd78b79d425e0c">loadFromMemory</a>(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load font: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        }</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    }</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>};</div>
+</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00182" data-start="{" data-end="};">
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="a05958.html">  182</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;<a class="code hl_namespace" href="a03026.html">sf</a>::Image&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;sf::Image&gt; {</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="a05958.html#a44c1b2a09d3f936d301e574cdd60e00d">  183</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05958.html#a44c1b2a09d3f936d301e574cdd60e00d">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="foldopen" id="foldopen00185" data-start="{" data-end="}">
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="a05958.html#ac75afa63bed299d29c0353ed88a1586f">  185</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05958.html#ac75afa63bed299d29c0353ed88a1586f">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>                      sf::Image&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">if</span> (!result.loadFromMemory(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len)) {</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load image: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        }</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    }</div>
+</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>};</div>
+</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00196" data-start="{" data-end="};">
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="a05962.html">  196</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;gfx::a2d::AnimationData&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;gfx::a2d::AnimationData&gt; {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="a05962.html#a63b2d6008ad287e74d2d16934f2e1b2d">  197</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05962.html#a63b2d6008ad287e74d2d16934f2e1b2d">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="a05962.html#a842987b3f9d6e9c34195c681006a49d4">  199</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05962.html#a842987b3f9d6e9c34195c681006a49d4">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                      <a class="code hl_class" href="a03826.html">gfx::a2d::AnimationData</a>&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>        <span class="keywordflow">if</span> (!result.<a class="code hl_function" href="a03826.html#ac3a6f3c9ce23f73a743b47a150e64308">loadFromMemory</a>(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len, path)) {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load animation: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>        }</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    }</div>
+</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>};</div>
+</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="foldopen" id="foldopen00210" data-start="{" data-end="};">
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="a05966.html">  210</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05930.html">DefaultLoader</a>&lt;mdl::Model&gt; : <span class="keyword">public</span> <a class="code hl_struct" href="a05922.html">LoaderBase</a>&lt;mdl::Model&gt; {</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="a05966.html#a2087a130f1b2e1f531132744228ef9c9">  211</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05966.html#a2087a130f1b2e1f531132744228ef9c9">~DefaultLoader</a>() = <span class="keywordflow">default</span>;</div>
+<div class="foldopen" id="foldopen00212" data-start="{" data-end="}">
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="a05966.html#a18067126d32d575c612a3bab1789fcc4">  212</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a05966.html#a18067126d32d575c612a3bab1789fcc4">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                      <a class="code hl_class" href="a04514.html">mdl::Model</a>&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        <span class="keywordflow">if</span> (!importer.import(<a class="code hl_variable" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, len, result, path)) {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to load model: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        }</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    }</div>
+</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <a class="code hl_class" href="a04482.html">mdl::Importer</a> importer;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>};</div>
+</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>} <span class="comment">// namespace resource</span></div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00185_html"><div class="ttname"><a href="a00185.html">Playlist.hpp</a></div></div>
+<div class="ttc" id="aa01421_html"><div class="ttname"><a href="a01421.html">Model.hpp</a></div></div>
+<div class="ttc" id="aa01427_html"><div class="ttname"><a href="a01427.html">Importer.hpp</a></div></div>
+<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01586_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa01586_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00098">Logger.hpp:98</a></div></div>
+<div class="ttc" id="aa01586_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a01586.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa01625_html"><div class="ttname"><a href="a01625.html">VulkanFont.hpp</a></div></div>
+<div class="ttc" id="aa01670_html"><div class="ttname"><a href="a01670.html">AnimationData.hpp</a></div></div>
+<div class="ttc" id="aa01700_html"><div class="ttname"><a href="a01700.html">Ref.hpp</a></div></div>
+<div class="ttc" id="aa01709_html"><div class="ttname"><a href="a01709.html">Resource.hpp</a></div></div>
+<div class="ttc" id="aa01982_html_ad2ae6b0ac080ea0ac45f7a06ccc480ba"><div class="ttname"><a href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a></div><div class="ttdeci">SoundHandle buffer</div><div class="ttdef"><b>Definition</b> <a href="a01982_source.html#l00025">AudioSystem.cpp:25</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03026_html"><div class="ttname"><a href="a03026.html">sf</a></div><div class="ttdef"><b>Definition</b> <a href="a01625_source.html#l00054">VulkanFont.hpp:55</a></div></div>
+<div class="ttc" id="aa03178_html"><div class="ttname"><a href="a03178.html">bl::audio::Playlist</a></div><div class="ttdoc">A playable, serializable music playlist. Can be manually manipulated or loaded from files.</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00020">Playlist.hpp:20</a></div></div>
+<div class="ttc" id="aa03178_html_a06fe97d87293ce054d604a3ec51e7029"><div class="ttname"><a href="a03178.html#a06fe97d87293ce054d604a3ec51e7029">bl::audio::Playlist::loadBinary</a></div><div class="ttdeci">bool loadBinary(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the binary format.</div><div class="ttdef"><b>Definition</b> <a href="a01979_source.html#l00073">Playlist.cpp:73</a></div></div>
+<div class="ttc" id="aa03178_html_a60c66c9f721c21d9f296df4939f9f2e7"><div class="ttname"><a href="a03178.html#a60c66c9f721c21d9f296df4939f9f2e7">bl::audio::Playlist::loadJson</a></div><div class="ttdeci">bool loadJson(const char *buffer, std::size_t len)</div><div class="ttdoc">Loads the playlist from the given memory buffer. Expects the json format.</div><div class="ttdef"><b>Definition</b> <a href="a01979_source.html#l00086">Playlist.cpp:86</a></div></div>
+<div class="ttc" id="aa03826_html"><div class="ttname"><a href="a03826.html">bl::gfx::a2d::AnimationData</a></div><div class="ttdoc">Data class for 2d animations. Provides the backing for slideshows and skeletal animations....</div><div class="ttdef"><b>Definition</b> <a href="a01670_source.html#l00022">AnimationData.hpp:22</a></div></div>
+<div class="ttc" id="aa03826_html_ac3a6f3c9ce23f73a743b47a150e64308"><div class="ttname"><a href="a03826.html#ac3a6f3c9ce23f73a743b47a150e64308">bl::gfx::a2d::AnimationData::loadFromMemory</a></div><div class="ttdeci">bool loadFromMemory(const char *buffer, std::size_t len, const std::string &amp;originalPath)</div><div class="ttdoc">Loads the AnimationData from the given file. Spritesheets are searched for in the same directory as t...</div><div class="ttdef"><b>Definition</b> <a href="a02852_source.html#l00112">AnimationData.cpp:112</a></div></div>
+<div class="ttc" id="aa04014_html"><div class="ttname"><a href="a04014.html">sf::VulkanFont</a></div><div class="ttdoc">Adaptation of sf::Font for use with Vulkan.</div><div class="ttdef"><b>Definition</b> <a href="a01625_source.html#l00063">VulkanFont.hpp:63</a></div></div>
+<div class="ttc" id="aa04014_html_af31fb7799224533a0edd78b79d425e0c"><div class="ttname"><a href="a04014.html#af31fb7799224533a0edd78b79d425e0c">sf::VulkanFont::loadFromMemory</a></div><div class="ttdeci">bool loadFromMemory(const void *data, std::size_t sizeInBytes)</div><div class="ttdoc">Loads the font from the given memory.</div><div class="ttdef"><b>Definition</b> <a href="a02825_source.html#l00208">VulkanFont.cpp:208</a></div></div>
+<div class="ttc" id="aa04482_html"><div class="ttname"><a href="a04482.html">bl::mdl::Importer</a></div><div class="ttdoc">Wrapper class that performs Assimp imports with a simplified interface.</div><div class="ttdef"><b>Definition</b> <a href="a01427_source.html#l00017">Importer.hpp:17</a></div></div>
+<div class="ttc" id="aa04514_html"><div class="ttname"><a href="a04514.html">bl::mdl::Model</a></div><div class="ttdoc">Top level class representing a 3d model.</div><div class="ttdef"><b>Definition</b> <a href="a01421_source.html#l00019">Model.hpp:19</a></div></div>
+<div class="ttc" id="aa05922_html"><div class="ttname"><a href="a05922.html">bl::resource::LoaderBase</a></div><div class="ttdoc">Templated resource loader. Must be implemented for any resource type that is intended to be managed.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00028">Loader.hpp:28</a></div></div>
+<div class="ttc" id="aa05922_html_a60bcbb603a810caf73adec7ea14f105a"><div class="ttname"><a href="a05922.html#a60bcbb603a810caf73adec7ea14f105a">bl::resource::LoaderBase::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;input, TResourceType &amp;result)=0</div><div class="ttdoc">Load the resource as identified by the uri.</div></div>
+<div class="ttc" id="aa05922_html_afa92f9ae38b25886b9cd07142812e92d"><div class="ttname"><a href="a05922.html#afa92f9ae38b25886b9cd07142812e92d">bl::resource::LoaderBase::~LoaderBase</a></div><div class="ttdeci">virtual ~LoaderBase()=default</div><div class="ttdoc">Destroy the Loader Base object.</div></div>
+<div class="ttc" id="aa05926_html"><div class="ttname"><a href="a05926.html">bl::resource::NullLoader</a></div><div class="ttdoc">Helper loader to use if no more of a given resource type should be loaded. Does not perform any loadi...</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00056">Loader.hpp:56</a></div></div>
+<div class="ttc" id="aa05926_html_a44e6ac4ed2dd18ef58156991af81942b"><div class="ttname"><a href="a05926.html#a44e6ac4ed2dd18ef58156991af81942b">bl::resource::NullLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *, std::size_t, std::istream &amp;, TResourceType &amp;) override</div><div class="ttdoc">Logs a warning if called.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00069">Loader.hpp:69</a></div></div>
+<div class="ttc" id="aa05926_html_ad80f4e9b908e39fb17e6c100f48c1b43"><div class="ttname"><a href="a05926.html#ad80f4e9b908e39fb17e6c100f48c1b43">bl::resource::NullLoader::~NullLoader</a></div><div class="ttdeci">virtual ~NullLoader()=default</div><div class="ttdoc">Destroy the Null Loader object.</div></div>
+<div class="ttc" id="aa05930_html"><div class="ttname"><a href="a05930.html">bl::resource::DefaultLoader</a></div><div class="ttdoc">Default loaders provided for types: sf::Texture, sf::Image, sf::Font, sf::SoundBuffer,...</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00085">Loader.hpp:85</a></div></div>
+<div class="ttc" id="aa05930_html_a0d9f5f4060c6cda3704b50532d023064"><div class="ttname"><a href="a05930.html#a0d9f5f4060c6cda3704b50532d023064">bl::resource::DefaultLoader::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05930_html_ac7fb1a1ab08afffa4c04c2221f830a9b"><div class="ttname"><a href="a05930.html#ac7fb1a1ab08afffa4c04c2221f830a9b">bl::resource::DefaultLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;, const char *, std::size_t, std::istream &amp;, T &amp;) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00088">Loader.hpp:88</a></div></div>
+<div class="ttc" id="aa05934_html_a2456fe4b4967caa3c8cac571fc667407"><div class="ttname"><a href="a05934.html#a2456fe4b4967caa3c8cac571fc667407">bl::resource::DefaultLoader&lt; sf::Texture &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::Texture &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00100">Loader.hpp:100</a></div></div>
+<div class="ttc" id="aa05934_html_ab230141233d927a46e1363c1902d10df"><div class="ttname"><a href="a05934.html#ab230141233d927a46e1363c1902d10df">bl::resource::DefaultLoader&lt; sf::Texture &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05938_html_a3f7999be9a772641a7345320a68c5152"><div class="ttname"><a href="a05938.html#a3f7999be9a772641a7345320a68c5152">bl::resource::DefaultLoader&lt; sf::SoundBuffer &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05938_html_a54e61c4f7549a088d540e5a222a1c99b"><div class="ttname"><a href="a05938.html#a54e61c4f7549a088d540e5a222a1c99b">bl::resource::DefaultLoader&lt; sf::SoundBuffer &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::SoundBuffer &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00114">Loader.hpp:114</a></div></div>
+<div class="ttc" id="aa05942_html"><div class="ttname"><a href="a05942.html">bl::resource::DefaultLoader&lt; audio::Playlist &gt;</a></div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00125">Loader.hpp:125</a></div></div>
+<div class="ttc" id="aa05942_html_a11b5e4d6c6cc1e69cee3c110c57b4682"><div class="ttname"><a href="a05942.html#a11b5e4d6c6cc1e69cee3c110c57b4682">bl::resource::DefaultLoader&lt; audio::Playlist &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, audio::Playlist &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00128">Loader.hpp:128</a></div></div>
+<div class="ttc" id="aa05942_html_aeaada35e18f38925898443fc2c62430a"><div class="ttname"><a href="a05942.html#aeaada35e18f38925898443fc2c62430a">bl::resource::DefaultLoader&lt; audio::Playlist &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05946_html"><div class="ttname"><a href="a05946.html">bl::resource::BundledPlaylistLoader</a></div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00140">Loader.hpp:140</a></div></div>
+<div class="ttc" id="aa05946_html_a2b509a86dff6689ee223d89fc0e28546"><div class="ttname"><a href="a05946.html#a2b509a86dff6689ee223d89fc0e28546">bl::resource::BundledPlaylistLoader::~BundledPlaylistLoader</a></div><div class="ttdeci">virtual ~BundledPlaylistLoader()=default</div></div>
+<div class="ttc" id="aa05946_html_ad77031e03da4a3bd2abd530cd68652f9"><div class="ttname"><a href="a05946.html#ad77031e03da4a3bd2abd530cd68652f9">bl::resource::BundledPlaylistLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, audio::Playlist &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00143">Loader.hpp:143</a></div></div>
+<div class="ttc" id="aa05950_html_a827fa5db72dd235b3c58f2fdb3b6007d"><div class="ttname"><a href="a05950.html#a827fa5db72dd235b3c58f2fdb3b6007d">bl::resource::DefaultLoader&lt; sf::Font &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::Font &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00157">Loader.hpp:157</a></div></div>
+<div class="ttc" id="aa05950_html_aa52ee3ba50606bad01b85ec19cfd8207"><div class="ttname"><a href="a05950.html#aa52ee3ba50606bad01b85ec19cfd8207">bl::resource::DefaultLoader&lt; sf::Font &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05954_html_a90fef3a6e2f5ab9ada1d38f8fa0f66b4"><div class="ttname"><a href="a05954.html#a90fef3a6e2f5ab9ada1d38f8fa0f66b4">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05954_html_aa31f26345b34e0ef52afdd8d632ce744"><div class="ttname"><a href="a05954.html#aa31f26345b34e0ef52afdd8d632ce744">bl::resource::DefaultLoader&lt; sf::VulkanFont &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::VulkanFont &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00171">Loader.hpp:171</a></div></div>
+<div class="ttc" id="aa05958_html_a44c1b2a09d3f936d301e574cdd60e00d"><div class="ttname"><a href="a05958.html#a44c1b2a09d3f936d301e574cdd60e00d">bl::resource::DefaultLoader&lt; sf::Image &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05958_html_ac75afa63bed299d29c0353ed88a1586f"><div class="ttname"><a href="a05958.html#ac75afa63bed299d29c0353ed88a1586f">bl::resource::DefaultLoader&lt; sf::Image &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, sf::Image &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00185">Loader.hpp:185</a></div></div>
+<div class="ttc" id="aa05962_html_a63b2d6008ad287e74d2d16934f2e1b2d"><div class="ttname"><a href="a05962.html#a63b2d6008ad287e74d2d16934f2e1b2d">bl::resource::DefaultLoader&lt; gfx::a2d::AnimationData &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
+<div class="ttc" id="aa05962_html_a842987b3f9d6e9c34195c681006a49d4"><div class="ttname"><a href="a05962.html#a842987b3f9d6e9c34195c681006a49d4">bl::resource::DefaultLoader&lt; gfx::a2d::AnimationData &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, gfx::a2d::AnimationData &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00199">Loader.hpp:199</a></div></div>
+<div class="ttc" id="aa05966_html_a18067126d32d575c612a3bab1789fcc4"><div class="ttname"><a href="a05966.html#a18067126d32d575c612a3bab1789fcc4">bl::resource::DefaultLoader&lt; mdl::Model &gt;::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, mdl::Model &amp;result) override</div><div class="ttdoc">Load the resource as identified by the uri.</div><div class="ttdef"><b>Definition</b> <a href="a01751_source.html#l00212">Loader.hpp:212</a></div></div>
+<div class="ttc" id="aa05966_html_a2087a130f1b2e1f531132744228ef9c9"><div class="ttname"><a href="a05966.html#a2087a130f1b2e1f531132744228ef9c9">bl::resource::DefaultLoader&lt; mdl::Model &gt;::~DefaultLoader</a></div><div class="ttdeci">virtual ~DefaultLoader()=default</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

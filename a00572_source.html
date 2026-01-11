@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Containers/StaticVector.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Strategy.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,396 +79,64 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">StaticVector.hpp</div></div>
+  <div class="headertitle"><div class="title">Strategy.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00572.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_STATICVECTOR_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_STATICVECTOR_HPP</span></div>
+<a href="a00572.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_STRATEGY_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00581.html">BLIB/Containers/ObjectWrapper.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rg</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ctr</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a02842.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a02842.html">StaticVector</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">   25</a></span>    <a class="code hl_function" href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">StaticVector</a>();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a02842.html#aac2fe28a5beae7b416bcaa829468533f">   32</a></span>    <a class="code hl_function" href="a02842.html#aac2fe28a5beae7b416bcaa829468533f">StaticVector</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02842.html">StaticVector</a>&amp; copy);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a02842.html#ab169a71c58ff2851d6b9922813df6464">   39</a></span>    <a class="code hl_function" href="a02842.html#ab169a71c58ff2851d6b9922813df6464">StaticVector</a>(<a class="code hl_class" href="a02842.html">StaticVector</a>&amp;&amp; copy);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a02842.html#aadef1a8e135c6e41dfb819a50c447d25">   44</a></span>    <a class="code hl_function" href="a02842.html#aadef1a8e135c6e41dfb819a50c447d25">~StaticVector</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">   51</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">push_back</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">class </span>RenderGraph;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a05094.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a05094.html">Strategy</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05094.html#a52d8932e923fc4ceac54ded8232d3e0a">   23</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05094.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a05094.html#ae55bc09629c3a1a0b3e4026cd3044b36">   30</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05094.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a>(<a class="code hl_class" href="a05074.html">RenderGraph</a>&amp; graph) = 0;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05094.html#a579a52d9d6363a354c6e4a82938620b7">   35</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a05094.html#a579a52d9d6363a354c6e4a82938620b7">getVersion</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> version; }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">protected</span>:</div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05094.html#a0287f9790da42916bced7e9a22983633">   41</a></span>    <a class="code hl_function" href="a05094.html#a0287f9790da42916bced7e9a22983633">Strategy</a>()</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    : version(0) {}</div>
+</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">   47</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">invalidateGraphs</a>() { ++version; }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> version;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>};</div>
+</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a02842.html#a2a6763233f1ad084083d639739d25bdd">   58</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a2a6763233f1ad084083d639739d25bdd">push_back</a>(T&amp;&amp; value);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a02842.html#ad9205745f6a3e608796dfe7086f9dbcf">   67</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#ad9205745f6a3e608796dfe7086f9dbcf">emplace_back</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a02842.html#af758572455fe6a3ccb3a791551d1d3c3">   72</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#af758572455fe6a3ccb3a791551d1d3c3">pop_back</a>();</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a02842.html#a27d2897d751ae2297f6cb5452cfdd416">   79</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a27d2897d751ae2297f6cb5452cfdd416">erase</a>(std::size_t index);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a02842.html#a6a1d89797415a7f532057c6824622ab7">   86</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a6a1d89797415a7f532057c6824622ab7">resize</a>(std::size_t newSize);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="foldopen" id="foldopen00094" data-start="{" data-end="}">
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno"><a class="line" href="a02842.html#a57c05e13d75822c523203a7cd5253099">   94</a></span>    T&amp; <a class="code hl_function" href="a02842.html#a57c05e13d75822c523203a7cd5253099">operator[]</a>(std::size_t index);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a02842.html#a322301ecfaa209891cfc1f0286c96b13">  102</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02842.html#a322301ecfaa209891cfc1f0286c96b13">operator[]</a>(std::size_t index) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="foldopen" id="foldopen00107" data-start="{" data-end="}">
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a02842.html#a193bce5b1c717bf9126271f837501bce">  107</a></span>    std::size_t <a class="code hl_function" href="a02842.html#a193bce5b1c717bf9126271f837501bce">size</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="foldopen" id="foldopen00112" data-start="{" data-end="}">
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno"><a class="line" href="a02842.html#a52d2e7ce8a8d8ae063764f95bb9dee4d">  112</a></span>    std::size_t <a class="code hl_function" href="a02842.html#a52d2e7ce8a8d8ae063764f95bb9dee4d">capacity</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a02842.html#a924715da62f13a64429e320042816f27">  117</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a924715da62f13a64429e320042816f27">clear</a>();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="foldopen" id="foldopen00122" data-start="{" data-end="}">
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno"><a class="line" href="a02842.html#ab299dfbe743e9c1ae3c8d871eef02ca0">  122</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a02842.html#ab299dfbe743e9c1ae3c8d871eef02ca0">empty</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="foldopen" id="foldopen00127" data-start="{" data-end="}">
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">  127</a></span>    T&amp; <a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">back</a>();</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
-<div class="foldopen" id="foldopen00132" data-start="{" data-end="}">
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="a02842.html#afadada9f717f0acea7ab33649213191f">  132</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02842.html#afadada9f717f0acea7ab33649213191f">back</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="}">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="a02842.html#ae155bd3c2fdb37c0d50cca17bb230b87">  137</a></span>    T&amp; <a class="code hl_function" href="a02842.html#ae155bd3c2fdb37c0d50cca17bb230b87">front</a>();</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="a02842.html#a0458b93290071db1baecd70af077b845">  142</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02842.html#a0458b93290071db1baecd70af077b845">front</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="foldopen" id="foldopen00147" data-start="{" data-end="}">
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno"><a class="line" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">  147</a></span>    T* <a class="code hl_function" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">data</a>();</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="foldopen" id="foldopen00152" data-start="{" data-end="}">
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a02842.html#a6ad69c5c88828428d429386cca9949d0">  152</a></span>    <span class="keyword">const</span> T* <a class="code hl_function" href="a02842.html#a6ad69c5c88828428d429386cca9949d0">data</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="a02842.html#a1a72d5998f7b0135f27a793fca0f3314">  157</a></span>    T* <a class="code hl_function" href="a02842.html#a1a72d5998f7b0135f27a793fca0f3314">begin</a>();</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="foldopen" id="foldopen00162" data-start="{" data-end="}">
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="a02842.html#a139b437c7c27cdfc151f569ed7a0c4d5">  162</a></span>    <span class="keyword">const</span> T* <a class="code hl_function" href="a02842.html#a139b437c7c27cdfc151f569ed7a0c4d5">begin</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="a02842.html#a08d89ebcb971d89aebf9a27667945f62">  167</a></span>    T* <a class="code hl_function" href="a02842.html#a08d89ebcb971d89aebf9a27667945f62">end</a>();</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
-<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="a02842.html#aae8f5ab27a189e4d7280b0952b167be8">  172</a></span>    <span class="keyword">const</span> T* <a class="code hl_function" href="a02842.html#aae8f5ab27a189e4d7280b0952b167be8">end</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    std::array&lt;ObjectWrapper&lt;T&gt;, N&gt; storage;</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    std::size_t used;</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>};</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00182" data-start="{" data-end="}">
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">  182</a></span><a class="code hl_function" href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">StaticVector&lt;T, N&gt;::StaticVector</a>()</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>: used(0) {}</div>
-</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00186" data-start="{" data-end="}">
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="a02842.html#aac2fe28a5beae7b416bcaa829468533f">  186</a></span><a class="code hl_function" href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">StaticVector&lt;T, N&gt;::StaticVector</a>(<span class="keyword">const</span> <a class="code hl_class" href="a02842.html">StaticVector</a>&amp; copy)</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>: used(copy.used) {</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; used; ++i) { storage[i].emplace(copy.storage[i].get()); }</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>}</div>
-</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00192" data-start="{" data-end="}">
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno"><a class="line" href="a02842.html#ab169a71c58ff2851d6b9922813df6464">  192</a></span><a class="code hl_function" href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">StaticVector&lt;T, N&gt;::StaticVector</a>(<a class="code hl_class" href="a02842.html">StaticVector</a>&amp;&amp; copy)</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>: used(copy.used) {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; used; ++i) { storage[i].emplace(copy.storage[i].getRValue()); }</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>}</div>
-</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00198" data-start="{" data-end="}">
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="a02842.html#aadef1a8e135c6e41dfb819a50c447d25">  198</a></span><a class="code hl_function" href="a02842.html#aadef1a8e135c6e41dfb819a50c447d25">StaticVector&lt;T, N&gt;::~StaticVector</a>() {</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    clear();</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>}</div>
-</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00203" data-start="{" data-end="}">
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno"><a class="line" href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">  203</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">StaticVector&lt;T, N&gt;::push_back</a>(<span class="keyword">const</span> T&amp; value) {</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordflow">if</span> (used &gt;= N) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;StaticVector is full&quot;</span>); }</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    storage[used++].emplace(value);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>}</div>
-</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00212" data-start="{" data-end="}">
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="a02842.html#a2a6763233f1ad084083d639739d25bdd">  212</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">StaticVector&lt;T, N&gt;::push_back</a>(T&amp;&amp; value) {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">if</span> (used &gt;= N) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;StaticVector is full&quot;</span>); }</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    storage[used++].emplace(std::forward&lt;T&gt;(value));</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
-</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00222" data-start="{" data-end="}">
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="a02842.html#ad9205745f6a3e608796dfe7086f9dbcf">  222</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#ad9205745f6a3e608796dfe7086f9dbcf">StaticVector&lt;T, N&gt;::emplace_back</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">if</span> (used &gt;= N) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;StaticVector is full&quot;</span>); }</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    storage[used++].emplace(std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>}</div>
-</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00231" data-start="{" data-end="}">
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="a02842.html#af758572455fe6a3ccb3a791551d1d3c3">  231</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#af758572455fe6a3ccb3a791551d1d3c3">StaticVector&lt;T, N&gt;::pop_back</a>() {</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordflow">if</span> (used == 0) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;StaticVector is empty&quot;</span>); }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    storage[--used].destroy();</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>}</div>
-</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="a02842.html#a27d2897d751ae2297f6cb5452cfdd416">  240</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a27d2897d751ae2297f6cb5452cfdd416">StaticVector&lt;T, N&gt;::erase</a>(std::size_t index) {</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">if</span> (index &gt;= used) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Index out of bounds&quot;</span>); }</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordflow">if</span> (index == used - 1) { pop_back(); }</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">for</span> (std::size_t i = index; i &lt; used - 1; ++i) {</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>            storage[i].destroy();</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            storage[i].emplace(std::move(storage[i + 1].get()));</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        --used;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    }</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>}</div>
-</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00256" data-start="{" data-end="}">
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno"><a class="line" href="a02842.html#a6a1d89797415a7f532057c6824622ab7">  256</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a6a1d89797415a7f532057c6824622ab7">StaticVector&lt;T, N&gt;::resize</a>(std::size_t newSize) {</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="keywordflow">if</span> (newSize &gt; used) {</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">for</span> (std::size_t i = used; i &lt; newSize; ++i) { storage[i].emplace(); }</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    }</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>        <span class="keywordflow">for</span> (std::size_t i = newSize; i &lt; used; ++i) { storage[i].destroy(); }</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    }</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    used = newSize;</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>}</div>
-</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00267" data-start="{" data-end="}">
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="a02842.html#a57c05e13d75822c523203a7cd5253099">  267</a></span>T&amp; <a class="code hl_function" href="a02842.html#a57c05e13d75822c523203a7cd5253099">StaticVector&lt;T, N&gt;::operator[]</a>(std::size_t index) {</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordflow">return</span> storage[index].get();</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
-</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00272" data-start="{" data-end="}">
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="a02842.html#a322301ecfaa209891cfc1f0286c96b13">  272</a></span><span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02842.html#a57c05e13d75822c523203a7cd5253099">StaticVector&lt;T, N&gt;::operator[]</a>(std::size_t index)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">return</span> storage[index].get();</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>}</div>
-</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00277" data-start="{" data-end="}">
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno"><a class="line" href="a02842.html#a193bce5b1c717bf9126271f837501bce">  277</a></span>std::size_t <a class="code hl_function" href="a02842.html#a193bce5b1c717bf9126271f837501bce">StaticVector&lt;T, N&gt;::size</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">return</span> used;</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>}</div>
-</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00282" data-start="{" data-end="}">
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno"><a class="line" href="a02842.html#a52d2e7ce8a8d8ae063764f95bb9dee4d">  282</a></span>std::size_t <a class="code hl_function" href="a02842.html#a52d2e7ce8a8d8ae063764f95bb9dee4d">StaticVector&lt;T, N&gt;::capacity</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    <span class="keywordflow">return</span> N;</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>}</div>
-</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00287" data-start="{" data-end="}">
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno"><a class="line" href="a02842.html#a924715da62f13a64429e320042816f27">  287</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a02842.html#a924715da62f13a64429e320042816f27">StaticVector&lt;T, N&gt;::clear</a>() {</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; used; ++i) { storage[i].destroy(); }</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    used = 0;</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>}</div>
-</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span> </div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00293" data-start="{" data-end="}">
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno"><a class="line" href="a02842.html#ab299dfbe743e9c1ae3c8d871eef02ca0">  293</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a02842.html#ab299dfbe743e9c1ae3c8d871eef02ca0">StaticVector&lt;T, N&gt;::empty</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">return</span> used == 0;</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>}</div>
-</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00298" data-start="{" data-end="}">
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">  298</a></span>T&amp; <a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">StaticVector&lt;T, N&gt;::back</a>() {</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <span class="keywordflow">return</span> storage[used - 1].get();</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>}</div>
-</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00303" data-start="{" data-end="}">
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="a02842.html#afadada9f717f0acea7ab33649213191f">  303</a></span><span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">StaticVector&lt;T, N&gt;::back</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <span class="keywordflow">return</span> storage[used - 1].get();</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>}</div>
-</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00308" data-start="{" data-end="}">
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno"><a class="line" href="a02842.html#ae155bd3c2fdb37c0d50cca17bb230b87">  308</a></span>T&amp; <a class="code hl_function" href="a02842.html#ae155bd3c2fdb37c0d50cca17bb230b87">StaticVector&lt;T, N&gt;::front</a>() {</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="keywordflow">return</span> storage[0].get();</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>}</div>
-</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00313" data-start="{" data-end="}">
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno"><a class="line" href="a02842.html#a0458b93290071db1baecd70af077b845">  313</a></span><span class="keyword">const</span> T&amp; <a class="code hl_function" href="a02842.html#ae155bd3c2fdb37c0d50cca17bb230b87">StaticVector&lt;T, N&gt;::front</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    <span class="keywordflow">return</span> storage[0].get();</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>}</div>
-</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00318" data-start="{" data-end="}">
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno"><a class="line" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">  318</a></span>T* <a class="code hl_function" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">StaticVector&lt;T, N&gt;::data</a>() {</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keywordflow">return</span> &amp;storage[0].get();</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>}</div>
-</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00323" data-start="{" data-end="}">
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno"><a class="line" href="a02842.html#a6ad69c5c88828428d429386cca9949d0">  323</a></span><span class="keyword">const</span> T* <a class="code hl_function" href="a02842.html#a2a14c8d01a362b4190eab550a107051d">StaticVector&lt;T, N&gt;::data</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordflow">return</span> &amp;storage[0].get();</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>}</div>
-</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00328" data-start="{" data-end="}">
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno"><a class="line" href="a02842.html#a1a72d5998f7b0135f27a793fca0f3314">  328</a></span>T* <a class="code hl_function" href="a02842.html#a1a72d5998f7b0135f27a793fca0f3314">StaticVector&lt;T, N&gt;::begin</a>() {</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="keywordflow">return</span> &amp;storage[0].get();</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>}</div>
-</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span> </div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00333" data-start="{" data-end="}">
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno"><a class="line" href="a02842.html#a139b437c7c27cdfc151f569ed7a0c4d5">  333</a></span><span class="keyword">const</span> T* <a class="code hl_function" href="a02842.html#a1a72d5998f7b0135f27a793fca0f3314">StaticVector&lt;T, N&gt;::begin</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <span class="keywordflow">return</span> &amp;storage[0].get();</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>}</div>
-</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00338" data-start="{" data-end="}">
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno"><a class="line" href="a02842.html#a08d89ebcb971d89aebf9a27667945f62">  338</a></span>T* <a class="code hl_function" href="a02842.html#a08d89ebcb971d89aebf9a27667945f62">StaticVector&lt;T, N&gt;::end</a>() {</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    <span class="keywordflow">return</span> (&amp;storage[used - 1].get()) + 1;</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>}</div>
-</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="foldopen" id="foldopen00343" data-start="{" data-end="}">
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="a02842.html#aae8f5ab27a189e4d7280b0952b167be8">  343</a></span><span class="keyword">const</span> T* <a class="code hl_function" href="a02842.html#a08d89ebcb971d89aebf9a27667945f62">StaticVector&lt;T, N&gt;::end</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordflow">return</span> (&amp;storage[used - 1].get()) + 1;</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>}</div>
-</div>
-</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>} <span class="comment">// namespace ctr</span></div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span> </div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="preprocessor">#endif</span></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="ttc" id="aa00581_html"><div class="ttname"><a href="a00581.html">ObjectWrapper.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02842_html"><div class="ttname"><a href="a02842.html">bl::ctr::StaticVector</a></div><div class="ttdoc">Wrapper over std::array that provides a vector-like interface with a fixed capacity.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00020">StaticVector.hpp:20</a></div></div>
-<div class="ttc" id="aa02842_html_a0458b93290071db1baecd70af077b845"><div class="ttname"><a href="a02842.html#a0458b93290071db1baecd70af077b845">bl::ctr::StaticVector::front</a></div><div class="ttdeci">const T &amp; front() const</div><div class="ttdoc">Returns a reference to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00313">StaticVector.hpp:313</a></div></div>
-<div class="ttc" id="aa02842_html_a08d89ebcb971d89aebf9a27667945f62"><div class="ttname"><a href="a02842.html#a08d89ebcb971d89aebf9a27667945f62">bl::ctr::StaticVector::end</a></div><div class="ttdeci">T * end()</div><div class="ttdoc">Returns a pointer to the last element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00338">StaticVector.hpp:338</a></div></div>
-<div class="ttc" id="aa02842_html_a139b437c7c27cdfc151f569ed7a0c4d5"><div class="ttname"><a href="a02842.html#a139b437c7c27cdfc151f569ed7a0c4d5">bl::ctr::StaticVector::begin</a></div><div class="ttdeci">const T * begin() const</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00333">StaticVector.hpp:333</a></div></div>
-<div class="ttc" id="aa02842_html_a193bce5b1c717bf9126271f837501bce"><div class="ttname"><a href="a02842.html#a193bce5b1c717bf9126271f837501bce">bl::ctr::StaticVector::size</a></div><div class="ttdeci">std::size_t size() const</div><div class="ttdoc">Returns the current number of elements in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00277">StaticVector.hpp:277</a></div></div>
-<div class="ttc" id="aa02842_html_a1a72d5998f7b0135f27a793fca0f3314"><div class="ttname"><a href="a02842.html#a1a72d5998f7b0135f27a793fca0f3314">bl::ctr::StaticVector::begin</a></div><div class="ttdeci">T * begin()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00328">StaticVector.hpp:328</a></div></div>
-<div class="ttc" id="aa02842_html_a27d2897d751ae2297f6cb5452cfdd416"><div class="ttname"><a href="a02842.html#a27d2897d751ae2297f6cb5452cfdd416">bl::ctr::StaticVector::erase</a></div><div class="ttdeci">void erase(std::size_t index)</div><div class="ttdoc">Erases the element at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00240">StaticVector.hpp:240</a></div></div>
-<div class="ttc" id="aa02842_html_a2a14c8d01a362b4190eab550a107051d"><div class="ttname"><a href="a02842.html#a2a14c8d01a362b4190eab550a107051d">bl::ctr::StaticVector::data</a></div><div class="ttdeci">T * data()</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00318">StaticVector.hpp:318</a></div></div>
-<div class="ttc" id="aa02842_html_a2a6763233f1ad084083d639739d25bdd"><div class="ttname"><a href="a02842.html#a2a6763233f1ad084083d639739d25bdd">bl::ctr::StaticVector::push_back</a></div><div class="ttdeci">void push_back(T &amp;&amp;value)</div><div class="ttdoc">Appends a value to the end of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00212">StaticVector.hpp:212</a></div></div>
-<div class="ttc" id="aa02842_html_a322301ecfaa209891cfc1f0286c96b13"><div class="ttname"><a href="a02842.html#a322301ecfaa209891cfc1f0286c96b13">bl::ctr::StaticVector::operator[]</a></div><div class="ttdeci">const T &amp; operator[](std::size_t index) const</div><div class="ttdoc">Returns a reference to the element at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00272">StaticVector.hpp:272</a></div></div>
-<div class="ttc" id="aa02842_html_a52d2e7ce8a8d8ae063764f95bb9dee4d"><div class="ttname"><a href="a02842.html#a52d2e7ce8a8d8ae063764f95bb9dee4d">bl::ctr::StaticVector::capacity</a></div><div class="ttdeci">std::size_t capacity() const</div><div class="ttdoc">Returns the maximum number of elements that can be stored in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00282">StaticVector.hpp:282</a></div></div>
-<div class="ttc" id="aa02842_html_a57c05e13d75822c523203a7cd5253099"><div class="ttname"><a href="a02842.html#a57c05e13d75822c523203a7cd5253099">bl::ctr::StaticVector::operator[]</a></div><div class="ttdeci">T &amp; operator[](std::size_t index)</div><div class="ttdoc">Returns a reference to the element at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00267">StaticVector.hpp:267</a></div></div>
-<div class="ttc" id="aa02842_html_a58317d5b00b8b172e15eb82e72c298f9"><div class="ttname"><a href="a02842.html#a58317d5b00b8b172e15eb82e72c298f9">bl::ctr::StaticVector::StaticVector</a></div><div class="ttdeci">StaticVector()</div><div class="ttdoc">Creates an empty StaticVector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00182">StaticVector.hpp:182</a></div></div>
-<div class="ttc" id="aa02842_html_a6a1d89797415a7f532057c6824622ab7"><div class="ttname"><a href="a02842.html#a6a1d89797415a7f532057c6824622ab7">bl::ctr::StaticVector::resize</a></div><div class="ttdeci">void resize(std::size_t newSize)</div><div class="ttdoc">Resizes the vector to the given size.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00256">StaticVector.hpp:256</a></div></div>
-<div class="ttc" id="aa02842_html_a6ad69c5c88828428d429386cca9949d0"><div class="ttname"><a href="a02842.html#a6ad69c5c88828428d429386cca9949d0">bl::ctr::StaticVector::data</a></div><div class="ttdeci">const T * data() const</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00323">StaticVector.hpp:323</a></div></div>
-<div class="ttc" id="aa02842_html_a8ee5bad16ad74a58646588fa190b07c6"><div class="ttname"><a href="a02842.html#a8ee5bad16ad74a58646588fa190b07c6">bl::ctr::StaticVector::back</a></div><div class="ttdeci">T &amp; back()</div><div class="ttdoc">Returns a reference to the last element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00298">StaticVector.hpp:298</a></div></div>
-<div class="ttc" id="aa02842_html_a915cf93bc46819d0361448fad7c5ddf0"><div class="ttname"><a href="a02842.html#a915cf93bc46819d0361448fad7c5ddf0">bl::ctr::StaticVector::push_back</a></div><div class="ttdeci">void push_back(const T &amp;value)</div><div class="ttdoc">Append a value to the end of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00203">StaticVector.hpp:203</a></div></div>
-<div class="ttc" id="aa02842_html_a924715da62f13a64429e320042816f27"><div class="ttname"><a href="a02842.html#a924715da62f13a64429e320042816f27">bl::ctr::StaticVector::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears all elements from the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00287">StaticVector.hpp:287</a></div></div>
-<div class="ttc" id="aa02842_html_aac2fe28a5beae7b416bcaa829468533f"><div class="ttname"><a href="a02842.html#aac2fe28a5beae7b416bcaa829468533f">bl::ctr::StaticVector::StaticVector</a></div><div class="ttdeci">StaticVector(const StaticVector &amp;copy)</div><div class="ttdoc">Copies from another vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00186">StaticVector.hpp:186</a></div></div>
-<div class="ttc" id="aa02842_html_aadef1a8e135c6e41dfb819a50c447d25"><div class="ttname"><a href="a02842.html#aadef1a8e135c6e41dfb819a50c447d25">bl::ctr::StaticVector::~StaticVector</a></div><div class="ttdeci">~StaticVector()</div><div class="ttdoc">Destroys the StaticVector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00198">StaticVector.hpp:198</a></div></div>
-<div class="ttc" id="aa02842_html_aae8f5ab27a189e4d7280b0952b167be8"><div class="ttname"><a href="a02842.html#aae8f5ab27a189e4d7280b0952b167be8">bl::ctr::StaticVector::end</a></div><div class="ttdeci">const T * end() const</div><div class="ttdoc">Returns a pointer to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00343">StaticVector.hpp:343</a></div></div>
-<div class="ttc" id="aa02842_html_ab169a71c58ff2851d6b9922813df6464"><div class="ttname"><a href="a02842.html#ab169a71c58ff2851d6b9922813df6464">bl::ctr::StaticVector::StaticVector</a></div><div class="ttdeci">StaticVector(StaticVector &amp;&amp;copy)</div><div class="ttdoc">Moves from another vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00192">StaticVector.hpp:192</a></div></div>
-<div class="ttc" id="aa02842_html_ab299dfbe743e9c1ae3c8d871eef02ca0"><div class="ttname"><a href="a02842.html#ab299dfbe743e9c1ae3c8d871eef02ca0">bl::ctr::StaticVector::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether the vector is empty or not.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00293">StaticVector.hpp:293</a></div></div>
-<div class="ttc" id="aa02842_html_ad9205745f6a3e608796dfe7086f9dbcf"><div class="ttname"><a href="a02842.html#ad9205745f6a3e608796dfe7086f9dbcf">bl::ctr::StaticVector::emplace_back</a></div><div class="ttdeci">void emplace_back(TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs a new element in place at the end of the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00222">StaticVector.hpp:222</a></div></div>
-<div class="ttc" id="aa02842_html_ae155bd3c2fdb37c0d50cca17bb230b87"><div class="ttname"><a href="a02842.html#ae155bd3c2fdb37c0d50cca17bb230b87">bl::ctr::StaticVector::front</a></div><div class="ttdeci">T &amp; front()</div><div class="ttdoc">Returns a reference to the first element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00308">StaticVector.hpp:308</a></div></div>
-<div class="ttc" id="aa02842_html_af758572455fe6a3ccb3a791551d1d3c3"><div class="ttname"><a href="a02842.html#af758572455fe6a3ccb3a791551d1d3c3">bl::ctr::StaticVector::pop_back</a></div><div class="ttdeci">void pop_back()</div><div class="ttdoc">Removes the last element from the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00231">StaticVector.hpp:231</a></div></div>
-<div class="ttc" id="aa02842_html_afadada9f717f0acea7ab33649213191f"><div class="ttname"><a href="a02842.html#afadada9f717f0acea7ab33649213191f">bl::ctr::StaticVector::back</a></div><div class="ttdeci">const T &amp; back() const</div><div class="ttdoc">Returns a reference to the last element in the vector.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00303">StaticVector.hpp:303</a></div></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace rg</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05074_html"><div class="ttname"><a href="a05074.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00031">RenderGraph.hpp:31</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00018">Strategy.hpp:18</a></div></div>
+<div class="ttc" id="aa05094_html_a0287f9790da42916bced7e9a22983633"><div class="ttname"><a href="a05094.html#a0287f9790da42916bced7e9a22983633">bl::rc::rg::Strategy::Strategy</a></div><div class="ttdeci">Strategy()</div><div class="ttdoc">Creates the strategy.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00041">Strategy.hpp:41</a></div></div>
+<div class="ttc" id="aa05094_html_a0bcc11e0775e3e075568142ecaa1f60d"><div class="ttname"><a href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">bl::rc::rg::Strategy::invalidateGraphs</a></div><div class="ttdeci">void invalidateGraphs()</div><div class="ttdoc">Causes all created graphs to be rebuilt lazily.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00047">Strategy.hpp:47</a></div></div>
+<div class="ttc" id="aa05094_html_a52d8932e923fc4ceac54ded8232d3e0a"><div class="ttname"><a href="a05094.html#a52d8932e923fc4ceac54ded8232d3e0a">bl::rc::rg::Strategy::~Strategy</a></div><div class="ttdeci">virtual ~Strategy()=default</div><div class="ttdoc">Destroys the strategy.</div></div>
+<div class="ttc" id="aa05094_html_a579a52d9d6363a354c6e4a82938620b7"><div class="ttname"><a href="a05094.html#a579a52d9d6363a354c6e4a82938620b7">bl::rc::rg::Strategy::getVersion</a></div><div class="ttdeci">unsigned int getVersion() const</div><div class="ttdoc">Returns the version of the strategy. This is used to rebuild graphs on settings change.</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00035">Strategy.hpp:35</a></div></div>
+<div class="ttc" id="aa05094_html_ae55bc09629c3a1a0b3e4026cd3044b36"><div class="ttname"><a href="a05094.html#ae55bc09629c3a1a0b3e4026cd3044b36">bl::rc::rg::Strategy::populate</a></div><div class="ttdeci">virtual void populate(RenderGraph &amp;graph)=0</div><div class="ttdoc">Populates the given graph with tasks.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

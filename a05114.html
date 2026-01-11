@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::Serializer&lt; std::unordered_map&lt; U, V &gt;, false &gt; Struct Template Reference</title>
+<title>BLIB: bl::rc::rg::TaskInput Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,86 +74,130 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02405.html">serial</a></li><li class="navelem"><a class="el" href="a02453.html">json</a></li><li class="navelem"><a class="el" href="a05114.html">Serializer&lt; std::unordered_map&lt; U, V &gt;, false &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03059.html">rg</a></li><li class="navelem"><a class="el" href="a05114.html">TaskInput</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05111.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::json::Serializer&lt; std::unordered_map&lt; U, V &gt;, false &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::TaskInput Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a06889_source.html">Serializer.hpp</a>&gt;</code></p>
+<p>Wrapper for a single input for a task. Allows multiple tags to be options for a single input slot.  
+ <a href="a05114.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00641_source.html">TaskInput.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a86ab25bc68916bab84c9bdb7e8340ecf" id="r_a86ab25bc68916bab84c9bdb7e8340ecf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a86ab25bc68916bab84c9bdb7e8340ecf">T</a> = <a class="el" href="a02474.html#aa8853668ec5ed0e2e9cc964b2e38334d">util::UnderlyingTypeT</a>&lt; U &gt;</td></tr>
-<tr class="separator:a86ab25bc68916bab84c9bdb7e8340ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a880d5d4972d3ce75345eab3892d96c6a" id="r_a880d5d4972d3ce75345eab3892d96c6a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a> { <a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6aabf237a6665e28ada106de434d8901c3a">Exclusive</a>
+, <a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a">Shared</a>
+ }</td></tr>
+<tr class="memdesc:a880d5d4972d3ce75345eab3892d96c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents how inputs are shared by different tasks.  <a href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">More...</a><br /></td></tr>
+<tr class="separator:a880d5d4972d3ce75345eab3892d96c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af824b71c98a37f11bebcfd0f4b236b86" id="r_af824b71c98a37f11bebcfd0f4b236b86"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#af824b71c98a37f11bebcfd0f4b236b86">deserialize</a> (std::unordered_map&lt; U, V &gt; &amp;result, const <a class="el" href="a05058.html">Value</a> &amp;v)</td></tr>
-<tr class="separator:af824b71c98a37f11bebcfd0f4b236b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a512416f8dfcf38c13a454e93644c362f" id="r_a512416f8dfcf38c13a454e93644c362f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a512416f8dfcf38c13a454e93644c362f">deserializeFrom</a> (const <a class="el" href="a05058.html">Value</a> &amp;val, const std::string &amp;name, std::unordered_map&lt; U, V &gt; &amp;result)</td></tr>
-<tr class="separator:a512416f8dfcf38c13a454e93644c362f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7997664be607174ebfb6f9b51319d524" id="r_a7997664be607174ebfb6f9b51319d524"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a05058.html">Value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a7997664be607174ebfb6f9b51319d524">serialize</a> (const std::unordered_map&lt; U, V &gt; &amp;value)</td></tr>
-<tr class="separator:a7997664be607174ebfb6f9b51319d524"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59c18228be4ebdaa4e9bf2790e1a2e06" id="r_a59c18228be4ebdaa4e9bf2790e1a2e06"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a59c18228be4ebdaa4e9bf2790e1a2e06">serializeInto</a> (<a class="el" href="a05054.html">Group</a> &amp;result, const std::string &amp;name, const std::unordered_map&lt; U, V &gt; &amp;value)</td></tr>
-<tr class="separator:a59c18228be4ebdaa4e9bf2790e1a2e06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa8251fdc875ef8e3e79b5afaf24cc76" id="r_aaa8251fdc875ef8e3e79b5afaf24cc76"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#aaa8251fdc875ef8e3e79b5afaf24cc76">deserializeStream</a> (std::istream &amp;stream, std::unordered_map&lt; U, V &gt; &amp;result)</td></tr>
-<tr class="separator:aaa8251fdc875ef8e3e79b5afaf24cc76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a138fad087e3a0e9383d823ba7d43d657" id="r_a138fad087e3a0e9383d823ba7d43d657"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a138fad087e3a0e9383d823ba7d43d657">serializeStream</a> (std::ostream &amp;stream, const std::unordered_map&lt; U, V &gt; &amp;value, unsigned int tabSize, unsigned int currentIndent)</td></tr>
-<tr class="separator:a138fad087e3a0e9383d823ba7d43d657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa5db097b4e19dc86db3eb082e1f52952" id="r_aa5db097b4e19dc86db3eb082e1f52952"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#aa5db097b4e19dc86db3eb082e1f52952">TaskInput</a> ()</td></tr>
+<tr class="memdesc:aa5db097b4e19dc86db3eb082e1f52952"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty input.  <br /></td></tr>
+<tr class="separator:aa5db097b4e19dc86db3eb082e1f52952"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaf7e9e923531999cfaa47495764440f" id="r_adaf7e9e923531999cfaa47495764440f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#adaf7e9e923531999cfaa47495764440f">TaskInput</a> (std::string_view input, <a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a> <a class="el" href="a05114.html#ab2eaca0b95f69b3a9012afcafac60c03">shareMode</a>=<a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a">Shared</a>)</td></tr>
+<tr class="memdesc:adaf7e9e923531999cfaa47495764440f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an input with a single asset tag option.  <br /></td></tr>
+<tr class="separator:adaf7e9e923531999cfaa47495764440f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3734fd72fba67db7a44d36b993e53a7" id="r_ab3734fd72fba67db7a44d36b993e53a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#ab3734fd72fba67db7a44d36b993e53a7">TaskInput</a> (std::initializer_list&lt; std::string_view &gt; inputs, <a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a> <a class="el" href="a05114.html#ab2eaca0b95f69b3a9012afcafac60c03">shareMode</a>=<a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a">Shared</a>)</td></tr>
+<tr class="memdesc:ab3734fd72fba67db7a44d36b993e53a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an input with a collection of possible tags for the input slot.  <br /></td></tr>
+<tr class="separator:ab3734fd72fba67db7a44d36b993e53a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a7b20890367da473fb8f1654f1c47129f" id="r_a7b20890367da473fb8f1654f1c47129f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#a7b20890367da473fb8f1654f1c47129f">options</a></td></tr>
+<tr class="separator:a7b20890367da473fb8f1654f1c47129f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2eaca0b95f69b3a9012afcafac60c03" id="r_ab2eaca0b95f69b3a9012afcafac60c03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05114.html#ab2eaca0b95f69b3a9012afcafac60c03">shareMode</a></td></tr>
+<tr class="separator:ab2eaca0b95f69b3a9012afcafac60c03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename U, typename V&gt;<br />
-struct bl::serial::json::Serializer&lt; std::unordered_map&lt; U, V &gt;, false &gt;</div>
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00702">702</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a86ab25bc68916bab84c9bdb7e8340ecf" name="a86ab25bc68916bab84c9bdb7e8340ecf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86ab25bc68916bab84c9bdb7e8340ecf">&#9670;&#160;</a></span>T</h2>
+<div class="textblock"><p>Wrapper for a single input for a task. Allows multiple tags to be options for a single input slot. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00020">20</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a880d5d4972d3ce75345eab3892d96c6a" name="a880d5d4972d3ce75345eab3892d96c6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a880d5d4972d3ce75345eab3892d96c6a">&#9670;&#160;</a></span>ShareMode</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::T =  <a class="el" href="a02474.html#aa8853668ec5ed0e2e9cc964b2e38334d">util::UnderlyingTypeT</a>&lt;U&gt;</td>
+          <td class="memname">enum <a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">bl::rc::rg::TaskInput::ShareMode</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00704">704</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Represents how inputs are shared by different tasks. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a880d5d4972d3ce75345eab3892d96c6aabf237a6665e28ada106de434d8901c3a" name="a880d5d4972d3ce75345eab3892d96c6aabf237a6665e28ada106de434d8901c3a"></a>Exclusive&#160;</td><td class="fielddoc"><p>This input may not be shared with other tasks. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a" name="a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a"></a>Shared&#160;</td><td class="fielddoc"><p>This input may be shared with other tasks. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00022">22</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="af824b71c98a37f11bebcfd0f4b236b86" name="af824b71c98a37f11bebcfd0f4b236b86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af824b71c98a37f11bebcfd0f4b236b86">&#9670;&#160;</a></span>deserialize()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa5db097b4e19dc86db3eb082e1f52952" name="aa5db097b4e19dc86db3eb082e1f52952"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5db097b4e19dc86db3eb082e1f52952">&#9670;&#160;</a></span>TaskInput() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::deserialize </td>
+          <td class="memname">bl::rc::rg::TaskInput::TaskInput </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; U, V &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an empty input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00036">36</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adaf7e9e923531999cfaa47495764440f" name="adaf7e9e923531999cfaa47495764440f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adaf7e9e923531999cfaa47495764440f">&#9670;&#160;</a></span>TaskInput() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::TaskInput::TaskInput </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a05058.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>v</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a>&#160;</td>
+          <td class="paramname"><em>shareMode</em> = <code><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a">Shared</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -163,43 +207,44 @@ template&lt;typename U , typename V &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00706">706</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Creates an input with a single asset tag option. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The tag of the asset for this input slot </td></tr>
+    <tr><td class="paramname">shareMode</td><td>The sharing behavior of the input </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00045">45</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a512416f8dfcf38c13a454e93644c362f" name="a512416f8dfcf38c13a454e93644c362f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a512416f8dfcf38c13a454e93644c362f">&#9670;&#160;</a></span>deserializeFrom()</h2>
+<a id="ab3734fd72fba67db7a44d36b993e53a7" name="ab3734fd72fba67db7a44d36b993e53a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3734fd72fba67db7a44d36b993e53a7">&#9670;&#160;</a></span>TaskInput() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::deserializeFrom </td>
+          <td class="memname">bl::rc::rg::TaskInput::TaskInput </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05058.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
+          <td class="paramtype">std::initializer_list&lt; std::string_view &gt;&#160;</td>
+          <td class="paramname"><em>inputs</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::unordered_map&lt; U, V &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a>&#160;</td>
+          <td class="paramname"><em>shareMode</em> = <code><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6aacefd4b000c66ad5e339ae99f37445f3a">Shared</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -209,191 +254,65 @@ template&lt;typename U , typename V &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00721">721</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p>Creates an input with a collection of possible tags for the input slot. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>The different options for the input slot </td></tr>
+    <tr><td class="paramname">shareMode</td><td>The sharing behavior of the input </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00055">55</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aaa8251fdc875ef8e3e79b5afaf24cc76" name="aaa8251fdc875ef8e3e79b5afaf24cc76"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa8251fdc875ef8e3e79b5afaf24cc76">&#9670;&#160;</a></span>deserializeStream()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7b20890367da473fb8f1654f1c47129f" name="a7b20890367da473fb8f1654f1c47129f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b20890367da473fb8f1654f1c47129f">&#9670;&#160;</a></span>options</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::deserializeStream </td>
-          <td>(</td>
-          <td class="paramtype">std::istream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::unordered_map&lt; U, V &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">std::vector&lt;std::string_view&gt; bl::rc::rg::TaskInput::options</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00741">741</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00030">30</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7997664be607174ebfb6f9b51319d524" name="a7997664be607174ebfb6f9b51319d524"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7997664be607174ebfb6f9b51319d524">&#9670;&#160;</a></span>serialize()</h2>
+<a id="ab2eaca0b95f69b3a9012afcafac60c03" name="ab2eaca0b95f69b3a9012afcafac60c03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2eaca0b95f69b3a9012afcafac60c03">&#9670;&#160;</a></span>shareMode</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="a05058.html">Value</a> <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::serialize </td>
-          <td>(</td>
-          <td class="paramtype">const std::unordered_map&lt; U, V &gt; &amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a05114.html#a880d5d4972d3ce75345eab3892d96c6a">ShareMode</a> bl::rc::rg::TaskInput::shareMode</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00727">727</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a59c18228be4ebdaa4e9bf2790e1a2e06" name="a59c18228be4ebdaa4e9bf2790e1a2e06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59c18228be4ebdaa4e9bf2790e1a2e06">&#9670;&#160;</a></span>serializeInto()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::serializeInto </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05054.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_map&lt; U, V &gt; &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00736">736</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a138fad087e3a0e9383d823ba7d43d657" name="a138fad087e3a0e9383d823ba7d43d657"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a138fad087e3a0e9383d823ba7d43d657">&#9670;&#160;</a></span>serializeStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename U , typename V &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bool <a class="el" href="a05066.html">bl::serial::json::Serializer</a>&lt; std::unordered_map&lt; U, V &gt;, false &gt;::serializeStream </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::unordered_map&lt; U, V &gt; &amp;&#160;</td>
-          <td class="paramname"><em>value</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>tabSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>currentIndent</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a06889_source.html#l00748">748</a> of file <a class="el" href="a06889_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00031">31</a> of file <a class="el" href="a00641_source.html">TaskInput.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a06889_source.html">Serializer.hpp</a></li>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00641_source.html">TaskInput.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

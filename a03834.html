@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::parser::ISkipper Class Reference</title>
+<title>BLIB: bl::gfx::a2d::AnimationData::Frame::Shard Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,143 +74,146 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02446.html">parser</a></li><li class="navelem"><a class="el" href="a03834.html">ISkipper</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03005.html">gfx</a></li><li class="navelem"><a class="el" href="a03021.html">a2d</a></li><li class="navelem"><a class="el" href="a03826.html">AnimationData</a></li><li class="navelem"><a class="el" href="a03830.html">Frame</a></li><li class="navelem"><a class="el" href="a03834.html">Shard</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a03831.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::parser::ISkipper Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02386.html">Parser</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gfx::a2d::AnimationData::Frame::Shard Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  
+<p>A skeleton bone within an animation frame.  
  <a href="a03834.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00020_source.html">ISkipper.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::parser::ISkipper:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03834.png" usemap="#bl::parser::ISkipper_map" alt=""/>
-  <map id="bl::parser::ISkipper_map" name="bl::parser::ISkipper_map">
-<area href="a03866.html" title="Default skipper that skips over all whitespace beginning with the next token Note that this will not ..." alt="bl::parser::WhitespaceSkipper" shape="rect" coords="0,56,179,80"/>
-<area href="a03814.html" title="Basic comment and whitespace skipper for more common use cases." alt="bl::parser::CommentSkipper" shape="rect" coords="0,112,179,136"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01670_source.html">AnimationData.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ac94262dbc4b796277c22a958aa727323" id="r_ac94262dbc4b796277c22a958aa727323"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a03834.html">ISkipper</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">Ptr</a></td></tr>
-<tr class="separator:ac94262dbc4b796277c22a958aa727323"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8afaad7778d34f6f3f86198ebdd4a86b" id="r_a8afaad7778d34f6f3f86198ebdd4a86b"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#a8afaad7778d34f6f3f86198ebdd4a86b">~ISkipper</a> ()=default</td></tr>
-<tr class="memdesc:a8afaad7778d34f6f3f86198ebdd4a86b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a03834.html" title="Interface for custom parsers to skip past unwanted characters such as whitespace or comments.">ISkipper</a> object.  <br /></td></tr>
-<tr class="separator:a8afaad7778d34f6f3f86198ebdd4a86b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a044cd5fba80d2ab990c25d9b92bbc5b4" id="r_a044cd5fba80d2ab990c25d9b92bbc5b4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#a044cd5fba80d2ab990c25d9b92bbc5b4">skip</a> (<a class="el" href="a03858.html">Stream</a> &amp;stream) const =0</td></tr>
-<tr class="memdesc:a044cd5fba80d2ab990c25d9b92bbc5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skip past unwanted characters in the stream.  <br /></td></tr>
-<tr class="separator:a044cd5fba80d2ab990c25d9b92bbc5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa48119786b6c6305042dfecdcb9e81fd" id="r_aa48119786b6c6305042dfecdcb9e81fd"><td class="memItemLeft" align="right" valign="top">sf::IntRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#aa48119786b6c6305042dfecdcb9e81fd">source</a></td></tr>
+<tr class="separator:aa48119786b6c6305042dfecdcb9e81fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af23221646fd9a9001d7a29d4d862e9b4" id="r_af23221646fd9a9001d7a29d4d862e9b4"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#af23221646fd9a9001d7a29d4d862e9b4">offset</a></td></tr>
+<tr class="separator:af23221646fd9a9001d7a29d4d862e9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae419ceea1e005e76f4b16ac4e668b33c" id="r_ae419ceea1e005e76f4b16ac4e668b33c"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#ae419ceea1e005e76f4b16ac4e668b33c">scale</a></td></tr>
+<tr class="separator:ae419ceea1e005e76f4b16ac4e668b33c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d3f1cac98e26ff90c84cd3cfa43c378" id="r_a6d3f1cac98e26ff90c84cd3cfa43c378"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#a6d3f1cac98e26ff90c84cd3cfa43c378">rotation</a></td></tr>
+<tr class="separator:a6d3f1cac98e26ff90c84cd3cfa43c378"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f489b8c249507126af7c7e7fca38835" id="r_a1f489b8c249507126af7c7e7fca38835"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#a1f489b8c249507126af7c7e7fca38835">alpha</a></td></tr>
+<tr class="separator:a1f489b8c249507126af7c7e7fca38835"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a309a5e1b8856e04876e2b5c1d5b03d25" id="r_a309a5e1b8856e04876e2b5c1d5b03d25"><td class="memItemLeft" align="right" valign="top">sf::FloatRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#a309a5e1b8856e04876e2b5c1d5b03d25">normalizedSource</a></td></tr>
+<tr class="separator:a309a5e1b8856e04876e2b5c1d5b03d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface for custom parsers to skip past unwanted characters such as whitespace or comments. </p>
+<div class="textblock"><p>A skeleton bone within an animation frame. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00017">17</a> of file <a class="el" href="a00020_source.html">ISkipper.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ac94262dbc4b796277c22a958aa727323" name="ac94262dbc4b796277c22a958aa727323"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94262dbc4b796277c22a958aa727323">&#9670;&#160;</a></span>Ptr</h2>
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00031">31</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1f489b8c249507126af7c7e7fca38835" name="a1f489b8c249507126af7c7e7fca38835"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f489b8c249507126af7c7e7fca38835">&#9670;&#160;</a></span>alpha</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a03834.html">ISkipper</a>&gt; <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></td>
+          <td class="memname">std::uint8_t bl::gfx::a2d::AnimationData::Frame::Shard::alpha</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00019">19</a> of file <a class="el" href="a00020_source.html">ISkipper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00036">36</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8afaad7778d34f6f3f86198ebdd4a86b" name="a8afaad7778d34f6f3f86198ebdd4a86b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8afaad7778d34f6f3f86198ebdd4a86b">&#9670;&#160;</a></span>~ISkipper()</h2>
+<a id="a309a5e1b8856e04876e2b5c1d5b03d25" name="a309a5e1b8856e04876e2b5c1d5b03d25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a309a5e1b8856e04876e2b5c1d5b03d25">&#9670;&#160;</a></span>normalizedSource</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::parser::ISkipper::~ISkipper </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">sf::FloatRect bl::gfx::a2d::AnimationData::Frame::Shard::normalizedSource</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destroy the <a class="el" href="a03834.html" title="Interface for custom parsers to skip past unwanted characters such as whitespace or comments.">ISkipper</a> object. </p>
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00039">39</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a044cd5fba80d2ab990c25d9b92bbc5b4" name="a044cd5fba80d2ab990c25d9b92bbc5b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a044cd5fba80d2ab990c25d9b92bbc5b4">&#9670;&#160;</a></span>skip()</h2>
+<a id="af23221646fd9a9001d7a29d4d862e9b4" name="af23221646fd9a9001d7a29d4d862e9b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af23221646fd9a9001d7a29d4d862e9b4">&#9670;&#160;</a></span>offset</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::parser::ISkipper::skip </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03858.html">Stream</a> &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">sf::Vector2f bl::gfx::a2d::AnimationData::Frame::Shard::offset</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Skip past unwanted characters in the stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>The stream to perform skip operations on </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a03814.html#ad8a968db6095fab17e8b637c550671fd">bl::parser::CommentSkipper</a>, and <a class="el" href="a03866.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00033">33</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Parser/<a class="el" href="a00020_source.html">ISkipper.hpp</a></li>
+<a id="a6d3f1cac98e26ff90c84cd3cfa43c378" name="a6d3f1cac98e26ff90c84cd3cfa43c378"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d3f1cac98e26ff90c84cd3cfa43c378">&#9670;&#160;</a></span>rotation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::gfx::a2d::AnimationData::Frame::Shard::rotation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00035">35</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae419ceea1e005e76f4b16ac4e668b33c" name="ae419ceea1e005e76f4b16ac4e668b33c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae419ceea1e005e76f4b16ac4e668b33c">&#9670;&#160;</a></span>scale</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::gfx::a2d::AnimationData::Frame::Shard::scale</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00034">34</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa48119786b6c6305042dfecdcb9e81fd" name="aa48119786b6c6305042dfecdcb9e81fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa48119786b6c6305042dfecdcb9e81fd">&#9670;&#160;</a></span>source</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::IntRect bl::gfx::a2d::AnimationData::Frame::Shard::source</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01670_source.html#l00032">32</a> of file <a class="el" href="a01670_source.html">AnimationData.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Graphics/Animation2D/<a class="el" href="a01670_source.html">AnimationData.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

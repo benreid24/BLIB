@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::parser::CommentSkipper Class Reference</title>
+<title>BLIB: bl::engine::World2D Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,68 +74,147 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02446.html">parser</a></li><li class="navelem"><a class="el" href="a03814.html">CommentSkipper</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03002.html">engine</a></li><li class="navelem"><a class="el" href="a03814.html">World2D</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a03811.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::parser::CommentSkipper Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::engine::World2D Class Reference<div class="ingroups"><a class="el" href="a02969.html">Engine</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic comment and whitespace skipper for more common use cases.  
+<p><a class="el" href="a03806.html" title="Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...">World</a> type for 2d worlds with physics and collisions.  
  <a href="a03814.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00017_source.html">CommentSkipper.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01490_source.html">World2D.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::parser::CommentSkipper:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::engine::World2D:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a03814.png" usemap="#bl::parser::CommentSkipper_map" alt=""/>
-  <map id="bl::parser::CommentSkipper_map" name="bl::parser::CommentSkipper_map">
-<area href="a03866.html" title="Default skipper that skips over all whitespace beginning with the next token Note that this will not ..." alt="bl::parser::WhitespaceSkipper" shape="rect" coords="0,56,179,80"/>
-<area href="a03834.html" title="Interface for custom parsers to skip past unwanted characters such as whitespace or comments." alt="bl::parser::ISkipper" shape="rect" coords="0,0,179,24"/>
+  <img src="a03814.png" usemap="#bl::engine::World2D_map" alt=""/>
+  <map id="bl::engine::World2D_map" name="bl::engine::World2D_map">
+<area href="a03810.html" alt="bl::engine::BasicWorld&lt; rc::scene::Scene2D &gt;" shape="rect" coords="0,112,270,136"/>
+<area href="a03806.html" title="Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds..." alt="bl::engine::World" shape="rect" coords="0,56,270,80"/>
+<area href="a06542.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,270,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac94262dbc4b796277c22a958aa727323" id="r_ac94262dbc4b796277c22a958aa727323"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a03834.html">ISkipper</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">Ptr</a></td></tr>
-<tr class="separator:ac94262dbc4b796277c22a958aa727323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31b38168d1f8ab70aa04f4a22ebe4934" id="r_a31b38168d1f8ab70aa04f4a22ebe4934"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a31b38168d1f8ab70aa04f4a22ebe4934">WorldQueryCallback</a> = bool(*)(<a class="el" href="a03306.html">com::Physics2D</a> *, void *)</td></tr>
+<tr class="memdesc:a31b38168d1f8ab70aa04f4a22ebe4934"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature for world spatial queries. Return false to terminate the query.  <br /></td></tr>
+<tr class="separator:a31b38168d1f8ab70aa04f4a22ebe4934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ace9972e7d2cf601a7050903ff252d590" id="r_ace9972e7d2cf601a7050903ff252d590"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#ace9972e7d2cf601a7050903ff252d590">CommentSkipper</a> (const std::string &amp;lineCommentOpen, const std::string &amp;blockCommentOpen, const std::string &amp;blockCommentClose)</td></tr>
-<tr class="memdesc:ace9972e7d2cf601a7050903ff252d590"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Comment Skipper object. Leave arguments blank to ignore.  <br /></td></tr>
-<tr class="separator:ace9972e7d2cf601a7050903ff252d590"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01572efe60524d50820add2caa2f8a8c" id="r_a01572efe60524d50820add2caa2f8a8c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a01572efe60524d50820add2caa2f8a8c">~CommentSkipper</a> ()=default</td></tr>
-<tr class="memdesc:a01572efe60524d50820add2caa2f8a8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Comment Skipper object.  <br /></td></tr>
-<tr class="separator:a01572efe60524d50820add2caa2f8a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8a968db6095fab17e8b637c550671fd" id="r_ad8a968db6095fab17e8b637c550671fd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#ad8a968db6095fab17e8b637c550671fd">skip</a> (<a class="el" href="a03858.html">Stream</a> &amp;stream) const override</td></tr>
-<tr class="memdesc:ad8a968db6095fab17e8b637c550671fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Skips whitespace and comments.  <br /></td></tr>
-<tr class="separator:ad8a968db6095fab17e8b637c550671fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d522545fa17502abd9ca8299f039c4" id="r_af1d522545fa17502abd9ca8299f039c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#af1d522545fa17502abd9ca8299f039c4">World2D</a> (<a class="el" href="a03698.html">Engine</a> &amp;owner)</td></tr>
+<tr class="memdesc:af1d522545fa17502abd9ca8299f039c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the world.  <br /></td></tr>
+<tr class="separator:af1d522545fa17502abd9ca8299f039c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f9fccfcc38eb86e8bacc79f94af8830" id="r_a0f9fccfcc38eb86e8bacc79f94af8830"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a0f9fccfcc38eb86e8bacc79f94af8830">~World2D</a> ()</td></tr>
+<tr class="memdesc:a0f9fccfcc38eb86e8bacc79f94af8830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the world.  <br /></td></tr>
+<tr class="separator:a0f9fccfcc38eb86e8bacc79f94af8830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e195a9b57c9978a7573733984d01bc7" id="r_a6e195a9b57c9978a7573733984d01bc7"><td class="memItemLeft" align="right" valign="top">b2WorldId&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a6e195a9b57c9978a7573733984d01bc7">getBox2dWorldId</a> () const</td></tr>
+<tr class="memdesc:a6e195a9b57c9978a7573733984d01bc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Box2D world id for this world.  <br /></td></tr>
+<tr class="separator:a6e195a9b57c9978a7573733984d01bc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbdfbe7dc771a0103e843495df6b9171" id="r_abbdfbe7dc771a0103e843495df6b9171"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#abbdfbe7dc771a0103e843495df6b9171">setGravity</a> (const glm::vec2 &amp;gravity)</td></tr>
+<tr class="memdesc:abbdfbe7dc771a0103e843495df6b9171"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the acceleration of gravity in the physics world.  <br /></td></tr>
+<tr class="separator:abbdfbe7dc771a0103e843495df6b9171"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab069c258b82b32a13038bb7eb753c9e9" id="r_ab069c258b82b32a13038bb7eb753c9e9"><td class="memItemLeft" align="right" valign="top">const glm::vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#ab069c258b82b32a13038bb7eb753c9e9">getGravity</a> () const</td></tr>
+<tr class="memdesc:ab069c258b82b32a13038bb7eb753c9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the acceleration from gravity in m/s.  <br /></td></tr>
+<tr class="separator:ab069c258b82b32a13038bb7eb753c9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e00df89460eec2f8e4e7eaeee11b04f" id="r_a7e00df89460eec2f8e4e7eaeee11b04f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a7e00df89460eec2f8e4e7eaeee11b04f">setLengthUnitScale</a> (float worldToBoxScale)</td></tr>
+<tr class="memdesc:a7e00df89460eec2f8e4e7eaeee11b04f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the scale factor to convert world units to Box2D meters. Default is 1.  <br /></td></tr>
+<tr class="separator:a7e00df89460eec2f8e4e7eaeee11b04f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a124088708bb82e6f2cfffb3ad93259d9" id="r_a124088708bb82e6f2cfffb3ad93259d9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a124088708bb82e6f2cfffb3ad93259d9">getWorldToBoxScale</a> () const</td></tr>
+<tr class="memdesc:a124088708bb82e6f2cfffb3ad93259d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scale factor to convert world units to Box2D meters.  <br /></td></tr>
+<tr class="separator:a124088708bb82e6f2cfffb3ad93259d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a762a5dcfc5cb91cc4f57bd18f1be5263" id="r_a762a5dcfc5cb91cc4f57bd18f1be5263"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a762a5dcfc5cb91cc4f57bd18f1be5263">queryAABB</a> (glm::vec2 upperBound, glm::vec2 lowerBound, b2QueryFilter filter, <a class="el" href="a03814.html#a31b38168d1f8ab70aa04f4a22ebe4934">WorldQueryCallback</a> <a class="el" href="a02753.html#a6546e90ed77dc1a7bfeba3fb43a02fd8">callback</a>, void *<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) const</td></tr>
+<tr class="memdesc:a762a5dcfc5cb91cc4f57bd18f1be5263"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queries the world and calls the callback for each entity within the rectangle.  <br /></td></tr>
+<tr class="separator:a762a5dcfc5cb91cc4f57bd18f1be5263"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b6926ca30495c90225cfb617fc8bec" id="r_a91b6926ca30495c90225cfb617fc8bec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a91b6926ca30495c90225cfb617fc8bec">createEntity</a> (<a class="el" href="a02968.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags=<a class="el" href="a02968.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>)</td></tr>
+<tr class="memdesc:a91b6926ca30495c90225cfb617fc8bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an entity in this world.  <br /></td></tr>
+<tr class="separator:a91b6926ca30495c90225cfb617fc8bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23185df51a82f55368dfe8f05a93d30f" id="r_a23185df51a82f55368dfe8f05a93d30f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03542.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a23185df51a82f55368dfe8f05a93d30f">createEntity</a> (const <a class="el" href="a03678.html">ecs::Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">ecs::tx::EntityWrite</a> &gt; &amp;transaction, <a class="el" href="a02968.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags=<a class="el" href="a02968.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>)</td></tr>
+<tr class="memdesc:a23185df51a82f55368dfe8f05a93d30f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an entity in this world.  <br /></td></tr>
+<tr class="separator:a23185df51a82f55368dfe8f05a93d30f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8826a649acea7872a1278cd86eaf412e" id="r_a8826a649acea7872a1278cd86eaf412e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a8826a649acea7872a1278cd86eaf412e">destroyAllEntities</a> ()</td></tr>
+<tr class="memdesc:a8826a649acea7872a1278cd86eaf412e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys all entities in this world.  <br /></td></tr>
+<tr class="separator:a8826a649acea7872a1278cd86eaf412e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d543f53339633c3e1f27e956a9369d4" id="r_a1d543f53339633c3e1f27e956a9369d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">Engine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a1d543f53339633c3e1f27e956a9369d4">engine</a> () const</td></tr>
+<tr class="memdesc:a1d543f53339633c3e1f27e956a9369d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the game engine instance.  <br /></td></tr>
+<tr class="separator:a1d543f53339633c3e1f27e956a9369d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e77c6ef3c0c64ca96d6da94f1ac2ee2" id="r_a9e77c6ef3c0c64ca96d6da94f1ac2ee2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05386.html">rc::SceneRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">scene</a> () const</td></tr>
+<tr class="memdesc:a9e77c6ef3c0c64ca96d6da94f1ac2ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the scene for this world.  <br /></td></tr>
+<tr class="separator:a9e77c6ef3c0c64ca96d6da94f1ac2ee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aaf57b247b9695aeaf9faff2319cdcb" id="r_a1aaf57b247b9695aeaf9faff2319cdcb"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a1aaf57b247b9695aeaf9faff2319cdcb">worldIndex</a> () const</td></tr>
+<tr class="memdesc:a1aaf57b247b9695aeaf9faff2319cdcb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of this world.  <br /></td></tr>
+<tr class="separator:a1aaf57b247b9695aeaf9faff2319cdcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a02cac5c7b7be1a6a5d90374a2aa295aa" id="r_a02cac5c7b7be1a6a5d90374a2aa295aa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03814.html#a02cac5c7b7be1a6a5d90374a2aa295aa">create</a> (const std::string &amp;lineCommentOpen, const std::string &amp;blockCommentOpen, const std::string &amp;blockCommentClose)</td></tr>
-<tr class="memdesc:a02cac5c7b7be1a6a5d90374a2aa295aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create a <a class="el" href="a03814.html" title="Basic comment and whitespace skipper for more common use cases.">CommentSkipper</a> wrapped in an <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>.  <br /></td></tr>
-<tr class="separator:a02cac5c7b7be1a6a5d90374a2aa295aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17380f013a7b0b8bca4839683da5742b" id="r_a17380f013a7b0b8bca4839683da5742b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03866.html#a17380f013a7b0b8bca4839683da5742b">create</a> ()</td></tr>
-<tr class="separator:a17380f013a7b0b8bca4839683da5742b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a510cb2022f4be86940fa5f2c27225919" id="r_a510cb2022f4be86940fa5f2c27225919"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03806.html#a510cb2022f4be86940fa5f2c27225919">MaxWorlds</a> = 8</td></tr>
+<tr class="separator:a510cb2022f4be86940fa5f2c27225919"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic comment and whitespace skipper for more common use cases. </p>
+<div class="textblock"><p><a class="el" href="a03806.html" title="Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...">World</a> type for 2d worlds with physics and collisions. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00017_source.html#l00015">15</a> of file <a class="el" href="a00017_source.html">CommentSkipper.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01490_source.html#l00019">19</a> of file <a class="el" href="a01490_source.html">World2D.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ac94262dbc4b796277c22a958aa727323" name="ac94262dbc4b796277c22a958aa727323"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94262dbc4b796277c22a958aa727323">&#9670;&#160;</a></span>Ptr</h2>
+<a id="a31b38168d1f8ab70aa04f4a22ebe4934" name="a31b38168d1f8ab70aa04f4a22ebe4934"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31b38168d1f8ab70aa04f4a22ebe4934">&#9670;&#160;</a></span>WorldQueryCallback</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a03814.html#a31b38168d1f8ab70aa04f4a22ebe4934">bl::engine::World2D::WorldQueryCallback</a> =  bool (*)(<a class="el" href="a03306.html">com::Physics2D</a>*, void*)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback signature for world spatial queries. Return false to terminate the query. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01490_source.html#l00022">22</a> of file <a class="el" href="a01490_source.html">World2D.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af1d522545fa17502abd9ca8299f039c4" name="af1d522545fa17502abd9ca8299f039c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d522545fa17502abd9ca8299f039c4">&#9670;&#160;</a></span>World2D()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::World2D::World2D </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03698.html">Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the world. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">owner</td><td>The game engine instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02753_source.html#l00058">58</a> of file <a class="el" href="a02753_source.html">World2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f9fccfcc38eb86e8bacc79f94af8830" name="a0f9fccfcc38eb86e8bacc79f94af8830"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f9fccfcc38eb86e8bacc79f94af8830">&#9670;&#160;</a></span>~World2D()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,7 +223,51 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a03834.html">ISkipper</a>&gt; <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">bl::parser::ISkipper::Ptr</a></td>
+          <td class="memname">bl::engine::World2D::~World2D </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the world. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02753_source.html#l00074">74</a> of file <a class="el" href="a02753_source.html">World2D.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a23185df51a82f55368dfe8f05a93d30f" name="a23185df51a82f55368dfe8f05a93d30f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23185df51a82f55368dfe8f05a93d30f">&#9670;&#160;</a></span>createEntity() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03542.html">ecs::Entity</a> bl::engine::World::createEntity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03678.html">ecs::Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">ecs::tx::EntityWrite</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>transaction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02968.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a>&#160;</td>
+          <td class="paramname"><em>flags</em> = <code><a class="el" href="a02968.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -154,59 +277,22 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00019">19</a> of file <a class="el" href="a00020_source.html">ISkipper.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ace9972e7d2cf601a7050903ff252d590" name="ace9972e7d2cf601a7050903ff252d590"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace9972e7d2cf601a7050903ff252d590">&#9670;&#160;</a></span>CommentSkipper()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::parser::CommentSkipper::CommentSkipper </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lineCommentOpen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>blockCommentOpen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>blockCommentClose</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Comment Skipper object. Leave arguments blank to ignore. </p>
+<p>Creates an entity in this world. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lineCommentOpen</td><td>String that identifies the opening of a line comment </td></tr>
-    <tr><td class="paramname">blockCommentOpen</td><td>String that opens a block comment </td></tr>
-    <tr><td class="paramname">blockCommentClose</td><td>String that closes a block comment </td></tr>
+    <tr><td class="paramname">transaction</td><td>The transaction to create the entity with </td></tr>
+    <tr><td class="paramname">flags</td><td>The flags to create the entity with </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The new entity </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01487_source.html#l00007">7</a> of file <a class="el" href="a01487_source.html">CommentSkipper.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02744_source.html#l00013">13</a> of file <a class="el" href="a02744_source.html">World.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a01572efe60524d50820add2caa2f8a8c" name="a01572efe60524d50820add2caa2f8a8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01572efe60524d50820add2caa2f8a8c">&#9670;&#160;</a></span>~CommentSkipper()</h2>
+<a id="a91b6926ca30495c90225cfb617fc8bec" name="a91b6926ca30495c90225cfb617fc8bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91b6926ca30495c90225cfb617fc8bec">&#9670;&#160;</a></span>createEntity() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -215,7 +301,44 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::parser::CommentSkipper::~CommentSkipper </td>
+          <td class="memname"><a class="el" href="a03542.html">ecs::Entity</a> bl::engine::World::createEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02968.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a>&#160;</td>
+          <td class="paramname"><em>flags</em> = <code><a class="el" href="a02968.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a></code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an entity in this world. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flags</td><td>The flags to create the entity with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The new entity </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02744_source.html#l00011">11</a> of file <a class="el" href="a02744_source.html">World.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8826a649acea7872a1278cd86eaf412e" name="a8826a649acea7872a1278cd86eaf412e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8826a649acea7872a1278cd86eaf412e">&#9670;&#160;</a></span>destroyAllEntities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::World::destroyAllEntities </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -223,18 +346,19 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Comment Skipper object. </p>
+<p>Destroys all entities in this world. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02744_source.html#l00018">18</a> of file <a class="el" href="a02744_source.html">World.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a17380f013a7b0b8bca4839683da5742b" name="a17380f013a7b0b8bca4839683da5742b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17380f013a7b0b8bca4839683da5742b">&#9670;&#160;</a></span>create() <span class="overload">[1/2]</span></h2>
+<a id="a1d543f53339633c3e1f27e956a9369d4" name="a1d543f53339633c3e1f27e956a9369d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d543f53339633c3e1f27e956a9369d4">&#9670;&#160;</a></span>engine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,117 +367,320 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> bl::parser::WhitespaceSkipper::create </td>
+          <td class="memname"><a class="el" href="a03698.html">Engine</a> &amp; bl::engine::World::engine </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00002_source.html#l00020">20</a> of file <a class="el" href="a00002_source.html">WhitespaceSkipper.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a02cac5c7b7be1a6a5d90374a2aa295aa" name="a02cac5c7b7be1a6a5d90374a2aa295aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02cac5c7b7be1a6a5d90374a2aa295aa">&#9670;&#160;</a></span>create() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a> bl::parser::CommentSkipper::create </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>lineCommentOpen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>blockCommentOpen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>blockCommentClose</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper function to create a <a class="el" href="a03814.html" title="Basic comment and whitespace skipper for more common use cases.">CommentSkipper</a> wrapped in an <a class="el" href="a03834.html#ac94262dbc4b796277c22a958aa727323">ISkipper::Ptr</a>. </p>
-<dl class="section see"><dt>See also</dt><dd>CommentSkiper() </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01487_source.html#l00014">14</a> of file <a class="el" href="a01487_source.html">CommentSkipper.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad8a968db6095fab17e8b637c550671fd" name="ad8a968db6095fab17e8b637c550671fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8a968db6095fab17e8b637c550671fd">&#9670;&#160;</a></span>skip()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::parser::CommentSkipper::skip </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03858.html">Stream</a> &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Skips whitespace and comments. </p>
+<p>Returns the game engine instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01496_source.html#l00057">57</a> of file <a class="el" href="a01496_source.html">World.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e195a9b57c9978a7573733984d01bc7" name="a6e195a9b57c9978a7573733984d01bc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e195a9b57c9978a7573733984d01bc7">&#9670;&#160;</a></span>getBox2dWorldId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">b2WorldId bl::engine::World2D::getBox2dWorldId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Box2D world id for this world. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01490_source.html#l00039">39</a> of file <a class="el" href="a01490_source.html">World2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab069c258b82b32a13038bb7eb753c9e9" name="ab069c258b82b32a13038bb7eb753c9e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab069c258b82b32a13038bb7eb753c9e9">&#9670;&#160;</a></span>getGravity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec2 &amp; bl::engine::World2D::getGravity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the acceleration from gravity in m/s. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01490_source.html#l00051">51</a> of file <a class="el" href="a01490_source.html">World2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a124088708bb82e6f2cfffb3ad93259d9" name="a124088708bb82e6f2cfffb3ad93259d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a124088708bb82e6f2cfffb3ad93259d9">&#9670;&#160;</a></span>getWorldToBoxScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::engine::World2D::getWorldToBoxScale </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the scale factor to convert world units to Box2D meters. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01490_source.html#l00063">63</a> of file <a class="el" href="a01490_source.html">World2D.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a762a5dcfc5cb91cc4f57bd18f1be5263" name="a762a5dcfc5cb91cc4f57bd18f1be5263"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a762a5dcfc5cb91cc4f57bd18f1be5263">&#9670;&#160;</a></span>queryAABB()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::World2D::queryAABB </td>
+          <td>(</td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>upperBound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2&#160;</td>
+          <td class="paramname"><em>lowerBound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">b2QueryFilter&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03814.html#a31b38168d1f8ab70aa04f4a22ebe4934">WorldQueryCallback</a>&#160;</td>
+          <td class="paramname"><em>callback</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queries the world and calls the callback for each entity within the rectangle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stream</td><td>The stream to update </td></tr>
+    <tr><td class="paramname">upperBound</td><td>The upper corner in world coordinates </td></tr>
+    <tr><td class="paramname">lowerBound</td><td>The lower corner in world coordinates </td></tr>
+    <tr><td class="paramname">filter</td><td>Box2D query filter to apply </td></tr>
+    <tr><td class="paramname">callback</td><td>The callback to call </td></tr>
+    <tr><td class="paramname">ctx</td><td>User provided data which is passed back to the callback </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="a03866.html#a77fb74e134d21e95a59ef5bb4686dc74">bl::parser::WhitespaceSkipper</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02753_source.html#l00085">85</a> of file <a class="el" href="a02753_source.html">World2D.cpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a01487_source.html#l00021">21</a> of file <a class="el" href="a01487_source.html">CommentSkipper.cpp</a>.</p>
+</div>
+</div>
+<a id="a9e77c6ef3c0c64ca96d6da94f1ac2ee2" name="a9e77c6ef3c0c64ca96d6da94f1ac2ee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">&#9670;&#160;</a></span>scene()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05386.html">rc::SceneRef</a> bl::engine::World::scene </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the scene for this world. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01496_source.html#l00062">62</a> of file <a class="el" href="a01496_source.html">World.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abbdfbe7dc771a0103e843495df6b9171" name="abbdfbe7dc771a0103e843495df6b9171"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbdfbe7dc771a0103e843495df6b9171">&#9670;&#160;</a></span>setGravity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::World2D::setGravity </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>gravity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the acceleration of gravity in the physics world. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gravity</td><td>The acceleration from gravity in m/s </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02753_source.html#l00078">78</a> of file <a class="el" href="a02753_source.html">World2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e00df89460eec2f8e4e7eaeee11b04f" name="a7e00df89460eec2f8e4e7eaeee11b04f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e00df89460eec2f8e4e7eaeee11b04f">&#9670;&#160;</a></span>setLengthUnitScale()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::engine::World2D::setLengthUnitScale </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>worldToBoxScale</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the scale factor to convert world units to Box2D meters. Default is 1. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">worldToBoxScale</td><td>The new scale factor to use when syncing back to Transform2D </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02753_source.html#l00083">83</a> of file <a class="el" href="a02753_source.html">World2D.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1aaf57b247b9695aeaf9faff2319cdcb" name="a1aaf57b247b9695aeaf9faff2319cdcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aaf57b247b9695aeaf9faff2319cdcb">&#9670;&#160;</a></span>worldIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::engine::World::worldIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the index of this world. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01496_source.html#l00067">67</a> of file <a class="el" href="a01496_source.html">World.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a510cb2022f4be86940fa5f2c27225919" name="a510cb2022f4be86940fa5f2c27225919"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a510cb2022f4be86940fa5f2c27225919">&#9670;&#160;</a></span>MaxWorlds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr unsigned int bl::engine::World::MaxWorlds = 8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01496_source.html#l00024">24</a> of file <a class="el" href="a01496_source.html">World.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Parser/<a class="el" href="a00017_source.html">CommentSkipper.hpp</a></li>
-<li>src/Parser/<a class="el" href="a01487_source.html">CommentSkipper.cpp</a></li>
+<li>include/BLIB/Engine/Worlds/<a class="el" href="a01490_source.html">World2D.hpp</a></li>
+<li>src/Engine/Worlds/<a class="el" href="a02753_source.html">World2D.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

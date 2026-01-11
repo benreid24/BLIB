@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp Source File</title>
+<title>BLIB: include/BLIB/Models/MeshSet.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,65 +79,66 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_dea097b7efa3121d8e11b185c993d8b3.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SceneDescriptorSetInstance.hpp</div></div>
+  <div class="headertitle"><div class="title">MeshSet.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01445.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SCENEDESCRIPTORSETINSTANCE_HPP</span></div>
+<a href="a01445.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MODELS_MESHSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MODELS_MESHSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01346.html">BLIB/Render/Buffers/UniformBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a06874.html">BLIB/Render/Config.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a06853.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01307.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04170.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a04170.html">SceneDescriptorSetInstance</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04126.html">DescriptorSetInstance</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="a04170.html#a4e4d85081fc95e511efd38849f047eb5">SceneDescriptorSetInstance</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04170.html#a099b83d37a581b1ab8572ee17c2269c4">   32</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04170.html#a099b83d37a581b1ab8572ee17c2269c4">~SceneDescriptorSetInstance</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a07918.html">BLIB/Models/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;assimp/scene.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>mdl</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>BoneSet;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04510.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a04510.html">MeshSet</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04510.html#aa568e791968afb17528e4d29bb3933a2">   24</a></span>    <a class="code hl_function" href="a04510.html#aa568e791968afb17528e4d29bb3933a2">MeshSet</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04510.html#a58657f7b8ee6a4ee0dbac5735b052ea5">populate</a>(<span class="keyword">const</span> aiScene* scene, <a class="code hl_class" href="a04474.html">BoneSet</a>&amp; bones);</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04170.html#ad0135cab959d2ab6c8c454054e1c23d4">updateObserverCamera</a>(std::uint32_t observerIndex, <span class="keyword">const</span> glm::mat4&amp; projView);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a04170.html#a0a145382ab1e64d8c85dd63939bb0aca">   43</a></span>    <a class="code hl_class" href="a04002.html">buf::UniformBuffer&lt;glm::mat4&gt;</a> <a class="code hl_variable" href="a04170.html#a0a145382ab1e64d8c85dd63939bb0aca">cameraBuffer</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a04510.html#a474f65f3b4323ab66ee4463c1daab6fc">   37</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a04510.html#a474f65f3b4323ab66ee4463c1daab6fc">getMeshCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> meshes.size(); }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a04510.html#a9479f98a85d15e5bbb7009c27e14b097">   45</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a04506.html">Mesh</a>&amp; <a class="code hl_function" href="a04510.html#a9479f98a85d15e5bbb7009c27e14b097">getMesh</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> meshes[index]; }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a04510.html#abbc5cdf31e4cee4fcdd7ef2fd7242113">   53</a></span>    <a class="code hl_class" href="a04506.html">Mesh</a>&amp; <a class="code hl_function" href="a04510.html#abbc5cdf31e4cee4fcdd7ef2fd7242113">getMesh</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index) { <span class="keywordflow">return</span> meshes[index]; }</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04510.html#a5b8f5f5851979c72e14d13fcaae5bea8">flipUVs</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::vector&lt;Mesh&gt; meshes;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>};</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01307_html"><div class="ttname"><a href="a01307.html">PerFrame.hpp</a></div></div>
-<div class="ttc" id="aa01346_html"><div class="ttname"><a href="a01346.html">UniformBuffer.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04002_html"><div class="ttname"><a href="a04002.html">bl::rc::buf::UniformBuffer</a></div><div class="ttdoc">Device-local, staged, uniform buffer array. Intended for small, dynamic data such as per-frame scene ...</div><div class="ttdef"><b>Definition</b> <a href="a01346_source.html#l00026">UniformBuffer.hpp:26</a></div></div>
-<div class="ttc" id="aa04126_html"><div class="ttname"><a href="a04126.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa04170_html"><div class="ttname"><a href="a04170.html">bl::rc::ds::SceneDescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets for scene data (cameras, lighting, etc)</div><div class="ttdef"><b>Definition</b> <a href="a01445_source.html#l00022">SceneDescriptorSetInstance.hpp:22</a></div></div>
-<div class="ttc" id="aa04170_html_a099b83d37a581b1ab8572ee17c2269c4"><div class="ttname"><a href="a04170.html#a099b83d37a581b1ab8572ee17c2269c4">bl::rc::ds::SceneDescriptorSetInstance::~SceneDescriptorSetInstance</a></div><div class="ttdeci">virtual ~SceneDescriptorSetInstance()=default</div><div class="ttdoc">Destroys the descriptor set.</div></div>
-<div class="ttc" id="aa04170_html_a0a145382ab1e64d8c85dd63939bb0aca"><div class="ttname"><a href="a04170.html#a0a145382ab1e64d8c85dd63939bb0aca">bl::rc::ds::SceneDescriptorSetInstance::cameraBuffer</a></div><div class="ttdeci">buf::UniformBuffer&lt; glm::mat4 &gt; cameraBuffer</div><div class="ttdef"><b>Definition</b> <a href="a01445_source.html#l00043">SceneDescriptorSetInstance.hpp:43</a></div></div>
-<div class="ttc" id="aa04170_html_a4e4d85081fc95e511efd38849f047eb5"><div class="ttname"><a href="a04170.html#a4e4d85081fc95e511efd38849f047eb5">bl::rc::ds::SceneDescriptorSetInstance::SceneDescriptorSetInstance</a></div><div class="ttdeci">SceneDescriptorSetInstance()</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition</b> <a href="a02351_source.html#l00011">SceneDescriptorSetInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa04170_html_ad0135cab959d2ab6c8c454054e1c23d4"><div class="ttname"><a href="a04170.html#ad0135cab959d2ab6c8c454054e1c23d4">bl::rc::ds::SceneDescriptorSetInstance::updateObserverCamera</a></div><div class="ttdeci">void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4 &amp;projView)</div><div class="ttdoc">Updates the camera value for the given observer.</div><div class="ttdef"><b>Definition</b> <a href="a02351_source.html#l00014">SceneDescriptorSetInstance.cpp:14</a></div></div>
-<div class="ttc" id="aa06853_html"><div class="ttname"><a href="a06853.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa06874_html"><div class="ttname"><a href="a06874.html">Config.hpp</a></div></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>} <span class="comment">// namespace mdl</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04474_html"><div class="ttname"><a href="a04474.html">bl::mdl::BoneSet</a></div><div class="ttdoc">The set of bones in a model.</div><div class="ttdef"><b>Definition</b> <a href="a01418_source.html#l00018">BoneSet.hpp:18</a></div></div>
+<div class="ttc" id="aa04506_html"><div class="ttname"><a href="a04506.html">bl::mdl::Mesh</a></div><div class="ttdoc">Basic class containing data for a single mesh in a model.</div><div class="ttdef"><b>Definition</b> <a href="a07918_source.html#l00020">Mesh.hpp:20</a></div></div>
+<div class="ttc" id="aa04510_html"><div class="ttname"><a href="a04510.html">bl::mdl::MeshSet</a></div><div class="ttdoc">Collection of meshes on a model.</div><div class="ttdef"><b>Definition</b> <a href="a01445_source.html#l00019">MeshSet.hpp:19</a></div></div>
+<div class="ttc" id="aa04510_html_a474f65f3b4323ab66ee4463c1daab6fc"><div class="ttname"><a href="a04510.html#a474f65f3b4323ab66ee4463c1daab6fc">bl::mdl::MeshSet::getMeshCount</a></div><div class="ttdeci">unsigned int getMeshCount() const</div><div class="ttdoc">Returns the number of meshes in the set.</div><div class="ttdef"><b>Definition</b> <a href="a01445_source.html#l00037">MeshSet.hpp:37</a></div></div>
+<div class="ttc" id="aa04510_html_a58657f7b8ee6a4ee0dbac5735b052ea5"><div class="ttname"><a href="a04510.html#a58657f7b8ee6a4ee0dbac5735b052ea5">bl::mdl::MeshSet::populate</a></div><div class="ttdeci">void populate(const aiScene *scene, BoneSet &amp;bones)</div><div class="ttdoc">Populates the mesh set from the given model.</div><div class="ttdef"><b>Definition</b> <a href="a02720_source.html#l00007">MeshSet.cpp:7</a></div></div>
+<div class="ttc" id="aa04510_html_a5b8f5f5851979c72e14d13fcaae5bea8"><div class="ttname"><a href="a04510.html#a5b8f5f5851979c72e14d13fcaae5bea8">bl::mdl::MeshSet::flipUVs</a></div><div class="ttdeci">void flipUVs()</div><div class="ttdoc">Flips the V texture coordinates of all meshes in the set.</div><div class="ttdef"><b>Definition</b> <a href="a02720_source.html#l00014">MeshSet.cpp:14</a></div></div>
+<div class="ttc" id="aa04510_html_a9479f98a85d15e5bbb7009c27e14b097"><div class="ttname"><a href="a04510.html#a9479f98a85d15e5bbb7009c27e14b097">bl::mdl::MeshSet::getMesh</a></div><div class="ttdeci">const Mesh &amp; getMesh(unsigned int index) const</div><div class="ttdoc">Fetches the mesh at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01445_source.html#l00045">MeshSet.hpp:45</a></div></div>
+<div class="ttc" id="aa04510_html_aa568e791968afb17528e4d29bb3933a2"><div class="ttname"><a href="a04510.html#aa568e791968afb17528e4d29bb3933a2">bl::mdl::MeshSet::MeshSet</a></div><div class="ttdeci">MeshSet()=default</div><div class="ttdoc">Creates an empty mesh set.</div></div>
+<div class="ttc" id="aa04510_html_abbc5cdf31e4cee4fcdd7ef2fd7242113"><div class="ttname"><a href="a04510.html#abbc5cdf31e4cee4fcdd7ef2fd7242113">bl::mdl::MeshSet::getMesh</a></div><div class="ttdeci">Mesh &amp; getMesh(unsigned int index)</div><div class="ttdoc">Fetches the mesh at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01445_source.html#l00053">MeshSet.hpp:53</a></div></div>
+<div class="ttc" id="aa07918_html"><div class="ttname"><a href="a07918.html">Mesh.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['v_0',['v',['../a03094.html#af6ea181be91b7069f9f52557a1445e1a',1,'bl::engine::FrameStage::V'],['../a03126.html#aae4beb82249d6acee3fae792b71efdd5',1,'bl::engine::StateMask::V']]]
+  ['renderpassbehavior_0',['RenderPassBehavior',['../a02979.html#ga9482ff4c7d1f8843e3c66a12cba018e7',1,'bl::rc::rgi']]],
+  ['role_1',['Role',['../a02979.html#ga595f62bb551384281dfba770588c9d63',1,'bl::rc::buf']]]
 ];

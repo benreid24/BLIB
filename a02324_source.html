@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/Builtin/TexturePoolInstance.cpp Source File</title>
+<title>BLIB: src/Render/Primitives/Vertex3DSkinned.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,77 +79,182 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_e8dba1c5a4c510c16da20e13828a9aa1.html">Primitives</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TexturePoolInstance.cpp</div></div>
+  <div class="headertitle"><div class="title">Vertex3DSkinned.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02324.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01397.html">BLIB/Render/Descriptors/Builtin/TexturePoolInstance.hpp</a>&gt;</span></div>
+<a href="a02324.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00869.html">BLIB/Render/Primitives/Vertex3DSkinned.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01142.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>prim</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04098.html#a6fb14178747dc7abe113072d98970c95">   11</a></span><a class="code hl_function" href="a04098.html#a6fb14178747dc7abe113072d98970c95">TexturePoolInstance::TexturePoolInstance</a>(<a class="code hl_class" href="a04398.html">res::TexturePool</a>&amp; texturePool)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: <a class="code hl_class" href="a04126.html">DescriptorSetInstance</a>(Bindless, SpeedAgnostic)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, texturePool(texturePool) {}</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05326.html#abaa6790a604f15601240036677d88d04">    9</a></span><a class="code hl_function" href="a05326.html#abaa6790a604f15601240036677d88d04">Vertex3DSkinned::Vertex3DSkinned</a>()</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: pos()</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, color(1.f)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, texCoord()</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, tangent()</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, normal() {}</div>
 </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordtype">void</span> TexturePoolInstance::bindForPipeline(<a class="code hl_class" href="a04490.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                          std::uint32_t setIndex, <a class="code hl_enumeration" href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    texturePool.<a class="code hl_function" href="a04398.html#a44f86f7c5c05af9fe35baabb7f021436">bindDescriptors</a>(</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCommandBuffer(), layout, setIndex, <a class="code hl_variable" href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.targetIsRenderTexture());</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keywordtype">void</span> TexturePoolInstance::bindForObject(<a class="code hl_class" href="a04490.html">scene::SceneRenderContext</a>&amp;, VkPipelineLayout, std::uint32_t,</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                                        <a class="code hl_struct" href="a04434.html">scene::Key</a>)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">void</span> TexturePoolInstance::releaseObject(<a class="code hl_struct" href="a02890.html">ecs::Entity</a>, scene::Key) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a05326.html#a92883bd8e06e99533e0449cb8b6627e8">   16</a></span><a class="code hl_function" href="a05326.html#abaa6790a604f15601240036677d88d04">Vertex3DSkinned::Vertex3DSkinned</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec2&amp; texCoord)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: pos(pos)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, texCoord(texCoord)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, color(1.f)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, tangent()</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>, normal() {}</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05326.html#a0f52e041e28427eff2ac58b12e569589">   23</a></span><a class="code hl_function" href="a05326.html#abaa6790a604f15601240036677d88d04">Vertex3DSkinned::Vertex3DSkinned</a>(<span class="keyword">const</span> glm::vec3&amp; pos, <span class="keyword">const</span> glm::vec4&amp; color)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>: pos(pos)</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>, texCoord()</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>, color(color)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>, tangent()</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>, normal() {}</div>
+</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">void</span> TexturePoolInstance::init(DescriptorComponentStorageCache&amp;) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">bool</span> TexturePoolInstance::allocateObject(ecs::Entity, scene::Key) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keywordtype">void</span> TexturePoolInstance::handleFrameStart() {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01142_html"><div class="ttname"><a href="a01142.html">SceneRenderContext.hpp</a></div></div>
-<div class="ttc" id="aa01397_html"><div class="ttname"><a href="a01397.html">TexturePoolInstance.hpp</a></div></div>
-<div class="ttc" id="aa01673_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a01673.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a01673_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02388_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02388.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02890_html"><div class="ttname"><a href="a02890.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04098_html_a6fb14178747dc7abe113072d98970c95"><div class="ttname"><a href="a04098.html#a6fb14178747dc7abe113072d98970c95">bl::rc::ds::TexturePoolInstance::TexturePoolInstance</a></div><div class="ttdeci">TexturePoolInstance(res::TexturePool &amp;texturePool)</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00011">TexturePoolInstance.cpp:11</a></div></div>
-<div class="ttc" id="aa04126_html"><div class="ttname"><a href="a04126.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a06853_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa04398_html"><div class="ttname"><a href="a04398.html">bl::rc::res::TexturePool</a></div><div class="ttdoc">Resource manager for textures on the GPU. Utilizes BindlessTextureArray to provide a large array,...</div><div class="ttdef"><b>Definition</b> <a href="a01076_source.html#l00032">TexturePool.hpp:32</a></div></div>
-<div class="ttc" id="aa04398_html_a44f86f7c5c05af9fe35baabb7f021436"><div class="ttname"><a href="a04398.html#a44f86f7c5c05af9fe35baabb7f021436">bl::rc::res::TexturePool::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineLayout pipelineLayout, std::uint32_t setIndex, bool forRenderTexture)</div><div class="ttdoc">Helper method to bind the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a02096_source.html#l00136">TexturePool.cpp:136</a></div></div>
-<div class="ttc" id="aa04434_html"><div class="ttname"><a href="a04434.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a01136_source.html#l00022">Key.hpp:22</a></div></div>
-<div class="ttc" id="aa04490_html"><div class="ttname"><a href="a04490.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a01142_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a05326.html#ae546dcdba1f7f18d2e551a9fa27bec28">   30</a></span><a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>&amp; <a class="code hl_function" href="a05326.html#ae546dcdba1f7f18d2e551a9fa27bec28">Vertex3DSkinned::operator=</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04534.html">mdl::Vertex</a>&amp; copy) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="a05326.html#a49e51e67ae2b9a79dad01182e31575a7">pos</a>      = copy.<a class="code hl_variable" href="a04534.html#a8677b2345cfcbf26ee47be168d32c14e">pos</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_variable" href="a05326.html#a3d284f92701b600a99a0e603fc0dd761">color</a>    = copy.<a class="code hl_variable" href="a04534.html#a534973bb22f982b69d01dde3b629b284">color</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_variable" href="a05326.html#a0eadd614f049c115e20f182a0baf12ff">texCoord</a> = copy.<a class="code hl_variable" href="a04534.html#ac74e82ab125ab403a97f9564832acece">texCoord</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_variable" href="a05326.html#a237a0cdae196c8859cd9f5e7c8e9396b">tangent</a>  = copy.<a class="code hl_variable" href="a04534.html#aa6696b8763be742f7f816bf4aa8cecb5">tangent</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_variable" href="a05326.html#a2569d1b7149238848e6baa4866c7fd87">normal</a>   = copy.<a class="code hl_variable" href="a04534.html#a8890b78068c7086ecadecd042f325f76">normal</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> (copy.<a class="code hl_variable" href="a04534.html#a5bb40e89a3dc7a5cc7f2cc8178ab8c27">boneIds</a>[i] &lt; 0) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <a class="code hl_variable" href="a05326.html#ab7e8051e25f8071b0c96f78f64248144">boneIndices</a>[i] = 0;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <a class="code hl_variable" href="a05326.html#a0b241f05c7c3072d8c6a83fdcbbf838e">boneWeights</a>[i] = 0.f;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            <a class="code hl_variable" href="a05326.html#ab7e8051e25f8071b0c96f78f64248144">boneIndices</a>[i] = copy.<a class="code hl_variable" href="a04534.html#a5bb40e89a3dc7a5cc7f2cc8178ab8c27">boneIds</a>[i];</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <a class="code hl_variable" href="a05326.html#a0b241f05c7c3072d8c6a83fdcbbf838e">boneWeights</a>[i] = copy.<a class="code hl_variable" href="a04534.html#a2ed290c182c656c47ceae495d5086396">boneWeights</a>[i];</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">   49</a></span>VkVertexInputBindingDescription <a class="code hl_function" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">Vertex3DSkinned::bindingDescription</a>() {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    VkVertexInputBindingDescription <a class="code hl_function" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">bindingDescription</a>{};</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_function" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">bindingDescription</a>.binding   = 0;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_function" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">bindingDescription</a>.stride    = <span class="keyword">sizeof</span>(<a class="code hl_function" href="a05326.html#abaa6790a604f15601240036677d88d04">Vertex3DSkinned</a>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_function" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">bindingDescription</a>.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">bindingDescription</a>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">   57</a></span>std::array&lt;VkVertexInputAttributeDescription, 7&gt; <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">Vertex3DSkinned::attributeDescriptions</a>() {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    std::array&lt;VkVertexInputAttributeDescription, 7&gt; <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>{};</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">/*</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    float: VK_FORMAT_R32_SFLOAT</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment">    vec2: VK_FORMAT_R32G32_SFLOAT</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment">    vec3: VK_FORMAT_R32G32B32_SFLOAT</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">    vec4: VK_FORMAT_R32G32B32A32_SFLOAT</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">    */</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="comment">// pos attributes</span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].binding  = 0;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].location = 0;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].format   = VK_FORMAT_R32G32B32_SFLOAT;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a49e51e67ae2b9a79dad01182e31575a7">pos</a>);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="comment">// color attributes</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[1].binding  = 0;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[1].location = 1;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[1].format   = VK_FORMAT_R32G32B32A32_SFLOAT;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[1].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a3d284f92701b600a99a0e603fc0dd761">color</a>);</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="comment">// texCoord</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[2].binding  = 0;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[2].location = 2;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[2].format   = VK_FORMAT_R32G32_SFLOAT;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[2].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a0eadd614f049c115e20f182a0baf12ff">texCoord</a>);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="comment">// tangent</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[3].binding  = 0;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[3].location = 3;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[3].format   = VK_FORMAT_R32G32B32_SFLOAT;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[3].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a237a0cdae196c8859cd9f5e7c8e9396b">tangent</a>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="comment">// normal</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[4].binding  = 0;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[4].location = 4;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[4].format   = VK_FORMAT_R32G32B32_SFLOAT;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[4].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a2569d1b7149238848e6baa4866c7fd87">normal</a>);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="comment">// bone indices</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[5].binding  = 0;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[5].location = 5;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[5].format   = VK_FORMAT_R32G32B32A32_UINT;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[5].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#ab7e8051e25f8071b0c96f78f64248144">boneIndices</a>);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="comment">// bone weights</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[6].binding  = 0;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[6].location = 6;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[6].format   = VK_FORMAT_R32G32B32A32_SFLOAT;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[6].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a0b241f05c7c3072d8c6a83fdcbbf838e">boneWeights</a>);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>}</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>std::array&lt;VkVertexInputAttributeDescription, 1&gt;</div>
+<div class="foldopen" id="foldopen00113" data-start="{" data-end="}">
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno"><a class="line" href="a05326.html#a04bcd0ffaab6be5287886c31ff6a71f7">  113</a></span><a class="code hl_function" href="a05326.html#a04bcd0ffaab6be5287886c31ff6a71f7">Vertex3DSkinned::attributeDescriptionsPositionsOnly</a>() {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    std::array&lt;VkVertexInputAttributeDescription, 1&gt; <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>{};</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">// pos attributes</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].binding  = 0;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].location = 0;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].format   = VK_FORMAT_R32G32B32_SFLOAT;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>[0].offset   = offsetof(<a class="code hl_struct" href="a05326.html">Vertex3DSkinned</a>, <a class="code hl_variable" href="a05326.html#a49e51e67ae2b9a79dad01182e31575a7">pos</a>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05326.html#afd4e65b9a3921d337bb5136a52340603">attributeDescriptions</a>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>} <span class="comment">// namespace prim</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00869_html"><div class="ttname"><a href="a00869.html">Vertex3DSkinned.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04534_html"><div class="ttname"><a href="a04534.html">bl::mdl::Vertex</a></div><div class="ttdoc">Basic model vertex.</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00018">Vertex.hpp:18</a></div></div>
+<div class="ttc" id="aa04534_html_a2ed290c182c656c47ceae495d5086396"><div class="ttname"><a href="a04534.html#a2ed290c182c656c47ceae495d5086396">bl::mdl::Vertex::boneWeights</a></div><div class="ttdeci">float boneWeights[4]</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00026">Vertex.hpp:26</a></div></div>
+<div class="ttc" id="aa04534_html_a534973bb22f982b69d01dde3b629b284"><div class="ttname"><a href="a04534.html#a534973bb22f982b69d01dde3b629b284">bl::mdl::Vertex::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00020">Vertex.hpp:20</a></div></div>
+<div class="ttc" id="aa04534_html_a5bb40e89a3dc7a5cc7f2cc8178ab8c27"><div class="ttname"><a href="a04534.html#a5bb40e89a3dc7a5cc7f2cc8178ab8c27">bl::mdl::Vertex::boneIds</a></div><div class="ttdeci">std::int32_t boneIds[4]</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00025">Vertex.hpp:25</a></div></div>
+<div class="ttc" id="aa04534_html_a8677b2345cfcbf26ee47be168d32c14e"><div class="ttname"><a href="a04534.html#a8677b2345cfcbf26ee47be168d32c14e">bl::mdl::Vertex::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00019">Vertex.hpp:19</a></div></div>
+<div class="ttc" id="aa04534_html_a8890b78068c7086ecadecd042f325f76"><div class="ttname"><a href="a04534.html#a8890b78068c7086ecadecd042f325f76">bl::mdl::Vertex::normal</a></div><div class="ttdeci">glm::vec3 normal</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00024">Vertex.hpp:24</a></div></div>
+<div class="ttc" id="aa04534_html_aa6696b8763be742f7f816bf4aa8cecb5"><div class="ttname"><a href="a04534.html#aa6696b8763be742f7f816bf4aa8cecb5">bl::mdl::Vertex::tangent</a></div><div class="ttdeci">glm::vec3 tangent</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00022">Vertex.hpp:22</a></div></div>
+<div class="ttc" id="aa04534_html_ac74e82ab125ab403a97f9564832acece"><div class="ttname"><a href="a04534.html#ac74e82ab125ab403a97f9564832acece">bl::mdl::Vertex::texCoord</a></div><div class="ttdeci">glm::vec2 texCoord</div><div class="ttdef"><b>Definition</b> <a href="a08554_source.html#l00021">Vertex.hpp:21</a></div></div>
+<div class="ttc" id="aa05326_html"><div class="ttname"><a href="a05326.html">bl::rc::prim::Vertex3DSkinned</a></div><div class="ttdoc">Vertex type used in 3d pipelines with skinning.</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00020">Vertex3DSkinned.hpp:20</a></div></div>
+<div class="ttc" id="aa05326_html_a04bcd0ffaab6be5287886c31ff6a71f7"><div class="ttname"><a href="a05326.html#a04bcd0ffaab6be5287886c31ff6a71f7">bl::rc::prim::Vertex3DSkinned::attributeDescriptionsPositionsOnly</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 1 &gt; attributeDescriptionsPositionsOnly()</div><div class="ttdoc">Returns the attribute descriptions for only the positions.</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00113">Vertex3DSkinned.cpp:113</a></div></div>
+<div class="ttc" id="aa05326_html_a0b241f05c7c3072d8c6a83fdcbbf838e"><div class="ttname"><a href="a05326.html#a0b241f05c7c3072d8c6a83fdcbbf838e">bl::rc::prim::Vertex3DSkinned::boneWeights</a></div><div class="ttdeci">float boneWeights[4]</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00027">Vertex3DSkinned.hpp:27</a></div></div>
+<div class="ttc" id="aa05326_html_a0d2223ec10bae9374fb2b2e5ad76c0cd"><div class="ttname"><a href="a05326.html#a0d2223ec10bae9374fb2b2e5ad76c0cd">bl::rc::prim::Vertex3DSkinned::bindingDescription</a></div><div class="ttdeci">static VkVertexInputBindingDescription bindingDescription()</div><div class="ttdoc">Returns the vertex binding description for the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00049">Vertex3DSkinned.cpp:49</a></div></div>
+<div class="ttc" id="aa05326_html_a0eadd614f049c115e20f182a0baf12ff"><div class="ttname"><a href="a05326.html#a0eadd614f049c115e20f182a0baf12ff">bl::rc::prim::Vertex3DSkinned::texCoord</a></div><div class="ttdeci">glm::vec2 texCoord</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00023">Vertex3DSkinned.hpp:23</a></div></div>
+<div class="ttc" id="aa05326_html_a237a0cdae196c8859cd9f5e7c8e9396b"><div class="ttname"><a href="a05326.html#a237a0cdae196c8859cd9f5e7c8e9396b">bl::rc::prim::Vertex3DSkinned::tangent</a></div><div class="ttdeci">glm::vec3 tangent</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00024">Vertex3DSkinned.hpp:24</a></div></div>
+<div class="ttc" id="aa05326_html_a2569d1b7149238848e6baa4866c7fd87"><div class="ttname"><a href="a05326.html#a2569d1b7149238848e6baa4866c7fd87">bl::rc::prim::Vertex3DSkinned::normal</a></div><div class="ttdeci">glm::vec3 normal</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00025">Vertex3DSkinned.hpp:25</a></div></div>
+<div class="ttc" id="aa05326_html_a3d284f92701b600a99a0e603fc0dd761"><div class="ttname"><a href="a05326.html#a3d284f92701b600a99a0e603fc0dd761">bl::rc::prim::Vertex3DSkinned::color</a></div><div class="ttdeci">glm::vec4 color</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00022">Vertex3DSkinned.hpp:22</a></div></div>
+<div class="ttc" id="aa05326_html_a49e51e67ae2b9a79dad01182e31575a7"><div class="ttname"><a href="a05326.html#a49e51e67ae2b9a79dad01182e31575a7">bl::rc::prim::Vertex3DSkinned::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00021">Vertex3DSkinned.hpp:21</a></div></div>
+<div class="ttc" id="aa05326_html_ab7e8051e25f8071b0c96f78f64248144"><div class="ttname"><a href="a05326.html#ab7e8051e25f8071b0c96f78f64248144">bl::rc::prim::Vertex3DSkinned::boneIndices</a></div><div class="ttdeci">std::uint32_t boneIndices[4]</div><div class="ttdef"><b>Definition</b> <a href="a00869_source.html#l00026">Vertex3DSkinned.hpp:26</a></div></div>
+<div class="ttc" id="aa05326_html_abaa6790a604f15601240036677d88d04"><div class="ttname"><a href="a05326.html#abaa6790a604f15601240036677d88d04">bl::rc::prim::Vertex3DSkinned::Vertex3DSkinned</a></div><div class="ttdeci">Vertex3DSkinned()</div><div class="ttdoc">Creates a white vertex at the origin.</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00009">Vertex3DSkinned.cpp:9</a></div></div>
+<div class="ttc" id="aa05326_html_ae546dcdba1f7f18d2e551a9fa27bec28"><div class="ttname"><a href="a05326.html#ae546dcdba1f7f18d2e551a9fa27bec28">bl::rc::prim::Vertex3DSkinned::operator=</a></div><div class="ttdeci">Vertex3DSkinned &amp; operator=(const mdl::Vertex &amp;vertex)</div><div class="ttdoc">Copies this vertex from a model vertex.</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00030">Vertex3DSkinned.cpp:30</a></div></div>
+<div class="ttc" id="aa05326_html_afd4e65b9a3921d337bb5136a52340603"><div class="ttname"><a href="a05326.html#afd4e65b9a3921d337bb5136a52340603">bl::rc::prim::Vertex3DSkinned::attributeDescriptions</a></div><div class="ttdeci">static std::array&lt; VkVertexInputAttributeDescription, 7 &gt; attributeDescriptions()</div><div class="ttdoc">Returns the attribute descriptions for each vertex attribute.</div><div class="ttdef"><b>Definition</b> <a href="a02324_source.html#l00057">Vertex3DSkinned.cpp:57</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

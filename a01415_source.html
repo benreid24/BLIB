@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Builtin/CommonBindings.hpp Source File</title>
+<title>BLIB: include/BLIB/Models/MaterialSet.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,62 +79,58 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_dea097b7efa3121d8e11b185c993d8b3.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">CommonBindings.hpp</div></div>
+  <div class="headertitle"><div class="title">MaterialSet.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01415.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
+<a href="a01415.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MODELS_MATERIALSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MODELS_MATERIALSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00101.html">BLIB/Components/MaterialInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a06361.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00083.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01436.html">BLIB/Render/Descriptors/Generic/ObjectStorageBuffer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01442.html">BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08548.html">BLIB/Models/Material.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;assimp/material.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;assimp/scene.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>mdl</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>Renderer;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a02458.html">   17</a></span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a02459.html">   19</a></span><span class="keyword">namespace </span>priv</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a02459.html#ae0a04d3d4d1a5562dbb14376f1a2f33e">   21</a></span><span class="keyword">using </span><a class="code hl_class" href="a04150.html">Transform2DBinding</a> = <a class="code hl_class" href="a04150.html">ObjectStorageBuffer&lt;glm::mat4, com::Transform2D&gt;</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02459.html#a32f3b6227b36ec6b2134c0d3bf915fc3">   22</a></span><span class="keyword">using </span><a class="code hl_class" href="a04150.html">Transform3DBinding</a> = <a class="code hl_class" href="a04150.html">ObjectStorageBuffer&lt;glm::mat4, com::Transform3D&gt;</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a02459.html#a3d70683a1ae08d9ecb63649106e25f1c">   23</a></span><span class="keyword">using </span><a class="code hl_class" href="a04150.html">TextureBinding</a> =</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_class" href="a04150.html">ObjectStorageBuffer&lt;std::uint32_t, com::MaterialInstance, true, buf::StaticSSBO&lt;std::uint32_t&gt;</a>,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                        <a class="code hl_class" href="a03994.html">buf::StaticSSBO&lt;std::uint32_t&gt;</a>&gt;;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>} <span class="comment">// namespace priv</span></div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04502.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a04502.html">MaterialSet</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04502.html#abd733779ce23f71f9283fa45fade7033">   23</a></span>    <a class="code hl_function" href="a04502.html#abd733779ce23f71f9283fa45fade7033">MaterialSet</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04502.html#a4454563b681e379401e952a01b80db41">populate</a>(<span class="keyword">const</span> aiScene* scene, <span class="keyword">const</span> std::string&amp; modelPath);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a04502.html#a796c6ff8d1e3bbae951f180e6e8fdd45">   39</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="a04494.html">Material</a>&amp; <a class="code hl_function" href="a04502.html#a796c6ff8d1e3bbae951f180e6e8fdd45">getMaterial</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> materials[i]; }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04502.html#a59d33bcef1d4eb3a6db4845182d2747b">   44</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a04502.html#a59d33bcef1d4eb3a6db4845182d2747b">numMaterials</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> materials.size(); }</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    std::vector&lt;Material&gt; materials;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
 </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace ds</span></div>
-</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">Transform3D.hpp</a></div></div>
-<div class="ttc" id="aa00101_html"><div class="ttname"><a href="a00101.html">MaterialInstance.hpp</a></div></div>
-<div class="ttc" id="aa01436_html"><div class="ttname"><a href="a01436.html">ObjectStorageBuffer.hpp</a></div></div>
-<div class="ttc" id="aa01442_html"><div class="ttname"><a href="a01442.html">GenericDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03994_html"><div class="ttname"><a href="a03994.html">bl::rc::buf::StaticSSBO</a></div><div class="ttdoc">Device-local SSBO intended for use with per-object data for static objects.</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00022">StaticSSBO.hpp:22</a></div></div>
-<div class="ttc" id="aa04150_html"><div class="ttname"><a href="a04150.html">bl::rc::ds::ObjectStorageBuffer</a></div><div class="ttdoc">Generic descriptor set binding providing ECS entity components to shaders.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00028">ObjectStorageBuffer.hpp:28</a></div></div>
-<div class="ttc" id="aa06361_html"><div class="ttname"><a href="a06361.html">Transform2D.hpp</a></div></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace mdl</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04494_html"><div class="ttname"><a href="a04494.html">bl::mdl::Material</a></div><div class="ttdoc">Basic struct with material info for a mesh.</div><div class="ttdef"><b>Definition</b> <a href="a08548_source.html#l00016">Material.hpp:16</a></div></div>
+<div class="ttc" id="aa04502_html"><div class="ttname"><a href="a04502.html">bl::mdl::MaterialSet</a></div><div class="ttdoc">Contains the set of materials in a model.</div><div class="ttdef"><b>Definition</b> <a href="a01415_source.html#l00018">MaterialSet.hpp:18</a></div></div>
+<div class="ttc" id="aa04502_html_a4454563b681e379401e952a01b80db41"><div class="ttname"><a href="a04502.html#a4454563b681e379401e952a01b80db41">bl::mdl::MaterialSet::populate</a></div><div class="ttdeci">void populate(const aiScene *scene, const std::string &amp;modelPath)</div><div class="ttdoc">Populates the material set from the given model.</div><div class="ttdef"><b>Definition</b> <a href="a02708_source.html#l00009">MaterialSet.cpp:9</a></div></div>
+<div class="ttc" id="aa04502_html_a59d33bcef1d4eb3a6db4845182d2747b"><div class="ttname"><a href="a04502.html#a59d33bcef1d4eb3a6db4845182d2747b">bl::mdl::MaterialSet::numMaterials</a></div><div class="ttdeci">unsigned int numMaterials() const</div><div class="ttdoc">Returns the number of materials in the set.</div><div class="ttdef"><b>Definition</b> <a href="a01415_source.html#l00044">MaterialSet.hpp:44</a></div></div>
+<div class="ttc" id="aa04502_html_a796c6ff8d1e3bbae951f180e6e8fdd45"><div class="ttname"><a href="a04502.html#a796c6ff8d1e3bbae951f180e6e8fdd45">bl::mdl::MaterialSet::getMaterial</a></div><div class="ttdeci">const Material &amp; getMaterial(unsigned int i) const</div><div class="ttdoc">Returns the material with the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01415_source.html#l00039">MaterialSet.hpp:39</a></div></div>
+<div class="ttc" id="aa04502_html_abd733779ce23f71f9283fa45fade7033"><div class="ttname"><a href="a04502.html#abd733779ce23f71f9283fa45fade7033">bl::mdl::MaterialSet::MaterialSet</a></div><div class="ttdeci">MaterialSet()=default</div><div class="ttdoc">Creates an empty material set.</div></div>
+<div class="ttc" id="aa08548_html"><div class="ttname"><a href="a08548.html">Material.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

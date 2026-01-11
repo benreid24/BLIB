@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Utils/SwapChainSupportDetails.cpp Source File</title>
+<title>BLIB: src/Render/Graph/Tasks/ShadowMapTask.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,115 +79,175 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_5670c5b60a2fe85f6b36b8e9fa9a6739.html">Tasks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SwapChainSupportDetails.cpp</div></div>
+  <div class="headertitle"><div class="title">ShadowMapTask.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02270.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a02264.html">Render/Vulkan/Utils/SwapChainSupportDetails.hpp</a>&gt;</span></div>
+<a href="a02270.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00719.html">BLIB/Render/Graph/Tasks/ShadowMapTask.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01271.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05526.html#a7f7b67f7e4a57d691e584b414f21d99a">    9</a></span><a class="code hl_function" href="a05526.html#a069747b37a642917592e4a8efd66517f">SwapChainSupportDetails::SwapChainSupportDetails</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_function" href="a05526.html#a538d5c8e88477f1afb804a9d557d4234">populate</a>(device, surface);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Config/RenderPassIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Render/Config/RenderPhases.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00575.html">BLIB/Render/Graph/TaskIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00320.html">BLIB/Render/Scenes/ExtraContexts.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00344.html">BLIB/Render/Scenes/Scene3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05174.html#aa29ca3c0575fb6775aa4f4072c7eb8d4">   17</a></span><a class="code hl_function" href="a05174.html#aa29ca3c0575fb6775aa4f4072c7eb8d4">ShadowMapTask::ShadowMapTask</a>()</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>: Task(rg::TaskIds::<a class="code hl_class" href="a05174.html">ShadowMapTask</a>)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, renderer(nullptr)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, scene(nullptr)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>, shadowMaps(nullptr) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_variable" href="a05098.html#aeca701513a61a6e75e5525db2d180cbc">assetTags</a>.<a class="code hl_variable" href="a05106.html#af629a8d79e580fce30b340ddc7a18985">requiredInputs</a>.push_back(<a class="code hl_variable" href="a05038.html#a1e77575a149763001970bb2ab6d4f0c8">rg::AssetTags::SceneInput</a>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_variable" href="a05098.html#aeca701513a61a6e75e5525db2d180cbc">assetTags</a>.<a class="code hl_variable" href="a05106.html#a4e0f4dd559079f76277fe20455135007">outputs</a>.emplace_back(<a class="code hl_variable" href="a05038.html#a810872e015a2adffdefcd53c11e3bf19">rg::AssetTags::ShadowMaps</a>, <a class="code hl_enumvalue" href="a05118.html#a2bd198ab7f31ed5baeb3c69a12781902af43efd4199e695d31f15a7ee1f1dc797">rg::TaskOutput::CreatedByTask</a>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a05526.html#a538d5c8e88477f1afb804a9d557d4234">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05526.html#a538d5c8e88477f1afb804a9d557d4234">SwapChainSupportDetails::populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, surface, &amp;<a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>));</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    std::uint32_t formatCount = 0;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &amp;formatCount, <span class="keyword">nullptr</span>));</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (formatCount != 0) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <a class="code hl_variable" href="a05526.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.resize(formatCount);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_define" href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            vkGetPhysicalDeviceSurfaceFormatsKHR(device, surface, &amp;formatCount, <a class="code hl_variable" href="a05526.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.data()));</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    std::uint32_t presentModeCount;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    vkGetPhysicalDeviceSurfacePresentModesKHR(device, surface, &amp;presentModeCount, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (presentModeCount != 0) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_variable" href="a05526.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>.resize(presentModeCount);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        vkGetPhysicalDeviceSurfacePresentModesKHR(</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            device, surface, &amp;presentModeCount, <a class="code hl_variable" href="a05526.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>.data());</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
-</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a05526.html#a074771ce4af99a010a861cddb901432e">   33</a></span><span class="keyword">const</span> VkSurfaceFormatKHR&amp; <a class="code hl_function" href="a05526.html#a074771ce4af99a010a861cddb901432e">SwapChainSupportDetails::swapSurfaceFormat</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> VkSurfaceFormatKHR&amp; format : <a class="code hl_variable" href="a05526.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span> (format.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR &amp;&amp;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            format.format == VK_FORMAT_B8G8R8A8_UNORM) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">return</span> format;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_define" href="a00230.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;Did not find VK_FORMAT_B8G8R8A8_UNORM, using &quot;</span> &lt;&lt; <a class="code hl_variable" href="a05526.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.front().format;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a05526.html#af19415c0ae2875bf29ba85dac4dec14e">formats</a>.front();</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
-</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a05526.html#a2c9d9cd7870d31087ed25d3300044237">   44</a></span>VkPresentModeKHR <a class="code hl_function" href="a05526.html#a2c9d9cd7870d31087ed25d3300044237">SwapChainSupportDetails::presentationMode</a>(<span class="keywordtype">bool</span> noVsync)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> VkPresentModeKHR requestedMode =</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        noVsync ? VK_PRESENT_MODE_IMMEDIATE_KHR : VK_PRESENT_MODE_MAILBOX_KHR;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> VkPresentModeKHR mode : <a class="code hl_variable" href="a05526.html#a040eaf623e9b24c2cee14f0091ed4527">presentModes</a>) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">if</span> (mode == requestedMode) { <span class="keywordflow">return</span> mode; }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <a class="code hl_define" href="a00230.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a> &lt;&lt; <span class="stringliteral">&quot;VK_PRESENT_MODE_MAILBOX_KHR not supported, falling back to &quot;</span></div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                    <span class="stringliteral">&quot;VK_PRESENT_MODE_FIFO_KHR&quot;</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> VK_PRESENT_MODE_FIFO_KHR; <span class="comment">// always available</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
-</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05526.html#a317e166f325c41fd43b5da49b187e1a0">   55</a></span>VkExtent2D <a class="code hl_function" href="a05526.html#a317e166f325c41fd43b5da49b187e1a0">SwapChainSupportDetails::swapExtent</a>(<span class="keyword">const</span> sf::Vector2u&amp; windowSize)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.currentExtent.width != std::numeric_limits&lt;uint32_t&gt;::max()) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.currentExtent;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        VkExtent2D actualExtent = {windowSize.x, windowSize.y};</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        actualExtent.width  = std::clamp(actualExtent.width,</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                                        <a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.minImageExtent.width,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                                        <a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageExtent.width);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        actualExtent.height = std::clamp(actualExtent.height,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                                         <a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.minImageExtent.height,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                         <a class="code hl_variable" href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">capabilities</a>.maxImageExtent.height);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> actualExtent;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00230_html_a6b4a6c9a77636c98a3c0821ae6a4c119"><div class="ttname"><a href="a00230.html#a6b4a6c9a77636c98a3c0821ae6a4c119">BL_LOG_DEBUG</a></div><div class="ttdeci">#define BL_LOG_DEBUG</div><div class="ttdoc">Helper macro to log at debug level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00230_source.html#l00110">Logger.hpp:110</a></div></div>
-<div class="ttc" id="aa01271_html"><div class="ttname"><a href="a01271.html">VkCheck.hpp</a></div></div>
-<div class="ttc" id="aa01271_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01271.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa02264_html"><div class="ttname"><a href="a02264.html">SwapChainSupportDetails.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05526_html_a040eaf623e9b24c2cee14f0091ed4527"><div class="ttname"><a href="a05526.html#a040eaf623e9b24c2cee14f0091ed4527">bl::rc::SwapChainSupportDetails::presentModes</a></div><div class="ttdeci">std::vector&lt; VkPresentModeKHR &gt; presentModes</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00015">SwapChainSupportDetails.hpp:15</a></div></div>
-<div class="ttc" id="aa05526_html_a069747b37a642917592e4a8efd66517f"><div class="ttname"><a href="a05526.html#a069747b37a642917592e4a8efd66517f">bl::rc::SwapChainSupportDetails::SwapChainSupportDetails</a></div><div class="ttdeci">SwapChainSupportDetails()=default</div></div>
-<div class="ttc" id="aa05526_html_a074771ce4af99a010a861cddb901432e"><div class="ttname"><a href="a05526.html#a074771ce4af99a010a861cddb901432e">bl::rc::SwapChainSupportDetails::swapSurfaceFormat</a></div><div class="ttdeci">const VkSurfaceFormatKHR &amp; swapSurfaceFormat() const</div><div class="ttdef"><b>Definition</b> <a href="a02270_source.html#l00033">SwapChainSupportDetails.cpp:33</a></div></div>
-<div class="ttc" id="aa05526_html_a2c9d9cd7870d31087ed25d3300044237"><div class="ttname"><a href="a05526.html#a2c9d9cd7870d31087ed25d3300044237">bl::rc::SwapChainSupportDetails::presentationMode</a></div><div class="ttdeci">VkPresentModeKHR presentationMode(bool disableVsync) const</div><div class="ttdef"><b>Definition</b> <a href="a02270_source.html#l00044">SwapChainSupportDetails.cpp:44</a></div></div>
-<div class="ttc" id="aa05526_html_a317e166f325c41fd43b5da49b187e1a0"><div class="ttname"><a href="a05526.html#a317e166f325c41fd43b5da49b187e1a0">bl::rc::SwapChainSupportDetails::swapExtent</a></div><div class="ttdeci">VkExtent2D swapExtent(const sf::Vector2u &amp;windowSize) const</div><div class="ttdef"><b>Definition</b> <a href="a02270_source.html#l00055">SwapChainSupportDetails.cpp:55</a></div></div>
-<div class="ttc" id="aa05526_html_a538d5c8e88477f1afb804a9d557d4234"><div class="ttname"><a href="a05526.html#a538d5c8e88477f1afb804a9d557d4234">bl::rc::SwapChainSupportDetails::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition</b> <a href="a02270_source.html#l00013">SwapChainSupportDetails.cpp:13</a></div></div>
-<div class="ttc" id="aa05526_html_a8ba0581e712e3a075ce750dedca8bf86"><div class="ttname"><a href="a05526.html#a8ba0581e712e3a075ce750dedca8bf86">bl::rc::SwapChainSupportDetails::capabilities</a></div><div class="ttdeci">VkSurfaceCapabilitiesKHR capabilities</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00013">SwapChainSupportDetails.hpp:13</a></div></div>
-<div class="ttc" id="aa05526_html_af19415c0ae2875bf29ba85dac4dec14e"><div class="ttname"><a href="a05526.html#af19415c0ae2875bf29ba85dac4dec14e">bl::rc::SwapChainSupportDetails::formats</a></div><div class="ttdeci">std::vector&lt; VkSurfaceFormatKHR &gt; formats</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00014">SwapChainSupportDetails.hpp:14</a></div></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keywordtype">void</span> ShadowMapTask::create(<span class="keyword">const</span> <a class="code hl_struct" href="a05054.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    renderer = &amp;<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.renderer;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    scene    = <span class="keyword">dynamic_cast&lt;</span><a class="code hl_class" href="a05466.html">scene::Scene3D</a>*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.scene);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (!scene) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ShadowMapTask can only be used with Scene3D&quot;</span>); }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keywordtype">void</span> ShadowMapTask::onGraphInit() {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    shadowMaps = <span class="keyword">dynamic_cast&lt;</span>ShadowMapAsset*<span class="keyword">&gt;</span>(&amp;<a class="code hl_variable" href="a05098.html#a663136a9c9645a13f420b7bf622ece36">assets</a>.<a class="code hl_variable" href="a05102.html#a68d2b47072b41c6921ada076830609b6">outputs</a>[0]-&gt;asset.get());</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (!shadowMaps) { <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;ShadowMapTask requires ShadowMapAsset input&quot;</span>); }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">void</span> ShadowMapTask::execute(<span class="keyword">const</span> rg::ExecutionContext&amp; execCtx, rg::Asset*) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> <span class="keyword">auto</span> res = renderer-&gt;<a class="code hl_function" href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">getSettings</a>().<a class="code hl_function" href="a05506.html#a772a46683428b19be1cfd217abc8c04b">getShadowMapResolution</a>();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">const</span> VkViewport viewport{.x        = 0,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                              .y        = 0,</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                              .width    = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(res.width),</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                              .height   = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(res.height),</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                              .minDepth = 0.f,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                              .maxDepth = 1.f};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> VkClearValue clearColor{.depthStencil = {.depth = 1.f, .stencil = 0}};</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    lgt::Scene3DLighting&amp; lighting = scene-&gt;<a class="code hl_function" href="a05466.html#a7b6d28acb8e50fa987d6a599733bfad0">getLighting</a>();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="comment">// sun shadow map</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    scene::SceneRenderContext sunCtx(execCtx.commandBuffer,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                     execCtx.observerIndex,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                                     viewport,</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                                     <a class="code hl_variable" href="a04798.html#ae694720a8ea5d8607f88b99bc5373edd">cfg::RenderPhases::ShadowMap</a>,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                                     <a class="code hl_variable" href="a04794.html#a2e4ccb302b8a563d2ebcf875b7c7e45f">cfg::RenderPassIds::ShadowMapPass</a>,</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                                     <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    scene::ctx::ShadowMapContext sunShadowCtx{.lightType  = <a class="code hl_enumvalue" href="a05434.html#adbd257d4a495caeaf632415887deed2da19f51ade0f0ebc19f62b8c709f508c1a">scene::ctx::ShadowMapContext::SunLight</a>,</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                                              .lightIndex = 0};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    sunCtx.setExtraContext(&amp;sunShadowCtx);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    shadowMaps-&gt;<a class="code hl_function" href="a05030.html#a9d94696c52d3d64bf026dc75525f40ac">getSpotShadowFramebuffer</a>(0).<a class="code hl_function" href="a05702.html#a56b6ff00b874f54de156a170c387ec54">beginRender</a>(</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        execCtx.commandBuffer,</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        {.offset = {0, 0}, .extent = {res.width, res.height}},</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        &amp;clearColor,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        1,</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    scene-&gt;renderScene(sunCtx);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    shadowMaps-&gt;getSpotShadowFramebuffer(0).finishRender(execCtx.commandBuffer);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="comment">// spot light shadows</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; lighting.getSpotShadowCount(); ++i) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        scene::SceneRenderContext spotCtx(execCtx.commandBuffer,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                                          execCtx.observerIndex,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                                          viewport,</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                                          <a class="code hl_variable" href="a04798.html#ae694720a8ea5d8607f88b99bc5373edd">cfg::RenderPhases::ShadowMap</a>,</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                                          <a class="code hl_variable" href="a04794.html#a2e4ccb302b8a563d2ebcf875b7c7e45f">cfg::RenderPassIds::ShadowMapPass</a>,</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                                          <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        scene::ctx::ShadowMapContext spotShadowCtx{</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            .lightType = <a class="code hl_enumvalue" href="a05434.html#adbd257d4a495caeaf632415887deed2da55cb864c3b17347fd2dcb3f1cbb7753a">scene::ctx::ShadowMapContext::SpotLight</a>, .lightIndex = i};</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        spotCtx.setExtraContext(&amp;spotShadowCtx);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">auto</span>&amp; fb = shadowMaps-&gt;getSpotShadowFramebuffer(i + 1);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        fb.beginRender(execCtx.commandBuffer,</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                       {.offset = {0, 0}, .extent = {res.width, res.height}},</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                       &amp;clearColor,</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                       1,</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                       <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                       <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                       <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        scene-&gt;renderScene(spotCtx);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        fb.finishRender(execCtx.commandBuffer);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">// point light shadows</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; lighting.getPointShadowCount(); ++i) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        scene::SceneRenderContext pointCtx(execCtx.commandBuffer,</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                                           execCtx.observerIndex,</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                                           viewport,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                                           <a class="code hl_variable" href="a04798.html#adccd1903c805a2c1b70082f4571c0131">cfg::RenderPhases::ShadowPointMap</a>,</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                                           <a class="code hl_variable" href="a04794.html#a2e4ccb302b8a563d2ebcf875b7c7e45f">cfg::RenderPassIds::ShadowMapPass</a>,</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                                           <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        scene::ctx::ShadowMapContext pointShadowCtx{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            .lightType = <a class="code hl_enumvalue" href="a05434.html#adbd257d4a495caeaf632415887deed2da04fae011fc827ca8766171df81551695">scene::ctx::ShadowMapContext::PointLight</a>, .lightIndex = i};</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        pointCtx.setExtraContext(&amp;pointShadowCtx);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keyword">auto</span>&amp; fb = shadowMaps-&gt;getPointShadowFramebuffer(i);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        fb.beginRender(execCtx.commandBuffer,</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                       {.offset = {0, 0}, .extent = {res.width, res.height}},</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                       &amp;clearColor,</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                       1,</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                       <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                       <span class="keyword">nullptr</span>,</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                       <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        scene-&gt;renderScene(pointCtx);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        fb.finishRender(execCtx.commandBuffer);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>}</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00320_html"><div class="ttname"><a href="a00320.html">ExtraContexts.hpp</a></div></div>
+<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">Scene3D.hpp</a></div></div>
+<div class="ttc" id="aa00575_html"><div class="ttname"><a href="a00575.html">TaskIds.hpp</a></div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">AssetTags.hpp</a></div></div>
+<div class="ttc" id="aa00719_html"><div class="ttname"><a href="a00719.html">ShadowMapTask.hpp</a></div></div>
+<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">RenderPhases.hpp</a></div></div>
+<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">RenderPassIds.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04794_html_a2e4ccb302b8a563d2ebcf875b7c7e45f"><div class="ttname"><a href="a04794.html#a2e4ccb302b8a563d2ebcf875b7c7e45f">bl::rc::cfg::RenderPassIds::ShadowMapPass</a></div><div class="ttdeci">static constexpr std::uint32_t ShadowMapPass</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00022">RenderPassIds.hpp:22</a></div></div>
+<div class="ttc" id="aa04798_html_adccd1903c805a2c1b70082f4571c0131"><div class="ttname"><a href="a04798.html#adccd1903c805a2c1b70082f4571c0131">bl::rc::cfg::RenderPhases::ShadowPointMap</a></div><div class="ttdeci">static constexpr RenderPhase ShadowPointMap</div><div class="ttdoc">Use when rendering to a point shadow map.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00029">RenderPhases.hpp:29</a></div></div>
+<div class="ttc" id="aa04798_html_ae694720a8ea5d8607f88b99bc5373edd"><div class="ttname"><a href="a04798.html#ae694720a8ea5d8607f88b99bc5373edd">bl::rc::cfg::RenderPhases::ShadowMap</a></div><div class="ttdeci">static constexpr RenderPhase ShadowMap</div><div class="ttdoc">Use when rendering to a shadow map.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00026">RenderPhases.hpp:26</a></div></div>
+<div class="ttc" id="aa05030_html_a9d94696c52d3d64bf026dc75525f40ac"><div class="ttname"><a href="a05030.html#a9d94696c52d3d64bf026dc75525f40ac">bl::rc::rgi::ShadowMapAsset::getSpotShadowFramebuffer</a></div><div class="ttdeci">vk::Framebuffer &amp; getSpotShadowFramebuffer(std::uint32_t index)</div><div class="ttdoc">Returns the framebuffer of the spot shadow map at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00662_source.html#l00050">ShadowMapAsset.hpp:50</a></div></div>
+<div class="ttc" id="aa05038_html_a1e77575a149763001970bb2ab6d4f0c8"><div class="ttname"><a href="a05038.html#a1e77575a149763001970bb2ab6d4f0c8">bl::rc::rg::AssetTags::SceneInput</a></div><div class="ttdeci">static constexpr std::string_view SceneInput</div><div class="ttdef"><b>Definition</b> <a href="a00620_source.html#l00022">AssetTags.hpp:22</a></div></div>
+<div class="ttc" id="aa05038_html_a810872e015a2adffdefcd53c11e3bf19"><div class="ttname"><a href="a05038.html#a810872e015a2adffdefcd53c11e3bf19">bl::rc::rg::AssetTags::ShadowMaps</a></div><div class="ttdeci">static constexpr std::string_view ShadowMaps</div><div class="ttdef"><b>Definition</b> <a href="a00620_source.html#l00025">AssetTags.hpp:25</a></div></div>
+<div class="ttc" id="aa05054_html"><div class="ttname"><a href="a05054.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08539_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa05098_html_a663136a9c9645a13f420b7bf622ece36"><div class="ttname"><a href="a05098.html#a663136a9c9645a13f420b7bf622ece36">bl::rc::rg::Task::assets</a></div><div class="ttdeci">TaskAssets assets</div><div class="ttdef"><b>Definition</b> <a href="a00698_source.html#l00079">Task.hpp:79</a></div></div>
+<div class="ttc" id="aa05098_html_aeca701513a61a6e75e5525db2d180cbc"><div class="ttname"><a href="a05098.html#aeca701513a61a6e75e5525db2d180cbc">bl::rc::rg::Task::assetTags</a></div><div class="ttdeci">TaskAssetTags assetTags</div><div class="ttdef"><b>Definition</b> <a href="a00698_source.html#l00078">Task.hpp:78</a></div></div>
+<div class="ttc" id="aa05102_html_a68d2b47072b41c6921ada076830609b6"><div class="ttname"><a href="a05102.html#a68d2b47072b41c6921ada076830609b6">bl::rc::rg::TaskAssets::outputs</a></div><div class="ttdeci">std::vector&lt; GraphAsset * &gt; outputs</div><div class="ttdef"><b>Definition</b> <a href="a00638_source.html#l00023">TaskAssets.hpp:23</a></div></div>
+<div class="ttc" id="aa05106_html_a4e0f4dd559079f76277fe20455135007"><div class="ttname"><a href="a05106.html#a4e0f4dd559079f76277fe20455135007">bl::rc::rg::TaskAssetTags::outputs</a></div><div class="ttdeci">std::vector&lt; TaskOutput &gt; outputs</div><div class="ttdoc">The type of outputs that the task can output to.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00022">TaskAssetTags.hpp:22</a></div></div>
+<div class="ttc" id="aa05106_html_af629a8d79e580fce30b340ddc7a18985"><div class="ttname"><a href="a05106.html#af629a8d79e580fce30b340ddc7a18985">bl::rc::rg::TaskAssetTags::requiredInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; requiredInputs</div><div class="ttdoc">List of required inputs.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00025">TaskAssetTags.hpp:25</a></div></div>
+<div class="ttc" id="aa05118_html_a2bd198ab7f31ed5baeb3c69a12781902af43efd4199e695d31f15a7ee1f1dc797"><div class="ttname"><a href="a05118.html#a2bd198ab7f31ed5baeb3c69a12781902af43efd4199e695d31f15a7ee1f1dc797">bl::rc::rg::TaskOutput::CreatedByTask</a></div><div class="ttdeci">@ CreatedByTask</div><div class="ttdoc">The output is created by this task or another task.</div><div class="ttdef"><b>Definition</b> <a href="a00701_source.html#l00025">TaskOutput.hpp:25</a></div></div>
+<div class="ttc" id="aa05174_html"><div class="ttname"><a href="a05174.html">bl::rc::rgi::ShadowMapTask</a></div><div class="ttdoc">Task that renders shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00719_source.html#l00023">ShadowMapTask.hpp:23</a></div></div>
+<div class="ttc" id="aa05174_html_aa29ca3c0575fb6775aa4f4072c7eb8d4"><div class="ttname"><a href="a05174.html#aa29ca3c0575fb6775aa4f4072c7eb8d4">bl::rc::rgi::ShadowMapTask::ShadowMapTask</a></div><div class="ttdeci">ShadowMapTask()</div><div class="ttdoc">Creates the task.</div><div class="ttdef"><b>Definition</b> <a href="a02270_source.html#l00017">ShadowMapTask.cpp:17</a></div></div>
+<div class="ttc" id="aa05330_html_ab2b956c5cdf751ef4db0cac0ed3df91d"><div class="ttname"><a href="a05330.html#ab2b956c5cdf751ef4db0cac0ed3df91d">bl::rc::Renderer::getSettings</a></div><div class="ttdeci">Settings &amp; getSettings()</div><div class="ttdoc">Returns the render settings which can be changed.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00455">Renderer.hpp:455</a></div></div>
+<div class="ttc" id="aa05434_html_adbd257d4a495caeaf632415887deed2da04fae011fc827ca8766171df81551695"><div class="ttname"><a href="a05434.html#adbd257d4a495caeaf632415887deed2da04fae011fc827ca8766171df81551695">bl::rc::scene::ctx::ShadowMapContext::PointLight</a></div><div class="ttdeci">@ PointLight</div><div class="ttdef"><b>Definition</b> <a href="a00320_source.html#l00019">ExtraContexts.hpp:19</a></div></div>
+<div class="ttc" id="aa05434_html_adbd257d4a495caeaf632415887deed2da19f51ade0f0ebc19f62b8c709f508c1a"><div class="ttname"><a href="a05434.html#adbd257d4a495caeaf632415887deed2da19f51ade0f0ebc19f62b8c709f508c1a">bl::rc::scene::ctx::ShadowMapContext::SunLight</a></div><div class="ttdeci">@ SunLight</div><div class="ttdef"><b>Definition</b> <a href="a00320_source.html#l00019">ExtraContexts.hpp:19</a></div></div>
+<div class="ttc" id="aa05434_html_adbd257d4a495caeaf632415887deed2da55cb864c3b17347fd2dcb3f1cbb7753a"><div class="ttname"><a href="a05434.html#adbd257d4a495caeaf632415887deed2da55cb864c3b17347fd2dcb3f1cbb7753a">bl::rc::scene::ctx::ShadowMapContext::SpotLight</a></div><div class="ttdeci">@ SpotLight</div><div class="ttdef"><b>Definition</b> <a href="a00320_source.html#l00019">ExtraContexts.hpp:19</a></div></div>
+<div class="ttc" id="aa05466_html"><div class="ttname"><a href="a05466.html">bl::rc::scene::Scene3D</a></div><div class="ttdoc">3d scene implementation</div><div class="ttdef"><b>Definition</b> <a href="a00344_source.html#l00018">Scene3D.hpp:18</a></div></div>
+<div class="ttc" id="aa05466_html_a7b6d28acb8e50fa987d6a599733bfad0"><div class="ttname"><a href="a05466.html#a7b6d28acb8e50fa987d6a599733bfad0">bl::rc::scene::Scene3D::getLighting</a></div><div class="ttdeci">lgt::Scene3DLighting &amp; getLighting()</div><div class="ttdoc">Returns the lighting for this scene.</div><div class="ttdef"><b>Definition</b> <a href="a00344_source.html#l00035">Scene3D.hpp:35</a></div></div>
+<div class="ttc" id="aa05506_html_a772a46683428b19be1cfd217abc8c04b"><div class="ttname"><a href="a05506.html#a772a46683428b19be1cfd217abc8c04b">bl::rc::Settings::getShadowMapResolution</a></div><div class="ttdeci">const VkExtent2D &amp; getShadowMapResolution() const</div><div class="ttdoc">Returns the resolution to render shadow maps at.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00309">Settings.hpp:309</a></div></div>
+<div class="ttc" id="aa05702_html_a56b6ff00b874f54de156a170c387ec54"><div class="ttname"><a href="a05702.html#a56b6ff00b874f54de156a170c387ec54">bl::rc::vk::Framebuffer::beginRender</a></div><div class="ttdeci">void beginRender(VkCommandBuffer commandBuffer, const VkRect2D &amp;region, const VkClearValue *clearColors, std::uint32_t clearColorCount, bool setViewport=true, VkRenderPass renderPass=nullptr, bool clearOnRestart=false)</div><div class="ttdoc">Begins the render pass, recreating the framebuffer if necessary. Scissor is set.</div><div class="ttdef"><b>Definition</b> <a href="a02150_source.html#l00056">Framebuffer.cpp:56</a></div></div>
+<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

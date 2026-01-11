@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::Notebook::Page Struct Reference</title>
+<title>BLIB: bl::ecs::ComponentPool&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,86 +74,156 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02438.html">gui</a></li><li class="navelem"><a class="el" href="a03514.html">Notebook</a></li><li class="navelem"><a class="el" href="a03518.html">Page</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03518.html">ComponentPool</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03515.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui::Notebook::Page Struct Reference</div></div>
+  <div class="headertitle"><div class="title">bl::ecs::ComponentPool&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02968.html">ECS</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03494.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a> struct representing a page in the notebook.  
+<p>Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a03590.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  
  <a href="a03518.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00734_source.html">Notebook.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01580_source.html">ComponentPool.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::ComponentPool&lt; T &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03518.png" usemap="#bl::ecs::ComponentPool_3C_20T_20_3E_map" alt=""/>
+  <map id="bl::ecs::ComponentPool_3C_20T_20_3E_map" name="bl::ecs::ComponentPool_3C_20T_20_3E_map">
+<area href="a03514.html" title="Base class for component pools. Not intended to be used directly." alt="bl::ecs::ComponentPoolBase" shape="rect" coords="0,56,173,80"/>
+<area href="a06542.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,173,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aadc1729f9bf30fbd3749c3ceff5d29a3" id="r_aadc1729f9bf30fbd3749c3ceff5d29a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aadc1729f9bf30fbd3749c3ceff5d29a3">Page</a> (const std::string &amp;<a class="el" href="a03518.html#a64f6e69fba35071e94033297e80fa307">name</a>, const <a class="el" href="a03474.html#a8ab0163ea466e796954f7e3667a84cac">Button::Ptr</a> &amp;<a class="el" href="a03518.html#aaba3c58c53658f6b19ddcbac4b9ca562">label</a>, const <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;<a class="el" href="a03518.html#aaf946fab65d12b8131792beb43f366bb">content</a>, const <a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a> &amp;<a class="el" href="a03518.html#a2cdb4f8a2b7862ad8c0906514f9e533e">onOpen</a>, const <a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a> &amp;<a class="el" href="a03518.html#a4ae742d702159b70205f797dd50398ba">onClose</a>)</td></tr>
-<tr class="separator:aadc1729f9bf30fbd3749c3ceff5d29a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38c3153517119dae98fdeb12ddf112de" id="r_a38c3153517119dae98fdeb12ddf112de"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a38c3153517119dae98fdeb12ddf112de">get</a> (<a class="el" href="a03542.html">Entity</a> entity)</td></tr>
+<tr class="memdesc:a38c3153517119dae98fdeb12ddf112de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the component for the given entity if it exists.  <br /></td></tr>
+<tr class="separator:a38c3153517119dae98fdeb12ddf112de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaffef6b3efb8e6760d45c06b3477b43b" id="r_aaffef6b3efb8e6760d45c06b3477b43b"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aaffef6b3efb8e6760d45c06b3477b43b">get</a> (<a class="el" href="a03542.html">Entity</a> entity, const <a class="el" href="a03678.html">Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="el" href="a03598.html">tx::ComponentRead</a>&lt; T &gt; &gt; &amp;transaction)</td></tr>
+<tr class="memdesc:aaffef6b3efb8e6760d45c06b3477b43b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the component for the given entity if it exists.  <br /></td></tr>
+<tr class="separator:aaffef6b3efb8e6760d45c06b3477b43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a557e314ff3e797220cca51606d535aaf" id="r_a557e314ff3e797220cca51606d535aaf"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
+<tr class="memitem:a557e314ff3e797220cca51606d535aaf"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03518.html#a557e314ff3e797220cca51606d535aaf">forEach</a> (const TCallback &amp;cb)</td></tr>
+<tr class="memdesc:a557e314ff3e797220cca51606d535aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained components and triggers the callback for each.  <br /></td></tr>
+<tr class="separator:a557e314ff3e797220cca51606d535aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f9d458a4237638d13e3bdf7999e1467" id="r_a3f9d458a4237638d13e3bdf7999e1467"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
+<tr class="memitem:a3f9d458a4237638d13e3bdf7999e1467"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03518.html#a3f9d458a4237638d13e3bdf7999e1467">forEach</a> (const TCallback &amp;cb, const <a class="el" href="a03678.html">Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="el" href="a03598.html">tx::ComponentRead</a>&lt; T &gt; &gt; &amp;transaction)</td></tr>
+<tr class="memdesc:a3f9d458a4237638d13e3bdf7999e1467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained components and triggers the callback for each.  <br /></td></tr>
+<tr class="separator:a3f9d458a4237638d13e3bdf7999e1467"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a64f6e69fba35071e94033297e80fa307" id="r_a64f6e69fba35071e94033297e80fa307"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a64f6e69fba35071e94033297e80fa307">name</a></td></tr>
-<tr class="memdesc:a64f6e69fba35071e94033297e80fa307"><td class="mdescLeft">&#160;</td><td class="mdescRight">The internal name of the page.  <br /></td></tr>
-<tr class="separator:a64f6e69fba35071e94033297e80fa307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba3c58c53658f6b19ddcbac4b9ca562" id="r_aaba3c58c53658f6b19ddcbac4b9ca562"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03474.html#a8ab0163ea466e796954f7e3667a84cac">Button::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aaba3c58c53658f6b19ddcbac4b9ca562">label</a></td></tr>
-<tr class="memdesc:aaba3c58c53658f6b19ddcbac4b9ca562"><td class="mdescLeft">&#160;</td><td class="mdescRight">The label at the top of the notebook.  <br /></td></tr>
-<tr class="separator:aaba3c58c53658f6b19ddcbac4b9ca562"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf946fab65d12b8131792beb43f366bb" id="r_aaf946fab65d12b8131792beb43f366bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aaf946fab65d12b8131792beb43f366bb">content</a></td></tr>
-<tr class="memdesc:aaf946fab65d12b8131792beb43f366bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any element that is the actual page content.  <br /></td></tr>
-<tr class="separator:aaf946fab65d12b8131792beb43f366bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cdb4f8a2b7862ad8c0906514f9e533e" id="r_a2cdb4f8a2b7862ad8c0906514f9e533e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a2cdb4f8a2b7862ad8c0906514f9e533e">onOpen</a></td></tr>
-<tr class="memdesc:a2cdb4f8a2b7862ad8c0906514f9e533e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback to trigger when the page is opened.  <br /></td></tr>
-<tr class="separator:a2cdb4f8a2b7862ad8c0906514f9e533e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ae742d702159b70205f797dd50398ba" id="r_a4ae742d702159b70205f797dd50398ba"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a4ae742d702159b70205f797dd50398ba">onClose</a></td></tr>
-<tr class="memdesc:a4ae742d702159b70205f797dd50398ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback to trigger when the page is closed.  <br /></td></tr>
-<tr class="separator:a4ae742d702159b70205f797dd50398ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab026c9a642037ac2e809e2ce7735a517" id="r_ab026c9a642037ac2e809e2ce7735a517"><td class="memItemLeft" align="right" valign="top">const std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#ab026c9a642037ac2e809e2ce7735a517">ComponentIndex</a></td></tr>
+<tr class="memdesc:ab026c9a642037ac2e809e2ce7735a517"><td class="mdescLeft">&#160;</td><td class="mdescRight">The 0-based index of this component pool.  <br /></td></tr>
+<tr class="separator:ab026c9a642037ac2e809e2ce7735a517"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aaeab44b74beaa087690213b05a15ee4f" id="r_aaeab44b74beaa087690213b05a15ee4f"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aaeab44b74beaa087690213b05a15ee4f">IsParentAware</a> = std::is_base_of_v&lt;<a class="el" href="a03630.html">trait::ParentAware</a>&lt;T&gt;, T&gt;</td></tr>
+<tr class="separator:aaeab44b74beaa087690213b05a15ee4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a273ef7b79f032bbf227e3d5d7a09de93" id="r_a273ef7b79f032bbf227e3d5d7a09de93"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a273ef7b79f032bbf227e3d5d7a09de93">IsChildAware</a> = std::is_base_of_v&lt;<a class="el" href="a03626.html">trait::ChildAware</a>&lt;T&gt;, T&gt;</td></tr>
+<tr class="separator:a273ef7b79f032bbf227e3d5d7a09de93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:aa06fba3daac03f55f1d1253ffbbbc728" id="r_aa06fba3daac03f55f1d1253ffbbbc728"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#aa06fba3daac03f55f1d1253ffbbbc728">removalQueueMutex</a></td></tr>
+<tr class="separator:aa06fba3daac03f55f1d1253ffbbbc728"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af268b3204ff2d2d74b15ca8347bcb05f" id="r_af268b3204ff2d2d74b15ca8347bcb05f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06578.html">util::ReadWriteLock</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html#af268b3204ff2d2d74b15ca8347bcb05f">poolLock</a></td></tr>
+<tr class="separator:af268b3204ff2d2d74b15ca8347bcb05f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ac7b716e6d41ff508ad2d8e5dad655d72" id="r_ac7b716e6d41ff508ad2d8e5dad655d72"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#ac7b716e6d41ff508ad2d8e5dad655d72">Registry</a></td></tr>
+<tr class="separator:ac7b716e6d41ff508ad2d8e5dad655d72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bcc27be31551acd41a9dbffd0abc17c" id="r_a7bcc27be31551acd41a9dbffd0abc17c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a7bcc27be31551acd41a9dbffd0abc17c">Transaction&lt; tx::EntityUnlocked, tx::ComponentRead&lt; T &gt; &gt;</a></td></tr>
+<tr class="separator:a7bcc27be31551acd41a9dbffd0abc17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157bb3a51f2e9fad20d5b8a7f011fe10" id="r_a157bb3a51f2e9fad20d5b8a7f011fe10"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a157bb3a51f2e9fad20d5b8a7f011fe10">Transaction&lt; tx::EntityUnlocked, tx::ComponentRead&lt;&gt;, tx::ComponentWrite&lt; T &gt; &gt;</a></td></tr>
+<tr class="separator:a157bb3a51f2e9fad20d5b8a7f011fe10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03494.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a> struct representing a page in the notebook. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::ecs::ComponentPool&lt; T &gt;</div><p>Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a03590.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of component to store </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00734_source.html#l00038">38</a> of file <a class="el" href="a00734_source.html">Notebook.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aadc1729f9bf30fbd3749c3ceff5d29a3" name="aadc1729f9bf30fbd3749c3ceff5d29a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadc1729f9bf30fbd3749c3ceff5d29a3">&#9670;&#160;</a></span>Page()</h2>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00079">79</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a557e314ff3e797220cca51606d535aaf" name="a557e314ff3e797220cca51606d535aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a557e314ff3e797220cca51606d535aaf">&#9670;&#160;</a></span>forEach() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCallback &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::Notebook::Page::Page </td>
+          <td class="memname">void <a class="el" href="a03518.html">bl::ecs::ComponentPool</a>&lt; T &gt;::forEach </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
+          <td class="paramtype">const TCallback &amp;&#160;</td>
+          <td class="paramname"><em>cb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iterates over all contained components and triggers the callback for each. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TCallback</td><td>The callback type to invoke </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cb</td><td>The handler for each component. Takes the entity id and the component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00385">385</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f9d458a4237638d13e3bdf7999e1467" name="a3f9d458a4237638d13e3bdf7999e1467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9d458a4237638d13e3bdf7999e1467">&#9670;&#160;</a></span>forEach() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCallback &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03518.html">bl::ecs::ComponentPool</a>&lt; T &gt;::forEach </td>
+          <td>(</td>
+          <td class="paramtype">const TCallback &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a03474.html#a8ab0163ea466e796954f7e3667a84cac">Button::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>label</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> &amp;&#160;</td>
-          <td class="paramname"><em>content</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>onOpen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>onClose</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a03678.html">Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="el" href="a03598.html">tx::ComponentRead</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>transaction</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -163,110 +233,312 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01892_source.html#l00039">39</a> of file <a class="el" href="a01892_source.html">Notebook.cpp</a>.</p>
+<p>Iterates over all contained components and triggers the callback for each. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TCallback</td><td>The callback type to invoke </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transaction</td><td>The transaction to use to synchronize access </td></tr>
+    <tr><td class="paramname">cb</td><td>The handler for each component. Takes the entity id and the component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00394">394</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a38c3153517119dae98fdeb12ddf112de" name="a38c3153517119dae98fdeb12ddf112de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38c3153517119dae98fdeb12ddf112de">&#9670;&#160;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="a03518.html">bl::ecs::ComponentPool</a>&lt; T &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches the component for the given entity if it exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to get the component for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the component or nullptr if the entity does not have one </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00403">403</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaffef6b3efb8e6760d45c06b3477b43b" name="aaffef6b3efb8e6760d45c06b3477b43b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaffef6b3efb8e6760d45c06b3477b43b">&#9670;&#160;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="a03518.html">bl::ecs::ComponentPool</a>&lt; T &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a03678.html">Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="el" href="a03598.html">tx::ComponentRead</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>transaction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fetches the component for the given entity if it exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to get the component for </td></tr>
+    <tr><td class="paramname">transaction</td><td>The transaction to use to synchronize access </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>T* Pointer to the component or nullptr if the entity does not have one </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00408">408</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="ac7b716e6d41ff508ad2d8e5dad655d72" name="ac7b716e6d41ff508ad2d8e5dad655d72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b716e6d41ff508ad2d8e5dad655d72">&#9670;&#160;</a></span>Registry</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03590.html">Registry</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00229">229</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7bcc27be31551acd41a9dbffd0abc17c" name="a7bcc27be31551acd41a9dbffd0abc17c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bcc27be31551acd41a9dbffd0abc17c">&#9670;&#160;</a></span>Transaction&lt; tx::EntityUnlocked, tx::ComponentRead&lt; T &gt; &gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03678.html">Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="el" href="a03598.html">tx::ComponentRead</a>&lt; T &gt; &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00229">229</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a157bb3a51f2e9fad20d5b8a7f011fe10" name="a157bb3a51f2e9fad20d5b8a7f011fe10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a157bb3a51f2e9fad20d5b8a7f011fe10">&#9670;&#160;</a></span>Transaction&lt; tx::EntityUnlocked, tx::ComponentRead&lt;&gt;, tx::ComponentWrite&lt; T &gt; &gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03678.html">Transaction</a>&lt; <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">tx::EntityUnlocked</a>, <a class="el" href="a03598.html">tx::ComponentRead</a>&lt;&gt;, <a class="el" href="a03602.html">tx::ComponentWrite</a>&lt; T &gt; &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00229">229</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aaf946fab65d12b8131792beb43f366bb" name="aaf946fab65d12b8131792beb43f366bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf946fab65d12b8131792beb43f366bb">&#9670;&#160;</a></span>content</h2>
+<a id="ab026c9a642037ac2e809e2ce7735a517" name="ab026c9a642037ac2e809e2ce7735a517"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab026c9a642037ac2e809e2ce7735a517">&#9670;&#160;</a></span>ComponentIndex</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03498.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> bl::gui::Notebook::Page::content</td>
+          <td class="memname">const std::uint16_t bl::ecs::ComponentPoolBase::ComponentIndex</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Any element that is the actual page content. </p>
+<p>The 0-based index of this component pool. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00734_source.html#l00046">46</a> of file <a class="el" href="a00734_source.html">Notebook.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00037">37</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aaba3c58c53658f6b19ddcbac4b9ca562" name="aaba3c58c53658f6b19ddcbac4b9ca562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaba3c58c53658f6b19ddcbac4b9ca562">&#9670;&#160;</a></span>label</h2>
+<a id="a273ef7b79f032bbf227e3d5d7a09de93" name="a273ef7b79f032bbf227e3d5d7a09de93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a273ef7b79f032bbf227e3d5d7a09de93">&#9670;&#160;</a></span>IsChildAware</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03474.html#a8ab0163ea466e796954f7e3667a84cac">Button::Ptr</a> bl::gui::Notebook::Page::label</td>
+          <td class="memname">constexpr bool <a class="el" href="a03518.html">bl::ecs::ComponentPool</a>&lt; T &gt;::IsChildAware = std::is_base_of_v&lt;<a class="el" href="a03626.html">trait::ChildAware</a>&lt;T&gt;, T&gt;</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The label at the top of the notebook. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00734_source.html#l00043">43</a> of file <a class="el" href="a00734_source.html">Notebook.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00082">82</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a64f6e69fba35071e94033297e80fa307" name="a64f6e69fba35071e94033297e80fa307"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64f6e69fba35071e94033297e80fa307">&#9670;&#160;</a></span>name</h2>
+<a id="aaeab44b74beaa087690213b05a15ee4f" name="aaeab44b74beaa087690213b05a15ee4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeab44b74beaa087690213b05a15ee4f">&#9670;&#160;</a></span>IsParentAware</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string bl::gui::Notebook::Page::name</td>
+          <td class="memname">constexpr bool <a class="el" href="a03518.html">bl::ecs::ComponentPool</a>&lt; T &gt;::IsParentAware = std::is_base_of_v&lt;<a class="el" href="a03630.html">trait::ParentAware</a>&lt;T&gt;, T&gt;</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The internal name of the page. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00734_source.html#l00040">40</a> of file <a class="el" href="a00734_source.html">Notebook.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00081">81</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4ae742d702159b70205f797dd50398ba" name="a4ae742d702159b70205f797dd50398ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ae742d702159b70205f797dd50398ba">&#9670;&#160;</a></span>onClose</h2>
+<a id="af268b3204ff2d2d74b15ca8347bcb05f" name="af268b3204ff2d2d74b15ca8347bcb05f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af268b3204ff2d2d74b15ca8347bcb05f">&#9670;&#160;</a></span>poolLock</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a> bl::gui::Notebook::Page::onClose</td>
+          <td class="memname"><a class="el" href="a06578.html">util::ReadWriteLock</a> bl::ecs::ComponentPoolBase::poolLock</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Callback to trigger when the page is closed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00734_source.html#l00052">52</a> of file <a class="el" href="a00734_source.html">Notebook.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00046">46</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2cdb4f8a2b7862ad8c0906514f9e533e" name="a2cdb4f8a2b7862ad8c0906514f9e533e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cdb4f8a2b7862ad8c0906514f9e533e">&#9670;&#160;</a></span>onOpen</h2>
+<a id="aa06fba3daac03f55f1d1253ffbbbc728" name="aa06fba3daac03f55f1d1253ffbbbc728"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa06fba3daac03f55f1d1253ffbbbc728">&#9670;&#160;</a></span>removalQueueMutex</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03514.html#a4f552d382aa69cf6b37963ffec2b5268">PageChangedCb</a> bl::gui::Notebook::Page::onOpen</td>
+          <td class="memname">std::mutex bl::ecs::ComponentPoolBase::removalQueueMutex</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Callback to trigger when the page is opened. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00734_source.html#l00049">49</a> of file <a class="el" href="a00734_source.html">Notebook.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01580_source.html#l00045">45</a> of file <a class="el" href="a01580_source.html">ComponentPool.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Elements/<a class="el" href="a00734_source.html">Notebook.hpp</a></li>
-<li>src/Interfaces/GUI/Elements/<a class="el" href="a01892_source.html">Notebook.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a01580_source.html">ComponentPool.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

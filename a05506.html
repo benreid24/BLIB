@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::input::Encoder::ControlInfo Struct Reference</title>
+<title>BLIB: bl::rc::Settings Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,183 +74,1213 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02436.html">input</a></li><li class="navelem"><a class="el" href="a05502.html">Encoder</a></li><li class="navelem"><a class="el" href="a05506.html">ControlInfo</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a05506.html">Settings</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a05503.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::input::Encoder::ControlInfo Struct Reference</div></div>
+  <div class="headertitle"><div class="title">bl::rc::Settings Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a01625_source.html">Encoder.hpp</a>&gt;</code></p>
+<p>Basic class containing the renderer graphics settings.  
+ <a href="a05506.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a08569_source.html">Settings.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6e51da7bbcf066924bc91010aae6e012" id="r_a6e51da7bbcf066924bc91010aae6e012"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012">Type</a> { <br />
-&#160;&#160;<a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b">Invalid</a>
-, <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044">Key</a>
-, <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3">MouseButton</a>
-, <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc">MouseWheelUp</a>
-, <br />
-&#160;&#160;<a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e">MouseWheelDown</a>
-, <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06">JoystickButton</a>
-, <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def">JoystickAxis</a>
-, <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58">JoystickAxisPositive</a>
-, <br />
-&#160;&#160;<a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc">JoystickAxisNegative</a>
-<br />
- }</td></tr>
-<tr class="separator:a6e51da7bbcf066924bc91010aae6e012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c3fab554d962937e8fbe10d71445cc8" id="r_a8c3fab554d962937e8fbe10d71445cc8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a8c3fab554d962937e8fbe10d71445cc8">AntiAliasing</a> = <a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">GraphicsSettings::AntiAliasing</a></td></tr>
+<tr class="separator:a8c3fab554d962937e8fbe10d71445cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c092807058b4eb8069e53892e1b1e9f" id="r_a5c092807058b4eb8069e53892e1b1e9f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a5c092807058b4eb8069e53892e1b1e9f">SSAO</a> = <a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">GraphicsSettings::SSAO</a></td></tr>
+<tr class="separator:a5c092807058b4eb8069e53892e1b1e9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaec44ca030d194539333731e226903c6" id="r_aaec44ca030d194539333731e226903c6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aaec44ca030d194539333731e226903c6">AutoHdrSettings</a> = <a class="el" href="a05198.html">GraphicsSettings::AutoHdrSettings</a></td></tr>
+<tr class="separator:aaec44ca030d194539333731e226903c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adec54920c1908604377d76b479700dad" id="r_adec54920c1908604377d76b479700dad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#adec54920c1908604377d76b479700dad">ControlInfo</a> ()</td></tr>
-<tr class="separator:adec54920c1908604377d76b479700dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addf7d997e2e1b32c6befb8c87c9b55d0" id="r_addf7d997e2e1b32c6befb8c87c9b55d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#addf7d997e2e1b32c6befb8c87c9b55d0">ControlInfo</a> (sf::Keyboard::Key <a class="el" href="a05506.html#a992e452cc64a297ac68a16173bed52b7">key</a>)</td></tr>
-<tr class="separator:addf7d997e2e1b32c6befb8c87c9b55d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6437f2742529a1c6d576b7892e78c3f7" id="r_a6437f2742529a1c6d576b7892e78c3f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a6437f2742529a1c6d576b7892e78c3f7">ControlInfo</a> (sf::Mouse::Button mbut)</td></tr>
-<tr class="separator:a6437f2742529a1c6d576b7892e78c3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace9b5d5f8511426f82ba59febf9ab0e7" id="r_ace9b5d5f8511426f82ba59febf9ab0e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ace9b5d5f8511426f82ba59febf9ab0e7">ControlInfo</a> (sf::Mouse::Wheel wheel, bool upOrRight)</td></tr>
-<tr class="separator:ace9b5d5f8511426f82ba59febf9ab0e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4a2781d4362bb7b817cc5df1dd8e888" id="r_aa4a2781d4362bb7b817cc5df1dd8e888"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aa4a2781d4362bb7b817cc5df1dd8e888">ControlInfo</a> (unsigned int jbut)</td></tr>
-<tr class="separator:aa4a2781d4362bb7b817cc5df1dd8e888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb6e1294869c3c12e144df0a09ddd2a3" id="r_afb6e1294869c3c12e144df0a09ddd2a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#afb6e1294869c3c12e144df0a09ddd2a3">ControlInfo</a> (sf::Joystick::Axis axis)</td></tr>
-<tr class="separator:afb6e1294869c3c12e144df0a09ddd2a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae159c52656c8c22e623e42541dd489f7" id="r_ae159c52656c8c22e623e42541dd489f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ae159c52656c8c22e623e42541dd489f7">ControlInfo</a> (sf::Joystick::Axis axis, bool positive)</td></tr>
-<tr class="separator:ae159c52656c8c22e623e42541dd489f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a92a6407b9323e9e86e4f0a0c31bf1" id="r_a15a92a6407b9323e9e86e4f0a0c31bf1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a15a92a6407b9323e9e86e4f0a0c31bf1">Settings</a> (<a class="el" href="a05330.html">Renderer</a> &amp;owner, const <a class="el" href="a04814.html">CreationSettings</a> &amp;settings)</td></tr>
+<tr class="memdesc:a15a92a6407b9323e9e86e4f0a0c31bf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the settings to sane defaults.  <br /></td></tr>
+<tr class="separator:a15a92a6407b9323e9e86e4f0a0c31bf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca4e04b1d749ca0324988c15239c17ba" id="r_aca4e04b1d749ca0324988c15239c17ba"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aca4e04b1d749ca0324988c15239c17ba">getGamma</a> () const</td></tr>
+<tr class="memdesc:aca4e04b1d749ca0324988c15239c17ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the gamma value to use for rendering.  <br /></td></tr>
+<tr class="separator:aca4e04b1d749ca0324988c15239c17ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3c650af7406c6df7bc50f95500669d0" id="r_ac3c650af7406c6df7bc50f95500669d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ac3c650af7406c6df7bc50f95500669d0">setGamma</a> (float g)</td></tr>
+<tr class="memdesc:ac3c650af7406c6df7bc50f95500669d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the gamma value to use when rendering.  <br /></td></tr>
+<tr class="separator:ac3c650af7406c6df7bc50f95500669d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12e3a7f724bdde9b58deda8bb86f2360" id="r_a12e3a7f724bdde9b58deda8bb86f2360"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a12e3a7f724bdde9b58deda8bb86f2360">getExposureFactor</a> () const</td></tr>
+<tr class="memdesc:a12e3a7f724bdde9b58deda8bb86f2360"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the exposure factor used for HDR tone mapping.  <br /></td></tr>
+<tr class="separator:a12e3a7f724bdde9b58deda8bb86f2360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a421ee6b623c37c5b4429dc1d7c0e8eaa" id="r_a421ee6b623c37c5b4429dc1d7c0e8eaa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a421ee6b623c37c5b4429dc1d7c0e8eaa">setExposureFactor</a> (float e)</td></tr>
+<tr class="memdesc:a421ee6b623c37c5b4429dc1d7c0e8eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the exposure factor used for HDR tone mapping.  <br /></td></tr>
+<tr class="separator:a421ee6b623c37c5b4429dc1d7c0e8eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c2b98e843c215fdf1bebb47e4af0e35" id="r_a8c2b98e843c215fdf1bebb47e4af0e35"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a8c2b98e843c215fdf1bebb47e4af0e35">getHDREnabled</a> () const</td></tr>
+<tr class="memdesc:a8c2b98e843c215fdf1bebb47e4af0e35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether HDR rendering is enabled.  <br /></td></tr>
+<tr class="separator:a8c2b98e843c215fdf1bebb47e4af0e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3737a0cc3d1c464b71057d54e629034" id="r_aa3737a0cc3d1c464b71057d54e629034"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aa3737a0cc3d1c464b71057d54e629034">setHDREnabled</a> (bool enable)</td></tr>
+<tr class="memdesc:aa3737a0cc3d1c464b71057d54e629034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether HDR rendering is enabled.  <br /></td></tr>
+<tr class="separator:aa3737a0cc3d1c464b71057d54e629034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c2180d5a1f6bfb78ba6d2348bf70eb" id="r_a37c2180d5a1f6bfb78ba6d2348bf70eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a37c2180d5a1f6bfb78ba6d2348bf70eb">setAutoHDRSettings</a> (const <a class="el" href="a05506.html#aaec44ca030d194539333731e226903c6">AutoHdrSettings</a> &amp;settings)</td></tr>
+<tr class="memdesc:a37c2180d5a1f6bfb78ba6d2348bf70eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Auto HDR settings. Only used if both HDR and auto-hdr are enabled.  <br /></td></tr>
+<tr class="separator:a37c2180d5a1f6bfb78ba6d2348bf70eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad264db170295997ce1f7df57dd1e08f" id="r_aad264db170295997ce1f7df57dd1e08f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05506.html#aaec44ca030d194539333731e226903c6">AutoHdrSettings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aad264db170295997ce1f7df57dd1e08f">getAutoHDRSettings</a> () const</td></tr>
+<tr class="memdesc:aad264db170295997ce1f7df57dd1e08f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the auto HDR settings of the renderer.  <br /></td></tr>
+<tr class="separator:aad264db170295997ce1f7df57dd1e08f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15c522e670021832caafed9302116dff" id="r_a15c522e670021832caafed9302116dff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a15c522e670021832caafed9302116dff">setAutoHDREnabled</a> (bool enable)</td></tr>
+<tr class="memdesc:a15c522e670021832caafed9302116dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether auto-hdr exposure is enabled.  <br /></td></tr>
+<tr class="separator:a15c522e670021832caafed9302116dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3b2b16439483e75bd226bb5c5c19320" id="r_aa3b2b16439483e75bd226bb5c5c19320"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aa3b2b16439483e75bd226bb5c5c19320">getAutoHDREnabled</a> () const</td></tr>
+<tr class="memdesc:aa3b2b16439483e75bd226bb5c5c19320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether auto-hdr exposure adjustment is enabled.  <br /></td></tr>
+<tr class="separator:aa3b2b16439483e75bd226bb5c5c19320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b6c7a1115d4632c359ed4a90428fcd0" id="r_a8b6c7a1115d4632c359ed4a90428fcd0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a8b6c7a1115d4632c359ed4a90428fcd0">getBloomEnabled</a> () const</td></tr>
+<tr class="memdesc:a8b6c7a1115d4632c359ed4a90428fcd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether bloom is enabled.  <br /></td></tr>
+<tr class="separator:a8b6c7a1115d4632c359ed4a90428fcd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a30a7167a1e4c49539101e24eea34b5" id="r_a5a30a7167a1e4c49539101e24eea34b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a5a30a7167a1e4c49539101e24eea34b5">setBloomEnabled</a> (bool enable)</td></tr>
+<tr class="memdesc:a5a30a7167a1e4c49539101e24eea34b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether bloom is enabled.  <br /></td></tr>
+<tr class="separator:a5a30a7167a1e4c49539101e24eea34b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d16c0d476f1aeeab59ffc050705e79b" id="r_a3d16c0d476f1aeeab59ffc050705e79b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a3d16c0d476f1aeeab59ffc050705e79b">getBloomHighlightThreshold</a> () const</td></tr>
+<tr class="memdesc:a3d16c0d476f1aeeab59ffc050705e79b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the light level that bloom will be applied to.  <br /></td></tr>
+<tr class="separator:a3d16c0d476f1aeeab59ffc050705e79b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20246e961e7f29cf8f4237781b53d0b4" id="r_a20246e961e7f29cf8f4237781b53d0b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a20246e961e7f29cf8f4237781b53d0b4">setBloomHighlightThreshold</a> (float t)</td></tr>
+<tr class="memdesc:a20246e961e7f29cf8f4237781b53d0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the light level that bloom will be applied to.  <br /></td></tr>
+<tr class="separator:a20246e961e7f29cf8f4237781b53d0b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db74ebc31c14163aacc54ed8cb4eec3" id="r_a7db74ebc31c14163aacc54ed8cb4eec3"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a7db74ebc31c14163aacc54ed8cb4eec3">getBloomPassCount</a> () const</td></tr>
+<tr class="memdesc:a7db74ebc31c14163aacc54ed8cb4eec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of blue passes to use for bloom.  <br /></td></tr>
+<tr class="separator:a7db74ebc31c14163aacc54ed8cb4eec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaee1af86b7fa0a120cf8db344d3a4e96" id="r_aaee1af86b7fa0a120cf8db344d3a4e96"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aaee1af86b7fa0a120cf8db344d3a4e96">setBloomPassCount</a> (std::uint32_t p)</td></tr>
+<tr class="memdesc:aaee1af86b7fa0a120cf8db344d3a4e96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the number of bloom passes to use.  <br /></td></tr>
+<tr class="separator:aaee1af86b7fa0a120cf8db344d3a4e96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4511eb1176a48f9e2e8c957fc0687e5" id="r_ad4511eb1176a48f9e2e8c957fc0687e5"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ad4511eb1176a48f9e2e8c957fc0687e5">getBloomFilterSize</a> () const</td></tr>
+<tr class="memdesc:ad4511eb1176a48f9e2e8c957fc0687e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number size of the bloom filter in texels.  <br /></td></tr>
+<tr class="separator:ad4511eb1176a48f9e2e8c957fc0687e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e90d3d0b37aa418f58291b4266fbeb8" id="r_a3e90d3d0b37aa418f58291b4266fbeb8"><td class="memItemLeft" align="right" valign="top">const std::array&lt; float, <a class="el" href="a04782.html#a5c9d3a6c6460ee40c72e99546e5f1a5d">cfg::Limits::MaxBloomFilterSize</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a3e90d3d0b37aa418f58291b4266fbeb8">getBloomFilters</a> () const</td></tr>
+<tr class="memdesc:a3e90d3d0b37aa418f58291b4266fbeb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the bloom filter weights.  <br /></td></tr>
+<tr class="separator:a3e90d3d0b37aa418f58291b4266fbeb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a556400922d04452a4c52adb3846d6392" id="r_a556400922d04452a4c52adb3846d6392"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a556400922d04452a4c52adb3846d6392">setBloomFilters</a> (std::initializer_list&lt; float &gt; <a class="el" href="a02276.html#a36a3424ee291451e8e875149b68f17b5">filters</a>)</td></tr>
+<tr class="memdesc:a556400922d04452a4c52adb3846d6392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the bloom filter weights.  <br /></td></tr>
+<tr class="separator:a556400922d04452a4c52adb3846d6392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a245cf36e4441ecbe9b5243621f0747be" id="r_a245cf36e4441ecbe9b5243621f0747be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a245cf36e4441ecbe9b5243621f0747be">setShadowMapResolution</a> (const VkExtent2D &amp;resolution)</td></tr>
+<tr class="memdesc:a245cf36e4441ecbe9b5243621f0747be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the resolution to render shadow maps at.  <br /></td></tr>
+<tr class="separator:a245cf36e4441ecbe9b5243621f0747be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a772a46683428b19be1cfd217abc8c04b" id="r_a772a46683428b19be1cfd217abc8c04b"><td class="memItemLeft" align="right" valign="top">const VkExtent2D &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a772a46683428b19be1cfd217abc8c04b">getShadowMapResolution</a> () const</td></tr>
+<tr class="memdesc:a772a46683428b19be1cfd217abc8c04b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the resolution to render shadow maps at.  <br /></td></tr>
+<tr class="separator:a772a46683428b19be1cfd217abc8c04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a173d12f6518fed3b9d0b9e366e0fcfb3" id="r_a173d12f6518fed3b9d0b9e366e0fcfb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a173d12f6518fed3b9d0b9e366e0fcfb3">setShadowMapDepthBias</a> (float constantFactor, float slope, float clamp)</td></tr>
+<tr class="memdesc:a173d12f6518fed3b9d0b9e366e0fcfb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the depth bias parameters for shadow maps.  <br /></td></tr>
+<tr class="separator:a173d12f6518fed3b9d0b9e366e0fcfb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a75680a7e61041fe64af42f94f2d09e" id="r_a2a75680a7e61041fe64af42f94f2d09e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a2a75680a7e61041fe64af42f94f2d09e">getShadowMapDepthBiasConstantFactor</a> () const</td></tr>
+<tr class="memdesc:a2a75680a7e61041fe64af42f94f2d09e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the constant factor for shadow map depth bias.  <br /></td></tr>
+<tr class="separator:a2a75680a7e61041fe64af42f94f2d09e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af96faeaed4bae62d130e489c3eaeb8f7" id="r_af96faeaed4bae62d130e489c3eaeb8f7"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#af96faeaed4bae62d130e489c3eaeb8f7">getShadowMapDepthBiasSlopeFactor</a> () const</td></tr>
+<tr class="memdesc:af96faeaed4bae62d130e489c3eaeb8f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the slope factor for shadow map depth bias.  <br /></td></tr>
+<tr class="separator:af96faeaed4bae62d130e489c3eaeb8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0f243cf91ea768ee53c4e37094573a2" id="r_ac0f243cf91ea768ee53c4e37094573a2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ac0f243cf91ea768ee53c4e37094573a2">getShadowMapDepthBiasClamp</a> () const</td></tr>
+<tr class="memdesc:ac0f243cf91ea768ee53c4e37094573a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the clamp value for shadow map depth bias.  <br /></td></tr>
+<tr class="separator:ac0f243cf91ea768ee53c4e37094573a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abde39f7140f25b8690c473a03da69d81" id="r_abde39f7140f25b8690c473a03da69d81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">AntiAliasing</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#abde39f7140f25b8690c473a03da69d81">getAntiAliasing</a> () const</td></tr>
+<tr class="memdesc:abde39f7140f25b8690c473a03da69d81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the anti-aliasing mode used by the renderer.  <br /></td></tr>
+<tr class="separator:abde39f7140f25b8690c473a03da69d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d8aeb142b7338a1a69e940d4eb10d83" id="r_a7d8aeb142b7338a1a69e940d4eb10d83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a7d8aeb142b7338a1a69e940d4eb10d83">setAntiAliasing</a> (<a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">AntiAliasing</a> aa)</td></tr>
+<tr class="memdesc:a7d8aeb142b7338a1a69e940d4eb10d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the anti-aliasing mode used by the renderer.  <br /></td></tr>
+<tr class="separator:a7d8aeb142b7338a1a69e940d4eb10d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5bc9f6368bb1dd379d93c1ae55c6280" id="r_ab5bc9f6368bb1dd379d93c1ae55c6280"><td class="memItemLeft" align="right" valign="top">VkSampleCountFlagBits&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ab5bc9f6368bb1dd379d93c1ae55c6280">getMSAASampleCount</a> () const</td></tr>
+<tr class="memdesc:ab5bc9f6368bb1dd379d93c1ae55c6280"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sample count used for MSAA.  <br /></td></tr>
+<tr class="separator:ab5bc9f6368bb1dd379d93c1ae55c6280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92557f1d092a7fad06f486fc5c995ca5" id="r_a92557f1d092a7fad06f486fc5c995ca5"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a92557f1d092a7fad06f486fc5c995ca5">getMSAASampleCountAsInt</a> () const</td></tr>
+<tr class="memdesc:a92557f1d092a7fad06f486fc5c995ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the sample count used for MSAA as an unsigned int.  <br /></td></tr>
+<tr class="separator:a92557f1d092a7fad06f486fc5c995ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc8311b48c83538203cf42ab27139bf2" id="r_afc8311b48c83538203cf42ab27139bf2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#afc8311b48c83538203cf42ab27139bf2">setSSAO</a> (<a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">SSAO</a> ssao)</td></tr>
+<tr class="memdesc:afc8311b48c83538203cf42ab27139bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the SSAO setting.  <br /></td></tr>
+<tr class="separator:afc8311b48c83538203cf42ab27139bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f785cd4653c290d0b0c92ddc3e4074" id="r_a67f785cd4653c290d0b0c92ddc3e4074"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05506.html">Settings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a67f785cd4653c290d0b0c92ddc3e4074">setSSAOParams</a> (float radius, float bias, float exponent)</td></tr>
+<tr class="memdesc:a67f785cd4653c290d0b0c92ddc3e4074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets some parameters of the SSAO algorithm.  <br /></td></tr>
+<tr class="separator:a67f785cd4653c290d0b0c92ddc3e4074"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e66a841f9935fca54e13342729ca5bf" id="r_a7e66a841f9935fca54e13342729ca5bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">SSAO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a7e66a841f9935fca54e13342729ca5bf">getSSAO</a> () const</td></tr>
+<tr class="memdesc:a7e66a841f9935fca54e13342729ca5bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current SSAO setting.  <br /></td></tr>
+<tr class="separator:a7e66a841f9935fca54e13342729ca5bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51c98c7e134db58f5c6c7d7674966b2c" id="r_a51c98c7e134db58f5c6c7d7674966b2c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a51c98c7e134db58f5c6c7d7674966b2c">getSSAORadius</a> () const</td></tr>
+<tr class="memdesc:a51c98c7e134db58f5c6c7d7674966b2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the radius used by the SSAO algorithm in world units.  <br /></td></tr>
+<tr class="separator:a51c98c7e134db58f5c6c7d7674966b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e004424063971d4c0b9bac605114111" id="r_a2e004424063971d4c0b9bac605114111"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a2e004424063971d4c0b9bac605114111">getSSAOBias</a> () const</td></tr>
+<tr class="memdesc:a2e004424063971d4c0b9bac605114111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the depth bias used by the SSAO algorithm in world units.  <br /></td></tr>
+<tr class="separator:a2e004424063971d4c0b9bac605114111"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abab21f4f605f10541785f371f28997d1" id="r_abab21f4f605f10541785f371f28997d1"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#abab21f4f605f10541785f371f28997d1">getSSAOExponent</a> () const</td></tr>
+<tr class="memdesc:abab21f4f605f10541785f371f28997d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the exponent that the SSAO factor is raised to.  <br /></td></tr>
+<tr class="separator:abab21f4f605f10541785f371f28997d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ca77b15e16a9dcb4b536c6ec67b9d8" id="r_aa1ca77b15e16a9dcb4b536c6ec67b9d8"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05846.html">WindowSettings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#aa1ca77b15e16a9dcb4b536c6ec67b9d8">getWindowSettings</a> () const</td></tr>
+<tr class="memdesc:aa1ca77b15e16a9dcb4b536c6ec67b9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the window settings used by the renderer.  <br /></td></tr>
+<tr class="separator:aa1ca77b15e16a9dcb4b536c6ec67b9d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8f37279e4b046621adb5495cc169294" id="r_ac8f37279e4b046621adb5495cc169294"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05846.html">WindowSettings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#ac8f37279e4b046621adb5495cc169294">getWindowSettings</a> ()</td></tr>
+<tr class="memdesc:ac8f37279e4b046621adb5495cc169294"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the window settings used by the renderer.  <br /></td></tr>
+<tr class="separator:ac8f37279e4b046621adb5495cc169294"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a12489411cff3987308e8876d73d60a32" id="r_a12489411cff3987308e8876d73d60a32"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012">bl::input::Encoder::ControlInfo::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a12489411cff3987308e8876d73d60a32">type</a></td></tr>
-<tr class="separator:a12489411cff3987308e8876d73d60a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f8083e9b7194f1cb5d3bc01bdbcba72" id="r_a5f8083e9b7194f1cb5d3bc01bdbcba72"><td class="memItemLeft" >union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6c95c6f77fb4133919b1950d11dc477" id="r_ae6c95c6f77fb4133919b1950d11dc477"><td class="memItemLeft" >&#160;&#160;&#160;sf::Keyboard::Key&#160;&#160;&#160;<a class="el" href="a05506.html#a992e452cc64a297ac68a16173bed52b7">key</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:ae6c95c6f77fb4133919b1950d11dc477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac283ea6db5708446a28e0704f9381132" id="r_ac283ea6db5708446a28e0704f9381132"><td class="memItemLeft" >&#160;&#160;&#160;sf::Mouse::Button&#160;&#160;&#160;<a class="el" href="a05506.html#ab80669207dcec278d723c1c9321caad0">mouseButton</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:ac283ea6db5708446a28e0704f9381132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e5ed2c3ae242e20ff4d6ba84f01200a" id="r_a9e5ed2c3ae242e20ff4d6ba84f01200a"><td class="memItemLeft" >&#160;&#160;&#160;sf::Mouse::Wheel&#160;&#160;&#160;<a class="el" href="a05506.html#a3aa9578798165d4ecb9d617d548edc84">mouseWheel</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a9e5ed2c3ae242e20ff4d6ba84f01200a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35fa62c43bbc47e08c1fbd5dde821d80" id="r_a35fa62c43bbc47e08c1fbd5dde821d80"><td class="memItemLeft" >&#160;&#160;&#160;unsigned int&#160;&#160;&#160;<a class="el" href="a05506.html#a4f93c6ce3b5bf21b7d1a085fb6fac8fd">joystickButton</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a35fa62c43bbc47e08c1fbd5dde821d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cd37f68dc28ef2fad7cb5c31e460552" id="r_a4cd37f68dc28ef2fad7cb5c31e460552"><td class="memItemLeft" >&#160;&#160;&#160;sf::Joystick::Axis&#160;&#160;&#160;<a class="el" href="a05506.html#a2f4f94753c402bba1b1f0318e8d51874">joystickAxis</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a4cd37f68dc28ef2fad7cb5c31e460552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f8083e9b7194f1cb5d3bc01bdbcba72" id="r_a5f8083e9b7194f1cb5d3bc01bdbcba72"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a5f8083e9b7194f1cb5d3bc01bdbcba72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a70538530bc36e033e360880ef311df61" id="r_a70538530bc36e033e360880ef311df61"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05506.html#a70538530bc36e033e360880ef311df61">Renderer</a></td></tr>
+<tr class="separator:a70538530bc36e033e360880ef311df61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00013">13</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a6e51da7bbcf066924bc91010aae6e012" name="a6e51da7bbcf066924bc91010aae6e012"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e51da7bbcf066924bc91010aae6e012">&#9670;&#160;</a></span>Type</h2>
+<div class="textblock"><p>Basic class containing the renderer graphics settings. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00024">24</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a8c3fab554d962937e8fbe10d71445cc8" name="a8c3fab554d962937e8fbe10d71445cc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c3fab554d962937e8fbe10d71445cc8">&#9670;&#160;</a></span>AntiAliasing</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012">bl::input::Encoder::ControlInfo::Type</a></td>
+          <td class="memname">using <a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">bl::rc::Settings::AntiAliasing</a> =  <a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">GraphicsSettings::AntiAliasing</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b" name="a6e51da7bbcf066924bc91010aae6e012a50c71e34b57209923e2316a0e4be936b"></a>Invalid&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044" name="a6e51da7bbcf066924bc91010aae6e012ac5209ce00d4523467ced544cbd1d4044"></a>Key&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3" name="a6e51da7bbcf066924bc91010aae6e012ac73b4fca569fdcd3d3dc6682009e79f3"></a>MouseButton&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc" name="a6e51da7bbcf066924bc91010aae6e012abd71d48c1d078959d5500ce13fee1ddc"></a>MouseWheelUp&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e" name="a6e51da7bbcf066924bc91010aae6e012a5f77310c14d801c2ad5490fe82e5c65e"></a>MouseWheelDown&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06" name="a6e51da7bbcf066924bc91010aae6e012a1751dee6ff2887aa319dbe889e6bcf06"></a>JoystickButton&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def" name="a6e51da7bbcf066924bc91010aae6e012ab60f96eafd1c58edce1bd65fa9c65def"></a>JoystickAxis&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58" name="a6e51da7bbcf066924bc91010aae6e012a266ddcb145e106e653424e1f9bce1d58"></a>JoystickAxisPositive&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc" name="a6e51da7bbcf066924bc91010aae6e012ae8458cecf7e9a9ed511806ea7588ccbc"></a>JoystickAxisNegative&#160;</td><td class="fielddoc"></td></tr>
-</table>
 
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00014">14</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00026">26</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaec44ca030d194539333731e226903c6" name="aaec44ca030d194539333731e226903c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec44ca030d194539333731e226903c6">&#9670;&#160;</a></span>AutoHdrSettings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a05506.html#aaec44ca030d194539333731e226903c6">bl::rc::Settings::AutoHdrSettings</a> =  <a class="el" href="a05198.html">GraphicsSettings::AutoHdrSettings</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00028">28</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5c092807058b4eb8069e53892e1b1e9f" name="a5c092807058b4eb8069e53892e1b1e9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c092807058b4eb8069e53892e1b1e9f">&#9670;&#160;</a></span>SSAO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">bl::rc::Settings::SSAO</a> =  <a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">GraphicsSettings::SSAO</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00027">27</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="adec54920c1908604377d76b479700dad" name="adec54920c1908604377d76b479700dad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adec54920c1908604377d76b479700dad">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[1/7]</span></h2>
+<a id="a15a92a6407b9323e9e86e4f0a0c31bf1" name="a15a92a6407b9323e9e86e4f0a0c31bf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a92a6407b9323e9e86e4f0a0c31bf1">&#9670;&#160;</a></span>Settings()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname">bl::rc::Settings::Settings </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a04814.html">CreationSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the settings to sane defaults. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">owner</td><td>The renderer that owns these settings </td></tr>
+    <tr><td class="paramname">settings</td><td>The settings to initialize from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00018">18</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abde39f7140f25b8690c473a03da69d81" name="abde39f7140f25b8690c473a03da69d81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abde39f7140f25b8690c473a03da69d81">&#9670;&#160;</a></span>getAntiAliasing()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">Settings::AntiAliasing</a> bl::rc::Settings::getAntiAliasing </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the anti-aliasing mode used by the renderer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00325">325</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa3b2b16439483e75bd226bb5c5c19320" name="aa3b2b16439483e75bd226bb5c5c19320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3b2b16439483e75bd226bb5c5c19320">&#9670;&#160;</a></span>getAutoHDREnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::Settings::getAutoHDREnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether auto-hdr exposure adjustment is enabled. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00291">291</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aad264db170295997ce1f7df57dd1e08f" name="aad264db170295997ce1f7df57dd1e08f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad264db170295997ce1f7df57dd1e08f">&#9670;&#160;</a></span>getAutoHDRSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05506.html#aaec44ca030d194539333731e226903c6">Settings::AutoHdrSettings</a> &amp; bl::rc::Settings::getAutoHDRSettings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the auto HDR settings of the renderer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00287">287</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8b6c7a1115d4632c359ed4a90428fcd0" name="a8b6c7a1115d4632c359ed4a90428fcd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b6c7a1115d4632c359ed4a90428fcd0">&#9670;&#160;</a></span>getBloomEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::Settings::getBloomEnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether bloom is enabled. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00293">293</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3e90d3d0b37aa418f58291b4266fbeb8" name="a3e90d3d0b37aa418f58291b4266fbeb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e90d3d0b37aa418f58291b4266fbeb8">&#9670;&#160;</a></span>getBloomFilters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::array&lt; float, <a class="el" href="a04782.html#a5c9d3a6c6460ee40c72e99546e5f1a5d">cfg::Limits::MaxBloomFilterSize</a> &gt; &amp; bl::rc::Settings::getBloomFilters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the bloom filter weights. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00305">305</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad4511eb1176a48f9e2e8c957fc0687e5" name="ad4511eb1176a48f9e2e8c957fc0687e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4511eb1176a48f9e2e8c957fc0687e5">&#9670;&#160;</a></span>getBloomFilterSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::Settings::getBloomFilterSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number size of the bloom filter in texels. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00301">301</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d16c0d476f1aeeab59ffc050705e79b" name="a3d16c0d476f1aeeab59ffc050705e79b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d16c0d476f1aeeab59ffc050705e79b">&#9670;&#160;</a></span>getBloomHighlightThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getBloomHighlightThreshold </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the light level that bloom will be applied to. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00295">295</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7db74ebc31c14163aacc54ed8cb4eec3" name="a7db74ebc31c14163aacc54ed8cb4eec3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db74ebc31c14163aacc54ed8cb4eec3">&#9670;&#160;</a></span>getBloomPassCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::Settings::getBloomPassCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of blue passes to use for bloom. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00299">299</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a12e3a7f724bdde9b58deda8bb86f2360" name="a12e3a7f724bdde9b58deda8bb86f2360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12e3a7f724bdde9b58deda8bb86f2360">&#9670;&#160;</a></span>getExposureFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getExposureFactor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the exposure factor used for HDR tone mapping. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00283">283</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aca4e04b1d749ca0324988c15239c17ba" name="aca4e04b1d749ca0324988c15239c17ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca4e04b1d749ca0324988c15239c17ba">&#9670;&#160;</a></span>getGamma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getGamma </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the gamma value to use for rendering. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00281">281</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8c2b98e843c215fdf1bebb47e4af0e35" name="a8c2b98e843c215fdf1bebb47e4af0e35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c2b98e843c215fdf1bebb47e4af0e35">&#9670;&#160;</a></span>getHDREnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::Settings::getHDREnabled </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether HDR rendering is enabled. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00285">285</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab5bc9f6368bb1dd379d93c1ae55c6280" name="ab5bc9f6368bb1dd379d93c1ae55c6280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5bc9f6368bb1dd379d93c1ae55c6280">&#9670;&#160;</a></span>getMSAASampleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampleCountFlagBits bl::rc::Settings::getMSAASampleCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the sample count used for MSAA. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00136">136</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a92557f1d092a7fad06f486fc5c995ca5" name="a92557f1d092a7fad06f486fc5c995ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92557f1d092a7fad06f486fc5c995ca5">&#9670;&#160;</a></span>getMSAASampleCountAsInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::rc::Settings::getMSAASampleCountAsInt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the sample count used for MSAA as an unsigned int. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00140">140</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0f243cf91ea768ee53c4e37094573a2" name="ac0f243cf91ea768ee53c4e37094573a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0f243cf91ea768ee53c4e37094573a2">&#9670;&#160;</a></span>getShadowMapDepthBiasClamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getShadowMapDepthBiasClamp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the clamp value for shadow map depth bias. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00321">321</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2a75680a7e61041fe64af42f94f2d09e" name="a2a75680a7e61041fe64af42f94f2d09e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a75680a7e61041fe64af42f94f2d09e">&#9670;&#160;</a></span>getShadowMapDepthBiasConstantFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getShadowMapDepthBiasConstantFactor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the constant factor for shadow map depth bias. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00313">313</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af96faeaed4bae62d130e489c3eaeb8f7" name="af96faeaed4bae62d130e489c3eaeb8f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af96faeaed4bae62d130e489c3eaeb8f7">&#9670;&#160;</a></span>getShadowMapDepthBiasSlopeFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getShadowMapDepthBiasSlopeFactor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the slope factor for shadow map depth bias. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00317">317</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a772a46683428b19be1cfd217abc8c04b" name="a772a46683428b19be1cfd217abc8c04b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a772a46683428b19be1cfd217abc8c04b">&#9670;&#160;</a></span>getShadowMapResolution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const VkExtent2D &amp; bl::rc::Settings::getShadowMapResolution </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the resolution to render shadow maps at. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00309">309</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e66a841f9935fca54e13342729ca5bf" name="a7e66a841f9935fca54e13342729ca5bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e66a841f9935fca54e13342729ca5bf">&#9670;&#160;</a></span>getSSAO()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">Settings::SSAO</a> bl::rc::Settings::getSSAO </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current SSAO setting. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00329">329</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2e004424063971d4c0b9bac605114111" name="a2e004424063971d4c0b9bac605114111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e004424063971d4c0b9bac605114111">&#9670;&#160;</a></span>getSSAOBias()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getSSAOBias </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the depth bias used by the SSAO algorithm in world units. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00333">333</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abab21f4f605f10541785f371f28997d1" name="abab21f4f605f10541785f371f28997d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abab21f4f605f10541785f371f28997d1">&#9670;&#160;</a></span>getSSAOExponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getSSAOExponent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the exponent that the SSAO factor is raised to. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00335">335</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a51c98c7e134db58f5c6c7d7674966b2c" name="a51c98c7e134db58f5c6c7d7674966b2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51c98c7e134db58f5c6c7d7674966b2c">&#9670;&#160;</a></span>getSSAORadius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::Settings::getSSAORadius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the radius used by the SSAO algorithm in world units. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00331">331</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8f37279e4b046621adb5495cc169294" name="ac8f37279e4b046621adb5495cc169294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8f37279e4b046621adb5495cc169294">&#9670;&#160;</a></span>getWindowSettings() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05846.html">WindowSettings</a> &amp; bl::rc::Settings::getWindowSettings </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00171">171</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Returns the window settings used by the renderer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00339">339</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
 
 </div>
 </div>
-<a id="addf7d997e2e1b32c6befb8c87c9b55d0" name="addf7d997e2e1b32c6befb8c87c9b55d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addf7d997e2e1b32c6befb8c87c9b55d0">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[2/7]</span></h2>
+<a id="aa1ca77b15e16a9dcb4b536c6ec67b9d8" name="aa1ca77b15e16a9dcb4b536c6ec67b9d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ca77b15e16a9dcb4b536c6ec67b9d8">&#9670;&#160;</a></span>getWindowSettings() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05846.html">WindowSettings</a> &amp; bl::rc::Settings::getWindowSettings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the window settings used by the renderer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00337">337</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d8aeb142b7338a1a69e940d4eb10d83" name="a7d8aeb142b7338a1a69e940d4eb10d83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d8aeb142b7338a1a69e940d4eb10d83">&#9670;&#160;</a></span>setAntiAliasing()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setAntiAliasing </td>
           <td>(</td>
-          <td class="paramtype">sf::Keyboard::Key&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05194.html#adf86caefd4923c667ccc40bc0f30ea06">AntiAliasing</a>&#160;</td>
+          <td class="paramname"><em>aa</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00174">174</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Sets the anti-aliasing mode used by the renderer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aa</td><td>The anti-aliasing mode to use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00114">114</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6437f2742529a1c6d576b7892e78c3f7" name="a6437f2742529a1c6d576b7892e78c3f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6437f2742529a1c6d576b7892e78c3f7">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[3/7]</span></h2>
+<a id="a15c522e670021832caafed9302116dff" name="a15c522e670021832caafed9302116dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15c522e670021832caafed9302116dff">&#9670;&#160;</a></span>setAutoHDREnabled()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setAutoHDREnabled </td>
           <td>(</td>
-          <td class="paramtype">sf::Mouse::Button&#160;</td>
-          <td class="paramname"><em>mbut</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00178">178</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Sets whether auto-hdr exposure is enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>True to enable automatic exposure adjustment, false to disable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00057">57</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ace9b5d5f8511426f82ba59febf9ab0e7" name="ace9b5d5f8511426f82ba59febf9ab0e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace9b5d5f8511426f82ba59febf9ab0e7">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[4/7]</span></h2>
+<a id="a37c2180d5a1f6bfb78ba6d2348bf70eb" name="a37c2180d5a1f6bfb78ba6d2348bf70eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c2180d5a1f6bfb78ba6d2348bf70eb">&#9670;&#160;</a></span>setAutoHDRSettings()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setAutoHDRSettings </td>
           <td>(</td>
-          <td class="paramtype">sf::Mouse::Wheel&#160;</td>
-          <td class="paramname"><em>wheel</em>, </td>
+          <td class="paramtype">const <a class="el" href="a05506.html#aaec44ca030d194539333731e226903c6">AutoHdrSettings</a> &amp;&#160;</td>
+          <td class="paramname"><em>settings</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the Auto HDR settings. Only used if both HDR and auto-hdr are enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">settings</td><td>The AutoHdrSettings object containing the desired HDR configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00051">51</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a30a7167a1e4c49539101e24eea34b5" name="a5a30a7167a1e4c49539101e24eea34b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a30a7167a1e4c49539101e24eea34b5">&#9670;&#160;</a></span>setBloomEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setBloomEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets whether bloom is enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>True to enable bloom, false to disable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00066">66</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a556400922d04452a4c52adb3846d6392" name="a556400922d04452a4c52adb3846d6392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a556400922d04452a4c52adb3846d6392">&#9670;&#160;</a></span>setBloomFilters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setBloomFilters </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; float &gt;&#160;</td>
+          <td class="paramname"><em>filters</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the bloom filter weights. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filters</td><td>The filter weights to use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00082">82</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a20246e961e7f29cf8f4237781b53d0b4" name="a20246e961e7f29cf8f4237781b53d0b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20246e961e7f29cf8f4237781b53d0b4">&#9670;&#160;</a></span>setBloomHighlightThreshold()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setBloomHighlightThreshold </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>t</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the light level that bloom will be applied to. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>The light level that bloom starts at </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00075">75</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaee1af86b7fa0a120cf8db344d3a4e96" name="aaee1af86b7fa0a120cf8db344d3a4e96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaee1af86b7fa0a120cf8db344d3a4e96">&#9670;&#160;</a></span>setBloomPassCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setBloomPassCount </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the number of bloom passes to use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>The number of bloom passes to use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00092">92</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a421ee6b623c37c5b4429dc1d7c0e8eaa" name="a421ee6b623c37c5b4429dc1d7c0e8eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a421ee6b623c37c5b4429dc1d7c0e8eaa">&#9670;&#160;</a></span>setExposureFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setExposureFactor </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the exposure factor used for HDR tone mapping. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">e</td><td>The exposure factor to use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00031">31</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac3c650af7406c6df7bc50f95500669d0" name="ac3c650af7406c6df7bc50f95500669d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3c650af7406c6df7bc50f95500669d0">&#9670;&#160;</a></span>setGamma()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setGamma </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>g</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the gamma value to use when rendering. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">g</td><td>The new gamma value </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00024">24</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa3737a0cc3d1c464b71057d54e629034" name="aa3737a0cc3d1c464b71057d54e629034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3737a0cc3d1c464b71057d54e629034">&#9670;&#160;</a></span>setHDREnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setHDREnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>enable</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets whether HDR rendering is enabled. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">enable</td><td>True to enable HDR rendering and tone mapping, false to disable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00038">38</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a173d12f6518fed3b9d0b9e366e0fcfb3" name="a173d12f6518fed3b9d0b9e366e0fcfb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a173d12f6518fed3b9d0b9e366e0fcfb3">&#9670;&#160;</a></span>setShadowMapDepthBias()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setShadowMapDepthBias </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>constantFactor</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>upOrRight</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>slope</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>clamp</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -260,67 +1290,101 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00182">182</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Sets the depth bias parameters for shadow maps. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">constantFactor</td><td>Constant bias factor </td></tr>
+    <tr><td class="paramname">slope</td><td>Factor to apply to fragment slope </td></tr>
+    <tr><td class="paramname">clamp</td><td>Min or max depth bias </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00106">106</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa4a2781d4362bb7b817cc5df1dd8e888" name="aa4a2781d4362bb7b817cc5df1dd8e888"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4a2781d4362bb7b817cc5df1dd8e888">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[5/7]</span></h2>
+<a id="a245cf36e4441ecbe9b5243621f0747be" name="a245cf36e4441ecbe9b5243621f0747be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a245cf36e4441ecbe9b5243621f0747be">&#9670;&#160;</a></span>setShadowMapResolution()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setShadowMapResolution </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>jbut</em></td><td>)</td>
+          <td class="paramtype">const VkExtent2D &amp;&#160;</td>
+          <td class="paramname"><em>resolution</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00186">186</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Sets the resolution to render shadow maps at. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resolution</td><td>The shadow map resolution to use </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00099">99</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
 
 </div>
 </div>
-<a id="afb6e1294869c3c12e144df0a09ddd2a3" name="afb6e1294869c3c12e144df0a09ddd2a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb6e1294869c3c12e144df0a09ddd2a3">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[6/7]</span></h2>
+<a id="afc8311b48c83538203cf42ab27139bf2" name="afc8311b48c83538203cf42ab27139bf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc8311b48c83538203cf42ab27139bf2">&#9670;&#160;</a></span>setSSAO()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setSSAO </td>
           <td>(</td>
-          <td class="paramtype">sf::Joystick::Axis&#160;</td>
-          <td class="paramname"><em>axis</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05194.html#a17d62be2f42518feacc5308e8673c965">SSAO</a>&#160;</td>
+          <td class="paramname"><em>ssao</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00190">190</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Modifies the SSAO setting. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssao</td><td>The new SSAO setting </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00121">121</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae159c52656c8c22e623e42541dd489f7" name="ae159c52656c8c22e623e42541dd489f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae159c52656c8c22e623e42541dd489f7">&#9670;&#160;</a></span>ControlInfo() <span class="overload">[7/7]</span></h2>
+<a id="a67f785cd4653c290d0b0c92ddc3e4074" name="a67f785cd4653c290d0b0c92ddc3e4074"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f785cd4653c290d0b0c92ddc3e4074">&#9670;&#160;</a></span>setSSAOParams()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::input::Encoder::ControlInfo::ControlInfo </td>
+          <td class="memname"><a class="el" href="a05506.html">Settings</a> &amp; bl::rc::Settings::setSSAOParams </td>
           <td>(</td>
-          <td class="paramtype">sf::Joystick::Axis&#160;</td>
-          <td class="paramname"><em>axis</em>, </td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>positive</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>bias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>exponent</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -330,128 +1394,55 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01595_source.html#l00194">194</a> of file <a class="el" href="a01595_source.html">Encoder.cpp</a>.</p>
+<p>Sets some parameters of the SSAO algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>The radius to sample for occlusion detection, in world space </td></tr>
+    <tr><td class="paramname">bias</td><td>A depth bias to add to the sampled geometry, in world space </td></tr>
+    <tr><td class="paramname">exponent</td><td>The exponent to raise the SSAO factor to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a08725_source.html#l00128">128</a> of file <a class="el" href="a08725_source.html">Settings.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a5f8083e9b7194f1cb5d3bc01bdbcba72" name="a5f8083e9b7194f1cb5d3bc01bdbcba72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f8083e9b7194f1cb5d3bc01bdbcba72">&#9670;&#160;</a></span>[union]</h2>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a70538530bc36e033e360880ef311df61" name="a70538530bc36e033e360880ef311df61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70538530bc36e033e360880ef311df61">&#9670;&#160;</a></span>Renderer</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">union  { ... }  <a class="el" href="a05506.html">bl::input::Encoder::ControlInfo</a></td>
+          <td class="memname">friend class <a class="el" href="a05330.html">Renderer</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a2f4f94753c402bba1b1f0318e8d51874" name="a2f4f94753c402bba1b1f0318e8d51874"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f4f94753c402bba1b1f0318e8d51874">&#9670;&#160;</a></span>joystickAxis</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Joystick::Axis bl::input::Encoder::ControlInfo::joystickAxis</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00031">31</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08569_source.html#l00276">276</a> of file <a class="el" href="a08569_source.html">Settings.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4f93c6ce3b5bf21b7d1a085fb6fac8fd" name="a4f93c6ce3b5bf21b7d1a085fb6fac8fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f93c6ce3b5bf21b7d1a085fb6fac8fd">&#9670;&#160;</a></span>joystickButton</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int bl::input::Encoder::ControlInfo::joystickButton</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00030">30</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a992e452cc64a297ac68a16173bed52b7" name="a992e452cc64a297ac68a16173bed52b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a992e452cc64a297ac68a16173bed52b7">&#9670;&#160;</a></span>key</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Keyboard::Key bl::input::Encoder::ControlInfo::key</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00027">27</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab80669207dcec278d723c1c9321caad0" name="ab80669207dcec278d723c1c9321caad0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab80669207dcec278d723c1c9321caad0">&#9670;&#160;</a></span>mouseButton</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Mouse::Button bl::input::Encoder::ControlInfo::mouseButton</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00028">28</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3aa9578798165d4ecb9d617d548edc84" name="a3aa9578798165d4ecb9d617d548edc84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3aa9578798165d4ecb9d617d548edc84">&#9670;&#160;</a></span>mouseWheel</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Mouse::Wheel bl::input::Encoder::ControlInfo::mouseWheel</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01625_source.html#l00029">29</a> of file <a class="el" href="a01625_source.html">Encoder.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a12489411cff3987308e8876d73d60a32" name="a12489411cff3987308e8876d73d60a32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12489411cff3987308e8876d73d60a32">&#9670;&#160;</a></span>type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a05506.html#a6e51da7bbcf066924bc91010aae6e012">bl::input::Encoder::ControlInfo::Type</a> bl::input::Encoder::ControlInfo::type</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>src/Input/<a class="el" href="a01625_source.html">Encoder.hpp</a></li>
-<li>src/Input/<a class="el" href="a01595_source.html">Encoder.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/<a class="el" href="a08569_source.html">Settings.hpp</a></li>
+<li>src/Render/<a class="el" href="a08725_source.html">Settings.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Resources/Bundling/FileHandlers/PlaylistHandler.cpp File Reference</title>
+<title>BLIB: include/BLIB/ECS/Transaction.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,37 +74,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7a475d59e09b1ce69b1dfbc6b0817add.html">Resources</a></li><li class="navelem"><a class="el" href="dir_650c2bb72fa499737589ce0469633186.html">Bundling</a></li><li class="navelem"><a class="el" href="dir_aa9914aaa11d841a9b5a3bf23363db45.html">FileHandlers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">PlaylistHandler.cpp File Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">Transaction.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01475_source.html">BLIB/Audio/Playlist.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00131_source.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01787_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01793_source.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01760_source.html">BLIB/Util/VariadicHelpers.hpp</a>&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
 </div>
 <p><a href="a01577_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03598.html">bl::ecs::tx::ComponentRead&lt; TComponents &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to use to create transactions to read certain types of components.  <a href="a03598.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03602.html">bl::ecs::tx::ComponentWrite&lt; TComponents &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to use to create transactions to write certain types of components.  <a href="a03602.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03646.html">bl::ecs::txp::TransactionEntityUnlocked</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html">bl::ecs::txp::TransactionEntityRead</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03654.html">bl::ecs::txp::TransactionEntityWrite</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03662.html">bl::ecs::txp::TxEntityResolve&lt; tx::EntityUnlocked &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03666.html">bl::ecs::txp::TxEntityResolve&lt; tx::EntityRead &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03670.html">bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html">bl::ecs::txp::TransactionComponentRead&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html">bl::ecs::txp::TransactionComponentWrite&lt; T &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03678.html">bl::ecs::Transaction&lt; EntityCtx, TComponentRead, TComponentWrite &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03682.html">bl::ecs::Transaction&lt; EntityCtx, tx::ComponentRead&lt; TReadComs... &gt;, tx::ComponentWrite&lt; TWriteComs... &gt; &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03678.html">Transaction</a> that provides an external lock across the ECS.  <a href="a03682.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02467" id="r_a02467"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02467.html">bl::resource</a></td></tr>
-<tr class="memdesc:a02467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
+<tr class="memitem:a03009" id="r_a03009"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03009.html">bl::ecs</a></td></tr>
+<tr class="memdesc:a03009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a03542.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02468" id="r_a02468"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02468.html">bl::resource::bundle</a></td></tr>
-<tr class="memdesc:a02468"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04822.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. <br /></td></tr>
+<tr class="memitem:a03013" id="r_a03013"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03013.html">bl::ecs::tx</a></td></tr>
+<tr class="memdesc:a03013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types and helpers for Transactions. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03015" id="r_a03015"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03015.html">bl::ecs::txp</a></td></tr>
+<tr class="memdesc:a03015"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal implementation details for transactions. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gab7b7c35153d32dc8b4427c68d1acb36e" id="r_gab7b7c35153d32dc8b4427c68d1acb36e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02968.html#gab7b7c35153d32dc8b4427c68d1acb36e">bl::ecs::tx::EntityContext</a> { <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae56f82fc23834fe065036276691fab32">bl::ecs::tx::EntityUnlocked</a> = 0
+, <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36ea34c6fd06b4829cf1e31bb016c6e2736a">bl::ecs::tx::EntityRead</a> = 1
+, <a class="el" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">bl::ecs::tx::EntityWrite</a> = 2
+ }</td></tr>
+<tr class="memdesc:gab7b7c35153d32dc8b4427c68d1acb36e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enum describing the type of lock to acquire for entities in the registry.  <a href="a02968.html#gab7b7c35153d32dc8b4427c68d1acb36e">More...</a><br /></td></tr>
+<tr class="separator:gab7b7c35153d32dc8b4427c68d1acb36e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

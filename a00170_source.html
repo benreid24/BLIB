@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Graphics.hpp Source File</title>
+<title>BLIB: include/BLIB/Components.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,74 +83,65 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Graphics.hpp</div></div>
+  <div class="headertitle"><div class="title">Components.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_HPP</span></div>
+<a href="a00170.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_COMPONENTS_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_COMPONENTS_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Render.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a06298.html">BLIB/Graphics/Animation2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00962.html">BLIB/Graphics/Animation2D/DiscreteAnimation2DPlayer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00935.html">BLIB/Graphics/BatchCircle.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a00920.html">BLIB/Graphics/BatchRectangle.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00938.html">BLIB/Graphics/BatchSlideshow.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00959.html">BLIB/Graphics/BatchSlideshowSimple.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Graphics/BatchSprite.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00923.html">BLIB/Graphics/BatchSpriteSimple.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00956.html">BLIB/Graphics/BatchTriangle.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a06310.html">BLIB/Graphics/BatchedShapes2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a06316.html">BLIB/Graphics/BatchedSlideshows.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a06322.html">BLIB/Graphics/BatchedSprites.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a00917.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a00911.html">BLIB/Graphics/Components/OverlayScalable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a00914.html">BLIB/Graphics/Components/Textured.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="a06364.html">BLIB/Graphics/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a00944.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="a00950.html">BLIB/Graphics/Dummy2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;<a class="code" href="a00947.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;<a class="code" href="a06346.html">BLIB/Graphics/Slideshow.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;<a class="code" href="a06352.html">BLIB/Graphics/Sprite.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#include &lt;<a class="code" href="a06358.html">BLIB/Graphics/Text.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#include &lt;<a class="code" href="a00926.html">BLIB/Graphics/Text/BasicText.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#include &lt;<a class="code" href="a00929.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#include &lt;<a class="code" href="a00941.html">BLIB/Graphics/Triangle.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">#include &lt;<a class="code" href="a00953.html">BLIB/Graphics/VertexBuffer2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00911_html"><div class="ttname"><a href="a00911.html">OverlayScalable.hpp</a></div></div>
-<div class="ttc" id="aa00914_html"><div class="ttname"><a href="a00914.html">Textured.hpp</a></div></div>
-<div class="ttc" id="aa00917_html"><div class="ttname"><a href="a00917.html">Circle.hpp</a></div></div>
-<div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">BatchRectangle.hpp</a></div></div>
-<div class="ttc" id="aa00923_html"><div class="ttname"><a href="a00923.html">BatchSpriteSimple.hpp</a></div></div>
-<div class="ttc" id="aa00926_html"><div class="ttname"><a href="a00926.html">BasicText.hpp</a></div></div>
-<div class="ttc" id="aa00929_html"><div class="ttname"><a href="a00929.html">VulkanFont.hpp</a></div></div>
-<div class="ttc" id="aa00935_html"><div class="ttname"><a href="a00935.html">BatchCircle.hpp</a></div></div>
-<div class="ttc" id="aa00938_html"><div class="ttname"><a href="a00938.html">BatchSlideshow.hpp</a></div></div>
-<div class="ttc" id="aa00941_html"><div class="ttname"><a href="a00941.html">Triangle.hpp</a></div></div>
-<div class="ttc" id="aa00944_html"><div class="ttname"><a href="a00944.html">Drawable.hpp</a></div></div>
-<div class="ttc" id="aa00947_html"><div class="ttname"><a href="a00947.html">Rectangle.hpp</a></div></div>
-<div class="ttc" id="aa00950_html"><div class="ttname"><a href="a00950.html">Dummy2D.hpp</a></div></div>
-<div class="ttc" id="aa00953_html"><div class="ttname"><a href="a00953.html">VertexBuffer2D.hpp</a></div></div>
-<div class="ttc" id="aa00956_html"><div class="ttname"><a href="a00956.html">BatchTriangle.hpp</a></div></div>
-<div class="ttc" id="aa00959_html"><div class="ttname"><a href="a00959.html">BatchSlideshowSimple.hpp</a></div></div>
-<div class="ttc" id="aa00962_html"><div class="ttname"><a href="a00962.html">DiscreteAnimation2DPlayer.hpp</a></div></div>
-<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">BatchSprite.hpp</a></div></div>
-<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">Render.hpp</a></div></div>
-<div class="ttc" id="aa06298_html"><div class="ttname"><a href="a06298.html">Animation2D.hpp</a></div></div>
-<div class="ttc" id="aa06310_html"><div class="ttname"><a href="a06310.html">BatchedShapes2D.hpp</a></div></div>
-<div class="ttc" id="aa06316_html"><div class="ttname"><a href="a06316.html">BatchedSlideshows.hpp</a></div></div>
-<div class="ttc" id="aa06322_html"><div class="ttname"><a href="a06322.html">BatchedSprites.hpp</a></div></div>
-<div class="ttc" id="aa06346_html"><div class="ttname"><a href="a06346.html">Slideshow.hpp</a></div></div>
-<div class="ttc" id="aa06352_html"><div class="ttname"><a href="a06352.html">Sprite.hpp</a></div></div>
-<div class="ttc" id="aa06358_html"><div class="ttname"><a href="a06358.html">Text.hpp</a></div></div>
-<div class="ttc" id="aa06364_html"><div class="ttname"><a href="a06364.html">Transform2D.hpp</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a07879.html">BLIB/Components/Animation2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a07885.html">BLIB/Components/Animation2DPlayer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01334.html">BLIB/Components/BatchSceneLink.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a07891.html">BLIB/Components/BatchedShapes2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a07897.html">BLIB/Components/BatchedSlideshows.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a07903.html">BLIB/Components/BatchedSprites.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a01364.html">BLIB/Components/Hitbox2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a08608.html">BLIB/Components/MarkedForDeath.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Components/MaterialInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a07915.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a01343.html">BLIB/Components/Orientation3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a01370.html">BLIB/Components/Outline.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a01352.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a08614.html">BLIB/Components/Physics2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a07921.html">BLIB/Components/Shape2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a07927.html">BLIB/Components/Slideshow.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a07933.html">BLIB/Components/Sprite.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="a01391.html">BLIB/Components/TilemapPosition.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a01379.html">BLIB/Components/Toggler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &lt;<a class="code" href="a07945.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#include &lt;<a class="code" href="a07951.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#include &lt;<a class="code" href="a01382.html">BLIB/Components/Velocity2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#include &lt;<a class="code" href="a08518.html">BLIB/Components/VertexBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">BatchSceneLink.hpp</a></div></div>
+<div class="ttc" id="aa01343_html"><div class="ttname"><a href="a01343.html">Orientation3D.hpp</a></div></div>
+<div class="ttc" id="aa01352_html"><div class="ttname"><a href="a01352.html">OverlayScaler.hpp</a></div></div>
+<div class="ttc" id="aa01364_html"><div class="ttname"><a href="a01364.html">Hitbox2D.hpp</a></div></div>
+<div class="ttc" id="aa01370_html"><div class="ttname"><a href="a01370.html">Outline.hpp</a></div></div>
+<div class="ttc" id="aa01379_html"><div class="ttname"><a href="a01379.html">Toggler.hpp</a></div></div>
+<div class="ttc" id="aa01382_html"><div class="ttname"><a href="a01382.html">Velocity2D.hpp</a></div></div>
+<div class="ttc" id="aa01391_html"><div class="ttname"><a href="a01391.html">TilemapPosition.hpp</a></div></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">MaterialInstance.hpp</a></div></div>
+<div class="ttc" id="aa07879_html"><div class="ttname"><a href="a07879.html">Animation2D.hpp</a></div></div>
+<div class="ttc" id="aa07885_html"><div class="ttname"><a href="a07885.html">Animation2DPlayer.hpp</a></div></div>
+<div class="ttc" id="aa07891_html"><div class="ttname"><a href="a07891.html">BatchedShapes2D.hpp</a></div></div>
+<div class="ttc" id="aa07897_html"><div class="ttname"><a href="a07897.html">BatchedSlideshows.hpp</a></div></div>
+<div class="ttc" id="aa07903_html"><div class="ttname"><a href="a07903.html">BatchedSprites.hpp</a></div></div>
+<div class="ttc" id="aa07915_html"><div class="ttname"><a href="a07915.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa07921_html"><div class="ttname"><a href="a07921.html">Shape2D.hpp</a></div></div>
+<div class="ttc" id="aa07927_html"><div class="ttname"><a href="a07927.html">Slideshow.hpp</a></div></div>
+<div class="ttc" id="aa07933_html"><div class="ttname"><a href="a07933.html">Sprite.hpp</a></div></div>
+<div class="ttc" id="aa07945_html"><div class="ttname"><a href="a07945.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa07951_html"><div class="ttname"><a href="a07951.html">Transform3D.hpp</a></div></div>
+<div class="ttc" id="aa08518_html"><div class="ttname"><a href="a08518.html">VertexBuffer.hpp</a></div></div>
+<div class="ttc" id="aa08608_html"><div class="ttname"><a href="a08608.html">MarkedForDeath.hpp</a></div></div>
+<div class="ttc" id="aa08614_html"><div class="ttname"><a href="a08614.html">Physics2D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

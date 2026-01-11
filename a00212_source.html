@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Interpolate.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/SkeletalAnimationSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,57 +79,62 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Interpolate.hpp</div></div>
+  <div class="headertitle"><div class="title">SkeletalAnimationSystem.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00212.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MATH_INTERPOLATE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MATH_INTERPOLATE_HPP</span></div>
+<a href="a00212.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SYSTEMS_SKELETALANIMATIONSYSTEM_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SYSTEMS_SKELETALANIMATIONSYSTEM_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>math</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">   22</a></span>T <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> T fr = originEnd - originStart;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> T dr = destEnd - destStart;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> (value - originStart) / fr * dr + destStart;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a02385.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">   44</a></span>T <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destEnd, T value) {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> T destMid = (destEnd + destStart) / <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(2);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01367.html">BLIB/Components/Skeleton.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01580.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a08512.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>sys</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a06462.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a06462.html">SkeletalAnimationSystem</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03778.html">engine::System</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a06462.html#a5a0a812e481320bb91947ca6fe070533">   22</a></span>    <a class="code hl_function" href="a06462.html#a5a0a812e481320bb91947ca6fe070533">SkeletalAnimationSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a06462.html#a18b3f7dd965a418546047c834489c977">   27</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a06462.html#a18b3f7dd965a418546047c834489c977">~SkeletalAnimationSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a06462.html#a77c64eba99546d5bbd846d06b4a79eb8">init</a>(<a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a06462.html#a64e6a248dd38074cd6403d8ab37742cf">update</a>(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span> residual,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                        <span class="keywordtype">float</span> realResidual) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a02385.html#ga51b3900901959abab6d527e6f849fab5">   67</a></span>T <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                <a class="code hl_function" href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="a03518.html">ecs::ComponentPool&lt;com::Skeleton&gt;</a>* skeletons;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
 </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace math</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa02385_html_ga8753daa77ceb8a99501d08876804bd00"><div class="ttname"><a href="a02385.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a></div><div class="ttdeci">T interpolate(T originStart, T originEnd, T destStart, T destEnd, T value)</div><div class="ttdoc">Linearly interpolate a value from one range to another.</div><div class="ttdef"><b>Definition</b> <a href="a00212_source.html#l00022">Interpolate.hpp:22</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace sys</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01367_html"><div class="ttname"><a href="a01367.html">Skeleton.hpp</a></div></div>
+<div class="ttc" id="aa01580_html"><div class="ttname"><a href="a01580.html">ComponentPool.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03518_html"><div class="ttname"><a href="a03518.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition</b> <a href="a01580_source.html#l00079">ComponentPool.hpp:79</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa03778_html"><div class="ttname"><a href="a03778.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition</b> <a href="a08512_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa06462_html"><div class="ttname"><a href="a06462.html">bl::sys::SkeletalAnimationSystem</a></div><div class="ttdoc">System that performs skeletal animation updates.</div><div class="ttdef"><b>Definition</b> <a href="a00212_source.html#l00017">SkeletalAnimationSystem.hpp:17</a></div></div>
+<div class="ttc" id="aa06462_html_a18b3f7dd965a418546047c834489c977"><div class="ttname"><a href="a06462.html#a18b3f7dd965a418546047c834489c977">bl::sys::SkeletalAnimationSystem::~SkeletalAnimationSystem</a></div><div class="ttdeci">virtual ~SkeletalAnimationSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa06462_html_a5a0a812e481320bb91947ca6fe070533"><div class="ttname"><a href="a06462.html#a5a0a812e481320bb91947ca6fe070533">bl::sys::SkeletalAnimationSystem::SkeletalAnimationSystem</a></div><div class="ttdeci">SkeletalAnimationSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
+<div class="ttc" id="aa06462_html_a64e6a248dd38074cd6403d8ab37742cf"><div class="ttname"><a href="a06462.html#a64e6a248dd38074cd6403d8ab37742cf">bl::sys::SkeletalAnimationSystem::update</a></div><div class="ttdeci">virtual void update(std::mutex &amp;stageMutex, float dt, float realDt, float residual, float realResidual) override</div><div class="ttdoc">This is called each frame with the time to simulate.</div><div class="ttdef"><b>Definition</b> <a href="a02006_source.html#l00017">SkeletalAnimationSystem.cpp:17</a></div></div>
+<div class="ttc" id="aa06462_html_a77c64eba99546d5bbd846d06b4a79eb8"><div class="ttname"><a href="a06462.html#a77c64eba99546d5bbd846d06b4a79eb8">bl::sys::SkeletalAnimationSystem::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine) override</div><div class="ttdoc">This is called once on engine startup.</div><div class="ttdef"><b>Definition</b> <a href="a02006_source.html#l00013">SkeletalAnimationSystem.cpp:13</a></div></div>
+<div class="ttc" id="aa08512_html"><div class="ttname"><a href="a08512.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Elements/CheckButton.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/ShaderResources/MSAABehavior.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,40 +74,153 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_0e73644d95625b92b38fc98502188409.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bb95439065f6a606d9dbc4385f71a79c.html">ShaderResources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">CheckButton.hpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">MSAABehavior.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00719_source.html">BLIB/Interfaces/GUI/Elements/ToggleButton.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;type_traits&gt;</code><br />
 </div>
 <p><a href="a00749_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03482.html">bl::gui::CheckButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checkbox button.  <a href="a03482.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02402" id="r_a02402"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02402.html">bl</a></td></tr>
-<tr class="memdesc:a02402"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
+<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02438" id="r_a02438"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02438.html">bl::gui</a></td></tr>
-<tr class="memdesc:a02438"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
+<tr class="memitem:a03004" id="r_a03004"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03004.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03004"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05330.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03052" id="r_a03052"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03052.html">bl::rc::sri</a></td></tr>
+<tr class="memdesc:a03052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing implementations of specific shader resources. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga835fc55db97a5aac2501ef7ce1d36865" id="r_ga835fc55db97a5aac2501ef7ce1d36865"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> { <a class="el" href="a02979.html#gga835fc55db97a5aac2501ef7ce1d36865ab9f5c797ebbf55adccdd8539a65a0241">bl::rc::sri::MSAABehavior::Disabled</a> = 0
+, <a class="el" href="a02979.html#gga835fc55db97a5aac2501ef7ce1d36865a4e160a194cf8ee7551b5ed22f6cb6e6e">bl::rc::sri::MSAABehavior::UseSettings</a> = 0x1 &lt;&lt; 1
+, <a class="el" href="a02979.html#gga835fc55db97a5aac2501ef7ce1d36865aa1682bbdcb4d1680ef6f51ded946931a">bl::rc::sri::MSAABehavior::ResolveAttachments</a> = 0x1 &lt;&lt; 2
+ }</td></tr>
+<tr class="memdesc:ga835fc55db97a5aac2501ef7ce1d36865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Controls the MSAA behavior of an asset.  <a href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">More...</a><br /></td></tr>
+<tr class="separator:ga835fc55db97a5aac2501ef7ce1d36865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6c3573d1437ab1d79dd57ffaad247e0f" id="r_a6c3573d1437ab1d79dd57ffaad247e0f"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#a6c3573d1437ab1d79dd57ffaad247e0f">operator|</a> (<a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> a, <a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> b)</td></tr>
+<tr class="memdesc:a6c3573d1437ab1d79dd57ffaad247e0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to combine two MSAABehavior flags using bitwise OR.  <br /></td></tr>
+<tr class="separator:a6c3573d1437ab1d79dd57ffaad247e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e0a2ad8cf4b5e1be9011113f52f2376" id="r_a7e0a2ad8cf4b5e1be9011113f52f2376"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00749.html#a7e0a2ad8cf4b5e1be9011113f52f2376">operator&amp;</a> (<a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> a, <a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> b)</td></tr>
+<tr class="memdesc:a7e0a2ad8cf4b5e1be9011113f52f2376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to check if a MSAABehavior flag is set.  <br /></td></tr>
+<tr class="separator:a7e0a2ad8cf4b5e1be9011113f52f2376"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a7e0a2ad8cf4b5e1be9011113f52f2376" name="a7e0a2ad8cf4b5e1be9011113f52f2376"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e0a2ad8cf4b5e1be9011113f52f2376">&#9670;&#160;</a></span>operator&amp;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool operator&amp; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper to check if a MSAABehavior flag is set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The MSAABehavior flag to check </td></tr>
+    <tr><td class="paramname">b</td><td>The MSAABehavior flag to check against </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the flag is set, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00749_source.html#l00052">52</a> of file <a class="el" href="a00749_source.html">MSAABehavior.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c3573d1437ab1d79dd57ffaad247e0f" name="a6c3573d1437ab1d79dd57ffaad247e0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c3573d1437ab1d79dd57ffaad247e0f">&#9670;&#160;</a></span>operator|()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> operator| </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a>&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a>&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper to combine two MSAABehavior flags using bitwise OR. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>The first MSAABehavior flag </td></tr>
+    <tr><td class="paramname">b</td><td>The second MSAABehavior flag </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The combined MSAABehavior flag </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00749_source.html#l00039">39</a> of file <a class="el" href="a00749_source.html">MSAABehavior.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

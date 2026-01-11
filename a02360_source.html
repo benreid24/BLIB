@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Overlays/OverlayObject.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/Builtin/GlobalDataInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,44 +79,79 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_8c8c1712aed2a59ae47f7d5ea800798b.html">Overlays</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_1c9d8e1815e637956400971975ea0cfc.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">OverlayObject.cpp</div></div>
+  <div class="headertitle"><div class="title">GlobalDataInstance.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02360.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01466.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
+<a href="a02360.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00920.html">BLIB/Render/Descriptors/Builtin/GlobalDataInstance.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Render/Scenes/SceneRenderContext.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>ovy</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04326.html#acfac16c3170845244d5bf29e69ac1cb0">    9</a></span><a class="code hl_function" href="a04326.html#acfac16c3170845244d5bf29e69ac1cb0">OverlayObject::OverlayObject</a>()</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: SceneObject()</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, entity(ecs::InvalidEntity)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, overlay(nullptr)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, pipeline(nullptr)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, descriptorCount(0)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, perObjStart(0)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, overlayViewport(nullptr)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, cachedScissor{} {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>dsi</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04822.html#a5218e885e378dd74a04aa9236e1e1349">   11</a></span><a class="code hl_function" href="a04822.html#a5218e885e378dd74a04aa9236e1e1349">GlobalDataInstance::GlobalDataInstance</a>(<a class="code hl_class" href="a05346.html">res::GlobalDescriptors</a>&amp; globals)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: DescriptorSetInstance(Bindless, SpeedAgnostic)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, globals(globals) {}</div>
 </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace ovy</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01466_html"><div class="ttname"><a href="a01466.html">OverlayObject.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04326_html_acfac16c3170845244d5bf29e69ac1cb0"><div class="ttname"><a href="a04326.html#acfac16c3170845244d5bf29e69ac1cb0">bl::rc::ovy::OverlayObject::OverlayObject</a></div><div class="ttdeci">OverlayObject()</div><div class="ttdoc">Construct a new OverlayObject.</div><div class="ttdef"><b>Definition</b> <a href="a02360_source.html#l00009">OverlayObject.cpp:9</a></div></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keywordtype">void</span> GlobalDataInstance::bindForPipeline(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                         std::uint32_t setIndex, <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    globals.<a class="code hl_function" href="a05346.html#a0ce9c821125b29712f40d7b7eefe785a">bindDescriptors</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCommandBuffer(),</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                            <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getPipelineBindPoint(),</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                            layout,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                            setIndex,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                            <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.targetIsRenderTexture());</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> GlobalDataInstance::bindForObject(<a class="code hl_class" href="a05494.html">scene::SceneRenderContext</a>&amp;, VkPipelineLayout, std::uint32_t,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                                       <a class="code hl_struct" href="a05438.html">scene::Key</a>)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// noop</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keywordtype">void</span> GlobalDataInstance::releaseObject(<a class="code hl_struct" href="a03542.html">ecs::Entity</a>, scene::Key) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// noop</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> GlobalDataInstance::init(ds::InitContext&amp;) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">// noop</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keywordtype">bool</span> GlobalDataInstance::allocateObject(ecs::Entity, scene::Key) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="comment">// noop</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="keywordtype">void</span> GlobalDataInstance::updateDescriptors() {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// noop</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace dsi</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">SceneRenderContext.hpp</a></div></div>
+<div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">GlobalDataInstance.hpp</a></div></div>
+<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa04822_html_a5218e885e378dd74a04aa9236e1e1349"><div class="ttname"><a href="a04822.html#a5218e885e378dd74a04aa9236e1e1349">bl::rc::dsi::GlobalDataInstance::GlobalDataInstance</a></div><div class="ttdeci">GlobalDataInstance(res::GlobalDescriptors &amp;globals)</div><div class="ttdoc">Creates the descriptor set instance.</div><div class="ttdef"><b>Definition</b> <a href="a02360_source.html#l00011">GlobalDataInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa05346_html"><div class="ttname"><a href="a05346.html">bl::rc::res::GlobalDescriptors</a></div><div class="ttdoc">Top level manager for global descriptor data such the texture and material pools.</div><div class="ttdef"><b>Definition</b> <a href="a01061_source.html#l00031">GlobalDescriptors.hpp:31</a></div></div>
+<div class="ttc" id="aa05346_html_a0ce9c821125b29712f40d7b7eefe785a"><div class="ttname"><a href="a05346.html#a0ce9c821125b29712f40d7b7eefe785a">bl::rc::res::GlobalDescriptors::bindDescriptors</a></div><div class="ttdeci">void bindDescriptors(VkCommandBuffer commandBuffer, VkPipelineBindPoint pipelineBindPoint, VkPipelineLayout pipelineLayout, std::uint32_t setIndex, bool forRenderTexture)</div><div class="ttdoc">Helper method to bind the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a02426_source.html#l00024">GlobalDescriptors.cpp:24</a></div></div>
+<div class="ttc" id="aa05438_html"><div class="ttname"><a href="a05438.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08560_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa05494_html"><div class="ttname"><a href="a05494.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

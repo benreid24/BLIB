@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Cameras.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Resources/RenderPassCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,47 +79,68 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_0f0c454ab916ef2487b68a1bc3be1485.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Cameras.hpp</div></div>
+  <div class="headertitle"><div class="title">RenderPassCache.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01055.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CAMERAS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CAMERAS_HPP</span></div>
+<a href="a01055.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_RESOURCES_RENDERPASSCACHE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a06289.html">BLIB/Cameras/2D/Affectors/CameraShake.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Cameras/2D/Camera2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00908.html">BLIB/Cameras/2D/CameraAffector2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Cameras/2D/CameraController2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Cameras/2D/Controllers/ConstrainedFollower.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a06292.html">BLIB/Cameras/3D/Affectors/CameraShake.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a00881.html">BLIB/Cameras/3D/CameraAffector3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a00887.html">BLIB/Cameras/3D/CameraController3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a00878.html">BLIB/Cameras/3D/Controllers/OrbiterController.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Cameras/Camera.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a00893.html">BLIB/Cameras/OverlayCamera.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00878_html"><div class="ttname"><a href="a00878.html">OrbiterController.hpp</a></div></div>
-<div class="ttc" id="aa00881_html"><div class="ttname"><a href="a00881.html">CameraAffector3D.hpp</a></div></div>
-<div class="ttc" id="aa00887_html"><div class="ttname"><a href="a00887.html">CameraController3D.hpp</a></div></div>
-<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">Camera3D.hpp</a></div></div>
-<div class="ttc" id="aa00893_html"><div class="ttname"><a href="a00893.html">OverlayCamera.hpp</a></div></div>
-<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">Camera.hpp</a></div></div>
-<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">CameraController2D.hpp</a></div></div>
-<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">ConstrainedFollower.hpp</a></div></div>
-<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">Camera2D.hpp</a></div></div>
-<div class="ttc" id="aa00908_html"><div class="ttname"><a href="a00908.html">CameraAffector2D.hpp</a></div></div>
-<div class="ttc" id="aa06289_html"><div class="ttname"><a href="a06289.html">CameraShake.hpp</a></div></div>
-<div class="ttc" id="aa06292_html"><div class="ttname"><a href="a06292.html">CameraShake.hpp</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00407.html">BLIB/Render/Vulkan/RenderPass.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>res</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05370.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a05370.html">RenderPassCache</a> {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a05770.html">vk::RenderPass</a>&amp; <a class="code hl_function" href="a05370.html#a3df69182959af8b8fa569a69805a2efe">createRenderPass</a>(std::uint32_t renderPassId, <a class="code hl_class" href="a05774.html">vk::RenderPassParameters</a>&amp;&amp; params);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a05770.html">vk::RenderPass</a>&amp; <a class="code hl_function" href="a05370.html#ad075fee264f0adfeb7c93a8133cf877f">getRenderPass</a>(std::uint32_t renderPassId);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a05770.html">vk::RenderPass</a>* <a class="code hl_function" href="a05370.html#a80044e12a589c14962101acf5360ee38">getRenderPassMaybe</a>(std::uint32_t renderPassId);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    std::unordered_map&lt;std::uint32_t, vk::RenderPass&gt; cache;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="a05370.html">RenderPassCache</a>(<a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> addDefaults();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a05370.html#a1fc8c4ea65463b448e068f1287349540">   58</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05330.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
+</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace res</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00407_html"><div class="ttname"><a href="a00407.html">RenderPass.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05370_html"><div class="ttname"><a href="a05370.html">bl::rc::res::RenderPassCache</a></div><div class="ttdoc">Basic cache to manage render passes. Stores them and provides access. Owned by the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a01055_source.html#l00022">RenderPassCache.hpp:22</a></div></div>
+<div class="ttc" id="aa05370_html_a3df69182959af8b8fa569a69805a2efe"><div class="ttname"><a href="a05370.html#a3df69182959af8b8fa569a69805a2efe">bl::rc::res::RenderPassCache::createRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; createRenderPass(std::uint32_t renderPassId, vk::RenderPassParameters &amp;&amp;params)</div><div class="ttdoc">Creates and returns a render pass with the given id and parameters.</div><div class="ttdef"><b>Definition</b> <a href="a02435_source.html#l00018">RenderPassCache.cpp:18</a></div></div>
+<div class="ttc" id="aa05370_html_a80044e12a589c14962101acf5360ee38"><div class="ttname"><a href="a05370.html#a80044e12a589c14962101acf5360ee38">bl::rc::res::RenderPassCache::getRenderPassMaybe</a></div><div class="ttdeci">vk::RenderPass * getRenderPassMaybe(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id if it exists.</div><div class="ttdef"><b>Definition</b> <a href="a02435_source.html#l00037">RenderPassCache.cpp:37</a></div></div>
+<div class="ttc" id="aa05370_html_ad075fee264f0adfeb7c93a8133cf877f"><div class="ttname"><a href="a05370.html#ad075fee264f0adfeb7c93a8133cf877f">bl::rc::res::RenderPassCache::getRenderPass</a></div><div class="ttdeci">vk::RenderPass &amp; getRenderPass(std::uint32_t renderPassId)</div><div class="ttdoc">Fetches the render pass with the given id. Throws an exception if the id does not exist yet....</div><div class="ttdef"><b>Definition</b> <a href="a02435_source.html#l00028">RenderPassCache.cpp:28</a></div></div>
+<div class="ttc" id="aa05770_html"><div class="ttname"><a href="a05770.html">bl::rc::vk::RenderPass</a></div><div class="ttdoc">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...</div><div class="ttdef"><b>Definition</b> <a href="a00407_source.html#l00025">RenderPass.hpp:25</a></div></div>
+<div class="ttc" id="aa05774_html"><div class="ttname"><a href="a05774.html">bl::rc::vk::RenderPassParameters</a></div><div class="ttdoc">Parameter builder class used to construct RenderPass objects in the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a00437_source.html#l00025">RenderPassParameters.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

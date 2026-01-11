@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Logging.hpp Source File</title>
+<title>BLIB: include/BLIB/Tilemap/Direction.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,29 +79,57 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_371518b0c1a3e83dfdc031931ecd4922.html">Tilemap</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Logging.hpp</div></div>
+  <div class="headertitle"><div class="title">Direction.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00266.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_LOGGING_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_LOGGING_HPP</span></div>
+<a href="a00266.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_TILEMAP_DIRECTION_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_TILEMAP_DIRECTION_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a06871.html">BLIB/Logging/Config.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00230.html">BLIB/Logging/Logger.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00233.html">BLIB/Logging/Outputters.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00230_html"><div class="ttname"><a href="a00230.html">Logger.hpp</a></div></div>
-<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">Outputters.hpp</a></div></div>
-<div class="ttc" id="aa06871_html"><div class="ttname"><a href="a06871.html">Config.hpp</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a03074.html">    9</a></span><span class="keyword">namespace </span>tmap</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">   16</a></span><span class="keyword">enum struct</span> <a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> : std::uint8_t { <a class="code hl_enumvalue" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0, <a class="code hl_enumvalue" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Right</a> = 1, <a class="code hl_enumvalue" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Down</a> = 2, <a class="code hl_enumvalue" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Left</a> = 3 };</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02985.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">oppositeDirection</a>(<a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02985.html#ga220339ef558132abe716abe33a18dadb">nextClockwiseDirection</a>(<a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02985.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">nextCounterClockwiseDirection</a>(<a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a02985.html#ga50423a802de9a1c43478aab60328719e">directionFromString</a>(<span class="keyword">const</span> std::string&amp; dir);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>std::string <a class="code hl_function" href="a02985.html#ga74da6f2d6ed6515b52ebdb22ecce7997">directionToString</a>(<a class="code hl_enumeration" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>} <span class="comment">// namespace tmap</span></div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02985_html_ga1d948d110c8c972bc5b6f45d06c9e3f9"><div class="ttname"><a href="a02985.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">bl::tmap::oppositeDirection</a></div><div class="ttdeci">Direction oppositeDirection(Direction dir)</div><div class="ttdoc">Returns the Direction that is opposite of the given direction.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00009">Direction.cpp:9</a></div></div>
+<div class="ttc" id="aa02985_html_ga220339ef558132abe716abe33a18dadb"><div class="ttname"><a href="a02985.html#ga220339ef558132abe716abe33a18dadb">bl::tmap::nextClockwiseDirection</a></div><div class="ttdeci">Direction nextClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next clockwise direction from the given current direction.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00025">Direction.cpp:25</a></div></div>
+<div class="ttc" id="aa02985_html_ga50423a802de9a1c43478aab60328719e"><div class="ttname"><a href="a02985.html#ga50423a802de9a1c43478aab60328719e">bl::tmap::directionFromString</a></div><div class="ttdeci">Direction directionFromString(const std::string &amp;dir)</div><div class="ttdoc">Converts the given string into a direction.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00057">Direction.cpp:57</a></div></div>
+<div class="ttc" id="aa02985_html_ga718359d5f56e8650998bc14f045c3f64"><div class="ttname"><a href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">bl::tmap::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing in a tilemap.</div><div class="ttdef"><b>Definition</b> <a href="a00266_source.html#l00016">Direction.hpp:16</a></div></div>
+<div class="ttc" id="aa02985_html_ga74da6f2d6ed6515b52ebdb22ecce7997"><div class="ttname"><a href="a02985.html#ga74da6f2d6ed6515b52ebdb22ecce7997">bl::tmap::directionToString</a></div><div class="ttdeci">std::string directionToString(Direction dir)</div><div class="ttdoc">Converts the given direction to a string.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00070">Direction.cpp:70</a></div></div>
+<div class="ttc" id="aa02985_html_ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><div class="ttname"><a href="a02985.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">bl::tmap::nextCounterClockwiseDirection</a></div><div class="ttdeci">Direction nextCounterClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next counterclockwise direction from the given current direction.</div><div class="ttdef"><b>Definition</b> <a href="a02039_source.html#l00041">Direction.cpp:41</a></div></div>
+<div class="ttc" id="aa02985_html_gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53"><div class="ttname"><a href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">bl::tmap::Direction::Down</a></div><div class="ttdeci">@ Down</div></div>
+<div class="ttc" id="aa02985_html_gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa"><div class="ttname"><a href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">bl::tmap::Direction::Up</a></div><div class="ttdeci">@ Up</div></div>
+<div class="ttc" id="aa02985_html_gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c"><div class="ttname"><a href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">bl::tmap::Direction::Right</a></div><div class="ttdeci">@ Right</div></div>
+<div class="ttc" id="aa02985_html_gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff"><div class="ttname"><a href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">bl::tmap::Direction::Left</a></div><div class="ttdeci">@ Left</div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: sf::VulkanFont Class Reference</title>
+<title>BLIB: bl::ctr::FastEraseVector&lt; T, Alloc &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,587 +74,145 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02435.html">sf</a></li><li class="navelem"><a class="el" href="a03374.html">VulkanFont</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03007.html">ctr</a></li><li class="navelem"><a class="el" href="a03374.html">FastEraseVector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a03371.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">sf::VulkanFont Class Reference<div class="ingroups"><a class="el" href="a02381.html">Graphics</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ctr::FastEraseVector&lt; T, Alloc &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02967.html">Containers</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Adaptation of sf::Font for use with Vulkan.  
+<p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a03374.html#a2311c45c3a001bf19a0e1ba03d66413a" title="Erase a single element using an iterator.">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy.  
  <a href="a03374.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00929_source.html">VulkanFont.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00275_source.html">FastEraseVector.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ctr::FastEraseVector&lt; T, Alloc &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03374.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03378.html">Info</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a8ecb676ceae1d63d038aeaf1027fc3ea" id="r_a8ecb676ceae1d63d038aeaf1027fc3ea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> = typename std::vector&lt; T, Alloc &gt;::iterator</td></tr>
+<tr class="separator:a8ecb676ceae1d63d038aeaf1027fc3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3835521eff91d97015df6f2257dd7acf" id="r_a3835521eff91d97015df6f2257dd7acf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a3835521eff91d97015df6f2257dd7acf">VulkanFont</a> ()</td></tr>
-<tr class="memdesc:a3835521eff91d97015df6f2257dd7acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty font.  <br /></td></tr>
-<tr class="separator:a3835521eff91d97015df6f2257dd7acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4116cf142e89616acc585f677755941" id="r_ab4116cf142e89616acc585f677755941"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#ab4116cf142e89616acc585f677755941">VulkanFont</a> (const <a class="el" href="a03374.html">VulkanFont</a> &amp;copy)</td></tr>
-<tr class="memdesc:ab4116cf142e89616acc585f677755941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from another font.  <br /></td></tr>
-<tr class="separator:ab4116cf142e89616acc585f677755941"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb3edf77c26249d145f51654041cde86" id="r_afb3edf77c26249d145f51654041cde86"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#afb3edf77c26249d145f51654041cde86">~VulkanFont</a> ()</td></tr>
-<tr class="memdesc:afb3edf77c26249d145f51654041cde86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the font.  <br /></td></tr>
-<tr class="separator:afb3edf77c26249d145f51654041cde86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d6321199cdb878e5461f85e7067547e" id="r_a5d6321199cdb878e5461f85e7067547e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a5d6321199cdb878e5461f85e7067547e">loadFromFile</a> (const std::string &amp;filename)</td></tr>
-<tr class="memdesc:a5d6321199cdb878e5461f85e7067547e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the font from the given file.  <br /></td></tr>
-<tr class="separator:a5d6321199cdb878e5461f85e7067547e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af31fb7799224533a0edd78b79d425e0c" id="r_af31fb7799224533a0edd78b79d425e0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#af31fb7799224533a0edd78b79d425e0c">loadFromMemory</a> (const void *data, std::size_t sizeInBytes)</td></tr>
-<tr class="memdesc:af31fb7799224533a0edd78b79d425e0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the font from the given memory.  <br /></td></tr>
-<tr class="separator:af31fb7799224533a0edd78b79d425e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a608058beee7e79028655224cb3207bfd" id="r_a608058beee7e79028655224cb3207bfd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a608058beee7e79028655224cb3207bfd">loadFromStream</a> (InputStream &amp;stream)</td></tr>
-<tr class="memdesc:a608058beee7e79028655224cb3207bfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the font from the given stream.  <br /></td></tr>
-<tr class="separator:a608058beee7e79028655224cb3207bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a050ffbef23b108ab497359d1c9b9289b" id="r_a050ffbef23b108ab497359d1c9b9289b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03378.html">Info</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a050ffbef23b108ab497359d1c9b9289b">getInfo</a> () const</td></tr>
-<tr class="memdesc:a050ffbef23b108ab497359d1c9b9289b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the font information.  <br /></td></tr>
-<tr class="separator:a050ffbef23b108ab497359d1c9b9289b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abefaa74fea84f9a9e7bd7416ff76f2fa" id="r_abefaa74fea84f9a9e7bd7416ff76f2fa"><td class="memItemLeft" align="right" valign="top">const Glyph &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#abefaa74fea84f9a9e7bd7416ff76f2fa">getGlyph</a> (Uint32 codePoint, unsigned int characterSize, bool bold, float outlineThickness=0.f) const</td></tr>
-<tr class="memdesc:abefaa74fea84f9a9e7bd7416ff76f2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the glyph information for the requested character and settings.  <br /></td></tr>
-<tr class="separator:abefaa74fea84f9a9e7bd7416ff76f2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43daefc6af7cd8d7fd43a71cfd36d35a" id="r_a43daefc6af7cd8d7fd43a71cfd36d35a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a43daefc6af7cd8d7fd43a71cfd36d35a">hasGlyph</a> (Uint32 codePoint) const</td></tr>
-<tr class="memdesc:a43daefc6af7cd8d7fd43a71cfd36d35a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the font contains the requested character.  <br /></td></tr>
-<tr class="separator:a43daefc6af7cd8d7fd43a71cfd36d35a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3381b509acdef4abf4c81c9a89b36cf9" id="r_a3381b509acdef4abf4c81c9a89b36cf9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a3381b509acdef4abf4c81c9a89b36cf9">getKerning</a> (Uint32 first, Uint32 second, unsigned int characterSize, bool bold=false) const</td></tr>
-<tr class="memdesc:a3381b509acdef4abf4c81c9a89b36cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the kerning between the given characters.  <br /></td></tr>
-<tr class="separator:a3381b509acdef4abf4c81c9a89b36cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaba62e3158e2073c23989951942e3533" id="r_aaba62e3158e2073c23989951942e3533"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#aaba62e3158e2073c23989951942e3533">getLineSpacing</a> (unsigned int characterSize) const</td></tr>
-<tr class="memdesc:aaba62e3158e2073c23989951942e3533"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the amount of space between letters for the given font size.  <br /></td></tr>
-<tr class="separator:aaba62e3158e2073c23989951942e3533"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bff79f8efef5fdcae06da07fccb41af" id="r_a2bff79f8efef5fdcae06da07fccb41af"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a2bff79f8efef5fdcae06da07fccb41af">getUnderlinePosition</a> (unsigned int characterSize) const</td></tr>
-<tr class="memdesc:a2bff79f8efef5fdcae06da07fccb41af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the underline for the given font size.  <br /></td></tr>
-<tr class="separator:a2bff79f8efef5fdcae06da07fccb41af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86e7617fc3763e358078040b7cece134" id="r_a86e7617fc3763e358078040b7cece134"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a86e7617fc3763e358078040b7cece134">getUnderlineThickness</a> (unsigned int characterSize) const</td></tr>
-<tr class="memdesc:a86e7617fc3763e358078040b7cece134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the thickness of the underline for the given font size.  <br /></td></tr>
-<tr class="separator:a86e7617fc3763e358078040b7cece134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af08e8f259a1d8eb98923ad53c944cc80" id="r_af08e8f259a1d8eb98923ad53c944cc80"><td class="memItemLeft" align="right" valign="top">const Image &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#af08e8f259a1d8eb98923ad53c944cc80">getGlyphAtlas</a> () const</td></tr>
-<tr class="memdesc:af08e8f259a1d8eb98923ad53c944cc80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rendered glyph atlas.  <br /></td></tr>
-<tr class="separator:af08e8f259a1d8eb98923ad53c944cc80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb4584daa52f5bbdb2d48fe5a530ec5f" id="r_abb4584daa52f5bbdb2d48fe5a530ec5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03374.html">VulkanFont</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#abb4584daa52f5bbdb2d48fe5a530ec5f">operator=</a> (const <a class="el" href="a03374.html">VulkanFont</a> &amp;right)</td></tr>
-<tr class="memdesc:abb4584daa52f5bbdb2d48fe5a530ec5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the value from another font.  <br /></td></tr>
-<tr class="separator:abb4584daa52f5bbdb2d48fe5a530ec5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a593294549ed69bd90f93f2b8da9f68ed" id="r_a593294549ed69bd90f93f2b8da9f68ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04402.html">bl::rc::res::TextureRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a593294549ed69bd90f93f2b8da9f68ed">syncTexture</a> (<a class="el" href="a04346.html">bl::rc::Renderer</a> &amp;renderer) const</td></tr>
-<tr class="memdesc:a593294549ed69bd90f93f2b8da9f68ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates or updates the Vulkan texture for the rendered glyphs if necessary.  <br /></td></tr>
-<tr class="separator:a593294549ed69bd90f93f2b8da9f68ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2311c45c3a001bf19a0e1ba03d66413a" id="r_a2311c45c3a001bf19a0e1ba03d66413a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a2311c45c3a001bf19a0e1ba03d66413a">erase</a> (<a class="el" href="a03374.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a> position)</td></tr>
+<tr class="memdesc:a2311c45c3a001bf19a0e1ba03d66413a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an iterator.  <br /></td></tr>
+<tr class="separator:a2311c45c3a001bf19a0e1ba03d66413a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2221d0efbe90ad0537e905e81bd6847e" id="r_a2221d0efbe90ad0537e905e81bd6847e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03374.html#a2221d0efbe90ad0537e905e81bd6847e">erase</a> (std::size_t index)</td></tr>
+<tr class="memdesc:a2221d0efbe90ad0537e905e81bd6847e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Erase a single element using an index.  <br /></td></tr>
+<tr class="separator:a2221d0efbe90ad0537e905e81bd6847e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Adaptation of sf::Font for use with Vulkan. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00063">63</a> of file <a class="el" href="a00929_source.html">VulkanFont.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3835521eff91d97015df6f2257dd7acf" name="a3835521eff91d97015df6f2257dd7acf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3835521eff91d97015df6f2257dd7acf">&#9670;&#160;</a></span>VulkanFont() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::VulkanFont::VulkanFont </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates an empty font. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00083">83</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab4116cf142e89616acc585f677755941" name="ab4116cf142e89616acc585f677755941"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4116cf142e89616acc585f677755941">&#9670;&#160;</a></span>VulkanFont() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::VulkanFont::VulkanFont </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copies from another font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">copy</td><td>The font to copy from </td></tr>
+<div class="textblock"><div class="compoundTemplParams">template&lt;class T, class Alloc = std::allocator&lt;T&gt;&gt;<br />
+class bl::ctr::FastEraseVector&lt; T, Alloc &gt;</div><p>A thin reskin of std::vector, this vector replaces the O(n) <a class="el" href="a03374.html#a2311c45c3a001bf19a0e1ba03d66413a" title="Erase a single element using an iterator.">erase()</a> methods of vector with a constant time implementation. It works by copying the last item into the position being erased, then popping the last item. This vector works best for items that are trivial to copy. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>Type of object to store </td></tr>
+    <tr><td class="paramname">Alloc</td><td>Allocator type to use, defaults to std::allocator&lt;T&gt; </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00106">106</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afb3edf77c26249d145f51654041cde86" name="afb3edf77c26249d145f51654041cde86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb3edf77c26249d145f51654041cde86">&#9670;&#160;</a></span>~VulkanFont()</h2>
+<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00022">22</a> of file <a class="el" href="a00275_source.html">FastEraseVector.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a8ecb676ceae1d63d038aeaf1027fc3ea" name="a8ecb676ceae1d63d038aeaf1027fc3ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ecb676ceae1d63d038aeaf1027fc3ea">&#9670;&#160;</a></span>iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class Alloc  = std::allocator&lt;T&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">sf::VulkanFont::~VulkanFont </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a03374.html">bl::ctr::FastEraseVector</a>&lt; T, Alloc &gt;::iterator =  typename std::vector&lt;T, Alloc&gt;::iterator</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroys the font. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00131">131</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00024">24</a> of file <a class="el" href="a00275_source.html">FastEraseVector.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abefaa74fea84f9a9e7bd7416ff76f2fa" name="abefaa74fea84f9a9e7bd7416ff76f2fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abefaa74fea84f9a9e7bd7416ff76f2fa">&#9670;&#160;</a></span>getGlyph()</h2>
+<a id="a2311c45c3a001bf19a0e1ba03d66413a" name="a2311c45c3a001bf19a0e1ba03d66413a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2311c45c3a001bf19a0e1ba03d66413a">&#9670;&#160;</a></span>erase() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class Alloc &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const Glyph &amp; sf::VulkanFont::getGlyph </td>
+          <td class="memname">void <a class="el" href="a03374.html">bl::ctr::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
           <td>(</td>
-          <td class="paramtype">Uint32&#160;</td>
-          <td class="paramname"><em>codePoint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a03374.html#a8ecb676ceae1d63d038aeaf1027fc3ea">iterator</a>&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>characterSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>bold</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>outlineThickness</em> = <code>0.f</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the glyph information for the requested character and settings. </p>
+<p>Erase a single element using an iterator. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">codePoint</td><td>The character to get the glyph for </td></tr>
-    <tr><td class="paramname">characterSize</td><td>The font size to get the glyph for </td></tr>
-    <tr><td class="paramname">bold</td><td>True for a bold glyph, false for a regular glyph </td></tr>
-    <tr><td class="paramname">outlineThickness</td><td>Thickness of the outline, in pixels </td></tr>
+    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The requested glyph </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00346">346</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00044">44</a> of file <a class="el" href="a00275_source.html">FastEraseVector.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af08e8f259a1d8eb98923ad53c944cc80" name="af08e8f259a1d8eb98923ad53c944cc80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af08e8f259a1d8eb98923ad53c944cc80">&#9670;&#160;</a></span>getGlyphAtlas()</h2>
+<a id="a2221d0efbe90ad0537e905e81bd6847e" name="a2221d0efbe90ad0537e905e81bd6847e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2221d0efbe90ad0537e905e81bd6847e">&#9670;&#160;</a></span>erase() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T , class Alloc &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const Image &amp; sf::VulkanFont::getGlyphAtlas </td>
+          <td class="memname">void <a class="el" href="a03374.html">bl::ctr::FastEraseVector</a>&lt; T, Alloc &gt;::erase </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the rendered glyph atlas. </p>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00453">453</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a050ffbef23b108ab497359d1c9b9289b" name="a050ffbef23b108ab497359d1c9b9289b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a050ffbef23b108ab497359d1c9b9289b">&#9670;&#160;</a></span>getInfo()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a03378.html">VulkanFont::Info</a> &amp; sf::VulkanFont::getInfo </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the font information. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00343">343</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3381b509acdef4abf4c81c9a89b36cf9" name="a3381b509acdef4abf4c81c9a89b36cf9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3381b509acdef4abf4c81c9a89b36cf9">&#9670;&#160;</a></span>getKerning()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float sf::VulkanFont::getKerning </td>
-          <td>(</td>
-          <td class="paramtype">Uint32&#160;</td>
-          <td class="paramname"><em>first</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Uint32&#160;</td>
-          <td class="paramname"><em>second</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>characterSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>bold</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the kerning between the given characters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">first</td><td>The left character </td></tr>
-    <tr><td class="paramname">second</td><td>The right character </td></tr>
-    <tr><td class="paramname">characterSize</td><td>The font size </td></tr>
-    <tr><td class="paramname">bold</td><td>Whether or not the text is bold </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The distance between the characters </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00375">375</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaba62e3158e2073c23989951942e3533" name="aaba62e3158e2073c23989951942e3533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaba62e3158e2073c23989951942e3533">&#9670;&#160;</a></span>getLineSpacing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float sf::VulkanFont::getLineSpacing </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>characterSize</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the amount of space between letters for the given font size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">characterSize</td><td>The font size </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The spacing in pixels </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00413">413</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2bff79f8efef5fdcae06da07fccb41af" name="a2bff79f8efef5fdcae06da07fccb41af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bff79f8efef5fdcae06da07fccb41af">&#9670;&#160;</a></span>getUnderlinePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float sf::VulkanFont::getUnderlinePosition </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>characterSize</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the position of the underline for the given font size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">characterSize</td><td>The font size </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The y position of the underline </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00423">423</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a86e7617fc3763e358078040b7cece134" name="a86e7617fc3763e358078040b7cece134"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86e7617fc3763e358078040b7cece134">&#9670;&#160;</a></span>getUnderlineThickness()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float sf::VulkanFont::getUnderlineThickness </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>characterSize</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the thickness of the underline for the given font size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">characterSize</td><td>The font size </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The thickness of the underline </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00438">438</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a43daefc6af7cd8d7fd43a71cfd36d35a" name="a43daefc6af7cd8d7fd43a71cfd36d35a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43daefc6af7cd8d7fd43a71cfd36d35a">&#9670;&#160;</a></span>hasGlyph()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool sf::VulkanFont::hasGlyph </td>
-          <td>(</td>
-          <td class="paramtype">Uint32&#160;</td>
-          <td class="paramname"><em>codePoint</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the font contains the requested character. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">codePoint</td><td>The character to check for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the font can render the given character, false if not </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00370">370</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5d6321199cdb878e5461f85e7067547e" name="a5d6321199cdb878e5461f85e7067547e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d6321199cdb878e5461f85e7067547e">&#9670;&#160;</a></span>loadFromFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool sf::VulkanFont::loadFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the font from the given file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>The full file path to load from </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00142">142</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af31fb7799224533a0edd78b79d425e0c" name="af31fb7799224533a0edd78b79d425e0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af31fb7799224533a0edd78b79d425e0c">&#9670;&#160;</a></span>loadFromMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool sf::VulkanFont::loadFromMemory </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>sizeInBytes</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the font from the given memory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The memory to load from </td></tr>
-    <tr><td class="paramname">sizeInBytes</td><td>The size of the memory, in bytes </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00208">208</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a608058beee7e79028655224cb3207bfd" name="a608058beee7e79028655224cb3207bfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a608058beee7e79028655224cb3207bfd">&#9670;&#160;</a></span>loadFromStream()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool sf::VulkanFont::loadFromStream </td>
-          <td>(</td>
-          <td class="paramtype">InputStream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Loads the font from the given stream. </p>
+<p>Erase a single element using an index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">stream</td><td>The stream to load from </td></tr>
+    <tr><td class="paramname">position</td><td>Element to erase </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00268">268</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abb4584daa52f5bbdb2d48fe5a530ec5f" name="abb4584daa52f5bbdb2d48fe5a530ec5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb4584daa52f5bbdb2d48fe5a530ec5f">&#9670;&#160;</a></span>operator=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03374.html">VulkanFont</a> &amp; sf::VulkanFont::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03374.html">VulkanFont</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copies the value from another font. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The font to copy </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this font </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00456">456</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00275_source.html#l00050">50</a> of file <a class="el" href="a00275_source.html">FastEraseVector.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a593294549ed69bd90f93f2b8da9f68ed" name="a593294549ed69bd90f93f2b8da9f68ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a593294549ed69bd90f93f2b8da9f68ed">&#9670;&#160;</a></span>syncTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04402.html">bl::rc::res::TextureRef</a> sf::VulkanFont::syncTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04346.html">bl::rc::Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates or updates the Vulkan texture for the rendered glyphs if necessary. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A handle to the Vulkan texture to use when rendering </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02039_source.html#l00757">757</a> of file <a class="el" href="a02039_source.html">VulkanFont.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Graphics/Text/<a class="el" href="a00929_source.html">VulkanFont.hpp</a></li>
-<li>src/Graphics/Text/<a class="el" href="a02039_source.html">VulkanFont.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Containers/<a class="el" href="a00275_source.html">FastEraseVector.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

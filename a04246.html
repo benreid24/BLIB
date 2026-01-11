@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rg::RenderGraph Class Reference</title>
+<title>BLIB: bl::gui::defcoms::CheckButtonComponent Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,262 +74,370 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02462.html">rg</a></li><li class="navelem"><a class="el" href="a04246.html">RenderGraph</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03029.html">gui</a></li><li class="navelem"><a class="el" href="a03031.html">defcoms</a></li><li class="navelem"><a class="el" href="a04246.html">CheckButtonComponent</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="a04243.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::rg::RenderGraph Class Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gui::defcoms::CheckButtonComponent Class Reference<div class="ingroups"><a class="el" href="a02973.html">Interface</a> &raquo; <a class="el" href="a02989.html">GUI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>The core render graph functionality. Drives rendering for each observer.  
+<p>Default component type for <a class="el" href="a04126.html" title="Checkbox button.">CheckButton</a> elements.  
  <a href="a04246.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01232_source.html">RenderGraph.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01169_source.html">CheckButtonComponent.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::defcoms::CheckButtonComponent:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04246.png" usemap="#bl::gui::defcoms::CheckButtonComponent_map" alt=""/>
+  <map id="bl::gui::defcoms::CheckButtonComponent_map" name="bl::gui::defcoms::CheckButtonComponent_map">
+<area href="a04318.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render..." alt="bl::gui::rdr::Component" shape="rect" coords="0,0,238,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae8067b9f5370e7a570688e694a15f6ef" id="r_ae8067b9f5370e7a570688e694a15f6ef"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> { <a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345">Regular</a>
+, <a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c">Highlighted</a>
+, <a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040">Pressed</a>
+, <a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241">Disabled</a>
+ }</td></tr>
+<tr class="memdesc:ae8067b9f5370e7a570688e694a15f6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visible state of the element.  <a href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">More...</a><br /></td></tr>
+<tr class="separator:ae8067b9f5370e7a570688e694a15f6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad04144636950185c959ad6394f0c5c52" id="r_ad04144636950185c959ad6394f0c5c52"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> { <a class="el" href="a04318.html#ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84">IgnoresMouse</a>
+, <a class="el" href="a04318.html#ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98">HighlightedByMouse</a>
+ }</td></tr>
+<tr class="memdesc:ad04144636950185c959ad6394f0c5c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">How the component responds to mouse over state.  <a href="a04318.html#ad04144636950185c959ad6394f0c5c52">More...</a><br /></td></tr>
+<tr class="separator:ad04144636950185c959ad6394f0c5c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a947a8f9a8831f3c495cb9aa7ca89a374" id="r_a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a947a8f9a8831f3c495cb9aa7ca89a374">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &gt;</td></tr>
+<tr class="separator:a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4680a2d9f31ad3d2a7eae5ca98d9e2b" id="r_ad4680a2d9f31ad3d2a7eae5ca98d9e2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ad4680a2d9f31ad3d2a7eae5ca98d9e2b">RenderGraph</a> (<a class="el" href="a03046.html">engine::Engine</a> &amp;engine, <a class="el" href="a04346.html">Renderer</a> &amp;renderer, <a class="el" href="a04194.html">AssetPool</a> &amp;assetPool, <a class="el" href="a04350.html">RenderTarget</a> *target)</td></tr>
-<tr class="memdesc:ad4680a2d9f31ad3d2a7eae5ca98d9e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a04246.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>.  <br /></td></tr>
-<tr class="separator:ad4680a2d9f31ad3d2a7eae5ca98d9e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c16f27d764bee3672771fe624db547" id="r_a79c16f27d764bee3672771fe624db547"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
-<tr class="memitem:a79c16f27d764bee3672771fe624db547"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04246.html#a79c16f27d764bee3672771fe624db547">putTask</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a79c16f27d764bee3672771fe624db547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new task to the graph to become a part of the render process.  <br /></td></tr>
-<tr class="separator:a79c16f27d764bee3672771fe624db547"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3662bbc2a51fd58c58c46e715bafbfa5" id="r_a3662bbc2a51fd58c58c46e715bafbfa5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
-<tr class="memitem:a3662bbc2a51fd58c58c46e715bafbfa5"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04246.html#a3662bbc2a51fd58c58c46e715bafbfa5">putUniqueTask</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a3662bbc2a51fd58c58c46e715bafbfa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new task to the graph to become a part of the render process. Only adds the task if it would be unique. Prevents duplicate tasks.  <br /></td></tr>
-<tr class="separator:a3662bbc2a51fd58c58c46e715bafbfa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d53b564bb6ef285bcb93c2364055dda" id="r_a9d53b564bb6ef285bcb93c2364055dda"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a9d53b564bb6ef285bcb93c2364055dda"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04246.html#a9d53b564bb6ef285bcb93c2364055dda">removeTask</a> ()</td></tr>
-<tr class="memdesc:a9d53b564bb6ef285bcb93c2364055dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the task with the given type from the graph.  <br /></td></tr>
-<tr class="separator:a9d53b564bb6ef285bcb93c2364055dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a803bce3b7aee146533320091b9f8fb1d" id="r_a803bce3b7aee146533320091b9f8fb1d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a803bce3b7aee146533320091b9f8fb1d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04246.html#a803bce3b7aee146533320091b9f8fb1d">removeTasks</a> ()</td></tr>
-<tr class="memdesc:a803bce3b7aee146533320091b9f8fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all tasks of the given type from the graph.  <br /></td></tr>
-<tr class="separator:a803bce3b7aee146533320091b9f8fb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb629f434c73afb96a43d7d594e59016" id="r_acb629f434c73afb96a43d7d594e59016"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:acb629f434c73afb96a43d7d594e59016"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04246.html#acb629f434c73afb96a43d7d594e59016">findTask</a> ()</td></tr>
-<tr class="memdesc:acb629f434c73afb96a43d7d594e59016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds and returns a pointer to the first task found of the given type.  <br /></td></tr>
-<tr class="separator:acb629f434c73afb96a43d7d594e59016"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeed8ba2f3b7cd0580bb32b83aa459b3c" id="r_aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04246.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">hasTask</a> ()</td></tr>
-<tr class="memdesc:aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given task is present in the graph.  <br /></td></tr>
-<tr class="separator:aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8e028a52ea92cc2ed4bff74ffe36d6d" id="r_ac8e028a52ea92cc2ed4bff74ffe36d6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ac8e028a52ea92cc2ed4bff74ffe36d6d">execute</a> (VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture)</td></tr>
-<tr class="memdesc:ac8e028a52ea92cc2ed4bff74ffe36d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the graph to record render commands into the given command buffer. Does not execute the final task.  <br /></td></tr>
-<tr class="separator:ac8e028a52ea92cc2ed4bff74ffe36d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae67ea85f43d545a1248d7954b81994fe" id="r_ae67ea85f43d545a1248d7954b81994fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ae67ea85f43d545a1248d7954b81994fe">executeFinal</a> (VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture)</td></tr>
-<tr class="memdesc:ae67ea85f43d545a1248d7954b81994fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the final task of the graph.  <br /></td></tr>
-<tr class="separator:ae67ea85f43d545a1248d7954b81994fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23e346a1267da2f5a27f3282f4c489da" id="r_a23e346a1267da2f5a27f3282f4c489da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a23e346a1267da2f5a27f3282f4c489da">build</a> ()</td></tr>
-<tr class="memdesc:a23e346a1267da2f5a27f3282f4c489da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the graph timeline. Called automatically in <a class="el" href="a04246.html#ac8e028a52ea92cc2ed4bff74ffe36d6d" title="Executes the graph to record render commands into the given command buffer. Does not execute the fina...">execute()</a>  <br /></td></tr>
-<tr class="separator:a23e346a1267da2f5a27f3282f4c489da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaed0558c668067b5011e40a85c1ebf7e" id="r_aaed0558c668067b5011e40a85c1ebf7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#aaed0558c668067b5011e40a85c1ebf7e">markDirty</a> ()</td></tr>
-<tr class="memdesc:aaed0558c668067b5011e40a85c1ebf7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies the graph to rebuild on next execution.  <br /></td></tr>
-<tr class="separator:aaed0558c668067b5011e40a85c1ebf7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d831bc5022b04eb4e8db41471f971c" id="r_a45d831bc5022b04eb4e8db41471f971c"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a45d831bc5022b04eb4e8db41471f971c">needsRepopulation</a> () const</td></tr>
-<tr class="memdesc:a45d831bc5022b04eb4e8db41471f971c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the graph needs to be repopulated from scratch.  <br /></td></tr>
-<tr class="separator:a45d831bc5022b04eb4e8db41471f971c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d6948cfb39087160e95d2856a27eaaa" id="r_a9d6948cfb39087160e95d2856a27eaaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a9d6948cfb39087160e95d2856a27eaaa">reset</a> ()</td></tr>
-<tr class="memdesc:a9d6948cfb39087160e95d2856a27eaaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all tasks from the graph and marks it for re-population.  <br /></td></tr>
-<tr class="separator:a9d6948cfb39087160e95d2856a27eaaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dbcc4f8057cdb23329ea7607e6a9a4f" id="r_a6dbcc4f8057cdb23329ea7607e6a9a4f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a6dbcc4f8057cdb23329ea7607e6a9a4f">populate</a> (<a class="el" href="a04262.html">Strategy</a> &amp;strategy, <a class="el" href="a04446.html">Scene</a> &amp;scene)</td></tr>
-<tr class="memdesc:a6dbcc4f8057cdb23329ea7607e6a9a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears and re-populates the tasks in the graph. Re-builds the graph.  <br /></td></tr>
-<tr class="separator:a6dbcc4f8057cdb23329ea7607e6a9a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a078c29f6ed9badf6828b234d7396861d" id="r_a078c29f6ed9badf6828b234d7396861d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a078c29f6ed9badf6828b234d7396861d">update</a> (float dt)</td></tr>
-<tr class="memdesc:a078c29f6ed9badf6828b234d7396861d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls update on all contained tasks.  <br /></td></tr>
-<tr class="separator:a078c29f6ed9badf6828b234d7396861d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acead403415f2d45be58827b46cd070d0" id="r_acead403415f2d45be58827b46cd070d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#acead403415f2d45be58827b46cd070d0">CheckButtonComponent</a> ()</td></tr>
+<tr class="memdesc:acead403415f2d45be58827b46cd070d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component.  <br /></td></tr>
+<tr class="separator:acead403415f2d45be58827b46cd070d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a1d9e07284a504e800f87f797a0661" id="r_ab0a1d9e07284a504e800f87f797a0661"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ab0a1d9e07284a504e800f87f797a0661">~CheckButtonComponent</a> ()=default</td></tr>
+<tr class="memdesc:ab0a1d9e07284a504e800f87f797a0661"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the component.  <br /></td></tr>
+<tr class="separator:ab0a1d9e07284a504e800f87f797a0661"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac66a9353b6e1b886d2cb1d1aff4be262" id="r_ac66a9353b6e1b886d2cb1d1aff4be262"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ac66a9353b6e1b886d2cb1d1aff4be262">setVisible</a> (bool visible) override</td></tr>
+<tr class="memdesc:ac66a9353b6e1b886d2cb1d1aff4be262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the visibility of the UI component.  <br /></td></tr>
+<tr class="separator:ac66a9353b6e1b886d2cb1d1aff4be262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c8ac5fa001382cdedab20c66163c1e" id="r_a27c8ac5fa001382cdedab20c66163c1e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a27c8ac5fa001382cdedab20c66163c1e">onElementUpdated</a> () override</td></tr>
+<tr class="memdesc:a27c8ac5fa001382cdedab20c66163c1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when element state changes. This is element specific, but can mean toggle state, contents, etc.  <br /></td></tr>
+<tr class="separator:a27c8ac5fa001382cdedab20c66163c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdaebe53f4da2e684e043f6b651db0a5" id="r_afdaebe53f4da2e684e043f6b651db0a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#afdaebe53f4da2e684e043f6b651db0a5">onRenderSettingChange</a> () override</td></tr>
+<tr class="memdesc:afdaebe53f4da2e684e043f6b651db0a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the owning elements render settings are changed.  <br /></td></tr>
+<tr class="separator:afdaebe53f4da2e684e043f6b651db0a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0653b4c57449232cfbcf84f9cc7cfe98" id="r_a0653b4c57449232cfbcf84f9cc7cfe98"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a03542.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a0653b4c57449232cfbcf84f9cc7cfe98">getEntity</a> () const override</td></tr>
+<tr class="memdesc:a0653b4c57449232cfbcf84f9cc7cfe98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should return the ECS entity that children should parent themselves to.  <br /></td></tr>
+<tr class="separator:a0653b4c57449232cfbcf84f9cc7cfe98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a350d3389d5be8f1e8f6a5a874fc999b6" id="r_a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a350d3389d5be8f1e8f6a5a874fc999b6">setUIState</a> (<a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
+<tr class="memdesc:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the visual state changes and immediately following creation.  <br /></td></tr>
+<tr class="separator:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f914f312bf4700ece09298abf3d9a3a" id="r_a9f914f312bf4700ece09298abf3d9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a9f914f312bf4700ece09298abf3d9a3a">overrideHighlightBehavior</a> (<a class="el" href="a04318.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> behavior)</td></tr>
+<tr class="memdesc:a9f914f312bf4700ece09298abf3d9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the default highlight behavior for this specific component.  <br /></td></tr>
+<tr class="separator:a9f914f312bf4700ece09298abf3d9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd6da199b0858a849eaa74a4857c8e3" id="r_abdd6da199b0858a849eaa74a4857c8e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#abdd6da199b0858a849eaa74a4857c8e3">showTooltip</a> ()</td></tr>
+<tr class="memdesc:abdd6da199b0858a849eaa74a4857c8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to display a tooltip for this component.  <br /></td></tr>
+<tr class="separator:abdd6da199b0858a849eaa74a4857c8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae3b7b2405ed796d1f9e3b3ebcbe12b1" id="r_aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#aae3b7b2405ed796d1f9e3b3ebcbe12b1">dismissTooltip</a> ()</td></tr>
+<tr class="memdesc:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to dismiss the tooltip for this component.  <br /></td></tr>
+<tr class="separator:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2" id="r_a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">flash</a> ()</td></tr>
+<tr class="memdesc:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers this component to flash briefly.  <br /></td></tr>
+<tr class="separator:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c20d7bde9c7d1fc2829b4d984a052b" id="r_a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a10c20d7bde9c7d1fc2829b4d984a052b">onAcquisition</a> ()</td></tr>
+<tr class="memdesc:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element gets its acquisition (re)assigned.  <br /></td></tr>
+<tr class="separator:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa17e61eb9db291663dc6dac5003b5e3f" id="r_aa17e61eb9db291663dc6dac5003b5e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#aa17e61eb9db291663dc6dac5003b5e3f">onMove</a> ()</td></tr>
+<tr class="memdesc:aa17e61eb9db291663dc6dac5003b5e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element is moved.  <br /></td></tr>
+<tr class="separator:aa17e61eb9db291663dc6dac5003b5e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07b3ddf5e3d3426f60d751fe35c78b71" id="r_a07b3ddf5e3d3426f60d751fe35c78b71"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a07b3ddf5e3d3426f60d751fe35c78b71">getRequisition</a> () const</td></tr>
+<tr class="memdesc:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> elements to query the size required for the visual component.  <br /></td></tr>
+<tr class="separator:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbecf74e2fcab82f51d381190f26f110" id="r_afbecf74e2fcab82f51d381190f26f110"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#afbecf74e2fcab82f51d381190f26f110">assignDepth</a> (float depth)</td></tr>
+<tr class="memdesc:afbecf74e2fcab82f51d381190f26f110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a03350.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a04318.html#a040132d760285e4f03d54dade1855e85" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there.  <br /></td></tr>
+<tr class="separator:afbecf74e2fcab82f51d381190f26f110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ac93b5e5629f43fff1d978476d2365056" id="r_ac93b5e5629f43fff1d978476d2365056"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ac93b5e5629f43fff1d978476d2365056">doCreate</a> (<a class="el" href="a03806.html">engine::World</a> &amp;world, <a class="el" href="a04358.html">rdr::Renderer</a> &amp;renderer) override</td></tr>
+<tr class="memdesc:ac93b5e5629f43fff1d978476d2365056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component.  <br /></td></tr>
+<tr class="separator:ac93b5e5629f43fff1d978476d2365056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fa9cafc300b84100dacb1055ef089d2" id="r_a9fa9cafc300b84100dacb1055ef089d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a9fa9cafc300b84100dacb1055ef089d2">doSceneAdd</a> (<a class="el" href="a05298.html">rc::Overlay</a> *overlay) override</td></tr>
+<tr class="memdesc:a9fa9cafc300b84100dacb1055ef089d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component to the scene.  <br /></td></tr>
+<tr class="separator:a9fa9cafc300b84100dacb1055ef089d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada48172bc932a07f6bd33fef85690b3e" id="r_ada48172bc932a07f6bd33fef85690b3e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#ada48172bc932a07f6bd33fef85690b3e">doSceneRemove</a> () override</td></tr>
+<tr class="memdesc:ada48172bc932a07f6bd33fef85690b3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the component from the scene.  <br /></td></tr>
+<tr class="separator:ada48172bc932a07f6bd33fef85690b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87a832550e3cbf6660f29649a1aec4cd" id="r_a87a832550e3cbf6660f29649a1aec4cd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a87a832550e3cbf6660f29649a1aec4cd">handleAcquisition</a> () override</td></tr>
+<tr class="memdesc:a87a832550e3cbf6660f29649a1aec4cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the component for the new acquisition.  <br /></td></tr>
+<tr class="separator:a87a832550e3cbf6660f29649a1aec4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b45d3f48b73110ca4d4cd6f4642fa4" id="r_a97b45d3f48b73110ca4d4cd6f4642fa4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04246.html#a97b45d3f48b73110ca4d4cd6f4642fa4">handleMove</a> () override</td></tr>
+<tr class="memdesc:a97b45d3f48b73110ca4d4cd6f4642fa4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positions the component when it should move.  <br /></td></tr>
+<tr class="separator:a97b45d3f48b73110ca4d4cd6f4642fa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7429f4a869d0eaff8a27e7cdc55cc71" id="r_ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#ab7429f4a869d0eaff8a27e7cdc55cc71">notifyUIState</a> (<a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
+<tr class="memdesc:ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the UI state changes. Derived classes may implement custom handlers here.  <br /></td></tr>
+<tr class="separator:ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff1761b676cbaa61c2966e9e8ff2d3a3" id="r_aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04318.html#aff1761b676cbaa61c2966e9e8ff2d3a3">getOwnerAs</a> ()</td></tr>
+<tr class="memdesc:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <br /></td></tr>
+<tr class="separator:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a3a6785de7a313df871bb56b428c60" id="r_ab8a3a6785de7a313df871bb56b428c60"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab8a3a6785de7a313df871bb56b428c60"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04318.html#ab8a3a6785de7a313df871bb56b428c60">getOwnerAs</a> () const</td></tr>
+<tr class="memdesc:ab8a3a6785de7a313df871bb56b428c60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <br /></td></tr>
+<tr class="separator:ab8a3a6785de7a313df871bb56b428c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bf1fb5a90eeaff8f12ed3c373375567" id="r_a2bf1fb5a90eeaff8f12ed3c373375567"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a2bf1fb5a90eeaff8f12ed3c373375567">getParent</a> () const</td></tr>
+<tr class="memdesc:a2bf1fb5a90eeaff8f12ed3c373375567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component of this component. May be nullptr.  <br /></td></tr>
+<tr class="separator:a2bf1fb5a90eeaff8f12ed3c373375567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa209c1917994d44f3fd1b0519b89393f" id="r_aa209c1917994d44f3fd1b0519b89393f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#aa209c1917994d44f3fd1b0519b89393f">createChild</a> (<a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;child)</td></tr>
+<tr class="memdesc:aa209c1917994d44f3fd1b0519b89393f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call create on their children.  <br /></td></tr>
+<tr class="separator:aa209c1917994d44f3fd1b0519b89393f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
+Static Protected Member Functions</h2></td></tr>
+<tr class="memitem:a4aad88b1f6627400bbc2bc02714b91cd" id="r_a4aad88b1f6627400bbc2bc02714b91cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#a4aad88b1f6627400bbc2bc02714b91cd">doSceneAdd</a> (<a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;component, <a class="el" href="a05298.html">rc::Overlay</a> *overlay)</td></tr>
+<tr class="memdesc:a4aad88b1f6627400bbc2bc02714b91cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call doSceneAdd on their children.  <br /></td></tr>
+<tr class="separator:a4aad88b1f6627400bbc2bc02714b91cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecf44ca8ecf61e447a5d196a24ecf8e3" id="r_aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04318.html#aecf44ca8ecf61e447a5d196a24ecf8e3">doSceneRemove</a> (<a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;component)</td></tr>
+<tr class="memdesc:aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call doSceneRemove on their children.  <br /></td></tr>
+<tr class="separator:aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The core render graph functionality. Drives rendering for each observer. </p>
+<div class="textblock"><p>Default component type for <a class="el" href="a04126.html" title="Checkbox button.">CheckButton</a> elements. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00030">30</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad4680a2d9f31ad3d2a7eae5ca98d9e2b" name="ad4680a2d9f31ad3d2a7eae5ca98d9e2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4680a2d9f31ad3d2a7eae5ca98d9e2b">&#9670;&#160;</a></span>RenderGraph()</h2>
+<p class="definition">Definition at line <a class="el" href="a01169_source.html#l00019">19</a> of file <a class="el" href="a01169_source.html">CheckButtonComponent.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a947a8f9a8831f3c495cb9aa7ca89a374" name="a947a8f9a8831f3c495cb9aa7ca89a374"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a947a8f9a8831f3c495cb9aa7ca89a374">&#9670;&#160;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a04318.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a>&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00034">34</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ad04144636950185c959ad6394f0c5c52" name="ad04144636950185c959ad6394f0c5c52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad04144636950185c959ad6394f0c5c52">&#9670;&#160;</a></span>HighlightState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum struct <a class="el" href="a04318.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>How the component responds to mouse over state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84" name="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84"></a>IgnoresMouse&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98" name="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98"></a>HighlightedByMouse&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00040">40</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae8067b9f5370e7a570688e694a15f6ef" name="ae8067b9f5370e7a570688e694a15f6ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8067b9f5370e7a570688e694a15f6ef">&#9670;&#160;</a></span>UIState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum struct <a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Visible state of the element. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345" name="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345"></a>Regular&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c" name="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c"></a>Highlighted&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040" name="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040"></a>Pressed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241" name="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241"></a>Disabled&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00037">37</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acead403415f2d45be58827b46cd070d0" name="acead403415f2d45be58827b46cd070d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acead403415f2d45be58827b46cd070d0">&#9670;&#160;</a></span>CheckButtonComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::rg::RenderGraph::RenderGraph </td>
+          <td class="memname">bl::gui::defcoms::CheckButtonComponent::CheckButtonComponent </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03046.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a04346.html">Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04194.html">AssetPool</a> &amp;&#160;</td>
-          <td class="paramname"><em>assetPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04350.html">RenderTarget</a> *&#160;</td>
-          <td class="paramname"><em>target</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new <a class="el" href="a04246.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The engine instance </td></tr>
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-    <tr><td class="paramname">assetPool</td><td>The targets's asset pool </td></tr>
-    <tr><td class="paramname">target</td><td>The render target the graph belongs to </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Creates the component. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00018">18</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00011">11</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab0a1d9e07284a504e800f87f797a0661" name="ab0a1d9e07284a504e800f87f797a0661"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a1d9e07284a504e800f87f797a0661">&#9670;&#160;</a></span>~CheckButtonComponent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::gui::defcoms::CheckButtonComponent::~CheckButtonComponent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the component. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a23e346a1267da2f5a27f3282f4c489da" name="a23e346a1267da2f5a27f3282f4c489da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23e346a1267da2f5a27f3282f4c489da">&#9670;&#160;</a></span>build()</h2>
+<a id="afbecf74e2fcab82f51d381190f26f110" name="afbecf74e2fcab82f51d381190f26f110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbecf74e2fcab82f51d381190f26f110">&#9670;&#160;</a></span>assignDepth()</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::build </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Builds the graph timeline. Called automatically in <a class="el" href="a04246.html#ac8e028a52ea92cc2ed4bff74ffe36d6d" title="Executes the graph to record render commands into the given command buffer. Does not execute the fina...">execute()</a> </p>
-
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00064">64</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac8e028a52ea92cc2ed4bff74ffe36d6d" name="ac8e028a52ea92cc2ed4bff74ffe36d6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8e028a52ea92cc2ed4bff74ffe36d6d">&#9670;&#160;</a></span>execute()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::execute </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>observerIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>renderTexture</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Executes the graph to record render commands into the given command buffer. Does not execute the final task. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record into </td></tr>
-    <tr><td class="paramname">observerIndex</td><td>The observer's index in the current scene </td></tr>
-    <tr><td class="paramname">renderTexture</td><td>True if the final target is a render texture, false otherwise </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00030">30</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae67ea85f43d545a1248d7954b81994fe" name="ae67ea85f43d545a1248d7954b81994fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae67ea85f43d545a1248d7954b81994fe">&#9670;&#160;</a></span>executeFinal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::executeFinal </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>observerIndex</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>renderTexture</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Executes the final task of the graph. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record into </td></tr>
-    <tr><td class="paramname">observerIndex</td><td>The observer's index in the current scene </td></tr>
-    <tr><td class="paramname">renderTexture</td><td>True if the final target is a render texture, false otherwise </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00050">50</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a id="acb629f434c73afb96a43d7d594e59016" name="acb629f434c73afb96a43d7d594e59016"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb629f434c73afb96a43d7d594e59016">&#9670;&#160;</a></span>findTask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T * bl::rc::rg::RenderGraph::findTask </td>
+          <td class="memname">void bl::gui::rdr::Component::assignDepth </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>depth</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a03350.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a04246.html#a0653b4c57449232cfbcf84f9cc7cfe98" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">depth</td><td>The depth to set to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00086">86</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa209c1917994d44f3fd1b0519b89393f" name="aa209c1917994d44f3fd1b0519b89393f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa209c1917994d44f3fd1b0519b89393f">&#9670;&#160;</a></span>createChild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::createChild </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04318.html">Component</a> &amp;&#160;</td>
+          <td class="paramname"><em>child</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method for components containing other components to call create on their children. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td>The child component to call create on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00230">230</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aae3b7b2405ed796d1f9e3b3ebcbe12b1" name="aae3b7b2405ed796d1f9e3b3ebcbe12b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae3b7b2405ed796d1f9e3b3ebcbe12b1">&#9670;&#160;</a></span>dismissTooltip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::dismissTooltip </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -337,37 +445,162 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Finds and returns a pointer to the first task found of the given type. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The task to search for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to a found task, nullptr if not found </dd></dl>
+<p>Call to dismiss the tooltip for this component. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00114">114</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00030">30</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aeed8ba2f3b7cd0580bb32b83aa459b3c" name="aeed8ba2f3b7cd0580bb32b83aa459b3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeed8ba2f3b7cd0580bb32b83aa459b3c">&#9670;&#160;</a></span>hasTask()</h2>
+<a id="ac93b5e5629f43fff1d978476d2365056" name="ac93b5e5629f43fff1d978476d2365056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93b5e5629f43fff1d978476d2365056">&#9670;&#160;</a></span>doCreate()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::rg::RenderGraph::hasTask </td>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::doCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03806.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramname"><em>world</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04358.html">rdr::Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">world</td><td>The world to create entities in </td></tr>
+    <tr><td class="paramname">renderer</td><td>The <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04318.html#aa65be19a7f22541acb19e88a2c746bbc">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00033">33</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4aad88b1f6627400bbc2bc02714b91cd" name="a4aad88b1f6627400bbc2bc02714b91cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aad88b1f6627400bbc2bc02714b91cd">&#9670;&#160;</a></span>doSceneAdd() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void bl::gui::rdr::Component::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04318.html">Component</a> &amp;&#160;</td>
+          <td class="paramname"><em>component</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05298.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method for components containing other components to call doSceneAdd on their children. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td>The child component to call doSceneAdd on </td></tr>
+    <tr><td class="paramname">overlay</td><td>The overlay to call with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00212">212</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9fa9cafc300b84100dacb1055ef089d2" name="a9fa9cafc300b84100dacb1055ef089d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa9cafc300b84100dacb1055ef089d2">&#9670;&#160;</a></span>doSceneAdd() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05298.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds the component to the scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04318.html#aa0238e45d72ed1a4e66ae8972a25dad0">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00045">45</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ada48172bc932a07f6bd33fef85690b3e" name="ada48172bc932a07f6bd33fef85690b3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada48172bc932a07f6bd33fef85690b3e">&#9670;&#160;</a></span>doSceneRemove() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::doSceneRemove </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -375,47 +608,21 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the given task is present in the graph. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The task type to check for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the task is in the graph, false otherwise </dd></dl>
+<p>Removes the component from the scene. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00129">129</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
+<p>Implements <a class="el" href="a04318.html#a008fdbf2498d7725d3f0159a4365a65f">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00050">50</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aaed0558c668067b5011e40a85c1ebf7e" name="aaed0558c668067b5011e40a85c1ebf7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaed0558c668067b5011e40a85c1ebf7e">&#9670;&#160;</a></span>markDirty()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::markDirty </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Notifies the graph to rebuild on next execution. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00249">249</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a45d831bc5022b04eb4e8db41471f971c" name="a45d831bc5022b04eb4e8db41471f971c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45d831bc5022b04eb4e8db41471f971c">&#9670;&#160;</a></span>needsRepopulation()</h2>
+<a id="aecf44ca8ecf61e447a5d196a24ecf8e3" name="aecf44ca8ecf61e447a5d196a24ecf8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecf44ca8ecf61e447a5d196a24ecf8e3">&#9670;&#160;</a></span>doSceneRemove() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -424,7 +631,72 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::rc::rg::RenderGraph::needsRepopulation </td>
+          <td class="memname">static void bl::gui::rdr::Component::doSceneRemove </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04318.html">Component</a> &amp;&#160;</td>
+          <td class="paramname"><em>component</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method for components containing other components to call doSceneRemove on their children. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">component</td><td>The child component to call doSceneRemove on </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00222">222</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2" name="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">&#9670;&#160;</a></span>flash()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::flash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Triggers this component to flash briefly. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00064">64</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0653b4c57449232cfbcf84f9cc7cfe98" name="a0653b4c57449232cfbcf84f9cc7cfe98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0653b4c57449232cfbcf84f9cc7cfe98">&#9670;&#160;</a></span>getEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03542.html">ecs::Entity</a> bl::gui::defcoms::CheckButtonComponent::getEntity </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -432,150 +704,21 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the graph needs to be repopulated from scratch. </p>
+<p>Derived classes should return the ECS entity that children should parent themselves to. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00166">166</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
+<p>Implements <a class="el" href="a04318.html#a040132d760285e4f03d54dade1855e85">bl::gui::rdr::Component</a>.</p>
 
-</div>
-</div>
-<a id="a6dbcc4f8057cdb23329ea7607e6a9a4f" name="a6dbcc4f8057cdb23329ea7607e6a9a4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dbcc4f8057cdb23329ea7607e6a9a4f">&#9670;&#160;</a></span>populate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::populate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04262.html">Strategy</a> &amp;&#160;</td>
-          <td class="paramname"><em>strategy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04446.html">Scene</a> &amp;&#160;</td>
-          <td class="paramname"><em>scene</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears and re-populates the tasks in the graph. Re-builds the graph. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">strategy</td><td>The renderer strategy to use </td></tr>
-    <tr><td class="paramname">scene</td><td>The scene to get additional tasks from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00253">253</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00031">31</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a79c16f27d764bee3672771fe624db547" name="a79c16f27d764bee3672771fe624db547"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79c16f27d764bee3672771fe624db547">&#9670;&#160;</a></span>putTask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename... TArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T * bl::rc::rg::RenderGraph::putTask </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds a new task to the graph to become a part of the render process. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of task to add </td></tr>
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the task's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...args</td><td>Arguments to the task's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new task </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00052">52</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a3662bbc2a51fd58c58c46e715bafbfa5" name="a3662bbc2a51fd58c58c46e715bafbfa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3662bbc2a51fd58c58c46e715bafbfa5">&#9670;&#160;</a></span>putUniqueTask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename... TArgs&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T * bl::rc::rg::RenderGraph::putUniqueTask </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds a new task to the graph to become a part of the render process. Only adds the task if it would be unique. Prevents duplicate tasks. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of task to add </td></tr>
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the task's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...args</td><td>Arguments to the task's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the new task </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00070">70</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9d53b564bb6ef285bcb93c2364055dda" name="a9d53b564bb6ef285bcb93c2364055dda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d53b564bb6ef285bcb93c2364055dda">&#9670;&#160;</a></span>removeTask()</h2>
+<a id="aff1761b676cbaa61c2966e9e8ff2d3a3" name="aff1761b676cbaa61c2966e9e8ff2d3a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff1761b676cbaa61c2966e9e8ff2d3a3">&#9670;&#160;</a></span>getOwnerAs() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -586,7 +729,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::rg::RenderGraph::removeTask </td>
+          <td class="memname">T &amp; bl::gui::rdr::Component::getOwnerAs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -594,26 +737,26 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes the task with the given type from the graph. </p>
+<p>Type safe method to get the owning <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>The task type to remove </td></tr>
+    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a task was removed, false if not </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00083">83</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00175">175</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a803bce3b7aee146533320091b9f8fb1d" name="a803bce3b7aee146533320091b9f8fb1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a803bce3b7aee146533320091b9f8fb1d">&#9670;&#160;</a></span>removeTasks()</h2>
+<a id="ab8a3a6785de7a313df871bb56b428c60" name="ab8a3a6785de7a313df871bb56b428c60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8a3a6785de7a313df871bb56b428c60">&#9670;&#160;</a></span>getOwnerAs() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -624,7 +767,103 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::rg::RenderGraph::removeTasks </td>
+          <td class="memname">const T &amp; bl::gui::rdr::Component::getOwnerAs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Type safe method to get the owning <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a04142.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00191">191</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2bf1fb5a90eeaff8f12ed3c373375567" name="a2bf1fb5a90eeaff8f12ed3c373375567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bf1fb5a90eeaff8f12ed3c373375567">&#9670;&#160;</a></span>getParent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04318.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> * bl::gui::rdr::Component::getParent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the parent component of this component. May be nullptr. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01088_source.html#l00203">203</a> of file <a class="el" href="a01088_source.html">Component.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a07b3ddf5e3d3426f60d751fe35c78b71" name="a07b3ddf5e3d3426f60d751fe35c78b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07b3ddf5e3d3426f60d751fe35c78b71">&#9670;&#160;</a></span>getRequisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f bl::gui::rdr::Component::getRequisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Allows <a class="el" href="a04210.html" title="Top level class for creating a graphical user interface.">GUI</a> elements to query the size required for the visual component. </p>
+
+<p>Reimplemented in <a class="el" href="a04250.html#a7e5465bfc08f42e5b5176f9c029dd1c8">bl::gui::defcoms::ComboBoxComponent</a>, and <a class="el" href="a04266.html#a78835263d79dc7a64ea5ccc6b3d77126">bl::gui::defcoms::LabelComponent</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00081">81</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a87a832550e3cbf6660f29649a1aec4cd" name="a87a832550e3cbf6660f29649a1aec4cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87a832550e3cbf6660f29649a1aec4cd">&#9670;&#160;</a></span>handleAcquisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::handleAcquisition </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -632,82 +871,355 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Removes all tasks of the given type from the graph. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of task to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if a task or tasks were able to be removed, false otherwise </dd></dl>
+<p>Configures the component for the new acquisition. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01232_source.html#l00101">101</a> of file <a class="el" href="a01232_source.html">RenderGraph.hpp</a>.</p>
+<p>Implements <a class="el" href="a04318.html#ab7faea26b0686e1072100a1ad9c9be74">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00052">52</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9d6948cfb39087160e95d2856a27eaaa" name="a9d6948cfb39087160e95d2856a27eaaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d6948cfb39087160e95d2856a27eaaa">&#9670;&#160;</a></span>reset()</h2>
+<a id="a97b45d3f48b73110ca4d4cd6f4642fa4" name="a97b45d3f48b73110ca4d4cd6f4642fa4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97b45d3f48b73110ca4d4cd6f4642fa4">&#9670;&#160;</a></span>handleMove()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::reset </td>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::handleMove </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Clears all tasks from the graph and marks it for re-population. </p>
+<p>Positions the component when it should move. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00251">251</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
+<p>Implements <a class="el" href="a04318.html#a065c482bb68ad4cb52e2158f53011bbc">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00060">60</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a078c29f6ed9badf6828b234d7396861d" name="a078c29f6ed9badf6828b234d7396861d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a078c29f6ed9badf6828b234d7396861d">&#9670;&#160;</a></span>update()</h2>
+<a id="ab7429f4a869d0eaff8a27e7cdc55cc71" name="ab7429f4a869d0eaff8a27e7cdc55cc71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7429f4a869d0eaff8a27e7cdc55cc71">&#9670;&#160;</a></span>notifyUIState()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rg::RenderGraph::update </td>
+          <td class="memname">void bl::gui::rdr::Component::notifyUIState </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Calls update on all contained tasks. </p>
+<p>Called when the UI state changes. Derived classes may implement custom handlers here. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>The elapsed time in seconds </td></tr>
+    <tr><td class="paramname">src</td><td>The element changing state </td></tr>
+    <tr><td class="paramname">state</td><td>The new UI state </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00261">261</a> of file <a class="el" href="a02189_source.html">RenderGraph.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00032">32</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a10c20d7bde9c7d1fc2829b4d984a052b" name="a10c20d7bde9c7d1fc2829b4d984a052b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c20d7bde9c7d1fc2829b4d984a052b">&#9670;&#160;</a></span>onAcquisition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::onAcquisition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the element gets its acquisition (re)assigned. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00066">66</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27c8ac5fa001382cdedab20c66163c1e" name="a27c8ac5fa001382cdedab20c66163c1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27c8ac5fa001382cdedab20c66163c1e">&#9670;&#160;</a></span>onElementUpdated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::onElementUpdated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when element state changes. This is element specific, but can mean toggle state, contents, etc. </p>
+
+<p>Implements <a class="el" href="a04318.html#ab518fcd5e31ed334bd0390aea725abed">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00016">16</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa17e61eb9db291663dc6dac5003b5e3f" name="aa17e61eb9db291663dc6dac5003b5e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa17e61eb9db291663dc6dac5003b5e3f">&#9670;&#160;</a></span>onMove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::onMove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the element is moved. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00073">73</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afdaebe53f4da2e684e043f6b651db0a5" name="afdaebe53f4da2e684e043f6b651db0a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afdaebe53f4da2e684e043f6b651db0a5">&#9670;&#160;</a></span>onRenderSettingChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::onRenderSettingChange </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the owning elements render settings are changed. </p>
+
+<p>Implements <a class="el" href="a04318.html#abe10305a2bb0f70f28cbe62a7e986ff1">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00021">21</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9f914f312bf4700ece09298abf3d9a3a" name="a9f914f312bf4700ece09298abf3d9a3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f914f312bf4700ece09298abf3d9a3a">&#9670;&#160;</a></span>overrideHighlightBehavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::overrideHighlightBehavior </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04318.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a>&#160;</td>
+          <td class="paramname"><em>behavior</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overrides the default highlight behavior for this specific component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">behavior</td><td>How to behave when moused over </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00034">34</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a350d3389d5be8f1e8f6a5a874fc999b6" name="a350d3389d5be8f1e8f6a5a874fc999b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a350d3389d5be8f1e8f6a5a874fc999b6">&#9670;&#160;</a></span>setUIState()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::setUIState </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04318.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the visual state changes and immediately following creation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>The visual state of the element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00021">21</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac66a9353b6e1b886d2cb1d1aff4be262" name="ac66a9353b6e1b886d2cb1d1aff4be262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac66a9353b6e1b886d2cb1d1aff4be262">&#9670;&#160;</a></span>setVisible()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::defcoms::CheckButtonComponent::setVisible </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>visible</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Toggle the visibility of the UI component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">visible</td><td>True to be rendered, false to hide </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a04318.html#a80508b026538fcc66931f12b428b5760">bl::gui::rdr::Component</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02453_source.html#l00014">14</a> of file <a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abdd6da199b0858a849eaa74a4857c8e3" name="abdd6da199b0858a849eaa74a4857c8e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd6da199b0858a849eaa74a4857c8e3">&#9670;&#160;</a></span>showTooltip()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::gui::rdr::Component::showTooltip </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Call to display a tooltip for this component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02450_source.html#l00028">28</a> of file <a class="el" href="a02450_source.html">Component.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Graph/<a class="el" href="a01232_source.html">RenderGraph.hpp</a></li>
-<li>src/Render/Graph/<a class="el" href="a02189_source.html">RenderGraph.cpp</a></li>
+<li>include/BLIB/Interfaces/GUI/Renderer/Basic/<a class="el" href="a01169_source.html">CheckButtonComponent.hpp</a></li>
+<li>src/Interfaces/GUI/Renderer/Basic/<a class="el" href="a02453_source.html">CheckButtonComponent.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

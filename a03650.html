@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::defcoms::SelectBoxComponent Class Reference</title>
+<title>BLIB: bl::ecs::txp::TransactionEntityRead Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,177 +74,36 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02438.html">gui</a></li><li class="navelem"><a class="el" href="a02440.html">defcoms</a></li><li class="navelem"><a class="el" href="a03650.html">SelectBoxComponent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03015.html">txp</a></li><li class="navelem"><a class="el" href="a03650.html">TransactionEntityRead</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="a03647.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui::defcoms::SelectBoxComponent Class Reference<div class="ingroups"><a class="el" href="a02383.html">Interface</a> &raquo; <a class="el" href="a02397.html">GUI</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ecs::txp::TransactionEntityRead Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Default component type for <a class="el" href="a03538.html" title="A scrollable element that packs labels and allows the selection of one.">SelectBox</a> elements.  
- <a href="a03650.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00614_source.html">SelectBoxComponent.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::defcoms::SelectBoxComponent:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03650.png" usemap="#bl::gui::defcoms::SelectBoxComponent_map" alt=""/>
-  <map id="bl::gui::defcoms::SelectBoxComponent_map" name="bl::gui::defcoms::SelectBoxComponent_map">
-<area href="a03674.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render..." alt="bl::gui::rdr::Component" shape="rect" coords="0,0,223,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01577_source.html">Transaction.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ae8067b9f5370e7a570688e694a15f6ef" id="r_ae8067b9f5370e7a570688e694a15f6ef"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> { <a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345">Regular</a>
-, <a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c">Highlighted</a>
-, <a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040">Pressed</a>
-, <a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241">Disabled</a>
- }</td></tr>
-<tr class="memdesc:ae8067b9f5370e7a570688e694a15f6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visible state of the element.  <a href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">More...</a><br /></td></tr>
-<tr class="separator:ae8067b9f5370e7a570688e694a15f6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad04144636950185c959ad6394f0c5c52" id="r_ad04144636950185c959ad6394f0c5c52"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> { <a class="el" href="a03674.html#ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84">IgnoresMouse</a>
-, <a class="el" href="a03674.html#ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98">HighlightedByMouse</a>
- }</td></tr>
-<tr class="memdesc:ad04144636950185c959ad6394f0c5c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">How the component responds to mouse over state.  <a href="a03674.html#ad04144636950185c959ad6394f0c5c52">More...</a><br /></td></tr>
-<tr class="separator:ad04144636950185c959ad6394f0c5c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a947a8f9a8831f3c495cb9aa7ca89a374" id="r_a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &gt;</td></tr>
-<tr class="separator:a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ad4b06076af8bba36074c6d1ec4900da0" id="r_ad4b06076af8bba36074c6d1ec4900da0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#ad4b06076af8bba36074c6d1ec4900da0">SelectBoxComponent</a> ()</td></tr>
-<tr class="memdesc:ad4b06076af8bba36074c6d1ec4900da0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component.  <br /></td></tr>
-<tr class="separator:ad4b06076af8bba36074c6d1ec4900da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3bd4edb61214990176eef7fe20a388f" id="r_ab3bd4edb61214990176eef7fe20a388f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#ab3bd4edb61214990176eef7fe20a388f">~SelectBoxComponent</a> ()=default</td></tr>
-<tr class="memdesc:ab3bd4edb61214990176eef7fe20a388f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the component.  <br /></td></tr>
-<tr class="separator:ab3bd4edb61214990176eef7fe20a388f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a380397dad02756cab8acafd1b666bf73" id="r_a380397dad02756cab8acafd1b666bf73"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a380397dad02756cab8acafd1b666bf73">setVisible</a> (bool visible) override</td></tr>
-<tr class="memdesc:a380397dad02756cab8acafd1b666bf73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the visibility of the UI component.  <br /></td></tr>
-<tr class="separator:a380397dad02756cab8acafd1b666bf73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf9255c5f7635b301d379af1aa02ee9a" id="r_adf9255c5f7635b301d379af1aa02ee9a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#adf9255c5f7635b301d379af1aa02ee9a">onElementUpdated</a> () override</td></tr>
-<tr class="memdesc:adf9255c5f7635b301d379af1aa02ee9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when element state changes. This is element specific, but can mean toggle state, contents, etc.  <br /></td></tr>
-<tr class="separator:adf9255c5f7635b301d379af1aa02ee9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27ba184466796592ee9a59fcf6a356ec" id="r_a27ba184466796592ee9a59fcf6a356ec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a27ba184466796592ee9a59fcf6a356ec">onRenderSettingChange</a> () override</td></tr>
-<tr class="memdesc:a27ba184466796592ee9a59fcf6a356ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the owning elements render settings are changed.  <br /></td></tr>
-<tr class="separator:a27ba184466796592ee9a59fcf6a356ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a354382ecd7040b7d7ab1cc056f5bbfaf" id="r_a354382ecd7040b7d7ab1cc056f5bbfaf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a02890.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a354382ecd7040b7d7ab1cc056f5bbfaf">getEntity</a> () const override</td></tr>
-<tr class="memdesc:a354382ecd7040b7d7ab1cc056f5bbfaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should return the ECS entity that children should parent themselves to.  <br /></td></tr>
-<tr class="separator:a354382ecd7040b7d7ab1cc056f5bbfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a350d3389d5be8f1e8f6a5a874fc999b6" id="r_a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a350d3389d5be8f1e8f6a5a874fc999b6">setUIState</a> (<a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
-<tr class="memdesc:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the visual state changes and immediately following creation.  <br /></td></tr>
-<tr class="separator:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f914f312bf4700ece09298abf3d9a3a" id="r_a9f914f312bf4700ece09298abf3d9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a9f914f312bf4700ece09298abf3d9a3a">overrideHighlightBehavior</a> (<a class="el" href="a03674.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> behavior)</td></tr>
-<tr class="memdesc:a9f914f312bf4700ece09298abf3d9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the default highlight behavior for this specific component.  <br /></td></tr>
-<tr class="separator:a9f914f312bf4700ece09298abf3d9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdd6da199b0858a849eaa74a4857c8e3" id="r_abdd6da199b0858a849eaa74a4857c8e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#abdd6da199b0858a849eaa74a4857c8e3">showTooltip</a> ()</td></tr>
-<tr class="memdesc:abdd6da199b0858a849eaa74a4857c8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to display a tooltip for this component.  <br /></td></tr>
-<tr class="separator:abdd6da199b0858a849eaa74a4857c8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae3b7b2405ed796d1f9e3b3ebcbe12b1" id="r_aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#aae3b7b2405ed796d1f9e3b3ebcbe12b1">dismissTooltip</a> ()</td></tr>
-<tr class="memdesc:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to dismiss the tooltip for this component.  <br /></td></tr>
-<tr class="separator:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2" id="r_a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">flash</a> ()</td></tr>
-<tr class="memdesc:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers this component to flash briefly.  <br /></td></tr>
-<tr class="separator:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c20d7bde9c7d1fc2829b4d984a052b" id="r_a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a10c20d7bde9c7d1fc2829b4d984a052b">onAcquisition</a> ()</td></tr>
-<tr class="memdesc:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element gets its acquisition (re)assigned.  <br /></td></tr>
-<tr class="separator:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa17e61eb9db291663dc6dac5003b5e3f" id="r_aa17e61eb9db291663dc6dac5003b5e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#aa17e61eb9db291663dc6dac5003b5e3f">onMove</a> ()</td></tr>
-<tr class="memdesc:aa17e61eb9db291663dc6dac5003b5e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element is moved.  <br /></td></tr>
-<tr class="separator:aa17e61eb9db291663dc6dac5003b5e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07b3ddf5e3d3426f60d751fe35c78b71" id="r_a07b3ddf5e3d3426f60d751fe35c78b71"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a07b3ddf5e3d3426f60d751fe35c78b71">getRequisition</a> () const</td></tr>
-<tr class="memdesc:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allows <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> elements to query the size required for the visual component.  <br /></td></tr>
-<tr class="separator:a07b3ddf5e3d3426f60d751fe35c78b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbecf74e2fcab82f51d381190f26f110" id="r_afbecf74e2fcab82f51d381190f26f110"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#afbecf74e2fcab82f51d381190f26f110">assignDepth</a> (float depth)</td></tr>
-<tr class="memdesc:afbecf74e2fcab82f51d381190f26f110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a02702.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a03674.html#a040132d760285e4f03d54dade1855e85" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there.  <br /></td></tr>
-<tr class="separator:afbecf74e2fcab82f51d381190f26f110"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a22e94e6a792e6dd8d4fbbec25c6bb997" id="r_a22e94e6a792e6dd8d4fbbec25c6bb997"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a22e94e6a792e6dd8d4fbbec25c6bb997">doCreate</a> (<a class="el" href="a03162.html">engine::World</a> &amp;world, <a class="el" href="a03714.html">rdr::Renderer</a> &amp;renderer) override</td></tr>
-<tr class="memdesc:a22e94e6a792e6dd8d4fbbec25c6bb997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component.  <br /></td></tr>
-<tr class="separator:a22e94e6a792e6dd8d4fbbec25c6bb997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a399409633ce6a684b4a676039aebdc25" id="r_a399409633ce6a684b4a676039aebdc25"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a399409633ce6a684b4a676039aebdc25">doSceneAdd</a> (<a class="el" href="a04322.html">rc::Overlay</a> *overlay) override</td></tr>
-<tr class="memdesc:a399409633ce6a684b4a676039aebdc25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component to the scene.  <br /></td></tr>
-<tr class="separator:a399409633ce6a684b4a676039aebdc25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af31c196d5721837d44d6edae7bfa98ae" id="r_af31c196d5721837d44d6edae7bfa98ae"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#af31c196d5721837d44d6edae7bfa98ae">doSceneRemove</a> () override</td></tr>
-<tr class="memdesc:af31c196d5721837d44d6edae7bfa98ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the component from the scene.  <br /></td></tr>
-<tr class="separator:af31c196d5721837d44d6edae7bfa98ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1d2ca27eb075da15e90d88f44699315" id="r_ab1d2ca27eb075da15e90d88f44699315"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#ab1d2ca27eb075da15e90d88f44699315">handleAcquisition</a> () override</td></tr>
-<tr class="memdesc:ab1d2ca27eb075da15e90d88f44699315"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the component for the new acquisition.  <br /></td></tr>
-<tr class="separator:ab1d2ca27eb075da15e90d88f44699315"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af73ac711d6c65ec68103680e1b9187b7" id="r_af73ac711d6c65ec68103680e1b9187b7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#af73ac711d6c65ec68103680e1b9187b7">handleMove</a> () override</td></tr>
-<tr class="memdesc:af73ac711d6c65ec68103680e1b9187b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positions the component when it should move.  <br /></td></tr>
-<tr class="separator:af73ac711d6c65ec68103680e1b9187b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7429f4a869d0eaff8a27e7cdc55cc71" id="r_ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#ab7429f4a869d0eaff8a27e7cdc55cc71">notifyUIState</a> (<a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
-<tr class="memdesc:ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the UI state changes. Derived classes may implement custom handlers here.  <br /></td></tr>
-<tr class="separator:ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff1761b676cbaa61c2966e9e8ff2d3a3" id="r_aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03674.html#aff1761b676cbaa61c2966e9e8ff2d3a3">getOwnerAs</a> ()</td></tr>
-<tr class="memdesc:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <br /></td></tr>
-<tr class="separator:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8a3a6785de7a313df871bb56b428c60" id="r_ab8a3a6785de7a313df871bb56b428c60"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab8a3a6785de7a313df871bb56b428c60"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03674.html#ab8a3a6785de7a313df871bb56b428c60">getOwnerAs</a> () const</td></tr>
-<tr class="memdesc:ab8a3a6785de7a313df871bb56b428c60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <br /></td></tr>
-<tr class="separator:ab8a3a6785de7a313df871bb56b428c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bf1fb5a90eeaff8f12ed3c373375567" id="r_a2bf1fb5a90eeaff8f12ed3c373375567"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a2bf1fb5a90eeaff8f12ed3c373375567">getParent</a> () const</td></tr>
-<tr class="memdesc:a2bf1fb5a90eeaff8f12ed3c373375567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component of this component. May be nullptr.  <br /></td></tr>
-<tr class="separator:a2bf1fb5a90eeaff8f12ed3c373375567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa209c1917994d44f3fd1b0519b89393f" id="r_aa209c1917994d44f3fd1b0519b89393f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#aa209c1917994d44f3fd1b0519b89393f">createChild</a> (<a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;child)</td></tr>
-<tr class="memdesc:aa209c1917994d44f3fd1b0519b89393f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call create on their children.  <br /></td></tr>
-<tr class="separator:aa209c1917994d44f3fd1b0519b89393f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4aad88b1f6627400bbc2bc02714b91cd" id="r_a4aad88b1f6627400bbc2bc02714b91cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#a4aad88b1f6627400bbc2bc02714b91cd">doSceneAdd</a> (<a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;component, <a class="el" href="a04322.html">rc::Overlay</a> *overlay)</td></tr>
-<tr class="memdesc:a4aad88b1f6627400bbc2bc02714b91cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call doSceneAdd on their children.  <br /></td></tr>
-<tr class="separator:a4aad88b1f6627400bbc2bc02714b91cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecf44ca8ecf61e447a5d196a24ecf8e3" id="r_aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html#aecf44ca8ecf61e447a5d196a24ecf8e3">doSceneRemove</a> (<a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;component)</td></tr>
-<tr class="memdesc:aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call doSceneRemove on their children.  <br /></td></tr>
-<tr class="separator:aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97f9c1cf5e7f28bb3d5b4cad01281a1c" id="r_a97f9c1cf5e7f28bb3d5b4cad01281a1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a97f9c1cf5e7f28bb3d5b4cad01281a1c">TransactionEntityRead</a> (const <a class="el" href="a03654.html">TransactionEntityWrite</a> &amp;)</td></tr>
+<tr class="separator:a97f9c1cf5e7f28bb3d5b4cad01281a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04245a8e87be1567992134a661aa2c7c" id="r_a04245a8e87be1567992134a661aa2c7c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a04245a8e87be1567992134a661aa2c7c">TransactionEntityRead</a> (const <a class="el" href="a03650.html">TransactionEntityRead</a> &amp;)</td></tr>
+<tr class="separator:a04245a8e87be1567992134a661aa2c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0e82151d0b078bd7b603b95ce8d090e" id="r_ad0e82151d0b078bd7b603b95ce8d090e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#ad0e82151d0b078bd7b603b95ce8d090e">TransactionEntityRead</a> (<a class="el" href="a03590.html">Registry</a> &amp;)</td></tr>
+<tr class="separator:ad0e82151d0b078bd7b603b95ce8d090e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2418d3d27877a747ef34458b24413174" id="r_a2418d3d27877a747ef34458b24413174"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03650.html#a2418d3d27877a747ef34458b24413174">unlock</a> ()</td></tr>
+<tr class="separator:a2418d3d27877a747ef34458b24413174"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Default component type for <a class="el" href="a03538.html" title="A scrollable element that packs labels and allows the selection of one.">SelectBox</a> elements. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00018">18</a> of file <a class="el" href="a00614_source.html">SelectBoxComponent.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a947a8f9a8831f3c495cb9aa7ca89a374" name="a947a8f9a8831f3c495cb9aa7ca89a374"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947a8f9a8831f3c495cb9aa7ca89a374">&#9670;&#160;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a>&gt;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00034">34</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ad04144636950185c959ad6394f0c5c52" name="ad04144636950185c959ad6394f0c5c52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad04144636950185c959ad6394f0c5c52">&#9670;&#160;</a></span>HighlightState</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00065">65</a> of file <a class="el" href="a01577_source.html">Transaction.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a97f9c1cf5e7f28bb3d5b4cad01281a1c" name="a97f9c1cf5e7f28bb3d5b4cad01281a1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97f9c1cf5e7f28bb3d5b4cad01281a1c">&#9670;&#160;</a></span>TransactionEntityRead() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,110 +112,83 @@ Static Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum struct <a class="el" href="a03674.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>How the component responds to mouse over state. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84" name="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84"></a>IgnoresMouse&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98" name="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98"></a>HighlightedByMouse&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00040">40</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae8067b9f5370e7a570688e694a15f6ef" name="ae8067b9f5370e7a570688e694a15f6ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8067b9f5370e7a570688e694a15f6ef">&#9670;&#160;</a></span>UIState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum struct <a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Visible state of the element. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345" name="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345"></a>Regular&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c" name="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c"></a>Highlighted&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040" name="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040"></a>Pressed&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241" name="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241"></a>Disabled&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00037">37</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad4b06076af8bba36074c6d1ec4900da0" name="ad4b06076af8bba36074c6d1ec4900da0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4b06076af8bba36074c6d1ec4900da0">&#9670;&#160;</a></span>SelectBoxComponent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gui::defcoms::SelectBoxComponent::SelectBoxComponent </td>
+          <td class="memname">bl::ecs::txp::TransactionEntityRead::TransactionEntityRead </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00011">11</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab3bd4edb61214990176eef7fe20a388f" name="ab3bd4edb61214990176eef7fe20a388f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3bd4edb61214990176eef7fe20a388f">&#9670;&#160;</a></span>~SelectBoxComponent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::gui::defcoms::SelectBoxComponent::~SelectBoxComponent </td>
-          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03654.html">TransactionEntityWrite</a> &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys the component. </p>
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00067">67</a> of file <a class="el" href="a01577_source.html">Transaction.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a04245a8e87be1567992134a661aa2c7c" name="a04245a8e87be1567992134a661aa2c7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04245a8e87be1567992134a661aa2c7c">&#9670;&#160;</a></span>TransactionEntityRead() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::txp::TransactionEntityRead::TransactionEntityRead </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a03650.html">TransactionEntityRead</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00068">68</a> of file <a class="el" href="a01577_source.html">Transaction.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad0e82151d0b078bd7b603b95ce8d090e" name="ad0e82151d0b078bd7b603b95ce8d090e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0e82151d0b078bd7b603b95ce8d090e">&#9670;&#160;</a></span>TransactionEntityRead() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::txp::TransactionEntityRead::TransactionEntityRead </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03590.html">Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01574_source.html#l00019">19</a> of file <a class="el" href="a01574_source.html">TransactionImpl.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="afbecf74e2fcab82f51d381190f26f110" name="afbecf74e2fcab82f51d381190f26f110"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbecf74e2fcab82f51d381190f26f110">&#9670;&#160;</a></span>assignDepth()</h2>
+<a id="a2418d3d27877a747ef34458b24413174" name="a2418d3d27877a747ef34458b24413174"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2418d3d27877a747ef34458b24413174">&#9670;&#160;</a></span>unlock()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,79 +197,7 @@ Static Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::Component::assignDepth </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>depth</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a02702.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a03650.html#a354382ecd7040b7d7ab1cc056f5bbfaf" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">depth</td><td>The depth to set to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00086">86</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa209c1917994d44f3fd1b0519b89393f" name="aa209c1917994d44f3fd1b0519b89393f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa209c1917994d44f3fd1b0519b89393f">&#9670;&#160;</a></span>createChild()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::createChild </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03674.html">Component</a> &amp;&#160;</td>
-          <td class="paramname"><em>child</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method for components containing other components to call create on their children. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">component</td><td>The child component to call create on </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00230">230</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aae3b7b2405ed796d1f9e3b3ebcbe12b1" name="aae3b7b2405ed796d1f9e3b3ebcbe12b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae3b7b2405ed796d1f9e3b3ebcbe12b1">&#9670;&#160;</a></span>dismissTooltip()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::dismissTooltip </td>
+          <td class="memname">void bl::ecs::txp::TransactionEntityRead::unlock </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -445,781 +205,24 @@ Static Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Call to dismiss the tooltip for this component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00030">30</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a22e94e6a792e6dd8d4fbbec25c6bb997" name="a22e94e6a792e6dd8d4fbbec25c6bb997"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22e94e6a792e6dd8d4fbbec25c6bb997">&#9670;&#160;</a></span>doCreate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::doCreate </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03162.html">engine::World</a> &amp;&#160;</td>
-          <td class="paramname"><em>world</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03714.html">rdr::Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">world</td><td>The world to create entities in </td></tr>
-    <tr><td class="paramname">renderer</td><td>The <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a03674.html#aa65be19a7f22541acb19e88a2c746bbc">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00029">29</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4aad88b1f6627400bbc2bc02714b91cd" name="a4aad88b1f6627400bbc2bc02714b91cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aad88b1f6627400bbc2bc02714b91cd">&#9670;&#160;</a></span>doSceneAdd() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void bl::gui::rdr::Component::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03674.html">Component</a> &amp;&#160;</td>
-          <td class="paramname"><em>component</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04322.html">rc::Overlay</a> *&#160;</td>
-          <td class="paramname"><em>overlay</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method for components containing other components to call doSceneAdd on their children. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">component</td><td>The child component to call doSceneAdd on </td></tr>
-    <tr><td class="paramname">overlay</td><td>The overlay to call with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00212">212</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a399409633ce6a684b4a676039aebdc25" name="a399409633ce6a684b4a676039aebdc25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a399409633ce6a684b4a676039aebdc25">&#9670;&#160;</a></span>doSceneAdd() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04322.html">rc::Overlay</a> *&#160;</td>
-          <td class="paramname"><em>overlay</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds the component to the scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a03674.html#aa0238e45d72ed1a4e66ae8972a25dad0">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00035">35</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af31c196d5721837d44d6edae7bfa98ae" name="af31c196d5721837d44d6edae7bfa98ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af31c196d5721837d44d6edae7bfa98ae">&#9670;&#160;</a></span>doSceneRemove() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::doSceneRemove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes the component from the scene. </p>
-
-<p>Implements <a class="el" href="a03674.html#a008fdbf2498d7725d3f0159a4365a65f">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00039">39</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aecf44ca8ecf61e447a5d196a24ecf8e3" name="aecf44ca8ecf61e447a5d196a24ecf8e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecf44ca8ecf61e447a5d196a24ecf8e3">&#9670;&#160;</a></span>doSceneRemove() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void bl::gui::rdr::Component::doSceneRemove </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03674.html">Component</a> &amp;&#160;</td>
-          <td class="paramname"><em>component</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method for components containing other components to call doSceneRemove on their children. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">component</td><td>The child component to call doSceneRemove on </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00222">222</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2" name="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">&#9670;&#160;</a></span>flash()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::flash </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Triggers this component to flash briefly. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00064">64</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a354382ecd7040b7d7ab1cc056f5bbfaf" name="a354382ecd7040b7d7ab1cc056f5bbfaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a354382ecd7040b7d7ab1cc056f5bbfaf">&#9670;&#160;</a></span>getEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02890.html">ecs::Entity</a> bl::gui::defcoms::SelectBoxComponent::getEntity </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Derived classes should return the ECS entity that children should parent themselves to. </p>
-
-<p>Implements <a class="el" href="a03674.html#a040132d760285e4f03d54dade1855e85">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00027">27</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aff1761b676cbaa61c2966e9e8ff2d3a3" name="aff1761b676cbaa61c2966e9e8ff2d3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff1761b676cbaa61c2966e9e8ff2d3a3">&#9670;&#160;</a></span>getOwnerAs() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T &amp; bl::gui::rdr::Component::getOwnerAs </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Type safe method to get the owning <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00175">175</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab8a3a6785de7a313df871bb56b428c60" name="ab8a3a6785de7a313df871bb56b428c60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8a3a6785de7a313df871bb56b428c60">&#9670;&#160;</a></span>getOwnerAs() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T &amp; bl::gui::rdr::Component::getOwnerAs </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Type safe method to get the owning <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00191">191</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2bf1fb5a90eeaff8f12ed3c373375567" name="a2bf1fb5a90eeaff8f12ed3c373375567"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bf1fb5a90eeaff8f12ed3c373375567">&#9670;&#160;</a></span>getParent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03674.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> * bl::gui::rdr::Component::getParent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the parent component of this component. May be nullptr. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00203">203</a> of file <a class="el" href="a00599_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a07b3ddf5e3d3426f60d751fe35c78b71" name="a07b3ddf5e3d3426f60d751fe35c78b71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07b3ddf5e3d3426f60d751fe35c78b71">&#9670;&#160;</a></span>getRequisition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2f bl::gui::rdr::Component::getRequisition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Allows <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> elements to query the size required for the visual component. </p>
-
-<p>Reimplemented in <a class="el" href="a03606.html#a7e5465bfc08f42e5b5176f9c029dd1c8">bl::gui::defcoms::ComboBoxComponent</a>, and <a class="el" href="a03622.html#a78835263d79dc7a64ea5ccc6b3d77126">bl::gui::defcoms::LabelComponent</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00081">81</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab1d2ca27eb075da15e90d88f44699315" name="ab1d2ca27eb075da15e90d88f44699315"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1d2ca27eb075da15e90d88f44699315">&#9670;&#160;</a></span>handleAcquisition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::handleAcquisition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Configures the component for the new acquisition. </p>
-
-<p>Implements <a class="el" href="a03674.html#ab7faea26b0686e1072100a1ad9c9be74">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00041">41</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af73ac711d6c65ec68103680e1b9187b7" name="af73ac711d6c65ec68103680e1b9187b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af73ac711d6c65ec68103680e1b9187b7">&#9670;&#160;</a></span>handleMove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::handleMove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Positions the component when it should move. </p>
-
-<p>Implements <a class="el" href="a03674.html#a065c482bb68ad4cb52e2158f53011bbc">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00047">47</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab7429f4a869d0eaff8a27e7cdc55cc71" name="ab7429f4a869d0eaff8a27e7cdc55cc71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7429f4a869d0eaff8a27e7cdc55cc71">&#9670;&#160;</a></span>notifyUIState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::notifyUIState </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
-          <td class="paramname"><em>state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the UI state changes. Derived classes may implement custom handlers here. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>The element changing state </td></tr>
-    <tr><td class="paramname">state</td><td>The new UI state </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00032">32</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a10c20d7bde9c7d1fc2829b4d984a052b" name="a10c20d7bde9c7d1fc2829b4d984a052b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c20d7bde9c7d1fc2829b4d984a052b">&#9670;&#160;</a></span>onAcquisition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::onAcquisition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the element gets its acquisition (re)assigned. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00066">66</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adf9255c5f7635b301d379af1aa02ee9a" name="adf9255c5f7635b301d379af1aa02ee9a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf9255c5f7635b301d379af1aa02ee9a">&#9670;&#160;</a></span>onElementUpdated()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::onElementUpdated </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when element state changes. This is element specific, but can mean toggle state, contents, etc. </p>
-
-<p>Implements <a class="el" href="a03674.html#ab518fcd5e31ed334bd0390aea725abed">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00016">16</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa17e61eb9db291663dc6dac5003b5e3f" name="aa17e61eb9db291663dc6dac5003b5e3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa17e61eb9db291663dc6dac5003b5e3f">&#9670;&#160;</a></span>onMove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::onMove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the element is moved. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00073">73</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a27ba184466796592ee9a59fcf6a356ec" name="a27ba184466796592ee9a59fcf6a356ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27ba184466796592ee9a59fcf6a356ec">&#9670;&#160;</a></span>onRenderSettingChange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::onRenderSettingChange </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the owning elements render settings are changed. </p>
-
-<p>Implements <a class="el" href="a03674.html#abe10305a2bb0f70f28cbe62a7e986ff1">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00020">20</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9f914f312bf4700ece09298abf3d9a3a" name="a9f914f312bf4700ece09298abf3d9a3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f914f312bf4700ece09298abf3d9a3a">&#9670;&#160;</a></span>overrideHighlightBehavior()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::overrideHighlightBehavior </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03674.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a>&#160;</td>
-          <td class="paramname"><em>behavior</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overrides the default highlight behavior for this specific component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">behavior</td><td>How to behave when moused over </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00034">34</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a350d3389d5be8f1e8f6a5a874fc999b6" name="a350d3389d5be8f1e8f6a5a874fc999b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a350d3389d5be8f1e8f6a5a874fc999b6">&#9670;&#160;</a></span>setUIState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::setUIState </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03674.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
-          <td class="paramname"><em>state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the visual state changes and immediately following creation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>The visual state of the element </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00021">21</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a380397dad02756cab8acafd1b666bf73" name="a380397dad02756cab8acafd1b666bf73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a380397dad02756cab8acafd1b666bf73">&#9670;&#160;</a></span>setVisible()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::SelectBoxComponent::setVisible </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>visible</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Toggle the visibility of the UI component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">visible</td><td>True to be rendered, false to hide </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a03674.html#a80508b026538fcc66931f12b428b5760">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01781_source.html#l00014">14</a> of file <a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abdd6da199b0858a849eaa74a4857c8e3" name="abdd6da199b0858a849eaa74a4857c8e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdd6da199b0858a849eaa74a4857c8e3">&#9670;&#160;</a></span>showTooltip()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::showTooltip </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Call to display a tooltip for this component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01772_source.html#l00028">28</a> of file <a class="el" href="a01772_source.html">Component.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01577_source.html#l00070">70</a> of file <a class="el" href="a01577_source.html">Transaction.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Renderer/Basic/<a class="el" href="a00614_source.html">SelectBoxComponent.hpp</a></li>
-<li>src/Interfaces/GUI/Renderer/Basic/<a class="el" href="a01781_source.html">SelectBoxComponent.cpp</a></li>
+<li>include/BLIB/ECS/<a class="el" href="a01577_source.html">Transaction.hpp</a></li>
+<li>include/BLIB/ECS/<a class="el" href="a01574_source.html">TransactionImpl.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

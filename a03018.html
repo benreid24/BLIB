@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt; Struct Reference</title>
+<title>BLIB: bl::rc::vk Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,52 +74,153 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02418.html">ecs</a></li><li class="navelem"><a class="el" href="a02424.html">txp</a></li><li class="navelem"><a class="el" href="a03018.html">TxEntityResolve&lt; tx::EntityWrite &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03018.html">vk</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="a03015.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt; Struct Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::vk Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a01028_source.html">Transaction.hpp</a>&gt;</code></p>
+<p>Collection of interfaces and utilities directly related to Vulkan.  
+<a href="a03018.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a8ff873723381a4ddc2a0ce2de5cb71bc" id="r_a8ff873723381a4ddc2a0ce2de5cb71bc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03018.html#a8ff873723381a4ddc2a0ce2de5cb71bc">T</a> = <a class="el" href="a03002.html">TransactionEntityWrite</a></td></tr>
-<tr class="separator:a8ff873723381a4ddc2a0ce2de5cb71bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05638.html">AttachmentImageSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of attachment buffers that can be used for framebuffer backing.  <a href="a05638.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05642.html">AttachmentSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic class containing a set of attachments for rendering.  <a href="a05642.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05646.html">BlendParameters</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05650.html">Buffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.  <a href="a05650.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05654.html">CleanupManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility to defer resource destruction for several frames to ensure resources are no longer in use without explicit synchronization or stalling.  <a href="a05654.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05658.html">CommonTextureFormats</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains common specific formats.  <a href="a05658.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05662.html">ComputePipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance of a compute pipeline.  <a href="a05662.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05666.html">ComputePipelineParameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters used to create a compute pipeline.  <a href="a05666.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05670.html">DedicatedCommandBuffers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class that provides per-frame command buffers intended for reuse.  <a href="a05670.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05678.html">DescriptorPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatically creates more as needed.  <a href="a05678.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05698.html">DescriptorSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around a single allocated descriptor set from the <a class="el" href="a05678.html" title="Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatic...">DescriptorPool</a>.  <a href="a05698.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05702.html">Framebuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct that wraps a Vulkan framebuffer.  <a href="a05702.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05706.html">Image</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to create and manage an image.  <a href="a05706.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05710.html">ImageOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic POD struct for image creation.  <a href="a05710.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05714.html">PerFrame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T will exists per concurrent frame and the current will be accessible.  <a href="a05714.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05718.html">PerFrameVector</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Container version of <a class="el" href="a05714.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a>. Intended to replace std::vector&lt;PerFrame&lt;T&gt;&gt; when continuous storage is needed (ie descriptor sets)  <a href="a05718.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05722.html">PerSwapFrame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class to manage objects where one instance is needed per image in the swap chain. Provides init and cleanup helpers as well as an accessor for the current object based on the current swap chain index.  <a href="a05722.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html">Pipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core renderer class representing a pipeline that is a part of a <a class="el" href="a05770.html" title="Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...">RenderPass</a>. Pipelines are managed by the <a class="el" href="a05330.html" title="Top level rendering system of the game engine.">Renderer</a>'s PipelineCache and should not be created directly.  <a href="a05726.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05730.html">PipelineInstance</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class which represents an instance of a pipeline for a scene. Allows easy binding of the pipeline and descriptor sets. Intended for use by post processing tasks.  <a href="a05730.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05738.html">PipelineLayout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the descriptor layout for pipelines. Allows rendering to be batched by layout to save on bind calls.  <a href="a05738.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05754.html">PipelineParameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters used to create a <a class="el" href="a05726.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a>. This class performs some basic validation and provides sane defaults.  <a href="a05754.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05762.html">PipelineSpecialization</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters for pipeline specializations. <a class="el" href="a05726.html" title="Core renderer class representing a pipeline that is a part of a RenderPass. Pipelines are managed by ...">Pipeline</a> specializations are basic permutations of primary pipelines with small differences in settings and or shader constants.  <a href="a05762.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05770.html">RenderPass</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and each render pass is comprised of a set of Pipelines and their renderables.  <a href="a05770.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html">RenderPassParameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameter builder class used to construct <a class="el" href="a05770.html" title="Represents a render pass in the renderer. A scene is comprised of a sequence of render passes and eac...">RenderPass</a> objects in the renderer.  <a href="a05774.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05782.html">RenderTexture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents textures that can be rendered to and then sampled from. Render textures get rendered each frame prior to Observers rendering.  <a href="a05782.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05790.html">Sampler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thin wrapper for managed VkSampler objects.  <a href="a05790.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05794.html">SamplerOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Options used for creating sampler objects.  <a href="a05794.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html">ShaderParameters</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parameters for creating a shader module.  <a href="a05798.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05802.html">SharedCommandBuffer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around a command buffer allocated from a <a class="el" href="a05806.html" title="Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers....">SharedCommandPool</a>.  <a href="a05802.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05806.html">SharedCommandPool</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around a Vulkan command pool that is intended to be shared for short-lived command buffers. Provides thread safety and automatic command buffer cleanup.  <a href="a05806.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05814.html">Swapchain</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for managing the Vulkan swap chain.  <a href="a05814.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05826.html">Texture</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct to manage a texture in Vulkan. Textures are managed and owned by the TexturePool and should not be allocated directly.  <a href="a05826.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05830.html">TextureFormatManager</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common texture formats.  <a href="a05830.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05834.html">TextureOptions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic POD struct containing texture creation parameters and defaults.  <a href="a05834.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05838.html">VulkanLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary owner and manager of the Vulkan renderer's state.  <a href="a05838.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga5edbf7bf53f275665e759e042079f4b2" id="r_ga5edbf7bf53f275665e759e042079f4b2"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02979.html#ga5edbf7bf53f275665e759e042079f4b2">SemanticTextureFormat</a> { <br />
+&#160;&#160;<a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2acb5feb1b7314637725a2e73bdc9f7295">SemanticTextureFormat::Color</a>
+, <a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2a675056ad1441b6375b2c5abd48c27ef1">SemanticTextureFormat::Depth</a>
+, <a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2a2fa8076285272883c91e14402975a441">SemanticTextureFormat::DepthStencil</a>
+, <a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2a3b904dc704b6d06b8e2f920ec038ee26">SemanticTextureFormat::LinearRGBA32Bit</a>
+, <br />
+&#160;&#160;<a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2a313c5421ebbf50948a17f170fb9597c5">SemanticTextureFormat::SRGBA32Bit</a>
+, <a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2af9fb2343389f462322ec3b6e064ae13f">SemanticTextureFormat::SFloatR16G16B16A16</a>
+, <a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2aa1e2a26e9906510d188c76bed968c8ce">SemanticTextureFormat::HighPrecisionColor</a>
+, <a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2afaba6607e6e6b595c9849330391b93bb">SemanticTextureFormat::SingleChannelUnorm8</a>
+, <br />
+&#160;&#160;<a class="el" href="a02979.html#gga5edbf7bf53f275665e759e042079f4b2af81a5fb46f20c0fc2f1251cb9a28bcb1">SemanticTextureFormat::NonSematic</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga5edbf7bf53f275665e759e042079f4b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a semantic texture format. Underlying formats can be changed at runtime.  <a href="a02979.html#ga5edbf7bf53f275665e759e042079f4b2">More...</a><br /></td></tr>
+<tr class="separator:ga5edbf7bf53f275665e759e042079f4b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00104">104</a> of file <a class="el" href="a01028_source.html">Transaction.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a8ff873723381a4ddc2a0ce2de5cb71bc" name="a8ff873723381a4ddc2a0ce2de5cb71bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8ff873723381a4ddc2a0ce2de5cb71bc">&#9670;&#160;</a></span>T</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a03006.html">bl::ecs::txp::TxEntityResolve</a>&lt; <a class="el" href="a02377.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">tx::EntityWrite</a> &gt;::T =  <a class="el" href="a03002.html">TransactionEntityWrite</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00105">105</a> of file <a class="el" href="a01028_source.html">Transaction.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a01028_source.html">Transaction.hpp</a></li>
-</ul>
-</div><!-- contents -->
+<div class="textblock"><p>Collection of interfaces and utilities directly related to Vulkan. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Systems/RendererUpdateSystem.cpp Source File</title>
+<title>BLIB: include/BLIB/Graphics/ModelStatic.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,45 +79,110 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_900c20bb70493231141df6997ccd6b87.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_8af985930208ac2752e8061e22535a56.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">RendererUpdateSystem.cpp</div></div>
+  <div class="headertitle"><div class="title">ModelStatic.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01652.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00242.html">BLIB/Systems/RendererUpdateSystem.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a06862.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sys</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05262.html#a70e8ca1e6e894f0d081329fc85e046e3">    9</a></span><a class="code hl_function" href="a05262.html#a70e8ca1e6e894f0d081329fc85e046e3">RendererUpdateSystem::RendererUpdateSystem</a>(<a class="code hl_class" href="a04346.html">rc::Renderer</a>&amp; r)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: renderer(r) {}</div>
-</div>
+<a href="a01652.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GRAPHICS_MODELSTATIC_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GRAPHICS_MODELSTATIC_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a07915.html">BLIB/Components/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01637.html">BLIB/Graphics/Components/Outline3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a07954.html">BLIB/Graphics/Components/Transform3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01604.html">BLIB/Graphics/Drawable.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01517.html">BLIB/Models.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00998.html">BLIB/Render/Config/MaterialPipelineIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01700.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> RendererUpdateSystem::init(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp;) {}</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> RendererUpdateSystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    renderer.update(dt);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace sys</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00242_html"><div class="ttname"><a href="a00242.html">RendererUpdateSystem.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa04346_html"><div class="ttname"><a href="a04346.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a06862_source.html#l00043">Renderer.hpp:43</a></div></div>
-<div class="ttc" id="aa05262_html_a70e8ca1e6e894f0d081329fc85e046e3"><div class="ttname"><a href="a05262.html#a70e8ca1e6e894f0d081329fc85e046e3">bl::sys::RendererUpdateSystem::RendererUpdateSystem</a></div><div class="ttdeci">RendererUpdateSystem(rc::Renderer &amp;renderer)</div><div class="ttdoc">Creates a new camera update system.</div><div class="ttdef"><b>Definition</b> <a href="a01652_source.html#l00009">RendererUpdateSystem.cpp:9</a></div></div>
-<div class="ttc" id="aa06862_html"><div class="ttname"><a href="a06862.html">Renderer.hpp</a></div></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>gfx</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a03942.html">   21</a></span><span class="keyword">class </span><a class="code hl_class" href="a03942.html">ModelStatic</a></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: <span class="keyword">public</span> <a class="code hl_class" href="a03922.html">Drawable</a>&lt;com::BasicMesh&gt;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>, <span class="keyword">public</span> <a class="code hl_class" href="a03910.html">bcom::Transform3D</a></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>, <span class="keyword">public</span> <a class="code hl_class" href="a03894.html">bcom::Outline3D</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_function" href="a03942.html#ad854fd4576ac07ea7984c87bd31b96f8">ModelStatic</a>();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03942.html#a9960bc609261942045a1b8055a5ac983">create</a>(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <span class="keyword">const</span> std::string&amp; file,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                std::uint32_t materialPipelineId = <a class="code hl_variable" href="a04786.html#a459d3702144b215603daa3fe4c502a3a">rc::cfg::MaterialPipelineIds::Mesh3DMaterial</a>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03942.html#a9960bc609261942045a1b8055a5ac983">create</a>(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <a class="code hl_class" href="a05974.html">resource::Ref&lt;mdl::Model&gt;</a> model,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                std::uint32_t materialPipelineId = <a class="code hl_variable" href="a04786.html#a459d3702144b215603daa3fe4c502a3a">rc::cfg::MaterialPipelineIds::Mesh3DMaterial</a>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">using </span><a class="code hl_class" href="a03678.html">Tx</a> = <a class="code hl_class" href="a03678.html">ecs::Transaction</a>&lt;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_enumvalue" href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">ecs::tx::EntityWrite</a>, <a class="code hl_struct" href="a03598.html">ecs::tx::ComponentRead&lt;&gt;</a>,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_struct" href="a03602.html">ecs::tx::ComponentWrite&lt;com::Transform3D, com::BasicMesh, com::MaterialInstance&gt;</a>&gt;;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">struct </span>EntityNode {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_struct" href="a03542.html">ecs::Entity</a> entity;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_struct" href="a03278.html">com::BasicMesh</a>* mesh;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    };</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_class" href="a03590.html">ecs::Registry</a>* ecs;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::vector&lt;EntityNode&gt; drawableEntities;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_struct" href="a03278.html">com::BasicMesh</a>* createComponents(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <a class="code hl_class" href="a03678.html">Tx</a>&amp; tx, <a class="code hl_struct" href="a03542.html">ecs::Entity</a> <a class="code hl_function" href="a03550.html#ad682add183fd9da32f32a84b5e203c07">entity</a>,</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                                     std::uint32_t materialPipelineId,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                                     <span class="keyword">const</span> <a class="code hl_class" href="a05974.html">resource::Ref&lt;mdl::Model&gt;</a>&amp; model, <span class="keyword">const</span> <a class="code hl_class" href="a04506.html">mdl::Mesh</a>&amp; src,</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                     <span class="keyword">const</span> glm::mat4&amp; transform);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordtype">void</span> createChild(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <a class="code hl_class" href="a03678.html">Tx</a>&amp; tx, <a class="code hl_struct" href="a03542.html">ecs::Entity</a> parent,</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                     std::uint32_t materialPipelineId, <span class="keyword">const</span> <a class="code hl_class" href="a05974.html">resource::Ref&lt;mdl::Model&gt;</a>&amp; model,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                     <span class="keyword">const</span> <a class="code hl_class" href="a04506.html">mdl::Mesh</a>&amp; src);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordtype">void</span> processNode(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; world, <a class="code hl_class" href="a03678.html">Tx</a>&amp; tx, <a class="code hl_struct" href="a03542.html">ecs::Entity</a> parent,</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                     std::uint32_t materialPipelineId, <span class="keyword">const</span> <a class="code hl_class" href="a05974.html">resource::Ref&lt;mdl::Model&gt;</a>&amp; model,</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                     <span class="keyword">const</span> <a class="code hl_class" href="a04518.html">mdl::Node</a>&amp; node);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onAdd(<a class="code hl_class" href="a05450.html">rc::Scene</a>* scene, <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">rc::UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onRemove() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> scaleToSize(<span class="keyword">const</span> glm::vec2&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
+</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00998_html"><div class="ttname"><a href="a00998.html">MaterialPipelineIds.hpp</a></div></div>
+<div class="ttc" id="aa01517_html"><div class="ttname"><a href="a01517.html">Models.hpp</a></div></div>
+<div class="ttc" id="aa01604_html"><div class="ttname"><a href="a01604.html">Drawable.hpp</a></div></div>
+<div class="ttc" id="aa01637_html"><div class="ttname"><a href="a01637.html">Outline3D.hpp</a></div></div>
+<div class="ttc" id="aa01700_html"><div class="ttname"><a href="a01700.html">Ref.hpp</a></div></div>
+<div class="ttc" id="aa02968_html_ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96"><div class="ttname"><a href="a02968.html#ggab7b7c35153d32dc8b4427c68d1acb36eae86439a9f6addafc3a812fe787e81f96">bl::ecs::tx::EntityWrite</a></div><div class="ttdeci">@ EntityWrite</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00025">Transaction.hpp:25</a></div></div>
+<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03278_html"><div class="ttname"><a href="a03278.html">bl::com::Mesh</a></div><div class="ttdoc">ECS component for a basic mesh from an index buffer.</div><div class="ttdef"><b>Definition</b> <a href="a07915_source.html#l00024">Mesh.hpp:24</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa03550_html_ad682add183fd9da32f32a84b5e203c07"><div class="ttname"><a href="a03550.html#ad682add183fd9da32f32a84b5e203c07">bl::ecs::EntityBacked::entity</a></div><div class="ttdeci">ecs::Entity entity() const</div><div class="ttdoc">Returns the ECS entity of this drawable.</div><div class="ttdef"><b>Definition</b> <a href="a01535_source.html#l00136">EntityBacked.hpp:136</a></div></div>
+<div class="ttc" id="aa03590_html"><div class="ttname"><a href="a03590.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa03598_html"><div class="ttname"><a href="a03598.html">bl::ecs::tx::ComponentRead</a></div><div class="ttdoc">Deduction helper to use to create transactions to read certain types of components.</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00034">Transaction.hpp:34</a></div></div>
+<div class="ttc" id="aa03602_html"><div class="ttname"><a href="a03602.html">bl::ecs::tx::ComponentWrite</a></div><div class="ttdoc">Deduction helper to use to create transactions to write certain types of components.</div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00043">Transaction.hpp:43</a></div></div>
+<div class="ttc" id="aa03678_html"><div class="ttname"><a href="a03678.html">bl::ecs::Transaction</a></div><div class="ttdef"><b>Definition</b> <a href="a01577_source.html#l00149">Transaction.hpp:149</a></div></div>
+<div class="ttc" id="aa03806_html"><div class="ttname"><a href="a03806.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01496_source.html#l00022">World.hpp:22</a></div></div>
+<div class="ttc" id="aa03894_html"><div class="ttname"><a href="a03894.html">bl::gfx::bcom::Outline3D</a></div><div class="ttdoc">Component that adds an outline to 3d objects when rendered.</div><div class="ttdef"><b>Definition</b> <a href="a01637_source.html#l00029">Outline3D.hpp:29</a></div></div>
+<div class="ttc" id="aa03910_html"><div class="ttname"><a href="a03910.html">bl::gfx::bcom::Transform3D</a></div><div class="ttdoc">Base component class for Drawables that require a 3d transform.</div><div class="ttdef"><b>Definition</b> <a href="a07954_source.html#l00019">Transform3D.hpp:19</a></div></div>
+<div class="ttc" id="aa03922_html"><div class="ttname"><a href="a03922.html">bl::gfx::Drawable</a></div><div class="ttdoc">Base class for Drawable objects. A Drawable object should inherit this class for the drawable compone...</div><div class="ttdef"><b>Definition</b> <a href="a01604_source.html#l00033">Drawable.hpp:33</a></div></div>
+<div class="ttc" id="aa03942_html"><div class="ttname"><a href="a03942.html">bl::gfx::ModelStatic</a></div><div class="ttdoc">Drawable for static models with no skinning or animation.</div><div class="ttdef"><b>Definition</b> <a href="a01652_source.html#l00021">ModelStatic.hpp:24</a></div></div>
+<div class="ttc" id="aa03942_html_a9960bc609261942045a1b8055a5ac983"><div class="ttname"><a href="a03942.html#a9960bc609261942045a1b8055a5ac983">bl::gfx::ModelStatic::create</a></div><div class="ttdeci">bool create(engine::World &amp;world, const std::string &amp;file, std::uint32_t materialPipelineId=rc::cfg::MaterialPipelineIds::Mesh3DMaterial)</div><div class="ttdoc">Creates the basic model from the given file.</div><div class="ttdef"><b>Definition</b> <a href="a02789_source.html#l00016">ModelStatic.cpp:16</a></div></div>
+<div class="ttc" id="aa03942_html_ad854fd4576ac07ea7984c87bd31b96f8"><div class="ttname"><a href="a03942.html#ad854fd4576ac07ea7984c87bd31b96f8">bl::gfx::ModelStatic::ModelStatic</a></div><div class="ttdeci">ModelStatic()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition</b> <a href="a02789_source.html#l00014">ModelStatic.cpp:14</a></div></div>
+<div class="ttc" id="aa04506_html"><div class="ttname"><a href="a04506.html">bl::mdl::Mesh</a></div><div class="ttdoc">Basic class containing data for a single mesh in a model.</div><div class="ttdef"><b>Definition</b> <a href="a07918_source.html#l00020">Mesh.hpp:20</a></div></div>
+<div class="ttc" id="aa04518_html"><div class="ttname"><a href="a04518.html">bl::mdl::Node</a></div><div class="ttdoc">Represents a node in a model hierarchy.</div><div class="ttdef"><b>Definition</b> <a href="a08035_source.html#l00020">Node.hpp:20</a></div></div>
+<div class="ttc" id="aa04786_html_a459d3702144b215603daa3fe4c502a3a"><div class="ttname"><a href="a04786.html#a459d3702144b215603daa3fe4c502a3a">bl::rc::cfg::MaterialPipelineIds::Mesh3DMaterial</a></div><div class="ttdeci">static constexpr std::uint32_t Mesh3DMaterial</div><div class="ttdef"><b>Definition</b> <a href="a00998_source.html#l00019">MaterialPipelineIds.hpp:19</a></div></div>
+<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="ttc" id="aa05974_html"><div class="ttname"><a href="a05974.html">bl::resource::Ref</a></div><div class="ttdoc">Represents a reference to a managed resource. Performs reference counting, but resources are never de...</div><div class="ttdef"><b>Definition</b> <a href="a01700_source.html#l00026">Ref.hpp:26</a></div></div>
+<div class="ttc" id="aa07915_html"><div class="ttname"><a href="a07915.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="aa07954_html"><div class="ttname"><a href="a07954.html">Transform3D.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/RenderSettings.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/RenderGraph.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,97 +79,175 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">RenderSettings.hpp</div></div>
+  <div class="headertitle"><div class="title">RenderGraph.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00695.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP</span></div>
+<a href="a00695.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_RENDERGRAPH_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_RENDERGRAPH_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00929.html">BLIB/Graphics/Text/VulkanFont.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00149.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00155.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>gui</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03726.html">   22</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03726.html">RenderSettings</a> {</div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cc">   27</a></span>    <span class="keyword">enum</span> <a class="code hl_enumeration" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cc">Alignment</a> {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca13344a935570ac44ccd51fbe2f4794a5">   28</a></span>        <a class="code hl_enumvalue" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca13344a935570ac44ccd51fbe2f4794a5">Center</a>, </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca11e1654ac8488f717125dd71b6378ee2">   29</a></span>        <a class="code hl_enumvalue" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca11e1654ac8488f717125dd71b6378ee2">Left</a>,   </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca799f568174b7c8e8468b2050f182830e">   30</a></span>        <a class="code hl_enumvalue" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca799f568174b7c8e8468b2050f182830e">Right</a>,  </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3ccabe79a5c544093dbaddb46642abd6fd1e">   31</a></span>        <a class="code hl_enumvalue" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3ccabe79a5c544093dbaddb46642abd6fd1e">Top</a>,    </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_enumvalue" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca4540a502a81a02045348898cd1ec433f">Bottom</a>  </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca4540a502a81a02045348898cd1ec433f">   33</a></span>    };</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00593.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00590.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00698.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00644.html">BLIB/Render/Graph/Timeline.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;queue&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span><a class="code hl_enumvalue" href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">Scene</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">class </span>RenderTarget;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>rg</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>Strategy;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05074.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="a05074.html">RenderGraph</a> {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a05074.html">RenderGraph</a>(<a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer, <a class="code hl_class" href="a04982.html">AssetPool</a>&amp; assetPool,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                <a class="code hl_class" href="a05334.html">RenderTarget</a>* target, <a class="code hl_class" href="a05450.html">Scene</a>* scene);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a05074.html#a79c16f27d764bee3672771fe624db547">   54</a></span>    T* <a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        T* <a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a> = <span class="keyword">new</span> T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        tasks.emplace_back(<a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        needsRebuild = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        createTask(<span class="keyword">static_cast&lt;</span><a class="code hl_class" href="a05098.html">Task</a>*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>));</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
 </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a03726.html#a08e1038ac29fe157437495994ea57cf9">   35</a></span>    std::optional&lt;Alignment&gt; <a class="code hl_variable" href="a03726.html#a08e1038ac29fe157437495994ea57cf9">horizontalAlignment</a>;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a03726.html#a12da579586db8e4efc8f6bb3856d9da5">   36</a></span>    std::optional&lt;Alignment&gt; <a class="code hl_variable" href="a03726.html#a12da579586db8e4efc8f6bb3856d9da5">verticalAlignment</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a03726.html#ac6208b8af244ce22f0fbcf4352748ac4">   38</a></span>    std::optional&lt;sf::Color&gt; <a class="code hl_variable" href="a03726.html#ac6208b8af244ce22f0fbcf4352748ac4">fillColor</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a03726.html#ad7e9b5c5fb74f67ae501095b12dbfa35">   39</a></span>    std::optional&lt;sf::Color&gt; <a class="code hl_variable" href="a03726.html#ad7e9b5c5fb74f67ae501095b12dbfa35">outlineColor</a>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03726.html#a2f17a345da820fb310b8afb40896043f">   40</a></span>    std::optional&lt;float&gt; <a class="code hl_variable" href="a03726.html#a2f17a345da820fb310b8afb40896043f">outlineThickness</a>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a03726.html#aca7a4bea8ddb58cd57842c2231eb3ff8">   42</a></span>    std::optional&lt;sf::Color&gt; <a class="code hl_variable" href="a03726.html#aca7a4bea8ddb58cd57842c2231eb3ff8">secondaryFillColor</a>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03726.html#af47d879866dc2be0e874ce22665f4239">   43</a></span>    std::optional&lt;sf::Color&gt; <a class="code hl_variable" href="a03726.html#af47d879866dc2be0e874ce22665f4239">secondaryOutlineColor</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03726.html#a715ed537380767af32b07ad2e1eb291a">   44</a></span>    std::optional&lt;float&gt; <a class="code hl_variable" href="a03726.html#a715ed537380767af32b07ad2e1eb291a">secondaryOutlineThickness</a>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03726.html#a26d496dfd92bc4b0f5240f36f86de5fb">   46</a></span>    std::optional&lt;bl::resource::Ref&lt;sf::VulkanFont&gt;&gt; <a class="code hl_variable" href="a03726.html#a26d496dfd92bc4b0f5240f36f86de5fb">font</a>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a03726.html#a8af9da3d15afc6ebd6d24466b505db3f">   47</a></span>    std::optional&lt;sf::Uint32&gt; <a class="code hl_variable" href="a03726.html#a8af9da3d15afc6ebd6d24466b505db3f">style</a>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03726.html#aafc94727cf01a1b4fc6f207b31d9cb8f">   48</a></span>    std::optional&lt;unsigned int&gt; <a class="code hl_variable" href="a03726.html#aafc94727cf01a1b4fc6f207b31d9cb8f">characterSize</a>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03726.html#a945392fd7622b005e1cc9cd9e28f0056">merge</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03726.html">RenderSettings</a>&amp; settings);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03726.html#a4a306485f4a26d5fb853fac42b5806ab">promoteSecondaries</a>();</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">static</span> sf::Vector2f <a class="code hl_function" href="a03726.html#a9217844dbeacf59f22322023452bc8fa">calculatePosition</a>(<a class="code hl_enumeration" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cc">Alignment</a> horizontalAlign, <a class="code hl_enumeration" href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cc">Alignment</a> verticalAlign,</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                                          <span class="keyword">const</span> sf::FloatRect&amp; acquisition,</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                                          <span class="keyword">const</span> sf::Vector2f&amp; elementSize);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a05074.html#a3662bbc2a51fd58c58c46e715bafbfa5">   72</a></span>    T* <a class="code hl_function" href="a05074.html#a3662bbc2a51fd58c58c46e715bafbfa5">putUniqueTask</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        T* t = findTask&lt;T&gt;();</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">if</span> (t) <span class="keywordflow">return</span> t;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="a05074.html#a79c16f27d764bee3672771fe624db547">putTask</a>&lt;T, TArgs...&gt;(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">Loader.hpp</a></div></div>
-<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">Ref.hpp</a></div></div>
-<div class="ttc" id="aa00929_html"><div class="ttname"><a href="a00929.html">VulkanFont.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03726_html"><div class="ttname"><a href="a03726.html">bl::gui::RenderSettings</a></div><div class="ttdoc">Data class to override rendering settings for GUI Elements. Overrides can be done by group or id....</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00022">RenderSettings.hpp:22</a></div></div>
-<div class="ttc" id="aa03726_html_a08e1038ac29fe157437495994ea57cf9"><div class="ttname"><a href="a03726.html#a08e1038ac29fe157437495994ea57cf9">bl::gui::RenderSettings::horizontalAlignment</a></div><div class="ttdeci">std::optional&lt; Alignment &gt; horizontalAlignment</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00035">RenderSettings.hpp:35</a></div></div>
-<div class="ttc" id="aa03726_html_a12da579586db8e4efc8f6bb3856d9da5"><div class="ttname"><a href="a03726.html#a12da579586db8e4efc8f6bb3856d9da5">bl::gui::RenderSettings::verticalAlignment</a></div><div class="ttdeci">std::optional&lt; Alignment &gt; verticalAlignment</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00036">RenderSettings.hpp:36</a></div></div>
-<div class="ttc" id="aa03726_html_a26d496dfd92bc4b0f5240f36f86de5fb"><div class="ttname"><a href="a03726.html#a26d496dfd92bc4b0f5240f36f86de5fb">bl::gui::RenderSettings::font</a></div><div class="ttdeci">std::optional&lt; bl::resource::Ref&lt; sf::VulkanFont &gt; &gt; font</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00046">RenderSettings.hpp:46</a></div></div>
-<div class="ttc" id="aa03726_html_a2f17a345da820fb310b8afb40896043f"><div class="ttname"><a href="a03726.html#a2f17a345da820fb310b8afb40896043f">bl::gui::RenderSettings::outlineThickness</a></div><div class="ttdeci">std::optional&lt; float &gt; outlineThickness</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00040">RenderSettings.hpp:40</a></div></div>
-<div class="ttc" id="aa03726_html_a4a306485f4a26d5fb853fac42b5806ab"><div class="ttname"><a href="a03726.html#a4a306485f4a26d5fb853fac42b5806ab">bl::gui::RenderSettings::promoteSecondaries</a></div><div class="ttdeci">void promoteSecondaries()</div><div class="ttdoc">Copies the secondary colors and outline thickness to the primary spots.</div><div class="ttdef"><b>Definition</b> <a href="a01844_source.html#l00028">RenderSettings.cpp:28</a></div></div>
-<div class="ttc" id="aa03726_html_a715ed537380767af32b07ad2e1eb291a"><div class="ttname"><a href="a03726.html#a715ed537380767af32b07ad2e1eb291a">bl::gui::RenderSettings::secondaryOutlineThickness</a></div><div class="ttdeci">std::optional&lt; float &gt; secondaryOutlineThickness</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00044">RenderSettings.hpp:44</a></div></div>
-<div class="ttc" id="aa03726_html_a8af9da3d15afc6ebd6d24466b505db3f"><div class="ttname"><a href="a03726.html#a8af9da3d15afc6ebd6d24466b505db3f">bl::gui::RenderSettings::style</a></div><div class="ttdeci">std::optional&lt; sf::Uint32 &gt; style</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00047">RenderSettings.hpp:47</a></div></div>
-<div class="ttc" id="aa03726_html_a9217844dbeacf59f22322023452bc8fa"><div class="ttname"><a href="a03726.html#a9217844dbeacf59f22322023452bc8fa">bl::gui::RenderSettings::calculatePosition</a></div><div class="ttdeci">static sf::Vector2f calculatePosition(Alignment horizontalAlign, Alignment verticalAlign, const sf::FloatRect &amp;acquisition, const sf::Vector2f &amp;elementSize)</div><div class="ttdoc">Calculates the position of an element within its acquisition for the given alignment.</div><div class="ttdef"><b>Definition</b> <a href="a01844_source.html#l00034">RenderSettings.cpp:34</a></div></div>
-<div class="ttc" id="aa03726_html_a945392fd7622b005e1cc9cd9e28f0056"><div class="ttname"><a href="a03726.html#a945392fd7622b005e1cc9cd9e28f0056">bl::gui::RenderSettings::merge</a></div><div class="ttdeci">void merge(const RenderSettings &amp;settings)</div><div class="ttdoc">Merges a higher priority set of settings into this one, ignoring unset fields.</div><div class="ttdef"><b>Definition</b> <a href="a01844_source.html#l00012">RenderSettings.cpp:12</a></div></div>
-<div class="ttc" id="aa03726_html_aae930cb5781c4d97d0a5c39be0d1f3cc"><div class="ttname"><a href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cc">bl::gui::RenderSettings::Alignment</a></div><div class="ttdeci">Alignment</div><div class="ttdoc">Controls where an Element is rendered with respect to its acquisition.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00027">RenderSettings.hpp:27</a></div></div>
-<div class="ttc" id="aa03726_html_aae930cb5781c4d97d0a5c39be0d1f3cca11e1654ac8488f717125dd71b6378ee2"><div class="ttname"><a href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca11e1654ac8488f717125dd71b6378ee2">bl::gui::RenderSettings::Left</a></div><div class="ttdeci">@ Left</div><div class="ttdoc">Element is centered on the axis.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00029">RenderSettings.hpp:29</a></div></div>
-<div class="ttc" id="aa03726_html_aae930cb5781c4d97d0a5c39be0d1f3cca13344a935570ac44ccd51fbe2f4794a5"><div class="ttname"><a href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca13344a935570ac44ccd51fbe2f4794a5">bl::gui::RenderSettings::Center</a></div><div class="ttdeci">@ Center</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00028">RenderSettings.hpp:28</a></div></div>
-<div class="ttc" id="aa03726_html_aae930cb5781c4d97d0a5c39be0d1f3cca4540a502a81a02045348898cd1ec433f"><div class="ttname"><a href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca4540a502a81a02045348898cd1ec433f">bl::gui::RenderSettings::Bottom</a></div><div class="ttdeci">@ Bottom</div><div class="ttdoc">Element is positioned on top.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00033">RenderSettings.hpp:32</a></div></div>
-<div class="ttc" id="aa03726_html_aae930cb5781c4d97d0a5c39be0d1f3cca799f568174b7c8e8468b2050f182830e"><div class="ttname"><a href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3cca799f568174b7c8e8468b2050f182830e">bl::gui::RenderSettings::Right</a></div><div class="ttdeci">@ Right</div><div class="ttdoc">Element is positioned on the left.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00030">RenderSettings.hpp:30</a></div></div>
-<div class="ttc" id="aa03726_html_aae930cb5781c4d97d0a5c39be0d1f3ccabe79a5c544093dbaddb46642abd6fd1e"><div class="ttname"><a href="a03726.html#aae930cb5781c4d97d0a5c39be0d1f3ccabe79a5c544093dbaddb46642abd6fd1e">bl::gui::RenderSettings::Top</a></div><div class="ttdeci">@ Top</div><div class="ttdoc">Element is positioned to the right.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00031">RenderSettings.hpp:31</a></div></div>
-<div class="ttc" id="aa03726_html_aafc94727cf01a1b4fc6f207b31d9cb8f"><div class="ttname"><a href="a03726.html#aafc94727cf01a1b4fc6f207b31d9cb8f">bl::gui::RenderSettings::characterSize</a></div><div class="ttdeci">std::optional&lt; unsigned int &gt; characterSize</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00048">RenderSettings.hpp:48</a></div></div>
-<div class="ttc" id="aa03726_html_ac6208b8af244ce22f0fbcf4352748ac4"><div class="ttname"><a href="a03726.html#ac6208b8af244ce22f0fbcf4352748ac4">bl::gui::RenderSettings::fillColor</a></div><div class="ttdeci">std::optional&lt; sf::Color &gt; fillColor</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00038">RenderSettings.hpp:38</a></div></div>
-<div class="ttc" id="aa03726_html_aca7a4bea8ddb58cd57842c2231eb3ff8"><div class="ttname"><a href="a03726.html#aca7a4bea8ddb58cd57842c2231eb3ff8">bl::gui::RenderSettings::secondaryFillColor</a></div><div class="ttdeci">std::optional&lt; sf::Color &gt; secondaryFillColor</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00042">RenderSettings.hpp:42</a></div></div>
-<div class="ttc" id="aa03726_html_ad7e9b5c5fb74f67ae501095b12dbfa35"><div class="ttname"><a href="a03726.html#ad7e9b5c5fb74f67ae501095b12dbfa35">bl::gui::RenderSettings::outlineColor</a></div><div class="ttdeci">std::optional&lt; sf::Color &gt; outlineColor</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00039">RenderSettings.hpp:39</a></div></div>
-<div class="ttc" id="aa03726_html_af47d879866dc2be0e874ce22665f4239"><div class="ttname"><a href="a03726.html#af47d879866dc2be0e874ce22665f4239">bl::gui::RenderSettings::secondaryOutlineColor</a></div><div class="ttdeci">std::optional&lt; sf::Color &gt; secondaryOutlineColor</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00043">RenderSettings.hpp:43</a></div></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05074.html#a9d53b564bb6ef285bcb93c2364055dda">   85</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05074.html#a9d53b564bb6ef285bcb93c2364055dda">removeTask</a>() {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = tasks.begin(); it != tasks.end(); ++it) {</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">if</span> (<span class="keyword">dynamic_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;get()) != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                tasks.erase(it);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                needsRebuild = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
+</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00103" data-start="{" data-end="}">
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a05074.html#a803bce3b7aee146533320091b9f8fb1d">  103</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05074.html#a803bce3b7aee146533320091b9f8fb1d">removeTasks</a>() {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordtype">bool</span> r = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="keywordflow">while</span> (removeTask&lt;T&gt;()) { r = <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">return</span> r;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a05074.html#acb629f434c73afb96a43d7d594e59016">  116</a></span>    T* <a class="code hl_function" href="a05074.html#acb629f434c73afb96a43d7d594e59016">findTask</a>() {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; <a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a> : tasks) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>            T* t = <span class="keyword">dynamic_cast&lt;</span>T*<span class="keyword">&gt;</span>(<a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>.get());</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            <span class="keywordflow">if</span> (t) { <span class="keywordflow">return</span> t; }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    }</div>
+</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00131" data-start="{" data-end="}">
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno"><a class="line" href="a05074.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">  131</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05074.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">hasTask</a>() {</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="keywordflow">return</span> findTask&lt;T&gt;() != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
+</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05074.html#ac8e028a52ea92cc2ed4bff74ffe36d6d">execute</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, <span class="keywordtype">bool</span> renderTexture);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05074.html#a23e346a1267da2f5a27f3282f4c489da">build</a>();</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05074.html#aaed0558c668067b5011e40a85c1ebf7e">markDirty</a>();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a05074.html#ac7b2404a94bd0d6a1393a0ef16604b47">needsRepopulation</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05074.html#a9d6948cfb39087160e95d2856a27eaaa">reset</a>();</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05074.html#aa6b093bde07ef111b9c8fa01483c8bbe">populate</a>(<a class="code hl_class" href="a05450.html">Scene</a>&amp; scene);</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05074.html#a078c29f6ed9badf6828b234d7396861d">update</a>(<span class="keywordtype">float</span> dt);</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <a class="code hl_class" href="a03698.html">engine::Engine</a>&amp; engine;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <a class="code hl_class" href="a05330.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <a class="code hl_class" href="a05334.html">RenderTarget</a>* observer;</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <a class="code hl_class" href="a05450.html">Scene</a>* scene;</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_class" href="a05050.html">GraphAssetPool</a> assets;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    std::vector&lt;std::unique_ptr&lt;Task&gt;&gt; tasks;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <a class="code hl_class" href="a05182.html">Timeline</a> timeline;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <a class="code hl_class" href="a05094.html">Strategy</a>* strategy;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> strategyVersion;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordtype">bool</span> needsRebuild;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordtype">bool</span> needsReset;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">void</span> createTask(<a class="code hl_class" href="a05098.html">Task</a>* <a class="code hl_variable" href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>};</div>
+</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>} <span class="comment">// namespace rg</span></div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00590_html"><div class="ttname"><a href="a00590.html">GraphAssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">AssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00644_html"><div class="ttname"><a href="a00644.html">Timeline.hpp</a></div></div>
+<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">Task.hpp</a></div></div>
+<div class="ttc" id="aa02183_html_adac025b94121ea5ab5dd2a3a715ca778"><div class="ttname"><a href="a02183.html#adac025b94121ea5ab5dd2a3a715ca778">task</a></div><div class="ttdeci">Task * task</div><div class="ttdef"><b>Definition</b> <a href="a02183_source.html#l00023">Timeline.cpp:23</a></div></div>
+<div class="ttc" id="aa02979_html_gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b"><div class="ttname"><a href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">bl::rc::sr::StoreKey::Scene</a></div><div class="ttdeci">@ Scene</div><div class="ttdoc">The resource store specific to a scene/observer pair.</div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03698_html"><div class="ttname"><a href="a03698.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a07963_source.html#l00039">Engine.hpp:39</a></div></div>
+<div class="ttc" id="aa04982_html"><div class="ttname"><a href="a04982.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00028">AssetPool.hpp:28</a></div></div>
+<div class="ttc" id="aa05050_html"><div class="ttname"><a href="a05050.html">bl::rc::rg::GraphAssetPool</a></div><div class="ttdoc">Asset pool for individual RenderGraph instances that exist per scene per observer.</div><div class="ttdef"><b>Definition</b> <a href="a00590_source.html#l00028">GraphAssetPool.hpp:28</a></div></div>
+<div class="ttc" id="aa05074_html"><div class="ttname"><a href="a05074.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00031">RenderGraph.hpp:31</a></div></div>
+<div class="ttc" id="aa05074_html_a078c29f6ed9badf6828b234d7396861d"><div class="ttname"><a href="a05074.html#a078c29f6ed9badf6828b234d7396861d">bl::rc::rg::RenderGraph::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Calls update on all contained tasks.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00206">RenderGraph.cpp:206</a></div></div>
+<div class="ttc" id="aa05074_html_a23e346a1267da2f5a27f3282f4c489da"><div class="ttname"><a href="a05074.html#a23e346a1267da2f5a27f3282f4c489da">bl::rc::rg::RenderGraph::build</a></div><div class="ttdeci">void build()</div><div class="ttdoc">Builds the graph timeline. Called automatically in execute()</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00040">RenderGraph.cpp:40</a></div></div>
+<div class="ttc" id="aa05074_html_a3662bbc2a51fd58c58c46e715bafbfa5"><div class="ttname"><a href="a05074.html#a3662bbc2a51fd58c58c46e715bafbfa5">bl::rc::rg::RenderGraph::putUniqueTask</a></div><div class="ttdeci">T * putUniqueTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process. Only adds the task if it would b...</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00072">RenderGraph.hpp:72</a></div></div>
+<div class="ttc" id="aa05074_html_a79c16f27d764bee3672771fe624db547"><div class="ttname"><a href="a05074.html#a79c16f27d764bee3672771fe624db547">bl::rc::rg::RenderGraph::putTask</a></div><div class="ttdeci">T * putTask(TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new task to the graph to become a part of the render process.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00054">RenderGraph.hpp:54</a></div></div>
+<div class="ttc" id="aa05074_html_a803bce3b7aee146533320091b9f8fb1d"><div class="ttname"><a href="a05074.html#a803bce3b7aee146533320091b9f8fb1d">bl::rc::rg::RenderGraph::removeTasks</a></div><div class="ttdeci">bool removeTasks()</div><div class="ttdoc">Removes all tasks of the given type from the graph.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00103">RenderGraph.hpp:103</a></div></div>
+<div class="ttc" id="aa05074_html_a9d53b564bb6ef285bcb93c2364055dda"><div class="ttname"><a href="a05074.html#a9d53b564bb6ef285bcb93c2364055dda">bl::rc::rg::RenderGraph::removeTask</a></div><div class="ttdeci">bool removeTask()</div><div class="ttdoc">Removes the task with the given type from the graph.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00085">RenderGraph.hpp:85</a></div></div>
+<div class="ttc" id="aa05074_html_a9d6948cfb39087160e95d2856a27eaaa"><div class="ttname"><a href="a05074.html#a9d6948cfb39087160e95d2856a27eaaa">bl::rc::rg::RenderGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Clears all tasks from the graph and marks it for re-population.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00195">RenderGraph.cpp:195</a></div></div>
+<div class="ttc" id="aa05074_html_aa6b093bde07ef111b9c8fa01483c8bbe"><div class="ttname"><a href="a05074.html#aa6b093bde07ef111b9c8fa01483c8bbe">bl::rc::rg::RenderGraph::populate</a></div><div class="ttdeci">void populate(Scene &amp;scene)</div><div class="ttdoc">Clears and re-populates the tasks in the graph. Re-builds the graph.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00197">RenderGraph.cpp:197</a></div></div>
+<div class="ttc" id="aa05074_html_aaed0558c668067b5011e40a85c1ebf7e"><div class="ttname"><a href="a05074.html#aaed0558c668067b5011e40a85c1ebf7e">bl::rc::rg::RenderGraph::markDirty</a></div><div class="ttdeci">void markDirty()</div><div class="ttdoc">Notifies the graph to rebuild on next execution.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00193">RenderGraph.cpp:193</a></div></div>
+<div class="ttc" id="aa05074_html_ac7b2404a94bd0d6a1393a0ef16604b47"><div class="ttname"><a href="a05074.html#ac7b2404a94bd0d6a1393a0ef16604b47">bl::rc::rg::RenderGraph::needsRepopulation</a></div><div class="ttdeci">bool needsRepopulation() const</div><div class="ttdoc">Returns whether or not the graph needs to be repopulated from scratch.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00210">RenderGraph.cpp:210</a></div></div>
+<div class="ttc" id="aa05074_html_ac8e028a52ea92cc2ed4bff74ffe36d6d"><div class="ttname"><a href="a05074.html#ac8e028a52ea92cc2ed4bff74ffe36d6d">bl::rc::rg::RenderGraph::execute</a></div><div class="ttdeci">void execute(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture)</div><div class="ttdoc">Executes the graph to record render commands into the given command buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00033">RenderGraph.cpp:33</a></div></div>
+<div class="ttc" id="aa05074_html_acb629f434c73afb96a43d7d594e59016"><div class="ttname"><a href="a05074.html#acb629f434c73afb96a43d7d594e59016">bl::rc::rg::RenderGraph::findTask</a></div><div class="ttdeci">T * findTask()</div><div class="ttdoc">Finds and returns a pointer to the first task found of the given type.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00116">RenderGraph.hpp:116</a></div></div>
+<div class="ttc" id="aa05074_html_aeed8ba2f3b7cd0580bb32b83aa459b3c"><div class="ttname"><a href="a05074.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">bl::rc::rg::RenderGraph::hasTask</a></div><div class="ttdeci">bool hasTask()</div><div class="ttdoc">Returns whether or not the given task is present in the graph.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00131">RenderGraph.hpp:131</a></div></div>
+<div class="ttc" id="aa05094_html"><div class="ttname"><a href="a05094.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00018">Strategy.hpp:18</a></div></div>
+<div class="ttc" id="aa05098_html"><div class="ttname"><a href="a05098.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition</b> <a href="a00698_source.html#l00030">Task.hpp:30</a></div></div>
+<div class="ttc" id="aa05182_html"><div class="ttname"><a href="a05182.html">bl::rc::rg::Timeline</a></div><div class="ttdoc">Execution timeline for the render graph.</div><div class="ttdef"><b>Definition</b> <a href="a00644_source.html#l00037">Timeline.hpp:37</a></div></div>
+<div class="ttc" id="aa05330_html"><div class="ttname"><a href="a05330.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08509_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05334_html"><div class="ttname"><a href="a05334.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

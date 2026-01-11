@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::event::StateChange Struct Reference</title>
+<title>BLIB: bl::tmap Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,80 +74,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02410.html">engine</a></li><li class="navelem"><a class="el" href="a02425.html">event</a></li><li class="navelem"><a class="el" href="a03074.html">StateChange</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03074.html">tmap</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a03071.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::engine::event::StateChange Struct Reference<div class="ingroups"><a class="el" href="a02378.html">Engine</a> &raquo; <a class="el" href="a02395.html">EngineEvents</a></div></div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">bl::tmap Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when the engine switches states.  
- <a href="a03074.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00389_source.html">StateChange.hpp</a>&gt;</code></p>
+<p>Tilemap classes and functionality.  
+<a href="a03074.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ac658b229cad73461262df7d59599c603" id="r_ac658b229cad73461262df7d59599c603"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03122.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03074.html#ac658b229cad73461262df7d59599c603">newState</a></td></tr>
-<tr class="memdesc:ac658b229cad73461262df7d59599c603"><td class="mdescLeft">&#160;</td><td class="mdescRight">The new state of the engine.  <br /></td></tr>
-<tr class="separator:ac658b229cad73461262df7d59599c603"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e182969892b6bbb8c88ee5e75b24047" id="r_a2e182969892b6bbb8c88ee5e75b24047"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03122.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03074.html#a2e182969892b6bbb8c88ee5e75b24047">prevState</a></td></tr>
-<tr class="memdesc:a2e182969892b6bbb8c88ee5e75b24047"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous state of the engine. May be null.  <br /></td></tr>
-<tr class="separator:a2e182969892b6bbb8c88ee5e75b24047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06474.html">Position</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga718359d5f56e8650998bc14f045c3f64" id="r_ga718359d5f56e8650998bc14f045c3f64"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> : std::uint8_t { <a class="el" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a> = 0
+, <a class="el" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a> = 1
+, <a class="el" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a> = 2
+, <a class="el" href="a02985.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a> = 3
+ }</td></tr>
+<tr class="memdesc:ga718359d5f56e8650998bc14f045c3f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction an entity is facing in a tilemap.  <a href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">More...</a><br /></td></tr>
+<tr class="separator:ga718359d5f56e8650998bc14f045c3f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga1d948d110c8c972bc5b6f45d06c9e3f9" id="r_ga1d948d110c8c972bc5b6f45d06c9e3f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">oppositeDirection</a> (<a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir)</td></tr>
+<tr class="memdesc:ga1d948d110c8c972bc5b6f45d06c9e3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Direction that is opposite of the given direction.  <br /></td></tr>
+<tr class="separator:ga1d948d110c8c972bc5b6f45d06c9e3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga220339ef558132abe716abe33a18dadb" id="r_ga220339ef558132abe716abe33a18dadb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html#ga220339ef558132abe716abe33a18dadb">nextClockwiseDirection</a> (<a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir)</td></tr>
+<tr class="memdesc:ga220339ef558132abe716abe33a18dadb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next clockwise direction from the given current direction.  <br /></td></tr>
+<tr class="separator:ga220339ef558132abe716abe33a18dadb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga887ba83d0d54b0b5bd9ffb0ee4018fb7" id="r_ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">nextCounterClockwiseDirection</a> (<a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir)</td></tr>
+<tr class="memdesc:ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next counterclockwise direction from the given current direction.  <br /></td></tr>
+<tr class="separator:ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga50423a802de9a1c43478aab60328719e" id="r_ga50423a802de9a1c43478aab60328719e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html#ga50423a802de9a1c43478aab60328719e">directionFromString</a> (const std::string &amp;dir)</td></tr>
+<tr class="memdesc:ga50423a802de9a1c43478aab60328719e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given string into a direction.  <br /></td></tr>
+<tr class="separator:ga50423a802de9a1c43478aab60328719e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga74da6f2d6ed6515b52ebdb22ecce7997" id="r_ga74da6f2d6ed6515b52ebdb22ecce7997"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02985.html#ga74da6f2d6ed6515b52ebdb22ecce7997">directionToString</a> (<a class="el" href="a02985.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir)</td></tr>
+<tr class="memdesc:ga74da6f2d6ed6515b52ebdb22ecce7997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given direction to a string.  <br /></td></tr>
+<tr class="separator:ga74da6f2d6ed6515b52ebdb22ecce7997"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84928dbe16f6564ef3347e6c1bdb19da" id="r_a84928dbe16f6564ef3347e6c1bdb19da"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03074.html#a84928dbe16f6564ef3347e6c1bdb19da">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="a06474.html">Position</a> &amp;pos)</td></tr>
+<tr class="separator:a84928dbe16f6564ef3347e6c1bdb19da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when the engine switches states. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00016">16</a> of file <a class="el" href="a00389_source.html">StateChange.hpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac658b229cad73461262df7d59599c603" name="ac658b229cad73461262df7d59599c603"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac658b229cad73461262df7d59599c603">&#9670;&#160;</a></span>newState</h2>
+<div class="textblock"><p>Tilemap classes and functionality. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="a84928dbe16f6564ef3347e6c1bdb19da" name="a84928dbe16f6564ef3347e6c1bdb19da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84928dbe16f6564ef3347e6c1bdb19da">&#9670;&#160;</a></span>operator&lt;&lt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03122.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> bl::engine::event::StateChange::newState</td>
+          <td class="memname">std::ostream &amp; bl::tmap::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The new state of the engine. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00018">18</a> of file <a class="el" href="a00389_source.html">StateChange.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2e182969892b6bbb8c88ee5e75b24047" name="a2e182969892b6bbb8c88ee5e75b24047"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e182969892b6bbb8c88ee5e75b24047">&#9670;&#160;</a></span>prevState</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03122.html#af13f7b9dd4d6e317dbc378896ddcf6d5">State::Ptr</a> bl::engine::event::StateChange::prevState</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a06474.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The previous state of the engine. May be null. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00021">21</a> of file <a class="el" href="a00389_source.html">StateChange.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00117">117</a> of file <a class="el" href="a00269_source.html">Position.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Engine/Events/<a class="el" href="a00389_source.html">StateChange.hpp</a></li>
-</ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/Binary.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Lighting/LightingDescriptor3D.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,32 +79,103 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_91f9057575a339ed5473f88b0062d2bc.html">Lighting</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Binary.hpp</div></div>
+  <div class="headertitle"><div class="title">LightingDescriptor3D.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00830.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00851.html">BLIB/Serialization/Binary/InputFile.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;<a class="code" href="a00848.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00842.html">BLIB/Serialization/Binary/OutputFile.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Serialization/Binary/OutputStream.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a06886.html">BLIB/Serialization/Binary/Serializer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00845.html">BLIB/Serialization/Binary/VersionedSerializer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00875.html">BLIB/Serialization/Buffers.hpp</a>&gt;</span></div>
-<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">OutputStream.hpp</a></div></div>
-<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">OutputFile.hpp</a></div></div>
-<div class="ttc" id="aa00845_html"><div class="ttname"><a href="a00845.html">VersionedSerializer.hpp</a></div></div>
-<div class="ttc" id="aa00848_html"><div class="ttname"><a href="a00848.html">InputStream.hpp</a></div></div>
-<div class="ttc" id="aa00851_html"><div class="ttname"><a href="a00851.html">InputFile.hpp</a></div></div>
-<div class="ttc" id="aa00875_html"><div class="ttname"><a href="a00875.html">Buffers.hpp</a></div></div>
-<div class="ttc" id="aa06886_html"><div class="ttname"><a href="a06886.html">Serializer.hpp</a></div></div>
+<a href="a00830.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_LIGHTING_LIGHTINGDESCRIPTOR3D_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_LIGHTING_LIGHTINGDESCRIPTOR3D_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00545.html">BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01016.html">BLIB/Render/Config/Limits.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00818.html">BLIB/Render/Lighting/PointLight3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00839.html">BLIB/Render/Lighting/PointLight3DShadow.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00809.html">BLIB/Render/Lighting/SpotLight3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00827.html">BLIB/Render/Lighting/SpotLight3DShadow.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00836.html">BLIB/Render/Lighting/SunLight3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00770.html">BLIB/Render/ShaderResources/BufferShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a08563.html">BLIB/Render/ShaderResources/Key.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>lgt</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05222.html">   26</a></span><span class="keyword">struct </span><span class="keyword">alignas</span>(16) <a class="code hl_struct" href="a05222.html">LightingDescriptor3D</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a05222.html#ab2e810c2fefadd4fc3071c2777bd98f2">   27</a></span>    <a class="code hl_struct" href="a05266.html">SunLight3D</a> <a class="code hl_variable" href="a05222.html#ab2e810c2fefadd4fc3071c2777bd98f2">sun</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a05222.html#a4bccdcbc0c7c88a7220be1883621c4b0">   28</a></span>    <span class="keyword">alignas</span>(16) glm::vec3 <a class="code hl_variable" href="a05222.html#a4bccdcbc0c7c88a7220be1883621c4b0">globalAmbient</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05222.html#a6c171f9e0806cdd7fe4f22cd236c3bcb">   29</a></span>    std::uint32_t <a class="code hl_variable" href="a05222.html#a6c171f9e0806cdd7fe4f22cd236c3bcb">nPointLights</a>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a05222.html#a4852e84fa2acd30eeeaca607f1eded0d">   30</a></span>    std::uint32_t <a class="code hl_variable" href="a05222.html#a4852e84fa2acd30eeeaca607f1eded0d">nSpotLights</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05222.html#a5bac43c5fd0d5ca8714635e132da90c2">   31</a></span>    std::uint32_t <a class="code hl_variable" href="a05222.html#a5bac43c5fd0d5ca8714635e132da90c2">nPointShadows</a>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a05222.html#a70e513449a84196ac1faf50fcc43e4ac">   32</a></span>    std::uint32_t <a class="code hl_variable" href="a05222.html#a70e513449a84196ac1faf50fcc43e4ac">nSpotShadows</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a05222.html#a349c090af7fad84c9558cdeb0373c839">   33</a></span>    std::array&lt;SpotLight3D, cfg::Limits::MaxSpotLights&gt; <a class="code hl_variable" href="a05222.html#a349c090af7fad84c9558cdeb0373c839">spotlights</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a05222.html#aa772a48c584d0f971ad1aabba9b05b7c">   34</a></span>    std::array&lt;SpotLight3DShadow, cfg::Limits::MaxSpotShadows&gt; <a class="code hl_variable" href="a05222.html#aa772a48c584d0f971ad1aabba9b05b7c">spotlightsWithShadows</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05222.html#a8f4f5ce43529ef3a087ed733796c1101">   35</a></span>    std::array&lt;PointLight3D, cfg::Limits::MaxPointLights&gt; <a class="code hl_variable" href="a05222.html#a8f4f5ce43529ef3a087ed733796c1101">pointLights</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a05222.html#a1cc4c3636eb20c69f9cd6a51f8aeb342">   36</a></span>    std::array&lt;PointLight3DShadow, cfg::Limits::MaxPointShadows&gt; <a class="code hl_variable" href="a05222.html#a1cc4c3636eb20c69f9cd6a51f8aeb342">pointLightsWithShadows</a>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05222.html#a491377be5204e1120405c5bb7372b877">   41</a></span>    <a class="code hl_function" href="a05222.html#a491377be5204e1120405c5bb7372b877">LightingDescriptor3D</a>()</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    : <a class="code hl_variable" href="a05222.html#ab2e810c2fefadd4fc3071c2777bd98f2">sun</a>()</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    , <a class="code hl_variable" href="a05222.html#a4bccdcbc0c7c88a7220be1883621c4b0">globalAmbient</a>(0.f)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    , <a class="code hl_variable" href="a05222.html#a6c171f9e0806cdd7fe4f22cd236c3bcb">nPointLights</a>(0)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    , <a class="code hl_variable" href="a05222.html#a4852e84fa2acd30eeeaca607f1eded0d">nSpotLights</a>(0)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    , <a class="code hl_variable" href="a05222.html#a5bac43c5fd0d5ca8714635e132da90c2">nPointShadows</a>(0)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    , <a class="code hl_variable" href="a05222.html#a70e513449a84196ac1faf50fcc43e4ac">nSpotShadows</a>(0) {}</div>
+</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>};</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>} <span class="comment">// namespace lgt</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">namespace </span>sri</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>{</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a02979.html#gaeee495c9866c961b96148a2158fe37ce">   59</a></span><span class="keyword">using </span><a class="code hl_class" href="a05526.html">LightingBuffer3D</a> =</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <a class="code hl_class" href="a05526.html">sr::BufferShaderResource&lt;buf::BufferSingleDeviceLocalSourcedUBO&lt;lgt::LightingDescriptor3D&gt;</a>, 1&gt;;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a03052.html#a18ca49e44fd8a955a5040115b4ac7a3a">   62</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a05566.html">sr::Key&lt;LightingBuffer3D&gt;</a> <a class="code hl_function" href="a03052.html#a18ca49e44fd8a955a5040115b4ac7a3a">Scene3DLightingKey</a>(<span class="stringliteral">&quot;__builtin_Scene3DLighting&quot;</span>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace sri</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00545_html"><div class="ttname"><a href="a00545.html">BufferSingleDeviceLocalSourced.hpp</a></div></div>
+<div class="ttc" id="aa00770_html"><div class="ttname"><a href="a00770.html">BufferShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa00809_html"><div class="ttname"><a href="a00809.html">SpotLight3D.hpp</a></div></div>
+<div class="ttc" id="aa00818_html"><div class="ttname"><a href="a00818.html">PointLight3D.hpp</a></div></div>
+<div class="ttc" id="aa00827_html"><div class="ttname"><a href="a00827.html">SpotLight3DShadow.hpp</a></div></div>
+<div class="ttc" id="aa00836_html"><div class="ttname"><a href="a00836.html">SunLight3D.hpp</a></div></div>
+<div class="ttc" id="aa00839_html"><div class="ttname"><a href="a00839.html">PointLight3DShadow.hpp</a></div></div>
+<div class="ttc" id="aa01016_html"><div class="ttname"><a href="a01016.html">Limits.hpp</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03052_html_a18ca49e44fd8a955a5040115b4ac7a3a"><div class="ttname"><a href="a03052.html#a18ca49e44fd8a955a5040115b4ac7a3a">bl::rc::sri::Scene3DLightingKey</a></div><div class="ttdeci">constexpr sr::Key&lt; LightingBuffer3D &gt; Scene3DLightingKey(&quot;__builtin_Scene3DLighting&quot;)</div></div>
+<div class="ttc" id="aa05222_html"><div class="ttname"><a href="a05222.html">bl::rc::lgt::LightingDescriptor3D</a></div><div class="ttdoc">Basic struct containing lighting info for 3d scenes (excluding point &amp; spot lights)</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00026">LightingDescriptor3D.hpp:26</a></div></div>
+<div class="ttc" id="aa05222_html_a1cc4c3636eb20c69f9cd6a51f8aeb342"><div class="ttname"><a href="a05222.html#a1cc4c3636eb20c69f9cd6a51f8aeb342">bl::rc::lgt::LightingDescriptor3D::pointLightsWithShadows</a></div><div class="ttdeci">std::array&lt; PointLight3DShadow, cfg::Limits::MaxPointShadows &gt; pointLightsWithShadows</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00036">LightingDescriptor3D.hpp:36</a></div></div>
+<div class="ttc" id="aa05222_html_a349c090af7fad84c9558cdeb0373c839"><div class="ttname"><a href="a05222.html#a349c090af7fad84c9558cdeb0373c839">bl::rc::lgt::LightingDescriptor3D::spotlights</a></div><div class="ttdeci">std::array&lt; SpotLight3D, cfg::Limits::MaxSpotLights &gt; spotlights</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00033">LightingDescriptor3D.hpp:33</a></div></div>
+<div class="ttc" id="aa05222_html_a4852e84fa2acd30eeeaca607f1eded0d"><div class="ttname"><a href="a05222.html#a4852e84fa2acd30eeeaca607f1eded0d">bl::rc::lgt::LightingDescriptor3D::nSpotLights</a></div><div class="ttdeci">std::uint32_t nSpotLights</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00030">LightingDescriptor3D.hpp:30</a></div></div>
+<div class="ttc" id="aa05222_html_a491377be5204e1120405c5bb7372b877"><div class="ttname"><a href="a05222.html#a491377be5204e1120405c5bb7372b877">bl::rc::lgt::LightingDescriptor3D::LightingDescriptor3D</a></div><div class="ttdeci">LightingDescriptor3D()</div><div class="ttdoc">Initializes with sane defaults.</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00041">LightingDescriptor3D.hpp:41</a></div></div>
+<div class="ttc" id="aa05222_html_a4bccdcbc0c7c88a7220be1883621c4b0"><div class="ttname"><a href="a05222.html#a4bccdcbc0c7c88a7220be1883621c4b0">bl::rc::lgt::LightingDescriptor3D::globalAmbient</a></div><div class="ttdeci">glm::vec3 globalAmbient</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00028">LightingDescriptor3D.hpp:28</a></div></div>
+<div class="ttc" id="aa05222_html_a5bac43c5fd0d5ca8714635e132da90c2"><div class="ttname"><a href="a05222.html#a5bac43c5fd0d5ca8714635e132da90c2">bl::rc::lgt::LightingDescriptor3D::nPointShadows</a></div><div class="ttdeci">std::uint32_t nPointShadows</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00031">LightingDescriptor3D.hpp:31</a></div></div>
+<div class="ttc" id="aa05222_html_a6c171f9e0806cdd7fe4f22cd236c3bcb"><div class="ttname"><a href="a05222.html#a6c171f9e0806cdd7fe4f22cd236c3bcb">bl::rc::lgt::LightingDescriptor3D::nPointLights</a></div><div class="ttdeci">std::uint32_t nPointLights</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00029">LightingDescriptor3D.hpp:29</a></div></div>
+<div class="ttc" id="aa05222_html_a70e513449a84196ac1faf50fcc43e4ac"><div class="ttname"><a href="a05222.html#a70e513449a84196ac1faf50fcc43e4ac">bl::rc::lgt::LightingDescriptor3D::nSpotShadows</a></div><div class="ttdeci">std::uint32_t nSpotShadows</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00032">LightingDescriptor3D.hpp:32</a></div></div>
+<div class="ttc" id="aa05222_html_a8f4f5ce43529ef3a087ed733796c1101"><div class="ttname"><a href="a05222.html#a8f4f5ce43529ef3a087ed733796c1101">bl::rc::lgt::LightingDescriptor3D::pointLights</a></div><div class="ttdeci">std::array&lt; PointLight3D, cfg::Limits::MaxPointLights &gt; pointLights</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00035">LightingDescriptor3D.hpp:35</a></div></div>
+<div class="ttc" id="aa05222_html_aa772a48c584d0f971ad1aabba9b05b7c"><div class="ttname"><a href="a05222.html#aa772a48c584d0f971ad1aabba9b05b7c">bl::rc::lgt::LightingDescriptor3D::spotlightsWithShadows</a></div><div class="ttdeci">std::array&lt; SpotLight3DShadow, cfg::Limits::MaxSpotShadows &gt; spotlightsWithShadows</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00034">LightingDescriptor3D.hpp:34</a></div></div>
+<div class="ttc" id="aa05222_html_ab2e810c2fefadd4fc3071c2777bd98f2"><div class="ttname"><a href="a05222.html#ab2e810c2fefadd4fc3071c2777bd98f2">bl::rc::lgt::LightingDescriptor3D::sun</a></div><div class="ttdeci">SunLight3D sun</div><div class="ttdef"><b>Definition</b> <a href="a00830_source.html#l00027">LightingDescriptor3D.hpp:27</a></div></div>
+<div class="ttc" id="aa05266_html"><div class="ttname"><a href="a05266.html">bl::rc::lgt::SunLight3D</a></div><div class="ttdoc">Basic struct representing a global directional light in a scene.</div><div class="ttdef"><b>Definition</b> <a href="a00836_source.html#l00018">SunLight3D.hpp:18</a></div></div>
+<div class="ttc" id="aa05526_html"><div class="ttname"><a href="a05526.html">bl::rc::sr::BufferShaderResource</a></div><div class="ttdoc">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.</div><div class="ttdef"><b>Definition</b> <a href="a00770_source.html#l00024">BufferShaderResource.hpp:24</a></div></div>
+<div class="ttc" id="aa05566_html"><div class="ttname"><a href="a05566.html">bl::rc::sr::Key</a></div><div class="ttdoc">Key type for a shader resource. Allows encoding both type and id into one value.</div><div class="ttdef"><b>Definition</b> <a href="a08563_source.html#l00020">Key.hpp:20</a></div></div>
+<div class="ttc" id="aa08563_html"><div class="ttname"><a href="a08563.html">Key.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

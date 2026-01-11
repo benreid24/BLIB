@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/BatchCircle.cpp Source File</title>
+<title>BLIB: src/Render/Materials/MaterialPipelineSettings.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,45 +79,190 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_6fe903dd5fe71d47ea17cfcc0e036653.html">Materials</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">BatchCircle.cpp</div></div>
+  <div class="headertitle"><div class="title">MaterialPipelineSettings.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02072.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00935.html">BLIB/Graphics/BatchCircle.hpp</a>&gt;</span></div>
+<a href="a02072.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Render/Materials/MaterialPipelineSettings.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>gfx</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03242.html#a608a90b671eb76d697a827b98c989926">    7</a></span><a class="code hl_function" href="a03242.html#a608a90b671eb76d697a827b98c989926">BatchCircle::BatchCircle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: CircleBase(pointCount) {}</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01004.html">BLIB/Render/Config/PipelineIds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Render/Config/RenderPhases.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>mat</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a05286.html#abaa3aa81e6ecc553462fe68b368b15f4">   12</a></span><a class="code hl_function" href="a05286.html#abaa3aa81e6ecc553462fe68b368b15f4">MaterialPipelineSettings::MaterialPipelineSettings</a>(std::uint32_t pipelineId)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: mainPipeline(pipelineId, 0) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    renderPhaseOverrides.fill(<a class="code hl_enumvalue" href="a05286.html#a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652">NoOverride</a>);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    mainPipeline.specialization = <a class="code hl_variable" href="a05286.html#abf8d5c1ddf85e6a9689b3564083b93d4">ObjectSpecialization</a>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a03242.html#afb1bb88aa076118b195162f3fea2b141">   10</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03242.html#afb1bb88aa076118b195162f3fea2b141">BatchCircle::create</a>(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a03246.html">BatchedShapes2D</a>&amp; owner, <span class="keywordtype">float</span> r) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_function" href="a03326.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    BatchShape2D::create(engine, owner);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a05286.html#a2fe23d40d504f8de1e0848ac7da1d409">   18</a></span><a class="code hl_function" href="a05286.html#abaa3aa81e6ecc553462fe68b368b15f4">MaterialPipelineSettings::MaterialPipelineSettings</a>(<a class="code hl_class" href="a05754.html">vk::PipelineParameters</a>* pipelineParams)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>: mainPipeline(pipelineParams, 0) {}</div>
 </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00935_html"><div class="ttname"><a href="a00935.html">BatchCircle.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa03242_html_a608a90b671eb76d697a827b98c989926"><div class="ttname"><a href="a03242.html#a608a90b671eb76d697a827b98c989926">bl::gfx::BatchCircle::BatchCircle</a></div><div class="ttdeci">BatchCircle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00007">BatchCircle.cpp:7</a></div></div>
-<div class="ttc" id="aa03242_html_afb1bb88aa076118b195162f3fea2b141"><div class="ttname"><a href="a03242.html#afb1bb88aa076118b195162f3fea2b141">bl::gfx::BatchCircle::create</a></div><div class="ttdeci">void create(engine::Engine &amp;engine, BatchedShapes2D &amp;owner, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00010">BatchCircle.cpp:10</a></div></div>
-<div class="ttc" id="aa03246_html"><div class="ttname"><a href="a03246.html">bl::gfx::BatchedShapes2D</a></div><div class="ttdoc">Drawable for a collection of batched 2d shapes. Create one of these and use with multiple BatchedCirc...</div><div class="ttdef"><b>Definition</b> <a href="a06310_source.html#l00020">BatchedShapes2D.hpp:22</a></div></div>
-<div class="ttc" id="aa03326_html_ade9c3d7c900c2b150bf0812f79720a1c"><div class="ttname"><a href="a03326.html#ade9c3d7c900c2b150bf0812f79720a1c">bl::gfx::s2d::CircleBase&lt; s2d::BatchShape2D &gt;::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the circles radius.</div><div class="ttdef"><b>Definition</b> <a href="a00980_source.html#l00038">CircleBase.hpp:90</a></div></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05286.html#a978b408fc5429785cd04d0e4081e6e58">   21</a></span><a class="code hl_function" href="a05286.html#abaa3aa81e6ecc553462fe68b368b15f4">MaterialPipelineSettings::MaterialPipelineSettings</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; copy)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: mainPipeline(copy.mainPipeline)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>, renderPhaseOverrides(copy.renderPhaseOverrides) {}</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05286.html#acc7fbf6069aea983220d8c32d62e292f">   25</a></span><a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; <a class="code hl_function" href="a05286.html#acc7fbf6069aea983220d8c32d62e292f">MaterialPipelineSettings::withPipeline</a>(std::uint32_t pid) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    mainPipeline = PipelineInfo(pid, 0);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a05286.html#abeb12da78e9ff2e70ee023ee64578cd0">   30</a></span><a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; <a class="code hl_function" href="a05286.html#acc7fbf6069aea983220d8c32d62e292f">MaterialPipelineSettings::withPipeline</a>(<a class="code hl_class" href="a05754.html">vk::PipelineParameters</a>* params) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    mainPipeline = PipelineInfo(params, 0);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05286.html#ad3b9d08d1e824f8017097cb0bf6fb8b7">   35</a></span><a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; <a class="code hl_function" href="a05286.html#ad3b9d08d1e824f8017097cb0bf6fb8b7">MaterialPipelineSettings::withRenderPhasePipelineOverride</a>(</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> phase, <a class="code hl_enumeration" href="a05286.html#a6d31b5eaedea9c06a1776d826992de9d">PhasePipelineOverride</a> overrideBehavior) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    renderPhaseOverrides[phase] = PipelineInfo(overrideBehavior);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05286.html#ab9b31fec09c2ffe177f44e400e48ea9b">   41</a></span><a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; <a class="code hl_function" href="a05286.html#ad3b9d08d1e824f8017097cb0bf6fb8b7">MaterialPipelineSettings::withRenderPhasePipelineOverride</a>(</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> phase, std::uint32_t pipelineId, std::uint32_t specialization) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    renderPhaseOverrides[phase] = PipelineInfo(pipelineId, specialization);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a05286.html#af1c9fb3b08df967f24471acd76bc701f">   47</a></span><a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; <a class="code hl_function" href="a05286.html#ad3b9d08d1e824f8017097cb0bf6fb8b7">MaterialPipelineSettings::withRenderPhasePipelineOverride</a>(</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> phase, <a class="code hl_class" href="a05754.html">vk::PipelineParameters</a>* params, std::uint32_t specialization) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    renderPhaseOverrides[phase] = PipelineInfo(params, specialization);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a05286.html#aad70f66a14a283bb6600ec84e0331a3d">   53</a></span><a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp;&amp; <a class="code hl_function" href="a05286.html#aad70f66a14a283bb6600ec84e0331a3d">MaterialPipelineSettings::build</a>() {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keyword">const</span> <span class="keyword">auto</span> validatePipeline = [<span class="keyword">this</span>](<span class="keyword">const</span> PipelineInfo&amp; info) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordflow">if</span> (info.pipelineParams != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">if</span> (info.id != <a class="code hl_variable" href="a04790.html#a86d4ce28895ca676ab329b921cf1da76">cfg::PipelineIds::None</a>) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                    &lt;&lt; <span class="stringliteral">&quot;Material pipeline cannot have both a pipeline id and parameters&quot;</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">if</span> (info.overrideBehavior != <a class="code hl_enumvalue" href="a05286.html#a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652">PhasePipelineOverride::NoOverride</a>) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Material pipeline cannot have both an override and parameters&quot;</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            info.pipelineParams-&gt;<a class="code hl_function" href="a05286.html#aad70f66a14a283bb6600ec84e0331a3d">build</a>();</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (info.id != <a class="code hl_variable" href="a04790.html#a86d4ce28895ca676ab329b921cf1da76">cfg::PipelineIds::None</a>) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keywordflow">if</span> (info.overrideBehavior != <a class="code hl_enumvalue" href="a05286.html#a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652">PhasePipelineOverride::NoOverride</a>) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Material pipeline cannot have both an override and id&quot;</span>;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>            <span class="keywordflow">if</span> (info.pipelineParams != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                    &lt;&lt; <span class="stringliteral">&quot;Material pipeline cannot have both a pipeline id and parameters&quot;</span>;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">if</span> (info.overrideBehavior != <a class="code hl_enumvalue" href="a05286.html#a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652">PhasePipelineOverride::NoOverride</a>) {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            <span class="keywordflow">if</span> (info.pipelineParams != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Material pipeline cannot have both an override behavior and &quot;</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                   <span class="stringliteral">&quot;pipeline parameters&quot;</span>;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">if</span> (info.id != <a class="code hl_variable" href="a04790.html#a86d4ce28895ca676ab329b921cf1da76">cfg::PipelineIds::None</a>) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                    &lt;&lt; <span class="stringliteral">&quot;Material pipeline cannot have both an override behavior and pipeline id&quot;</span>;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    };</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (mainPipeline.pipelineParams == <span class="keyword">nullptr</span> &amp;&amp; mainPipeline.id == <a class="code hl_variable" href="a04790.html#a86d4ce28895ca676ab329b921cf1da76">cfg::PipelineIds::None</a> &amp;&amp;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        mainPipeline.overrideBehavior == <a class="code hl_enumvalue" href="a05286.html#a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652">PhasePipelineOverride::NoOverride</a>) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Material pipeline is missing a valid pipeline&quot;</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid material pipeline settings&quot;</span>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">if</span> (!validatePipeline(mainPipeline)) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid material pipeline settings&quot;</span>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 8; ++i) {</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keywordflow">if</span> (!validatePipeline(renderPhaseOverrides[i])) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Invalid material pipeline settings for phase: &quot;</span> +</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                                     std::to_string(0x1 &lt;&lt; i));</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        }</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">return</span> std::move(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
+</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="foldopen" id="foldopen00117" data-start="{" data-end="}">
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="a05286.html#afd70c5e24b0543eacd18bad274574ed3">  117</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05286.html#afd70c5e24b0543eacd18bad274574ed3">MaterialPipelineSettings::operator==</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (mainPipeline != right.mainPipeline) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_variable" href="a04782.html#a59cc00ea4c49ce6a18e00b577ee2a0cf">cfg::Limits::MaxRenderPhases</a>; ++i) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">if</span> (renderPhaseOverrides[i] != right.renderPhaseOverrides[i]) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a05286.html#a571fe5b9baa5365d636abbd51613d1b8">  125</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a05286.html#a571fe5b9baa5365d636abbd51613d1b8">MaterialPipelineSettings::operator!=</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05286.html">MaterialPipelineSettings</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">return</span> !this-&gt;<a class="code hl_function" href="a05286.html#afd70c5e24b0543eacd18bad274574ed3">operator==</a>(right);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>} <span class="comment">// namespace mat</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">MaterialPipelineSettings.hpp</a></div></div>
+<div class="ttc" id="aa01004_html"><div class="ttname"><a href="a01004.html">PipelineIds.hpp</a></div></div>
+<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">RenderPhases.hpp</a></div></div>
+<div class="ttc" id="aa01586_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00098">Logger.hpp:98</a></div></div>
+<div class="ttc" id="aa02979_html_ga9cff422b0b5d7b144baff1cc32aa2142"><div class="ttname"><a href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">bl::rc::RenderPhase</a></div><div class="ttdeci">std::uint8_t RenderPhase</div><div class="ttdoc">Enum representing the different possible phases of rendering.</div><div class="ttdef"><b>Definition</b> <a href="a00563_source.html#l00015">RenderPhase.hpp:15</a></div></div>
+<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04782_html_a59cc00ea4c49ce6a18e00b577ee2a0cf"><div class="ttname"><a href="a04782.html#a59cc00ea4c49ce6a18e00b577ee2a0cf">bl::rc::cfg::Limits::MaxRenderPhases</a></div><div class="ttdeci">static constexpr std::size_t MaxRenderPhases</div><div class="ttdef"><b>Definition</b> <a href="a01016_source.html#l00031">Limits.hpp:31</a></div></div>
+<div class="ttc" id="aa04790_html_a86d4ce28895ca676ab329b921cf1da76"><div class="ttname"><a href="a04790.html#a86d4ce28895ca676ab329b921cf1da76">bl::rc::cfg::PipelineIds::None</a></div><div class="ttdeci">static constexpr std::uint32_t None</div><div class="ttdef"><b>Definition</b> <a href="a01004_source.html#l00018">PipelineIds.hpp:18</a></div></div>
+<div class="ttc" id="aa05286_html"><div class="ttname"><a href="a05286.html">bl::rc::mat::MaterialPipelineSettings</a></div><div class="ttdoc">Settings that define the behavior of a material pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00024">MaterialPipelineSettings.hpp:24</a></div></div>
+<div class="ttc" id="aa05286_html_a571fe5b9baa5365d636abbd51613d1b8"><div class="ttname"><a href="a05286.html#a571fe5b9baa5365d636abbd51613d1b8">bl::rc::mat::MaterialPipelineSettings::operator!=</a></div><div class="ttdeci">bool operator!=(const MaterialPipelineSettings &amp;right) const</div><div class="ttdoc">Returns whether these settings are not equal to the given settings.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00125">MaterialPipelineSettings.cpp:125</a></div></div>
+<div class="ttc" id="aa05286_html_a6d31b5eaedea9c06a1776d826992de9d"><div class="ttname"><a href="a05286.html#a6d31b5eaedea9c06a1776d826992de9d">bl::rc::mat::MaterialPipelineSettings::PhasePipelineOverride</a></div><div class="ttdeci">PhasePipelineOverride</div><div class="ttdoc">Represents the behavior of a pipeline override for a given render phase.</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00027">MaterialPipelineSettings.hpp:27</a></div></div>
+<div class="ttc" id="aa05286_html_a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652"><div class="ttname"><a href="a05286.html#a6d31b5eaedea9c06a1776d826992de9da58c564cccf52574d4edbfb75dcc9a652">bl::rc::mat::MaterialPipelineSettings::NoOverride</a></div><div class="ttdeci">@ NoOverride</div><div class="ttdoc">Do not override the pipeline for this render phase.</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00029">MaterialPipelineSettings.hpp:29</a></div></div>
+<div class="ttc" id="aa05286_html_aad70f66a14a283bb6600ec84e0331a3d"><div class="ttname"><a href="a05286.html#aad70f66a14a283bb6600ec84e0331a3d">bl::rc::mat::MaterialPipelineSettings::build</a></div><div class="ttdeci">MaterialPipelineSettings &amp;&amp; build()</div><div class="ttdoc">Validates the settings and returns an rvalue reference to this object.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00053">MaterialPipelineSettings.cpp:53</a></div></div>
+<div class="ttc" id="aa05286_html_abaa3aa81e6ecc553462fe68b368b15f4"><div class="ttname"><a href="a05286.html#abaa3aa81e6ecc553462fe68b368b15f4">bl::rc::mat::MaterialPipelineSettings::MaterialPipelineSettings</a></div><div class="ttdeci">MaterialPipelineSettings(std::uint32_t pipelineId)</div><div class="ttdoc">Creates default settings and uses the given pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00012">MaterialPipelineSettings.cpp:12</a></div></div>
+<div class="ttc" id="aa05286_html_abf8d5c1ddf85e6a9689b3564083b93d4"><div class="ttname"><a href="a05286.html#abf8d5c1ddf85e6a9689b3564083b93d4">bl::rc::mat::MaterialPipelineSettings::ObjectSpecialization</a></div><div class="ttdeci">static constexpr std::uint32_t ObjectSpecialization</div><div class="ttdoc">Special value that indicates to use the specialization of the object being rendered.</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00036">MaterialPipelineSettings.hpp:36</a></div></div>
+<div class="ttc" id="aa05286_html_acc7fbf6069aea983220d8c32d62e292f"><div class="ttname"><a href="a05286.html#acc7fbf6069aea983220d8c32d62e292f">bl::rc::mat::MaterialPipelineSettings::withPipeline</a></div><div class="ttdeci">MaterialPipelineSettings &amp; withPipeline(std::uint32_t pipelineId)</div><div class="ttdoc">Sets the pipeline to use.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00025">MaterialPipelineSettings.cpp:25</a></div></div>
+<div class="ttc" id="aa05286_html_ad3b9d08d1e824f8017097cb0bf6fb8b7"><div class="ttname"><a href="a05286.html#ad3b9d08d1e824f8017097cb0bf6fb8b7">bl::rc::mat::MaterialPipelineSettings::withRenderPhasePipelineOverride</a></div><div class="ttdeci">MaterialPipelineSettings &amp; withRenderPhasePipelineOverride(RenderPhase phase, PhasePipelineOverride overrideBehavior)</div><div class="ttdoc">Sets an override for the given render phase using fixed behavior. The default is to override shadow m...</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00035">MaterialPipelineSettings.cpp:35</a></div></div>
+<div class="ttc" id="aa05286_html_afd70c5e24b0543eacd18bad274574ed3"><div class="ttname"><a href="a05286.html#afd70c5e24b0543eacd18bad274574ed3">bl::rc::mat::MaterialPipelineSettings::operator==</a></div><div class="ttdeci">bool operator==(const MaterialPipelineSettings &amp;right) const</div><div class="ttdoc">Returns whether these settings are equal to the given settings.</div><div class="ttdef"><b>Definition</b> <a href="a02072_source.html#l00117">MaterialPipelineSettings.cpp:117</a></div></div>
+<div class="ttc" id="aa05754_html"><div class="ttname"><a href="a05754.html">bl::rc::vk::PipelineParameters</a></div><div class="ttdoc">Parameters used to create a Pipeline. This class performs some basic validation and provides sane def...</div><div class="ttdef"><b>Definition</b> <a href="a00467_source.html#l00036">PipelineParameters.hpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

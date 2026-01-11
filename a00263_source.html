@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Systems/Transform2DDescriptorSystem.hpp Source File</title>
+<title>BLIB: include/BLIB/Resources.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,67 +79,58 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Transform2DDescriptorSystem.hpp</div></div>
+  <div class="headertitle"><div class="title">Resources.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00263.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SYSTEMS_TRANSFORM2DDESCRIPTORSYSTEM_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SYSTEMS_TRANSFORM2DDESCRIPTORSYSTEM_HPP</span></div>
+<a href="a00263.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RESOURCES_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RESOURCES_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a06361.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00107.html">BLIB/Components/Velocity2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/ECS.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a06865.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02402.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>sys</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05270.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a05270.html">Transform2DDescriptorSystem</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03130.html">engine::System</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="a05270.html#a7ea148facfb8b44362e26c299efd2f19">Transform2DDescriptorSystem</a>();</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a05270.html#a0f97a251776298f121130098156b5a42">   29</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05270.html#a0f97a251776298f121130098156b5a42">~Transform2DDescriptorSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">using </span><a class="code hl_struct" href="a02966.html">InterpTags</a> = <a class="code hl_struct" href="a02966.html">ecs::Tags&lt;ecs::Require&lt;com::Velocity2D, com::Transform2D&gt;</a>&gt;;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">using </span><a class="code hl_struct" href="a02966.html">PosTags</a> =</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <a class="code hl_struct" href="a02966.html">ecs::Tags&lt;ecs::Require&lt;com::Transform2D&gt;</a>, <a class="code hl_struct" href="a02958.html">ecs::Optional&lt;&gt;</a>, <a class="code hl_struct" href="a02962.html">ecs::Exclude&lt;com::Velocity2D&gt;</a>&gt;;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    InterpTags::TView* interpView;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    PosTags::TView* posOnlyView;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp;, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_class" href="a03046.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>};</div>
-</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace sys</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00107_html"><div class="ttname"><a href="a00107.html">Velocity2D.hpp</a></div></div>
-<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">ECS.hpp</a></div></div>
-<div class="ttc" id="aa02402_html"><div class="ttname"><a href="a02402.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a01472_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa02958_html"><div class="ttname"><a href="a02958.html">bl::ecs::Optional</a></div><div class="ttdoc">Tag that indicates a set of components are optional.</div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00044">Tags.hpp:44</a></div></div>
-<div class="ttc" id="aa02962_html"><div class="ttname"><a href="a02962.html">bl::ecs::Exclude</a></div><div class="ttdoc">Tag that indicates a set of components are excluded.</div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00053">Tags.hpp:53</a></div></div>
-<div class="ttc" id="aa02966_html"><div class="ttname"><a href="a02966.html">bl::ecs::Tags</a></div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00056">Tags.hpp:56</a></div></div>
-<div class="ttc" id="aa03046_html"><div class="ttname"><a href="a03046.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a06373_source.html#l00038">Engine.hpp:38</a></div></div>
-<div class="ttc" id="aa03130_html"><div class="ttname"><a href="a03130.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition</b> <a href="a06865_source.html#l00018">System.hpp:18</a></div></div>
-<div class="ttc" id="aa05270_html"><div class="ttname"><a href="a05270.html">bl::sys::Transform2DDescriptorSystem</a></div><div class="ttdoc">System that updates 2d transforms into renderer descriptor sets. Also performs interpolation for enti...</div><div class="ttdef"><b>Definition</b> <a href="a00263_source.html#l00019">Transform2DDescriptorSystem.hpp:19</a></div></div>
-<div class="ttc" id="aa05270_html_a0f97a251776298f121130098156b5a42"><div class="ttname"><a href="a05270.html#a0f97a251776298f121130098156b5a42">bl::sys::Transform2DDescriptorSystem::~Transform2DDescriptorSystem</a></div><div class="ttdeci">virtual ~Transform2DDescriptorSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa05270_html_a7ea148facfb8b44362e26c299efd2f19"><div class="ttname"><a href="a05270.html#a7ea148facfb8b44362e26c299efd2f19">bl::sys::Transform2DDescriptorSystem::Transform2DDescriptorSystem</a></div><div class="ttdeci">Transform2DDescriptorSystem()</div><div class="ttdoc">Initializes the system.</div><div class="ttdef"><b>Definition</b> <a href="a01640_source.html#l00009">Transform2DDescriptorSystem.cpp:9</a></div></div>
-<div class="ttc" id="aa06361_html"><div class="ttname"><a href="a06361.html">Transform2D.hpp</a></div></div>
-<div class="ttc" id="aa06865_html"><div class="ttname"><a href="a06865.html">System.hpp</a></div></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01715.html">BLIB/Resources/FileSystem.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a01706.html">BLIB/Resources/GarbageCollector.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01751.html">BLIB/Resources/Loader.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01700.html">BLIB/Resources/Ref.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a01709.html">BLIB/Resources/Resource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a01703.html">BLIB/Resources/ResourceManager.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a01712.html">BLIB/Resources/Bundler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a01724.html">BLIB/Resources/Bundling/BundleMetadata.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a01727.html">BLIB/Resources/Bundling/BundleSource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a01742.html">BLIB/Resources/Bundling/BundledFileMetadata.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a08023.html">BLIB/Resources/Bundling/Config.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a01748.html">BLIB/Resources/Bundling/FileHandler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a01718.html">BLIB/Resources/Bundling/FileHandlerContext.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#include &lt;<a class="code" href="a01733.html">BLIB/Resources/Bundling/FileHandlers/AnimationHandler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#include &lt;<a class="code" href="a01736.html">BLIB/Resources/Bundling/FileHandlers/DefaultHandler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">#include &lt;<a class="code" href="a01730.html">BLIB/Resources/Bundling/FileHandlers/PlaylistHandler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">#include &lt;<a class="code" href="a01745.html">BLIB/Resources/Bundling/Manifest.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01700_html"><div class="ttname"><a href="a01700.html">Ref.hpp</a></div></div>
+<div class="ttc" id="aa01703_html"><div class="ttname"><a href="a01703.html">ResourceManager.hpp</a></div></div>
+<div class="ttc" id="aa01706_html"><div class="ttname"><a href="a01706.html">GarbageCollector.hpp</a></div></div>
+<div class="ttc" id="aa01709_html"><div class="ttname"><a href="a01709.html">Resource.hpp</a></div></div>
+<div class="ttc" id="aa01712_html"><div class="ttname"><a href="a01712.html">Bundler.hpp</a></div></div>
+<div class="ttc" id="aa01715_html"><div class="ttname"><a href="a01715.html">FileSystem.hpp</a></div></div>
+<div class="ttc" id="aa01718_html"><div class="ttname"><a href="a01718.html">FileHandlerContext.hpp</a></div></div>
+<div class="ttc" id="aa01724_html"><div class="ttname"><a href="a01724.html">BundleMetadata.hpp</a></div></div>
+<div class="ttc" id="aa01727_html"><div class="ttname"><a href="a01727.html">BundleSource.hpp</a></div></div>
+<div class="ttc" id="aa01730_html"><div class="ttname"><a href="a01730.html">PlaylistHandler.hpp</a></div></div>
+<div class="ttc" id="aa01733_html"><div class="ttname"><a href="a01733.html">AnimationHandler.hpp</a></div></div>
+<div class="ttc" id="aa01736_html"><div class="ttname"><a href="a01736.html">DefaultHandler.hpp</a></div></div>
+<div class="ttc" id="aa01742_html"><div class="ttname"><a href="a01742.html">BundledFileMetadata.hpp</a></div></div>
+<div class="ttc" id="aa01745_html"><div class="ttname"><a href="a01745.html">Manifest.hpp</a></div></div>
+<div class="ttc" id="aa01748_html"><div class="ttname"><a href="a01748.html">FileHandler.hpp</a></div></div>
+<div class="ttc" id="aa01751_html"><div class="ttname"><a href="a01751.html">Loader.hpp</a></div></div>
+<div class="ttc" id="aa08023_html"><div class="ttname"><a href="a08023.html">Config.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

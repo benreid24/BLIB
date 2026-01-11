@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::VulkanState Struct Reference</title>
+<title>BLIB: bl::rc::buf::BatchIndexBufferT&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,144 +74,108 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02412.html">rc</a></li><li class="navelem"><a class="el" href="a02413.html">vk</a></li><li class="navelem"><a class="el" href="a04694.html">VulkanState</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03043.html">buf</a></li><li class="navelem"><a class="el" href="a04694.html">BatchIndexBufferT</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a04691.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::vk::VulkanState Struct Reference<div class="ingroups"><a class="el" href="a02388.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::buf::BatchIndexBufferT&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Primary owner and manager of the Vulkan renderer's state.  
+<p>Wrapper around <a class="el" href="a04710.html" title="Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.">IndexBufferT</a> that allows allocations to be made out of it. Intended use is for batching multiple simple renderables into a single draw call.  
  <a href="a04694.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01319_source.html">VulkanState.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04702.html">AllocHandle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to an allocation from the index buffer.  <a href="a04702.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04698.html">AllocInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic info defining a sub-allocation in the index buffer.  <a href="a04698.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3cad731c26e696bc65d576b0b1df506a" id="r_a3cad731c26e696bc65d576b0b1df506a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a3cad731c26e696bc65d576b0b1df506a">~VulkanState</a> ()</td></tr>
-<tr class="memdesc:a3cad731c26e696bc65d576b0b1df506a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Vulkan State object.  <br /></td></tr>
-<tr class="separator:a3cad731c26e696bc65d576b0b1df506a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab86f815e1cb12f7124a5b81d6b9432e5" id="r_ab86f815e1cb12f7124a5b81d6b9432e5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ab86f815e1cb12f7124a5b81d6b9432e5">invalidateSwapChain</a> ()</td></tr>
-<tr class="memdesc:ab86f815e1cb12f7124a5b81d6b9432e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the swap chain as invalid. Called when the window is resized or recreated.  <br /></td></tr>
-<tr class="separator:ab86f815e1cb12f7124a5b81d6b9432e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a710ba647678ee7e79a7e477d4804bb21" id="r_a710ba647678ee7e79a7e477d4804bb21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a710ba647678ee7e79a7e477d4804bb21">beginFrame</a> (<a class="el" href="a04666.html">StandardAttachmentSet</a> *&amp;renderFrame, VkCommandBuffer &amp;commandBuffer)</td></tr>
-<tr class="memdesc:a710ba647678ee7e79a7e477d4804bb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins a render pass on the current swap chain image. Returns the command buffer to use for rendering.  <br /></td></tr>
-<tr class="separator:a710ba647678ee7e79a7e477d4804bb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea7fb59d61403ed9c696dadad23fd93b" id="r_aea7fb59d61403ed9c696dadad23fd93b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aea7fb59d61403ed9c696dadad23fd93b">completeFrame</a> ()</td></tr>
-<tr class="memdesc:aea7fb59d61403ed9c696dadad23fd93b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finalizes the render pass and command buffer for the current frame and submits it. Also triggers the swap chain present operation.  <br /></td></tr>
-<tr class="separator:aea7fb59d61403ed9c696dadad23fd93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423454f370165ac788ed04b27aac0562" id="r_a423454f370165ac788ed04b27aac0562"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a423454f370165ac788ed04b27aac0562">findMemoryType</a> (std::uint32_t typeFilter, VkMemoryPropertyFlags properties)</td></tr>
-<tr class="memdesc:a423454f370165ac788ed04b27aac0562"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to find the optimal available memory type for the given constraints.  <br /></td></tr>
-<tr class="separator:a423454f370165ac788ed04b27aac0562"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf5368fb8dcc89c2a0952b6d33dd4ccb" id="r_acf5368fb8dcc89c2a0952b6d33dd4ccb"><td class="memItemLeft" align="right" valign="top">VkCommandPool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#acf5368fb8dcc89c2a0952b6d33dd4ccb">createCommandPool</a> (VkCommandPoolCreateFlags flags)</td></tr>
-<tr class="memdesc:acf5368fb8dcc89c2a0952b6d33dd4ccb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to create a command pool for graphics queue commands.  <br /></td></tr>
-<tr class="separator:acf5368fb8dcc89c2a0952b6d33dd4ccb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a285e8da7cb141e8af5d83b3b0a687010" id="r_a285e8da7cb141e8af5d83b3b0a687010"><td class="memItemLeft" align="right" valign="top">VkResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a285e8da7cb141e8af5d83b3b0a687010">submitCommandBuffer</a> (const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</td></tr>
-<tr class="memdesc:a285e8da7cb141e8af5d83b3b0a687010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a synchronized submission of the command buffer to the graphics queue.  <br /></td></tr>
-<tr class="separator:a285e8da7cb141e8af5d83b3b0a687010"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a570efdaea45eb7a14a67901db5cce8d4" id="r_a570efdaea45eb7a14a67901db5cce8d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a570efdaea45eb7a14a67901db5cce8d4">createBuffer</a> (VkDeviceSize size, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags, VkMemoryPropertyFlags properties, VkBuffer *<a class="el" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo)</td></tr>
-<tr class="memdesc:a570efdaea45eb7a14a67901db5cce8d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create a VkBuffer with some parameters.  <br /></td></tr>
-<tr class="separator:a570efdaea45eb7a14a67901db5cce8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c9cbeba3257f3d3971317b970f2ac6a" id="r_a2c9cbeba3257f3d3971317b970f2ac6a"><td class="memItemLeft" align="right" valign="top">VkFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a2c9cbeba3257f3d3971317b970f2ac6a">findSupportedFormat</a> (const std::initializer_list&lt; VkFormat &gt; &amp;candidates, VkImageTiling tiling, VkFormatFeatureFlags features)</td></tr>
-<tr class="memdesc:a2c9cbeba3257f3d3971317b970f2ac6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to find the best-suited image format given the requested format and current hardware support.  <br /></td></tr>
-<tr class="separator:a2c9cbeba3257f3d3971317b970f2ac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9e6306fe93e942569b6b1f43b804025" id="r_ae9e6306fe93e942569b6b1f43b804025"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ae9e6306fe93e942569b6b1f43b804025">createImage</a> (std::uint32_t width, std::uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage *image, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo, VmaAllocationCreateFlags flags=0)</td></tr>
-<tr class="memdesc:ae9e6306fe93e942569b6b1f43b804025"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create an image.  <br /></td></tr>
-<tr class="separator:ae9e6306fe93e942569b6b1f43b804025"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50bead01cfb0d7c09ffad62400db7e04" id="r_a50bead01cfb0d7c09ffad62400db7e04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a50bead01cfb0d7c09ffad62400db7e04">transitionImageLayout</a> (VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout)</td></tr>
-<tr class="memdesc:a50bead01cfb0d7c09ffad62400db7e04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an image from one layout to another.  <br /></td></tr>
-<tr class="separator:a50bead01cfb0d7c09ffad62400db7e04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a533b0879be6c314899c2326813951f59" id="r_a533b0879be6c314899c2326813951f59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a533b0879be6c314899c2326813951f59">transitionImageLayout</a> (VkCommandBuffer commandbuffer, VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout)</td></tr>
-<tr class="memdesc:a533b0879be6c314899c2326813951f59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an image from one layout to another and uses an existing command buffer.  <br /></td></tr>
-<tr class="separator:a533b0879be6c314899c2326813951f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a715c8e43eaba02ec13b17f579854e776" id="r_a715c8e43eaba02ec13b17f579854e776"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a715c8e43eaba02ec13b17f579854e776">copyBufferToImage</a> (VkBuffer <a class="el" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, VkImage image, std::uint32_t width, std::uint32_t height)</td></tr>
-<tr class="memdesc:a715c8e43eaba02ec13b17f579854e776"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to copy a raw buffer's contents into an image.  <br /></td></tr>
-<tr class="separator:a715c8e43eaba02ec13b17f579854e776"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eda6cbdeb42db17406f72da71fe42fa" id="r_a7eda6cbdeb42db17406f72da71fe42fa"><td class="memItemLeft" align="right" valign="top">VkImageView&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a7eda6cbdeb42db17406f72da71fe42fa">createImageView</a> (VkImage image, VkFormat format, VkImageAspectFlags aspectFlags=VK_IMAGE_ASPECT_COLOR_BIT)</td></tr>
-<tr class="memdesc:a7eda6cbdeb42db17406f72da71fe42fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create an image view.  <br /></td></tr>
-<tr class="separator:a7eda6cbdeb42db17406f72da71fe42fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0f3c8c7052a5b64430072920f964968" id="r_ab0f3c8c7052a5b64430072920f964968"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ab0f3c8c7052a5b64430072920f964968">currentFrameIndex</a> () const</td></tr>
-<tr class="memdesc:ab0f3c8c7052a5b64430072920f964968"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current frame index. Used by <a class="el" href="a04578.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a> to return correct data.  <br /></td></tr>
-<tr class="separator:ab0f3c8c7052a5b64430072920f964968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4630a412e0b00e2f17e7d9d1a23820c" id="r_ae4630a412e0b00e2f17e7d9d1a23820c"><td class="memItemLeft" align="right" valign="top">VkFormatProperties&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ae4630a412e0b00e2f17e7d9d1a23820c">getFormatProperties</a> (VkFormat format)</td></tr>
-<tr class="memdesc:ae4630a412e0b00e2f17e7d9d1a23820c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the format properties of the physical device for the given format.  <br /></td></tr>
-<tr class="separator:ae4630a412e0b00e2f17e7d9d1a23820c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef80ed8cab61300541633f206a6269e1" id="r_aef80ed8cab61300541633f206a6269e1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aef80ed8cab61300541633f206a6269e1">extensionIsAvailable</a> (const char *extName) const</td></tr>
-<tr class="memdesc:aef80ed8cab61300541633f206a6269e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the given extension is available on the selected device.  <br /></td></tr>
-<tr class="separator:aef80ed8cab61300541633f206a6269e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4066b662c5465daaeb54f639987ce112" id="r_a4066b662c5465daaeb54f639987ce112"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a4066b662c5465daaeb54f639987ce112">BatchIndexBufferT</a> ()</td></tr>
+<tr class="memdesc:a4066b662c5465daaeb54f639987ce112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty index buffer.  <br /></td></tr>
+<tr class="separator:a4066b662c5465daaeb54f639987ce112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d8a96d8a59300677dd408a2a8c04688" id="r_a3d8a96d8a59300677dd408a2a8c04688"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a3d8a96d8a59300677dd408a2a8c04688">~BatchIndexBufferT</a> ()</td></tr>
+<tr class="memdesc:a3d8a96d8a59300677dd408a2a8c04688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the buffer using deferDestroy()  <br /></td></tr>
+<tr class="separator:a3d8a96d8a59300677dd408a2a8c04688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada1954db758b4b3e350f7db543eb6bee" id="r_ada1954db758b4b3e350f7db543eb6bee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ada1954db758b4b3e350f7db543eb6bee">create</a> (<a class="el" href="a05330.html">Renderer</a> &amp;renderer, std::uint32_t initialVertexCount, std::uint32_t initialIndexCount)</td></tr>
+<tr class="memdesc:ada1954db758b4b3e350f7db543eb6bee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the batched index buffer with the given initial capacities.  <br /></td></tr>
+<tr class="separator:ada1954db758b4b3e350f7db543eb6bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7252aa3ffddca6ab76d7b822671765af" id="r_a7252aa3ffddca6ab76d7b822671765af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04702.html">AllocHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a7252aa3ffddca6ab76d7b822671765af">allocate</a> (std::uint32_t <a class="el" href="a04694.html#a99e27e98a39a3558718a1f5af157e8be">vertexCount</a>, std::uint32_t <a class="el" href="a04694.html#ada5ae2cfbec862bce4caaed2a181d74b">indexCount</a>)</td></tr>
+<tr class="memdesc:a7252aa3ffddca6ab76d7b822671765af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates the requested number of vertices and indices from the buffer. Invalidates the draw parameters.  <br /></td></tr>
+<tr class="separator:a7252aa3ffddca6ab76d7b822671765af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67be579dafe325b88519f1ce13e56a86" id="r_a67be579dafe325b88519f1ce13e56a86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a67be579dafe325b88519f1ce13e56a86">destroy</a> ()</td></tr>
+<tr class="memdesc:a67be579dafe325b88519f1ce13e56a86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frees both the vertex buffer and index buffer.  <br /></td></tr>
+<tr class="separator:a67be579dafe325b88519f1ce13e56a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa4a028953b2c826f89e7bfcd96ac4c4" id="r_afa4a028953b2c826f89e7bfcd96ac4c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#afa4a028953b2c826f89e7bfcd96ac4c4">deferDestruction</a> ()</td></tr>
+<tr class="memdesc:afa4a028953b2c826f89e7bfcd96ac4c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Queues the buffer to be erased in a deferred manner.  <br /></td></tr>
+<tr class="separator:afa4a028953b2c826f89e7bfcd96ac4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03dcc69a9a1b04bc07d56e126cc71fab" id="r_a03dcc69a9a1b04bc07d56e126cc71fab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05306.html">prim::DrawParameters</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a03dcc69a9a1b04bc07d56e126cc71fab">getDrawParameters</a> () const</td></tr>
+<tr class="memdesc:a03dcc69a9a1b04bc07d56e126cc71fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds and returns the parameters required to render the index buffer.  <br /></td></tr>
+<tr class="separator:a03dcc69a9a1b04bc07d56e126cc71fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada5ae2cfbec862bce4caaed2a181d74b" id="r_ada5ae2cfbec862bce4caaed2a181d74b"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ada5ae2cfbec862bce4caaed2a181d74b">indexCount</a> () const</td></tr>
+<tr class="memdesc:ada5ae2cfbec862bce4caaed2a181d74b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of in-use indices in the buffer.  <br /></td></tr>
+<tr class="separator:ada5ae2cfbec862bce4caaed2a181d74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99e27e98a39a3558718a1f5af157e8be" id="r_a99e27e98a39a3558718a1f5af157e8be"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a99e27e98a39a3558718a1f5af157e8be">vertexCount</a> () const</td></tr>
+<tr class="memdesc:a99e27e98a39a3558718a1f5af157e8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of in-use vertices in the buffer.  <br /></td></tr>
+<tr class="separator:a99e27e98a39a3558718a1f5af157e8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afac0e23f002979ace5aba384677adb3e" id="r_afac0e23f002979ace5aba384677adb3e"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#afac0e23f002979ace5aba384677adb3e">indexCapacity</a> () const</td></tr>
+<tr class="memdesc:afac0e23f002979ace5aba384677adb3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of indices in the buffer.  <br /></td></tr>
+<tr class="separator:afac0e23f002979ace5aba384677adb3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f864f6a1c2f5f61e405bd679f2e7cc7" id="r_a5f864f6a1c2f5f61e405bd679f2e7cc7"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a5f864f6a1c2f5f61e405bd679f2e7cc7">vertexCapacity</a> () const</td></tr>
+<tr class="memdesc:a5f864f6a1c2f5f61e405bd679f2e7cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of vertices in the buffer.  <br /></td></tr>
+<tr class="separator:a5f864f6a1c2f5f61e405bd679f2e7cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba4cf1aaab1561a0d8a4f55e198c941" id="r_a1ba4cf1aaab1561a0d8a4f55e198c941"><td class="memItemLeft" align="right" valign="top">constexpr VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a1ba4cf1aaab1561a0d8a4f55e198c941">vertexBufferHandle</a> () const</td></tr>
+<tr class="memdesc:a1ba4cf1aaab1561a0d8a4f55e198c941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan handle of the vertex buffer.  <br /></td></tr>
+<tr class="separator:a1ba4cf1aaab1561a0d8a4f55e198c941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e0577a3771680a4de1958d20cdea81" id="r_aa1e0577a3771680a4de1958d20cdea81"><td class="memItemLeft" align="right" valign="top">constexpr VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aa1e0577a3771680a4de1958d20cdea81">indexBufferHandle</a> () const</td></tr>
+<tr class="memdesc:aa1e0577a3771680a4de1958d20cdea81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan handle of the index buffer.  <br /></td></tr>
+<tr class="separator:aa1e0577a3771680a4de1958d20cdea81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a814659904ab5e2ddca0ad533e410f913" id="r_a814659904ab5e2ddca0ad533e410f913"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04710.html">IndexBufferT</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a814659904ab5e2ddca0ad533e410f913">getIndexBuffer</a> () const</td></tr>
+<tr class="memdesc:a814659904ab5e2ddca0ad533e410f913"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides const access to the underlying index buffer.  <br /></td></tr>
+<tr class="separator:a814659904ab5e2ddca0ad533e410f913"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2d925822baeeed2d18d0e361a4e9e29" id="r_af2d925822baeeed2d18d0e361a4e9e29"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#af2d925822baeeed2d18d0e361a4e9e29">commit</a> ()</td></tr>
+<tr class="memdesc:af2d925822baeeed2d18d0e361a4e9e29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually commit the vertices to the GPU.  <br /></td></tr>
+<tr class="separator:af2d925822baeeed2d18d0e361a4e9e29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa657ce523a4854213de68f7e5f8f6e02" id="r_aa657ce523a4854213de68f7e5f8f6e02"><td class="memItemLeft" align="right" valign="top">static VkDeviceSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aa657ce523a4854213de68f7e5f8f6e02">computeAlignedSize</a> (VkDeviceSize dataSize, VkDeviceSize alignment)</td></tr>
-<tr class="memdesc:aa657ce523a4854213de68f7e5f8f6e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the aligned size of data given its actual size and alignment requirement.  <br /></td></tr>
-<tr class="separator:aa657ce523a4854213de68f7e5f8f6e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7e8a82db8abb76fa0066358f9001eebe" id="r_a7e8a82db8abb76fa0066358f9001eebe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02378.html#ga57d216bfcb86b8f4150d59bf58be39f0">engine::EngineWindow</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a7e8a82db8abb76fa0066358f9001eebe">window</a></td></tr>
-<tr class="separator:a7e8a82db8abb76fa0066358f9001eebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42ed1472f27d93904ba6e64008b6b580" id="r_a42ed1472f27d93904ba6e64008b6b580"><td class="memItemLeft" align="right" valign="top">VkInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a42ed1472f27d93904ba6e64008b6b580">instance</a></td></tr>
-<tr class="separator:a42ed1472f27d93904ba6e64008b6b580"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1839bf71168cdf716ff51f3eca82e35" id="r_ac1839bf71168cdf716ff51f3eca82e35"><td class="memItemLeft" align="right" valign="top">VkSurfaceKHR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ac1839bf71168cdf716ff51f3eca82e35">surface</a></td></tr>
-<tr class="separator:ac1839bf71168cdf716ff51f3eca82e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48bbb155975b2a0d4a699ec4ffdf0fb4" id="r_a48bbb155975b2a0d4a699ec4ffdf0fb4"><td class="memItemLeft" align="right" valign="top">VkPhysicalDevice&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a48bbb155975b2a0d4a699ec4ffdf0fb4">physicalDevice</a></td></tr>
-<tr class="separator:a48bbb155975b2a0d4a699ec4ffdf0fb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4dc332e9cb03272482bf24e95a1a7ad" id="r_ab4dc332e9cb03272482bf24e95a1a7ad"><td class="memItemLeft" align="right" valign="top">VkPhysicalDeviceProperties&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ab4dc332e9cb03272482bf24e95a1a7ad">physicalDeviceProperties</a></td></tr>
-<tr class="separator:ab4dc332e9cb03272482bf24e95a1a7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ad0249d08d9ffb87af35b42f11a1db5" id="r_a6ad0249d08d9ffb87af35b42f11a1db5"><td class="memItemLeft" align="right" valign="top">VkDevice&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a6ad0249d08d9ffb87af35b42f11a1db5">device</a></td></tr>
-<tr class="separator:a6ad0249d08d9ffb87af35b42f11a1db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a781a2fe56188f13e65f1b511d9db23f6" id="r_a781a2fe56188f13e65f1b511d9db23f6"><td class="memItemLeft" align="right" valign="top">VmaAllocator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a781a2fe56188f13e65f1b511d9db23f6">vmaAllocator</a></td></tr>
-<tr class="separator:a781a2fe56188f13e65f1b511d9db23f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa20a5c60f21d4728f888820c56b0a72e" id="r_aa20a5c60f21d4728f888820c56b0a72e"><td class="memItemLeft" align="right" valign="top">VkQueue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aa20a5c60f21d4728f888820c56b0a72e">graphicsQueue</a></td></tr>
-<tr class="separator:aa20a5c60f21d4728f888820c56b0a72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ff7a6905fa00d4b4b29fc2edfb88663" id="r_a6ff7a6905fa00d4b4b29fc2edfb88663"><td class="memItemLeft" align="right" valign="top">VkQueue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a6ff7a6905fa00d4b4b29fc2edfb88663">presentQueue</a></td></tr>
-<tr class="separator:a6ff7a6905fa00d4b4b29fc2edfb88663"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b02fb160c174a40b35d8f92232a87f2" id="r_a5b02fb160c174a40b35d8f92232a87f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04654.html">SharedCommandPool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a5b02fb160c174a40b35d8f92232a87f2">sharedCommandPool</a></td></tr>
-<tr class="separator:a5b02fb160c174a40b35d8f92232a87f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad65744964148cb039de261945ec1ebd3" id="r_ad65744964148cb039de261945ec1ebd3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04670.html">Swapchain</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ad65744964148cb039de261945ec1ebd3">swapchain</a></td></tr>
-<tr class="separator:ad65744964148cb039de261945ec1ebd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34e7c2be0ebbc7d63ef38c74273fa7a3" id="r_a34e7c2be0ebbc7d63ef38c74273fa7a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04394.html">res::ShaderModuleCache</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a34e7c2be0ebbc7d63ef38c74273fa7a3">shaderCache</a></td></tr>
-<tr class="separator:a34e7c2be0ebbc7d63ef38c74273fa7a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08eacbdbb12875a6d1cfc19e922deec2" id="r_a08eacbdbb12875a6d1cfc19e922deec2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04514.html">tfr::TransferEngine</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a08eacbdbb12875a6d1cfc19e922deec2">transferEngine</a></td></tr>
-<tr class="separator:a08eacbdbb12875a6d1cfc19e922deec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6ea18991f2fd8391eb44229ae2ac8f7" id="r_ac6ea18991f2fd8391eb44229ae2ac8f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04554.html">DescriptorPool</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#ac6ea18991f2fd8391eb44229ae2ac8f7">descriptorPool</a></td></tr>
-<tr class="separator:ac6ea18991f2fd8391eb44229ae2ac8f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a735f8b74f657137dc22456fa13210a53" id="r_a735f8b74f657137dc22456fa13210a53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04542.html">CommonSamplers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a735f8b74f657137dc22456fa13210a53">samplerCache</a></td></tr>
-<tr class="separator:a735f8b74f657137dc22456fa13210a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c4eb8115deab88591131a3d5afd4eea" id="r_a0c4eb8115deab88591131a3d5afd4eea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04538.html">CleanupManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a0c4eb8115deab88591131a3d5afd4eea">cleanupManager</a></td></tr>
-<tr class="separator:a0c4eb8115deab88591131a3d5afd4eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d298f47963c07edf09de3b5c8c3f308" id="r_a6d298f47963c07edf09de3b5c8c3f308"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a6d298f47963c07edf09de3b5c8c3f308">cbSubmitMutex</a></td></tr>
-<tr class="separator:a6d298f47963c07edf09de3b5c8c3f308"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadfc3bf8541aed38c7817c90e6277f6f" id="r_aadfc3bf8541aed38c7817c90e6277f6f"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aadfc3bf8541aed38c7817c90e6277f6f">bufferAllocMutex</a></td></tr>
-<tr class="separator:aadfc3bf8541aed38c7817c90e6277f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa502cca76a4e7e7edbced50b5605a73b" id="r_aa502cca76a4e7e7edbced50b5605a73b"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#aa502cca76a4e7e7edbced50b5605a73b">imageAllocMutex</a></td></tr>
-<tr class="separator:aa502cca76a4e7e7edbced50b5605a73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a1fc8c4ea65463b448e068f1287349540" id="r_a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
-<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a095b0a634fc1cbf6d3ddf2e23e5f5dc2" id="r_a095b0a634fc1cbf6d3ddf2e23e5f5dc2"><td class="memItemLeft" align="right" valign="top">static constexpr VkIndexType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html#a095b0a634fc1cbf6d3ddf2e23e5f5dc2">IndexType</a> = <a class="el" href="a04710.html">IndexBufferT</a>&lt;T&gt;::IndexType</td></tr>
+<tr class="separator:a095b0a634fc1cbf6d3ddf2e23e5f5dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Primary owner and manager of the Vulkan renderer's state. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::rc::buf::BatchIndexBufferT&lt; T &gt;</div><p>Wrapper around <a class="el" href="a04710.html" title="Basic index buffer class built on top of vk::Buffer. Intended for static mesh data.">IndexBufferT</a> that allows allocations to be made out of it. Intended use is for batching multiple simple renderables into a single draw call. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The vertex type to use </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00039">39</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00022">22</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3cad731c26e696bc65d576b0b1df506a" name="a3cad731c26e696bc65d576b0b1df506a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cad731c26e696bc65d576b0b1df506a">&#9670;&#160;</a></span>~VulkanState()</h2>
+<a id="a4066b662c5465daaeb54f639987ce112" name="a4066b662c5465daaeb54f639987ce112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4066b662c5465daaeb54f639987ce112">&#9670;&#160;</a></span>BatchIndexBufferT()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::VulkanState::~VulkanState </td>
+          <td class="memname"><a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::BatchIndexBufferT </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -219,30 +183,63 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Destroy the Vulkan State object. </p>
+<p>Creates an empty index buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00148">148</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00237">237</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d8a96d8a59300677dd408a2a8c04688" name="a3d8a96d8a59300677dd408a2a8c04688"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d8a96d8a59300677dd408a2a8c04688">&#9670;&#160;</a></span>~BatchIndexBufferT()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::~<a class="el" href="a04694.html">BatchIndexBufferT</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the buffer using deferDestroy() </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00243">243</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a710ba647678ee7e79a7e477d4804bb21" name="a710ba647678ee7e79a7e477d4804bb21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a710ba647678ee7e79a7e477d4804bb21">&#9670;&#160;</a></span>beginFrame()</h2>
+<a id="a7252aa3ffddca6ab76d7b822671765af" name="a7252aa3ffddca6ab76d7b822671765af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7252aa3ffddca6ab76d7b822671765af">&#9670;&#160;</a></span>allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::beginFrame </td>
+          <td class="memname"><a class="el" href="a04694.html">BatchIndexBufferT</a>&lt; T &gt;::AllocHandle <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::allocate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04666.html">StandardAttachmentSet</a> *&amp;&#160;</td>
-          <td class="paramname"><em>renderFrame</em>, </td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>vertexCount</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">VkCommandBuffer &amp;&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>&#160;</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>indexCount</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -252,27 +249,30 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Begins a render pass on the current swap chain image. Returns the command buffer to use for rendering. </p>
+<p>Allocates the requested number of vertices and indices from the buffer. Invalidates the draw parameters. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">renderFrame</td><td>A reference to a pointer to populate with the active chain image </td></tr>
-    <tr><td class="paramname">commandBuffer</td><td>A command buffer reference to populate with the primary CB to use </td></tr>
+    <tr><td class="paramname">vertexCount</td><td>The number of vertices to allocate </td></tr>
+    <tr><td class="paramname">indexCount</td><td>The number of indices to allocate </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A handle to the new allocation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00192">192</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00256">256</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aea7fb59d61403ed9c696dadad23fd93b" name="aea7fb59d61403ed9c696dadad23fd93b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea7fb59d61403ed9c696dadad23fd93b">&#9670;&#160;</a></span>completeFrame()</h2>
+<a id="af2d925822baeeed2d18d0e361a4e9e29" name="af2d925822baeeed2d18d0e361a4e9e29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2d925822baeeed2d18d0e361a4e9e29">&#9670;&#160;</a></span>commit()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::completeFrame </td>
+          <td class="memname">void <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::commit </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -280,369 +280,165 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Finalizes the render pass and command buffer for the current frame and submits it. Also triggers the swap chain present operation. </p>
+<p>Manually commit the vertices to the GPU. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00197">197</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00378">378</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa657ce523a4854213de68f7e5f8f6e02" name="aa657ce523a4854213de68f7e5f8f6e02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa657ce523a4854213de68f7e5f8f6e02">&#9670;&#160;</a></span>computeAlignedSize()</h2>
+<a id="ada1954db758b4b3e350f7db543eb6bee" name="ada1954db758b4b3e350f7db543eb6bee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada1954db758b4b3e350f7db543eb6bee">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05330.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>initialVertexCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>initialIndexCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the batched index buffer with the given initial capacities. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">initialVertexCount</td><td>The starting number of vertices to allocate </td></tr>
+    <tr><td class="paramname">initialIndexCount</td><td>The starting number of indices to allocate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00249">249</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afa4a028953b2c826f89e7bfcd96ac4c4" name="afa4a028953b2c826f89e7bfcd96ac4c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa4a028953b2c826f89e7bfcd96ac4c4">&#9670;&#160;</a></span>deferDestruction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::deferDestruction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Queues the buffer to be erased in a deferred manner. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00293">293</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a67be579dafe325b88519f1ce13e56a86" name="a67be579dafe325b88519f1ce13e56a86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67be579dafe325b88519f1ce13e56a86">&#9670;&#160;</a></span>destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::destroy </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Frees both the vertex buffer and index buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00283">283</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a03dcc69a9a1b04bc07d56e126cc71fab" name="a03dcc69a9a1b04bc07d56e126cc71fab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03dcc69a9a1b04bc07d56e126cc71fab">&#9670;&#160;</a></span>getDrawParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05306.html">prim::DrawParameters</a> <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::getDrawParameters </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds and returns the parameters required to render the index buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00303">303</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a814659904ab5e2ddca0ad533e410f913" name="a814659904ab5e2ddca0ad533e410f913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a814659904ab5e2ddca0ad533e410f913">&#9670;&#160;</a></span>getIndexBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a04710.html">IndexBufferT</a>&lt; T &gt; &amp; <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::getIndexBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Provides const access to the underlying index buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00340">340</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1e0577a3771680a4de1958d20cdea81" name="aa1e0577a3771680a4de1958d20cdea81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e0577a3771680a4de1958d20cdea81">&#9670;&#160;</a></span>indexBufferHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkDeviceSize bl::rc::vk::VulkanState::computeAlignedSize </td>
-          <td>(</td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>dataSize</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>alignment</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Computes the aligned size of data given its actual size and alignment requirement. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dataSize</td><td>The size of the data to align </td></tr>
-    <tr><td class="paramname">alignment</td><td>The alignment the data needs </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The aligned size of the data </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00664">664</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a715c8e43eaba02ec13b17f579854e776" name="a715c8e43eaba02ec13b17f579854e776"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a715c8e43eaba02ec13b17f579854e776">&#9670;&#160;</a></span>copyBufferToImage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::copyBufferToImage </td>
-          <td>(</td>
-          <td class="paramtype">VkBuffer&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImage&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>height</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to copy a raw buffer's contents into an image. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">buffer</td><td>The buffer to copy into the image </td></tr>
-    <tr><td class="paramname">image</td><td>The image to copy into </td></tr>
-    <tr><td class="paramname">width</td><td>The width of the image </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the image </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00620">620</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a570efdaea45eb7a14a67901db5cce8d4" name="a570efdaea45eb7a14a67901db5cce8d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a570efdaea45eb7a14a67901db5cce8d4">&#9670;&#160;</a></span>createBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::createBuffer </td>
-          <td>(</td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkBufferUsageFlags&#160;</td>
-          <td class="paramname"><em>usage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
-          <td class="paramname"><em>allocFlags</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>properties</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkBuffer *&#160;</td>
-          <td class="paramname"><em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocation *&#160;</td>
-          <td class="paramname"><em>vmaAlloc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationInfo *&#160;</td>
-          <td class="paramname"><em>vmaAllocInfo</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to create a VkBuffer with some parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>The size of the buffer to create </td></tr>
-    <tr><td class="paramname">usage</td><td>How the buffer will be used </td></tr>
-    <tr><td class="paramname">allocFlags</td><td>Extra flags to pass into VMA when the allocation is created </td></tr>
-    <tr><td class="paramname">properties</td><td>Requested properties of the buffer memory </td></tr>
-    <tr><td class="paramname">buffer</td><td>The buffer to populate </td></tr>
-    <tr><td class="paramname">vmaAlloc</td><td>VMA allocation to be populated </td></tr>
-    <tr><td class="paramname">vmaAllocInfo</td><td>VMA allocation info to be populated </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00499">499</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="acf5368fb8dcc89c2a0952b6d33dd4ccb" name="acf5368fb8dcc89c2a0952b6d33dd4ccb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf5368fb8dcc89c2a0952b6d33dd4ccb">&#9670;&#160;</a></span>createCommandPool()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkCommandPool bl::rc::vk::VulkanState::createCommandPool </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandPoolCreateFlags&#160;</td>
-          <td class="paramname"><em>flags</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper method to create a command pool for graphics queue commands. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">flags</td><td>The flags to create the pool with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>VkCommandPool The new command pool </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00443">443</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae9e6306fe93e942569b6b1f43b804025" name="ae9e6306fe93e942569b6b1f43b804025"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9e6306fe93e942569b6b1f43b804025">&#9670;&#160;</a></span>createImage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::createImage </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkFormat&#160;</td>
-          <td class="paramname"><em>format</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageTiling&#160;</td>
-          <td class="paramname"><em>tiling</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageUsageFlags&#160;</td>
-          <td class="paramname"><em>usage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>properties</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImage *&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocation *&#160;</td>
-          <td class="paramname"><em>vmaAlloc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationInfo *&#160;</td>
-          <td class="paramname"><em>vmaAllocInfo</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
-          <td class="paramname"><em>flags</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to create an image. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>The width of the image in pixels </td></tr>
-    <tr><td class="paramname">height</td><td>The height of the image in pixels </td></tr>
-    <tr><td class="paramname">format</td><td>The format of the pixel data </td></tr>
-    <tr><td class="paramname">tiling</td><td>The tiling setting for the created image </td></tr>
-    <tr><td class="paramname">usage</td><td>How the image will be used </td></tr>
-    <tr><td class="paramname">properties</td><td>Requested memory properties for where the image is stored </td></tr>
-    <tr><td class="paramname">image</td><td>The image to be populated </td></tr>
-    <tr><td class="paramname">vmaAlloc</td><td>VMA allocation to be populated </td></tr>
-    <tr><td class="paramname">vmaAllocInfo</td><td>VMA allocation info to be populated </td></tr>
-    <tr><td class="paramname">flags</td><td>Optional flags to pass to VMA for memory alloc </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00519">519</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7eda6cbdeb42db17406f72da71fe42fa" name="a7eda6cbdeb42db17406f72da71fe42fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7eda6cbdeb42db17406f72da71fe42fa">&#9670;&#160;</a></span>createImageView()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkImageView bl::rc::vk::VulkanState::createImageView </td>
-          <td>(</td>
-          <td class="paramtype">VkImage&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkFormat&#160;</td>
-          <td class="paramname"><em>format</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageAspectFlags&#160;</td>
-          <td class="paramname"><em>aspectFlags</em> = <code>VK_IMAGE_ASPECT_COLOR_BIT</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to create an image view. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">image</td><td>The image to create the view on </td></tr>
-    <tr><td class="paramname">format</td><td>The format of the image </td></tr>
-    <tr><td class="paramname">aspectFlags</td><td>Flags to use when creating the view </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>VkImageView The created image view </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00643">643</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab0f3c8c7052a5b64430072920f964968" name="ab0f3c8c7052a5b64430072920f964968"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0f3c8c7052a5b64430072920f964968">&#9670;&#160;</a></span>currentFrameIndex()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t bl::rc::vk::VulkanState::currentFrameIndex </td>
+          <td class="memname">constexpr VkBuffer <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::indexBufferHandle </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -650,662 +446,207 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the current frame index. Used by <a class="el" href="a04578.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a> to return correct data. </p>
-<dl class="section return"><dt>Returns</dt><dd>constexpr std::uint32_t The current index of the frame being worked on </dd></dl>
+<p>Returns the Vulkan handle of the index buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00260">260</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00335">335</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aef80ed8cab61300541633f206a6269e1" name="aef80ed8cab61300541633f206a6269e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef80ed8cab61300541633f206a6269e1">&#9670;&#160;</a></span>extensionIsAvailable()</h2>
+<a id="afac0e23f002979ace5aba384677adb3e" name="afac0e23f002979ace5aba384677adb3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac0e23f002979ace5aba384677adb3e">&#9670;&#160;</a></span>indexCapacity()</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::VulkanState::extensionIsAvailable </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>extName</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether the given extension is available on the selected device. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">extName</td><td>The extension to check for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the extension is available, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00674">674</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a423454f370165ac788ed04b27aac0562" name="a423454f370165ac788ed04b27aac0562"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a423454f370165ac788ed04b27aac0562">&#9670;&#160;</a></span>findMemoryType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::vk::VulkanState::findMemoryType </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>typeFilter</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>properties</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to find the optimal available memory type for the given constraints. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">typeFilter</td><td>Requested memory type </td></tr>
-    <tr><td class="paramname">properties</td><td>Requested properties of the given memory </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::uint32_t Closest match to the requested memory type and features </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00467">467</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2c9cbeba3257f3d3971317b970f2ac6a" name="a2c9cbeba3257f3d3971317b970f2ac6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c9cbeba3257f3d3971317b970f2ac6a">&#9670;&#160;</a></span>findSupportedFormat()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkFormat bl::rc::vk::VulkanState::findSupportedFormat </td>
-          <td>(</td>
-          <td class="paramtype">const std::initializer_list&lt; VkFormat &gt; &amp;&#160;</td>
-          <td class="paramname"><em>candidates</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageTiling&#160;</td>
-          <td class="paramname"><em>tiling</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkFormatFeatureFlags&#160;</td>
-          <td class="paramname"><em>features</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper function to find the best-suited image format given the requested format and current hardware support. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">candidates</td><td>Acceptable image formats ordered by preference </td></tr>
-    <tr><td class="paramname">tiling</td><td>The tiling mode of the image </td></tr>
-    <tr><td class="paramname">features</td><td>Required features of the format </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The best format available </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00480">480</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae4630a412e0b00e2f17e7d9d1a23820c" name="ae4630a412e0b00e2f17e7d9d1a23820c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4630a412e0b00e2f17e7d9d1a23820c">&#9670;&#160;</a></span>getFormatProperties()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkFormatProperties bl::rc::vk::VulkanState::getFormatProperties </td>
-          <td>(</td>
-          <td class="paramtype">VkFormat&#160;</td>
-          <td class="paramname"><em>format</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Retrieves the format properties of the physical device for the given format. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">format</td><td>The format to get features for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The supported format features for the current physical device </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00668">668</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab86f815e1cb12f7124a5b81d6b9432e5" name="ab86f815e1cb12f7124a5b81d6b9432e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab86f815e1cb12f7124a5b81d6b9432e5">&#9670;&#160;</a></span>invalidateSwapChain()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::invalidateSwapChain </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Marks the swap chain as invalid. Called when the window is resized or recreated. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00190">190</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a285e8da7cb141e8af5d83b3b0a687010" name="a285e8da7cb141e8af5d83b3b0a687010"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a285e8da7cb141e8af5d83b3b0a687010">&#9670;&#160;</a></span>submitCommandBuffer()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkResult bl::rc::vk::VulkanState::submitCommandBuffer </td>
-          <td>(</td>
-          <td class="paramtype">const VkSubmitInfo &amp;&#160;</td>
-          <td class="paramname"><em>submitInfo</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkFence&#160;</td>
-          <td class="paramname"><em>fence</em> = <code>VK_NULL_HANDLE</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Performs a synchronized submission of the command buffer to the graphics queue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">submitInfo</td><td>The command <a class="el" href="a02366.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer(s)</a> to submit </td></tr>
-    <tr><td class="paramname">fence</td><td>Optional fence to pass to the submit command </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The result code from the submit command </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00549">549</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a533b0879be6c314899c2326813951f59" name="a533b0879be6c314899c2326813951f59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a533b0879be6c314899c2326813951f59">&#9670;&#160;</a></span>transitionImageLayout() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::transitionImageLayout </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandbuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImage&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageLayout&#160;</td>
-          <td class="paramname"><em>oldLayout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageLayout&#160;</td>
-          <td class="paramname"><em>newLayout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Converts an image from one layout to another and uses an existing command buffer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record the pipeline barrier into </td></tr>
-    <tr><td class="paramname">image</td><td>The image to convert </td></tr>
-    <tr><td class="paramname">oldLayout</td><td>The current layout to convert from </td></tr>
-    <tr><td class="paramname">newLayout</td><td>The layout to convert to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00564">564</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a50bead01cfb0d7c09ffad62400db7e04" name="a50bead01cfb0d7c09ffad62400db7e04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50bead01cfb0d7c09ffad62400db7e04">&#9670;&#160;</a></span>transitionImageLayout() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::VulkanState::transitionImageLayout </td>
-          <td>(</td>
-          <td class="paramtype">VkImage&#160;</td>
-          <td class="paramname"><em>image</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageLayout&#160;</td>
-          <td class="paramname"><em>oldLayout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkImageLayout&#160;</td>
-          <td class="paramname"><em>newLayout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Converts an image from one layout to another. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">image</td><td>The image to convert </td></tr>
-    <tr><td class="paramname">oldLayout</td><td>The current layout to convert from </td></tr>
-    <tr><td class="paramname">newLayout</td><td>The layout to convert to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00557">557</a> of file <a class="el" href="a02252_source.html">VulkanState.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a1fc8c4ea65463b448e068f1287349540" name="a1fc8c4ea65463b448e068f1287349540"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&#160;</a></span>bl::rc::Renderer</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a04346.html">bl::rc::Renderer</a></td>
+          <td class="memname">constexpr std::uint32_t <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::indexCapacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00255">255</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
+<p>Returns the total number of indices in the buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00320">320</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ada5ae2cfbec862bce4caaed2a181d74b" name="ada5ae2cfbec862bce4caaed2a181d74b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada5ae2cfbec862bce4caaed2a181d74b">&#9670;&#160;</a></span>indexCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::indexCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of in-use indices in the buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00310">310</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ba4cf1aaab1561a0d8a4f55e198c941" name="a1ba4cf1aaab1561a0d8a4f55e198c941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ba4cf1aaab1561a0d8a4f55e198c941">&#9670;&#160;</a></span>vertexBufferHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkBuffer <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::vertexBufferHandle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Vulkan handle of the vertex buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00330">330</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5f864f6a1c2f5f61e405bd679f2e7cc7" name="a5f864f6a1c2f5f61e405bd679f2e7cc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f864f6a1c2f5f61e405bd679f2e7cc7">&#9670;&#160;</a></span>vertexCapacity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::vertexCapacity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the total number of vertices in the buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00325">325</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a99e27e98a39a3558718a1f5af157e8be" name="a99e27e98a39a3558718a1f5af157e8be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99e27e98a39a3558718a1f5af157e8be">&#9670;&#160;</a></span>vertexCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::vertexCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of in-use vertices in the buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00315">315</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aadfc3bf8541aed38c7817c90e6277f6f" name="aadfc3bf8541aed38c7817c90e6277f6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadfc3bf8541aed38c7817c90e6277f6f">&#9670;&#160;</a></span>bufferAllocMutex</h2>
+<a id="a095b0a634fc1cbf6d3ddf2e23e5f5dc2" name="a095b0a634fc1cbf6d3ddf2e23e5f5dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a095b0a634fc1cbf6d3ddf2e23e5f5dc2">&#9670;&#160;</a></span>IndexType</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::mutex bl::rc::vk::VulkanState::bufferAllocMutex</td>
+          <td class="memname">constexpr VkIndexType <a class="el" href="a04694.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::IndexType = <a class="el" href="a04710.html">IndexBufferT</a>&lt;T&gt;::IndexType</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00235">235</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00024">24</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6d298f47963c07edf09de3b5c8c3f308" name="a6d298f47963c07edf09de3b5c8c3f308"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d298f47963c07edf09de3b5c8c3f308">&#9670;&#160;</a></span>cbSubmitMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex bl::rc::vk::VulkanState::cbSubmitMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00234">234</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0c4eb8115deab88591131a3d5afd4eea" name="a0c4eb8115deab88591131a3d5afd4eea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c4eb8115deab88591131a3d5afd4eea">&#9670;&#160;</a></span>cleanupManager</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04538.html">CleanupManager</a> bl::rc::vk::VulkanState::cleanupManager</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00232">232</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac6ea18991f2fd8391eb44229ae2ac8f7" name="ac6ea18991f2fd8391eb44229ae2ac8f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6ea18991f2fd8391eb44229ae2ac8f7">&#9670;&#160;</a></span>descriptorPool</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04554.html">DescriptorPool</a> bl::rc::vk::VulkanState::descriptorPool</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00230">230</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6ad0249d08d9ffb87af35b42f11a1db5" name="a6ad0249d08d9ffb87af35b42f11a1db5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ad0249d08d9ffb87af35b42f11a1db5">&#9670;&#160;</a></span>device</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkDevice bl::rc::vk::VulkanState::device</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00222">222</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa20a5c60f21d4728f888820c56b0a72e" name="aa20a5c60f21d4728f888820c56b0a72e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa20a5c60f21d4728f888820c56b0a72e">&#9670;&#160;</a></span>graphicsQueue</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkQueue bl::rc::vk::VulkanState::graphicsQueue</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00224">224</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa502cca76a4e7e7edbced50b5605a73b" name="aa502cca76a4e7e7edbced50b5605a73b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa502cca76a4e7e7edbced50b5605a73b">&#9670;&#160;</a></span>imageAllocMutex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex bl::rc::vk::VulkanState::imageAllocMutex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00236">236</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a42ed1472f27d93904ba6e64008b6b580" name="a42ed1472f27d93904ba6e64008b6b580"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42ed1472f27d93904ba6e64008b6b580">&#9670;&#160;</a></span>instance</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkInstance bl::rc::vk::VulkanState::instance</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00215">215</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a48bbb155975b2a0d4a699ec4ffdf0fb4" name="a48bbb155975b2a0d4a699ec4ffdf0fb4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a48bbb155975b2a0d4a699ec4ffdf0fb4">&#9670;&#160;</a></span>physicalDevice</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkPhysicalDevice bl::rc::vk::VulkanState::physicalDevice</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00220">220</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab4dc332e9cb03272482bf24e95a1a7ad" name="ab4dc332e9cb03272482bf24e95a1a7ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4dc332e9cb03272482bf24e95a1a7ad">&#9670;&#160;</a></span>physicalDeviceProperties</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkPhysicalDeviceProperties bl::rc::vk::VulkanState::physicalDeviceProperties</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00221">221</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6ff7a6905fa00d4b4b29fc2edfb88663" name="a6ff7a6905fa00d4b4b29fc2edfb88663"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ff7a6905fa00d4b4b29fc2edfb88663">&#9670;&#160;</a></span>presentQueue</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkQueue bl::rc::vk::VulkanState::presentQueue</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00225">225</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a735f8b74f657137dc22456fa13210a53" name="a735f8b74f657137dc22456fa13210a53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a735f8b74f657137dc22456fa13210a53">&#9670;&#160;</a></span>samplerCache</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04542.html">CommonSamplers</a> bl::rc::vk::VulkanState::samplerCache</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00231">231</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a34e7c2be0ebbc7d63ef38c74273fa7a3" name="a34e7c2be0ebbc7d63ef38c74273fa7a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34e7c2be0ebbc7d63ef38c74273fa7a3">&#9670;&#160;</a></span>shaderCache</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04394.html">res::ShaderModuleCache</a> bl::rc::vk::VulkanState::shaderCache</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00228">228</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5b02fb160c174a40b35d8f92232a87f2" name="a5b02fb160c174a40b35d8f92232a87f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b02fb160c174a40b35d8f92232a87f2">&#9670;&#160;</a></span>sharedCommandPool</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04654.html">SharedCommandPool</a> bl::rc::vk::VulkanState::sharedCommandPool</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00226">226</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac1839bf71168cdf716ff51f3eca82e35" name="ac1839bf71168cdf716ff51f3eca82e35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1839bf71168cdf716ff51f3eca82e35">&#9670;&#160;</a></span>surface</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkSurfaceKHR bl::rc::vk::VulkanState::surface</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00219">219</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad65744964148cb039de261945ec1ebd3" name="ad65744964148cb039de261945ec1ebd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad65744964148cb039de261945ec1ebd3">&#9670;&#160;</a></span>swapchain</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04670.html">Swapchain</a> bl::rc::vk::VulkanState::swapchain</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00227">227</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a08eacbdbb12875a6d1cfc19e922deec2" name="a08eacbdbb12875a6d1cfc19e922deec2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08eacbdbb12875a6d1cfc19e922deec2">&#9670;&#160;</a></span>transferEngine</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04514.html">tfr::TransferEngine</a> bl::rc::vk::VulkanState::transferEngine</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00229">229</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a781a2fe56188f13e65f1b511d9db23f6" name="a781a2fe56188f13e65f1b511d9db23f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a781a2fe56188f13e65f1b511d9db23f6">&#9670;&#160;</a></span>vmaAllocator</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">VmaAllocator bl::rc::vk::VulkanState::vmaAllocator</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00223">223</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7e8a82db8abb76fa0066358f9001eebe" name="a7e8a82db8abb76fa0066358f9001eebe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e8a82db8abb76fa0066358f9001eebe">&#9670;&#160;</a></span>window</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02378.html#ga57d216bfcb86b8f4150d59bf58be39f0">engine::EngineWindow</a>&amp; bl::rc::vk::VulkanState::window</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00214">214</a> of file <a class="el" href="a01319_source.html">VulkanState.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a01319_source.html">VulkanState.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a02252_source.html">VulkanState.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Buffers/<a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

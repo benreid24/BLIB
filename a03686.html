@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::rdr::FactoryTable Class Reference</title>
+<title>BLIB: bl::ecs::priv::ViewBase Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,202 +74,140 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02402.html">bl</a></li><li class="navelem"><a class="el" href="a02438.html">gui</a></li><li class="navelem"><a class="el" href="a02441.html">rdr</a></li><li class="navelem"><a class="el" href="a03686.html">FactoryTable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03010.html">priv</a></li><li class="navelem"><a class="el" href="a03686.html">ViewBase</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03683.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui::rdr::FactoryTable Class Reference<div class="ingroups"><a class="el" href="a02383.html">Interface</a> &raquo; <a class="el" href="a02397.html">GUI</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ecs::priv::ViewBase Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02968.html">ECS</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Managed mapping of <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> to <a class="el" href="a03678.html" title="Base class for component factories. Component factories are owned by FactoryTables,...">ComponentFactory</a>. Allows swapping out render behavior for specific <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> types individually.  
+<p>Helper class not to be used directly.  
  <a href="a03686.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00683_source.html">FactoryTable.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01583_source.html">View.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::priv::ViewBase:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a03686.png" usemap="#bl::ecs::priv::ViewBase_map" alt=""/>
+  <map id="bl::ecs::priv::ViewBase_map" name="bl::ecs::priv::ViewBase_map">
+<area href="a06542.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="553,0,1096,24"/>
+<area href="a03510.html" alt="bl::ecs::View&lt; bl::ecs::Require, bl::ecs::Optional &gt;" shape="rect" coords="0,112,543,136"/>
+<area href="a03510.html" title="Base definition of the View class. Use the tagged specialization." alt="bl::ecs::View&lt; TRequire, TOptional, TExclude &gt;" shape="rect" coords="553,112,1096,136"/>
+<area href="a03690.html" title="A view into the ECS providing fast iteration over entities with the given set of components...." alt="bl::ecs::View&lt; Require&lt; TReqComs... &gt;, Optional&lt; TOptComs... &gt;, Exclude&lt; TExcComs... &gt; &gt;" shape="rect" coords="1106,112,1649,136"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e2dad8a1002c160a1f5f0598454c9cf" id="r_a1e2dad8a1002c160a1f5f0598454c9cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a1e2dad8a1002c160a1f5f0598454c9cf">FactoryTable</a> (bool populateWithDefaults=true)</td></tr>
-<tr class="memdesc:a1e2dad8a1002c160a1f5f0598454c9cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new factory table.  <br /></td></tr>
-<tr class="separator:a1e2dad8a1002c160a1f5f0598454c9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa51390a6ea90905a49692097d22dd737" id="r_aa51390a6ea90905a49692097d22dd737"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#aa51390a6ea90905a49692097d22dd737">setFlashProviderFactory</a> (<a class="el" href="a03690.html#a524da658eb2cd3d9cf115aeb702a74e5">FlashProvider::Factory</a> &amp;&amp;factory)</td></tr>
-<tr class="memdesc:aa51390a6ea90905a49692097d22dd737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the callback to use to create flash providers.  <br /></td></tr>
-<tr class="separator:aa51390a6ea90905a49692097d22dd737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87ab84c25b422da7b0500c40e637ba55" id="r_a87ab84c25b422da7b0500c40e637ba55"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a87ab84c25b422da7b0500c40e637ba55">setHighlightProviderFactory</a> (<a class="el" href="a03694.html#a5bdd75df981da3a3f6502e36b8935076">HighlightProvider::Factory</a> &amp;&amp;factory)</td></tr>
-<tr class="memdesc:a87ab84c25b422da7b0500c40e637ba55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the callback to use to create highlight providers.  <br /></td></tr>
-<tr class="separator:a87ab84c25b422da7b0500c40e637ba55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56cdd69dbbedc85cdac60298f5d79ab0" id="r_a56cdd69dbbedc85cdac60298f5d79ab0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a56cdd69dbbedc85cdac60298f5d79ab0">setTooltipProviderFactory</a> (<a class="el" href="a03722.html#a7318c30bf125234762f9bb09151d73d6">TooltipProvider::Factory</a> &amp;&amp;factory)</td></tr>
-<tr class="memdesc:a56cdd69dbbedc85cdac60298f5d79ab0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the callback to use to create tooltip providers.  <br /></td></tr>
-<tr class="separator:a56cdd69dbbedc85cdac60298f5d79ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ddccc850391bf930e37283b9c0b96be" id="r_a5ddccc850391bf930e37283b9c0b96be"><td class="memTemplParams" colspan="2">template&lt;typename TElem &gt; </td></tr>
-<tr class="memitem:a5ddccc850391bf930e37283b9c0b96be"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03686.html#a5ddccc850391bf930e37283b9c0b96be">registerFactoryForElement</a> (<a class="el" href="a03678.html#a93c04bfc46919ebdb430f1951d3c011c">ComponentFactory::Ptr</a> &amp;&amp;factory)</td></tr>
-<tr class="memdesc:a5ddccc850391bf930e37283b9c0b96be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a factory to the table.  <br /></td></tr>
-<tr class="separator:a5ddccc850391bf930e37283b9c0b96be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab71bb75847185b8730e872097224bf09" id="r_ab71bb75847185b8730e872097224bf09"><td class="memTemplParams" colspan="2">template&lt;typename TElem , typename TCom &gt; </td></tr>
-<tr class="memitem:ab71bb75847185b8730e872097224bf09"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03686.html#ab71bb75847185b8730e872097224bf09">registerFactoryForElement</a> ()</td></tr>
-<tr class="memdesc:ab71bb75847185b8730e872097224bf09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method to use the <a class="el" href="a03682.html" title="Generic factory for components with simple constructors. Provided for convenience.">GenericFactory</a> for the given element.  <br /></td></tr>
-<tr class="separator:ab71bb75847185b8730e872097224bf09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7b3908717e69c9ed4b781ecdbb275b8" id="r_ad7b3908717e69c9ed4b781ecdbb275b8"><td class="memTemplParams" colspan="2">template&lt;typename TElem &gt; </td></tr>
-<tr class="memitem:ad7b3908717e69c9ed4b781ecdbb275b8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03686.html#ad7b3908717e69c9ed4b781ecdbb275b8">createComponent</a> () const</td></tr>
-<tr class="memdesc:ad7b3908717e69c9ed4b781ecdbb275b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the registered factory to create a <a class="el" href="a03674.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> for the given element type.  <br /></td></tr>
-<tr class="separator:ad7b3908717e69c9ed4b781ecdbb275b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f95525f0333652c3b7eb1f226b7fd8e" id="r_a7f95525f0333652c3b7eb1f226b7fd8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03690.html#a485529a3d684527236054427f96c570e">FlashProvider::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a7f95525f0333652c3b7eb1f226b7fd8e">createFlashProvider</a> () const</td></tr>
-<tr class="memdesc:a7f95525f0333652c3b7eb1f226b7fd8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a flash provider.  <br /></td></tr>
-<tr class="separator:a7f95525f0333652c3b7eb1f226b7fd8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02c652b4fefc228451c377e4b437efc6" id="r_a02c652b4fefc228451c377e4b437efc6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03694.html#a66ac6d9dbccb33fbf459435d7e99ed24">HighlightProvider::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a02c652b4fefc228451c377e4b437efc6">createHighlightProvider</a> () const</td></tr>
-<tr class="memdesc:a02c652b4fefc228451c377e4b437efc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a highlight provider.  <br /></td></tr>
-<tr class="separator:a02c652b4fefc228451c377e4b437efc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0971cc069b548d6e3b4ffeb5ffa510c7" id="r_a0971cc069b548d6e3b4ffeb5ffa510c7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03722.html#a7d4cab9c1462843ae39dde6fd247e664">TooltipProvider::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a0971cc069b548d6e3b4ffeb5ffa510c7">createTooltipProvider</a> () const</td></tr>
-<tr class="memdesc:a0971cc069b548d6e3b4ffeb5ffa510c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a tooltip provider.  <br /></td></tr>
-<tr class="separator:a0971cc069b548d6e3b4ffeb5ffa510c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5969969dbaaa83ed0713eed8cd35ae17" id="r_a5969969dbaaa83ed0713eed8cd35ae17"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a5969969dbaaa83ed0713eed8cd35ae17">~ViewBase</a> ()=default</td></tr>
+<tr class="separator:a5969969dbaaa83ed0713eed8cd35ae17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab74787af56f35179cb8db85af92292ef" id="r_ab74787af56f35179cb8db85af92292ef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03686.html">FactoryTable</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#ab74787af56f35179cb8db85af92292ef">getDefaultTable</a> ()</td></tr>
-<tr class="memdesc:ab74787af56f35179cb8db85af92292ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the global default table. <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a>'s use this table unless overridden.  <br /></td></tr>
-<tr class="separator:ab74787af56f35179cb8db85af92292ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aafdfd8e3839e65877f319f37996af1aa" id="r_aafdfd8e3839e65877f319f37996af1aa"><td class="memItemLeft" align="right" valign="top">const std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#aafdfd8e3839e65877f319f37996af1aa">id</a></td></tr>
+<tr class="separator:aafdfd8e3839e65877f319f37996af1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaec4846781fb716ae60bc560bce90dfe" id="r_aaec4846781fb716ae60bc560bce90dfe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03506.html">ComponentMask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#aaec4846781fb716ae60bc560bce90dfe">mask</a></td></tr>
+<tr class="separator:aaec4846781fb716ae60bc560bce90dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aad663a90cdfb9c7d9f98aaf6ff89a488" id="r_aad663a90cdfb9c7d9f98aaf6ff89a488"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#aad663a90cdfb9c7d9f98aaf6ff89a488">ViewBase</a> (<a class="el" href="a03506.html">ComponentMask</a> <a class="el" href="a03686.html#aaec4846781fb716ae60bc560bce90dfe">mask</a>, std::type_index <a class="el" href="a03686.html#aafdfd8e3839e65877f319f37996af1aa">id</a>)</td></tr>
+<tr class="separator:aad663a90cdfb9c7d9f98aaf6ff89a488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b85cace86a9ac96e0709123561754d9" id="r_a1b85cace86a9ac96e0709123561754d9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a1b85cace86a9ac96e0709123561754d9">removeEntity</a> (<a class="el" href="a03542.html">Entity</a> entity)=0</td></tr>
+<tr class="separator:a1b85cace86a9ac96e0709123561754d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeac4fe75e62fd655cc93cadc083f5d6e" id="r_aeac4fe75e62fd655cc93cadc083f5d6e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#aeac4fe75e62fd655cc93cadc083f5d6e">nullEntityComponent</a> (<a class="el" href="a03542.html">Entity</a> entity, void *com)=0</td></tr>
+<tr class="separator:aeac4fe75e62fd655cc93cadc083f5d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af34b9807e8e8ee6f2b6e6acf2fa90f27" id="r_af34b9807e8e8ee6f2b6e6acf2fa90f27"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">tryAddEntity</a> (<a class="el" href="a03542.html">Entity</a> entity)=0</td></tr>
+<tr class="separator:af34b9807e8e8ee6f2b6e6acf2fa90f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ce0458f819504dbf9c2b7e5b28401a8" id="r_a6ce0458f819504dbf9c2b7e5b28401a8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a6ce0458f819504dbf9c2b7e5b28401a8">clearAndRefresh</a> ()=0</td></tr>
+<tr class="separator:a6ce0458f819504dbf9c2b7e5b28401a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a732f6ebccb46b7e6d1a06877441c60a9" id="r_a732f6ebccb46b7e6d1a06877441c60a9"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a732f6ebccb46b7e6d1a06877441c60a9">bl::ecs::Registry</a></td></tr>
+<tr class="separator:a732f6ebccb46b7e6d1a06877441c60a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Managed mapping of <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> to <a class="el" href="a03678.html" title="Base class for component factories. Component factories are owned by FactoryTables,...">ComponentFactory</a>. Allows swapping out render behavior for specific <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> types individually. </p>
+<div class="textblock"><p>Helper class not to be used directly. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00024">24</a> of file <a class="el" href="a00683_source.html">FactoryTable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00030">30</a> of file <a class="el" href="a01583_source.html">View.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1e2dad8a1002c160a1f5f0598454c9cf" name="a1e2dad8a1002c160a1f5f0598454c9cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e2dad8a1002c160a1f5f0598454c9cf">&#9670;&#160;</a></span>FactoryTable()</h2>
+<a id="a5969969dbaaa83ed0713eed8cd35ae17" name="a5969969dbaaa83ed0713eed8cd35ae17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5969969dbaaa83ed0713eed8cd35ae17">&#9670;&#160;</a></span>~ViewBase()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::rdr::FactoryTable::FactoryTable </td>
+          <td class="memname">virtual bl::ecs::priv::ViewBase::~ViewBase </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>populateWithDefaults</em> = <code>true</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Creates a new factory table. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">populateWithDefaults</td><td>True to populate with the default factories, false to leave empty </td></tr>
-  </table>
-  </dd>
-</dl>
+</div>
+</div>
+<a id="aad663a90cdfb9c7d9f98aaf6ff89a488" name="aad663a90cdfb9c7d9f98aaf6ff89a488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad663a90cdfb9c7d9f98aaf6ff89a488">&#9670;&#160;</a></span>ViewBase()</h2>
 
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00037">37</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::priv::ViewBase::ViewBase </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03506.html">ComponentMask</a>&#160;</td>
+          <td class="paramname"><em>mask</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::type_index&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00038">38</a> of file <a class="el" href="a01583_source.html">View.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad7b3908717e69c9ed4b781ecdbb275b8" name="ad7b3908717e69c9ed4b781ecdbb275b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7b3908717e69c9ed4b781ecdbb275b8">&#9670;&#160;</a></span>createComponent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TElem &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03674.html#a947a8f9a8831f3c495cb9aa7ca89a374">Component::Ptr</a> bl::gui::rdr::FactoryTable::createComponent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Uses the registered factory to create a <a class="el" href="a03674.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> for the given element type. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TElem</td><td>The <a class="el" href="a03498.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to create the <a class="el" href="a03674.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The created component. Throws if the table does not have the correct factory </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00090">90</a> of file <a class="el" href="a00683_source.html">FactoryTable.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7f95525f0333652c3b7eb1f226b7fd8e" name="a7f95525f0333652c3b7eb1f226b7fd8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f95525f0333652c3b7eb1f226b7fd8e">&#9670;&#160;</a></span>createFlashProvider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03690.html#a485529a3d684527236054427f96c570e">FlashProvider::Ptr</a> bl::gui::rdr::FactoryTable::createFlashProvider </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a flash provider. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00084">84</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a02c652b4fefc228451c377e4b437efc6" name="a02c652b4fefc228451c377e4b437efc6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02c652b4fefc228451c377e4b437efc6">&#9670;&#160;</a></span>createHighlightProvider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03694.html#a66ac6d9dbccb33fbf459435d7e99ed24">HighlightProvider::Ptr</a> bl::gui::rdr::FactoryTable::createHighlightProvider </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a highlight provider. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00086">86</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0971cc069b548d6e3b4ffeb5ffa510c7" name="a0971cc069b548d6e3b4ffeb5ffa510c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0971cc069b548d6e3b4ffeb5ffa510c7">&#9670;&#160;</a></span>createTooltipProvider()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03722.html#a7d4cab9c1462843ae39dde6fd247e664">TooltipProvider::Ptr</a> bl::gui::rdr::FactoryTable::createTooltipProvider </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a tooltip provider. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00088">88</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab74787af56f35179cb8db85af92292ef" name="ab74787af56f35179cb8db85af92292ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab74787af56f35179cb8db85af92292ef">&#9670;&#160;</a></span>getDefaultTable()</h2>
+<a id="a6ce0458f819504dbf9c2b7e5b28401a8" name="a6ce0458f819504dbf9c2b7e5b28401a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ce0458f819504dbf9c2b7e5b28401a8">&#9670;&#160;</a></span>clearAndRefresh()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,7 +216,7 @@ template&lt;typename TElem &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03686.html">FactoryTable</a> &amp; bl::gui::rdr::FactoryTable::getDefaultTable </td>
+          <td class="memname">virtual void bl::ecs::priv::ViewBase::clearAndRefresh </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -286,192 +224,167 @@ template&lt;typename TElem &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the global default table. <a class="el" href="a03566.html" title="Top level class for creating a graphical user interface.">GUI</a>'s use this table unless overridden. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00067">67</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ab71bb75847185b8730e872097224bf09" name="ab71bb75847185b8730e872097224bf09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab71bb75847185b8730e872097224bf09">&#9670;&#160;</a></span>registerFactoryForElement() <span class="overload">[1/2]</span></h2>
+<a id="aeac4fe75e62fd655cc93cadc083f5d6e" name="aeac4fe75e62fd655cc93cadc083f5d6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeac4fe75e62fd655cc93cadc083f5d6e">&#9670;&#160;</a></span>nullEntityComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename TElem , typename TCom &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::FactoryTable::registerFactoryForElement </td>
+          <td class="memname">virtual void bl::ecs::priv::ViewBase::nullEntityComponent </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>com</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Convenience method to use the <a class="el" href="a03682.html" title="Generic factory for components with simple constructors. Provided for convenience.">GenericFactory</a> for the given element. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TElem</td><td>The element type to use the <a class="el" href="a03682.html" title="Generic factory for components with simple constructors. Provided for convenience.">GenericFactory</a> for </td></tr>
-    <tr><td class="paramname">TCom</td><td>The <a class="el" href="a03674.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render...">Component</a> type to create for elements of type TElem </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00078">78</a> of file <a class="el" href="a00683_source.html">FactoryTable.hpp</a>.</p>
-
 </div>
 </div>
-<a id="a5ddccc850391bf930e37283b9c0b96be" name="a5ddccc850391bf930e37283b9c0b96be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ddccc850391bf930e37283b9c0b96be">&#9670;&#160;</a></span>registerFactoryForElement() <span class="overload">[2/2]</span></h2>
+<a id="a1b85cace86a9ac96e0709123561754d9" name="a1b85cace86a9ac96e0709123561754d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b85cace86a9ac96e0709123561754d9">&#9670;&#160;</a></span>removeEntity()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename TElem &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::FactoryTable::registerFactoryForElement </td>
+          <td class="memname">virtual void bl::ecs::priv::ViewBase::removeEntity </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03678.html#a93c04bfc46919ebdb430f1951d3c011c">ComponentFactory::Ptr</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>factory</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Adds a factory to the table. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TElem</td><td>The element type to register the factory for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">factory</td><td>The factory to use for the given element type </td></tr>
-  </table>
-  </dd>
-</dl>
+</div>
+</div>
+<a id="af34b9807e8e8ee6f2b6e6acf2fa90f27" name="af34b9807e8e8ee6f2b6e6acf2fa90f27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af34b9807e8e8ee6f2b6e6acf2fa90f27">&#9670;&#160;</a></span>tryAddEntity()</h2>
 
-<p class="definition">Definition at line <a class="el" href="a00683_source.html#l00066">66</a> of file <a class="el" href="a00683_source.html">FactoryTable.hpp</a>.</p>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::ecs::priv::ViewBase::tryAddEntity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03542.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a id="aa51390a6ea90905a49692097d22dd737" name="aa51390a6ea90905a49692097d22dd737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa51390a6ea90905a49692097d22dd737">&#9670;&#160;</a></span>setFlashProviderFactory()</h2>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a732f6ebccb46b7e6d1a06877441c60a9" name="a732f6ebccb46b7e6d1a06877441c60a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a732f6ebccb46b7e6d1a06877441c60a9">&#9670;&#160;</a></span>bl::ecs::Registry</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03590.html">bl::ecs::Registry</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00047">47</a> of file <a class="el" href="a01583_source.html">View.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aafdfd8e3839e65877f319f37996af1aa" name="aafdfd8e3839e65877f319f37996af1aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafdfd8e3839e65877f319f37996af1aa">&#9670;&#160;</a></span>id</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::FactoryTable::setFlashProviderFactory </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03690.html#a524da658eb2cd3d9cf115aeb702a74e5">FlashProvider::Factory</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>factory</em></td><td>)</td>
-          <td></td>
+          <td class="memname">const std::type_index bl::ecs::priv::ViewBase::id</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the callback to use to create flash providers. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">factory</td><td>The factory callback </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00072">72</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00032">32</a> of file <a class="el" href="a01583_source.html">View.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a87ab84c25b422da7b0500c40e637ba55" name="a87ab84c25b422da7b0500c40e637ba55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87ab84c25b422da7b0500c40e637ba55">&#9670;&#160;</a></span>setHighlightProviderFactory()</h2>
+<a id="aaec4846781fb716ae60bc560bce90dfe" name="aaec4846781fb716ae60bc560bce90dfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaec4846781fb716ae60bc560bce90dfe">&#9670;&#160;</a></span>mask</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::FactoryTable::setHighlightProviderFactory </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03694.html#a5bdd75df981da3a3f6502e36b8935076">HighlightProvider::Factory</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>factory</em></td><td>)</td>
-          <td></td>
+          <td class="memname">const <a class="el" href="a03506.html">ComponentMask</a> bl::ecs::priv::ViewBase::mask</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the callback to use to create highlight providers. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">factory</td><td>The factory callback </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00076">76</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01583_source.html#l00033">33</a> of file <a class="el" href="a01583_source.html">View.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a56cdd69dbbedc85cdac60298f5d79ab0" name="a56cdd69dbbedc85cdac60298f5d79ab0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56cdd69dbbedc85cdac60298f5d79ab0">&#9670;&#160;</a></span>setTooltipProviderFactory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::FactoryTable::setTooltipProviderFactory </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03722.html#a7318c30bf125234762f9bb09151d73d6">TooltipProvider::Factory</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>factory</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the callback to use to create tooltip providers. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">factory</td><td>The factory callback </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01841_source.html#l00080">80</a> of file <a class="el" href="a01841_source.html">FactoryTable.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Renderer/<a class="el" href="a00683_source.html">FactoryTable.hpp</a></li>
-<li>src/Interfaces/GUI/Renderer/<a class="el" href="a01841_source.html">FactoryTable.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a01583_source.html">View.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Feb 3 2025 15:13:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 11 2026 05:07:02 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>
