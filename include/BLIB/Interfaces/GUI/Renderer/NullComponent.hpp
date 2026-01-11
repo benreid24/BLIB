@@ -30,7 +30,7 @@ public:
 private:
     virtual void setVisible(bool) override {}
     virtual void onElementUpdated() override {}
-    virtual void onRenderSettingChange() {}
+    virtual void onRenderSettingChange() override {}
     virtual ecs::Entity getEntity() const override { return ecs::InvalidEntity; }
     virtual void doCreate(engine::World&, Renderer&) override {}
     virtual void doSceneAdd(rc::Overlay*) override {}

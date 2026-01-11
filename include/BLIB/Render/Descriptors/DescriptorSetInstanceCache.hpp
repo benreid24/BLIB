@@ -3,7 +3,7 @@
 
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <memory>
 #include <typeindex>
 #include <unordered_map>
@@ -25,9 +25,9 @@ public:
     /**
      * @brief Creates the descriptor set cache
      *
-     * @param storageCache Descriptor set storage module cache
+     * @param ctx Context containing all data required to create and initialize descriptor sets
      */
-    DescriptorSetInstanceCache(DescriptorComponentStorageCache& storageCache);
+    DescriptorSetInstanceCache(const InitContext& ctx);
 
     /**
      * @brief Fetches or creates a descriptor set for the given descriptor set factory
@@ -36,14 +36,6 @@ public:
      * @return The descriptor set instance to use
      */
     DescriptorSetInstance* getDescriptorSet(DescriptorSetFactory* factory);
-
-    /**
-     * @brief Updates the camera value for the given observer in each contained scene descriptor set
-     *
-     * @param observerIndex Index of the observer to update
-     * @param projView Camera matrix for the given observer
-     */
-    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
 
     /**
      * @brief Goes through all descriptor set instances and calls removeObject for the given object
@@ -56,10 +48,11 @@ public:
     /**
      * @brief Called once prior to TransferEngine kicking off
      */
-    void handleDescriptorSync();
+    void updateDescriptors();
 
     /**
      * @brief Fetches the contained descriptor set by type, if present
+     *
      * @tparam T The type of descriptor set to fetch
      * @return The descriptor set of the given type, if present
      */
@@ -67,9 +60,8 @@ public:
     T* getDescriptorSet();
 
 private:
-    DescriptorComponentStorageCache& storageCache;
+    InitContext ctx;
     std::unordered_map<DescriptorSetFactory*, std::unique_ptr<DescriptorSetInstance>> cache;
-    std::vector<ds::SceneDescriptorSetInstance*> sceneSets;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

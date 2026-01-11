@@ -3,6 +3,7 @@ target_sources(BLIB PUBLIC
     Engine.hpp
     Flags.hpp
     FrameStage.hpp
+    HeaderHelpers.hpp
     Player.hpp
     Properties.hpp
     Property.hpp
@@ -10,7 +11,6 @@ target_sources(BLIB PUBLIC
     State.hpp
     System.hpp
     Systems.hpp
-    Window.hpp
     Worker.hpp
 )
 

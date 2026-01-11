@@ -12,14 +12,21 @@ target_sources(BLIB PRIVATE
 	BatchSpriteSimple.cpp
 	BatchTriangle.cpp
 	Circle.cpp
+	Cone.cpp
+	Cube.cpp
 	Dummy2D.cpp
 	Icon.cpp
+	ModelStatic.cpp
+	ModelSkeletal.cpp
 	Rectangle.cpp
+	Skybox.cpp
 	Slideshow.cpp
+	Sphere.cpp
 	Sprite.cpp
 	Text.cpp
 	Triangle.cpp
 	VertexBuffer2D.cpp
+	VertexBuffer3D.cpp
 )
 
 add_subdirectory(Animation2D)

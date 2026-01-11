@@ -2,9 +2,9 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 
 namespace bl
 {
@@ -13,11 +13,9 @@ namespace rc
 namespace vk
 {
 RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
-                             const glm::u32vec2& size, VkSampler sampler)
+                             const glm::u32vec2& size, SamplerOptions::Type sampler)
 : RenderTarget(engine, renderer, factory, true) {
     commandBuffers.create(renderer.vulkanState());
-    attachments.emptyInit(renderer.vulkanState());
-    framebuffers.emptyInit(renderer.vulkanState());
 
     scissor.extent.width  = size.x;
     scissor.extent.height = size.y;
@@ -29,11 +27,15 @@ RenderTexture::RenderTexture(engine::Engine& engine, Renderer& renderer, rg::Ass
     viewport.width        = size.x;
     viewport.height       = size.y;
 
-    texture = renderer.texturePool().createRenderTexture(size, sampler);
+    // TODO - should recreate on settings change
+    texture = renderer.texturePool().createRenderTexture(
+        size,
+        renderer.getTextureFormatManager().getFormat(vk::SemanticTextureFormat::Color),
+        sampler);
     resize(size);
 
-    graphAssets.putAsset<rgi::FinalRenderTextureAsset>(
-        framebuffers, viewport, scissor, clearColors, std::size(clearColors));
+    renderingTo = graphAssets.putAsset<rgi::FinalRenderTextureAsset>(
+        texture, viewport, scissor, clearColors, std::size(clearColors));
 }
 
 RenderTexture::~RenderTexture() {
@@ -48,38 +50,11 @@ void RenderTexture::resize(const glm::u32vec2& size) {
     scissor.extent.height = size.y;
     viewport.width        = size.x;
     viewport.height       = size.y;
-
-    VkRenderPass renderPass = renderer.renderPassCache()
-                                  .getRenderPass(Config::RenderPassIds::StandardAttachmentDefault)
-                                  .rawPass();
-
-    unsigned int i = 0;
-    attachments.visit([this, size, renderPass, &i](auto& a) {
-        a.depthBuffer.create(renderer.vulkanState(),
-                             StandardAttachmentBuffers::findDepthFormat(renderer.vulkanState()),
-                             VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
-                             {size.x, size.y});
-
-        a.attachmentSet.setRenderExtent(scissor.extent);
-        a.attachmentSet.setAttachments(texture.asRenderTexture()->getImages().getRaw(i).image,
-                                       texture.asRenderTexture()->getImages().getRaw(i).view,
-                                       a.depthBuffer.image(),
-                                       a.depthBuffer.view());
-        ++i;
-    });
-
-    i = 0;
-    framebuffers.visit([this, &i, renderPass](auto& fb) {
-        fb.create(renderer.vulkanState(), renderPass, attachments.getRaw(i).attachmentSet);
-        ++i;
-    });
 }
 
 void RenderTexture::destroy() {
     if (texture) {
         clearScenes();
-        framebuffers.cleanup([](auto& fb) { fb.deferCleanup(); });
-        attachments.cleanup([](auto& a) { a.depthBuffer.deferDestroy(); });
         texture.release();
     }
 }
@@ -87,26 +62,7 @@ void RenderTexture::destroy() {
 void RenderTexture::render() {
     if (texture) {
         auto commandBuffer = commandBuffers.begin();
-
-        framebuffers.current().beginRender(
-            commandBuffer, scissor, clearColors, std::size(clearColors), true, nullptr);
-
         renderScene(commandBuffer);
-        renderSceneFinal(commandBuffer);
-
-        VkClearAttachment attachment{};
-        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-        attachment.clearValue = clearColors[1];
-
-        VkClearRect rect{};
-        rect.rect           = scissor;
-        rect.baseArrayLayer = 0;
-        rect.layerCount     = 1;
-
-        vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
-        renderOverlay(commandBuffer);
-
-        framebuffers.current().finishRender(commandBuffer);
         commandBuffers.submit();
     }
 }

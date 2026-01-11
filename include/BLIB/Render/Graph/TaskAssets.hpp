@@ -20,9 +20,10 @@ struct GraphAsset;
  * @ingroup Renderer
  */
 struct TaskAssets {
-    GraphAsset* output;
+    std::vector<GraphAsset*> outputs;
     std::vector<GraphAsset*> requiredInputs;
     std::vector<GraphAsset*> optionalInputs;
+    std::vector<GraphAsset*> sidecarAssets;
 
     /**
      * @brief Creates an empty asset set

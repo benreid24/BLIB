@@ -4,6 +4,7 @@
 #include <BLIB/Render/Graph/AssetPool.hpp>
 #include <BLIB/Render/Graph/GraphAssetPool.hpp>
 #include <BLIB/Render/Graph/Task.hpp>
+#include <BLIB/Render/Graph/Timeline.hpp>
 #include <memory>
 #include <queue>
 #include <stdexcept>
@@ -36,9 +37,10 @@ public:
      * @param renderer The renderer instance
      * @param assetPool The targets's asset pool
      * @param target The render target the graph belongs to
+     * @param scene The scene that the graph is rendering to
      */
     RenderGraph(engine::Engine& engine, Renderer& renderer, AssetPool& assetPool,
-                RenderTarget* target);
+                RenderTarget* target, Scene* scene);
 
     /**
      * @brief Adds a new task to the graph to become a part of the render process
@@ -53,7 +55,7 @@ public:
         T* task = new T(std::forward<TArgs>(args)...);
         tasks.emplace_back(task);
         needsRebuild = true;
-        static_cast<Task*>(task)->create(engine, renderer);
+        createTask(static_cast<Task*>(task));
         return task;
     }
 
@@ -131,24 +133,13 @@ public:
     }
 
     /**
-     * @brief Executes the graph to record render commands into the given command buffer. Does not
-     *        execute the final task
+     * @brief Executes the graph to record render commands into the given command buffer
      *
      * @param commandBuffer The command buffer to record into
      * @param observerIndex The observer's index in the current scene
      * @param renderTexture True if the final target is a render texture, false otherwise
      */
     void execute(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture);
-
-    /**
-     * @brief Executes the final task of the graph
-     *
-     * @param commandBuffer The command buffer to record into
-     * @param observerIndex The observer's index in the current scene
-     * @param renderTexture True if the final target is a render texture, false otherwise
-     */
-    void executeFinal(VkCommandBuffer commandBuffer, std::uint32_t observerIndex,
-                      bool renderTexture);
 
     /**
      * @brief Builds the graph timeline. Called automatically in execute()
@@ -163,7 +154,7 @@ public:
     /**
      * @brief Returns whether or not the graph needs to be repopulated from scratch
      */
-    constexpr bool needsRepopulation() const { return needsReset; }
+    bool needsRepopulation() const;
 
     /**
      * @brief Clears all tasks from the graph and marks it for re-population
@@ -173,10 +164,9 @@ public:
     /**
      * @brief Clears and re-populates the tasks in the graph. Re-builds the graph
      *
-     * @param strategy The renderer strategy to use
      * @param scene The scene to get additional tasks from
      */
-    void populate(Strategy& strategy, Scene& scene);
+    void populate(Scene& scene);
 
     /**
      * @brief Calls update on all contained tasks
@@ -186,54 +176,19 @@ public:
     void update(float dt);
 
 private:
-    struct TimelineStage {
-        std::vector<Task*> tasks;
-    };
-
-    struct VisitorStep {
-        GraphAsset* asset;
-        unsigned int stepsFromEnd;
-    };
-
     engine::Engine& engine;
     Renderer& renderer;
     RenderTarget* observer;
+    Scene* scene;
     GraphAssetPool assets;
     std::vector<std::unique_ptr<Task>> tasks;
-    std::vector<TimelineStage> timeline;
+    Timeline timeline;
+    Strategy* strategy;
+    unsigned int strategyVersion;
     bool needsRebuild;
     bool needsReset;
 
-    template<typename T>
-    void traverse(T&& taskVisitor, GraphAsset* start) {
-        std::queue<VisitorStep> toVisit;
-        std::unordered_set<GraphAsset*> visited;
-        toVisit.emplace(VisitorStep{start, 0});
-
-        const auto processInputs = [&toVisit, &visited](std::vector<GraphAsset*>& inputs,
-                                                        unsigned int newSteps) {
-            for (GraphAsset* asset : inputs) {
-                if (!asset || !asset->outputtedBy) continue;
-
-                if (visited.find(asset) != visited.end()) {
-                    throw std::runtime_error("Cycle detected in render graph");
-                }
-                visited.emplace(asset);
-                toVisit.emplace(VisitorStep{asset, newSteps});
-            }
-        };
-
-        while (!toVisit.empty()) {
-            const VisitorStep step = toVisit.front();
-            toVisit.pop();
-
-            const unsigned int newSteps = step.stepsFromEnd + 1;
-            taskVisitor(step.asset->outputtedBy, step.stepsFromEnd);
-
-            processInputs(step.asset->outputtedBy->assets.requiredInputs, newSteps);
-            processInputs(step.asset->outputtedBy->assets.optionalInputs, newSteps);
-        }
-    }
+    void createTask(Task* task);
 };
 
 } // namespace rg

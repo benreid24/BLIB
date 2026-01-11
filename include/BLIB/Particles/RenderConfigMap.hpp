@@ -1,7 +1,6 @@
 #ifndef BLIB_PARTICLES_RENDERCONFIGMAP_HPP
 #define BLIB_PARTICLES_RENDERCONFIGMAP_HPP
 
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
 #include <cstdint>
 #include <initializer_list>

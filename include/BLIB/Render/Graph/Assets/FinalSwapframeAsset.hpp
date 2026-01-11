@@ -1,22 +1,34 @@
 #ifndef BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP
 #define BLIB_RENDER_GRAPH_ASSETS_FINALSWAPFRAMEASSET_HPP
 
+#include <BLIB/Render/Events/SettingsChanged.hpp>
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerSwapFrame.hpp>
+#include <BLIB/Signals/Listener.hpp>
 
 namespace bl
 {
 namespace rc
 {
+namespace vk
+{
+class Swapchain;
+}
 namespace rgi
 {
+class DepthBuffer;
+
 /**
  * @brief Asset for the swapchain image that an observer renders to
  *
  * @ingroup Renderer
  */
-class FinalSwapframeAsset : public FramebufferAsset {
+class FinalSwapframeAsset
+: public FramebufferAsset
+, public sig::Listener<event::SettingsChanged> {
 public:
     /**
      * @brief Creates a new asset
@@ -27,9 +39,8 @@ public:
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalSwapframeAsset(vk::PerSwapFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
-                        const VkRect2D& scissor, const VkClearValue* clearColors,
-                        const std::uint32_t clearColorCount);
+    FinalSwapframeAsset(const VkViewport& viewport, const VkRect2D& scissor,
+                        const VkClearValue* clearColors, const std::uint32_t clearColorCount);
 
     /**
      * @brief Does nothing
@@ -41,14 +52,34 @@ public:
      */
     virtual vk::Framebuffer& currentFramebuffer() override;
 
-private:
-    vk::PerSwapFrame<vk::Framebuffer>& framebuffers;
+    /**
+     * @brief Returns the framebuffer at the given swap frame index
+     *
+     * @param i The swap frame index of the framebuffer to return
+     * @return The framebuffer at the given index
+     */
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
-                          RenderTarget* observer) override;
+private:
+    engine::Engine* engine;
+    RenderWindow* window;
+    vk::Swapchain* swapchain;
+    DepthBuffer* depthBufferAsset;
+    vk::PerSwapFrame<vk::AttachmentSet> attachmentSets;
+    vk::PerSwapFrame<vk::Framebuffer> framebuffers;
+    vk::Image sampledImage;
+
+    virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
-    virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
+    virtual void doStartOutput(const rg::ExecutionContext& context) override;
+    virtual void doEndOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;
+    virtual void onReset() override;
+    virtual void process(const event::SettingsChanged& event) override;
+
+    void updateAllAttachments();
+    void updateAttachments(std::uint32_t swapFrameIndex);
+    void ensureSampledImage();
 };
 
 } // namespace rgi

@@ -2,7 +2,7 @@
 
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -21,7 +21,7 @@ bool requiresSwizzle(VkFormat format) {
 }
 } // namespace
 
-TextureExport::TextureExport(vk::VulkanState& vs, TextureExporter& owner, VkImage src,
+TextureExport::TextureExport(vk::VulkanLayer& vs, TextureExporter& owner, VkImage src,
                              VkImageLayout srcLayout, VkExtent3D srcExtent,
                              VkImageAspectFlags srcAspect, VkFormat srcFormat)
 : vulkanState(vs)
@@ -36,10 +36,10 @@ TextureExport::TextureExport(vk::VulkanState& vs, TextureExporter& owner, VkImag
 , inProgress(true) {}
 
 TextureExport::~TextureExport() {
-    if (mapped) { vmaUnmapMemory(vulkanState.vmaAllocator, destAlloc); }
-    vmaDestroyImage(vulkanState.vmaAllocator, destImage, destAlloc);
-    vkDestroyFence(vulkanState.device, fence, nullptr);
-    vkDestroyCommandPool(vulkanState.device, commandPool, nullptr);
+    if (mapped) { vmaUnmapMemory(vulkanState.getVmaAllocator(), destAlloc); }
+    vmaDestroyImage(vulkanState.getVmaAllocator(), destImage, destAlloc);
+    vkDestroyFence(vulkanState.getDevice(), fence, nullptr);
+    vkDestroyCommandPool(vulkanState.getDevice(), commandPool, nullptr);
 }
 
 bool TextureExport::imageReady() const { return !inProgress; }
@@ -54,7 +54,7 @@ void TextureExport::wait() {
 bool TextureExport::checkComplete() {
     if (inProgress) {
         std::unique_lock lock(progressMutex);
-        if (vkWaitForFences(vulkanState.device, 1, &fence, VK_TRUE, 0) == VK_SUCCESS) {
+        if (vkWaitForFences(vulkanState.getDevice(), 1, &fence, VK_TRUE, 0) == VK_SUCCESS) {
             inProgress = false;
             cv.notify_all();
             return true;
@@ -70,7 +70,7 @@ void TextureExport::copyImage(sf::Image& dst) {
         wait();
     }
 
-    if (!mapped) { vmaMapMemory(vulkanState.vmaAllocator, destAlloc, &mapped); }
+    if (!mapped) { vmaMapMemory(vulkanState.getVmaAllocator(), destAlloc, &mapped); }
 
     dst.create(srcExtent.width, srcExtent.height, static_cast<sf::Uint8*>(mapped));
     if (requiresManualConversion) {
@@ -93,19 +93,21 @@ void TextureExport::performCopy() {
     cbAllocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     cbAllocInfo.commandPool        = commandPool;
     cbAllocInfo.commandBufferCount = 1;
-    vkCheck(vkAllocateCommandBuffers(vulkanState.device, &cbAllocInfo, &commandBuffer));
+    vkCheck(vkAllocateCommandBuffers(vulkanState.getDevice(), &cbAllocInfo, &commandBuffer));
 
     VkFenceCreateInfo createFence{};
     createFence.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     createFence.flags = 0;
-    vkCheck(vkCreateFence(vulkanState.device, &createFence, nullptr, &fence));
+    vkCheck(vkCreateFence(vulkanState.getDevice(), &createFence, nullptr, &fence));
 
     // create staging image to copy to
     vulkanState.createImage(srcExtent.width,
                             srcExtent.height,
+                            1,
                             OutputFormat,
                             VK_IMAGE_TILING_LINEAR,
                             VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT,
+                            0,
                             VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
                                 VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
                             &destImage,

@@ -1,7 +1,6 @@
 #ifndef BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP
 #define BLIB_RENDER_VULKAN_PERFRAMEVECTOR_HPP
 
-#include <BLIB/Render/Config.hpp>
 #include <cstdint>
 #include <vector>
 
@@ -11,7 +10,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Container version of PerFrame. Intended to replace std::vector<PerFrame<T>> when
@@ -30,17 +29,17 @@ public:
      *
      * @param vulkanState Renderer Vulkan state
      */
-    void emptyInit(VulkanState& vulkanState, std::uint32_t capacity);
+    void emptyInit(VulkanLayer& vulkanState, std::uint32_t capacity);
 
     /**
      * @brief Initialize the buffer and each contained object
      *
      * @tparam U The callback type to init with. Signature void(uint32_t, std::uint32_t, T&)
-     * @param vulkanState The VulkanState to sync with
+     * @param vulkanState The VulkanLayer to sync with
      * @param visitor The callback to init each buffered object
      */
     template<typename U>
-    void init(VulkanState& vulkanState, std::uint32_t capacity, const U& visitor);
+    void init(VulkanLayer& vulkanState, std::uint32_t capacity, const U& visitor);
 
     /**
      * @brief General buffered object visitor intended primarily for cleanup but could be used for
@@ -107,7 +106,7 @@ public:
     constexpr const T* data() const;
 
 private:
-    VulkanState* vs;
+    VulkanLayer* vs;
     std::uint32_t cap;
     std::vector<T> items;
 };

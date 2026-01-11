@@ -29,6 +29,11 @@ public:
     static bool useBundle(const std::string& bundlePath);
 
     /**
+     * @brief Returns whether the file system is currently using a bundle
+     */
+    static bool isUsingBundle();
+
+    /**
      * @brief Loads the data for the given path. Either loads from the underlying file system or
      *        from the active bundle
      *

@@ -69,6 +69,11 @@ public:
      */
     virtual glm::vec2 getViewerSize() const = 0;
 
+    /**
+     * @brief Returns the position that the camera is observing from
+     */
+    virtual glm::vec3 getObserverPosition() const = 0;
+
 protected:
     /**
      * @brief Construct a new Camera

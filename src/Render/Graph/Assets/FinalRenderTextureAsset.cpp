@@ -1,8 +1,10 @@
 #include <BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp>
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/RenderPassIds.hpp>
 #include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/Vulkan/Texture.hpp>
 
 namespace bl
 {
@@ -10,32 +12,60 @@ namespace rc
 {
 namespace rgi
 {
-FinalRenderTextureAsset::FinalRenderTextureAsset(vk::PerFrame<vk::Framebuffer>& framebuffers,
+FinalRenderTextureAsset::FinalRenderTextureAsset(res::TextureRef texture,
                                                  const VkViewport& viewport,
                                                  const VkRect2D& scissor,
                                                  const VkClearValue* clearColors,
                                                  const std::uint32_t clearColorCount)
-: FramebufferAsset(rg::AssetTags::FinalFrameOutput,
-                   Config::RenderPassIds::StandardAttachmentDefault, viewport, scissor, clearColors,
+: FramebufferAsset(rg::AssetTags::FinalFrameOutput, true,
+                   cfg::RenderPassIds::StandardAttachmentPass, viewport, scissor, clearColors,
                    clearColorCount)
-, framebuffers(framebuffers) {}
+, renderer(nullptr)
+, texture(texture) {
+    addDependency(rg::AssetTags::DepthBuffer);
+}
 
-void FinalRenderTextureAsset::doCreate(engine::Engine&, Renderer& renderer, RenderTarget*) {
-    renderPass = &renderer.renderPassCache().getRenderPass(renderPassId);
+void FinalRenderTextureAsset::doCreate(const rg::InitContext& ctx) {
+    renderer    = &ctx.renderer;
+    renderPass  = &ctx.renderer.renderPassCache().getRenderPass(renderPassId);
+    depthBuffer = dynamic_cast<DepthBuffer*>(getDependency(0));
+    if (!depthBuffer) {
+        throw std::runtime_error("FinalSwapframeAsset requires a DepthBuffer dependency");
+    }
+    depthBuffer->setSizeMode(sri::DepthBufferShaderResource::Target);
+
+    attachmentSet.setRenderExtent(scissor.extent);
+    attachmentSet.setAttachmentCount(2);
+    attachmentSet.setAttachment(0, texture->getImage(), texture->getView());
+    attachmentSet.setAttachment(1, depthBuffer->getBuffer());
+    attachmentSet.setAttachmentAspect(0, VK_IMAGE_ASPECT_COLOR_BIT);
+    attachmentSet.setAttachmentAspect(1, VK_IMAGE_ASPECT_DEPTH_BIT);
+    framebuffer.create(ctx.renderer, renderPass, attachmentSet);
 }
 
 void FinalRenderTextureAsset::doPrepareForInput(const rg::ExecutionContext&) {
-    // noop, handled by renderpass
+    // handled by render pass
 }
 
-void FinalRenderTextureAsset::doPrepareForOutput(const rg::ExecutionContext&) {
-    // noop, handled by renderpass
+void FinalRenderTextureAsset::doStartOutput(const rg::ExecutionContext& ctx) {
+    if (attachmentSet.getImageView(1) != depthBuffer->getBuffer().getView()) { onResize({}); }
+    beginRender(ctx.commandBuffer, true);
 }
 
-vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffers.current(); }
+void FinalRenderTextureAsset::doEndOutput(const rg::ExecutionContext& ctx) {
+    finishRender(ctx.commandBuffer);
+}
+
+vk::Framebuffer& FinalRenderTextureAsset::currentFramebuffer() { return framebuffer; }
+
+vk::Framebuffer& FinalRenderTextureAsset::getFramebuffer(std::uint32_t) { return framebuffer; }
 
 void FinalRenderTextureAsset::onResize(glm::u32vec2) {
-    // noop
+    depthBuffer->ensureValid({scissor.extent.width, scissor.extent.height}, VK_SAMPLE_COUNT_1_BIT);
+    attachmentSet.setRenderExtent(scissor.extent);
+    attachmentSet.setAttachment(0, texture->getImage(), texture->getView());
+    attachmentSet.setAttachment(1, depthBuffer->getBuffer());
+    framebuffer.create(*renderer, renderPass, attachmentSet);
 }
 
 } // namespace rgi

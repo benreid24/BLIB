@@ -1,9 +1,11 @@
 #ifndef BLIB_RENDER_MATERIALS_MATERIALPIPELINESETTINGS_HPP
 #define BLIB_RENDER_MATERIALS_MATERIALPIPELINESETTINGS_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
 #include <BLIB/Render/RenderPhase.hpp>
 #include <BLIB/Render/Vulkan/PipelineParameters.hpp>
+#include <limits>
 
 namespace bl
 {
@@ -24,11 +26,14 @@ public:
     /// Represents the behavior of a pipeline override for a given render phase
     enum PhasePipelineOverride {
         /// Do not override the pipeline for this render phase
-        None,
+        NoOverride,
 
-        /// Uses a derivative of the main pipeline with no fragment shader
-        FragmentNoop
+        /// Objects using this material pipeline will not be rendered
+        NotRendered
     };
+
+    /// Special value that indicates to use the specialization of the object being rendered
+    static constexpr std::uint32_t ObjectSpecialization = std::numeric_limits<std::uint32_t>::max();
 
     /**
      * @brief Creates default settings and uses the given pipeline
@@ -68,14 +73,6 @@ public:
     MaterialPipelineSettings& withPipeline(vk::PipelineParameters* pipelineParams);
 
     /**
-     * @brief Sets which render phases the material should render in
-     *
-     * @param phase The phases to render in
-     * @return A reference to this object
-     */
-    MaterialPipelineSettings& withRenderPhase(RenderPhase phase);
-
-    /**
      * @brief Sets an override for the given render phase using fixed behavior. The default is to
      *        override shadow map phase with a fragment noop
      *
@@ -91,20 +88,24 @@ public:
      *
      * @param phase The render phase to set the override for
      * @param pipelineId The id of the pipeline to use during the given phase
+     * @param specialization The specialization to use during the given phase
      * @return A reference to this object
      */
     MaterialPipelineSettings& withRenderPhasePipelineOverride(RenderPhase phase,
-                                                              std::uint32_t pipelineId);
+                                                              std::uint32_t pipelineId,
+                                                              std::uint32_t specialization = 0);
 
     /**
      * @brief Sets an override using a specific pipeline from parameters for the given render phase
      *
      * @param phase The render phase to set the override for
      * @param params The parameters of the pipeline to override with
+     * @param specialization The specialization to use during the given phase
      * @return A reference to this object
      */
     MaterialPipelineSettings& withRenderPhasePipelineOverride(RenderPhase phase,
-                                                              vk::PipelineParameters* params);
+                                                              vk::PipelineParameters* params,
+                                                              std::uint32_t specialization = 0);
 
     /**
      * @brief Validates the settings and returns an rvalue reference to this object
@@ -131,26 +132,31 @@ private:
     struct PipelineInfo {
         std::uint32_t id;
         vk::PipelineParameters* pipelineParams;
+        std::uint32_t specialization;
         PhasePipelineOverride overrideBehavior;
 
         PipelineInfo()
-        : id(Config::PipelineIds::None)
+        : id(cfg::PipelineIds::None)
+        , specialization(0)
         , pipelineParams(nullptr)
-        , overrideBehavior(PhasePipelineOverride::None) {}
+        , overrideBehavior(PhasePipelineOverride::NoOverride) {}
 
-        PipelineInfo(std::uint32_t id)
+        PipelineInfo(std::uint32_t id, std::uint32_t specialization)
         : id(id)
         , pipelineParams(nullptr)
-        , overrideBehavior(PhasePipelineOverride::None) {}
+        , specialization(specialization)
+        , overrideBehavior(PhasePipelineOverride::NoOverride) {}
 
-        PipelineInfo(vk::PipelineParameters* params)
-        : id(Config::PipelineIds::None)
+        PipelineInfo(vk::PipelineParameters* params, std::uint32_t specialization)
+        : id(cfg::PipelineIds::None)
         , pipelineParams(params)
-        , overrideBehavior(PhasePipelineOverride::None) {}
+        , specialization(specialization)
+        , overrideBehavior(PhasePipelineOverride::NoOverride) {}
 
         PipelineInfo(PhasePipelineOverride overrideBehavior)
-        : id(Config::PipelineIds::None)
+        : id(cfg::PipelineIds::None)
         , pipelineParams(nullptr)
+        , specialization(0)
         , overrideBehavior(overrideBehavior) {}
 
         bool operator==(const PipelineInfo& right) const {
@@ -160,9 +166,7 @@ private:
     };
 
     PipelineInfo mainPipeline;
-
-    RenderPhase phases;
-    std::array<PipelineInfo, Config::MaxRenderPhases> renderPhaseOverrides;
+    std::array<PipelineInfo, cfg::Limits::MaxRenderPhases> renderPhaseOverrides;
 
     friend class MaterialPipeline;
 };

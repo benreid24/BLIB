@@ -7,30 +7,52 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 Scene3DFactory::~Scene3DFactory() {}
 
-void Scene3DFactory::init(engine::Engine&, Renderer& renderer) {
-    vulkanState = &renderer.vulkanState();
+void Scene3DFactory::init(engine::Engine&, Renderer& r) {
+    renderer    = &r;
+    vulkanState = &r.vulkanState();
 
     vk::DescriptorPool::SetBindingInfo bindingInfo;
-    bindingInfo.bindingCount = 1;
+    bindingInfo.bindingCount = 5;
 
+    // camera info
     bindingInfo.bindings[0].binding         = 0;
     bindingInfo.bindings[0].descriptorCount = 1;
     bindingInfo.bindings[0].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    bindingInfo.bindings[0].stageFlags      = VK_SHADER_STAGE_VERTEX_BIT;
+    bindingInfo.bindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
+    // sunlight & spot lights & point lights & global lighting
+    bindingInfo.bindings[1].descriptorCount = 1;
+    bindingInfo.bindings[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindingInfo.bindings[1].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // spot light shadow maps
+    bindingInfo.bindings[2].descriptorCount = cfg::Limits::MaxSpotShadows;
+    bindingInfo.bindings[2].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[2].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // point light shadow maps
+    bindingInfo.bindings[3].descriptorCount = cfg::Limits::MaxPointShadows;
+    bindingInfo.bindings[3].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[3].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    // ssao buffer
+    bindingInfo.bindings[4].descriptorCount = 1;
+    bindingInfo.bindings[4].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    bindingInfo.bindings[4].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    descriptorSetLayout = r.getDescriptorPool().createLayout(bindingInfo);
 }
 
-std::unique_ptr<DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {
-    return std::make_unique<Scene3DInstance>(*vulkanState, descriptorSetLayout);
+std::unique_ptr<ds::DescriptorSetInstance> Scene3DFactory::createDescriptorSet() const {
+    return std::make_unique<Scene3DInstance>(*renderer, descriptorSetLayout);
 }
 
 std::type_index Scene3DFactory::creates() const { return typeid(Scene3DInstance); }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

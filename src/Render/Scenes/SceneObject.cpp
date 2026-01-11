@@ -1,6 +1,6 @@
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 
-#include <BLIB/Render/Components/SceneObjectRef.hpp>
+#include <BLIB/Render/Components/DrawableBase.hpp>
 
 namespace bl
 {
@@ -9,12 +9,11 @@ namespace rc
 namespace scene
 {
 SceneObject::SceneObject()
-: hidden(false)
-, drawParams{}
-, refToThis(nullptr) {}
+: entity(ecs::InvalidEntity)
+, component(nullptr) {}
 
 void SceneObject::updateRefToThis() {
-    if (refToThis) { refToThis->object = this; }
+    if (component) { component->sceneRef.object = this; }
 }
 
 } // namespace scene

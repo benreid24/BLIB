@@ -5,11 +5,43 @@ compile_shaders(
     
     SHADERS
 	empty.vert
+    fullscreen.vert
 
-    3D/mesh.frag
     3D/mesh.vert
-    3D/skinnedMesh.vert
-    3D/skinnedMesh.frag
+    3D/meshMaterial.vert
+    3D/meshSkinned.vert
+
+    3D/Forward/mesh.frag
+    3D/Forward/meshMaterial.frag
+
+    3D/Deferred/mesh.frag
+    3D/Deferred/meshMaterial.frag
+    3D/Deferred/light.vert
+    3D/Deferred/light.frag
+    3D/Deferred/lightResolved.frag
+    3D/Deferred/lightSampled.frag
+    
+    3D/skybox.vert
+    3D/skybox.frag
+
+    3D/outline.vert
+    3D/outlineSkinned.vert
+    3D/outline.frag
+
+    3D/Shadows/shadowMap.vert
+    3D/Shadows/shadowMapSkinned.vert
+    3D/Shadows/pointShadowMap.vert
+    3D/Shadows/pointShadowMapSkinned.vert
+    3D/Shadows/pointShadowMap.geom
+    3D/Shadows/pointShadowMap.frag
+
+    3D/SSAO/blur.frag
+    3D/SSAO/gen.frag
+    3D/SSAO/genResolve.frag
+    3D/SSAO/genSampled.frag
+
+    3D/AutoExposure/accumulate.comp
+    3D/AutoExposure/adjust.comp
 
     2D/skinned2d.vert
     2D/skinned2d.frag
@@ -24,4 +56,7 @@ compile_shaders(
     2D/slideshow.vert
 
     PostFX/fadeEffect.frag
+    PostFX/3dPostProcess.frag
+    PostFX/bloomBlur.frag
+    PostFX/bloomHighlightFilter.frag
 )

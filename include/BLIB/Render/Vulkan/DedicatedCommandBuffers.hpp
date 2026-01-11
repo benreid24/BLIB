@@ -11,7 +11,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Helper class that provides per-frame command buffers intended for reuse
@@ -33,7 +33,7 @@ public:
      *
      * @param vulkanState The renderer Vulkan state
      */
-    void create(VulkanState& vulkanState);
+    void create(VulkanLayer& vulkanState);
 
     /**
      * @brief Releases the command pools
@@ -56,11 +56,11 @@ private:
         VkCommandBuffer buffer;
         VkFence fence;
 
-        void create(VulkanState& vs);
-        void cleanup(VulkanState& vs);
+        void create(VulkanLayer& vs);
+        void cleanup(VulkanLayer& vs);
     };
 
-    VulkanState* vs;
+    VulkanLayer* vs;
     PerFrame<Payload> payloads;
 };
 

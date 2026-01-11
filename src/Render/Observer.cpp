@@ -1,5 +1,6 @@
 #include <BLIB/Render/Observer.hpp>
 
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
@@ -11,8 +12,8 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c, 
 : RenderTarget(e, r, f, false)
 , isCommon(c)
 , isVirtual(v) {
-    graphAssets.putAsset<rgi::FinalSwapframeAsset>(
-        renderer.getSwapframeBuffers(), viewport, scissor, clearColors, std::size(clearColors));
+    renderingTo = graphAssets.putAsset<rgi::FinalSwapframeAsset>(
+        viewport, scissor, clearColors, std::size(clearColors));
 }
 
 void Observer::assignRegion(const sf::Vector2u& windowSize,
@@ -107,7 +108,7 @@ void Observer::assignRegion(const sf::Vector2u& windowSize,
     scissor.offset.y += offsetY;
 
     if (scissor.extent.width != oldSize.width || scissor.extent.height != oldSize.height) {
-        vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
+        vkCheck(vkDeviceWaitIdle(renderer.vulkanState().getDevice()));
         graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});
     }
 }
@@ -125,7 +126,7 @@ void Observer::assignRegion(const VkRect2D& region) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
-    vkCheck(vkDeviceWaitIdle(renderer.vulkanState().device));
+    vkCheck(vkDeviceWaitIdle(renderer.vulkanState().getDevice()));
     graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});
 }
 

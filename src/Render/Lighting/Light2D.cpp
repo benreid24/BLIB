@@ -1,7 +1,6 @@
 #include <BLIB/Render/Lighting/Light2D.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp>
 #include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 
 namespace bl

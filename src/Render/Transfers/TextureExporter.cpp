@@ -56,15 +56,15 @@ void TextureExporter::onFrameEnd() {
 
 TextureExport* TextureExporter::exportSwapImage() {
     const auto& frame =
-        owner.vulkanState().swapchain.swapFrameAtIndex(owner.vulkanState().currentFrameIndex());
-    auto& te =
-        exports.emplace_back(owner.vulkanState(),
-                             *this,
-                             frame.colorImage(),
-                             VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
-                             VkExtent3D{frame.renderExtent().width, frame.renderExtent().height, 1},
-                             VK_IMAGE_ASPECT_COLOR_BIT,
-                             owner.vulkanState().swapchain.swapImageFormat());
+        owner.getSwapchain().swapFrameAtIndex(owner.vulkanState().currentFrameIndex());
+    auto& te = exports.emplace_back(
+        owner.vulkanState(),
+        *this,
+        frame.getImage(0),
+        VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+        VkExtent3D{frame.getRenderExtent().width, frame.getRenderExtent().height, 1},
+        VK_IMAGE_ASPECT_COLOR_BIT,
+        owner.getSwapchain().swapImageFormat());
     queuedExports.emplace_back(&te);
     return &te;
 }
@@ -72,7 +72,7 @@ TextureExport* TextureExporter::exportSwapImage() {
 TextureExport* TextureExporter::exportTexture(const res::TextureRef& t) {
     auto& te = exports.emplace_back(owner.vulkanState(),
                                     *this,
-                                    t->getCurrentImage(),
+                                    t->getImage(),
                                     t->getCurrentImageLayout(),
                                     VkExtent3D{t->rawSize().x, t->rawSize().y, 1},
                                     VK_IMAGE_ASPECT_COLOR_BIT,

@@ -49,7 +49,7 @@ void DescriptorSetInstance<T, GpuT>::releaseObject(ecs::Entity, rc::scene::Key k
 }
 
 template<typename T, typename GpuT>
-void DescriptorSetInstance<T, GpuT>::handleFrameStart() {
+void DescriptorSetInstance<T, GpuT>::updateDescriptors() {
     for (auto& pair : instances) { pair.second.copyData(); }
 }
 
@@ -57,20 +57,21 @@ template<typename T, typename GpuT>
 DescriptorSetInstance<T, GpuT>::Instance::Instance(engine::Engine& engine,
                                                    VkDescriptorSetLayout layout,
                                                    bl::ecs::Entity entity)
-: device(engine.renderer().vulkanState().device)
+: device(engine.renderer().vulkanState().getDevice())
 , layout(layout) {
     if constexpr (HasGlobals) {
-        globals.create(engine.renderer().vulkanState(), 1);
+        globals.create(engine.renderer(), 1);
         globals.transferEveryFrame();
     }
 
-    storage.create(engine.renderer().vulkanState(), 128);
-    globalSystemInfo.create(engine.renderer().vulkanState(), 1);
+    storage.create(engine.renderer(), 128);
+    globalSystemInfo.create(engine.renderer(), 1);
     globalSystemInfo.transferEveryFrame();
+    unsigned int i = 0;
     descriptorSets.init(engine.renderer().vulkanState(),
-                        [this, &engine, layout](rc::vk::DescriptorSet& set) {
-                            set.init(engine.renderer().vulkanState());
-                            writeDescriptorSet(set);
+                        [this, &engine, layout, &i](rc::vk::DescriptorSet& set) {
+                            set.init(engine.renderer());
+                            writeDescriptorSet(i++, set);
                         });
     link = engine.ecs().getComponent<Link<T>>(entity);
     if (!link) {
@@ -80,10 +81,11 @@ DescriptorSetInstance<T, GpuT>::Instance::Instance(engine::Engine& engine,
 }
 
 template<typename T, typename GpuT>
-void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(rc::vk::DescriptorSet& set) {
+void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(unsigned int i,
+                                                                  rc::vk::DescriptorSet& set) {
     set.allocate(layout);
 
-    bl::rc::vk::Buffer& buffer = descriptorSets.getOther(set, storage.gpuBufferHandles());
+    bl::rc::vk::Buffer& buffer = storage.getBuffer(i);
     VkDescriptorBufferInfo bufferInfo{};
     bufferInfo.buffer = buffer.getBuffer();
     bufferInfo.offset = 0;
@@ -99,7 +101,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(rc::vk::Descri
     setWrites[0].descriptorType  = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 
     VkDescriptorBufferInfo systemInfo{};
-    bl::rc::vk::Buffer& ibuf = descriptorSets.getOther(set, globalSystemInfo.gpuBufferHandles());
+    bl::rc::vk::Buffer& ibuf = globalSystemInfo.getBuffer(i);
     systemInfo.buffer        = ibuf.getBuffer();
     systemInfo.offset        = 0;
     systemInfo.range         = ibuf.getSize();
@@ -114,7 +116,7 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(rc::vk::Descri
 
     VkDescriptorBufferInfo globalsInfo{};
     if constexpr (HasGlobals) {
-        bl::rc::vk::Buffer& gbuf = descriptorSets.getOther(set, globals.gpuBufferHandles());
+        bl::rc::vk::Buffer& gbuf = globals.getBuffer(i);
         globalsInfo.buffer       = gbuf.getBuffer();
         globalsInfo.offset       = 0;
         globalsInfo.range        = gbuf.getSize();
@@ -133,12 +135,17 @@ void DescriptorSetInstance<T, GpuT>::Instance::writeDescriptorSet(rc::vk::Descri
 
 template<typename T, typename GpuT>
 void DescriptorSetInstance<T, GpuT>::Instance::copyData() {
-    globalSystemInfo[0] = *link->systemInfo;
-    if (storage.performFullCopy(link->base, link->len)) {
-        descriptorSets.visit([this](bl::rc::vk::DescriptorSet& ds) { writeDescriptorSet(ds); });
+    globalSystemInfo.writeDirect(link->systemInfo, 1, 0);
+
+    const bool grew = storage.ensureSize(link->len);
+    storage.writeDirect(link->base, link->len);
+    if (grew) {
+        unsigned int i = 0;
+        descriptorSets.visit(
+            [this, &i](bl::rc::vk::DescriptorSet& ds) { writeDescriptorSet(i++, ds); });
     }
 
-    if constexpr (HasGlobals) { globals[0] = *link->globals; }
+    if constexpr (HasGlobals) { globals.writeDirect(link->globals, 1, 0); }
 }
 
 } // namespace pcl

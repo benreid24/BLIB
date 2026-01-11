@@ -2,6 +2,8 @@
 #define BLIB_RENDER_GRAPH_ASSETS_FINALRENDERTEXTUREASSET_HPP
 
 #include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
+#include <BLIB/Render/Resources/TextureRef.hpp>
+#include <BLIB/Render/Vulkan/AttachmentSet.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 
 namespace bl
@@ -10,6 +12,7 @@ namespace rc
 {
 namespace rgi
 {
+class DepthBuffer;
 /**
  * @brief Asset for the framebuffer that a render texture renders to
  *
@@ -20,13 +23,13 @@ public:
     /**
      * @brief Creates a new asset
      *
-     * @param framebuffers The render texture framebuffers
+     * @param texture The render texture to render to
      * @param viewport The observer's viewport
      * @param scissor The observer's scissor
      * @param clearColors Pointer to array of clear colors for attachments
      * @param clearColorCount The number of clear colors
      */
-    FinalRenderTextureAsset(vk::PerFrame<vk::Framebuffer>& framebuffers, const VkViewport& viewport,
+    FinalRenderTextureAsset(res::TextureRef texture, const VkViewport& viewport,
                             const VkRect2D& scissor, const VkClearValue* clearColors,
                             const std::uint32_t clearColorCount);
 
@@ -40,13 +43,25 @@ public:
      */
     virtual vk::Framebuffer& currentFramebuffer() override;
 
-private:
-    vk::PerFrame<vk::Framebuffer>& framebuffers;
+    /**
+     * @brief Returns the framebuffer at the given frame
+     *
+     * @param i The frame index of the framebuffer to return
+     * @return The framebuffer at the given index
+     */
+    virtual vk::Framebuffer& getFramebuffer(std::uint32_t i) override;
 
-    virtual void doCreate(engine::Engine& engine, Renderer& renderer,
-                          RenderTarget* observer) override;
+private:
+    Renderer* renderer;
+    res::TextureRef texture;
+    DepthBuffer* depthBuffer;
+    vk::AttachmentSet attachmentSet;
+    vk::Framebuffer framebuffer;
+
+    virtual void doCreate(const rg::InitContext& ctx) override;
     virtual void doPrepareForInput(const rg::ExecutionContext& context) override;
-    virtual void doPrepareForOutput(const rg::ExecutionContext& context) override;
+    virtual void doStartOutput(const rg::ExecutionContext& context) override;
+    virtual void doEndOutput(const rg::ExecutionContext& context) override;
     virtual void onResize(glm::u32vec2 newSize) override;
 };
 

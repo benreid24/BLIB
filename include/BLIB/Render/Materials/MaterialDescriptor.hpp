@@ -14,12 +14,15 @@ namespace mat
  *
  * @ingroup Renderer
  */
-struct MaterialDescriptor {
+struct alignas(32) MaterialDescriptor {
     std::uint32_t diffuseTextureId;
     std::uint32_t normalTextureId;
-    std::uint32_t uvTextureId;
-
-    std::uint32_t padding;
+    std::uint32_t specularTextureId;
+    std::uint32_t parallaxTextureId;
+    float shininess;
+    float heightScale;
+    float padding0;
+    float padding1;
 };
 
 } // namespace mat

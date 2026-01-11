@@ -4,10 +4,9 @@
 #include <BLIB/Render/RenderTarget.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
-#include <BLIB/Render/Vulkan/AttachmentBuffer.hpp>
 #include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentSet.hpp>
+#include <BLIB/Render/Vulkan/SamplerOptions.hpp>
 #include <memory>
 
 namespace bl
@@ -134,19 +133,13 @@ public:
     using RenderTarget::removeScene;
 
 private:
-    struct FramePayload {
-        AttachmentBuffer depthBuffer;
-        StandardAttachmentSet attachmentSet;
-    };
-
     DedicatedCommandBuffers commandBuffers;
     res::TextureRef texture;
-    PerFrame<FramePayload> attachments;
-    PerFrame<Framebuffer> framebuffers;
 
     // called by renderer
     RenderTexture(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
-                  const glm::u32vec2& size, VkSampler sampler = nullptr);
+                  const glm::u32vec2& size,
+                  SamplerOptions::Type sampler = SamplerOptions::Type::FilteredBorderClamped);
     void render();
 
     friend class bl::rc::Renderer;

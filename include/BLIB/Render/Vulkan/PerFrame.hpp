@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_UTIL_PERFRAME_HPP
 #define BLIB_RENDER_UTIL_PERFRAME_HPP
 
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Limits.hpp>
 #include <array>
 #include <cstdint>
 
@@ -11,7 +11,7 @@ namespace rc
 {
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 
 /**
  * @brief Utility struct to easily double-buffer objects and data on a per-frame basis. One object
@@ -55,17 +55,17 @@ public:
      *
      * @param vulkanState Renderer Vulkan state
      */
-    void emptyInit(VulkanState& vulkanState);
+    void emptyInit(VulkanLayer& vulkanState);
 
     /**
      * @brief Initialize the buffer and each contained object
      *
      * @tparam U The callback type to init each object with
-     * @param vulkanState The VulkanState to sync with
+     * @param vulkanState The VulkanLayer to sync with
      * @param visitor The callback to init each buffered object
      */
     template<typename U>
-    void init(VulkanState& vulkanState, const U& visitor);
+    void init(VulkanLayer& vulkanState, const U& visitor);
 
     /**
      * @brief General buffered object visitor intended primarily for cleanup but could be used for
@@ -175,8 +175,8 @@ public:
     const T* rawData() const;
 
 private:
-    VulkanState* vs;
-    std::array<T, Config::MaxConcurrentFrames> data;
+    VulkanLayer* vs;
+    std::array<T, cfg::Limits::MaxConcurrentFrames> data;
 };
 
 } // namespace vk

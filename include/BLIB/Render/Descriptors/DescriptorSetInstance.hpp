@@ -2,10 +2,10 @@
 #define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETINSTANCE_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
+#include <BLIB/Render/Descriptors/InitContext.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <cstdint>
 
@@ -30,7 +30,7 @@ namespace ds
 class DescriptorSetInstance {
 public:
     /// Bind mode of the descriptor set
-    enum BindMode { Bindless, Bindful };
+    enum EntityBindMode { Bindless, Bindful };
 
     /// Whether or not the descriptor set needs to be re-bound for different update speeds
     enum SpeedBucketSetting { RebindForNewSpeed, SpeedAgnostic };
@@ -43,19 +43,19 @@ public:
     /**
      * @brief Returns whether or not this descriptor set needs to be bound per-object
      */
-    constexpr bool isBindless() const;
+    bool isBindless() const;
 
     /**
      * @brief Returns whether or not the descriptor set needs to be re-bound for new speed
      */
-    constexpr bool needsRebindForNewSpeed() const;
+    bool needsRebindForNewSpeed() const;
 
     /**
-     * @brief Called by scene once after the instance is created
+     * @brief Called once after the instance is created
      *
-     * @param storageCache Descriptor component module cache
+     * @param ctx The init context to use
      */
-    virtual void init(DescriptorComponentStorageCache& storageCache) = 0;
+    virtual void init(InitContext& ctx) = 0;
 
     /**
      * @brief Called once after the pipeline is bound. This should bind the descriptor set
@@ -97,11 +97,9 @@ public:
     virtual void releaseObject(ecs::Entity entity, scene::Key key) = 0;
 
     /**
-     * @brief Called once each frame before the TransferEngine is kicked off. Use this to
-     *        appropriately handle sending descriptor data to the GPU
-     *
+     * @brief Called once each frame. Use to update modifed descriptors
      */
-    virtual void handleFrameStart() = 0;
+    virtual void updateDescriptors() = 0;
 
 protected:
     /**
@@ -110,7 +108,7 @@ protected:
      * @param bindMode The bind mode of the descriptor set
      * @param speedSetting The speed re-bind setting of the descriptor set
      */
-    DescriptorSetInstance(BindMode bindMode, SpeedBucketSetting speedSetting);
+    DescriptorSetInstance(EntityBindMode bindMode, SpeedBucketSetting speedSetting);
 
 private:
     const bool bindless;
@@ -119,9 +117,9 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr bool DescriptorSetInstance::isBindless() const { return bindless; }
+inline bool DescriptorSetInstance::isBindless() const { return bindless; }
 
-inline constexpr bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
+inline bool DescriptorSetInstance::needsRebindForNewSpeed() const { return speedBind; }
 
 } // namespace ds
 } // namespace rc

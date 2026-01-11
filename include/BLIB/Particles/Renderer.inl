@@ -18,8 +18,6 @@ Renderer<T>::Renderer()
 
 template<typename T>
 void Renderer<T>::init(engine::World& w) {
-    using TEngineSystem = sys::DrawableSystem<TComponent>;
-
     if constexpr (RenderConfigMap<T>::CreateRenderPipeline) {
         static bool created = false;
         if (!created) {
@@ -71,8 +69,6 @@ void Renderer<T>::init(engine::World& w) {
 
 template<typename T>
 void Renderer<T>::addToScene(rc::Scene* scene) {
-    using TEngineSystem = sys::DrawableSystem<TComponent>;
-
     entity    = world->createEntity();
     component = world->engine().ecs().emplaceComponent<TComponent>(
         entity, world->engine(), ContainsTransparency);
@@ -93,9 +89,8 @@ template<typename T>
 void Renderer<T>::notifyData(T* particles, std::size_t length) {
     if (component) {
         component->getDrawParametersForEdit().instanceCount = length;
-        component->syncDrawParamsToScene();
-        link->base = particles;
-        link->len  = length;
+        link->base                                          = particles;
+        link->len                                           = length;
     }
 }
 

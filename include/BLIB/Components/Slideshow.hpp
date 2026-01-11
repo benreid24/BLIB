@@ -4,17 +4,15 @@
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 
 namespace bl
 {
 namespace rc
 {
-namespace vk
-{
-struct VulkanState;
+class Renderer;
 }
-} // namespace rc
 
 namespace com
 {
@@ -30,11 +28,11 @@ struct Slideshow : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the index buffer to render the slideshow
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param anim The animation to use when creating the vertices
      * @return True on success, false if animation is invalid slideshow
      */
-    bool create(rc::vk::VulkanState& vulkanState, const Animation2DPlayer& anim);
+    bool create(rc::Renderer& renderer, const Animation2DPlayer& anim);
 
     /**
      * @brief Changes the animation to a new player
@@ -48,7 +46,7 @@ struct Slideshow : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Slideshow2D;
+        return rc::cfg::MaterialPipelineIds::Slideshow2D;
     }
 };
 

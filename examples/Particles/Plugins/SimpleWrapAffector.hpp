@@ -9,7 +9,7 @@ class SimpleWrapAffector : public bl::pcl::Affector<Particle> {
 public:
     virtual ~SimpleWrapAffector() = default;
 
-    virtual void update(Proxy& proxy, float dt, float) override {
+    virtual void update(Proxy& proxy, float, float) override {
         for (Particle& p : proxy.particles()) {
             if (p.pos.x < Bounds.x) { p.pos.x += Bounds.z; }
             else if (p.pos.x > Bounds.x + Bounds.z) { p.pos.x -= Bounds.z; }

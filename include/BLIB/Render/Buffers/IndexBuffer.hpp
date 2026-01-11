@@ -2,8 +2,10 @@
 #define BLIB_RENDER_BUFFERS_INDEXBUFFER_HPP
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/HeaderHelpers.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <BLIB/Render/Primitives/Vertex3D.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <cstring>
@@ -35,11 +37,21 @@ public:
     /**
      * @brief Creates the vertex and index buffers
      *
-     * @param vulkanState The renderer vulkan state
+     * @param renderer The renderer instance
      * @param vertexCount The number of vertices
      * @param indexCount The number of indices
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, std::uint32_t indexCount);
+    void create(Renderer& renderer, std::uint32_t vertexCount, std::uint32_t indexCount);
+
+    /**
+     * @brief Creates the index buffer by moving from existing CPU buffers
+     *
+     * @param renderer The renderer instance
+     * @param vertices The vertex buffer to move from
+     * @param indices The index buffer to move from
+     */
+    void create(Renderer& renderer, std::vector<T>&& vertices,
+                std::vector<std::uint32_t>&& indices);
 
     /**
      * @brief Frees both the vertex buffer and index buffer
@@ -124,6 +136,27 @@ public:
     void configureWriteRange(std::uint32_t vertexWriteStart, std::uint32_t vertexWriteCount,
                              std::uint32_t indexWriteStart, std::uint32_t indexWriteCount);
 
+    /**
+     * @brief Issues the commands to bind the index and vertex buffers
+     *
+     * @param commandBuffer The command buffer to write to
+     */
+    void bind(VkCommandBuffer commandBuffer);
+
+    /**
+     * @brief Issues the commands to draw the buffer after binding
+     *
+     * @param commandBuffer The command buffer to write to
+     */
+    void draw(VkCommandBuffer commandBuffer);
+
+    /**
+     * @brief Calls both bind and draw
+     *
+     * @param commandBuffer The command buffer to write to
+     */
+    void bindAndDraw(VkCommandBuffer commandBuffer);
+
 private:
     std::vector<T> cpuVertexBuffer;
     std::vector<std::uint32_t> cpuIndexBuffer;
@@ -134,6 +167,7 @@ private:
     std::uint32_t indexWriteStart;
     std::uint32_t indexWriteCount;
 
+    void createCommon(Renderer& renderer, std::uint32_t vc, std::uint32_t ic);
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
                                  tfr::TransferContext& context) override;
 };
@@ -141,31 +175,23 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
-inline IndexBufferT<T>::~IndexBufferT() {
+IndexBufferT<T>::~IndexBufferT() {
     deferDestruction();
 }
 
 template<typename T>
-void IndexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, std::uint32_t ic) {
-    vulkanState = &vs;
+void IndexBufferT<T>::create(Renderer& renderer, std::uint32_t vc, std::uint32_t ic) {
+    createCommon(renderer, vc, ic);
     cpuVertexBuffer.resize(vc);
     cpuIndexBuffer.resize(ic, 0);
-    gpuVertexBuffer.create(vs,
-                           vc * sizeof(T),
-                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
-                               VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-                           0);
-    gpuIndexBuffer.create(vs,
-                          ic * sizeof(std::uint32_t),
-                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
-                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
-                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
-                          0);
-    vertexWriteStart = 0;
-    vertexWriteCount = vc;
-    indexWriteStart  = 0;
-    indexWriteCount  = ic;
+}
+
+template<typename T>
+void IndexBufferT<T>::create(Renderer& renderer, std::vector<T>&& vertices,
+                             std::vector<std::uint32_t>&& indices) {
+    createCommon(renderer, vertices.size(), indices.size());
+    cpuVertexBuffer = std::move(vertices);
+    cpuIndexBuffer  = std::move(indices);
 }
 
 template<typename T>
@@ -177,7 +203,7 @@ void IndexBufferT<T>::destroy() {
 }
 
 template<typename T>
-inline void IndexBufferT<T>::deferDestruction() {
+void IndexBufferT<T>::deferDestruction() {
     cpuVertexBuffer.clear();
     cpuIndexBuffer.clear();
     gpuVertexBuffer.deferDestruction();
@@ -268,6 +294,48 @@ void IndexBufferT<T>::configureWriteRange(std::uint32_t vs, std::uint32_t vc, st
 }
 
 template<typename T>
+void IndexBufferT<T>::bind(VkCommandBuffer commandBuffer) {
+    VkBuffer vb            = vertexBufferHandle();
+    VkDeviceSize offsets[] = {0};
+    vkCmdBindVertexBuffers(commandBuffer, 0, 1, &vb, offsets);
+    vkCmdBindIndexBuffer(commandBuffer, indexBufferHandle(), 0, IndexType);
+}
+
+template<typename T>
+void IndexBufferT<T>::draw(VkCommandBuffer commandBuffer) {
+    const auto params = getDrawParameters();
+    vkCmdDrawIndexed(
+        commandBuffer, params.indexCount, 1, 0, params.vertexOffset, params.firstInstance);
+}
+
+template<typename T>
+void IndexBufferT<T>::bindAndDraw(VkCommandBuffer commandBuffer) {
+    bind(commandBuffer);
+    draw(commandBuffer);
+}
+
+template<typename T>
+void IndexBufferT<T>::createCommon(Renderer& renderer, std::uint32_t vc, std::uint32_t ic) {
+    this->renderer = &renderer;
+    gpuVertexBuffer.create(renderer,
+                           vc * sizeof(T),
+                           VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                           VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                               VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                           0);
+    gpuIndexBuffer.create(renderer,
+                          ic * sizeof(std::uint32_t),
+                          VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
+                          VK_BUFFER_USAGE_INDEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
+                              VK_BUFFER_USAGE_TRANSFER_SRC_BIT,
+                          0);
+    vertexWriteStart = 0;
+    vertexWriteCount = vc;
+    indexWriteStart  = 0;
+    indexWriteCount  = ic;
+}
+
+template<typename T>
 void IndexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
                                       tfr::TransferContext& context) {
     VkBuffer stagingBuf;
@@ -332,6 +400,12 @@ void IndexBufferT<T>::insertBarrierBeforeWrite() {
  * @ingroup Renderer
  */
 using IndexBuffer = IndexBufferT<prim::Vertex>;
+
+/**
+ * @brief Convenience alias for a standard index buffer
+ * @ingroup Renderer
+ */
+using IndexBuffer3D = IndexBufferT<prim::Vertex3D>;
 
 } // namespace buf
 } // namespace rc

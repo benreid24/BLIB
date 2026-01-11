@@ -10,14 +10,37 @@ namespace rc
 namespace scene
 {
 SceneSync::SceneSync(ecs::Registry& r)
-: registry(r) {}
+: registry(r) {
+    ecsRouter.route<ecs::event::ComponentAdded<com::Rendered>>(
+        [this](const ecs::event::ComponentAdded<com::Rendered>& event) {
+            handleComponentAdd(event);
+        });
+    ecsRouter.route<ecs::event::ComponentRemoved<com::Rendered>>(
+        [this](const ecs::event::ComponentRemoved<com::Rendered>& event) {
+            handleComponentRemove(event);
+        });
+    renderRouter.route<rc::event::SceneObjectRemoved>(
+        [this](const rc::event::SceneObjectRemoved& event) { handleSceneRemove(event); });
+    renderRouter.route<rc::event::SceneDestroyed>(
+        [this](const rc::event::SceneDestroyed& event) { handleSceneDestroy(event); });
+}
 
-void SceneSync::observe(const ecs::event::ComponentAdded<com::Rendered>& event) {
+void SceneSync::subscribe(sig::Channel& renderChanel) {
+    ecsRouter.subscribe(registry.getSignalChannel());
+    renderRouter.subscribe(renderChanel);
+}
+
+void SceneSync::unsubscribe() {
+    ecsRouter.unsubscribe();
+    renderRouter.unsubscribe();
+}
+
+void SceneSync::handleComponentAdd(const ecs::event::ComponentAdded<com::Rendered>& event) {
     event.component.getScene()->createAndAddObject(
         event.entity, *event.component.getComponent(), event.component.getUpdateSpeed());
 }
 
-void SceneSync::observe(const ecs::event::ComponentRemoved<com::Rendered>& event) {
+void SceneSync::handleComponentRemove(const ecs::event::ComponentRemoved<com::Rendered>& event) {
     if (event.component.getScene()) {
         auto* scene = event.component.getScene();
         const_cast<com::Rendered&>(event.component).invalidate(); // prevent delete cycle
@@ -33,7 +56,7 @@ void SceneSync::observe(const ecs::event::ComponentRemoved<com::Rendered>& event
     }
 }
 
-void SceneSync::observe(const rc::event::SceneObjectRemoved& event) {
+void SceneSync::handleSceneRemove(const rc::event::SceneObjectRemoved& event) {
     com::Rendered* r = registry.getComponent<com::Rendered>(event.entity);
     if (r && r->getScene()) {
         r->invalidate();
@@ -46,7 +69,7 @@ void SceneSync::observe(const rc::event::SceneObjectRemoved& event) {
     }
 }
 
-void SceneSync::observe(const rc::event::SceneDestroyed& event) {
+void SceneSync::handleSceneDestroy(const rc::event::SceneDestroyed& event) {
     std::vector<ecs::Entity> toRm;
     registry.getAllComponents<com::Rendered>().forEach(
         [this, &event, &toRm](ecs::Entity ent, com::Rendered& r) {

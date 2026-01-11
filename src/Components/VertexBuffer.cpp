@@ -7,7 +7,7 @@ namespace bl
 namespace com
 {
 void VertexBuffer::create(engine::Engine& engine, unsigned int vc) {
-    buffer.create(engine.renderer().vulkanState(), vc, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
+    buffer.create(engine.renderer(), vc, VK_BUFFER_USAGE_TRANSFER_SRC_BIT);
     commit();
 }
 
@@ -19,7 +19,6 @@ void VertexBuffer::resize(unsigned int vc, bool copy) {
 void VertexBuffer::commit() {
     drawParams = buffer.getDrawParameters();
     buffer.queueTransfer();
-    syncDrawParamsToScene();
 }
 
 } // namespace com

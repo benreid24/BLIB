@@ -28,6 +28,26 @@ public:
      * @param graph The graph to populate
      */
     virtual void populate(RenderGraph& graph) = 0;
+
+    /**
+     * @brief Returns the version of the strategy. This is used to rebuild graphs on settings change
+     */
+    unsigned int getVersion() const { return version; }
+
+protected:
+    /**
+     * @brief Creates the strategy
+     */
+    Strategy()
+    : version(0) {}
+
+    /**
+     * @brief Causes all created graphs to be rebuilt lazily
+     */
+    void invalidateGraphs() { ++version; }
+
+private:
+    unsigned int version;
 };
 
 } // namespace rg

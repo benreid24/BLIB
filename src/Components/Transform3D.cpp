@@ -1,6 +1,7 @@
 #include <BLIB/Components/Transform3D.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
+#include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace bl
@@ -9,40 +10,102 @@ namespace com
 {
 Transform3D::Transform3D()
 : position(0.f, 0.f, 0.f)
-, orientation()
+, rotation(glm::identity<glm::quat>())
 , scaleFactors(1.f, 1.f, 1.f) {}
 
 void Transform3D::setPosition(const glm::vec3& pos) {
     position = pos;
-    markDirty();
+    makeDirty();
 }
 
 void Transform3D::move(const glm::vec3& offset) {
     position += offset;
-    markDirty();
-}
-
-Orientation3D& Transform3D::getOrientationForChange() {
-    markDirty();
-    return orientation;
+    makeDirty();
 }
 
 void Transform3D::setScale(const glm::vec3& s) {
     scaleFactors = s;
-    markDirty();
+    makeDirty();
 }
 
 void Transform3D::scale(const glm::vec3& f) {
     scaleFactors.x *= f.x;
     scaleFactors.y *= f.y;
     scaleFactors.z *= f.z;
-    markDirty();
+    makeDirty();
 }
 
-void Transform3D::refreshDescriptor(glm::mat4& dest) {
-    dest = glm::translate(position);
-    dest *= glm::rotate(glm::radians(orientation.getRoll()), orientation.getFaceDirection());
-    dest *= glm::scale(scaleFactors);
+void Transform3D::setRotationEulerAngles(const glm::vec3& euler) {
+    rotation = glm::quat(glm::radians(euler));
+    makeDirty();
+}
+
+void Transform3D::rotate(const glm::vec3& axis, float angle) {
+    glm::quat rot = glm::angleAxis(glm::radians(angle), glm::normalize(axis));
+    rotation      = rot * rotation;
+    makeDirty();
+}
+
+void Transform3D::lookAt(const glm::vec3& pos, const glm::vec3& worldUp) {
+    glm::vec3 forward = glm::normalize(pos - position);
+
+    glm::vec3 up = worldUp;
+    if (glm::abs(glm::dot(forward, worldUp)) > 0.999f) {
+        up = glm::abs(forward.y) > 0.999f ? glm::vec3(1, 0, 0) : glm::vec3(0, 1, 0);
+    }
+
+    glm::vec3 right = glm::normalize(glm::cross(up, forward));
+    glm::vec3 newUp = glm::cross(forward, right);
+
+    glm::mat3 rotationMatrix(right, newUp, forward);
+    rotation = glm::quat_cast(rotationMatrix);
+
+    makeDirty();
+}
+
+glm::vec3 Transform3D::getForwardDir() const { return rotation * glm::vec3(0.f, 0.f, 1.f); }
+
+glm::vec3 Transform3D::getRightDir() const { return rotation * glm::vec3(1.f, 0.f, 0.f); }
+
+glm::vec3 Transform3D::getUpDir() const { return rotation * glm::vec3(0.f, 1.f, 0.f); }
+
+void Transform3D::refreshDescriptor(rc::dsi::Transform3DPayload& dest) {
+    dest = getGlobalTransform();
+    markRefreshed();
+}
+
+void Transform3D::makeDirty() {
+    if (markDirty()) { incrementVersion(); }
+}
+
+glm::mat4 Transform3D::getLocalTransform() const {
+    return glm::translate(position) * glm::toMat4(rotation) * glm::scale(scaleFactors);
+}
+
+glm::mat4 Transform3D::getGlobalTransform() const {
+    if (hasParent()) { return getParent().getGlobalTransform() * getLocalTransform(); }
+    return getLocalTransform();
+}
+
+glm::vec3 Transform3D::transformPoint(const glm::vec3& point) const {
+    return glm::vec3(getGlobalTransform() * glm::vec4(point, 1.f));
+}
+
+void Transform3D::setTransform(const glm::mat4& mat) {
+    glm::vec3 skew;
+    glm::vec4 perspective;
+    glm::decompose(mat, scaleFactors, rotation, position, skew, perspective);
+    makeDirty();
+}
+
+bool Transform3D::isDirty() const {
+    if (ParentAwareVersioned::refreshRequired()) { return true; }
+    return DescriptorComponentBase::isDirty();
+}
+
+void Transform3D::setRotation(const glm::quat& quat) {
+    rotation = quat;
+    makeDirty();
 }
 
 } // namespace com

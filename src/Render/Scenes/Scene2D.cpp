@@ -13,12 +13,13 @@ namespace
 {
 constexpr float DefaultNear = 0.f;
 constexpr float DefaultFar  = 1000.f;
+
+rg::Strategy* strategy = nullptr;
 } // namespace
 
 Scene2D::Scene2D(engine::Engine& e)
 : BatchedScene(e)
-, lighting(static_cast<ds::Scene2DInstance*>(descriptorSets.getDescriptorSet(
-      descriptorFactories.getOrCreateFactory<ds::Scene2DFactory>()))) {}
+, lighting(shaderInputStore.getShaderResourceWithKey(sri::Scene2DLightingKey)->getBuffer()[0]) {}
 
 std::unique_ptr<cam::Camera> Scene2D::createDefaultCamera() {
     auto cam = std::make_unique<cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
@@ -29,6 +30,10 @@ std::unique_ptr<cam::Camera> Scene2D::createDefaultCamera() {
 void Scene2D::setDefaultNearAndFarPlanes(cam::Camera& cam) const {
     cam.setNearAndFarPlanes(DefaultNear, -DefaultFar);
 }
+
+void Scene2D::useRenderStrategy(rg::Strategy* ns) { strategy = ns; }
+
+rg::Strategy* Scene2D::getRenderStrategy() { return strategy; }
 
 } // namespace scene
 } // namespace rc

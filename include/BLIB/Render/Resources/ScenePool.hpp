@@ -2,8 +2,10 @@
 #define BLIB_RENDER_RESOURCES_SCENEPOOL_HPP
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/Render/Events/SceneDestroyed.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <atomic>
 #include <cstdint>
@@ -23,6 +25,8 @@ class Engine;
 }
 namespace rc
 {
+class Renderer;
+
 namespace res
 {
 
@@ -72,11 +76,13 @@ private:
     engine::Engine& engine;
     std::list<Entry> scenes;
     std::mutex mutex;
+    sig::Emitter<rc::event::SceneDestroyed> emitter;
 
     void release(Entry* entry);
 
     friend class bl::rc::SceneRef;
     friend class sys::SceneObjectRemovalSystem;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

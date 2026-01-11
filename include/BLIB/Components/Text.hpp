@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/VertexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 
 namespace bl
 {
@@ -32,7 +33,7 @@ struct Text : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Text;
+        return rc::cfg::MaterialPipelineIds::Text;
     }
 };
 

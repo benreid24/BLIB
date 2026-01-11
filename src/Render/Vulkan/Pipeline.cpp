@@ -12,37 +12,117 @@ Pipeline::Pipeline(Renderer& renderer, std::uint32_t id, PipelineParameters&& pa
 : id(id)
 , renderer(renderer)
 , createParams(params) {
-    pipelines.fill(nullptr);
-
-    // create or fetch layout
     layout = renderer.pipelineLayoutCache().getLayout(std::move(params.layoutParams));
-
-    // fill pipelines with nullptr
-    pipelines.fill(nullptr);
+    for (auto& set : pipelines) { set.fill(nullptr); }
+    subscribe(renderer.getSignalChannel());
 }
 
 Pipeline::~Pipeline() {
-    for (auto pipeline : pipelines) {
-        if (pipeline != nullptr) {
-            vkDestroyPipeline(renderer.vulkanState().device, pipeline, nullptr);
+    for (auto& set : pipelines) {
+        for (const VkPipeline pipeline : set) {
+            if (pipeline != nullptr) {
+                vkDestroyPipeline(renderer.vulkanState().getDevice(), pipeline, nullptr);
+            }
         }
     }
 }
 
-void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId) {
-    if (!pipelines[renderPassId]) { createForRenderPass(renderPassId); }
-    vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[renderPassId]);
+void Pipeline::bind(VkCommandBuffer commandBuffer, std::uint32_t renderPassId, std::uint32_t spec) {
+    if (!pipelines[spec][renderPassId]) { createForRenderPass(renderPassId, spec); }
+    vkCmdBindPipeline(
+        commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelines[spec][renderPassId]);
+    if (createParams.rasterizer.depthBiasEnable == VK_TRUE) {
+        const auto& s = renderer.getSettings();
+        vkCmdSetDepthBias(commandBuffer,
+                          s.getShadowMapDepthBiasConstantFactor(),
+                          s.getShadowMapDepthBiasClamp(),
+                          s.getShadowMapDepthBiasSlopeFactor());
+    }
 }
 
-void Pipeline::createForRenderPass(std::uint32_t rpid) {
+void Pipeline::createForRenderPass(std::uint32_t rpid, std::uint32_t spec) {
+    PipelineSpecialization& specialization =
+        spec > 0 && spec <= createParams.specializations.size() ?
+            createParams.specializations[spec - 1] :
+            createParams.mainSpecialization;
+    if (spec > createParams.specializations.size()) {
+        BL_LOG_ERROR << "Pipeline being used with invalid specialization: " << spec;
+    }
+
+    RenderPass& renderPass = renderer.renderPassCache().getRenderPass(rpid);
+
+    // configure color blending
+    BlendParameters& colorBlending = specialization.attachmentBlendingSpecialized ?
+                                         specialization.attachmentBlending :
+                                         createParams.colorBlending;
+    colorBlending.build();
+
+    // sample shading
+    const VkBool32 sampleShadingSetting = createParams.msaa.sampleShadingEnable;
+    const bool sampledShadingAvailable =
+        renderer.vulkanState().getPhysicalDeviceFeatures().sampleRateShading == VK_TRUE;
+    const bool wantsSampledShading = createParams.msaa.sampleShadingEnable == VK_TRUE &&
+                                     renderer.getSettings().getMSAASampleCountAsInt() > 1;
+    const bool useSampleShading           = wantsSampledShading && sampledShadingAvailable;
+    createParams.msaa.sampleShadingEnable = useSampleShading ? VK_TRUE : VK_FALSE;
+    if (wantsSampledShading && !sampledShadingAvailable) {
+        BL_LOG_WARN << "Sample shading requested but not available on this device";
+        createParams.msaa.sampleShadingEnable = VK_FALSE;
+    }
+
+    // configure msaa
+    const RenderPassParameters::MSAABehavior msaaBehavior =
+        renderPass.getCreateParams().getMSAABehavior();
+    const bool useResolveShaders =
+        (!(msaaBehavior & RenderPassParameters::MSAABehavior::ResolveAttachments) ||
+         createParams.doesOwnResolve) &&
+        renderer.getSettings().getMSAASampleCountAsInt() > 1 && !useSampleShading;
+    if (renderPass.getCreateParams().getMSAABehavior() &
+        RenderPassParameters::MSAABehavior::UseSettings) {
+        createParams.msaa.rasterizationSamples = renderer.getSettings().getMSAASampleCount();
+    }
+    else { createParams.msaa.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT; }
+
+    const auto findShaderSrc = [this, &specialization, useSampleShading, useResolveShaders](
+                                   const ShaderParameters& src) -> const ShaderParameters& {
+        if (useSampleShading) {
+            for (const auto& sampleShader : createParams.sampleShaders) {
+                if (sampleShader.stage == src.stage) { return sampleShader; }
+            }
+        }
+        if (useResolveShaders) {
+            for (const auto& resolveShader : createParams.resolveShaders) {
+                if (resolveShader.stage == src.stage) { return resolveShader; }
+            }
+        }
+        for (const auto& shader : specialization.shaderOverrides) {
+            if (shader.stage == src.stage) { return shader; }
+        }
+        return src;
+    };
+
     // Load shaders
     ctr::StaticVector<VkPipelineShaderStageCreateInfo, 5> shaderStages;
-    for (const auto& shader : createParams.shaders) {
-        shaderStages.push_back({});
-        shaderStages.back().sType  = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        shaderStages.back().stage  = shader.stage;
-        shaderStages.back().module = renderer.vulkanState().shaderCache.loadShader(shader.path);
-        shaderStages.back().pName  = shader.entrypoint.c_str();
+    ctr::StaticVector<VkSpecializationInfo, 5> shaderSpecs;
+    for (const auto& shaderSrc : createParams.shaders) {
+        const auto& shader = findShaderSrc(shaderSrc);
+        auto& info         = shaderStages.emplace_back(VkPipelineShaderStageCreateInfo{});
+        info.sType         = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+        info.stage         = static_cast<VkShaderStageFlagBits>(shader.stage);
+        info.module        = renderer.getShaderCache().loadShader(shader.path);
+        info.pName         = shader.entrypoint.c_str();
+
+        for (auto& spec : specialization.shaderSpecializations) {
+            if ((spec.stage & shader.stage) != 0) {
+                auto& specInfo           = shaderSpecs.emplace_back();
+                info.pSpecializationInfo = &specInfo;
+                specInfo.dataSize        = static_cast<std::uint32_t>(spec.storage.size());
+                specInfo.pData           = spec.storage.data();
+                specInfo.mapEntryCount   = static_cast<std::uint32_t>(spec.entries.size());
+                specInfo.pMapEntries     = spec.entries.data();
+                break;
+            }
+        }
     }
 
     // Configure vertices
@@ -80,22 +160,58 @@ void Pipeline::createForRenderPass(std::uint32_t rpid) {
     pipelineInfo.pViewportState      = &viewportState;
     pipelineInfo.pRasterizationState = &createParams.rasterizer;
     pipelineInfo.pMultisampleState   = &createParams.msaa;
-    pipelineInfo.pDepthStencilState  = createParams.depthStencil;
-    pipelineInfo.pColorBlendState    = &createParams.colorBlending;
+    pipelineInfo.pDepthStencilState  = specialization.depthStencilSpecialized ?
+                                           &specialization.depthStencil :
+                                           createParams.depthStencil;
+    pipelineInfo.pColorBlendState    = &colorBlending.colorBlending;
     pipelineInfo.pDynamicState       = &dynamicState;
     pipelineInfo.layout              = layout->rawLayout();
     pipelineInfo.subpass             = 0;              // TODO - consider dynamic subpass if needed
     pipelineInfo.basePipelineHandle  = VK_NULL_HANDLE; // Optional
     pipelineInfo.basePipelineIndex   = -1;             // Optional
+    pipelineInfo.renderPass          = renderPass.rawPass();
 
-    pipelineInfo.renderPass = renderer.renderPassCache().getRenderPass(rpid).rawPass();
-    if (vkCreateGraphicsPipelines(renderer.vulkanState().device,
+    if (vkCreateGraphicsPipelines(renderer.vulkanState().getDevice(),
                                   VK_NULL_HANDLE,
                                   1,
                                   &pipelineInfo,
                                   nullptr,
-                                  &pipelines[rpid]) != VK_SUCCESS) {
+                                  &pipelines[spec][rpid]) != VK_SUCCESS) {
         throw std::runtime_error("Failed to create graphics pipeline");
+    }
+
+    // reset sample shading setting
+    createParams.msaa.sampleShadingEnable = sampleShadingSetting;
+}
+
+void Pipeline::process(const event::SettingsChanged& event) {
+    const bool changed = createParams.handleChange(renderer, event);
+    if (changed || event.setting == event::SettingsChanged::Setting::AntiAliasing) {
+        for (std::uint32_t rpid = 0; rpid < pipelines.size(); ++rpid) {
+            RenderPass* renderPass = renderer.renderPassCache().getRenderPassMaybe(rpid);
+            if (!renderPass) { continue; }
+
+            if (changed || (renderPass->getCreateParams().getMSAABehavior() &
+                            RenderPassParameters::MSAABehavior::UseSettings)) {
+                recreateForRenderPass(rpid);
+            }
+        }
+    }
+}
+
+void Pipeline::process(const event::RenderPassInvalidated& event) {
+    recreateForRenderPass(event.renderPass.getId());
+}
+
+void Pipeline::recreateForRenderPass(std::uint32_t rpid) {
+    for (std::uint32_t spec = 0; spec < pipelines[rpid].size(); ++spec) {
+        if (pipelines[spec][rpid]) {
+            renderer.getCleanupManager().add(
+                [device = renderer.vulkanState().getDevice(), pipeline = pipelines[spec][rpid]]() {
+                    vkDestroyPipeline(device, pipeline, nullptr);
+                });
+            createForRenderPass(rpid, spec);
+        }
     }
 }
 

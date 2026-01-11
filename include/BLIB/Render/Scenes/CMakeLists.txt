@@ -2,6 +2,7 @@ target_sources(BLIB PUBLIC
     BatchedScene.hpp
     CodeScene.hpp
     CodeSceneObject.hpp
+    ExtraContexts.hpp
     Key.hpp
     Scene.hpp
     SceneObject.hpp
@@ -10,4 +11,5 @@ target_sources(BLIB PUBLIC
     SceneSync.hpp
     Scene2D.hpp
     Scene3D.hpp
+    TargetTable.hpp
 )

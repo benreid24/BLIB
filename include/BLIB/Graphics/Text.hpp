@@ -258,8 +258,6 @@ private:
 
     void queueCommit();
     void computeWordWrap();
-    virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef) override;
-    virtual void onRemove() override;
     virtual void ensureLocalSizeUpdated() override;
     void computeBoundsIfNeeded() const;
 

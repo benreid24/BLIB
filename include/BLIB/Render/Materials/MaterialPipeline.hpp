@@ -35,18 +35,23 @@ public:
     ~MaterialPipeline() = default;
 
     /**
-     * @brief Returns the pipeline layout
+     * @brief Returns a pointer to the pipeline for the given render phase. May be nullptr
+     *
+     * @param renderPhase The render phase to get the pipeline for
+     * @return The pipeline to use during the given render phase
      */
-    const vk::PipelineLayout& getLayout() const;
+    vk::Pipeline* getPipeline(RenderPhase renderPhase) const;
 
     /**
      * @brief Returns the raw Vulkan pipeline handle to be used for the given render pass and phase
      *
      * @param phase The render phase to get the pipeline for
      * @param renderPassId The render pass to get the pipeline for
+     * @param specialization The specialization of the pipeline to get
      * @return The raw Vulkan pipeline handle
      */
-    VkPipeline getRawPipeline(RenderPhase phase, std::uint32_t renderPassId) const;
+    VkPipeline getRawPipeline(RenderPhase phase, std::uint32_t renderPassId,
+                              std::uint32_t specialization) const;
 
     /**
      * @brief Binds the appropriate pipeline for the given render phase and render pass id
@@ -54,8 +59,11 @@ public:
      * @param commandBuffer The command buffer to issue commands into
      * @param phase The current render phase
      * @param renderPassId The current render pass id
+     * @param specialization The specialization id to use for the pipeline bind
+     * @return True if the material should be rendered, false if it should be skipped
      */
-    void bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId);
+    bool bind(VkCommandBuffer commandBuffer, RenderPhase phase, std::uint32_t renderPassId,
+              std::uint32_t specialization);
 
     /**
      * @brief Returns the id of this material pipeline
@@ -72,7 +80,7 @@ private:
     std::uint32_t id;
     MaterialPipelineSettings settings;
     vk::Pipeline* mainPipeline;
-    std::array<vk::Pipeline*, Config::MaxRenderPhases> pipelines;
+    std::array<vk::Pipeline*, cfg::Limits::MaxRenderPhases> pipelines;
 
     vk::Pipeline* resolvePipeline(MaterialPipelineSettings::PipelineInfo& info);
 };
@@ -83,8 +91,8 @@ inline std::uint32_t MaterialPipeline::getId() const { return id; }
 
 inline const MaterialPipelineSettings& MaterialPipeline::getSettings() const { return settings; }
 
-inline const vk::PipelineLayout& MaterialPipeline::getLayout() const {
-    return mainPipeline->pipelineLayout();
+inline vk::Pipeline* MaterialPipeline::getPipeline(RenderPhase renderPhase) const {
+    return pipelines[renderPhase];
 }
 
 } // namespace mat

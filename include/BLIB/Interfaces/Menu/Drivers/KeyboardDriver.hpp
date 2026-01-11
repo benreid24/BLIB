@@ -1,9 +1,9 @@
 #ifndef BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP
 #define BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Menu.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <SFML/Window.hpp>
 
 namespace bl
@@ -16,7 +16,7 @@ namespace menu
  * @ingroup Menu
  *
  */
-class KeyboardDriver : public bl::event::Listener<sf::Event> {
+class KeyboardDriver : public bl::sig::Listener<sf::Event> {
 public:
     /**
      * @brief Create a new keyboard generator that services the given menu
@@ -35,7 +35,7 @@ public:
                    sf::Keyboard::Key activateCtrl = sf::Keyboard::Space);
 
     /**
-     * @brief Set the key bound to the given direction. Defaults are the arrrow keys
+     * @brief Set the key bound to the given direction. Defaults are the arrow keys
      *
      * @param direction The control direction to bind to
      * @param control The key to bind
@@ -60,7 +60,7 @@ public:
      *
      * @param event The window event to process
      */
-    virtual void observe(const sf::Event& event) override;
+    virtual void process(const sf::Event& event) override;
 
 private:
     Menu& menu;

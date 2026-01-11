@@ -69,8 +69,7 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 : renderer(renderer)
 , players(nullptr)
 , slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
-, slideshowDescriptorSets(renderer.vulkanState())
-, slideshowRefreshRequired(rc::Config::MaxConcurrentFrames)
+, slideshowRefreshRequired(rc::cfg::Limits::MaxConcurrentFrames)
 , slideshowLastFrameUpdated(255) {
     slideshowDescriptorSets.emptyInit(renderer.vulkanState());
 }
@@ -78,7 +77,7 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 Animation2DSystem::~Animation2DSystem() {}
 
 void Animation2DSystem::earlyCleanup() {
-    event::Dispatcher::unsubscribe(this);
+    unsubscribe();
     slideshowDescriptorSets.cleanup([](rc::vk::DescriptorSet& ds) { ds.release(); });
     slideshowFramesSSBO.destroy();
     slideshowFrameOffsetSSBO.destroy();
@@ -97,18 +96,19 @@ void Animation2DSystem::bindSlideshowSet(VkCommandBuffer commandBuffer, VkPipeli
 
 void Animation2DSystem::init(engine::Engine& engine) {
     descriptorLayout = renderer.descriptorFactoryCache()
-                           .getOrCreateFactory<rc::ds::SlideshowFactory>()
+                           .getOrCreateFactory<rc::dsi::SlideshowFactory>()
                            ->getDescriptorLayout();
 
     players    = &engine.ecs().getAllComponents<com::Animation2DPlayer>();
     vertexPool = &engine.ecs().getAllComponents<com::Animation2D>();
 
-    slideshowFramesSSBO.create(renderer.vulkanState(), InitialSlideshowFrameCapacity);
-    slideshowFrameOffsetSSBO.create(renderer.vulkanState(), 32);
-    slideshowTextureSSBO.create(renderer.vulkanState(), 32);
-    slideshowPlayerCurrentFrameSSBO.create(renderer.vulkanState(), 32);
+    slideshowFramesSSBO.create(renderer, InitialSlideshowFrameCapacity);
+    slideshowFrameOffsetSSBO.create(renderer, 32);
+    slideshowTextureSSBO.create(renderer, 32);
+    slideshowPlayerCurrentFrameSSBO.create(renderer, 32);
+    slideshowPlayerCurrentFrameSSBO.transferEveryFrame();
 
-    event::Dispatcher::subscribe(this);
+    subscribe(engine.ecs().getSignalChannel());
 }
 
 void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
@@ -116,7 +116,7 @@ void Animation2DSystem::update(std::mutex&, float dt, float, float, float) {
     players->forEach([dt](ecs::Entity, com::Animation2DPlayer& player) { player.update(dt); });
 
     // perform slideshow uploads
-    slideshowPlayerCurrentFrameSSBO.transferAll(); // always upload all play indices
+    slideshowPlayerCurrentFrameSSBO.markFullDirty(); // always upload all play indices
 
     // sync vertex animation draw parameters
     vertexPool->forEach([](ecs::Entity, com::Animation2D& anim) {
@@ -138,7 +138,7 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
     }
 }
 
-void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
+void Animation2DSystem::process(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
     if (event.component.animation->frameCount() == 0) {
         auto& component     = const_cast<com::Animation2DPlayer&>(event.component);
         component.animation = getErrorPlaceholder();
@@ -153,12 +153,12 @@ void Animation2DSystem::observe(const ecs::event::ComponentAdded<com::Animation2
     else { doNonSlideshowCreate(event.component); }
 }
 
-void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
+void Animation2DSystem::process(const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) {
     if (event.component.forSlideshow) { doSlideshowFree(event.component); }
     else { tryFreeVertexData(event.component); }
 }
 
-void Animation2DSystem::observe(const ecs::event::ComponentRemoved<com::Animation2D>& event) {
+void Animation2DSystem::process(const ecs::event::ComponentRemoved<com::Animation2D>& event) {
     doNonSlideshowRemove(event.component);
 }
 
@@ -185,16 +185,17 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     else { slideshowPlayerCurrentFrameSSBO.assignRef(player.framePayload, player.playerIndex); }
     slideshowFrameOffsetSSBO[index]        = offset;
     slideshowPlayerCurrentFrameSSBO[index] = player.currentFrame;
-    slideshowFrameOffsetSSBO.expandTransferRange(index, 1);
+    slideshowFrameOffsetSSBO.markDirty(index, 1);
 
     // fetch texture to convert texCoords and set texture id
     rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
         player.animation->resolvedSpritesheet(),
-        renderer.vulkanState().samplerCache.noFilterEdgeClamped()); // TODO - parameterize?
+        {.format  = rc::vk::CommonTextureFormats::SRGBA32Bit,
+         .sampler = rc::vk::SamplerOptions::Type::NoFilterEdgeClamped}); // TODO - parameterize?
     player.texture = texture;
     slideshowTextureSSBO.ensureSize(index + 1);
     slideshowTextureSSBO[index] = texture.id();
-    slideshowTextureSSBO.expandTransferRange(index, 1);
+    slideshowTextureSSBO.markDirty(index, 1);
 
     // add frames to SSBO if required
     if (uploadFrames) {
@@ -211,12 +212,12 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
                 texture->convertCoord({tex.left + tex.width, tex.top + tex.height});
             frame.texCoords[3] = texture->convertCoord({tex.left, tex.top + tex.height});
         }
-        slideshowFramesSSBO.expandTransferRange(offset, player.animation->frameCount());
+        slideshowFramesSSBO.markDirty(offset, player.animation->frameCount());
     }
     slideshowDataRefCounts[player.animation.get()] += 1;
 
     // mark that descriptors need to be reset
-    slideshowRefreshRequired = rc::Config::MaxConcurrentFrames;
+    slideshowRefreshRequired = rc::cfg::Limits::MaxConcurrentFrames;
 }
 
 void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {
@@ -249,9 +250,9 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // frame offset (binding 0)
     VkDescriptorBufferInfo frameOffsetWrite{};
-    frameOffsetWrite.buffer = slideshowFrameOffsetSSBO.gpuBufferHandle().getBuffer();
+    frameOffsetWrite.buffer = slideshowFrameOffsetSSBO.getCurrentFrameBuffer().getBuffer();
     frameOffsetWrite.offset = 0;
-    frameOffsetWrite.range  = slideshowFrameOffsetSSBO.getTotalRange();
+    frameOffsetWrite.range  = slideshowFrameOffsetSSBO.getTotalAlignedSize();
 
     setWrites[0].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[0].descriptorCount = 1;
@@ -263,9 +264,9 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // texture id (binding 1)
     VkDescriptorBufferInfo textureIdWrite{};
-    textureIdWrite.buffer = slideshowTextureSSBO.gpuBufferHandle().getBuffer();
+    textureIdWrite.buffer = slideshowTextureSSBO.getCurrentFrameBuffer().getBuffer();
     textureIdWrite.offset = 0;
-    textureIdWrite.range  = slideshowTextureSSBO.getTotalRange();
+    textureIdWrite.range  = slideshowTextureSSBO.getTotalAlignedSize();
 
     setWrites[1].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[1].descriptorCount = 1;
@@ -277,10 +278,9 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // current frames (binding 2)
     VkDescriptorBufferInfo currentFrameWrite{};
-    currentFrameWrite.buffer =
-        slideshowPlayerCurrentFrameSSBO.gpuBufferHandles().current().getBuffer();
+    currentFrameWrite.buffer = slideshowPlayerCurrentFrameSSBO.getCurrentFrameRawBuffer();
     currentFrameWrite.offset = 0;
-    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalRange();
+    currentFrameWrite.range  = slideshowPlayerCurrentFrameSSBO.getTotalAlignedSize();
 
     setWrites[2].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[2].descriptorCount = 1;
@@ -292,9 +292,9 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // frame data (binding 3)
     VkDescriptorBufferInfo frameDataWrite{};
-    frameDataWrite.buffer = slideshowFramesSSBO.gpuBufferHandle().getBuffer();
+    frameDataWrite.buffer = slideshowFramesSSBO.getCurrentFrameBuffer().getBuffer();
     frameDataWrite.offset = 0;
-    frameDataWrite.range  = slideshowFramesSSBO.getTotalRange();
+    frameDataWrite.range  = slideshowFramesSSBO.getTotalAlignedSize();
 
     setWrites[3].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     setWrites[3].descriptorCount = 1;
@@ -306,7 +306,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 
     // perform write
     vkUpdateDescriptorSets(
-        renderer.vulkanState().device, std::size(setWrites), setWrites, 0, nullptr);
+        renderer.vulkanState().getDevice(), std::size(setWrites), setWrites, 0, nullptr);
 }
 
 void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,
@@ -358,7 +358,7 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
         frameToIndices.resize(anim.frameCount(), {});
 
         // allocate buffer
-        indexBuffer.create(renderer.vulkanState(), shardCount * 4, shardCount * 6);
+        indexBuffer.create(renderer, shardCount * 4, shardCount * 6);
 
         // fetch texture to convert texCoords
         rc::res::TextureRef texture =

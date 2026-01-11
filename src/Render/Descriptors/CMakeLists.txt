@@ -1,9 +1,9 @@
 target_sources(BLIB PRIVATE
-	DescriptorComponentStorageCache.cpp
 	DescriptorSetFactoryCache.cpp
 	DescriptorSetInstance.cpp
 	DescriptorSetInstanceCache.cpp
-	SceneDescriptorSetInstance.cpp
+	InstanceTable.cpp
+	SetWriteHelper.cpp
 )
 
 add_subdirectory(Builtin)

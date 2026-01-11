@@ -16,11 +16,6 @@ namespace rc
 {
 class RenderTarget;
 
-namespace rgi
-{
-class FramebufferAsset;
-}
-
 namespace rg
 {
 class GraphAssetPool;
@@ -83,7 +78,6 @@ public:
         T* asset = new T(std::forward<TArgs>(args)...);
         assets[asset->getTag()].emplace_back(asset);
         static_cast<Asset*>(asset)->external = true;
-        bucketAsset(asset);
         return asset;
     }
 
@@ -117,7 +111,6 @@ public:
         }
         else {
             addResult.first->second.emplace_back(asset);
-            bucketAsset(asset);
             return asset;
         }
     }
@@ -136,14 +129,15 @@ public:
      */
     void reset(GraphAssetPool* pool);
 
+    /**
+     * @brief Resets asset states for a new frame
+     */
+    void startFrame();
+
 private:
     AssetFactory& factory;
     RenderTarget* observer;
     std::unordered_map<std::string_view, std::vector<std::unique_ptr<Asset>>> assets;
-    std::vector<rgi::FramebufferAsset*> framebufferAssets;
-
-    void bucketAsset(Asset* asset);
-    void unbucketAsset(Asset* asset);
 };
 
 } // namespace rg

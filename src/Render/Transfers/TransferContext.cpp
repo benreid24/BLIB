@@ -1,6 +1,6 @@
 #include <BLIB/Render/Transfers/TransferContext.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -8,7 +8,7 @@ namespace rc
 {
 namespace tfr
 {
-TransferContext::TransferContext(std::mutex& bucketMutex, vk::VulkanState& vs,
+TransferContext::TransferContext(std::mutex& bucketMutex, vk::VulkanLayer& vs,
                                  std::vector<VkBuffer>& stagingBuffers,
                                  std::vector<VmaAllocation>& stagingAllocs,
                                  std::vector<VkMemoryBarrier>& memoryBarriers,
@@ -56,7 +56,7 @@ void TransferContext::registerImageBarrier(const VkImageMemoryBarrier& barrier) 
     imageBarriers.emplace_back(barrier);
 }
 
-VkDevice TransferContext::device() const { return vulkanState.device; }
+VkDevice TransferContext::device() const { return vulkanState.getDevice(); }
 
 } // namespace tfr
 } // namespace rc

@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 #define BLIB_RENDER_RENDERER_SCENEOBJECT_HPP
 
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 
@@ -12,7 +13,7 @@ class Scene;
 
 namespace rcom
 {
-struct SceneObjectRef;
+struct DrawableBase;
 }
 
 /// Collection of core rendering functionality for rendering scenes
@@ -33,18 +34,13 @@ struct SceneObject {
     SceneObject();
 
     /**
-     * @brief Called by BatchedScene when when scene object addresses change
+     * @brief Called by BatchedScene when scene object addresses change
      */
     void updateRefToThis();
 
-    bool hidden;
+    ecs::Entity entity;
     Key sceneKey;
-    prim::DrawParameters drawParams;
-
-private:
-    rcom::SceneObjectRef* refToThis;
-
-    friend class bl::rc::Scene;
+    rcom::DrawableBase* component;
 };
 
 } // namespace scene

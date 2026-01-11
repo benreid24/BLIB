@@ -14,6 +14,7 @@ GUI::Ptr GUI::create(engine::World& world, engine::Player& player, const gui::Pa
 GUI::GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
          const sf::FloatRect& region, rdr::FactoryTable* factory)
 : Box(packer)
+, engine(world.engine())
 , observer(player.getRenderObserver())
 , renderer(world, *this, factory ? *factory : rdr::FactoryTable::getDefaultTable()) {
     setConstrainView(false);
@@ -29,7 +30,7 @@ GUI::GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& p
 
 void GUI::setRegion(const sf::FloatRect& area) { assignAcquisition(area); }
 
-void GUI::observe(const sf::Event& event) { processEvent(event); }
+void GUI::process(const sf::Event& event) { processEvent(event); }
 
 bool GUI::processEvent(const sf::Event& event) {
     if (event.type == sf::Event::MouseEntered) { return false; }
@@ -60,12 +61,12 @@ void GUI::addToOverlay(rc::Overlay* overlay, bool sub) {
     prepareRender(renderer);
     getComponent()->assignDepth(800.f); // most things bias negative
     assignDepths();
-    if (sub) { bl::event::Dispatcher::subscribe(this); }
+    if (sub) { subscribe(engine.getSignalChannel()); }
 }
 
 void GUI::removeFromScene() {
     renderer.removeFromScene();
-    bl::event::Dispatcher::unsubscribe(this);
+    unsubscribe();
 }
 
 } // namespace gui

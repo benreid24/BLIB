@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_BINDINGS_HPP
 #define BLIB_RENDER_DESCRIPTORS_GENERIC_BINDINGS_HPP
 
+#include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/Generic/Binding.hpp>
 #include <tuple>
@@ -36,18 +37,9 @@ public:
      * @brief Called once by the descriptor set instance during creation
      *
      * @param engine Renderer Vulkan state
-     * @storageCache Descriptor component storage cache for ECS backed data
+     * @param ctx The init context
      */
-    void init(vk::VulkanState& vulkanState, DescriptorComponentStorageCache& storageCache);
-
-    /**
-     * @brief Fetches the payload of the given type from one of the contained bindings
-     *
-     * @tparam T The binding payload to get
-     * @return The contained binding payload
-     */
-    template<typename T>
-    T& get();
+    void init(vk::VulkanLayer& vulkanState, InitContext& ctx);
 
     /**
      * @brief Returns the descriptor type for the given index
@@ -66,9 +58,11 @@ public:
      * @brief Called when a descriptor set needs to be written
      *
      * @param writer The set writer to use
+     * @param set The descriptor set to write to
      * @param frameIndex The index to use for PerFrame resources
      */
-    void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex);
+    void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                  std::uint32_t frameIndex);
 
     /**
      * @brief Called when a new object will be using the descriptor set
@@ -90,7 +84,7 @@ public:
     /**
      * @brief Returns the bind mode for the descriptor set with these bindings
      */
-    DescriptorSetInstance::BindMode getBindMode() const;
+    DescriptorSetInstance::EntityBindMode getBindMode() const;
 
     /**
      * @brief Returns the speed mode for the descriptor set with these bindings
@@ -107,11 +101,26 @@ public:
      */
     bool dynamicDescriptorUpdateRequired() const;
 
+    /**
+     * @brief Gets the dynamic bind offsets for the dynamic bindings in this set
+     *
+     * @param ctx The current scene render context
+     * @param layout The current pipeline layout
+     * @param setIndex The index of the descriptor set in the pipeline layout
+     * @param updateFreq The current object speed queue being rendered
+     * @param offsets The output dynamic bind offsets for the bindings
+     * @return The number of dynamic offsets
+     */
+    std::uint32_t getDynamicOffsets(
+        scene::SceneRenderContext& ctx, VkPipelineLayout layout, std::uint32_t setIndex,
+        UpdateSpeed updateFreq,
+        std::array<std::uint32_t, cfg::Limits::MaxDescriptorBindings>& offsets) const;
+
 private:
     std::tuple<TBindings...> bindings;
+    ctr::StaticVector<Binding*, NBindings> dynamicBindings;
 
-    template<typename T, std::size_t I>
-    T& getHelper();
+    void addDynamicBindingHelper(Binding& binding);
 
     template<std::uint32_t I>
     VkDescriptorType getTypeHelper(std::uint32_t index) const;
@@ -120,42 +129,22 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename... TBindings>
-template<typename T>
-T& Bindings<TBindings...>::get() {
-    return getHelper<T, 0>();
-}
-
-template<typename... TBindings>
-template<typename T, std::size_t I>
-T& Bindings<TBindings...>::getHelper() {
-    if constexpr (I < sizeof...(TBindings)) {
-        auto& binding  = std::get<I>(bindings);
-        using TBinding = std::decay_t<decltype(binding)>;
-        using TPayload = typename TBinding::TPayload;
-        if constexpr (std::is_same<TPayload, T>::value) {
-            return *static_cast<T*>(binding.getPayload());
-        }
-        else { return getHelper<T, I + 1>(); }
-    }
-    else { static_assert(sizeof(T) == 0, "Descriptor payload not found"); }
-}
-
-template<typename... TBindings>
 template<std::uint32_t I>
 VkDescriptorType Bindings<TBindings...>::getTypeHelper(std::uint32_t index) const {
     if (index == I) { return std::get<I>(bindings).getDescriptorType(); }
     if constexpr (I + 1 < sizeof...(TBindings)) { return getTypeHelper<I + 1>(index); }
-
-    // unreachable ideally
-    throw std::runtime_error("Failed to find binding");
+    else {
+        // unreachable ideally
+        throw std::runtime_error("Failed to find binding");
+    }
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::init(vk::VulkanState& vulkanState,
-                                  DescriptorComponentStorageCache& storageCache) {
+void Bindings<TBindings...>::init(vk::VulkanLayer& vulkanState, InitContext& ctx) {
     std::size_t index = 0;
     ((std::get<TBindings>(bindings).index = index++), ...);
-    ((std::get<TBindings>(bindings).init(vulkanState, storageCache)), ...);
+    ((std::get<TBindings>(bindings).init(vulkanState, ctx)), ...);
+    ((addDynamicBindingHelper(std::get<TBindings>(bindings))), ...);
 }
 
 template<typename... TBindings>
@@ -169,9 +158,9 @@ void Bindings<TBindings...>::onFrameStart() {
 }
 
 template<typename... TBindings>
-void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, UpdateSpeed speed,
-                                      std::uint32_t frameIndex) {
-    ((std::get<TBindings>(bindings).writeSet(writer, speed, frameIndex)), ...);
+void Bindings<TBindings...>::writeSet(SetWriteHelper& writer, VkDescriptorSet set,
+                                      UpdateSpeed speed, std::uint32_t frameIndex) {
+    ((std::get<TBindings>(bindings).writeSet(writer, set, speed, frameIndex)), ...);
 }
 
 template<typename... TBindings>
@@ -187,7 +176,7 @@ void Bindings<TBindings...>::releaseObject(ecs::Entity entity, scene::Key key) {
 }
 
 template<typename... TBindings>
-DescriptorSetInstance::BindMode Bindings<TBindings...>::getBindMode() const {
+DescriptorSetInstance::EntityBindMode Bindings<TBindings...>::getBindMode() const {
     const bool bindful =
         ((std::get<TBindings>(bindings).getBindMode() == DescriptorSetInstance::Bindful) || ...);
     return bindful ? DescriptorSetInstance::Bindful : DescriptorSetInstance::Bindless;
@@ -210,6 +199,24 @@ bool Bindings<TBindings...>::staticDescriptorUpdateRequired() const {
 template<typename... TBindings>
 bool Bindings<TBindings...>::dynamicDescriptorUpdateRequired() const {
     return ((std::get<TBindings>(bindings).dynamicDescriptorUpdateRequired()) || ...);
+}
+
+template<typename... TBindings>
+std::uint32_t Bindings<TBindings...>::getDynamicOffsets(
+    scene::SceneRenderContext& ctx, VkPipelineLayout layout, std::uint32_t setIndex,
+    UpdateSpeed updateFreq,
+    std::array<std::uint32_t, cfg::Limits::MaxDescriptorBindings>& offsets) const {
+    std::uint32_t i = 0;
+    for (Binding* binding : dynamicBindings) {
+        offsets[i] = binding->getDynamicOffsetForPipeline(ctx, layout, setIndex, updateFreq);
+        ++i;
+    }
+    return dynamicBindings.size();
+}
+
+template<typename... TBindings>
+void Bindings<TBindings...>::addDynamicBindingHelper(Binding& binding) {
+    if (binding.isDynamic()) { dynamicBindings.emplace_back(&binding); }
 }
 
 } // namespace ds

@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
 	Animation2D.hpp
+	ModelStatic.hpp
 	BatchCircle.hpp
 	BatchedShapes2D.hpp
 	BatchedSlideshows.hpp
@@ -12,15 +13,21 @@ target_sources(BLIB PUBLIC
 	BatchSpriteSimple.hpp
 	BatchTriangle.hpp
 	Circle.hpp
+	Cone.hpp
 	Drawable.hpp
 	Dummy2D.hpp
 	Icon.hpp
+	ModelStatic.hpp
+	ModelSkeletal.hpp
 	Rectangle.hpp
+	Skybox.hpp
 	Slideshow.hpp
+	Sphere.hpp
 	Sprite.hpp
 	Text.hpp
 	Triangle.hpp
 	VertexBuffer2D.hpp
+	VertexBuffer3D.hpp
 )
 
 add_subdirectory(Animation2D)

@@ -16,6 +16,7 @@ Registry::Registry()
     componentPools.reserve(ComponentMask::MaxComponentTypeCount);
     views.reserve(32);
     deletionState.toRemove.reserve(32);
+    emitter.connect(signalChannel);
 }
 
 Entity Registry::createEntity(unsigned int worldIndex, Flags flags) {
@@ -44,7 +45,7 @@ Entity Registry::createEntity(unsigned int worldIndex, Flags flags,
     entityWorlds[index] = worldIndex;
 
     const Entity ent(index, version, flags, worldIndex);
-    bl::event::Dispatcher::dispatch<event::EntityCreated>({ent});
+    emitter.emit<event::EntityCreated>({ent});
     return ent;
 }
 
@@ -107,7 +108,7 @@ bool Registry::queueEntityDestroy(Entity start) {
         // send events now
         const std::uint32_t index            = visiting.getIndex();
         const ComponentMask::SimpleMask mask = entityMasks[index];
-        bl::event::Dispatcher::dispatch<event::EntityDestroyed>({visiting});
+        emitter.emit<event::EntityDestroyed>({visiting});
         for (ComponentPoolBase* pool : componentPools) {
             if (ComponentMask::has(mask, pool->ComponentIndex)) {
                 pool->fireRemoveEventOnly(visiting);
@@ -185,7 +186,7 @@ void Registry::flushDeletions() {
     for (auto& pool : componentPools) { pool->flushRemovals(); }
 
     // destroy queued entities
-    for (const Entity ent : deletionState.toRemove) { doEntityDestroyLocked(ent); }
+    for (const Entity& ent : deletionState.toRemove) { doEntityDestroyLocked(ent); }
     deletionState.toRemove.clear();
 }
 
@@ -239,8 +240,7 @@ void Registry::destroyAllEntities() {
     // send entity events
     for (std::uint32_t index = 0; index < entityAllocator.poolSize(); ++index) {
         if (entityAllocator.isAllocated(index)) {
-            bl::event::Dispatcher::dispatch<event::EntityDestroyed>(
-                {Entity(index, entityVersions[index])});
+            emitter.emit<event::EntityDestroyed>({Entity(index, entityVersions[index])});
         }
     }
 
@@ -283,7 +283,7 @@ void Registry::setEntityParent(Entity child, Entity parent, const Transaction<tx
         if (mask.contains(pool->ComponentIndex)) { pool->onParentSet(child, parent); }
     }
 
-    bl::event::Dispatcher::dispatch<event::EntityParentSet>({parent, child});
+    emitter.emit<event::EntityParentSet>({parent, child});
 }
 
 void Registry::removeEntityParent(Entity child) {
@@ -310,7 +310,7 @@ void Registry::removeEntityParentLocked(Entity child, bool fromDestroy) {
         if (mask.contains(pool->ComponentIndex)) { pool->onParentRemove(parent, child); }
     }
 
-    bl::event::Dispatcher::dispatch<event::EntityParentRemoved>({child, fromDestroy});
+    emitter.emit<event::EntityParentRemoved>({child, fromDestroy});
 }
 
 void Registry::addDependency(Entity resource, Entity user) {
@@ -326,7 +326,7 @@ void Registry::addDependency(Entity resource, Entity user, const Transaction<tx:
 
     dependencyGraph.addDependency(resource, user);
 
-    bl::event::Dispatcher::dispatch<event::EntityDependencyAdded>({resource, user});
+    emitter.emit<event::EntityDependencyAdded>({resource, user});
 }
 
 void Registry::removeDependency(Entity resource, Entity user) {
@@ -343,7 +343,7 @@ void Registry::removeDependency(Entity resource, Entity user,
 
     dependencyGraph.removeDependency(resource, user);
 
-    bl::event::Dispatcher::dispatch<event::EntityDependencyRemoved>({resource, user});
+    emitter.emit<event::EntityDependencyRemoved>({resource, user});
 
     // remove if marked
     const std::uint32_t i = resource.getIndex();

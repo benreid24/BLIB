@@ -7,7 +7,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 Scene2DFactory::~Scene2DFactory() {}
 
@@ -27,15 +27,15 @@ void Scene2DFactory::init(engine::Engine&, Renderer& renderer) {
     bindingInfo.bindings[1].descriptorType  = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     bindingInfo.bindings[1].stageFlags      = VK_SHADER_STAGE_FRAGMENT_BIT;
 
-    descriptorSetLayout = vulkanState->descriptorPool.createLayout(bindingInfo);
+    descriptorSetLayout = renderer.getDescriptorPool().createLayout(bindingInfo);
 }
 
-std::unique_ptr<DescriptorSetInstance> Scene2DFactory::createDescriptorSet() const {
+std::unique_ptr<ds::DescriptorSetInstance> Scene2DFactory::createDescriptorSet() const {
     return std::make_unique<Scene2DInstance>(*vulkanState, descriptorSetLayout);
 }
 
 std::type_index Scene2DFactory::creates() const { return typeid(Scene2DInstance); }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

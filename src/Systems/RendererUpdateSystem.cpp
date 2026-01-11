@@ -11,8 +11,9 @@ RendererUpdateSystem::RendererUpdateSystem(rc::Renderer& r)
 
 void RendererUpdateSystem::init(engine::Engine&) {}
 
-void RendererUpdateSystem::update(std::mutex&, float dt, float, float, float) {
-    renderer.update(dt);
+void RendererUpdateSystem::update(std::mutex&, float dt, float realDt, float residual,
+                                  float realResidual) {
+    renderer.update(dt, realDt, residual, realResidual);
 }
 
 } // namespace sys

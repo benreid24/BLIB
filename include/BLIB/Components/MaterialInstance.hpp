@@ -4,6 +4,7 @@
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Materials/MaterialDescriptor.hpp>
+#include <BLIB/Render/Materials/MaterialId.hpp>
 #include <BLIB/Render/Materials/MaterialPipeline.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 
@@ -22,8 +23,7 @@ namespace com
  * @ingroup Components
  */
 class MaterialInstance
-: public rc::rcom::DescriptorComponentBase<MaterialInstance, rc::mat::MaterialDescriptor,
-                                           std::uint32_t> {
+: public rc::rcom::DescriptorComponentBase<MaterialInstance, rc::mat::MaterialId, std::uint32_t> {
 public:
     /**
      * @brief Creates the material instance using the default pipeline from the drawable component
@@ -63,6 +63,17 @@ public:
      */
     MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
                      rc::mat::MaterialPipeline* pipeline, const rc::res::MaterialRef& material);
+
+    /**
+     * @brief Creates the material instance from a pipeline and a material
+     *
+     * @param renderer The renderer instance
+     * @param drawComponent The drawable component for the entity
+     * @param materialPipelineId The material pipeline id to render with
+     * @param material The material to use
+     */
+    MaterialInstance(rc::Renderer& renderer, rc::rcom::DrawableBase& drawComponent,
+                     std::uint32_t materialPipelineId, const rc::res::MaterialRef& material);
 
     /**
      * @brief Returns the material used by the entity
@@ -120,7 +131,7 @@ private:
     void onMaterialChange();
 
     // from descriptor base
-    virtual void refreshDescriptor(rc::mat::MaterialDescriptor& descriptor) override;
+    virtual void refreshDescriptor(rc::mat::MaterialId& descriptor) override;
     virtual void refreshDescriptor(std::uint32_t& textureId) override;
 };
 

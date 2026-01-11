@@ -1,5 +1,9 @@
 #include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
+#include <BLIB/Render/Config/RenderPhases.hpp>
+#include <BLIB/Render/Config/Specializations3D.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
@@ -43,22 +47,69 @@ void MaterialPipelineCache::createBuiltins() {
     const auto makeOverlayPair = [this](std::uint32_t materialId,
                                         std::uint32_t pipelineId,
                                         std::uint32_t overlayPipelineId) {
-        createPipeline(materialId,
-                       mat::MaterialPipelineSettings(pipelineId)
-                           .withRenderPhasePipelineOverride(RenderPhase::Overlay, overlayPipelineId)
-                           .build());
+        createPipeline(
+            materialId,
+            mat::MaterialPipelineSettings(pipelineId)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, overlayPipelineId)
+                .build());
+    };
+    const auto make3D = [this](std::uint32_t materialIds,
+                               std::uint32_t pipelineId,
+                               std::uint32_t deferredPipelineId,
+                               std::uint32_t shadowMapPipelineId,
+                               std::uint32_t pointShadowMapPipelineId,
+                               std::uint32_t outlinePipelineId) {
+        createPipeline(
+            materialIds,
+            mat::MaterialPipelineSettings(pipelineId)
+                .withRenderPhasePipelineOverride(
+                    cfg::RenderPhases::Deferred,
+                    deferredPipelineId,
+                    mat::MaterialPipelineSettings::ObjectSpecialization)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay,
+                                                 pipelineId,
+                                                 cfg::Specializations3D::LightingDisabled)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowMap, shadowMapPipelineId)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowPointMap,
+                                                 pointShadowMapPipelineId)
+                .withRenderPhasePipelineOverride(cfg::RenderPhases::Outline, outlinePipelineId)
+                .build());
     };
 
-    using MId = Config::MaterialPipelineIds;
-    using PId = Config::PipelineIds;
+    using MId = cfg::MaterialPipelineIds;
+    using PId = cfg::PipelineIds;
+    using B   = mat::MaterialPipelineSettings::PhasePipelineOverride;
 
-    makeOverlayPair(MId::Mesh3D, PId::LitMesh3D, PId::UnlitMesh3D);
-    makeOverlayPair(MId::Mesh3DSkinned, PId::LitSkinnedMesh3D, PId::UnlitSkinnedMesh3D);
+    make3D(MId::Mesh3D,
+           PId::Mesh3D,
+           PId::DeferredMesh3D,
+           PId::ShadowMapRegular,
+           PId::PointShadowMapRegular,
+           PId::Outline3D);
+    make3D(MId::Mesh3DMaterial,
+           PId::Mesh3DMaterial,
+           PId::DeferredMesh3DMaterial,
+           PId::ShadowMapRegular,
+           PId::PointShadowMapRegular,
+           PId::Outline3D);
+    make3D(MId::Mesh3DSkinned,
+           PId::Mesh3DSkinned,
+           PId::DeferredMesh3DSkinned,
+           PId::ShadowMapSkinned,
+           PId::PointShadowMapSkinned,
+           PId::Outline3DSkinned);
     makeOverlayPair(MId::Geometry2D, PId::Lit2DGeometry, PId::Unlit2DGeometry);
     makeOverlayPair(MId::Geometry2DSkinned, PId::LitSkinned2DGeometry, PId::UnlitSkinned2DGeometry);
     makeOverlayPair(MId::Slideshow2D, PId::SlideshowLit, PId::SlideshowUnlit);
     make(MId::Text, PId::Text);
     make(MId::Lines2D, PId::Lines2D);
+    createPipeline(
+        MId::Skybox,
+        mat::MaterialPipelineSettings(PId::Skybox)
+            .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, B::NotRendered)
+            .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowMap, B::NotRendered)
+            .withRenderPhasePipelineOverride(cfg::RenderPhases::ShadowPointMap, B::NotRendered)
+            .build());
 }
 
 } // namespace res

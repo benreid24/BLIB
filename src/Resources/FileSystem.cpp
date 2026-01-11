@@ -9,8 +9,16 @@ namespace resource
 {
 namespace
 {
+struct MemoryBuffer {
+    std::vector<char> data;
+    std::size_t refCount;
+
+    MemoryBuffer()
+    : refCount(1) {}
+};
+
 std::optional<bundle::BundleRuntime> bundles;
-std::unordered_map<std::string, std::vector<char>> persistentBuffers;
+std::unordered_map<std::string, MemoryBuffer> persistentBuffers;
 } // namespace
 
 bool FileSystem::useBundle(const std::string& bundlePath) {
@@ -20,6 +28,8 @@ bool FileSystem::useBundle(const std::string& bundlePath) {
     return true;
 }
 
+bool FileSystem::isUsingBundle() { return bundles.has_value(); }
+
 bool FileSystem::getData(const std::string& path, char** buffer, std::size_t& len) {
     if (bundles.has_value()) { return bundles.value().getResource(path, buffer, len); }
     else {
@@ -28,14 +38,20 @@ bool FileSystem::getData(const std::string& path, char** buffer, std::size_t& le
         // keep buffer in memory
         auto it = persistentBuffers.find(path);
         if (it == persistentBuffers.end()) { it = persistentBuffers.try_emplace(path).first; }
-        if (!util::FileUtil::readFile(path, it->second)) return false;
-        *buffer = it->second.data();
-        len     = it->second.size();
+        else { ++it->second.refCount; }
+        if (!util::FileUtil::readFile(path, it->second.data)) return false;
+        *buffer = it->second.data.data();
+        len     = it->second.data.size();
         return true;
     }
 }
 
-void FileSystem::purgePersistentData(const std::string& path) { persistentBuffers.erase(path); }
+void FileSystem::purgePersistentData(const std::string& path) {
+    auto it = persistentBuffers.find(path);
+    if (it != persistentBuffers.end()) {
+        if (--it->second.refCount == 0) { persistentBuffers.erase(it); }
+    }
+}
 
 bool FileSystem::resourceExists(const std::string& path) {
     return bundles.has_value() ? bundles.value().resourceExists(path) :

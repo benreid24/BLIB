@@ -11,7 +11,7 @@ namespace rg
 Asset* AssetFactory::createAsset(std::string_view tag) {
     const auto it = providers.find(tag);
     if (it == providers.end()) { throw std::runtime_error("Missing provider for asset tag"); }
-    return it->second->create();
+    return it->second->create(tag);
 }
 
 } // namespace rg

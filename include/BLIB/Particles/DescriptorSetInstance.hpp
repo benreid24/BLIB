@@ -4,8 +4,8 @@
 #include <BLIB/Particles/GlobalParticleSystemInfo.hpp>
 #include <BLIB/Particles/Link.hpp>
 #include <BLIB/Particles/RenderConfigMap.hpp>
-#include <BLIB/Render/Buffers/FullyDynamicSSBO.hpp>
-#include <BLIB/Render/Buffers/UniformBuffer.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisible.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleStaged.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
@@ -47,14 +47,14 @@ private:
 
         const VkDevice device;
         const VkDescriptorSetLayout layout;
-        rc::buf::FullyDynamicSSBO<GpuT> storage;
-        rc::buf::UniformBuffer<TGlobalPayload> globals;
-        rc::buf::UniformBuffer<priv::GlobalParticleSystemInfo> globalSystemInfo;
+        rc::buf::BufferDoubleHostVisibleSSBO<GpuT> storage;
+        rc::buf::BufferDoubleStagedUBO<TGlobalPayload> globals;
+        rc::buf::BufferDoubleStagedUBO<priv::GlobalParticleSystemInfo> globalSystemInfo;
         rc::vk::PerFrame<rc::vk::DescriptorSet> descriptorSets;
         Link<T>* link;
 
         Instance(engine::Engine& engine, VkDescriptorSetLayout layout, ecs::Entity entity);
-        void writeDescriptorSet(rc::vk::DescriptorSet& set);
+        void writeDescriptorSet(unsigned int i, rc::vk::DescriptorSet& set);
         void copyData();
     };
 
@@ -62,7 +62,7 @@ private:
     const VkDescriptorSetLayout layout;
     mutable std::unordered_map<std::uint32_t, Instance> instances;
 
-    virtual void init(rc::ds::DescriptorComponentStorageCache&) override {}
+    virtual void init(rc::ds::InitContext&) override {}
     virtual void bindForPipeline(rc::scene::SceneRenderContext&, VkPipelineLayout, std::uint32_t,
                                  rc::UpdateSpeed) const override {}
 
@@ -70,7 +70,7 @@ private:
                                std::uint32_t setIndex, rc::scene::Key objectKey) const override;
     virtual bool allocateObject(ecs::Entity entity, rc::scene::Key key) override;
     virtual void releaseObject(ecs::Entity, rc::scene::Key key) override;
-    virtual void handleFrameStart() override;
+    virtual void updateDescriptors() override;
 };
 
 } // namespace pcl

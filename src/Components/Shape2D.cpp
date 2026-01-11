@@ -7,7 +7,6 @@ namespace com
 void Shape2D::commit() {
     drawParams = indexBuffer.getDrawParameters();
     indexBuffer.queueTransfer();
-    syncDrawParamsToScene();
 }
 
 } // namespace com

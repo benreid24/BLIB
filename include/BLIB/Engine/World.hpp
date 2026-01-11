@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Flags.hpp>
+#include <BLIB/ECS/Transaction.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -34,6 +35,16 @@ public:
      * @return The new entity
      */
     ecs::Entity createEntity(ecs::Flags flags = ecs::Flags::None);
+
+    /**
+     * @brief Creates an entity in this world
+     *
+     * @param transaction The transaction to create the entity with
+     * @param flags The flags to create the entity with
+     * @return The new entity
+     */
+    ecs::Entity createEntity(const ecs::Transaction<ecs::tx::EntityWrite>& transaction,
+                             ecs::Flags flags = ecs::Flags::None);
 
     /**
      * @brief Destroys all entities in this world

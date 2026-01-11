@@ -1,7 +1,7 @@
 #include <BLIB/Components/Transform2D.hpp>
 
-#include <BLIB/Render/Config.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <glm/gtx/transform.hpp>
 
 namespace bl
@@ -107,8 +107,8 @@ glm::mat4 Transform2D::createTransformMatrix(const glm::vec2& origin, const glm:
                                              const glm::vec2& scale, float rotation) {
     glm::mat4 result = glm::translate(position);
     result           = glm::scale(result, glm::vec3(scale, 1.f));
-    result           = glm::rotate(result, glm::radians(rotation), rc::Config::Rotate2DAxis);
-    result           = glm::translate(result, glm::vec3(-origin, 0.f));
+    result = glm::rotate(result, glm::radians(rotation), rc::cfg::Constants::Rotate2DAxis);
+    result = glm::translate(result, glm::vec3(-origin, 0.f));
     return result;
 }
 
@@ -122,8 +122,7 @@ const glm::mat4& Transform2D::getGlobalTransform() {
 }
 
 void Transform2D::makeDirty() {
-    markDirty();
-    incrementVersion();
+    if (markDirty()) { incrementVersion(); }
 }
 
 void Transform2D::ensureUpdated() {
@@ -144,7 +143,7 @@ void Transform2D::ensureUpdated() {
 glm::vec3 Transform2D::transformPoint(const glm::vec3& src) const {
     glm::mat4 localMat(1.f);
     const glm::mat4* mat = &localMat;
-    if (requiresRefresh()) { localMat = computeGlobalTransform(); }
+    if (refreshRequired()) { localMat = computeGlobalTransform(); }
     else { mat = &cachedGlobalTransform; }
 
     const glm::vec4 np = (*mat) * glm::vec4(src, 1.f);

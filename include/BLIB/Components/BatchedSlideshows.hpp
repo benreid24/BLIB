@@ -3,16 +3,14 @@
 
 #include <BLIB/Render/Buffers/BatchIndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Primitives/SlideshowVertex.hpp>
 
 namespace bl
 {
 namespace rc
 {
-namespace vk
-{
-struct VulkanState;
-}
+class Renderer;
 } // namespace rc
 
 namespace com
@@ -28,18 +26,18 @@ struct BatchedSlideshows : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the index buffer to render the slideshows
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param initialCapacity The number of slideshows to create vertices for
      */
-    BatchedSlideshows(rc::vk::VulkanState& vulkanState, unsigned int initialCapacity);
+    BatchedSlideshows(rc::Renderer& renderer, unsigned int initialCapacity);
 
     /**
      * @brief Creates the index buffer to render the slideshows
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param initialCapacity The number of slideshows to create vertices for
      */
-    void create(rc::vk::VulkanState& vulkanState, unsigned int initialCapacity);
+    void create(rc::Renderer& renderer, unsigned int initialCapacity);
 
     /**
      * @brief Updates and commits the draw parameters
@@ -50,7 +48,7 @@ struct BatchedSlideshows : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Slideshow2D;
+        return rc::cfg::MaterialPipelineIds::Slideshow2D;
     }
 };
 

@@ -11,7 +11,7 @@ namespace vk
 PipelineLayout::PipelineLayout(Renderer& renderer, LayoutParams&& params)
 : renderer(renderer) {
     // setup descriptors
-    std::array<VkDescriptorSetLayout, 4> descriptorLayouts;
+    std::array<VkDescriptorSetLayout, cfg::Limits::MaxDescriptorSets> descriptorLayouts;
     for (unsigned int i = 0; i < params.descriptorSets.size(); ++i) {
         descriptorSets.emplace_back(renderer.descriptorFactoryCache().getOrAddFactory(
             params.descriptorSets[i].factoryType, std::move(params.descriptorSets[i].factory)));
@@ -26,13 +26,14 @@ PipelineLayout::PipelineLayout(Renderer& renderer, LayoutParams&& params)
     pipelineLayoutInfo.pushConstantRangeCount = params.pushConstants.size();
     pipelineLayoutInfo.pPushConstantRanges    = params.pushConstants.data();
     if (vkCreatePipelineLayout(
-            renderer.vulkanState().device, &pipelineLayoutInfo, nullptr, &layout) != VK_SUCCESS) {
+            renderer.vulkanState().getDevice(), &pipelineLayoutInfo, nullptr, &layout) !=
+        VK_SUCCESS) {
         throw std::runtime_error("Failed to create pipeline layout");
     }
 }
 
 PipelineLayout::~PipelineLayout() {
-    vkDestroyPipelineLayout(renderer.vulkanState().device, layout, nullptr);
+    vkDestroyPipelineLayout(renderer.vulkanState().getDevice(), layout, nullptr);
 }
 
 void PipelineLayout::createDescriptorSets(
@@ -48,46 +49,6 @@ std::uint32_t PipelineLayout::initDescriptorSets(ds::DescriptorSetInstanceCache&
         sets[i] = cache.getDescriptorSet(descriptorSets[i]);
     }
     return descriptorSets.size();
-}
-
-std::uint32_t PipelineLayout::updateDescriptorSets(ds::DescriptorSetInstanceCache& cache,
-                                                   ds::DescriptorSetInstance** sets,
-                                                   std::uint32_t descriptorCount,
-                                                   ecs::Entity entity, std::uint32_t sceneId,
-                                                   UpdateSpeed updateSpeed) const {
-    const scene::Key key{updateSpeed, sceneId};
-
-    // capture old sets
-    std::array<ds::DescriptorSetInstance*, 4> ogSets{nullptr, nullptr, nullptr, nullptr};
-    for (std::uint32_t i = 0; i < descriptorCount; ++i) { ogSets[i] = sets[i]; }
-
-    // create new sets
-    const std::uint32_t newSetCount = initDescriptorSets(cache, sets);
-
-    // call allocate for new descriptor sets
-    for (std::uint8_t i = 0; i < newSetCount; ++i) {
-        for (std::uint8_t j = 0; j < descriptorCount; ++j) {
-            if (ogSets[j] == sets[i]) {
-                ogSets[j] = nullptr;
-                goto noAdd;
-            }
-        }
-
-        if (!sets[i]->allocateObject(entity, key)) {
-            BL_LOG_ERROR << "Unable to update entity " << entity << " (scene id: " << sceneId
-                         << ") to new layout due to descriptor data missing";
-        }
-
-    noAdd:
-        continue;
-    }
-
-    // call remove for ones we no longer use
-    for (std::uint8_t i = 0; i < descriptorCount; ++i) {
-        if (ogSets[i] != nullptr) { ogSets[i]->releaseObject(entity, key); }
-    }
-
-    return newSetCount;
 }
 
 } // namespace vk

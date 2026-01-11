@@ -7,10 +7,10 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanState;
-
 /**
  * @brief Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability
  *
@@ -31,20 +31,20 @@ public:
     /**
      * @brief Creates the buffer with the given parameters
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param size The size of the buffer in bytes
      * @param memPool Which memory type to use
      * @param usage How the buffer will be used
      * @param allocFlags VMA allocation flags to use for the VMA allocation
      * @return True if the buffer was able to be created, false otherwise
      */
-    bool create(VulkanState& vulkanState, VkDeviceSize size, VkMemoryPropertyFlags memPool,
+    bool create(Renderer& renderer, VkDeviceSize size, VkMemoryPropertyFlags memPool,
                 VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags);
 
     /**
      * @brief Creates the buffer with the given parameters and a backup memory type
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param size The size of the buffer in bytes
      * @param memPool Which memory type to use
      * @param fallbackPool Memory type to use if the desired memory type fails creation
@@ -52,9 +52,9 @@ public:
      * @param allocFlags VMA allocation flags to use for the VMA allocation
      * @return True if the buffer was able to be created, false otherwise
      */
-    bool createWithFallback(VulkanState& vulkanState, VkDeviceSize size,
-                            VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool,
-                            VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags);
+    bool createWithFallback(Renderer& renderer, VkDeviceSize size, VkMemoryPropertyFlags memPool,
+                            VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags usage,
+                            VmaAllocationCreateFlags allocFlags);
 
     /**
      * @brief If the buffer size is less than the required size, re-creates the buffer to be at
@@ -69,7 +69,7 @@ public:
     /**
      * @brief Returns whether or not the buffer is currently created
      */
-    constexpr bool created() const;
+    bool created() const;
 
     /**
      * @brief Destroys the buffer immediately
@@ -77,20 +77,25 @@ public:
     void destroy();
 
     /**
-     * @brief Defers destruction of the buffer for Config::MaxConcurrentFrames + 1 frames. Buffer
-     *        can be re-used immediately
+     * @brief Defers destruction of the buffer for cfg::Limits::MaxConcurrentFrames + 1 frames.
+     * Buffer can be re-used immediately
      */
     void deferDestruction();
 
     /**
      * @brief Returns the Vulkan buffer handle
      */
-    constexpr VkBuffer getBuffer() const;
+    VkBuffer getBuffer() const;
 
     /**
      * @brief Returns the VMA allocation
      */
-    constexpr VmaAllocation getAlloc() const;
+    VmaAllocation getAlloc() const;
+
+    /**
+     * @brief Returns the properties of the memory pool that the buffer is in
+     */
+    VkMemoryPropertyFlags getMemoryPool() const { return memPool; }
 
     /**
      * @brief Maps the buffer. Does not check if buffer is map-able or if it is already mapped
@@ -101,7 +106,7 @@ public:
     /**
      * @brief Returns a pointer to the mapped buffer memory
      */
-    constexpr void* getMappedMemory() const;
+    void* getMappedMemory() const;
 
     /**
      * @brief Unmaps the buffer. Does not check if the buffer is currently mapped
@@ -111,7 +116,20 @@ public:
     /**
      * @brief Returns the size of the buffer in bytes
      */
-    constexpr VkDeviceSize getSize() const;
+    VkDeviceSize getSize() const;
+
+    /**
+     * @brief Records a pipeline barrier into the specified Vulkan command buffer
+     *
+     * @param commandBuffer The Vulkan command buffer where the barrier will be recorded
+     * @param srcStages The source pipeline stage mask indicating where the barrier starts
+     * @param srcAccess The types of memory access before the barrier
+     * @param dstStages The destination pipeline stage mask indicating where the barrier ends
+     * @param dstAccess The types of memory access after the barrier
+     */
+    void recordBarrier(VkCommandBuffer commandBuffer, VkPipelineStageFlags srcStages,
+                       VkAccessFlags srcAccess, VkPipelineStageFlags dstStages,
+                       VkAccessFlags dstAccess);
 
     /**
      * @brief Records a pipeline barrier to prevent writes from occurring before fragment shader
@@ -120,7 +138,7 @@ public:
     void insertPipelineBarrierBeforeChange();
 
 private:
-    VulkanState* vulkanState;
+    Renderer* renderer;
     VkBuffer buffer;
     VmaAllocation alloc;
     void* mapped;
@@ -135,15 +153,15 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr bool Buffer::created() const { return vulkanState != nullptr; }
+inline bool Buffer::created() const { return renderer != nullptr; }
 
-inline constexpr VkBuffer Buffer::getBuffer() const { return buffer; }
+inline VkBuffer Buffer::getBuffer() const { return buffer; }
 
-inline constexpr VmaAllocation Buffer::getAlloc() const { return alloc; }
+inline VmaAllocation Buffer::getAlloc() const { return alloc; }
 
-inline constexpr void* Buffer::getMappedMemory() const { return mapped; }
+inline void* Buffer::getMappedMemory() const { return mapped; }
 
-inline constexpr VkDeviceSize Buffer::getSize() const { return size; }
+inline VkDeviceSize Buffer::getSize() const { return size; }
 
 } // namespace vk
 } // namespace rc

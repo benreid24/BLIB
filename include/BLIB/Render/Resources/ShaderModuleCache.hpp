@@ -9,9 +9,11 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 namespace vk
 {
-struct VulkanState;
+struct VulkanLayer;
 }
 
 namespace res
@@ -39,7 +41,8 @@ private:
     void init(VkDevice device);
     void cleanup();
 
-    friend struct vk::VulkanState;
+    friend struct vk::VulkanLayer;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace res

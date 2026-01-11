@@ -2,10 +2,12 @@
 #define BLIB_RENDER_SCENES_CODESCENE_HPP
 
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Lighting/Scene2DLighting.hpp>
 #include <BLIB/Render/Scenes/CodeSceneObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <functional>
 
 namespace bl
@@ -100,8 +102,10 @@ private:
     const RenderCallback renderCallback;
     SceneObjectStorage<CodeSceneObject> objects;
     lgt::Scene2DLighting lighting;
+    sig::Emitter<event::SceneObjectRemoved> emitter;
 
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
+    virtual void renderTransparentObjects(scene::SceneRenderContext& context) override;
     virtual std::unique_ptr<cam::Camera> createDefaultCamera() override;
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const override;
     virtual SceneObject* doAdd(ecs::Entity entity, rcom::DrawableBase& object,
@@ -109,6 +113,8 @@ private:
     virtual void doBatchChange(const BatchChange& change,
                                mat::MaterialPipeline* ogPipeline) override;
     virtual void doObjectRemoval(SceneObject* object, mat::MaterialPipeline* pipeline) override;
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
 };
 
 } // namespace scene

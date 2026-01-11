@@ -100,6 +100,11 @@ public:
     operator glm::vec4() const { return color; }
 
     /**
+     * @brief Converts the color to a glm::vec3 without alpha channel
+     */
+    operator glm::vec3() const { return {color}; }
+
+    /**
      * @brief Converts the color to an sf::Color
      */
     operator sf::Color() const { return toSfColor(); }
@@ -108,6 +113,11 @@ public:
      * @brief Converts the color to a glm::vec4
      */
     glm::vec4 toVec4() const { return color; }
+
+    /**
+     * @brief Converts the color to a glm::vec3 without alpha channel
+     */
+    glm::vec3 toVec3() const { return {color}; }
 
     /**
      * @brief Converts the color to an sf::Color

@@ -4,15 +4,12 @@ namespace bl
 {
 namespace com
 {
-BatchedShapes2D::BatchedShapes2D(rc::vk::VulkanState& vulkanState, std::uint32_t vertexCapacity,
+BatchedShapes2D::BatchedShapes2D(rc::Renderer& renderer, std::uint32_t vertexCapacity,
                                  std::uint32_t indexCapacity) {
-    indexBuffer.create(vulkanState, vertexCapacity, indexCapacity);
+    indexBuffer.create(renderer, vertexCapacity, indexCapacity);
 }
 
-void BatchedShapes2D::commit() {
-    drawParams = indexBuffer.getDrawParameters();
-    if (getSceneRef().object) { syncDrawParamsToScene(); }
-}
+void BatchedShapes2D::commit() { drawParams = indexBuffer.getDrawParameters(); }
 
 } // namespace com
 } // namespace bl

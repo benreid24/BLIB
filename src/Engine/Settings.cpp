@@ -7,15 +7,16 @@ namespace bl
 {
 namespace engine
 {
-const sf::VideoMode Settings::WindowParameters::DefaultVideoMode(800, 600, 32);
-const std::string Settings::WindowParameters::DefaultWindowTitle = "BLIB Engine Window";
-const sf::Vector2f Settings::WindowParameters::DefaultViewSize(0.f, 0.f);
+namespace
+{
+constexpr const char* RendererCreateKey = "blib.engine.create_renderer";
+constexpr const char* RendererPrefix    = "blib.engine.renderer.0";
+} // namespace
 
 Settings::Settings()
 : updateTime(DefaultUpdateInterval)
 , maxFps(DefaultMaximumFramerate)
 , allowVariableInterval(DefaultAllowVariableTimestep)
-, windowParams()
 , loggingFps(DefaultLogFps) {}
 
 Settings& Settings::withMaxFramerate(float fps) {
@@ -33,13 +34,13 @@ Settings& Settings::withAllowVariableTimestep(bool allow) {
     return *this;
 }
 
-Settings& Settings::withWindowParameters(const Settings::WindowParameters& params) {
-    windowParams = params;
+Settings& Settings::withLogFps(bool log) {
+    loggingFps = log;
     return *this;
 }
 
-Settings& Settings::withLogFps(bool log) {
-    loggingFps = log;
+Settings& Settings::withRenderer(const rc::CreationSettings& settings) {
+    rendererSettings = settings;
     return *this;
 }
 
@@ -50,10 +51,10 @@ Settings& Settings::fromConfig() {
         Configuration::getOrDefault<bool>(VariableTimestepKey, allowVariableInterval);
     loggingFps = Configuration::getOrDefault<bool>(LogFpsKey, loggingFps);
 
-    if (Configuration::getOrDefault<unsigned int>(WindowParameters::WindowWidthKey, 0) != 0 ||
-        windowParams.has_value()) {
-        if (!windowParams.has_value()) { windowParams.emplace(); }
-        windowParams.value().fromConfig();
+    if (Configuration::getOrDefault<bool>(RendererCreateKey, false) ||
+        rendererSettings.has_value()) {
+        if (!rendererSettings.has_value()) { rendererSettings.emplace(); }
+        rendererSettings.value().fromConfig(RendererPrefix);
     }
 
     return *this;
@@ -64,7 +65,7 @@ void Settings::syncToConfig() const {
     Configuration::set<float>(MaxFpsKey, maxFps);
     Configuration::set<bool>(VariableTimestepKey, allowVariableInterval);
     Configuration::set<bool>(LogFpsKey, loggingFps);
-    if (windowParams.has_value()) { windowParams.value().syncToConfig(); }
+    if (rendererSettings.has_value()) { rendererSettings.value().syncToConfig(RendererPrefix); }
 }
 
 float Settings::updateTimestep() const { return updateTime; }
@@ -73,110 +74,13 @@ float Settings::maximumFramerate() const { return maxFps; }
 
 bool Settings::allowVariableTimestep() const { return allowVariableInterval; }
 
-bool Settings::createWindow() const { return windowParams.has_value(); }
-
-const Settings::WindowParameters& Settings::windowParameters() const {
-    return windowParams.value();
-}
+bool Settings::createRenderer() const { return rendererSettings.has_value(); }
 
 bool Settings::logFps() const { return loggingFps; }
 
-Settings::WindowParameters::WindowParameters()
-: sfWindowTitle(DefaultWindowTitle)
-, windowMode(DefaultVideoMode)
-, sfWindowStyle(DefaultWindowStyle)
-, iconPath()
-, letterBoxVal(DefaultLetterBoxOnResize)
-, viewSize(DefaultViewSize)
-, syncOverlay(DefaultSyncOverlaySize)
-, vsync(DefaultVSyncEnabled) {}
-
-Settings::WindowParameters& Settings::WindowParameters::withTitle(const std::string& title) {
-    sfWindowTitle = title;
-    return *this;
+const std::optional<rc::CreationSettings>& Settings::getRendererCreationSettings() const {
+    return rendererSettings;
 }
-
-Settings::WindowParameters& Settings::WindowParameters::withVideoMode(const sf::VideoMode& mode) {
-    windowMode = mode;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::withStyle(sf::Uint32 style) {
-    sfWindowStyle = style;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::withLetterBoxOnResize(bool lb) {
-    letterBoxVal = lb;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::withSyncOverlaySizeToWindow(bool s) {
-    syncOverlay = s;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::withIcon(const std::string& path) {
-    iconPath = path;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::withInitialViewSize(const sf::Vector2f& s) {
-    viewSize = s;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::withVSyncEnabled(bool enabled) {
-    vsync = enabled;
-    return *this;
-}
-
-Settings::WindowParameters& Settings::WindowParameters::fromConfig() {
-    sfWindowTitle    = Configuration::getOrDefault<std::string>(WindowTitleKey, sfWindowTitle);
-    windowMode.width = Configuration::getOrDefault<unsigned int>(WindowWidthKey, windowMode.width);
-    windowMode.height =
-        Configuration::getOrDefault<unsigned int>(WindowHeightKey, windowMode.height);
-    windowMode.bitsPerPixel =
-        Configuration::getOrDefault<unsigned int>(WindowBitDepthKey, windowMode.bitsPerPixel);
-    sfWindowStyle = Configuration::getOrDefault<unsigned int>(WindowStyleKey, sfWindowStyle);
-    letterBoxVal  = Configuration::getOrDefault<bool>(WindowLetterboxKey, letterBoxVal);
-    iconPath      = Configuration::getOrDefault<std::string>(WindowIconKey, iconPath);
-    viewSize.x    = Configuration::getOrDefault<float>(WindowViewWidthKey, viewSize.x);
-    viewSize.y    = Configuration::getOrDefault<float>(WindowViewHeightKey, viewSize.y);
-    vsync         = Configuration::getOrDefault<bool>(VSyncKey, vsync);
-    syncOverlay   = Configuration::getOrDefault<bool>(SyncOverlaySizeKey, syncOverlay);
-
-    return *this;
-}
-
-void Settings::WindowParameters::syncToConfig() const {
-    Configuration::set<std::string>(WindowTitleKey, sfWindowTitle);
-    Configuration::set<unsigned int>(WindowWidthKey, windowMode.width);
-    Configuration::set<unsigned int>(WindowHeightKey, windowMode.height);
-    Configuration::set<unsigned int>(WindowBitDepthKey, windowMode.bitsPerPixel);
-    Configuration::set<unsigned int>(WindowStyleKey, sfWindowStyle);
-    Configuration::set<bool>(WindowLetterboxKey, letterBoxVal);
-    Configuration::set<std::string>(WindowIconKey, iconPath);
-    Configuration::set<float>(WindowViewWidthKey, viewSize.x);
-    Configuration::set<float>(WindowViewHeightKey, viewSize.y);
-    Configuration::set<bool>(VSyncKey, vsync);
-}
-
-const std::string& Settings::WindowParameters::icon() const { return iconPath; }
-
-const std::string& Settings::WindowParameters::title() const { return sfWindowTitle; }
-
-const sf::VideoMode& Settings::WindowParameters::videoMode() const { return windowMode; }
-
-sf::Uint32 Settings::WindowParameters::style() const { return sfWindowStyle; }
-
-bool Settings::WindowParameters::letterBox() const { return letterBoxVal; }
-
-const sf::Vector2f& Settings::WindowParameters::initialViewSize() const { return viewSize; }
-
-bool Settings::WindowParameters::vsyncEnabled() const { return vsync; }
-
-bool Settings::WindowParameters::syncOverlaySize() const { return syncOverlay; }
 
 } // namespace engine
 } // namespace bl

@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_SETTINGS_HPP
 #define BLIB_ENGINE_SETTINGS_HPP
 
+#include <BLIB/Render/CreationSettings.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Window.hpp>
 #include <optional>
@@ -17,167 +18,6 @@ namespace engine
  */
 class Settings {
 public:
-    /**
-     * @brief Collection of settings for creating (or re-creating) the game window
-     *
-     * @ingroup Engine
-     */
-    class WindowParameters {
-    public:
-        static constexpr sf::Uint32 DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
-        static const sf::VideoMode DefaultVideoMode;
-        static const std::string DefaultWindowTitle;
-        static constexpr bool DefaultLetterBoxOnResize = true;
-        static constexpr bool DefaultSyncOverlaySize   = false;
-        static const sf::Vector2f DefaultViewSize;
-        static constexpr bool DefaultVSyncEnabled = true;
-
-        /**
-         * @brief Construct a new WindowParameters with default settings
-         */
-        WindowParameters();
-
-        /**
-         * @brief Sets the title to create the window with
-         *
-         * @param title The title to create the window with
-         * @return WindowParameters& A reference to this object
-         */
-        WindowParameters& withTitle(const std::string& title);
-
-        /**
-         * @brief Sets the video mode to create the engine window with
-         *
-         * @param mode The window resolution and color depth
-         * @return WindowParameters& A reference to this object
-         */
-        WindowParameters& withVideoMode(const sf::VideoMode& mode);
-
-        /**
-         * @brief Sets the style to create the engine window with
-         *
-         * @param style The style to create the window with
-         * @return WindowParameters& A reference to this object
-         */
-        WindowParameters& withStyle(sf::Uint32 style);
-
-        /**
-         * @brief Sets the path to an image to use as the window icon
-         *
-         * @param iconPath Path to the image to use
-         * @return Settings& A reference to this object
-         */
-        WindowParameters& withIcon(const std::string& iconPath);
-
-        /**
-         * @brief Sets whether or not to letterbox when the window is resized
-         *
-         * @param letterBox True to letterbox, false to keep the full view
-         * @return WindowParameters& A reference to this object
-         */
-        WindowParameters& withLetterBoxOnResize(bool letterBox);
-
-        /**
-         * @brief Size to set the view to when the window is created. If this is unspecified then
-         *        the video mode size is used. The size specified here is used for letterboxing
-         *
-         * @param viewSize The initial size of the window view
-         * @return WindowParameters& A reference to this object
-         */
-        WindowParameters& withInitialViewSize(const sf::Vector2f& viewSize);
-
-        /**
-         * @brief Sets whether to sync Overlay coordinate space with the window size. Only applies
-         *        if letter boxing is disabled. Default is disabled
-         *
-         * @param sync True to sync Overlay coordinate space to window size, false to keep original
-         * @return A reference to this object
-         */
-        WindowParameters& withSyncOverlaySizeToWindow(bool sync);
-
-        /**
-         * @brief Sets whether or not to enable vsync
-         *
-         * @param enabled True to enable, false to disable
-         * @return WindowParameters& A reference to this object
-         */
-        WindowParameters& withVSyncEnabled(bool enabled);
-
-        /**
-         * @brief Loads the settings from the global engine config. See Settings.cpp for keys
-         *
-         * @return Settings& A reference to this object
-         */
-        WindowParameters& fromConfig();
-
-        /**
-         * @brief Saves the settings to the global engine config
-         */
-        void syncToConfig() const;
-
-        /**
-         * @brief Returns the title to create the window with
-         */
-        const std::string& title() const;
-
-        /**
-         * @brief Returns the video mode the engine window is created with
-         */
-        const sf::VideoMode& videoMode() const;
-
-        /**
-         * @brief Returns the window style the window is created with
-         */
-        sf::Uint32 style() const;
-
-        /**
-         * @brief Returns the window icon to use
-         */
-        const std::string& icon() const;
-
-        /**
-         * @brief Returns whether or not to letterbox on Window resize
-         */
-        bool letterBox() const;
-
-        /**
-         * @brief Returns the view size the window is created with
-         */
-        const sf::Vector2f& initialViewSize() const;
-
-        /**
-         * @brief Returns whether Overlay coordinate space is synced to window size or not
-         */
-        bool syncOverlaySize() const;
-
-        /**
-         * @brief Returns whether or not to enable vsync on the window
-         */
-        bool vsyncEnabled() const;
-
-        static constexpr const char* WindowWidthKey      = "blib.engine.window_width";
-        static constexpr const char* WindowHeightKey     = "blib.engine.window_height";
-        static constexpr const char* WindowBitDepthKey   = "blib.engine.window_bit_depth";
-        static constexpr const char* WindowStyleKey      = "blib.engine.window_style";
-        static constexpr const char* WindowTitleKey      = "blib.engine.window_title";
-        static constexpr const char* WindowLetterboxKey  = "blib.engine.leterbox";
-        static constexpr const char* WindowIconKey       = "blib.engine.window_icon";
-        static constexpr const char* WindowViewWidthKey  = "blib.engine.view_width";
-        static constexpr const char* WindowViewHeightKey = "blib.engine.view_height";
-        static constexpr const char* VSyncKey            = "blib.engine.window_vsync";
-        static constexpr const char* SyncOverlaySizeKey  = "blib.engine.sync_overlay_size";
-
-    private:
-        std::string sfWindowTitle;
-        sf::VideoMode windowMode;
-        sf::Uint32 sfWindowStyle;
-        std::string iconPath;
-        bool letterBoxVal;
-        sf::Vector2f viewSize;
-        bool syncOverlay;
-        bool vsync;
-    };
-
     static constexpr float DefaultUpdateInterval       = 1.f / 120.f;
     static constexpr float DefaultMaximumFramerate     = 0.f;
     static constexpr bool DefaultAllowVariableTimestep = true;
@@ -228,21 +68,20 @@ public:
     Settings& withAllowVariableTimestep(bool allow);
 
     /**
-     * @brief Sets the parameters to create the game window with. Does not create a window if not
-     *        called at least once.
-     *
-     * @param parameters The parameters to create the game window with
-     * @return Settings& A reference to this object
-     */
-    Settings& withWindowParameters(const WindowParameters& parameters);
-
-    /**
      * @brief Sets whether or not to log FPS
      *
      * @param log True to log FPS, false to not
      * @return Settings& A reference to this object
      */
     Settings& withLogFps(bool log);
+
+    /**
+     * @brief Provides the creation settings for the renderer. If not set then no window
+     *
+     * @param settings The renderer creation settings
+     * @return A reference to this object
+     */
+    Settings& withRenderer(const rc::CreationSettings& settings);
 
     /**
      * @brief Loads the settings from the global engine config. See Settings.cpp for keys
@@ -272,15 +111,14 @@ public:
     bool allowVariableTimestep() const;
 
     /**
-     * @brief Returns whether or not a window should be created
+     * @brief Returns the creation settings of the renderer
      */
-    bool createWindow() const;
+    const std::optional<rc::CreationSettings>& getRendererCreationSettings() const;
 
     /**
-     * @brief Returns the parameters to create the window with. Undefined behavior if createWindow()
-     *        returns false
+     * @brief Returns whether or not a window should be created
      */
-    const WindowParameters& windowParameters() const;
+    bool createRenderer() const;
 
     /**
      * @brief Returns whether or not the engine should log the fps
@@ -291,8 +129,8 @@ private:
     float updateTime;
     float maxFps;
     bool allowVariableInterval;
-    std::optional<WindowParameters> windowParams;
     bool loggingFps;
+    std::optional<rc::CreationSettings> rendererSettings;
 };
 
 } // namespace engine

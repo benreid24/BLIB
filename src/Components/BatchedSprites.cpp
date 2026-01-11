@@ -14,7 +14,7 @@ BatchedSprites::BatchedSprites(rc::Renderer& renderer, const rc::res::TextureRef
 void BatchedSprites::create(rc::Renderer& renderer, const rc::res::TextureRef& txtr,
                             unsigned int initialCapacity) {
     texture = txtr;
-    buffer.create(renderer.vulkanState(), initialCapacity * 4, initialCapacity * 6);
+    buffer.create(renderer, initialCapacity * 4, initialCapacity * 6);
     refreshTrans();
     drawParams = buffer.getDrawParameters();
 }
@@ -25,7 +25,6 @@ void BatchedSprites::updateDrawParams() {
     if (buffer.getIndexBuffer().vertexCount() > 0) {
         refreshTrans();
         drawParams = buffer.getDrawParameters();
-        if (getSceneRef().object) { syncDrawParamsToScene(); }
     }
 }
 

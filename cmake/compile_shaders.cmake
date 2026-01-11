@@ -27,6 +27,16 @@ function(compile_shaders)
         message(FATAL_ERROR "compile_shaders requires SHADERS list of sources")
     endif()
 
+    # Enable proper DEPFILE handling
+    cmake_policy(SET CMP0116 NEW)
+
+    # Enable shader debugging in debug mode
+    if((CMAKE_BUILD_TYPE MATCHES "Debug|RelWithDebInfo") OR (CMAKE_CONFIGURATION MATCHES "Debug|RelWithDebInfo"))
+        set(debug_flags "-g")
+    else()
+        set(debug_flags "")
+    endif()
+
     # Provide macro for shader path and compute full shader path for build
     target_compile_definitions(${ARG_TARGET} PUBLIC SHADER_PATH=${SHADER_PATH})
     set(shader_dir "${CMAKE_SOURCE_DIR}/${SHADER_PATH}")
@@ -36,16 +46,28 @@ function(compile_shaders)
     set(compiled_files "")
     foreach(shader_file ${ARG_SHADERS})
         set(compiled_file "${shader_dir}/${shader_file}.spv")
+        set(src_abs "${CMAKE_CURRENT_SOURCE_DIR}/${shader_file}")
+
+        # Setup dep file
+        set(dep_file "${CMAKE_CURRENT_BINARY_DIR}/${shader_file}.d")
+        get_filename_component(dep_dir ${dep_file} DIRECTORY)
+        file(MAKE_DIRECTORY ${dep_dir})
 
         # Create output dir to support sub-directories
         get_filename_component(compiled_dir ${compiled_file} DIRECTORY)
         file(MAKE_DIRECTORY ${compiled_dir})
 
+        # Compute include directories (-I)
+        get_filename_component(shader_file_dir "${CMAKE_CURRENT_LIST_DIR}/{shader_file}" DIRECTORY)
+        set(include_flags -I${shader_file_dir} -I${BLIB_PATH}/src/Render/Shaders)
+
         list(APPEND compiled_files "${compiled_file}")
         add_custom_command(
             OUTPUT ${compiled_file}
             COMMENT "Compiling shader '${shader_file}'"
-            COMMAND ${glslc_binary} ${shader_file} -o ${compiled_file}
+            COMMAND ${glslc_binary} -MD ${src_abs} -MF ${dep_file} -o ${compiled_file} ${include_flags} ${debug_flags}
+            DEPFILE ${dep_file}
+            BYPRODUCTS ${dep_file}
             DEPENDS ${shader_file}
             MAIN_DEPENDENCY ${shader_file}
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}

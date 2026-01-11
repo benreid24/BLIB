@@ -6,18 +6,23 @@
 #include <BLIB/ECS/ComponentPool.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/Engine/System.hpp>
-#include <BLIB/Events.hpp>
-#include <BLIB/Render/Buffers/DynamicSSBO.hpp>
+#include <BLIB/Render/Buffers/BufferDoubleHostVisibleSourced.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
-#include <BLIB/Render/Buffers/StaticSSBO.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <BLIB/Util/RangeAllocatorUnbounded.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
 {
+namespace rc
+{
+class Renderer;
+}
+
 namespace sys
 {
 /**
@@ -28,9 +33,9 @@ namespace sys
  */
 class Animation2DSystem
 : public engine::System
-, public event::Listener<ecs::event::ComponentAdded<com::Animation2DPlayer>,
-                         ecs::event::ComponentRemoved<com::Animation2DPlayer>,
-                         ecs::event::ComponentRemoved<com::Animation2D>> {
+, public sig::Listener<ecs::event::ComponentAdded<com::Animation2DPlayer>,
+                       ecs::event::ComponentRemoved<com::Animation2DPlayer>,
+                       ecs::event::ComponentRemoved<com::Animation2D>> {
 public:
     /**
      * @brief Creates the animation system
@@ -83,10 +88,14 @@ private:
     std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowDataRefCounts;
     util::IdAllocatorUnbounded<std::uint32_t> slideshowPlayerIds;
     util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
-    rc::buf::StaticSSBO<SlideshowFrame> slideshowFramesSSBO;     // all anim frames
-    rc::buf::StaticSSBO<std::uint32_t> slideshowFrameOffsetSSBO; // playerIndex -> frame index
-    rc::buf::StaticSSBO<std::uint32_t> slideshowTextureSSBO;     // playerIndex -> texture id
-    rc::buf::DynamicSSBO<std::uint32_t> slideshowPlayerCurrentFrameSSBO; //     -> current frame
+    rc::buf::BufferSingleDeviceLocalSourcedSSBO<SlideshowFrame>
+        slideshowFramesSSBO; // all anim frames
+    rc::buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>
+        slideshowFrameOffsetSSBO; // playerIndex -> frame index
+    rc::buf::BufferSingleDeviceLocalSourcedSSBO<std::uint32_t>
+        slideshowTextureSSBO; // playerIndex -> texture id
+    rc::buf::BufferDoubleHostVisibleSourced<std::uint32_t>
+        slideshowPlayerCurrentFrameSSBO; //     -> current frame
     rc::vk::PerFrame<rc::vk::DescriptorSet> slideshowDescriptorSets;
     std::uint8_t slideshowRefreshRequired;
     std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates
@@ -97,10 +106,10 @@ private:
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt, float, float, float) override;
-    virtual void observe(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) override;
-    virtual void observe(
+    virtual void process(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) override;
+    virtual void process(
         const ecs::event::ComponentRemoved<com::Animation2DPlayer>& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<com::Animation2D>& event) override;
+    virtual void process(const ecs::event::ComponentRemoved<com::Animation2D>& event) override;
     virtual void earlyCleanup() override;
 
     // slideshow methods

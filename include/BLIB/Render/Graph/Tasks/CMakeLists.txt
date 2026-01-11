@@ -1,4 +1,13 @@
 target_sources(BLIB PUBLIC
+    AutoExposureAccumulateTask.hpp
+	DeferredRenderTask.hpp
+	DeferredCompositeTask.hpp
 	FadeEffectTask.hpp
-	ForwardRenderTask.hpp
+	ForwardRenderOpaqueTask.hpp
+	ForwardRenderTransparentTask.hpp
+	Outline3DTask.hpp
+	PostProcess3DTask.hpp
+	RenderOverlayTask.hpp
+	ShadowMapTask.hpp
+	SSAOTask.hpp
 )

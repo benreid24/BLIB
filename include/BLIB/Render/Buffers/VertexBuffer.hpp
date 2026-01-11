@@ -1,8 +1,10 @@
 #ifndef BLIB_RENDER_PRIMITIVES_VERTEXBUFFER_HPP
 #define BLIB_RENDER_PRIMITIVES_VERTEXBUFFER_HPP
 
+#include <BLIB/Render/HeaderHelpers.hpp>
 #include <BLIB/Render/Primitives/DrawParameters.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
+#include <BLIB/Render/Primitives/Vertex3D.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Buffer.hpp>
 #include <cstring>
@@ -32,11 +34,11 @@ public:
     /**
      * @brief Creates the vertex and index buffers
      *
-     * @param vulkanState The renderer vulkan state
+     * @param renderer The renderer instance
      * @param vertexCount The number of vertices
      * @param extraFlags Extra usage flags to create with. Default is tfr dst & vertex buf
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t vertexCount, VkFlags extraFlags = 0);
+    void create(Renderer& renderer, std::uint32_t vertexCount, VkFlags extraFlags = 0);
 
     /**
      * @brief Resizes to the given vertex count. Must not be called before create()
@@ -82,7 +84,7 @@ public:
     constexpr VkBuffer bufferHandle() const;
 
 private:
-    std::vector<prim::Vertex> cpuVertexBuffer;
+    std::vector<T> cpuVertexBuffer;
     vk::Buffer gpuVertexBuffer;
 
     virtual void executeTransfer(VkCommandBuffer commandBuffer,
@@ -97,10 +99,10 @@ inline VertexBufferT<T>::~VertexBufferT() {
 }
 
 template<typename T>
-void VertexBufferT<T>::create(vk::VulkanState& vs, std::uint32_t vc, VkFlags flags) {
-    vulkanState = &vs;
+void VertexBufferT<T>::create(Renderer& renderer, std::uint32_t vc, VkFlags flags) {
+    this->renderer = &renderer;
     cpuVertexBuffer.resize(vc);
-    gpuVertexBuffer.create(vs,
+    gpuVertexBuffer.create(renderer,
                            vc * sizeof(T),
                            VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
                            VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT |
@@ -188,6 +190,12 @@ void VertexBufferT<T>::executeTransfer(VkCommandBuffer commandBuffer,
  * @ingroup Renderer
  */
 using VertexBuffer = VertexBufferT<prim::Vertex>;
+
+/**
+ * @brief Convenience alias for a standard vertex buffer
+ * @ingroup Renderer
+ */
+using VertexBuffer3D = VertexBufferT<prim::Vertex3D>;
 
 } // namespace buf
 } // namespace rc

@@ -8,8 +8,8 @@ namespace rc
 {
 namespace lgt
 {
-Scene2DLighting::Scene2DLighting(ds::Scene2DInstance* desc)
-: lighting(desc->lighting[0])
+Scene2DLighting::Scene2DLighting(Lighting& lightingBuffer)
+: lighting(lightingBuffer)
 , indexAllocator(MaxLightCount) {
     allocations.fill(MaxLightCount);
 }

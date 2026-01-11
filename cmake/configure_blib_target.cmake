@@ -1,4 +1,7 @@
 function(configure_blib_target target_name)
+    # Use static msvc runtime in sync with assimp
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
     # Platform detection
     if (APPLE)
         target_compile_definitions(${target_name} PUBLIC
@@ -21,6 +24,7 @@ function(configure_blib_target target_name)
             set(openal_path "${BLIB_PATH}/lib/SFML/extlibs/bin/x64/openal32.dll")
             add_custom_command(
                 TARGET ${target_name}
+                POST_BUILD
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different
                     ${openal_path} ${target_output_dir}
                 COMMENT "Copying ${openal_path} to ${target_output_dir}"
@@ -73,6 +77,9 @@ function(configure_blib_target target_name)
             PROPERTIES
             COMPILE_OPTIONS /w
         )
+
+        # Sync runtime library to Assimp
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
     else()
         # lots of warnings
         target_compile_options(${target_name} PUBLIC -Wall -Wextra -pedantic)
@@ -81,6 +88,10 @@ function(configure_blib_target target_name)
             ${BLIB_PATH}/lib/VulkanMemoryAllocator/include/vk_mem_alloc.h
             PROPERTIES
             COMPILE_OPTIONS -w
+        )
+        # Disable some warnings
+        target_compile_options(${target_name} PUBLIC
+            -Wno-reorder
         )
         # Disable clang extension warning on MacOS
         if(APPLE)
@@ -103,6 +114,8 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/volk
         ${BLIB_PATH}/lib/plf_colony
         ${BLIB_PATH}/lib/box2d/include
+        ${BLIB_PATH}/lib/assimp/include
+        ${BLIB_PATH}/lib/zlib
     )
     if(APPLE)
         target_include_directories(${target_name} SYSTEM PUBLIC ${BLIB_PATH}/lib/glfw/include)

@@ -17,7 +17,7 @@ void KeyboardDriver::setMoveControl(Item::AttachPoint dir, sf::Keyboard::Key ctr
 
 void KeyboardDriver::setActivateControl(sf::Keyboard::Key ctrl) { activateControl = ctrl; }
 
-void KeyboardDriver::observe(const sf::Event& event) {
+void KeyboardDriver::process(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == moveControls[Item::Top]) {
             menu.processEvent(Event(Event::MoveEvent(Item::Top)));

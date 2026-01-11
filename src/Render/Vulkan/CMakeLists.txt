@@ -1,26 +1,31 @@
 target_sources(BLIB PRIVATE
-    AttachmentBuffer.cpp
+    AttachmentImageSet.cpp
+    AttachmentSet.cpp
+    BlendParameters.cpp
     Buffer.cpp
     CleanupManager.cpp
-    CommonSamplers.cpp
+    ComputePipeline.cpp
+    ComputePipelineParameters.cpp
     DedicatedCommandBuffers.cpp
     DescriptorPool.cpp
     DescriptorSet.cpp
     Framebuffer.cpp
+    Image.cpp
     Pipeline.cpp
+    PipelineInstance.cpp
     PipelineLayout.cpp
     PipelineParameters.cpp
+    PipelineSpecialization.cpp
     RenderPass.cpp
     RenderPassParameters.cpp
     RenderTexture.cpp
+    Sampler.cpp
     SharedCommandBuffer.cpp
     SharedCommandPool.cpp
-    StandardAttachmentBuffers.cpp
     Swapchain.cpp
     Texture.cpp
-    TextureBase.cpp
-    TextureDoubleBuffered.cpp
-    VulkanState.cpp
+    TextureFormatManager.cpp
+    VulkanLayer.cpp
 )
 
 add_subdirectory(Utils)

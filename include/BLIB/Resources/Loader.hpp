@@ -1,10 +1,12 @@
 #ifndef BLIB_RESOURCES_RESOURCELOADER_HPP
 #define BLIB_RESOURCES_RESOURCELOADER_HPP
 
+#include <BLIB/Audio/Playlist.hpp>
 #include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Audio/Playlist.hpp>
+#include <BLIB/Models/Importer.hpp>
+#include <BLIB/Models/Model.hpp>
 #include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Resources/Resource.hpp>
 #include <SFML/Audio.hpp>
@@ -202,6 +204,22 @@ struct DefaultLoader<gfx::a2d::AnimationData> : public LoaderBase<gfx::a2d::Anim
         }
         return true;
     }
+};
+
+template<>
+struct DefaultLoader<mdl::Model> : public LoaderBase<mdl::Model> {
+    virtual ~DefaultLoader() = default;
+    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
+                      mdl::Model& result) override {
+        if (!importer.import(buffer, len, result, path)) {
+            BL_LOG_ERROR << "Failed to load model: " << path;
+            return false;
+        }
+        return true;
+    }
+
+private:
+    mdl::Importer importer;
 };
 
 } // namespace resource

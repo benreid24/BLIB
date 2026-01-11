@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_SCENES_KEY_HPP
 #define BLIB_RENDER_SCENES_KEY_HPP
 
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/UpdateSpeed.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <cstdint>
@@ -72,6 +73,13 @@ struct Key {
         return updateFreq < right.updateFreq || sceneId < right.sceneId;
     }
 };
+
+/**
+ * @brief Callback signature to fetch entities from scene ids
+ *
+ * @ingroup Renderer
+ */
+using MapKeyToEntityCb = std::function<ecs::Entity(Key)>;
 
 } // namespace scene
 } // namespace rc

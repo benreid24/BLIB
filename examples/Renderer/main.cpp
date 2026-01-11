@@ -8,15 +8,15 @@
 
 namespace
 {
-const std::vector<bl::rc::prim::Vertex> Vertices = {
-    bl::rc::prim::Vertex{-0.5f, -0.5f, 0.f, 0.0f, 1.f},
-    bl::rc::prim::Vertex{0.5f, -0.5f, 0.f, 1.0f, 1.f},
-    bl::rc::prim::Vertex{0.5f, 0.5f, 0.f, 1.0f, 0.f},
-    bl::rc::prim::Vertex{-0.5f, 0.5f, 0.f, 0.0f, 0.f},
+const std::vector<bl::rc::prim::Vertex3D> Vertices = {
+    bl::rc::prim::Vertex3D{glm::vec3(-0.5f, -0.5f, 0.f), glm::vec2(0.0f, 1.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(0.5f, -0.5f, 0.f), glm::vec2(1.0f, 1.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(0.5f, 0.5f, 0.f), glm::vec2(1.0f, 0.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(-0.5f, 0.5f, 0.f), glm::vec2(0.0f, 0.f)},
 
-    bl::rc::prim::Vertex{1.f, 0.f, 0.5f, 0.0f, 0.f},
-    bl::rc::prim::Vertex{1.f, 0.1f, -0.5f, 0.0f, 1.f},
-    bl::rc::prim::Vertex{0.75f, 0.7f, 0.5f, 1.0f, 1.f}};
+    bl::rc::prim::Vertex3D{glm::vec3(1.f, 0.f, 0.5f), glm::vec2(0.0f, 0.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(1.f, 0.1f, -0.5f), glm::vec2(0.0f, 1.f)},
+    bl::rc::prim::Vertex3D{glm::vec3(0.75f, 0.7f, 0.5f), glm::vec2(1.0f, 1.f)}};
 const std::vector<std::uint32_t> Indices = {0, 1, 2, 2, 3, 0, 4, 5, 6};
 } // namespace
 
@@ -32,7 +32,7 @@ void exportTexture(bl::rc::tfr::TextureExport* te, std::string_view outfile,
 
 class DemoState
 : public bl::engine::State
-, bl::event::Listener<sf::Event> {
+, bl::sig::Listener<sf::Event> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All)
@@ -92,9 +92,11 @@ public:
         bl::rc::Observer& p2 = engine.addPlayer().getRenderObserver();
         auto p2World =
             engine.getPlayer(1).enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
-        bl::rc::SceneRef scene = p2World->scene();
+        bl::rc::SceneRef scene          = p2World->scene();
+        bl::rc::scene::Scene3D* scene3d = static_cast<bl::rc::scene::Scene3D*>(scene.get());
+        scene3d->getLighting().setAmbientLightColor({1.f, 1.f, 1.f});
 
-        // create camera for observer 2
+        //// create camera for observer 2
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
         bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
@@ -102,25 +104,28 @@ public:
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 
-        // create object in scene
+        //// create object in scene
         meshEntity = p2World->createEntity();
         engine.ecs().emplaceComponent<bl::com::Transform3D>(meshEntity);
-        bl::com::Mesh* mesh = engine.ecs().emplaceComponent<bl::com::Mesh>(meshEntity);
+        bl::com::BasicMesh* mesh = engine.ecs().emplaceComponent<bl::com::BasicMesh>(meshEntity);
         bl::com::MaterialInstance* meshMaterial =
             engine.ecs().emplaceComponent<bl::com::MaterialInstance>(
                 meshEntity, engine.renderer(), *mesh);
         meshMaterial->setMaterial(engine.renderer().materialPool().getOrCreateFromTexture(texture));
         mesh->init(meshMaterial);
-        mesh->create(engine.renderer().vulkanState(), Vertices.size(), Indices.size());
+        mesh->create(engine.renderer(), Vertices.size(), Indices.size());
         mesh->gpuBuffer.vertices() = Vertices;
         for (auto& v : mesh->gpuBuffer.vertices()) {
             v.texCoord = texture->convertCoord(v.texCoord);
         }
         mesh->gpuBuffer.indices() = Indices;
+        bl::rc::prim::Vertex3D::computeTBN(mesh->gpuBuffer.vertices().data(),
+                                           mesh->gpuBuffer.indices().data(),
+                                           mesh->gpuBuffer.indices().size());
         mesh->gpuBuffer.queueTransfer(bl::rc::tfr::Transferable::SyncRequirement::Immediate);
         mesh->addToScene(engine.ecs(), meshEntity, scene, bl::rc::UpdateSpeed::Static);
 
-        // create overlay and add sprite for observer 2
+        //// create overlay and add sprite for observer 2
         bl::rc::Overlay* overlay = p2.getOrCreateSceneOverlay();
         messageBox.create(*p2World, messageBoxTxtr);
         messageBox.getTransform().setOrigin(messageBox.getTexture()->size() * 0.5f);
@@ -129,25 +134,25 @@ public:
         messageBox.setScissorToSelf();
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // add text to overlay
+        //// add text to overlay
         text.create(*p2World, *font, "Text can now be", 64);
         text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
         text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
-        text.getOverlayScaler().positionInParentSpace({-0.47f, -0.45f});
+        text.getOverlayScaler().positionInParentSpace({0.02f, 0.05f});
         text.getOverlayScaler().scaleToHeightRatio(64.f, 0.19f);
         text.wordWrapToParent(0.9f);
         text.setParent(messageBox);
         text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // sanity check children
+        //// sanity check children
         sprite2.create(*p2World, texture);
-        sprite2.getOverlayScaler().positionInParentSpace({0.4f, 0.4f});
+        sprite2.getOverlayScaler().positionInParentSpace({0.95f, 0.9f});
         sprite2.getOverlayScaler().scaleToHeightPercent(0.1f);
         sprite2.getTransform().setOrigin(texture->size() * 0.5f);
         sprite2.setParent(messageBox);
         sprite2.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // setup render texture
+        //// setup render texture
         renderTexture = engine.renderer().createRenderTexture({128, 128});
         bl::rc::SceneRef rto =
             engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
@@ -167,7 +172,7 @@ public:
         renderTextureOuterSprite.getOverlayScaler().positionInParentSpace({0.05f, 0.1f});
         renderTextureOuterSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
-        // setup another render texture that renders our 2d scene
+        //// setup another render texture that renders our 2d scene
         renderTextureNested = engine.renderer().createRenderTexture({200, 200});
         renderTextureNested->pushScene(scene2d);
         renderTextureNested->setClearColor({0.f, 0.f, 1.f, 1.f});
@@ -179,11 +184,11 @@ public:
         renderTextureNestedSprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         // subscribe to window events
-        bl::event::Dispatcher::subscribe(this);
+        subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(this);
+        unsubscribe();
         texture.release();
         engine.renderer().texturePool().releaseUnused();
         engine.getPlayer().leaveWorld();
@@ -213,7 +218,7 @@ private:
     bl::gfx::Sprite renderTextureNestedSprite;
     std::atomic_bool exportInProgress;
 
-    virtual void observe(const sf::Event& event) override {
+    virtual void process(const sf::Event& event) override {
         if (event.type == sf::Event::KeyPressed) {
             switch (event.key.code) {
             case sf::Keyboard::Z:
@@ -300,13 +305,13 @@ int main() {
 
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withWindowParameters(
-                bl::engine::Settings::WindowParameters()
+            .withRenderer(bl::rc::CreationSettings().withWindowSettings(
+                bl::rc::WindowSettings()
                     .withVideoMode(sf::VideoMode(1920, 1080, 32))
                     .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                     .withTitle("Renderer Demo")
                     .withIcon("vulkan.png")
-                    .withLetterBoxOnResize(true))
+                    .withLetterBoxOnResize(true)))
             .withLogFps(true);
     bl::engine::Engine engine(engineSettings);
 

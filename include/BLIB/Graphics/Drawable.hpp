@@ -145,6 +145,33 @@ protected:
     void create(engine::World& world, TArgs&&... args);
 
     /**
+     * @brief Creates the ECS entity and drawable component using specific material parameters. Will
+     *        destroy the prior instance if any
+     *
+     * @tparam ...TArgs Argument types to the component's constructor
+     * @param world The world to create the object in
+     * @param materialPipelineId The material pipeline id to render with
+     * @param ...args Arguments to the component's constructor
+     */
+    template<typename... TArgs>
+    void createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
+                            TArgs&&... args);
+
+    /**
+     * @brief Creates the ECS entity and drawable component using specific material parameters. Will
+     *        destroy the prior instance if any
+     *
+     * @tparam ...TArgs Argument types to the component's constructor
+     * @param world The world to create the object in
+     * @param materialPipelineId The material pipeline id to render with
+     * @param material The material to use
+     * @param ...args Arguments to the component's constructor
+     */
+    template<typename... TArgs>
+    void createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
+                            const bl::rc::res::MaterialRef& material, TArgs&&... args);
+
+    /**
      * @brief Creates the component for the drawable. Must only be called after entity creation
      *
      * @tparam ...TArgs Argument types to the components constructor
@@ -158,18 +185,27 @@ protected:
     /**
      * @brief Called after the entity is added to a scene. Allows derived to sync data if required
      *
-     * @param sceneRef The scene object information
+     * @param scene The scene the object is being added to
+     * @param updateFreq The expected update frequency of the object's descriptors
      */
-    virtual void onAdd(const rc::rcom::SceneObjectRef& sceneRef);
+    virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq);
 
     /**
      * @brief Called after the entity is removed from a scene
      */
     virtual void onRemove();
 
+    /**
+     * @brief Sets whether the component must be created on the root entity for scene add
+     *
+     * @param require True to require, false to not
+     */
+    void setRequiresComponentOnSelf(bool require);
+
 private:
     TCom* handle;
     com::MaterialInstance* materialInstance;
+    bool isNoHandleError;
 
     template<typename U>
     friend class Drawable;
@@ -183,7 +219,8 @@ private:
 
 template<typename TCom>
 Drawable<TCom>::Drawable()
-: handle(nullptr) {}
+: handle(nullptr)
+, isNoHandleError(true) {}
 
 template<typename TCom>
 Drawable<TCom>::~Drawable() {
@@ -195,14 +232,16 @@ Drawable<TCom>::~Drawable() {
 
 template<typename TCom>
 void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
-#ifdef BLIB_DEBUG
-    if (entity() == ecs::InvalidEntity || !handle) {
+    const bool hasHandle = handle != nullptr;
+
+    if (entity() == ecs::InvalidEntity || (!hasHandle && isNoHandleError)) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
-#endif
 
-    component().addToScene(engine().ecs(), entity(), scene, updateFreq);
-    onAdd(component().getSceneRef());
+    if (hasHandle && component().getDrawParameters().indexCount > 0) {
+        component().addToScene(engine().ecs(), entity(), scene, updateFreq);
+    }
+    onAdd(scene, updateFreq);
 }
 
 template<typename TCom>
@@ -217,13 +256,13 @@ void Drawable<TCom>::setHidden(bool hide) {
 template<typename TCom>
 void Drawable<TCom>::removeFromScene() {
 #ifdef BLIB_DEBUG
-    if (entity() == ecs::InvalidEntity || !handle) {
+    if (entity() == ecs::InvalidEntity) {
         throw std::runtime_error("Drawable must be created before removing from scene");
     }
 #endif
 
     stopFlashing();
-    component().removeFromScene(engine().ecs(), entity());
+    if (handle) { component().removeFromScene(engine().ecs(), entity()); }
     onRemove();
 }
 
@@ -251,7 +290,7 @@ template<typename TCom>
 void Drawable<TCom>::flash(float onPeriod, float offPeriod) {
     if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
     else {
-        engine().renderer().vulkanState().cleanupManager.add(
+        engine().renderer().getCleanupManager().add(
             [this, onPeriod, offPeriod]() { retryFlash(onPeriod, offPeriod); });
     }
 }
@@ -276,7 +315,7 @@ template<typename TCom>
 void Drawable<TCom>::doFlash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
-        entity(), offPeriod, onPeriod, &component().getSceneRef().object->hidden);
+        entity(), offPeriod, onPeriod, handle->getVisibleFlagForToggler());
 }
 
 template<typename TCom>
@@ -292,15 +331,45 @@ template<typename TCom>
 void Drawable<TCom>::stopFlashing() {
     if (entity() != ecs::InvalidEntity) {
         engine().ecs().template removeComponent<com::Toggler>(entity());
-        if (component().getSceneRef().object) { component().getSceneRef().object->hidden = false; }
     }
 }
 
 template<typename TCom>
-void Drawable<TCom>::onAdd(const rc::rcom::SceneObjectRef&) {}
+void Drawable<TCom>::onAdd(rc::Scene*, rc::UpdateSpeed) {}
 
 template<typename TCom>
 void Drawable<TCom>::onRemove() {}
+
+template<typename TCom>
+void Drawable<TCom>::setRequiresComponentOnSelf(bool require) {
+    isNoHandleError = require;
+}
+
+template<typename TCom>
+template<typename... TArgs>
+void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
+                                        TArgs&&... args) {
+    if (handle != nullptr) { destroy(); }
+    createEntityOnly(world);
+    handle           = world.engine().ecs().template emplaceComponent<TCom>(entity(),
+                                                                  std::forward<TArgs>(args)...);
+    materialInstance = engine().ecs().template emplaceComponent<com::MaterialInstance>(
+        entity(), engine().renderer(), component(), materialPipelineId);
+    component().init(materialInstance);
+}
+
+template<typename TCom>
+template<typename... TArgs>
+void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
+                                        const bl::rc::res::MaterialRef& material, TArgs&&... args) {
+    if (handle != nullptr) { destroy(); }
+    createEntityOnly(world);
+    handle           = world.engine().ecs().template emplaceComponent<TCom>(entity(),
+                                                                  std::forward<TArgs>(args)...);
+    materialInstance = engine().ecs().template emplaceComponent<com::MaterialInstance>(
+        entity(), engine().renderer(), component(), materialPipelineId, material);
+    component().init(materialInstance);
+}
 
 template<typename TCom>
 template<typename... TArgs>

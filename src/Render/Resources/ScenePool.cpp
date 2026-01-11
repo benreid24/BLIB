@@ -1,8 +1,6 @@
 #include <BLIB/Render/Resources/ScenePool.hpp>
 
 #include <BLIB/Engine.hpp>
-#include <BLIB/Events.hpp>
-#include <BLIB/Render/Events/SceneDestroyed.hpp>
 
 namespace bl
 {
@@ -19,10 +17,10 @@ void ScenePool::cleanup() {
 }
 
 void ScenePool::release(Entry* entry) {
-    vkDeviceWaitIdle(engine.renderer().vulkanState().device);
+    vkDeviceWaitIdle(engine.renderer().vulkanState().getDevice());
     std::unique_lock lock(mutex);
 
-    bl::event::Dispatcher::dispatch<rc::event::SceneDestroyed>({entry->scene.get()});
+    emitter.emit<rc::event::SceneDestroyed>({entry->scene.get()});
     for (auto it = scenes.begin(); it != scenes.end(); ++it) {
         if (&(*it) == entry) {
             scenes.erase(it);

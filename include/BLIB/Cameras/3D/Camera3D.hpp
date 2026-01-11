@@ -157,6 +157,11 @@ public:
      */
     virtual glm::vec2 getViewerSize() const override;
 
+    /**
+     * @brief Returns the position that the camera is observing from
+     */
+    virtual glm::vec3 getObserverPosition() const override;
+
 private:
     glm::vec3 position;
     com::Orientation3D orientation;

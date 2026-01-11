@@ -2,7 +2,6 @@
 
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 
@@ -35,7 +34,7 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
     scissor.offset.y = std::max(scissor.offset.y, limits.offset.y);
 
     const int limitRight = limits.offset.x + limits.extent.width;
-    if (scissor.offset.x + scissor.extent.width > limitRight) {
+    if (scissor.offset.x + static_cast<int>(scissor.extent.width) > limitRight) {
         if (limitRight >= scissor.offset.x) {
             scissor.extent.width = limitRight - scissor.offset.x;
         }
@@ -43,7 +42,7 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
     }
 
     const int limitBottom = limits.offset.y + limits.extent.height;
-    if (scissor.offset.y + scissor.extent.height > limitBottom) {
+    if (scissor.offset.y + static_cast<int>(scissor.extent.height) > limitBottom) {
         if (limitBottom >= scissor.offset.y) {
             scissor.extent.height = limitBottom - scissor.offset.y;
         }

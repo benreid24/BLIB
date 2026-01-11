@@ -32,7 +32,7 @@ struct RenderConfigMap<Particle> {
 
     using GlobalShaderPayload = ShaderPayload;
     using DescriptorSets =
-        bl::pcl::RenderConfigDescriptorList<bl::rc::ds::Scene2DFactory,
+        bl::pcl::RenderConfigDescriptorList<bl::rc::dsi::Scene2DFactory,
                                             // This descriptor set can be used most of the time
                                             bl::pcl::DescriptorSetFactory<Particle, GpuParticle>>;
 
@@ -44,7 +44,7 @@ struct RenderConfigMap<Particle> {
 } // namespace pcl
 } // namespace bl
 
-class InputHandler : public bl::event::Listener<sf::Event> {
+class InputHandler : public bl::sig::Listener<sf::Event> {
 public:
     InputHandler()
     : eng(nullptr)
@@ -59,7 +59,7 @@ public:
         globals   = &manager.getRenderer().getGlobals();
     }
 
-    virtual void observe(const sf::Event& event) override {
+    virtual void process(const sf::Event& event) override {
         if (event.type == sf::Event::MouseButtonPressed) {
             const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
 
@@ -97,7 +97,7 @@ private:
 
 class DemoState : public bl::engine::State {
 public:
-    DemoState(bl::engine::Engine& engine)
+    DemoState(bl::engine::Engine&)
     : State(bl::engine::StateMask::All) {}
 
     virtual const char* name() const override { return "DemoState"; }
@@ -119,12 +119,12 @@ public:
         simpleManager.addAffector<SimpleWrapAffector>();
 
         spawner.init(engine, *world, simpleManager, scene);
-        bl::event::Dispatcher::subscribe(&spawner);
+        spawner.subscribe(engine.getSignalChannel());
         simpleManager.addToScene(scene);
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(&spawner);
+        spawner.unsubscribe();
         engine.particleSystem().removeUniqueSystem<Particle>();
         engine.getPlayer().leaveWorld();
     }
@@ -140,12 +140,13 @@ private:
 int main() {
     bl::cam::OverlayCamera::setOverlayCoordinateSpace(800.f, 600.f);
 
-    const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
-        bl::engine::Settings::WindowParameters()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-            .withTitle("Particle System Demo")
-            .withLetterBoxOnResize(true));
+    const bl::engine::Settings engineSettings =
+        bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
+            bl::rc::WindowSettings()
+                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                .withTitle("Particle System Demo")
+                .withLetterBoxOnResize(true)));
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>(engine));

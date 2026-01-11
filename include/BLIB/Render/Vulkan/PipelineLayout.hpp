@@ -140,7 +140,7 @@ public:
     /**
      * @brief Returns the Vulkan layout handle
      */
-    constexpr VkPipelineLayout rawLayout() const;
+    VkPipelineLayout rawLayout() const;
 
     /**
      * @brief Creates descriptor set instances for this layout
@@ -162,21 +162,19 @@ public:
                                      ds::DescriptorSetInstance** sets) const;
 
     /**
-     * @brief Updates the existing descriptor sets to the new ones for this layout. Only calls
-     *        allocate/release for sets that are different between the old layout and the new
-     *
-     * @param cache Descriptor set cache to use when creating or fetching sets
-     * @param sets The original descriptor sets. Will be updated in place
-     * @param descriptorCount The number of descriptor sets in the old layout
-     * @param entity The ECS id of the object being updated
-     * @param sceneId The object scene id to update
-     * @param updateSpeed The descriptor update frequency of the object
-     * @return The number of descriptor sets used by this layout
+     * @brief Returns the number of descriptor sets in this layout
      */
-    std::uint32_t updateDescriptorSets(ds::DescriptorSetInstanceCache& cache,
-                                       ds::DescriptorSetInstance** sets,
-                                       std::uint32_t descriptorCount, ecs::Entity entity,
-                                       std::uint32_t sceneId, UpdateSpeed updateSpeed) const;
+    std::uint32_t getDescriptorSetCount() const { return descriptorSets.size(); }
+
+    /**
+     * @brief Returns the descriptor set factory at the given index
+     *
+     * @param i The index of the descriptor set factory to get
+     * @return A pointer to the descriptor set factory
+     */
+    ds::DescriptorSetFactory* getDescriptorSetFactory(std::uint32_t i) const {
+        return descriptorSets[i];
+    }
 
 private:
     Renderer& renderer;
@@ -186,7 +184,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr VkPipelineLayout PipelineLayout::rawLayout() const { return layout; }
+inline VkPipelineLayout PipelineLayout::rawLayout() const { return layout; }
 
 } // namespace vk
 } // namespace rc

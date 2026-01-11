@@ -4,19 +4,34 @@
 #include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Graph/AssetFactory.hpp>
+#include <BLIB/Render/Graph/Strategies/OverlayRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene2DRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp>
+#include <BLIB/Render/Graph/Strategies/Scene3DForwardRenderStrategy.hpp>
 #include <BLIB/Render/Graph/Strategy.hpp>
 #include <BLIB/Render/Observer.hpp>
+#include <BLIB/Render/Resources/ComputePipelineCache.hpp>
+#include <BLIB/Render/Resources/GlobalDescriptors.hpp>
 #include <BLIB/Render/Resources/MaterialPipelineCache.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <BLIB/Render/Resources/PipelineCache.hpp>
 #include <BLIB/Render/Resources/PipelineLayoutCache.hpp>
 #include <BLIB/Render/Resources/RenderPassCache.hpp>
+#include <BLIB/Render/Resources/SamplerCache.hpp>
 #include <BLIB/Render/Resources/ScenePool.hpp>
 #include <BLIB/Render/Resources/TexturePool.hpp>
 #include <BLIB/Render/Scenes/SceneSync.hpp>
+#include <BLIB/Render/Settings.hpp>
 #include <BLIB/Render/Transfers/TextureExporter.hpp>
+#include <BLIB/Render/Vulkan/CleanupManager.hpp>
+#include <BLIB/Render/Vulkan/DescriptorPool.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/SharedCommandPool.hpp>
+#include <BLIB/Render/Vulkan/Swapchain.hpp>
+#include <BLIB/Render/Vulkan/TextureFormatManager.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
+#include <BLIB/Render/Window.hpp>
+#include <BLIB/Signals/Channel.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <future>
 
@@ -43,6 +58,19 @@ namespace rc
 class Renderer : private util::NonCopyable {
 public:
     enum struct SplitscreenDirection { TopAndBottom, LeftAndRight };
+
+    /**
+     * @brief Creates a renderer. Should only be called by Engine
+     *
+     * @param engine The engine instance
+     * @param settings The settings to create the renderer with
+     */
+    Renderer(engine::Engine& engine, const CreationSettings& settings);
+
+    /**
+     * @brief Destroys the renderer
+     */
+    ~Renderer();
 
     /**
      * @brief Returns the observer at the given index
@@ -114,18 +142,19 @@ public:
      * @param sampler Optional sampler to use
      * @return A handle to the render texture
      */
-    vk::RenderTexture::Handle createRenderTexture(const glm::u32vec2& size,
-                                                  VkSampler sampler = nullptr);
+    vk::RenderTexture::Handle createRenderTexture(
+        const glm::u32vec2& size,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredBorderClamped);
 
     /**
      * @brief Returns the Vulkan state of the renderer
      */
-    vk::VulkanState& vulkanState();
+    vk::VulkanLayer& vulkanState();
 
     /**
      * @brief Returns the Vulkan state of the renderer
      */
-    const vk::VulkanState& vulkanState() const;
+    const vk::VulkanLayer& vulkanState() const;
 
     /**
      * @brief Returns the texture pool of this renderer
@@ -138,6 +167,11 @@ public:
     res::MaterialPool& materialPool();
 
     /**
+     * @brief Returns the sampler cache
+     */
+    res::SamplerCache& samplerCache();
+
+    /**
      * @brief Returns the render pass cache of this renderer
      */
     res::RenderPassCache& renderPassCache();
@@ -146,6 +180,11 @@ public:
      * @brief Returns the pipeline cache of this renderer
      */
     res::PipelineCache& pipelineCache();
+
+    /**
+     * @brief Returns the compute pipeline cache of this renderer
+     */
+    res::ComputePipelineCache& computePipelineCache();
 
     /**
      * @brief Returns the material pipeline cache of this renderer
@@ -180,45 +219,134 @@ public:
     void setClearColor(const Color& color);
 
     /**
-     * @brief Replaces the current strategy with a new one of type T. Default is
-     *        rgi::ForwardRendererStrategy
-     *
-     * @tparam T The new strategy type
-     * @tparam ...TArgs Argument types to the strategy's constructor
-     * @param ...args Arguments to the strategy's constructor
-     * @return A pointer to the new strategy
-     */
-    template<typename T, typename... TArgs>
-    T* useRenderStrategy(TArgs&&... args);
-
-    /**
-     * @brief Returns the current renderer strategy
-     */
-    rg::Strategy& getRenderStrategy();
-
-    /**
      * @brief Returns the graph asset factory used by the renderer
      */
     rg::AssetFactory& getAssetFactory();
 
     /**
-     * @brief Returns the framebuffers for the swap chain frames
+     * @brief Returns the resource store for global shader resources
      */
-    vk::PerSwapFrame<vk::Framebuffer>& getSwapframeBuffers();
+    sr::ShaderResourceStore& getGlobalShaderResources();
+
+    /**
+     * @brief Returns the global descriptor data instance
+     */
+    res::GlobalDescriptors& getGlobalDescriptorData();
+
+    /**
+     * @brief Returns the render settings which can be changed
+     */
+    Settings& getSettings();
+
+    /**
+     * @brief Returns the render settings
+     */
+    const Settings& getSettings() const;
+
+    /**
+     * @brief Returns the render window
+     */
+    RenderWindow& getWindow();
+
+    /**
+     * @brief Returns the scale factor being applied to the window to letterbox
+     */
+    float getWindowScale() const;
+
+    /**
+     * @brief Updates or recreates the window based on the current settings
+     */
+    void updateWindowFromSettings();
+
+    /**
+     * @brief Returns the channel for renderer events
+     */
+    sig::Channel& getSignalChannel();
+
+    /**
+     * @brief Returns the default overlay render strategy
+     */
+    rgi::OverlayRenderStrategy& getDefaultOverlayRenderStrategy();
+
+    /**
+     * @brief Returns the default 2D render strategy
+     */
+    rgi::Scene2DRenderStrategy& getDefaultScene2DRenderStrategy();
+
+    /**
+     * @brief Returns the default 3D forward render strategy
+     */
+    rgi::Scene3DForwardRenderStrategy& getDefaultScene3DForwardRenderStrategy();
+
+    /**
+     * @brief Returns the default 3D deferred render strategy
+     */
+    rgi::Scene3DDeferredRenderStrategy& getDefaultScene3DDeferredRenderStrategy();
+
+    /**
+     * @brief Returns a CreationSettings containing the current renderer settings
+     */
+    CreationSettings getCreationSettings() const;
+
+    /**
+     * @brief Returns the shared command pool for allocating transient command buffers
+     */
+    vk::SharedCommandPool& getSharedCommandPool() { return sharedCommandPool; }
+
+    /**
+     * @brief Returns the swapchain manager
+     */
+    vk::Swapchain& getSwapchain() { return swapchain; }
+
+    /**
+     * @brief Returns the shader module cache
+     */
+    res::ShaderModuleCache& getShaderCache() { return shaderCache; }
+
+    /**
+     * @brief Returns the transfer engine
+     */
+    tfr::TransferEngine& getTransferEngine() { return transferEngine; }
+
+    /**
+     * @brief Returns the descriptor pool manager
+     */
+    vk::DescriptorPool& getDescriptorPool() { return descriptorPool; }
+
+    /**
+     * @brief Returns the cleanup manager
+     */
+    vk::CleanupManager& getCleanupManager() { return cleanupManager; }
+
+    /**
+     * @brief Returns the texture format manager
+     */
+    vk::TextureFormatManager& getTextureFormatManager() { return textureFormatManager; }
 
 private:
     std::mutex renderMutex;
     engine::Engine& engine;
-    engine::EngineWindow& window;
+    RenderWindow window;
+    float windowScale;
+    Settings settings;
     sf::Rect<std::uint32_t> renderRegion;
-    vk::VulkanState state;
-    vk::PerSwapFrame<vk::Framebuffer> framebuffers;
+    vk::VulkanLayer state;
+    vk::SharedCommandPool sharedCommandPool;
+    vk::Swapchain swapchain;
+    res::ShaderModuleCache shaderCache;
+    tfr::TransferEngine transferEngine;
+    vk::DescriptorPool descriptorPool;
+    vk::CleanupManager cleanupManager;
+    vk::TextureFormatManager textureFormatManager;
+    res::GlobalDescriptors globalDescriptors;
     res::TexturePool textures;
     res::MaterialPool materials;
+    res::SamplerCache samplers;
     ds::DescriptorSetFactoryCache descriptorSetFactoryCache;
     res::RenderPassCache renderPasses;
     res::PipelineLayoutCache pipelineLayouts;
     res::PipelineCache pipelines;
+    res::ComputePipelineCache computePipelines;
     res::MaterialPipelineCache materialPipelines;
     res::ScenePool scenes;
     tfr::TextureExporter imageExporter;
@@ -228,22 +356,31 @@ private:
     std::vector<std::unique_ptr<Observer>> virtualObservers;
     VkClearValue clearColors[2];
     std::vector<std::unique_ptr<vk::RenderTexture>> renderTextures;
-    std::unique_ptr<rg::Strategy> strategy;
     rg::AssetFactory assetFactory;
+    sr::ShaderResourceStore globalShaderResources;
     scene::SceneSync sceneSync;
+    sig::Channel signalChannel;
 
-    Renderer(engine::Engine& engine, engine::EngineWindow& window);
-    ~Renderer();
-    void initialize();
+    rgi::OverlayRenderStrategy overlayStrategy;
+    rgi::Scene2DRenderStrategy scene2DStrategy;
+    rgi::Scene3DForwardRenderStrategy scene3DForwardStrategy;
+    rgi::Scene3DDeferredRenderStrategy scene3DDeferredStrategy;
+
+    bool initialize();
+    void earlyCleanup();
     void cleanup();
-    void processResize(const sf::Rect<std::uint32_t>& region);
+
+    bool createWindow();
+    void applySettingsToWindow();
+    void processResize(const sf::Event::SizeEvent& event);
     void processWindowRecreate();
 
     void destroyRenderTexture(vk::RenderTexture* rt);
 
     // render stages
-    void update(float dt);
+    void update(float dt, float realDt, float residual, float realResidual);
     void syncSceneObjects();
+    void copyDataFromSources();
     void renderFrame();
 
     Observer& addObserver();
@@ -258,17 +395,21 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline vk::VulkanState& Renderer::vulkanState() { return state; }
+inline vk::VulkanLayer& Renderer::vulkanState() { return state; }
 
-inline const vk::VulkanState& Renderer::vulkanState() const { return state; }
+inline const vk::VulkanLayer& Renderer::vulkanState() const { return state; }
 
 inline res::TexturePool& Renderer::texturePool() { return textures; }
 
 inline res::MaterialPool& Renderer::materialPool() { return materials; }
 
+inline res::SamplerCache& Renderer::samplerCache() { return samplers; }
+
 inline res::RenderPassCache& Renderer::renderPassCache() { return renderPasses; }
 
 inline res::PipelineCache& Renderer::pipelineCache() { return pipelines; }
+
+inline res::ComputePipelineCache& Renderer::computePipelineCache() { return computePipelines; }
 
 inline res::MaterialPipelineCache& Renderer::materialPipelineCache() { return materialPipelines; }
 
@@ -281,6 +422,8 @@ inline ds::DescriptorSetFactoryCache& Renderer::descriptorFactoryCache() {
 }
 
 inline tfr::TextureExporter& Renderer::textureExporter() { return imageExporter; }
+
+inline res::GlobalDescriptors& Renderer::getGlobalDescriptorData() { return globalDescriptors; }
 
 inline Observer& Renderer::getCommonObserver() { return commonObserver; }
 
@@ -303,18 +446,35 @@ SceneRef RenderTarget::pushScene(TArgs&&... args) {
     return s;
 }
 
-template<typename T, typename... TArgs>
-T* Renderer::useRenderStrategy(TArgs&&... args) {
-    static_assert(std::is_base_of_v<rg::Strategy, T>, "Strategy must derive from rg::Strategy");
-
-    T* s = new T(std::forward<TArgs>(args)...);
-    strategy.reset(s);
-    return s;
-}
-
 inline rg::AssetFactory& Renderer::getAssetFactory() { return assetFactory; }
 
-inline vk::PerSwapFrame<vk::Framebuffer>& Renderer::getSwapframeBuffers() { return framebuffers; }
+inline sr::ShaderResourceStore& Renderer::getGlobalShaderResources() {
+    return globalShaderResources;
+}
+
+inline Settings& Renderer::getSettings() { return settings; }
+
+inline const Settings& Renderer::getSettings() const { return settings; }
+
+inline sig::Channel& Renderer::getSignalChannel() { return signalChannel; }
+
+inline rgi::OverlayRenderStrategy& Renderer::getDefaultOverlayRenderStrategy() {
+    return overlayStrategy;
+}
+
+inline rgi::Scene2DRenderStrategy& Renderer::getDefaultScene2DRenderStrategy() {
+    return scene2DStrategy;
+}
+
+inline rgi::Scene3DForwardRenderStrategy& Renderer::getDefaultScene3DForwardRenderStrategy() {
+    return scene3DForwardStrategy;
+}
+
+inline rgi::Scene3DDeferredRenderStrategy& Renderer::getDefaultScene3DDeferredRenderStrategy() {
+    return scene3DDeferredStrategy;
+}
+
+inline RenderWindow& Renderer::getWindow() { return window; }
 
 } // namespace rc
 } // namespace bl

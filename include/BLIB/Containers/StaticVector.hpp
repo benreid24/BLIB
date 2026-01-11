@@ -44,6 +44,22 @@ public:
     ~StaticVector();
 
     /**
+     * @brief Copies from another vector
+     *
+     * @param copy The vector to copy from
+     * @return A reference to this object
+     */
+    StaticVector& operator=(const StaticVector& copy);
+
+    /**
+     * @brief Moves from another vector
+     *
+     * @param copy The vector to move from
+     * @return A reference to this object
+     */
+    StaticVector& operator=(StaticVector&& copy);
+
+    /**
      * @brief Append a value to the end of the vector
      *
      * @param value The value to append
@@ -64,7 +80,7 @@ public:
      * @param ...args The arguments to pass to the constructor
      */
     template<typename... TArgs>
-    void emplace_back(TArgs&&... args);
+    T& emplace_back(TArgs&&... args);
 
     /**
      * @brief Removes the last element from the vector
@@ -200,6 +216,22 @@ StaticVector<T, N>::~StaticVector() {
 }
 
 template<typename T, std::size_t N>
+StaticVector<T, N>& StaticVector<T, N>::operator=(const StaticVector<T, N>& copy) {
+    clear();
+    used = copy.used;
+    for (std::size_t i = 0; i < used; ++i) { storage[i].emplace(copy.storage[i].get()); }
+    return *this;
+}
+
+template<typename T, std::size_t N>
+StaticVector<T, N>& StaticVector<T, N>::operator=(StaticVector<T, N>&& copy) {
+    clear();
+    used = copy.used;
+    for (std::size_t i = 0; i < used; ++i) { storage[i].emplace(copy.storage[i].getRValue()); }
+    return *this;
+}
+
+template<typename T, std::size_t N>
 void StaticVector<T, N>::push_back(const T& value) {
 #ifdef BLIB_DEBUG
     if (used >= N) { throw std::runtime_error("StaticVector is full"); }
@@ -219,12 +251,14 @@ void StaticVector<T, N>::push_back(T&& value) {
 
 template<typename T, std::size_t N>
 template<typename... TArgs>
-void StaticVector<T, N>::emplace_back(TArgs&&... args) {
+T& StaticVector<T, N>::emplace_back(TArgs&&... args) {
 #ifdef BLIB_DEBUG
     if (used >= N) { throw std::runtime_error("StaticVector is full"); }
 #endif
 
-    storage[used++].emplace(std::forward<TArgs>(args)...);
+    auto& slot = storage[used++];
+    slot.emplace(std::forward<TArgs>(args)...);
+    return slot.get();
 }
 
 template<typename T, std::size_t N>
@@ -336,12 +370,12 @@ const T* StaticVector<T, N>::begin() const {
 
 template<typename T, std::size_t N>
 T* StaticVector<T, N>::end() {
-    return (&storage[used - 1].get()) + 1;
+    return (&storage[0].get()) + used;
 }
 
 template<typename T, std::size_t N>
 const T* StaticVector<T, N>::end() const {
-    return (&storage[used - 1].get()) + 1;
+    return (&storage[0].get()) + used;
 }
 
 } // namespace ctr

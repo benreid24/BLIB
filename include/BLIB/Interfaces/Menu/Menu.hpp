@@ -2,7 +2,6 @@
 #define BLIB_MENU_MENU_HPP
 
 #include <BLIB/Audio/AudioSystem.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Interfaces/Menu/Event.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
@@ -11,6 +10,7 @@
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Scenes/CodeScene.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Util/Hashes.hpp>
 #include <list>
 #include <unordered_map>
@@ -30,7 +30,7 @@ namespace menu
  *
  * @ingroup Menu
  */
-class Menu : public event::Listener<rc::event::SceneDestroyed> {
+class Menu : public sig::Listener<rc::event::SceneDestroyed> {
 public:
     /**
      * @brief Initializes the Menu. create() must be called before the menu can be used
@@ -302,7 +302,7 @@ private:
     void refreshScroll();
     void refreshBackground();
     void playSound(audio::AudioSystem::Handle sound) const;
-    virtual void observe(const rc::event::SceneDestroyed& event) override;
+    virtual void process(const rc::event::SceneDestroyed& event) override;
 
     static audio::AudioSystem::Handle defaultMoveSound;
     static audio::AudioSystem::Handle defaultFailSound;

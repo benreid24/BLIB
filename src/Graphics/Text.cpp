@@ -34,7 +34,7 @@ void Text::create(engine::World& world, const sf::VulkanFont& f, const sf::Strin
     });
 
     const std::uint32_t vc = std::max(content.getSize(), static_cast<std::size_t>(20)) * 6;
-    component().vertices.create(world.engine().renderer().vulkanState(), vc);
+    component().vertices.create(world.engine().renderer(), vc);
 
     sections.clear();
     addSection(content, fontSize, color, style);
@@ -55,10 +55,6 @@ void Text::setFont(const sf::VulkanFont& f) {
     font = &f;
     queueCommit();
 }
-
-void Text::onAdd(const rc::rcom::SceneObjectRef&) {}
-
-void Text::onRemove() {}
 
 void Text::ensureLocalSizeUpdated() {
     const auto bounds = getLocalBounds();
@@ -96,7 +92,7 @@ void Text::commit() {
 
     // create larger buffer if required
     if (component().vertices.vertexCount() < vertexCount) {
-        component().vertices.create(engine().renderer().vulkanState(), vertexCount * 2);
+        component().vertices.create(engine().renderer(), vertexCount * 2);
     }
 
     // assign vertices
@@ -298,7 +294,7 @@ Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& posit
 void Text::queueCommit() {
     boundsComputedWhileDirty = false;
     if (!commitTask.isQueued()) {
-        commitTask = systems->addFrameTask(engine::FrameStage::RenderEarlyRefresh,
+        commitTask = systems->addFrameTask(engine::FrameStage::RendererDataSync,
                                            std::bind(&Text::commit, this));
     }
 }

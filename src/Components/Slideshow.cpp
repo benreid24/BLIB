@@ -4,14 +4,14 @@ namespace bl
 {
 namespace com
 {
-bool Slideshow::create(rc::vk::VulkanState& vs, const Animation2DPlayer& anim) {
+bool Slideshow::create(rc::Renderer& renderer, const Animation2DPlayer& anim) {
     if (!anim.getAnimation()->isSlideshow()) {
         BL_LOG_ERROR << "Animation is not a slideshow";
         return false;
     }
 
     if (indexBuffer.vertexCount() == 0) {
-        indexBuffer.create(vs, 4, 6);
+        indexBuffer.create(renderer, 4, 6);
         indexBuffer.indices() = {0, 1, 2, 0, 2, 3};
         for (rc::prim::SlideshowVertex& vertex : indexBuffer.vertices()) {
             vertex.color = {1.f, 1.f, 1.f, 1.f};

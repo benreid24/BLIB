@@ -1,13 +1,12 @@
 target_sources(BLIB PUBLIC
-	DescriptorComponentStorage.hpp
-	DescriptorComponentStorageCache.hpp
 	DescriptorSetFactory.hpp
 	DescriptorSetFactoryCache.hpp
 	DescriptorSetInstance.hpp
 	DescriptorSetInstanceCache.hpp
 	GenericDescriptorSetFactory.hpp
 	GenericDescriptorSetInstance.hpp
-	SceneDescriptorSetInstance.hpp
+	InitContext.hpp
+	InstanceTable.hpp
 	SetWriteHelper.hpp
 )
 

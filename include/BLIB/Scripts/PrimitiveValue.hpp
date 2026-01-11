@@ -4,6 +4,7 @@
 #include <BLIB/Scripts/Function.hpp>
 #include <BLIB/Scripts/ReferenceValue.hpp>
 #include <vector>
+#include <cstdint>
 
 namespace bl
 {

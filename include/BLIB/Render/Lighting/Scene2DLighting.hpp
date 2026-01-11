@@ -1,8 +1,10 @@
 #ifndef BLIB_RENDER_LIGHTING_SCENE2DLIGHTING_HPP
 #define BLIB_RENDER_LIGHTING_SCENE2DLIGHTING_HPP
 
-#include <BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp>
+#include <BLIB/Render/Buffers/BufferSingleDeviceLocalSourced.hpp>
 #include <BLIB/Render/Lighting/Light2D.hpp>
+#include <BLIB/Render/ShaderResources/BufferShaderResource.hpp>
+#include <BLIB/Render/ShaderResources/Key.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <array>
 #include <cstdint>
@@ -27,14 +29,31 @@ namespace lgt
  */
 class Scene2DLighting {
 public:
-    static constexpr std::uint32_t MaxLightCount = ds::Scene2DInstance::MaxLightCount;
+    static constexpr std::uint32_t MaxLightCount = 500;
+
+    /**
+     * @brief POD of a 2d light
+     */
+    struct alignas(16) Light {
+        glm::vec4 color;
+        glm::vec2 position;
+    };
+
+    /**
+     * @brief POD for 2d scene lighting data
+     */
+    struct alignas(16) Lighting {
+        std::uint32_t lightCount;
+        glm::vec3 ambient;
+        alignas(16) Light lights[MaxLightCount];
+    };
 
     /**
      * @brief Creates the lighting manager
      *
-     * @param descriptorSet The descriptor set containing the light buffers
+     * @param lightingBuffer The lighting buffer to update with light data
      */
-    Scene2DLighting(ds::Scene2DInstance* descriptorSet);
+    Scene2DLighting(Lighting& lightingBuffer);
 
     /**
      * @brief Sets the ambient light color. Default is white (full light)
@@ -80,7 +99,7 @@ public:
     Light2D getLight(std::uint32_t id) { return Light2D(*this, id); }
 
 private:
-    ds::Scene2DInstance::Lighting& lighting;
+    Lighting& lighting;
     util::IdAllocator<std::uint32_t> indexAllocator;
     std::array<std::uint32_t, MaxLightCount> allocations;
 
@@ -89,6 +108,21 @@ private:
 };
 
 } // namespace lgt
+
+namespace sri
+{
+/**
+ * @brief Buffer shader resource containing 2d scene lighting data
+ *
+ * @ingroup Renderer
+ */
+using LightingBuffer2D =
+    sr::BufferShaderResource<buf::BufferSingleDeviceLocalSourcedUBO<lgt::Scene2DLighting::Lighting>,
+                             1>;
+
+constexpr sr::Key<LightingBuffer2D> Scene2DLightingKey("__builtin_Scene2DLighting");
+} // namespace sri
+
 } // namespace rc
 } // namespace bl
 

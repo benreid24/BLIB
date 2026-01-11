@@ -2,6 +2,7 @@
 #define BLIB_RENDER_VULKAN_SHAREDCOMMANDBUFFER_HPP
 
 #include <BLIB/Vulkan.hpp>
+#include <mutex>
 
 namespace bl
 {
@@ -46,11 +47,13 @@ public:
     void submit();
 
 private:
+    std::unique_lock<std::mutex> lock;
     SharedCommandPool* owner;
     VkFence fence;
     VkCommandBuffer buffer;
 
-    SharedCommandBuffer(SharedCommandPool* owner, VkFence fence, VkCommandBuffer buffer);
+    SharedCommandBuffer(SharedCommandPool* owner, std::unique_lock<std::mutex>&& lock,
+                        VkFence fence, VkCommandBuffer buffer);
 
     SharedCommandBuffer()                                      = delete;
     SharedCommandBuffer(const SharedCommandBuffer&)            = delete;

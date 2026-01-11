@@ -1,29 +1,36 @@
 target_sources(BLIB PUBLIC
-    AlignedBuffer.hpp
-    AttachmentBuffer.hpp
+    AttachmentImageSet.hpp
     AttachmentSet.hpp
+    BlendParameters.hpp
     Buffer.hpp
+    CommonTextureFormats.hpp
+    ComputePipeline.hpp
+    ComputePipelineParameters.hpp
     CleanupManager.hpp
-    CommonSamplers.hpp
     DedicatedCommandBuffers.hpp
     DescriptorPool.hpp
     DescriptorSet.hpp
     Framebuffer.hpp
+    Image.hpp
+    ImageOptions.hpp
     PerFrame.hpp
     PerSwapFrame.hpp
     Pipeline.hpp
+    PipelineInstance.hpp
     PipelineLayout.hpp
     PipelineParameters.hpp
     RenderPass.hpp
     RenderPassParameters.hpp
     RenderTexture.hpp
+    Sampler.hpp
+    SamplerOptions.hpp
+    SemanticTextureFormat.hpp
+    ShaderParameters.hpp
     SharedCommandBuffer.hpp
     SharedCommandPool.hpp
-    StandardAttachmentSet.hpp
-    StandardAttachmentBuffers.hpp
     Swapchain.hpp
     Texture.hpp
-    TextureBase.hpp
-    TextureDoubleBuffered.hpp
-    VulkanState.hpp
+    TextureFormatManager.hpp
+    TextureOptions.hpp
+    VulkanLayer.hpp
 )

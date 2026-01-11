@@ -1,10 +1,13 @@
 target_sources(BLIB PUBLIC
-    BindlessTextureArray.hpp
+    ComputePipelineCache.hpp
+    GlobalDescriptors.hpp
     MaterialPipelineCache.hpp
     MaterialPool.hpp
+    MaterialRef.hpp
     PipelineCache.hpp
     PipelineLayoutCache.hpp
     RenderPassCache.hpp
+    SamplerCache.hpp
     ScenePool.hpp
     SceneRef.hpp
     ShaderModuleCache.hpp

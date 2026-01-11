@@ -2,6 +2,8 @@
 #define BLIB_RENDER_GRAPH_GRAPHASSET_HPP
 
 #include <BLIB/Render/Graph/AssetRef.hpp>
+#include <string_view>
+#include <vector>
 
 namespace bl
 {
@@ -18,7 +20,7 @@ class Task;
  */
 struct GraphAsset {
     AssetRef asset;
-    Task* outputtedBy;
+    std::vector<Task*> outputtedBy;
     unsigned int firstAvailableStep;
 
     /**
@@ -28,8 +30,9 @@ struct GraphAsset {
      */
     GraphAsset(Asset* asset)
     : asset(asset)
-    , outputtedBy(nullptr)
-    , firstAvailableStep(0) {}
+    , firstAvailableStep(0) {
+        outputtedBy.reserve(4);
+    }
 };
 
 } // namespace rg

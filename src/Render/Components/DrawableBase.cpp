@@ -16,6 +16,7 @@ DrawableBase::DrawableBase()
 : containsTransparency(false)
 , renderComponent(nullptr)
 , material(nullptr)
+, pipelineSpecialization(0)
 , hidden(false) {}
 
 DrawableBase::~DrawableBase() {
@@ -24,17 +25,7 @@ DrawableBase::~DrawableBase() {
 
 void DrawableBase::init(com::MaterialInstance* m) { material = m; }
 
-void DrawableBase::syncDrawParamsToScene() {
-    if (sceneRef.object) {
-        sceneRef.object->drawParams = drawParams;
-        sceneRef.object->hidden     = hidden;
-    }
-}
-
-void DrawableBase::setHidden(bool hide) {
-    if (sceneRef.object) { sceneRef.object->hidden = hide; }
-    hidden = hide;
-}
+void DrawableBase::setHidden(bool hide) { hidden = hide; }
 
 void DrawableBase::rebucket() {
     if (sceneRef.scene) { sceneRef.scene->rebucketObject(*this); }
@@ -43,6 +34,13 @@ void DrawableBase::rebucket() {
 void DrawableBase::setContainsTransparency(bool t) {
     if (containsTransparency != t) {
         containsTransparency = t;
+        rebucket();
+    }
+}
+
+void DrawableBase::setPipelineSpecialization(std::uint32_t spec) {
+    if (pipelineSpecialization != spec) {
+        pipelineSpecialization = spec;
         rebucket();
     }
 }

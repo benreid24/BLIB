@@ -22,6 +22,15 @@ bool worldOverlapCallback(b2ShapeId shape, void* ctx) {
 Physics2D::Physics2D()
 : engine(nullptr) {
     worlds.resize(engine::World::MaxWorlds, nullptr);
+
+    ecsRouter.route<ecs::event::ComponentRemoved<com::Physics2D>>(
+        [this](const ecs::event::ComponentRemoved<com::Physics2D>& event) {
+            handleComponentRemove(event);
+        });
+    engineRouter.route<engine::event::WorldCreated>(
+        [this](const engine::event::WorldCreated& event) { handleWorldCreate(event); });
+    engineRouter.route<engine::event::WorldDestroyed>(
+        [this](const engine::event::WorldDestroyed& event) { handleWorldDestroy(event); });
 }
 
 com::Physics2D* Physics2D::addPhysicsToEntity(ecs::Entity entity, b2BodyDef bodyDef,
@@ -66,10 +75,15 @@ void Physics2D::createSensorForEntity(ecs::Entity entity, b2Filter filter) {
 
 void Physics2D::init(engine::Engine& e) {
     engine = &e;
-    event::Dispatcher::subscribe(this);
+    channel.setParent(e.getSignalChannel());
+    emitter.connect(channel);
+    ecsRouter.subscribe(e.ecs().getSignalChannel());
+    engineRouter.subscribe(e.getSignalChannel());
 }
 
 void Physics2D::update(std::mutex&, float dt, float, float, float) {
+    channel.syncDeferred();
+
     for (auto world : worlds) {
         if (!world) { continue; }
 
@@ -99,30 +113,29 @@ void Physics2D::update(std::mutex&, float dt, float, float, float) {
         for (int i = 0; i < contacts.beginCount; ++i) {
             com::Physics2D& a = getComponent(contacts.beginEvents[i].shapeIdA);
             com::Physics2D& b = getComponent(contacts.beginEvents[i].shapeIdB);
-            event::Dispatcher::dispatch<EntityCollisionBeginEvent>({a.entity, b.entity});
+            emitter.emit<EntityCollisionBeginEvent>({a.entity, b.entity});
         }
         for (int i = 0; i < contacts.endCount; ++i) {
             com::Physics2D& a = getComponent(contacts.endEvents[i].shapeIdA);
             com::Physics2D& b = getComponent(contacts.endEvents[i].shapeIdB);
-            event::Dispatcher::dispatch<EntityCollisionEndEvent>({a.entity, b.entity});
+            emitter.emit<EntityCollisionEndEvent>({a.entity, b.entity});
         }
         for (int i = 0; i < contacts.hitCount; ++i) {
             com::Physics2D& a = getComponent(contacts.hitEvents[i].shapeIdA);
             com::Physics2D& b = getComponent(contacts.hitEvents[i].shapeIdB);
-            event::Dispatcher::dispatch<EntityCollisionHitEvent>(
-                {a.entity, b.entity, contacts.hitEvents[i]});
+            emitter.emit<EntityCollisionHitEvent>({a.entity, b.entity, contacts.hitEvents[i]});
         }
 
         b2SensorEvents sensors = b2World_GetSensorEvents(worldId);
         for (int i = 0; i < sensors.beginCount; ++i) {
             com::Physics2D& entity = getComponent(sensors.beginEvents[i].visitorShapeId);
             com::Physics2D& sensor = getComponent(sensors.beginEvents[i].sensorShapeId);
-            event::Dispatcher::dispatch<SensorEntered>({entity.entity, sensor.entity});
+            emitter.emit<SensorEntered>({entity.entity, sensor.entity});
         }
         for (int i = 0; i < sensors.endCount; ++i) {
             com::Physics2D& entity = getComponent(sensors.endEvents[i].visitorShapeId);
             com::Physics2D& sensor = getComponent(sensors.endEvents[i].sensorShapeId);
-            event::Dispatcher::dispatch<SensorExited>({entity.entity, sensor.entity});
+            emitter.emit<SensorExited>({entity.entity, sensor.entity});
         }
     }
 }
@@ -146,17 +159,17 @@ float Physics2D::getWorldToBoxScale(ecs::Entity ent) const {
     return getWorldToBoxScale(ent.getWorldIndex());
 }
 
-void Physics2D::observe(const ecs::event::ComponentRemoved<com::Physics2D>& event) {
+void Physics2D::handleComponentRemove(const ecs::event::ComponentRemoved<com::Physics2D>& event) {
     const_cast<com::Physics2D&>(event.component).system = nullptr;
     b2DestroyBody(event.component.bodyId);
 }
 
-void Physics2D::observe(const engine::event::WorldCreated& event) {
+void Physics2D::handleWorldCreate(const engine::event::WorldCreated& event) {
     engine::World2D* world = dynamic_cast<engine::World2D*>(&event.world);
     if (world) { worlds[world->worldIndex()] = world; }
 }
 
-void Physics2D::observe(const engine::event::WorldDestroyed& event) {
+void Physics2D::handleWorldDestroy(const engine::event::WorldDestroyed& event) {
     worlds[event.world.worldIndex()] = nullptr;
 }
 

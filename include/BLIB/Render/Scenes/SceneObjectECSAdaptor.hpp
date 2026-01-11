@@ -3,10 +3,10 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorage.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
+#include <BLIB/Render/ShaderResources/EntityComponentShaderResource.hpp>
 #include <BLIB/Util/IdAllocatorUnbounded.hpp>
 #include <queue>
 #include <type_traits>
@@ -50,14 +50,6 @@ public:
     T* allocate(UpdateSpeed updateFreq, ecs::Entity entity);
 
     /**
-     * @brief Returns the ECS id for the given object key
-     *
-     * @param key The key to lookup
-     * @return The ECS id for the given key
-     */
-    ecs::Entity getObjectEntity(Key key) const;
-
-    /**
      * @brief Fetches the object with the given key
      *
      * @param key The key of the object to fetch
@@ -78,11 +70,6 @@ public:
      * @param descriptors The descriptor sets to unbind
      */
     void unlinkAll(ds::DescriptorSetInstanceCache& descriptors);
-
-    /**
-     * @brief Returns a usable callback to map scene key to ECS id
-     */
-    ds::DescriptorComponentStorageBase::EntityCallback makeEntityCallback() const;
 
 private:
     struct Mapping {
@@ -138,19 +125,14 @@ T* SceneObjectECSAdaptor<T>::allocate(UpdateSpeed updateFreq, ecs::Entity entity
     const std::uint32_t i = bucket.alloc(entity);
     T* object             = registry.emplaceComponent<T>(entity);
     object->sceneKey      = Key{updateFreq, i};
+    object->entity        = entity;
     return object;
 }
 
 template<typename T>
-ecs::Entity SceneObjectECSAdaptor<T>::getObjectEntity(Key key) const {
-    const Mapping& bucket = key.updateFreq == UpdateSpeed::Static ? mapStatic : mapDynamic;
-    return key.sceneId < bucket.entityMap.size() ? bucket.entityMap[key.sceneId] :
-                                                   ecs::InvalidEntity;
-}
-
-template<typename T>
 inline T& SceneObjectECSAdaptor<T>::getObject(Key key) {
-    return *registry.getComponent<T>(getObjectEntity(key));
+    auto& mapping = key.updateFreq == UpdateSpeed::Static ? mapStatic : mapDynamic;
+    return *registry.getComponent<T>(mapping.entityMap[key.sceneId]);
 }
 
 template<typename T>
@@ -170,12 +152,6 @@ void SceneObjectECSAdaptor<T>::unlinkAll(ds::DescriptorSetInstanceCache& descrip
         }
         speed = UpdateSpeed::Dynamic;
     }
-}
-
-template<typename T>
-ds::DescriptorComponentStorageBase::EntityCallback SceneObjectECSAdaptor<T>::makeEntityCallback()
-    const {
-    return [this](scene::Key key) { return getObjectEntity(key); };
 }
 
 } // namespace scene

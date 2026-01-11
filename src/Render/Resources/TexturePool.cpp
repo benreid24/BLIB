@@ -1,6 +1,6 @@
 #include <BLIB/Render/Resources/TexturePool.hpp>
 
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
+#include <BLIB/Render/Renderer.hpp>
 
 namespace bl
 {
@@ -8,141 +8,197 @@ namespace rc
 {
 namespace res
 {
-TexturePool::TexturePool(vk::VulkanState& vs)
-: vulkanState(vs)
-, textures(vs, Config::MaxTextureCount, TextureArrayBindIndex)
-, refCounts(Config::MaxTextureCount)
-, freeSlots(Config::MaxTextureCount - Config::MaxRenderTextures - 1)
-, freeRtSlots(Config::MaxRenderTextures)
-, reverseFileMap(Config::MaxTextureCount - Config::MaxRenderTextures)
-, reverseImageMap(Config::MaxTextureCount - Config::MaxRenderTextures) {
+namespace
+{
+void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, unsigned int width,
+                          unsigned int height, unsigned int numBoxes) {
+    const unsigned int ErrorBoxWidth  = width / numBoxes;
+    const unsigned int ErrorBoxHeight = height / numBoxes;
+    for (unsigned int x = left; x < left + width; ++x) {
+        for (unsigned int y = top; y < top + height; ++y) {
+            const unsigned int xi = x / ErrorBoxWidth;
+            const unsigned int yi = y / ErrorBoxHeight;
+            if ((xi % 2) == (yi % 2)) { img.setPixel(x, y, sf::Color(230, 66, 245)); }
+            else { img.setPixel(x, y, sf::Color(255, 254, 196)); }
+        }
+    }
+}
+} // namespace
+
+TexturePool::TexturePool(Renderer& r, vk::VulkanLayer& vs)
+: renderer(r)
+, vulkanState(vs)
+, textures(cfg::Limits::MaxTextureCount)
+, cubemaps(cfg::Limits::MaxCubemapCount)
+, refCounts(cfg::Limits::MaxTextureCount)
+, freeSlots(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures - 1)
+, freeRtSlots(cfg::Limits::MaxRenderTextures)
+, cubemapRefCounts(cfg::Limits::MaxCubemapCount)
+, cubemapFreeSlots(cfg::Limits::MaxCubemapCount)
+, reverseFileMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures)
+, reverseImageMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures) {
+    errorTexture.renderer = &r;
+    errorTexture.parent   = this;
+    errorCubemap.renderer = &r;
+    errorCubemap.parent   = this;
+    for (auto& t : textures) {
+        t.parent   = this;
+        t.renderer = &r;
+    }
+    for (auto& t : cubemaps) {
+        t.parent   = this;
+        t.renderer = &r;
+    }
+    queuedUpdates.init(vs, [](auto& vec) { vec.reserve(8); });
     toRelease.reserve(64);
 }
 
-void TexturePool::init() {
-    // create descriptor layout
-    VkDescriptorSetLayoutBinding setBindings[] = {textures.getLayoutBinding()};
-    VkDescriptorSetLayoutCreateInfo descriptorCreateInfo{};
-    descriptorCreateInfo.sType        = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-    descriptorCreateInfo.bindingCount = std::size(setBindings);
-    descriptorCreateInfo.pBindings    = setBindings;
-    if (VK_SUCCESS !=
-        vkCreateDescriptorSetLayout(
-            vulkanState.device, &descriptorCreateInfo, nullptr, &descriptorSetLayout)) {
-        throw std::runtime_error("Failed to create texture pool descriptor set layout");
+void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
+                       vk::PerFrame<VkDescriptorSet>& rtDescriptorSets) {
+    // create error texture
+    constexpr unsigned int ErrorSize     = 128;
+    constexpr unsigned int ErrorBoxCount = 16;
+    errorPattern.create(ErrorSize, ErrorSize);
+    errorPatternCube.create(ErrorSize, ErrorSize * 6);
+    generateErrorPattern(errorPattern, 0, 0, ErrorSize, ErrorSize, ErrorBoxCount);
+    for (std::size_t i = 0; i < 6; ++i) {
+        generateErrorPattern(
+            errorPatternCube, 0, i * ErrorSize, ErrorSize, ErrorSize, ErrorBoxCount);
     }
+    errorTexture.altImg = &errorPattern;
+    errorCubemap.altImg = &errorPatternCube;
+    errorTexture.createFromContentsAndQueue(
+        vk::Texture::Type::Texture2D,
+        {.format  = vk::CommonTextureFormats::SRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
+    errorCubemap.createFromContentsAndQueue(
+        vk::Texture::Type::Cubemap,
+        {.format  = vk::CommonTextureFormats::SRGBA32Bit,
+         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
+    renderer.getTransferEngine().executeTransfers();
 
-    // create descriptor pool
-    VkDescriptorPoolSize poolSize{};
-    poolSize.type            = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-    poolSize.descriptorCount = Config::MaxTextureCount * 2 * Config::MaxConcurrentFrames;
+    // init all textures to error pattern
+    for (vk::Texture& txtr : textures) { txtr.currentView = errorTexture.currentView; }
+    for (vk::Texture& txtr : cubemaps) { txtr.currentView = errorCubemap.getView(); }
 
-    VkDescriptorPoolCreateInfo poolCreate{};
-    poolCreate.sType         = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-    poolCreate.maxSets       = 2 * Config::MaxConcurrentFrames;
-    poolCreate.poolSizeCount = 1;
-    poolCreate.pPoolSizes    = &poolSize;
-    if (VK_SUCCESS !=
-        vkCreateDescriptorPool(vulkanState.device, &poolCreate, nullptr, &descriptorPool)) {
-        throw std::runtime_error("Failed to create texture descriptor pool");
-    }
+    // fill descriptor set
+    VkDescriptorImageInfo errorInfo{};
+    errorInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    errorInfo.imageView   = errorTexture.getView();
+    errorInfo.sampler     = renderer.samplerCache().getSampler({.type = errorTexture.getSampler()});
+    std::vector<VkDescriptorImageInfo> imageInfos(cfg::Limits::MaxTextureCount, errorInfo);
 
-    // allocate descriptor set
-    VkDescriptorSet allocatedSets[2 * Config::MaxConcurrentFrames];
-    std::array<VkDescriptorSetLayout, 2 * Config::MaxConcurrentFrames> setLayouts;
-    setLayouts.fill(descriptorSetLayout);
+    VkDescriptorImageInfo errorCubeInfo{};
+    errorCubeInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+    errorCubeInfo.imageView   = errorCubemap.getView();
+    errorCubeInfo.sampler     = errorInfo.sampler;
+    std::vector<VkDescriptorImageInfo> imageCubeInfos(cfg::Limits::MaxCubemapCount, errorCubeInfo);
 
-    VkDescriptorSetAllocateInfo setAlloc{};
-    setAlloc.sType              = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-    setAlloc.descriptorPool     = descriptorPool;
-    setAlloc.descriptorSetCount = setLayouts.size();
-    setAlloc.pSetLayouts        = setLayouts.data();
-    if (VK_SUCCESS != vkAllocateDescriptorSets(vulkanState.device, &setAlloc, allocatedSets)) {
-        throw std::runtime_error("Failed to allocate texture descriptor set");
-    }
-
-    unsigned int i = 0;
-    descriptorSets.init(vulkanState, [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
-    rtDescriptorSets.init(vulkanState,
-                          [&i, &allocatedSets](auto& set) { set = allocatedSets[i++]; });
-
-    // create error texture pattern and init texture array
-    constexpr unsigned int ErrorSize    = 1024;
-    constexpr unsigned int ErrorBoxSize = 64;
-    textures.getErrorPattern().create(ErrorSize, ErrorSize);
-    for (unsigned int x = 0; x < ErrorSize; ++x) {
-        for (unsigned int y = 0; y < ErrorSize; ++y) {
-            const unsigned int xi = x / ErrorBoxSize;
-            const unsigned int yi = y / ErrorBoxSize;
-            if ((xi % 2) == (yi % 2)) {
-                textures.getErrorPattern().setPixel(x, y, sf::Color(230, 66, 245));
-            }
-            else { textures.getErrorPattern().setPixel(x, y, sf::Color(255, 254, 196)); }
-        }
-    }
-    textures.init(descriptorSets, rtDescriptorSets);
+    std::array<VkWriteDescriptorSet, 4 * cfg::Limits::MaxConcurrentFrames> setWrites{};
+    unsigned int i     = 0;
+    const auto visitor = [this, &i, &setWrites](auto& set,
+                                                std::uint32_t bindIndex,
+                                                const std::vector<VkDescriptorImageInfo>& infos) {
+        setWrites[i].sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+        setWrites[i].descriptorCount = infos.size();
+        setWrites[i].dstBinding      = bindIndex;
+        setWrites[i].dstArrayElement = 0;
+        setWrites[i].dstSet          = set;
+        setWrites[i].pImageInfo      = infos.data();
+        setWrites[i].descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+        ++i;
+    };
+    descriptorSets.visit(
+        [&visitor, &imageInfos](auto& set) { visitor(set, TextureArrayBindIndex, imageInfos); });
+    rtDescriptorSets.visit(
+        [&visitor, &imageInfos](auto& set) { visitor(set, TextureArrayBindIndex, imageInfos); });
+    descriptorSets.visit([&visitor, &imageCubeInfos](auto& set) {
+        visitor(set, CubemapArrayBindIndex, imageCubeInfos);
+    });
+    rtDescriptorSets.visit([&visitor, &imageCubeInfos](auto& set) {
+        visitor(set, CubemapArrayBindIndex, imageCubeInfos);
+    });
+    vkUpdateDescriptorSets(vulkanState.getDevice(), setWrites.size(), setWrites.data(), 0, nullptr);
 }
 
 void TexturePool::cleanup() {
     TextureRef::disableCleanup();
-    textures.cleanup();
-    vkDestroyDescriptorPool(vulkanState.device, descriptorPool, nullptr);
-    vkDestroyDescriptorSetLayout(vulkanState.device, descriptorSetLayout, nullptr);
+    for (vk::Texture& txtr : textures) {
+        if (txtr.currentView != errorTexture.getView()) { txtr.cleanup(); }
+    }
+    for (vk::Texture& txtr : cubemaps) {
+        if (txtr.currentView != errorCubemap.getView()) { txtr.cleanup(); }
+    }
+    errorCubemap.cleanup();
+    errorTexture.cleanup();
 }
 
 void TexturePool::releaseUnused() {
     std::unique_lock lock(mutex);
-    vkDeviceWaitIdle(vulkanState.device);
+    vkDeviceWaitIdle(vulkanState.getDevice());
     releaseUnusedLocked();
 }
 
-void TexturePool::releaseTexture(const TextureRef& ref) {
-    if (ref.id() == Config::ErrorTextureId) return;
+void TexturePool::releaseTexture(TextureRef& ref) {
+    if (ref.id() == ErrorTextureId) return;
 
     std::unique_lock lock(mutex);
 
-    if (refCounts[ref.id()] > 1) {
-        BL_LOG_WARN << "Releasing texture " << ref.id() << " which still has "
-                    << refCounts[ref.id()] << " references";
+    if (ref->getType() == vk::Texture::Type::Cubemap) {
+        if (cubemapRefCounts[ref.id()] > 1) {
+            BL_LOG_WARN << "Releasing cubemap " << ref.id() << " which still has "
+                        << cubemapRefCounts[ref.id()] << " references";
+        }
+    }
+    else {
+        if (refCounts[ref.id()] > 1) {
+            BL_LOG_WARN << "Releasing texture " << ref.id() << " which still has "
+                        << refCounts[ref.id()] << " references";
+        }
     }
 
-    doRelease(ref.id());
+    doRelease(ref.get());
 }
 
 void TexturePool::releaseUnusedLocked() {
-    for (std::uint32_t i : toRelease) { doRelease(i); }
+    for (vk::Texture* t : toRelease) { doRelease(t); }
     toRelease.clear();
 }
 
-void TexturePool::doRelease(std::uint32_t i) {
-    refCounts[i] = 0;
+void TexturePool::doRelease(vk::Texture* texture) {
+    if (texture->getType() != vk::Texture::Type::Cubemap) {
+        std::uint32_t i = texture - textures.data();
+        refCounts[i]    = 0;
 
-    if (i < reverseFileMap.size()) {
-        freeSlots.release(i);
-        if (reverseFileMap[i]) {
-            fileMap.erase(*reverseFileMap[i]);
-            reverseFileMap[i] = nullptr;
+        if (i < reverseFileMap.size()) {
+            freeSlots.release(i);
+            if (reverseFileMap[i]) {
+                fileMap.erase(*reverseFileMap[i]);
+                reverseFileMap[i] = nullptr;
+            }
+            if (reverseImageMap[i]) {
+                imageMap.erase(reverseImageMap[i]);
+                reverseImageMap[i] = nullptr;
+            }
         }
-        if (reverseImageMap[i]) {
-            imageMap.erase(reverseImageMap[i]);
-            reverseImageMap[i] = nullptr;
+        else { freeRtSlots.release(i - reverseFileMap.size()); }
+    }
+    else {
+        std::uint32_t i = texture - cubemaps.data();
+
+        cubemapRefCounts[i] = 0;
+        cubemapFreeSlots.release(i);
+        if (cubemapFileMap.find(*reverseFileMap[i]) != cubemapFileMap.end()) {
+            cubemapFileMap.erase(*cubeMapReverseFileMap[i]);
+            cubeMapReverseFileMap[i] = nullptr;
         }
     }
-    else { freeRtSlots.release(i - reverseFileMap.size()); }
-
-    textures.resetTexture(i);
+    resetTexture(texture);
 }
 
-void TexturePool::bindDescriptors(VkCommandBuffer cb, VkPipelineLayout pipelineLayout,
-                                  std::uint32_t setIndex, bool forRt) {
-    const VkDescriptorSet ds = forRt ? rtDescriptorSets.current() : descriptorSets.current();
-    vkCmdBindDescriptorSets(
-        cb, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, setIndex, 1, &ds, 0, nullptr);
-}
-
-void TexturePool::queueForRelease(std::uint32_t i) {
+void TexturePool::queueForRelease(vk::Texture* texture) {
     std::unique_lock lock(mutex);
-    toRelease.emplace_back(i);
+    toRelease.emplace_back(texture);
 }
 
 TextureRef TexturePool::allocateTexture() {
@@ -156,40 +212,46 @@ TextureRef TexturePool::allocateTexture() {
     reverseFileMap[i]  = nullptr;
     reverseImageMap[i] = nullptr;
 
-    return TextureRef{*this, textures.getTexture(i), i};
+    return TextureRef{*this, textures[i], i};
 }
 
-TextureRef TexturePool::createTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
+TextureRef TexturePool::allocateCubemap() {
+    if (!cubemapFreeSlots.available()) {
+        releaseUnusedLocked();
+        if (!cubemapFreeSlots.available()) {
+            throw std::runtime_error("All cubemap slots in use!");
+        }
+    }
 
+    const std::uint32_t i = cubemapFreeSlots.allocate();
+    cubemapRefCounts[i].store(0);
+
+    return TextureRef{*this, cubemaps[i], i};
+}
+
+TextureRef TexturePool::createTexture(const sf::Image& src, const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
-    auto& t         = static_cast<vk::Texture&>(*txtr.get());
-    t.altImg        = &src;
-    txtr->sampler   = sampler;
-    t.createFromContentsAndQueue();
-    textures.updateTexture(txtr.get());
+    txtr->altImg    = &src;
+    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
+    updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::createTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::createTexture(const glm::u32vec2& size, const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     TextureRef txtr = allocateTexture();
-    txtr->create(size);
-    txtr->sampler = sampler;
-    textures.updateTexture(txtr.get());
+    txtr->create(vk::Texture::Type::Texture2D, size, options);
+    updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat format,
+                                            vk::SamplerOptions::Type sampler) {
     std::unique_lock lock(mutex);
 
     // allocate id
@@ -204,61 +266,224 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkSampler 
     refCounts[i].store(0);
 
     // init texture
-    TextureRef txtr{*this, textures.getTexture(i), i};
-    txtr->create(size);
-    txtr->sampler = sampler;
-    textures.updateTexture(txtr.get());
+    TextureRef txtr{*this, textures[i], i};
+    txtr->create(vk::Texture::Type::RenderTexture, size, {.format = format, .sampler = sampler});
+    updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const std::string& path, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::getOrLoadTexture(const std::string& path,
+                                         const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     auto it = fileMap.find(path);
     if (it != fileMap.end()) {
-        const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
-        if (rit != toRelease.end()) { toRelease.erase(rit); }
-        return TextureRef{*this, textures.getTexture(it->second), it->second};
+        auto& t = textures[it->second];
+        cancelRelease(&t);
+        return TextureRef{*this, t, it->second};
     }
 
     TextureRef txtr = allocateTexture();
-    textures.prepareTextureUpdate(txtr.id(), path);
+    prepareTextureUpdate(txtr.get(), path);
     it                        = fileMap.try_emplace(path, txtr.id()).first;
     reverseFileMap[txtr.id()] = &it->first;
-    txtr->sampler             = sampler;
-    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
-    textures.updateTexture(txtr.get());
+    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
+    updateTexture(txtr.get());
 
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, VkSampler sampler) {
-    if (!sampler) { sampler = vulkanState.samplerCache.filteredBorderClamped(); }
-
+TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, const vk::TextureOptions& options) {
     std::unique_lock lock(mutex);
 
     auto it = imageMap.find(&src);
     if (it != imageMap.end()) {
-        const auto rit = std::find(toRelease.begin(), toRelease.end(), it->second);
-        if (rit != toRelease.end()) { toRelease.erase(rit); }
-        return TextureRef{*this, textures.getTexture(it->second), it->second};
+        auto& t = textures[it->second];
+        cancelRelease(&t);
+        return TextureRef{*this, t, it->second};
     }
 
     TextureRef txtr = allocateTexture();
-    textures.prepareTextureUpdate(txtr.id(), src);
+    prepareTextureUpdate(txtr.get(), src);
     it                         = imageMap.try_emplace(&src, txtr.id()).first;
     reverseImageMap[txtr.id()] = &src;
-    txtr->sampler              = sampler;
-    static_cast<vk::Texture&>(*txtr.get()).createFromContentsAndQueue();
-    textures.updateTexture(txtr.get());
+    txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
+    updateTexture(txtr.get());
 
     return txtr;
 }
 
-void TexturePool::onFrameStart() { textures.commitDescriptorUpdates(); }
+TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback,
+                                           const vk::TextureOptions& options) {
+    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), options); }
+    if (texture.getFilePath().empty() ||
+        !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
+        if (fallback) { return fallback; }
+    }
+    return getOrLoadTexture(texture.getFilePath(), options);
+}
+
+TextureRef TexturePool::createCubemap(const std::string& right, const std::string& left,
+                                      const std::string& top, const std::string& bottom,
+                                      const std::string& back, const std::string& front,
+                                      VkFormat format, vk::SamplerOptions::Type sampler) {
+    auto load = resource::ResourceManager<sf::Image>::load;
+    return createCubemap(
+        load(right), load(left), load(top), load(bottom), load(back), load(front), format, sampler);
+}
+
+TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::Ref<sf::Image> left,
+                                      resource::Ref<sf::Image> top, resource::Ref<sf::Image> bottom,
+                                      resource::Ref<sf::Image> back, resource::Ref<sf::Image> front,
+                                      VkFormat format, vk::SamplerOptions::Type sampler) {
+    // validate faces
+    std::array<sf::Image*, 6> faces = {
+        right.get(), left.get(), top.get(), bottom.get(), front.get(), back.get()};
+    glm::u32vec2 faceSize(0, 0);
+    for (auto& face : faces) {
+        if (face && face->getSize().x > 0) {
+            if (faceSize.x == 0) {
+                faceSize.x = face->getSize().x;
+                faceSize.y = face->getSize().y;
+            }
+            else {
+                if (faceSize.x != face->getSize().x || faceSize.y != face->getSize().y) {
+                    BL_LOG_ERROR << "Cubemap faces must all be the same size";
+                    face = nullptr;
+                }
+            }
+        }
+    }
+    if (faceSize.x == 0) {
+        BL_LOG_ERROR << "No valid cubemap faces provided";
+        faceSize = {64, 64};
+    }
+
+    std::unique_lock lock(mutex);
+
+    TextureRef cm = allocateCubemap();
+
+    // stitch images into new image
+    cm->altImg = &cm->localImage;
+    cm->localImage.create(faceSize.x, faceSize.y * 6, sf::Color::Transparent);
+    for (std::size_t i = 0; i < 6; ++i) {
+        if (faces[i]) { cm->localImage.copy(*faces[i], 0, i * faceSize.y); }
+        else {
+            generateErrorPattern(cm->localImage, 0, i * faceSize.y, faceSize.x, faceSize.y, 16);
+            BL_LOG_WARN << "Cubemap face " << i << " is invalid, using error pattern";
+        }
+    }
+
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
+    updateTexture(cm.get());
+
+    return cm;
+}
+
+TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> packed, VkFormat format,
+                                      vk::SamplerOptions::Type sampler) {
+    std::unique_lock lock(mutex);
+
+    TextureRef cm = allocateCubemap();
+    if (packed && packed->getSize().x > 0) { cm->transferImg = packed; }
+    else { cm->altImg = &errorPattern; }
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
+    updateTexture(cm.get());
+
+    return cm;
+}
+
+TextureRef TexturePool::getOrCreateCubemap(const std::string& packed, VkFormat format,
+                                           vk::SamplerOptions::Type sampler) {
+    std::unique_lock lock(mutex);
+
+    auto it = cubemapFileMap.find(packed);
+    if (it != cubemapFileMap.end()) {
+        auto& t = cubemaps[it->second];
+        cancelRelease(&t);
+        return TextureRef{*this, t, it->second};
+    }
+
+    TextureRef cm = allocateCubemap();
+    prepareTextureUpdate(cm.get(), packed);
+    auto fit                       = cubemapFileMap.try_emplace(packed, cm.id()).first;
+    cubeMapReverseFileMap[cm.id()] = &fit->first;
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
+    updateTexture(cm.get());
+
+    return cm;
+}
+
+TextureRef TexturePool::createCubemap(const sf::Image& packed, VkFormat format,
+                                      vk::SamplerOptions::Type sampler) {
+    std::unique_lock lock(mutex);
+
+    TextureRef cm  = allocateCubemap();
+    cm->localImage = packed;
+    cm->altImg     = &cm->localImage;
+    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
+                                   {.format = format, .sampler = sampler});
+    updateTexture(cm.get());
+
+    return cm;
+}
+
+void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet currentSet,
+                               VkDescriptorSet currentRtSet) {
+    if (!queuedUpdates.current().empty()) {
+        // prepare descriptor updates before waiting
+        setWriter.hintWriteCount(queuedUpdates.current().size() * 2);
+        setWriter.hintImageInfoCount(queuedUpdates.current().size() * 2);
+
+        for (unsigned int j = 0; j < queuedUpdates.current().size(); ++j) {
+            vk::Texture* texture = queuedUpdates.current()[j];
+            const bool isCubemap = texture->getType() == vk::Texture::Type::Cubemap;
+            const std::uint32_t bindIndex =
+                isCubemap ? CubemapArrayBindIndex : TextureArrayBindIndex;
+            const vk::Texture* base = isCubemap ? cubemaps.data() : textures.data();
+            const std::uint32_t i   = texture - base;
+            const bool isRT         = texture->getType() == vk::Texture::Type::RenderTexture;
+            const VkImageView view  = texture->currentView;
+
+            auto& regularInfo       = setWriter.getNewImageInfo();
+            regularInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            regularInfo.imageView   = view;
+            regularInfo.sampler =
+                renderer.samplerCache().getSampler({.type = texture->getSampler()});
+
+            auto& regularWrite           = setWriter.getNewSetWrite(currentSet);
+            regularWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            regularWrite.descriptorCount = 1;
+            regularWrite.dstBinding      = bindIndex;
+            regularWrite.dstArrayElement = i;
+            regularWrite.dstSet          = currentSet;
+            regularWrite.pImageInfo      = &regularInfo;
+            regularWrite.descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+
+            // write error texture to rt set if is rt itself
+            auto& rtInfo       = setWriter.getNewImageInfo();
+            rtInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+            rtInfo.imageView   = isRT ? errorTexture.getView() : view;
+            rtInfo.sampler =
+                isRT ? renderer.samplerCache().getSampler({.type = errorTexture.getSampler()}) :
+                       regularInfo.sampler;
+
+            auto& rtWrite           = setWriter.getNewSetWrite(currentRtSet);
+            rtWrite.sType           = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            rtWrite.descriptorCount = 1;
+            rtWrite.dstBinding      = bindIndex;
+            rtWrite.dstArrayElement = i;
+            rtWrite.pImageInfo      = &rtInfo;
+            rtWrite.descriptorType  = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+        }
+
+        queuedUpdates.current().clear();
+    }
+}
 
 TextureRef TexturePool::getBlankTexture() {
     if (!blankTexture.get()) {
@@ -267,6 +492,62 @@ TextureRef TexturePool::getBlankTexture() {
         blankTexture = createTexture(src);
     }
     return blankTexture;
+}
+
+VkDescriptorSetLayoutBinding TexturePool::getTextureLayoutBinding() const {
+    VkDescriptorSetLayoutBinding binding{};
+    binding.descriptorCount    = cfg::Limits::MaxTextureCount;
+    binding.binding            = TextureArrayBindIndex;
+    binding.stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
+    binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    binding.pImmutableSamplers = 0;
+    return binding;
+}
+
+VkDescriptorSetLayoutBinding TexturePool::getCubemapLayoutBinding() const {
+    VkDescriptorSetLayoutBinding binding{};
+    binding.descriptorCount    = cfg::Limits::MaxCubemapCount;
+    binding.binding            = CubemapArrayBindIndex;
+    binding.stageFlags         = VK_SHADER_STAGE_FRAGMENT_BIT;
+    binding.descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+    binding.pImmutableSamplers = 0;
+    return binding;
+}
+
+void TexturePool::prepareTextureUpdate(vk::Texture* texture, const std::string& path) {
+    auto img = resource::ResourceManager<sf::Image>::load(path);
+    if (img->getSize().x > 0) { texture->transferImg = img; }
+    else { texture->altImg = &errorPattern; }
+}
+
+void TexturePool::prepareTextureUpdate(vk::Texture* texture, const sf::Image& src) {
+    texture->altImg = &src;
+}
+
+void TexturePool::updateTexture(vk::Texture* texture) {
+    queuedUpdates.visit([texture](auto& vec) { vec.emplace_back(texture); });
+}
+
+void TexturePool::resetTexture(vk::Texture* texture) {
+    texture->cleanup();
+
+    switch (texture->getType()) {
+    case vk::Texture::Type::Cubemap:
+        texture->currentView = errorCubemap.getView();
+        break;
+
+    default:
+        texture->currentView = errorTexture.getView();
+        break;
+    }
+
+    texture->reset();
+    updateTexture(texture);
+}
+
+void TexturePool::cancelRelease(vk::Texture* texture) {
+    const auto rit = std::find(toRelease.begin(), toRelease.end(), texture);
+    if (rit != toRelease.end()) { toRelease.erase(rit); }
 }
 
 } // namespace res

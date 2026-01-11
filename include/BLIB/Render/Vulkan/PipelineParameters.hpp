@@ -2,9 +2,12 @@
 #define BLIB_RENDER_VULKAN_PIPELINEPARAMETERS_HPP
 
 #include <BLIB/Containers/StaticVector.hpp>
-#include <BLIB/Render/Config.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactory.hpp>
+#include <BLIB/Render/Events/SettingsChanged.hpp>
+#include <BLIB/Render/Vulkan/BlendParameters.hpp>
 #include <BLIB/Render/Vulkan/PipelineLayout.hpp>
+#include <BLIB/Render/Vulkan/PipelineSpecialization.hpp>
+#include <BLIB/Render/Vulkan/ShaderParameters.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
 #include <cstdint>
@@ -12,6 +15,7 @@
 #include <initializer_list>
 #include <memory>
 #include <string>
+#include <type_traits>
 #include <typeindex>
 #include <vector>
 
@@ -31,6 +35,13 @@ class Pipeline;
  */
 class PipelineParameters {
 public:
+    /**
+     * @brief Signature of a function to modify the pipeline parameters dynamically on settings
+     *        events. Should return true if the settings were modified
+     */
+    using DynamicModifier =
+        std::function<bool(Renderer&, PipelineParameters&, const event::SettingsChanged&)>;
+
     /**
      * @brief Creates the parameters using sane defaults
      */
@@ -64,6 +75,29 @@ public:
                                    const std::string& entrypoint = "main");
 
     /**
+     * @brief Adds a single shader to this pipeline that is only used if sample shading is enabled
+     *
+     * @param path The resource path of the shader to add during sample shading
+     * @param stage The stage of the shader to add
+     * @param entrypoint The entrypoint inside the shader to run
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& withSampleShader(const std::string& path, VkShaderStageFlagBits stage,
+                                         const std::string& entrypoint = "main");
+
+    /**
+     * @brief Adds a single shader to this pipeline that is only used if msaa is enabled, msaa
+     *        resolve is not being done by the hardware, and sample shading is not enabled
+     *
+     * @param path The resource path of the shader to add during multi-sampled rendering
+     * @param stage The stage of the shader to add
+     * @param entrypoint The entrypoint inside the shader to run
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& withResolveShader(const std::string& path, VkShaderStageFlagBits stage,
+                                          const std::string& entrypoint = "main");
+
+    /**
      * @brief Clears the given shader stage and replaces it with a noop
      *
      * @param stage The stage of the shader to remove
@@ -72,12 +106,20 @@ public:
     PipelineParameters& removeShader(VkShaderStageFlagBits stage);
 
     /**
-     * @brief Configures which pipeline states are dynamic. Viewport and scissor are always dynamic
+     * @brief Configures which pipeline states are dynamic. Viewport/scissor must be specified here
      *
      * @param states A set of states to be made dynamic in this pipeline
      * @return PipelineParameters& A reference to this object
      */
     PipelineParameters& withDynamicStates(const std::initializer_list<VkDynamicState>& states);
+
+    /**
+     * @brief Configures which pipeline states are dynamic. Viewport/scissor are dynamic by default
+     *
+     * @param states A set of states to be made dynamic in this pipeline
+     * @return PipelineParameters& A reference to this object
+     */
+    PipelineParameters& addDynamicStates(const std::initializer_list<VkDynamicState>& states);
 
     /**
      * @brief Configures the vertex format and attributes for the vertices that will be rendered by
@@ -111,12 +153,29 @@ public:
     PipelineParameters& withRasterizer(const VkPipelineRasterizationStateCreateInfo& rasterizer);
 
     /**
-     * @brief Configures MSAA for this pipeline. MSAA is disabled by default
+     * @brief Enables depth clipping by modifying the rasterizer state. Call after withRasterizer()
      *
-     * @param msaaParams The MSAA parameters
-     * @return PipelineParameters& A reference to this object
+     * @return A reference to this object
      */
-    PipelineParameters& withMSAA(const VkPipelineMultisampleStateCreateInfo& msaaParams);
+    PipelineParameters& withEnableDepthClipping();
+
+    /**
+     * @brief Configures sample shading for this pipeline. Sample shading is disabled by default
+     *
+     * @param enabled Whether sample shading is enabled
+     * @param minSampleShading The ratio of samples that must be shaded
+     * @return A reference to this object
+     */
+    PipelineParameters& withSampleShading(bool enabled, float minSampleShading = 0.0f);
+
+    /**
+     * @brief Controls whether the pipeline resolves its own input attachments. If true then the
+     *        resolve shaders will be used if MSAA is active and sample shading is not enabled
+     *
+     * @param resolves True to use own resolve shaders, false to use hardware resolve
+     * @return A reference to this object
+     */
+    PipelineParameters& withDoesOwnResolve(bool resolves);
 
     /**
      * @brief Adds a descriptor set factory to the pipeline. The factory is allocated here and then
@@ -153,9 +212,7 @@ public:
     PipelineParameters& removeDescriptorSet(unsigned int i);
 
     /**
-     * @brief Adds a push constant range config to this pipeline. All pipelines are configured to
-     *        accept PushConstants at the beginning of the range. This may be called to allow custom
-     *        push constants to be used in addition to the defaults.
+     * @brief Adds a push constant range config to this pipeline
      *
      * @param offset The offset to place the push constant at
      * @param size The size of the push constant
@@ -167,30 +224,12 @@ public:
         VkShaderStageFlags shaderStages = VK_SHADER_STAGE_ALL_GRAPHICS);
 
     /**
-     * @brief Adds an alpha blending config for a color attachment for this pipeline. Blend configs
-     *        are ordered by the order that this method is called in. Defaults to a single blend
-     *        config with standard alpha blending if not overridden.
+     * @brief Configures the attachment blending of the pipeline
      *
-     * @param blendState The blend config to add
-     * @return PipelineParameters& A reference to this object
+     * @param blendConfig The attachment blend states
+     * @return A reference to this object
      */
-    PipelineParameters& addColorAttachmentBlendState(
-        const VkPipelineColorBlendAttachmentState& blendState);
-
-    /**
-     * @brief Overrides the blend configuration for all color attachments for this pipeline.
-     *        Defaults to disabled
-     *
-     * @param operation The blend operation to use
-     * @param blendConstant0 The R blend constant
-     * @param blendConstant1 The G blend constant
-     * @param blendConstant2 The B blend constant
-     * @param blendConstant3 The A blend constant
-     * @return PipelineParameters& A reference to this object
-     */
-    PipelineParameters& withColorBlendStateConfig(VkLogicOp operation, float blendConstant0,
-                                                  float blendConstant1, float blendConstant2,
-                                                  float blendConstant3);
+    PipelineParameters& withBlendConfig(const BlendParameters& blendConfig);
 
     /**
      * @brief Configures depth and stencil testing for this pipeline
@@ -203,10 +242,53 @@ public:
     /**
      * @brief Helper function to populate the depth stencil state based on depth testing setting
      *
-     * @param depthTestingEnabled Whether or not to enable depth testing
+     * @param depthTest Whether depth testing is enabled
+     * @param depthWrite Whether depth writing is enabled
+     * @param stencilTest Whether stencil testing is enabled
+     * @param stencilWrite Whether stencil writing is enabled
      * @return A reference to this object
      */
-    PipelineParameters& withSimpleDepthStencil(bool depthTestingEnabled);
+    PipelineParameters& withSimpleDepthStencil(bool depthTest, bool depthWrite = true,
+                                               bool stencilTest = false, bool stencilWrite = false);
+
+    /**
+     * @brief Declares the number of specializations that will be used in this pipeline
+     *
+     * @param count The number of specializations to declare
+     * @return A reference to this object
+     */
+    PipelineParameters& withDeclareSpecializations(std::uint32_t count);
+
+    /**
+     * @brief Adds a specialization to the pipeline
+     *
+     * @param specializationId The id of the specialization. Should be an index starting at 1. An id
+     *                         of 0 will affect the main pipeline itself
+     * @param specialization The specialization parameters
+     * @return A reference to this object
+     */
+    PipelineParameters& withSpecialization(std::uint32_t specializationId,
+                                           const PipelineSpecialization& specialization);
+
+    /**
+     * @brief Adds a modifier hook that will be called on settings changed events
+     *
+     * @param TModifier The type of the modifier function to call on settings changed events
+     * @param modifier The modifier function to call on settings changed events
+     * @return A reference to this object
+     */
+    template<typename TModifier>
+    PipelineParameters& withDynamicModifier(TModifier&& modifier);
+
+    /**
+     * @brief Helper function that allows dynamic modifiers to change all specializations
+     *
+     * @tparam TVisitor The type of the visitor to call for each specialization
+     * @param visitor The visitor to call for each specialization. Signature should be:
+     *                void(PipelineSpecialization&)
+     */
+    template<typename TVisitor>
+    void visitSpecializations(TVisitor&& visitor);
 
     /**
      * @brief Performs final validation and defaulting, then returns an rvalue reference to this
@@ -233,40 +315,27 @@ public:
     bool operator!=(const PipelineParameters& right) const;
 
 private:
-    struct ShaderInfo {
-        std::string path;
-        VkShaderStageFlagBits stage;
-        std::string entrypoint;
-
-        ShaderInfo() = default;
-        ShaderInfo(const std::string& p, VkShaderStageFlagBits s, const std::string& e)
-        : path(p)
-        , stage(s)
-        , entrypoint(e) {}
-    };
-
-    struct DescriptorSet {
-        std::type_index factoryType;
-        std::unique_ptr<ds::DescriptorSetFactory> factory;
-
-        DescriptorSet(std::type_index tid, std::unique_ptr<ds::DescriptorSetFactory>&& factory)
-        : factoryType(tid)
-        , factory(std::forward<std::unique_ptr<ds::DescriptorSetFactory>>(factory)) {}
-    };
-
     PipelineLayout::LayoutParams layoutParams;
-    ctr::StaticVector<ShaderInfo, 5> shaders;
+    ctr::StaticVector<ShaderParameters, 5> shaders;
+    ctr::StaticVector<ShaderParameters, 5> resolveShaders;
+    ctr::StaticVector<ShaderParameters, 5> sampleShaders;
     ctr::StaticVector<VkDynamicState, 8> dynamicStates;
     VkVertexInputBindingDescription vertexBinding;
-    ctr::StaticVector<VkVertexInputAttributeDescription, 6> vertexAttributes;
+    ctr::StaticVector<VkVertexInputAttributeDescription, 8> vertexAttributes;
     VkPrimitiveTopology primitiveType;
     VkPipelineRasterizationStateCreateInfo rasterizer;
-    VkPipelineMultisampleStateCreateInfo msaa;
-    ctr::StaticVector<VkPipelineColorBlendAttachmentState, 4> colorAttachmentBlendStates;
-    VkPipelineColorBlendStateCreateInfo colorBlending;
+    BlendParameters colorBlending;
     VkPipelineDepthStencilStateCreateInfo* depthStencil;
+    VkPipelineMultisampleStateCreateInfo msaa;
+    PipelineSpecialization mainSpecialization;
+    std::vector<PipelineSpecialization> specializations;
+    std::vector<DynamicModifier> dynamicModifiers;
+    bool doesOwnResolve;
 
+    VkPipelineRasterizationDepthClipStateCreateInfoEXT localDepthClipping;
     VkPipelineDepthStencilStateCreateInfo localDepthStencil;
+
+    bool handleChange(Renderer& renderer, const event::SettingsChanged& changeEvent);
 
     friend class Pipeline;
     friend struct std::hash<PipelineParameters>;
@@ -294,6 +363,20 @@ template<typename TFactory, typename... TArgs>
 PipelineParameters& PipelineParameters::replaceDescriptorSet(unsigned int i, TArgs&&... args) {
     layoutParams.replaceDescriptorSet<TFactory>(i, std::forward<TArgs>(args)...);
     return *this;
+}
+
+template<typename TModifier>
+PipelineParameters& PipelineParameters::withDynamicModifier(TModifier&& modifier) {
+    dynamicModifiers.emplace_back(std::forward<TModifier>(modifier));
+    return *this;
+}
+
+template<typename TVisitor>
+void PipelineParameters::visitSpecializations(TVisitor&& visitor) {
+    static_assert(std::is_invocable_v<TVisitor, PipelineSpecialization&>,
+                  "Visitor must be invocable with PipelineSpecialization&");
+    visitor(mainSpecialization);
+    for (PipelineSpecialization& spec : specializations) { visitor(spec); }
 }
 
 } // namespace vk

@@ -3,8 +3,10 @@
 
 #include <BLIB/Render/Graph/ExecutionContext.hpp>
 #include <BLIB/Render/Graph/GraphAsset.hpp>
+#include <BLIB/Render/Graph/InitContext.hpp>
 #include <BLIB/Render/Graph/TaskAssetTags.hpp>
 #include <BLIB/Render/Graph/TaskAssets.hpp>
+#include <limits>
 #include <string_view>
 #include <vector>
 
@@ -12,10 +14,13 @@ namespace bl
 {
 namespace rc
 {
+class Scene;
+
 namespace rg
 {
 struct GraphAsset;
 class RenderGraph;
+class Timeline;
 
 /**
  * @brief Base class for tasks within a RenderGraph
@@ -25,6 +30,13 @@ class RenderGraph;
 class Task {
 public:
     /**
+     * @brief Initializes the task
+     *
+     * @param id The id of the task
+     */
+    Task(std::string_view id);
+
+    /**
      * @brief Destroys the task
      */
     virtual ~Task() = default;
@@ -32,10 +44,9 @@ public:
     /**
      * @brief Called once after the task is created within a RenderGraph
      *
-     * @param engine The engine instance
-     * @param renderer The renderer instance
+     * @param ctx The initialization context
      */
-    virtual void create(engine::Engine& engine, Renderer& renderer) = 0;
+    virtual void create(const rg::InitContext& ctx) = 0;
 
     /**
      * @brief Called after assets are assigned and created. Called when graph is rebuilt
@@ -43,11 +54,13 @@ public:
     virtual void onGraphInit() = 0;
 
     /**
-     * @brief Called once per rendered frame
+     * @brief Called once per output. If a task has multiple outputs this will be called multiple
+     *        times. Should only operate on the current output
      *
      * @param ctx The execution context
+     * @param output The asset being executed on
      */
-    virtual void execute(const ExecutionContext& ctx) = 0;
+    virtual void execute(const ExecutionContext& ctx, Asset* output) = 0;
 
     /**
      * @brief Called each frame with the elapsed time
@@ -56,12 +69,22 @@ public:
      */
     virtual void update(float dt);
 
+    /**
+     * @brief Returns the id of the task
+     */
+    std::string_view getId() const { return id; }
+
 protected:
     TaskAssetTags assetTags;
     TaskAssets assets;
 
 private:
+    std::string_view id;
+
+    void prepareInputs(const ExecutionContext& ctx);
+
     friend class RenderGraph;
+    friend class Timeline;
 };
 
 } // namespace rg

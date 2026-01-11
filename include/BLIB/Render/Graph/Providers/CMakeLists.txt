@@ -1,3 +1,7 @@
 target_sources(BLIB PUBLIC
-	StandardTargetProvider.hpp
+	BloomProviders.hpp
+	GBufferProvider.hpp
+	GenericTargetProvider.hpp
+	MultiAssetProvider.hpp
+	SimpleAssetProvider.hpp
 )

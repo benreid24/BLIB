@@ -5,12 +5,13 @@
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Render/Color.hpp>
 #include <BLIB/Render/Graph/AssetPool.hpp>
+#include <BLIB/Render/Graph/Assets/FramebufferAsset.hpp>
 #include <BLIB/Render/Graph/RenderGraph.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 #include <BLIB/Render/Resources/SceneRef.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
+#include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
-#include <BLIB/Render/Vulkan/StandardAttachmentBuffers.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <list>
@@ -24,6 +25,8 @@ namespace bl
 {
 namespace rc
 {
+class Renderer;
+
 class RenderTarget : private util::NonCopyable {
 public:
     /**
@@ -148,48 +151,97 @@ public:
      */
     glm::u32vec2 getRegionSize() const;
 
+    /**
+     * @brief Returns the scissor of the render target
+     */
+    const VkRect2D& getScissor() const;
+
+    /**
+     * @brief Returns the asset pool used by the render graph of this render target
+     */
+    rg::AssetPool& getAssetPool();
+
+    /**
+     * @brief Returns the resource pool for shader resources used by this render target
+     */
+    sr::ShaderResourceStore& getShaderResources();
+
+    /**
+     * @brief Returns the descriptor set cache for the given scene
+     *
+     * @param scene The scene to get the cache for
+     * @return A pointer to the cache, or nullptr if the scene is not present
+     */
+    ds::DescriptorSetInstanceCache* getDescriptorSetCache(Scene* scene);
+
+    /**
+     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
+     *        already created. May be slow, cache the result
+     *
+     * @tparam T The descriptor set type to fetch or create
+     * @param scene The scene to get the descriptor set for
+     * @return The descriptor set of the given type
+     */
+    template<typename T>
+    T* getDescriptorSet(Scene* scene);
+
+    /**
+     * @brief Initializes the pipeline instance for the given pipeline id
+     *
+     * @param scene The scene to get the descriptor sets from
+     * @param pipelineId The id of the pipeline to fetch and create the instance for
+     * @param instance The instance to populate with pipeline and descriptor sets
+     */
+    void initPipelineInstance(Scene* scene, std::uint32_t pipelineId,
+                              vk::PipelineInstance& instance);
+
+    /**
+     * @brief Returns the current viewport of the render target
+     */
+    const VkViewport& getViewport() const { return viewport; }
+
 protected:
     struct SceneInstance {
         SceneRef scene;
         SceneRef overlayRef;
         Overlay* overlay;
+        std::optional<ds::DescriptorSetInstanceCache> overlayDescriptorCache;
         rg::RenderGraph graph;
+        ds::DescriptorSetInstanceCache descriptorCache;
         std::uint32_t observerIndex;
         std::uint32_t overlayIndex;
         std::unique_ptr<cam::Camera> camera;
 
         SceneInstance(engine::Engine& e, Renderer& r, RenderTarget* owner, rg::AssetPool& pool,
-                      SceneRef s)
-        : scene(s)
-        , overlay(nullptr)
-        , graph(e, r, pool, owner)
-        , observerIndex(0)
-        , overlayIndex(0) {}
+                      SceneRef s);
+        ~SceneInstance();
     };
 
     const bool isRenderTexture;
     engine::Engine& engine;
     Renderer& renderer;
     rg::AssetPool graphAssets;
+    ds::DescriptorSetFactoryCache& descriptorFactories;
+    sr::ShaderResourceStore shaderResources;
     bool resourcesFreed;
     VkViewport viewport;
     VkRect2D scissor;
     std::list<SceneInstance> scenes;
     VkClearValue clearColors[2];
     cam::OverlayCamera overlayCamera;
-    glm::mat4 overlayProjView;
+    rgi::FramebufferAsset* renderingTo;
 
     RenderTarget(engine::Engine& engine, Renderer& renderer, rg::AssetFactory& factory,
                  bool isRenderTexture);
-    void handleDescriptorSync();
+    void copyDataFromSources();
+    void updateDescriptorsAndQueueTransfers();
     void syncSceneObjects();
     void update(float dt);
+    void resetAssets();
 
     void renderScene(VkCommandBuffer commandBuffer);
-    void renderSceneFinal(VkCommandBuffer commandBuffer);
-    void renderOverlay(VkCommandBuffer commandBuffer);
-    void compositeSceneAndOverlay(VkCommandBuffer commandBuffer);
 
+    void init();
     void cleanup();
     void onSceneAdd();
     void onSceneChange();
@@ -236,6 +288,8 @@ protected:
      * @brief Removes all scenes from the render target
      */
     void clearScenes();
+
+    friend class Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -288,6 +342,30 @@ inline const VkClearValue* RenderTarget::getClearColors() const { return clearCo
 
 inline glm::u32vec2 RenderTarget::getRegionSize() const {
     return {scissor.extent.width, scissor.extent.height};
+}
+
+inline const VkRect2D& RenderTarget::getScissor() const { return scissor; }
+
+inline rg::AssetPool& RenderTarget::getAssetPool() { return graphAssets; }
+
+inline sr::ShaderResourceStore& RenderTarget::getShaderResources() { return shaderResources; }
+
+template<typename T>
+T* RenderTarget::getDescriptorSet(Scene* scene) {
+    auto* descriptorSets = getDescriptorSetCache(scene);
+    if (!descriptorSets) {
+        BL_LOG_ERROR
+            << "Failed to get descriptor set cache for scene. RenderTarget does not render it";
+        return nullptr;
+    }
+
+    T* set = descriptorSets->getDescriptorSet<T>();
+    if (set) { return set; }
+
+    ds::DescriptorSetFactory* factory = descriptorFactories.getFactoryThatMakes<T>();
+    if (!factory) { throw std::runtime_error("Failed to find descriptor set"); }
+
+    return static_cast<T*>(descriptorSets->getDescriptorSet(factory));
 }
 
 } // namespace rc

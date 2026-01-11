@@ -1,7 +1,17 @@
 target_sources(BLIB PUBLIC
+	AutoExposureWorkBuffer.hpp
+	BloomAssets.hpp
+	DepthAttachmentType.hpp
+	DepthBuffer.hpp
 	FinalRenderTextureAsset.hpp
 	FinalSwapframeAsset.hpp
 	FramebufferAsset.hpp
+	GBufferAsset.hpp
+	GenericTargetAsset.hpp
+	RenderPassBehavior.hpp
 	SceneAsset.hpp
+	ShadowMapAsset.hpp
+	SSAOAsset.hpp
 	StandardTargetAsset.hpp
+	TaggedEmptyAsset.hpp
 )

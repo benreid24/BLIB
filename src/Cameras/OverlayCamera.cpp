@@ -58,5 +58,7 @@ const glm::vec2& OverlayCamera::getOverlayCoordinateSpace() { return overlaySpac
 
 glm::vec2 OverlayCamera::getViewerSize() const { return overlaySpace; }
 
+glm::vec3 OverlayCamera::getObserverPosition() const { return {overlaySpace * 0.5f, 0.f}; }
+
 } // namespace cam
 } // namespace bl

@@ -6,8 +6,8 @@
 
 class DemoState
 : public bl::engine::State
-, public bl::event::Listener<bl::sys::Physics2D::EntityCollisionBeginEvent,
-                             bl::sys::Physics2D::EntityCollisionEndEvent> {
+, public bl::sig::Listener<bl::sys::Physics2D::EntityCollisionBeginEvent,
+                           bl::sys::Physics2D::EntityCollisionEndEvent> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All) {}
@@ -68,11 +68,11 @@ public:
 
         onGround         = false;
         teleportCooldown = 0.f;
-        bl::event::Dispatcher::subscribe(this);
+        subscribe(physics.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(this);
+        unsubscribe();
         engine.getPlayer().leaveWorld();
         floor.destroy();
         playerBox.destroy();
@@ -111,11 +111,11 @@ private:
     bool onGround;
     float teleportCooldown;
 
-    virtual void observe(const bl::sys::Physics2D::EntityCollisionBeginEvent&) override {
+    virtual void process(const bl::sys::Physics2D::EntityCollisionBeginEvent&) override {
         onGround = true;
     }
 
-    virtual void observe(const bl::sys::Physics2D::EntityCollisionEndEvent&) override {
+    virtual void process(const bl::sys::Physics2D::EntityCollisionEndEvent&) override {
         onGround = false;
     }
 };
@@ -128,15 +128,15 @@ private:
     }
 
     bl::engine::Settings createStartupParameters() override {
-        return bl::engine::Settings().withWindowParameters(
-            bl::engine::Settings::WindowParameters()
+        return bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
+            bl::rc::WindowSettings()
                 .withVideoMode(sf::VideoMode(800, 600, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("Physics2D Demo")
-                .withLetterBoxOnResize(true));
+                .withLetterBoxOnResize(true)));
     }
 
-    bool completeStartup(bl::engine::Engine& e) override {
+    bool completeStartup(bl::engine::Engine&) override {
         // noop
         return true;
     }

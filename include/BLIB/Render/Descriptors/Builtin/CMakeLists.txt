@@ -1,16 +1,25 @@
 target_sources(BLIB PUBLIC
     CommonBindings.hpp
-	FadeEffectFactory.hpp
+	GlobalDataFactory.hpp
+	GlobalDataInstance.hpp
+	InputAttachmentFactory.hpp
+	InputAttachmentInstance.hpp
 	Object2DFactory.hpp
 	Object2DInstance.hpp
 	Object3DFactory.hpp
 	Object3DInstance.hpp
+	Object3DSkinnedFactory.hpp
+	Object3DSkinnedInstance.hpp
 	Scene2DFactory.hpp
 	Scene2DInstance.hpp
 	Scene3DFactory.hpp
 	Scene3DInstance.hpp
+	ShadowMapFactory.hpp
+	ShadowMapInstance.hpp
+	ShadowMapBinding.hpp
 	SlideshowFactory.hpp
 	SlideshowInstance.hpp
-	TexturePoolFactory.hpp
-	TexturePoolInstance.hpp
+	SSAOFactory.hpp
+	SSAOInstance.hpp
+	Transform3DPayload.hpp
 )

@@ -5,7 +5,8 @@
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Scenes/Key.hpp>
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 #include <BLIB/Vulkan.hpp>
 
 namespace bl
@@ -29,9 +30,6 @@ class Bindings;
  */
 class Binding {
 public:
-    /// Derived classes should set this to the payload they provide
-    using TPayload = void;
-
     /**
      * @brief Destroys the binding
      */
@@ -43,6 +41,14 @@ public:
     VkDescriptorType getDescriptorType() const { return type; }
 
     /**
+     * @brief Returns whether this descriptor binding is dynamic
+     */
+    bool isDynamic() const {
+        return type == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC ||
+               type == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+    }
+
+    /**
      * @brief Returns the binding index of this binding
      */
     std::uint32_t getBindingIndex() const { return index; }
@@ -50,7 +56,7 @@ public:
     /**
      * @brief Should return the bind mode required by this binding
      */
-    virtual DescriptorSetInstance::BindMode getBindMode() const = 0;
+    virtual DescriptorSetInstance::EntityBindMode getBindMode() const = 0;
 
     /**
      * @brief Should return the speed mode required by this binding
@@ -61,19 +67,20 @@ public:
      * @brief Called once after the descriptor set is created
      *
      * @param vulkanState Renderer Vulkan state
-     * @storageCache Descriptor component storage cache for ECS backed data
+     * @param ctx The init context
      */
-    virtual void init(vk::VulkanState& vulkanState,
-                      DescriptorComponentStorageCache& storageCache) = 0;
+    virtual void init(vk::VulkanLayer& vulkanState, InitContext& ctx) = 0;
 
     /**
      * @brief Called to write this binding to the given descriptor set
      *
      * @param writer The writer for the descriptor set being updated
+     * @param set The descriptor set to write to
      * @param speed The speed of the set being written
      * @param frameIndex The index to use for PerFrame resources
      */
-    virtual void writeSet(SetWriteHelper& writer, UpdateSpeed speed, std::uint32_t frameIndex) = 0;
+    virtual void writeSet(SetWriteHelper& writer, VkDescriptorSet set, UpdateSpeed speed,
+                          std::uint32_t frameIndex) = 0;
 
     /**
      * @brief Called when a new object will be using the descriptor set
@@ -98,11 +105,6 @@ public:
     virtual void onFrameStart() = 0;
 
     /**
-     * @brief Should return a pointer to the provided payload
-     */
-    virtual void* getPayload() = 0;
-
-    /**
      * @brief Should return whether or not the static descriptor set needs to be updated
      */
     virtual bool staticDescriptorUpdateRequired() const = 0;
@@ -111,6 +113,26 @@ public:
      * @brief Should return whether or not the static descriptor set needs to be updated
      */
     virtual bool dynamicDescriptorUpdateRequired() const = 0;
+
+    /**
+     * @brief Returns the dynamic offset to use at pipeline bind time
+     *
+     * @param ctx The current scene render context
+     * @param layout The current pipeline layout
+     * @param setIndex The index of the descriptor set in the pipeline layout
+     * @param updateFreq The current object speed queue being rendered
+     * @return The bind offset to use
+     */
+    virtual std::uint32_t getDynamicOffsetForPipeline(scene::SceneRenderContext& ctx,
+                                                      VkPipelineLayout layout,
+                                                      std::uint32_t setIndex,
+                                                      UpdateSpeed updateFreq) {
+        (void)ctx;
+        (void)layout;
+        (void)setIndex;
+        (void)updateFreq;
+        return std::numeric_limits<std::uint32_t>::max();
+    }
 
 protected:
     /**

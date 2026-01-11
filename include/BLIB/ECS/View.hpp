@@ -6,8 +6,6 @@
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/ECS/Events.hpp>
 #include <BLIB/ECS/Tags.hpp>
-#include <BLIB/Events.hpp>
-#include <BLIB/Events/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <array>
 #include <limits>

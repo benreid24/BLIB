@@ -76,7 +76,7 @@ Systems::TaskHandle Systems::addFrameTask(FrameStage::V stage, Task&& task) {
     auto& set = systems[stage];
     std::unique_lock lock(set.taskListMutex);
     set.tasks.emplace_back(std::forward<Task>(task));
-    return TaskHandle(&set, set.tasks.size() - 1, std::move(set.tasks.back().task.get_future()));
+    return TaskHandle(&set, set.tasks.size() - 1, set.tasks.back().task.get_future());
 }
 
 void Systems::StageSet::drainTasks() {

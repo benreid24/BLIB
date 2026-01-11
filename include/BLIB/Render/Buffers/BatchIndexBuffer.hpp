@@ -142,11 +142,11 @@ public:
     /**
      * @brief Creates the batched index buffer with the given initial capacities
      *
-     * @param vulkanState The renderer Vulkan state
+     * @param renderer The renderer instance
      * @param initialVertexCount The starting number of vertices to allocate
      * @param initialIndexCount The starting number of indices to allocate
      */
-    void create(vk::VulkanState& vulkanState, std::uint32_t initialVertexCount,
+    void create(Renderer& renderer, std::uint32_t initialVertexCount,
                 std::uint32_t initialIndexCount);
 
     /**
@@ -246,10 +246,10 @@ BatchIndexBufferT<T>::~BatchIndexBufferT() {
 }
 
 template<typename T>
-void BatchIndexBufferT<T>::create(vk::VulkanState& vulkanState, std::uint32_t initialVertexCount,
+void BatchIndexBufferT<T>::create(Renderer& renderer, std::uint32_t initialVertexCount,
                                   std::uint32_t initialIndexCount) {
     deferDestruction();
-    storage.create(vulkanState, initialVertexCount, initialIndexCount);
+    storage.create(renderer, initialVertexCount, initialIndexCount);
 }
 
 template<typename T>

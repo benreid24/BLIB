@@ -1,11 +1,11 @@
 #ifndef BLIB_GUI_GUI_HPP
 #define BLIB_GUI_GUI_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Box.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <BLIB/Render/Observer.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Signals/Listener.hpp>
 
 namespace bl
 {
@@ -28,7 +28,7 @@ namespace gui
  * @ingroup GUI
  */
 class GUI
-: public bl::event::Listener<sf::Event>
+: public bl::sig::Listener<sf::Event>
 , public gui::Box {
 public:
     typedef std::unique_ptr<GUI> Ptr;
@@ -97,6 +97,7 @@ public:
     bool processEvent(const sf::Event& event);
 
 private:
+    engine::Engine& engine;
     rc::Observer& observer;
     std::vector<Element::QueuedAction> queuedActions;
     rdr::Renderer renderer;
@@ -104,7 +105,7 @@ private:
 
     GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& packer,
         const sf::FloatRect& region, rdr::FactoryTable* factory);
-    virtual void observe(const sf::Event& event) override;
+    virtual void process(const sf::Event& event) override;
 };
 
 } // namespace gui

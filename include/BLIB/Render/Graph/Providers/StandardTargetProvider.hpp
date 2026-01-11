@@ -1,7 +1,7 @@
-#ifndef BLIB_RENDER_GRAPH_PROVIDERS_STANDARDTARGETPROVIDER_HPP
-#define BLIB_RENDER_GRAPH_PROVIDERS_STANDARDTARGETPROVIDER_HPP
+#ifndef BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTPROVIDER_HPP
+#define BLIB_RENDER_GRAPH_ASSETS_STANDARDATTACHMENTPROVIDER_HPP
 
-#include <BLIB/Render/Graph/AssetProvider.hpp>
+#include <BLIB/Render/Graph/Providers/GenericTargetProvider.hpp>
 
 namespace bl
 {
@@ -10,20 +10,11 @@ namespace rc
 namespace rgi
 {
 /**
- * @brief Provider for StandardTargetAsset assets
+ * @brief Helper typedef for standard target providers
  *
  * @ingroup Renderer
  */
-class StandardAssetProvider : public rg::AssetProvider {
-public:
-    /**
-     * @brief Creates the provider
-     */
-    StandardAssetProvider() = default;
-
-private:
-    virtual rg::Asset* create() override;
-};
+using StandardTargetProvider = GenericTargetProvider<StandardTargetAsset>;
 
 } // namespace rgi
 } // namespace rc

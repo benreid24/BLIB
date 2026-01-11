@@ -1,5 +1,4 @@
 #include <BLIB/Engine.hpp>
-#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
@@ -65,13 +64,13 @@ public:
         menu.configureBackground(sf::Color::Black, sf::Color::White, 3.f, {15.f, 15.f, 15.f, 15.f});
 
         menu.addToOverlay();
-        bl::event::Dispatcher::subscribe(&keyboardEventGenerator);
-        bl::event::Dispatcher::subscribe(&mouseEventGenerator);
+        keyboardEventGenerator.subscribe(engine.getSignalChannel());
+        mouseEventGenerator.subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        bl::event::Dispatcher::unsubscribe(&keyboardEventGenerator);
-        bl::event::Dispatcher::unsubscribe(&mouseEventGenerator);
+        keyboardEventGenerator.unsubscribe();
+        mouseEventGenerator.unsubscribe();
         engine.getPlayer().leaveWorld();
     }
 
@@ -89,12 +88,13 @@ private:
 int main() {
     bl::cam::OverlayCamera::setOverlayCoordinateSpace(800.f, 600.f);
 
-    const bl::engine::Settings engineSettings = bl::engine::Settings().withWindowParameters(
-        bl::engine::Settings::WindowParameters()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
-            .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-            .withTitle("Menu Demo")
-            .withLetterBoxOnResize(true));
+    const bl::engine::Settings engineSettings =
+        bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
+            bl::rc::WindowSettings()
+                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                .withTitle("Menu Demo")
+                .withLetterBoxOnResize(true)));
     bl::engine::Engine engine(engineSettings);
 
     engine.run(std::make_shared<DemoState>());

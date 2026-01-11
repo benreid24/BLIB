@@ -6,15 +6,16 @@ target_sources(BLIB PRIVATE
 	BatchedSprites.cpp
 	Hitbox2D.cpp
 	MaterialInstance.cpp
-	Mesh.cpp
 	Orientation3D.cpp
 	OverlayScaler.cpp
 	Physics2D.cpp
 	Shape2D.cpp
+	Skeleton.cpp
 	Slideshow.cpp
 	Sprite.cpp
 	Text.cpp
 	Transform2D.cpp
 	Transform3D.cpp
 	VertexBuffer.cpp
+	VertexBuffer3D.cpp
 )

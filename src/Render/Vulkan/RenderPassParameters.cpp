@@ -1,6 +1,7 @@
 #include <BLIB/Render/Vulkan/RenderPassParameters.hpp>
 
 #include <stdexcept>
+#include <string>
 #include <utility>
 
 namespace bl
@@ -9,14 +10,41 @@ namespace rc
 {
 namespace vk
 {
-RenderPassParameters::RenderPassParameters() {
-    attachments.reserve(4);
-    subpasses.reserve(4);
-    dependencies.reserve(4);
-}
+RenderPassParameters::RenderPassParameters()
+: msaaBehavior(MSAABehavior::Disabled)
+, isCleared(false)
+, debugName(nullptr) {}
 
 RenderPassParameters& RenderPassParameters::addSubpass(SubPass&& subpass) {
     subpasses.emplace_back(std::forward<SubPass>(subpass));
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::useSubpassOutputsAsInputs(std::uint32_t index,
+                                                                      bool depth) {
+    if (index == 0 || index >= subpasses.size()) {
+        throw std::runtime_error("Invalid subpass index");
+    }
+
+    SubPass& prevPass  = subpasses[index - 1];
+    const auto& inputs = prevPass.colorAttachments;
+    if (inputs.empty()) {
+        throw std::runtime_error("Subpass " + std::to_string(index - 1) +
+                                 " has no color attachments to use as inputs");
+    }
+
+    const bool useDepth = depth && prevPass.depthAttachment.has_value();
+    SubPass& subpass    = subpasses[index];
+    subpass.inputAttachments.resize(inputs.size() + (useDepth ? 1 : 0));
+    for (std::size_t i = 0; i < inputs.size(); ++i) {
+        subpass.inputAttachments[i].attachment = inputs[i].attachment;
+        subpass.inputAttachments[i].layout     = inputs[i].layout;
+    }
+    if (useDepth) {
+        subpass.inputAttachments.back().attachment = prevPass.depthAttachment.value().attachment;
+        subpass.inputAttachments.back().layout     = prevPass.depthAttachment.value().layout;
+    }
+
     return *this;
 }
 
@@ -26,7 +54,28 @@ RenderPassParameters& RenderPassParameters::addSubpassDependency(VkSubpassDepend
 }
 
 RenderPassParameters& RenderPassParameters::addAttachment(VkAttachmentDescription att) {
+    semanticFormats.emplace_back(SemanticTextureFormat::NonSematic);
     attachments.emplace_back(att);
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::replaceAttachment(std::uint32_t i,
+                                                              VkAttachmentDescription att) {
+    if (i >= attachments.size()) { throw std::out_of_range("Attachment index out of range"); }
+    attachments[i]     = att;
+    semanticFormats[i] = SemanticTextureFormat::NonSematic;
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::withSemanticAttachmentFormat(
+    std::uint32_t i, SemanticTextureFormat semanticFormat) {
+    if (i >= attachments.size()) { throw std::out_of_range("Attachment index out of range"); }
+    semanticFormats[i] = semanticFormat;
+    return *this;
+}
+
+RenderPassParameters& RenderPassParameters::withMSAABehavior(MSAABehavior behavior) {
+    msaaBehavior = behavior;
     return *this;
 }
 
@@ -37,10 +86,60 @@ RenderPassParameters&& RenderPassParameters::build() {
     if (attachments.empty()) {
         throw std::runtime_error("RenderPass must have at least one attachment");
     }
+
+    isCleared = true;
+    for (const auto& attachment : attachments) {
+        if (attachment.loadOp != VK_ATTACHMENT_LOAD_OP_CLEAR) {
+            isCleared = false;
+            break;
+        }
+    }
+
+    // regardless of msaa state we can populate the resolve attachments and append them to the
+    // attachment list
+    if (msaaBehavior & MSAABehavior::ResolveAttachments) {
+        if (subpasses.size() > 1) {
+            throw std::runtime_error("Resolve attachments can only be used with a single subpass");
+        }
+        auto& pass              = subpasses[0];
+        pass.resolveAttachments = pass.colorAttachments;
+        for (auto& resolve : pass.resolveAttachments) {
+            resolve.attachment += pass.colorAttachments.size();
+        }
+        unsigned int i = 0;
+        for (const auto& color : pass.colorAttachments) {
+            semanticFormats.emplace_back(semanticFormats[i++]);
+            const auto& src        = attachments[color.attachment];
+            auto& resolved         = attachments.emplace_back(src);
+            resolved.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+            resolved.loadOp        = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+            resolved.samples       = VK_SAMPLE_COUNT_1_BIT;
+        }
+
+        // move the depth attachment to the end of the list if it exists
+        if (pass.depthAttachment.has_value()) {
+            const auto semantic = semanticFormats[pass.depthAttachment.value().attachment];
+            const auto depth    = attachments[pass.depthAttachment.value().attachment];
+            attachments.erase(pass.depthAttachment.value().attachment);
+            attachments.emplace_back(depth);
+            semanticFormats.erase(pass.depthAttachment.value().attachment);
+            semanticFormats.emplace_back(semantic);
+            pass.depthAttachment.value().attachment = attachments.size() - 1;
+        }
+    }
+
     return std::move(*this);
 }
 
-RenderPassParameters::SubPass::SubPass() { colorAttachments.reserve(4); }
+RenderPassParameters::SubPass::SubPass() {}
+
+RenderPassParameters::SubPass& RenderPassParameters::SubPass::withInputAttachment(
+    std::uint32_t index, VkImageLayout layout) {
+    inputAttachments.emplace_back();
+    inputAttachments.back().attachment = index;
+    inputAttachments.back().layout     = layout;
+    return *this;
+}
 
 RenderPassParameters::SubPass& RenderPassParameters::SubPass::withAttachment(std::uint32_t i,
                                                                              VkImageLayout layout) {
@@ -58,12 +157,18 @@ RenderPassParameters::SubPass& RenderPassParameters::SubPass::withDepthAttachmen
     return *this;
 }
 
-RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() {
-    if (colorAttachments.empty()) {
-        throw std::runtime_error("SubPass must have at least one color attachment");
-    }
-    return std::move(*this);
+RenderPassParameters::SubPass& RenderPassParameters::SubPass::withPreserveAttachment(
+    std::uint32_t index) {
+    preserveAttachments.emplace_back(index);
+    return *this;
 }
+
+RenderPassParameters& RenderPassParameters::withDebugName(const char* name) {
+    debugName = name;
+    return *this;
+}
+
+RenderPassParameters::SubPass&& RenderPassParameters::SubPass::build() { return std::move(*this); }
 
 } // namespace vk
 } // namespace rc

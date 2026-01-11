@@ -65,7 +65,7 @@ bool BatchSprite::isCreated() const { return owner != nullptr; }
 void BatchSprite::markDirty() {
     dirty = true;
     if (autoCommit && owner && !updateHandle.isQueued()) {
-        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RenderEarlyRefresh,
+        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RendererDataSync,
                                                       std::bind(&BatchSprite::commit, this));
     }
 }

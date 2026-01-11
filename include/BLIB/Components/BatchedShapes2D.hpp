@@ -3,6 +3,7 @@
 
 #include <BLIB/Render/Buffers/BatchIndexBuffer.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
+#include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 
 namespace bl
 {
@@ -19,11 +20,11 @@ struct BatchedShapes2D : public rc::rcom::DrawableBase {
     /**
      * @brief Creates the index buffer with the given starting capacities
      *
-     * @param vulkanState The engine renderer Vulkan state
+     * @param renderer The renderer instance
      * @param vertexCapacity The number of vertices to allocate
      * @param indexCapacity The number of indices to allocate
      */
-    BatchedShapes2D(rc::vk::VulkanState& vulkanState, std::uint32_t vertexCapacity,
+    BatchedShapes2D(rc::Renderer& renderer, std::uint32_t vertexCapacity,
                     std::uint32_t indexCapacity);
 
     /**
@@ -35,7 +36,7 @@ struct BatchedShapes2D : public rc::rcom::DrawableBase {
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
-        return rc::Config::MaterialPipelineIds::Geometry2D;
+        return rc::cfg::MaterialPipelineIds::Geometry2D;
     }
 };
 

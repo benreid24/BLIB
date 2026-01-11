@@ -18,28 +18,43 @@ namespace rg
  * @ingroup Renderer
  */
 struct TaskInput {
+    /// Represents how inputs are shared by different tasks
+    enum ShareMode {
+        /// This input may not be shared with other tasks
+        Exclusive,
+
+        /// This input may be shared with other tasks
+        Shared
+    };
+
     std::vector<std::string_view> options;
+    ShareMode shareMode;
 
     /**
      * @brief Creates an empty input
      */
-    TaskInput() = default;
+    TaskInput()
+    : shareMode(Exclusive) {}
 
     /**
      * @brief Creates an input with a single asset tag option
      *
      * @param input The tag of the asset for this input slot
+     * @param shareMode The sharing behavior of the input
      */
-    TaskInput(std::string_view input)
-    : options(1, input) {}
+    TaskInput(std::string_view input, ShareMode shareMode = Shared)
+    : options(1, input)
+    , shareMode(shareMode) {}
 
     /**
      * @brief Creates an input with a collection of possible tags for the input slot
      *
      * @param inputs The different options for the input slot
+     * @param shareMode The sharing behavior of the input
      */
-    TaskInput(std::initializer_list<std::string_view> inputs)
-    : options(inputs) {}
+    TaskInput(std::initializer_list<std::string_view> inputs, ShareMode shareMode = Shared)
+    : options(inputs)
+    , shareMode(shareMode) {}
 };
 
 } // namespace rg

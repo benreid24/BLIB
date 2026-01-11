@@ -1,6 +1,6 @@
 #include <BLIB/Render/Vulkan/DedicatedCommandBuffers.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -15,7 +15,7 @@ DedicatedCommandBuffers::~DedicatedCommandBuffers() {
     if (vs) { destroy(); }
 }
 
-void DedicatedCommandBuffers::create(VulkanState& vulkanState) {
+void DedicatedCommandBuffers::create(VulkanLayer& vulkanState) {
     vs = &vulkanState;
     payloads.init(*vs, [this](auto& p) { p.create(*vs); });
 }
@@ -30,8 +30,8 @@ void DedicatedCommandBuffers::destroy() {
 VkCommandBuffer DedicatedCommandBuffers::begin() {
     auto& p = payloads.current();
 
-    vkCheck(vkWaitForFences(vs->device, 1, &p.fence, VK_TRUE, UINT64_MAX));
-    vkCheck(vkResetFences(vs->device, 1, &p.fence));
+    vkCheck(vkWaitForFences(vs->getDevice(), 1, &p.fence, VK_TRUE, UINT64_MAX));
+    vkCheck(vkResetFences(vs->getDevice(), 1, &p.fence));
 
     vkCheck(vkResetCommandBuffer(p.buffer, 0));
 
@@ -55,7 +55,7 @@ void DedicatedCommandBuffers::submit() {
     vs->submitCommandBuffer(submitInfo, p.fence);
 }
 
-void DedicatedCommandBuffers::Payload::create(VulkanState& vs) {
+void DedicatedCommandBuffers::Payload::create(VulkanLayer& vs) {
     pool = vs.createCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT |
                                 VK_COMMAND_POOL_CREATE_TRANSIENT_BIT);
 
@@ -64,17 +64,17 @@ void DedicatedCommandBuffers::Payload::create(VulkanState& vs) {
     allocInfo.commandPool        = pool;
     allocInfo.level              = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     allocInfo.commandBufferCount = 1;
-    vkCheck(vkAllocateCommandBuffers(vs.device, &allocInfo, &buffer));
+    vkCheck(vkAllocateCommandBuffers(vs.getDevice(), &allocInfo, &buffer));
 
     VkFenceCreateInfo fenceInfo{};
     fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-    vkCheck(vkCreateFence(vs.device, &fenceInfo, nullptr, &fence));
+    vkCheck(vkCreateFence(vs.getDevice(), &fenceInfo, nullptr, &fence));
 }
 
-void DedicatedCommandBuffers::Payload::cleanup(VulkanState& vs) {
-    vkDestroyFence(vs.device, fence, nullptr);
-    vkDestroyCommandPool(vs.device, pool, nullptr);
+void DedicatedCommandBuffers::Payload::cleanup(VulkanLayer& vs) {
+    vkDestroyFence(vs.getDevice(), fence, nullptr);
+    vkDestroyCommandPool(vs.getDevice(), pool, nullptr);
 }
 
 } // namespace vk

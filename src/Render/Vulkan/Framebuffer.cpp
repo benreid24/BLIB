@@ -1,6 +1,8 @@
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
 
-#include <BLIB/Render/Vulkan/VulkanState.hpp>
+#include <BLIB/Render/Renderer.hpp>
+#include <BLIB/Render/Vulkan/RenderPass.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -9,17 +11,18 @@ namespace rc
 namespace vk
 {
 Framebuffer::Framebuffer()
-: vulkanState(nullptr)
+: renderer(nullptr)
 , renderPass(nullptr)
 , target(nullptr)
-, framebuffer(nullptr) {}
+, framebuffer(nullptr)
+, renderStartCount(0) {}
 
 Framebuffer::~Framebuffer() {
     if (renderPass) { deferCleanup(); }
 }
 
-void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& frame) {
-    vulkanState = &vs;
+void Framebuffer::create(Renderer& renderer, const RenderPass* rp, const AttachmentSet& frame) {
+    this->renderer = &renderer;
 
     // cleanup and block if recreating
     if (renderPass) { deferCleanup(); }
@@ -27,45 +30,84 @@ void Framebuffer::create(VulkanState& vs, VkRenderPass rp, const AttachmentSet& 
     // copy create params
     renderPass       = rp;
     target           = &frame;
-    cachedAttachment = *frame.imageViews();
+    cachedAttachment = frame.getImageViews()[0];
 
     // create framebuffer
     VkFramebufferCreateInfo framebufferInfo{};
     framebufferInfo.sType           = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-    framebufferInfo.renderPass      = renderPass;
-    framebufferInfo.attachmentCount = frame.size();
-    framebufferInfo.pAttachments    = frame.imageViews();
-    framebufferInfo.width           = frame.renderExtent().width;
-    framebufferInfo.height          = frame.renderExtent().height;
-    framebufferInfo.layers          = 1;
-    if (vkCreateFramebuffer(vulkanState->device, &framebufferInfo, nullptr, &framebuffer) !=
+    framebufferInfo.renderPass      = renderPass->rawPass();
+    framebufferInfo.attachmentCount = frame.getAttachmentCount();
+    framebufferInfo.pAttachments    = frame.getImageViews();
+    framebufferInfo.width           = frame.getRenderExtent().width;
+    framebufferInfo.height          = frame.getRenderExtent().height;
+    framebufferInfo.layers          = frame.getLayerCount();
+    if (vkCreateFramebuffer(
+            renderer.vulkanState().getDevice(), &framebufferInfo, nullptr, &framebuffer) !=
         VK_SUCCESS) {
         throw std::runtime_error("Failed to create framebuffer");
     }
 }
 
 void Framebuffer::recreateIfChanged(const AttachmentSet& t) {
-    if (*t.imageViews() != cachedAttachment) { create(*vulkanState, renderPass, t); }
+    // TODO - need to check all views?
+    if (t.getImageViews()[0] != cachedAttachment) { create(*renderer, renderPass, t); }
 }
 
 void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& region,
                               const VkClearValue* clearColors, std::uint32_t clearColorCount,
-                              bool vp, VkRenderPass rpo) const {
+                              bool vp, VkRenderPass rpo, bool shouldClear) {
 #ifdef BLIB_DEBUG
     if (target == nullptr) {
         throw std::runtime_error("Framebuffer render started without specifying target");
     }
 #endif
 
-    // begin render pass
-    VkRenderPassBeginInfo renderPassInfo{};
-    renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass;
-    renderPassInfo.framebuffer     = framebuffer;
-    renderPassInfo.renderArea      = region;
-    renderPassInfo.clearValueCount = clearColorCount;
-    renderPassInfo.pClearValues    = clearColors;
-    vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+    bool cleared = false;
+    if (renderStartCount == 0) {
+        // begin render pass
+        VkRenderPassBeginInfo renderPassInfo{};
+        renderPassInfo.sType           = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+        renderPassInfo.renderPass      = rpo != nullptr ? rpo : renderPass->rawPass();
+        renderPassInfo.framebuffer     = framebuffer;
+        renderPassInfo.renderArea      = region;
+        renderPassInfo.clearValueCount = clearColorCount;
+        renderPassInfo.pClearValues    = clearColors;
+        vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+        cleared = renderPass->getCreateParams().isClearedOnStart();
+    }
+    if (shouldClear && !cleared) {
+        // if we have resolve attachments we need to avoid clearing them
+        std::uint32_t colorCount = clearColorCount;
+        if (target->getOutputIndex() > 0) {
+            colorCount = std::min(colorCount, target->getOutputIndex());
+        }
+
+        // if we have a depth attachment we will handle it outside of the loop
+        const bool hasDepth =
+            target->getImageAspect(target->getAttachmentCount() - 1) & VK_IMAGE_ASPECT_DEPTH_BIT;
+        const std::uint32_t attachmentCount = hasDepth ? colorCount + 1 : colorCount;
+
+        VkClearAttachment attachments[AttachmentSet::MaxAttachments]{};
+        for (unsigned int i = 0; i < colorCount; ++i) {
+            attachments[i].aspectMask      = target->getImageAspects()[i];
+            attachments[i].colorAttachment = i;
+            attachments[i].clearValue      = clearColors[i];
+        }
+        if (hasDepth) {
+            attachments[colorCount].aspectMask =
+                target->getImageAspect(target->getAttachmentCount() - 1);
+            attachments[colorCount].colorAttachment = VK_ATTACHMENT_UNUSED;
+            attachments[colorCount].clearValue      = clearColors[clearColorCount - 1];
+        }
+
+        VkClearRect rect;
+        rect.rect           = region;
+        rect.baseArrayLayer = 0;
+        rect.layerCount     = target->getLayerCount();
+
+        vkCmdClearAttachments(commandBuffer, attachmentCount, attachments, 1, &rect);
+    }
+
     vkCmdSetScissor(commandBuffer, 0, 1, &region);
 
     if (vp) {
@@ -79,22 +121,31 @@ void Framebuffer::beginRender(VkCommandBuffer commandBuffer, const VkRect2D& reg
 
         vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
     }
+
+    ++renderStartCount;
 }
 
-void Framebuffer::finishRender(VkCommandBuffer commandBuffer) const {
-    vkCmdEndRenderPass(commandBuffer);
+void Framebuffer::finishRender(VkCommandBuffer commandBuffer) {
+#ifdef BLIB_DEBUG
+    if (renderStartCount == 0) {
+        throw std::runtime_error("Framebuffer render finished without starting render");
+    }
+#endif
+
+    if (--renderStartCount == 0) { vkCmdEndRenderPass(commandBuffer); }
 }
 
 void Framebuffer::cleanup() {
-    vkDestroyFramebuffer(vulkanState->device, framebuffer, nullptr);
+    vkDestroyFramebuffer(renderer->vulkanState().getDevice(), framebuffer, nullptr);
     renderPass = nullptr;
 }
 
 void Framebuffer::deferCleanup() {
     if (renderPass) {
-        vulkanState->cleanupManager.add([device = vulkanState->device, fb = framebuffer]() {
-            vkDestroyFramebuffer(device, fb, nullptr);
-        });
+        renderer->getCleanupManager().add(
+            [device = renderer->vulkanState().getDevice(), fb = framebuffer]() {
+                vkDestroyFramebuffer(device, fb, nullptr);
+            });
         renderPass = nullptr;
     }
 }

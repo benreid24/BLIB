@@ -4,15 +4,19 @@ target_sources(BLIB PUBLIC
 	BatchedShapes2D.hpp
 	BatchedSlideshows.hpp
 	BatchedSprites.hpp
+	Bone.hpp
 	Hitbox2D.hpp
 	MarkedForDeath.hpp
 	MaterialInstance.hpp
 	Mesh.hpp
 	Orientation3D.hpp
+	Outline.hpp
 	OverlayScaler.hpp
 	Physics2D.hpp
 	Shape2D.hpp
 	Slideshow.hpp
+	Skeleton.hpp
+	SkeletonIndexLink.hpp
 	Sprite.hpp
 	Text.hpp
 	TilemapPosition.hpp
@@ -20,4 +24,5 @@ target_sources(BLIB PUBLIC
 	Transform2D.hpp
 	Transform3D.hpp
 	VertexBuffer.hpp
+	VertexBuffer3D.hpp
 )

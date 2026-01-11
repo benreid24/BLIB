@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Render/Config/PipelineIds.hpp>
 
 namespace bl
 {
@@ -53,7 +54,7 @@ void OverlayHighlightProvider::doCreate(engine::World& world) {
         cover.entity(), ecs::ParentDestructionBehavior::OrphanedByParent);
     cover.getTransform().setDepth(cam::OverlayCamera::MinDepth);
     cover.material().setPipeline(
-        rc::mat::MaterialPipelineSettings(rc::Config::PipelineIds::Unlit2DGeometryNoDepthWrite)
+        rc::mat::MaterialPipelineSettings(rc::cfg::PipelineIds::Unlit2DGeometryNoDepthWrite)
             .build());
 }
 

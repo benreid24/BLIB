@@ -3,48 +3,52 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Renderer.hpp>
 
 namespace bl
 {
 namespace rc
 {
-Scene::Scene(engine::Engine& engine,
-             const ds::DescriptorComponentStorageBase::EntityCallback& entityCb)
+Scene::Scene(engine::Engine& engine)
 : engine(engine)
 , renderer(engine.renderer())
-, descriptorFactories(renderer.descriptorFactoryCache())
-, descriptorSets(descriptorComponents)
-, descriptorComponents(engine.ecs(), renderer.vulkanState(), entityCb)
-, nextObserverIndex(0)
-, staticPipelines(DefaultSceneObjectCapacity, nullptr)
-, dynamicPipelines(DefaultSceneObjectCapacity, nullptr)
+, shaderInputStore(engine, engine.renderer().getCommonObserver())
+, staticPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
+, dynamicPipelines(cfg::Constants::DefaultSceneObjectCapacity, nullptr)
+, syncedResourcesOnFrame(cfg::Limits::MaxConcurrentFrames + 1)
 , isClearingQueues(false) {
     queuedBatchChanges.reserve(32);
     queuedAdds.reserve(32);
     queuedRemovals.reserve(32);
 }
 
-std::uint32_t Scene::registerObserver() {
+std::uint32_t Scene::registerObserver(RenderTarget* target) {
+    const std::uint32_t index = targetTable.addTarget(target);
 #ifdef BLIB_DEBUG
-    if (nextObserverIndex >= Config::MaxSceneObservers) {
+    if (index >= cfg::Limits::MaxSceneObservers) {
         BL_LOG_CRITICAL << "Max observer count for scene reached";
         throw std::runtime_error("Max observer count for scene reached");
     }
 #endif
-    return nextObserverIndex++;
+    doRegisterObserver(target, index);
+    return index;
 }
 
-void Scene::updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView) {
-    descriptorSets.updateObserverCamera(observerIndex, projView);
+void Scene::unregisterObserver(std::uint32_t index) {
+    RenderTarget* target = targetTable.removeTarget(index);
+    if (index < targetTable.nextId()) { doUnregisterObserver(target, index); }
 }
 
-void Scene::handleDescriptorSync() {
-    std::unique_lock lock(objectMutex);
+void Scene::syncShaderResources() {
+    if (syncedResourcesOnFrame != renderer.vulkanState().currentFrameIndex()) {
+        syncedResourcesOnFrame = renderer.vulkanState().currentFrameIndex();
 
-    // sync descriptors
-    descriptorSets.handleDescriptorSync();
-    descriptorComponents.syncDescriptors();
+        std::unique_lock lock(objectMutex);
+        onShaderResourceSync();
+        shaderInputStore.updateFromSources();
+        shaderInputStore.performTransfers();
+    }
 }
 
 void Scene::syncObjects() {
@@ -92,7 +96,10 @@ void Scene::removeObject(scene::SceneObject* obj) {
 void Scene::rebucketObject(rcom::DrawableBase& obj) {
     std::unique_lock lock(queueMutex);
     queuedBatchChanges.emplace_back(
-        BatchChange{obj.sceneRef.object, obj.getCurrentPipeline(), obj.containsTransparency});
+        BatchChange{.changed           = obj.sceneRef.object,
+                    .newPipeline       = obj.getCurrentPipeline(),
+                    .newTrans          = obj.containsTransparency,
+                    .newSpecialization = obj.getPipelineSpecialization()});
 }
 
 void Scene::removeQueuedObject(scene::SceneObject* obj) {
@@ -113,12 +120,10 @@ void Scene::addQueuedObject(ObjectAdd& add) {
     rcom::DrawableBase& object = *add.object;
     scene::SceneObject* sobj   = doAdd(add.entity, object, add.updateFreq);
     if (sobj) {
+        sobj->entity           = add.entity;
         object.sceneRef.object = sobj;
         object.sceneRef.scene  = this;
-
-        sobj->hidden     = object.hidden;
-        sobj->drawParams = object.drawParams;
-        sobj->refToThis  = &object.sceneRef;
+        sobj->component        = &object;
 
         auto& objectPipelines =
             sobj->sceneKey.updateFreq == UpdateSpeed::Static ? staticPipelines : dynamicPipelines;
@@ -130,7 +135,16 @@ void Scene::addQueuedObject(ObjectAdd& add) {
     else { BL_LOG_ERROR << "Failed to add " << add.entity << " to scene " << this; }
 }
 
-void Scene::addGraphTasks(rg::RenderGraph&) {}
+void Scene::renderScene(scene::SceneRenderContext& ctx) {
+    renderOpaqueObjects(ctx);
+    renderTransparentObjects(ctx);
+}
+
+ds::DescriptorSetInstanceCache* Scene::getDescriptorSetCache(RenderTarget* target) {
+    ds::DescriptorSetInstanceCache* cache = target->getDescriptorSetCache(this);
+    if (!cache) { BL_LOG_ERROR << "Failed to get descriptor set cache for scene from target"; }
+    return cache;
+}
 
 } // namespace rc
 } // namespace bl

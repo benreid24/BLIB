@@ -1,4 +1,5 @@
 #include <BLIB/ECS.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <gtest/gtest.h>
 
@@ -227,7 +228,7 @@ TEST(ECS, ViewIterate) {
     EXPECT_TRUE(ogValues.empty());
 
     // add components and retest view
-    for (const Entity ent : toAdd) {
+    for (const Entity& ent : toAdd) {
         const char cv = util::Random::get<char>('a', 'z');
         testRegistry.addComponent<char>(ent, cv);
         int* ic = testRegistry.getComponent<int>(ent);
@@ -239,7 +240,7 @@ TEST(ECS, ViewIterate) {
     EXPECT_TRUE(afterAddValues.empty());
 
     // remove components and entities and retest view
-    for (const Entity ent : toRemove) {
+    for (const Entity& ent : toRemove) {
         if (util::Random::get<int>(0, 100) < 50) { testRegistry.removeComponent<char>(ent); }
         else { testRegistry.destroyEntity(ent); }
     }
@@ -328,7 +329,7 @@ TEST(ECS, ClearRegistry) {
     }
 
     testRegistry.destroyAllEntities();
-    for (const Entity ent : ents) {
+    for (const Entity& ent : ents) {
         EXPECT_FALSE(testRegistry.entityExists(ent));
         EXPECT_EQ(testRegistry.getComponent<int>(ent), nullptr);
     }
@@ -608,20 +609,20 @@ TEST(ECS, DestroyInWorld) {
 
 namespace
 {
-struct RemoveEventCounter : public bl::event::Listener<event::ComponentRemoved<int>> {
+struct RemoveEventCounter : public sig::Listener<event::ComponentRemoved<int>> {
     unsigned int count;
 
     RemoveEventCounter()
     : count(0) {}
 
-    virtual void observe(const event::ComponentRemoved<int>&) { ++count; }
+    virtual void process(const event::ComponentRemoved<int>&) { ++count; }
 };
 } // namespace
 
 TEST(ECS, ComponentRemovedEvents) {
     Registry testRegistry;
     RemoveEventCounter counter;
-    bl::event::Dispatcher::subscribe(&counter);
+    counter.subscribe(testRegistry.getSignalChannel());
 
     Entity entity = testRegistry.createEntity(0);
     testRegistry.addComponent<int>(entity, 5);

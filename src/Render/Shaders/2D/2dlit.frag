@@ -1,17 +1,21 @@
 #version 450
 #extension GL_ARB_separate_shader_objects : enable
+#extension GL_GOOGLE_include_directive : require
 
 layout(location = 0) in vec4 fragColor;
 layout(location = 1) in vec2 fragPos;
 
 layout(location = 0) out vec4 outColor;
 
+#define GLOBALS_SET_NUMBER 0
+#include <uniforms.glsl>
+
 struct Light {
     vec4 color; // w component is radius
     vec2 position;
 };
 
-layout(std140, set = 0, binding = 1) uniform lb {
+layout(std140, set = 1, binding = 1) uniform lb {
     uint count;
     vec3 ambient;
     Light lights[512];
@@ -42,4 +46,5 @@ void main() {
     lightColor = lightColor + lighting.ambient;
 
     outColor = fragColor * vec4(lightColor, 1.0);
+    outColor.rgb = pow(outColor.rgb, vec3(1.0 / settings.gamma));
 }

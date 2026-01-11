@@ -2,15 +2,15 @@
 #define BLIB_RENDER_OVERLAYS_OVERLAY_HPP
 
 #include <BLIB/ECS/Entity.hpp>
-#include <BLIB/Events.hpp>
-#include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
-#include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Overlays/OverlayObject.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectECSAdaptor.hpp>
+#include <BLIB/Signals/Emitter.hpp>
+#include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Systems/OverlayScalerSystem.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
+#include <BLIB/Util/ReadWriteLock.hpp>
 #include <limits>
 #include <unordered_map>
 #include <vector>
@@ -35,8 +35,8 @@ class Observer;
  */
 class Overlay
 : public Scene
-, public bl::event::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved,
-                             ecs::event::ComponentRemoved<ovy::OverlayObject>> {
+, public sig::Listener<ecs::event::EntityParentSet, ecs::event::EntityParentRemoved,
+                       ecs::event::ComponentRemoved<ovy::OverlayObject>> {
 public:
     static constexpr std::uint32_t NoParent = std::numeric_limits<std::uint32_t>::max();
 
@@ -53,11 +53,29 @@ public:
     virtual ~Overlay();
 
     /**
-     * @brief Derived classes should record render commands in here
+     * @brief Renders all objects in the overlay
      *
      * @param context Render context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
+
+    /**
+     * @brief Does nothing
+     */
+    virtual void renderTransparentObjects(scene::SceneRenderContext&) override {}
+
+    /**
+     * @brief Replaces the current strategy with a new one of type T. Default is
+     *        rgi::OverlayRenderStrategy
+     *
+     * @param strategy The new render strategy to use
+     */
+    static void useRenderStrategy(rg::Strategy* strategy);
+
+    /**
+     * @brief Returns the render strategy to use for this scene type
+     */
+    virtual rg::Strategy* getRenderStrategy() override;
 
 protected:
     /**
@@ -83,7 +101,8 @@ protected:
                                  mat::MaterialPipeline* pipeline) override;
 
     /**
-     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     * @brief Called by Scene in updateDescriptorsAndQueueTransfers for objects that need to be
+     * re-batched
      *
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed
@@ -99,7 +118,23 @@ protected:
     /**
      * @brief Noop
      */
-    virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override {};
+    virtual void setDefaultNearAndFarPlanes(cam::Camera&) const override {}
+
+    /**
+     * @brief Called when a new observer is going to render the scene
+     *
+     * @param target The render target that will observe the scene
+     * @param observerIndex The index of the observer in the renderer
+     */
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+
+    /**
+     * @brief Called when an observer is no longer rendering the scene
+     *
+     * @param target The observer that is stopping rendering
+     * @param observerIndex The index of the observer stopping rendering
+     */
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
 
 private:
     ecs::ComponentPool<ovy::OverlayObject>* ecsPool;
@@ -107,17 +142,23 @@ private:
     sys::OverlayScalerSystem& scaler;
     std::vector<ovy::OverlayObject*> roots;
     bool needRefreshAll;
+    sig::Emitter<event::SceneObjectRemoved> emitter;
 
     std::vector<ovy::OverlayObject*> renderStack;
     VkViewport cachedParentViewport;
     glm::u32vec2 cachedTargetSize;
 
+    util::ReadWriteLock allListLock;
+    std::vector<ovy::OverlayObject*> all;
+
+    void removeFromAll(ovy::OverlayObject* obj);
+
     void refreshAll();
     void sortRoots();
 
-    virtual void observe(const ecs::event::EntityParentSet& event) override;
-    virtual void observe(const ecs::event::EntityParentRemoved& event) override;
-    virtual void observe(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) override;
+    virtual void process(const ecs::event::EntityParentSet& event) override;
+    virtual void process(const ecs::event::EntityParentRemoved& event) override;
+    virtual void process(const ecs::event::ComponentRemoved<ovy::OverlayObject>& event) override;
 
     template<typename T>
     friend class sys::DrawableSystem;

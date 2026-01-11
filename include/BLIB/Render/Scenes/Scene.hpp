@@ -4,12 +4,14 @@
 #include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
-#include <BLIB/Render/Descriptors/DescriptorComponentStorageCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp>
-#include <BLIB/Render/Descriptors/SceneDescriptorSetInstance.hpp>
+#include <BLIB/Render/Scenes/Key.hpp>
 #include <BLIB/Render/Scenes/SceneObject.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
+#include <BLIB/Render/Scenes/TargetTable.hpp>
+#include <BLIB/Render/ShaderResources/ShaderResourceStore.hpp>
+#include <BLIB/Render/Vulkan/PipelineInstance.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <array>
@@ -45,7 +47,8 @@ class ScenePool;
 namespace rg
 {
 class RenderGraph;
-}
+class Strategy;
+} // namespace rg
 
 /**
  * @brief Base class for all scene types and overlays. Provides common scene logic and object
@@ -55,36 +58,36 @@ class RenderGraph;
  */
 class Scene {
 public:
-    static constexpr std::uint32_t DefaultSceneObjectCapacity = 128;
-
     /**
      * @brief Destroys the Scene
      */
     virtual ~Scene() = default;
 
     /**
-     * @brief Derived classes should record render commands in here
+     * @brief Calls renderOpaqueObjects then renderTransparentObjects
      *
      * @param context Render context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) = 0;
+    void renderScene(scene::SceneRenderContext& context);
 
     /**
-     * @brief Adds scene specific tasks to the render graph. Default adds nothing
+     * @brief Derived classes should draw opaque objects here
      *
-     * @param graph The graph to populate
+     * @param context Render context containing scene render data
      */
-    virtual void addGraphTasks(rg::RenderGraph& graph);
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) = 0;
 
     /**
-     * @brief Provides direct access to the descriptor set of the given type. Creates it if not
-     *        already created. May be slow, cache the result
+     * @brief Derived classes should draw transparent objects here
      *
-     * @tparam T The descriptor set type to fetch or create
-     * @return The descriptor set of the given type
+     * @param context Render context containing scene render data
      */
-    template<typename T>
-    T& getDescriptorSet();
+    virtual void renderTransparentObjects(scene::SceneRenderContext& context) = 0;
+
+    /**
+     * @brief Returns the render strategy to use for this scene type
+     */
+    virtual rg::Strategy* getRenderStrategy() = 0;
 
     /**
      * @brief Creates a default camera for the scene
@@ -101,6 +104,11 @@ public:
      */
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const = 0;
 
+    /**
+     * @brief Returns the shader resource store for this scene
+     */
+    sr::ShaderResourceStore& getShaderResources() { return shaderInputStore; }
+
 protected:
     /**
      * @brief POD containing data for when an object needs to be re-batched
@@ -109,23 +117,21 @@ protected:
         scene::SceneObject* changed;
         mat::MaterialPipeline* newPipeline;
         bool newTrans;
+        std::uint32_t newSpecialization;
     };
 
     engine::Engine& engine;
     Renderer& renderer;
     std::recursive_mutex objectMutex;
-    ds::DescriptorSetFactoryCache& descriptorFactories;
-    ds::DescriptorSetInstanceCache descriptorSets;
-    ds::DescriptorComponentStorageCache descriptorComponents;
+    scene::TargetTable targetTable;
+    sr::ShaderResourceStore shaderInputStore;
 
     /**
      * @brief Initializes the Scene
      *
      * @param engine The engine instance
-     * @param entityCb Callback to map scene id to ECS id
      */
-    Scene(engine::Engine& engine,
-          const ds::DescriptorComponentStorageBase::EntityCallback& entityCb);
+    Scene(engine::Engine& engine);
 
     /**
      * @brief Called when an object is added to the scene. Derived should create the SceneObject
@@ -147,7 +153,8 @@ protected:
     void removeObject(scene::SceneObject* object);
 
     /**
-     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     * @brief Called by Scene in updateDescriptorsAndQueueTransfers for objects that need to be
+     * re-batched
      *
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed
@@ -162,6 +169,27 @@ protected:
      */
     virtual void doObjectRemoval(scene::SceneObject* object, mat::MaterialPipeline* pipeline) = 0;
 
+    /**
+     * @brief Called when a new observer is going to render the scene
+     *
+     * @param target The render target that will observe the scene
+     * @param observerIndex The index of the observer in the renderer
+     */
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) = 0;
+
+    /**
+     * @brief Called when an observer is no longer rendering the scene
+     *
+     * @param target The observer that is stopping rendering
+     * @param observerIndex The index of the observer stopping rendering
+     */
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) = 0;
+
+    /**
+     * @brief Called at the beginning of the frame when descriptors are being updated
+     */
+    virtual void onShaderResourceSync() {}
+
 private:
     struct ObjectAdd {
         ecs::Entity entity;
@@ -175,9 +203,9 @@ private:
         , updateFreq(updateFreq) {}
     };
 
-    std::uint32_t nextObserverIndex;
     std::vector<mat::MaterialPipeline*> staticPipelines;
     std::vector<mat::MaterialPipeline*> dynamicPipelines;
+    std::uint32_t syncedResourcesOnFrame;
 
     std::recursive_mutex queueMutex;
     bool isClearingQueues;
@@ -195,10 +223,12 @@ private:
     void rebucketObject(rcom::DrawableBase& object);
 
     // called by Observer
-    void handleDescriptorSync();
+    void syncShaderResources();
     void syncObjects();
-    std::uint32_t registerObserver();
-    void updateObserverCamera(std::uint32_t observerIndex, const glm::mat4& projView);
+    std::uint32_t registerObserver(RenderTarget* target);
+    void unregisterObserver(std::uint32_t observerIndex);
+
+    ds::DescriptorSetInstanceCache* getDescriptorSetCache(RenderTarget* target);
 
     friend class scene::SceneSync;
     friend class RenderTarget;
@@ -206,17 +236,6 @@ private:
     friend class vk::RenderTexture;
     friend struct rcom::DrawableBase;
 };
-
-template<typename T>
-T& Scene::getDescriptorSet() {
-    T* set = descriptorSets.getDescriptorSet<T>();
-    if (set) { return *set; }
-
-    ds::DescriptorSetFactory* factory = descriptorFactories.getFactoryThatMakes<T>();
-    if (!factory) { throw std::runtime_error("Failed to find descriptor set"); }
-
-    return static_cast<T&>(*descriptorSets.getDescriptorSet(factory));
-}
 
 } // namespace rc
 } // namespace bl

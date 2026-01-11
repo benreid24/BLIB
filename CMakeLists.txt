@@ -11,7 +11,13 @@ endif()
 project(BLIB C CXX)
 
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
+if (NOT CMAKE_PARENT_LIST_FILE STREQUAL CMAKE_CURRENT_LIST_FILE)
+    message(${CMAKE_PARENT_LIST_FILE})
+    set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
+endif()
+
+# Use static msvc runtime in sync with assimp
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Determine glslc path
 if(APPLE)
@@ -59,6 +65,23 @@ add_subdirectory(lib/volk)
 target_include_directories(volk SYSTEM PUBLIC ${BLIB_PATH}/lib/Vulkan-Headers/include)
 
 add_subdirectory(lib/box2d)
+
+set(ZLIB_BUILD_TESTING Off)
+set(ZLIB_BUILD_SHARED Off)
+set(ZLIB_INSTALL Off)
+add_subdirectory(lib/zlib)
+
+# Make zlib findable by find_package for assimp and others
+set(ZLIB_FOUND TRUE)
+set(ZLIB_LIBRARIES zlibstatic)
+set(ZLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/zlib ${CMAKE_CURRENT_BINARY_DIR}/lib/zlib)
+
+set(BUILD_SHARED_LIBS Off)
+set(ASSIMP_BUILD_TESTS Off)
+set(ASSIMP_INSTALL Off)
+set(USE_STATIC_CRT On)
+set(ASSIMP_BUILD_ZLIB Off)
+add_subdirectory(lib/assimp)
 
 if(APPLE)
     set(GLFW_LIBRARY_TYPE "STATIC")

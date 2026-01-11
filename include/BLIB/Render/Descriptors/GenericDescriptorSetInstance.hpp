@@ -1,11 +1,14 @@
 #ifndef BLIB_RENDER_DESCRIPTORS_GENERICDESCRIPTORSETINSTANCE_HPP
 #define BLIB_RENDER_DESCRIPTORS_GENERICDESCRIPTORSETINSTANCE_HPP
 
+#include <BLIB/Render/Config/Limits.hpp>
 #include <BLIB/Render/Descriptors/DescriptorSetInstance.hpp>
 #include <BLIB/Render/Descriptors/Generic/Bindings.hpp>
+#include <BLIB/Render/HeaderHelpers.hpp>
 #include <BLIB/Render/Scenes/SceneRenderContext.hpp>
 #include <BLIB/Render/Vulkan/DescriptorSet.hpp>
 #include <BLIB/Render/Vulkan/PerFrame.hpp>
+#include <BLIB/Render/Vulkan/VulkanLayer.hpp>
 
 namespace bl
 {
@@ -37,14 +40,13 @@ public:
     /**
      * @brief Creates the descriptor set instance
      *
-     * @param vulkanState Renderer Vulkan state
+     * @param renderer The renderer instance
      * @param descriptorSetLayout The descriptor set layout
      * @param bindMode The binding requirement for this set
      * @param speedMode The speed requirement for this set
      */
-    GenericDescriptorSetInstance(vk::VulkanState& vulkanState,
-                                 VkDescriptorSetLayout descriptorSetLayout,
-                                 DescriptorSetInstance::BindMode bindMode,
+    GenericDescriptorSetInstance(Renderer& renderer, VkDescriptorSetLayout descriptorSetLayout,
+                                 DescriptorSetInstance::EntityBindMode bindMode,
                                  DescriptorSetInstance::SpeedBucketSetting speedMode);
 
     /**
@@ -52,32 +54,26 @@ public:
      */
     virtual ~GenericDescriptorSetInstance() = default;
 
-    /**
-     * @brief Access the given binding payload
-     *
-     * @tparam T The payload type to access from TBindings
-     * @return A reference to the payload value used for rendering
-     */
-    template<typename T>
-    T& getBindingPayload();
-
 private:
     const VkDescriptorSetLayout descriptorSetLayout;
-    vk::VulkanState& vulkanState;
+    Renderer& renderer;
     TBindings bindings;
     vk::DescriptorSet staticDescriptorSet;
     vk::PerFrame<vk::DescriptorSet> dynamicDescriptorSets;
+    SetWriteHelper setWriter;
+    int staticSetsInited;
+    int dynamicSetsInited;
 
-    virtual void init(DescriptorComponentStorageCache& storageCache) override;
+    virtual void init(InitContext& ctx) override;
     virtual void bindForPipeline(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                  std::uint32_t setIndex, UpdateSpeed updateFreq) const override;
     virtual void bindForObject(scene::SceneRenderContext& ctx, VkPipelineLayout layout,
                                std::uint32_t setIndex, scene::Key objectKey) const override;
     virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
     virtual void releaseObject(ecs::Entity entity, scene::Key key) override;
-    virtual void handleFrameStart() override;
+    virtual void updateDescriptors() override;
 
-    void updateStaticDescriptors();
+    void updateStaticDescriptors(std::uint32_t frame);
     void updateDynamicDescriptors(std::uint32_t frame);
 };
 
@@ -85,23 +81,33 @@ private:
 
 template<typename TBindings>
 GenericDescriptorSetInstance<TBindings>::GenericDescriptorSetInstance(
-    vk::VulkanState& vulkanState, VkDescriptorSetLayout descriptorSetLayout,
-    DescriptorSetInstance::BindMode bindMode, DescriptorSetInstance::SpeedBucketSetting speedMode)
+    Renderer& renderer, VkDescriptorSetLayout descriptorSetLayout,
+    DescriptorSetInstance::EntityBindMode bindMode,
+    DescriptorSetInstance::SpeedBucketSetting speedMode)
 : DescriptorSetInstance(bindMode, speedMode)
 , descriptorSetLayout(descriptorSetLayout)
-, vulkanState(vulkanState) {
+, renderer(renderer)
+, staticSetsInited(false)
+, dynamicSetsInited(cfg::Limits::MaxConcurrentFrames) {
     if (!isBindless()) {
         throw std::runtime_error("GenericDescriptorSet only supports bindless sets");
     }
 
-    dynamicDescriptorSets.init(vulkanState,
-                               [&vulkanState](vk::DescriptorSet& set) { set.init(vulkanState); });
-    staticDescriptorSet.init(vulkanState);
+    dynamicDescriptorSets.init(HeaderHelpers::getVulkanLayer(renderer),
+                               [&renderer](vk::DescriptorSet& set) { set.init(renderer); });
+    staticDescriptorSet.init(renderer);
 }
 
 template<typename TBindings>
-void GenericDescriptorSetInstance<TBindings>::init(DescriptorComponentStorageCache& storageCache) {
-    bindings.init(vulkanState, storageCache);
+void GenericDescriptorSetInstance<TBindings>::init(InitContext& ctx) {
+    bindings.init(HeaderHelpers::getVulkanLayer(renderer), ctx);
+
+    staticSetsInited  = 0;
+    dynamicSetsInited = 0;
+    for (std::uint32_t i = 0; i < cfg::Limits::MaxConcurrentFrames; ++i) {
+        updateStaticDescriptors(i);
+        updateDynamicDescriptors(i);
+    }
 }
 
 template<typename TBindings>
@@ -111,14 +117,19 @@ void GenericDescriptorSetInstance<TBindings>::bindForPipeline(scene::SceneRender
                                                               UpdateSpeed updateFreq) const {
     const auto set = updateFreq == UpdateSpeed::Static ? staticDescriptorSet.getSet() :
                                                          dynamicDescriptorSets.current().getSet();
+
+    std::array<std::uint32_t, cfg::Limits::MaxDescriptorBindings> dynamicOffsets;
+    const std::uint32_t dynamicCount =
+        bindings.getDynamicOffsets(ctx, layout, setIndex, updateFreq, dynamicOffsets);
+
     vkCmdBindDescriptorSets(ctx.getCommandBuffer(),
-                            VK_PIPELINE_BIND_POINT_GRAPHICS,
+                            ctx.getPipelineBindPoint(),
                             layout,
                             setIndex,
                             1,
                             &set,
-                            0,
-                            nullptr);
+                            dynamicCount,
+                            dynamicOffsets.data());
 }
 
 template<typename TBindings>
@@ -146,34 +157,30 @@ void GenericDescriptorSetInstance<TBindings>::releaseObject(ecs::Entity entity, 
 }
 
 template<typename TBindings>
-void GenericDescriptorSetInstance<TBindings>::handleFrameStart() {
+void GenericDescriptorSetInstance<TBindings>::updateDescriptors() {
     bindings.onFrameStart();
-    if (bindings.staticDescriptorUpdateRequired()) { updateStaticDescriptors(); }
-    if (bindings.dynamicDescriptorUpdateRequired()) {
-        updateDynamicDescriptors(vulkanState.currentFrameIndex());
+    if (staticSetsInited > 0 || bindings.staticDescriptorUpdateRequired()) {
+        --staticSetsInited;
+        updateStaticDescriptors(HeaderHelpers::getVulkanLayer(renderer).currentFrameIndex());
+    }
+    if (dynamicSetsInited > 0 || bindings.dynamicDescriptorUpdateRequired()) {
+        --dynamicSetsInited;
+        updateDynamicDescriptors(HeaderHelpers::getVulkanLayer(renderer).currentFrameIndex());
     }
 }
 
 template<typename TBindings>
-void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors() {
+void GenericDescriptorSetInstance<TBindings>::updateStaticDescriptors(std::uint32_t frame) {
     staticDescriptorSet.allocate(descriptorSetLayout);
-    SetWriteHelper writer(staticDescriptorSet.getSet());
-    bindings.writeSet(writer, UpdateSpeed::Static, 0);
-    writer.performWrite(vulkanState.device);
+    bindings.writeSet(setWriter, staticDescriptorSet.getSet(), UpdateSpeed::Static, frame);
+    setWriter.performWrite(HeaderHelpers::getVulkanLayer(renderer).getDevice());
 }
 
 template<typename TBindings>
 void GenericDescriptorSetInstance<TBindings>::updateDynamicDescriptors(std::uint32_t i) {
     dynamicDescriptorSets.getRaw(i).allocate(descriptorSetLayout);
-    SetWriteHelper writer(dynamicDescriptorSets.getRaw(i).getSet());
-    bindings.writeSet(writer, UpdateSpeed::Dynamic, i);
-    writer.performWrite(vulkanState.device);
-}
-
-template<typename TBindings>
-template<typename T>
-T& GenericDescriptorSetInstance<TBindings>::getBindingPayload() {
-    return bindings.template get<T>();
+    bindings.writeSet(setWriter, dynamicDescriptorSets.getRaw(i).getSet(), UpdateSpeed::Dynamic, i);
+    setWriter.performWrite(HeaderHelpers::getVulkanLayer(renderer).getDevice());
 }
 
 } // namespace ds

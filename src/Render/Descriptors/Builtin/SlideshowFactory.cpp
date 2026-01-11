@@ -8,7 +8,7 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 void SlideshowFactory::init(engine::Engine& e, Renderer& renderer) {
     engine = &e;
@@ -25,15 +25,15 @@ void SlideshowFactory::init(engine::Engine& e, Renderer& renderer) {
         binding.pImmutableSamplers = nullptr;
     }
 
-    descriptorSetLayout = renderer.vulkanState().descriptorPool.createLayout(bindings);
+    descriptorSetLayout = renderer.getDescriptorPool().createLayout(bindings);
 }
 
-std::unique_ptr<DescriptorSetInstance> SlideshowFactory::createDescriptorSet() const {
+std::unique_ptr<ds::DescriptorSetInstance> SlideshowFactory::createDescriptorSet() const {
     return std::make_unique<SlideshowInstance>(*engine);
 }
 
 std::type_index SlideshowFactory::creates() const { return typeid(SlideshowInstance); }
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl

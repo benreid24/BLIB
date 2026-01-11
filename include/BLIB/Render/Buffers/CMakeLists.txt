@@ -1,10 +1,13 @@
 target_sources(BLIB PUBLIC
+    AlignedBuffer.hpp
+    Alignment.hpp
 	BatchIndexBuffer.hpp
-	DynamicSSBO.hpp
-	FullyDynamicSSBO.hpp
+	BufferDoubleHostVisibleSourced.hpp
+	BufferDoubleHostVisible.hpp
+	BufferDoubleStaged.hpp
+	BufferSingleDeviceLocalSourced.hpp
 	IndexBuffer.hpp
-	StaticSSBO.hpp
-	StaticUniformBuffer.hpp
-	UniformBuffer.hpp
 	VertexBuffer.hpp
 )
+
+add_subdirectory(Interfaces)

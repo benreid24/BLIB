@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_SCENES_SCENE3D_HPP
 #define BLIB_RENDER_SCENES_SCENE3D_HPP
 
+#include <BLIB/Render/Lighting/Scene3DLighting.hpp>
 #include <BLIB/Render/Scenes/BatchedScene.hpp>
 
 namespace bl
@@ -28,6 +29,24 @@ public:
      */
     virtual ~Scene3D() = default;
 
+    /**
+     * @brief Returns the lighting for this scene
+     */
+    lgt::Scene3DLighting& getLighting() { return lighting; }
+
+    /**
+     * @brief Replaces the current strategy with a new one of type T. Default is
+     *        rgi::Scene2DRenderStrategy
+     *
+     * @param strategy The new render strategy to use
+     */
+    static void useRenderStrategy(rg::Strategy* strategy);
+
+    /**
+     * @brief Returns the render strategy to use for this scene type
+     */
+    virtual rg::Strategy* getRenderStrategy() override;
+
 protected:
     /**
      * @brief Creates a 3d camera
@@ -40,6 +59,14 @@ protected:
      * @param camera The camera to initialize
      */
     virtual void setDefaultNearAndFarPlanes(cam::Camera& camera) const override;
+
+    /**
+     * @brief Syncs the lighting descriptor set
+     */
+    virtual void onShaderResourceSync() override;
+
+private:
+    lgt::Scene3DLighting lighting;
 };
 
 } // namespace scene

@@ -3,37 +3,69 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Render/Graph/AssetTags.hpp>
+#include <BLIB/Render/Graph/Assets/DepthBuffer.hpp>
 #include <BLIB/Render/Graph/Assets/SceneAsset.hpp>
+#include <BLIB/Render/Graph/Tasks/RenderOverlayTask.hpp>
 #include <BLIB/Render/Renderer.hpp>
 #include <BLIB/Render/Scenes/Scene2D.hpp>
+#include <BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace bl
 {
 namespace rc
 {
+RenderTarget::SceneInstance::SceneInstance(engine::Engine& e, Renderer& r, RenderTarget* owner,
+                                           rg::AssetPool& pool, SceneRef s)
+: scene(s)
+, overlay(nullptr)
+, graph(e, r, pool, owner, s.get())
+, descriptorCache(ds::InitContext{e,
+                                  r,
+                                  *owner,
+                                  *s.get(),
+                                  r.getGlobalShaderResources(),
+                                  owner->getShaderResources(),
+                                  s->getShaderResources()})
+, observerIndex(0)
+, overlayIndex(0) {}
+
+RenderTarget::SceneInstance::~SceneInstance() {
+    if (scene) { scene->unregisterObserver(observerIndex); }
+    if (overlay) { overlay->unregisterObserver(observerIndex); }
+}
+
 RenderTarget::RenderTarget(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool rt)
 : isRenderTexture(rt)
 , engine(e)
 , renderer(r)
 , graphAssets(f, this)
-, resourcesFreed(false) {
+, descriptorFactories(renderer.descriptorFactoryCache())
+, shaderResources(e, *this)
+, resourcesFreed(false)
+, renderingTo(nullptr) {
     viewport.minDepth = 0.f;
     viewport.maxDepth = 1.f;
 
     clearColors[0].color        = {{0.f, 0.f, 0.f, 1.f}};
     clearColors[1].depthStencil = {1.f, 0};
+}
 
-    overlayProjView = overlayCamera.getProjectionMatrix(viewport) * overlayCamera.getViewMatrix();
+void RenderTarget::init() {
+    graphAssets.putAsset<rgi::DepthBuffer>();
+    shaderResources.getShaderResourceWithKey(sri::CameraBufferKey, *this);
 }
 
 RenderTarget::~RenderTarget() {
-    if (renderer.vulkanState().device != nullptr) { cleanup(); }
+    if (renderer.vulkanState().isInitialized()) { cleanup(); }
 }
 
 void RenderTarget::cleanup() {
     if (!resourcesFreed) {
         clearScenes();
+        graphAssets.cleanup();
+        shaderResources.cleanup();
         resourcesFreed = true;
     }
 }
@@ -59,7 +91,19 @@ Overlay* RenderTarget::createSceneOverlay() {
 
     scenes.back().overlayRef   = renderer.scenePool().allocateScene<Overlay>();
     scenes.back().overlay      = static_cast<Overlay*>(scenes.back().overlayRef.get());
-    scenes.back().overlayIndex = scenes.back().overlay->registerObserver();
+    scenes.back().overlayIndex = scenes.back().overlay->registerObserver(this);
+    scenes.back().overlayDescriptorCache.emplace(
+        ds::InitContext{engine,
+                        engine.renderer(),
+                        *this,
+                        *scenes.back().overlay,
+                        renderer.getGlobalShaderResources(),
+                        getShaderResources(),
+                        scenes.back().overlay->getShaderResources()});
+    graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().overlay, rg::AssetTags::OverlayInput);
+    scenes.back().graph.removeTasks<rgi::RenderOverlayTask>();
+    scenes.back().graph.putTask<rgi::RenderOverlayTask>(&scenes.back().overlayIndex);
+
     return scenes.back().overlay;
 }
 
@@ -107,38 +151,53 @@ void RenderTarget::removeScene(Scene* scene) {
 void RenderTarget::clearScenes() { scenes.clear(); }
 
 void RenderTarget::onSceneAdd() {
-    scenes.back().observerIndex = scenes.back().scene->registerObserver();
+    scenes.back().observerIndex = scenes.back().scene->registerObserver(this);
     onSceneChange();
 }
 
 void RenderTarget::onSceneChange() {
     if (hasScene()) {
-        graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get());
-        scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
+        graphAssets.replaceAsset<rgi::SceneAsset>(scenes.back().scene.get(),
+                                                  rg::AssetTags::SceneInput);
+        scenes.back().graph.populate(*scenes.back().scene);
         graphAssets.releaseUnused();
     }
 }
 
-void RenderTarget::handleDescriptorSync() {
+void RenderTarget::updateDescriptorsAndQueueTransfers() {
     if (hasScene()) {
-        if (!scenes.back().camera) {
-            if (!dynamic_cast<Overlay*>(scenes.back().scene.get())) {
+        auto& currentScene = scenes.back();
+
+        if (!currentScene.camera) {
+            if (!dynamic_cast<Overlay*>(currentScene.scene.get())) {
                 BL_LOG_WARN
                     << "Scene being rendered before having a camera set. Creating default camera";
             }
-            scenes.back().camera = scenes.back().scene->createDefaultCamera();
-            scenes.back().scene->setDefaultNearAndFarPlanes(*scenes.back().camera);
+            currentScene.camera = currentScene.scene->createDefaultCamera();
+            currentScene.scene->setDefaultNearAndFarPlanes(*currentScene.camera);
         }
 
-        const glm::mat4 projView = scenes.back().camera->getProjectionMatrix(viewport) *
-                                   scenes.back().camera->getViewMatrix();
-        scenes.back().scene->updateObserverCamera(scenes.back().observerIndex, projView);
-        scenes.back().scene->handleDescriptorSync();
-        if (scenes.back().overlay) {
-            scenes.back().overlay->updateObserverCamera(scenes.back().overlayIndex,
-                                                        overlayProjView);
-            scenes.back().overlay->handleDescriptorSync();
+        if (currentScene.graph.needsRepopulation()) {
+            currentScene.graph.populate(*currentScene.scene);
+            if (currentScene.overlay) {
+                currentScene.graph.putTask<rgi::RenderOverlayTask>(&currentScene.overlayIndex);
+            }
         }
+
+        shaderResources.performTransfers();
+        currentScene.descriptorCache.updateDescriptors();
+        if (currentScene.overlay) {
+            currentScene.overlayDescriptorCache.value().updateDescriptors();
+        }
+    }
+}
+
+void RenderTarget::copyDataFromSources() {
+    shaderResources.updateFromSources();
+    if (hasScene()) {
+        auto& currentScene = scenes.back();
+        currentScene.scene->syncShaderResources();
+        if (currentScene.overlay) { currentScene.overlay->syncShaderResources(); }
     }
 }
 
@@ -151,6 +210,7 @@ void RenderTarget::syncSceneObjects() {
 
 void RenderTarget::setClearColor(const Color& color) {
     clearColors[0].color = {{color.r(), color.g(), color.b(), color.a()}};
+    renderingTo->setShouldClearOnRestart(true);
 }
 
 glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {
@@ -167,7 +227,7 @@ glm::vec2 RenderTarget::transformToWorldSpace(const glm::vec2& sp) const {
 }
 
 glm::vec2 RenderTarget::getMousePosInWorldSpace() const {
-    const auto mpos = sf::Mouse::getPosition(engine.window().getSfWindow());
+    const auto mpos = sf::Mouse::getPosition(renderer.getWindow().getSfWindow());
     return transformToWorldSpace({mpos.x, mpos.y});
 }
 
@@ -175,14 +235,14 @@ glm::vec2 RenderTarget::transformToOverlaySpace(const glm::vec2& sp) const {
     const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
                         (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
     cam::OverlayCamera& cam = const_cast<cam::OverlayCamera&>(overlayCamera);
-    glm::mat4 tform = tform = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
+    glm::mat4 tform = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
     tform                   = glm::inverse(tform);
     const glm::vec4 result  = tform * glm::vec4(ndc, 0.f, 1.f);
     return {result.x, result.y};
 }
 
 glm::vec2 RenderTarget::getMousePosInOverlaySpace() const {
-    const auto mpos = sf::Mouse::getPosition(engine.window().getSfWindow());
+    const auto mpos = sf::Mouse::getPosition(renderer.getWindow().getSfWindow());
     return transformToOverlaySpace({mpos.x, mpos.y});
 }
 
@@ -196,60 +256,43 @@ void RenderTarget::setCamera(std::unique_ptr<cam::Camera>&& cam) {
 
 void RenderTarget::renderScene(VkCommandBuffer commandBuffer) {
     if (hasScene()) {
+        auto& currentScene = scenes.back();
 #ifdef BLIB_DEBUG
-        if (!scenes.back().camera) {
+        if (!currentScene.camera) {
             BL_LOG_ERROR << "Scene pushed to RenderTarget without calling setCamera()";
         }
 #endif
 
-        if (scenes.back().graph.needsRepopulation()) {
-            scenes.back().graph.populate(renderer.getRenderStrategy(), *scenes.back().scene);
-        }
-
-        scenes.back().graph.execute(commandBuffer, scenes.back().observerIndex, isRenderTexture);
+        currentScene.graph.execute(commandBuffer, currentScene.observerIndex, isRenderTexture);
     }
 }
 
-void RenderTarget::renderSceneFinal(VkCommandBuffer commandBuffer) {
-    if (hasScene()) {
-        scenes.back().graph.executeFinal(
-            commandBuffer, scenes.back().observerIndex, isRenderTexture);
-    }
-}
+void RenderTarget::resetAssets() { graphAssets.startFrame(); }
 
-void RenderTarget::renderOverlay(VkCommandBuffer commandBuffer) {
-    if (hasScene()) {
-        if (scenes.back().overlay) {
-            vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-            vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
-
-            VkClearAttachment attachment{};
-            attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-            attachment.clearValue = clearColors[1];
-
-            VkClearRect rect{};
-            rect.rect           = scissor;
-            rect.baseArrayLayer = 0;
-            rect.layerCount     = 1;
-
-            vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
-
-            scene::SceneRenderContext ctx(commandBuffer,
-                                          scenes.back().overlayIndex,
-                                          viewport,
-                                          RenderPhase::Overlay,
-                                          isRenderTexture ?
-                                              Config::RenderPassIds::StandardAttachmentDefault :
-                                              Config::RenderPassIds::SwapchainDefault,
-                                          isRenderTexture);
-            scenes.back().overlay->renderScene(ctx);
+ds::DescriptorSetInstanceCache* RenderTarget::getDescriptorSetCache(Scene* scene) {
+    for (auto& s : scenes) {
+        if (s.scene.get() == scene) { return &s.descriptorCache; }
+        if (s.overlay && s.overlay == scene && s.overlayDescriptorCache.has_value()) {
+            return &s.overlayDescriptorCache.value();
         }
     }
+    return nullptr;
 }
 
-void RenderTarget::compositeSceneAndOverlay(VkCommandBuffer commandBuffer) {
-    renderSceneFinal(commandBuffer);
-    renderOverlay(commandBuffer);
+void RenderTarget::initPipelineInstance(Scene* scene, std::uint32_t pid,
+                                        vk::PipelineInstance& instance) {
+    vk::Pipeline* pipeline                         = &renderer.pipelineCache().getPipeline(pid);
+    ds::DescriptorSetInstanceCache* descriptorSets = getDescriptorSetCache(scene);
+    if (!pipeline) {
+        BL_LOG_ERROR << "Failed to get pipeline with id: " << pid;
+        return;
+    }
+    if (!descriptorSets) {
+        BL_LOG_ERROR
+            << "Failed to get descriptor set cache for scene. RenderTarget does not render it";
+        return;
+    }
+    instance.init(pipeline, *descriptorSets);
 }
 
 } // namespace rc

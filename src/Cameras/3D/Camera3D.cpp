@@ -1,7 +1,7 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 
 #include <BLIB/Math/Trig.hpp>
-#include <BLIB/Render/Config.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 
@@ -47,7 +47,7 @@ void Camera3D::refreshViewMatrix(glm::mat4& view) {
     // roll by rotating up vector around look vector
     const glm::vec3 up =
         glm::mat3(glm::rotate(glm::radians(orient.getRoll()), orient.getFaceDirection())) *
-        rc::Config::UpDirection;
+        rc::cfg::Constants::UpDirection;
 
     view = glm::lookAt(pos, pos + orient.getFaceDirection(), up);
 }
@@ -84,6 +84,8 @@ void Camera3D::removeAffector(const CameraAffector3D* a) {
 }
 
 glm::vec2 Camera3D::getViewerSize() const { return cachedViewportSize; }
+
+glm::vec3 Camera3D::getObserverPosition() const { return getPosition(); }
 
 } // namespace cam
 } // namespace bl

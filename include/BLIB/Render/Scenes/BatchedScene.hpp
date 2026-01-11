@@ -1,8 +1,11 @@
 #ifndef BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 #define BLIB_RENDER_RENDERER_BATCHEDSCENE_HPP
 
+#include <BLIB/Render/Descriptors/InstanceTable.hpp>
+#include <BLIB/Render/Events/SceneObjectRemoved.hpp>
 #include <BLIB/Render/Scenes/Scene.hpp>
 #include <BLIB/Render/Scenes/SceneObjectStorage.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 
 namespace bl
 {
@@ -31,11 +34,18 @@ public:
     virtual ~BatchedScene();
 
     /**
-     * @brief Derived classes should record render commands in here
+     * @brief Renders opaque objects in the scene
      *
      * @param context Render context containing scene render data
      */
-    virtual void renderScene(scene::SceneRenderContext& context) override;
+    virtual void renderOpaqueObjects(scene::SceneRenderContext& context) override;
+
+    /**
+     * @brief Renders opaque transparent in the scene
+     *
+     * @param context Render context containing scene render data
+     */
+    virtual void renderTransparentObjects(scene::SceneRenderContext& context) override;
 
 protected:
     /**
@@ -61,7 +71,8 @@ protected:
                                  mat::MaterialPipeline* pipeline) override;
 
     /**
-     * @brief Called by Scene in handleDescriptorSync for objects that need to be re-batched
+     * @brief Called by Scene in updateDescriptorsAndQueueTransfers for objects that need to be
+     * re-batched
      *
      * @param change Details of the change
      * @param ogPipeline The original pipeline of the object being changed
@@ -69,58 +80,86 @@ protected:
     virtual void doBatchChange(const BatchChange& change,
                                mat::MaterialPipeline* ogPipeline) override;
 
-private:
-    struct PipelineBatch {
-        PipelineBatch(mat::MaterialPipeline& pipeline)
-        : pipeline(pipeline) {
-            objects.reserve(Config::DefaultSceneObjectCapacity / 2);
-        }
+    /**
+     * @brief Called when a new observer is going to render the scene
+     *
+     * @param target The render target that will observe the scene
+     * @param observerIndex The index of the observer in the renderer
+     */
+    virtual void doRegisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
 
-        mat::MaterialPipeline& pipeline;
-        std::vector<SceneObject*> objects;
+    /**
+     * @brief Called when an observer is no longer rendering the scene
+     *
+     * @param target The observer that is stopping rendering
+     * @param observerIndex The index of the observer stopping rendering
+     */
+    virtual void doUnregisterObserver(RenderTarget* target, std::uint32_t observerIndex) override;
+
+private:
+    struct SpecializationBatch {
+        const std::uint32_t specializationId;
+        std::vector<SceneObject*> objectsStatic;
+        std::vector<SceneObject*> objectsDynamic;
+
+        SpecializationBatch(std::uint32_t specializationId);
+        void addObject(SceneObject* sceneObject);
+        bool removeObject(SceneObject* sceneObject);
     };
 
-    struct LayoutBatch {
-        LayoutBatch(ds::DescriptorSetInstanceCache& descriptorCache,
-                    const vk::PipelineLayout& layout)
-        : layout(layout)
-        , descriptorCount(layout.initDescriptorSets(descriptorCache, descriptors.data()))
-        , perObjStart(descriptorCount)
-        , bindless(true) {
-            staticBatches.reserve(8);
-            dynamicBatches.reserve(8);
-            for (std::uint8_t i = 0; i < descriptorCount; ++i) {
-                if (!descriptors[i]->isBindless()) {
-                    perObjStart = i;
-                    bindless    = false;
-                    break;
-                }
-            }
-        }
+    struct PipelineBatch {
+        PipelineBatch(const PipelineBatch& src);
+        PipelineBatch(Scene* scene, mat::MaterialPipeline& pipeline);
 
-        const vk::PipelineLayout& layout;
-        std::array<ds::DescriptorSetInstance*, Config::MaxDescriptorSets> descriptors;
-        std::uint8_t descriptorCount;
-        std::uint8_t perObjStart;
-        std::vector<PipelineBatch> staticBatches;
-        std::vector<PipelineBatch> dynamicBatches;
-        bool bindless;
+        void initObserversMaybe(TargetTable& targets);
+        void registerObserver(unsigned int index, RenderTarget& observer);
+        void unregisterObserver(unsigned int index, RenderTarget& observer);
+        bool addObject(ecs::Entity entity, SceneObject* sceneObject, std::uint32_t specialization);
+        void addForRebatch(SceneObject* object, std::uint32_t specialization);
+        void removeObject(ecs::Entity entity, SceneObject* object, std::uint32_t specialization);
+        bool removeForRebatch(SceneObject* object, std::uint32_t specialization);
+        void updateDescriptors(ecs::Entity entity, SceneObject* object, PipelineBatch& prevBatch);
+
+        bool needsObserverInit;
+        mat::MaterialPipeline& pipeline;
+        std::array<ds::InstanceTable, cfg::Limits::MaxRenderPhases> perPhaseDescriptors;
+        ctr::StaticVector<SpecializationBatch, cfg::Limits::MaxPipelineSpecializations> specBatches;
+        ctr::StaticVector<ds::DescriptorSetInstance*,
+                          cfg::Limits::MaxDescriptorSets * cfg::Limits::MaxRenderPhases>
+            allDescriptors;
     };
 
     struct ObjectBatch {
         ObjectBatch() { batches.reserve(8); }
-        std::vector<LayoutBatch> batches;
+        void registerObserver(unsigned int index, RenderTarget& observer);
+        PipelineBatch& getOrCreateBatch(Scene* scene, mat::MaterialPipeline& pipeline);
+        PipelineBatch* getBatch(mat::MaterialPipeline* pipeline);
+        PipelineBatch& getBatch(const PipelineBatch& src);
+        void removeObject(ecs::Entity entity, SceneObject* object, mat::MaterialPipeline* pipeline,
+                          std::uint32_t specialization);
+
+        std::vector<PipelineBatch> batches;
+    };
+
+    struct ObjectSettingsCache {
+        std::vector<bool> transparency;
+        std::vector<std::uint32_t> specializations;
+
+        ObjectSettingsCache();
+        void ensureSize(std::uint32_t size);
     };
 
     engine::Engine& engine;
     SceneObjectStorage<SceneObject> objects;
     ObjectBatch opaqueObjects;
     ObjectBatch transparentObjects;
-    std::vector<bool> staticTransCache;
-    std::vector<bool> dynamicTransCache;
+    ObjectSettingsCache staticCache;
+    ObjectSettingsCache dynamicCache;
+    sig::Emitter<event::SceneObjectRemoved> emitter;
 
     void handleAddressChange(UpdateSpeed speed, SceneObject* oldBase);
     void releaseObject(SceneObject* object, mat::MaterialPipeline* pipeline);
+    void renderBatch(scene::SceneRenderContext& ctx, ObjectBatch& batch);
 };
 
 } // namespace scene

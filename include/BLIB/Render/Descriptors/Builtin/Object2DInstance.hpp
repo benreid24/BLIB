@@ -7,11 +7,11 @@ namespace bl
 {
 namespace rc
 {
-namespace ds
+namespace dsi
 {
 namespace priv
 {
-using Object2DBindings = Bindings<Transform2DBinding, TextureBinding>;
+using Object2DBindings = ds::Bindings<Transform2DBinding, TextureBinding>;
 } // namespace priv
 
 /**
@@ -20,9 +20,9 @@ using Object2DBindings = Bindings<Transform2DBinding, TextureBinding>;
  *
  * @ingroup Renderer
  */
-using Object2DInstance = GenericDescriptorSetInstance<priv::Object2DBindings>;
+using Object2DInstance = ds::GenericDescriptorSetInstance<priv::Object2DBindings>;
 
-} // namespace ds
+} // namespace dsi
 } // namespace rc
 } // namespace bl
 
