@@ -422,7 +422,8 @@ TEST(RenderGraph, BasicSceneRender) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     SceneRenderTask* task = graph.putTask<SceneRenderTask>();
 
@@ -440,7 +441,8 @@ TEST(RenderGraph, SceneWithPostFX) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -459,7 +461,8 @@ TEST(RenderGraph, SceneWithPostFXAndShadows) {
     pool.putAsset<ShadowLights>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -479,7 +482,8 @@ TEST(RenderGraph, SceneWithPostFXChainAndShadows) {
     pool.putAsset<ShadowLights>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXTask>();
@@ -500,9 +504,10 @@ TEST(RenderGraph, MultipleGraphsSharedAssets) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
+    Renderer renderer(engine, {});
 
-    RenderGraph graph1(engine, engine.renderer(), pool, nullptr, nullptr);
-    RenderGraph graph2(engine, engine.renderer(), pool, nullptr, nullptr);
+    RenderGraph graph1(engine, renderer, pool, nullptr, nullptr);
+    RenderGraph graph2(engine, renderer, pool, nullptr, nullptr);
 
     graph1.putTask<SceneRenderTask>();
     graph1.putTask<PostFXTask>();
@@ -527,7 +532,8 @@ TEST(RenderGraph, TasksSharingInputs) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     graph.putTask<SceneRenderTask>();
     graph.putTask<PostFXBloomTask>();
@@ -546,7 +552,8 @@ TEST(RenderGraph, TasksSharingExternalInputsAndOutputs) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     int counter = 0;
     auto* task1 = graph.putTask<ExternalSharingTask>(TaskOutput::First, counter);
@@ -568,7 +575,8 @@ TEST(RenderGraph, TaskSharedOnlyOutput) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     int counter = 0;
     auto* task2 = graph.putTask<ExclusivelySharedTask>(TaskOutput::Last, counter);
@@ -592,7 +600,8 @@ TEST(RenderGraph, TaskSharedOnlyOutputExternal) {
     Swapframe* swapframe = pool.putAsset<Swapframe>();
 
     engine::Engine engine(engine::Settings{});
-    RenderGraph graph(engine, engine.renderer(), pool, nullptr, nullptr);
+    Renderer renderer(engine, {});
+    RenderGraph graph(engine, renderer, pool, nullptr, nullptr);
 
     int counter = 0;
     auto* task2 = graph.putTask<ExclusivelySharedTask>(TaskOutput::Last, counter);
