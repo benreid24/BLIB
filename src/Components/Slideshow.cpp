@@ -20,13 +20,13 @@ bool Slideshow::create(rc::Renderer& renderer, const Animation2DPlayer& anim) {
 
     const sf::FloatRect src(anim.getAnimation()->getFrame(0).shards.front().source);
     indexBuffer.vertices()[0].pos = {0.f, 0.f, 0.f};
-    indexBuffer.vertices()[1].pos = {src.width, 0.f, 0.f};
-    indexBuffer.vertices()[2].pos = {src.width, src.height, 0.f};
-    indexBuffer.vertices()[3].pos = {0.f, src.height, 0.f};
+    indexBuffer.vertices()[1].pos = {src.size.x, 0.f, 0.f};
+    indexBuffer.vertices()[2].pos = {src.size.x, src.size.y, 0.f};
+    indexBuffer.vertices()[3].pos = {0.f, src.size.y, 0.f};
     for (rc::prim::SlideshowVertex& vertex : indexBuffer.vertices()) {
         vertex.slideshowIndex = anim.getPlayerIndex();
     }
-    size       = {src.width, src.height};
+    size       = {src.size.x, src.size.y};
     drawParams = indexBuffer.getDrawParameters();
 
     indexBuffer.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);

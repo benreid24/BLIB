@@ -21,8 +21,8 @@ ArrowSelector::Ptr ArrowSelector::create(float w, const sf::Color& f) {
 
 void ArrowSelector::notifySelection(ecs::Entity, sf::FloatRect itemArea) {
     triangle.getTransform().setPosition(
-        {itemArea.left - width - 2.f,
-         itemArea.top + itemArea.height * 0.5f - width * HeightRatio * 0.5f});
+        {itemArea.position.x - width - 2.f,
+         itemArea.position.y + itemArea.size.y * 0.5f - width * HeightRatio * 0.5f});
 }
 
 void ArrowSelector::doSceneAdd(rc::Scene* s) { triangle.addToScene(s, rc::UpdateSpeed::Static); }

@@ -81,14 +81,14 @@ Button::Ptr Slider::getDecreaseButton() { return decreaseBut; }
 
 sf::Vector2f Slider::minimumRequisition() const {
     const sf::Vector2f max(
-        std::max(std::max(slider->getAcquisition().width, increaseBut->getAcquisition().width),
-                 decreaseBut->getAcquisition().width),
-        std::max(std::max(slider->getAcquisition().height, increaseBut->getAcquisition().height),
-                 decreaseBut->getAcquisition().height));
-    const sf::Vector2f sum(slider->getAcquisition().width + increaseBut->getAcquisition().width +
-                               decreaseBut->getAcquisition().width,
-                           slider->getAcquisition().height + increaseBut->getAcquisition().height +
-                               decreaseBut->getAcquisition().height);
+        std::max(std::max(slider->getAcquisition().size.x, increaseBut->getAcquisition().size.x),
+                 decreaseBut->getAcquisition().size.x),
+        std::max(std::max(slider->getAcquisition().size.y, increaseBut->getAcquisition().size.y),
+                 decreaseBut->getAcquisition().size.y));
+    const sf::Vector2f sum(slider->getAcquisition().size.x + increaseBut->getAcquisition().size.x +
+                               decreaseBut->getAcquisition().size.x,
+                           slider->getAcquisition().size.y + increaseBut->getAcquisition().size.y +
+                               decreaseBut->getAcquisition().size.y);
 
     if (dir == Horizontal) return {sum.x, max.y};
     return {max.x, sum.y};
@@ -128,12 +128,12 @@ void Slider::clicked(const Event& click) {
 
     float pos = 0;
     if (dir == Horizontal) {
-        pos = click.mousePosition().x - getAcquisition().left;
-        pos -= decreaseBut->visible() ? decreaseBut->getAcquisition().width : 0.f;
+        pos = click.mousePosition().x - getAcquisition().position.x;
+        pos -= decreaseBut->visible() ? decreaseBut->getAcquisition().size.x : 0.f;
     }
     else {
-        pos = click.mousePosition().y - getAcquisition().top;
-        pos -= decreaseBut->visible() ? decreaseBut->getAcquisition().height : 0.f;
+        pos = click.mousePosition().y - getAcquisition().position.y;
+        pos -= decreaseBut->visible() ? decreaseBut->getAcquisition().size.y : 0.f;
     }
 
     value = pos / freeSpace;
@@ -143,40 +143,40 @@ void Slider::clicked(const Event& click) {
 int Slider::calculateFreeSize() const {
     int size = 0;
     if (dir == Horizontal) {
-        size = getAcquisition().width - slider->getAcquisition().width;
-        if (increaseBut->visible()) size -= increaseBut->getAcquisition().width;
-        if (decreaseBut->visible()) size -= decreaseBut->getAcquisition().width;
+        size = getAcquisition().size.x - slider->getAcquisition().size.x;
+        if (increaseBut->visible()) size -= increaseBut->getAcquisition().size.x;
+        if (decreaseBut->visible()) size -= decreaseBut->getAcquisition().size.x;
     }
     else {
-        size = getAcquisition().height - slider->getAcquisition().height;
-        if (increaseBut->visible()) size -= increaseBut->getAcquisition().height;
-        if (decreaseBut->visible()) size -= decreaseBut->getAcquisition().height;
+        size = getAcquisition().size.y - slider->getAcquisition().size.y;
+        if (increaseBut->visible()) size -= increaseBut->getAcquisition().size.y;
+        if (decreaseBut->visible()) size -= decreaseBut->getAcquisition().size.y;
     }
     return size;
 }
 
 void Slider::onAcquisition() {
-    if (value < 0) value = 0;
-    if (value > 1) value = 1;
+if (value < 0) value = 0;
+if (value > 1) value = 1;
 
-    constexpr float ButPadding = 0.15f;
-    const float butSize        = std::min(getAcquisition().width, getAcquisition().height);
-    freeSpace    = (dir == Horizontal) ? getAcquisition().width : getAcquisition().height;
+constexpr float ButPadding = 0.15f;
+const float butSize        = std::min(getAcquisition().size.x, getAcquisition().size.y);
+freeSpace    = (dir == Horizontal) ? getAcquisition().size.x : getAcquisition().size.y;
     float offset = 0;
     if (decreaseBut->visible()) {
         decreaseBut->setChildPadding(butSize * ButPadding, false);
         Packer::manuallyPackElement(
-            decreaseBut, {getAcquisition().left, getAcquisition().top, butSize, butSize});
+            decreaseBut, {{getAcquisition().position.x, getAcquisition().position.y}, {butSize, butSize}});
         offset += butSize;
         freeSpace -= butSize;
     }
     if (increaseBut->visible()) {
         increaseBut->setChildPadding(butSize * ButPadding, false);
-        const float x = (dir == Horizontal) ? (getAcquisition().width - butSize) : (0);
-        const float y = (dir == Vertical) ? (getAcquisition().height - butSize) : (0);
+        const float x = (dir == Horizontal) ? (getAcquisition().size.x - butSize) : (0);
+        const float y = (dir == Vertical) ? (getAcquisition().size.y - butSize) : (0);
 
         Packer::manuallyPackElement(
-            increaseBut, {x + getAcquisition().left, y + getAcquisition().top, butSize, butSize});
+            increaseBut, {{x + getAcquisition().position.x, y + getAcquisition().position.y}, {butSize, butSize}});
         freeSpace -= butSize;
     }
 
@@ -186,15 +186,15 @@ void Slider::onAcquisition() {
 
     if (dir == Horizontal)
         Packer::manuallyPackElement(
-            slider, {pos + getAcquisition().left, getAcquisition().top, sliderSize, butSize});
+            slider, {{pos + getAcquisition().position.x, getAcquisition().position.y}, {sliderSize, butSize}});
     else
         Packer::manuallyPackElement(
-            slider, {getAcquisition().left, pos + getAcquisition().top, butSize, sliderSize});
+            slider, {{getAcquisition().position.x, pos + getAcquisition().position.y}, {butSize, sliderSize}});
 }
 
 void Slider::updateSliderPos() {
     const float offset =
-        increaseBut->visible() ? std::min(getAcquisition().width, getAcquisition().height) : 0.f;
+        increaseBut->visible() ? std::min(getAcquisition().size.x, getAcquisition().size.y) : 0.f;
     const float pos = offset + freeSpace * value;
 
     if (dir == Horizontal) { slider->setPosition(getPosition() + sf::Vector2f{pos, 0}); }

@@ -103,9 +103,9 @@ void BatchSlideshow::commit() {
         rc::prim::SlideshowVertex* vertices = alloc.getVertices();
         const sf::FloatRect src(player->getAnimation()->getFrame(0).shards.front().source);
         vertices[0].pos = {0.f, 0.f, 0.f};
-        vertices[1].pos = {src.width, 0.f, 0.f};
-        vertices[2].pos = {src.width, src.height, 0.f};
-        vertices[3].pos = {0.f, src.height, 0.f};
+        vertices[1].pos = {src.size.x, 0.f, 0.f};
+        vertices[2].pos = {src.size.x, src.size.y, 0.f};
+        vertices[3].pos = {0.f, src.size.y, 0.f};
         for (unsigned int i = 0; i < 4; ++i) {
             rc::prim::SlideshowVertex& vertex = vertices[i];
             vertex.slideshowIndex             = player->getPlayerIndex();

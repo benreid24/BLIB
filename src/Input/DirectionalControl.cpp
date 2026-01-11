@@ -22,7 +22,7 @@ DirectionalControl::DirectionalControl(bool jm)
 : type(jm ? Type::Joystick : Type::Mouse) {}
 
 bool DirectionalControl::process(const InputSystem& system, const sf::Event& event) {
-    if (type == Type::Mouse && event.type == sf::Event::MouseMoved) {
+    if (type == Type::Mouse && event.is<sf::Event::MouseMoved>()) {
         normalizedDirection = system.mouseUnitVector();
         return true;
     }
@@ -49,9 +49,7 @@ void DirectionalControl::loadFromConfig(const std::string& prefix) {
 
 std::string DirectionalControl::toString() const {
     if (type == Type::Joystick) { return joystick.toString(); }
-    else {
-        return "Mouse";
-    }
+    else { return "Mouse"; }
 }
 
 } // namespace input

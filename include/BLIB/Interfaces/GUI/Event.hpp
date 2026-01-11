@@ -113,10 +113,10 @@ struct Event {
      * @brief Creates an action of the given Type and position and sets the extra data
      *
      * @param type The type of Event
-     * @param key Key to set the extra data to
+     * @param key Keyboard key event that was pressed/released
      * @param pos The mouse position relative to the containing window
      */
-    Event(Type type, sf::Event::KeyEvent key, const sf::Vector2f& pos);
+    Event(Type type, sf::Event::KeyPressed key, const sf::Vector2f& pos);
 
     /**
      * @brief Creates an action of the given Type and position and sets the extra data
@@ -175,7 +175,7 @@ struct Event {
      * @brief Returns the key event data for some event types
      *
      */
-    const sf::Event::KeyEvent& key() const;
+    sf::Event::KeyPressed key() const;
 
     /**
      * @brief Returns the starting position of the drag event
@@ -191,7 +191,7 @@ struct Event {
 
 private:
     const Type t;
-    std::variant<std::uint32_t, float, bool, sf::Event::KeyEvent, sf::Vector2f, std::string> data;
+    std::variant<std::uint32_t, float, bool, sf::Event::KeyPressed, sf::Vector2f, std::string> data;
     const sf::Vector2f position;
 };
 

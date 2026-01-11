@@ -137,37 +137,37 @@ void TextEntry::showAndResetCursor() {
 void TextEntry::onKeypress(const Event& action) {
     if (action.type() != Event::KeyPressed) return;
 
-    if (action.key().code == sf::Keyboard::Right) {
+    if (action.key().code == sf::Keyboard::Key::Right) {
         if (cursorPos < input.size()) ++cursorPos;
         showAndResetCursor();
     }
-    else if (action.key().code == sf::Keyboard::Left) {
+    else if (action.key().code == sf::Keyboard::Key::Left) {
         if (cursorPos > 0) --cursorPos;
         showAndResetCursor();
     }
-    else if (action.key().code == sf::Keyboard::Up) {
+    else if (action.key().code == sf::Keyboard::Key::Up) {
         if (currentLine > 0) cursorUp();
         showAndResetCursor();
     }
-    else if (action.key().code == sf::Keyboard::Down) {
+    else if (action.key().code == sf::Keyboard::Key::Down) {
         if (currentLine < newlines.size() - 2) cursorDown();
         showAndResetCursor();
     }
-    else if (action.key().code == sf::Keyboard::Home) {
+    else if (action.key().code == sf::Keyboard::Key::Home) {
         cursorPos = newlines[currentLine] + 1;
         showAndResetCursor();
     }
-    else if (action.key().code == sf::Keyboard::End) {
+    else if (action.key().code == sf::Keyboard::Key::End) {
         cursorPos = newlines[currentLine + 1];
         showAndResetCursor();
     }
-    else if (action.key().code == sf::Keyboard::Delete) {
+    else if (action.key().code == sf::Keyboard::Key::Delete) {
         if (cursorPos < input.size()) input.erase(cursorPos, 1);
         filter();
         fireChanged();
         refreshComponent();
     }
-    else if (action.key().code == sf::Keyboard::Return) {
+    else if (action.key().code == sf::Keyboard::Key::Enter) {
         if (newlines.size() - 1 < lineCount || allowMoreLines) {
             if (cursorPos < input.size())
                 input.insert(cursorPos, 1, '\n');
@@ -179,7 +179,7 @@ void TextEntry::onKeypress(const Event& action) {
         fireChanged();
         refreshComponent();
     }
-    else if (action.key().control && action.key().code == sf::Keyboard::V) {
+    else if (action.key().control && action.key().code == sf::Keyboard::Key::V) {
         const std::string c = sf::Clipboard::getString().toAnsiString();
         if (cursorPos < input.size())
             input.insert(cursorPos, c);

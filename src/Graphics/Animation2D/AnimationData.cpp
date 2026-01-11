@@ -93,10 +93,10 @@ bool AnimationData::saveToBundle(std::ostream& os) const {
         output.write<std::uint32_t>(static_cast<std::uint32_t>(frame.length * 1000.f));
         output.write<std::uint16_t>(frame.shards.size());
         for (const Frame::Shard& shard : frame.shards) {
-            output.write<std::uint32_t>(shard.source.left);
-            output.write<std::uint32_t>(shard.source.top);
-            output.write<std::uint32_t>(shard.source.width);
-            output.write<std::uint32_t>(shard.source.height);
+            output.write<std::uint32_t>(shard.source.position.x);
+            output.write<std::uint32_t>(shard.source.position.y);
+            output.write<std::uint32_t>(shard.source.size.x);
+            output.write<std::uint32_t>(shard.source.size.y);
             output.write<std::uint32_t>(static_cast<std::uint32_t>(shard.scale.x * 100.f));
             output.write<std::uint32_t>(static_cast<std::uint32_t>(shard.scale.y * 100.f));
             output.write<std::int32_t>(shard.offset.x);
@@ -166,13 +166,13 @@ bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string
             uint32_t u32;
             int32_t s32;
             if (!input.read(u32)) return false;
-            shard.source.left = u32;
+            shard.source.position.x = u32;
             if (!input.read(u32)) return false;
-            shard.source.top = u32;
+            shard.source.position.y = u32;
             if (!input.read(u32)) return false;
-            shard.source.width = u32;
+            shard.source.size.x = u32;
             if (!input.read(u32)) return false;
-            shard.source.height = u32;
+            shard.source.size.y = u32;
             if (!input.read(u32)) return false;
             shard.scale.x = static_cast<float>(u32) / 100.0f;
             if (!input.read(u32)) return false;
@@ -216,10 +216,10 @@ void AnimationData::populateDerivedState() {
 
         for (auto& shard : frame.shards) {
             const sf::FloatRect source(shard.source);
-            shard.normalizedSource.left   = source.left / size.x;
-            shard.normalizedSource.top    = source.top / size.y;
-            shard.normalizedSource.width  = source.width / size.x;
-            shard.normalizedSource.height = source.height / size.y;
+            shard.normalizedSource.position.x = source.position.x / size.x;
+            shard.normalizedSource.position.y = source.position.y / size.y;
+            shard.normalizedSource.size.x     = source.size.x / size.x;
+            shard.normalizedSource.size.y     = source.size.y / size.y;
         }
     }
     if (!frames.empty()) { frames.back().nextFrame = 0; }
@@ -234,23 +234,23 @@ bool AnimationData::isLooping() const { return loop; }
 float AnimationData::getLength() const { return totalLength; }
 
 void AnimationData::computeFrameSize(Frame& frame) {
-    sf::FloatRect bounds(1000000.f, 1000000.f, -1000000.f, -1000000.f);
+    sf::FloatRect bounds({1000000.f, 1000000.f}, {-1000000.f, -1000000.f});
     for (auto& shard : frame.shards) {
         const sf::FloatRect source(shard.source);
-        const sf::Vector2f center(source.width * 0.5f, source.height * 0.5f);
+        const sf::Vector2f center(source.size.x * 0.5f, source.size.y * 0.5f);
         sf::Transform transform;
-        transform.rotate(shard.rotation, center);
+        transform.rotate(sf::degrees(shard.rotation), center);
         transform.scale(shard.scale, center);
         transform.translate(shard.offset);
 
         const sf::FloatRect shardBounds = transform.transformRect(source);
-        bounds.left                     = std::min(bounds.left, shardBounds.left);
-        bounds.top                      = std::min(bounds.top, shardBounds.top);
-        bounds.width  = std::max(bounds.width, shardBounds.left + shardBounds.width);
-        bounds.height = std::max(bounds.height, shardBounds.top + shardBounds.height);
+        bounds.position.x               = std::min(bounds.position.x, shardBounds.position.x);
+        bounds.position.y               = std::min(bounds.position.y, shardBounds.position.y);
+        bounds.size.x = std::max(bounds.size.x, shardBounds.position.x + shardBounds.size.x);
+        bounds.size.y = std::max(bounds.size.y, shardBounds.position.y + shardBounds.size.y);
     }
 
-    frame.size = {bounds.width - bounds.left, bounds.height - bounds.top};
+    frame.size = {bounds.size.x - bounds.position.x, bounds.size.y - bounds.position.y};
 }
 
 sf::Vector2f AnimationData::getMaxSize() const {

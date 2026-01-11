@@ -46,14 +46,14 @@ glm::u32vec2 ImageStitcher::addImage(const sf::Image& img) {
         std::max(image.getSize().y, bestRow->y + bestRow->height));
     if (requiredSize.x > image.getSize().x || requiredSize.y > image.getSize().y) {
         sf::Image newImage;
-        newImage.create(requiredSize.x, requiredSize.y, sf::Color::Transparent);
-        newImage.copy(image, 0, 0);
+        newImage.resize({requiredSize.x, requiredSize.y}, sf::Color::Transparent);
+        newImage.copy(image, {0, 0});
         image = std::move(newImage);
     }
 
     const glm::u32vec2 pos(bestRow->width + padding, bestRow->y);
     bestRow->width += img.getSize().x + padding;
-    image.copy(img, pos.x, pos.y);
+    image.copy(img, {pos.x, pos.y});
     return pos;
 }
 

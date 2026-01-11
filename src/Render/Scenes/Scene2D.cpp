@@ -22,7 +22,7 @@ Scene2D::Scene2D(engine::Engine& e)
 , lighting(shaderInputStore.getShaderResourceWithKey(sri::Scene2DLightingKey)->getBuffer()[0]) {}
 
 std::unique_ptr<cam::Camera> Scene2D::createDefaultCamera() {
-    auto cam = std::make_unique<cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
+    auto cam = std::make_unique<cam::Camera2D>(sf::FloatRect{{0.f, 0.f}, {1920.f, 1080.f}});
     cam->setNearAndFarPlanes(DefaultNear, -DefaultFar);
     return cam;
 }

@@ -44,15 +44,17 @@ std::uint32_t addGlyphQuad(rc::prim::Vertex* vertices, std::uint32_t i, glm::vec
                            const glm::vec4& color, const sf::Glyph& glyph, float italicShear) {
     constexpr float padding = 1.0;
 
-    const float left   = glyph.bounds.left - padding;
-    const float top    = glyph.bounds.top - padding;
-    const float right  = glyph.bounds.left + glyph.bounds.width + padding;
-    const float bottom = glyph.bounds.top + glyph.bounds.height + padding;
+    const float left   = glyph.bounds.position.x - padding;
+    const float top    = glyph.bounds.position.y - padding;
+    const float right  = glyph.bounds.position.x + glyph.bounds.size.x + padding;
+    const float bottom = glyph.bounds.position.y + glyph.bounds.size.y + padding;
 
-    const float u1 = static_cast<float>(glyph.textureRect.left) - padding;
-    const float v1 = static_cast<float>(glyph.textureRect.top) - padding;
-    const float u2 = static_cast<float>(glyph.textureRect.left + glyph.textureRect.width) + padding;
-    const float v2 = static_cast<float>(glyph.textureRect.top + glyph.textureRect.height) + padding;
+    const float u1 = static_cast<float>(glyph.textureRect.position.x) - padding;
+    const float v1 = static_cast<float>(glyph.textureRect.position.y) - padding;
+    const float u2 =
+        static_cast<float>(glyph.textureRect.position.x + glyph.textureRect.size.x) + padding;
+    const float v2 =
+        static_cast<float>(glyph.textureRect.position.y + glyph.textureRect.size.y) + padding;
 
     if (vertices) {
         vertices[i] = rc::prim::Vertex(
@@ -149,7 +151,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
     // We use the center point of the lowercase 'x' glyph as the reference
     // We reuse the underline thickness as the thickness of the strike through as well
     const sf::FloatRect xBounds     = font.getGlyph(L'x', fontSize, isBold).bounds;
-    const float strikeThroughOffset = xBounds.top + xBounds.height / 2.f;
+    const float strikeThroughOffset = xBounds.position.y + xBounds.size.y / 2.f;
 
     // Precompute the variables needed by the algorithm
     const float letterSpacing   = computeLetterSpacing(font);
@@ -250,10 +252,10 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
         vi = addGlyphQuad(vertices, vi, glm::vec2(x, y), fillColor, glyph, italicShear);
 
         // Update the current bounds
-        const float left   = glyph.bounds.left;
-        const float top    = glyph.bounds.top;
-        const float right  = glyph.bounds.left + glyph.bounds.width;
-        const float bottom = glyph.bounds.top + glyph.bounds.height;
+        const float left   = glyph.bounds.position.x;
+        const float top    = glyph.bounds.position.y;
+        const float right  = glyph.bounds.position.x + glyph.bounds.size.x;
+        const float bottom = glyph.bounds.position.y + glyph.bounds.size.y;
 
         minX = std::min(minX, x + left - italicShear * bottom);
         maxX = std::max(maxX, x + right - italicShear * top);
@@ -305,10 +307,10 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
     }
 
     // Update the bounding rectangle
-    cachedBounds.left   = minX;
-    cachedBounds.top    = minY;
-    cachedBounds.width  = maxX - minX;
-    cachedBounds.height = maxY - minY;
+    cachedBounds.position.x = minX;
+    cachedBounds.position.y = minY;
+    cachedBounds.size.x     = maxX - minX;
+    cachedBounds.size.y     = maxY - minY;
 
     // store next character pos
     cornerPos.x = x;

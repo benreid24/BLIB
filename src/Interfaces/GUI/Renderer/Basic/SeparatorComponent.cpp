@@ -43,9 +43,9 @@ void SeparatorComponent::handleMove() { sep.getTransform().setPosition(computePo
 
 glm::vec2 SeparatorComponent::computeSize() {
     Separator& owner = getOwnerAs<Separator>();
-    return {owner.getDirection() == Separator::Horizontal ? owner.getAcquisition().width :
+    return {owner.getDirection() == Separator::Horizontal ? owner.getAcquisition().size.x :
                                                             owner.getThickness(),
-            owner.getDirection() == Separator::Vertical ? owner.getAcquisition().height :
+            owner.getDirection() == Separator::Vertical ? owner.getAcquisition().size.y :
                                                           owner.getThickness()};
 }
 

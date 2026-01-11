@@ -26,7 +26,7 @@ struct Sound {
     sf::Sound sound;
     float lastInteractTime;
 
-    Sound();
+    Sound(SoundHandle&& buffer);
 };
 
 struct SoundFader {
@@ -134,14 +134,12 @@ AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
     // Ensure sound loaded
     auto sit = r.sounds.find(handle);
     if (sit == r.sounds.end()) {
-        sit                = r.sounds.try_emplace(handle).first;
-        sit->second.buffer = resource::ResourceManager<sf::SoundBuffer>::load(path);
-        if (sit->second.buffer->getSampleCount() == 0) {
-            r.sounds.erase(sit);
+        auto buffer = resource::ResourceManager<sf::SoundBuffer>::load(path);
+        if (buffer->getSampleCount() == 0) {
             BL_LOG_ERROR << "Failed to load sound: " << path;
             return InvalidHandle;
         }
-        sit->second.sound.setBuffer(*sit->second.buffer);
+        sit = r.sounds.try_emplace(handle, std::move(buffer)).first;
     }
 
     return handle;
@@ -156,9 +154,9 @@ bool AudioSystem::playSound(Handle sound, float fadeIn, bool loop) {
     if (it == r.sounds.end()) return false;
 
     // play the sound
-    it->second.sound.setLoop(loop);
+    it->second.sound.setLooping(loop);
     it->second.lastInteractTime = r.timer.getElapsedTime().asSeconds();
-    if (it->second.sound.getStatus() == sf::Sound::Playing) return true;
+    if (it->second.sound.getStatus() == sf::Sound::Status::Playing) return true;
 
     if (fadeIn > 0.f) {
         it->second.sound.setVolume(0.f);
@@ -180,7 +178,7 @@ bool AudioSystem::playOrRestartSound(Handle sound) {
     if (it == r.sounds.end()) return false;
 
     // play the sound
-    it->second.sound.setLoop(false);
+    it->second.sound.setLooping(false);
     it->second.sound.setVolume(100.f);
     it->second.lastInteractTime = r.timer.getElapsedTime().asSeconds();
     it->second.sound.play();
@@ -193,7 +191,7 @@ void AudioSystem::stopSound(Handle sound, float fadeOut) {
     const auto it = Runner::get().sounds.find(sound);
     if (it != Runner::get().sounds.end()) {
         it->second.lastInteractTime = Runner::get().timer.getElapsedTime().asSeconds();
-        if (it->second.sound.getStatus() == sf::Sound::Playing) {
+        if (it->second.sound.getStatus() == sf::Sound::Status::Playing) {
             if (fadeOut <= 0.f) { it->second.sound.stop(); }
             else {
                 Runner::get().fadingSounds.emplace_back(it->second.sound,
@@ -208,7 +206,9 @@ void AudioSystem::stopAllSounds() {
     std::unique_lock lock(Runner::get().soundMutex);
 
     for (auto& sound : Runner::get().sounds) {
-        if (sound.second.sound.getStatus() == sf::Sound::Playing) { sound.second.sound.stop(); }
+        if (sound.second.sound.getStatus() == sf::Sound::Status::Playing) {
+            sound.second.sound.stop();
+        }
     }
 }
 
@@ -331,7 +331,9 @@ void AudioSystem::pause() {
     Runner::get().paused = true;
 
     for (auto& sound : Runner::get().sounds) {
-        if (sound.second.sound.getStatus() == sf::Sound::Playing) { sound.second.sound.pause(); }
+        if (sound.second.sound.getStatus() == sf::Sound::Status::Playing) {
+            sound.second.sound.pause();
+        }
     }
     if (!Runner::get().playlistStack.empty() && Runner::get().playlistStack.front()->isPlaying()) {
         Runner::get().playlistStack.front()->pause();
@@ -350,7 +352,9 @@ void AudioSystem::resume() {
     Runner::get().paused = false;
 
     for (auto& sound : Runner::get().sounds) {
-        if (sound.second.sound.getStatus() == sf::Sound::Paused) { sound.second.sound.play(); }
+        if (sound.second.sound.getStatus() == sf::Sound::Status::Paused) {
+            sound.second.sound.play();
+        }
     }
     if (!Runner::get().playlistStack.empty()) { Runner::get().playlistStack.front()->play(); }
     if (Runner::get().fadeIn.playlist) { Runner::get().fadeIn.playlist->play(); }
@@ -389,8 +393,10 @@ void AudioSystem::shutdown(bool fade) {
 
 namespace
 {
-Sound::Sound()
-: lastInteractTime(Runner::get().timer.getElapsedTime().asSeconds()) {}
+Sound::Sound(SoundHandle&& buffer)
+: buffer(std::move(buffer))
+, sound(*this->buffer)
+, lastInteractTime(Runner::get().timer.getElapsedTime().asSeconds()) {}
 
 Runner::Runner()
 : paused(false)
@@ -440,7 +446,7 @@ void Runner::run() {
                     if (it != sounds.end()) {
                         if (timer.getElapsedTime().asSeconds() - it->second.lastInteractTime >=
                                 unloadTimeout + it->second.buffer->getDuration().asSeconds() &&
-                            it->second.sound.getStatus() != sf::Sound::Playing) {
+                            it->second.sound.getStatus() != sf::Sound::Status::Playing) {
                             sounds.erase(it);
                             soundHandles.erase(j);
                         }
@@ -481,13 +487,10 @@ std::unordered_map<AudioSystem::Handle, Sound>::iterator Runner::validateAndLoad
     if (it == sounds.end()) {
         auto hit = soundSources.find(sound);
         if (hit == soundSources.end()) return sounds.end();
-        it                = sounds.try_emplace(sound).first;
-        it->second.buffer = resource::ResourceManager<sf::SoundBuffer>::load(hit->second);
-        if (it->second.buffer->getSampleCount() == 0) {
-            sounds.erase(it);
-            return sounds.end();
-        }
-        it->second.sound.setBuffer(*it->second.buffer);
+
+        auto buffer = resource::ResourceManager<sf::SoundBuffer>::load(hit->second);
+        if (buffer->getSampleCount() == 0) { return sounds.end(); }
+        it = sounds.try_emplace(sound, std::move(buffer)).first;
     }
     return it;
 }

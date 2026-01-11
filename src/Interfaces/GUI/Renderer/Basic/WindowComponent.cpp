@@ -28,7 +28,7 @@ ecs::Entity WindowComponent::getEntity() const { return box.entity(); }
 
 void WindowComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
 }
 
 void WindowComponent::doSceneAdd(rc::Overlay* overlay) {
@@ -39,7 +39,7 @@ void WindowComponent::doSceneRemove() { box.removeFromScene(); }
 
 void WindowComponent::handleAcquisition() {
     Element& owner = getOwnerAs<Element>();
-    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.setSize({owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 

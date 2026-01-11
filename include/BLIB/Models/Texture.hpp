@@ -87,7 +87,7 @@ struct hash<bl::mdl::Texture> {
             for (unsigned int x = 0; x < std::min(img.getSize().x, 10u); x++) {
                 for (unsigned int y = 0; y < std::min(img.getSize().y, 10u); ++y) {
                     result = bl::util::hashCombine(
-                        result, std::hash<sf::Uint32>{}(img.getPixel(x, y).toInteger()));
+                        result, std::hash<std::uint32_t>{}(img.getPixel({x, y}).toInteger()));
                 }
             }
             return result;

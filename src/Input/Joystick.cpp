@@ -31,14 +31,15 @@ sf::Vector2f Joystick::read(unsigned int joystick) const {
 }
 
 bool Joystick::process(const sf::Event& event) {
-    if (event.type == sf::Event::JoystickMoved) {
-        if (event.joystickMove.axis == horizontalAxis) {
-            cachedPosition.x = event.joystickMove.position;
+    const sf::Event::JoystickMoved* jm = event.getIf<sf::Event::JoystickMoved>();
+    if (jm) {
+        if (jm->axis == horizontalAxis) {
+            cachedPosition.x = jm->position;
             if (horizontalInverted) cachedPosition.x = -cachedPosition.x;
             return true;
         }
-        else if (event.joystickMove.axis == verticalAxis) {
-            cachedPosition.y = event.joystickMove.position;
+        else if (jm->axis == verticalAxis) {
+            cachedPosition.y = jm->position;
             if (verticalInverted) cachedPosition.y = -cachedPosition.y;
             return true;
         }

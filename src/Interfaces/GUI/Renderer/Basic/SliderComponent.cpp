@@ -28,7 +28,7 @@ ecs::Entity SliderComponent::getEntity() const { return box.entity(); }
 
 void SliderComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
 }
 
 void SliderComponent::doSceneAdd(rc::Overlay* overlay) {
@@ -39,7 +39,7 @@ void SliderComponent::doSceneRemove() { box.removeFromScene(); }
 
 void SliderComponent::handleAcquisition() {
     Element& owner = getOwnerAs<Element>();
-    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.setSize({owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 

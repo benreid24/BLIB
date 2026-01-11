@@ -42,11 +42,11 @@ sf::Vector2f Button::minimumRequisition() const {
 void Button::onAcquisition() {
     const float buffer =
         renderSettings().outlineThickness.value_or(DefaultOutlineThickness) + childPadding;
-    Packer::manuallyPackElement(child,
-                                {getAcquisition().left + buffer,
-                                 getAcquisition().top + buffer,
-                                 getAcquisition().width - buffer * 2.f,
-                                 getAcquisition().height - buffer * 2.f});
+    Packer::manuallyPackElement(
+        child,
+        sf::FloatRect{
+            {getAcquisition().position.x + buffer, getAcquisition().position.y + buffer},
+            {getAcquisition().size.x - buffer * 2.f, getAcquisition().size.y - buffer * 2.f}});
 }
 
 bool Button::propagateEvent(const Event& event) {

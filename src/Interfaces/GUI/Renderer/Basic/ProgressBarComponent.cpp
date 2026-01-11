@@ -14,11 +14,11 @@ ProgressBarComponent::ProgressBarComponent()
 void ProgressBarComponent::setVisible(bool v) { background.setHidden(!v); }
 
 void ProgressBarComponent::onElementUpdated() {
-    ProgressBar& owner             = getOwnerAs<ProgressBar>();
-    const RenderSettings& settings = getOwnerAs<ProgressBar>().getRenderSettings();
-    const float ot                 = settings.outlineThickness.value_or(1.f);
-    const glm::vec2 bsize{owner.getAcquisition().width - ot * 2.f,
-                          owner.getAcquisition().height - ot * 2.f};
+ProgressBar& owner             = getOwnerAs<ProgressBar>();
+const RenderSettings& settings = getOwnerAs<ProgressBar>().getRenderSettings();
+const float ot                 = settings.outlineThickness.value_or(1.f);
+const glm::vec2 bsize{owner.getAcquisition().size.x - ot * 2.f,
+                      owner.getAcquisition().size.y - ot * 2.f};
 
     // size bar based on progress
     const bool hor = owner.getFillDirection() == ProgressBar::LeftToRight ||
@@ -58,7 +58,7 @@ ecs::Entity ProgressBarComponent::getEntity() const { return background.entity()
 
 void ProgressBarComponent::doCreate(engine::World& world, rdr::Renderer&) {
     ProgressBar& owner = getOwnerAs<ProgressBar>();
-    background.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    background.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     bar.create(world, {100.f, 100.f});
     bar.setParent(background);
 }
@@ -78,7 +78,7 @@ void ProgressBarComponent::handleAcquisition() {
     const RenderSettings& settings = owner.getRenderSettings();
     const float ot                 = settings.outlineThickness.value_or(1.f);
     background.setSize(
-        {owner.getAcquisition().width - ot * 2.f, owner.getAcquisition().height - ot * 2.f});
+        {owner.getAcquisition().size.x - ot * 2.f, owner.getAcquisition().size.y - ot * 2.f});
     background.getTransform().setPosition(
         {owner.getLocalPosition().x + ot, owner.getLocalPosition().y + ot});
 }

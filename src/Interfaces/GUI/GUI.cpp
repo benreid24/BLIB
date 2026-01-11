@@ -20,12 +20,11 @@ GUI::GUI(engine::World& world, engine::Player& player, const gui::Packer::Ptr& p
     setConstrainView(false);
     setOutlineThickness(0.f);
     queuedActions.reserve(4);
-    assignAcquisition(region.width > 0.f ?
+    assignAcquisition(region.size.x > 0.f ?
                           region :
-                          sf::FloatRect(0.f,
-                                        0.f,
-                                        cam::OverlayCamera::getOverlayCoordinateSpace().x,
-                                        cam::OverlayCamera::getOverlayCoordinateSpace().y));
+                          sf::FloatRect({0.f, 0.f},
+                                        {cam::OverlayCamera::getOverlayCoordinateSpace().x,
+                                         cam::OverlayCamera::getOverlayCoordinateSpace().y}));
 }
 
 void GUI::setRegion(const sf::FloatRect& area) { assignAcquisition(area); }
@@ -33,11 +32,12 @@ void GUI::setRegion(const sf::FloatRect& area) { assignAcquisition(area); }
 void GUI::process(const sf::Event& event) { processEvent(event); }
 
 bool GUI::processEvent(const sf::Event& event) {
-    if (event.type == sf::Event::MouseEntered) { return false; }
-    if (event.type == sf::Event::MouseMoved) {
-        mousePos.x = event.mouseMove.x;
-        mousePos.y = event.mouseMove.y;
-        mousePos   = observer.transformToOverlaySpace(mousePos);
+    if (event.is<sf::Event::MouseEntered>()) { return false; }
+    if (event.is<sf::Event::MouseMoved>()) {
+        const sf::Event::MouseMoved& mme = *event.getIf<sf::Event::MouseMoved>();
+        mousePos.x                       = mme.position.x;
+        mousePos.y                       = mme.position.y;
+        mousePos                         = observer.transformToOverlaySpace(mousePos);
     }
 
     const Event guiEvent = Event::fromSFML(event, sf::Vector2f(mousePos.x, mousePos.y));

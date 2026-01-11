@@ -105,7 +105,7 @@ void ScrollArea::setMaxSize(const sf::Vector2f& s) {
 
 void ScrollArea::refreshSize() const {
     totalSize     = content->getRequisition();
-    availableSize = {getAcquisition().width, getAcquisition().height};
+    availableSize = {getAcquisition().size.x, getAcquisition().size.y};
 }
 
 sf::Vector2f ScrollArea::minimumRequisition() const {
@@ -131,47 +131,48 @@ void ScrollArea::onAcquisition() {
     if (!neverShowV) { showV = showV || availableSize.y < totalSize.y; }
 
     if (showV) {
-        availableSize.x = getAcquisition().width - BarSize;
+        availableSize.x = getAcquisition().size.x - BarSize;
         if (!neverShowH) showH = showH || availableSize.x < totalSize.x;
     }
     if (showH) {
-        availableSize.y = getAcquisition().height - BarSize;
+        availableSize.y = getAcquisition().size.y - BarSize;
         if (!!neverShowV) showV = showV || availableSize.y < totalSize.y;
     }
     // one more time in case V is now visible
     if (showV) {
-        availableSize.x = getAcquisition().width - BarSize;
+        availableSize.x = getAcquisition().size.x - BarSize;
         if (!neverShowH) showH = showH || availableSize.x < totalSize.x;
     }
 
     if (showH) {
-        const sf::Vector2f barSize(getAcquisition().width - BarSize, BarSize);
-        const sf::Vector2f barPos(getAcquisition().left,
-                                  getAcquisition().top + getAcquisition().height - barSize.y);
+        const sf::Vector2f barSize(getAcquisition().size.x - BarSize, BarSize);
+        const sf::Vector2f barPos(getAcquisition().position.x,
+                                  getAcquisition().position.y + getAcquisition().size.y -
+                                      barSize.y);
         horScrollbar->setVisible(true);
         horScrollbar->setSliderSize(computeButtonSize(totalSize.x, availableSize.x));
         horScrollbar->setSliderIncrement(computeIncrement(totalSize.x, availableSize.x));
-        Packer::manuallyPackElement(horScrollbar, {barPos, barSize}, true);
+        Packer::manuallyPackElement(horScrollbar, sf::FloatRect(barPos, barSize), true);
     }
     else
         horScrollbar->setVisible(false);
 
     if (showV) {
-        const sf::Vector2f barSize(BarSize, getAcquisition().height - BarSize);
-        const sf::Vector2f barPos(getAcquisition().left + getAcquisition().width - barSize.x,
-                                  getAcquisition().top);
+        const sf::Vector2f barSize(BarSize, getAcquisition().size.y - BarSize);
+        const sf::Vector2f barPos(getAcquisition().position.x + getAcquisition().size.x - barSize.x,
+                                  getAcquisition().position.y);
         vertScrollbar->setVisible(true);
         vertScrollbar->setSliderSize(computeButtonSize(totalSize.y, availableSize.y));
         vertScrollbar->setSliderIncrement(computeIncrement(totalSize.y, availableSize.y));
-        Packer::manuallyPackElement(vertScrollbar, {barPos, barSize}, true);
+        Packer::manuallyPackElement(vertScrollbar, sf::FloatRect(barPos, barSize), true);
     }
     else
         vertScrollbar->setVisible(false);
 
-    Packer::manuallyPackElement(contentWrapper, {getPosition(), availableSize}, true);
+    Packer::manuallyPackElement(contentWrapper, sf::FloatRect(getPosition(), availableSize), true);
     const sf::Vector2f contentArea(std::max(totalSize.x, availableSize.x),
                                    std::max(totalSize.y, availableSize.y));
-    Packer::manuallyPackElement(content, {getPosition(), contentArea}, true);
+    Packer::manuallyPackElement(content, sf::FloatRect(getPosition(), contentArea), true);
 }
 
 void ScrollArea::scrolled() {
@@ -196,8 +197,8 @@ bool ScrollArea::handleScroll(const Event& scroll) {
         if (content->handleScroll(scroll)) return true;
 
         if (totalSize.x > availableSize.x || totalSize.y > availableSize.y) {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl) ||
-                sf::Keyboard::isKeyPressed(sf::Keyboard::RControl)) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) ||
+                sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl)) {
                 horScrollbar->incrementValue(-scroll.scrollDelta());
             }
             else { vertScrollbar->incrementValue(-scroll.scrollDelta()); }

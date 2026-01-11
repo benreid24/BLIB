@@ -77,7 +77,7 @@ void SingleShape2D::ensureUpdated() {
 
 void SingleShape2D::scaleToSize(const glm::vec2& size) {
     const sf::FloatRect& localBounds = getLocalBounds();
-    getTransform().setScale({size.x / localBounds.width, size.y / localBounds.height});
+    getTransform().setScale({size.x / localBounds.size.x, size.y / localBounds.size.y});
     OverlayScalable::setLocalBounds(getLocalBounds());
 }
 

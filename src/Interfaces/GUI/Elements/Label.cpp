@@ -52,17 +52,17 @@ sf::Vector2f Label::minimumRequisition() const {
 }
 
 void Label::settingsChanged() {
-    const sf::Vector2f req   = getRequisition();
-    const sf::FloatRect& acq = getAcquisition();
-    if (req.x != acq.width || req.y != acq.height) { makeDirty(); }
+const sf::Vector2f req   = getRequisition();
+const sf::FloatRect& acq = getAcquisition();
+if (req.x != acq.size.x || req.y != acq.size.y) { makeDirty(); }
 }
 
 void Label::update(float dt) {
     Element::update(dt);
 
     if (wrapBehavior == TextWrapBehavior::WrapToAcquisition && getComponent()) {
-        if (getAcquisition().width > 0.f &&
-            getComponent()->getRequisition().x != getAcquisition().width) {
+        if (getAcquisition().size.x > 0.f &&
+            getComponent()->getRequisition().x != getAcquisition().size.x) {
             makeDirty();
         }
     }

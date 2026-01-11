@@ -1033,10 +1033,10 @@ template<typename U>
 struct Serializer<sf::Rect<U>, false> {
     static Value serialize(const sf::Rect<U>& v) {
         Group g;
-        g.addField("left", Serializer<U>::serialize(v.left));
-        g.addField("top", Serializer<U>::serialize(v.top));
-        g.addField("width", Serializer<U>::serialize(v.width));
-        g.addField("height", Serializer<U>::serialize(v.height));
+        g.addField("left", Serializer<U>::serialize(v.position.x));
+        g.addField("top", Serializer<U>::serialize(v.position.y));
+        g.addField("width", Serializer<U>::serialize(v.size.x));
+        g.addField("height", Serializer<U>::serialize(v.size.y));
         return {g};
     }
 
@@ -1053,10 +1053,10 @@ struct Serializer<sf::Rect<U>, false> {
         const Value* w = g.getField("width");
         const Value* h = g.getField("height");
         if (!l || !t || !w || !h) return false;
-        if (!Serializer<U>::deserialize(result.left, *l)) return false;
-        if (!Serializer<U>::deserialize(result.top, *t)) return false;
-        if (!Serializer<U>::deserialize(result.width, *w)) return false;
-        if (!Serializer<U>::deserialize(result.height, *h)) return false;
+        if (!Serializer<U>::deserialize(result.position.x, *l)) return false;
+        if (!Serializer<U>::deserialize(result.position.y, *t)) return false;
+        if (!Serializer<U>::deserialize(result.size.x, *w)) return false;
+        if (!Serializer<U>::deserialize(result.size.y, *h)) return false;
         return true;
     }
 
@@ -1075,13 +1075,13 @@ struct Serializer<sf::Rect<U>, false> {
                                 unsigned int) {
         stream << "{ ";
         stream << "\"left\": ";
-        Serializer<U>::serializeStream(stream, value.left, 0, 0);
+        Serializer<U>::serializeStream(stream, value.position.x, 0, 0);
         stream << ", \"top\": ";
-        Serializer<U>::serializeStream(stream, value.top, 0, 0);
+        Serializer<U>::serializeStream(stream, value.position.y, 0, 0);
         stream << ", \"width\": ";
-        Serializer<U>::serializeStream(stream, value.width, 0, 0);
+        Serializer<U>::serializeStream(stream, value.size.x, 0, 0);
         stream << ", \"height\": ";
-        Serializer<U>::serializeStream(stream, value.height, 0, 0);
+        Serializer<U>::serializeStream(stream, value.size.y, 0, 0);
         stream << " }";
         return stream.good();
     }

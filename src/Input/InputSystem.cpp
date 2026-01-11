@@ -59,9 +59,10 @@ void InputSystem::update() {
 }
 
 void InputSystem::process(const sf::Event& event) {
-    if (event.type == sf::Event::MouseMoved) {
+    const sf::Event::MouseMoved* mm = event.getIf<sf::Event::MouseMoved>();
+    if (mm) {
         mouseVector = math::normalized(
-            sf::Vector2f(event.mouseMove.x, event.mouseMove.y) -
+            sf::Vector2f(mm->position.x, mm->position.y) -
             sf::Vector2f(engine.renderer().getWindow().getSfWindow().getSize()) * 0.5f);
     }
 

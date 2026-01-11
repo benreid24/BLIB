@@ -16,20 +16,6 @@ function(configure_blib_target target_name)
         )
 
         set(VOLK_STATIC_DEFINES VK_USE_PLATFORM_WIN32_KHR)
-
-        # Copy openal32.dll on Windows for executables
-        get_target_property(target_type ${target_name} TYPE)
-        if(target_type STREQUAL "EXECUTABLE")
-            set(target_output_dir "$<TARGET_FILE_DIR:${target_name}>/")
-            set(openal_path "${BLIB_PATH}/lib/SFML/extlibs/bin/x64/openal32.dll")
-            add_custom_command(
-                TARGET ${target_name}
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                    ${openal_path} ${target_output_dir}
-                COMMENT "Copying ${openal_path} to ${target_output_dir}"
-            )
-        endif()
     else()
         target_compile_definitions(${target_name} PUBLIC
             BLIB_LINUX=1

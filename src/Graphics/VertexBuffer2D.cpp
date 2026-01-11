@@ -19,18 +19,18 @@ void VertexBuffer2D::scaleToSize(const glm::vec2& size) {
     if (getSize() > 0) {
         constexpr float MinF = std::numeric_limits<float>::min();
         constexpr float MaxF = std::numeric_limits<float>::max();
-        sf::FloatRect bounds(MaxF, MaxF, MinF, MinF);
+        sf::FloatRect bounds({MaxF, MaxF}, {MinF, MinF});
 
         for (unsigned int i = 0; i < component().getSize(); ++i) {
-            const auto& v = component()[i];
-            bounds.left   = std::min(v.pos.x, bounds.left);
-            bounds.top    = std::min(v.pos.y, bounds.top);
-            bounds.width  = std::max(v.pos.x, bounds.width);
-            bounds.height = std::max(v.pos.y, bounds.height);
+            const auto& v     = component()[i];
+            bounds.position.x = std::min(v.pos.x, bounds.position.x);
+            bounds.position.y = std::min(v.pos.y, bounds.position.y);
+            bounds.size.x     = std::max(v.pos.x, bounds.size.x);
+            bounds.size.y     = std::max(v.pos.y, bounds.size.y);
         }
 
-        getTransform().setScale((bounds.width - bounds.left) / size.x,
-                                (bounds.height - bounds.top) / size.y);
+        getTransform().setScale((bounds.size.x - bounds.position.x) / size.x,
+                                (bounds.size.y - bounds.position.y) / size.y);
     }
 }
 

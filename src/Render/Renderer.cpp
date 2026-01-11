@@ -61,8 +61,8 @@ Renderer::~Renderer() {
 bool Renderer::initialize() {
     if (!createWindow()) { return false; }
 
-    renderRegion.width  = window.getSfWindow().getSize().x;
-    renderRegion.height = window.getSfWindow().getSize().y;
+    renderRegion.size.x = window.getSfWindow().getSize().x;
+    renderRegion.size.y = window.getSfWindow().getSize().y;
 
     constexpr engine::StateMask::V AllMask = engine::StateMask::All;
     using engine::FrameStage;
@@ -156,7 +156,7 @@ bool Renderer::createWindow() {
     const auto& params = settings.windowSettings;
     settings.windowSettings.changesRequireNewWindow(); // resets internal state
 
-    window.create(params.videoMode(), params.title(), params.style());
+    window.create(params.videoMode(), params.title(), params.style(), params.state());
     if (!window.isOpen()) {
         BL_LOG_ERROR << "Failed to create window";
         return false;
@@ -165,7 +165,7 @@ bool Renderer::createWindow() {
     if (!params.icon().empty()) {
         sf::Image icon;
         if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
-            window.getSfWindow().setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+            window.getSfWindow().setIcon(icon.getSize(), icon.getPixelsPtr());
         }
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
@@ -185,9 +185,9 @@ void Renderer::applySettingsToWindow() {
     if (state.device) {
         swapchain.invalidate();
 
-        sf::Event::SizeEvent e{};
-        e.width  = window.getSfWindow().getSize().x;
-        e.height = window.getSfWindow().getSize().y;
+        sf::Event::Resized e{};
+        e.size.x = window.getSfWindow().getSize().x;
+        e.size.y = window.getSfWindow().getSize().y;
         processResize(e);
     }
 
@@ -234,30 +234,30 @@ void Renderer::cleanup() {
     state.device = nullptr;
 }
 
-void Renderer::processResize(const sf::Event::SizeEvent& event) {
+void Renderer::processResize(const sf::Event::Resized& event) {
     auto windowSettings = settings.getWindowSettings();
     const sf::Vector2f modeSize(
-        sf::Vector2u(windowSettings.videoMode().width, windowSettings.videoMode().height));
+        sf::Vector2u(windowSettings.videoMode().size.x, windowSettings.videoMode().size.y));
     const sf::Vector2f& ogSize =
         windowSettings.initialViewSize().x > 0.f ? windowSettings.initialViewSize() : modeSize;
 
-    const float newWidth  = static_cast<float>(event.width);
-    const float newHeight = static_cast<float>(event.height);
+    const float newWidth  = static_cast<float>(event.size.x);
+    const float newHeight = static_cast<float>(event.size.y);
 
-    sf::FloatRect viewport(0.f, 0.f, 1.f, 1.f);
+    sf::FloatRect viewport({0.f, 0.f}, {1.f, 1.f});
     if (windowSettings.letterBox()) {
         const float xScale = newWidth / ogSize.x;
         const float yScale = newHeight / ogSize.y;
 
         if (xScale >= yScale) { // constrained by height, bars on sides
-            windowScale    = yScale;
-            viewport.width = ogSize.x * yScale / newWidth;
-            viewport.left  = (1.f - viewport.width) * 0.5f;
+            windowScale         = yScale;
+            viewport.size.x     = ogSize.x * yScale / newWidth;
+            viewport.position.x = (1.f - viewport.size.x) * 0.5f;
         }
         else { // constrained by width, bars on top and bottom
-            windowScale     = xScale;
-            viewport.height = ogSize.y * xScale / newHeight;
-            viewport.top    = (1.f - viewport.height) * 0.5f;
+            windowScale         = xScale;
+            viewport.size.y     = ogSize.y * xScale / newHeight;
+            viewport.position.y = (1.f - viewport.size.y) * 0.5f;
         }
     }
 
@@ -265,10 +265,11 @@ void Renderer::processResize(const sf::Event::SizeEvent& event) {
         cam::OverlayCamera::setOverlayCoordinateSpace(newWidth, newHeight);
     }
 
-    renderRegion = sf::Rect<std::uint32_t>(newWidth * viewport.left,
-                                           newHeight * viewport.top,
-                                           newWidth * viewport.width,
-                                           newHeight * viewport.height);
+    renderRegion = sf::Rect<std::uint32_t>(
+        sf::Vector2<std::uint32_t>(static_cast<std::uint32_t>(newWidth * viewport.position.x),
+                                   static_cast<std::uint32_t>(newHeight * viewport.position.y)),
+        sf::Vector2<std::uint32_t>(static_cast<std::uint32_t>(newWidth * viewport.size.x),
+                                   static_cast<std::uint32_t>(newHeight * viewport.size.y)));
     swapchain.invalidate();
     assignObserverRegions();
     commonObserver.assignRegion(window.getSfWindow().getSize(), renderRegion, 1, 0, true);

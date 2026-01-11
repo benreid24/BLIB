@@ -73,12 +73,12 @@ rdr::Component* Image::doPrepareRender(rdr::Renderer& renderer) {
 
 void Image::setScale() {
     const sf::Vector2f origSize(texture->getSize().x, texture->getSize().y);
-    const sf::Vector2f acqPos(getAcquisition().left, getAcquisition().top);
-    const sf::Vector2f acqSize(getAcquisition().width, getAcquisition().height);
+    const sf::Vector2f acqPos(getAcquisition().position.x, getAcquisition().position.y);
+    const sf::Vector2f acqSize(getAcquisition().size.x, getAcquisition().size.y);
     sf::Vector2f imgSize = size.value_or(origSize);
     if (fillAcq) {
-        imgSize.x = getAcquisition().width;
-        imgSize.y = getAcquisition().height;
+        imgSize.x = getAcquisition().size.x;
+        imgSize.y = getAcquisition().size.y;
     }
     scale.x = imgSize.x / origSize.x;
     scale.y = imgSize.y / origSize.y;

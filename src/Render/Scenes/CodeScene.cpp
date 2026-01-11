@@ -80,10 +80,10 @@ SceneObject* CodeScene::doAdd(ecs::Entity entity, rcom::DrawableBase& object,
 }
 
 std::unique_ptr<cam::Camera> CodeScene::createDefaultCamera() {
-    return std::make_unique<cam::Camera2D>(sf::FloatRect(0.f,
-                                                         0.f,
-                                                         renderer.getObserver().getRegionSize().x,
-                                                         renderer.getObserver().getRegionSize().y));
+    return std::make_unique<cam::Camera2D>(
+        sf::FloatRect({0.f, 0.f},
+                      sf::Vector2f(renderer.getObserver().getRegionSize().x,
+                                   renderer.getObserver().getRegionSize().y)));
 }
 
 void CodeScene::setDefaultNearAndFarPlanes(cam::Camera& camera) const {
@@ -92,8 +92,8 @@ void CodeScene::setDefaultNearAndFarPlanes(cam::Camera& camera) const {
 
 void CodeScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* ogPipeline) {
     if (ogPipeline != change.newPipeline) {
-        CodeSceneObject& object  = *static_cast<CodeSceneObject*>(change.changed);
-        object.pipeline          = change.newPipeline;
+        CodeSceneObject& object = *static_cast<CodeSceneObject*>(change.changed);
+        object.pipeline         = change.newPipeline;
         object.descriptors.reinit(
             object.pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout(),
             targetTable,

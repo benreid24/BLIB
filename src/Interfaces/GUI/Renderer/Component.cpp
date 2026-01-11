@@ -71,7 +71,7 @@ void Component::onAcquisition() {
 }
 
 void Component::onMove() {
-    const sf::Vector2f priorPos(priorAcq.left, priorAcq.top);
+    const sf::Vector2f priorPos(priorAcq.position.x, priorAcq.position.y);
     if (priorPos != owner->getPosition()) {
         priorAcq = owner->getAcquisition();
         handleMove();

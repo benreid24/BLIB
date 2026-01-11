@@ -71,17 +71,17 @@ sf::Vector2f ComboBox::minimumRequisition() const {
 void ComboBox::onAcquisition() { refreshLabelRegion(); }
 
 void ComboBox::refreshLabelRegion() {
-    labelSize = {getAcquisition().width - getAcquisition().height + OptionPadding,
-                 getAcquisition().height + OptionPadding};
+labelSize = {getAcquisition().size.x - getAcquisition().size.y + OptionPadding,
+             getAcquisition().size.y + OptionPadding};
 
-    totalHeight = labelSize.y * static_cast<float>(options.size());
-    labelRegion = {getAcquisition().left,
-                   getAcquisition().top + getAcquisition().height,
-                   labelSize.x,
-                   totalHeight};
+totalHeight = labelSize.y * static_cast<float>(options.size());
+labelRegion = {{getAcquisition().position.x,
+                getAcquisition().position.y + getAcquisition().size.y},
+               {labelSize.x,
+                totalHeight}};
 
-    labelRegion.height =
-        maxHeight > 0.f ? std::min(maxHeight, labelRegion.height) : labelRegion.height;
+    labelRegion.size.y =
+        maxHeight > 0.f ? std::min(maxHeight, labelRegion.size.y) : labelRegion.size.y;
 }
 
 bool ComboBox::propagateEvent(const Event& event) {
@@ -93,11 +93,11 @@ bool ComboBox::propagateEvent(const Event& event) {
         const auto findEventOption = [this, &event]() -> int {
             const sf::Vector2f translated(event.mousePosition().x,
                                           event.mousePosition().y + scroll);
-            sf::FloatRect test(labelRegion.left, labelRegion.top, labelSize.x, labelSize.y);
+            sf::FloatRect test({labelRegion.position.x, labelRegion.position.y}, labelSize);
 
             for (unsigned int i = 0; i < options.size(); ++i) {
                 if (test.contains(translated)) { return i; }
-                test.top += labelSize.y;
+                test.position.y += labelSize.y;
             }
             return -1;
         };

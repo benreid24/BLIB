@@ -56,12 +56,12 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         if (e->expandsWidth() && dir == Horizontal) ++expanders;
         totalSize += req + sf::Vector2f(spacing, spacing);
     }
-    const sf::Vector2f freeSpace = sf::Vector2f(rect.width, rect.height) - totalSize;
+    const sf::Vector2f freeSpace = rect.size - totalSize;
     const float extraSpace = expanders > 0.f ? ((dir == Horizontal) ? (freeSpace.x / expanders) :
                                                                       (freeSpace.y / expanders)) :
                                                0.f;
 
-    sf::Vector2f pos(rect.left, rect.top);
+    sf::Vector2f pos(rect.position.x, rect.position.y);
     if (mode == Compact) {
         auto compSize = [this, &maxSize, &extraSpace, &rect](Element::Ptr e) -> sf::Vector2f {
             const auto req = e->getRequisition();
@@ -70,11 +70,11 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
 
             if (dir == Vertical) {
                 if (e->expandsHeight()) size.y += extraSpace;
-                if (e->expandsWidth()) size.x = rect.width;
+                if (e->expandsWidth()) size.x = rect.size.x;
             }
             if (dir == Horizontal) {
                 if (e->expandsWidth()) size.x += extraSpace;
-                if (e->expandsHeight()) size.y = rect.height;
+                if (e->expandsHeight()) size.y = rect.size.y;
             }
             return size;
         };
@@ -83,9 +83,9 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         if (start == RightAlign) {
             const sf::Vector2f size = compSize(elems.front());
             if (dir == Horizontal)
-                pos.x = rect.left + rect.width - size.x;
+                pos.x = rect.position.x + rect.size.x - size.x;
             else
-                pos.y = rect.top + rect.height - size.y;
+                pos.y = rect.position.y + rect.size.y - size.y;
         }
 
         // Pack elements
@@ -120,11 +120,11 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
     }
     else if (mode == Uniform) {
         // Compute size
-        sf::Vector2f size(rect.width, rect.height);
+        sf::Vector2f size(rect.size.x, rect.size.y);
         if (dir == Horizontal)
-            size.x = rect.width / elems.size() - spacing;
+            size.x = rect.size.x / elems.size() - spacing;
         else
-            size.y = rect.height / elems.size() - spacing;
+            size.y = rect.size.y / elems.size() - spacing;
 
         // Compute oversize amount
         sf::Vector2f oversize(0.f, 0.f);
@@ -144,9 +144,9 @@ void LinePacker::pack(const sf::FloatRect& rect, const std::vector<Element::Ptr>
         // Compute start position
         if (start == RightAlign && !elems.empty()) {
             if (dir == Horizontal)
-                pos.x = rect.left + rect.width - computeElementSize(elems.front()).x;
+                pos.x = rect.position.x + rect.size.x - computeElementSize(elems.front()).x;
             else
-                pos.y = rect.top + rect.height - computeElementSize(elems.front()).y;
+                pos.y = rect.position.y + rect.size.y - computeElementSize(elems.front()).y;
         }
 
         // Pack elements

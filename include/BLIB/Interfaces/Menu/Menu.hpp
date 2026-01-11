@@ -160,7 +160,7 @@ public:
      * @param padding The padding between menu elements and the edge of the background on each side
      */
     void configureBackground(sf::Color fill, sf::Color outline, float outlineThickness,
-                             const sf::FloatRect& padding = {-1.f, -1.f, -1.f, -1.f});
+                             const sf::FloatRect& padding = sf::FloatRect(sf::Vector2f(-1.f, -1.f), sf::Vector2f(-1.f, -1.f)));
 
     /**
      * @brief Constrains the rendering to the bounds of the background

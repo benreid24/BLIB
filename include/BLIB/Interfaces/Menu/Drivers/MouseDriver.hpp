@@ -26,7 +26,7 @@ public:
      * @param activateButton The mouse button that sends activate events
      */
     MouseDriver(Menu& menu, bool allowClickActivate = true,
-                sf::Mouse::Button activateButton = sf::Mouse::Left);
+                sf::Mouse::Button activateButton = sf::Mouse::Button::Left);
 
     /**
      * @brief Set the mouse button bound to activate events

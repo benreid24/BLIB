@@ -9,6 +9,7 @@
 #include <BLIB/Signals/Table.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Systems/MarkedForDeath.hpp>
+#include <BLIB/Util/Visitor.hpp>
 #include <SFML/Window.hpp>
 #include <cmath>
 
@@ -133,9 +134,9 @@ bool Engine::setup() {
             return false;
         }
         if (rendererInstance->getSettings().getWindowSettings().letterBox()) {
-            sf::Event::SizeEvent e{};
-            e.width  = rendererInstance->getWindow().getSfWindow().getSize().x;
-            e.height = rendererInstance->getWindow().getSfWindow().getSize().y;
+            sf::Event::Resized e{};
+            e.size.x = rendererInstance->getWindow().getSfWindow().getSize().x;
+            e.size.y = rendererInstance->getWindow().getSfWindow().getSize().y;
             handleResize(e, false);
         }
 
@@ -187,33 +188,33 @@ bool Engine::loop() {
         engineFlags.clear();
 
         if (rendererInstance.has_value()) {
-            sf::Event event;
-            while (rendererInstance->getWindow().pollEvent(event)) {
-                eventEmitter.emit<sf::Event>(event);
+            while (std::optional<sf::Event> event = rendererInstance->getWindow().pollEvent()) {
+                eventEmitter.emit<sf::Event>(event.value());
 
-                switch (event.type) {
-                case sf::Event::Closed:
-                    eventEmitter.emit<event::Shutdown>({event::Shutdown::WindowClosed});
-                    return true;
-
-                case sf::Event::LostFocus:
-                    eventEmitter.emit<event::Paused>({});
-                    if (!awaitFocus()) {
+                bool shouldExit = false;
+                event->visit(util::Visitor{
+                    [this, &shouldExit](const sf::Event::Closed&) {
                         eventEmitter.emit<event::Shutdown>({event::Shutdown::WindowClosed});
-                        return true;
-                    }
-                    eventEmitter.emit<event::Resumed>({});
-                    updateOuterTimer.restart();
-                    loopTimer.restart();
-                    break;
-
-                case sf::Event::Resized:
-                    handleResize(event.size, true);
-                    break;
-
-                default:
-                    break;
-                }
+                        renderThreadShouldRun = false;
+                        renderingCv.notify_one();
+                        shouldExit = true;
+                    },
+                    [this](const sf::Event::Resized& resize) { handleResize(resize, true); },
+                    [this, &updateOuterTimer, &loopTimer, &shouldExit](
+                        const sf::Event::FocusLost&) {
+                        eventEmitter.emit<event::Paused>({});
+                        if (!awaitFocus()) {
+                            eventEmitter.emit<event::Shutdown>({event::Shutdown::WindowClosed});
+                            shouldExit = true;
+                        }
+                        eventEmitter.emit<event::Resumed>({});
+                        updateOuterTimer.restart();
+                        loopTimer.restart();
+                    },
+                    [](const auto&) {
+                        // catch all
+                    }});
+                if (shouldExit) { return true; }
             }
         }
 
@@ -386,21 +387,23 @@ bool Engine::loop() {
 }
 
 bool Engine::awaitFocus() {
-    sf::Event event;
-    while (rendererInstance->getWindow().waitEvent(event)) {
-        if (event.type == sf::Event::Closed) return false;
-        if (event.type == sf::Event::GainedFocus) return true;
+    while (rendererInstance->getWindow().isOpen()) {
+        std::optional<sf::Event> event = rendererInstance->getWindow().waitEvent();
+        if (event.has_value()) {
+            if (event->is<sf::Event::Closed>()) { return false; }
+            if (event->is<sf::Event::FocusGained>()) { return true; }
+        }
     }
     return false;
 }
 
-void Engine::handleResize(const sf::Event::SizeEvent& resize, bool ss) {
+void Engine::handleResize(const sf::Event::Resized& resize, bool ss) {
     if (!rendererInstance.has_value()) return;
 
     if (ss) {
         auto& windowSettings = rendererInstance->getSettings().getWindowSettings();
         windowSettings.withVideoMode(
-            sf::VideoMode(resize.width, resize.height, windowSettings.videoMode().bitsPerPixel));
+            sf::VideoMode(resize.size, windowSettings.videoMode().bitsPerPixel));
 
         // will contain updated windowSettings
         rc::CreationSettings params = rendererInstance->getCreationSettings();

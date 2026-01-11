@@ -42,8 +42,8 @@ void OverlayFlashProvider::flashElement(Element* element) {
             std::min(pos ? pos->getGlobalDepth() - 600.f : cam::OverlayCamera::MinDepth,
                      cam::OverlayCamera::MinDepth));
         cover.getTransform().setPosition(
-            {element->getAcquisition().left, element->getAcquisition().top});
-        cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
+            glm::vec2(element->getAcquisition().position.x, element->getAcquisition().position.y));
+        cover.scaleToSize({element->getAcquisition().size.x, element->getAcquisition().size.y});
     }
 }
 

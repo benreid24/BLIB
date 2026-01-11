@@ -48,14 +48,15 @@ namespace
 // FreeType callbacks that operate on a sf::InputStream
 unsigned long read(FT_Stream rec, unsigned long offset, unsigned char* buffer,
                    unsigned long count) {
-    sf::Int64 convertedOffset = static_cast<sf::Int64>(offset);
-    sf::InputStream* stream   = static_cast<sf::InputStream*>(rec->descriptor.pointer);
+    std::uint64_t convertedOffset = static_cast<std::uint64_t>(offset);
+    sf::InputStream* stream       = static_cast<sf::InputStream*>(rec->descriptor.pointer);
     if (stream->seek(convertedOffset) == convertedOffset) {
-        if (count > 0)
-            return static_cast<unsigned long>(
-                stream->read(reinterpret_cast<char*>(buffer), static_cast<sf::Int64>(count)));
-        else
-            return 0;
+        if (count > 0) {
+            auto read =
+                stream->read(reinterpret_cast<char*>(buffer), static_cast<std::uint64_t>(count));
+            return read.value_or(0);
+        }
+        else { return 0; }
     }
     else
         return count > 0 ? 0 : 1; // error code is 0 if we're reading, or nonzero if we're seeking
@@ -71,9 +72,10 @@ inline T reinterpret(const U& input) {
 }
 
 // Combine outline thickness, boldness and font glyph index into a single 64-bit key
-sf::Uint64 combine(sf::Uint8 size, float outlineThickness, bool bold, sf::Uint32 index) {
-    return (static_cast<sf::Uint64>(reinterpret<sf::Uint32>(outlineThickness)) << 32) |
-           (static_cast<sf::Uint64>(bold) << 31) | (static_cast<sf::Uint64>(size) << 32) | index;
+std::uint64_t combine(std::uint8_t size, float outlineThickness, bool bold, std::uint32_t index) {
+    return (static_cast<std::uint64_t>(reinterpret<std::uint32_t>(outlineThickness)) << 32) |
+           (static_cast<std::uint64_t>(bold) << 31) | (static_cast<std::uint64_t>(size) << 32) |
+           index;
 }
 } // namespace
 
@@ -90,11 +92,13 @@ VulkanFont::VulkanFont()
 , m_isSmooth(true)
 , m_info()
 , nextRow(3) {
-    texture.create(128, 128, Color(255, 255, 255, 0));
+    texture.resize({128, 128}, Color(255, 255, 255, 0));
 
     // Reserve a 2x2 white square for texturing underlines
     for (unsigned int x = 0; x < 2; ++x) {
-        for (unsigned int y = 0; y < 2; ++y) { texture.setPixel(x, y, Color(255, 255, 255, 255)); }
+        for (unsigned int y = 0; y < 2; ++y) {
+            texture.setPixel({x, y}, Color(255, 255, 255, 255));
+        }
     }
 
 #ifdef SFML_SYSTEM_ANDROID
@@ -289,7 +293,7 @@ bool VulkanFont::loadFromStream(InputStream& stream) {
     FT_StreamRec* rec = new FT_StreamRec;
     std::memset(rec, 0, sizeof(*rec));
     rec->base               = NULL;
-    rec->size               = static_cast<unsigned long>(stream.getSize());
+    rec->size               = static_cast<unsigned long>(stream.getSize().value_or(0));
     rec->pos                = 0;
     rec->descriptor.pointer = &stream;
     rec->read               = &read;
@@ -343,14 +347,14 @@ bool VulkanFont::loadFromStream(InputStream& stream) {
 const VulkanFont::Info& VulkanFont::getInfo() const { return m_info; }
 
 ////////////////////////////////////////////////////////////
-const Glyph& VulkanFont::getGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
+const Glyph& VulkanFont::getGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
                                   float outlineThickness) const {
     // Build the key by combining the glyph index (based on code point), bold flag, and outline
     // thickness
-    Uint64 key = combine(characterSize,
-                         outlineThickness,
-                         bold,
-                         FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint));
+    std::uint64_t key = combine(characterSize,
+                                outlineThickness,
+                                bold,
+                                FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint));
 
     // Search the glyph into the cache
     GlyphTable::const_iterator it = glyphs.find(key);
@@ -367,12 +371,12 @@ const Glyph& VulkanFont::getGlyph(Uint32 codePoint, unsigned int characterSize, 
 }
 
 ////////////////////////////////////////////////////////////
-bool VulkanFont::hasGlyph(Uint32 codePoint) const {
+bool VulkanFont::hasGlyph(std::uint32_t codePoint) const {
     return FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint) != 0;
 }
 
 ////////////////////////////////////////////////////////////
-float VulkanFont::getKerning(Uint32 first, Uint32 second, unsigned int characterSize,
+float VulkanFont::getKerning(std::uint32_t first, std::uint32_t second, unsigned int characterSize,
                              bool bold) const {
     // Special case where first or second is 0 (null character)
     if (first == 0 || second == 0) return 0.f;
@@ -513,12 +517,12 @@ void VulkanFont::cleanup() {
     nextRow     = 3;
     needsUpload = true;
     vulkanTexture.release();
-    std::vector<Uint8>().swap(m_pixelBuffer);
+    std::vector<std::uint8_t>().swap(m_pixelBuffer);
     buffer.clear();
 }
 
 ////////////////////////////////////////////////////////////
-Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
+Glyph VulkanFont::loadGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
                             float outlineThickness) const {
     // The glyph to return
     Glyph glyph;
@@ -599,22 +603,22 @@ Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool b
 
         // Make sure the texture data is positioned in the center
         // of the allocated texture rectangle
-        glyph.textureRect.left += static_cast<int>(padding);
-        glyph.textureRect.top += static_cast<int>(padding);
-        glyph.textureRect.width -= static_cast<int>(2 * padding);
-        glyph.textureRect.height -= static_cast<int>(2 * padding);
+        glyph.textureRect.position.x += static_cast<int>(padding);
+        glyph.textureRect.position.y += static_cast<int>(padding);
+        glyph.textureRect.size.x -= static_cast<int>(2 * padding);
+        glyph.textureRect.size.y -= static_cast<int>(2 * padding);
 
         // Compute the glyph's bounding box
-        glyph.bounds.left   = static_cast<float>(bitmapGlyph->left);
-        glyph.bounds.top    = static_cast<float>(-bitmapGlyph->top);
-        glyph.bounds.width  = static_cast<float>(bitmap.width);
-        glyph.bounds.height = static_cast<float>(bitmap.rows);
+        glyph.bounds.position.x = static_cast<float>(bitmapGlyph->left);
+        glyph.bounds.position.y = static_cast<float>(-bitmapGlyph->top);
+        glyph.bounds.size.x     = static_cast<float>(bitmap.width);
+        glyph.bounds.size.y     = static_cast<float>(bitmap.rows);
 
         // Resize the pixel buffer to the new size and fill it with transparent white pixels
         m_pixelBuffer.resize(width * height * 4);
 
-        Uint8* current = &m_pixelBuffer[0];
-        Uint8* end     = current + width * height * 4;
+        std::uint8_t* current = &m_pixelBuffer[0];
+        std::uint8_t* end     = current + width * height * 4;
 
         while (current != end) {
             (*current++) = 255;
@@ -624,7 +628,7 @@ Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool b
         }
 
         // Extract the glyph's pixels from the bitmap
-        const Uint8* pixels = bitmap.buffer;
+        const std::uint8_t* pixels = bitmap.buffer;
         if (bitmap.pixel_mode == FT_PIXEL_MODE_MONO) {
             // Pixels are 1 bit monochrome values
             for (unsigned int y = padding; y < height - padding; ++y) {
@@ -650,15 +654,15 @@ Glyph VulkanFont::loadGlyph(Uint32 codePoint, unsigned int characterSize, bool b
         }
 
         // Write the pixels to the texture
-        unsigned int x = static_cast<unsigned int>(glyph.textureRect.left) - padding;
-        unsigned int y = static_cast<unsigned int>(glyph.textureRect.top) - padding;
-        unsigned int w = static_cast<unsigned int>(glyph.textureRect.width) + 2 * padding;
-        unsigned int h = static_cast<unsigned int>(glyph.textureRect.height) + 2 * padding;
+        unsigned int x = static_cast<unsigned int>(glyph.textureRect.position.x) - padding;
+        unsigned int y = static_cast<unsigned int>(glyph.textureRect.position.y) - padding;
+        unsigned int w = static_cast<unsigned int>(glyph.textureRect.size.x) + 2 * padding;
+        unsigned int h = static_cast<unsigned int>(glyph.textureRect.size.y) + 2 * padding;
         for (unsigned int xi = 0; xi < w; ++xi) {
             for (unsigned int yi = 0; yi < h; ++yi) {
                 std::size_t index = xi + yi * width;
-                texture.setPixel(
-                    x + xi, y + yi, sf::Color{255, 255, 255, m_pixelBuffer[index * 4 + 3]});
+                texture.setPixel({x + xi, y + yi},
+                                 sf::Color{255, 255, 255, m_pixelBuffer[index * 4 + 3]});
             }
         }
     }
@@ -702,8 +706,8 @@ IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const
 
             // Make the texture 2 times bigger
             Image newTexture;
-            newTexture.create(textureWidth * 2, textureHeight * 2, sf::Color(255, 255, 255, 0));
-            newTexture.copy(texture, 0, 0);
+            newTexture.resize({textureWidth * 2, textureHeight * 2}, sf::Color(255, 255, 255, 0));
+            newTexture.copy(texture, {0, 0});
             texture = std::move(newTexture);
         }
 
@@ -714,7 +718,7 @@ IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const
     }
 
     // Find the glyph's rectangle on the selected row
-    IntRect rect(Rect<unsigned int>(row->width, row->top, width, height));
+    IntRect rect(Rect<unsigned int>({row->width, row->top}, {width, height}));
 
     // Update the row informations
     row->width += width;

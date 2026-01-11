@@ -58,13 +58,13 @@ void Camera2D::setCorner(const glm::vec2& c) {
 glm::vec2 Camera2D::getCorner() const { return center - size * 0.5f; }
 
 void Camera2D::setVisibleArea(const sf::FloatRect& area) {
-    size.x = area.width;
-    size.y = area.height;
-    setCorner({area.left, area.top});
+    size.x = area.size.x;
+    size.y = area.size.y;
+    setCorner({area.position.x, area.position.y});
 }
 
 sf::FloatRect Camera2D::getVisibleArea() const {
-    return {center.x - size.x * 0.5f, center.y - size.y * 0.5f, size.x, size.y};
+    return sf::FloatRect{{center.x - size.x * 0.5f, center.y - size.y * 0.5f}, {size.x, size.y}};
 }
 
 void Camera2D::setRotation(float angle) {

@@ -87,17 +87,17 @@ void Shape2D::update(rc::prim::Vertex* vertices, std::uint32_t* indices) {
 
     // determine bounds and set center vertex
     using FL    = std::numeric_limits<float>;
-    localBounds = {FL::max(), FL::max(), FL::min(), FL::min()};
+    float minX = FL::max(), maxX = FL::min();
+    float minY = FL::max(), maxY = FL::min();
     for (unsigned int i = 1; i < outlineStartIndex; ++i) {
-        localBounds.left   = std::min(localBounds.left, vertices[i].pos.x);
-        localBounds.top    = std::min(localBounds.top, vertices[i].pos.y);
-        localBounds.width  = std::max(localBounds.width, vertices[i].pos.x);
-        localBounds.height = std::max(localBounds.height, vertices[i].pos.y);
+        minX = std::min(minX, vertices[i].pos.x);
+        maxX = std::max(maxX, vertices[i].pos.x);
+        minY = std::min(minY, vertices[i].pos.y);
+        maxY = std::max(maxY, vertices[i].pos.y);
     }
-    localBounds.width -= localBounds.left;
-    localBounds.height -= localBounds.top;
-    vertices[0].pos.x = localBounds.left + localBounds.width * 0.5f;
-    vertices[0].pos.y = localBounds.top + localBounds.height * 0.5f;
+    localBounds = {{minX, minY}, {maxX - minX, maxY - minY}};
+    vertices[0].pos.x = localBounds.position.x + localBounds.size.x * 0.5f;
+    vertices[0].pos.y = localBounds.position.y + localBounds.size.y * 0.5f;
 
     // populate indices for shape vertices
     for (unsigned int i = 1; i < outlineStartIndex; ++i) {
@@ -156,16 +156,16 @@ void Shape2D::update(rc::prim::Vertex* vertices, std::uint32_t* indices) {
         }
 
         // re-determine local bounds with outline accounted for
-        localBounds = {FL::max(), FL::max(), FL::min(), FL::min()};
+        float minX = FL::max(), maxX = FL::min();
+        float minY = FL::max(), maxY = FL::min();
         for (unsigned int i = 0; i < vertexCount; ++i) {
-            const auto& v      = vertices[i];
-            localBounds.left   = std::min(localBounds.left, v.pos.x);
-            localBounds.top    = std::min(localBounds.top, v.pos.y);
-            localBounds.width  = std::max(localBounds.width, v.pos.x);
-            localBounds.height = std::max(localBounds.height, v.pos.y);
+            const auto& v  = vertices[i];
+            minX = std::min(minX, v.pos.x);
+            maxX = std::max(maxX, v.pos.x);
+            minY = std::min(minY, v.pos.y);
+            maxY = std::max(maxY, v.pos.y);
         }
-        localBounds.width -= localBounds.left;
-        localBounds.height -= localBounds.top;
+        localBounds = {{minX, minY}, {maxX - minX, maxY - minY}};
     }
 
     // TODO - call into storage layer? no, just remember to refresh local bounds and commit

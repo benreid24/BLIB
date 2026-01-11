@@ -51,9 +51,9 @@ void CheckButtonComponent::doSceneRemove() { box.removeFromScene(); }
 
 void CheckButtonComponent::handleAcquisition() {
     const CheckButton& owner = getOwnerAs<CheckButton>();
-    dummy.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    dummy.setSize({owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     box.getTransform().setPosition(
-        {0.f, owner.getAcquisition().height * 0.5f - owner.getToggleSize() * 0.5f});
+        glm::vec2(0.f, owner.getAcquisition().size.y * 0.5f - owner.getToggleSize() * 0.5f));
     dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 

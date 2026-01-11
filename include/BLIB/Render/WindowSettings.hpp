@@ -3,7 +3,8 @@
 
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/VideoMode.hpp>
-#include <SFML/Window/WindowStyle.hpp>
+#include <SFML/Window/WindowEnums.hpp>
+#include <cstdint>
 #include <string>
 
 namespace bl
@@ -17,7 +18,7 @@ namespace rc
  */
 class WindowSettings {
 public:
-    static constexpr sf::Uint32 DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
+    static constexpr std::uint32_t DefaultWindowStyle = sf::Style::Titlebar | sf::Style::Close;
     static const sf::VideoMode DefaultVideoMode;
     static const std::string DefaultWindowTitle;
     static constexpr bool DefaultLetterBoxOnResize = true;
@@ -52,7 +53,15 @@ public:
      * @param style The style to create the window with
      * @return WindowSettings& A reference to this object
      */
-    WindowSettings& withStyle(sf::Uint32 style);
+    WindowSettings& withStyle(std::uint32_t style);
+
+    /**
+     * @brief Sets the state of the window
+     *
+     * @param state Fullscreen or windowed
+     * @return A reference to this object
+     */
+    WindowSettings& withState(sf::State state);
 
     /**
      * @brief Sets the path to an image to use as the window icon
@@ -124,7 +133,12 @@ public:
     /**
      * @brief Returns the window style the window is created with
      */
-    sf::Uint32 style() const;
+    std::uint32_t style() const;
+
+    /**
+     * @brief Returns the state the window is created with
+     */
+    std::uint32_t state() const;
 
     /**
      * @brief Returns the window icon to use
@@ -160,6 +174,7 @@ public:
     static constexpr const char* HeightKey          = ".window.height";
     static constexpr const char* BitDepthKey        = ".window.bit_depth";
     static constexpr const char* StyleKey           = ".window.style";
+    static constexpr const char* StateKey           = ".window.state";
     static constexpr const char* TitleKey           = ".window.title";
     static constexpr const char* LetterboxKey       = ".window.leterbox";
     static constexpr const char* IconKey            = ".window.icon";
@@ -171,7 +186,8 @@ public:
 private:
     std::string sfWindowTitle;
     sf::VideoMode windowMode;
-    sf::Uint32 sfWindowStyle;
+    std::uint32_t sfWindowStyle;
+    std::uint32_t windowState;
     std::string iconPath;
     bool letterBoxVal;
     sf::Vector2f viewSize;

@@ -63,8 +63,8 @@ void LabelComponent::doSceneRemove() { text.removeFromScene(); }
 void LabelComponent::handleAcquisition() {
     auto& owner = getOwnerAs<Label>();
     if (owner.getTextWrapBehavior() == Label::WrapToAcquisition) {
-        if (text.getWordWrapWidth() != owner.getAcquisition().width) {
-            text.wordWrap(std::max(owner.getAcquisition().width, 1.f));
+        if (text.getWordWrapWidth() != owner.getAcquisition().size.x) {
+            text.wordWrap(std::max(owner.getAcquisition().size.x, 1.f));
         }
     }
     reposition();
@@ -74,7 +74,7 @@ void LabelComponent::handleMove() { reposition(); }
 
 sf::Vector2f LabelComponent::getRequisition() const {
     const sf::FloatRect bounds = text.getLocalBounds();
-    return {bounds.left + bounds.width + 4.f, bounds.top + bounds.height};
+    return {bounds.position.x + bounds.size.x + 4.f, bounds.position.y + bounds.size.y};
 }
 
 void LabelComponent::reposition() {

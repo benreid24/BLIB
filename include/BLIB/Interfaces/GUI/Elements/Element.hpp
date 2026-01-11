@@ -287,7 +287,7 @@ public:
      *
      * @param style Style to set
      */
-    void setStyle(sf::Uint32 style);
+    void setStyle(std::uint32_t style);
 
     /**
      * @brief Set the font used by the text. Note that a default font is used if this isn't

@@ -48,9 +48,9 @@ void Icon::setFillAcquisition(bool f, bool m) {
 }
 
 void Icon::onAcquisition() {
-    if (fillAcq) {
-        size.x = getAcquisition().width;
-        size.y = getAcquisition().height;
+if (fillAcq) {
+    size.x = getAcquisition().size.x;
+    size.y = getAcquisition().size.y;
 
         if (maintainAR) {
             const float ar = ogSize.x / ogSize.y;
