@@ -5,6 +5,7 @@
 #include <BLIB/Vulkan.hpp>
 #include <stdexcept>
 #include <vector>
+#include <cstdint>
 
 namespace bl
 {

@@ -228,7 +228,7 @@ TEST(ECS, ViewIterate) {
     EXPECT_TRUE(ogValues.empty());
 
     // add components and retest view
-    for (const Entity ent : toAdd) {
+    for (const Entity& ent : toAdd) {
         const char cv = util::Random::get<char>('a', 'z');
         testRegistry.addComponent<char>(ent, cv);
         int* ic = testRegistry.getComponent<int>(ent);
@@ -240,7 +240,7 @@ TEST(ECS, ViewIterate) {
     EXPECT_TRUE(afterAddValues.empty());
 
     // remove components and entities and retest view
-    for (const Entity ent : toRemove) {
+    for (const Entity& ent : toRemove) {
         if (util::Random::get<int>(0, 100) < 50) { testRegistry.removeComponent<char>(ent); }
         else { testRegistry.destroyEntity(ent); }
     }
@@ -329,7 +329,7 @@ TEST(ECS, ClearRegistry) {
     }
 
     testRegistry.destroyAllEntities();
-    for (const Entity ent : ents) {
+    for (const Entity& ent : ents) {
         EXPECT_FALSE(testRegistry.entityExists(ent));
         EXPECT_EQ(testRegistry.getComponent<int>(ent), nullptr);
     }

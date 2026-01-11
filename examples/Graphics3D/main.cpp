@@ -62,6 +62,9 @@ public:
                 pitch += diff.y * PitchPerPixel;
             }
             break;
+
+        default:
+            break;
         }
     }
 

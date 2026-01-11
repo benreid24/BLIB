@@ -18,8 +18,6 @@ Renderer<T>::Renderer()
 
 template<typename T>
 void Renderer<T>::init(engine::World& w) {
-    using TEngineSystem = sys::DrawableSystem<TComponent>;
-
     if constexpr (RenderConfigMap<T>::CreateRenderPipeline) {
         static bool created = false;
         if (!created) {
@@ -71,8 +69,6 @@ void Renderer<T>::init(engine::World& w) {
 
 template<typename T>
 void Renderer<T>::addToScene(rc::Scene* scene) {
-    using TEngineSystem = sys::DrawableSystem<TComponent>;
-
     entity    = world->createEntity();
     component = world->engine().ecs().emplaceComponent<TComponent>(
         entity, world->engine(), ContainsTransparency);
