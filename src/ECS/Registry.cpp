@@ -186,7 +186,7 @@ void Registry::flushDeletions() {
     for (auto& pool : componentPools) { pool->flushRemovals(); }
 
     // destroy queued entities
-    for (const Entity ent : deletionState.toRemove) { doEntityDestroyLocked(ent); }
+    for (const Entity& ent : deletionState.toRemove) { doEntityDestroyLocked(ent); }
     deletionState.toRemove.clear();
 }
 

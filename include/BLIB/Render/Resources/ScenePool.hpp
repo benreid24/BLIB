@@ -82,7 +82,7 @@ private:
 
     friend class bl::rc::SceneRef;
     friend class sys::SceneObjectRemovalSystem;
-    friend class Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

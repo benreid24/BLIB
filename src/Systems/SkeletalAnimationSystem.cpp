@@ -4,6 +4,7 @@
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <glm/gtx/transform.hpp>
+#include <cmath>
 
 namespace bl
 {
@@ -21,7 +22,7 @@ void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float)
                 animation.time += dt * src.getTicksPerSecond();
                 if (animation.time > src.getDurationInTicks()) {
                     animation.time =
-                        std::fmodf(animation.time, static_cast<float>(src.getDurationInTicks()));
+                        std::fmod(animation.time, static_cast<float>(src.getDurationInTicks()));
                 }
             }
 

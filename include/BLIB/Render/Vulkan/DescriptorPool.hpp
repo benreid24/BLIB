@@ -173,7 +173,7 @@ private:
     void cleanup();
 
     friend struct VulkanLayer;
-    friend class Renderer;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace vk

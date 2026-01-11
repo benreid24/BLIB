@@ -109,7 +109,7 @@ public:
     /**
      * @brief Returns the adjusted diffuse color of the light
      */
-    const glm::vec3& getDiffuseColor() const { return diffuse; }
+    glm::vec3 getDiffuseColor() const { return diffuse; }
 
     /**
      * @brief Returns the diffuse factor of the light
@@ -119,7 +119,7 @@ public:
     /**
      * @brief Returns the adjusted ambient color of the light
      */
-    const glm::vec3& getAmbientColor() const { return ambient; }
+    glm::vec3 getAmbientColor() const { return ambient; }
 
     /**
      * @brief Returns the ambient factor of the light

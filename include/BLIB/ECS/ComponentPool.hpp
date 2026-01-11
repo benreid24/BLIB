@@ -257,7 +257,7 @@ void ComponentPool<T>::postAdd(Entity ent, typename TStorage::iterator it) {
     entityToComponent[entIndex] = &it->component;
     entityToIter[entIndex]      = it;
 
-    emitter.emit<event::ComponentAdded<T>>({ent, it->component});
+    emitter.template emit<event::ComponentAdded<T>>({ent, it->component});
 }
 
 template<typename T>
@@ -311,7 +311,7 @@ void ComponentPool<T>::fireRemoveEventOnly(Entity ent) {
     if (com == nullptr) return;
 
     // send event
-    emitter.emit<event::ComponentRemoved<T>>({ent, *com});
+    emitter.template emit<event::ComponentRemoved<T>>({ent, *com});
 }
 
 template<typename T>
@@ -329,7 +329,7 @@ void* ComponentPool<T>::doRemoveLocked(Entity ent, bool fireEvent) {
     if (com == nullptr) return nullptr;
 
     // send event
-    if (fireEvent) { emitter.emit<event::ComponentRemoved<T>>({ent, *com}); }
+    if (fireEvent) { emitter.template emit<event::ComponentRemoved<T>>({ent, *com}); }
 
     // perform removal
     storage.erase(entityToIter[entIndex]);
@@ -349,7 +349,7 @@ void* ComponentPool<T>::queueRemove(Entity entity) {
     if (com != nullptr) {
         queuedRemovals.emplace_back(entity);
         lock.unlock();
-        emitter.emit<event::ComponentRemoved<T>>({entity, *com});
+        emitter.template emit<event::ComponentRemoved<T>>({entity, *com});
     }
 
     return com;
@@ -360,7 +360,7 @@ void ComponentPool<T>::flushRemovals() {
     std::unique_lock lock(removalQueueMutex);
     util::ReadWriteLock::WriteScopeGuard writeLock(poolLock);
 
-    for (const Entity ent : queuedRemovals) { doRemoveLocked(ent, false); }
+    for (const Entity& ent : queuedRemovals) { doRemoveLocked(ent, false); }
     queuedRemovals.clear();
 }
 
@@ -370,7 +370,7 @@ void ComponentPool<T>::clear() {
 
     // send events
     for (Entry& entry : storage) {
-        emitter.emit<event::ComponentRemoved<T>>({entry.owner, entry.component});
+        emitter.template emit<event::ComponentRemoved<T>>({entry.owner, entry.component});
     }
 
     // clear storage

@@ -89,6 +89,10 @@ function(configure_blib_target target_name)
             PROPERTIES
             COMPILE_OPTIONS -w
         )
+        # Disable some warnings
+        target_compile_options(${target_name} PUBLIC
+            -Wno-reorder
+        )
         # Disable clang extension warning on MacOS
         if(APPLE)
             target_compile_options(${target_name} PUBLIC

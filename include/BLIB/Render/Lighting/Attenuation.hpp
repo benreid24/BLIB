@@ -47,7 +47,7 @@ struct alignas(16) Attenuation {
      * @return The radius of the light volume at the given threshold
      */
     float computeFalloffRadius(float threshold = 5.f / 256.f, float lightMax = 1.f) const {
-        return (-linear + std::sqrtf(linear * linear -
+        return (-linear + std::sqrt(linear * linear -
                                      4 * quadratic * (constant - (1.f / threshold) * lightMax))) /
                (2 * quadratic);
     }

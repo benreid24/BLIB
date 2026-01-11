@@ -25,9 +25,9 @@ struct ComponentMask {
     /// @brief A mask with no components
     static constexpr SimpleMask EmptyMask = 0;
 
-    SimpleMask required;
-    SimpleMask optional;
-    SimpleMask excluded;
+    SimpleMask required = 0;
+    SimpleMask optional = 0;
+    SimpleMask excluded = 0;
 
     /**
      * @brief Returns whether or not the given mask passes the tagged filter for this mask

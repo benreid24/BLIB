@@ -329,22 +329,6 @@ void Renderer::renderFrame() {
     // render offscreen textures
     for (auto& rt : renderTextures) { rt->render(); }
 
-    const auto clearDepthBuffer = [this, commandBuffer]() {
-        VkClearAttachment attachment{};
-        attachment.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
-        attachment.clearValue = clearColors[1];
-
-        VkClearRect rect{};
-        rect.rect.extent.width  = renderRegion.width;
-        rect.rect.extent.height = renderRegion.height;
-        rect.rect.offset.x      = renderRegion.left;
-        rect.rect.offset.y      = renderRegion.top;
-        rect.baseArrayLayer     = 0;
-        rect.layerCount         = 1;
-
-        vkCmdClearAttachments(commandBuffer, 1, &attachment, 1, &rect);
-    };
-
     // record commands to render scenes
     for (auto& o : observers) { o->renderScene(commandBuffer); }
     if (!virtualObservers.empty()) {

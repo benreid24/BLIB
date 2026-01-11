@@ -42,7 +42,7 @@ private:
     void cleanup();
 
     friend struct vk::VulkanLayer;
-    friend class Renderer;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace res

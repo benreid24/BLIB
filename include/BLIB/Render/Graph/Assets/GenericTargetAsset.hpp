@@ -214,13 +214,6 @@ private:
             cachedViewport.width        = static_cast<float>(newSize.x);
             cachedViewport.height       = static_cast<float>(newSize.y);
             break;
-
-        case sri::TargetSize::ObserverSizeRatio:
-            cachedViewport.width        = static_cast<float>(newSize.x) * Traits::Size.ratio.x;
-            cachedViewport.height       = static_cast<float>(newSize.y) * Traits::Size.ratio.y;
-            cachedScissor.extent.width  = static_cast<std::uint32_t>(cachedViewport.width);
-            cachedScissor.extent.height = static_cast<std::uint32_t>(cachedViewport.height);
-            break;
         }
 
         createAttachments();
@@ -298,7 +291,7 @@ private:
  */
 template<typename TGenericTargetAsset>
 struct GenericTargetAssetTraits {
-    static_assert(false, "GenericTargetAssetTraits not specialized for this type");
+    static_assert(sizeof(TGenericTargetAsset) == 0, "GenericTargetAssetTraits not specialized for this type");
 };
 
 template<typename TShaderResource, sr::StoreKey StoreKey, std::uint32_t RenderPassId,

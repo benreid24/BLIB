@@ -20,9 +20,6 @@ struct TargetSize {
         /// Target size will match observer size directly
         ObserverSize,
 
-        /// Target size will be a multiple of the observer size
-        ObserverSizeRatio,
-
         /// Target size will be a fixed size
         FixedSize
     };
@@ -34,8 +31,7 @@ struct TargetSize {
      */
     constexpr TargetSize(Type type = ObserverSize)
     : type(type)
-    , size{}
-    , ratio{} {}
+    , size{} {}
 
     /**
      * @brief Creates the size control with the given type and size
@@ -46,30 +42,21 @@ struct TargetSize {
      */
     constexpr TargetSize(Type type, unsigned int x, unsigned int y)
     : type(type)
-    , size{x, y}
-    , ratio{} {}
-
-    /**
-     * @brief Creates the size control with the given type and ratio
-     *
-     * @param type The type of control
-     * @param x The width ratio to use
-     * @param y The height ratio to use
-     */
-    constexpr TargetSize(Type type, float x, float y)
-    : type(type)
-    , size{}
-    , ratio{x, y} {}
+    , size{x, y} {}
 
     /**
      * @brief Copy constructor
      *
      * @param copy The value to copy
      */
-    constexpr TargetSize(const TargetSize& copy)
-    : type(copy.type)
-    , size(copy.size)
-    , ratio(copy.ratio) {}
+    constexpr TargetSize(const TargetSize& copy) = default;
+
+    /**
+     * @brief Equality operator
+     */
+    constexpr bool operator==(const TargetSize& comp) const {
+        return type == comp.type && size.x == comp.size.x && size.y == comp.size.y;
+    }
 
     /**
      * @brief Helper method to get the size of an attachment from the size config
@@ -82,9 +69,6 @@ struct TargetSize {
         case Type::FixedSize:
             return {ts.size.x, ts.size.y};
 
-        case Type::ObserverSizeRatio:
-            return glm::u32vec2(glm::vec2(observerSize) * glm::vec2(ts.ratio.x, ts.ratio.y));
-
         case Type::ObserverSize:
         default:
             return observerSize;
@@ -96,11 +80,6 @@ struct TargetSize {
         unsigned int x;
         unsigned int y;
     } size;
-
-    struct Ratio {
-        float x;
-        float y;
-    } ratio;
 };
 } // namespace sri
 } // namespace rc

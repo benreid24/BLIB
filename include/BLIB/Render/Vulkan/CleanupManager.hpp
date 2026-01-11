@@ -57,8 +57,7 @@ private:
                buckets.size();
     }
 
-    friend struct VulkanLayer;
-    friend class Renderer;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace vk

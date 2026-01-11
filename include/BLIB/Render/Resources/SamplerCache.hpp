@@ -82,7 +82,7 @@ private:
     void init();
     void cleanup();
 
-    friend class Renderer;
+    friend class bl::rc::Renderer;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

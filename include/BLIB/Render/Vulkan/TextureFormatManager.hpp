@@ -47,8 +47,8 @@ private:
     void init(Renderer& renderer);
     void setFormat(SemanticTextureFormat semantic, VkFormat actual);
 
-    friend class Settings;
-    friend class Renderer;
+    friend class bl::rc::Settings;
+    friend class bl::rc::Renderer;
 };
 
 } // namespace vk

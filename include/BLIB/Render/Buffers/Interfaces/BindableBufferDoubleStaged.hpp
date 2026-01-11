@@ -97,7 +97,7 @@ public:
      */
     template<typename U>
     void fillDirect(const U& value) {
-        stagingBuffers.fillDirect<U>(value);
+        stagingBuffers.template fillDirect<U>(value);
     }
 
     /**
@@ -111,7 +111,7 @@ public:
      */
     template<typename U>
     void writeDirect(U* base, std::size_t len, std::uint32_t start = 0) {
-        stagingBuffers.writeDirect<U>(base, len, start);
+        stagingBuffers.template writeDirect<U>(base, len, start);
     }
 
     /**

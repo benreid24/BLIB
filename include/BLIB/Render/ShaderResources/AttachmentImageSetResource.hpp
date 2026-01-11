@@ -116,7 +116,7 @@ private:
  */
 template<typename T>
 struct AttachmentImageSetResourceTraits {
-    static_assert(false, "AttachmentImageSetResourceTraits not specialized for this type");
+    static_assert(sizeof(T) == 0, "AttachmentImageSetResourceTraits not specialized for this type");
 };
 
 template<unsigned int AC, std::array<vk::SemanticTextureFormat, AC> Fmts,

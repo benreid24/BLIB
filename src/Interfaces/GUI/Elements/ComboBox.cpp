@@ -120,6 +120,9 @@ bool ComboBox::propagateEvent(const Event& event) {
             moused                = findEventOption();
             updated               = moused != priorMoused;
         } break;
+
+        default:
+            break;
         }
 
         if (updated && getComponent()) { getComponent()->onElementUpdated(); }

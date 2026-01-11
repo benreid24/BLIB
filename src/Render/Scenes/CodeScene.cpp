@@ -94,7 +94,6 @@ void CodeScene::doBatchChange(const BatchChange& change, mat::MaterialPipeline* 
     if (ogPipeline != change.newPipeline) {
         CodeSceneObject& object  = *static_cast<CodeSceneObject*>(change.changed);
         object.pipeline          = change.newPipeline;
-        const ecs::Entity entity = object.entity;
         object.descriptors.reinit(
             object.pipeline->getPipeline(cfg::RenderPhases::Forward)->pipelineLayout(),
             targetTable,

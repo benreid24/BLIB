@@ -100,8 +100,8 @@ private:
 
     void cleanup();
 
-    friend class Renderer;
-    friend class RenderTarget;
+    friend class bl::rc::Renderer;
+    friend class bl::rc::RenderTarget;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

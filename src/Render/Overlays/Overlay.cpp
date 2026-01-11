@@ -157,7 +157,6 @@ void Overlay::doBatchChange(const BatchChange& change, mat::MaterialPipeline* og
     if (ogPipeline != change.newPipeline) {
         ovy::OverlayObject& object = *static_cast<ovy::OverlayObject*>(change.changed);
         object.pipeline            = change.newPipeline;
-        const ecs::Entity entity   = object.entity;
         object.descriptors.reinit(
             object.pipeline->getPipeline(cfg::RenderPhases::Overlay)->pipelineLayout(),
             targetTable,

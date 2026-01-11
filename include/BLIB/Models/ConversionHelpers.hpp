@@ -1,11 +1,11 @@
 #ifndef BLIB_MODELS_CONVERSIONHELPERS_HPP
 #define BLIB_MODELS_CONVERSIONHELPERS_HPP
 
-#include <Assimp/color4.h>
-#include <Assimp/quaternion.h>
-#include <Assimp/types.h>
-#include <Assimp/vector2.h>
-#include <Assimp/vector3.h>
+#include <assimp/color4.h>
+#include <assimp/quaternion.h>
+#include <assimp/types.h>
+#include <assimp/vector2.h>
+#include <assimp/vector3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp>

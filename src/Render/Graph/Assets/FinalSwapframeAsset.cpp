@@ -97,11 +97,6 @@ void FinalSwapframeAsset::updateAttachments(std::uint32_t i) {
     const unsigned int depthIndex      = useMsaa ? 2 : 1;
     const unsigned int attachmentCount = useMsaa ? 3 : 2;
 
-    const VkImageAspectFlagBits aspects[3] = {VK_IMAGE_ASPECT_COLOR_BIT,
-                                              useMsaa ? VK_IMAGE_ASPECT_COLOR_BIT :
-                                                        VK_IMAGE_ASPECT_DEPTH_BIT,
-                                              VK_IMAGE_ASPECT_DEPTH_BIT};
-
     ensureSampledImage();
     set.setAttachment(swapIndex,
                       chain.swapFrameAtIndex(i).getImage(0),

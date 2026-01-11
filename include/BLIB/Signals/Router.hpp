@@ -27,7 +27,7 @@ private:
     }
 
     template<typename... TSignals>
-    friend class Router;
+    friend class bl::sig::Router;
 };
 } // namespace priv
 

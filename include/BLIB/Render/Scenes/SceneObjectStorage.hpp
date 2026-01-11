@@ -164,12 +164,10 @@ T* SceneObjectStorage<T>::rebase(UpdateSpeed speed, T* og, T* ob) {
 template<typename T>
 template<typename TCallback>
 void SceneObjectStorage<T>::forEach(TCallback&& callback) {
-    UpdateSpeed speed = UpdateSpeed::Static;
     for (Bucket* bucket : {&staticBucket, &dynamicBucket}) {
         for (unsigned int i = 0; i < bucket->objects.size(); ++i) {
             if (bucket->idAllocator.isAllocated(i)) { callback(bucket->objects[i]); }
         }
-        speed = UpdateSpeed::Dynamic;
     }
 }
 

@@ -31,8 +31,6 @@ struct TableData {
     std::unordered_map<void*, ChannelPtr> channelsByPointer;
     Channel globalChannel;
 } data;
-
-void noopDelete(Channel*) {}
 } // namespace
 
 Channel& sig::Table::createChannel(const std::string& key) {
