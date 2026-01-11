@@ -49,7 +49,7 @@ public:
      *
      * @param size The new number of data elements to size for
      */
-    virtual void resize(std::uint32_t size) {
+    virtual void resize(std::uint32_t size) override {
         sourceBuffer.resize(size);
         Base::resize(size);
     }
@@ -96,7 +96,7 @@ protected:
      * @param renderer The renderer instance
      * @param n The number of elements to size the buffer for
      */
-    virtual void doCreate(Renderer& renderer, std::uint32_t n) {
+    virtual void doCreate(Renderer& renderer, std::uint32_t n) override {
         sourceBuffer.create(Align, n);
         Base::doCreate(renderer, n);
     }

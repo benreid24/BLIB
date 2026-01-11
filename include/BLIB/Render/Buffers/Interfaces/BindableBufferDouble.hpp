@@ -54,7 +54,7 @@ public:
      */
     virtual void resize(std::uint32_t size) override {
         numElements = size;
-        buffers.visit([this, size](vk::Buffer& buffer) {
+        buffers.visit([this](vk::Buffer& buffer) {
             buffer.ensureSize(this->getTotalAlignedSize(), false);
         });
     }
@@ -169,7 +169,7 @@ protected:
      * @param renderer The renderer instance
      * @param n The number of elements to size the buffer for
      */
-    virtual void doCreate(Renderer& renderer, std::uint32_t n) {
+    virtual void doCreate(Renderer& renderer, std::uint32_t n) override {
         numElements = n;
         buffers.init(this->getVulkanState(), [this, &renderer](vk::Buffer& buffer) {
             buffer.createWithFallback(renderer,

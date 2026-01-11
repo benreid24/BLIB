@@ -159,7 +159,7 @@ protected:
      * @param renderer The renderer instance
      * @param n The number of elements to size the buffer for
      */
-    virtual void doCreate(Renderer& renderer, std::uint32_t n) {
+    virtual void doCreate(Renderer& renderer, std::uint32_t n) override {
         numElements = n;
         buffer.createWithFallback(renderer,
                                   this->getTotalAlignedSize(),

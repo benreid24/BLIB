@@ -90,7 +90,7 @@ public:
      * @param key The scene key of the entity
      * @return True if the bones were added, false otherwise
      */
-    virtual bool allocateObject(ecs::Entity entity, scene::Key key);
+    virtual bool allocateObject(ecs::Entity entity, scene::Key key) override;
 
     /**
      * @brief Removes the entity's bones from the pool
@@ -98,7 +98,7 @@ public:
      * @param entity The entity being removed
      * @param key The scene key of the entity
      */
-    virtual void releaseObject(ecs::Entity entity, scene::Key key);
+    virtual void releaseObject(ecs::Entity entity, scene::Key key) override;
 
 private:
     ecs::Registry* registry;

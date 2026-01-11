@@ -145,7 +145,7 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx,
         // create material instance on the mesh (root gets it from Drawable::createWithMaterial
         if (meshEntity != entity()) {
             std::visit(
-                [this, &world, &tx, &mat, meshEntity, &mesh, materialId](auto& meshComponent) {
+                [&world, &tx, &mat, meshEntity, materialId](auto& meshComponent) {
                     auto* matInstance =
                         world.engine().ecs().emplaceComponentWithTx<com::MaterialInstance>(
                             meshEntity,

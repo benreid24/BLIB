@@ -22,6 +22,14 @@ constexpr unsigned int UnsetStep = std::numeric_limits<unsigned int>::max();
 struct VisitorStep {
     Task* task;
     unsigned int step;
+
+    VisitorStep()
+    : task(nullptr)
+    , step(UnsetStep) {}
+
+    VisitorStep(Task* t, unsigned int s)
+    : task(t)
+    , step(s) {}
 };
 
 } // namespace

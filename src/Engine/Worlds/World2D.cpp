@@ -87,8 +87,7 @@ void World2D::queryAABB(glm::vec2 lower, glm::vec2 upper, b2QueryFilter filter,
     QueryContext myCtx{cb, ctx};
     b2World_OverlapAABB(boxWorld,
                         {{lower.x * worldToBoxScale, lower.y * worldToBoxScale},
-                         upper.x * worldToBoxScale,
-                         upper.y * worldToBoxScale},
+                         {upper.x * worldToBoxScale, upper.y * worldToBoxScale}},
                         filter,
                         &worldQueryCallback,
                         &myCtx);
