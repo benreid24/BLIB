@@ -59,7 +59,7 @@ void Overlay::renderOpaqueObjects(scene::SceneRenderContext& ctx) {
         ovy::OverlayObject& obj = *renderStack.back();
         renderStack.pop_back();
 
-        if (obj.component->isHidden()) { continue; }
+        if (!obj.component || obj.component->isHidden()) { continue; }
 
         const std::uint32_t spec = obj.component->getPipelineSpecialization();
         if (!obj.entity.flagSet(ecs::Flags::Dummy)) {

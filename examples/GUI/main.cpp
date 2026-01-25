@@ -37,7 +37,7 @@ public:
             *world,
             engine.getPlayer(),
             gui::LinePacker::create(gui::LinePacker::Vertical, 4, gui::LinePacker::Compact),
-            {200, 100, 400, 400});
+            sf::FloatRect{{200.f, 100.f}, {400.f, 400.f}});
 
         gui->setOutlineThickness(1);
         gui->setColor(sf::Color::Transparent, sf::Color::Red);
@@ -233,7 +233,7 @@ int main() {
     const bl::engine::Settings engineSettings =
         bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
             bl::rc::WindowSettings()
-                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withVideoMode(sf::VideoMode({800, 600}, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar)
                 .withTitle("GUI Demo")
                 .withLetterBoxOnResize(true)));
