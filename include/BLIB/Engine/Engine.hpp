@@ -273,6 +273,7 @@ private:
 
     bool awaitFocus();
     void handleResize(const sf::Event::Resized& resize, bool saveAndSend);
+    void preStateChange();
     void postStateChange(State::Ptr& prev);
 
     bool setup();

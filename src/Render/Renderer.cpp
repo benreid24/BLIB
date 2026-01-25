@@ -456,5 +456,7 @@ CreationSettings Renderer::getCreationSettings() const {
     return s;
 }
 
+void Renderer::waitIdleGPU() { vkDeviceWaitIdle(state.getDevice()); }
+
 } // namespace rc
 } // namespace bl

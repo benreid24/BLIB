@@ -325,6 +325,7 @@ bool Engine::loop() {
         bool stateChanged = false;
         while (engineFlags.stateChangeReady()) {
             stateChanged = true;
+            preStateChange();
 
             if (engineFlags.active(Flags::Terminate)) {
                 eventEmitter.emit<event::Shutdown>({event::Shutdown::Terminated});
@@ -485,6 +486,10 @@ void Engine::renderThreadBody() {
 
         rendererInstance->renderFrame();
     }
+}
+
+void Engine::preStateChange() {
+    if (rendererInstance.has_value()) { rendererInstance->waitIdleGPU(); }
 }
 
 } // namespace engine

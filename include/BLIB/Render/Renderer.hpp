@@ -387,6 +387,8 @@ private:
     void removeObserver(unsigned int i);
     void assignObserverRegions();
 
+    void waitIdleGPU();
+
     friend class engine::Engine;
     friend class Observer;
     friend class sys::RendererUpdateSystem;
