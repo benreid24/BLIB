@@ -7,6 +7,7 @@
 #include <BLIB/Render.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Systems.hpp>
+#include <BLIB/Util/Visitor.hpp>
 #include <iostream>
 
 class CameraController
@@ -36,36 +37,33 @@ public:
     }
 
     virtual void process(const sf::Event& event) override {
-        switch (event.type) {
-        case sf::Event::MouseWheelScrolled:
-            distance *= 1.f - event.mouseWheelScroll.delta * DistancePercentPerTick;
-            break;
+        event.visit(bl::util::Visitor{[this](const sf::Event::MouseWheelScrolled& e) {
+                                          distance *= 1.f - e.delta * DistancePercentPerTick;
+                                      },
+                                      [this](const sf::Event::MouseButtonPressed& e) {
+                                          if (e.button == sf::Mouse::Button::Left) {
+                                              dragging = true;
+                                              prevDrag = glm::vec2(e.position.x, e.position.y);
+                                          }
+                                      },
+                                      [this](const sf::Event::MouseButtonReleased& e) {
+                                          if (e.button == sf::Mouse::Button::Left) {
+                                              dragging = false;
+                                          }
+                                      },
+                                      [this](const sf::Event::MouseMoved& e) {
+                                          if (dragging) {
+                                              const glm::vec2 pos(e.position.x, e.position.y);
+                                              const glm::vec2 diff = pos - prevDrag;
+                                              prevDrag             = pos;
 
-        case sf::Event::MouseButtonPressed:
-            if (event.mouseButton.button == sf::Mouse::Left) {
-                dragging = true;
-                prevDrag = glm::vec2(event.mouseButton.x, event.mouseButton.y);
-            }
-            break;
+                                              yaw += diff.x * YawPerPixel;
+                                              pitch += diff.y * PitchPerPixel;
+                                          }
+                                      },
+                                      [](const auto&) {}
 
-        case sf::Event::MouseButtonReleased:
-            if (event.mouseButton.button == sf::Mouse::Left) { dragging = false; }
-            break;
-
-        case sf::Event::MouseMoved:
-            if (dragging) {
-                const glm::vec2 pos(event.mouseMove.x, event.mouseMove.y);
-                const glm::vec2 diff = pos - prevDrag;
-                prevDrag             = pos;
-
-                yaw += diff.x * YawPerPixel;
-                pitch += diff.y * PitchPerPixel;
-            }
-            break;
-
-        default:
-            break;
-        }
+        });
     }
 
 private:
@@ -88,22 +86,19 @@ public:
     virtual ~DemoState() = default;
 
     virtual void process(const sf::Event& event) override {
-        switch (event.type) {
-        case sf::Event::KeyPressed:
-            switch (event.key.code) {
-            case sf::Keyboard::Q:
+        const sf::Event::KeyPressed* kp = event.getIf<sf::Event::KeyPressed>();
+        if (kp) {
+            switch (kp->code) {
+            case sf::Keyboard::Key::Q:
                 renderer->getSettings().setSSAO(bl::rc::Settings::SSAO::None);
                 break;
-            case sf::Keyboard::W:
+            case sf::Keyboard::Key::W:
                 renderer->getSettings().setSSAO(bl::rc::Settings::SSAO::Ultra);
                 break;
 
             default:
                 break;
             }
-            break;
-        default:
-            break;
         }
     }
 
@@ -335,7 +330,7 @@ int main() {
     const bl::engine::Settings engineSettings =
         bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
             bl::rc::WindowSettings()
-                .withVideoMode(sf::VideoMode(1920, 1080, 32))
+                .withVideoMode(sf::VideoMode({1920, 1080}, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("3D Graphics Demo")
                 .withLetterBoxOnResize(false)));

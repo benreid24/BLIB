@@ -48,6 +48,8 @@ void SceneRenderContext::bindDescriptors(VkPipelineLayout layout, UpdateSpeed sp
 
 void SceneRenderContext::renderObject(const SceneObject& object) {
     const auto& drawParams = object.component->getDrawParameters();
+    if (!drawParams.vertexBuffer) { return; }
+
     if (prevVB != drawParams.vertexBuffer) {
         prevVB = drawParams.vertexBuffer;
 
@@ -58,6 +60,7 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
 
     switch (drawParams.type) {
     case prim::DrawParameters::DrawType::VertexBuffer:
+        if (drawParams.vertexCount == 0) { return; }
         vkCmdDraw(commandBuffer,
                   drawParams.vertexCount,
                   drawParams.instanceCount,
@@ -67,6 +70,7 @@ void SceneRenderContext::renderObject(const SceneObject& object) {
         break;
 
     case prim::DrawParameters::DrawType::IndexBuffer:
+        if (!drawParams.indexBuffer || drawParams.indexCount == 0) { return; }
         if (prevIB != drawParams.indexBuffer) {
             prevIB = drawParams.indexBuffer;
             vkCmdBindIndexBuffer(
