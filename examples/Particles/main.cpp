@@ -3,6 +3,7 @@
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Particles.hpp>
 #include <BLIB/Render.hpp>
+#include <BLIB/Util/Visitor.hpp>
 
 #include "Constants.hpp"
 #include "Particle.hpp"
@@ -60,29 +61,31 @@ public:
     }
 
     virtual void process(const sf::Event& event) override {
-        if (event.type == sf::Event::MouseButtonPressed) {
-            const glm::vec2 pos(event.mouseButton.x, event.mouseButton.y);
+        event.visit(bl::util::Visitor{
+            [this](const sf::Event::MouseButtonPressed& bp) {
+                const glm::vec2 pos(bp.position.x, bp.position.y);
 
-            if (event.mouseButton.button == sf::Mouse::Button::Left) {
-                particles->addEmitter<SimplePointEmitter>(pos, *worldPtr, scene);
-            }
-            else if (event.mouseButton.button == sf::Mouse::Button::Right) {
-                particles->addAffector<SimpleGravityAffector>(pos, *worldPtr, scene);
-            }
-            else if (event.mouseButton.button == sf::Mouse::Button::Middle) {
-                particles->addSink<SimpleBlackHoleSink>(pos, *worldPtr, scene);
-            }
-        }
-        else if (event.type == sf::Event::MouseWheelScrolled) {
-            const float factor = event.mouseWheelScroll.delta > 0.f ? 1.05f : 0.95f;
-            eng->setTimeScale(eng->getTimeScale() * factor);
-        }
-        else if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::C) { globals->shuffle(); }
-            else if (event.key.code == sf::Keyboard::R) {
-                globals->colorMultiplier = glm::vec4(1.f);
-            }
-        }
+                if (bp.button == sf::Mouse::Button::Left) {
+                    particles->addEmitter<SimplePointEmitter>(pos, *worldPtr, scene);
+                }
+                else if (bp.button == sf::Mouse::Button::Right) {
+                    particles->addAffector<SimpleGravityAffector>(pos, *worldPtr, scene);
+                }
+                else if (bp.button == sf::Mouse::Button::Middle) {
+                    particles->addSink<SimpleBlackHoleSink>(pos, *worldPtr, scene);
+                }
+            },
+            [this](const sf::Event::MouseWheelScrolled& ms) {
+                const float factor = ms.delta > 0.f ? 1.05f : 0.95f;
+                eng->setTimeScale(eng->getTimeScale() * factor);
+            },
+            [this](const sf::Event::KeyPressed& kp) {
+                if (kp.code == sf::Keyboard::Key::C) { globals->shuffle(); }
+                else if (kp.code == sf::Keyboard::Key::R) {
+                    globals->colorMultiplier = glm::vec4(1.f);
+                }
+            },
+            [](const auto&) {}});
     }
 
     virtual ~InputHandler() = default;
@@ -108,7 +111,7 @@ public:
         auto& observer = engine.renderer().getObserver(0);
         auto scene     = world->scene();
         observer.setCamera<bl::cam::Camera2D>(
-            sf::FloatRect(Bounds.x, Bounds.y, Bounds.z, Bounds.w));
+            sf::FloatRect({Bounds.x, Bounds.y}, {Bounds.z, Bounds.w}));
         observer.setClearColor({0.05f, 0.05f, 0.05f, 1.f});
 
         auto& simpleManager = engine.particleSystem().getUniqueSystem<Particle>(*world);
@@ -143,7 +146,7 @@ int main() {
     const bl::engine::Settings engineSettings =
         bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
             bl::rc::WindowSettings()
-                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withVideoMode(sf::VideoMode({800, 600}, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("Particle System Demo")
                 .withLetterBoxOnResize(true)));
