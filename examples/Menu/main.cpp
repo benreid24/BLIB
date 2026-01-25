@@ -61,7 +61,8 @@ public:
         menu.setPosition({320.f, 100.f});
         menu.setPadding({30.f, 8.f});
 
-        menu.configureBackground(sf::Color::Black, sf::Color::White, 3.f, {15.f, 15.f, 15.f, 15.f});
+        menu.configureBackground(
+            sf::Color::Black, sf::Color::White, 3.f, sf::FloatRect{{15.f, 15.f}, {15.f, 15.f}});
 
         menu.addToOverlay();
         keyboardEventGenerator.subscribe(engine.getSignalChannel());
@@ -91,7 +92,7 @@ int main() {
     const bl::engine::Settings engineSettings =
         bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
             bl::rc::WindowSettings()
-                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withVideoMode(sf::VideoMode({800, 600}, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("Menu Demo")
                 .withLetterBoxOnResize(true)));
