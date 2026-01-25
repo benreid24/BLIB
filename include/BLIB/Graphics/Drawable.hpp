@@ -238,7 +238,7 @@ void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 
-    if (hasHandle && component().getDrawParameters().indexCount > 0) {
+    if (hasHandle) {
         component().addToScene(engine().ecs(), entity(), scene, updateFreq);
     }
     onAdd(scene, updateFreq);

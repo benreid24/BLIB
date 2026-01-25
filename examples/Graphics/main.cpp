@@ -65,7 +65,7 @@ private:
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
         scene   = world->scene();
         auto& o = engine.renderer().getObserver();
-        o.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f});
+        o.setCamera<bl::cam::Camera2D>(sf::FloatRect{{0.f, 0.f}, {1920.f, 1080.f}});
         o.setClearColor({1.f, 1.f, 1.f, 1.f});
 
         // add slideshow animation to scene
@@ -126,13 +126,14 @@ private:
         batchRect2.setFillColor({0.f, 0.f, 1.f, 1.f});
         batchRect2.setOutlineColor({0.f, 0.f, 0.f, 1.f});
         batchRect2.setOutlineThickness(3.f);
-        batchRect2.getLocalTransform().setPosition({0.f, batchRect.getLocalBounds().height});
+        batchRect2.getLocalTransform().setPosition({0.f, batchRect.getLocalBounds().size.y});
 
         batchCircle.create(engine, batched, 45.f);
         batchCircle.setFillColor({0.2f, 0.2f, 0.2f, 1.f});
         batchCircle.setOutlineColor({1.f, 0.f, 0.f, 1.f});
         batchCircle.setOutlineThickness(2.f);
-        batchCircle.getLocalTransform().setPosition({batchRect.getLocalBounds().width + 50.f, 0.f});
+        batchCircle.getLocalTransform().setPosition(
+            {batchRect.getLocalBounds().size.x + 50.f, 0.f});
 
         batchTriangle.create(engine, batched, {0.f, 0.f}, {40.f, 0.f}, {20.f, 40.f});
         batchTriangle.setFillColor({0.7f, 0.6f, 0.1f, 1.f});
@@ -146,10 +147,10 @@ private:
         spriteBatch.getTransform().setPosition({400.f, 750.f});
         spriteBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        water1.create(engine, spriteBatch, {0.f, 0.f, 32.f, 32.f});
-        water2.create(engine, spriteBatch, {32.f, 0.f, 32.f, 32.f});
+        water1.create(engine, spriteBatch, sf::FloatRect{{0.f, 0.f}, {32.f, 32.f}});
+        water2.create(engine, spriteBatch, sf::FloatRect{{32.f, 0.f}, {32.f, 32.f}});
         water2.getLocalTransform().setPosition({34.f, 0.f});
-        water3.create(engine, spriteBatch, {64.f, 0.f, 32.f, 32.f});
+        water3.create(engine, spriteBatch, sf::FloatRect{{64.f, 0.f}, {32.f, 32.f}});
         water3.getLocalTransform().setPosition({68.f, 0.f});
 
         // add a set of batched slideshows to the scene
@@ -175,38 +176,38 @@ private:
     }
 
     virtual void update(bl::engine::Engine&, float dt, float) override {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::G)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::G)) {
             rectangle.setHorizontalColorGradient({0.f, 0.f, 1.f, 1.f}, {0.f, 1.f, 0.f, 1.f});
             circle.setColorGradient({1.f, 0.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
             triangle.setColorGradient(
                 {1.f, 0.f, 0.f, 1.f}, {0.f, 1.f, 0.f, 1.f}, {0.f, 0.f, 1.f, 1.f});
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::B)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::B)) {
             rectangle.removeColorGradient();
             circle.removeColorGradient();
             triangle.removeColorGradient();
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F)) {
             circle.flash(0.4f, 0.8f);
             rectangle.flash(1.f, 1.f);
             slideshow.flash(0.5f, 0.3f);
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::V)) {
             circle.stopFlashing();
             rectangle.stopFlashing();
             slideshow.stopFlashing();
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) { rectangle.removeFromScene(); }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) { rectangle.removeFromScene(); }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             rectangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
         }
 
         constexpr float Rate = 180.f;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Comma)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Comma)) {
             animation.getTransform().rotate(Rate * dt);
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Period)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Period)) {
             animation.getTransform().rotate(-Rate * dt);
         }
     }
@@ -217,7 +218,7 @@ int main() {
     const bl::engine::Settings engineSettings =
         bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
             bl::rc::WindowSettings()
-                .withVideoMode(sf::VideoMode(1920, 1080, 32))
+                .withVideoMode(sf::VideoMode({1920, 1080}, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("Renderer Demo")
                 .withLetterBoxOnResize(true)));

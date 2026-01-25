@@ -71,7 +71,8 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 , slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
 , slideshowRefreshRequired(rc::cfg::Limits::MaxConcurrentFrames)
 , slideshowLastFrameUpdated(255) {
-    slideshowDescriptorSets.emptyInit(renderer.vulkanState());
+    slideshowDescriptorSets.init(renderer.vulkanState(),
+                                 [&renderer](rc::vk::DescriptorSet& set) { set.init(renderer); });
 }
 
 Animation2DSystem::~Animation2DSystem() {}

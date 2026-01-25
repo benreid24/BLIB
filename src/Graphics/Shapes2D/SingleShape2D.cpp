@@ -27,13 +27,13 @@ void SingleShape2D::notifyDirty() {
 void SingleShape2D::create(engine::World& world) {
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
-    notifyDirty();
+    ensureUpdated();
 }
 
 void SingleShape2D::create(engine::World& world, ecs::Entity existing) {
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
-    notifyDirty();
+    ensureUpdated();
 }
 
 void SingleShape2D::ensureLocalSizeUpdated() { ensureUpdated(); }
