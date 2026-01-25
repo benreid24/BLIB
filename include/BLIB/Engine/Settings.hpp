@@ -101,6 +101,11 @@ public:
     float updateTimestep() const;
 
     /**
+     * @brief Returns the fixed physics update interval, in microseconds
+     */
+    std::uint64_t updateTimestepMicroseconds() const;
+
+    /**
      * @brief Returns the maximum rendering framerate, in fps
      */
     float maximumFramerate() const;

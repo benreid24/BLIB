@@ -101,6 +101,7 @@ function(configure_blib_target target_name)
         ${BLIB_PATH}/lib/plf_colony
         ${BLIB_PATH}/lib/box2d/include
         ${BLIB_PATH}/lib/assimp/include
+        ${CMAKE_BINARY_DIR}/lib/assimp/include
         ${BLIB_PATH}/lib/zlib
     )
     if(APPLE)

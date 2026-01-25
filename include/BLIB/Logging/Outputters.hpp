@@ -34,7 +34,8 @@ std::ostream& operator<<(std::ostream& os, const sf::Vector3<T>& v) {
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, const sf::Rect<T>& r) {
-    os << "(" << r.left << ", " << r.top << ", " << r.width << ", " << r.height << ")";
+    os << "(" << r.position.x << ", " << r.position.y << ", " << r.size.x << ", " << r.size.y
+       << ")";
     return os;
 }
 

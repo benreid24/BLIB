@@ -1,7 +1,6 @@
 #include <BLIB/Engine/Engine.hpp>
 
 #include <BLIB/Audio.hpp>
-#include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Resources/GarbageCollector.hpp>
@@ -17,6 +16,21 @@ namespace bl
 {
 namespace engine
 {
+namespace
+{
+float toSeconds(std::uint64_t microseconds) {
+    return static_cast<float>(microseconds) / 1'000'000.f;
+}
+
+std::uint64_t scaleTime(std::uint64_t microseconds, float scale) {
+    return static_cast<std::uint64_t>(static_cast<float>(microseconds) * scale);
+}
+
+float toRealSeconds(std::int64_t microseconds, float scale) {
+    return static_cast<float>(microseconds) / scale / 1'000'000.f;
+}
+} // namespace
+
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
@@ -149,25 +163,29 @@ bool Engine::setup() {
 bool Engine::loop() {
     BL_LOG_INFO << "Starting engine with state: " << states.top()->name();
 
-    sf::Clock loopTimer;
-    sf::Clock updateOuterTimer;
-    const float minFrameLength =
-        engineSettings.maximumFramerate() > 0 ? 1.f / engineSettings.maximumFramerate() : 0.f;
-    float lag = 0.f;
+    sf::Clock loopTimer;        // measures duration of entire loop top to bottom
+    sf::Clock updateOuterTimer; // measure duration from update tick start to start
+    const float minFrameLengthSeconds =
+        engineSettings.maximumFramerate() > 0.f ? 1.f / engineSettings.maximumFramerate() : 0.f;
+    // always limit to at least 100us to avoid issues with SFML time resolution
+    const std::uint64_t minFrameLength =
+        std::max(static_cast<std::uint64_t>(minFrameLengthSeconds * 1'000'000.f), 100ull);
+    std::uint64_t lag = 0;
 
-    sf::Clock updateMeasureTimer;
-    float updateTimestep    = engineSettings.updateTimestep();
-    float averageUpdateTime = engineSettings.updateTimestep();
+    sf::Clock updateMeasureTimer; // measures duration of update ticks
+    std::uint64_t updateTimestep    = engineSettings.updateTimestepMicroseconds();
+    std::uint64_t averageUpdateTime = engineSettings.updateTimestepMicroseconds();
 
-    float lastWarnTime     = -6.f; // always log first warning
-    bool followupLog       = false;
-    auto fallBehindWarning = [&lastWarnTime, &updateMeasureTimer, &followupLog](float behind) {
-        if (updateMeasureTimer.getElapsedTime().asSeconds() - lastWarnTime >= 5.f) {
-            lastWarnTime = updateMeasureTimer.getElapsedTime().asSeconds();
-            followupLog  = true;
-            BL_LOG_WARN << "Can't catch up, running " << behind << " seconds behind";
-        }
-    };
+    float lastWarnTime = -6.f; // always log first warning
+    bool followupLog   = false;
+    auto fallBehindWarning =
+        [&lastWarnTime, &updateMeasureTimer, &followupLog](std::uint64_t behind) {
+            if (updateMeasureTimer.getElapsedTime().asSeconds() - lastWarnTime >= 5.f) {
+                lastWarnTime = updateMeasureTimer.getElapsedTime().asSeconds();
+                followupLog  = true;
+                BL_LOG_WARN << "Can't catch up, running " << toSeconds(behind) << " seconds behind";
+            }
+        };
     auto skipUpdatesInfo = [&followupLog](int frameCount) {
         if (followupLog) {
             followupLog = false;
@@ -188,7 +206,8 @@ bool Engine::loop() {
         engineFlags.clear();
 
         if (rendererInstance.has_value()) {
-            while (std::optional<sf::Event> event = rendererInstance->getWindow().pollEvent()) {
+            std::optional<sf::Event> event = rendererInstance->getWindow().pollEvent();
+            while (event.has_value()) {
                 eventEmitter.emit<sf::Event>(event.value());
 
                 bool shouldExit = false;
@@ -215,33 +234,41 @@ bool Engine::loop() {
                         // catch all
                     }});
                 if (shouldExit) { return true; }
+                event = rendererInstance->getWindow().pollEvent();
             }
         }
 
         ecsSystems.notifyFrameStart();
 
         // Update and render
-        lag += updateOuterTimer.getElapsedTime().asSeconds() * timeScale;
+        lag += scaleTime(updateOuterTimer.getElapsedTime().asMicroseconds(), timeScale);
         updateOuterTimer.restart();
-        const float startingLag = lag;
-        float totalDt           = 0.f;
+        const std::uint64_t startingLag = lag;
+        std::uint64_t totalDt           = 0;
         updateMeasureTimer.restart();
 
         // update until caught up
         while (lag >= updateTimestep) {
-            const float updateStart = updateMeasureTimer.getElapsedTime().asSeconds();
+            // track tick time
+            totalDt += updateTimestep;
+            lag -= updateTimestep;
+
+            const std::uint64_t updateStart = updateMeasureTimer.getElapsedTime().asMicroseconds();
+            const float dt                  = toSeconds(updateTimestep);
+            const float realDt              = toRealSeconds(updateTimestep, timeScale);
+            const float lagSeconds          = toSeconds(lag);
+            const float realLagSeconds      = toRealSeconds(lag, timeScale);
 
             // core update game logic
-            totalDt += updateTimestep;
             input.update();
-            states.top()->update(*this, updateTimestep, updateTimestep / timeScale);
+            states.top()->update(*this, dt, realDt);
             ecsSystems.update(FrameStage::FrameStart,
                               FrameStage::MARKER_OncePerFrame,
                               states.top()->systemsMask(),
-                              updateTimestep,
-                              updateTimestep / timeScale,
-                              lag,
-                              lag / timeScale);
+                              dt,
+                              realDt,
+                              lagSeconds,
+                              realLagSeconds);
             signalChannel.syncDeferred();
 
             // check if we should end early
@@ -251,32 +278,35 @@ bool Engine::loop() {
             }
 
             // handle timing
-            lag -= updateTimestep;
             averageUpdateTime =
-                0.8f * averageUpdateTime +
-                0.2f * (updateMeasureTimer.getElapsedTime().asSeconds() - updateStart);
-            if (updateMeasureTimer.getElapsedTime().asSeconds() > startingLag * 1.1f) {
-                fallBehindWarning(updateMeasureTimer.getElapsedTime().asSeconds() - startingLag);
+                (8 * averageUpdateTime +
+                 2 * (updateMeasureTimer.getElapsedTime().asMicroseconds() - updateStart)) /
+                10;
+            if (updateMeasureTimer.getElapsedTime().asMicroseconds() > startingLag * 11 / 10) {
+                fallBehindWarning(updateMeasureTimer.getElapsedTime().asMicroseconds() -
+                                  startingLag);
                 if (engineSettings.allowVariableTimestep()) {
-                    const float newTs = updateTimestep * 1.05f;
+                    const float newTs = updateTimestep * 21 / 20;
                     BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep << "s to "
                                 << newTs << "s";
                     updateTimestep    = newTs;
                     averageUpdateTime = updateTimestep;
                 }
                 else {
-                    skipUpdatesInfo(std::ceil(lag / updateTimestep));
-                    lag = 0.f;
+                    skipUpdatesInfo(
+                        std::ceil(static_cast<float>(lag) / static_cast<float>(updateTimestep)));
+                    lag = 0;
                 }
             }
         }
 
         // update timing
-        if (averageUpdateTime < updateTimestep * 0.9f &&
+        if (averageUpdateTime < updateTimestep * 9 / 10 &&
             updateTimestep > engineSettings.updateTimestep()) {
-            const float newTs = std::max(engineSettings.updateTimestep(), updateTimestep * 0.95f);
-            BL_LOG_INFO << "Performance improved, adjusting timestep from " << updateTimestep
-                        << "s to " << newTs << "s";
+            const std::uint64_t newTs =
+                std::max(engineSettings.updateTimestepMicroseconds(), updateTimestep * 19 / 20);
+            BL_LOG_INFO << "Performance improved, adjusting timestep from "
+                        << toSeconds(updateTimestep) << "s to " << toSeconds(newTs) << "s";
             updateTimestep = newTs;
         }
 
@@ -340,10 +370,10 @@ bool Engine::loop() {
                 ecsSystems.update(FrameStage::MARKER_OncePerFrame,
                                   FrameStage::COUNT,
                                   states.top()->systemsMask(),
-                                  totalDt,
-                                  totalDt / timeScale,
-                                  lag,
-                                  lag / timeScale);
+                                  toSeconds(totalDt),
+                                  toRealSeconds(totalDt, timeScale),
+                                  toSeconds(lag),
+                                  toRealSeconds(lag, timeScale));
 
                 // flush scene object changes
                 rendererInstance->syncSceneObjects();
@@ -360,11 +390,9 @@ bool Engine::loop() {
             }
 
             // Adhere to FPS cap
-            if (minFrameLength > 0) {
-                const float st = minFrameLength - loopTimer.getElapsedTime().asSeconds();
-                if (st > 0) sf::sleep(sf::seconds(st));
-                loopTimer.restart();
-            }
+            const std::uint64_t st = minFrameLength - loopTimer.getElapsedTime().asMicroseconds();
+            if (st > 0) { sf::sleep(sf::microseconds(st)); }
+            loopTimer.restart();
 
             frameCount += 1.f;
             if (rendererInstance && fpsTimer.getElapsedTime().asSeconds() >= 1.f &&
