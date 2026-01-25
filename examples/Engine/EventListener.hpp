@@ -4,6 +4,7 @@
 #include <BLIB/Input.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Signals.hpp>
+#include <BLIB/Util/Visitor.hpp>
 #include <SFML/Window.hpp>
 
 namespace sf
@@ -20,21 +21,20 @@ public:
     virtual ~EventListener() = default;
 
     virtual void process(const sf::Event& event) override {
-        switch (event.type) {
-        case sf::Event::JoystickButtonPressed:
-            BL_LOG_INFO << "Joystick button: " << event.joystickButton.button << " from "
-                        << sf::Joystick::getIdentification(event.joystickButton.joystickId);
-            break;
-        case sf::Event::JoystickMoved:
-            if (std::abs(event.joystickMove.position) >= 90.f) {
-                BL_LOG_INFO << "Joystick axis " << event.joystickMove.axis << " -> "
-                            << event.joystickMove.position << " from "
-                            << sf::Joystick::getIdentification(event.joystickMove.joystickId);
-            }
-            break;
-        default:
-            break;
-        }
+        event.visit(bl::util::Visitor{
+            [](const sf::Event::JoystickButtonPressed& ev) {
+                BL_LOG_INFO << "Joystick button: " << ev.button << " from "
+                            << sf::Joystick::getIdentification(ev.joystickId).name;
+            },
+            [](const sf::Event::JoystickMoved& ev) {
+                if (std::abs(ev.position) >= 90.f) {
+                    BL_LOG_INFO << "Joystick axis " << ev.axis << " -> " << ev.position << " from "
+                                << sf::Joystick::getIdentification(ev.joystickId).name;
+                }
+            },
+            [](const auto&) {
+                // Do nothing
+            }});
     }
 };
 

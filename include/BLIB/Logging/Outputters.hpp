@@ -2,6 +2,7 @@
 #define BLIB_LOGGING_OUTPUTTERS_HPP
 
 #include <SFML/Graphics/Rect.hpp>
+#include <SFML/System/String.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
 #include <glm/glm.hpp>
@@ -36,6 +37,11 @@ template<typename T>
 std::ostream& operator<<(std::ostream& os, const sf::Rect<T>& r) {
     os << "(" << r.position.x << ", " << r.position.y << ", " << r.size.x << ", " << r.size.y
        << ")";
+    return os;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const sf::String& str) {
+    os << str.toAnsiString();
     return os;
 }
 

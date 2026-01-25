@@ -302,7 +302,7 @@ bool Engine::loop() {
 
         // update timing
         if (averageUpdateTime < updateTimestep * 9 / 10 &&
-            updateTimestep > engineSettings.updateTimestep()) {
+            updateTimestep > engineSettings.updateTimestepMicroseconds()) {
             const std::uint64_t newTs =
                 std::max(engineSettings.updateTimestepMicroseconds(), updateTimestep * 19 / 20);
             BL_LOG_INFO << "Performance improved, adjusting timestep from "
