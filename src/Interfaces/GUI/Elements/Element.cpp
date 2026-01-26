@@ -14,7 +14,7 @@ Element::Element()
 , component(nullptr)
 , parent(nullptr)
 , position(0.f, 0.f)
-, cachedArea(0.f, 0.f, 0.f, 0.f)
+, cachedArea({0.f, 0.f}, {0.f, 0.f})
 , showingTooltip(false)
 , _dirty(true)
 , _active(true)
@@ -252,12 +252,12 @@ void Element::requestMakeDirty(const Element* child) {
 }
 
 bool Element::shouldMarkSelfDirty() {
-    constexpr float ShrinkThresh = 0.75f;
-    const sf::Vector2f newReq    = getRequisition();
-    const sf::FloatRect& acq     = getAcquisition();
-    if (newReq.x > acq.width || newReq.y > acq.height ||
-        (!fillX && newReq.x < acq.width * ShrinkThresh) ||
-        (!fillY && newReq.y < acq.height * ShrinkThresh)) {
+constexpr float ShrinkThresh = 0.75f;
+const sf::Vector2f newReq    = getRequisition();
+const sf::FloatRect& acq     = getAcquisition();
+if (newReq.x > acq.size.x || newReq.y > acq.size.y ||
+    (!fillX && newReq.x < acq.size.x * ShrinkThresh) ||
+    (!fillY && newReq.y < acq.size.y * ShrinkThresh)) {
         return true;
     }
     return false;
@@ -312,9 +312,9 @@ void Element::setExpandsHeight(bool expand) {
 bool Element::expandsHeight() const { return fillY; }
 
 void Element::assignAcquisition(const sf::FloatRect& acq) {
-    markClean();
-    cachedArea = acq;
-    const sf::Vector2f globalPos(cachedArea.left, cachedArea.top);
+markClean();
+cachedArea = acq;
+const sf::Vector2f globalPos(cachedArea.position.x, cachedArea.position.y);
     if (parent) { position = globalPos - parent->getPosition(); }
     else { position = globalPos; }
     fireSignal(Event(Event::AcquisitionChanged));
@@ -322,10 +322,10 @@ void Element::assignAcquisition(const sf::FloatRect& acq) {
 }
 
 void Element::setPosition(const sf::Vector2f& pos) {
-    const sf::Vector2f diff = pos - sf::Vector2f(cachedArea.left, cachedArea.top);
-    dragStart += diff;
-    cachedArea.left = pos.x;
-    cachedArea.top  = pos.y;
+const sf::Vector2f diff = pos - sf::Vector2f(cachedArea.position.x, cachedArea.position.y);
+dragStart += diff;
+cachedArea.position.x = pos.x;
+cachedArea.position.y = pos.y;
     if (parent) { position = pos - parent->getPosition(); }
     else { position = pos; }
     fireSignal(Event(Event::Moved));
@@ -333,11 +333,11 @@ void Element::setPosition(const sf::Vector2f& pos) {
 }
 
 void Element::recalculatePosition() {
-    if (parent) {
-        const sf::Vector2f npos = parent->getPosition() + position;
-        if (npos.x != cachedArea.left || npos.y != cachedArea.top) {
-            cachedArea.left = npos.x;
-            cachedArea.top  = npos.y;
+if (parent) {
+    const sf::Vector2f npos = parent->getPosition() + position;
+    if (npos.x != cachedArea.position.x || npos.y != cachedArea.position.y) {
+        cachedArea.position.x = npos.x;
+        cachedArea.position.y = npos.y;
             fireSignal(Event(Event::Moved));
             if (component) { component->onMove(); }
         }
@@ -346,7 +346,7 @@ void Element::recalculatePosition() {
 
 const sf::FloatRect& Element::getAcquisition() const { return cachedArea; }
 
-sf::Vector2f Element::getPosition() const { return {cachedArea.left, cachedArea.top}; }
+sf::Vector2f Element::getPosition() const { return {cachedArea.position.x, cachedArea.position.y}; }
 
 const sf::Vector2f& Element::getLocalPosition() const { return position; }
 
@@ -386,7 +386,7 @@ void Element::setSecondaryOutlineThickness(float t) {
     onRenderChange();
 }
 
-void Element::setStyle(sf::Uint32 style) {
+void Element::setStyle(std::uint32_t style) {
     settings.style = style;
     onRenderChange();
 }

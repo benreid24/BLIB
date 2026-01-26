@@ -40,7 +40,7 @@ void OverlayHighlightProvider::notifyUIState(Element* element, rdr::Component::U
                     std::max(-10.f, cam::OverlayCamera::MinDepth - pos->getGlobalDepth()));
             }
             else { cover.getTransform().setDepth(cam::OverlayCamera::MinDepth); }
-            cover.scaleToSize({element->getAcquisition().width, element->getAcquisition().height});
+            cover.scaleToSize({element->getAcquisition().size.x, element->getAcquisition().size.y});
             cover.setParent(parent);
             cover.setHidden(false);
         }

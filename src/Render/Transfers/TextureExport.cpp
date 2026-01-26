@@ -72,12 +72,12 @@ void TextureExport::copyImage(sf::Image& dst) {
 
     if (!mapped) { vmaMapMemory(vulkanState.getVmaAllocator(), destAlloc, &mapped); }
 
-    dst.create(srcExtent.width, srcExtent.height, static_cast<sf::Uint8*>(mapped));
+    dst.resize({srcExtent.width, srcExtent.height}, static_cast<std::uint8_t*>(mapped));
     if (requiresManualConversion) {
         for (unsigned int y = 0; y < dst.getSize().y; ++y) {
             for (unsigned int x = 0; x < dst.getSize().x; ++x) {
-                const sf::Color c = dst.getPixel(x, y);
-                dst.setPixel(x, y, {c.b, c.g, c.r, c.a});
+                const sf::Color c = dst.getPixel({x, y});
+                dst.setPixel({x, y}, {c.b, c.g, c.r, c.a});
             }
         }
     }

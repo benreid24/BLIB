@@ -28,11 +28,11 @@ public:
      * @param leftCtrl Control to generate move left events
      * @param activateCtrl Control to generate activate events
      */
-    KeyboardDriver(Menu& menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Up,
-                   sf::Keyboard::Key rightCtrl    = sf::Keyboard::Right,
-                   sf::Keyboard::Key downCtrl     = sf::Keyboard::Down,
-                   sf::Keyboard::Key leftCtrl     = sf::Keyboard::Left,
-                   sf::Keyboard::Key activateCtrl = sf::Keyboard::Space);
+    KeyboardDriver(Menu& menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Key::Up,
+                   sf::Keyboard::Key rightCtrl    = sf::Keyboard::Key::Right,
+                   sf::Keyboard::Key downCtrl     = sf::Keyboard::Key::Down,
+                   sf::Keyboard::Key leftCtrl     = sf::Keyboard::Key::Left,
+                   sf::Keyboard::Key activateCtrl = sf::Keyboard::Key::Space);
 
     /**
      * @brief Set the key bound to the given direction. Defaults are the arrow keys

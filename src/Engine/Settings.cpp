@@ -70,6 +70,10 @@ void Settings::syncToConfig() const {
 
 float Settings::updateTimestep() const { return updateTime; }
 
+std::uint64_t Settings::updateTimestepMicroseconds() const {
+    return static_cast<std::uint64_t>(updateTime * 1'000'000.f);
+}
+
 float Settings::maximumFramerate() const { return maxFps; }
 
 bool Settings::allowVariableTimestep() const { return allowVariableInterval; }

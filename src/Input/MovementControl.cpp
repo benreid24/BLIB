@@ -25,9 +25,7 @@ std::string stickKey(const std::string& prefix) { return prefix + ".joystick"; }
 MovementControl::MovementControl(bool jm)
 : type(jm ? Type::Joystick : Type::Triggers) {
     if (jm) { new (&joystick) Joystick(); }
-    else {
-        new (&keys) KeyConfig(jm);
-    }
+    else { new (&keys) KeyConfig(jm); }
 }
 
 DispatchType MovementControl::process(const sf::Event& event) {
@@ -41,7 +39,8 @@ DispatchType MovementControl::process(const sf::Event& event) {
         const sf::Vector2f old = joystick.cachedPosition;
 
         if (joystick.process(event)) {
-            if (event.joystickMove.axis == joystick.verticalAxis) {
+            const sf::Event::JoystickMoved& jm = *event.getIf<sf::Event::JoystickMoved>();
+            if (jm.axis == joystick.verticalAxis) {
                 if (joystick.cachedPosition.y >= StickThreshold && old.y < StickThreshold)
                     return DispatchType::MovementUp;
                 if (joystick.cachedPosition.y <= -StickThreshold && old.y > -StickThreshold)
@@ -89,9 +88,7 @@ sf::Vector2f MovementControl::readValue() const {
         if (keys.left.active()) dir.x -= 1.f;
         return math::normalized(dir);
     }
-    else {
-        return math::normalized(joystick.cachedPosition);
-    }
+    else { return math::normalized(joystick.cachedPosition); }
 }
 
 void MovementControl::saveToConfig(const std::string& prefix) const {
@@ -104,9 +101,7 @@ void MovementControl::saveToConfig(const std::string& prefix) const {
         keys.down.saveToConfig(downKey(prefix));
         keys.left.saveToConfig(leftKey(prefix));
     }
-    else {
-        joystick.saveToConfig(stickKey(prefix));
-    }
+    else { joystick.saveToConfig(stickKey(prefix)); }
 }
 
 void MovementControl::loadFromConfig(const std::string& prefix) {
@@ -121,9 +116,7 @@ void MovementControl::loadFromConfig(const std::string& prefix) {
         keys.down.loadFromConfig(downKey(prefix));
         keys.left.loadFromConfig(leftKey(prefix));
     }
-    else {
-        joystick.loadFromConfig(stickKey(prefix));
-    }
+    else { joystick.loadFromConfig(stickKey(prefix)); }
 }
 
 std::string MovementControl::toString() const {
@@ -131,9 +124,7 @@ std::string MovementControl::toString() const {
         return "Up: " + keys.up.toString() + "\nRight: " + keys.right.toString() +
                "\nDown: " + keys.down.toString() + "\nLeft: " + keys.left.toString();
     }
-    else {
-        return joystick.toString();
-    }
+    else { return joystick.toString(); }
 }
 
 MovementControl::KeyConfig::KeyConfig(bool jm)

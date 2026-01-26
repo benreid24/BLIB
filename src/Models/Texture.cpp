@@ -12,11 +12,11 @@ Texture::Texture()
 void Texture::makeFromRaw(unsigned int width, unsigned int height, const aiTexel* data) {
     sf::Image& img = texture.emplace<sf::Image>();
     if (width > 0 && height > 0) {
-        img.create(width, height);
+        img.resize({width, height});
         for (unsigned int x = 0; x < width; ++x) {
             for (unsigned int y = 0; y < height; ++y) {
                 const aiTexel t = data[y * width + x];
-                img.setPixel(x, y, sf::Color(t.r, t.g, t.b, t.a));
+                img.setPixel({x, y}, sf::Color(t.r, t.g, t.b, t.a));
             }
         }
     }

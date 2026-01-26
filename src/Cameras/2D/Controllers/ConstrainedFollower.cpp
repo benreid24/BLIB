@@ -37,26 +37,26 @@ void ConstrainedFollower::update(float) {
 #endif
 
     glm::vec2 center = pos->getGlobalPosition();
-    if (camera().getSize().x >= area.width) {
+    if (camera().getSize().x >= area.size.x) {
         //
-        center.x = area.left + area.width * 0.5f;
+        center.x = area.position.x + area.size.x * 0.5f;
     }
     else {
-        if (center.x - camera().getSize().x * 0.5f < area.left) {
-            center.x = area.left + camera().getSize().x * 0.5f;
+        if (center.x - camera().getSize().x * 0.5f < area.position.x) {
+            center.x = area.position.x + camera().getSize().x * 0.5f;
         }
-        else if (center.x + camera().getSize().x * 0.5f > area.left + area.width) {
-            center.x = area.left + area.width - camera().getSize().x * 0.5f;
+        else if (center.x + camera().getSize().x * 0.5f > area.position.x + area.size.x) {
+            center.x = area.position.x + area.size.x - camera().getSize().x * 0.5f;
         }
     }
 
-    if (camera().getSize().y >= area.height) { center.y = area.top + area.height * 0.5f; }
+    if (camera().getSize().y >= area.size.y) { center.y = area.position.y + area.size.y * 0.5f; }
     else {
-        if (center.y - camera().getSize().y * 0.5f < area.top) {
-            center.y = area.top + camera().getSize().y * 0.5f;
+        if (center.y - camera().getSize().y * 0.5f < area.position.y) {
+            center.y = area.position.y + camera().getSize().y * 0.5f;
         }
-        else if (center.y + camera().getSize().y * 0.5f > area.top + area.height) {
-            center.y = area.top + area.height - camera().getSize().y * 0.5f;
+        else if (center.y + camera().getSize().y * 0.5f > area.position.y + area.size.y) {
+            center.y = area.position.y + area.size.y - camera().getSize().y * 0.5f;
         }
     }
 

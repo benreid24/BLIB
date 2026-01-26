@@ -151,19 +151,19 @@ sf::Vector2f Notebook::minimumRequisition() const {
 }
 
 void Notebook::onAcquisition() {
-    const float contentOutline =
-        activePage ?
-            activePage->content->renderSettings().outlineThickness.value_or(TabTopPadding) :
-            TabTopPadding;
-    tabAcquisition = {getAcquisition().left + contentOutline,
-                      getAcquisition().top + TabTopPadding,
-                      std::max(tabArea->getRequisition().x, getAcquisition().width) -
-                          contentOutline * 2.f,
-                      tabArea->getRequisition().y - TabTopPadding};
-    Packer::manuallyPackElement(tabArea, tabAcquisition, true);
-    if (maxWidth > 0.f) {
-        tabAcquisition.width =
-            std::min(getAcquisition().width, tabAcquisition.width) - contentOutline * 2.f;
+const float contentOutline =
+    activePage ?
+        activePage->content->renderSettings().outlineThickness.value_or(TabTopPadding) :
+        TabTopPadding;
+tabAcquisition = {{getAcquisition().position.x + contentOutline,
+                   getAcquisition().position.y + TabTopPadding},
+                  {std::max(tabArea->getRequisition().x, getAcquisition().size.x) -
+                       contentOutline * 2.f,
+                   tabArea->getRequisition().y - TabTopPadding}};
+Packer::manuallyPackElement(tabArea, tabAcquisition, true);
+if (maxWidth > 0.f) {
+    tabAcquisition.size.x =
+        std::min(getAcquisition().size.x, tabAcquisition.size.x) - contentOutline * 2.f;
     }
     if (activePage) Packer::manuallyPackElement(activePage->content, contentArea());
 
@@ -187,15 +187,15 @@ void Notebook::makePageActiveDirect(Page* page) {
 
     if (maxWidth > 0.f) {
         const float labelX =
-            (page->label->getPosition().x - tabArea->getPosition().x) + tabAcquisition.left;
+            (page->label->getPosition().x - tabArea->getPosition().x) + tabAcquisition.position.x;
         const float x = labelX - scroll;
         if (x < getPosition().x) { scroll = labelX - getPosition().x; }
         else {
-            const float right = getAcquisition().left + getAcquisition().width;
-            const float xr    = x + page->label->getAcquisition().width;
+            const float right = getAcquisition().position.x + getAcquisition().size.x;
+            const float xr    = x + page->label->getAcquisition().size.x;
             if (xr > right) {
-                scroll = (labelX - getPosition().x) - getAcquisition().width +
-                         page->label->getAcquisition().width;
+                scroll = (labelX - getPosition().x) - getAcquisition().size.x +
+                         page->label->getAcquisition().size.x;
             }
         }
         constrainScroll();
@@ -211,10 +211,10 @@ void Notebook::makePageActive(unsigned int i) {
 }
 
 void Notebook::onMove() {
-    tabArea->recalculatePosition();
-    for (Page& p : pages) { p.content->recalculatePosition(); }
-    tabAcquisition.left = getPosition().x;
-    tabAcquisition.top  = getPosition().y;
+tabArea->recalculatePosition();
+for (Page& p : pages) { p.content->recalculatePosition(); }
+tabAcquisition.position.x = getPosition().x;
+tabAcquisition.position.y = getPosition().y;
 }
 
 std::list<Notebook::Page>::iterator Notebook::getIterator(unsigned int i) {
@@ -227,10 +227,10 @@ std::list<Notebook::Page>::iterator Notebook::getIterator(unsigned int i) {
 }
 
 sf::FloatRect Notebook::contentArea() const {
-    return {getAcquisition().left + ContentPadding,
-            getAcquisition().top + tabArea->getRequisition().y + ContentPadding,
-            getAcquisition().width - 2.f * ContentPadding,
-            getAcquisition().height - tabArea->getRequisition().y - 2.f * ContentPadding};
+return {{getAcquisition().position.x + ContentPadding,
+         getAcquisition().position.y + tabArea->getRequisition().y + ContentPadding},
+        {getAcquisition().size.x - 2.f * ContentPadding,
+         getAcquisition().size.y - tabArea->getRequisition().y - 2.f * ContentPadding}};
 }
 
 void Notebook::requestMakeDirty(const Element* child) {
@@ -255,14 +255,14 @@ bool Notebook::propagateEvent(const Event& e) {
 
 void Notebook::constrainScroll() {
     if (scroll < 0.f) { scroll = 0.f; }
-    if (maxWidth > 0.f && tabArea->getAcquisition().width > getAcquisition().width) {
-        const float ms = tabArea->getAcquisition().width - tabAcquisition.width;
+    if (maxWidth > 0.f && tabArea->getAcquisition().size.x > getAcquisition().size.x) {
+        const float ms = tabArea->getAcquisition().size.x - tabAcquisition.size.x;
         if (scroll > ms) { scroll = ms; }
     }
 
     if (maxWidth < 0.f) { scroll = 0.f; }
 
-    tabArea->setPosition({tabAcquisition.left - scroll, tabAcquisition.top});
+    tabArea->setPosition({tabAcquisition.position.x - scroll, tabAcquisition.position.y});
 }
 
 float Notebook::getTabScroll() const { return scroll; }

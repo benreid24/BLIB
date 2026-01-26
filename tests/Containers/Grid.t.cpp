@@ -9,7 +9,7 @@ namespace ctr
 namespace unittest
 {
 TEST(Grid, Add) {
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     grid.add({55.f, 55.f}, 15);
     const auto& cell = grid.getCell({55.f, 55.f});
@@ -18,7 +18,7 @@ TEST(Grid, Add) {
 }
 
 TEST(Grid, Move) {
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     grid.add({55.f, 55.f}, 15);
     const auto& cell = grid.getCell({55.f, 55.f});
@@ -34,7 +34,7 @@ TEST(Grid, Move) {
 }
 
 TEST(Grid, Remove) {
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     grid.add({55.f, 55.f}, 15);
     const auto& cell = grid.getCell({55.f, 55.f});
@@ -46,7 +46,7 @@ TEST(Grid, Remove) {
 }
 
 TEST(Grid, Clear) {
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     grid.add({55.f, 55.f}, 15);
     const auto& cell = grid.getCell({55.f, 55.f});
@@ -59,7 +59,7 @@ TEST(Grid, Clear) {
 
 TEST(Grid, IterateRegion) {
     std::unordered_set<int> inRegion({15, 10, 30});
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     // in region
     grid.add({35.f, 35.f}, 15);
@@ -76,13 +76,13 @@ TEST(Grid, IterateRegion) {
         ASSERT_NE(it, inRegion.end()) << "Failed to find " + std::to_string(val);
         inRegion.erase(it);
     };
-    grid.forAllInRegion({10.f, 10.f, 29.f, 29.f}, visitor);
+    grid.forAllInRegion(sf::FloatRect{{10.f, 10.f}, {29.f, 29.f}}, visitor);
     EXPECT_TRUE(inRegion.empty());
 }
 
 TEST(Grid, IterateCells) {
     std::unordered_set<int> inRegion({15, 10, 30});
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     // in region
     grid.add({45.f, 45.f}, 15);
@@ -104,7 +104,7 @@ TEST(Grid, IterateCells) {
 }
 
 TEST(Grid, IterateEndEarly) {
-    Grid<int> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     // in region
     grid.add({45.f, 45.f}, 15);
@@ -130,7 +130,7 @@ TEST(Grid, IterateEndEarly) {
 TEST(Grid, Pointer) {
     std::vector<std::vector<long*>> tvec(32);
 
-    Grid<int*> grid({0.f, 0.f, 100.f, 100.f}, 10.f, 10.f);
+    Grid<int*> grid(sf::FloatRect{{0.f, 0.f}, {100.f, 100.f}}, 10.f, 10.f);
 
     int val = 55;
     grid.add({55.f, 55.f}, &val);

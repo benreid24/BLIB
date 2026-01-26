@@ -1,6 +1,7 @@
 #include <BLIB/Input/Actor.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/Visitor.hpp>
 #include <Input/Consts.hpp>
 
 namespace bl
@@ -193,30 +194,59 @@ void Actor::dispatch(unsigned int ctrl, DispatchType dt, bool onEvent) {
 }
 
 void Actor::process(const sf::Event& event) {
-    // determine if keyboard or controller is being used
-    switch (event.type) {
-    case sf::Event::JoystickButtonPressed:
-    case sf::Event::JoystickButtonReleased:
-        if (joystick < sf::Joystick::Count && event.joystickButton.joystickId != joystick) return;
-        activeControls = &joystickControls;
-        break;
-    case sf::Event::JoystickMoved:
-        if (joystick < sf::Joystick::Count && event.joystickMove.joystickId != joystick) return;
-        activeControls = &joystickControls;
-        break;
-    case sf::Event::KeyPressed:
-    case sf::Event::KeyReleased:
-    case sf::Event::MouseButtonPressed:
-    case sf::Event::MouseButtonReleased:
-    case sf::Event::MouseWheelScrolled:
-    case sf::Event::MouseMoved:
-        activeControls = &kbmControls;
-        break;
-    default:
-        return; // can exit early, event does not trigger any controls
-    }
+    // Determine if keyboard or controller is being used, then process controls
+    bool shouldProcess = false;
+    
+    event.visit(util::Visitor{
+        [this, &shouldProcess](const sf::Event::JoystickButtonPressed& jbEvent) {
+            if (joystick >= sf::Joystick::Count || jbEvent.joystickId == joystick) {
+                activeControls = &joystickControls;
+                shouldProcess  = true;
+            }
+        },
+        [this, &shouldProcess](const sf::Event::JoystickButtonReleased& jbEvent) {
+            if (joystick >= sf::Joystick::Count || jbEvent.joystickId == joystick) {
+                activeControls = &joystickControls;
+                shouldProcess  = true;
+            }
+        },
+        [this, &shouldProcess](const sf::Event::JoystickMoved& jmEvent) {
+            if (joystick >= sf::Joystick::Count || jmEvent.joystickId == joystick) {
+                activeControls = &joystickControls;
+                shouldProcess  = true;
+            }
+        },
+        [this, &shouldProcess](const sf::Event::KeyPressed&) {
+            activeControls = &kbmControls;
+            shouldProcess  = true;
+        },
+        [this, &shouldProcess](const sf::Event::KeyReleased&) {
+            activeControls = &kbmControls;
+            shouldProcess  = true;
+        },
+        [this, &shouldProcess](const sf::Event::MouseButtonPressed&) {
+            activeControls = &kbmControls;
+            shouldProcess  = true;
+        },
+        [this, &shouldProcess](const sf::Event::MouseButtonReleased&) {
+            activeControls = &kbmControls;
+            shouldProcess  = true;
+        },
+        [this, &shouldProcess](const sf::Event::MouseWheelScrolled&) {
+            activeControls = &kbmControls;
+            shouldProcess  = true;
+        },
+        [this, &shouldProcess](const sf::Event::MouseMoved&) {
+            activeControls = &kbmControls;
+            shouldProcess  = true;
+        },
+        [](const auto&) {
+            // Handle any other event types - do nothing
+        }});
+    
+    if (!shouldProcess) { return; }
 
-    // process control
+    // Process control
     for (unsigned int i = 0; i < (*activeControls).size(); ++i) {
         Control& ctrl = (*activeControls)[i];
 

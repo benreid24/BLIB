@@ -152,21 +152,21 @@ private:
 
 template<typename T>
 Grid<T>::Grid(const sf::FloatRect& space, float cw, float ch)
-: origin(space.left, space.top)
+: origin(space.position.x, space.position.y)
 , cellWidth(cw)
 , cellHeight(ch)
-, cells(std::ceil(space.width / cw), std::ceil(space.height / ch)) {
+, cells(std::ceil(space.size.x / cw), std::ceil(space.size.y / ch)) {
     for (auto& cell : cells) { cell.reserve(64); }
 }
 
 template<typename T>
 void Grid<T>::setSize(const sf::FloatRect& space, float cw, float ch) {
     clear();
-    origin.x   = space.left;
-    origin.y   = space.top;
+    origin.x   = space.position.x;
+    origin.y   = space.position.y;
     cellWidth  = cw;
     cellHeight = ch;
-    cells.setSize(std::ceil(space.width / cw), std::ceil(space.height / ch));
+    cells.setSize(std::ceil(space.size.x / cw), std::ceil(space.size.y / ch));
     for (auto& cell : cells) { cell.reserve(64); }
 }
 
@@ -242,9 +242,9 @@ void Grid<T>::forAllInRegion(const sf::FloatRect& region, const TCb& cb) {
     static_assert(std::is_invocable<TCb, T>::value,
                   "Visitor signature is void(T val) or bool(T val");
 
-    const sf::Vector2u sp = getIndexAtPosition({region.left, region.top});
+    const sf::Vector2u sp = getIndexAtPosition({region.position.x, region.position.y});
     const sf::Vector2u ep =
-        getIndexAtPosition({region.left + region.width, region.top + region.height});
+        getIndexAtPosition({region.position.x + region.size.x, region.position.y + region.size.y});
     for (unsigned int x = sp.x; x <= ep.x; ++x) {
         for (unsigned int y = sp.y; y <= ep.y; ++y) {
             Cell& cell = cells(x, y);

@@ -31,7 +31,7 @@ RenderTarget::SceneInstance::SceneInstance(engine::Engine& e, Renderer& r, Rende
 , observerIndex(0)
 , overlayIndex(0) {}
 
-RenderTarget::SceneInstance::~SceneInstance() {
+void RenderTarget::SceneInstance::cleanup() {
     if (scene) { scene->unregisterObserver(observerIndex); }
     if (overlay) { overlay->unregisterObserver(observerIndex); }
 }
@@ -131,12 +131,14 @@ Overlay* RenderTarget::getCurrentOverlay() {
 
 SceneRef RenderTarget::popSceneNoRelease() {
     SceneRef s = scenes.back().scene;
+    scenes.back().cleanup();
     scenes.pop_back();
     onSceneChange();
     return s;
 }
 
 void RenderTarget::popScene() {
+    scenes.back().cleanup();
     scenes.pop_back();
     onSceneChange();
 }
@@ -144,11 +146,21 @@ void RenderTarget::popScene() {
 void RenderTarget::removeScene(Scene* scene) {
     if (!scenes.empty() && scenes.back().scene == scene) { popScene(); }
     else {
-        std::erase_if(scenes, [scene](const SceneInstance& s) { return s.scene.get() == scene; });
+        std::erase_if(scenes, [scene](SceneInstance& s) {
+            if (s.scene.get() == scene) {
+                s.cleanup();
+                return true;
+            }
+            else { return false; }
+        });
     }
 }
 
-void RenderTarget::clearScenes() { scenes.clear(); }
+void RenderTarget::clearScenes() {
+    vkDeviceWaitIdle(renderer.vulkanState().getDevice());
+    for (auto& s : scenes) { s.cleanup(); }
+    scenes.clear();
+}
 
 void RenderTarget::onSceneAdd() {
     scenes.back().observerIndex = scenes.back().scene->registerObserver(this);
@@ -235,7 +247,7 @@ glm::vec2 RenderTarget::transformToOverlaySpace(const glm::vec2& sp) const {
     const glm::vec2 ndc((sp.x - viewport.x) / viewport.width * 2.f - 1.f,
                         (sp.y - viewport.y) / viewport.height * 2.f - 1.f);
     cam::OverlayCamera& cam = const_cast<cam::OverlayCamera&>(overlayCamera);
-    glm::mat4 tform = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
+    glm::mat4 tform         = cam.getProjectionMatrix(viewport) * cam.getViewMatrix();
     tform                   = glm::inverse(tform);
     const glm::vec4 result  = tform * glm::vec4(ndc, 0.f, 1.f);
     return {result.x, result.y};

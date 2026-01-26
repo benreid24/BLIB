@@ -25,7 +25,7 @@ void ComboBoxComponent::setVisible(bool v) { box.setHidden(!v); }
 void ComboBoxComponent::onElementUpdated() {
     ComboBox& owner = getOwnerAs<ComboBox>();
 
-    openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
+    openBackground.scaleToSize({owner.getOptionRegion().size.x, owner.getOptionRegion().size.y});
     if (owner.isOpened()) {
         selectedOption.setHidden(true);
         openBackground.setHidden(false);
@@ -53,8 +53,8 @@ void ComboBoxComponent::onRenderSettingChange() {
     configureText(selectedOption, settings);
 
     updateOptions();
-    openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
-    openBackground.getTransform().setPosition({0.f, box.getLocalBounds().height});
+    openBackground.scaleToSize({owner.getOptionRegion().size.x, owner.getOptionRegion().size.y});
+    openBackground.getTransform().setPosition({0.f, box.getLocalBounds().size.y});
 }
 
 ecs::Entity ComboBoxComponent::getEntity() const { return box.entity(); }
@@ -63,11 +63,11 @@ void ComboBoxComponent::doCreate(engine::World& world, rdr::Renderer&) {
     worldPtr                       = &world;
     ComboBox& owner                = getOwnerAs<ComboBox>();
     const RenderSettings& settings = owner.renderSettings();
-    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
 
     // arrow box + arrow
     arrowBox.create(
-        world, {owner.getAcquisition().height - BoxPad, owner.getAcquisition().height - BoxPad});
+        world, {owner.getAcquisition().size.y - BoxPad, owner.getAcquisition().size.y - BoxPad});
     arrowBox.setFillColor(sf::Color(90, 90, 90));
     arrowBox.setOutlineColor(sf::Color(45, 45, 45));
     arrowBox.setOutlineThickness(-1.f);
@@ -117,20 +117,20 @@ void ComboBoxComponent::handleAcquisition() {
     ComboBox& owner = getOwnerAs<ComboBox>();
 
     // background and arrow button
-    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.setSize({owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     arrowBox.setSize(
-        {owner.getAcquisition().height - BoxPad, owner.getAcquisition().height - BoxPad});
+        {owner.getAcquisition().size.y - BoxPad, owner.getAcquisition().size.y - BoxPad});
     box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
     arrowBox.getTransform().setPosition(
-        {owner.getAcquisition().width - ComboBox::OptionPadding - arrowBox.getSize().x,
-         ComboBox::OptionPadding});
+        glm::vec2(owner.getAcquisition().size.x - ComboBox::OptionPadding - arrowBox.getSize().x,
+                  ComboBox::OptionPadding));
 
     // closed text
     positionSelectedText();
 
     // open box and texts
-    openBackground.scaleToSize({owner.getOptionRegion().width, owner.getOptionRegion().height});
-    openBackground.getTransform().setPosition({0.f, owner.getAcquisition().height});
+    openBackground.scaleToSize({owner.getOptionRegion().size.x, owner.getOptionRegion().size.y});
+    openBackground.getTransform().setPosition(glm::vec2(0.f, owner.getAcquisition().size.y));
     if (optionsOutdated() ||
         (!openOptions.empty() &&
          (openOptions.front().background.getSize().x != owner.getOptionSize().x ||
@@ -160,8 +160,8 @@ sf::Vector2f ComboBoxComponent::getRequisition() const {
     sf::Vector2f req(0.f, 0.f);
     for (const auto& option : openOptions) {
         const sf::FloatRect bounds = option.text.getLocalBounds();
-        const float w              = bounds.left + bounds.width + BoxPad;
-        const float h              = bounds.top + bounds.height + BoxPad;
+        const float w              = bounds.position.x + bounds.size.x + BoxPad;
+        const float h              = bounds.position.y + bounds.size.y + BoxPad;
         req.x                      = std::max(req.x, w);
         req.y                      = std::max(req.y, h);
     }

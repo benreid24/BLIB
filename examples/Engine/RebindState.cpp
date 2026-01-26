@@ -34,7 +34,7 @@ void RebindState::activate(bl::engine::Engine& engine) {
 
     bl::rc::SceneRef scene = world->scene();
     engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(
-        sf::FloatRect{0.f, 0.f, 800.f, 600.f});
+        sf::FloatRect{{0.f, 0.f}, {800.f, 600.f}});
     text.addToScene(scene, bl::rc::UpdateSpeed::Static);
 }
 

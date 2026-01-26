@@ -104,13 +104,13 @@ void MaterialPool::checkLazyInit() {
     if (!defaultsInitialized) {
         defaultsInitialized = true;
 
-        normalImage.create(2, 2, sf::Color(128, 128, 255));
+        normalImage.resize({2, 2}, sf::Color(128, 128, 255));
         defaultNormalMap = renderer.texturePool().createTexture(
             normalImage,
             {.format  = vk::CommonTextureFormats::LinearRGBA32Bit,
              .sampler = vk::SamplerOptions::Type::FilteredRepeated});
 
-        parallaxImage.create(2, 2, sf::Color::Black);
+        parallaxImage.resize({2, 2}, sf::Color::Black);
         defaultParallaxMap = renderer.texturePool().createTexture(
             parallaxImage,
             {.format  = vk::CommonTextureFormats::LinearRGBA32Bit,

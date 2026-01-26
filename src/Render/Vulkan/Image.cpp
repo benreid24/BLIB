@@ -471,10 +471,9 @@ sf::Image Image::genMipMapsOnCpu(const sf::Image& image) {
     mipHeight = image.getSize().y / 2;
 
     sf::Image result;
-    result.create(image.getSize().x + mipWidth,
-                  std::max(image.getSize().y, totalMipHeight),
+    result.resize({image.getSize().x + mipWidth, std::max(image.getSize().y, totalMipHeight)},
                   sf::Color::Transparent);
-    result.copy(image, 0, 0, sf::IntRect(0, 0, image.getSize().x, image.getSize().y));
+    result.copy(image, {0, 0}, sf::IntRect({0, 0}, sf::Vector2i(image.getSize())));
 
     for (std::uint32_t i = 1; i < mipLevels; ++i) {
         for (std::uint32_t x = 0; x < mipWidth; ++x) {
@@ -489,7 +488,7 @@ sf::Image Image::genMipMapsOnCpu(const sf::Image& image) {
                                           std::uint32_t rx, std::uint32_t ry) {
                     if (rx < result.getSize().x && ry < result.getSize().y) {
                         ++read;
-                        const sf::Color c = result.getPixel(rx, ry);
+                        const sf::Color c = result.getPixel({rx, ry});
                         rSum += static_cast<std::uint32_t>(c.r);
                         gSum += static_cast<std::uint32_t>(c.g);
                         bSum += static_cast<std::uint32_t>(c.b);
@@ -503,7 +502,7 @@ sf::Image Image::genMipMapsOnCpu(const sf::Image& image) {
                 addColor(sourceX + x * 2 + 1, sourceY + y * 2 + 1);
 
                 const sf::Color avg(rSum / read, gSum / read, bSum / read, aSum / read);
-                result.setPixel(mipX + x, mipY + y, avg);
+                result.setPixel({mipX + x, mipY + y}, avg);
             }
         }
         sourceX = mipX;
@@ -517,16 +516,18 @@ sf::Image Image::genMipMapsOnCpu(const sf::Image& image) {
 }
 
 sf::IntRect Image::getMipLevelBounds(const glm::u32vec2& size, std::uint32_t level) {
-    sf::IntRect bounds(0, 0, size.x, size.y);
+    sf::IntRect bounds({0, 0}, sf::Vector2i(size.x, size.y));
     while (level > 0) { bounds = getNextMipLevelBounds(bounds, level--); }
     return bounds;
 }
 
 sf::IntRect Image::getNextMipLevelBounds(const sf::IntRect& bounds, std::uint32_t level) {
     if (level == 0) {
-        return {bounds.left + bounds.width, bounds.top, bounds.width / 2, bounds.height / 2};
+        return sf::IntRect{{bounds.position.x + bounds.size.x, bounds.position.y},
+                           {bounds.size.x / 2, bounds.size.y / 2}};
     }
-    return {bounds.left, bounds.top + bounds.height, bounds.width / 2, bounds.height / 2};
+    return sf::IntRect{{bounds.position.x, bounds.position.y + bounds.size.y},
+                       {bounds.size.x / 2, bounds.size.y / 2}};
 }
 
 } // namespace vk

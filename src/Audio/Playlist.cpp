@@ -153,7 +153,7 @@ float Playlist::getVolume() const { return current.getVolume(); }
 
 void Playlist::update() {
     if (playing) {
-        if (current.getStatus() == sf::Music::Stopped) {
+        if (current.getStatus() == sf::Music::Status::Stopped) {
             unsigned int newI = (currentIndex + 1) % songs.size();
             if (newI == startIndex && shuffleOnLoop) shuffle();
             while (!openMusic(newI)) {

@@ -41,11 +41,11 @@ sf::Vector2f RenderSettings::calculatePosition(Alignment horizontalAlignment,
         position.x = Padding;
         break;
     case RenderSettings::Right:
-        position.x = region.width - size.x - Padding;
+        position.x = region.size.x - size.x - Padding;
         break;
     case RenderSettings::Center:
     default:
-        position.x = region.width * 0.5f - size.x * 0.5f;
+        position.x = region.size.x * 0.5f - size.x * 0.5f;
         break;
     }
 
@@ -54,11 +54,11 @@ sf::Vector2f RenderSettings::calculatePosition(Alignment horizontalAlignment,
         position.y = Padding;
         break;
     case RenderSettings::Bottom:
-        position.y = region.height - size.y - Padding;
+        position.y = region.size.y - size.y - Padding;
         break;
     case RenderSettings::Center:
     default:
-        position.y = region.height * 0.5f - size.y * 0.5f;
+        position.y = region.size.y * 0.5f - size.y * 0.5f;
         break;
     }
 

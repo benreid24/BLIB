@@ -5,6 +5,7 @@
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Vulkan.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Window/WindowEnums.hpp>
 #include <cstdint>
 #include <string>
 #include <type_traits>
@@ -79,24 +80,24 @@ public:
      * @param mode The video mode to create the window with
      * @param title The title to give the window
      * @param style The style of the window
+     * @param state Fullscreen or windowed
      */
-    void create(sf::VideoMode mode, const std::string& title, std::uint32_t style);
+    void create(sf::VideoMode mode, const std::string& title, std::uint32_t style,
+                std::uint32_t state);
 
     /**
      * @brief Polls an event from the window
      *
-     * @param event An event object to populate
-     * @return True if an event was fetched, false if none were available
+     * @return The latest event from the window, or nullopt if none are available
      */
-    bool pollEvent(sf::Event& event);
+    std::optional<sf::Event> pollEvent();
 
     /**
      * @brief Blocks until an event was able to be polled
      *
-     * @param event An event object to populate
-     * @return True if an event was fetched, false otherwise
+     * @return The latest event from the window, or nullopt if none are available
      */
-    bool waitEvent(sf::Event& event);
+    std::optional<sf::Event> waitEvent();
 
     /**
      * @brief Closes the window
@@ -162,7 +163,8 @@ Window<T>::~Window() {
 }
 
 template<typename T>
-void Window<T>::create(sf::VideoMode mode, const std::string& title, std::uint32_t style) {
+void Window<T>::create(sf::VideoMode mode, const std::string& title, std::uint32_t style,
+                       std::uint32_t state) {
     close();
 
 #ifdef BLIB_MACOS
@@ -184,13 +186,13 @@ void Window<T>::create(sf::VideoMode mode, const std::string& title, std::uint32
     if (!glfwWindow) return;
     sfWindow.create(glfwGetCocoaWindow(glfwWindow));
 #else
-    sfWindow.create(mode, title, style);
+    sfWindow.create(mode, title, style, static_cast<sf::State>(state));
 #endif
 }
 
 template<typename T>
-bool Window<T>::pollEvent(sf::Event& event) {
-    if (!isOpen()) return false;
+std::optional<sf::Event> Window<T>::pollEvent() {
+    if (!isOpen()) return std::nullopt;
 
 #ifdef BLIB_MACOS
     if (glfwWindowShouldClose(glfwWindow)) {
@@ -198,14 +200,18 @@ bool Window<T>::pollEvent(sf::Event& event) {
         return true;
     }
 #endif
-    return sfWindow.pollEvent(event);
+    return sfWindow.pollEvent();
 }
 
 template<typename T>
-bool Window<T>::waitEvent(sf::Event& event) {
-    if (!isOpen()) return false;
-    while (!pollEvent(event)) { sf::sleep(sf::milliseconds(30)); }
-    return true;
+std::optional<sf::Event> Window<T>::waitEvent() {
+    if (!isOpen()) return std::nullopt;
+    std::optional<sf::Event> event;
+    while (!event.has_value()) {
+        sf::sleep(sf::milliseconds(30));
+        event = sfWindow.pollEvent();
+    }
+    return event;
 }
 
 template<typename T>

@@ -22,7 +22,7 @@ resource::Ref<gfx::a2d::AnimationData> getErrorPlaceholder() {
         // Create spritesheet
         if (!ImageManager::available(Spritesheet)) {
             sf::Image img;
-            img.create(202, 100, sf::Color::Transparent);
+            img.resize({202, 100}, sf::Color::Transparent);
 
             const auto fillSquare = [&img](unsigned int baseX, sf::Color main, sf::Color alt) {
                 constexpr unsigned int BoxSize = 4;
@@ -31,7 +31,7 @@ resource::Ref<gfx::a2d::AnimationData> getErrorPlaceholder() {
                         const unsigned int xi = x / BoxSize;
                         const unsigned int yi = y / BoxSize;
                         const auto& col       = (xi % 2) == (yi % 2) ? main : alt;
-                        img.setPixel(x + baseX, y, col);
+                        img.setPixel({x + baseX, y}, col);
                     }
                 }
             };
@@ -49,7 +49,7 @@ resource::Ref<gfx::a2d::AnimationData> getErrorPlaceholder() {
             auto& frame    = frames[i];
             frame.length   = 0.75f;
             auto& shard    = frame.shards.emplace_back();
-            shard.source   = {i == 0 ? 0 : 102, 0, 100, 100};
+            shard.source   = sf::IntRect{{i == 0 ? 0 : 102, 0}, {100, 100}};
             shard.alpha    = 255;
             shard.rotation = 0.f;
             shard.offset   = {0.f, 0.f};
@@ -71,7 +71,8 @@ Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
 , slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
 , slideshowRefreshRequired(rc::cfg::Limits::MaxConcurrentFrames)
 , slideshowLastFrameUpdated(255) {
-    slideshowDescriptorSets.emptyInit(renderer.vulkanState());
+    slideshowDescriptorSets.init(renderer.vulkanState(),
+                                 [&renderer](rc::vk::DescriptorSet& set) { set.init(renderer); });
 }
 
 Animation2DSystem::~Animation2DSystem() {}
@@ -206,11 +207,13 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
             auto& frame              = slideshowFramesSSBO[offset + i];
             const sf::FloatRect& tex = src.normalizedSource;
             frame.opacity            = static_cast<float>(src.alpha) / 255.f;
-            frame.texCoords[0]       = texture->convertCoord({tex.left, tex.top});
-            frame.texCoords[1]       = texture->convertCoord({tex.left + tex.width, tex.top});
+            frame.texCoords[0]       = texture->convertCoord({tex.position.x, tex.position.y});
+            frame.texCoords[1] =
+                texture->convertCoord({tex.position.x + tex.size.x, tex.position.y});
             frame.texCoords[2] =
-                texture->convertCoord({tex.left + tex.width, tex.top + tex.height});
-            frame.texCoords[3] = texture->convertCoord({tex.left, tex.top + tex.height});
+                texture->convertCoord({tex.position.x + tex.size.x, tex.position.y + tex.size.y});
+            frame.texCoords[3] =
+                texture->convertCoord({tex.position.x, tex.position.y + tex.size.y});
         }
         slideshowFramesSSBO.markDirty(offset, player.animation->frameCount());
     }
@@ -379,8 +382,8 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
                 const auto& shard = frame.shards[j];
 
                 // compute shard transform
-                const glm::vec2 size(static_cast<float>(shard.source.width),
-                                     static_cast<float>(shard.source.height));
+                const glm::vec2 size(static_cast<float>(shard.source.size.x),
+                                     static_cast<float>(shard.source.size.y));
                 com::Transform2D transform;
                 transform.setOrigin(anim.shardsAreCentered() ? size * 0.5f : glm::vec2{0.f, 0.f});
                 transform.setRotation(shard.rotation);
@@ -408,9 +411,9 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
                 // pos
                 glm::vec4 src{0.f, 0.f, 0.f, 1.f};
                 indexBuffer.vertices()[vbase + 0].pos = tmat * src;
-                src.x                                 = static_cast<float>(shard.source.width);
+                src.x                                 = static_cast<float>(shard.source.size.x);
                 indexBuffer.vertices()[vbase + 1].pos = tmat * src;
-                src.y                                 = static_cast<float>(shard.source.height);
+                src.y                                 = static_cast<float>(shard.source.size.y);
                 indexBuffer.vertices()[vbase + 2].pos = tmat * src;
                 src.x                                 = 0.f;
                 indexBuffer.vertices()[vbase + 3].pos = tmat * src;
@@ -422,17 +425,17 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
                 }
 
                 // texture coord
-                indexBuffer.vertices()[vbase + 0].texCoord = {shard.normalizedSource.left,
-                                                              shard.normalizedSource.top};
-                indexBuffer.vertices()[vbase + 1].texCoord = {shard.normalizedSource.left +
-                                                                  shard.normalizedSource.width,
-                                                              shard.normalizedSource.top};
+                indexBuffer.vertices()[vbase + 0].texCoord = {shard.normalizedSource.position.x,
+                                                              shard.normalizedSource.position.y};
+                indexBuffer.vertices()[vbase + 1].texCoord = {shard.normalizedSource.position.x +
+                                                                  shard.normalizedSource.size.x,
+                                                              shard.normalizedSource.position.y};
                 indexBuffer.vertices()[vbase + 2].texCoord = {
-                    shard.normalizedSource.left + shard.normalizedSource.width,
-                    shard.normalizedSource.top + shard.normalizedSource.height};
-                indexBuffer.vertices()[vbase + 3].texCoord = {shard.normalizedSource.left,
-                                                              shard.normalizedSource.top +
-                                                                  shard.normalizedSource.height};
+                    shard.normalizedSource.position.x + shard.normalizedSource.size.x,
+                    shard.normalizedSource.position.y + shard.normalizedSource.size.y};
+                indexBuffer.vertices()[vbase + 3].texCoord = {shard.normalizedSource.position.x,
+                                                              shard.normalizedSource.position.y +
+                                                                  shard.normalizedSource.size.y};
                 for (unsigned int i = 0; i < 4; ++i) {
                     indexBuffer.vertices()[vbase + i].texCoord =
                         texture->convertCoord(indexBuffer.vertices()[vbase + i].texCoord);

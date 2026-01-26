@@ -42,7 +42,7 @@ Texture::Texture()
 , hasTransparency(false)
 , altImg(nullptr)
 , destPos(0, 0)
-, source(0, 0, 0, 0) {}
+, source({0, 0}, {0, 0}) {}
 
 glm::vec2 Texture::convertCoord(const glm::vec2& src) const {
     // TODO - texture atlasing at the renderer level
@@ -139,8 +139,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
     };
 
     const auto copyImageToStaging = [](const sf::Image& src, void* dst, const sf::IntRect& region) {
-        for (int x = region.left; x < region.left + region.width; ++x) {
-            for (int y = region.top; y < region.top + region.height; ++y) {
+        for (int x = region.position.x; x < region.position.x + region.size.x; ++x) {
+            for (int y = region.position.y; y < region.position.y + region.size.y; ++y) {
                 const std::ptrdiff_t offset = (x + y * src.getSize().x) * sizeof(sf::Color);
                 std::uint8_t* d             = static_cast<std::uint8_t*>(dst) + offset;
                 const std::uint8_t* s       = src.getPixelsPtr() + offset;
@@ -154,17 +154,17 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
         const sf::Image& src = altImg ? *altImg : *transferImg;
 
         bool fullImage = false;
-        if (source.width == 0 || source.height == 0) {
-            fullImage     = true;
-            source.left   = 0;
-            source.top    = 0;
-            source.width  = src.getSize().x;
-            source.height = src.getSize().y;
-            source.height /= image.getLayerCount();
+        if (source.size.x == 0 || source.size.y == 0) {
+            fullImage         = true;
+            source.position.x = 0;
+            source.position.y = 0;
+            source.size.x     = src.getSize().x;
+            source.size.y     = src.getSize().y;
+            source.size.y /= image.getLayerCount();
         }
 
         // create staging buffer
-        const VkDeviceSize stageSize = source.width * source.height * 4 * image.getLayerCount();
+        const VkDeviceSize stageSize = source.size.x * source.size.y * 4 * image.getLayerCount();
         VkBuffer stagingBuffer;
         void* data;
         engine.createTemporaryStagingBuffer(stageSize, stagingBuffer, &data);
@@ -189,8 +189,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
             copyInfo.imageSubresource.layerCount     = 1;
             copyInfo.imageOffset.x                   = destPos.x;
             copyInfo.imageOffset.y                   = destPos.y;
-            copyInfo.imageExtent.width               = source.width;
-            copyInfo.imageExtent.height              = source.height;
+            copyInfo.imageExtent.width               = source.size.x;
+            copyInfo.imageExtent.height              = source.size.y;
             copyInfo.imageExtent.depth               = 1;
         }
         vkCmdCopyBufferToImage(cb,
@@ -218,7 +218,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
                 sf::IntRect bounds =
                     Image::getMipLevelBounds({src.getSize().x, src.getSize().y}, 1);
                 for (unsigned int i = 1; i < mipLevels; ++i) {
-                    totalSize += bounds.width * bounds.height * sizeof(sf::Color);
+                    totalSize += bounds.size.x * bounds.size.y * sizeof(sf::Color);
                     bounds = Image::getNextMipLevelBounds(bounds, i);
                 }
 
@@ -239,8 +239,8 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
                     copy.bufferOffset       = baseOffset;
                     copy.bufferImageHeight  = 0;
                     copy.bufferRowLength    = 0;
-                    copy.imageExtent.width  = bounds.width;
-                    copy.imageExtent.height = bounds.height;
+                    copy.imageExtent.width  = bounds.size.x;
+                    copy.imageExtent.height = bounds.size.y;
                     copy.imageExtent.depth  = 1;
                     copy.imageOffset.x = copy.imageOffset.y = copy.imageOffset.z = 0;
                     copy.imageSubresource.aspectMask     = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -249,9 +249,11 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
                     copy.imageSubresource.layerCount     = 1;
 
                     // copy from cpu to staging
-                    const std::uint32_t copySize = bounds.width * bounds.height * sizeof(sf::Color);
+                    const std::uint32_t copySize =
+                        bounds.size.x * bounds.size.y * sizeof(sf::Color);
                     const std::uint32_t srcOffset =
-                        (bounds.top * mipSrc.getSize().x + bounds.left) * sizeof(sf::Color);
+                        (bounds.position.y * mipSrc.getSize().x + bounds.position.x) *
+                        sizeof(sf::Color);
                     void* copyDst = static_cast<char*>(stagingDst) + baseOffset;
                     std::memcpy(copyDst, mipSrc.getPixelsPtr() + srcOffset, copySize);
 
@@ -274,13 +276,13 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
 
         // cleanup
         transferImg.release();
-        altImg        = nullptr;
-        destPos.x     = 0;
-        destPos.y     = 0;
-        source.left   = 0;
-        source.top    = 0;
-        source.width  = 0;
-        source.height = 0;
+        altImg            = nullptr;
+        destPos.x         = 0;
+        destPos.y         = 0;
+        source.position.x = 0;
+        source.position.y = 0;
+        source.size.x     = 0;
+        source.size.y     = 0;
     }
     else if (image.getCurrentLayout() != VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
         transitionLayout();
@@ -294,13 +296,13 @@ void Texture::cleanup() {
 
 void Texture::reset() {
     transferImg.release();
-    altImg        = nullptr;
-    destPos.x     = 0;
-    destPos.y     = 0;
-    source.left   = 0;
-    source.top    = 0;
-    source.width  = 0;
-    source.height = 0;
+    altImg            = nullptr;
+    destPos.x         = 0;
+    destPos.y         = 0;
+    source.position.x = 0;
+    source.position.y = 0;
+    source.size.x     = 0;
+    source.size.y     = 0;
 }
 
 void Texture::updateTrans(const sf::Image& content) {

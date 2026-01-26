@@ -21,8 +21,8 @@ GridPacker::GridPacker(WrapRule r, Direction d, float pad, unsigned int s)
 sf::Vector2f GridPacker::getRequisition(const std::vector<Element::Ptr>& elements) {
     sf::Vector2f req(0, 0);
     auto measure = [&req](Element::Ptr, const sf::FloatRect& area) {
-        if (req.x < area.left + area.width) req.x = area.left + area.width;
-        if (req.y < area.top + area.height) req.y = area.top + area.height;
+        if (req.x < area.position.x + area.size.x) req.x = area.position.x + area.size.x;
+        if (req.y < area.position.y + area.size.y) req.y = area.position.y + area.size.y;
     };
     doPack({}, elements, measure);
     return req;
@@ -34,7 +34,7 @@ void GridPacker::pack(const sf::FloatRect& area, const std::vector<Element::Ptr>
 
 void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Ptr>& elements,
                         const std::function<void(Element::Ptr, const sf::FloatRect&)>& packCb) {
-    sf::Vector2f pos(area.left, area.top);
+    sf::Vector2f pos(area.position.x, area.position.y);
     unsigned int pcount = 0;
     sf::Vector2f mreq;
 
@@ -55,7 +55,7 @@ void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Pt
             if (dir == Rows) {
                 if (rule == FixedAmount) {
                     if (pcount == size) { // wrap
-                        pos.x = area.left;
+                        pos.x = area.position.x;
                         pos.y += mreq.y + padding;
                         mreq   = {0, 0};
                         pcount = 0;
@@ -67,7 +67,7 @@ void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Pt
                 else {
                     const sf::Vector2f nreq = elements[i + 1]->getRequisition();
                     if (pos.x + padding + nreq.x > size) { // wrap
-                        pos.x = area.left;
+                        pos.x = area.position.x;
                         pos.y += mreq.y + padding;
                         mreq = {0, 0};
                     }
@@ -79,7 +79,7 @@ void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Pt
             else {
                 if (rule == FixedAmount) {
                     if (pcount == size) { // wrap
-                        pos.y = area.top;
+                        pos.y = area.position.y;
                         pos.x += mreq.x + padding;
                         mreq   = {0, 0};
                         pcount = 0;
@@ -91,7 +91,7 @@ void GridPacker::doPack(const sf::FloatRect& area, const std::vector<Element::Pt
                 else {
                     const sf::Vector2f nreq = elements[i + 1]->getRequisition();
                     if (pos.y + padding + nreq.y > size) { // wrap
-                        pos.y = area.top;
+                        pos.y = area.position.y;
                         pos.x += mreq.x + padding;
                         mreq = {0, 0};
                     }

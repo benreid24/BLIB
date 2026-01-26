@@ -1,6 +1,7 @@
 #include <BLIB/Interfaces/GUI/Event.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/Visitor.hpp>
 #include <optional>
 
 namespace bl
@@ -8,47 +9,45 @@ namespace bl
 namespace gui
 {
 Event Event::fromSFML(const sf::Event& event, const sf::Vector2f& pos) {
-    switch (event.type) {
-    case sf::Event::MouseMoved:
-        return Event(Event::MouseMoved, pos);
-    case sf::Event::MouseLeft:
-        return Event(Event::MouseOutsideWindow, sf::Vector2f(-1000000.f, -100000000.f));
-    case sf::Event::TextEntered:
-        return Event(Event::TextEntered, event.text.unicode, pos);
-    case sf::Event::KeyPressed:
-        return Event(Event::KeyPressed, event.key, pos);
-    case sf::Event::KeyReleased:
-        return Event(Event::KeyReleased, event.key, pos);
-    case sf::Event::MouseWheelScrolled:
-        return Event(Event::Scrolled, event.mouseWheelScroll.delta, pos);
-    case sf::Event::MouseButtonPressed:
-        if (event.mouseButton.button == sf::Mouse::Left) {
-            return Event(Event::LeftMousePressed, pos);
-        }
-        else if (event.mouseButton.button == sf::Mouse::Right) {
-            return Event(Event::RightMousePressed, pos);
-        }
-        BL_LOG_ERROR << "gui::Event: Unknown mouse button: " << event.mouseButton.button;
-        return Event(Event::Unknown, pos);
-    case sf::Event::MouseButtonReleased:
-        if (event.mouseButton.button == sf::Mouse::Left) {
-            return Event(Event::LeftMouseReleased, pos);
-        }
-        else if (event.mouseButton.button == sf::Mouse::Right) {
-            return Event(Event::RightMouseReleased, pos);
-        }
-        BL_LOG_ERROR << "gui::Event: Unknown mouse button: " << event.mouseButton.button;
-        return Event(Event::Unknown, pos);
-    case sf::Event::MouseWheelMoved:
-    case sf::Event::Closed:
-    case sf::Event::LostFocus:
-    case sf::Event::GainedFocus:
-    case sf::Event::Resized:
-        return Event(Event::Unknown); // ignored
-    default:
-        BL_LOG_ERROR << "gui::Event: Unsupported SFML event type: " << event.type;
-        return Event(Event::Unknown, pos);
-    }
+    return event.visit(util::Visitor{
+        [&pos](const sf::Event::MouseMoved&) { return Event(Event::MouseMoved, pos); },
+        [](const sf::Event::MouseLeft&) {
+            return Event(Event::MouseOutsideWindow, sf::Vector2f(-1000000.f, -100000000.f));
+        },
+        [&pos](const sf::Event::TextEntered& e) {
+            return Event(Event::TextEntered, e.unicode, pos);
+        },
+        [&pos](const sf::Event::KeyPressed& ke) { return Event(Event::KeyPressed, ke, pos); },
+        [&pos](const sf::Event::KeyReleased& ke) {
+            auto kpCopy = sf::Event::KeyPressed(
+                ke.code, ke.scancode, ke.alt, ke.control, ke.shift, ke.system);
+            return Event(Event::KeyReleased, kpCopy, pos);
+        },
+        [&pos](const sf::Event::MouseWheelScrolled& e) {
+            return Event(Event::Scrolled, e.delta, pos);
+        },
+        [&pos](const sf::Event::MouseButtonPressed& e) {
+            if (e.button == sf::Mouse::Button::Left) { return Event(Event::LeftMousePressed, pos); }
+            else if (e.button == sf::Mouse::Button::Right) {
+                return Event(Event::RightMousePressed, pos);
+            }
+            BL_LOG_ERROR << "gui::Event: Unknown mouse button: " << static_cast<int>(e.button);
+            return Event(Event::Unknown, pos);
+        },
+        [&pos](const sf::Event::MouseButtonReleased& e) {
+            if (e.button == sf::Mouse::Button::Left) {
+                return Event(Event::LeftMouseReleased, pos);
+            }
+            else if (e.button == sf::Mouse::Button::Right) {
+                return Event(Event::RightMouseReleased, pos);
+            }
+            BL_LOG_ERROR << "gui::Event: Unknown mouse button: " << static_cast<int>(e.button);
+            return Event(Event::Unknown, pos);
+        },
+        [](const auto&) {
+            // Handle all other unsupported event types
+            return Event(Event::Unknown);
+        }});
 }
 
 Event::Event(Type type)
@@ -84,7 +83,7 @@ Event::Event(Type type, float s, const sf::Vector2f& pos)
 , data(s)
 , position(pos) {}
 
-Event::Event(Type type, sf::Event::KeyEvent key, const sf::Vector2f& pos)
+Event::Event(Type type, sf::Event::KeyPressed key, const sf::Vector2f& pos)
 : t(type)
 , data(key)
 , position(pos) {}
@@ -110,7 +109,7 @@ float Event::inputValue() const { return std::get<float>(data); }
 
 bool Event::toggleValue() const { return std::get<bool>(data); }
 
-const sf::Event::KeyEvent& Event::key() const { return std::get<sf::Event::KeyEvent>(data); }
+sf::Event::KeyPressed Event::key() const { return std::get<sf::Event::KeyPressed>(data); }
 
 const sf::Vector2f& Event::dragStart() const { return std::get<sf::Vector2f>(data); }
 

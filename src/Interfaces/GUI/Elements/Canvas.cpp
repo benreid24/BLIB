@@ -52,11 +52,11 @@ rdr::Component* Canvas::doPrepareRender(rdr::Renderer& renderer) {
 }
 
 void Canvas::setScale() {
-    const sf::Vector2f origSize(textureSize);
-    sf::Vector2f area = size.value_or(origSize);
-    if (fillAcq) {
-        area.x = getAcquisition().width;
-        area.y = getAcquisition().height;
+const sf::Vector2f origSize(textureSize);
+sf::Vector2f area = size.value_or(origSize);
+if (fillAcq) {
+    area.x = getAcquisition().size.x;
+    area.y = getAcquisition().size.y;
     }
     scale.x = area.x / origSize.x;
     scale.y = area.y / origSize.y;

@@ -18,8 +18,8 @@ void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, u
         for (unsigned int y = top; y < top + height; ++y) {
             const unsigned int xi = x / ErrorBoxWidth;
             const unsigned int yi = y / ErrorBoxHeight;
-            if ((xi % 2) == (yi % 2)) { img.setPixel(x, y, sf::Color(230, 66, 245)); }
-            else { img.setPixel(x, y, sf::Color(255, 254, 196)); }
+            if ((xi % 2) == (yi % 2)) { img.setPixel({x, y}, sf::Color(230, 66, 245)); }
+            else { img.setPixel({x, y}, sf::Color(255, 254, 196)); }
         }
     }
 }
@@ -58,8 +58,8 @@ void TexturePool::init(vk::PerFrame<VkDescriptorSet>& descriptorSets,
     // create error texture
     constexpr unsigned int ErrorSize     = 128;
     constexpr unsigned int ErrorBoxCount = 16;
-    errorPattern.create(ErrorSize, ErrorSize);
-    errorPatternCube.create(ErrorSize, ErrorSize * 6);
+    errorPattern.resize({ErrorSize, ErrorSize});
+    errorPatternCube.resize({ErrorSize, ErrorSize * 6});
     generateErrorPattern(errorPattern, 0, 0, ErrorSize, ErrorSize, ErrorBoxCount);
     for (std::size_t i = 0; i < 6; ++i) {
         generateErrorPattern(
@@ -366,9 +366,9 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::
 
     // stitch images into new image
     cm->altImg = &cm->localImage;
-    cm->localImage.create(faceSize.x, faceSize.y * 6, sf::Color::Transparent);
+    cm->localImage.resize({faceSize.x, faceSize.y * 6}, sf::Color::Transparent);
     for (std::size_t i = 0; i < 6; ++i) {
-        if (faces[i]) { cm->localImage.copy(*faces[i], 0, i * faceSize.y); }
+        if (faces[i]) { cm->localImage.copy(*faces[i], sf::Vector2u(0, i * faceSize.y)); }
         else {
             generateErrorPattern(cm->localImage, 0, i * faceSize.y, faceSize.x, faceSize.y, 16);
             BL_LOG_WARN << "Cubemap face " << i << " is invalid, using error pattern";
@@ -488,7 +488,7 @@ void TexturePool::onFrameStart(ds::SetWriteHelper& setWriter, VkDescriptorSet cu
 TextureRef TexturePool::getBlankTexture() {
     if (!blankTexture.get()) {
         static sf::Image src;
-        if (src.getSize().x == 0) { src.create(2, 2, sf::Color::Transparent); }
+        if (src.getSize().x == 0) { src.resize({2, 2}, sf::Color::Transparent); }
         blankTexture = createTexture(src);
     }
     return blankTexture;

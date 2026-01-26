@@ -272,7 +272,8 @@ private:
     void renderThreadBody();
 
     bool awaitFocus();
-    void handleResize(const sf::Event::SizeEvent& resize, bool saveAndSend);
+    void handleResize(const sf::Event::Resized& resize, bool saveAndSend);
+    void preStateChange();
     void postStateChange(State::Ptr& prev);
 
     bool setup();

@@ -34,6 +34,7 @@
 #include <SFML/Graphics/Glyph.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/Rect.hpp>
+#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
@@ -123,7 +124,7 @@ public:
      * @param outlineThickness Thickness of the outline, in pixels
      * @return The requested glyph
      */
-    const Glyph& getGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
+    const Glyph& getGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
                           float outlineThickness = 0.f) const;
 
     /**
@@ -132,7 +133,7 @@ public:
      * @param codePoint The character to check for
      * @return True if the font can render the given character, false if not
      */
-    bool hasGlyph(Uint32 codePoint) const;
+    bool hasGlyph(std::uint32_t codePoint) const;
 
     /**
      * @brief Returns the kerning between the given characters
@@ -143,7 +144,7 @@ public:
      * @param bold Whether or not the text is bold
      * @return The distance between the characters
      */
-    float getKerning(Uint32 first, Uint32 second, unsigned int characterSize,
+    float getKerning(std::uint32_t first, std::uint32_t second, unsigned int characterSize,
                      bool bold = false) const;
 
     /**
@@ -204,10 +205,10 @@ private:
         unsigned int height; //!< Height of the row
     };
 
-    typedef std::map<Uint64, Glyph> GlyphTable; //!< Table mapping a codepoint to its glyph
+    typedef std::map<std::uint64_t, Glyph> GlyphTable; //!< Table mapping a codepoint to its glyph
 
     void cleanup();
-    Glyph loadGlyph(Uint32 codePoint, unsigned int characterSize, bool bold,
+    Glyph loadGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
                     float outlineThickness) const;
     IntRect findGlyphRect(unsigned int width, unsigned int height) const;
     bool setCurrentSize(unsigned int characterSize) const;
@@ -233,8 +234,8 @@ private:
     mutable Image texture;         //!< Image containing the pixels of the glyphs
     mutable unsigned int nextRow;  //!< Y position of the next new row in the texture
     mutable std::vector<Row> rows; //!< List containing the position of all the existing rows
-    mutable std::vector<Uint8> m_pixelBuffer; //!< Pixel buffer holding a glyph's pixels before
-                                              //!< being written to the texture
+    mutable std::vector<std::uint8_t> m_pixelBuffer; //!< Pixel buffer holding a glyph's pixels
+                                                     //!< before being written to the texture
     std::vector<char> buffer;
 #ifdef SFML_SYSTEM_ANDROID
     void* m_stream; //!< Asset file streamer (if loaded from file)

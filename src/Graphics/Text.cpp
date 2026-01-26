@@ -58,7 +58,8 @@ void Text::setFont(const sf::VulkanFont& f) {
 
 void Text::ensureLocalSizeUpdated() {
     const auto bounds = getLocalBounds();
-    OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
+    OverlayScalable::setLocalSize(
+        {bounds.position.x + bounds.size.x, bounds.position.y + bounds.size.y});
 }
 
 void Text::computeBoundsIfNeeded() const {
@@ -106,7 +107,8 @@ void Text::commit() {
     component().vertices.queueTransfer(rc::tfr::Transferable::SyncRequirement::Immediate);
 
     const auto bounds = getLocalBounds();
-    OverlayScalable::setLocalSize({bounds.width + bounds.left, bounds.height + bounds.top});
+    OverlayScalable::setLocalSize(
+        {bounds.size.x + bounds.position.x, bounds.size.y + bounds.position.y});
 
     // update draw parameters
     component().updateDrawParams(vertexCount);
@@ -154,7 +156,7 @@ void Text::computeWordWrap() {
             engine().ecs().getComponentSet<ecs::Require<com::OverlayScaler, com::Transform2D>>(
                 parent);
         if (cset.isValid()) {
-            pw = cset.get<com::OverlayScaler>()->getEntityBounds().width *
+            pw = cset.get<com::OverlayScaler>()->getEntityBounds().size.x *
                  cset.get<com::Transform2D>()->getScale().x;
         }
     }
@@ -224,18 +226,18 @@ sf::FloatRect Text::getLocalBounds() const {
 
     for (const auto& section : sections) {
         const sf::FloatRect& bounds = section.getBounds();
-        minX                        = std::min(bounds.left, minX);
-        maxX                        = std::max(bounds.left + bounds.width, maxX);
-        minY                        = std::min(bounds.top, minY);
-        maxY                        = std::max(bounds.top + bounds.height, maxY);
+        minX                        = std::min(bounds.position.x, minX);
+        maxX                        = std::max(bounds.position.x + bounds.size.x, maxX);
+        minY                        = std::min(bounds.position.y, minY);
+        maxY                        = std::max(bounds.position.y + bounds.size.y, maxY);
     }
 
-    return sf::FloatRect(minX, minY, maxX - minX, maxY - minY);
+    return {sf::Vector2f(minX, minY), sf::Vector2f(maxX - minX, maxY - minY)};
 }
 
 glm::vec2 Text::getLocalSize() const {
     const sf::FloatRect bounds = getLocalBounds();
-    return {bounds.left + bounds.width, bounds.top + bounds.height};
+    return {bounds.position.x + bounds.size.x, bounds.position.y + bounds.size.y};
 }
 
 Text::CharSearchResult Text::findCharacterAtWindowPosition(const glm::vec2& targetPos) const {
@@ -243,8 +245,9 @@ Text::CharSearchResult Text::findCharacterAtWindowPosition(const glm::vec2& targ
     if (!targetBounds.contains({targetPos.x, targetPos.y})) { return {}; }
 
     return findCharacterAtLocalPosition(
-        {(targetPos.x - targetBounds.left) / targetBounds.width * OverlayScalable::getLocalSize().x,
-         (targetPos.y - targetBounds.top) / targetBounds.height *
+        {(targetPos.x - targetBounds.position.x) / targetBounds.size.x *
+             OverlayScalable::getLocalSize().x,
+         (targetPos.y - targetBounds.position.y) / targetBounds.size.y *
              OverlayScalable::getLocalSize().y});
 }
 
@@ -264,10 +267,9 @@ Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& posit
             const std::uint32_t curChar = sections[si].wordWrappedContent[i];
             const glm::vec2 advance =
                 sections[si].advanceCharacterPos(*font, nextPos, curChar, prevChar);
-            const sf::FloatRect bounds(nextPos.x,
-                                       nextPos.y,
-                                       advance.x - nextPos.x,
-                                       sections[si].computeLineSpacing(*font));
+            const sf::FloatRect bounds(
+                {nextPos.x, nextPos.y},
+                {advance.x - nextPos.x, sections[si].computeLineSpacing(*font)});
 
             if (bounds.contains(localPos)) { return {si, i}; }
 

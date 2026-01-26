@@ -28,7 +28,7 @@ ecs::Entity SelectBoxComponent::getEntity() const { return box.entity(); }
 
 void SelectBoxComponent::doCreate(engine::World& world, rdr::Renderer&) {
     Element& owner = getOwnerAs<Element>();
-    box.create(world, {owner.getAcquisition().width, owner.getAcquisition().height});
+    box.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 }
 
@@ -40,7 +40,7 @@ void SelectBoxComponent::doSceneRemove() { box.removeFromScene(); }
 
 void SelectBoxComponent::handleAcquisition() {
     Element& owner = getOwnerAs<Element>();
-    box.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
+    box.setSize({owner.getAcquisition().size.x, owner.getAcquisition().size.y});
     box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 

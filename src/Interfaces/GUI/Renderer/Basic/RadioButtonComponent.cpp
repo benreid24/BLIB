@@ -51,9 +51,9 @@ void RadioButtonComponent::doSceneRemove() { circle.removeFromScene(); }
 
 void RadioButtonComponent::handleAcquisition() {
     const RadioButton& owner = getOwnerAs<RadioButton>();
-    dummy.setSize({owner.getAcquisition().width, owner.getAcquisition().height});
-    circle.getTransform().setPosition(
-        {0.f, owner.getAcquisition().height * 0.5f - owner.getToggleSize() * 0.5f});
+    dummy.setSize({owner.getAcquisition().size.x, owner.getAcquisition().size.y});
+    circle.getTransform().setPosition(glm::vec2(
+        0.f, owner.getAcquisition().size.y * 0.5f - owner.getToggleSize() * 0.5f));
     dummy.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 

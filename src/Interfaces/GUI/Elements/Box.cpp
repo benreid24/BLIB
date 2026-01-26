@@ -40,10 +40,9 @@ sf::Vector2f Box::minimumRequisition() const {
 
 void Box::onAcquisition() {
     const float outline = renderSettings().outlineThickness.value_or(DefaultOutline);
-    sf::FloatRect area(getAcquisition().left + outline,
-                       getAcquisition().top + outline,
-                       getAcquisition().width - outline * 2.f,
-                       getAcquisition().height - outline * 2.f);
+    sf::FloatRect area(
+        {getAcquisition().position.x + outline, getAcquisition().position.y + outline},
+        {getAcquisition().size.x - outline * 2.f, getAcquisition().size.y - outline * 2.f});
     packer->pack(area, getChildren());
 }
 

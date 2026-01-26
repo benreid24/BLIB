@@ -199,7 +199,9 @@ public:
     virtual void update(Engine& engine, float dt, float realDt) override {
         totalTime += realDt;
         simulatedTime += dt;
-        if (totalTime >= 5.f) { engine.flags().set(Flags::Terminate); }
+        if (totalTime >= 5.f) {
+            engine.flags().set(Flags::Terminate);
+        }
     }
 
     float timeElapsed() const { return totalTime; }

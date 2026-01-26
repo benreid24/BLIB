@@ -41,7 +41,7 @@ if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
-set(CMAKE_INSTALL_PREFIX .)
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
 
 add_library(BLIB STATIC)
 
@@ -59,6 +59,7 @@ configure_blib_target(BLIB)
 set(BUILD_SHARED_LIBS Off)
 add_compile_definitions(SFML_STATIC)
 set(SFML_USE_STATIC_STD_LIBS On)
+set(SFML_USE_SYSTEM_DEPS Off)
 add_subdirectory(lib/SFML)
 
 add_subdirectory(lib/volk)

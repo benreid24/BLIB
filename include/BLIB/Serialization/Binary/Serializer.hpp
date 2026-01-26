@@ -447,17 +447,17 @@ struct Serializer<glm::vec<4, U, P>, false> {
 template<>
 struct Serializer<sf::IntRect> {
     static bool serialize(OutputStream& output, const sf::IntRect& r) {
-        if (!output.write<std::int32_t>(r.left)) return false;
-        if (!output.write<std::int32_t>(r.top)) return false;
-        if (!output.write<std::int32_t>(r.width)) return false;
-        return output.write<std::int32_t>(r.height);
+        if (!output.write<std::int32_t>(r.position.x)) return false;
+        if (!output.write<std::int32_t>(r.position.y)) return false;
+        if (!output.write<std::int32_t>(r.size.x)) return false;
+        return output.write<std::int32_t>(r.size.y);
     }
 
     static bool deserialize(InputStream& input, sf::IntRect& r) {
-        if (!input.read<std::int32_t>(r.left)) return false;
-        if (!input.read<std::int32_t>(r.top)) return false;
-        if (!input.read<std::int32_t>(r.width)) return false;
-        return input.read<std::int32_t>(r.height);
+        if (!input.read<std::int32_t>(r.position.x)) return false;
+        if (!input.read<std::int32_t>(r.position.y)) return false;
+        if (!input.read<std::int32_t>(r.size.x)) return false;
+        return input.read<std::int32_t>(r.size.y);
     }
 
     static std::uint32_t size(const sf::IntRect&) { return sizeof(std::int32_t) * 4; }

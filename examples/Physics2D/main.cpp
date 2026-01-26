@@ -81,24 +81,24 @@ public:
     virtual void update(bl::engine::Engine&, float dt, float) override {
         teleportCooldown += dt;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
             playerPhysics->applyForceToCenter({-5.f, 0.f});
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
             playerPhysics->applyForceToCenter({5.f, 0.f});
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
             playerPhysics->applyForceToCenter({0.f, -5.f});
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
             if (onGround) {
                 onGround = false;
                 playerPhysics->applyImpulseToCenter({0.f, -1.5f});
             }
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
             if (teleportCooldown >= 2.f) { playerPhysics->teleport({400.f, 300.f}); }
         }
     }
@@ -130,7 +130,7 @@ private:
     bl::engine::Settings createStartupParameters() override {
         return bl::engine::Settings().withRenderer(bl::rc::CreationSettings().withWindowSettings(
             bl::rc::WindowSettings()
-                .withVideoMode(sf::VideoMode(800, 600, 32))
+                .withVideoMode(sf::VideoMode({800, 600}, 32))
                 .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                 .withTitle("Physics2D Demo")
                 .withLetterBoxOnResize(true)));

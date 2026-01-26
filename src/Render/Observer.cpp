@@ -19,9 +19,9 @@ Observer::Observer(engine::Engine& e, Renderer& r, rg::AssetFactory& f, bool c, 
 void Observer::assignRegion(const sf::Vector2u& windowSize,
                             const sf::Rect<std::uint32_t>& renderRegion, unsigned int count,
                             unsigned int i, bool topBottomFirst) {
-    const std::uint32_t offsetX = (windowSize.x - renderRegion.width) / 2;
-    const std::uint32_t offsetY = (windowSize.y - renderRegion.height) / 2;
-    const sf::Vector2u uSize(renderRegion.getSize());
+    const std::uint32_t offsetX = (windowSize.x - renderRegion.size.x) / 2;
+    const std::uint32_t offsetY = (windowSize.y - renderRegion.size.y) / 2;
+    const sf::Vector2u uSize(renderRegion.size.x, renderRegion.size.y);
     const sf::Vector2f fSize(uSize);
     const sf::Vector2f fHalf(fSize * 0.5f);
     const sf::Vector2u uHalf(fHalf);

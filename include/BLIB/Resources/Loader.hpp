@@ -156,7 +156,7 @@ struct DefaultLoader<sf::Font> : public LoaderBase<sf::Font> {
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       sf::Font& result) override {
-        if (!result.loadFromMemory(buffer, len)) {
+        if (!result.openFromMemory(buffer, len)) {
             BL_LOG_ERROR << "Failed to load font: " << path;
             return false;
         }

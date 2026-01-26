@@ -187,7 +187,7 @@ TEST(BinarySerializer, SFML) {
 
     const sf::Vector2i v2i(54, -108);
     const sf::Vector2u v2u(343, 234234);
-    const sf::IntRect rect(32, 56, 9, -12);
+    const sf::IntRect rect({32, 56}, {9, -12});
     ASSERT_TRUE(Serializer<sf::Vector2i>::serialize(stream, v2i));
     ASSERT_TRUE(Serializer<sf::Vector2u>::serialize(stream, v2u));
     ASSERT_TRUE(Serializer<sf::IntRect>::serialize(stream, rect));

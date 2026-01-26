@@ -23,7 +23,7 @@ Menu::Menu(float depth)
 , position{}
 , padding(10.f, 10.f)
 , minSize(0.f, 0.f)
-, bgndPadding(padding.x * 2.f, padding.y * 2.f, padding.x * 2.f, padding.y * 2.f)
+, bgndPadding({padding.x * 2.f, padding.y * 2.f}, {padding.x * 2.f, padding.y * 2.f})
 , moveSound(defaultMoveSound)
 , failSound(defaultFailSound)
 , selectSound(defaultSelectSound)
@@ -72,8 +72,10 @@ void Menu::setSelectedItem(Item* s) {
     com::Transform2D* tform =
         world->engine().ecs().getComponent<com::Transform2D>(selectedItem->getEntity());
     const glm::vec2& pos = tform->getLocalPosition();
-    selector->notifySelection(selectedItem->getEntity(),
-                              {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+    selector->notifySelection(
+        selectedItem->getEntity(),
+        sf::FloatRect(sf::Vector2f(pos.x, pos.y),
+                      {selectedItem->getSize().x, selectedItem->getSize().y}));
     refreshScroll();
 }
 
@@ -102,7 +104,7 @@ void Menu::configureBackground(sf::Color fill, sf::Color outline, float t, const
     background.setFillColor(fill);
     background.setOutlineColor(outline);
     background.setOutlineThickness(t);
-    if (p.left >= 0.f) {
+    if (p.position.x >= 0.f) {
         bgndPadding = p;
         refreshPositions();
     }
@@ -123,15 +125,15 @@ void Menu::removeScissor() {
 
 sf::FloatRect Menu::getBounds() const {
     const auto& pos = background.getTransform().getLocalPosition();
-    return {pos.x, pos.y, totalSize.x, totalSize.y};
+    return {sf::Vector2f(pos.x, pos.y), sf::Vector2f(totalSize.x, totalSize.y)};
 }
 
 glm::vec2 Menu::visibleSize() const {
     const glm::vec2 s(maxSize.x > 0.f ? std::min(maxSize.x, totalSize.x) : totalSize.x,
                       maxSize.y > 0.f ? std::min(maxSize.y, totalSize.y) : totalSize.y);
     const float b = background.getOutlineThickness() * 2.f;
-    return s + glm::vec2(bgndPadding.left + bgndPadding.width + b,
-                         bgndPadding.top + bgndPadding.height + b);
+    return s + glm::vec2(bgndPadding.position.x + bgndPadding.size.x + b,
+                         bgndPadding.position.y + bgndPadding.size.y + b);
 }
 
 const glm::vec2& Menu::maximumSize() const { return maxSize; }
@@ -155,22 +157,22 @@ void Menu::refreshScroll() {
     if (maxSize.x > 0.f) {
         // left side
         if (selectedItem->position.x < offset.x) {
-            offset.x = selectedItem->position.x - bgndPadding.left;
+            offset.x = selectedItem->position.x - bgndPadding.position.x;
         }
         // right side
         if (selectedItem->position.x + selectedItem->getSize().x > offset.x + maxSize.x) {
-            offset.x = selectedItem->getSize().x + selectedItem->position.y + bgndPadding.width -
+            offset.x = selectedItem->getSize().x + selectedItem->position.y + bgndPadding.size.x -
                        maxSize.x;
         }
     }
     if (maxSize.y > 0.f) {
         // top
         if (selectedItem->position.y < offset.y) {
-            offset.y = selectedItem->position.y - bgndPadding.top;
+            offset.y = selectedItem->position.y - bgndPadding.position.y;
         }
         // bottom
         if (selectedItem->position.y + selectedItem->getSize().y > offset.y + maxSize.y) {
-            offset.y = selectedItem->getSize().y + selectedItem->position.y + bgndPadding.height -
+            offset.y = selectedItem->getSize().y + selectedItem->position.y + bgndPadding.size.y -
                        maxSize.y;
         }
     }
@@ -263,8 +265,8 @@ void Menu::processEvent(const Event& event) {
         const glm::vec2 pos = os - position - offset;
         const sf::Vector2f sfpos(pos.x, pos.y);
         for (const auto& item : items) {
-            const sf::FloatRect rect(
-                item->position.x, item->position.y, item->getSize().x, item->getSize().y);
+            const sf::FloatRect rect(sf::Vector2f(item->position.x, item->position.y),
+                                     sf::Vector2f(item->getSize().x, item->getSize().y));
             if (rect.contains(sfpos)) {
                 if (item->isSelectable() && selectedItem != item.get()) {
                     setSelectedItem(item.get());
@@ -287,17 +289,17 @@ void Menu::refreshPositions() {
     toVisit.emplace(items.front().get());
     visited.insert(items.front().get());
     items.front()->position = {0.f, 0.f};
-    sf::FloatRect bounds    = {0.f, 0.f, 0.f, 0.f};
+    sf::FloatRect bounds    = {{0.f, 0.f}, {0.f, 0.f}};
 
     while (!toVisit.empty()) {
         Item* item = toVisit.front();
         toVisit.pop();
 
         const glm::vec2 size = item->getSize();
-        if (item->position.x < bounds.left) bounds.left = item->position.x;
-        if (item->position.x + size.x > bounds.width) bounds.width = item->position.x + size.x;
-        if (item->position.y < bounds.top) bounds.top = item->position.y;
-        if (item->position.y + size.y > bounds.height) bounds.height = item->position.y + size.y;
+        if (item->position.x < bounds.position.x) bounds.position.x = item->position.x;
+        if (item->position.x + size.x > bounds.size.x) bounds.size.x = item->position.x + size.x;
+        if (item->position.y < bounds.position.y) bounds.position.y = item->position.y;
+        if (item->position.y + size.y > bounds.size.y) bounds.size.y = item->position.y + size.y;
 
         for (unsigned int i = 0; i < Item::AttachPoint::_NUM_ATTACHPOINTS; ++i) {
             const Item::AttachPoint ap = static_cast<Item::AttachPoint>(i);
@@ -314,8 +316,9 @@ void Menu::refreshPositions() {
         }
     }
 
-    totalSize = {bounds.width - bounds.left, bounds.height - bounds.top};
-    const glm::vec2 finalOffset(bounds.left - bgndPadding.left, bounds.top - bgndPadding.top);
+    totalSize = {bounds.size.x - bounds.position.x, bounds.size.y - bounds.position.y};
+    const glm::vec2 finalOffset(bounds.position.x - bgndPadding.position.x,
+                                bounds.position.y - bgndPadding.position.y);
     for (auto& item : items) { item->notifyPosition(item->position - finalOffset); }
 
     if (selectedItem != nullptr) {
@@ -324,7 +327,8 @@ void Menu::refreshPositions() {
         const glm::vec2& pos = tform->getLocalPosition();
         selector->notifySelection(
             selectedItem->getEntity(),
-            {pos.x, pos.y, selectedItem->getSize().x, selectedItem->getSize().y});
+            sf::FloatRect(sf::Vector2f(pos.x, pos.y),
+                          sf::Vector2f(selectedItem->getSize().x, selectedItem->getSize().y)));
     }
 
     refreshScroll();

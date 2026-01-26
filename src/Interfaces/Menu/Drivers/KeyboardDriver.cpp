@@ -18,20 +18,21 @@ void KeyboardDriver::setMoveControl(Item::AttachPoint dir, sf::Keyboard::Key ctr
 void KeyboardDriver::setActivateControl(sf::Keyboard::Key ctrl) { activateControl = ctrl; }
 
 void KeyboardDriver::process(const sf::Event& event) {
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == moveControls[Item::Top]) {
+    if (event.is<sf::Event::KeyPressed>()) {
+        const sf::Event::KeyPressed& keyEvent = *event.getIf<sf::Event::KeyPressed>();
+        if (keyEvent.code == moveControls[Item::Top]) {
             menu.processEvent(Event(Event::MoveEvent(Item::Top)));
         }
-        else if (event.key.code == moveControls[Item::Right]) {
+        else if (keyEvent.code == moveControls[Item::Right]) {
             menu.processEvent(Event(Event::MoveEvent(Item::Right)));
         }
-        else if (event.key.code == moveControls[Item::Bottom]) {
+        else if (keyEvent.code == moveControls[Item::Bottom]) {
             menu.processEvent(Event(Event::MoveEvent(Item::Bottom)));
         }
-        else if (event.key.code == moveControls[Item::Left]) {
+        else if (keyEvent.code == moveControls[Item::Left]) {
             menu.processEvent(Event(Event::MoveEvent(Item::Left)));
         }
-        else if (event.key.code == activateControl) {
+        else if (keyEvent.code == activateControl) {
             menu.processEvent(Event(Event::ActivateEvent()));
         }
     }

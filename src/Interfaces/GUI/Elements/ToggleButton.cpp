@@ -57,10 +57,10 @@ float ToggleButton::getToggleSize() const {
 void ToggleButton::onAcquisition() {
     const float s = getToggleSize() * 1.2f;
     Packer::manuallyPackElement(child,
-                                {getAcquisition().left + s,
-                                 getAcquisition().top,
-                                 getAcquisition().width - s,
-                                 getAcquisition().height});
+                                sf::FloatRect(sf::Vector2f(getAcquisition().position.x + s,
+                                                            getAcquisition().position.y),
+                                              sf::Vector2f(getAcquisition().size.x - s,
+                                                            getAcquisition().size.y)));
 }
 
 bool ToggleButton::propagateEvent(const Event& event) {

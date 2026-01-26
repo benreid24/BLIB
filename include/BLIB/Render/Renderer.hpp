@@ -372,7 +372,7 @@ private:
 
     bool createWindow();
     void applySettingsToWindow();
-    void processResize(const sf::Event::SizeEvent& event);
+    void processResize(const sf::Event::Resized& event);
     void processWindowRecreate();
 
     void destroyRenderTexture(vk::RenderTexture* rt);
@@ -386,6 +386,8 @@ private:
     Observer& addObserver();
     void removeObserver(unsigned int i);
     void assignObserverRegions();
+
+    void waitIdleGPU();
 
     friend class engine::Engine;
     friend class Observer;

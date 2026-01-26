@@ -22,74 +22,79 @@ const std::string HorizontalWheelLeft  = "Mouse Wheel Left";
 const std::string HorizontalWheelRight = "Mouse Wheel Right";
 const std::string JoystickButtonPrefix = "Joystick Button ";
 
+sf::Keyboard::Key operator+(sf::Keyboard::Key k, int offset) {
+    return static_cast<sf::Keyboard::Key>(static_cast<int>(k) + offset);
+}
+
 void init() {
     // Letters
     for (int i = 0; i < 26; ++i) {
-        const sf::Keyboard::Key k = static_cast<sf::Keyboard::Key>(sf::Keyboard::A + i);
+        const sf::Keyboard::Key k = static_cast<sf::Keyboard::Key>(sf::Keyboard::Key::A + i);
         keymap[k]                 = std::string(1, 'A' + i);
     }
 
     // Numbers
     for (int i = 0; i < 10; ++i) {
-        const sf::Keyboard::Key row = static_cast<sf::Keyboard::Key>(sf::Keyboard::Num0 + i);
-        const sf::Keyboard::Key pad = static_cast<sf::Keyboard::Key>(sf::Keyboard::Numpad0 + i);
-        keymap[row]                 = std::to_string(i);
-        keymap[pad]                 = std::string("Numpad ") + std::to_string(i);
+        const sf::Keyboard::Key row = static_cast<sf::Keyboard::Key>(sf::Keyboard::Key::Num0 + i);
+        const sf::Keyboard::Key pad =
+            static_cast<sf::Keyboard::Key>(sf::Keyboard::Key::Numpad0 + i);
+        keymap[row] = std::to_string(i);
+        keymap[pad] = std::string("Numpad ") + std::to_string(i);
     }
 
     // Function keys
     for (int i = 0; i < 15; ++i) {
-        const sf::Keyboard::Key k = static_cast<sf::Keyboard::Key>(sf::Keyboard::F1 + i);
+        const sf::Keyboard::Key k = static_cast<sf::Keyboard::Key>(sf::Keyboard::Key::F1 + i);
         keymap[k]                 = "F" + std::to_string(i + 1);
     }
 
     // Misc keys
-    keymap[sf::Keyboard::Space]     = "Space";
-    keymap[sf::Keyboard::Tab]       = "Tab";
-    keymap[sf::Keyboard::LControl]  = "Left Ctrl";
-    keymap[sf::Keyboard::LShift]    = "Left Shift";
-    keymap[sf::Keyboard::LAlt]      = "Left Alt";
-    keymap[sf::Keyboard::Tilde]     = "~";
-    keymap[sf::Keyboard::Enter]     = "Enter";
-    keymap[sf::Keyboard::RAlt]      = "Right Alt";
-    keymap[sf::Keyboard::RShift]    = "Right Shift";
-    keymap[sf::Keyboard::RControl]  = "Right Ctrl";
-    keymap[sf::Keyboard::Semicolon] = ";";
-    keymap[sf::Keyboard::Subtract]  = "Numpad -";
-    keymap[sf::Keyboard::Add]       = "Numpad +";
-    keymap[sf::Keyboard::Backspace] = "Backspace";
-    keymap[sf::Keyboard::Backslash] = "\\";
-    keymap[sf::Keyboard::Comma]     = ",";
-    keymap[sf::Keyboard::Quote]     = "'";
-    keymap[sf::Keyboard::Escape]    = "Esc";
-    keymap[sf::Keyboard::Equal]     = "=";
-    keymap[sf::Keyboard::End]       = "End";
-    keymap[sf::Keyboard::Home]      = "Home";
-    keymap[sf::Keyboard::Period]    = ".";
-    keymap[sf::Keyboard::PageDown]  = "Page Down";
-    keymap[sf::Keyboard::PageUp]    = "Page Up";
-    keymap[sf::Keyboard::Pause]     = "Pause";
-    keymap[sf::Keyboard::Menu]      = "Menu";
-    keymap[sf::Keyboard::Slash]     = "/";
-    keymap[sf::Keyboard::Hyphen]    = "-";
-    keymap[sf::Keyboard::Delete]    = "Delete";
-    keymap[sf::Keyboard::Insert]    = "Insert";
-    keymap[sf::Keyboard::Multiply]  = "*";
-    keymap[sf::Keyboard::Divide]    = "Numpad /";
-    keymap[sf::Keyboard::Up]        = "Up";
-    keymap[sf::Keyboard::Right]     = "Right";
-    keymap[sf::Keyboard::Down]      = "Down";
-    keymap[sf::Keyboard::Left]      = "Left";
+    keymap[sf::Keyboard::Key::Space]      = "Space";
+    keymap[sf::Keyboard::Key::Tab]        = "Tab";
+    keymap[sf::Keyboard::Key::LControl]   = "Left Ctrl";
+    keymap[sf::Keyboard::Key::LShift]     = "Left Shift";
+    keymap[sf::Keyboard::Key::LAlt]       = "Left Alt";
+    keymap[sf::Keyboard::Key::Grave]      = "~";
+    keymap[sf::Keyboard::Key::Enter]      = "Enter";
+    keymap[sf::Keyboard::Key::RAlt]       = "Right Alt";
+    keymap[sf::Keyboard::Key::RShift]     = "Right Shift";
+    keymap[sf::Keyboard::Key::RControl]   = "Right Ctrl";
+    keymap[sf::Keyboard::Key::Semicolon]  = ";";
+    keymap[sf::Keyboard::Key::Subtract]   = "Numpad -";
+    keymap[sf::Keyboard::Key::Add]        = "Numpad +";
+    keymap[sf::Keyboard::Key::Backspace]  = "Backspace";
+    keymap[sf::Keyboard::Key::Backslash]  = "\\";
+    keymap[sf::Keyboard::Key::Comma]      = ",";
+    keymap[sf::Keyboard::Key::Apostrophe] = "'";
+    keymap[sf::Keyboard::Key::Escape]     = "Esc";
+    keymap[sf::Keyboard::Key::Equal]      = "=";
+    keymap[sf::Keyboard::Key::End]        = "End";
+    keymap[sf::Keyboard::Key::Home]       = "Home";
+    keymap[sf::Keyboard::Key::Period]     = ".";
+    keymap[sf::Keyboard::Key::PageDown]   = "Page Down";
+    keymap[sf::Keyboard::Key::PageUp]     = "Page Up";
+    keymap[sf::Keyboard::Key::Pause]      = "Pause";
+    keymap[sf::Keyboard::Key::Menu]       = "Menu";
+    keymap[sf::Keyboard::Key::Slash]      = "/";
+    keymap[sf::Keyboard::Key::Hyphen]     = "-";
+    keymap[sf::Keyboard::Key::Delete]     = "Delete";
+    keymap[sf::Keyboard::Key::Insert]     = "Insert";
+    keymap[sf::Keyboard::Key::Multiply]   = "*";
+    keymap[sf::Keyboard::Key::Divide]     = "Numpad /";
+    keymap[sf::Keyboard::Key::Up]         = "Up";
+    keymap[sf::Keyboard::Key::Right]      = "Right";
+    keymap[sf::Keyboard::Key::Down]       = "Down";
+    keymap[sf::Keyboard::Key::Left]       = "Left";
 
     // Reverse key lookup
     for (const auto& pair : keymap) { strKeymap[pair.second] = pair.first; }
 
     // Mouse buttons
-    mouseButtonMap[sf::Mouse::Left]     = "Left Mouse";
-    mouseButtonMap[sf::Mouse::Right]    = "Right Mouse";
-    mouseButtonMap[sf::Mouse::Middle]   = "Middle Mouse";
-    mouseButtonMap[sf::Mouse::XButton1] = "Mouse 4";
-    mouseButtonMap[sf::Mouse::XButton2] = "Mouse 5";
+    mouseButtonMap[sf::Mouse::Button::Left]   = "Left Mouse";
+    mouseButtonMap[sf::Mouse::Button::Right]  = "Right Mouse";
+    mouseButtonMap[sf::Mouse::Button::Middle] = "Middle Mouse";
+    mouseButtonMap[sf::Mouse::Button::Extra1] = "Mouse 4";
+    mouseButtonMap[sf::Mouse::Button::Extra2] = "Mouse 5";
 
     // Reverse button lookup
     for (const auto& pair : mouseButtonMap) { strMouseButtonMap[pair.second] = pair.first; }
@@ -126,10 +131,10 @@ Encoder::ControlInfo Encoder::fromString(const std::string& s) {
     axIt = strAxisMap.find(s.substr(1));
     if (axIt != strAxisMap.end()) { return ControlInfo(axIt->second, s[0] == '+'); }
 
-    if (s == VerticalWheelUp) { return ControlInfo{sf::Mouse::VerticalWheel, true}; }
-    if (s == VerticalWheelDown) { return ControlInfo{sf::Mouse::VerticalWheel, false}; }
-    if (s == HorizontalWheelLeft) { return ControlInfo{sf::Mouse::HorizontalWheel, false}; }
-    if (s == HorizontalWheelRight) { return ControlInfo{sf::Mouse::HorizontalWheel, true}; }
+    if (s == VerticalWheelUp) { return ControlInfo{sf::Mouse::Wheel::Vertical, true}; }
+    if (s == VerticalWheelDown) { return ControlInfo{sf::Mouse::Wheel::Vertical, false}; }
+    if (s == HorizontalWheelLeft) { return ControlInfo{sf::Mouse::Wheel::Horizontal, false}; }
+    if (s == HorizontalWheelRight) { return ControlInfo{sf::Mouse::Wheel::Horizontal, true}; }
 
     std::string_view view(s);
     if (view.substr(0, JoystickButtonPrefix.size()) == JoystickButtonPrefix) {
@@ -150,10 +155,11 @@ std::string Encoder::toString(const ControlInfo& ctrl) {
     case ControlInfo::MouseButton:
         return mouseButtonMap[ctrl.mouseButton];
     case ControlInfo::MouseWheelUp:
-        return ctrl.mouseWheel == sf::Mouse::VerticalWheel ? VerticalWheelUp : HorizontalWheelRight;
+        return ctrl.mouseWheel == sf::Mouse::Wheel::Vertical ? VerticalWheelUp :
+                                                               HorizontalWheelRight;
     case ControlInfo::MouseWheelDown:
-        return ctrl.mouseWheel == sf::Mouse::VerticalWheel ? VerticalWheelDown :
-                                                             HorizontalWheelLeft;
+        return ctrl.mouseWheel == sf::Mouse::Wheel::Vertical ? VerticalWheelDown :
+                                                               HorizontalWheelLeft;
     case ControlInfo::JoystickAxis:
         return axisMap[ctrl.joystickAxis];
     case ControlInfo::JoystickAxisPositive:

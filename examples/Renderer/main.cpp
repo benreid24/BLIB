@@ -63,7 +63,7 @@ public:
             engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
         bl::rc::SceneRef scene2d = p1World->scene();
         auto* p1cam =
-            p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1920.f, 1080.f * 0.5f});
+            p1.setCamera<bl::cam::Camera2D>(sf::FloatRect{{0.f, 0.f}, {1920.f, 1080.f * 0.5f}});
         p1cam->setRotation(15.f);
 
         // create sprite in scene
@@ -157,7 +157,7 @@ public:
         bl::rc::SceneRef rto =
             engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
         renderTexture->pushScene(rto);
-        renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{0.f, 0.f, 1.f, 1.f});
+        renderTexture->setCamera<bl::cam::Camera2D>(sf::FloatRect{{0.f, 0.f}, {1.f, 1.f}});
         renderTexture->setClearColor({0.f, 0.0f, 0.7f, 0.4f});
 
         renderTextureInnerSprite.create(*p2World, texture);
@@ -219,52 +219,53 @@ private:
     std::atomic_bool exportInProgress;
 
     virtual void process(const sf::Event& event) override {
-        if (event.type == sf::Event::KeyPressed) {
-            switch (event.key.code) {
-            case sf::Keyboard::Z:
+        if (event.is<sf::Event::KeyPressed>()) {
+            const sf::Event::KeyPressed& kp = *event.getIf<sf::Event::KeyPressed>();
+            switch (kp.code) {
+            case sf::Keyboard::Key::Z:
                 renderer->setSplitscreenDirection(
                     bl::rc::Renderer::SplitscreenDirection::LeftAndRight);
                 break;
-            case sf::Keyboard::X:
+            case sf::Keyboard::Key::X:
                 renderer->setSplitscreenDirection(
                     bl::rc::Renderer::SplitscreenDirection::TopAndBottom);
                 break;
 
-            case sf::Keyboard::Up:
+            case sf::Keyboard::Key::Up:
                 spritePosition->move({0.f, -10.f});
                 break;
-            case sf::Keyboard::Right:
+            case sf::Keyboard::Key::Right:
                 spritePosition->move({10.f, 0.f});
                 break;
-            case sf::Keyboard::Down:
+            case sf::Keyboard::Key::Down:
                 spritePosition->move({0.f, 10.f});
                 break;
-            case sf::Keyboard::Left:
+            case sf::Keyboard::Key::Left:
                 spritePosition->move({-10.f, 0.f});
                 break;
 
-            case sf::Keyboard::F:
+            case sf::Keyboard::Key::F:
                 fadeout = renderer->getObserver(0)
                               .getRenderGraph()
                               .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f);
                 fadeout->fadeTo(2.f, 0.f);
                 break;
-            case sf::Keyboard::G:
+            case sf::Keyboard::Key::G:
                 fadeout = renderer->getObserver(0)
                               .getRenderGraph()
                               .putUniqueTask<bl::rc::rgi::FadeEffectTask>(2.f, 0.f, 1.f);
                 fadeout->fadeTo(2.f, 1.f);
                 break;
-            case sf::Keyboard::C:
+            case sf::Keyboard::Key::C:
                 renderer->getObserver(0).getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
                 fadeout = nullptr;
                 break;
 
-            case sf::Keyboard::S:
-            case sf::Keyboard::T:
+            case sf::Keyboard::Key::S:
+            case sf::Keyboard::Key::T:
                 if (!exportInProgress) {
                     exportInProgress    = true;
-                    const bool isScreen = event.key.code == sf::Keyboard::S;
+                    const bool isScreen = kp.code == sf::Keyboard::Key::S;
                     bl::rc::tfr::TextureExport* te =
                         isScreen ?
                             renderer->textureExporter().exportSwapImage() :
@@ -278,8 +279,10 @@ private:
                 break;
             }
         }
-        else if (event.type == sf::Event::MouseButtonPressed) {
-            const glm::vec2 mpos(event.mouseButton.x, event.mouseButton.y);
+        else if (event.is<sf::Event::MouseButtonPressed>()) {
+            const sf::Event::MouseButtonPressed& mbp =
+                *event.getIf<sf::Event::MouseButtonPressed>();
+            const glm::vec2 mpos(mbp.position.x, mbp.position.y);
             const auto ir = text.findCharacterAtWindowPosition(mpos);
             if (ir.found) {
                 BL_LOG_INFO << "Clicked: (" << ir.sectionIndex << ", " << ir.characterIndex
@@ -290,10 +293,10 @@ private:
             }
             else { BL_LOG_INFO << "Did not click text"; }
         }
-        else if (event.type == sf::Event::MouseWheelScrolled) {
-            if (event.mouseWheelScroll.delta < 0.f) {
-                engine->setTimeScale(engine->getTimeScale() * 0.9f);
-            }
+        else if (event.is<sf::Event::MouseWheelScrolled>()) {
+            const sf::Event::MouseWheelScrolled& mwsc =
+                *event.getIf<sf::Event::MouseWheelScrolled>();
+            if (mwsc.delta < 0.f) { engine->setTimeScale(engine->getTimeScale() * 0.9f); }
             else { engine->setTimeScale(engine->getTimeScale() * 1.1f); }
             BL_LOG_INFO << "Scaling time: " << engine->getTimeScale();
         }
@@ -307,7 +310,7 @@ int main() {
         bl::engine::Settings()
             .withRenderer(bl::rc::CreationSettings().withWindowSettings(
                 bl::rc::WindowSettings()
-                    .withVideoMode(sf::VideoMode(1920, 1080, 32))
+                    .withVideoMode(sf::VideoMode({1920, 1080}, 32))
                     .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                     .withTitle("Renderer Demo")
                     .withIcon("vulkan.png")

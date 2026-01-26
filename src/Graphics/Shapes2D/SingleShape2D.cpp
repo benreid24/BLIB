@@ -27,13 +27,13 @@ void SingleShape2D::notifyDirty() {
 void SingleShape2D::create(engine::World& world) {
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
-    notifyDirty();
+    ensureUpdated();
 }
 
 void SingleShape2D::create(engine::World& world, ecs::Entity existing) {
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
-    notifyDirty();
+    ensureUpdated();
 }
 
 void SingleShape2D::ensureLocalSizeUpdated() { ensureUpdated(); }
@@ -77,7 +77,7 @@ void SingleShape2D::ensureUpdated() {
 
 void SingleShape2D::scaleToSize(const glm::vec2& size) {
     const sf::FloatRect& localBounds = getLocalBounds();
-    getTransform().setScale({size.x / localBounds.width, size.y / localBounds.height});
+    getTransform().setScale({size.x / localBounds.size.x, size.y / localBounds.size.y});
     OverlayScalable::setLocalBounds(getLocalBounds());
 }
 

@@ -1,6 +1,7 @@
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
 
 #include <BLIB/Render/Vulkan/VkCheck.hpp>
+#include <algorithm>
 
 namespace bl
 {

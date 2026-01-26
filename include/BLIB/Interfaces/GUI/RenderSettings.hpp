@@ -44,7 +44,7 @@ struct RenderSettings {
     std::optional<float> secondaryOutlineThickness;
 
     std::optional<bl::resource::Ref<sf::VulkanFont>> font;
-    std::optional<sf::Uint32> style;
+    std::optional<std::uint32_t> style;
     std::optional<unsigned int> characterSize;
 
     /**

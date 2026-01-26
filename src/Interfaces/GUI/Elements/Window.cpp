@@ -75,7 +75,7 @@ Window::Window(const Packer::Ptr& packer, const std::string& titleText, Style st
     elementArea->setExpandsWidth(true);
     elementArea->setExpandsHeight(true);
     elementArea->getSignal(Event::Dragged).willAlwaysCall(dragCb);
-    assignAcquisition({position.x, position.y, 40, 20});
+    assignAcquisition(sf::FloatRect(sf::Vector2f(position.x, position.y), sf::Vector2f(40, 20)));
 
     Element* tmp[2] = {titlebar.get(), elementArea.get()};
     registerChildren(tmp);
@@ -85,7 +85,7 @@ void Window::handleDrag(const Event& action) {
     if (action.type() == Event::Dragged && moveable) {
         const sf::Vector2f dragAmount = action.dragStart() - action.mousePosition();
         const sf::Vector2f newPos =
-            sf::Vector2f(getAcquisition().left, getAcquisition().top) - dragAmount;
+            sf::Vector2f(getAcquisition().position.x, getAcquisition().position.y) - dragAmount;
         Element::setPosition(newPos);
     }
 }
@@ -103,14 +103,13 @@ void Window::onAcquisition() {
         rightTitleSide->setRequisition({h, h});
         Packer::manuallyPackElement(
             titlebar,
-            {getAcquisition().left, getAcquisition().top, getAcquisition().width, h},
+            sf::FloatRect(sf::Vector2f(getAcquisition().position.x, getAcquisition().position.y),
+                          sf::Vector2f(getAcquisition().size.x, h)),
             true);
     }
     Packer::manuallyPackElement(elementArea,
-                                {getAcquisition().left,
-                                 getAcquisition().top + h,
-                                 getAcquisition().width,
-                                 getAcquisition().height - h},
+                                sf::FloatRect(sf::Vector2f(getAcquisition().position.x, getAcquisition().position.y + h),
+                                              sf::Vector2f(getAcquisition().size.x, getAcquisition().size.y - h)),
                                 true);
     markClean();
 }

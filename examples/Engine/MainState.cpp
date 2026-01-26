@@ -6,6 +6,47 @@
 
 bl::engine::State::Ptr MainState::create() { return Ptr{new MainState()}; }
 
+void configureInput(bl::engine::Engine& engine) {
+    bl::input::InputSystem& inputSystem = engine.inputSystem();
+    bl::input::Actor& user              = engine.getPlayer().getInputActor();
+
+    // register our controls
+    inputSystem.setControlCount(Control::Count);
+    inputSystem.configureMovementControl(Control::Movement);
+    inputSystem.configureTriggerControl(Control::Example);
+    inputSystem.configureTriggerControl(Control::RebindExample);
+    inputSystem.configureTriggerControl(Control::RebindMovementVert);
+    inputSystem.configureTriggerControl(Control::Back);
+    inputSystem.configureTriggerControl(Control::Close);
+
+    // keyboard and mouse default config
+    user.getKBMMovementUpControl(Control::Movement).triggerOnKey(sf::Keyboard::Key::W);
+    user.getKBMMovementRightControl(Control::Movement).triggerOnKey(sf::Keyboard::Key::D);
+    user.getKBMMovementDownControl(Control::Movement).triggerOnKey(sf::Keyboard::Key::S);
+    user.getKBMMovementLeftControl(Control::Movement).triggerOnKey(sf::Keyboard::Key::A);
+    user.getKBMTriggerControl(Control::Back).triggerOnKey(sf::Keyboard::Key::Backspace);
+    user.getKBMTriggerControl(Control::Close).triggerOnKey(sf::Keyboard::Key::Escape);
+    user.getKBMTriggerControl(Control::RebindExample).triggerOnKey(sf::Keyboard::Key::E);
+    user.getKBMTriggerControl(Control::RebindMovementVert).triggerOnKey(sf::Keyboard::Key::Q);
+
+    // controller
+    using bl::input::controllers::Xbox360;
+    bl::input::Joystick& jsMv = user.getJoystickMovementControl(Control::Movement);
+    jsMv.horizontalAxis       = Xbox360::LSHorizontal;
+    jsMv.verticalAxis         = Xbox360::LSVertical;
+    jsMv.verticalInverted     = true;
+    user.getJoystickTriggerControl(Control::Back).triggerOnJoystickButton(Xbox360::B);
+    user.getJoystickTriggerControl(Control::Close).triggerOnJoystickButton(Xbox360::Start);
+    user.getJoystickTriggerControl(Control::RebindExample).triggerOnJoystickButton(Xbox360::A);
+    user.getJoystickTriggerControl(Control::RebindMovementVert).triggerOnJoystickButton(Xbox360::X);
+
+    // load from config file if present
+    if (bl::util::FileUtil::exists("config.cfg")) {
+        bl::engine::Configuration::load("config.cfg");
+        inputSystem.loadFromConfig();
+    }
+}
+
 MainState::MainState()
 : State(bl::engine::StateMask::All)
 , inited(false) {}
@@ -13,6 +54,7 @@ MainState::MainState()
 const char* MainState::name() const { return "MainState"; }
 
 void MainState::activate(bl::engine::Engine& engine) {
+    configureInput(engine);
     engine.renderer().setClearColor({1.f, 0.f, 0.f});
     engine.renderer().getObserver().setClearColor({0.f, 1.f, 0.f, 1.f});
 
@@ -42,7 +84,7 @@ void MainState::activate(bl::engine::Engine& engine) {
     listener.addToScene(scene);
 
     engine.renderer().getObserver().setCamera<bl::cam::Camera2D>(
-        sf::FloatRect{0.f, 0.f, 800.f, 600.f});
+        sf::FloatRect{{0.f, 0.f}, {800.f, 600.f}});
     engine.inputSystem().getActor().addListener(listener);
 }
 

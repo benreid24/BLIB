@@ -118,7 +118,7 @@ void OverlayScalable::create(engine::Engine& engine, ecs::Entity entity, TArgs&&
 }
 
 inline void OverlayScalable::setLocalSize(const glm::vec2& size) {
-    handle->setEntityBounds({0.f, 0.f, size.x, size.y});
+    handle->setEntityBounds(sf::FloatRect{{0.f, 0.f}, {size.x, size.y}});
 }
 
 inline void OverlayScalable::setLocalBounds(const sf::FloatRect& bounds) {
