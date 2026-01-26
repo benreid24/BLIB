@@ -89,7 +89,7 @@ $(document).ready(function() { init_codefold(0); });
 <a href="a02381.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00950.html">BLIB/Render/Descriptors/Builtin/GlobalDataFactory.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00920.html">BLIB/Render/Descriptors/Builtin/GlobalDataInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08510.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
@@ -99,7 +99,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> GlobalDataFactory::init(engine::Engine&amp;, Renderer&amp; renderer) {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    globalData          = &amp;renderer.getGlobalDescriptorData();</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_variable" href="a04874.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = renderer.getGlobalDescriptorData().<a class="code hl_function" href="a05346.html#ade9f60a072712d8b49ac429ced8234c2">getDescriptorLayout</a>();</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_variable" href="a04875.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a> = renderer.getGlobalDescriptorData().<a class="code hl_function" href="a05347.html#ade9f60a072712d8b49ac429ced8234c2">getDescriptorLayout</a>();</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>std::unique_ptr&lt;ds::DescriptorSetInstance&gt; GlobalDataFactory::createDescriptorSet()<span class="keyword"> const </span>{</div>
@@ -114,14 +114,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa00920_html"><div class="ttname"><a href="a00920.html">GlobalDataInstance.hpp</a></div></div>
 <div class="ttc" id="aa00950_html"><div class="ttname"><a href="a00950.html">GlobalDataFactory.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04874_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a04874.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition</b> <a href="a08488_source.html#l00072">DescriptorSetFactory.hpp:72</a></div></div>
-<div class="ttc" id="aa05346_html_ade9f60a072712d8b49ac429ced8234c2"><div class="ttname"><a href="a05346.html#ade9f60a072712d8b49ac429ced8234c2">bl::rc::res::GlobalDescriptors::getDescriptorLayout</a></div><div class="ttdeci">VkDescriptorSetLayout getDescriptorLayout() const</div><div class="ttdoc">Returns the layout of the descriptor set containing the textures.</div><div class="ttdef"><b>Definition</b> <a href="a01061_source.html#l00121">GlobalDescriptors.hpp:121</a></div></div>
-<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa04875_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a04875.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition</b> <a href="a08489_source.html#l00072">DescriptorSetFactory.hpp:72</a></div></div>
+<div class="ttc" id="aa05347_html_ade9f60a072712d8b49ac429ced8234c2"><div class="ttname"><a href="a05347.html#ade9f60a072712d8b49ac429ced8234c2">bl::rc::res::GlobalDescriptors::getDescriptorLayout</a></div><div class="ttdeci">VkDescriptorSetLayout getDescriptorLayout() const</div><div class="ttdoc">Returns the layout of the descriptor set containing the textures.</div><div class="ttdef"><b>Definition</b> <a href="a01061_source.html#l00121">GlobalDescriptors.hpp:121</a></div></div>
+<div class="ttc" id="aa08510_html"><div class="ttname"><a href="a08510.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

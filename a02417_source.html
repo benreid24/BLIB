@@ -96,18 +96,18 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>res</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><a class="code hl_function" href="a05358.html#aaa1c4a94d83549d18f82b575fc44cdba">MaterialRef::MaterialRef</a>(MaterialPool* owner, std::uint32_t <span class="keywordtype">id</span>)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><a class="code hl_function" href="a05359.html#aaa1c4a94d83549d18f82b575fc44cdba">MaterialRef::MaterialRef</a>(MaterialPool* owner, std::uint32_t <span class="keywordtype">id</span>)</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: owner(owner)</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, id(id) {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    increment();</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05358.html#a39773cd108e191da02cbb2fe2469ce39">   17</a></span><span class="keyword">const</span> <a class="code hl_class" href="a05270.html">mat::Material</a>&amp; MaterialRef::operator*()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> owner-&gt;materials[id]; }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05359.html#a39773cd108e191da02cbb2fe2469ce39">   17</a></span><span class="keyword">const</span> <a class="code hl_class" href="a05271.html">mat::Material</a>&amp; MaterialRef::operator*()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> owner-&gt;materials[id]; }</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05358.html#a1c56a7d85732ff706d19ba5d681944f9">   19</a></span><span class="keyword">const</span> <a class="code hl_class" href="a05270.html">mat::Material</a>* MaterialRef::operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;owner-&gt;materials[id]; }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05359.html#a1c56a7d85732ff706d19ba5d681944f9">   19</a></span><span class="keyword">const</span> <a class="code hl_class" href="a05271.html">mat::Material</a>* MaterialRef::operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;owner-&gt;materials[id]; }</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05358.html#ae991d66ea1ec5c1261ee31d363ec5f3f">   21</a></span><a class="code hl_class" href="a05270.html">mat::Material</a>&amp; MaterialRef::getForEdit() {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05359.html#ae991d66ea1ec5c1261ee31d363ec5f3f">   21</a></span><a class="code hl_class" href="a05271.html">mat::Material</a>&amp; MaterialRef::getForEdit() {</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    owner-&gt;markForUpdate(<span class="keywordtype">id</span>);</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">return</span> owner-&gt;materials[id];</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
@@ -125,13 +125,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa01037_html"><div class="ttname"><a href="a01037.html">MaterialRef.hpp</a></div></div>
 <div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">MaterialPool.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05270_html"><div class="ttname"><a href="a05270.html">bl::rc::mat::Material</a></div><div class="ttdoc">Stores all data for a material.</div><div class="ttdef"><b>Definition</b> <a href="a08551_source.html#l00017">Material.hpp:17</a></div></div>
-<div class="ttc" id="aa05358_html_aaa1c4a94d83549d18f82b575fc44cdba"><div class="ttname"><a href="a05358.html#aaa1c4a94d83549d18f82b575fc44cdba">bl::rc::res::MaterialRef::MaterialRef</a></div><div class="ttdeci">MaterialRef()</div><div class="ttdoc">Creates an invalid ref.</div><div class="ttdef"><b>Definition</b> <a href="a01037_source.html#l00026">MaterialRef.hpp:26</a></div></div>
+<div class="ttc" id="aa05271_html"><div class="ttname"><a href="a05271.html">bl::rc::mat::Material</a></div><div class="ttdoc">Stores all data for a material.</div><div class="ttdef"><b>Definition</b> <a href="a08552_source.html#l00017">Material.hpp:17</a></div></div>
+<div class="ttc" id="aa05359_html_aaa1c4a94d83549d18f82b575fc44cdba"><div class="ttname"><a href="a05359.html#aaa1c4a94d83549d18f82b575fc44cdba">bl::rc::res::MaterialRef::MaterialRef</a></div><div class="ttdeci">MaterialRef()</div><div class="ttdoc">Creates an invalid ref.</div><div class="ttdef"><b>Definition</b> <a href="a01037_source.html#l00026">MaterialRef.hpp:26</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

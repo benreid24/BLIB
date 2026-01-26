@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::mdl::Mesh Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,27 +74,374 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04510.html">MeshSet</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04507.html">Mesh</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::mdl::MeshSet Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a04504.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::mdl::Mesh Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04510.html">bl::mdl::MeshSet</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04510.html#a5b8f5f5851979c72e14d13fcaae5bea8">flipUVs</a>()</td><td class="entry"><a class="el" href="a04510.html">bl::mdl::MeshSet</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04510.html#a9479f98a85d15e5bbb7009c27e14b097">getMesh</a>(unsigned int index) const</td><td class="entry"><a class="el" href="a04510.html">bl::mdl::MeshSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04510.html#abbc5cdf31e4cee4fcdd7ef2fd7242113">getMesh</a>(unsigned int index)</td><td class="entry"><a class="el" href="a04510.html">bl::mdl::MeshSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04510.html#a474f65f3b4323ab66ee4463c1daab6fc">getMeshCount</a>() const</td><td class="entry"><a class="el" href="a04510.html">bl::mdl::MeshSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04510.html#aa568e791968afb17528e4d29bb3933a2">MeshSet</a>()=default</td><td class="entry"><a class="el" href="a04510.html">bl::mdl::MeshSet</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04510.html#a58657f7b8ee6a4ee0dbac5735b052ea5">populate</a>(const aiScene *scene, BoneSet &amp;bones)</td><td class="entry"><a class="el" href="a04510.html">bl::mdl::MeshSet</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Basic class containing data for a single mesh in a model.  
+ <a href="a04507.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a07919_source.html">Mesh.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a25ce012fdf5d17d3245d7eef579fb470" id="r_a25ce012fdf5d17d3245d7eef579fb470"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a25ce012fdf5d17d3245d7eef579fb470">Mesh</a> ()</td></tr>
+<tr class="memdesc:a25ce012fdf5d17d3245d7eef579fb470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty mesh.  <br /></td></tr>
+<tr class="separator:a25ce012fdf5d17d3245d7eef579fb470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a432b509c7a6f14eaa4e365291ab1d85c" id="r_a432b509c7a6f14eaa4e365291ab1d85c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a432b509c7a6f14eaa4e365291ab1d85c">Mesh</a> (const <a class="el" href="a04507.html">Mesh</a> &amp;)=default</td></tr>
+<tr class="memdesc:a432b509c7a6f14eaa4e365291ab1d85c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic copy constructor.  <br /></td></tr>
+<tr class="separator:a432b509c7a6f14eaa4e365291ab1d85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bf928b2b6c755a749591277456a53b5" id="r_a3bf928b2b6c755a749591277456a53b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a3bf928b2b6c755a749591277456a53b5">Mesh</a> (const <a class="el" href="a04507.html">Mesh</a> &amp;src, const glm::mat4 &amp;transform)</td></tr>
+<tr class="memdesc:a3bf928b2b6c755a749591277456a53b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the mesh from the source mesh but applies the given transform to all vertices.  <br /></td></tr>
+<tr class="separator:a3bf928b2b6c755a749591277456a53b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca35a81f5a7e118795de3bc6eccf9630" id="r_aca35a81f5a7e118795de3bc6eccf9630"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#aca35a81f5a7e118795de3bc6eccf9630">populate</a> (const aiMesh *mesh, <a class="el" href="a04475.html">BoneSet</a> &amp;bones)</td></tr>
+<tr class="memdesc:aca35a81f5a7e118795de3bc6eccf9630"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the mesh from the given assimp mesh.  <br /></td></tr>
+<tr class="separator:aca35a81f5a7e118795de3bc6eccf9630"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00b269b40a54a3da58323a0aa571f5d8" id="r_a00b269b40a54a3da58323a0aa571f5d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a00b269b40a54a3da58323a0aa571f5d8">combine</a> (const <a class="el" href="a04507.html">Mesh</a> &amp;other, const glm::mat4 &amp;transform)</td></tr>
+<tr class="memdesc:a00b269b40a54a3da58323a0aa571f5d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Merges the vertices and indices of the given mesh into this mesh.  <br /></td></tr>
+<tr class="separator:a00b269b40a54a3da58323a0aa571f5d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cd844ca0781a3c855d5447b17b32ef2" id="r_a2cd844ca0781a3c855d5447b17b32ef2"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a04535.html">Vertex</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a2cd844ca0781a3c855d5447b17b32ef2">getVertices</a> () const</td></tr>
+<tr class="memdesc:a2cd844ca0781a3c855d5447b17b32ef2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertices of the mesh.  <br /></td></tr>
+<tr class="separator:a2cd844ca0781a3c855d5447b17b32ef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a676c6e0ce99637fef311fcc9497e2b05" id="r_a676c6e0ce99637fef311fcc9497e2b05"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::uint32_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a676c6e0ce99637fef311fcc9497e2b05">getIndices</a> () const</td></tr>
+<tr class="memdesc:a676c6e0ce99637fef311fcc9497e2b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the indices of the mesh.  <br /></td></tr>
+<tr class="separator:a676c6e0ce99637fef311fcc9497e2b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94d7baad068b4e3d3fc337dc9d1caffc" id="r_a94d7baad068b4e3d3fc337dc9d1caffc"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a94d7baad068b4e3d3fc337dc9d1caffc">getMaterialIndex</a> () const</td></tr>
+<tr class="memdesc:a94d7baad068b4e3d3fc337dc9d1caffc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the material index of the mesh.  <br /></td></tr>
+<tr class="separator:a94d7baad068b4e3d3fc337dc9d1caffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb907e7974197f56e1c7db281d247bb6" id="r_aeb907e7974197f56e1c7db281d247bb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#aeb907e7974197f56e1c7db281d247bb6">flipUVs</a> ()</td></tr>
+<tr class="memdesc:aeb907e7974197f56e1c7db281d247bb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flips the V texture coordinates of all vertices in the mesh.  <br /></td></tr>
+<tr class="separator:aeb907e7974197f56e1c7db281d247bb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d17aaff36fe92d65d8a03bf6e93a65a" id="r_a8d17aaff36fe92d65d8a03bf6e93a65a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04507.html#a8d17aaff36fe92d65d8a03bf6e93a65a">getIsSkinned</a> () const</td></tr>
+<tr class="memdesc:a8d17aaff36fe92d65d8a03bf6e93a65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the mesh is skinned.  <br /></td></tr>
+<tr class="separator:a8d17aaff36fe92d65d8a03bf6e93a65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basic class containing data for a single mesh in a model. </p>
+<p>@ingroupo Models </p>
+
+<p class="definition">Definition at line <a class="el" href="a07919_source.html#l00020">20</a> of file <a class="el" href="a07919_source.html">Mesh.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a25ce012fdf5d17d3245d7eef579fb470" name="a25ce012fdf5d17d3245d7eef579fb470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25ce012fdf5d17d3245d7eef579fb470">&#9670;&#160;</a></span>Mesh() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::mdl::Mesh::Mesh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty mesh. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02732_source.html#l00012">12</a> of file <a class="el" href="a02732_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a432b509c7a6f14eaa4e365291ab1d85c" name="a432b509c7a6f14eaa4e365291ab1d85c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a432b509c7a6f14eaa4e365291ab1d85c">&#9670;&#160;</a></span>Mesh() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::mdl::Mesh::Mesh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04507.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Basic copy constructor. </p>
+
+</div>
+</div>
+<a id="a3bf928b2b6c755a749591277456a53b5" name="a3bf928b2b6c755a749591277456a53b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bf928b2b6c755a749591277456a53b5">&#9670;&#160;</a></span>Mesh() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::mdl::Mesh::Mesh </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04507.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>transform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the mesh from the source mesh but applies the given transform to all vertices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">src</td><td>The source mesh </td></tr>
+    <tr><td class="paramname">transform</td><td>The transform to apply to all vertices </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02732_source.html#l00016">16</a> of file <a class="el" href="a02732_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a00b269b40a54a3da58323a0aa571f5d8" name="a00b269b40a54a3da58323a0aa571f5d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b269b40a54a3da58323a0aa571f5d8">&#9670;&#160;</a></span>combine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::mdl::Mesh::combine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04507.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::mat4 &amp;&#160;</td>
+          <td class="paramname"><em>transform</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Merges the vertices and indices of the given mesh into this mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The mesh to merge into this one </td></tr>
+    <tr><td class="paramname">transform</td><td>The transform to apply to the vertices of the other mesh </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02732_source.html#l00023">23</a> of file <a class="el" href="a02732_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeb907e7974197f56e1c7db281d247bb6" name="aeb907e7974197f56e1c7db281d247bb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb907e7974197f56e1c7db281d247bb6">&#9670;&#160;</a></span>flipUVs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::mdl::Mesh::flipUVs </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flips the V texture coordinates of all vertices in the mesh. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02732_source.html#l00116">116</a> of file <a class="el" href="a02732_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a676c6e0ce99637fef311fcc9497e2b05" name="a676c6e0ce99637fef311fcc9497e2b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a676c6e0ce99637fef311fcc9497e2b05">&#9670;&#160;</a></span>getIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::uint32_t &gt; &amp; bl::mdl::Mesh::getIndices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the indices of the mesh. </p>
+
+<p class="definition">Definition at line <a class="el" href="a07919_source.html#l00064">64</a> of file <a class="el" href="a07919_source.html">Mesh.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d17aaff36fe92d65d8a03bf6e93a65a" name="a8d17aaff36fe92d65d8a03bf6e93a65a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d17aaff36fe92d65d8a03bf6e93a65a">&#9670;&#160;</a></span>getIsSkinned()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::mdl::Mesh::getIsSkinned </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the mesh is skinned. </p>
+
+<p class="definition">Definition at line <a class="el" href="a07919_source.html#l00079">79</a> of file <a class="el" href="a07919_source.html">Mesh.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a94d7baad068b4e3d3fc337dc9d1caffc" name="a94d7baad068b4e3d3fc337dc9d1caffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94d7baad068b4e3d3fc337dc9d1caffc">&#9670;&#160;</a></span>getMaterialIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::mdl::Mesh::getMaterialIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the material index of the mesh. </p>
+
+<p class="definition">Definition at line <a class="el" href="a07919_source.html#l00069">69</a> of file <a class="el" href="a07919_source.html">Mesh.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2cd844ca0781a3c855d5447b17b32ef2" name="a2cd844ca0781a3c855d5447b17b32ef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cd844ca0781a3c855d5447b17b32ef2">&#9670;&#160;</a></span>getVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a04535.html">Vertex</a> &gt; &amp; bl::mdl::Mesh::getVertices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the vertices of the mesh. </p>
+
+<p class="definition">Definition at line <a class="el" href="a07919_source.html#l00059">59</a> of file <a class="el" href="a07919_source.html">Mesh.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aca35a81f5a7e118795de3bc6eccf9630" name="aca35a81f5a7e118795de3bc6eccf9630"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca35a81f5a7e118795de3bc6eccf9630">&#9670;&#160;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::mdl::Mesh::populate </td>
+          <td>(</td>
+          <td class="paramtype">const aiMesh *&#160;</td>
+          <td class="paramname"><em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04475.html">BoneSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>bones</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Populates the mesh from the given assimp mesh. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mesh</td><td>The assimp source mesh </td></tr>
+    <tr><td class="paramname">bones</td><td>The set of bones in the model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02732_source.html#l00041">41</a> of file <a class="el" href="a02732_source.html">Mesh.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Models/<a class="el" href="a07919_source.html">Mesh.hpp</a></li>
+<li>src/Models/<a class="el" href="a02732_source.html">Mesh.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

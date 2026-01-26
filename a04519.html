@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::mdl::Node Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,29 +74,386 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04522.html">NodeSet</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03037.html">mdl</a></li><li class="navelem"><a class="el" href="a04519.html">Node</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::mdl::NodeSet Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a04516.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::mdl::Node Class Reference<div class="ingroups"><a class="el" href="a02976.html">Models</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04522.html">bl::mdl::NodeSet</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04522.html#a36bb04ab6dd80e329cdebae39c4ade15">addNode</a>(std::uint32_t parent)</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04522.html#afbf11a3471fbc62269033021dad919e5">clearAllButRoot</a>()</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04522.html#aa2a65a2e9cf6dafb66583e3f43535ec4">getNode</a>(std::size_t index)</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04522.html#ae5c1119570068eb31ceffa48d5293b2e">getNode</a>(std::size_t index) const</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04522.html#a04fdec43497c56e4664a8e29d12fdc76">getNode</a>(std::string_view name) const</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04522.html#acbf58dda00034ce95b957d9f0f1d5e95">NodeSet</a>()=default</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04522.html#a9c6f671281e90c1ea10e56303c774f0e">reserveSpace</a>(const aiScene *scene)</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04522.html#a2c3ec4ec298b3ba6e3da51d2477879e4">size</a>() const</td><td class="entry"><a class="el" href="a04522.html">bl::mdl::NodeSet</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Represents a node in a model hierarchy.  
+ <a href="a04519.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a08036_source.html">Node.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4bd39d2586911419ae876d20bb397fa7" id="r_a4bd39d2586911419ae876d20bb397fa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a4bd39d2586911419ae876d20bb397fa7">Node</a> ()</td></tr>
+<tr class="memdesc:a4bd39d2586911419ae876d20bb397fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty node.  <br /></td></tr>
+<tr class="separator:a4bd39d2586911419ae876d20bb397fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4baa46ea243a8c9e33758a86a02b1689" id="r_a4baa46ea243a8c9e33758a86a02b1689"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a4baa46ea243a8c9e33758a86a02b1689">Node</a> (std::uint32_t parentIndex, std::uint32_t ownIndex)</td></tr>
+<tr class="memdesc:a4baa46ea243a8c9e33758a86a02b1689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the node from its parent and own indices.  <br /></td></tr>
+<tr class="separator:a4baa46ea243a8c9e33758a86a02b1689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a83b87b4a068d429270521f7569cf1" id="r_a76a83b87b4a068d429270521f7569cf1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a76a83b87b4a068d429270521f7569cf1">populate</a> (<a class="el" href="a04523.html">NodeSet</a> &amp;nodeSet, const aiScene *scene, const aiNode *src, <a class="el" href="a04475.html">BoneSet</a> &amp;bones)</td></tr>
+<tr class="memdesc:a76a83b87b4a068d429270521f7569cf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the node from the given assimp node.  <br /></td></tr>
+<tr class="separator:a76a83b87b4a068d429270521f7569cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90663c9f9adbaa6b0ebb519c8639de69" id="r_a90663c9f9adbaa6b0ebb519c8639de69"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::uint32_t &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a90663c9f9adbaa6b0ebb519c8639de69">getChildren</a> () const</td></tr>
+<tr class="memdesc:a90663c9f9adbaa6b0ebb519c8639de69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the children of this node.  <br /></td></tr>
+<tr class="separator:a90663c9f9adbaa6b0ebb519c8639de69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b1b5ffae734b73c68f51a560dcfd95a" id="r_a0b1b5ffae734b73c68f51a560dcfd95a"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; unsigned int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a0b1b5ffae734b73c68f51a560dcfd95a">getMeshes</a> () const</td></tr>
+<tr class="memdesc:a0b1b5ffae734b73c68f51a560dcfd95a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the meshes of this node.  <br /></td></tr>
+<tr class="separator:a0b1b5ffae734b73c68f51a560dcfd95a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a094ed26463a8e57d3482531ac86dc852" id="r_a094ed26463a8e57d3482531ac86dc852"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a094ed26463a8e57d3482531ac86dc852">getTransform</a> () const</td></tr>
+<tr class="memdesc:a094ed26463a8e57d3482531ac86dc852"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the transform of this node.  <br /></td></tr>
+<tr class="separator:a094ed26463a8e57d3482531ac86dc852"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a675c2423adc9d8afc924140bfc33a848" id="r_a675c2423adc9d8afc924140bfc33a848"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a675c2423adc9d8afc924140bfc33a848">getParentIndex</a> () const</td></tr>
+<tr class="memdesc:a675c2423adc9d8afc924140bfc33a848"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent of this node.  <br /></td></tr>
+<tr class="separator:a675c2423adc9d8afc924140bfc33a848"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97e266b4d33c3317fdef850b44d4c807" id="r_a97e266b4d33c3317fdef850b44d4c807"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a97e266b4d33c3317fdef850b44d4c807">getOwnIndex</a> () const</td></tr>
+<tr class="memdesc:a97e266b4d33c3317fdef850b44d4c807"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of this node.  <br /></td></tr>
+<tr class="separator:a97e266b4d33c3317fdef850b44d4c807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77d21bc682aa2456853a480fe64de7bd" id="r_a77d21bc682aa2456853a480fe64de7bd"><td class="memItemLeft" align="right" valign="top">const std::optional&lt; unsigned int &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a77d21bc682aa2456853a480fe64de7bd">getBoneIndex</a> () const</td></tr>
+<tr class="memdesc:a77d21bc682aa2456853a480fe64de7bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the bone for this node, if it has one.  <br /></td></tr>
+<tr class="separator:a77d21bc682aa2456853a480fe64de7bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ce46728ea6906988751967f5f5fe22c" id="r_a4ce46728ea6906988751967f5f5fe22c"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04519.html#a4ce46728ea6906988751967f5f5fe22c">getName</a> () const</td></tr>
+<tr class="memdesc:a4ce46728ea6906988751967f5f5fe22c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of this node.  <br /></td></tr>
+<tr class="separator:a4ce46728ea6906988751967f5f5fe22c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a node in a model hierarchy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00020">20</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4bd39d2586911419ae876d20bb397fa7" name="a4bd39d2586911419ae876d20bb397fa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bd39d2586911419ae876d20bb397fa7">&#9670;&#160;</a></span>Node() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::mdl::Node::Node </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02714_source.html#l00012">12</a> of file <a class="el" href="a02714_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4baa46ea243a8c9e33758a86a02b1689" name="a4baa46ea243a8c9e33758a86a02b1689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4baa46ea243a8c9e33758a86a02b1689">&#9670;&#160;</a></span>Node() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::mdl::Node::Node </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>parentIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>ownIndex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the node from its parent and own indices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parentIndex</td><td>The index of the parent node </td></tr>
+    <tr><td class="paramname">ownIndex</td><td>The index of this node </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02714_source.html#l00016">16</a> of file <a class="el" href="a02714_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a77d21bc682aa2456853a480fe64de7bd" name="a77d21bc682aa2456853a480fe64de7bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77d21bc682aa2456853a480fe64de7bd">&#9670;&#160;</a></span>getBoneIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::optional&lt; unsigned int &gt; &amp; bl::mdl::Node::getBoneIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the index of the bone for this node, if it has one. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00073">73</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a90663c9f9adbaa6b0ebb519c8639de69" name="a90663c9f9adbaa6b0ebb519c8639de69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90663c9f9adbaa6b0ebb519c8639de69">&#9670;&#160;</a></span>getChildren()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; std::uint32_t &gt; &amp; bl::mdl::Node::getChildren </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the children of this node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00048">48</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0b1b5ffae734b73c68f51a560dcfd95a" name="a0b1b5ffae734b73c68f51a560dcfd95a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b1b5ffae734b73c68f51a560dcfd95a">&#9670;&#160;</a></span>getMeshes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; unsigned int &gt; &amp; bl::mdl::Node::getMeshes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the meshes of this node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00053">53</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4ce46728ea6906988751967f5f5fe22c" name="a4ce46728ea6906988751967f5f5fe22c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ce46728ea6906988751967f5f5fe22c">&#9670;&#160;</a></span>getName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; bl::mdl::Node::getName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the name of this node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00078">78</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a97e266b4d33c3317fdef850b44d4c807" name="a97e266b4d33c3317fdef850b44d4c807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97e266b4d33c3317fdef850b44d4c807">&#9670;&#160;</a></span>getOwnIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::mdl::Node::getOwnIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the index of this node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00068">68</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a675c2423adc9d8afc924140bfc33a848" name="a675c2423adc9d8afc924140bfc33a848"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675c2423adc9d8afc924140bfc33a848">&#9670;&#160;</a></span>getParentIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::mdl::Node::getParentIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the parent of this node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00063">63</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a094ed26463a8e57d3482531ac86dc852" name="a094ed26463a8e57d3482531ac86dc852"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a094ed26463a8e57d3482531ac86dc852">&#9670;&#160;</a></span>getTransform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::mat4 &amp; bl::mdl::Node::getTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the transform of this node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08036_source.html#l00058">58</a> of file <a class="el" href="a08036_source.html">Node.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a76a83b87b4a068d429270521f7569cf1" name="a76a83b87b4a068d429270521f7569cf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a83b87b4a068d429270521f7569cf1">&#9670;&#160;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::mdl::Node::populate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04523.html">NodeSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>nodeSet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const aiScene *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const aiNode *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04475.html">BoneSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>bones</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Populates the node from the given assimp node. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodeSet</td><td>The storage for new nodes </td></tr>
+    <tr><td class="paramname">scene</td><td>The top level scene </td></tr>
+    <tr><td class="paramname">src</td><td>The node to populate from </td></tr>
+    <tr><td class="paramname">bones</td><td>The set of bones in the model </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02714_source.html#l00020">20</a> of file <a class="el" href="a02714_source.html">Node.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Models/<a class="el" href="a08036_source.html">Node.hpp</a></li>
+<li>src/Models/<a class="el" href="a02714_source.html">Node.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

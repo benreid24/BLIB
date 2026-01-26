@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::vk::VulkanLayer Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,32 +74,1386 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a05842.html">Window</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03018.html">vk</a></li><li class="navelem"><a class="el" href="a05839.html">VulkanLayer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::Window&lt; SfWindow &gt; Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a05836.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::vk::VulkanLayer Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05842.html#a19b03cbf5f240b7c493d0e906b752b98">close</a>()</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05842.html#ac6bf062b20999e5de3f5585a82e3e16a">create</a>(sf::VideoMode mode, const std::string &amp;title, std::uint32_t style)</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05842.html#adcd19f6c4c6275771b2b3fe07852548e">createVulkanSurface</a>(VkInstance instance, VkSurfaceKHR &amp;surface)</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05842.html#aa27e3ce94a460a4731ed733c170f07eb">getRequiredInstanceExtensions</a>()</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05842.html#af57de66785be56dfa0d89e7c942b68eb">getSfWindow</a>()</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05842.html#a9a032a0c02632a0f544ed147eacf5ed4">getSfWindow</a>() const</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05842.html#af719d18ffc596c231ec5a88d7ffa1bb8">isOpen</a>() const</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05842.html#a649c8776af7d9f40c1463d7dfd28fa80">pollEvent</a>(sf::Event &amp;event)</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05842.html#a45ade54eb2fe3bdcc14f4737e8107326">waitEvent</a>(sf::Event &amp;event)</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05842.html#a8ad9db8445eb1647a737090a32747a81">Window</a>()</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05842.html#a90cba7d696bbf2c93e05ae2e463d593a">~Window</a>()</td><td class="entry"><a class="el" href="a05842.html">bl::rc::Window&lt; SfWindow &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Primary owner and manager of the Vulkan renderer's state.  
+ <a href="a05839.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00401_source.html">VulkanLayer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8449e770105bf3237743d1addd377583" id="r_a8449e770105bf3237743d1addd377583"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a8449e770105bf3237743d1addd377583">~VulkanLayer</a> ()</td></tr>
+<tr class="memdesc:a8449e770105bf3237743d1addd377583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Vulkan State object.  <br /></td></tr>
+<tr class="separator:a8449e770105bf3237743d1addd377583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a019e5a69c8526cbd0cf8c3e105200348" id="r_a019e5a69c8526cbd0cf8c3e105200348"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a019e5a69c8526cbd0cf8c3e105200348">incrementFrame</a> ()</td></tr>
+<tr class="memdesc:a019e5a69c8526cbd0cf8c3e105200348"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments the current frame index and wraps around if necessary.  <br /></td></tr>
+<tr class="separator:a019e5a69c8526cbd0cf8c3e105200348"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf30cdc385346325c7b0a589a9367ecb" id="r_adf30cdc385346325c7b0a589a9367ecb"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#adf30cdc385346325c7b0a589a9367ecb">findMemoryType</a> (std::uint32_t typeFilter, VkMemoryPropertyFlags properties)</td></tr>
+<tr class="memdesc:adf30cdc385346325c7b0a589a9367ecb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to find the optimal available memory type for the given constraints.  <br /></td></tr>
+<tr class="separator:adf30cdc385346325c7b0a589a9367ecb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affe6d00571ddc60f9488ee44b38ae256" id="r_affe6d00571ddc60f9488ee44b38ae256"><td class="memItemLeft" align="right" valign="top">VkCommandPool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#affe6d00571ddc60f9488ee44b38ae256">createCommandPool</a> (VkCommandPoolCreateFlags flags)</td></tr>
+<tr class="memdesc:affe6d00571ddc60f9488ee44b38ae256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to create a command pool for graphics queue commands.  <br /></td></tr>
+<tr class="separator:affe6d00571ddc60f9488ee44b38ae256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9078bfc75013005f709453fe018be4" id="r_a1d9078bfc75013005f709453fe018be4"><td class="memItemLeft" align="right" valign="top">VkResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a1d9078bfc75013005f709453fe018be4">submitCommandBuffer</a> (const VkSubmitInfo &amp;submitInfo, VkFence fence=VK_NULL_HANDLE)</td></tr>
+<tr class="memdesc:a1d9078bfc75013005f709453fe018be4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a synchronized submission of the command buffer to the graphics queue.  <br /></td></tr>
+<tr class="separator:a1d9078bfc75013005f709453fe018be4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8dc386956239bbba2a3fc304eacc314" id="r_ab8dc386956239bbba2a3fc304eacc314"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#ab8dc386956239bbba2a3fc304eacc314">createBuffer</a> (VkDeviceSize size, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags, VkMemoryPropertyFlags properties, VkBuffer *<a class="el" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer</a>, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo)</td></tr>
+<tr class="memdesc:ab8dc386956239bbba2a3fc304eacc314"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create a VkBuffer with some parameters.  <br /></td></tr>
+<tr class="separator:ab8dc386956239bbba2a3fc304eacc314"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26011625bd49b5c315d7137c5de2f018" id="r_a26011625bd49b5c315d7137c5de2f018"><td class="memItemLeft" align="right" valign="top">VkResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a26011625bd49b5c315d7137c5de2f018">createBuffer</a> (const VkBufferCreateInfo &amp;bufferParams, const VmaAllocationCreateInfo &amp;allocInfo, VkBuffer &amp;outputBuffer, VmaAllocation &amp;outputAlloc, VmaAllocationInfo *outputAllocInfo=nullptr)</td></tr>
+<tr class="memdesc:a26011625bd49b5c315d7137c5de2f018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a buffer with the given parameters.  <br /></td></tr>
+<tr class="separator:a26011625bd49b5c315d7137c5de2f018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaac47610f177d8eb9fbf08ddb155103a" id="r_aaac47610f177d8eb9fbf08ddb155103a"><td class="memItemLeft" align="right" valign="top">VkFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#aaac47610f177d8eb9fbf08ddb155103a">findSupportedFormat</a> (const std::initializer_list&lt; VkFormat &gt; &amp;candidates, VkImageTiling tiling, VkFormatFeatureFlags features)</td></tr>
+<tr class="memdesc:aaac47610f177d8eb9fbf08ddb155103a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to find the best-suited image format given the requested format and current hardware support.  <br /></td></tr>
+<tr class="separator:aaac47610f177d8eb9fbf08ddb155103a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f8b9e358608663d52f4d88e95b25fc0" id="r_a6f8b9e358608663d52f4d88e95b25fc0"><td class="memItemLeft" align="right" valign="top">VkFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a6f8b9e358608663d52f4d88e95b25fc0">findDepthFormat</a> ()</td></tr>
+<tr class="memdesc:a6f8b9e358608663d52f4d88e95b25fc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds and returns the best available depth format.  <br /></td></tr>
+<tr class="separator:a6f8b9e358608663d52f4d88e95b25fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49837bc349162c0c80fe8b4fa6d1c041" id="r_a49837bc349162c0c80fe8b4fa6d1c041"><td class="memItemLeft" align="right" valign="top">VkFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a49837bc349162c0c80fe8b4fa6d1c041">findShadowMapFormat</a> ()</td></tr>
+<tr class="memdesc:a49837bc349162c0c80fe8b4fa6d1c041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds and returns the best available depth format for shadow maps.  <br /></td></tr>
+<tr class="separator:a49837bc349162c0c80fe8b4fa6d1c041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae119dc81b516b2a6e5d51b06cd497e53" id="r_ae119dc81b516b2a6e5d51b06cd497e53"><td class="memItemLeft" align="right" valign="top">VkFormat&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#ae119dc81b516b2a6e5d51b06cd497e53">findHighPrecisionFormat</a> ()</td></tr>
+<tr class="memdesc:ae119dc81b516b2a6e5d51b06cd497e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the preferred high precision color format for use in GBuffer and similar.  <br /></td></tr>
+<tr class="separator:ae119dc81b516b2a6e5d51b06cd497e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17bcdc5cfbe9dabd26a166b593f59824" id="r_a17bcdc5cfbe9dabd26a166b593f59824"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a17bcdc5cfbe9dabd26a166b593f59824">createImage</a> (std::uint32_t width, std::uint32_t height, std::uint32_t layerCount, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkImageCreateFlags imageFlags, VkMemoryPropertyFlags properties, VkImage *image, VmaAllocation *vmaAlloc, VmaAllocationInfo *vmaAllocInfo, VmaAllocationCreateFlags flags=0)</td></tr>
+<tr class="memdesc:a17bcdc5cfbe9dabd26a166b593f59824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create an image.  <br /></td></tr>
+<tr class="separator:a17bcdc5cfbe9dabd26a166b593f59824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad99490184ec4eb0b532e6267cb6c61d0" id="r_ad99490184ec4eb0b532e6267cb6c61d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#ad99490184ec4eb0b532e6267cb6c61d0">transitionImageLayout</a> (VkCommandBuffer commandbuffer, VkImage image, VkImageLayout oldLayout, VkImageLayout newLayout, std::uint32_t layerCount=1, VkImageAspectFlags aspect=VK_IMAGE_ASPECT_COLOR_BIT, std::uint32_t baseMipLevel=0, std::uint32_t mipLevelCount=1)</td></tr>
+<tr class="memdesc:ad99490184ec4eb0b532e6267cb6c61d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an image from one layout to another and uses an existing command buffer.  <br /></td></tr>
+<tr class="separator:ad99490184ec4eb0b532e6267cb6c61d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77e285fb2452ee74f3fbe97bfdd4bf18" id="r_a77e285fb2452ee74f3fbe97bfdd4bf18"><td class="memItemLeft" align="right" valign="top">VkImageView&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a77e285fb2452ee74f3fbe97bfdd4bf18">createImageView</a> (VkImage image, VkFormat format, VkImageAspectFlags aspectFlags=VK_IMAGE_ASPECT_COLOR_BIT, std::uint32_t layerCount=1, VkImageViewType viewType=VK_IMAGE_VIEW_TYPE_2D, std::uint32_t mipLevelCount=1, std::uint32_t baseMipLevel=0)</td></tr>
+<tr class="memdesc:a77e285fb2452ee74f3fbe97bfdd4bf18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create an image view.  <br /></td></tr>
+<tr class="separator:a77e285fb2452ee74f3fbe97bfdd4bf18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5731e6d6344d0c85c420477c6af6ba80" id="r_a5731e6d6344d0c85c420477c6af6ba80"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a5731e6d6344d0c85c420477c6af6ba80">currentFrameIndex</a> () const</td></tr>
+<tr class="memdesc:a5731e6d6344d0c85c420477c6af6ba80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current frame index. Used by <a class="el" href="a05715.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a> to return correct data.  <br /></td></tr>
+<tr class="separator:a5731e6d6344d0c85c420477c6af6ba80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57f287e76b43f49620bc05c1f9190bdb" id="r_a57f287e76b43f49620bc05c1f9190bdb"><td class="memItemLeft" align="right" valign="top">VkFormatProperties&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a57f287e76b43f49620bc05c1f9190bdb">getFormatProperties</a> (VkFormat format)</td></tr>
+<tr class="memdesc:a57f287e76b43f49620bc05c1f9190bdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the format properties of the physical device for the given format.  <br /></td></tr>
+<tr class="separator:a57f287e76b43f49620bc05c1f9190bdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af42c280ef2db467d7fe1db66858c61d3" id="r_af42c280ef2db467d7fe1db66858c61d3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#af42c280ef2db467d7fe1db66858c61d3">extensionIsAvailable</a> (const char *extName) const</td></tr>
+<tr class="memdesc:af42c280ef2db467d7fe1db66858c61d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the given extension is available on the selected device.  <br /></td></tr>
+<tr class="separator:af42c280ef2db467d7fe1db66858c61d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86fc8c0f04b3afcca33739ff0fb79f0a" id="r_a86fc8c0f04b3afcca33739ff0fb79f0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a86fc8c0f04b3afcca33739ff0fb79f0a">setVulkanObjectDebugName</a> (void *handle, VkObjectType objectType, const char *name)</td></tr>
+<tr class="memdesc:a86fc8c0f04b3afcca33739ff0fb79f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to set a debug name for any Vulkan object.  <br /></td></tr>
+<tr class="separator:a86fc8c0f04b3afcca33739ff0fb79f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50b74804df95ffe2f11b136130cad909" id="r_a50b74804df95ffe2f11b136130cad909"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a50b74804df95ffe2f11b136130cad909">isInitialized</a> () const</td></tr>
+<tr class="memdesc:a50b74804df95ffe2f11b136130cad909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a05839.html" title="Primary owner and manager of the Vulkan renderer&#39;s state.">VulkanLayer</a> has been initialized.  <br /></td></tr>
+<tr class="separator:a50b74804df95ffe2f11b136130cad909"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55576555d9f902b0cfe7ebedab831588" id="r_a55576555d9f902b0cfe7ebedab831588"><td class="memItemLeft" align="right" valign="top">VkInstance&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a55576555d9f902b0cfe7ebedab831588">getInstance</a> () const</td></tr>
+<tr class="memdesc:a55576555d9f902b0cfe7ebedab831588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan driver instance associated with this <a class="el" href="a05839.html" title="Primary owner and manager of the Vulkan renderer&#39;s state.">VulkanLayer</a>.  <br /></td></tr>
+<tr class="separator:a55576555d9f902b0cfe7ebedab831588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d18d79a63b768e002caefb440fe4d8b" id="r_a5d18d79a63b768e002caefb440fe4d8b"><td class="memItemLeft" align="right" valign="top">VkSurfaceKHR&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a5d18d79a63b768e002caefb440fe4d8b">getSurface</a> () const</td></tr>
+<tr class="memdesc:a5d18d79a63b768e002caefb440fe4d8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the surface used for rendering.  <br /></td></tr>
+<tr class="separator:a5d18d79a63b768e002caefb440fe4d8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af92c835a56eb55f4e6bec642a7942f8b" id="r_af92c835a56eb55f4e6bec642a7942f8b"><td class="memItemLeft" align="right" valign="top">VkPhysicalDevice&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#af92c835a56eb55f4e6bec642a7942f8b">getPhysicalDevice</a> () const</td></tr>
+<tr class="memdesc:af92c835a56eb55f4e6bec642a7942f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the physical device used for rendering.  <br /></td></tr>
+<tr class="separator:af92c835a56eb55f4e6bec642a7942f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689ff2cade2b8788bd2917c94aa6c507" id="r_a689ff2cade2b8788bd2917c94aa6c507"><td class="memItemLeft" align="right" valign="top">const VkPhysicalDeviceFeatures &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a689ff2cade2b8788bd2917c94aa6c507">getPhysicalDeviceFeatures</a> () const</td></tr>
+<tr class="memdesc:a689ff2cade2b8788bd2917c94aa6c507"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the available physical device features.  <br /></td></tr>
+<tr class="separator:a689ff2cade2b8788bd2917c94aa6c507"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accb407e454e5b298930adf4d939fa9a0" id="r_accb407e454e5b298930adf4d939fa9a0"><td class="memItemLeft" align="right" valign="top">VkDevice&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#accb407e454e5b298930adf4d939fa9a0">getDevice</a> () const</td></tr>
+<tr class="memdesc:accb407e454e5b298930adf4d939fa9a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the logical device used for rendering.  <br /></td></tr>
+<tr class="separator:accb407e454e5b298930adf4d939fa9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a002addecf8bfea5ff69854b700c12271" id="r_a002addecf8bfea5ff69854b700c12271"><td class="memItemLeft" align="right" valign="top">VmaAllocator&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a002addecf8bfea5ff69854b700c12271">getVmaAllocator</a> () const</td></tr>
+<tr class="memdesc:a002addecf8bfea5ff69854b700c12271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the VMA allocator used for memory management.  <br /></td></tr>
+<tr class="separator:a002addecf8bfea5ff69854b700c12271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3a1616e0f6adbe898ff10da3b6f9455" id="r_ac3a1616e0f6adbe898ff10da3b6f9455"><td class="memItemLeft" align="right" valign="top">VkQueue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#ac3a1616e0f6adbe898ff10da3b6f9455">getGraphicsQueue</a> () const</td></tr>
+<tr class="memdesc:ac3a1616e0f6adbe898ff10da3b6f9455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the graphics queue used for rendering.  <br /></td></tr>
+<tr class="separator:ac3a1616e0f6adbe898ff10da3b6f9455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad16d268a81de8daa875c7f95c8fd8f60" id="r_ad16d268a81de8daa875c7f95c8fd8f60"><td class="memItemLeft" align="right" valign="top">VkQueue&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#ad16d268a81de8daa875c7f95c8fd8f60">getPresentQueue</a> () const</td></tr>
+<tr class="memdesc:ad16d268a81de8daa875c7f95c8fd8f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the present queue used for presenting images.  <br /></td></tr>
+<tr class="separator:ad16d268a81de8daa875c7f95c8fd8f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a67637b9dfa94ebd711567bff69eb01d5" id="r_a67637b9dfa94ebd711567bff69eb01d5"><td class="memItemLeft" align="right" valign="top">static VkImageAspectFlags&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a67637b9dfa94ebd711567bff69eb01d5">guessImageAspect</a> (VkFormat format, VkImageUsageFlags usage)</td></tr>
+<tr class="memdesc:a67637b9dfa94ebd711567bff69eb01d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to guess the aspect of an image based on its format and usage.  <br /></td></tr>
+<tr class="separator:a67637b9dfa94ebd711567bff69eb01d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a185cf9f6d875d87dd9dd26b1e4addda5" id="r_a185cf9f6d875d87dd9dd26b1e4addda5"><td class="memItemLeft" align="right" valign="top">static VkImageAspectFlags&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a185cf9f6d875d87dd9dd26b1e4addda5">guessImageAspect</a> (<a class="el" href="a02979.html#ga5edbf7bf53f275665e759e042079f4b2">SemanticTextureFormat</a> format)</td></tr>
+<tr class="memdesc:a185cf9f6d875d87dd9dd26b1e4addda5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guesses the aspect of an image based on its semantic format.  <br /></td></tr>
+<tr class="separator:a185cf9f6d875d87dd9dd26b1e4addda5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a214817c9451f778f99feca538fd4e3b1" id="r_a214817c9451f778f99feca538fd4e3b1"><td class="memItemLeft" align="right" valign="top">static VkDeviceSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a214817c9451f778f99feca538fd4e3b1">computeAlignedSize</a> (VkDeviceSize dataSize, VkDeviceSize alignment)</td></tr>
+<tr class="memdesc:a214817c9451f778f99feca538fd4e3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the aligned size of data given its actual size and alignment requirement.  <br /></td></tr>
+<tr class="separator:a214817c9451f778f99feca538fd4e3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a629d8ce584d64d272b5b95ad088d690a" id="r_a629d8ce584d64d272b5b95ad088d690a"><td class="memItemLeft" align="right" valign="top">static const VkPhysicalDeviceProperties &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a629d8ce584d64d272b5b95ad088d690a">getPhysicalDeviceProperties</a> ()</td></tr>
+<tr class="memdesc:a629d8ce584d64d272b5b95ad088d690a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the physical device properties of the current device.  <br /></td></tr>
+<tr class="separator:a629d8ce584d64d272b5b95ad088d690a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1fc8c4ea65463b448e068f1287349540" id="r_a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05839.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
+<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Primary owner and manager of the Vulkan renderer's state. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00038">38</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8449e770105bf3237743d1addd377583" name="a8449e770105bf3237743d1addd377583"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8449e770105bf3237743d1addd377583">&#9670;&#160;</a></span>~VulkanLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::vk::VulkanLayer::~VulkanLayer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Destroy the Vulkan State object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00166">166</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a214817c9451f778f99feca538fd4e3b1" name="a214817c9451f778f99feca538fd4e3b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a214817c9451f778f99feca538fd4e3b1">&#9670;&#160;</a></span>computeAlignedSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkDeviceSize bl::rc::vk::VulkanLayer::computeAlignedSize </td>
+          <td>(</td>
+          <td class="paramtype">VkDeviceSize&#160;</td>
+          <td class="paramname"><em>dataSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkDeviceSize&#160;</td>
+          <td class="paramname"><em>alignment</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Computes the aligned size of data given its actual size and alignment requirement. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dataSize</td><td>The size of the data to align </td></tr>
+    <tr><td class="paramname">alignment</td><td>The alignment the data needs </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The aligned size of the data </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00692">692</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a26011625bd49b5c315d7137c5de2f018" name="a26011625bd49b5c315d7137c5de2f018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26011625bd49b5c315d7137c5de2f018">&#9670;&#160;</a></span>createBuffer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkResult bl::rc::vk::VulkanLayer::createBuffer </td>
+          <td>(</td>
+          <td class="paramtype">const VkBufferCreateInfo &amp;&#160;</td>
+          <td class="paramname"><em>bufferParams</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VmaAllocationCreateInfo &amp;&#160;</td>
+          <td class="paramname"><em>allocInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkBuffer &amp;&#160;</td>
+          <td class="paramname"><em>outputBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocation &amp;&#160;</td>
+          <td class="paramname"><em>outputAlloc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocationInfo *&#160;</td>
+          <td class="paramname"><em>outputAllocInfo</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a buffer with the given parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bufferParams</td><td>The parameters to create the buffer with </td></tr>
+    <tr><td class="paramname">allocInfo</td><td>The parameters to allocate the memory with </td></tr>
+    <tr><td class="paramname">outputBuffer</td><td>The buffer handle to put the result in </td></tr>
+    <tr><td class="paramname">outputAlloc</td><td>The allocation handle to put the result in </td></tr>
+    <tr><td class="paramname">outputAllocInfo</td><td>Optional allocation info to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the buffer creation </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00548">548</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab8dc386956239bbba2a3fc304eacc314" name="ab8dc386956239bbba2a3fc304eacc314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8dc386956239bbba2a3fc304eacc314">&#9670;&#160;</a></span>createBuffer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::VulkanLayer::createBuffer </td>
+          <td>(</td>
+          <td class="paramtype">VkDeviceSize&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkBufferUsageFlags&#160;</td>
+          <td class="paramname"><em>usage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
+          <td class="paramname"><em>allocFlags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
+          <td class="paramname"><em>properties</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkBuffer *&#160;</td>
+          <td class="paramname"><em>buffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocation *&#160;</td>
+          <td class="paramname"><em>vmaAlloc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocationInfo *&#160;</td>
+          <td class="paramname"><em>vmaAllocInfo</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to create a VkBuffer with some parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The size of the buffer to create </td></tr>
+    <tr><td class="paramname">usage</td><td>How the buffer will be used </td></tr>
+    <tr><td class="paramname">allocFlags</td><td>Extra flags to pass into VMA when the allocation is created </td></tr>
+    <tr><td class="paramname">properties</td><td>Requested properties of the buffer memory </td></tr>
+    <tr><td class="paramname">buffer</td><td>The buffer to populate </td></tr>
+    <tr><td class="paramname">vmaAlloc</td><td>VMA allocation to be populated </td></tr>
+    <tr><td class="paramname">vmaAllocInfo</td><td>VMA allocation info to be populated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00528">528</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="affe6d00571ddc60f9488ee44b38ae256" name="affe6d00571ddc60f9488ee44b38ae256"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affe6d00571ddc60f9488ee44b38ae256">&#9670;&#160;</a></span>createCommandPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkCommandPool bl::rc::vk::VulkanLayer::createCommandPool </td>
+          <td>(</td>
+          <td class="paramtype">VkCommandPoolCreateFlags&#160;</td>
+          <td class="paramname"><em>flags</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper method to create a command pool for graphics queue commands. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">flags</td><td>The flags to create the pool with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>VkCommandPool The new command pool </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00448">448</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a17bcdc5cfbe9dabd26a166b593f59824" name="a17bcdc5cfbe9dabd26a166b593f59824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17bcdc5cfbe9dabd26a166b593f59824">&#9670;&#160;</a></span>createImage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::VulkanLayer::createImage </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>layerCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkFormat&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageTiling&#160;</td>
+          <td class="paramname"><em>tiling</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageUsageFlags&#160;</td>
+          <td class="paramname"><em>usage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageCreateFlags&#160;</td>
+          <td class="paramname"><em>imageFlags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
+          <td class="paramname"><em>properties</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImage *&#160;</td>
+          <td class="paramname"><em>image</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocation *&#160;</td>
+          <td class="paramname"><em>vmaAlloc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocationInfo *&#160;</td>
+          <td class="paramname"><em>vmaAllocInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
+          <td class="paramname"><em>flags</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to create an image. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the image in pixels </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the image in pixels </td></tr>
+    <tr><td class="paramname">layerCount</td><td>The number of image layers to create </td></tr>
+    <tr><td class="paramname">format</td><td>The format of the pixel data </td></tr>
+    <tr><td class="paramname">tiling</td><td>The tiling setting for the created image </td></tr>
+    <tr><td class="paramname">usage</td><td>How the image will be used </td></tr>
+    <tr><td class="paramname">imageFlags</td><td>Creation flags to create the image with </td></tr>
+    <tr><td class="paramname">properties</td><td>Requested memory properties for where the image is stored </td></tr>
+    <tr><td class="paramname">image</td><td>The image to be populated </td></tr>
+    <tr><td class="paramname">vmaAlloc</td><td>VMA allocation to be populated </td></tr>
+    <tr><td class="paramname">vmaAllocInfo</td><td>VMA allocation info to be populated </td></tr>
+    <tr><td class="paramname">flags</td><td>Optional flags to pass to VMA for memory alloc </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00556">556</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a77e285fb2452ee74f3fbe97bfdd4bf18" name="a77e285fb2452ee74f3fbe97bfdd4bf18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77e285fb2452ee74f3fbe97bfdd4bf18">&#9670;&#160;</a></span>createImageView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkImageView bl::rc::vk::VulkanLayer::createImageView </td>
+          <td>(</td>
+          <td class="paramtype">VkImage&#160;</td>
+          <td class="paramname"><em>image</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkFormat&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageAspectFlags&#160;</td>
+          <td class="paramname"><em>aspectFlags</em> = <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>layerCount</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageViewType&#160;</td>
+          <td class="paramname"><em>viewType</em> = <code>VK_IMAGE_VIEW_TYPE_2D</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>mipLevelCount</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>baseMipLevel</em> = <code>0</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to create an image view. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">image</td><td>The image to create the view on </td></tr>
+    <tr><td class="paramname">format</td><td>The format of the image </td></tr>
+    <tr><td class="paramname">aspectFlags</td><td>Flags to use when creating the view </td></tr>
+    <tr><td class="paramname">layerCount</td><td>The number of layers in the image </td></tr>
+    <tr><td class="paramname">viewType</td><td>The type of image view to create </td></tr>
+    <tr><td class="paramname">mipLevelCount</td><td>The number of mip levels in the image </td></tr>
+    <tr><td class="paramname">baseMipLevel</td><td>The base mip level to use for the view </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>VkImageView The created image view </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00669">669</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5731e6d6344d0c85c420477c6af6ba80" name="a5731e6d6344d0c85c420477c6af6ba80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5731e6d6344d0c85c420477c6af6ba80">&#9670;&#160;</a></span>currentFrameIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::vk::VulkanLayer::currentFrameIndex </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the current frame index. Used by <a class="el" href="a05715.html" title="Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...">PerFrame</a> to return correct data. </p>
+<dl class="section return"><dt>Returns</dt><dd>constexpr std::uint32_t The current index of the frame being worked on </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00340">340</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af42c280ef2db467d7fe1db66858c61d3" name="af42c280ef2db467d7fe1db66858c61d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af42c280ef2db467d7fe1db66858c61d3">&#9670;&#160;</a></span>extensionIsAvailable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::vk::VulkanLayer::extensionIsAvailable </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>extName</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether the given extension is available on the selected device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">extName</td><td>The extension to check for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the extension is available, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00702">702</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6f8b9e358608663d52f4d88e95b25fc0" name="a6f8b9e358608663d52f4d88e95b25fc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f8b9e358608663d52f4d88e95b25fc0">&#9670;&#160;</a></span>findDepthFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkFormat bl::rc::vk::VulkanLayer::findDepthFormat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds and returns the best available depth format. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00504">504</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae119dc81b516b2a6e5d51b06cd497e53" name="ae119dc81b516b2a6e5d51b06cd497e53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae119dc81b516b2a6e5d51b06cd497e53">&#9670;&#160;</a></span>findHighPrecisionFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkFormat bl::rc::vk::VulkanLayer::findHighPrecisionFormat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the preferred high precision color format for use in GBuffer and similar. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00521">521</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adf30cdc385346325c7b0a589a9367ecb" name="adf30cdc385346325c7b0a589a9367ecb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf30cdc385346325c7b0a589a9367ecb">&#9670;&#160;</a></span>findMemoryType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::vk::VulkanLayer::findMemoryType </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>typeFilter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
+          <td class="paramname"><em>properties</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to find the optimal available memory type for the given constraints. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">typeFilter</td><td>Requested memory type </td></tr>
+    <tr><td class="paramname">properties</td><td>Requested properties of the given memory </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::uint32_t Closest match to the requested memory type and features </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00472">472</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a49837bc349162c0c80fe8b4fa6d1c041" name="a49837bc349162c0c80fe8b4fa6d1c041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49837bc349162c0c80fe8b4fa6d1c041">&#9670;&#160;</a></span>findShadowMapFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkFormat bl::rc::vk::VulkanLayer::findShadowMapFormat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds and returns the best available depth format for shadow maps. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00511">511</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaac47610f177d8eb9fbf08ddb155103a" name="aaac47610f177d8eb9fbf08ddb155103a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaac47610f177d8eb9fbf08ddb155103a">&#9670;&#160;</a></span>findSupportedFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkFormat bl::rc::vk::VulkanLayer::findSupportedFormat </td>
+          <td>(</td>
+          <td class="paramtype">const std::initializer_list&lt; VkFormat &gt; &amp;&#160;</td>
+          <td class="paramname"><em>candidates</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageTiling&#160;</td>
+          <td class="paramname"><em>tiling</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkFormatFeatureFlags&#160;</td>
+          <td class="paramname"><em>features</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to find the best-suited image format given the requested format and current hardware support. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">candidates</td><td>Acceptable image formats ordered by preference </td></tr>
+    <tr><td class="paramname">tiling</td><td>The tiling mode of the image </td></tr>
+    <tr><td class="paramname">features</td><td>Required features of the format </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The best format available </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00485">485</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="accb407e454e5b298930adf4d939fa9a0" name="accb407e454e5b298930adf4d939fa9a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accb407e454e5b298930adf4d939fa9a0">&#9670;&#160;</a></span>getDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkDevice bl::rc::vk::VulkanLayer::getDevice </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the logical device used for rendering. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00283">283</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a57f287e76b43f49620bc05c1f9190bdb" name="a57f287e76b43f49620bc05c1f9190bdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57f287e76b43f49620bc05c1f9190bdb">&#9670;&#160;</a></span>getFormatProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkFormatProperties bl::rc::vk::VulkanLayer::getFormatProperties </td>
+          <td>(</td>
+          <td class="paramtype">VkFormat&#160;</td>
+          <td class="paramname"><em>format</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the format properties of the physical device for the given format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">format</td><td>The format to get features for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The supported format features for the current physical device </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00696">696</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac3a1616e0f6adbe898ff10da3b6f9455" name="ac3a1616e0f6adbe898ff10da3b6f9455"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3a1616e0f6adbe898ff10da3b6f9455">&#9670;&#160;</a></span>getGraphicsQueue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkQueue bl::rc::vk::VulkanLayer::getGraphicsQueue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the graphics queue used for rendering. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00293">293</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a55576555d9f902b0cfe7ebedab831588" name="a55576555d9f902b0cfe7ebedab831588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55576555d9f902b0cfe7ebedab831588">&#9670;&#160;</a></span>getInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkInstance bl::rc::vk::VulkanLayer::getInstance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the Vulkan driver instance associated with this <a class="el" href="a05839.html" title="Primary owner and manager of the Vulkan renderer&#39;s state.">VulkanLayer</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00261">261</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af92c835a56eb55f4e6bec642a7942f8b" name="af92c835a56eb55f4e6bec642a7942f8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af92c835a56eb55f4e6bec642a7942f8b">&#9670;&#160;</a></span>getPhysicalDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkPhysicalDevice bl::rc::vk::VulkanLayer::getPhysicalDevice </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the physical device used for rendering. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00271">271</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a689ff2cade2b8788bd2917c94aa6c507" name="a689ff2cade2b8788bd2917c94aa6c507"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689ff2cade2b8788bd2917c94aa6c507">&#9670;&#160;</a></span>getPhysicalDeviceFeatures()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const VkPhysicalDeviceFeatures &amp; bl::rc::vk::VulkanLayer::getPhysicalDeviceFeatures </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the available physical device features. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00276">276</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a629d8ce584d64d272b5b95ad088d690a" name="a629d8ce584d64d272b5b95ad088d690a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a629d8ce584d64d272b5b95ad088d690a">&#9670;&#160;</a></span>getPhysicalDeviceProperties()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const VkPhysicalDeviceProperties &amp; bl::rc::vk::VulkanLayer::getPhysicalDeviceProperties </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the physical device properties of the current device. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00709">709</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad16d268a81de8daa875c7f95c8fd8f60" name="ad16d268a81de8daa875c7f95c8fd8f60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad16d268a81de8daa875c7f95c8fd8f60">&#9670;&#160;</a></span>getPresentQueue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkQueue bl::rc::vk::VulkanLayer::getPresentQueue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the present queue used for presenting images. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00298">298</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5d18d79a63b768e002caefb440fe4d8b" name="a5d18d79a63b768e002caefb440fe4d8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d18d79a63b768e002caefb440fe4d8b">&#9670;&#160;</a></span>getSurface()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSurfaceKHR bl::rc::vk::VulkanLayer::getSurface </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the surface used for rendering. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00266">266</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a002addecf8bfea5ff69854b700c12271" name="a002addecf8bfea5ff69854b700c12271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a002addecf8bfea5ff69854b700c12271">&#9670;&#160;</a></span>getVmaAllocator()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VmaAllocator bl::rc::vk::VulkanLayer::getVmaAllocator </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the VMA allocator used for memory management. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00288">288</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a185cf9f6d875d87dd9dd26b1e4addda5" name="a185cf9f6d875d87dd9dd26b1e4addda5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a185cf9f6d875d87dd9dd26b1e4addda5">&#9670;&#160;</a></span>guessImageAspect() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkImageAspectFlags bl::rc::vk::VulkanLayer::guessImageAspect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02979.html#ga5edbf7bf53f275665e759e042079f4b2">SemanticTextureFormat</a>&#160;</td>
+          <td class="paramname"><em>format</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Guesses the aspect of an image based on its semantic format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">format</td><td>The semantic format of the image </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The aspect of the image </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00718">718</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a67637b9dfa94ebd711567bff69eb01d5" name="a67637b9dfa94ebd711567bff69eb01d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67637b9dfa94ebd711567bff69eb01d5">&#9670;&#160;</a></span>guessImageAspect() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkImageAspectFlags bl::rc::vk::VulkanLayer::guessImageAspect </td>
+          <td>(</td>
+          <td class="paramtype">VkFormat&#160;</td>
+          <td class="paramname"><em>format</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageUsageFlags&#160;</td>
+          <td class="paramname"><em>usage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method to guess the aspect of an image based on its format and usage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">format</td><td>The image format </td></tr>
+    <tr><td class="paramname">usage</td><td>The image usage </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The probable image aspect </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00713">713</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a019e5a69c8526cbd0cf8c3e105200348" name="a019e5a69c8526cbd0cf8c3e105200348"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a019e5a69c8526cbd0cf8c3e105200348">&#9670;&#160;</a></span>incrementFrame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::VulkanLayer::incrementFrame </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Increments the current frame index and wraps around if necessary. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00199">199</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a50b74804df95ffe2f11b136130cad909" name="a50b74804df95ffe2f11b136130cad909"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50b74804df95ffe2f11b136130cad909">&#9670;&#160;</a></span>isInitialized()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::vk::VulkanLayer::isInitialized </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the <a class="el" href="a05839.html" title="Primary owner and manager of the Vulkan renderer&#39;s state.">VulkanLayer</a> has been initialized. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00256">256</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a86fc8c0f04b3afcca33739ff0fb79f0a" name="a86fc8c0f04b3afcca33739ff0fb79f0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86fc8c0f04b3afcca33739ff0fb79f0a">&#9670;&#160;</a></span>setVulkanObjectDebugName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::VulkanLayer::setVulkanObjectDebugName </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkObjectType&#160;</td>
+          <td class="paramname"><em>objectType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to set a debug name for any Vulkan object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle to the Vulkan object to name </td></tr>
+    <tr><td class="paramname">objectType</td><td>The type of Vulkan object being named </td></tr>
+    <tr><td class="paramname">name</td><td>The name to set on the object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00735">735</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1d9078bfc75013005f709453fe018be4" name="a1d9078bfc75013005f709453fe018be4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9078bfc75013005f709453fe018be4">&#9670;&#160;</a></span>submitCommandBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkResult bl::rc::vk::VulkanLayer::submitCommandBuffer </td>
+          <td>(</td>
+          <td class="paramtype">const VkSubmitInfo &amp;&#160;</td>
+          <td class="paramname"><em>submitInfo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkFence&#160;</td>
+          <td class="paramname"><em>fence</em> = <code>VK_NULL_HANDLE</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs a synchronized submission of the command buffer to the graphics queue. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">submitInfo</td><td>The command <a class="el" href="a01982.html#ad2ae6b0ac080ea0ac45f7a06ccc480ba">buffer(s)</a> to submit </td></tr>
+    <tr><td class="paramname">fence</td><td>Optional fence to pass to the submit command </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result code from the submit command </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00587">587</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad99490184ec4eb0b532e6267cb6c61d0" name="ad99490184ec4eb0b532e6267cb6c61d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad99490184ec4eb0b532e6267cb6c61d0">&#9670;&#160;</a></span>transitionImageLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::VulkanLayer::transitionImageLayout </td>
+          <td>(</td>
+          <td class="paramtype">VkCommandBuffer&#160;</td>
+          <td class="paramname"><em>commandbuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImage&#160;</td>
+          <td class="paramname"><em>image</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageLayout&#160;</td>
+          <td class="paramname"><em>oldLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageLayout&#160;</td>
+          <td class="paramname"><em>newLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>layerCount</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkImageAspectFlags&#160;</td>
+          <td class="paramname"><em>aspect</em> = <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>baseMipLevel</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>mipLevelCount</em> = <code>1</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts an image from one layout to another and uses an existing command buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record the pipeline barrier into </td></tr>
+    <tr><td class="paramname">image</td><td>The image to convert </td></tr>
+    <tr><td class="paramname">oldLayout</td><td>The current layout to convert from </td></tr>
+    <tr><td class="paramname">newLayout</td><td>The layout to convert to </td></tr>
+    <tr><td class="paramname">layerCount</td><td>The number of layers to transition </td></tr>
+    <tr><td class="paramname">aspect</td><td>The image aspect </td></tr>
+    <tr><td class="paramname">baseMipLevel</td><td>The base mip level to use for the transition </td></tr>
+    <tr><td class="paramname">mipLevelCount</td><td>The number of mip levels to transition </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02096_source.html#l00595">595</a> of file <a class="el" href="a02096_source.html">VulkanLayer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a1fc8c4ea65463b448e068f1287349540" name="a1fc8c4ea65463b448e068f1287349540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&#160;</a></span>bl::rc::Renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05331.html">bl::rc::Renderer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00335">335</a> of file <a class="el" href="a00401_source.html">VulkanLayer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a00401_source.html">VulkanLayer.hpp</a></li>
+<li>src/Render/Vulkan/<a class="el" href="a02096_source.html">VulkanLayer.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

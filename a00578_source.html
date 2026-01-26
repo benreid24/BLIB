@@ -103,11 +103,11 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rg</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04978.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a04978.html">AssetFactory</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04979.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a04979.html">AssetFactory</a> {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a04978.html#ad0920c14fe35af9234cd2d3c271c1a25">   33</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04978.html#ad0920c14fe35af9234cd2d3c271c1a25">addProvider</a>(std::string_view tag, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a04979.html#ad0920c14fe35af9234cd2d3c271c1a25">   33</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04979.html#ad0920c14fe35af9234cd2d3c271c1a25">addProvider</a>(std::string_view tag, TArgs&amp;&amp;... args) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">auto</span>&amp; p = assetProviders.emplace_back(std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...));</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        providers.try_emplace(tag, p.get());</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
@@ -115,13 +115,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a04978.html#ad7d0af1820fb4509e6681ec1aff78854">   47</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04978.html#ad7d0af1820fb4509e6681ec1aff78854">addProvider</a>(std::initializer_list&lt;std::string_view&gt; tags, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a04979.html#ad7d0af1820fb4509e6681ec1aff78854">   47</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04979.html#ad7d0af1820fb4509e6681ec1aff78854">addProvider</a>(std::initializer_list&lt;std::string_view&gt; tags, TArgs&amp;&amp;... args) {</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">auto</span>&amp; p = assetProviders.emplace_back(std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...));</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tag : tags) { providers.try_emplace(tag, p.get()); }</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
 </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a04974.html">Asset</a>* <a class="code hl_function" href="a04978.html#a77e7c1dd5519a1be712b2305d5960a4a">createAsset</a>(std::string_view tag);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a04975.html">Asset</a>* <a class="code hl_function" href="a04979.html#a77e7c1dd5519a1be712b2305d5960a4a">createAsset</a>(std::string_view tag);</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::vector&lt;std::unique_ptr&lt;AssetProvider&gt;&gt; assetProviders;</div>
@@ -136,16 +136,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00587_html"><div class="ttname"><a href="a00587.html">AssetProvider.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04974_html"><div class="ttname"><a href="a04974.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
-<div class="ttc" id="aa04978_html"><div class="ttname"><a href="a04978.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00022">AssetFactory.hpp:22</a></div></div>
-<div class="ttc" id="aa04978_html_a77e7c1dd5519a1be712b2305d5960a4a"><div class="ttname"><a href="a04978.html#a77e7c1dd5519a1be712b2305d5960a4a">bl::rc::rg::AssetFactory::createAsset</a></div><div class="ttdeci">Asset * createAsset(std::string_view tag)</div><div class="ttdoc">Creates a new asset from the given tag.</div><div class="ttdef"><b>Definition</b> <a href="a02186_source.html#l00011">AssetFactory.cpp:11</a></div></div>
-<div class="ttc" id="aa04978_html_ad0920c14fe35af9234cd2d3c271c1a25"><div class="ttname"><a href="a04978.html#ad0920c14fe35af9234cd2d3c271c1a25">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::string_view tag, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new asset provider to the factory.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00033">AssetFactory.hpp:33</a></div></div>
-<div class="ttc" id="aa04978_html_ad7d0af1820fb4509e6681ec1aff78854"><div class="ttname"><a href="a04978.html#ad7d0af1820fb4509e6681ec1aff78854">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::initializer_list&lt; std::string_view &gt; tags, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a single asset provider for multiple tags.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00047">AssetFactory.hpp:47</a></div></div>
+<div class="ttc" id="aa04975_html"><div class="ttname"><a href="a04975.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa04979_html"><div class="ttname"><a href="a04979.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00022">AssetFactory.hpp:22</a></div></div>
+<div class="ttc" id="aa04979_html_a77e7c1dd5519a1be712b2305d5960a4a"><div class="ttname"><a href="a04979.html#a77e7c1dd5519a1be712b2305d5960a4a">bl::rc::rg::AssetFactory::createAsset</a></div><div class="ttdeci">Asset * createAsset(std::string_view tag)</div><div class="ttdoc">Creates a new asset from the given tag.</div><div class="ttdef"><b>Definition</b> <a href="a02186_source.html#l00011">AssetFactory.cpp:11</a></div></div>
+<div class="ttc" id="aa04979_html_ad0920c14fe35af9234cd2d3c271c1a25"><div class="ttname"><a href="a04979.html#ad0920c14fe35af9234cd2d3c271c1a25">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::string_view tag, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new asset provider to the factory.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00033">AssetFactory.hpp:33</a></div></div>
+<div class="ttc" id="aa04979_html_ad7d0af1820fb4509e6681ec1aff78854"><div class="ttname"><a href="a04979.html#ad7d0af1820fb4509e6681ec1aff78854">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::initializer_list&lt; std::string_view &gt; tags, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a single asset provider for multiple tags.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00047">AssetFactory.hpp:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

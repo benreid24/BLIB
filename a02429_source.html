@@ -92,7 +92,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01004.html">BLIB/Render/Config/PipelineIds.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Render/Config/RenderPhases.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01007.html">BLIB/Render/Config/Specializations3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08510.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
@@ -105,16 +105,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, nextId(DynamicMaterialPipelineIdStart) {}</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05350.html#a6734a3f7c212e4ac0d9fadadabe50ff5">   19</a></span><a class="code hl_class" href="a05282.html">mat::MaterialPipeline</a>&amp; MaterialPipelineCache::createPipeline(</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    std::uint32_t pipelineId, <a class="code hl_class" href="a05286.html">mat::MaterialPipelineSettings</a>&amp;&amp; settings) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a05351.html#a6734a3f7c212e4ac0d9fadadabe50ff5">   19</a></span><a class="code hl_class" href="a05283.html">mat::MaterialPipeline</a>&amp; MaterialPipelineCache::createPipeline(</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    std::uint32_t pipelineId, <a class="code hl_class" href="a05287.html">mat::MaterialPipelineSettings</a>&amp;&amp; settings) {</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">auto</span> result = pipelines.try_emplace(pipelineId, renderer, pipelineId, std::move(settings));</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">return</span> result.first-&gt;second;</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05350.html#aa0fc7db9facf066772761e97163f5627">   25</a></span><a class="code hl_class" href="a05282.html">mat::MaterialPipeline</a>&amp; MaterialPipelineCache::getOrCreatePipeline(</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a05286.html">mat::MaterialPipelineSettings</a>&amp;&amp; settings) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05351.html#aa0fc7db9facf066772761e97163f5627">   25</a></span><a class="code hl_class" href="a05283.html">mat::MaterialPipeline</a>&amp; MaterialPipelineCache::getOrCreatePipeline(</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a05287.html">mat::MaterialPipelineSettings</a>&amp;&amp; settings) {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : pipelines) {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">if</span> (p.second.getSettings() == settings) { <span class="keywordflow">return</span> p.second; }</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
@@ -125,27 +125,27 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05350.html#a780a7692740b9788697970a0a046e47d">   35</a></span><a class="code hl_class" href="a05282.html">mat::MaterialPipeline</a>&amp; MaterialPipelineCache::getPipeline(std::uint32_t pipelineId) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05351.html#a780a7692740b9788697970a0a046e47d">   35</a></span><a class="code hl_class" href="a05283.html">mat::MaterialPipeline</a>&amp; MaterialPipelineCache::getPipeline(std::uint32_t pipelineId) {</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> pipelines.at(pipelineId);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
 </div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a05350.html#a98362807662aedc5c31aa8cf4cb7d819">   39</a></span><span class="keywordtype">bool</span> MaterialPipelineCache::pipelineExists(std::uint32_t pipelineId)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a05351.html#a98362807662aedc5c31aa8cf4cb7d819">   39</a></span><span class="keywordtype">bool</span> MaterialPipelineCache::pipelineExists(std::uint32_t pipelineId)<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> pipelines.find(pipelineId) != pipelines.end();</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">void</span> MaterialPipelineCache::createBuiltins() {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> <span class="keyword">auto</span> make = [<span class="keyword">this</span>](std::uint32_t materialId, std::uint32_t pipelineId) {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        createPipeline(materialId, <a class="code hl_class" href="a05286.html">mat::MaterialPipelineSettings</a>(pipelineId).build());</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        createPipeline(materialId, <a class="code hl_class" href="a05287.html">mat::MaterialPipelineSettings</a>(pipelineId).build());</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    };</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">const</span> <span class="keyword">auto</span> makeOverlayPair = [<span class="keyword">this</span>](std::uint32_t materialId,</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                        std::uint32_t pipelineId,</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                        std::uint32_t overlayPipelineId) {</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        createPipeline(</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            materialId,</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_class" href="a05286.html">mat::MaterialPipelineSettings</a>(pipelineId)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <a class="code hl_class" href="a05287.html">mat::MaterialPipelineSettings</a>(pipelineId)</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, overlayPipelineId)</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                .build());</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    };</div>
@@ -217,14 +217,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">RenderPhases.hpp</a></div></div>
 <div class="ttc" id="aa01049_html"><div class="ttname"><a href="a01049.html">MaterialPipelineCache.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05282_html"><div class="ttname"><a href="a05282.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a00371_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
-<div class="ttc" id="aa05286_html"><div class="ttname"><a href="a05286.html">bl::rc::mat::MaterialPipelineSettings</a></div><div class="ttdoc">Settings that define the behavior of a material pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00024">MaterialPipelineSettings.hpp:24</a></div></div>
-<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa05283_html"><div class="ttname"><a href="a05283.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a00371_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
+<div class="ttc" id="aa05287_html"><div class="ttname"><a href="a05287.html">bl::rc::mat::MaterialPipelineSettings</a></div><div class="ttdoc">Settings that define the behavior of a material pipeline.</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00024">MaterialPipelineSettings.hpp:24</a></div></div>
+<div class="ttc" id="aa08510_html"><div class="ttname"><a href="a08510.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

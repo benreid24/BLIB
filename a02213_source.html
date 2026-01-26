@@ -97,16 +97,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rgi</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
 <div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a05030.html#a291281bb0ca796666d20d936505803c8">   11</a></span><a class="code hl_function" href="a05030.html#a291281bb0ca796666d20d936505803c8">ShadowMapAsset::ShadowMapAsset</a>(std::string_view tag)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a05031.html#a291281bb0ca796666d20d936505803c8">   11</a></span><a class="code hl_function" href="a05031.html#a291281bb0ca796666d20d936505803c8">ShadowMapAsset::ShadowMapAsset</a>(std::string_view tag)</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: Asset(tag, false) {}</div>
 </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> ShadowMapAsset::doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05054.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">void</span> ShadowMapAsset::doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05055.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    maps = <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getShaderResourceStore(<a class="code hl_enumvalue" href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">sr::StoreKey::Scene</a>)</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>               .getShaderResourceWithKey(<a class="code hl_variable" href="a02979.html#gae9727d4b333f4e14a1581a080fcc29cf">sri::ShadowMapResourceKey</a>);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> ShadowMapAsset::doPrepareForInput(<span class="keyword">const</span> <a class="code hl_struct" href="a05042.html">rg::ExecutionContext</a>&amp;) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> ShadowMapAsset::doPrepareForInput(<span class="keyword">const</span> <a class="code hl_struct" href="a05043.html">rg::ExecutionContext</a>&amp;) {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// handled by render pass</span></div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
@@ -127,14 +127,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa02979_html_gae9727d4b333f4e14a1581a080fcc29cf"><div class="ttname"><a href="a02979.html#gae9727d4b333f4e14a1581a080fcc29cf">bl::rc::sri::ShadowMapResourceKey</a></div><div class="ttdeci">constexpr sr::Key&lt; ShadowMapShaderResource &gt; ShadowMapResourceKey</div><div class="ttdoc">The shader resource key for accessing shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00109">ShadowMapShaderResource.hpp:109</a></div></div>
 <div class="ttc" id="aa02979_html_gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b"><div class="ttname"><a href="a02979.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">bl::rc::sr::StoreKey::Scene</a></div><div class="ttdeci">@ Scene</div><div class="ttdoc">The resource store specific to a scene/observer pair.</div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05030_html_a291281bb0ca796666d20d936505803c8"><div class="ttname"><a href="a05030.html#a291281bb0ca796666d20d936505803c8">bl::rc::rgi::ShadowMapAsset::ShadowMapAsset</a></div><div class="ttdeci">ShadowMapAsset(std::string_view tag)</div><div class="ttdoc">Creates the shadow map asset.</div><div class="ttdef"><b>Definition</b> <a href="a02213_source.html#l00011">ShadowMapAsset.cpp:11</a></div></div>
-<div class="ttc" id="aa05042_html"><div class="ttname"><a href="a05042.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
-<div class="ttc" id="aa05054_html"><div class="ttname"><a href="a05054.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08539_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa05031_html_a291281bb0ca796666d20d936505803c8"><div class="ttname"><a href="a05031.html#a291281bb0ca796666d20d936505803c8">bl::rc::rgi::ShadowMapAsset::ShadowMapAsset</a></div><div class="ttdeci">ShadowMapAsset(std::string_view tag)</div><div class="ttdoc">Creates the shadow map asset.</div><div class="ttdef"><b>Definition</b> <a href="a02213_source.html#l00011">ShadowMapAsset.cpp:11</a></div></div>
+<div class="ttc" id="aa05043_html"><div class="ttname"><a href="a05043.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00596_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa05055_html"><div class="ttname"><a href="a05055.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08540_source.html#l00032">InitContext.hpp:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

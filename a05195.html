@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::GraphicsSettings Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,25 +74,578 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a05194.html">GraphicsSettings</a></li><li class="navelem"><a class="el" href="a05198.html">AutoHdrSettings</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a05195.html">GraphicsSettings</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::GraphicsSettings::AutoHdrSettings Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a05192.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::GraphicsSettings Struct Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05198.html">bl::rc::GraphicsSettings::AutoHdrSettings</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05198.html#a0f212b9629bd41145d464cd4d6ad2079">convergeRate</a></td><td class="entry"><a class="el" href="a05198.html">bl::rc::GraphicsSettings::AutoHdrSettings</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05198.html#a71fb7b06241a1a304de02048a83a96ab">maxExposure</a></td><td class="entry"><a class="el" href="a05198.html">bl::rc::GraphicsSettings::AutoHdrSettings</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05198.html#aabe6d967aa50d1186122567668ddba32">minExposure</a></td><td class="entry"><a class="el" href="a05198.html">bl::rc::GraphicsSettings::AutoHdrSettings</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05198.html#a4d8232331b0161c8aa8138526473b7f6">targetBrightness</a></td><td class="entry"><a class="el" href="a05198.html">bl::rc::GraphicsSettings::AutoHdrSettings</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>POD containing non-ephemeral renderer settings.  
+ <a href="a05195.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05199.html">AutoHdrSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05507.html" title="Basic class containing the renderer graphics settings.">Settings</a> that control HDR tone mapping auto exposure.  <a href="a05199.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:adf86caefd4923c667ccc40bc0f30ea06" id="r_adf86caefd4923c667ccc40bc0f30ea06"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06">AntiAliasing</a> { <br />
+&#160;&#160;<a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06a6adf97f83acf6453d4a6a4b1070f3754">None</a> = VK_SAMPLE_COUNT_1_BIT
+, <a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06ad898a6d9f2df3308b7ed3ebcbd65afe8">MSAA2x</a> = VK_SAMPLE_COUNT_2_BIT
+, <a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06a5c4a3f66e8e8eac8210f1f277f58957d">MSAA4x</a> = VK_SAMPLE_COUNT_4_BIT
+, <a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06a34019bc2c9bf1115180553dda53e4c53">MSAA8x</a> = VK_SAMPLE_COUNT_8_BIT
+, <br />
+&#160;&#160;<a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06abf1cfd3fb802042f9507c2263da6959e">MSAA16x</a> = VK_SAMPLE_COUNT_16_BIT
+, <a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06a7f88e94a21e0b70aa150ddbc0ff935a8">MSAA32x</a> = VK_SAMPLE_COUNT_32_BIT
+, <a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06a13c11e777d83c981649d117d824501ef">MSAA64x</a> = VK_SAMPLE_COUNT_64_BIT
+<br />
+ }</td></tr>
+<tr class="memdesc:adf86caefd4923c667ccc40bc0f30ea06"><td class="mdescLeft">&#160;</td><td class="mdescRight">The anti-aliasing modes supported by the renderer.  <a href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06">More...</a><br /></td></tr>
+<tr class="separator:adf86caefd4923c667ccc40bc0f30ea06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17d62be2f42518feacc5308e8673c965" id="r_a17d62be2f42518feacc5308e8673c965"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965">SSAO</a> { <br />
+&#160;&#160;<a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965a6adf97f83acf6453d4a6a4b1070f3754">None</a>
+, <a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965a28d0edd045e05cf5af64e35ae0c4c6ef">Low</a>
+, <a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965a87f8a6ab85c9ced3702b4ea641ad4bb5">Medium</a>
+, <a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965a655d20c1ca69519ca647684edbb2db35">High</a>
+, <br />
+&#160;&#160;<a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965a7057376a419b3334cc7b8b7a9f064abb">Ultra</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a17d62be2f42518feacc5308e8673c965"><td class="mdescLeft">&#160;</td><td class="mdescRight">Presets for SSAO.  <a href="a05195.html#a17d62be2f42518feacc5308e8673c965">More...</a><br /></td></tr>
+<tr class="separator:a17d62be2f42518feacc5308e8673c965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad06508d15a5acfdaafc48323f7358ec2" id="r_ad06508d15a5acfdaafc48323f7358ec2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#ad06508d15a5acfdaafc48323f7358ec2">GraphicsSettings</a> ()</td></tr>
+<tr class="memdesc:ad06508d15a5acfdaafc48323f7358ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the default settings.  <br /></td></tr>
+<tr class="separator:ad06508d15a5acfdaafc48323f7358ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a815c0e78e5f12d8e2108a9e6be130559" id="r_a815c0e78e5f12d8e2108a9e6be130559"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05195.html">GraphicsSettings</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a815c0e78e5f12d8e2108a9e6be130559">fromConfig</a> (const std::string &amp;keyPrefix)</td></tr>
+<tr class="memdesc:a815c0e78e5f12d8e2108a9e6be130559"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the renderer settings from the global engine config.  <br /></td></tr>
+<tr class="separator:a815c0e78e5f12d8e2108a9e6be130559"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2835ae6b23b18c67dd8bf37aa71d5ea4" id="r_a2835ae6b23b18c67dd8bf37aa71d5ea4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a2835ae6b23b18c67dd8bf37aa71d5ea4">syncToConfig</a> (const std::string &amp;keyPrefix) const</td></tr>
+<tr class="memdesc:a2835ae6b23b18c67dd8bf37aa71d5ea4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the settings to the global engine config.  <br /></td></tr>
+<tr class="separator:a2835ae6b23b18c67dd8bf37aa71d5ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ad7189e193681933a89ef45f7cc8eea42" id="r_ad7189e193681933a89ef45f7cc8eea42"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#ad7189e193681933a89ef45f7cc8eea42">gamma</a></td></tr>
+<tr class="separator:ad7189e193681933a89ef45f7cc8eea42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4f8f333ec22c1e3cedc7192d5085dd5" id="r_ac4f8f333ec22c1e3cedc7192d5085dd5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#ac4f8f333ec22c1e3cedc7192d5085dd5">hdrEnabled</a></td></tr>
+<tr class="separator:ac4f8f333ec22c1e3cedc7192d5085dd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8812b8d6a6372e6f42ccfb1eeea01bf4" id="r_a8812b8d6a6372e6f42ccfb1eeea01bf4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a8812b8d6a6372e6f42ccfb1eeea01bf4">exposure</a></td></tr>
+<tr class="separator:a8812b8d6a6372e6f42ccfb1eeea01bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df0797410628c3ef520791b5429ac3e" id="r_a1df0797410628c3ef520791b5429ac3e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a1df0797410628c3ef520791b5429ac3e">autoHdrEnabled</a></td></tr>
+<tr class="separator:a1df0797410628c3ef520791b5429ac3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4499f5942238528c0378bac1a9a09656" id="r_a4499f5942238528c0378bac1a9a09656"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05199.html">AutoHdrSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a4499f5942238528c0378bac1a9a09656">autoHdrSettings</a></td></tr>
+<tr class="separator:a4499f5942238528c0378bac1a9a09656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad284e5f256a821887141806ac2259697" id="r_ad284e5f256a821887141806ac2259697"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#ad284e5f256a821887141806ac2259697">bloomEnabled</a></td></tr>
+<tr class="separator:ad284e5f256a821887141806ac2259697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab46682cfb57f478dfcbacffce302b0c3" id="r_ab46682cfb57f478dfcbacffce302b0c3"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#ab46682cfb57f478dfcbacffce302b0c3">bloomThreshold</a></td></tr>
+<tr class="separator:ab46682cfb57f478dfcbacffce302b0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7071bfb3556cc3dec2a3bcecc03e9914" id="r_a7071bfb3556cc3dec2a3bcecc03e9914"><td class="memItemLeft" align="right" valign="top">std::array&lt; float, <a class="el" href="a04783.html#a5c9d3a6c6460ee40c72e99546e5f1a5d">cfg::Limits::MaxBloomFilterSize</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a7071bfb3556cc3dec2a3bcecc03e9914">bloomFilters</a></td></tr>
+<tr class="separator:a7071bfb3556cc3dec2a3bcecc03e9914"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fad385775e6dcc382c8d603295d17f2" id="r_a4fad385775e6dcc382c8d603295d17f2"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a4fad385775e6dcc382c8d603295d17f2">bloomFilterSize</a></td></tr>
+<tr class="separator:a4fad385775e6dcc382c8d603295d17f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8dfc735c6934391d5fba477d1cdffc" id="r_afd8dfc735c6934391d5fba477d1cdffc"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#afd8dfc735c6934391d5fba477d1cdffc">bloomPasses</a></td></tr>
+<tr class="separator:afd8dfc735c6934391d5fba477d1cdffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f7478e4861dc9b2007bece9dd191b05" id="r_a2f7478e4861dc9b2007bece9dd191b05"><td class="memItemLeft" align="right" valign="top">VkExtent2D&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a2f7478e4861dc9b2007bece9dd191b05">shadowMapResolution</a></td></tr>
+<tr class="separator:a2f7478e4861dc9b2007bece9dd191b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a015225ebf6dad0b3bda135b0bd5c47c6" id="r_a015225ebf6dad0b3bda135b0bd5c47c6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a015225ebf6dad0b3bda135b0bd5c47c6">shadowMapDepthBiasConstantFactor</a></td></tr>
+<tr class="separator:a015225ebf6dad0b3bda135b0bd5c47c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4414a99f1d63246ce03203384296db2a" id="r_a4414a99f1d63246ce03203384296db2a"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a4414a99f1d63246ce03203384296db2a">shadowMapDepthBiasSlopeFactor</a></td></tr>
+<tr class="separator:a4414a99f1d63246ce03203384296db2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad52136d86ad7d1605c686a3c03fd5f29" id="r_ad52136d86ad7d1605c686a3c03fd5f29"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#ad52136d86ad7d1605c686a3c03fd5f29">shadowMapDepthBiasClamp</a></td></tr>
+<tr class="separator:ad52136d86ad7d1605c686a3c03fd5f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb7239b7d7555dadf0ad5fe38271f7cc" id="r_aeb7239b7d7555dadf0ad5fe38271f7cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06">AntiAliasing</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#aeb7239b7d7555dadf0ad5fe38271f7cc">antiAliasing</a></td></tr>
+<tr class="separator:aeb7239b7d7555dadf0ad5fe38271f7cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f82abd08d4b5df4c1bc9fb87e69ccbf" id="r_a0f82abd08d4b5df4c1bc9fb87e69ccbf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965">SSAO</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a0f82abd08d4b5df4c1bc9fb87e69ccbf">ssao</a></td></tr>
+<tr class="separator:a0f82abd08d4b5df4c1bc9fb87e69ccbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cb73d256d08f9cb6161f5fc0ca6e2a4" id="r_a5cb73d256d08f9cb6161f5fc0ca6e2a4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a5cb73d256d08f9cb6161f5fc0ca6e2a4">ssaoRadius</a></td></tr>
+<tr class="separator:a5cb73d256d08f9cb6161f5fc0ca6e2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f4a2095bfbe5416fc5ffabf46981efd" id="r_a1f4a2095bfbe5416fc5ffabf46981efd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#a1f4a2095bfbe5416fc5ffabf46981efd">ssaoBias</a></td></tr>
+<tr class="separator:a1f4a2095bfbe5416fc5ffabf46981efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefdf51345aee995f842eacd0b650e50f" id="r_aefdf51345aee995f842eacd0b650e50f"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05195.html#aefdf51345aee995f842eacd0b650e50f">ssaoExponent</a></td></tr>
+<tr class="separator:aefdf51345aee995f842eacd0b650e50f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>POD containing non-ephemeral renderer settings. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00018">18</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="adf86caefd4923c667ccc40bc0f30ea06" name="adf86caefd4923c667ccc40bc0f30ea06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf86caefd4923c667ccc40bc0f30ea06">&#9670;&#160;</a></span>AntiAliasing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum struct <a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06">bl::rc::GraphicsSettings::AntiAliasing</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The anti-aliasing modes supported by the renderer. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06a6adf97f83acf6453d4a6a4b1070f3754" name="adf86caefd4923c667ccc40bc0f30ea06a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06ad898a6d9f2df3308b7ed3ebcbd65afe8" name="adf86caefd4923c667ccc40bc0f30ea06ad898a6d9f2df3308b7ed3ebcbd65afe8"></a>MSAA2x&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06a5c4a3f66e8e8eac8210f1f277f58957d" name="adf86caefd4923c667ccc40bc0f30ea06a5c4a3f66e8e8eac8210f1f277f58957d"></a>MSAA4x&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06a34019bc2c9bf1115180553dda53e4c53" name="adf86caefd4923c667ccc40bc0f30ea06a34019bc2c9bf1115180553dda53e4c53"></a>MSAA8x&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06abf1cfd3fb802042f9507c2263da6959e" name="adf86caefd4923c667ccc40bc0f30ea06abf1cfd3fb802042f9507c2263da6959e"></a>MSAA16x&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06a7f88e94a21e0b70aa150ddbc0ff935a8" name="adf86caefd4923c667ccc40bc0f30ea06a7f88e94a21e0b70aa150ddbc0ff935a8"></a>MSAA32x&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="adf86caefd4923c667ccc40bc0f30ea06a13c11e777d83c981649d117d824501ef" name="adf86caefd4923c667ccc40bc0f30ea06a13c11e777d83c981649d117d824501ef"></a>MSAA64x&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00020">20</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a17d62be2f42518feacc5308e8673c965" name="a17d62be2f42518feacc5308e8673c965"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17d62be2f42518feacc5308e8673c965">&#9670;&#160;</a></span>SSAO</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum struct <a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965">bl::rc::GraphicsSettings::SSAO</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Presets for SSAO. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a17d62be2f42518feacc5308e8673c965a6adf97f83acf6453d4a6a4b1070f3754" name="a17d62be2f42518feacc5308e8673c965a6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a17d62be2f42518feacc5308e8673c965a28d0edd045e05cf5af64e35ae0c4c6ef" name="a17d62be2f42518feacc5308e8673c965a28d0edd045e05cf5af64e35ae0c4c6ef"></a>Low&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a17d62be2f42518feacc5308e8673c965a87f8a6ab85c9ced3702b4ea641ad4bb5" name="a17d62be2f42518feacc5308e8673c965a87f8a6ab85c9ced3702b4ea641ad4bb5"></a>Medium&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a17d62be2f42518feacc5308e8673c965a655d20c1ca69519ca647684edbb2db35" name="a17d62be2f42518feacc5308e8673c965a655d20c1ca69519ca647684edbb2db35"></a>High&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a17d62be2f42518feacc5308e8673c965a7057376a419b3334cc7b8b7a9f064abb" name="a17d62be2f42518feacc5308e8673c965a7057376a419b3334cc7b8b7a9f064abb"></a>Ultra&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00031">31</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad06508d15a5acfdaafc48323f7358ec2" name="ad06508d15a5acfdaafc48323f7358ec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad06508d15a5acfdaafc48323f7358ec2">&#9670;&#160;</a></span>GraphicsSettings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::GraphicsSettings::GraphicsSettings </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the default settings. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02333_source.html#l00056">56</a> of file <a class="el" href="a02333_source.html">GraphicsSettings.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a815c0e78e5f12d8e2108a9e6be130559" name="a815c0e78e5f12d8e2108a9e6be130559"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a815c0e78e5f12d8e2108a9e6be130559">&#9670;&#160;</a></span>fromConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05195.html">GraphicsSettings</a> &amp; bl::rc::GraphicsSettings::fromConfig </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>keyPrefix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the renderer settings from the global engine config. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keyPrefix</td><td>The prefix to use when loading from the config </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02333_source.html#l00078">78</a> of file <a class="el" href="a02333_source.html">GraphicsSettings.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2835ae6b23b18c67dd8bf37aa71d5ea4" name="a2835ae6b23b18c67dd8bf37aa71d5ea4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2835ae6b23b18c67dd8bf37aa71d5ea4">&#9670;&#160;</a></span>syncToConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::GraphicsSettings::syncToConfig </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>keyPrefix</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the settings to the global engine config. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">keyPrefix</td><td>The prefix to use when saving to the config </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02333_source.html#l00121">121</a> of file <a class="el" href="a02333_source.html">GraphicsSettings.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aeb7239b7d7555dadf0ad5fe38271f7cc" name="aeb7239b7d7555dadf0ad5fe38271f7cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb7239b7d7555dadf0ad5fe38271f7cc">&#9670;&#160;</a></span>antiAliasing</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05195.html#adf86caefd4923c667ccc40bc0f30ea06">AntiAliasing</a> bl::rc::GraphicsSettings::antiAliasing</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00067">67</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1df0797410628c3ef520791b5429ac3e" name="a1df0797410628c3ef520791b5429ac3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df0797410628c3ef520791b5429ac3e">&#9670;&#160;</a></span>autoHdrEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::GraphicsSettings::autoHdrEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00056">56</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4499f5942238528c0378bac1a9a09656" name="a4499f5942238528c0378bac1a9a09656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4499f5942238528c0378bac1a9a09656">&#9670;&#160;</a></span>autoHdrSettings</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05199.html">AutoHdrSettings</a> bl::rc::GraphicsSettings::autoHdrSettings</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00057">57</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad284e5f256a821887141806ac2259697" name="ad284e5f256a821887141806ac2259697"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad284e5f256a821887141806ac2259697">&#9670;&#160;</a></span>bloomEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::GraphicsSettings::bloomEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00058">58</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7071bfb3556cc3dec2a3bcecc03e9914" name="a7071bfb3556cc3dec2a3bcecc03e9914"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7071bfb3556cc3dec2a3bcecc03e9914">&#9670;&#160;</a></span>bloomFilters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::array&lt;float, <a class="el" href="a04783.html#a5c9d3a6c6460ee40c72e99546e5f1a5d">cfg::Limits::MaxBloomFilterSize</a>&gt; bl::rc::GraphicsSettings::bloomFilters</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00060">60</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4fad385775e6dcc382c8d603295d17f2" name="a4fad385775e6dcc382c8d603295d17f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fad385775e6dcc382c8d603295d17f2">&#9670;&#160;</a></span>bloomFilterSize</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::GraphicsSettings::bloomFilterSize</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00061">61</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afd8dfc735c6934391d5fba477d1cdffc" name="afd8dfc735c6934391d5fba477d1cdffc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd8dfc735c6934391d5fba477d1cdffc">&#9670;&#160;</a></span>bloomPasses</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::GraphicsSettings::bloomPasses</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00062">62</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab46682cfb57f478dfcbacffce302b0c3" name="ab46682cfb57f478dfcbacffce302b0c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab46682cfb57f478dfcbacffce302b0c3">&#9670;&#160;</a></span>bloomThreshold</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::bloomThreshold</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00059">59</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8812b8d6a6372e6f42ccfb1eeea01bf4" name="a8812b8d6a6372e6f42ccfb1eeea01bf4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8812b8d6a6372e6f42ccfb1eeea01bf4">&#9670;&#160;</a></span>exposure</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::exposure</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00055">55</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad7189e193681933a89ef45f7cc8eea42" name="ad7189e193681933a89ef45f7cc8eea42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7189e193681933a89ef45f7cc8eea42">&#9670;&#160;</a></span>gamma</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::gamma</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00053">53</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac4f8f333ec22c1e3cedc7192d5085dd5" name="ac4f8f333ec22c1e3cedc7192d5085dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4f8f333ec22c1e3cedc7192d5085dd5">&#9670;&#160;</a></span>hdrEnabled</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::GraphicsSettings::hdrEnabled</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00054">54</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad52136d86ad7d1605c686a3c03fd5f29" name="ad52136d86ad7d1605c686a3c03fd5f29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad52136d86ad7d1605c686a3c03fd5f29">&#9670;&#160;</a></span>shadowMapDepthBiasClamp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::shadowMapDepthBiasClamp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00066">66</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a015225ebf6dad0b3bda135b0bd5c47c6" name="a015225ebf6dad0b3bda135b0bd5c47c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a015225ebf6dad0b3bda135b0bd5c47c6">&#9670;&#160;</a></span>shadowMapDepthBiasConstantFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::shadowMapDepthBiasConstantFactor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00064">64</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4414a99f1d63246ce03203384296db2a" name="a4414a99f1d63246ce03203384296db2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4414a99f1d63246ce03203384296db2a">&#9670;&#160;</a></span>shadowMapDepthBiasSlopeFactor</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::shadowMapDepthBiasSlopeFactor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00065">65</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f7478e4861dc9b2007bece9dd191b05" name="a2f7478e4861dc9b2007bece9dd191b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f7478e4861dc9b2007bece9dd191b05">&#9670;&#160;</a></span>shadowMapResolution</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkExtent2D bl::rc::GraphicsSettings::shadowMapResolution</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00063">63</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0f82abd08d4b5df4c1bc9fb87e69ccbf" name="a0f82abd08d4b5df4c1bc9fb87e69ccbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f82abd08d4b5df4c1bc9fb87e69ccbf">&#9670;&#160;</a></span>ssao</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05195.html#a17d62be2f42518feacc5308e8673c965">SSAO</a> bl::rc::GraphicsSettings::ssao</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00068">68</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f4a2095bfbe5416fc5ffabf46981efd" name="a1f4a2095bfbe5416fc5ffabf46981efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f4a2095bfbe5416fc5ffabf46981efd">&#9670;&#160;</a></span>ssaoBias</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::ssaoBias</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00070">70</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aefdf51345aee995f842eacd0b650e50f" name="aefdf51345aee995f842eacd0b650e50f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefdf51345aee995f842eacd0b650e50f">&#9670;&#160;</a></span>ssaoExponent</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::ssaoExponent</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00071">71</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5cb73d256d08f9cb6161f5fc0ca6e2a4" name="a5cb73d256d08f9cb6161f5fc0ca6e2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cb73d256d08f9cb6161f5fc0ca6e2a4">&#9670;&#160;</a></span>ssaoRadius</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float bl::rc::GraphicsSettings::ssaoRadius</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00069">69</a> of file <a class="el" href="a00800_source.html">GraphicsSettings.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Render/<a class="el" href="a00800_source.html">GraphicsSettings.hpp</a></li>
+<li>src/Render/<a class="el" href="a02333_source.html">GraphicsSettings.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::serial::StreamOutputBuffer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,23 +74,199 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a02997.html">serial</a></li><li class="navelem"><a class="el" href="a03046.html">json</a></li><li class="navelem"><a class="el" href="a06202.html">SourceInfo</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a02997.html">serial</a></li><li class="navelem"><a class="el" href="a06199.html">StreamOutputBuffer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::serial::json::SourceInfo Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a06196.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::serial::StreamOutputBuffer Class Reference<div class="ingroups"><a class="el" href="a02982.html">Serialization</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a06202.html">bl::serial::json::SourceInfo</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a06202.html#af4472bf0b496a1c54eebf4614f13cc82">filename</a></td><td class="entry"><a class="el" href="a06202.html">bl::serial::json::SourceInfo</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a06202.html#a2672749a8109db092c62487add18ffde">lineNumber</a></td><td class="entry"><a class="el" href="a06202.html">bl::serial::json::SourceInfo</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Output buffer that allows writing to C++ streams.  
+ <a href="a06199.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01847_source.html">StreamOutputBuffer.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::StreamOutputBuffer:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a06199.png" usemap="#bl::serial::StreamOutputBuffer_map" alt=""/>
+  <map id="bl::serial::StreamOutputBuffer_map" name="bl::serial::StreamOutputBuffer_map">
+<area href="a06191.html" title="Interface for outputting serialized data." alt="bl::serial::OutputBuffer" shape="rect" coords="0,0,176,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:acefd99a20e8d086c67a0e9d95ab4f67b" id="r_acefd99a20e8d086c67a0e9d95ab4f67b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06199.html#acefd99a20e8d086c67a0e9d95ab4f67b">StreamOutputBuffer</a> (std::ostream &amp;stream)</td></tr>
+<tr class="memdesc:acefd99a20e8d086c67a0e9d95ab4f67b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Stream Output Buffer.  <br /></td></tr>
+<tr class="separator:acefd99a20e8d086c67a0e9d95ab4f67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a162118a17f9c8b4ba664774d5c843539" id="r_a162118a17f9c8b4ba664774d5c843539"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06199.html#a162118a17f9c8b4ba664774d5c843539">~StreamOutputBuffer</a> ()=default</td></tr>
+<tr class="memdesc:a162118a17f9c8b4ba664774d5c843539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Stream Output Buffer object.  <br /></td></tr>
+<tr class="separator:a162118a17f9c8b4ba664774d5c843539"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae11ddac8af8eb2ab7f3130f393d99e5c" id="r_ae11ddac8af8eb2ab7f3130f393d99e5c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06199.html#ae11ddac8af8eb2ab7f3130f393d99e5c">write</a> (const char *data, std::size_t len) override</td></tr>
+<tr class="memdesc:ae11ddac8af8eb2ab7f3130f393d99e5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write some data to the buffer.  <br /></td></tr>
+<tr class="separator:ae11ddac8af8eb2ab7f3130f393d99e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff97d946d1f1b37ae4a46255678904a" id="r_aaff97d946d1f1b37ae4a46255678904a"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06199.html#aaff97d946d1f1b37ae4a46255678904a">good</a> () const override</td></tr>
+<tr class="memdesc:aaff97d946d1f1b37ae4a46255678904a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is in a good state.  <br /></td></tr>
+<tr class="separator:aaff97d946d1f1b37ae4a46255678904a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Output buffer that allows writing to C++ streams. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01847_source.html#l00017">17</a> of file <a class="el" href="a01847_source.html">StreamOutputBuffer.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acefd99a20e8d086c67a0e9d95ab4f67b" name="acefd99a20e8d086c67a0e9d95ab4f67b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acefd99a20e8d086c67a0e9d95ab4f67b">&#9670;&#160;</a></span>StreamOutputBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::serial::StreamOutputBuffer::StreamOutputBuffer </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Stream Output Buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to output to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02948_source.html#l00007">7</a> of file <a class="el" href="a02948_source.html">StreamOutputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a162118a17f9c8b4ba664774d5c843539" name="a162118a17f9c8b4ba664774d5c843539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a162118a17f9c8b4ba664774d5c843539">&#9670;&#160;</a></span>~StreamOutputBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bl::serial::StreamOutputBuffer::~StreamOutputBuffer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the Stream Output Buffer object. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aaff97d946d1f1b37ae4a46255678904a" name="aaff97d946d1f1b37ae4a46255678904a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaff97d946d1f1b37ae4a46255678904a">&#9670;&#160;</a></span>good()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::StreamOutputBuffer::good </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the buffer is in a good state. </p>
+
+<p>Implements <a class="el" href="a06191.html#a11768f89bd5cadbcc6c33714793cca69">bl::serial::OutputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02948_source.html#l00015">15</a> of file <a class="el" href="a02948_source.html">StreamOutputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae11ddac8af8eb2ab7f3130f393d99e5c" name="ae11ddac8af8eb2ab7f3130f393d99e5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae11ddac8af8eb2ab7f3130f393d99e5c">&#9670;&#160;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::serial::StreamOutputBuffer::write </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Write some data to the buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>The data to write </td></tr>
+    <tr><td class="paramname">len</td><td>The length of the data to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success false on error </dd></dl>
+
+<p>Implements <a class="el" href="a06191.html#a3873541dba334d85540d95f4cf1f86cb">bl::serial::OutputBuffer</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a02948_source.html#l00010">10</a> of file <a class="el" href="a02948_source.html">StreamOutputBuffer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Serialization/Buffers/<a class="el" href="a01847_source.html">StreamOutputBuffer.hpp</a></li>
+<li>src/Serialization/Buffers/<a class="el" href="a02948_source.html">StreamOutputBuffer.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

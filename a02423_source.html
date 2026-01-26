@@ -88,7 +88,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="contents">
 <a href="a02423.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01052.html">BLIB/Render/Resources/SamplerCache.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a08510.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
@@ -200,18 +200,18 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
 <div class="foldopen" id="foldopen00114" data-start="{" data-end="}">
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a05374.html#ad2c9c44546e3a214be2307d88a0b71c3">  114</a></span><a class="code hl_class" href="a05790.html">vk::Sampler</a> SamplerCache::getSampler(<span class="keyword">const</span> <a class="code hl_struct" href="a05794.html">vk::SamplerOptions</a>&amp; options) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno"><a class="line" href="a05375.html#ad2c9c44546e3a214be2307d88a0b71c3">  114</a></span><a class="code hl_class" href="a05791.html">vk::Sampler</a> SamplerCache::getSampler(<span class="keyword">const</span> <a class="code hl_struct" href="a05795.html">vk::SamplerOptions</a>&amp; options) {</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment">// TODO - add other params to options</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    VkSampler&amp; sampler = samplerTable[options.<a class="code hl_variable" href="a05794.html#a98e67605612fb73e3899b9dd6d6f4e1b">type</a>];</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    VkSampler&amp; sampler = samplerTable[options.<a class="code hl_variable" href="a05795.html#a98e67605612fb73e3899b9dd6d6f4e1b">type</a>];</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (!sampler) {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">if</span> (VK_SUCCESS != vkCreateSampler(renderer.vulkanState().getDevice(),</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                                          &amp;createTable[options.<a class="code hl_variable" href="a05794.html#a98e67605612fb73e3899b9dd6d6f4e1b">type</a>],</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>                                          &amp;createTable[options.<a class="code hl_variable" href="a05795.html#a98e67605612fb73e3899b9dd6d6f4e1b">type</a>],</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>                                          <span class="keyword">nullptr</span>,</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>                                          &amp;sampler)) {</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Failed to create sampler&quot;</span>);</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        }</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="a05790.html">vk::Sampler</a>(renderer, sampler, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">return</span> <a class="code hl_class" href="a05791.html">vk::Sampler</a>(renderer, sampler, <span class="keyword">false</span>);</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>}</div>
 </div>
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
@@ -221,15 +221,15 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
 <div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">SamplerCache.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05790_html"><div class="ttname"><a href="a05790.html">bl::rc::vk::Sampler</a></div><div class="ttdoc">Thin wrapper for managed VkSampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a00425_source.html#l00019">Sampler.hpp:19</a></div></div>
-<div class="ttc" id="aa05794_html"><div class="ttname"><a href="a05794.html">bl::rc::vk::SamplerOptions</a></div><div class="ttdoc">Options used for creating sampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00017">SamplerOptions.hpp:17</a></div></div>
-<div class="ttc" id="aa05794_html_a98e67605612fb73e3899b9dd6d6f4e1b"><div class="ttname"><a href="a05794.html#a98e67605612fb73e3899b9dd6d6f4e1b">bl::rc::vk::SamplerOptions::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00050">SamplerOptions.hpp:50</a></div></div>
-<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa05791_html"><div class="ttname"><a href="a05791.html">bl::rc::vk::Sampler</a></div><div class="ttdoc">Thin wrapper for managed VkSampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a00425_source.html#l00019">Sampler.hpp:19</a></div></div>
+<div class="ttc" id="aa05795_html"><div class="ttname"><a href="a05795.html">bl::rc::vk::SamplerOptions</a></div><div class="ttdoc">Options used for creating sampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00017">SamplerOptions.hpp:17</a></div></div>
+<div class="ttc" id="aa05795_html_a98e67605612fb73e3899b9dd6d6f4e1b"><div class="ttname"><a href="a05795.html#a98e67605612fb73e3899b9dd6d6f4e1b">bl::rc::vk::SamplerOptions::type</a></div><div class="ttdeci">Type type</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00050">SamplerOptions.hpp:50</a></div></div>
+<div class="ttc" id="aa08510_html"><div class="ttname"><a href="a08510.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

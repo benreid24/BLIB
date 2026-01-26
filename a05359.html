@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::res::MaterialRef Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,27 +74,499 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05362.html">PipelineCache</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05359.html">MaterialRef</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::res::PipelineCache Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a05356.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::res::MaterialRef Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05362.html">bl::rc::res::PipelineCache</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05362.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td><td class="entry"><a class="el" href="a05362.html">bl::rc::res::PipelineCache</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05362.html#a549258a64d41c57bab560d3dd4b103df">createPipeline</a>(std::uint32_t pipelineId, vk::PipelineParameters &amp;&amp;params)</td><td class="entry"><a class="el" href="a05362.html">bl::rc::res::PipelineCache</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05362.html#a1ced8c33968c8bf32d16cfa86a36d751">DynamicPipelineIdStart</a></td><td class="entry"><a class="el" href="a05362.html">bl::rc::res::PipelineCache</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05362.html#a0c71bf02b512fbe3defdbd0eae7dd4f7">getOrCreatePipeline</a>(vk::PipelineParameters &amp;&amp;params)</td><td class="entry"><a class="el" href="a05362.html">bl::rc::res::PipelineCache</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05362.html#a1ae6ab4cbe018341e55753994fd46c66">getPipeline</a>(std::uint32_t pipelineId)</td><td class="entry"><a class="el" href="a05362.html">bl::rc::res::PipelineCache</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05362.html#aa7dd8b858a5093f9243ed108dcc9114d">pipelineExists</a>(std::uint32_t pipelineId) const</td><td class="entry"><a class="el" href="a05362.html">bl::rc::res::PipelineCache</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Reference to a material in the material pool.  
+ <a href="a05359.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01037_source.html">MaterialRef.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aaa1c4a94d83549d18f82b575fc44cdba" id="r_aaa1c4a94d83549d18f82b575fc44cdba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#aaa1c4a94d83549d18f82b575fc44cdba">MaterialRef</a> ()</td></tr>
+<tr class="memdesc:aaa1c4a94d83549d18f82b575fc44cdba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an invalid ref.  <br /></td></tr>
+<tr class="separator:aaa1c4a94d83549d18f82b575fc44cdba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa71f9c2d5a6b1800a56a71e0fcc64862" id="r_aa71f9c2d5a6b1800a56a71e0fcc64862"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#aa71f9c2d5a6b1800a56a71e0fcc64862">MaterialRef</a> (const <a class="el" href="a05359.html">MaterialRef</a> &amp;other)</td></tr>
+<tr class="memdesc:aa71f9c2d5a6b1800a56a71e0fcc64862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this ref from another.  <br /></td></tr>
+<tr class="separator:aa71f9c2d5a6b1800a56a71e0fcc64862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a514d9fb60ccb03c753526bcbb52487ed" id="r_a514d9fb60ccb03c753526bcbb52487ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a514d9fb60ccb03c753526bcbb52487ed">MaterialRef</a> (<a class="el" href="a05359.html">MaterialRef</a> &amp;&amp;other)</td></tr>
+<tr class="memdesc:a514d9fb60ccb03c753526bcbb52487ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes over ownership from another ref.  <br /></td></tr>
+<tr class="separator:a514d9fb60ccb03c753526bcbb52487ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a832b06e2e00833a08434b8c6e5399f18" id="r_a832b06e2e00833a08434b8c6e5399f18"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a832b06e2e00833a08434b8c6e5399f18">~MaterialRef</a> ()</td></tr>
+<tr class="memdesc:a832b06e2e00833a08434b8c6e5399f18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the ref and possibly the resource if the ref count is zero.  <br /></td></tr>
+<tr class="separator:a832b06e2e00833a08434b8c6e5399f18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4ad2b435a195b540f3e2ea03e00e53" id="r_a7e4ad2b435a195b540f3e2ea03e00e53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05359.html">MaterialRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a7e4ad2b435a195b540f3e2ea03e00e53">operator=</a> (const <a class="el" href="a05359.html">MaterialRef</a> &amp;other)</td></tr>
+<tr class="memdesc:a7e4ad2b435a195b540f3e2ea03e00e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this ref from another.  <br /></td></tr>
+<tr class="separator:a7e4ad2b435a195b540f3e2ea03e00e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e9cf5259c4f3301c0c38c8f32e16394" id="r_a1e9cf5259c4f3301c0c38c8f32e16394"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05359.html">MaterialRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a1e9cf5259c4f3301c0c38c8f32e16394">operator=</a> (<a class="el" href="a05359.html">MaterialRef</a> &amp;&amp;other)</td></tr>
+<tr class="memdesc:a1e9cf5259c4f3301c0c38c8f32e16394"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes over ownership from another ref.  <br /></td></tr>
+<tr class="separator:a1e9cf5259c4f3301c0c38c8f32e16394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39773cd108e191da02cbb2fe2469ce39" id="r_a39773cd108e191da02cbb2fe2469ce39"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05271.html">mat::Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a39773cd108e191da02cbb2fe2469ce39">operator*</a> () const</td></tr>
+<tr class="memdesc:a39773cd108e191da02cbb2fe2469ce39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:a39773cd108e191da02cbb2fe2469ce39"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c56a7d85732ff706d19ba5d681944f9" id="r_a1c56a7d85732ff706d19ba5d681944f9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05271.html">mat::Material</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a1c56a7d85732ff706d19ba5d681944f9">operator-&gt;</a> () const</td></tr>
+<tr class="memdesc:a1c56a7d85732ff706d19ba5d681944f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:a1c56a7d85732ff706d19ba5d681944f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae991d66ea1ec5c1261ee31d363ec5f3f" id="r_ae991d66ea1ec5c1261ee31d363ec5f3f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05271.html">mat::Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#ae991d66ea1ec5c1261ee31d363ec5f3f">getForEdit</a> ()</td></tr>
+<tr class="memdesc:ae991d66ea1ec5c1261ee31d363ec5f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the material and marks it for update.  <br /></td></tr>
+<tr class="separator:ae991d66ea1ec5c1261ee31d363ec5f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8f296e590b160d500c134dea1c9a69" id="r_afa8f296e590b160d500c134dea1c9a69"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#afa8f296e590b160d500c134dea1c9a69">getId</a> () const</td></tr>
+<tr class="memdesc:afa8f296e590b160d500c134dea1c9a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying material id.  <br /></td></tr>
+<tr class="separator:afa8f296e590b160d500c134dea1c9a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e3dc0880f2a6c562053a50da0757169" id="r_a2e3dc0880f2a6c562053a50da0757169"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a2e3dc0880f2a6c562053a50da0757169">isValid</a> () const</td></tr>
+<tr class="memdesc:a2e3dc0880f2a6c562053a50da0757169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this ref points to a resource or not.  <br /></td></tr>
+<tr class="separator:a2e3dc0880f2a6c562053a50da0757169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63af7a60d579d21bf5a8b80bc64c2ba1" id="r_a63af7a60d579d21bf5a8b80bc64c2ba1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a63af7a60d579d21bf5a8b80bc64c2ba1">operator bool</a> () const</td></tr>
+<tr class="memdesc:a63af7a60d579d21bf5a8b80bc64c2ba1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this ref points to a resource or not.  <br /></td></tr>
+<tr class="separator:a63af7a60d579d21bf5a8b80bc64c2ba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74261192fdecc099f9f8022517121a61" id="r_a74261192fdecc099f9f8022517121a61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a74261192fdecc099f9f8022517121a61">release</a> ()</td></tr>
+<tr class="memdesc:a74261192fdecc099f9f8022517121a61"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases this handle on the underlying resource.  <br /></td></tr>
+<tr class="separator:a74261192fdecc099f9f8022517121a61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a0bd17665dee5e128bd4a8fc7c8f76c08" id="r_a0bd17665dee5e128bd4a8fc7c8f76c08"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05359.html#a0bd17665dee5e128bd4a8fc7c8f76c08">MaterialPool</a></td></tr>
+<tr class="separator:a0bd17665dee5e128bd4a8fc7c8f76c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Reference to a material in the material pool. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00021">21</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aaa1c4a94d83549d18f82b575fc44cdba" name="aaa1c4a94d83549d18f82b575fc44cdba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa1c4a94d83549d18f82b575fc44cdba">&#9670;&#160;</a></span>MaterialRef() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::res::MaterialRef::MaterialRef </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an invalid ref. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00026">26</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa71f9c2d5a6b1800a56a71e0fcc64862" name="aa71f9c2d5a6b1800a56a71e0fcc64862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa71f9c2d5a6b1800a56a71e0fcc64862">&#9670;&#160;</a></span>MaterialRef() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::res::MaterialRef::MaterialRef </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05359.html">MaterialRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes this ref from another. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TOther</td><td>The derived type of the other ref </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00035">35</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a514d9fb60ccb03c753526bcbb52487ed" name="a514d9fb60ccb03c753526bcbb52487ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a514d9fb60ccb03c753526bcbb52487ed">&#9670;&#160;</a></span>MaterialRef() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::res::MaterialRef::MaterialRef </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05359.html">MaterialRef</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Takes over ownership from another ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to assume ownership from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00045">45</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a832b06e2e00833a08434b8c6e5399f18" name="a832b06e2e00833a08434b8c6e5399f18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a832b06e2e00833a08434b8c6e5399f18">&#9670;&#160;</a></span>~MaterialRef()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::res::MaterialRef::~MaterialRef </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases the ref and possibly the resource if the ref count is zero. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00053">53</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae991d66ea1ec5c1261ee31d363ec5f3f" name="ae991d66ea1ec5c1261ee31d363ec5f3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae991d66ea1ec5c1261ee31d363ec5f3f">&#9670;&#160;</a></span>getForEdit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05271.html">mat::Material</a> &amp; bl::rc::res::MaterialRef::getForEdit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a modifiable reference to the material and marks it for update. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02417_source.html#l00021">21</a> of file <a class="el" href="a02417_source.html">MaterialRef.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afa8f296e590b160d500c134dea1c9a69" name="afa8f296e590b160d500c134dea1c9a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa8f296e590b160d500c134dea1c9a69">&#9670;&#160;</a></span>getId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::res::MaterialRef::getId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying material id. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00101">101</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2e3dc0880f2a6c562053a50da0757169" name="a2e3dc0880f2a6c562053a50da0757169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e3dc0880f2a6c562053a50da0757169">&#9670;&#160;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::res::MaterialRef::isValid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this ref points to a resource or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00106">106</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a63af7a60d579d21bf5a8b80bc64c2ba1" name="a63af7a60d579d21bf5a8b80bc64c2ba1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63af7a60d579d21bf5a8b80bc64c2ba1">&#9670;&#160;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::res::MaterialRef::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this ref points to a resource or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00111">111</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a39773cd108e191da02cbb2fe2469ce39" name="a39773cd108e191da02cbb2fe2469ce39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39773cd108e191da02cbb2fe2469ce39">&#9670;&#160;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05271.html">mat::Material</a> &amp; bl::rc::res::MaterialRef::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02417_source.html#l00017">17</a> of file <a class="el" href="a02417_source.html">MaterialRef.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c56a7d85732ff706d19ba5d681944f9" name="a1c56a7d85732ff706d19ba5d681944f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c56a7d85732ff706d19ba5d681944f9">&#9670;&#160;</a></span>operator-&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05271.html">mat::Material</a> * bl::rc::res::MaterialRef::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02417_source.html#l00019">19</a> of file <a class="el" href="a02417_source.html">MaterialRef.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7e4ad2b435a195b540f3e2ea03e00e53" name="a7e4ad2b435a195b540f3e2ea03e00e53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e4ad2b435a195b540f3e2ea03e00e53">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05359.html">MaterialRef</a> &amp; bl::rc::res::MaterialRef::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05359.html">MaterialRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes this ref from another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00061">61</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1e9cf5259c4f3301c0c38c8f32e16394" name="a1e9cf5259c4f3301c0c38c8f32e16394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e9cf5259c4f3301c0c38c8f32e16394">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05359.html">MaterialRef</a> &amp; bl::rc::res::MaterialRef::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05359.html">MaterialRef</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Takes over ownership from another ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to assume ownership from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00075">75</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a74261192fdecc099f9f8022517121a61" name="a74261192fdecc099f9f8022517121a61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74261192fdecc099f9f8022517121a61">&#9670;&#160;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::res::MaterialRef::release </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases this handle on the underlying resource. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00116">116</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a0bd17665dee5e128bd4a8fc7c8f76c08" name="a0bd17665dee5e128bd4a8fc7c8f76c08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bd17665dee5e128bd4a8fc7c8f76c08">&#9670;&#160;</a></span>MaterialPool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05355.html">MaterialPool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01037_source.html#l00132">132</a> of file <a class="el" href="a01037_source.html">MaterialRef.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Resources/<a class="el" href="a01037_source.html">MaterialRef.hpp</a></li>
+<li>src/Render/Resources/<a class="el" href="a02417_source.html">MaterialRef.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

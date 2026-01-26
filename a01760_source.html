@@ -96,27 +96,27 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>util</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... <a class="code hl_typedef" href="a03046.html#a1651c2f4db91ae08cdd9015e247eef67">List</a>&gt;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a06630.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06630.html">VariadicListContains</a> : <span class="keyword">public</span> std::false_type {};</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a06631.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06631.html">VariadicListContains</a> : <span class="keyword">public</span> std::false_type {};</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> First, <span class="keyword">typename</span>... List&gt;</div>
 <div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a06634.html">   21</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06630.html">VariadicListContains</a>&lt;T, First, List...&gt;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a06635.html">   21</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06631.html">VariadicListContains</a>&lt;T, First, List...&gt;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: <span class="keyword">public</span> std::conditional_t&lt;std::is_same_v&lt;T, First&gt;, std::true_type,</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                            VariadicListContains&lt;T, List...&gt;&gt; {};</div>
 </div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a06638.html">   32</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06638.html">Variadic</a> {};</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a06639.html">   32</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06639.html">Variadic</a> {};</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> Inner, <span class="keyword">typename</span> Outer&gt;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a06642.html">   42</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06642.html">VariadicSetsContained</a> : <span class="keyword">public</span> std::false_type {};</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a06643.html">   42</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06643.html">VariadicSetsContained</a> : <span class="keyword">public</span> std::false_type {};</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Outers&gt;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a06646.html">   45</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06642.html">VariadicSetsContained</a>&lt;<a class="code hl_struct" href="a06638.html">Variadic</a>&lt;&gt;, <a class="code hl_struct" href="a06638.html">Variadic</a>&lt;Outers...&gt;&gt; : <span class="keyword">public</span> std::true_type {};</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a06647.html">   45</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06643.html">VariadicSetsContained</a>&lt;<a class="code hl_struct" href="a06639.html">Variadic</a>&lt;&gt;, <a class="code hl_struct" href="a06639.html">Variadic</a>&lt;Outers...&gt;&gt; : <span class="keyword">public</span> std::true_type {};</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> First, <span class="keyword">typename</span>... Rest, <span class="keyword">typename</span>... Outers&gt;</div>
 <div class="foldopen" id="foldopen00048" data-start="{" data-end="};">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a06650.html">   48</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06642.html">VariadicSetsContained</a>&lt;<a class="code hl_struct" href="a06638.html">Variadic</a>&lt;First, Rest...&gt;, <a class="code hl_struct" href="a06638.html">Variadic</a>&lt;Outers...&gt;&gt;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a06651.html">   48</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06643.html">VariadicSetsContained</a>&lt;<a class="code hl_struct" href="a06639.html">Variadic</a>&lt;First, Rest...&gt;, <a class="code hl_struct" href="a06639.html">Variadic</a>&lt;Outers...&gt;&gt;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>: <span class="keyword">public</span> std::conditional_t&lt;VariadicListContains&lt;First, Outers...&gt;::value,</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                            VariadicSetsContained&lt;Variadic&lt;Rest...&gt;, Variadic&lt;Outers...&gt;&gt;,</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                            std::false_type&gt; {};</div>
@@ -127,15 +127,15 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03046_html_a1651c2f4db91ae08cdd9015e247eef67"><div class="ttname"><a href="a03046.html#a1651c2f4db91ae08cdd9015e247eef67">bl::serial::json::List</a></div><div class="ttdeci">std::vector&lt; Value &gt; List</div><div class="ttdef"><b>Definition</b> <a href="a08590_source.html#l00021">JSON.hpp:21</a></div></div>
-<div class="ttc" id="aa06630_html"><div class="ttname"><a href="a06630.html">bl::util::VariadicListContains</a></div><div class="ttdoc">Helper that tests whether a list of types contains a given type.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00018">VariadicHelpers.hpp:18</a></div></div>
-<div class="ttc" id="aa06638_html"><div class="ttname"><a href="a06638.html">bl::util::Variadic</a></div><div class="ttdoc">Helper to capture a list of types into a single type.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00032">VariadicHelpers.hpp:32</a></div></div>
-<div class="ttc" id="aa06642_html"><div class="ttname"><a href="a06642.html">bl::util::VariadicSetsContained</a></div><div class="ttdoc">Helper to test whether one list of types is fully contained by another.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00042">VariadicHelpers.hpp:42</a></div></div>
+<div class="ttc" id="aa03046_html_a1651c2f4db91ae08cdd9015e247eef67"><div class="ttname"><a href="a03046.html#a1651c2f4db91ae08cdd9015e247eef67">bl::serial::json::List</a></div><div class="ttdeci">std::vector&lt; Value &gt; List</div><div class="ttdef"><b>Definition</b> <a href="a08591_source.html#l00021">JSON.hpp:21</a></div></div>
+<div class="ttc" id="aa06631_html"><div class="ttname"><a href="a06631.html">bl::util::VariadicListContains</a></div><div class="ttdoc">Helper that tests whether a list of types contains a given type.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00018">VariadicHelpers.hpp:18</a></div></div>
+<div class="ttc" id="aa06639_html"><div class="ttname"><a href="a06639.html">bl::util::Variadic</a></div><div class="ttdoc">Helper to capture a list of types into a single type.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00032">VariadicHelpers.hpp:32</a></div></div>
+<div class="ttc" id="aa06643_html"><div class="ttname"><a href="a06643.html">bl::util::VariadicSetsContained</a></div><div class="ttdoc">Helper to test whether one list of types is fully contained by another.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00042">VariadicHelpers.hpp:42</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

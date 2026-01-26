@@ -90,7 +90,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00677.html">BLIB/Render/Graph/Assets/DepthBuffer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08510.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
@@ -107,9 +107,9 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> sf::Vector2u&amp; windowSize,</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                            <span class="keyword">const</span> sf::Rect&lt;std::uint32_t&gt;&amp; renderRegion, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count,</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">bool</span> topBottomFirst) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> std::uint32_t offsetX = (windowSize.x - renderRegion.width) / 2;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> std::uint32_t offsetY = (windowSize.y - renderRegion.height) / 2;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> sf::Vector2u uSize(renderRegion.getSize());</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> std::uint32_t offsetX = (windowSize.x - renderRegion.size.x) / 2;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> std::uint32_t offsetY = (windowSize.y - renderRegion.size.y) / 2;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> sf::Vector2u uSize(renderRegion.size.x, renderRegion.size.y);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> sf::Vector2f fSize(uSize);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">const</span> sf::Vector2f fHalf(fSize * 0.5f);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> sf::Vector2u uHalf(fHalf);</div>
@@ -202,7 +202,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
 <div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a05294.html#abbbfc65202bc680194e8c3746fe4a3bc">  116</a></span><span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> VkRect2D&amp; region) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a05295.html#abbbfc65202bc680194e8c3746fe4a3bc">  116</a></span><span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> VkRect2D&amp; region) {</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (!isVirtual) {</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Only virtual Observers may have manually assigned regions&quot;</span>);</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
@@ -228,12 +228,12 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa00845_html"><div class="ttname"><a href="a00845.html">Observer.hpp</a></div></div>
 <div class="ttc" id="aa01586_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00101">Logger.hpp:101</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa08510_html"><div class="ttname"><a href="a08510.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

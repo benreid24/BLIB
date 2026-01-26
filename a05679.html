@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::vk::DescriptorPool Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,24 +74,267 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03018.html">vk</a></li><li class="navelem"><a class="el" href="a05678.html">DescriptorPool</a></li><li class="navelem"><a class="el" href="a05682.html">SetBindingInfo</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03018.html">vk</a></li><li class="navelem"><a class="el" href="a05679.html">DescriptorPool</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::vk::DescriptorPool::SetBindingInfo Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a05676.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::vk::DescriptorPool Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05682.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05682.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a></td><td class="entry"><a class="el" href="a05682.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05682.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a></td><td class="entry"><a class="el" href="a05682.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05682.html#a037e4c431ff1ae1591eb12cdf79d1d06">SetBindingInfo</a>()</td><td class="entry"><a class="el" href="a05682.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatically creates more as needed.  
+ <a href="a05679.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00416_source.html">DescriptorPool.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05687.html">AllocationHandle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to an allocation from the pool.  <a href="a05687.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05683.html">SetBindingInfo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing the data required to create descriptor sets and layouts.  <a href="a05683.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5a206bab1969632a78bca5e79532eb70" id="r_a5a206bab1969632a78bca5e79532eb70"><td class="memItemLeft" align="right" valign="top">VkDescriptorSetLayout&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05679.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a> (const <a class="el" href="a05683.html">SetBindingInfo</a> &amp;allocInfo)</td></tr>
+<tr class="memdesc:a5a206bab1969632a78bca5e79532eb70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a descriptor set layout from the set allocation info.  <br /></td></tr>
+<tr class="separator:a5a206bab1969632a78bca5e79532eb70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1e76e7083828e104e5014691e688a28" id="r_aa1e76e7083828e104e5014691e688a28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05687.html">AllocationHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05679.html#aa1e76e7083828e104e5014691e688a28">allocate</a> (VkDescriptorSetLayout layout, VkDescriptorSet *sets, std::size_t setCount, bool dedicatedPool=false)</td></tr>
+<tr class="memdesc:aa1e76e7083828e104e5014691e688a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates sets from the pool and returns a handle that can be used to release the allocated sets once they are finished being used. Synchronization must be performed externally to ensure that in-use sets are not freed.  <br /></td></tr>
+<tr class="separator:aa1e76e7083828e104e5014691e688a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa76c59efa39702128bacf397bc10604" id="r_afa76c59efa39702128bacf397bc10604"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05679.html#afa76c59efa39702128bacf397bc10604">release</a> (<a class="el" href="a05687.html">AllocationHandle</a> &amp;handle, const VkDescriptorSet *sets=nullptr)</td></tr>
+<tr class="memdesc:afa76c59efa39702128bacf397bc10604"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases descriptor sets allocated from this pool.  <br /></td></tr>
+<tr class="separator:afa76c59efa39702128bacf397bc10604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a4b656e9650a98c63bb60869810236291" id="r_a4b656e9650a98c63bb60869810236291"><td class="memItemLeft" align="right" valign="top">static constexpr std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05679.html#a4b656e9650a98c63bb60869810236291">BindingTypeCount</a> = VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1</td></tr>
+<tr class="separator:a4b656e9650a98c63bb60869810236291"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ab13f85b0c7af6b1736e957481022b870" id="r_ab13f85b0c7af6b1736e957481022b870"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05679.html#ab13f85b0c7af6b1736e957481022b870">VulkanLayer</a></td></tr>
+<tr class="separator:ab13f85b0c7af6b1736e957481022b870"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fc8c4ea65463b448e068f1287349540" id="r_a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05679.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
+<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Utility class to manage descriptor set allocation. Maintains a list of descriptor pools and automatically creates more as needed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00029">29</a> of file <a class="el" href="a00416_source.html">DescriptorPool.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa1e76e7083828e104e5014691e688a28" name="aa1e76e7083828e104e5014691e688a28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1e76e7083828e104e5014691e688a28">&#9670;&#160;</a></span>allocate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05687.html">DescriptorPool::AllocationHandle</a> bl::rc::vk::DescriptorPool::allocate </td>
+          <td>(</td>
+          <td class="paramtype">VkDescriptorSetLayout&#160;</td>
+          <td class="paramname"><em>layout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkDescriptorSet *&#160;</td>
+          <td class="paramname"><em>sets</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::size_t&#160;</td>
+          <td class="paramname"><em>setCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>dedicatedPool</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates sets from the pool and returns a handle that can be used to release the allocated sets once they are finished being used. Synchronization must be performed externally to ensure that in-use sets are not freed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">layout</td><td>Layout of the sets to allocate. Must have been created through the pool </td></tr>
+    <tr><td class="paramname">sets</td><td>Pointer to the set handles to populate </td></tr>
+    <tr><td class="paramname">setCount</td><td>The number of descriptor sets to allocate </td></tr>
+    <tr><td class="paramname">dedicatedPool</td><td>Whether or not to use a dedicated descriptor pool for the allocation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A handle that may be used to release the allocated sets </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02138_source.html#l00082">82</a> of file <a class="el" href="a02138_source.html">DescriptorPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a206bab1969632a78bca5e79532eb70" name="a5a206bab1969632a78bca5e79532eb70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a206bab1969632a78bca5e79532eb70">&#9670;&#160;</a></span>createLayout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkDescriptorSetLayout bl::rc::vk::DescriptorPool::createLayout </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05683.html">SetBindingInfo</a> &amp;&#160;</td>
+          <td class="paramname"><em>allocInfo</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a descriptor set layout from the set allocation info. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allocInfo</td><td>Descriptor layout information </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The new descriptor set layout </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02138_source.html#l00065">65</a> of file <a class="el" href="a02138_source.html">DescriptorPool.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afa76c59efa39702128bacf397bc10604" name="afa76c59efa39702128bacf397bc10604"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa76c59efa39702128bacf397bc10604">&#9670;&#160;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::vk::DescriptorPool::release </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05687.html">AllocationHandle</a> &amp;&#160;</td>
+          <td class="paramname"><em>handle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const VkDescriptorSet *&#160;</td>
+          <td class="paramname"><em>sets</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases descriptor sets allocated from this pool. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>Allocation handle of the sets to release @params sets Pointer to the sets to free. Nullptr to use same pointer as allocation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02138_source.html#l00130">130</a> of file <a class="el" href="a02138_source.html">DescriptorPool.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a1fc8c4ea65463b448e068f1287349540" name="a1fc8c4ea65463b448e068f1287349540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&#160;</a></span>bl::rc::Renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05331.html">bl::rc::Renderer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00176">176</a> of file <a class="el" href="a00416_source.html">DescriptorPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab13f85b0c7af6b1736e957481022b870" name="ab13f85b0c7af6b1736e957481022b870"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab13f85b0c7af6b1736e957481022b870">&#9670;&#160;</a></span>VulkanLayer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend struct <a class="el" href="a05839.html">VulkanLayer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00175">175</a> of file <a class="el" href="a00416_source.html">DescriptorPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4b656e9650a98c63bb60869810236291" name="a4b656e9650a98c63bb60869810236291"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b656e9650a98c63bb60869810236291">&#9670;&#160;</a></span>BindingTypeCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::size_t bl::rc::vk::DescriptorPool::BindingTypeCount = VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT + 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00033">33</a> of file <a class="el" href="a00416_source.html">DescriptorPool.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Vulkan/<a class="el" href="a00416_source.html">DescriptorPool.hpp</a></li>
+<li>src/Render/Vulkan/<a class="el" href="a02138_source.html">DescriptorPool.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

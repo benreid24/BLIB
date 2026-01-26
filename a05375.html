@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::res::SamplerCache Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,27 +74,358 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05378.html">ScenePool</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05375.html">SamplerCache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::res::ScenePool Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a05372.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::res::SamplerCache Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05378.html">bl::rc::res::ScenePool</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05378.html#a233208dd2d35854594d5e322e1089e3c">allocateScene</a>(TArgs &amp;&amp;... args)</td><td class="entry"><a class="el" href="a05378.html">bl::rc::res::ScenePool</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05378.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td><td class="entry"><a class="el" href="a05378.html">bl::rc::res::ScenePool</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05378.html#aa1cb831203a7b2b510015264ae621b60">bl::rc::SceneRef</a></td><td class="entry"><a class="el" href="a05378.html">bl::rc::res::ScenePool</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05378.html#af95a257c30a09327e366c659ced32611">cleanup</a>()</td><td class="entry"><a class="el" href="a05378.html">bl::rc::res::ScenePool</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05378.html#aca923e993cf4122f317b08d3ea35614c">ScenePool</a>(engine::Engine &amp;engine)</td><td class="entry"><a class="el" href="a05378.html">bl::rc::res::ScenePool</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05378.html#a780567b5ff2a8b218cbfd411b9145564">sys::SceneObjectRemovalSystem</a></td><td class="entry"><a class="el" href="a05378.html">bl::rc::res::ScenePool</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-</table></div><!-- contents -->
+<p>Helper class containing some common samplers to save on boilerplate.  
+ <a href="a05375.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01052_source.html">SamplerCache.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa34d5b7ec3daeee9c64e1973db55590e" id="r_aa34d5b7ec3daeee9c64e1973db55590e"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#aa34d5b7ec3daeee9c64e1973db55590e">noFilterBorderClamped</a> ()</td></tr>
+<tr class="memdesc:aa34d5b7ec3daeee9c64e1973db55590e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with no filtering and clamped to border. Max anisotropy.  <br /></td></tr>
+<tr class="separator:aa34d5b7ec3daeee9c64e1973db55590e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a238b3e3a1420609c83093556782b4618" id="r_a238b3e3a1420609c83093556782b4618"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#a238b3e3a1420609c83093556782b4618">noFilterEdgeClamped</a> ()</td></tr>
+<tr class="memdesc:a238b3e3a1420609c83093556782b4618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with no filtering and clamped to edge. Max anisotropy.  <br /></td></tr>
+<tr class="separator:a238b3e3a1420609c83093556782b4618"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeec20547155fc90060ac0f96ba56dd7b" id="r_aeec20547155fc90060ac0f96ba56dd7b"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#aeec20547155fc90060ac0f96ba56dd7b">minFilterBorderClamped</a> ()</td></tr>
+<tr class="memdesc:aeec20547155fc90060ac0f96ba56dd7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with min filtering and clamped to border. Max anisotropy.  <br /></td></tr>
+<tr class="separator:aeec20547155fc90060ac0f96ba56dd7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c437c895fd223b531067357f0836ed" id="r_a37c437c895fd223b531067357f0836ed"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#a37c437c895fd223b531067357f0836ed">magFilterBorderClamped</a> ()</td></tr>
+<tr class="memdesc:a37c437c895fd223b531067357f0836ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with mag filtering and clamped to border. Max anisotropy.  <br /></td></tr>
+<tr class="separator:a37c437c895fd223b531067357f0836ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b740b9edfe17b920ad1f8ec62ec8d5a" id="r_a5b740b9edfe17b920ad1f8ec62ec8d5a"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#a5b740b9edfe17b920ad1f8ec62ec8d5a">filteredBorderClamped</a> ()</td></tr>
+<tr class="memdesc:a5b740b9edfe17b920ad1f8ec62ec8d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with filtering and clamped to border. Max anisotropy.  <br /></td></tr>
+<tr class="separator:a5b740b9edfe17b920ad1f8ec62ec8d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11fdb5bc066860145d80504ae9298f92" id="r_a11fdb5bc066860145d80504ae9298f92"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#a11fdb5bc066860145d80504ae9298f92">filteredEdgeClamped</a> ()</td></tr>
+<tr class="memdesc:a11fdb5bc066860145d80504ae9298f92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with filtering and clamped to edge. Max anisotropy.  <br /></td></tr>
+<tr class="separator:a11fdb5bc066860145d80504ae9298f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0eb0f3e26e94a5ae7725e1227da012f" id="r_af0eb0f3e26e94a5ae7725e1227da012f"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#af0eb0f3e26e94a5ae7725e1227da012f">filteredRepeated</a> ()</td></tr>
+<tr class="memdesc:af0eb0f3e26e94a5ae7725e1227da012f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a sampler with filtering and repeated addressing.  <br /></td></tr>
+<tr class="separator:af0eb0f3e26e94a5ae7725e1227da012f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0116f8bee6dbf4fea23222d616edd33b" id="r_a0116f8bee6dbf4fea23222d616edd33b"><td class="memItemLeft" align="right" valign="top">VkSampler&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#a0116f8bee6dbf4fea23222d616edd33b">shadowMap</a> ()</td></tr>
+<tr class="memdesc:a0116f8bee6dbf4fea23222d616edd33b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sampler to use for reading shadow maps.  <br /></td></tr>
+<tr class="separator:a0116f8bee6dbf4fea23222d616edd33b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2c9c44546e3a214be2307d88a0b71c3" id="r_ad2c9c44546e3a214be2307d88a0b71c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05791.html">vk::Sampler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#ad2c9c44546e3a214be2307d88a0b71c3">getSampler</a> (const <a class="el" href="a05795.html">vk::SamplerOptions</a> &amp;options)</td></tr>
+<tr class="memdesc:ad2c9c44546e3a214be2307d88a0b71c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates or fetches a sampler for the given options.  <br /></td></tr>
+<tr class="separator:ad2c9c44546e3a214be2307d88a0b71c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1fc8c4ea65463b448e068f1287349540" id="r_a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05375.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
+<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper class containing some common samplers to save on boilerplate. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00026">26</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5b740b9edfe17b920ad1f8ec62ec8d5a" name="a5b740b9edfe17b920ad1f8ec62ec8d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b740b9edfe17b920ad1f8ec62ec8d5a">&#9670;&#160;</a></span>filteredBorderClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::filteredBorderClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00106">106</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a11fdb5bc066860145d80504ae9298f92" name="a11fdb5bc066860145d80504ae9298f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11fdb5bc066860145d80504ae9298f92">&#9670;&#160;</a></span>filteredEdgeClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::filteredEdgeClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with filtering and clamped to edge. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00110">110</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af0eb0f3e26e94a5ae7725e1227da012f" name="af0eb0f3e26e94a5ae7725e1227da012f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0eb0f3e26e94a5ae7725e1227da012f">&#9670;&#160;</a></span>filteredRepeated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::filteredRepeated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with filtering and repeated addressing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00114">114</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad2c9c44546e3a214be2307d88a0b71c3" name="ad2c9c44546e3a214be2307d88a0b71c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2c9c44546e3a214be2307d88a0b71c3">&#9670;&#160;</a></span>getSampler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05791.html">vk::Sampler</a> bl::rc::res::SamplerCache::getSampler </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05795.html">vk::SamplerOptions</a> &amp;&#160;</td>
+          <td class="paramname"><em>options</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates or fetches a sampler for the given options. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">options</td><td>The parameters the sampler must have </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The sampler for the given enum value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02423_source.html#l00114">114</a> of file <a class="el" href="a02423_source.html">SamplerCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a37c437c895fd223b531067357f0836ed" name="a37c437c895fd223b531067357f0836ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c437c895fd223b531067357f0836ed">&#9670;&#160;</a></span>magFilterBorderClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::magFilterBorderClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with mag filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00102">102</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeec20547155fc90060ac0f96ba56dd7b" name="aeec20547155fc90060ac0f96ba56dd7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeec20547155fc90060ac0f96ba56dd7b">&#9670;&#160;</a></span>minFilterBorderClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::minFilterBorderClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with min filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00098">98</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa34d5b7ec3daeee9c64e1973db55590e" name="aa34d5b7ec3daeee9c64e1973db55590e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa34d5b7ec3daeee9c64e1973db55590e">&#9670;&#160;</a></span>noFilterBorderClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::noFilterBorderClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with no filtering and clamped to border. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00090">90</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a238b3e3a1420609c83093556782b4618" name="a238b3e3a1420609c83093556782b4618"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a238b3e3a1420609c83093556782b4618">&#9670;&#160;</a></span>noFilterEdgeClamped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::noFilterEdgeClamped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a sampler with no filtering and clamped to edge. Max anisotropy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00094">94</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0116f8bee6dbf4fea23222d616edd33b" name="a0116f8bee6dbf4fea23222d616edd33b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0116f8bee6dbf4fea23222d616edd33b">&#9670;&#160;</a></span>shadowMap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkSampler bl::rc::res::SamplerCache::shadowMap </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the sampler to use for reading shadow maps. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00118">118</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a1fc8c4ea65463b448e068f1287349540" name="a1fc8c4ea65463b448e068f1287349540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&#160;</a></span>bl::rc::Renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05331.html">bl::rc::Renderer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00085">85</a> of file <a class="el" href="a01052_source.html">SamplerCache.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Resources/<a class="el" href="a01052_source.html">SamplerCache.hpp</a></li>
+<li>src/Render/Resources/<a class="el" href="a02423_source.html">SamplerCache.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

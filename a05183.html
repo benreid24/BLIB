@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::rg::Timeline Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,27 +74,186 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03059.html">rg</a></li><li class="navelem"><a class="el" href="a05182.html">Timeline</a></li><li class="navelem"><a class="el" href="a05186.html">TaskGroup</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03059.html">rg</a></li><li class="navelem"><a class="el" href="a05183.html">Timeline</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::rg::Timeline::TaskGroup Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a05180.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::rg::Timeline Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05186.html#aa7eafe15f8222f9866dc94f399e81a36">addTask</a>(Task *task, TaskOutput::Order order)</td><td class="entry"><a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05186.html#a258c29089704e3cbe234768fb9510f1a">execute</a>(const ExecutionContext &amp;ctx)</td><td class="entry"><a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05186.html#ab91d02cc325806963607b0386b2a7b7d">output</a></td><td class="entry"><a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05186.html#aec36fc6f324e0e9c8243c3c4aafa64fb">TaskGroup</a>(GraphAsset *output)</td><td class="entry"><a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05186.html#a9ad17713d6a61eb9bd6a1463684d5d73">TaskGroup</a>(TaskGroup &amp;&amp;)=default</td><td class="entry"><a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05186.html#a3054c53716f3d65dc1e27480fb5c3690">tasks</a></td><td class="entry"><a class="el" href="a05186.html">bl::rc::rg::Timeline::TaskGroup</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Execution timeline for the render graph.  
+ <a href="a05183.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00644_source.html">Timeline.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05187.html">TaskGroup</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A group of assets that must run in sequence and output to the same asset.  <a href="a05187.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05191.html">TimelineStage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A single stage in the timeline comprised of task groups that run together.  <a href="a05191.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa34150595f1784bdc5876bf03a956ab4" id="r_aa34150595f1784bdc5876bf03a956ab4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05183.html#aa34150595f1784bdc5876bf03a956ab4">Timeline</a> (<a class="el" href="a03699.html">engine::Engine</a> &amp;engine, <a class="el" href="a05331.html">Renderer</a> &amp;renderer, <a class="el" href="a05335.html">RenderTarget</a> *target, <a class="el" href="a05451.html">Scene</a> *scene, <a class="el" href="a05051.html">GraphAssetPool</a> *pool)</td></tr>
+<tr class="memdesc:aa34150595f1784bdc5876bf03a956ab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty timeline.  <br /></td></tr>
+<tr class="separator:aa34150595f1784bdc5876bf03a956ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a23900aaeb42788c7a458b23ac294d4" id="r_a8a23900aaeb42788c7a458b23ac294d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05183.html#a8a23900aaeb42788c7a458b23ac294d4">build</a> (std::vector&lt; std::unique_ptr&lt; <a class="el" href="a05099.html">Task</a> &gt; &gt; &amp;<a class="el" href="a02753.html#acc5e51ec474c9c6a3bfba3f61be87eec">tasks</a>, <a class="el" href="a05047.html">GraphAsset</a> *finalAsset)</td></tr>
+<tr class="memdesc:a8a23900aaeb42788c7a458b23ac294d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the timeline from the given final asset. Assets must have already been traversed and populated by <a class="el" href="a05075.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>.  <br /></td></tr>
+<tr class="separator:a8a23900aaeb42788c7a458b23ac294d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2578ed15aab4b5233a0e66757e8f4ad" id="r_ac2578ed15aab4b5233a0e66757e8f4ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05183.html#ac2578ed15aab4b5233a0e66757e8f4ad">execute</a> (const <a class="el" href="a05043.html">ExecutionContext</a> &amp;<a class="el" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</td></tr>
+<tr class="memdesc:ac2578ed15aab4b5233a0e66757e8f4ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the timeline to record render commands into the given command buffer.  <br /></td></tr>
+<tr class="separator:ac2578ed15aab4b5233a0e66757e8f4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Execution timeline for the render graph. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00644_source.html#l00037">37</a> of file <a class="el" href="a00644_source.html">Timeline.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa34150595f1784bdc5876bf03a956ab4" name="aa34150595f1784bdc5876bf03a956ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa34150595f1784bdc5876bf03a956ab4">&#9670;&#160;</a></span>Timeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::Timeline::Timeline </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03699.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05331.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05335.html">RenderTarget</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05451.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05051.html">GraphAssetPool</a> *&#160;</td>
+          <td class="paramname"><em>pool</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty timeline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">target</td><td>The render target of the graph </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene the timeline belongs to </td></tr>
+    <tr><td class="paramname">pool</td><td>The asset pool of the graph that owns this timeline </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02183_source.html#l00044">44</a> of file <a class="el" href="a02183_source.html">Timeline.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8a23900aaeb42788c7a458b23ac294d4" name="a8a23900aaeb42788c7a458b23ac294d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a23900aaeb42788c7a458b23ac294d4">&#9670;&#160;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::Timeline::build </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::unique_ptr&lt; <a class="el" href="a05099.html">Task</a> &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tasks</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05047.html">GraphAsset</a> *&#160;</td>
+          <td class="paramname"><em>finalAsset</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds the timeline from the given final asset. Assets must have already been traversed and populated by <a class="el" href="a05075.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tasks</td><td>All of the tasks that comprise the timeline </td></tr>
+    <tr><td class="paramname">finalAsset</td><td>The final output asset. Used for validation </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02183_source.html#l00075">75</a> of file <a class="el" href="a02183_source.html">Timeline.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac2578ed15aab4b5233a0e66757e8f4ad" name="ac2578ed15aab4b5233a0e66757e8f4ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2578ed15aab4b5233a0e66757e8f4ad">&#9670;&#160;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::Timeline::execute </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05043.html">ExecutionContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the timeline to record render commands into the given command buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The graph execution context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02183_source.html#l00055">55</a> of file <a class="el" href="a02183_source.html">Timeline.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00644_source.html">Timeline.hpp</a></li>
+<li>src/Render/Graph/<a class="el" href="a02183_source.html">Timeline.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

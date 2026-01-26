@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::pcl::Emitter&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,25 +74,142 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03040.html">pcl</a></li><li class="navelem"><a class="el" href="a04622.html">Emitter</a></li><li class="navelem"><a class="el" href="a04626.html">Proxy</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03040.html">pcl</a></li><li class="navelem"><a class="el" href="a04623.html">Emitter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::pcl::Emitter&lt; T &gt;::Proxy Member List</div></div>
+  <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a04620.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::pcl::Emitter&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a02978.html">Particles</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04626.html">bl::pcl::Emitter&lt; T &gt;::Proxy</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04626.html#a07c7f40d1b6fecc3ff92d1bdd8c9fdeb">emit</a>(TArgs &amp;&amp;... args)</td><td class="entry"><a class="el" href="a04626.html">bl::pcl::Emitter&lt; T &gt;::Proxy</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04626.html#a911a1b52cc564909ec8fc4cf0d169141">eraseMe</a>()</td><td class="entry"><a class="el" href="a04626.html">bl::pcl::Emitter&lt; T &gt;::Proxy</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04626.html#ae49a23605def6ae51d299e247fdd07f0">getManager</a>() const</td><td class="entry"><a class="el" href="a04626.html">bl::pcl::Emitter&lt; T &gt;::Proxy</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04626.html#a2ebd68a709a096e577a8a554b5d28f32">ParticleManager&lt; T &gt;</a></td><td class="entry"><a class="el" href="a04626.html">bl::pcl::Emitter&lt; T &gt;::Proxy</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-</table></div><!-- contents -->
+<p>Base class for all particle emitters. Provides the interface used by ParticleManagers.  
+ <a href="a04623.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a08498_source.html">Emitter.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04627.html">Proxy</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04627.html" title="Proxy interface used by emitters to create new particles.">Proxy</a> interface used by emitters to create new particles.  <a href="a04627.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac9c151a153754f2741cb9b85281731a4" id="r_ac9c151a153754f2741cb9b85281731a4"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04623.html#ac9c151a153754f2741cb9b85281731a4">~Emitter</a> ()=default</td></tr>
+<tr class="memdesc:ac9c151a153754f2741cb9b85281731a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the emitter.  <br /></td></tr>
+<tr class="separator:ac9c151a153754f2741cb9b85281731a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a891643b8c6832f100674f7c6ee995755" id="r_a891643b8c6832f100674f7c6ee995755"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04623.html#a891643b8c6832f100674f7c6ee995755">update</a> (<a class="el" href="a04627.html">Proxy</a> &amp;proxy, float dt, float realDt)=0</td></tr>
+<tr class="memdesc:a891643b8c6832f100674f7c6ee995755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once per frame. Emitters should create new particles in here.  <br /></td></tr>
+<tr class="separator:a891643b8c6832f100674f7c6ee995755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::pcl::Emitter&lt; T &gt;</div><p>Base class for all particle emitters. Provides the interface used by ParticleManagers. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of particle the emitter works with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a08498_source.html#l00020">20</a> of file <a class="el" href="a08498_source.html">Emitter.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac9c151a153754f2741cb9b85281731a4" name="ac9c151a153754f2741cb9b85281731a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9c151a153754f2741cb9b85281731a4">&#9670;&#160;</a></span>~Emitter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="a04623.html">bl::pcl::Emitter</a>&lt; T &gt;::~<a class="el" href="a04623.html">Emitter</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the emitter. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a891643b8c6832f100674f7c6ee995755" name="a891643b8c6832f100674f7c6ee995755"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a891643b8c6832f100674f7c6ee995755">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void <a class="el" href="a04623.html">bl::pcl::Emitter</a>&lt; T &gt;::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04627.html">Proxy</a> &amp;&#160;</td>
+          <td class="paramname"><em>proxy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>realDt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called once per frame. Emitters should create new particles in here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">proxy</td><td>The proxy to use to create new particles </td></tr>
+    <tr><td class="paramname">dt</td><td>Elapsed simulation time, in seconds, since last call to update </td></tr>
+    <tr><td class="paramname">realDt</td><td>Elapsed real time, in seconds, since last call to update </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Particles/<a class="el" href="a08498_source.html">Emitter.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

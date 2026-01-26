@@ -95,15 +95,15 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rg</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04982.html#abe1ade1da0f7318602d4a64e3de881c5">    9</a></span><a class="code hl_function" href="a04982.html#abe1ade1da0f7318602d4a64e3de881c5">AssetPool::AssetPool</a>(<a class="code hl_class" href="a04978.html">AssetFactory</a>&amp; factory, <a class="code hl_class" href="a05334.html">RenderTarget</a>* observer)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a04983.html#abe1ade1da0f7318602d4a64e3de881c5">    9</a></span><a class="code hl_function" href="a04983.html#abe1ade1da0f7318602d4a64e3de881c5">AssetPool::AssetPool</a>(<a class="code hl_class" href="a04979.html">AssetFactory</a>&amp; factory, <a class="code hl_class" href="a05335.html">RenderTarget</a>* observer)</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: factory(factory)</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, observer(observer) {}</div>
 </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a04982.html#a59cdd3971bc6b22c5e640a2792525140">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04982.html#a59cdd3971bc6b22c5e640a2792525140">AssetPool::cleanup</a>() { assets.clear(); }</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a04983.html#a59cdd3971bc6b22c5e640a2792525140">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04983.html#a59cdd3971bc6b22c5e640a2792525140">AssetPool::cleanup</a>() { assets.clear(); }</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04982.html#a06c7c7349d3c903bcde098c2bc585917">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04982.html#a06c7c7349d3c903bcde098c2bc585917">AssetPool::releaseUnused</a>() {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04983.html#a06c7c7349d3c903bcde098c2bc585917">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04983.html#a06c7c7349d3c903bcde098c2bc585917">AssetPool::releaseUnused</a>() {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : assets) {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        std::erase_if(pair.second, [<span class="keyword">this</span>](std::unique_ptr&lt;Asset&gt;&amp; asset) {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            if (asset-&gt;refCount == 0 &amp;&amp; !asset-&gt;isExternal()) { return true; }</div>
@@ -114,7 +114,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
 <div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04982.html#a37a92b67a2a1afb525ff1d45099610a6">   24</a></span><a class="code hl_class" href="a04974.html">Asset</a>* AssetPool::getAsset(std::string_view tag, <a class="code hl_class" href="a05050.html">GraphAssetPool</a>* requester) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04983.html#a37a92b67a2a1afb525ff1d45099610a6">   24</a></span><a class="code hl_class" href="a04975.html">Asset</a>* AssetPool::getAsset(std::string_view tag, <a class="code hl_class" href="a05051.html">GraphAssetPool</a>* requester) {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = assets.find(tag);</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (it != assets.end()) {</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">if</span> (!it-&gt;second.empty() &amp;&amp; (requester == <span class="keyword">nullptr</span> || it-&gt;second.front()-&gt;isExternal())) {</div>
@@ -132,7 +132,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04982.html#a6af42836614b9d28b9227bb2d9665876">   40</a></span><a class="code hl_class" href="a04974.html">Asset</a>* AssetPool::getOrCreateAsset(std::string_view tag, <a class="code hl_class" href="a05050.html">GraphAssetPool</a>* requester) {</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a04983.html#a6af42836614b9d28b9227bb2d9665876">   40</a></span><a class="code hl_class" href="a04975.html">Asset</a>* AssetPool::getOrCreateAsset(std::string_view tag, <a class="code hl_class" href="a05051.html">GraphAssetPool</a>* requester) {</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">auto</span>&amp; set = assets[tag];</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; asset : set) {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">if</span> (!asset-&gt;isOwnedBy(requester)) {</div>
@@ -140,7 +140,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="keywordflow">return</span> asset.get();</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a04974.html">Asset</a>* asset = factory.createAsset(tag);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a04975.html">Asset</a>* asset = factory.createAsset(tag);</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    set.emplace_back(asset);</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    asset-&gt;addOwner(requester);</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">return</span> asset;</div>
@@ -148,17 +148,17 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04982.html#a1114e2e38473ee5b1842e1a7362cb27a">   54</a></span><span class="keywordtype">void</span> AssetPool::notifyResize(glm::u32vec2 newSize) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04983.html#a1114e2e38473ee5b1842e1a7362cb27a">   54</a></span><span class="keywordtype">void</span> AssetPool::notifyResize(glm::u32vec2 newSize) {</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; assetList : assets) {</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; asset : assetList.second) {</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordflow">if</span> (asset-&gt;isCreated()) { asset-&gt;<a class="code hl_function" href="a04974.html#a4fd6583ff53289c920ab7ebddf4ec7be">onResize</a>(newSize); }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordflow">if</span> (asset-&gt;isCreated()) { asset-&gt;<a class="code hl_function" href="a04975.html#a4fd6583ff53289c920ab7ebddf4ec7be">onResize</a>(newSize); }</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        }</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
 </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a04982.html#ab583deaf609eccab3a4d1bc42bbe5b6d">   62</a></span><span class="keywordtype">void</span> AssetPool::reset(<a class="code hl_class" href="a05050.html">GraphAssetPool</a>* gp) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a04983.html#ab583deaf609eccab3a4d1bc42bbe5b6d">   62</a></span><span class="keywordtype">void</span> AssetPool::reset(<a class="code hl_class" href="a05051.html">GraphAssetPool</a>* gp) {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; as : assets) {</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; a : as.second) { a-&gt;removeOwner(gp); }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
@@ -166,7 +166,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a04982.html#a3188c266a38f79d970c0e7413fc152e0">   68</a></span><span class="keywordtype">void</span> AssetPool::startFrame() {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a04983.html#a3188c266a38f79d970c0e7413fc152e0">   68</a></span><span class="keywordtype">void</span> AssetPool::startFrame() {</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; as : assets) {</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; a : as.second) { a-&gt;reset(); }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
@@ -178,19 +178,19 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">AssetPool.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04974_html"><div class="ttname"><a href="a04974.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
-<div class="ttc" id="aa04974_html_a4fd6583ff53289c920ab7ebddf4ec7be"><div class="ttname"><a href="a04974.html#a4fd6583ff53289c920ab7ebddf4ec7be">bl::rc::rg::Asset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)</div><div class="ttdoc">Called when the observer render region changes size.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00110">Asset.cpp:110</a></div></div>
-<div class="ttc" id="aa04978_html"><div class="ttname"><a href="a04978.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00022">AssetFactory.hpp:22</a></div></div>
-<div class="ttc" id="aa04982_html_a06c7c7349d3c903bcde098c2bc585917"><div class="ttname"><a href="a04982.html#a06c7c7349d3c903bcde098c2bc585917">bl::rc::rg::AssetPool::releaseUnused</a></div><div class="ttdeci">void releaseUnused()</div><div class="ttdoc">Destroys assets that are not referenced by anything.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00015">AssetPool.cpp:15</a></div></div>
-<div class="ttc" id="aa04982_html_a59cdd3971bc6b22c5e640a2792525140"><div class="ttname"><a href="a04982.html#a59cdd3971bc6b22c5e640a2792525140">bl::rc::rg::AssetPool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all contained assets.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00013">AssetPool.cpp:13</a></div></div>
-<div class="ttc" id="aa04982_html_abe1ade1da0f7318602d4a64e3de881c5"><div class="ttname"><a href="a04982.html#abe1ade1da0f7318602d4a64e3de881c5">bl::rc::rg::AssetPool::AssetPool</a></div><div class="ttdeci">AssetPool(AssetFactory &amp;factory, RenderTarget *observer)</div><div class="ttdoc">Creates a new asset pool.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00009">AssetPool.cpp:9</a></div></div>
-<div class="ttc" id="aa05050_html"><div class="ttname"><a href="a05050.html">bl::rc::rg::GraphAssetPool</a></div><div class="ttdoc">Asset pool for individual RenderGraph instances that exist per scene per observer.</div><div class="ttdef"><b>Definition</b> <a href="a00590_source.html#l00028">GraphAssetPool.hpp:28</a></div></div>
-<div class="ttc" id="aa05334_html"><div class="ttname"><a href="a05334.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa04975_html"><div class="ttname"><a href="a04975.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa04975_html_a4fd6583ff53289c920ab7ebddf4ec7be"><div class="ttname"><a href="a04975.html#a4fd6583ff53289c920ab7ebddf4ec7be">bl::rc::rg::Asset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)</div><div class="ttdoc">Called when the observer render region changes size.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00110">Asset.cpp:110</a></div></div>
+<div class="ttc" id="aa04979_html"><div class="ttname"><a href="a04979.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition</b> <a href="a00578_source.html#l00022">AssetFactory.hpp:22</a></div></div>
+<div class="ttc" id="aa04983_html_a06c7c7349d3c903bcde098c2bc585917"><div class="ttname"><a href="a04983.html#a06c7c7349d3c903bcde098c2bc585917">bl::rc::rg::AssetPool::releaseUnused</a></div><div class="ttdeci">void releaseUnused()</div><div class="ttdoc">Destroys assets that are not referenced by anything.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00015">AssetPool.cpp:15</a></div></div>
+<div class="ttc" id="aa04983_html_a59cdd3971bc6b22c5e640a2792525140"><div class="ttname"><a href="a04983.html#a59cdd3971bc6b22c5e640a2792525140">bl::rc::rg::AssetPool::cleanup</a></div><div class="ttdeci">void cleanup()</div><div class="ttdoc">Destroys all contained assets.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00013">AssetPool.cpp:13</a></div></div>
+<div class="ttc" id="aa04983_html_abe1ade1da0f7318602d4a64e3de881c5"><div class="ttname"><a href="a04983.html#abe1ade1da0f7318602d4a64e3de881c5">bl::rc::rg::AssetPool::AssetPool</a></div><div class="ttdeci">AssetPool(AssetFactory &amp;factory, RenderTarget *observer)</div><div class="ttdoc">Creates a new asset pool.</div><div class="ttdef"><b>Definition</b> <a href="a02210_source.html#l00009">AssetPool.cpp:9</a></div></div>
+<div class="ttc" id="aa05051_html"><div class="ttname"><a href="a05051.html">bl::rc::rg::GraphAssetPool</a></div><div class="ttdoc">Asset pool for individual RenderGraph instances that exist per scene per observer.</div><div class="ttdef"><b>Definition</b> <a href="a00590_source.html#l00028">GraphAssetPool.hpp:28</a></div></div>
+<div class="ttc" id="aa05335_html"><div class="ttname"><a href="a05335.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a01070_source.html#l00030">RenderTarget.hpp:30</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

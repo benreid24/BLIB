@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::SceneRef Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,24 +74,613 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05390.html">ShaderModuleCache</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a05387.html">SceneRef</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::res::ShaderModuleCache Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a05384.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::SceneRef Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05390.html">bl::rc::res::ShaderModuleCache</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05390.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td><td class="entry"><a class="el" href="a05390.html">bl::rc::res::ShaderModuleCache</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05390.html#ad10d56d22b2735a5c105b46130ca3bad">loadShader</a>(const std::string &amp;path)</td><td class="entry"><a class="el" href="a05390.html">bl::rc::res::ShaderModuleCache</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05390.html#a488e2f7bd6d7bd656986d5ecdd0ddb60">vk::VulkanLayer</a></td><td class="entry"><a class="el" href="a05390.html">bl::rc::res::ShaderModuleCache</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-</table></div><!-- contents -->
+<p>Handle to a scene allocated from ScenePool. Performs reference counting.  
+ <a href="a05387.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01058_source.html">SceneRef.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aa043297c96db3bc940ea95c68ce960c5" id="r_aa043297c96db3bc940ea95c68ce960c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#aa043297c96db3bc940ea95c68ce960c5">SceneRef</a> ()</td></tr>
+<tr class="memdesc:aa043297c96db3bc940ea95c68ce960c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty handle.  <br /></td></tr>
+<tr class="separator:aa043297c96db3bc940ea95c68ce960c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0567b75f942700c5e1ace2d07651e1da" id="r_a0567b75f942700c5e1ace2d07651e1da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a0567b75f942700c5e1ace2d07651e1da">SceneRef</a> (const <a class="el" href="a05387.html">SceneRef</a> &amp;copy)</td></tr>
+<tr class="memdesc:a0567b75f942700c5e1ace2d07651e1da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from the given ref.  <br /></td></tr>
+<tr class="separator:a0567b75f942700c5e1ace2d07651e1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a049f50746715d091bdcf4e9ae46f9a1b" id="r_a049f50746715d091bdcf4e9ae46f9a1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a049f50746715d091bdcf4e9ae46f9a1b">SceneRef</a> (<a class="el" href="a05387.html">SceneRef</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a049f50746715d091bdcf4e9ae46f9a1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assumes ownership from the given handle.  <br /></td></tr>
+<tr class="separator:a049f50746715d091bdcf4e9ae46f9a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d6b90024ac1ad1b51d8093b4ca17971" id="r_a6d6b90024ac1ad1b51d8093b4ca17971"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05387.html">SceneRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a6d6b90024ac1ad1b51d8093b4ca17971">operator=</a> (const <a class="el" href="a05387.html">SceneRef</a> &amp;copy)</td></tr>
+<tr class="memdesc:a6d6b90024ac1ad1b51d8093b4ca17971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from the given ref.  <br /></td></tr>
+<tr class="separator:a6d6b90024ac1ad1b51d8093b4ca17971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60e178e6fe8a7b7a4f56dcb90d39f090" id="r_a60e178e6fe8a7b7a4f56dcb90d39f090"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05387.html">SceneRef</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a60e178e6fe8a7b7a4f56dcb90d39f090">operator=</a> (<a class="el" href="a05387.html">SceneRef</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a60e178e6fe8a7b7a4f56dcb90d39f090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assumes ownership from the given handle.  <br /></td></tr>
+<tr class="separator:a60e178e6fe8a7b7a4f56dcb90d39f090"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4576fbc36cf88a099204393ce36900d6" id="r_a4576fbc36cf88a099204393ce36900d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a4576fbc36cf88a099204393ce36900d6">~SceneRef</a> ()</td></tr>
+<tr class="memdesc:a4576fbc36cf88a099204393ce36900d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the handle. If this was the last handle then the scene is also destroyed.  <br /></td></tr>
+<tr class="separator:a4576fbc36cf88a099204393ce36900d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebc430cf0e6a262c1dc978f7620ee026" id="r_aebc430cf0e6a262c1dc978f7620ee026"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#aebc430cf0e6a262c1dc978f7620ee026">isValid</a> () const</td></tr>
+<tr class="memdesc:aebc430cf0e6a262c1dc978f7620ee026"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the handle refers to a scene.  <br /></td></tr>
+<tr class="separator:aebc430cf0e6a262c1dc978f7620ee026"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e078c6a6e9c674dad1ef342f98a7057" id="r_a0e078c6a6e9c674dad1ef342f98a7057"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05451.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a0e078c6a6e9c674dad1ef342f98a7057">operator-&gt;</a> ()</td></tr>
+<tr class="memdesc:a0e078c6a6e9c674dad1ef342f98a7057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:a0e078c6a6e9c674dad1ef342f98a7057"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a782a4c36ed1661cdefb8b8f9d58bc834" id="r_a782a4c36ed1661cdefb8b8f9d58bc834"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05451.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a782a4c36ed1661cdefb8b8f9d58bc834">operator-&gt;</a> () const</td></tr>
+<tr class="memdesc:a782a4c36ed1661cdefb8b8f9d58bc834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:a782a4c36ed1661cdefb8b8f9d58bc834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f8b74ae5718b374daf5ce9b3ef106e" id="r_ab1f8b74ae5718b374daf5ce9b3ef106e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05451.html">Scene</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#ab1f8b74ae5718b374daf5ce9b3ef106e">operator*</a> ()</td></tr>
+<tr class="memdesc:ab1f8b74ae5718b374daf5ce9b3ef106e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:ab1f8b74ae5718b374daf5ce9b3ef106e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e1f1b6491efcc937eabdb73861024b" id="r_aa2e1f1b6491efcc937eabdb73861024b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05451.html">Scene</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#aa2e1f1b6491efcc937eabdb73861024b">operator*</a> () const</td></tr>
+<tr class="memdesc:aa2e1f1b6491efcc937eabdb73861024b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:aa2e1f1b6491efcc937eabdb73861024b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eb3ec7ba08d60fedb7382d6871aabc2" id="r_a5eb3ec7ba08d60fedb7382d6871aabc2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05451.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a5eb3ec7ba08d60fedb7382d6871aabc2">get</a> ()</td></tr>
+<tr class="memdesc:a5eb3ec7ba08d60fedb7382d6871aabc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:a5eb3ec7ba08d60fedb7382d6871aabc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9959242c15fa0c13a6aeb9e11530d1e6" id="r_a9959242c15fa0c13a6aeb9e11530d1e6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05451.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a9959242c15fa0c13a6aeb9e11530d1e6">get</a> () const</td></tr>
+<tr class="memdesc:a9959242c15fa0c13a6aeb9e11530d1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:a9959242c15fa0c13a6aeb9e11530d1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a6983982fbf4f6abb6bc8032956ea32" id="r_a4a6983982fbf4f6abb6bc8032956ea32"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a4a6983982fbf4f6abb6bc8032956ea32">operator Scene *</a> ()</td></tr>
+<tr class="memdesc:a4a6983982fbf4f6abb6bc8032956ea32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:a4a6983982fbf4f6abb6bc8032956ea32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64ff807733abe8c44851f13ac0e0dbb8" id="r_a64ff807733abe8c44851f13ac0e0dbb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a64ff807733abe8c44851f13ac0e0dbb8">operator const Scene *</a> () const</td></tr>
+<tr class="memdesc:a64ff807733abe8c44851f13ac0e0dbb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the underlying scene.  <br /></td></tr>
+<tr class="separator:a64ff807733abe8c44851f13ac0e0dbb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80cbb9ea0b44d9b92d4a5fedab2143ab" id="r_a80cbb9ea0b44d9b92d4a5fedab2143ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a80cbb9ea0b44d9b92d4a5fedab2143ab">release</a> ()</td></tr>
+<tr class="memdesc:a80cbb9ea0b44d9b92d4a5fedab2143ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the handle to the scene.  <br /></td></tr>
+<tr class="separator:a80cbb9ea0b44d9b92d4a5fedab2143ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a5e3e776e6321b85dc4def653bc028051" id="r_a5e3e776e6321b85dc4def653bc028051"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05387.html#a5e3e776e6321b85dc4def653bc028051">res::ScenePool</a></td></tr>
+<tr class="separator:a5e3e776e6321b85dc4def653bc028051"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Handle to a scene allocated from ScenePool. Performs reference counting. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00020">20</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa043297c96db3bc940ea95c68ce960c5" name="aa043297c96db3bc940ea95c68ce960c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa043297c96db3bc940ea95c68ce960c5">&#9670;&#160;</a></span>SceneRef() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::SceneRef::SceneRef </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an empty handle. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00025">25</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0567b75f942700c5e1ace2d07651e1da" name="a0567b75f942700c5e1ace2d07651e1da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0567b75f942700c5e1ace2d07651e1da">&#9670;&#160;</a></span>SceneRef() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::SceneRef::SceneRef </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05387.html">SceneRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies from the given ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The ref to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01064_source.html#l00111">111</a> of file <a class="el" href="a01064_source.html">ScenePool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a049f50746715d091bdcf4e9ae46f9a1b" name="a049f50746715d091bdcf4e9ae46f9a1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a049f50746715d091bdcf4e9ae46f9a1b">&#9670;&#160;</a></span>SceneRef() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::SceneRef::SceneRef </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05387.html">SceneRef</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assumes ownership from the given handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">move</td><td>The handle to copy and invalidate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00041">41</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4576fbc36cf88a099204393ce36900d6" name="a4576fbc36cf88a099204393ce36900d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4576fbc36cf88a099204393ce36900d6">&#9670;&#160;</a></span>~SceneRef()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::SceneRef::~SceneRef </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the handle. If this was the last handle then the scene is also destroyed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00072">72</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5eb3ec7ba08d60fedb7382d6871aabc2" name="a5eb3ec7ba08d60fedb7382d6871aabc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eb3ec7ba08d60fedb7382d6871aabc2">&#9670;&#160;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05451.html">Scene</a> * bl::rc::SceneRef::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00102">102</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9959242c15fa0c13a6aeb9e11530d1e6" name="a9959242c15fa0c13a6aeb9e11530d1e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9959242c15fa0c13a6aeb9e11530d1e6">&#9670;&#160;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05451.html">Scene</a> * bl::rc::SceneRef::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00107">107</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aebc430cf0e6a262c1dc978f7620ee026" name="aebc430cf0e6a262c1dc978f7620ee026"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebc430cf0e6a262c1dc978f7620ee026">&#9670;&#160;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::SceneRef::isValid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the handle refers to a scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00077">77</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a64ff807733abe8c44851f13ac0e0dbb8" name="a64ff807733abe8c44851f13ac0e0dbb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64ff807733abe8c44851f13ac0e0dbb8">&#9670;&#160;</a></span>operator const Scene *()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::SceneRef::operator const <a class="el" href="a05451.html">Scene</a> * </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00117">117</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4a6983982fbf4f6abb6bc8032956ea32" name="a4a6983982fbf4f6abb6bc8032956ea32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a6983982fbf4f6abb6bc8032956ea32">&#9670;&#160;</a></span>operator Scene *()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::SceneRef::operator <a class="el" href="a05451.html">Scene</a> * </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00112">112</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1f8b74ae5718b374daf5ce9b3ef106e" name="ab1f8b74ae5718b374daf5ce9b3ef106e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f8b74ae5718b374daf5ce9b3ef106e">&#9670;&#160;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05451.html">Scene</a> &amp; bl::rc::SceneRef::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00092">92</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa2e1f1b6491efcc937eabdb73861024b" name="aa2e1f1b6491efcc937eabdb73861024b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e1f1b6491efcc937eabdb73861024b">&#9670;&#160;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05451.html">Scene</a> &amp; bl::rc::SceneRef::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00097">97</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0e078c6a6e9c674dad1ef342f98a7057" name="a0e078c6a6e9c674dad1ef342f98a7057"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e078c6a6e9c674dad1ef342f98a7057">&#9670;&#160;</a></span>operator-&gt;() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05451.html">Scene</a> * bl::rc::SceneRef::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00082">82</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a782a4c36ed1661cdefb8b8f9d58bc834" name="a782a4c36ed1661cdefb8b8f9d58bc834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a782a4c36ed1661cdefb8b8f9d58bc834">&#9670;&#160;</a></span>operator-&gt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a05451.html">Scene</a> * bl::rc::SceneRef::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the underlying scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00087">87</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6d6b90024ac1ad1b51d8093b4ca17971" name="a6d6b90024ac1ad1b51d8093b4ca17971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d6b90024ac1ad1b51d8093b4ca17971">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05387.html">SceneRef</a> &amp; bl::rc::SceneRef::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a05387.html">SceneRef</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Copies from the given ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The ref to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01064_source.html#l00117">117</a> of file <a class="el" href="a01064_source.html">ScenePool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a60e178e6fe8a7b7a4f56dcb90d39f090" name="a60e178e6fe8a7b7a4f56dcb90d39f090"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60e178e6fe8a7b7a4f56dcb90d39f090">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05387.html">SceneRef</a> &amp; bl::rc::SceneRef::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05387.html">SceneRef</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Assumes ownership from the given handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">move</td><td>The handle to copy and invalidate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00061">61</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a80cbb9ea0b44d9b92d4a5fedab2143ab" name="a80cbb9ea0b44d9b92d4a5fedab2143ab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80cbb9ea0b44d9b92d4a5fedab2143ab">&#9670;&#160;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::SceneRef::release </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases the handle to the scene. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01064_source.html#l00136">136</a> of file <a class="el" href="a01064_source.html">ScenePool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a5e3e776e6321b85dc4def653bc028051" name="a5e3e776e6321b85dc4def653bc028051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e3e776e6321b85dc4def653bc028051">&#9670;&#160;</a></span>res::ScenePool</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05379.html">res::ScenePool</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01058_source.html#l00132">132</a> of file <a class="el" href="a01058_source.html">SceneRef.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Resources/<a class="el" href="a01058_source.html">SceneRef.hpp</a></li>
+<li>include/BLIB/Render/Resources/<a class="el" href="a01064_source.html">ScenePool.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

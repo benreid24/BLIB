@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::dsi::Scene2DInstance Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,26 +74,321 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03051.html">dsi</a></li><li class="navelem"><a class="el" href="a04850.html">Scene3DFactory</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03051.html">dsi</a></li><li class="navelem"><a class="el" href="a04847.html">Scene2DInstance</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::dsi::Scene3DFactory Member List</div></div>
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a04844.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::dsi::Scene2DInstance Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04850.html">bl::rc::dsi::Scene3DFactory</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04874.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a></td><td class="entry"><a class="el" href="a04874.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04874.html#ae7ffc734a548699e33a9c6e85e95b760">getDescriptorLayout</a>() const</td><td class="entry"><a class="el" href="a04874.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04874.html#a10fa6ac35d09f924d43ecfeddcabb35e">isAutoConstructable</a>() const</td><td class="entry"><a class="el" href="a04874.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04874.html#ab3e6b6f0047749f0ba8663d7f3bc8a9a">~DescriptorSetFactory</a>()=default</td><td class="entry"><a class="el" href="a04874.html">bl::rc::ds::DescriptorSetFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04850.html#af9a3684ae07e81030c367013f1d41449">~Scene3DFactory</a>()</td><td class="entry"><a class="el" href="a04850.html">bl::rc::dsi::Scene3DFactory</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Descriptor set instance for 2d scene data.  
+ <a href="a04847.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00923_source.html">Scene2DInstance.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::dsi::Scene2DInstance:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a04847.png" usemap="#bl::rc::dsi::Scene2DInstance_map" alt=""/>
+  <map id="bl::rc::dsi::Scene2DInstance_map" name="bl::rc::dsi::Scene2DInstance_map">
+<area href="a04883.html" title="Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe..." alt="bl::rc::ds::DescriptorSetInstance" shape="rect" coords="0,0,189,24"/>
+  </map>
+</div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a587b054106ae5b4911a145a1d2928eaa" id="r_a587b054106ae5b4911a145a1d2928eaa"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a> { <a class="el" href="a04883.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">Bindless</a>
+, <a class="el" href="a04883.html#a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c">Bindful</a>
+ }</td></tr>
+<tr class="memdesc:a587b054106ae5b4911a145a1d2928eaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bind mode of the descriptor set.  <a href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">More...</a><br /></td></tr>
+<tr class="separator:a587b054106ae5b4911a145a1d2928eaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d01a7643e3e65933db3c5a957db66f" id="r_a56d01a7643e3e65933db3c5a957db66f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> { <a class="el" href="a04883.html#a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd">RebindForNewSpeed</a>
+, <a class="el" href="a04883.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">SpeedAgnostic</a>
+ }</td></tr>
+<tr class="memdesc:a56d01a7643e3e65933db3c5a957db66f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the descriptor set needs to be re-bound for different update speeds.  <a href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">More...</a><br /></td></tr>
+<tr class="separator:a56d01a7643e3e65933db3c5a957db66f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae154a3f2801a3ae72413b3a4c534fc8a" id="r_ae154a3f2801a3ae72413b3a4c534fc8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04847.html#ae154a3f2801a3ae72413b3a4c534fc8a">Scene2DInstance</a> (<a class="el" href="a05839.html">vk::VulkanLayer</a> &amp;vulkanState, VkDescriptorSetLayout layout)</td></tr>
+<tr class="memdesc:ae154a3f2801a3ae72413b3a4c534fc8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new instance of the descriptor set.  <br /></td></tr>
+<tr class="separator:ae154a3f2801a3ae72413b3a4c534fc8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae52568a71a9588d556fed4566261ffe2" id="r_ae52568a71a9588d556fed4566261ffe2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04847.html#ae52568a71a9588d556fed4566261ffe2">~Scene2DInstance</a> ()</td></tr>
+<tr class="memdesc:ae52568a71a9588d556fed4566261ffe2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the descriptor set.  <br /></td></tr>
+<tr class="separator:ae52568a71a9588d556fed4566261ffe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fb553018731d61ad6abb7d12a163e4c" id="r_a7fb553018731d61ad6abb7d12a163e4c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04883.html#a7fb553018731d61ad6abb7d12a163e4c">isBindless</a> () const</td></tr>
+<tr class="memdesc:a7fb553018731d61ad6abb7d12a163e4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this descriptor set needs to be bound per-object.  <br /></td></tr>
+<tr class="separator:a7fb553018731d61ad6abb7d12a163e4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea80b223f67b0a6b1daf4d526171471b" id="r_aea80b223f67b0a6b1daf4d526171471b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04883.html#aea80b223f67b0a6b1daf4d526171471b">needsRebindForNewSpeed</a> () const</td></tr>
+<tr class="memdesc:aea80b223f67b0a6b1daf4d526171471b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the descriptor set needs to be re-bound for new speed.  <br /></td></tr>
+<tr class="separator:aea80b223f67b0a6b1daf4d526171471b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a0d7bf05a9304d454bf362565a3075bc2" id="r_a0d7bf05a9304d454bf362565a3075bc2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04847.html#a0d7bf05a9304d454bf362565a3075bc2">lgt::Scene2DLighting</a></td></tr>
+<tr class="separator:a0d7bf05a9304d454bf362565a3075bc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7689457e73e450dbacc7308faa0a1740" id="r_a7689457e73e450dbacc7308faa0a1740"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04847.html#a7689457e73e450dbacc7308faa0a1740">lgt::Light2D</a></td></tr>
+<tr class="separator:a7689457e73e450dbacc7308faa0a1740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Descriptor set instance for 2d scene data. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l00035">35</a> of file <a class="el" href="a00923_source.html">Scene2DInstance.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a587b054106ae5b4911a145a1d2928eaa" name="a587b054106ae5b4911a145a1d2928eaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a587b054106ae5b4911a145a1d2928eaa">&#9670;&#160;</a></span>EntityBindMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Bind mode of the descriptor set. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957" name="a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957"></a>Bindless&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c" name="a587b054106ae5b4911a145a1d2928eaaa98d12a1bb275ddccb59ac803d85d829c"></a>Bindful&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a08495_source.html#l00033">33</a> of file <a class="el" href="a08495_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a56d01a7643e3e65933db3c5a957db66f" name="a56d01a7643e3e65933db3c5a957db66f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d01a7643e3e65933db3c5a957db66f">&#9670;&#160;</a></span>SpeedBucketSetting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Whether or not the descriptor set needs to be re-bound for different update speeds. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd" name="a56d01a7643e3e65933db3c5a957db66fabac649864fea33d090a888e842a80ffd"></a>RebindForNewSpeed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d" name="a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"></a>SpeedAgnostic&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a08495_source.html#l00036">36</a> of file <a class="el" href="a08495_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae154a3f2801a3ae72413b3a4c534fc8a" name="ae154a3f2801a3ae72413b3a4c534fc8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae154a3f2801a3ae72413b3a4c534fc8a">&#9670;&#160;</a></span>Scene2DInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::dsi::Scene2DInstance::Scene2DInstance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05839.html">vk::VulkanLayer</a> &amp;&#160;</td>
+          <td class="paramname"><em>vulkanState</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">VkDescriptorSetLayout&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new instance of the descriptor set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vulkanState</td><td><a class="el" href="a05331.html" title="Top level rendering system of the game engine.">Renderer</a> Vulkan state </td></tr>
+    <tr><td class="paramname">layout</td><td>The layout of the descriptor set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02387_source.html#l00016">16</a> of file <a class="el" href="a02387_source.html">Scene2DInstance.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae52568a71a9588d556fed4566261ffe2" name="ae52568a71a9588d556fed4566261ffe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae52568a71a9588d556fed4566261ffe2">&#9670;&#160;</a></span>~Scene2DInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::dsi::Scene2DInstance::~Scene2DInstance </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroys the descriptor set. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02387_source.html#l00021">21</a> of file <a class="el" href="a02387_source.html">Scene2DInstance.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7fb553018731d61ad6abb7d12a163e4c" name="a7fb553018731d61ad6abb7d12a163e4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fb553018731d61ad6abb7d12a163e4c">&#9670;&#160;</a></span>isBindless()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::DescriptorSetInstance::isBindless </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this descriptor set needs to be bound per-object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08495_source.html#l00120">120</a> of file <a class="el" href="a08495_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aea80b223f67b0a6b1daf4d526171471b" name="aea80b223f67b0a6b1daf4d526171471b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea80b223f67b0a6b1daf4d526171471b">&#9670;&#160;</a></span>needsRebindForNewSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::DescriptorSetInstance::needsRebindForNewSpeed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the descriptor set needs to be re-bound for new speed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a08495_source.html#l00122">122</a> of file <a class="el" href="a08495_source.html">DescriptorSetInstance.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a7689457e73e450dbacc7308faa0a1740" name="a7689457e73e450dbacc7308faa0a1740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7689457e73e450dbacc7308faa0a1740">&#9670;&#160;</a></span>lgt::Light2D</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05215.html">lgt::Light2D</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l00068">68</a> of file <a class="el" href="a00923_source.html">Scene2DInstance.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0d7bf05a9304d454bf362565a3075bc2" name="a0d7bf05a9304d454bf362565a3075bc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d7bf05a9304d454bf362565a3075bc2">&#9670;&#160;</a></span>lgt::Scene2DLighting</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05239.html">lgt::Scene2DLighting</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l00067">67</a> of file <a class="el" href="a00923_source.html">Scene2DInstance.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Descriptors/Builtin/<a class="el" href="a00923_source.html">Scene2DInstance.hpp</a></li>
+<li>src/Render/Descriptors/Builtin/<a class="el" href="a02387_source.html">Scene2DInstance.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

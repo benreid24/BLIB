@@ -88,20 +88,20 @@ $(document).ready(function() { init_codefold(0); });
 <div class="contents">
 <a href="a01991.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00218.html">BLIB/Systems/VelocitySystem.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a07963.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a07964.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sys</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a06470.html#a494c01b83516a88fa055529e354c6807">    9</a></span><a class="code hl_function" href="a06470.html#a494c01b83516a88fa055529e354c6807">VelocitySystem::VelocitySystem</a>()</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a06471.html#a494c01b83516a88fa055529e354c6807">    9</a></span><a class="code hl_function" href="a06471.html#a494c01b83516a88fa055529e354c6807">VelocitySystem::VelocitySystem</a>()</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: view2d(nullptr) {}</div>
 </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">void</span> VelocitySystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    view2d-&gt;forEach([dt](Tags2D::TComponentSet&amp; cset) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        cset.get&lt;<a class="code hl_struct" href="a03358.html">com::Velocity2D</a>&gt;()-&gt;apply(*cset.get&lt;<a class="code hl_class" href="a03350.html">com::Transform2D</a>&gt;(), dt);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        cset.get&lt;<a class="code hl_struct" href="a03359.html">com::Velocity2D</a>&gt;()-&gt;apply(*cset.get&lt;<a class="code hl_class" href="a03351.html">com::Transform2D</a>&gt;(), dt);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    });</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
@@ -111,15 +111,15 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00218_html"><div class="ttname"><a href="a00218.html">VelocitySystem.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03350_html"><div class="ttname"><a href="a03350.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a07945_source.html#l00018">Transform2D.hpp:20</a></div></div>
-<div class="ttc" id="aa03358_html"><div class="ttname"><a href="a03358.html">bl::com::Velocity2D</a></div><div class="ttdoc">Represents a translational and rotational velocity in 2d space.</div><div class="ttdef"><b>Definition</b> <a href="a01382_source.html#l00016">Velocity2D.hpp:16</a></div></div>
-<div class="ttc" id="aa06470_html_a494c01b83516a88fa055529e354c6807"><div class="ttname"><a href="a06470.html#a494c01b83516a88fa055529e354c6807">bl::sys::VelocitySystem::VelocitySystem</a></div><div class="ttdeci">VelocitySystem()</div><div class="ttdoc">Creates the system.</div><div class="ttdef"><b>Definition</b> <a href="a01991_source.html#l00009">VelocitySystem.cpp:9</a></div></div>
-<div class="ttc" id="aa07963_html"><div class="ttname"><a href="a07963.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa03351_html"><div class="ttname"><a href="a03351.html">bl::com::Transform2D</a></div><div class="ttdoc">Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...</div><div class="ttdef"><b>Definition</b> <a href="a07946_source.html#l00018">Transform2D.hpp:20</a></div></div>
+<div class="ttc" id="aa03359_html"><div class="ttname"><a href="a03359.html">bl::com::Velocity2D</a></div><div class="ttdoc">Represents a translational and rotational velocity in 2d space.</div><div class="ttdef"><b>Definition</b> <a href="a01382_source.html#l00016">Velocity2D.hpp:16</a></div></div>
+<div class="ttc" id="aa06471_html_a494c01b83516a88fa055529e354c6807"><div class="ttname"><a href="a06471.html#a494c01b83516a88fa055529e354c6807">bl::sys::VelocitySystem::VelocitySystem</a></div><div class="ttdeci">VelocitySystem()</div><div class="ttdoc">Creates the system.</div><div class="ttdef"><b>Definition</b> <a href="a01991_source.html#l00009">VelocitySystem.cpp:9</a></div></div>
+<div class="ttc" id="aa07964_html"><div class="ttname"><a href="a07964.html">Engine.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

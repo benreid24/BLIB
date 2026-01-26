@@ -88,7 +88,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="contents">
 <a href="a02291.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00779.html">BLIB/Render/ShaderResources/SSAOBufferShaderResource.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a07963.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a07964.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01784.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
@@ -99,7 +99,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>std::uint32_t getSampleCount(<a class="code hl_typedef" href="a05506.html#a5c092807058b4eb8069e53892e1b1e9f">Settings::SSAO</a> ssao) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>std::uint32_t getSampleCount(<a class="code hl_typedef" href="a05507.html#a5c092807058b4eb8069e53892e1b1e9f">Settings::SSAO</a> ssao) {</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">switch</span> (ssao) {</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">case</span> Settings::SSAO::Ultra:</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">return</span> 64;</div>
@@ -122,14 +122,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    BufferShaderResource::init(engine, owner);</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    BufferShaderResource::getBuffer().setCopyFullRange(<span class="keyword">true</span>);</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    settings = &amp;engine.renderer().getSettings();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_function" href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">subscribe</a>(engine.renderer().getSignalChannel());</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_function" href="a06387.html#a2a0a601a22ad69c515047cf2f81a34ac">subscribe</a>(engine.renderer().getSignalChannel());</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    populateAndTransfer();</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keywordtype">void</span> SSAOBufferShaderResource::process(<span class="keyword">const</span> event::SettingsChanged&amp; e) {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">switch</span> (e.setting) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">event::SettingsChanged::Setting::SSAO</a>:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04954.html#a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104">event::SettingsChanged::Setting::SSAOParams</a>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04955.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">event::SettingsChanged::Setting::SSAO</a>:</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a04955.html#a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104">event::SettingsChanged::Setting::SSAOParams</a>:</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        populateAndTransfer();</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">default</span>:</div>
@@ -138,15 +138,15 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keywordtype">void</span> SSAOBufferShaderResource::populateAndTransfer() {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">auto</span>&amp; params = <a class="code hl_variable" href="a05526.html#ac214ad585d77fcaaef283dff8605fc9c">buffer</a>[0];</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">auto</span>&amp; params = <a class="code hl_variable" href="a05527.html#ac214ad585d77fcaaef283dff8605fc9c">buffer</a>[0];</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// copy parameters</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    params.bias     = settings-&gt;<a class="code hl_function" href="a05506.html#a2e004424063971d4c0b9bac605114111">getSSAOBias</a>();</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    params.radius   = settings-&gt;<a class="code hl_function" href="a05506.html#a51c98c7e134db58f5c6c7d7674966b2c">getSSAORadius</a>();</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    params.exponent = settings-&gt;<a class="code hl_function" href="a05506.html#abab21f4f605f10541785f371f28997d1">getSSAOExponent</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    params.bias     = settings-&gt;<a class="code hl_function" href="a05507.html#a2e004424063971d4c0b9bac605114111">getSSAOBias</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    params.radius   = settings-&gt;<a class="code hl_function" href="a05507.html#a51c98c7e134db58f5c6c7d7674966b2c">getSSAORadius</a>();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    params.exponent = settings-&gt;<a class="code hl_function" href="a05507.html#abab21f4f605f10541785f371f28997d1">getSSAOExponent</a>();</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// create sample direction vectors</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    params.sampleCount = getSampleCount(settings-&gt;<a class="code hl_function" href="a05506.html#a7e66a841f9935fca54e13342729ca5bf">getSSAO</a>());</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    params.sampleCount = getSampleCount(settings-&gt;<a class="code hl_function" href="a05507.html#a7e66a841f9935fca54e13342729ca5bf">getSSAO</a>());</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; params.sampleCount; ++i) {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="comment">// make random unit vector with positive z (facing outside of surface)</span></div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        glm::vec3 s(util::Random::get&lt;float&gt;(-1.f, 1.f),</div>
@@ -173,7 +173,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        }</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_variable" href="a05526.html#ac214ad585d77fcaaef283dff8605fc9c">buffer</a>.queueTransfer();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_variable" href="a05527.html#ac214ad585d77fcaaef283dff8605fc9c">buffer</a>.queueTransfer();</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>} <span class="comment">// namespace sri</span></div>
@@ -182,21 +182,21 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa00779_html"><div class="ttname"><a href="a00779.html">SSAOBufferShaderResource.hpp</a></div></div>
 <div class="ttc" id="aa01784_html"><div class="ttname"><a href="a01784.html">Random.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104">bl::rc::event::SettingsChanged::SSAOParams</a></div><div class="ttdeci">@ SSAOParams</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00033">SettingsChanged.hpp:32</a></div></div>
-<div class="ttc" id="aa04954_html_a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089"><div class="ttname"><a href="a04954.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">bl::rc::event::SettingsChanged::SSAO</a></div><div class="ttdeci">@ SSAO</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00031">SettingsChanged.hpp:31</a></div></div>
-<div class="ttc" id="aa05506_html_a2e004424063971d4c0b9bac605114111"><div class="ttname"><a href="a05506.html#a2e004424063971d4c0b9bac605114111">bl::rc::Settings::getSSAOBias</a></div><div class="ttdeci">float getSSAOBias() const</div><div class="ttdoc">Returns the depth bias used by the SSAO algorithm in world units.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00333">Settings.hpp:333</a></div></div>
-<div class="ttc" id="aa05506_html_a51c98c7e134db58f5c6c7d7674966b2c"><div class="ttname"><a href="a05506.html#a51c98c7e134db58f5c6c7d7674966b2c">bl::rc::Settings::getSSAORadius</a></div><div class="ttdeci">float getSSAORadius() const</div><div class="ttdoc">Returns the radius used by the SSAO algorithm in world units.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00331">Settings.hpp:331</a></div></div>
-<div class="ttc" id="aa05506_html_a5c092807058b4eb8069e53892e1b1e9f"><div class="ttname"><a href="a05506.html#a5c092807058b4eb8069e53892e1b1e9f">bl::rc::Settings::SSAO</a></div><div class="ttdeci">GraphicsSettings::SSAO SSAO</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00027">Settings.hpp:27</a></div></div>
-<div class="ttc" id="aa05506_html_a7e66a841f9935fca54e13342729ca5bf"><div class="ttname"><a href="a05506.html#a7e66a841f9935fca54e13342729ca5bf">bl::rc::Settings::getSSAO</a></div><div class="ttdeci">SSAO getSSAO() const</div><div class="ttdoc">Returns the current SSAO setting.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00329">Settings.hpp:329</a></div></div>
-<div class="ttc" id="aa05506_html_abab21f4f605f10541785f371f28997d1"><div class="ttname"><a href="a05506.html#abab21f4f605f10541785f371f28997d1">bl::rc::Settings::getSSAOExponent</a></div><div class="ttdeci">float getSSAOExponent() const</div><div class="ttdoc">Returns the exponent that the SSAO factor is raised to.</div><div class="ttdef"><b>Definition</b> <a href="a08569_source.html#l00335">Settings.hpp:335</a></div></div>
-<div class="ttc" id="aa05526_html_ac214ad585d77fcaaef283dff8605fc9c"><div class="ttname"><a href="a05526.html#ac214ad585d77fcaaef283dff8605fc9c">bl::rc::sr::BufferShaderResource&lt; buf::BufferSingleDeviceLocalSourcedUBO&lt; SSAOBufferPayload &gt;, 1 &gt;::buffer</a></div><div class="ttdeci">buf::BufferSingleDeviceLocalSourcedUBO&lt; SSAOBufferPayload &gt; buffer</div><div class="ttdef"><b>Definition</b> <a href="a00770_source.html#l00081">BufferShaderResource.hpp:81</a></div></div>
-<div class="ttc" id="aa06386_html_a2a0a601a22ad69c515047cf2f81a34ac"><div class="ttname"><a href="a06386.html#a2a0a601a22ad69c515047cf2f81a34ac">bl::sig::Listener&lt; event::SettingsChanged &gt;::subscribe</a></div><div class="ttdeci">void subscribe(Channel &amp;channel)</div><div class="ttdoc">Subscribes to the given channel. Use subscribeDeferred if calling from a signal handler.</div><div class="ttdef"><b>Definition</b> <a href="a07987_source.html#l00041">Listener.hpp:81</a></div></div>
-<div class="ttc" id="aa07963_html"><div class="ttname"><a href="a07963.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa04955_html_a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104"><div class="ttname"><a href="a04955.html#a832be84d31150bc197a14abaa412645fa34fe46cf4741b19e5d9d4b590d3c2104">bl::rc::event::SettingsChanged::SSAOParams</a></div><div class="ttdeci">@ SSAOParams</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00033">SettingsChanged.hpp:32</a></div></div>
+<div class="ttc" id="aa04955_html_a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089"><div class="ttname"><a href="a04955.html#a832be84d31150bc197a14abaa412645faae14934bbc9a3e6083031f206d85f089">bl::rc::event::SettingsChanged::SSAO</a></div><div class="ttdeci">@ SSAO</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00031">SettingsChanged.hpp:31</a></div></div>
+<div class="ttc" id="aa05507_html_a2e004424063971d4c0b9bac605114111"><div class="ttname"><a href="a05507.html#a2e004424063971d4c0b9bac605114111">bl::rc::Settings::getSSAOBias</a></div><div class="ttdeci">float getSSAOBias() const</div><div class="ttdoc">Returns the depth bias used by the SSAO algorithm in world units.</div><div class="ttdef"><b>Definition</b> <a href="a08570_source.html#l00333">Settings.hpp:333</a></div></div>
+<div class="ttc" id="aa05507_html_a51c98c7e134db58f5c6c7d7674966b2c"><div class="ttname"><a href="a05507.html#a51c98c7e134db58f5c6c7d7674966b2c">bl::rc::Settings::getSSAORadius</a></div><div class="ttdeci">float getSSAORadius() const</div><div class="ttdoc">Returns the radius used by the SSAO algorithm in world units.</div><div class="ttdef"><b>Definition</b> <a href="a08570_source.html#l00331">Settings.hpp:331</a></div></div>
+<div class="ttc" id="aa05507_html_a5c092807058b4eb8069e53892e1b1e9f"><div class="ttname"><a href="a05507.html#a5c092807058b4eb8069e53892e1b1e9f">bl::rc::Settings::SSAO</a></div><div class="ttdeci">GraphicsSettings::SSAO SSAO</div><div class="ttdef"><b>Definition</b> <a href="a08570_source.html#l00027">Settings.hpp:27</a></div></div>
+<div class="ttc" id="aa05507_html_a7e66a841f9935fca54e13342729ca5bf"><div class="ttname"><a href="a05507.html#a7e66a841f9935fca54e13342729ca5bf">bl::rc::Settings::getSSAO</a></div><div class="ttdeci">SSAO getSSAO() const</div><div class="ttdoc">Returns the current SSAO setting.</div><div class="ttdef"><b>Definition</b> <a href="a08570_source.html#l00329">Settings.hpp:329</a></div></div>
+<div class="ttc" id="aa05507_html_abab21f4f605f10541785f371f28997d1"><div class="ttname"><a href="a05507.html#abab21f4f605f10541785f371f28997d1">bl::rc::Settings::getSSAOExponent</a></div><div class="ttdeci">float getSSAOExponent() const</div><div class="ttdoc">Returns the exponent that the SSAO factor is raised to.</div><div class="ttdef"><b>Definition</b> <a href="a08570_source.html#l00335">Settings.hpp:335</a></div></div>
+<div class="ttc" id="aa05527_html_ac214ad585d77fcaaef283dff8605fc9c"><div class="ttname"><a href="a05527.html#ac214ad585d77fcaaef283dff8605fc9c">bl::rc::sr::BufferShaderResource&lt; buf::BufferSingleDeviceLocalSourcedUBO&lt; SSAOBufferPayload &gt;, 1 &gt;::buffer</a></div><div class="ttdeci">buf::BufferSingleDeviceLocalSourcedUBO&lt; SSAOBufferPayload &gt; buffer</div><div class="ttdef"><b>Definition</b> <a href="a00770_source.html#l00081">BufferShaderResource.hpp:81</a></div></div>
+<div class="ttc" id="aa06387_html_a2a0a601a22ad69c515047cf2f81a34ac"><div class="ttname"><a href="a06387.html#a2a0a601a22ad69c515047cf2f81a34ac">bl::sig::Listener&lt; event::SettingsChanged &gt;::subscribe</a></div><div class="ttdeci">void subscribe(Channel &amp;channel)</div><div class="ttdoc">Subscribes to the given channel. Use subscribeDeferred if calling from a signal handler.</div><div class="ttdef"><b>Definition</b> <a href="a07988_source.html#l00041">Listener.hpp:81</a></div></div>
+<div class="ttc" id="aa07964_html"><div class="ttname"><a href="a07964.html">Engine.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

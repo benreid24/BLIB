@@ -95,16 +95,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>resource</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05986.html#aefb504334dee80cd3692d5cd7492c48e">    9</a></span><a class="code hl_function" href="a05986.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase::ResourceManagerBase</a>()</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05987.html#aefb504334dee80cd3692d5cd7492c48e">    9</a></span><a class="code hl_function" href="a05987.html#aefb504334dee80cd3692d5cd7492c48e">ResourceManagerBase::ResourceManagerBase</a>()</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: gcPeriod(300) {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    GarbageCollector::get().registerManager(<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
 </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05986.html#a772009bb487d321e8bd0d6fef65cd701">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05986.html#a772009bb487d321e8bd0d6fef65cd701">ResourceManagerBase::unregister</a>() { GarbageCollector::get().unregisterManager(<span class="keyword">this</span>); }</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05987.html#a772009bb487d321e8bd0d6fef65cd701">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05987.html#a772009bb487d321e8bd0d6fef65cd701">ResourceManagerBase::unregister</a>() { GarbageCollector::get().unregisterManager(<span class="keyword">this</span>); }</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a05986.html#aa056d7f00c7176bf9f0871883a02b9ca">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05986.html#aa056d7f00c7176bf9f0871883a02b9ca">ResourceManagerBase::setGCPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gc) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a05987.html#aa056d7f00c7176bf9f0871883a02b9ca">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05987.html#aa056d7f00c7176bf9f0871883a02b9ca">ResourceManagerBase::setGCPeriod</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> gc) {</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    gcPeriod = gc;</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    GarbageCollector::get().managerPeriodChanged(<span class="keyword">this</span>);</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
@@ -115,14 +115,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa01703_html"><div class="ttname"><a href="a01703.html">ResourceManager.hpp</a></div></div>
 <div class="ttc" id="aa01706_html"><div class="ttname"><a href="a01706.html">GarbageCollector.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05986_html_a772009bb487d321e8bd0d6fef65cd701"><div class="ttname"><a href="a05986.html#a772009bb487d321e8bd0d6fef65cd701">bl::resource::ResourceManagerBase::unregister</a></div><div class="ttdeci">void unregister()</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00014">ResourceManager.cpp:14</a></div></div>
-<div class="ttc" id="aa05986_html_aa056d7f00c7176bf9f0871883a02b9ca"><div class="ttname"><a href="a05986.html#aa056d7f00c7176bf9f0871883a02b9ca">bl::resource::ResourceManagerBase::setGCPeriod</a></div><div class="ttdeci">void setGCPeriod(unsigned int period)</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00016">ResourceManager.cpp:16</a></div></div>
-<div class="ttc" id="aa05986_html_aefb504334dee80cd3692d5cd7492c48e"><div class="ttname"><a href="a05986.html#aefb504334dee80cd3692d5cd7492c48e">bl::resource::ResourceManagerBase::ResourceManagerBase</a></div><div class="ttdeci">ResourceManagerBase()</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00009">ResourceManager.cpp:9</a></div></div>
+<div class="ttc" id="aa05987_html_a772009bb487d321e8bd0d6fef65cd701"><div class="ttname"><a href="a05987.html#a772009bb487d321e8bd0d6fef65cd701">bl::resource::ResourceManagerBase::unregister</a></div><div class="ttdeci">void unregister()</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00014">ResourceManager.cpp:14</a></div></div>
+<div class="ttc" id="aa05987_html_aa056d7f00c7176bf9f0871883a02b9ca"><div class="ttname"><a href="a05987.html#aa056d7f00c7176bf9f0871883a02b9ca">bl::resource::ResourceManagerBase::setGCPeriod</a></div><div class="ttdeci">void setGCPeriod(unsigned int period)</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00016">ResourceManager.cpp:16</a></div></div>
+<div class="ttc" id="aa05987_html_aefb504334dee80cd3692d5cd7492c48e"><div class="ttname"><a href="a05987.html#aefb504334dee80cd3692d5cd7492c48e">bl::resource::ResourceManagerBase::ResourceManagerBase</a></div><div class="ttdeci">ResourceManagerBase()</div><div class="ttdef"><b>Definition</b> <a href="a02885_source.html#l00009">ResourceManager.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

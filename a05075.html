@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::rg::RenderGraph Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,27 +74,578 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03055.html">rgi</a></li><li class="navelem"><a class="el" href="a05078.html">OverlayRenderStrategy</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03059.html">rg</a></li><li class="navelem"><a class="el" href="a05075.html">RenderGraph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::rgi::OverlayRenderStrategy Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a05072.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::rg::RenderGraph Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05078.html">bl::rc::rgi::OverlayRenderStrategy</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05094.html#a579a52d9d6363a354c6e4a82938620b7">getVersion</a>() const</td><td class="entry"><a class="el" href="a05094.html">bl::rc::rg::Strategy</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05094.html#a0bcc11e0775e3e075568142ecaa1f60d">invalidateGraphs</a>()</td><td class="entry"><a class="el" href="a05094.html">bl::rc::rg::Strategy</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05078.html#a89612278c84cbdd2e8f14bc40c4c269b">populate</a>(rg::RenderGraph &amp;graph) override</td><td class="entry"><a class="el" href="a05078.html">bl::rc::rgi::OverlayRenderStrategy</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05094.html#a0287f9790da42916bced7e9a22983633">Strategy</a>()</td><td class="entry"><a class="el" href="a05094.html">bl::rc::rg::Strategy</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a05078.html#a8bc498f9df74aa5becd9d35a45196ae4">~OverlayRenderStrategy</a>()=default</td><td class="entry"><a class="el" href="a05078.html">bl::rc::rgi::OverlayRenderStrategy</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05094.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a>()=default</td><td class="entry"><a class="el" href="a05094.html">bl::rc::rg::Strategy</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>The core render graph functionality. Drives rendering for each observer.  
+ <a href="a05075.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00695_source.html">RenderGraph.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3547df474ea8e4237a46a8ea2f352439" id="r_a3547df474ea8e4237a46a8ea2f352439"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#a3547df474ea8e4237a46a8ea2f352439">RenderGraph</a> (<a class="el" href="a03699.html">engine::Engine</a> &amp;engine, <a class="el" href="a05331.html">Renderer</a> &amp;renderer, <a class="el" href="a04983.html">AssetPool</a> &amp;assetPool, <a class="el" href="a05335.html">RenderTarget</a> *target, <a class="el" href="a05451.html">Scene</a> *scene)</td></tr>
+<tr class="memdesc:a3547df474ea8e4237a46a8ea2f352439"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a05075.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>.  <br /></td></tr>
+<tr class="separator:a3547df474ea8e4237a46a8ea2f352439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c16f27d764bee3672771fe624db547" id="r_a79c16f27d764bee3672771fe624db547"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a79c16f27d764bee3672771fe624db547"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05075.html#a79c16f27d764bee3672771fe624db547">putTask</a> (TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a79c16f27d764bee3672771fe624db547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new task to the graph to become a part of the render process.  <br /></td></tr>
+<tr class="separator:a79c16f27d764bee3672771fe624db547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3662bbc2a51fd58c58c46e715bafbfa5" id="r_a3662bbc2a51fd58c58c46e715bafbfa5"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a3662bbc2a51fd58c58c46e715bafbfa5"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05075.html#a3662bbc2a51fd58c58c46e715bafbfa5">putUniqueTask</a> (TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a3662bbc2a51fd58c58c46e715bafbfa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new task to the graph to become a part of the render process. Only adds the task if it would be unique. Prevents duplicate tasks.  <br /></td></tr>
+<tr class="separator:a3662bbc2a51fd58c58c46e715bafbfa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d53b564bb6ef285bcb93c2364055dda" id="r_a9d53b564bb6ef285bcb93c2364055dda"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9d53b564bb6ef285bcb93c2364055dda"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05075.html#a9d53b564bb6ef285bcb93c2364055dda">removeTask</a> ()</td></tr>
+<tr class="memdesc:a9d53b564bb6ef285bcb93c2364055dda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the task with the given type from the graph.  <br /></td></tr>
+<tr class="separator:a9d53b564bb6ef285bcb93c2364055dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a803bce3b7aee146533320091b9f8fb1d" id="r_a803bce3b7aee146533320091b9f8fb1d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a803bce3b7aee146533320091b9f8fb1d"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05075.html#a803bce3b7aee146533320091b9f8fb1d">removeTasks</a> ()</td></tr>
+<tr class="memdesc:a803bce3b7aee146533320091b9f8fb1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all tasks of the given type from the graph.  <br /></td></tr>
+<tr class="separator:a803bce3b7aee146533320091b9f8fb1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb629f434c73afb96a43d7d594e59016" id="r_acb629f434c73afb96a43d7d594e59016"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:acb629f434c73afb96a43d7d594e59016"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05075.html#acb629f434c73afb96a43d7d594e59016">findTask</a> ()</td></tr>
+<tr class="memdesc:acb629f434c73afb96a43d7d594e59016"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds and returns a pointer to the first task found of the given type.  <br /></td></tr>
+<tr class="separator:acb629f434c73afb96a43d7d594e59016"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeed8ba2f3b7cd0580bb32b83aa459b3c" id="r_aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05075.html#aeed8ba2f3b7cd0580bb32b83aa459b3c">hasTask</a> ()</td></tr>
+<tr class="memdesc:aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given task is present in the graph.  <br /></td></tr>
+<tr class="separator:aeed8ba2f3b7cd0580bb32b83aa459b3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8e028a52ea92cc2ed4bff74ffe36d6d" id="r_ac8e028a52ea92cc2ed4bff74ffe36d6d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#ac8e028a52ea92cc2ed4bff74ffe36d6d">execute</a> (VkCommandBuffer commandBuffer, std::uint32_t observerIndex, bool renderTexture)</td></tr>
+<tr class="memdesc:ac8e028a52ea92cc2ed4bff74ffe36d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the graph to record render commands into the given command buffer.  <br /></td></tr>
+<tr class="separator:ac8e028a52ea92cc2ed4bff74ffe36d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23e346a1267da2f5a27f3282f4c489da" id="r_a23e346a1267da2f5a27f3282f4c489da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#a23e346a1267da2f5a27f3282f4c489da">build</a> ()</td></tr>
+<tr class="memdesc:a23e346a1267da2f5a27f3282f4c489da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds the graph timeline. Called automatically in <a class="el" href="a05075.html#ac8e028a52ea92cc2ed4bff74ffe36d6d" title="Executes the graph to record render commands into the given command buffer.">execute()</a>  <br /></td></tr>
+<tr class="separator:a23e346a1267da2f5a27f3282f4c489da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaed0558c668067b5011e40a85c1ebf7e" id="r_aaed0558c668067b5011e40a85c1ebf7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#aaed0558c668067b5011e40a85c1ebf7e">markDirty</a> ()</td></tr>
+<tr class="memdesc:aaed0558c668067b5011e40a85c1ebf7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies the graph to rebuild on next execution.  <br /></td></tr>
+<tr class="separator:aaed0558c668067b5011e40a85c1ebf7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7b2404a94bd0d6a1393a0ef16604b47" id="r_ac7b2404a94bd0d6a1393a0ef16604b47"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#ac7b2404a94bd0d6a1393a0ef16604b47">needsRepopulation</a> () const</td></tr>
+<tr class="memdesc:ac7b2404a94bd0d6a1393a0ef16604b47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the graph needs to be repopulated from scratch.  <br /></td></tr>
+<tr class="separator:ac7b2404a94bd0d6a1393a0ef16604b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d6948cfb39087160e95d2856a27eaaa" id="r_a9d6948cfb39087160e95d2856a27eaaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#a9d6948cfb39087160e95d2856a27eaaa">reset</a> ()</td></tr>
+<tr class="memdesc:a9d6948cfb39087160e95d2856a27eaaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all tasks from the graph and marks it for re-population.  <br /></td></tr>
+<tr class="separator:a9d6948cfb39087160e95d2856a27eaaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6b093bde07ef111b9c8fa01483c8bbe" id="r_aa6b093bde07ef111b9c8fa01483c8bbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#aa6b093bde07ef111b9c8fa01483c8bbe">populate</a> (<a class="el" href="a05451.html">Scene</a> &amp;scene)</td></tr>
+<tr class="memdesc:aa6b093bde07ef111b9c8fa01483c8bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears and re-populates the tasks in the graph. Re-builds the graph.  <br /></td></tr>
+<tr class="separator:aa6b093bde07ef111b9c8fa01483c8bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a078c29f6ed9badf6828b234d7396861d" id="r_a078c29f6ed9badf6828b234d7396861d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05075.html#a078c29f6ed9badf6828b234d7396861d">update</a> (float dt)</td></tr>
+<tr class="memdesc:a078c29f6ed9badf6828b234d7396861d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls update on all contained tasks.  <br /></td></tr>
+<tr class="separator:a078c29f6ed9badf6828b234d7396861d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The core render graph functionality. Drives rendering for each observer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00031">31</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3547df474ea8e4237a46a8ea2f352439" name="a3547df474ea8e4237a46a8ea2f352439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3547df474ea8e4237a46a8ea2f352439">&#9670;&#160;</a></span>RenderGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::RenderGraph::RenderGraph </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03699.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05331.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>renderer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04983.html">AssetPool</a> &amp;&#160;</td>
+          <td class="paramname"><em>assetPool</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05335.html">RenderTarget</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05451.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="a05075.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The engine instance </td></tr>
+    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">assetPool</td><td>The targets's asset pool </td></tr>
+    <tr><td class="paramname">target</td><td>The render target the graph belongs to </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene that the graph is rendering to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00018">18</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a23e346a1267da2f5a27f3282f4c489da" name="a23e346a1267da2f5a27f3282f4c489da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23e346a1267da2f5a27f3282f4c489da">&#9670;&#160;</a></span>build()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::RenderGraph::build </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Builds the graph timeline. Called automatically in <a class="el" href="a05075.html#ac8e028a52ea92cc2ed4bff74ffe36d6d" title="Executes the graph to record render commands into the given command buffer.">execute()</a> </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00040">40</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8e028a52ea92cc2ed4bff74ffe36d6d" name="ac8e028a52ea92cc2ed4bff74ffe36d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8e028a52ea92cc2ed4bff74ffe36d6d">&#9670;&#160;</a></span>execute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::RenderGraph::execute </td>
+          <td>(</td>
+          <td class="paramtype">VkCommandBuffer&#160;</td>
+          <td class="paramname"><em>commandBuffer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>observerIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>renderTexture</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Executes the graph to record render commands into the given command buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">commandBuffer</td><td>The command buffer to record into </td></tr>
+    <tr><td class="paramname">observerIndex</td><td>The observer's index in the current scene </td></tr>
+    <tr><td class="paramname">renderTexture</td><td>True if the final target is a render texture, false otherwise </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00033">33</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb629f434c73afb96a43d7d594e59016" name="acb629f434c73afb96a43d7d594e59016"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb629f434c73afb96a43d7d594e59016">&#9670;&#160;</a></span>findTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::rc::rg::RenderGraph::findTask </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Finds and returns a pointer to the first task found of the given type. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The task to search for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to a found task, nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00116">116</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aeed8ba2f3b7cd0580bb32b83aa459b3c" name="aeed8ba2f3b7cd0580bb32b83aa459b3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed8ba2f3b7cd0580bb32b83aa459b3c">&#9670;&#160;</a></span>hasTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::RenderGraph::hasTask </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the given task is present in the graph. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The task type to check for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the task is in the graph, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00131">131</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aaed0558c668067b5011e40a85c1ebf7e" name="aaed0558c668067b5011e40a85c1ebf7e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaed0558c668067b5011e40a85c1ebf7e">&#9670;&#160;</a></span>markDirty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::RenderGraph::markDirty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Notifies the graph to rebuild on next execution. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00193">193</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7b2404a94bd0d6a1393a0ef16604b47" name="ac7b2404a94bd0d6a1393a0ef16604b47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7b2404a94bd0d6a1393a0ef16604b47">&#9670;&#160;</a></span>needsRepopulation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::RenderGraph::needsRepopulation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the graph needs to be repopulated from scratch. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00210">210</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa6b093bde07ef111b9c8fa01483c8bbe" name="aa6b093bde07ef111b9c8fa01483c8bbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6b093bde07ef111b9c8fa01483c8bbe">&#9670;&#160;</a></span>populate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::RenderGraph::populate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05451.html">Scene</a> &amp;&#160;</td>
+          <td class="paramname"><em>scene</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears and re-populates the tasks in the graph. Re-builds the graph. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The scene to get additional tasks from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00197">197</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a79c16f27d764bee3672771fe624db547" name="a79c16f27d764bee3672771fe624db547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79c16f27d764bee3672771fe624db547">&#9670;&#160;</a></span>putTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::rc::rg::RenderGraph::putTask </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a new task to the graph to become a part of the render process. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of task to add </td></tr>
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the task's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">...args</td><td>Arguments to the task's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new task </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00054">54</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3662bbc2a51fd58c58c46e715bafbfa5" name="a3662bbc2a51fd58c58c46e715bafbfa5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3662bbc2a51fd58c58c46e715bafbfa5">&#9670;&#160;</a></span>putUniqueTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T * bl::rc::rg::RenderGraph::putUniqueTask </td>
+          <td>(</td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a new task to the graph to become a part of the render process. Only adds the task if it would be unique. Prevents duplicate tasks. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of task to add </td></tr>
+    <tr><td class="paramname">...TArgs</td><td>Argument types to the task's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">...args</td><td>Arguments to the task's constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new task </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00072">72</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d53b564bb6ef285bcb93c2364055dda" name="a9d53b564bb6ef285bcb93c2364055dda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d53b564bb6ef285bcb93c2364055dda">&#9670;&#160;</a></span>removeTask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::RenderGraph::removeTask </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes the task with the given type from the graph. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The task type to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if a task was removed, false if not </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00085">85</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a803bce3b7aee146533320091b9f8fb1d" name="a803bce3b7aee146533320091b9f8fb1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803bce3b7aee146533320091b9f8fb1d">&#9670;&#160;</a></span>removeTasks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::rg::RenderGraph::removeTasks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Removes all tasks of the given type from the graph. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of task to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if a task or tasks were able to be removed, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00103">103</a> of file <a class="el" href="a00695_source.html">RenderGraph.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d6948cfb39087160e95d2856a27eaaa" name="a9d6948cfb39087160e95d2856a27eaaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d6948cfb39087160e95d2856a27eaaa">&#9670;&#160;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::RenderGraph::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears all tasks from the graph and marks it for re-population. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00195">195</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a078c29f6ed9badf6828b234d7396861d" name="a078c29f6ed9badf6828b234d7396861d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a078c29f6ed9badf6828b234d7396861d">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::rg::RenderGraph::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calls update on all contained tasks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>The elapsed time in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00206">206</a> of file <a class="el" href="a02234_source.html">RenderGraph.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00695_source.html">RenderGraph.hpp</a></li>
+<li>src/Render/Graph/<a class="el" href="a02234_source.html">RenderGraph.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

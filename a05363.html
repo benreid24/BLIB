@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::res::PipelineCache Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,23 +74,243 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05366.html">PipelineLayoutCache</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03025.html">res</a></li><li class="navelem"><a class="el" href="a05363.html">PipelineCache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::res::PipelineLayoutCache Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a05360.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::res::PipelineCache Class Reference<div class="ingroups"><a class="el" href="a02979.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a05366.html">bl::rc::res::PipelineLayoutCache</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a05366.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td><td class="entry"><a class="el" href="a05366.html">bl::rc::res::PipelineLayoutCache</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a05366.html#a3d82ee894d5246ffb5422326d659452a">getLayout</a>(vk::PipelineLayout::LayoutParams &amp;&amp;params)</td><td class="entry"><a class="el" href="a05366.html">bl::rc::res::PipelineLayoutCache</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Basic cache to own and manage pipelines. Owned by the renderer.  
+ <a href="a05363.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01031_source.html">PipelineCache.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a549258a64d41c57bab560d3dd4b103df" id="r_a549258a64d41c57bab560d3dd4b103df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05727.html">vk::Pipeline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05363.html#a549258a64d41c57bab560d3dd4b103df">createPipeline</a> (std::uint32_t pipelineId, <a class="el" href="a05755.html">vk::PipelineParameters</a> &amp;&amp;params)</td></tr>
+<tr class="memdesc:a549258a64d41c57bab560d3dd4b103df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new pipeline in the cache. Id should be unique.  <br /></td></tr>
+<tr class="separator:a549258a64d41c57bab560d3dd4b103df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c71bf02b512fbe3defdbd0eae7dd4f7" id="r_a0c71bf02b512fbe3defdbd0eae7dd4f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05727.html">vk::Pipeline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05363.html#a0c71bf02b512fbe3defdbd0eae7dd4f7">getOrCreatePipeline</a> (<a class="el" href="a05755.html">vk::PipelineParameters</a> &amp;&amp;params)</td></tr>
+<tr class="memdesc:a0c71bf02b512fbe3defdbd0eae7dd4f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates or returns an existing pipeline using the given parameters and a free id.  <br /></td></tr>
+<tr class="separator:a0c71bf02b512fbe3defdbd0eae7dd4f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae6ab4cbe018341e55753994fd46c66" id="r_a1ae6ab4cbe018341e55753994fd46c66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05727.html">vk::Pipeline</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05363.html#a1ae6ab4cbe018341e55753994fd46c66">getPipeline</a> (std::uint32_t pipelineId)</td></tr>
+<tr class="memdesc:a1ae6ab4cbe018341e55753994fd46c66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the pipeline with the given id. Throws an exception if not found. Pipelines should be created at application start.  <br /></td></tr>
+<tr class="separator:a1ae6ab4cbe018341e55753994fd46c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7dd8b858a5093f9243ed108dcc9114d" id="r_aa7dd8b858a5093f9243ed108dcc9114d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05363.html#aa7dd8b858a5093f9243ed108dcc9114d">pipelineExists</a> (std::uint32_t pipelineId) const</td></tr>
+<tr class="memdesc:aa7dd8b858a5093f9243ed108dcc9114d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether a pipeline with the given id exists.  <br /></td></tr>
+<tr class="separator:aa7dd8b858a5093f9243ed108dcc9114d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a1ced8c33968c8bf32d16cfa86a36d751" id="r_a1ced8c33968c8bf32d16cfa86a36d751"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05363.html#a1ced8c33968c8bf32d16cfa86a36d751">DynamicPipelineIdStart</a> = 10000</td></tr>
+<tr class="memdesc:a1ced8c33968c8bf32d16cfa86a36d751"><td class="mdescLeft">&#160;</td><td class="mdescRight">The first id to try when creating dynamic pipeline ids.  <br /></td></tr>
+<tr class="separator:a1ced8c33968c8bf32d16cfa86a36d751"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1fc8c4ea65463b448e068f1287349540" id="r_a1fc8c4ea65463b448e068f1287349540"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05363.html#a1fc8c4ea65463b448e068f1287349540">bl::rc::Renderer</a></td></tr>
+<tr class="separator:a1fc8c4ea65463b448e068f1287349540"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basic cache to own and manage pipelines. Owned by the renderer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00021">21</a> of file <a class="el" href="a01031_source.html">PipelineCache.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a549258a64d41c57bab560d3dd4b103df" name="a549258a64d41c57bab560d3dd4b103df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a549258a64d41c57bab560d3dd4b103df">&#9670;&#160;</a></span>createPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05727.html">vk::Pipeline</a> &amp; bl::rc::res::PipelineCache::createPipeline </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>pipelineId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05755.html">vk::PipelineParameters</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>params</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new pipeline in the cache. Id should be unique. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipelineId</td><td>The unique id of the pipeline to create </td></tr>
+    <tr><td class="paramname">params</td><td>The parameters to create the pipeline with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pipeline&amp; The newly created pipeline </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02402_source.html#l00037">37</a> of file <a class="el" href="a02402_source.html">PipelineCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c71bf02b512fbe3defdbd0eae7dd4f7" name="a0c71bf02b512fbe3defdbd0eae7dd4f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c71bf02b512fbe3defdbd0eae7dd4f7">&#9670;&#160;</a></span>getOrCreatePipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05727.html">vk::Pipeline</a> &amp; bl::rc::res::PipelineCache::getOrCreatePipeline </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05755.html">vk::PipelineParameters</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>params</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates or returns an existing pipeline using the given parameters and a free id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">params</td><td>The parameters to get or create the pipeline for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pipeline with the given parameters </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02402_source.html#l00057">57</a> of file <a class="el" href="a02402_source.html">PipelineCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ae6ab4cbe018341e55753994fd46c66" name="a1ae6ab4cbe018341e55753994fd46c66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae6ab4cbe018341e55753994fd46c66">&#9670;&#160;</a></span>getPipeline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05727.html">vk::Pipeline</a> &amp; bl::rc::res::PipelineCache::getPipeline </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>pipelineId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the pipeline with the given id. Throws an exception if not found. Pipelines should be created at application start. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipelineId</td><td>The id of the pipeline to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pipeline&amp; The pipeline with the given id </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02402_source.html#l00044">44</a> of file <a class="el" href="a02402_source.html">PipelineCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7dd8b858a5093f9243ed108dcc9114d" name="aa7dd8b858a5093f9243ed108dcc9114d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7dd8b858a5093f9243ed108dcc9114d">&#9670;&#160;</a></span>pipelineExists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::res::PipelineCache::pipelineExists </td>
+          <td>(</td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>pipelineId</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether a pipeline with the given id exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pipelineId</td><td>The id to search for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the pipeline exists, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02402_source.html#l00053">53</a> of file <a class="el" href="a02402_source.html">PipelineCache.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a1fc8c4ea65463b448e068f1287349540" name="a1fc8c4ea65463b448e068f1287349540"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fc8c4ea65463b448e068f1287349540">&#9670;&#160;</a></span>bl::rc::Renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a05331.html">bl::rc::Renderer</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00069">69</a> of file <a class="el" href="a01031_source.html">PipelineCache.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1ced8c33968c8bf32d16cfa86a36d751" name="a1ced8c33968c8bf32d16cfa86a36d751"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ced8c33968c8bf32d16cfa86a36d751">&#9670;&#160;</a></span>DynamicPipelineIdStart</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint32_t bl::rc::res::PipelineCache::DynamicPipelineIdStart = 10000</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The first id to try when creating dynamic pipeline ids. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00024">24</a> of file <a class="el" href="a01031_source.html">PipelineCache.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Resources/<a class="el" href="a01031_source.html">PipelineCache.hpp</a></li>
+<li>src/Render/Resources/<a class="el" href="a02402_source.html">PipelineCache.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:07 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

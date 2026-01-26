@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocHandle Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,28 +74,442 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03043.html">buf</a></li><li class="navelem"><a class="el" href="a04706.html">DirtyRange</a></li>  </ul>
+<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03004.html">rc</a></li><li class="navelem"><a class="el" href="a03043.html">buf</a></li><li class="navelem"><a class="el" href="a04695.html">BatchIndexBufferT</a></li><li class="navelem"><a class="el" href="a04703.html">AllocHandle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::buf::DirtyRange Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
+<a href="a04700.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocHandle Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04706.html#a773b98d39ede673ac327a336d5251f69">combine</a>(const DirtyRange &amp;other)</td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04706.html#abf9e2ca4ef47978c4afcae2e7db9d882">DirtyRange</a>()</td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04706.html#a3c508c8c0ac8315877e02f11c29beba5">DirtyRange</a>(std::uint32_t start, std::uint32_t n=1)</td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04706.html#aba3e550a315ba7ff4de32a4a7457f7a2">markDirty</a>(std::uint32_t i, std::uint32_t n=1)</td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04706.html#a75ac3cfeed1bfc1d81da84a6c4c50629">reset</a>()</td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04706.html#a4feb246291b92440dd7c6807fd14b529">size</a></td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04706.html#a586746e32a23e6c2508633a27947d39c">start</a></td><td class="entry"><a class="el" href="a04706.html">bl::rc::buf::DirtyRange</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Handle to an allocation from the index buffer.  
+ <a href="a04703.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab8c70a4a9b6471fb59b4ca3aeb913d0d" id="r_ab8c70a4a9b6471fb59b4ca3aeb913d0d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">AllocHandle</a> ()</td></tr>
+<tr class="memdesc:ab8c70a4a9b6471fb59b4ca3aeb913d0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an invalid handle.  <br /></td></tr>
+<tr class="separator:ab8c70a4a9b6471fb59b4ca3aeb913d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a322b35dc69b4c07f9333328925043e94" id="r_a322b35dc69b4c07f9333328925043e94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a322b35dc69b4c07f9333328925043e94">AllocHandle</a> (const <a class="el" href="a04703.html">AllocHandle</a> &amp;copy)</td></tr>
+<tr class="memdesc:a322b35dc69b4c07f9333328925043e94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the allocation handle.  <br /></td></tr>
+<tr class="separator:a322b35dc69b4c07f9333328925043e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1773bf04c69215d3f14d22aa47d99d70" id="r_a1773bf04c69215d3f14d22aa47d99d70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a1773bf04c69215d3f14d22aa47d99d70">AllocHandle</a> (<a class="el" href="a04703.html">AllocHandle</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a1773bf04c69215d3f14d22aa47d99d70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves from the given handle.  <br /></td></tr>
+<tr class="separator:a1773bf04c69215d3f14d22aa47d99d70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46fca2bdc6d50a6062628219bfb8273e" id="r_a46fca2bdc6d50a6062628219bfb8273e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a46fca2bdc6d50a6062628219bfb8273e">~AllocHandle</a> ()</td></tr>
+<tr class="memdesc:a46fca2bdc6d50a6062628219bfb8273e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the handle if still owned.  <br /></td></tr>
+<tr class="separator:a46fca2bdc6d50a6062628219bfb8273e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba442f8d9e7896116d7e06a3dc510076" id="r_aba442f8d9e7896116d7e06a3dc510076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04703.html">AllocHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#aba442f8d9e7896116d7e06a3dc510076">operator=</a> (const <a class="el" href="a04703.html">AllocHandle</a> &amp;copy)</td></tr>
+<tr class="memdesc:aba442f8d9e7896116d7e06a3dc510076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the allocation handle.  <br /></td></tr>
+<tr class="separator:aba442f8d9e7896116d7e06a3dc510076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a23425b0ec5fa6c3aaa64565d105148" id="r_a1a23425b0ec5fa6c3aaa64565d105148"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04703.html">AllocHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a1a23425b0ec5fa6c3aaa64565d105148">operator=</a> (<a class="el" href="a04703.html">AllocHandle</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a1a23425b0ec5fa6c3aaa64565d105148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves from the given handle.  <br /></td></tr>
+<tr class="separator:a1a23425b0ec5fa6c3aaa64565d105148"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ead6c237f12f004680db8a185e0fee1" id="r_a6ead6c237f12f004680db8a185e0fee1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a6ead6c237f12f004680db8a185e0fee1">commit</a> ()</td></tr>
+<tr class="memdesc:a6ead6c237f12f004680db8a185e0fee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the underlying index buffer to transfer. Call when contents are modified.  <br /></td></tr>
+<tr class="separator:a6ead6c237f12f004680db8a185e0fee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a548eb545f8d7fce73f2540395257fb21" id="r_a548eb545f8d7fce73f2540395257fb21"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a548eb545f8d7fce73f2540395257fb21">release</a> ()</td></tr>
+<tr class="memdesc:a548eb545f8d7fce73f2540395257fb21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases this handle. Frees the allocation if this is the last handle.  <br /></td></tr>
+<tr class="separator:a548eb545f8d7fce73f2540395257fb21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2db8b35d476315165bdd44d1ce19d408" id="r_a2db8b35d476315165bdd44d1ce19d408"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a2db8b35d476315165bdd44d1ce19d408">orphan</a> ()</td></tr>
+<tr class="memdesc:a2db8b35d476315165bdd44d1ce19d408"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invalidates this handle without releasing. Useful if the allocated vertices should outlive the handle used to create them.  <br /></td></tr>
+<tr class="separator:a2db8b35d476315165bdd44d1ce19d408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f42e1e194cc943d9178cc5c4ecf389" id="r_ab1f42e1e194cc943d9178cc5c4ecf389"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#ab1f42e1e194cc943d9178cc5c4ecf389">getVertices</a> ()</td></tr>
+<tr class="memdesc:ab1f42e1e194cc943d9178cc5c4ecf389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the vertices for writing. Do not store pointers as they may be invalidated.  <br /></td></tr>
+<tr class="separator:ab1f42e1e194cc943d9178cc5c4ecf389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82504f304ba927962ebf41882948abef" id="r_a82504f304ba927962ebf41882948abef"><td class="memItemLeft" align="right" valign="top">std::uint32_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a82504f304ba927962ebf41882948abef">getIndices</a> ()</td></tr>
+<tr class="memdesc:a82504f304ba927962ebf41882948abef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the indices for writing. Do not store pointers as they may be invalidated.  <br /></td></tr>
+<tr class="separator:a82504f304ba927962ebf41882948abef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fd1c510e14dd4fedfb3f6bc30c2048c" id="r_a3fd1c510e14dd4fedfb3f6bc30c2048c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04699.html">AllocInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a3fd1c510e14dd4fedfb3f6bc30c2048c">getInfo</a> () const</td></tr>
+<tr class="memdesc:a3fd1c510e14dd4fedfb3f6bc30c2048c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the allocation parameters.  <br /></td></tr>
+<tr class="separator:a3fd1c510e14dd4fedfb3f6bc30c2048c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1ac4fb89658f66823a091cd562598f4" id="r_aa1ac4fb89658f66823a091cd562598f4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#aa1ac4fb89658f66823a091cd562598f4">isValid</a> () const</td></tr>
+<tr class="memdesc:aa1ac4fb89658f66823a091cd562598f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this handle points to a valid allocation.  <br /></td></tr>
+<tr class="separator:aa1ac4fb89658f66823a091cd562598f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a81dfd1ada8776cedd0de57c1e22f6530" id="r_a81dfd1ada8776cedd0de57c1e22f6530"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04703.html#a81dfd1ada8776cedd0de57c1e22f6530">BatchIndexBufferT</a></td></tr>
+<tr class="separator:a81dfd1ada8776cedd0de57c1e22f6530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::rc::buf::BatchIndexBufferT&lt; T &gt;::AllocHandle</div><p>Handle to an allocation from the index buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00040">40</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab8c70a4a9b6471fb59b4ca3aeb913d0d" name="ab8c70a4a9b6471fb59b4ca3aeb913d0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8c70a4a9b6471fb59b4ca3aeb913d0d">&#9670;&#160;</a></span>AllocHandle() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::AllocHandle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an invalid handle. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00400">400</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a322b35dc69b4c07f9333328925043e94" name="a322b35dc69b4c07f9333328925043e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a322b35dc69b4c07f9333328925043e94">&#9670;&#160;</a></span>AllocHandle() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::AllocHandle </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04703.html">AllocHandle</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies the allocation handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The handle to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00404">404</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1773bf04c69215d3f14d22aa47d99d70" name="a1773bf04c69215d3f14d22aa47d99d70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1773bf04c69215d3f14d22aa47d99d70">&#9670;&#160;</a></span>AllocHandle() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::AllocHandle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04703.html">AllocHandle</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves from the given handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">move</td><td>The handle to move from. Is invalidated </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00412">412</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a46fca2bdc6d50a6062628219bfb8273e" name="a46fca2bdc6d50a6062628219bfb8273e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46fca2bdc6d50a6062628219bfb8273e">&#9670;&#160;</a></span>~AllocHandle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::~AllocHandle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases the handle if still owned. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00421">421</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6ead6c237f12f004680db8a185e0fee1" name="a6ead6c237f12f004680db8a185e0fee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ead6c237f12f004680db8a185e0fee1">&#9670;&#160;</a></span>commit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::commit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Triggers the underlying index buffer to transfer. Call when contents are modified. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00449">449</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a82504f304ba927962ebf41882948abef" name="a82504f304ba927962ebf41882948abef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82504f304ba927962ebf41882948abef">&#9670;&#160;</a></span>getIndices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t * <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::getIndices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the indices for writing. Do not store pointers as they may be invalidated. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00482">482</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3fd1c510e14dd4fedfb3f6bc30c2048c" name="a3fd1c510e14dd4fedfb3f6bc30c2048c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fd1c510e14dd4fedfb3f6bc30c2048c">&#9670;&#160;</a></span>getInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a04695.html">BatchIndexBufferT</a>&lt; T &gt;::AllocInfo &amp; <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::getInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the allocation parameters. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00487">487</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1f42e1e194cc943d9178cc5c4ecf389" name="ab1f42e1e194cc943d9178cc5c4ecf389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f42e1e194cc943d9178cc5c4ecf389">&#9670;&#160;</a></span>getVertices()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::getVertices </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the vertices for writing. Do not store pointers as they may be invalidated. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00477">477</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa1ac4fb89658f66823a091cd562598f4" name="aa1ac4fb89658f66823a091cd562598f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1ac4fb89658f66823a091cd562598f4">&#9670;&#160;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::isValid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this handle points to a valid allocation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00492">492</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1a23425b0ec5fa6c3aaa64565d105148" name="a1a23425b0ec5fa6c3aaa64565d105148"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a23425b0ec5fa6c3aaa64565d105148">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04695.html">BatchIndexBufferT</a>&lt; T &gt;<a class="el" href="a04703.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">::AllocHandle</a> &amp; <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04703.html">AllocHandle</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves from the given handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">move</td><td>The handle to move from. Is invalidated </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this handle </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00437">437</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aba442f8d9e7896116d7e06a3dc510076" name="aba442f8d9e7896116d7e06a3dc510076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba442f8d9e7896116d7e06a3dc510076">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04695.html">BatchIndexBufferT</a>&lt; T &gt;<a class="el" href="a04703.html#ab8c70a4a9b6471fb59b4ca3aeb913d0d">::AllocHandle</a> &amp; <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04703.html">AllocHandle</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies the allocation handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The handle to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this handle </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00426">426</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2db8b35d476315165bdd44d1ce19d408" name="a2db8b35d476315165bdd44d1ce19d408"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2db8b35d476315165bdd44d1ce19d408">&#9670;&#160;</a></span>orphan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::orphan </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Invalidates this handle without releasing. Useful if the allocated vertices should outlive the handle used to create them. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00470">470</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a548eb545f8d7fce73f2540395257fb21" name="a548eb545f8d7fce73f2540395257fb21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a548eb545f8d7fce73f2540395257fb21">&#9670;&#160;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04695.html">bl::rc::buf::BatchIndexBufferT</a>&lt; T &gt;::AllocHandle::release </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases this handle. Frees the allocation if this is the last handle. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if the allocation was freed, false if there are other handles </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00454">454</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a81dfd1ada8776cedd0de57c1e22f6530" name="a81dfd1ada8776cedd0de57c1e22f6530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81dfd1ada8776cedd0de57c1e22f6530">&#9670;&#160;</a></span>BatchIndexBufferT</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a04695.html">BatchIndexBufferT</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00129">129</a> of file <a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Buffers/<a class="el" href="a00548_source.html">BatchIndexBuffer.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:03 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

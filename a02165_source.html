@@ -92,7 +92,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00236.html">BLIB/Cameras/3D/Camera3D.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Config/RenderPassIds.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00653.html">BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08509.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08510.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
@@ -101,7 +101,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>vk</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>RenderTexture::RenderTexture(engine::Engine&amp; engine, Renderer&amp; renderer, rg::AssetFactory&amp; factory,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                             <span class="keyword">const</span> glm::u32vec2&amp; size, <a class="code hl_enumeration" href="a05794.html#ac9da6fd7b62add359338074a7af36f2d">SamplerOptions::Type</a> sampler)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                             <span class="keyword">const</span> glm::u32vec2&amp; size, <a class="code hl_enumeration" href="a05795.html#ac9da6fd7b62add359338074a7af36f2d">SamplerOptions::Type</a> sampler)</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: RenderTarget(engine, renderer, factory, true) {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    commandBuffers.create(renderer.vulkanState());</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
@@ -127,14 +127,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
 <div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05782.html#a675ff7fe0fabaf0f4aa90c9dd48a00e0">   41</a></span>RenderTexture::~RenderTexture() {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05783.html#a675ff7fe0fabaf0f4aa90c9dd48a00e0">   41</a></span>RenderTexture::~RenderTexture() {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    destroy();</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    commandBuffers.destroy();</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05782.html#a05cdb4fa3bb44c51b5cdfab121bfaee7">   46</a></span><span class="keywordtype">void</span> RenderTexture::resize(<span class="keyword">const</span> glm::u32vec2&amp; size) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05783.html#a05cdb4fa3bb44c51b5cdfab121bfaee7">   46</a></span><span class="keywordtype">void</span> RenderTexture::resize(<span class="keyword">const</span> glm::u32vec2&amp; size) {</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (getSize() != size) { texture-&gt;resize(size); }</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    scissor.extent.width  = size.x;</div>
@@ -145,7 +145,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
 <div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05782.html#a56d442e0c77d46924396934d91ae48b1">   55</a></span><span class="keywordtype">void</span> RenderTexture::destroy() {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05783.html#a56d442e0c77d46924396934d91ae48b1">   55</a></span><span class="keywordtype">void</span> RenderTexture::destroy() {</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">if</span> (texture) {</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        clearScenes();</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        texture.release();</div>
@@ -162,7 +162,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
 <div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a05786.html#a01ab39f2b39a3dfb44b32a0e60fbe81b">   70</a></span><span class="keywordtype">void</span> RenderTexture::Handle::release() {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a05787.html#a01ab39f2b39a3dfb44b32a0e60fbe81b">   70</a></span><span class="keywordtype">void</span> RenderTexture::Handle::release() {</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (texture) {</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        renderer-&gt;destroyRenderTexture(texture);</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        texture = <span class="keyword">nullptr</span>;</div>
@@ -179,13 +179,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa00653_html"><div class="ttname"><a href="a00653.html">FinalRenderTextureAsset.hpp</a></div></div>
 <div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">RenderPassIds.hpp</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05794_html_ac9da6fd7b62add359338074a7af36f2d"><div class="ttname"><a href="a05794.html#ac9da6fd7b62add359338074a7af36f2d">bl::rc::vk::SamplerOptions::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Preset sampler types.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00019">SamplerOptions.hpp:19</a></div></div>
-<div class="ttc" id="aa08509_html"><div class="ttname"><a href="a08509.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa05795_html_ac9da6fd7b62add359338074a7af36f2d"><div class="ttname"><a href="a05795.html#ac9da6fd7b62add359338074a7af36f2d">bl::rc::vk::SamplerOptions::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Preset sampler types.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00019">SamplerOptions.hpp:19</a></div></div>
+<div class="ttc" id="aa08510_html"><div class="ttname"><a href="a08510.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

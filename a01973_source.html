@@ -88,26 +88,26 @@ $(document).ready(function() { init_codefold(0); });
 <div class="contents">
 <a href="a01973.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00164.html">BLIB/Signals/Channel.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a08500.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a08501.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sig</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">    9</a></span><a class="code hl_function" href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel::Channel</a>()</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">    9</a></span><a class="code hl_function" href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel::Channel</a>()</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: needDeferSync(false)</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, streams()</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, parent(nullptr)</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, closed(false) {}</div>
 </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a06366.html#ae7ed12a910a23104e5394007fbd2f5b0">   15</a></span><a class="code hl_function" href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel::Channel</a>(<a class="code hl_class" href="a06366.html">Channel</a>&amp;&amp; channel) { *<span class="keyword">this</span> = std::move(channel); }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a06367.html#ae7ed12a910a23104e5394007fbd2f5b0">   15</a></span><a class="code hl_function" href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel::Channel</a>(<a class="code hl_class" href="a06367.html">Channel</a>&amp;&amp; channel) { *<span class="keyword">this</span> = std::move(channel); }</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a06366.html#a3eadc925bcba15ca7cec63067c540995">   17</a></span><a class="code hl_function" href="a06366.html#a3eadc925bcba15ca7cec63067c540995">Channel::~Channel</a>() { <a class="code hl_function" href="a06366.html#a68b922fd739434953a7470b1f9f85ff8">shutdown</a>(); }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a06367.html#a3eadc925bcba15ca7cec63067c540995">   17</a></span><a class="code hl_function" href="a06367.html#a3eadc925bcba15ca7cec63067c540995">Channel::~Channel</a>() { <a class="code hl_function" href="a06367.html#a68b922fd739434953a7470b1f9f85ff8">shutdown</a>(); }</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
 <div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a06366.html#ab7c1b1fdcced53d2b2b6dea1fcb116fa">   19</a></span><a class="code hl_class" href="a06366.html">Channel</a>&amp; <a class="code hl_function" href="a06366.html#ab7c1b1fdcced53d2b2b6dea1fcb116fa">Channel::operator=</a>(<a class="code hl_class" href="a06366.html">Channel</a>&amp;&amp; channel) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a06367.html#ab7c1b1fdcced53d2b2b6dea1fcb116fa">   19</a></span><a class="code hl_class" href="a06367.html">Channel</a>&amp; <a class="code hl_function" href="a06367.html#ab7c1b1fdcced53d2b2b6dea1fcb116fa">Channel::operator=</a>(<a class="code hl_class" href="a06367.html">Channel</a>&amp;&amp; channel) {</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (<span class="keyword">this</span> == &amp;channel) { <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (channel.closed) {</div>
@@ -126,25 +126,25 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a06366.html#a60577b52d3a14f74c55b4bb74a998a5a">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06366.html#a60577b52d3a14f74c55b4bb74a998a5a">Channel::syncDeferred</a>() {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a06367.html#a60577b52d3a14f74c55b4bb74a998a5a">   36</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06367.html#a60577b52d3a14f74c55b4bb74a998a5a">Channel::syncDeferred</a>() {</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (needDeferSync) {</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        needDeferSync = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        std::unique_lock lock(mutex);</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; stream : streams) { stream.second-&gt;syncDeferred(); }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="a06366.html">Channel</a>* child : children) { child-&gt;syncDeferred(); }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="a06367.html">Channel</a>* child : children) { child-&gt;syncDeferred(); }</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
 </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a06366.html#a88045942c5984d580bdf434314ab3b89">   45</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06366.html#a88045942c5984d580bdf434314ab3b89">Channel::setParent</a>(<a class="code hl_class" href="a06366.html">Channel</a>&amp; p) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a06367.html#a88045942c5984d580bdf434314ab3b89">   45</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06367.html#a88045942c5984d580bdf434314ab3b89">Channel::setParent</a>(<a class="code hl_class" href="a06367.html">Channel</a>&amp; p) {</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    std::unique_lock lock(mutex);</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span> (closed) {</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Cannot set parent on a shutdown channel&quot;</span>;</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (p.<a class="code hl_function" href="a06366.html#ac69f2878c22a917b49a626948bf2bddf">isShutdown</a>()) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (p.<a class="code hl_function" href="a06367.html#ac69f2878c22a917b49a626948bf2bddf">isShutdown</a>()) {</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Cannot become the child of a shutdown channel&quot;</span>;</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
@@ -159,10 +159,10 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
 </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a06366.html#a66bec4f0cafa7b7176a6f41de8173d82">   66</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06366.html#a66bec4f0cafa7b7176a6f41de8173d82">Channel::addChild</a>(<a class="code hl_class" href="a06366.html">Channel</a>&amp; child) { child.<a class="code hl_function" href="a06366.html#a88045942c5984d580bdf434314ab3b89">setParent</a>(*<span class="keyword">this</span>); }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a06367.html#a66bec4f0cafa7b7176a6f41de8173d82">   66</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06367.html#a66bec4f0cafa7b7176a6f41de8173d82">Channel::addChild</a>(<a class="code hl_class" href="a06367.html">Channel</a>&amp; child) { child.<a class="code hl_function" href="a06367.html#a88045942c5984d580bdf434314ab3b89">setParent</a>(*<span class="keyword">this</span>); }</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a06366.html#a68b922fd739434953a7470b1f9f85ff8">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06366.html#a68b922fd739434953a7470b1f9f85ff8">Channel::shutdown</a>() {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a06367.html#a68b922fd739434953a7470b1f9f85ff8">   68</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06367.html#a68b922fd739434953a7470b1f9f85ff8">Channel::shutdown</a>() {</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    shutdownFromParent();</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span> (parent) {</div>
@@ -185,7 +185,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; stream : streams) { <span class="keyword">delete</span> stream.second; }</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    streams.clear();</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">for</span> (<a class="code hl_function" href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel</a>* child : children) {</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">for</span> (<a class="code hl_function" href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel</a>* child : children) {</div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        child-&gt;shutdownFromParent();</div>
 <div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        child-&gt;parent = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    }</div>
@@ -194,14 +194,14 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keywordtype">void</span> Channel::reparent(Channel* original) {</div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">if</span> (parent) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">for</span> (<a class="code hl_function" href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel</a>*&amp; sibling : parent-&gt;children) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordflow">for</span> (<a class="code hl_function" href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel</a>*&amp; sibling : parent-&gt;children) {</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>            <span class="keywordflow">if</span> (sibling == original) {</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                sibling = <span class="keyword">this</span>;</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>                <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            }</div>
 <div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        }</div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">for</span> (<a class="code hl_function" href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel</a>* child : children) { child-&gt;parent = <span class="keyword">this</span>; }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="keywordflow">for</span> (<a class="code hl_function" href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">Channel</a>* child : children) { child-&gt;parent = <span class="keyword">this</span>; }</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
@@ -210,21 +210,21 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Channel.hpp</a></div></div>
 <div class="ttc" id="aa01586_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00101">Logger.hpp:101</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa06366_html"><div class="ttname"><a href="a06366.html">bl::sig::Channel</a></div><div class="ttdoc">A collection of signal streams. Listeners and emitters can connect to channels to send and receive si...</div><div class="ttdef"><b>Definition</b> <a href="a00164_source.html#l00030">Channel.hpp:30</a></div></div>
-<div class="ttc" id="aa06366_html_a3eadc925bcba15ca7cec63067c540995"><div class="ttname"><a href="a06366.html#a3eadc925bcba15ca7cec63067c540995">bl::sig::Channel::~Channel</a></div><div class="ttdeci">~Channel()</div><div class="ttdoc">Destroys the channel and unsubscribes all emitters and listeners.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00017">Channel.cpp:17</a></div></div>
-<div class="ttc" id="aa06366_html_a60577b52d3a14f74c55b4bb74a998a5a"><div class="ttname"><a href="a06366.html#a60577b52d3a14f74c55b4bb74a998a5a">bl::sig::Channel::syncDeferred</a></div><div class="ttdeci">void syncDeferred()</div><div class="ttdoc">Performs any deferred subscriptions or unsubscriptions for self and children.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00036">Channel.cpp:36</a></div></div>
-<div class="ttc" id="aa06366_html_a66bec4f0cafa7b7176a6f41de8173d82"><div class="ttname"><a href="a06366.html#a66bec4f0cafa7b7176a6f41de8173d82">bl::sig::Channel::addChild</a></div><div class="ttdeci">void addChild(Channel &amp;channel)</div><div class="ttdoc">Adds a child channel. Parenting channels only affects shutdown operations.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00066">Channel.cpp:66</a></div></div>
-<div class="ttc" id="aa06366_html_a68b922fd739434953a7470b1f9f85ff8"><div class="ttname"><a href="a06366.html#a68b922fd739434953a7470b1f9f85ff8">bl::sig::Channel::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Clears all handlers and emitters from this channel and all children.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00068">Channel.cpp:68</a></div></div>
-<div class="ttc" id="aa06366_html_a88045942c5984d580bdf434314ab3b89"><div class="ttname"><a href="a06366.html#a88045942c5984d580bdf434314ab3b89">bl::sig::Channel::setParent</a></div><div class="ttdeci">void setParent(Channel &amp;channel)</div><div class="ttdoc">Sets the parent channel. Parenting channels only affects shutdown operations.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00045">Channel.cpp:45</a></div></div>
-<div class="ttc" id="aa06366_html_aa0f06666cf3d6ccd1369e9ff548954f4"><div class="ttname"><a href="a06366.html#aa0f06666cf3d6ccd1369e9ff548954f4">bl::sig::Channel::Channel</a></div><div class="ttdeci">Channel()</div><div class="ttdoc">Creates a new channel.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00009">Channel.cpp:9</a></div></div>
-<div class="ttc" id="aa06366_html_ab7c1b1fdcced53d2b2b6dea1fcb116fa"><div class="ttname"><a href="a06366.html#ab7c1b1fdcced53d2b2b6dea1fcb116fa">bl::sig::Channel::operator=</a></div><div class="ttdeci">Channel &amp; operator=(Channel &amp;&amp;channel)</div><div class="ttdoc">Takes over another channel.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00019">Channel.cpp:19</a></div></div>
-<div class="ttc" id="aa06366_html_ac69f2878c22a917b49a626948bf2bddf"><div class="ttname"><a href="a06366.html#ac69f2878c22a917b49a626948bf2bddf">bl::sig::Channel::isShutdown</a></div><div class="ttdeci">bool isShutdown() const</div><div class="ttdoc">Returns whether the channel is shutdown. Shutdown channels cannot be subscribed or connected to.</div><div class="ttdef"><b>Definition</b> <a href="a00164_source.html#l00138">Channel.hpp:138</a></div></div>
-<div class="ttc" id="aa08500_html"><div class="ttname"><a href="a08500.html">Emitter.hpp</a></div></div>
+<div class="ttc" id="aa06367_html"><div class="ttname"><a href="a06367.html">bl::sig::Channel</a></div><div class="ttdoc">A collection of signal streams. Listeners and emitters can connect to channels to send and receive si...</div><div class="ttdef"><b>Definition</b> <a href="a00164_source.html#l00030">Channel.hpp:30</a></div></div>
+<div class="ttc" id="aa06367_html_a3eadc925bcba15ca7cec63067c540995"><div class="ttname"><a href="a06367.html#a3eadc925bcba15ca7cec63067c540995">bl::sig::Channel::~Channel</a></div><div class="ttdeci">~Channel()</div><div class="ttdoc">Destroys the channel and unsubscribes all emitters and listeners.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00017">Channel.cpp:17</a></div></div>
+<div class="ttc" id="aa06367_html_a60577b52d3a14f74c55b4bb74a998a5a"><div class="ttname"><a href="a06367.html#a60577b52d3a14f74c55b4bb74a998a5a">bl::sig::Channel::syncDeferred</a></div><div class="ttdeci">void syncDeferred()</div><div class="ttdoc">Performs any deferred subscriptions or unsubscriptions for self and children.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00036">Channel.cpp:36</a></div></div>
+<div class="ttc" id="aa06367_html_a66bec4f0cafa7b7176a6f41de8173d82"><div class="ttname"><a href="a06367.html#a66bec4f0cafa7b7176a6f41de8173d82">bl::sig::Channel::addChild</a></div><div class="ttdeci">void addChild(Channel &amp;channel)</div><div class="ttdoc">Adds a child channel. Parenting channels only affects shutdown operations.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00066">Channel.cpp:66</a></div></div>
+<div class="ttc" id="aa06367_html_a68b922fd739434953a7470b1f9f85ff8"><div class="ttname"><a href="a06367.html#a68b922fd739434953a7470b1f9f85ff8">bl::sig::Channel::shutdown</a></div><div class="ttdeci">void shutdown()</div><div class="ttdoc">Clears all handlers and emitters from this channel and all children.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00068">Channel.cpp:68</a></div></div>
+<div class="ttc" id="aa06367_html_a88045942c5984d580bdf434314ab3b89"><div class="ttname"><a href="a06367.html#a88045942c5984d580bdf434314ab3b89">bl::sig::Channel::setParent</a></div><div class="ttdeci">void setParent(Channel &amp;channel)</div><div class="ttdoc">Sets the parent channel. Parenting channels only affects shutdown operations.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00045">Channel.cpp:45</a></div></div>
+<div class="ttc" id="aa06367_html_aa0f06666cf3d6ccd1369e9ff548954f4"><div class="ttname"><a href="a06367.html#aa0f06666cf3d6ccd1369e9ff548954f4">bl::sig::Channel::Channel</a></div><div class="ttdeci">Channel()</div><div class="ttdoc">Creates a new channel.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00009">Channel.cpp:9</a></div></div>
+<div class="ttc" id="aa06367_html_ab7c1b1fdcced53d2b2b6dea1fcb116fa"><div class="ttname"><a href="a06367.html#ab7c1b1fdcced53d2b2b6dea1fcb116fa">bl::sig::Channel::operator=</a></div><div class="ttdeci">Channel &amp; operator=(Channel &amp;&amp;channel)</div><div class="ttdoc">Takes over another channel.</div><div class="ttdef"><b>Definition</b> <a href="a01973_source.html#l00019">Channel.cpp:19</a></div></div>
+<div class="ttc" id="aa06367_html_ac69f2878c22a917b49a626948bf2bddf"><div class="ttname"><a href="a06367.html#ac69f2878c22a917b49a626948bf2bddf">bl::sig::Channel::isShutdown</a></div><div class="ttdeci">bool isShutdown() const</div><div class="ttdoc">Returns whether the channel is shutdown. Shutdown channels cannot be subscribed or connected to.</div><div class="ttdef"><b>Definition</b> <a href="a00164_source.html#l00138">Channel.hpp:138</a></div></div>
+<div class="ttc" id="aa08501_html"><div class="ttname"><a href="a08501.html">Emitter.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:01 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

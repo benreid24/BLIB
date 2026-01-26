@@ -89,7 +89,7 @@ $(document).ready(function() { init_codefold(0); });
 <a href="a00050.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_PARTICLES_PARTICLEMANAGER_INL</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno"><a class="line" href="a00050.html#a9281fade8f451e3d20b553587f28788a">    2</a></span><span class="preprocessor">#define BLIB_PARTICLES_PARTICLEMANAGER_INL</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a07963.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a07964.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00044.html">BLIB/Particles/ParticleManager.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
@@ -99,7 +99,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a04594.html#ad38c95ba343c67ddaa993dbeefc77b4e">   13</a></span><a class="code hl_function" href="a04594.html#ad38c95ba343c67ddaa993dbeefc77b4e">ParticleManager&lt;T&gt;::ParticleManager</a>() {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a04595.html#ad38c95ba343c67ddaa993dbeefc77b4e">   13</a></span><a class="code hl_function" href="a04595.html#ad38c95ba343c67ddaa993dbeefc77b4e">ParticleManager&lt;T&gt;::ParticleManager</a>() {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">constexpr</span> std::size_t DefaultCapacity = 512;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    particles.reserve(DefaultCapacity);</div>
@@ -110,7 +110,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04594.html#ac1a4e031b505349e9ccd1f9881b3c99f">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#ac1a4e031b505349e9ccd1f9881b3c99f">ParticleManager&lt;T&gt;::init</a>(<a class="code hl_class" href="a03806.html">engine::World</a>&amp; w) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04595.html#ac1a4e031b505349e9ccd1f9881b3c99f">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04595.html#ac1a4e031b505349e9ccd1f9881b3c99f">ParticleManager&lt;T&gt;::init</a>(<a class="code hl_class" href="a03807.html">engine::World</a>&amp; w) {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    world = &amp;w;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    renderer.init(w);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
@@ -118,12 +118,12 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04594.html#a4291bcdf8d04baf3d4a574c733d736c1">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#a4291bcdf8d04baf3d4a574c733d736c1">ParticleManager&lt;T&gt;::update</a>(<a class="code hl_class" href="a06610.html">util::ThreadPool</a>&amp; <a class="code hl_variable" href="a02753.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a>, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04595.html#a4291bcdf8d04baf3d4a574c733d736c1">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04595.html#a4291bcdf8d04baf3d4a574c733d736c1">ParticleManager&lt;T&gt;::update</a>(<a class="code hl_class" href="a06611.html">util::ThreadPool</a>&amp; <a class="code hl_variable" href="a02753.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a>, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) {</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="comment">// call updaters before anything else</span></div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (!updaters.empty()) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">typename</span> <a class="code hl_class" href="a04642.html">TUpdater::Proxy</a> proxy(*<span class="keyword">this</span>, affectors, emitters, sinks);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">typename</span> <a class="code hl_class" href="a04643.html">TUpdater::Proxy</a> proxy(*<span class="keyword">this</span>, affectors, emitters, sinks);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">for</span> (std::size_t i = updaters.size(); i &gt; 0; --i) {</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keyword">const</span> std::size_t idx = i - 1;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            updaters[idx]-&gt;update(proxy, dt, realDt);</div>
@@ -149,7 +149,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// run emitters to fill holes</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span> (!emitters.empty()) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">typename</span> <a class="code hl_class" href="a04626.html">TEmitter::Proxy</a> proxy(*<span class="keyword">this</span>, particles, freeList);</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keyword">typename</span> <a class="code hl_class" href="a04627.html">TEmitter::Proxy</a> proxy(*<span class="keyword">this</span>, particles, freeList);</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">for</span> (std::size_t i = emitters.size(); i &gt; 0; --i) {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">const</span> std::size_t idx = i - 1;</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            emitters[idx]-&gt;update(proxy, dt, realDt);</div>
@@ -215,7 +215,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a04594.html#aecab872e1294ab7e8b2f6a5599fdcd36">  123</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeUpdater</a>(<a class="code hl_class" href="a04638.html">TUpdater</a>* updater) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a04595.html#aecab872e1294ab7e8b2f6a5599fdcd36">  123</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeUpdater</a>(<a class="code hl_class" href="a04639.html">TUpdater</a>* updater) {</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = updaters.begin(); it != updaters.end(); ++it) {</div>
@@ -229,7 +229,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a04594.html#ae9a0ffca253f71e752a48667e2ffcbca">  135</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeAllUpdaters</a>() {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a04595.html#ae9a0ffca253f71e752a48667e2ffcbca">  135</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeAllUpdaters</a>() {</div>
 <div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    updaters.clear();</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}</div>
@@ -237,7 +237,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00141" data-start="{" data-end="}">
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="a04594.html#a44741f495f7e9ffcd750d049519fbaba">  141</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeAffector</a>(<a class="code hl_class" href="a04598.html">TAffector</a>* affector) {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="a04595.html#a44741f495f7e9ffcd750d049519fbaba">  141</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeAffector</a>(<a class="code hl_class" href="a04599.html">TAffector</a>* affector) {</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = affectors.begin(); it != affectors.end(); ++it) {</div>
@@ -251,7 +251,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span> </div>
 <div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="a04594.html#aa2e9610dce2fbf9daf4b9691568add75">  153</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeAllAffectors</a>() {</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="a04595.html#aa2e9610dce2fbf9daf4b9691568add75">  153</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeAllAffectors</a>() {</div>
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    affectors.clear();</div>
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>}</div>
@@ -259,7 +259,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00159" data-start="{" data-end="}">
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="a04594.html#a050a10666c8955d67afc090d110eb45c">  159</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeEmitter</a>(<a class="code hl_class" href="a04622.html">TEmitter</a>* emitter) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno"><a class="line" href="a04595.html#a050a10666c8955d67afc090d110eb45c">  159</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeEmitter</a>(<a class="code hl_class" href="a04623.html">TEmitter</a>* emitter) {</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = emitters.begin(); it != emitters.end(); ++it) {</div>
@@ -273,7 +273,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00171" data-start="{" data-end="}">
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="a04594.html#ab30f8c40001c76042976454c20932cbb">  171</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeAllEmitters</a>() {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="a04595.html#ab30f8c40001c76042976454c20932cbb">  171</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeAllEmitters</a>() {</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    emitters.clear();</div>
 <div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>}</div>
@@ -281,7 +281,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00177" data-start="{" data-end="}">
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="a04594.html#ad8738a83317fb1aad0afa93749786600">  177</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeSink</a>(<a class="code hl_class" href="a04678.html">TSink</a>* sink) {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="a04595.html#ad8738a83317fb1aad0afa93749786600">  177</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeSink</a>(<a class="code hl_class" href="a04679.html">TSink</a>* sink) {</div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
 <div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = sinks.begin(); it != sinks.end(); ++it) {</div>
@@ -295,7 +295,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
 <div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00189" data-start="{" data-end="}">
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="a04594.html#ad5301a7862a9b5a9ea3a5aa6a67f2bd3">  189</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeAllSinks</a>() {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="a04595.html#ad5301a7862a9b5a9ea3a5aa6a67f2bd3">  189</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeAllSinks</a>() {</div>
 <div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    sinks.clear();</div>
 <div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>}</div>
@@ -303,7 +303,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00195" data-start="{" data-end="}">
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a04594.html#ab1e612263002cb2335ffe286d9912fdc">  195</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::clearAndReset</a>() {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno"><a class="line" href="a04595.html#ab1e612263002cb2335ffe286d9912fdc">  195</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::clearAndReset</a>() {</div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    affectors.clear();</div>
@@ -317,43 +317,43 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00207" data-start="{" data-end="}">
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="a04594.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">  207</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::addToScene</a>(<a class="code hl_class" href="a05450.html">rc::Scene</a>* scene) {</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    renderer.<a class="code hl_function" href="a04594.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">addToScene</a>(scene);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno"><a class="line" href="a04595.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">  207</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::addToScene</a>(<a class="code hl_class" href="a05451.html">rc::Scene</a>* scene) {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    renderer.<a class="code hl_function" href="a04595.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">addToScene</a>(scene);</div>
 <div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    renderer.getLink()-&gt;systemInfo = &amp;globalInfo;</div>
 <div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>}</div>
 </div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
 <div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="a04594.html#afc43e653dc91c5aac23ef311c1932c03">  213</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeFromScene</a>() {</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    renderer.<a class="code hl_function" href="a04594.html#afc43e653dc91c5aac23ef311c1932c03">removeFromScene</a>();</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="a04595.html#afc43e653dc91c5aac23ef311c1932c03">  213</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeFromScene</a>() {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    renderer.<a class="code hl_function" href="a04595.html#afc43e653dc91c5aac23ef311c1932c03">removeFromScene</a>();</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>}</div>
 </div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
 <div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00218" data-start="{" data-end="}">
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="a04594.html#ae5dc07a79612b712dbc521105b603019">  218</a></span><span class="keyword">typename</span> <a class="code hl_typedef" href="a04594.html#a8789788a812c910d0fa097c08f38ebda">ParticleManager&lt;T&gt;::TRenderer</a>&amp; <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getRenderer</a>() {</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno"><a class="line" href="a04595.html#ae5dc07a79612b712dbc521105b603019">  218</a></span><span class="keyword">typename</span> <a class="code hl_typedef" href="a04595.html#a8789788a812c910d0fa097c08f38ebda">ParticleManager&lt;T&gt;::TRenderer</a>&amp; <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getRenderer</a>() {</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">return</span> renderer;</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>}</div>
 </div>
 <div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span> </div>
 <div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="a04594.html#aa0b9dfa6518adba097a0055de8601484">  223</a></span><span class="keyword">const</span> <span class="keyword">typename</span> <a class="code hl_typedef" href="a04594.html#a8789788a812c910d0fa097c08f38ebda">ParticleManager&lt;T&gt;::TRenderer</a>&amp; <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getRenderer</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="a04595.html#aa0b9dfa6518adba097a0055de8601484">  223</a></span><span class="keyword">const</span> <span class="keyword">typename</span> <a class="code hl_typedef" href="a04595.html#a8789788a812c910d0fa097c08f38ebda">ParticleManager&lt;T&gt;::TRenderer</a>&amp; <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getRenderer</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">return</span> renderer;</div>
 <div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
 </div>
 <div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
 <div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00228" data-start="{" data-end="}">
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="a04594.html#a75c0a67f4cc73ae0aa31c31609ef920b">  228</a></span>std::size_t <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getParticleCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno"><a class="line" href="a04595.html#a75c0a67f4cc73ae0aa31c31609ef920b">  228</a></span>std::size_t <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getParticleCount</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    <span class="keywordflow">return</span> particles.size();</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>}</div>
 </div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00233" data-start="{" data-end="}">
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno"><a class="line" href="a04594.html#a8049fc5f2a11d97abfc9531ca7b29516">  233</a></span>std::size_t <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getParticleCountLocked</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno"><a class="line" href="a04595.html#a8049fc5f2a11d97abfc9531ca7b29516">  233</a></span>std::size_t <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getParticleCountLocked</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">return</span> particles.size();</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>}</div>
@@ -361,13 +361,13 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
 <div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="foldopen" id="foldopen00239" data-start="{" data-end="}">
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="a04594.html#aeaed41dd7f9b044bad73627ee434b7ee">  239</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::draw</a>(<a class="code hl_class" href="a05426.html">rc::scene::CodeScene::RenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    renderer.<a class="code hl_function" href="a04594.html#aeaed41dd7f9b044bad73627ee434b7ee">draw</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="a04595.html#aeaed41dd7f9b044bad73627ee434b7ee">  239</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::draw</a>(<a class="code hl_class" href="a05427.html">rc::scene::CodeScene::RenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    renderer.<a class="code hl_function" href="a04595.html#aeaed41dd7f9b044bad73627ee434b7ee">draw</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>}</div>
 </div>
 <div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
 <div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::updateSink</a>(std::size_t i, <a class="code hl_class" href="a06610.html">util::ThreadPool</a>&amp; pool, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::updateSink</a>(std::size_t i, <a class="code hl_class" href="a06611.html">util::ThreadPool</a>&amp; pool, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt) {</div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keyword">auto</span>* sink = sinks[i].get();</div>
 <div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keyword">typename</span> TSink::Proxy proxy(releaseMutex, *<span class="keyword">this</span>, &amp;particles.front(), freeList, freed);</div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keyword">auto</span> it = particles.begin();</div>
@@ -376,7 +376,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordflow">while</span> (it != particles.end()) {</div>
 <div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keyword">const</span> std::size_t len =</div>
 <div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>            std::min&lt;std::size_t&gt;(std::distance(it, particles.end()), ParticlesPerThread);</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        futures.emplace_back(pool.<a class="code hl_function" href="a06610.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>([<span class="keyword">this</span>, &amp;proxy, it, len, sink, dt, realDt]() {</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        futures.emplace_back(pool.<a class="code hl_function" href="a06611.html#a2093b8daf49ca46987c69b69c1a10e59">queueTask</a>([<span class="keyword">this</span>, &amp;proxy, it, len, sink, dt, realDt]() {</div>
 <div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>            sink-&gt;update(proxy, std::span&lt;T&gt;(&amp;*it, len), dt, realDt);</div>
 <div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        }));</div>
 <div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        it += len;</div>
@@ -394,7 +394,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="foldopen" id="foldopen00270" data-start="{" data-end="}">
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="a04594.html#a10b7886e7769abd74e866219d2c13814">  270</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::addUpdater</a>(TArgs... args) {</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno"><a class="line" href="a04595.html#a10b7886e7769abd74e866219d2c13814">  270</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::addUpdater</a>(TArgs... args) {</div>
 <div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TUpdater, U&gt;, <span class="stringliteral">&quot;U must derive from MetaUpdater&quot;</span>);</div>
 <div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
@@ -407,7 +407,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00281" data-start="{" data-end="}">
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="a04594.html#ac45ba99ee138f21f562c1fc58df0a0b4">  281</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getUpdater</a>() {</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="a04595.html#ac45ba99ee138f21f562c1fc58df0a0b4">  281</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getUpdater</a>() {</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TUpdater, U&gt;, <span class="stringliteral">&quot;U must derive from MetaUpdater&quot;</span>);</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
@@ -422,7 +422,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00294" data-start="{" data-end="}">
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="a04594.html#a28ee43594d0965f636d1b1ee565012df">  294</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeUpdaters</a>() {</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno"><a class="line" href="a04595.html#a28ee43594d0965f636d1b1ee565012df">  294</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeUpdaters</a>() {</div>
 <div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TUpdater, U&gt;, <span class="stringliteral">&quot;U must derive from MetaUpdater&quot;</span>);</div>
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
@@ -435,7 +435,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="foldopen" id="foldopen00305" data-start="{" data-end="}">
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="a04594.html#a9c8891b107eeb45e8bd9a7e21c5afa16">  305</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::addAffector</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="a04595.html#a9c8891b107eeb45e8bd9a7e21c5afa16">  305</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::addAffector</a>(TArgs&amp;&amp;... args) {</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TAffector, U&gt;, <span class="stringliteral">&quot;U must derive from Affector&quot;</span>);</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span> </div>
@@ -448,7 +448,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00316" data-start="{" data-end="}">
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno"><a class="line" href="a04594.html#a1ff234082543746e0839e361398640f1">  316</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getAffector</a>() {</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno"><a class="line" href="a04595.html#a1ff234082543746e0839e361398640f1">  316</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getAffector</a>() {</div>
 <div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TAffector, U&gt;, <span class="stringliteral">&quot;U must derive from Affector&quot;</span>);</div>
 <div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
@@ -463,7 +463,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00329" data-start="{" data-end="}">
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="a04594.html#a4ee47eb97702781cb44f161fe16dab9d">  329</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeAffectors</a>() {</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno"><a class="line" href="a04595.html#a4ee47eb97702781cb44f161fe16dab9d">  329</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeAffectors</a>() {</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TAffector, U&gt;, <span class="stringliteral">&quot;U must derive from Affector&quot;</span>);</div>
 <div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span> </div>
@@ -476,7 +476,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="foldopen" id="foldopen00340" data-start="{" data-end="}">
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="a04594.html#a295ab787b24a23b329dca76a21683eee">  340</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::addEmitter</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="a04595.html#a295ab787b24a23b329dca76a21683eee">  340</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::addEmitter</a>(TArgs&amp;&amp;... args) {</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TEmitter, U&gt;, <span class="stringliteral">&quot;U must derive from Emitter&quot;</span>);</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span> </div>
@@ -489,7 +489,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00351" data-start="{" data-end="}">
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno"><a class="line" href="a04594.html#a1ca3d9011f55d0261b4527ccfbf833dd">  351</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getEmitter</a>() {</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno"><a class="line" href="a04595.html#a1ca3d9011f55d0261b4527ccfbf833dd">  351</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getEmitter</a>() {</div>
 <div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TEmitter, U&gt;, <span class="stringliteral">&quot;U must derive from Emitter&quot;</span>);</div>
 <div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
@@ -504,7 +504,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00364" data-start="{" data-end="}">
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno"><a class="line" href="a04594.html#a3c9eed9f2b48ffe62be967a52c6aa5f2">  364</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeEmitters</a>() {</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno"><a class="line" href="a04595.html#a3c9eed9f2b48ffe62be967a52c6aa5f2">  364</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeEmitters</a>() {</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TEmitter, U&gt;, <span class="stringliteral">&quot;U must derive from Emitter&quot;</span>);</div>
 <div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
@@ -517,7 +517,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U, <span class="keyword">typename</span>... TArgs&gt;</div>
 <div class="foldopen" id="foldopen00375" data-start="{" data-end="}">
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno"><a class="line" href="a04594.html#a9a9b18bd3281698cedf36fdffc4580f9">  375</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::addSink</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno"><a class="line" href="a04595.html#a9a9b18bd3281698cedf36fdffc4580f9">  375</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::addSink</a>(TArgs&amp;&amp;... args) {</div>
 <div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TSink, U&gt;, <span class="stringliteral">&quot;U must derive from Sink&quot;</span>);</div>
 <div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
@@ -530,7 +530,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00386" data-start="{" data-end="}">
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno"><a class="line" href="a04594.html#ac503c1fa14a6f5bd34ea0c2612197d7c">  386</a></span>U* <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::getSink</a>() {</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno"><a class="line" href="a04595.html#ac503c1fa14a6f5bd34ea0c2612197d7c">  386</a></span>U* <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::getSink</a>() {</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TSink, U&gt;, <span class="stringliteral">&quot;U must derive from Sink&quot;</span>);</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
@@ -545,7 +545,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> U&gt;</div>
 <div class="foldopen" id="foldopen00399" data-start="{" data-end="}">
-<div class="line"><a id="l00399" name="l00399"></a><span class="lineno"><a class="line" href="a04594.html#aef71acd0d016d3940554cf1925feabf1">  399</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04594.html">ParticleManager&lt;T&gt;::removeSinks</a>() {</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno"><a class="line" href="a04595.html#aef71acd0d016d3940554cf1925feabf1">  399</a></span><span class="keywordtype">void</span> <a class="code hl_class" href="a04595.html">ParticleManager&lt;T&gt;::removeSinks</a>() {</div>
 <div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <span class="keyword">static_assert</span>(std::is_base_of_v&lt;TSink, U&gt;, <span class="stringliteral">&quot;U must derive from Sink&quot;</span>);</div>
 <div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    std::unique_lock lock(<a class="code hl_variable" href="a01976.html#a1be3f7fa26e4521098de5f1ec0f865f3">mutex</a>);</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span> </div>
@@ -563,31 +563,31 @@ $(document).ready(function() { init_codefold(0); });
 <div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
 <div class="ttc" id="aa02753_html_a96323642920a8b43095d6ec28ffb0e8d"><div class="ttname"><a href="a02753.html#a96323642920a8b43095d6ec28ffb0e8d">threadPool</a></div><div class="ttdeci">util::ThreadPool &amp; threadPool</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00029">World2D.cpp:29</a></div></div>
 <div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03806_html"><div class="ttname"><a href="a03806.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01496_source.html#l00022">World.hpp:22</a></div></div>
-<div class="ttc" id="aa04594_html"><div class="ttname"><a href="a04594.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition</b> <a href="a00044_source.html#l00029">ParticleManager.hpp:29</a></div></div>
-<div class="ttc" id="aa04594_html_a4291bcdf8d04baf3d4a574c733d736c1"><div class="ttname"><a href="a04594.html#a4291bcdf8d04baf3d4a574c733d736c1">bl::pcl::ParticleManager::update</a></div><div class="ttdeci">virtual void update(util::ThreadPool &amp;threadPool, float dt, float realDt) override</div><div class="ttdoc">Updates all the particles.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00028">ParticleManager.inl:28</a></div></div>
-<div class="ttc" id="aa04594_html_a80d46bd829d453d2ebd0e3f7fdcab4c0"><div class="ttname"><a href="a04594.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">bl::pcl::ParticleManager::addToScene</a></div><div class="ttdeci">virtual void addToScene(rc::Scene *scene) override</div><div class="ttdoc">Called when the particle manager should be rendered in the given scene.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00207">ParticleManager.inl:207</a></div></div>
-<div class="ttc" id="aa04594_html_a8789788a812c910d0fa097c08f38ebda"><div class="ttname"><a href="a04594.html#a8789788a812c910d0fa097c08f38ebda">bl::pcl::ParticleManager::TRenderer</a></div><div class="ttdeci">typename RenderTypeMap&lt; T &gt;::TRenderer TRenderer</div><div class="ttdef"><b>Definition</b> <a href="a00044_source.html#l00031">ParticleManager.hpp:31</a></div></div>
-<div class="ttc" id="aa04594_html_ac1a4e031b505349e9ccd1f9881b3c99f"><div class="ttname"><a href="a04594.html#ac1a4e031b505349e9ccd1f9881b3c99f">bl::pcl::ParticleManager::init</a></div><div class="ttdeci">virtual void init(engine::World &amp;world) override</div><div class="ttdoc">Called once after being constructed.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00022">ParticleManager.inl:22</a></div></div>
-<div class="ttc" id="aa04594_html_ad38c95ba343c67ddaa993dbeefc77b4e"><div class="ttname"><a href="a04594.html#ad38c95ba343c67ddaa993dbeefc77b4e">bl::pcl::ParticleManager::ParticleManager</a></div><div class="ttdeci">ParticleManager()</div><div class="ttdoc">Initializes the particle manager.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00013">ParticleManager.inl:13</a></div></div>
-<div class="ttc" id="aa04594_html_aeaed41dd7f9b044bad73627ee434b7ee"><div class="ttname"><a href="a04594.html#aeaed41dd7f9b044bad73627ee434b7ee">bl::pcl::ParticleManager::draw</a></div><div class="ttdeci">void draw(rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Manually issue the required commands to draw this object. Must be called within the context of a Code...</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00239">ParticleManager.inl:239</a></div></div>
-<div class="ttc" id="aa04594_html_afc43e653dc91c5aac23ef311c1932c03"><div class="ttname"><a href="a04594.html#afc43e653dc91c5aac23ef311c1932c03">bl::pcl::ParticleManager::removeFromScene</a></div><div class="ttdeci">virtual void removeFromScene() override</div><div class="ttdoc">Called when the particles should be removed from its current scene.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00213">ParticleManager.inl:213</a></div></div>
-<div class="ttc" id="aa04598_html"><div class="ttname"><a href="a04598.html">bl::pcl::Affector</a></div><div class="ttdoc">Base class for all particle affectors. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a00053_source.html#l00020">Affector.hpp:20</a></div></div>
-<div class="ttc" id="aa04622_html"><div class="ttname"><a href="a04622.html">bl::pcl::Emitter</a></div><div class="ttdoc">Base class for all particle emitters. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a08497_source.html#l00020">Emitter.hpp:20</a></div></div>
-<div class="ttc" id="aa04626_html"><div class="ttname"><a href="a04626.html">bl::pcl::Emitter::Proxy</a></div><div class="ttdoc">Proxy interface used by emitters to create new particles.</div><div class="ttdef"><b>Definition</b> <a href="a08497_source.html#l00025">Emitter.hpp:25</a></div></div>
-<div class="ttc" id="aa04638_html"><div class="ttname"><a href="a04638.html">bl::pcl::MetaUpdater</a></div><div class="ttdoc">Generic plugin base for update logic to be applied to particle systems prior to sinks,...</div><div class="ttdef"><b>Definition</b> <a href="a00038_source.html#l00025">MetaUpdater.hpp:25</a></div></div>
-<div class="ttc" id="aa04642_html"><div class="ttname"><a href="a04642.html">bl::pcl::MetaUpdater::Proxy</a></div><div class="ttdef"><b>Definition</b> <a href="a00038_source.html#l00027">MetaUpdater.hpp:27</a></div></div>
-<div class="ttc" id="aa04678_html"><div class="ttname"><a href="a04678.html">bl::pcl::Sink</a></div><div class="ttdoc">Base class for all particle sinks. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00022">Sink.hpp:22</a></div></div>
-<div class="ttc" id="aa05426_html"><div class="ttname"><a href="a05426.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00031">CodeScene.hpp:31</a></div></div>
-<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
-<div class="ttc" id="aa06610_html"><div class="ttname"><a href="a06610.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition</b> <a href="a01778_source.html#l00024">ThreadPool.hpp:24</a></div></div>
-<div class="ttc" id="aa06610_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a06610.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00083">ThreadPool.cpp:83</a></div></div>
-<div class="ttc" id="aa07963_html"><div class="ttname"><a href="a07963.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa03807_html"><div class="ttname"><a href="a03807.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01496_source.html#l00022">World.hpp:22</a></div></div>
+<div class="ttc" id="aa04595_html"><div class="ttname"><a href="a04595.html">bl::pcl::ParticleManager</a></div><div class="ttdoc">Particle manager for a specific type of particle. Instances are owned by the ParticleSystem and shoul...</div><div class="ttdef"><b>Definition</b> <a href="a00044_source.html#l00029">ParticleManager.hpp:29</a></div></div>
+<div class="ttc" id="aa04595_html_a4291bcdf8d04baf3d4a574c733d736c1"><div class="ttname"><a href="a04595.html#a4291bcdf8d04baf3d4a574c733d736c1">bl::pcl::ParticleManager::update</a></div><div class="ttdeci">virtual void update(util::ThreadPool &amp;threadPool, float dt, float realDt) override</div><div class="ttdoc">Updates all the particles.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00028">ParticleManager.inl:28</a></div></div>
+<div class="ttc" id="aa04595_html_a80d46bd829d453d2ebd0e3f7fdcab4c0"><div class="ttname"><a href="a04595.html#a80d46bd829d453d2ebd0e3f7fdcab4c0">bl::pcl::ParticleManager::addToScene</a></div><div class="ttdeci">virtual void addToScene(rc::Scene *scene) override</div><div class="ttdoc">Called when the particle manager should be rendered in the given scene.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00207">ParticleManager.inl:207</a></div></div>
+<div class="ttc" id="aa04595_html_a8789788a812c910d0fa097c08f38ebda"><div class="ttname"><a href="a04595.html#a8789788a812c910d0fa097c08f38ebda">bl::pcl::ParticleManager::TRenderer</a></div><div class="ttdeci">typename RenderTypeMap&lt; T &gt;::TRenderer TRenderer</div><div class="ttdef"><b>Definition</b> <a href="a00044_source.html#l00031">ParticleManager.hpp:31</a></div></div>
+<div class="ttc" id="aa04595_html_ac1a4e031b505349e9ccd1f9881b3c99f"><div class="ttname"><a href="a04595.html#ac1a4e031b505349e9ccd1f9881b3c99f">bl::pcl::ParticleManager::init</a></div><div class="ttdeci">virtual void init(engine::World &amp;world) override</div><div class="ttdoc">Called once after being constructed.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00022">ParticleManager.inl:22</a></div></div>
+<div class="ttc" id="aa04595_html_ad38c95ba343c67ddaa993dbeefc77b4e"><div class="ttname"><a href="a04595.html#ad38c95ba343c67ddaa993dbeefc77b4e">bl::pcl::ParticleManager::ParticleManager</a></div><div class="ttdeci">ParticleManager()</div><div class="ttdoc">Initializes the particle manager.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00013">ParticleManager.inl:13</a></div></div>
+<div class="ttc" id="aa04595_html_aeaed41dd7f9b044bad73627ee434b7ee"><div class="ttname"><a href="a04595.html#aeaed41dd7f9b044bad73627ee434b7ee">bl::pcl::ParticleManager::draw</a></div><div class="ttdeci">void draw(rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Manually issue the required commands to draw this object. Must be called within the context of a Code...</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00239">ParticleManager.inl:239</a></div></div>
+<div class="ttc" id="aa04595_html_afc43e653dc91c5aac23ef311c1932c03"><div class="ttname"><a href="a04595.html#afc43e653dc91c5aac23ef311c1932c03">bl::pcl::ParticleManager::removeFromScene</a></div><div class="ttdeci">virtual void removeFromScene() override</div><div class="ttdoc">Called when the particles should be removed from its current scene.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00213">ParticleManager.inl:213</a></div></div>
+<div class="ttc" id="aa04599_html"><div class="ttname"><a href="a04599.html">bl::pcl::Affector</a></div><div class="ttdoc">Base class for all particle affectors. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a00053_source.html#l00020">Affector.hpp:20</a></div></div>
+<div class="ttc" id="aa04623_html"><div class="ttname"><a href="a04623.html">bl::pcl::Emitter</a></div><div class="ttdoc">Base class for all particle emitters. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a08498_source.html#l00020">Emitter.hpp:20</a></div></div>
+<div class="ttc" id="aa04627_html"><div class="ttname"><a href="a04627.html">bl::pcl::Emitter::Proxy</a></div><div class="ttdoc">Proxy interface used by emitters to create new particles.</div><div class="ttdef"><b>Definition</b> <a href="a08498_source.html#l00025">Emitter.hpp:25</a></div></div>
+<div class="ttc" id="aa04639_html"><div class="ttname"><a href="a04639.html">bl::pcl::MetaUpdater</a></div><div class="ttdoc">Generic plugin base for update logic to be applied to particle systems prior to sinks,...</div><div class="ttdef"><b>Definition</b> <a href="a00038_source.html#l00025">MetaUpdater.hpp:25</a></div></div>
+<div class="ttc" id="aa04643_html"><div class="ttname"><a href="a04643.html">bl::pcl::MetaUpdater::Proxy</a></div><div class="ttdef"><b>Definition</b> <a href="a00038_source.html#l00027">MetaUpdater.hpp:27</a></div></div>
+<div class="ttc" id="aa04679_html"><div class="ttname"><a href="a04679.html">bl::pcl::Sink</a></div><div class="ttdoc">Base class for all particle sinks. Provides the interface used by ParticleManagers.</div><div class="ttdef"><b>Definition</b> <a href="a00017_source.html#l00022">Sink.hpp:22</a></div></div>
+<div class="ttc" id="aa05427_html"><div class="ttname"><a href="a05427.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition</b> <a href="a00326_source.html#l00031">CodeScene.hpp:31</a></div></div>
+<div class="ttc" id="aa05451_html"><div class="ttname"><a href="a05451.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a00359_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="ttc" id="aa06611_html"><div class="ttname"><a href="a06611.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition</b> <a href="a01778_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="ttc" id="aa06611_html_a2093b8daf49ca46987c69b69c1a10e59"><div class="ttname"><a href="a06611.html#a2093b8daf49ca46987c69b69c1a10e59">bl::util::ThreadPool::queueTask</a></div><div class="ttdeci">std::future&lt; void &gt; queueTask(Task &amp;&amp;task)</div><div class="ttdoc">Queues a task to be executed by a worker. Returns an invalid future if the pool is not accepting task...</div><div class="ttdef"><b>Definition</b> <a href="a02924_source.html#l00083">ThreadPool.cpp:83</a></div></div>
+<div class="ttc" id="aa07964_html"><div class="ttname"><a href="a07964.html">Engine.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 11 2026 05:07:00 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>
