@@ -18,6 +18,7 @@ namespace engine
 {
 namespace
 {
+constexpr std::uint64_t MinFrameLengthMicroseconds = 100;
 float toSeconds(std::uint64_t microseconds) {
     return static_cast<float>(microseconds) / 1'000'000.f;
 }
@@ -169,7 +170,7 @@ bool Engine::loop() {
         engineSettings.maximumFramerate() > 0.f ? 1.f / engineSettings.maximumFramerate() : 0.f;
     // always limit to at least 100us to avoid issues with SFML time resolution
     const std::uint64_t minFrameLength =
-        std::max(static_cast<std::uint64_t>(minFrameLengthSeconds * 1'000'000.f), 100ull);
+        std::max(static_cast<std::uint64_t>(minFrameLengthSeconds * 1'000'000.f), MinFrameLengthMicroseconds);
     std::uint64_t lag = 0;
 
     sf::Clock updateMeasureTimer; // measures duration of update ticks

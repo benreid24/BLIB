@@ -199,9 +199,7 @@ public:
     virtual void update(Engine& engine, float dt, float realDt) override {
         totalTime += realDt;
         simulatedTime += dt;
-        BL_LOG_INFO << "Total time: " << totalTime;
         if (totalTime >= 5.f) {
-            //
             engine.flags().set(Flags::Terminate);
         }
     }
