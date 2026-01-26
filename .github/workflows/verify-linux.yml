@@ -20,6 +20,11 @@ jobs:
 
     - name: package-install
       run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+
+    - name: Install Vulkan SDK
+      uses: humbletim/install-vulkan-sdk@v1.2
+      with:
+        cache: true
       
     - name: configure
       run: cmake -S . -B ./build
