@@ -5,5 +5,6 @@ target_sources(BLIB PRIVATE
     StreamUtil.cpp
     ThreadPool.cpp
     Timer.cpp
+    UUID.cpp
     Waiter.cpp
 )

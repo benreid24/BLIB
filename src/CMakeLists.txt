@@ -1,5 +1,6 @@
 target_include_directories(BLIB PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
+add_subdirectory(Assets)
 add_subdirectory(Audio)
 add_subdirectory(Cameras)
 add_subdirectory(Components)

@@ -21,6 +21,7 @@
 #include <BLIB/Util/ThreadPool.hpp>
 #include <BLIB/Util/Timer.hpp>
 #include <BLIB/Util/TupleLoop.hpp>
+#include <BLIB/Util/UUID.hpp>
 #include <BLIB/Util/UnderlyingType.hpp>
 #include <BLIB/Util/VariadicHelpers.hpp>
 #include <BLIB/Util/Waiter.hpp>
