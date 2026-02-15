@@ -5,6 +5,11 @@ namespace bl
 {
 namespace as
 {
+/**
+ * @brief Represents the state of an asset
+ *
+ * @ingroup Assets
+ */
 enum struct State {
     Known,    ///< The asset is known to exist by id and type only
     Unloaded, ///< The asset metadata is available
@@ -14,7 +19,7 @@ enum struct State {
     Unknown   ///< Used when invalid UUIDs are searched
 };
 
-}
+} // namespace as
 } // namespace bl
 
 #endif
