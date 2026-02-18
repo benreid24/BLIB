@@ -11,6 +11,7 @@ namespace bl
 namespace as
 {
 class Asset;
+class Repository;
 
 namespace detail
 {
@@ -26,14 +27,20 @@ public:
      * @brief Creates a context for asset loading
      *
      * @param mode The mode the asset system is in
+     * @param repo
      * @param asset The asset being loaded
      */
-    Context(Mode mode, Asset& asset);
+    Context(Mode mode, Repository& repo, Asset& asset);
 
     /**
      * @brief Returns the mode the asset system is in
      */
     Mode getMode() const { return mode; }
+
+    /**
+     * @brief Returns the repository the asset belongs to
+     */
+    Repository& getRepository() const { return repo; }
 
     /**
      * @brief Returns the asset being loaded
@@ -51,6 +58,7 @@ protected:
 
 private:
     Mode mode;
+    Repository& repo;
     Asset& asset;
 };
 
@@ -61,16 +69,17 @@ private:
  *
  * @ingroup Assets
  */
-class ImportContext : public detail::Context {
+class CreateContext : public detail::Context {
 public:
     /**
      * @brief Creates a context for asset importing
      *
      * @param mode The mode the asset system is in
+     * @param repo The repository the asset belongs to
      * @param asset The asset being imported
      * @param path The path to the source file being imported from
      */
-    ImportContext(Mode mode, Asset& asset, std::string_view path);
+    CreateContext(Mode mode, Repository& repo, Asset& asset, std::string_view path);
 
     /**
      * @brief Returns the path of the external file or folder being imported from
@@ -92,9 +101,10 @@ public:
      * @brief Creates the context for asset loading
      *
      * @param mode The mode the asset system is in
+     * @param repo The repository the asset belongs to
      * @param asset The asset being loaded
      */
-    ReadContext(Mode mode, Asset& asset);
+    ReadContext(Mode mode, Repository& repo, Asset& asset);
 
     /**
      * @brief Reads the contents of the given asset file for the current asset
@@ -122,9 +132,10 @@ public:
      * @brief Creates the write context
      *
      * @param mode The mode the asset system is in
+     * @param repo The repository the asset belongs to
      * @param asset The asset being written
      */
-    WriteContext(Mode mode, Asset& asset);
+    WriteContext(Mode mode, Repository& repo, Asset& asset);
 
     /**
      * @brief Writes the file to asset storage

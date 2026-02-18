@@ -12,8 +12,9 @@ namespace as
 {
 namespace detail
 {
-Context::Context(Mode mode, Asset& asset)
+Context::Context(Mode mode, Repository& repo, Asset& asset)
 : mode(mode)
+, repo(repo)
 , asset(asset) {}
 
 std::string Context::getFilePath(std::string_view filename) const {
@@ -24,12 +25,12 @@ std::string Context::getFilePath(std::string_view filename) const {
 
 } // namespace detail
 
-ImportContext::ImportContext(Mode mode, Asset& asset, std::string_view path)
-: Context(mode, asset)
+CreateContext::CreateContext(Mode mode, Repository& repo, Asset& asset, std::string_view path)
+: Context(mode, repo, asset)
 , path(path) {}
 
-ReadContext::ReadContext(Mode mode, Asset& asset)
-: Context(mode, asset) {}
+ReadContext::ReadContext(Mode mode, Repository& repo, Asset& asset)
+: Context(mode, repo, asset) {}
 
 bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuffer) const {
     switch (getMode()) {
@@ -45,8 +46,8 @@ bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuff
     }
 }
 
-WriteContext::WriteContext(Mode mode, Asset& asset)
-: Context(mode, asset) {}
+WriteContext::WriteContext(Mode mode, Repository& repo, Asset& asset)
+: Context(mode, repo, asset) {}
 
 bool WriteContext::writeFile(std::string_view filename, const std::vector<char>& buffer) const {
     switch (getMode()) {
