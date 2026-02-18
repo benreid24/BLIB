@@ -4,6 +4,7 @@
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Util/UUID.hpp>
+#include <atomic>
 
 namespace bl
 {
@@ -32,7 +33,7 @@ public:
     /**
      * @brief Returns the type of the asset
      */
-    const std::string& getType() const { return type; }
+    const std::string_view& getType() const { return type; }
 
     /**
      * @brief Returns the metadata of the asset
@@ -47,7 +48,7 @@ public:
     /**
      * @brief Returns the state of the asset
      */
-    State getState() const { return state; }
+    State getState() const { return state.load(); }
 
     /**
      * @brief Returns the payload of the asset. Must only be called if the state is Loaded
@@ -56,10 +57,10 @@ public:
 
 private:
     util::UUID uuid;
-    std::string type;
+    std::string_view type;
     Metadata metadata;
     Payload* payload;
-    State state;
+    std::atomic<State> state;
 };
 
 } // namespace as

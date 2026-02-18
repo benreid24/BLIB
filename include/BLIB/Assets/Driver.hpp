@@ -50,11 +50,23 @@ public:
 };
 } // namespace detail
 
+/**
+ * @brief Base class for drivers that provide support for different payload types
+ *
+ * @tparam T The payload type this driver supports
+ * @ingroup Assets
+ */
 template<typename T>
 class Driver : public detail::DriverBase {
     static_assert(std::is_base_of_v<Payload, T>, "T must be a subclass of Payload");
 
 public:
+    /// The type of payload this driver supports
+    using TPayload = T;
+
+    /**
+     * @brief Destroys the driver
+     */
     virtual ~Driver() = default;
 
     /**

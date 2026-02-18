@@ -17,6 +17,7 @@ struct StoredDependency {
     util::UUID uuid;
     std::string_view tag;
 };
+
 } // namespace as
 } // namespace bl
 

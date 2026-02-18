@@ -4,4 +4,5 @@ target_sources(BLIB PRIVATE
     EditorPaths.cpp
     Metadata.cpp
     Payload.cpp
+    Repository.cpp
 )
