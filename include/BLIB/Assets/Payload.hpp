@@ -136,6 +136,18 @@ public:
         return *casted;
     }
 
+    /**
+     * @brief Tests whether the payload is of the given type
+     *
+     * @tparam T The type to test for
+     * @return True if this payload is T, false otherwise
+     */
+    template<typename T>
+    bool is() const {
+        static_assert(std::is_base_of_v<Payload, T>, "T must be a subclass of Payload");
+        return dynamic_cast<const T*>(this) != nullptr;
+    }
+
 protected:
     /**
      * @brief Creates the payload

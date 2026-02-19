@@ -6,6 +6,7 @@
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Assets/RepoAsset.hpp>
 #include <BLIB/Assets/State.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <memory>
 #include <mutex>
 #include <optional>
@@ -39,6 +40,18 @@ public:
      * @return A Ref to the asset. May be invalid if the asset does not exist or failed to load
      */
     Ref getAsset(util::UUID uuid, State desiredState = State::Loaded);
+
+    /**
+     * @brief Returns a ref to the asset with the given UUID
+     *
+     * @tparam T The type of payload the asset is expected to have
+     * @param uuid The UUID of the asset to get
+     * @return A TypedRef to the asset. May be invalid if the asset does not exist or failed to load
+     */
+    template<typename T>
+    TypedRef<T> getTypedAsset(util::UUID uuid) {
+        return TypedRef<T>(getAsset(uuid, State::Loaded));
+    }
 
     /**
      * @brief Returns the dependency list for the asset with the given UUID
