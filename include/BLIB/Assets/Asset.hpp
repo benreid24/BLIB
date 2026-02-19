@@ -55,6 +55,15 @@ public:
      */
     Payload& getPayload();
 
+    /**
+     * @brief Loads the payload. Will generally be called for you, but may need to be called
+     *        manually if the asset is explicitly unloaded. Maintaining a Ref to an asset will
+     *        prevent automatic unloading
+     *
+     * @return True if the payload was able to be loaded, false otherwise
+     */
+    bool load();
+
 private:
     util::UUID uuid;
     std::string_view type;

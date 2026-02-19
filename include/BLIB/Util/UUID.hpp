@@ -1,6 +1,8 @@
 #ifndef BLIB_UTIL_UUID_HPP
 #define BLIB_UTIL_UUID_HPP
 
+#include <BLIB/Serialization/Binary/Serializer.hpp>
+#include <BLIB/Serialization/JSON/Serializer.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <cstdint>
 #include <string>
@@ -90,6 +92,66 @@ private:
 };
 
 } // namespace util
+
+namespace serial
+{
+namespace binary
+{
+template<>
+struct Serializer<util::UUID> {
+    static bool serialize(OutputStream& output, const util::UUID& uuid) {
+        if (!output.write<std::uint64_t>(uuid.getPart1())) return false;
+        return output.write<std::uint64_t>(uuid.getPart2());
+    }
+    static bool deserialize(InputStream& input, util::UUID& uuid) {
+        std::uint64_t part1, part2;
+        if (!input.read<std::uint64_t>(part1)) return false;
+        if (!input.read<std::uint64_t>(part2)) return false;
+        uuid = util::UUID(part1, part2);
+        return true;
+    }
+    static std::uint32_t size(const util::UUID&) { return sizeof(std::uint64_t) * 2; }
+};
+} // namespace binary
+
+namespace json
+{
+template<>
+struct Serializer<util::UUID> {
+    static bool deserialize(util::UUID& result, const Value& v) {
+        const std::string* r = v.getAsString();
+        if (r != nullptr) {
+            result = util::UUID(*r);
+            return true;
+        }
+        return false;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& name, util::UUID& result) {
+        return priv::Serializer<util::UUID>::deserializeFrom(val, name, result, &deserialize);
+    }
+
+    static Value serialize(const util::UUID& value) { return Value(value.toString()); }
+
+    static void serializeInto(Group& result, const std::string& name, const util::UUID& value) {
+        priv::Serializer<util::UUID>::serializeInto(result, name, value, &serialize);
+    }
+
+    static bool deserializeStream(std::istream& stream, util::UUID& result) {
+        json::Loader loader(stream);
+        std::string str;
+        if (!loader.loadString(str)) { return false; }
+        result = util::UUID(str);
+        return true;
+    }
+
+    static bool serializeStream(std::ostream& stream, const std::string& value, unsigned int,
+                                unsigned int) {
+        return Serializer<std::string>::serializeStream(stream, value, 0, 0);
+    }
+};
+} // namespace json
+} // namespace serial
 } // namespace bl
 
 namespace std

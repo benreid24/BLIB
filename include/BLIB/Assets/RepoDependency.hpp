@@ -1,5 +1,5 @@
-#ifndef BLIB_ASSETS_STOREDDEPENDENCY_HPP
-#define BLIB_ASSETS_STOREDDEPENDENCY_HPP
+#ifndef BLIB_ASSETS_REPODEPENDENCY_HPP
+#define BLIB_ASSETS_REPODEPENDENCY_HPP
 
 #include <BLIB/Util/UUID.hpp>
 #include <string_view>
@@ -13,7 +13,7 @@ namespace as
  *
  * @ingroup Assets
  */
-struct StoredDependency {
+struct RepoDependency {
     util::UUID uuid;
     std::string_view tag;
 };
