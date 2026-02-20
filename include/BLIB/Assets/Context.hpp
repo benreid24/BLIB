@@ -2,6 +2,8 @@
 #define BLIB_ASSETS_CONTEXT_HPP
 
 #include <BLIB/Assets/Mode.hpp>
+#include <BLIB/Logging.hpp>
+#include <stdexcept>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -30,12 +32,12 @@ public:
      * @param repo
      * @param asset The asset being loaded
      */
-    Context(Mode mode, Repository& repo, Asset& asset);
+    Context(Repository& repo, Asset& asset);
 
     /**
      * @brief Returns the mode the asset system is in
      */
-    Mode getMode() const { return mode; }
+    Mode getMode() const;
 
     /**
      * @brief Returns the repository the asset belongs to
@@ -57,7 +59,6 @@ protected:
     std::string getFilePath(std::string_view filename) const;
 
 private:
-    Mode mode;
     Repository& repo;
     Asset& asset;
 };
@@ -71,23 +72,42 @@ private:
  */
 class CreateContext : public detail::Context {
 public:
+    /// Custom data can be passed to asset drivers by deriving from this struct
+    struct CustomData {};
+
     /**
      * @brief Creates a context for asset importing
      *
      * @param mode The mode the asset system is in
      * @param repo The repository the asset belongs to
      * @param asset The asset being imported
-     * @param path The path to the source file being imported from
+     * @param customData Custom data to pass to the driver for asset creation
      */
-    CreateContext(Mode mode, Repository& repo, Asset& asset, std::string_view path);
+    CreateContext(Repository& repo, Asset& asset, const CustomData& customData);
 
     /**
-     * @brief Returns the path of the external file or folder being imported from
+     * @brief Returns the custom data passed to the driver for asset creation
      */
-    std::string_view getSourcePath() const { return path; }
+    const CustomData& getCustomData() const { return customData; }
+
+    /**
+     * @brief Returns the custom data cast as the given type
+     *
+     * @tparam T The type to cast to
+     * @return The custom data cast as the given type
+     */
+    template<typename T>
+    const T& getCustomDataAs() const {
+        const T* cast = dynamic_cast<const T*>(&customData);
+        if (!cast) {
+            BL_LOG_ERROR << "Invalid custom data cast to " << typeid(T).name();
+            throw std::bad_cast();
+        }
+        return *cast;
+    }
 
 private:
-    std::string_view path;
+    const CustomData& customData;
 };
 
 /**
@@ -104,7 +124,7 @@ public:
      * @param repo The repository the asset belongs to
      * @param asset The asset being loaded
      */
-    ReadContext(Mode mode, Repository& repo, Asset& asset);
+    ReadContext(Repository& repo, Asset& asset);
 
     /**
      * @brief Reads the contents of the given asset file for the current asset
@@ -135,7 +155,7 @@ public:
      * @param repo The repository the asset belongs to
      * @param asset The asset being written
      */
-    WriteContext(Mode mode, Repository& repo, Asset& asset);
+    WriteContext(Repository& repo, Asset& asset);
 
     /**
      * @brief Writes the file to asset storage

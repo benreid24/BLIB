@@ -2,6 +2,7 @@
 
 #include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Assets/EditorPaths.hpp>
+#include <BLIB/Assets/Repository.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <fstream>
@@ -12,10 +13,11 @@ namespace as
 {
 namespace detail
 {
-Context::Context(Mode mode, Repository& repo, Asset& asset)
-: mode(mode)
-, repo(repo)
+Context::Context(Repository& repo, Asset& asset)
+: repo(repo)
 , asset(asset) {}
+
+Mode Context::getMode() const { return repo.getMode(); }
 
 std::string Context::getFilePath(std::string_view filename) const {
     return util::FileUtil::joinPath(
@@ -25,12 +27,12 @@ std::string Context::getFilePath(std::string_view filename) const {
 
 } // namespace detail
 
-CreateContext::CreateContext(Mode mode, Repository& repo, Asset& asset, std::string_view path)
-: Context(mode, repo, asset)
-, path(path) {}
+CreateContext::CreateContext(Repository& repo, Asset& asset, const CustomData& data)
+: Context(repo, asset)
+, customData(data) {}
 
-ReadContext::ReadContext(Mode mode, Repository& repo, Asset& asset)
-: Context(mode, repo, asset) {}
+ReadContext::ReadContext(Repository& repo, Asset& asset)
+: Context(repo, asset) {}
 
 bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuffer) const {
     switch (getMode()) {
@@ -46,8 +48,8 @@ bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuff
     }
 }
 
-WriteContext::WriteContext(Mode mode, Repository& repo, Asset& asset)
-: Context(mode, repo, asset) {}
+WriteContext::WriteContext(Repository& repo, Asset& asset)
+: Context(repo, asset) {}
 
 bool WriteContext::writeFile(std::string_view filename, const std::vector<char>& buffer) const {
     switch (getMode()) {

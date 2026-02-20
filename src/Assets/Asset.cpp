@@ -7,8 +7,9 @@ namespace bl
 {
 namespace as
 {
-Asset::Asset()
-: uuid()
+Asset::Asset(Repository& repo)
+: repo(repo)
+, uuid()
 , type()
 , metadata()
 , payload(nullptr)

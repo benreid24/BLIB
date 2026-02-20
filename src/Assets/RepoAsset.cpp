@@ -4,8 +4,9 @@ namespace bl
 {
 namespace as
 {
-RepoAsset::RepoAsset()
-: refCount(0) {}
+RepoAsset::RepoAsset(Repository& repo)
+: asset(repo)
+, refCount(0) {}
 
 } // namespace as
 } // namespace bl

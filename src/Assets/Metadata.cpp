@@ -9,7 +9,8 @@ Metadata::Metadata()
 , description("")
 , creationTime(std::chrono::duration_cast<std::chrono::seconds>(
                    std::chrono::utc_clock::now().time_since_epoch())
-                   .count()) {}
+                   .count())
+, isAutoLoaded(false) {}
 
 Metadata::Metadata(const Metadata& copy)
 : displayName(copy.displayName)
@@ -27,6 +28,8 @@ void Metadata::setDisplayName(const std::string& name) { displayName = name; }
 void Metadata::setDescription(const std::string& description) { this->description = description; }
 
 void Metadata::setCreationTime(std::uint64_t time) { creationTime = time; }
+
+void Metadata::setIsAutoLoaded(bool al) { isAutoLoaded = al; }
 
 } // namespace as
 } // namespace bl

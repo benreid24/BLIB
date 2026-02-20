@@ -2,6 +2,7 @@
 #define BLIB_ASSETS_REPOSITORY_HPP
 
 #include <BLIB/Assets/Asset.hpp>
+#include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Assets/RepoAsset.hpp>
@@ -30,7 +31,41 @@ public:
     /**
      * @brief Creates an empty asset repository
      */
-    Repository();
+    Repository(Mode mode);
+
+    /**
+     * @brief Creates and returns a new asset with the given type and creation data
+     *
+     * @param type The tag of the type of asset to create
+     * @param name The name of the asset
+     * @param createData Custom data to pass to the driver for the asset type
+     * @return A ref to the newly created asset. May be invalid if creation failed
+     */
+    Ref createAsset(std::string_view type, const std::string& name,
+                    const CreateContext::CustomData& createData = {});
+
+    /**
+     * @brief Creates and returns a new asset with the given type and creation data
+     *
+     * @tparam T The payload type of the asset to create
+     * @param name The name of the asset
+     * @param createData Custom data to pass to the driver for the asset type
+     * @return A TypedRef to the newly created asset. May be invalid if creation failed
+     */
+    template<typename T>
+    TypedRef<T> createAsset(const std::string& name,
+                            const CreateContext::CustomData& createData = {}) {
+        std::shared_lock lock(driverMutex);
+        const auto it = driversByType.find(std::type_index(typeid(T)));
+        if (it == driversByType.end()) {
+            BL_LOG_ERROR << "Attempted to create asset with payload type " << typeid(T).name()
+                         << " but no driver is registered for that type";
+            return TypedRef<T>();
+        }
+        std::string_view tag = it->second->getSupportedType();
+        lock.unlock();
+        return TypedRef<T>(createAsset(tag, name, createData));
+    }
 
     /**
      * @brief Returns a ref to the asset with the given UUID
@@ -83,16 +118,40 @@ public:
             throw std::runtime_error("Driver for asset type is already registered");
         }
         drivers.emplace_back(std::make_unique<TDriver>(std::forward<TArgs>(args)...));
-        driversByType[typeIndex] = drivers.back().get();
-        driversByName[type]      = drivers.back().get();
+        driversByType[typeIndex]      = drivers.back().get();
+        driversByName[type]           = drivers.back().get();
+        drivers.back()->supportedType = type;
     }
+
+    /**
+     * @brief Returns the driver for the given type. May be nullptr
+     *
+     * @param type The tag name of the type to get the driver for
+     * @return A pointer to the driver for the given type name, nullptr if not found
+     */
+    detail::DriverBase* getDriver(std::string_view type);
+
+    /**
+     * @brief Saves the repository to disk
+     */
+    bool saveRepository();
+
+    /**
+     * @brief Loads the repository from disk
+     */
+    bool loadRepository();
+
+    /**
+     * @brief Returns the mode the repository is operating in
+     */
+    Mode getMode() const { return mode; }
 
 private:
     mutable std::shared_mutex assetMutex;
-    Mode mode;
+    const Mode mode;
     std::unordered_map<util::UUID, RepoAsset> assets;
 
-    std::mutex driverMutex;
+    std::shared_mutex driverMutex;
     std::vector<std::unique_ptr<detail::DriverBase>> drivers;
     std::unordered_map<std::type_index, detail::DriverBase*> driversByType;
     std::unordered_map<std::string_view, detail::DriverBase*> driversByName;

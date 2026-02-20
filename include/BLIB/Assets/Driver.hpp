@@ -4,12 +4,15 @@
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <memory>
+#include <string_view>
 #include <type_traits>
 
 namespace bl
 {
 namespace as
 {
+class Repository;
+
 namespace detail
 {
 /**
@@ -23,6 +26,11 @@ public:
      * @brief Destroys the driver
      */
     virtual ~DriverBase() = default;
+
+    /**
+     * @brief Returns the human friendly type tag the driver supports
+     */
+    std::string_view getSupportedType() const { return supportedType; }
 
     /**
      * @brief Imports the asset from an external source
@@ -47,6 +55,11 @@ public:
      * @return True if the write succeeded, false otherwise
      */
     virtual bool write(const WriteContext& ctx) = 0;
+
+private:
+    std::string_view supportedType;
+
+    friend class Repository;
 };
 } // namespace detail
 

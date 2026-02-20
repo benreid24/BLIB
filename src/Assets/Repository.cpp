@@ -4,21 +4,29 @@ namespace bl
 {
 namespace as
 {
-Repository::Repository()
-: mode(Mode::Editor) {
+Repository::Repository(Mode mode)
+: mode(mode) {
     drivers.reserve(16);
 }
 
-const std::vector<RepoDependency>& Repository::getDependencies(util::UUID uuid) const {
-    std::shared_lock lock(assetMutex);
-    auto it = assets.find(uuid);
-    if (it == assets.end()) {
-        BL_LOG_ERROR << "Attempted to get dependencies for asset with UUID " << uuid.toString()
-                     << " but it does not exist";
-        static const std::vector<RepoDependency> empty;
-        return empty;
+Ref Repository::createAsset(std::string_view type, const std::string& name,
+                            const CreateContext::CustomData& createData) {
+    if (!getDriver(type)) {
+        BL_LOG_ERROR << "Attempted to create asset with type " << type
+                     << " but no driver is registered for that type";
+        return Ref();
     }
-    return it->second.dependencies;
+
+    std::unique_lock assetLock(assetMutex);
+    util::UUID uuid = util::UUID::generate();
+    auto it         = assets.try_emplace(uuid, *this).first;
+    it->second.asset.getMetadata().setDisplayName(name);
+    it->second.asset.type = type;
+    if (!it->second.asset.create(createData)) {
+        BL_LOG_ERROR << "Failed to create new asset '" << name << "' of type " << type;
+        return Ref();
+    }
+    return Ref(this, &it->second);
 }
 
 Ref Repository::getAsset(util::UUID uuid, State desiredState) {
@@ -52,6 +60,35 @@ void Repository::registerDependency(util::UUID uuid, std::string_view tag, util:
 void Repository::queueUnload(util::UUID uuid) {
     std::unique_lock lock(unloadQueueMutex);
     unloadQueue.push_back(uuid);
+}
+
+const std::vector<RepoDependency>& Repository::getDependencies(util::UUID uuid) const {
+    std::shared_lock lock(assetMutex);
+    auto it = assets.find(uuid);
+    if (it == assets.end()) {
+        BL_LOG_ERROR << "Attempted to get dependencies for asset with UUID " << uuid.toString()
+                     << " but it does not exist";
+        static const std::vector<RepoDependency> empty;
+        return empty;
+    }
+    return it->second.dependencies;
+}
+
+detail::DriverBase* Repository::getDriver(std::string_view tag) {
+    std::shared_lock lock(driverMutex);
+    auto it = driversByName.find(tag);
+    if (it == driversByName.end()) { return nullptr; }
+    return it->second;
+}
+
+bool Repository::saveRepository() {
+    // TODO
+    return false;
+}
+
+bool Repository::loadRepository() {
+    // TODO
+    return false;
 }
 
 } // namespace as

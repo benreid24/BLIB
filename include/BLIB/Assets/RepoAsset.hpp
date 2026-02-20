@@ -10,6 +10,8 @@ namespace bl
 {
 namespace as
 {
+class Repository;
+
 /**
  * @brief Used by Repository to store assets in memory
  *
@@ -22,8 +24,10 @@ struct RepoAsset {
 
     /**
      * @brief Creates an empty repository asset
+     *
+     * @param repo The repository this asset belongs to
      */
-    RepoAsset();
+    RepoAsset(Repository& repo);
 };
 
 } // namespace as

@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_ASSET_HPP
 #define BLIB_ASSETS_ASSET_HPP
 
+#include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Util/UUID.hpp>
@@ -12,6 +13,7 @@ namespace bl
 namespace as
 {
 class Payload;
+class Repository;
 
 /**
  * @brief Represents an asset in the repository. Contains the metadata and possibly a payload
@@ -22,8 +24,10 @@ class Asset {
 public:
     /**
      * @brief Creates an empty asset
+     *
+     * @param repo The repository this asset belongs to
      */
-    Asset();
+    Asset(Repository& repo);
 
     /**
      * @brief Returns the UUID of the asset
@@ -65,11 +69,16 @@ public:
     bool load();
 
 private:
+    Repository& repo;
     util::UUID uuid;
     std::string_view type;
     Metadata metadata;
     Payload* payload;
     std::atomic<State> state;
+
+    bool create(const CreateContext::CustomData& data);
+
+    friend class Repository;
 };
 
 } // namespace as
