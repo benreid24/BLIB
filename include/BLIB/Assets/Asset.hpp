@@ -3,9 +3,12 @@
 
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Metadata.hpp>
+#include <BLIB/Assets/RepoDependency.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <atomic>
+#include <memory>
+#include <vector>
 
 namespace bl
 {
@@ -14,6 +17,7 @@ namespace as
 {
 class Payload;
 class Repository;
+class Ref;
 
 /**
  * @brief Represents an asset in the repository. Contains the metadata and possibly a payload
@@ -68,17 +72,28 @@ public:
      */
     bool load();
 
+    /**
+     * @brief Frees the payload if no Refs remain or if forced
+     *
+     * @param force Always release the payload regardless of ref count
+     * @return True if the payload is not loaded, false otherwise
+     */
+    bool unload(bool force = false);
+
 private:
     Repository& repo;
     util::UUID uuid;
     std::string_view type;
     Metadata metadata;
-    Payload* payload;
+    std::unique_ptr<Payload> payload;
     std::atomic<State> state;
+    std::vector<RepoDependency> dependencies;
+    std::atomic<unsigned int> refCount;
 
     bool create(const CreateContext::CustomData& data);
 
     friend class Repository;
+    friend class Ref;
 };
 
 } // namespace as

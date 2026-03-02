@@ -11,8 +11,7 @@ namespace as
  * @ingroup Assets
  */
 enum struct State {
-    Known    = 0,  ///< The asset is known to exist by id and type only
-    Unloaded = 1,  ///< The asset metadata is available
+    Unloaded = 1,  ///< The asset metadata is available but the payload is not loaded
     Loading  = 2,  ///< The asset payload is being loaded and should not be accessed yet
     Loaded   = 3,  ///< The asset is fully loaded and ready to use
     Failed   = -1, ///< The asset failed to load

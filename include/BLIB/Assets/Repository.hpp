@@ -5,7 +5,6 @@
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/Mode.hpp>
-#include <BLIB/Assets/RepoAsset.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <memory>
@@ -142,6 +141,11 @@ public:
     bool loadRepository();
 
     /**
+     * @brief Release payloads for unused assets
+     */
+    void releaseUnused();
+
+    /**
      * @brief Returns the mode the repository is operating in
      */
     Mode getMode() const { return mode; }
@@ -149,7 +153,7 @@ public:
 private:
     mutable std::shared_mutex assetMutex;
     const Mode mode;
-    std::unordered_map<util::UUID, RepoAsset> assets;
+    std::unordered_map<util::UUID, Asset> assets;
 
     std::shared_mutex driverMutex;
     std::vector<std::unique_ptr<detail::DriverBase>> drivers;

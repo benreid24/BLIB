@@ -5,6 +5,5 @@ target_sources(BLIB PRIVATE
     Metadata.cpp
     Payload.cpp
     Ref.cpp
-    RepoAsset.cpp
     Repository.cpp
 )

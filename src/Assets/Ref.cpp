@@ -1,6 +1,6 @@
 #include <BLIB/Assets/Ref.hpp>
 
-#include <BLIB/Assets/RepoAsset.hpp>
+#include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Assets/Repository.hpp>
 #include <stdexcept>
 
@@ -12,7 +12,7 @@ Ref::Ref()
 : repo(nullptr)
 , asset(nullptr) {}
 
-Ref::Ref(Repository* repo, RepoAsset* asset)
+Ref::Ref(Repository* repo, Asset* asset)
 : repo(repo)
 , asset(asset) {
     if (asset) { addRef(); }
@@ -62,7 +62,7 @@ Ref::operator bool() const { return isValid(); }
 
 State Ref::getState() const {
     if (!asset) { return State::Unknown; }
-    return asset->asset.getState();
+    return asset->getState();
 }
 
 Asset& Ref::getAsset() {
@@ -70,7 +70,7 @@ Asset& Ref::getAsset() {
         BL_LOG_ERROR << "Accessing empty Asset Ref";
         throw std::runtime_error("Accessing empty Asset Ref");
     }
-    return asset->asset;
+    return *asset;
 }
 
 const Asset& Ref::getAsset() const {
@@ -78,7 +78,7 @@ const Asset& Ref::getAsset() const {
         BL_LOG_ERROR << "Accessing empty Asset Ref";
         throw std::runtime_error("Accessing empty Asset Ref");
     }
-    return asset->asset;
+    return *asset;
 }
 
 Asset* Ref::operator->() { return &getAsset(); }
@@ -97,7 +97,7 @@ void Ref::addRef() { ++asset->refCount; }
 
 void Ref::removeRef() {
     if (asset) {
-        if (--asset->refCount == 0) { repo->queueUnload(asset->asset.getUUID()); }
+        if (--asset->refCount == 0) { repo->queueUnload(asset->getUUID()); }
         repo  = nullptr;
         asset = nullptr;
     }

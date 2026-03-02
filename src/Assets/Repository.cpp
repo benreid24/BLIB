@@ -20,9 +20,9 @@ Ref Repository::createAsset(std::string_view type, const std::string& name,
     std::unique_lock assetLock(assetMutex);
     util::UUID uuid = util::UUID::generate();
     auto it         = assets.try_emplace(uuid, *this).first;
-    it->second.asset.getMetadata().setDisplayName(name);
-    it->second.asset.type = type;
-    if (!it->second.asset.create(createData)) {
+    it->second.getMetadata().setDisplayName(name);
+    it->second.type = type;
+    if (!it->second.create(createData)) {
         BL_LOG_ERROR << "Failed to create new asset '" << name << "' of type " << type;
         return Ref();
     }
@@ -38,9 +38,9 @@ Ref Repository::getAsset(util::UUID uuid, State desiredState) {
         return Ref();
     }
     // TODO - when bundling is added we will have an index of known but unloaded assets to check
-    RepoAsset& stored = it->second;
-    if (stored.asset.getState() < desiredState) {
-        if (!stored.asset.load()) { return Ref(); }
+    Asset& stored = it->second;
+    if (stored.getState() < desiredState) {
+        if (!stored.load()) { return Ref(); }
     }
     return Ref(this, &stored);
 }
@@ -53,7 +53,7 @@ void Repository::registerDependency(util::UUID uuid, std::string_view tag, util:
                      << " but it does not exist";
         return;
     }
-    RepoAsset& stored = it->second;
+    Asset& stored = it->second;
     stored.dependencies.push_back(RepoDependency{dependency, tag});
 }
 
@@ -89,6 +89,23 @@ bool Repository::saveRepository() {
 bool Repository::loadRepository() {
     // TODO
     return false;
+}
+
+void Repository::releaseUnused() {
+    std::unique_lock lock(assetMutex);
+    std::unique_lock unloadLock(unloadQueueMutex);
+    for (const util::UUID& uuid : unloadQueue) {
+        auto it = assets.find(uuid);
+        if (it == assets.end()) {
+            BL_LOG_ERROR << "Attempted to unload asset with UUID " << uuid.toString()
+                         << " but it does not exist";
+            continue;
+        }
+        Asset& stored = it->second;
+        if (!stored.unload()) {
+            BL_LOG_WARN << "Failed to unload asset with UUID " << uuid.toString();
+        }
+    }
 }
 
 } // namespace as

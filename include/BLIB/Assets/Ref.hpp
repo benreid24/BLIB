@@ -7,7 +7,6 @@ namespace bl
 {
 namespace as
 {
-struct RepoAsset;
 class Repository;
 class Asset;
 
@@ -106,9 +105,9 @@ public:
 
 private:
     Repository* repo;
-    RepoAsset* asset;
+    Asset* asset;
 
-    Ref(Repository* repo, RepoAsset* asset);
+    Ref(Repository* repo, Asset* asset);
     void addRef();
     void removeRef();
 
