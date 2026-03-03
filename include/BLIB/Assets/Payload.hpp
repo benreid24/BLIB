@@ -81,6 +81,7 @@ protected:
     util::UUID uuid;
     Ref dependency;
     DependencyChain* next;
+    bool loaded;
 
     friend class Payload;
 };
@@ -156,10 +157,17 @@ protected:
      */
     Payload(const ConstructContext& ctx);
 
+    /**
+     * @brief Call when the payload content changes. Ensures that changes get saved to disk before
+     *        unload when in editor mode
+     */
+    void markForFlush();
+
 private:
     Repository& repo;
     Asset& owner;
     detail::DependencyChain* dependencyChain;
+    bool flushed;
 
     void registerDependency(detail::DependencyChain* chain);
     bool loadDependencies();
@@ -167,6 +175,7 @@ private:
     template<typename T>
     friend class Driver;
     friend class detail::DependencyChain;
+    friend class Asset;
 };
 
 } // namespace as

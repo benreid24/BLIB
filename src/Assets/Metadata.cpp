@@ -27,6 +27,8 @@ void Metadata::setDisplayName(const std::string& name) { displayName = name; }
 
 void Metadata::setDescription(const std::string& description) { this->description = description; }
 
+void Metadata::setPath(const std::string& p) { path = p; }
+
 void Metadata::setCreationTime(std::uint64_t time) { creationTime = time; }
 
 void Metadata::setIsAutoLoaded(bool al) { isAutoLoaded = al; }

@@ -8,6 +8,8 @@ namespace bl
 {
 namespace as
 {
+class Asset;
+
 /**
  * @brief Collection of helpers for managing assets on disk in editor format
  *
@@ -24,35 +26,31 @@ struct EditorPaths {
     static constexpr std::string_view MetadataExtension = ".asset";
 
     /**
-     * @brief Returns the path to the asset on disk for the given type and asset name
+     * @brief Returns the path to the asset on disk
      *
-     * @param assetType The asset type id
-     * @param assetDiskName The asset display name
-     * @return The path to the asset on disk for the given type and asset name
+     * @param repoRoot The root path of the asset repository
+     * @param asset The asset to get the path for
+     * @return The path to the asset on disk
      */
-    static std::string getAssetPath(std::string_view assetType, std::string_view assetDiskName);
+    static std::string getAssetPath(const std::string& repoRoot, const Asset& asset);
 
     /**
      * @brief Returns the path to the directory containing the asset files on disk
      *
-     * @param assetType The asset type id
-     * @param assetDiskName The asset display name
+     * @param repoRoot The root path of the asset repository
+     * @param asset The asset to get the path for
      * @return The path to where asset files should be stored
      */
-    static std::string getAssetFilesPath(std::string_view assetType,
-                                         std::string_view assetDiskName);
+    static std::string getAssetFilesPath(const std::string& repoRoot, const Asset& asset);
 
     /**
      * @brief Returns the path to the asset metadata file for the given asset
      *
-     * @param assetType The asset type id
-     * @param assetDiskName The asset display name
-     * @param assetUuid The asset uuid
+     * @param repoRoot The root path of the asset repository
+     * @param asset The asset to get the path for
      * @return The path to the asset metadata file for the given asset
      */
-    static std::string getAssetMetadataFilePath(std::string_view assetType,
-                                                std::string_view assetDiskName,
-                                                const std::string& assetUuid);
+    static std::string getAssetMetadataFilePath(const std::string& repoRoot, const Asset& asset);
 };
 
 } // namespace as

@@ -12,6 +12,7 @@
 #include <SFML/System/Vector3.hpp>
 #include <array>
 #include <glm/glm.hpp>
+#include <string_view>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>

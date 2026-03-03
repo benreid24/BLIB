@@ -13,7 +13,8 @@ DependencyChain::DependencyChain(Repository& repo, Payload& owner, std::string_v
 : tag(tag)
 , repo(repo)
 , owner(owner)
-, next(nullptr) {
+, next(nullptr)
+, loaded(false) {
     owner.registerDependency(this);
 }
 
@@ -55,7 +56,8 @@ void DependencyChain::unload() {
 Payload::Payload(const ConstructContext& ctx)
 : repo(ctx.repo)
 , owner(ctx.asset)
-, dependencyChain(nullptr) {}
+, dependencyChain(nullptr)
+, flushed(false) {}
 
 void Payload::registerDependency(detail::DependencyChain* chain) {
     if (dependencyChain) {
@@ -88,11 +90,28 @@ bool Payload::loadDependencies() {
         if (!dep->init(depInfo.uuid)) {
             BL_LOG_ERROR << "Failed to load dependency " << depInfo.uuid.toString() << " for asset "
                          << owner.getUUID().toString() << " with tag '" << depInfo.tag << "'";
-            success = false;
+            dep->loaded = true;
+            success     = false;
         }
     }
-    return success;
+    if (!success) { return false; }
+
+    // check all deps loaded
+    bool allLoaded                   = true;
+    detail::DependencyChain* current = dependencyChain;
+    while (current) {
+        if (!current->loaded) {
+            allLoaded = false;
+            BL_LOG_ERROR << "Dependency " << current->uuid.toString() << " for asset "
+                         << owner.getUUID().toString() << " with tag '" << current->tag
+                         << "' was not found";
+        }
+        current = current->next;
+    }
+    return allLoaded;
 }
+
+void Payload::markForFlush() { flushed = true; }
 
 } // namespace as
 } // namespace bl

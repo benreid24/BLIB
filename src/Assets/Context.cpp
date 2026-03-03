@@ -20,9 +20,8 @@ Context::Context(Repository& repo, Asset& asset)
 Mode Context::getMode() const { return repo.getMode(); }
 
 std::string Context::getFilePath(std::string_view filename) const {
-    return util::FileUtil::joinPath(
-        EditorPaths::getAssetFilesPath(asset.getType(), asset.getMetadata().getDisplayName()),
-        std::string(filename));
+    return util::FileUtil::joinPath(EditorPaths::getAssetFilesPath(repo.getAssetDirectory(), asset),
+                                    std::string(filename));
 }
 
 } // namespace detail

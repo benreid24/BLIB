@@ -29,8 +29,11 @@ class Repository {
 public:
     /**
      * @brief Creates an empty asset repository
+     *
+     * @param mode The mode to create the repository in
+     * @param path The directory to store assets in
      */
-    Repository(Mode mode);
+    Repository(Mode mode, const std::string& path);
 
     /**
      * @brief Creates and returns a new asset with the given type and creation data
@@ -141,6 +144,15 @@ public:
     bool loadRepository();
 
     /**
+     * @brief Exports the repository to the given path, bundling assets and writing their data in
+     *        game mode format
+     *
+     * @param path The directory to write to. Will be written to {path}/Assets
+     * @return True if the export succeeded, false on error
+     */
+    bool exportRepository(const std::string& path);
+
+    /**
      * @brief Release payloads for unused assets
      */
     void releaseUnused();
@@ -150,9 +162,15 @@ public:
      */
     Mode getMode() const { return mode; }
 
+    /**
+     * @brief Returns the directory that assets are saved and loaded from
+     */
+    const std::string& getAssetDirectory() const { return assetDirectory; }
+
 private:
     mutable std::shared_mutex assetMutex;
     const Mode mode;
+    const std::string assetDirectory;
     std::unordered_map<util::UUID, Asset> assets;
 
     std::shared_mutex driverMutex;

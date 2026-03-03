@@ -1,7 +1,9 @@
 #include <BLIB/Assets/Asset.hpp>
 
+#include <BLIB/Assets/EditorPaths.hpp>
 #include <BLIB/Assets/Repository.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <stdexcept>
 
 namespace bl
@@ -25,13 +27,11 @@ Payload& Asset::getPayload() {
 }
 
 bool Asset::create(const CreateContext::CustomData& createData) {
-    state                      = State::Unloaded;
-    detail::DriverBase* driver = repo.getDriver(type);
-    if (!driver) {
-        BL_LOG_ERROR << "Attempted to create asset with type " << type
-                     << " but no driver is registered for that type";
-        return false;
-    }
+    state = State::Unloaded;
+
+    detail::DriverBase* driver = getDriver();
+    if (!driver) { return false; }
+
     state = State::Loading;
     CreateContext context(repo, *this, createData);
     payload = driver->create(context);
@@ -47,13 +47,10 @@ bool Asset::create(const CreateContext::CustomData& createData) {
 bool Asset::load() {
     if (state == State::Loaded) { return true; }
     if (state == State::Failed) { return false; }
-    detail::DriverBase* driver = repo.getDriver(type);
-    if (!driver) {
-        BL_LOG_ERROR << "Attempted to load asset with type " << type
-                     << " but no driver is registered for that type";
-        state = State::Failed;
-        return false;
-    }
+
+    detail::DriverBase* driver = getDriver();
+    if (!driver) { return false; }
+
     state = State::Loading;
     ReadContext context(repo, *this);
     payload = driver->read(context);
@@ -68,13 +65,76 @@ bool Asset::load() {
 
 bool Asset::unload(bool force) {
     if (state != State::Loaded) { return true; }
+
     if (refCount > 0 && !force) {
         BL_LOG_WARN << "Attempted to unload asset with " << refCount << " outstanding references";
         return false;
     }
+
+    if (repo.getMode() == Mode::Editor) {
+        BL_LOG_WARN << "Asset " << uuid.toString()
+                    << " is being unloaded before being saved. Flushing changes to disk to prevent "
+                       "data loss.";
+        if (!writePayload()) {
+            BL_LOG_ERROR << "Failed to flush asset " << uuid.toString() << " to disk before unload";
+        }
+    }
+
     payload.reset();
     state = State::Unloaded;
+
     return true;
+}
+
+bool Asset::saveEditor() {
+    // create directories
+    const std::string assetDir = EditorPaths::getAssetPath(repo.getAssetDirectory(), *this);
+    const std::string filesDir = EditorPaths::getAssetFilesPath(repo.getAssetDirectory(), *this);
+    if (!util::FileUtil::createDirectory(assetDir)) {
+        BL_LOG_ERROR << "Failed to create asset directory: " << assetDir;
+        return false;
+    }
+    if (!util::FileUtil::createDirectory(filesDir)) {
+        BL_LOG_ERROR << "Failed to create asset files directory: " << filesDir;
+        return false;
+    }
+
+    // write metadata file
+    std::string metadataPath =
+        EditorPaths::getAssetMetadataFilePath(repo.getAssetDirectory(), *this);
+    std::ofstream metadataFile(metadataPath);
+    if (!serial::json::Serializer<Asset>::serializeStream(metadataFile, *this, 4, 0)) {
+        BL_LOG_ERROR << "Failed to write asset metadata to " << metadataPath;
+        return false;
+    }
+    metadataFile.close();
+
+    // write payload if loaded
+    if (!writePayload()) { return false; }
+
+    return true;
+}
+
+bool Asset::writePayload() {
+    if (repo.getMode() == Mode::Editor && payload && !payload->flushed) {
+        payload->flushed = true;
+        WriteContext ctx(repo, *this);
+        detail::DriverBase* driver = getDriver();
+        if (!driver) { return false; }
+        return driver->write(ctx);
+    }
+    return true;
+}
+
+detail::DriverBase* Asset::getDriver() {
+    detail::DriverBase* driver = repo.getDriver(type);
+    if (!driver) {
+        BL_LOG_ERROR << "Attempted to load asset with type " << type
+                     << " but no driver is registered for that type";
+        state = State::Failed;
+        return nullptr;
+    }
+    return driver;
 }
 
 } // namespace as

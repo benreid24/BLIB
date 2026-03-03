@@ -49,6 +49,15 @@ public:
     bool write(const std::string& data);
 
     /**
+     * @brief Writes the string to the stream. Stores 4 bytes for the length, then the content of
+     *        the string
+     *
+     * @param data The string to write
+     * @return bool True if the value could be written
+     */
+    bool write(std::string_view data);
+
+    /**
      * @brief Returns the status of the stream
      *
      */
@@ -59,9 +68,6 @@ private:
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
-
-inline OutputStream::OutputStream(OutputBuffer& buf)
-: buffer(buf) {}
 
 template<typename T>
 typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(const T& data) {
@@ -78,12 +84,6 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(c
         }
     }
     return buffer.write(bytes, size);
-}
-
-inline bool OutputStream::write(const std::string& data) {
-    if (!buffer.good()) return false;
-    if (!write<std::uint32_t>(static_cast<std::uint32_t>(data.size()))) return false;
-    return buffer.write(data.c_str(), data.size());
 }
 
 inline bool OutputStream::good() const { return buffer.good(); }

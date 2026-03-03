@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_METADATA_HPP
 #define BLIB_ASSETS_METADATA_HPP
 
+#include <BLIB/Serialization.hpp>
 #include <chrono>
 #include <cstdint>
 #include <string>
@@ -39,6 +40,11 @@ public:
     const std::string& getDescription() const { return description; }
 
     /**
+     * @brief Returns the path of the asset
+     */
+    const std::string& getPath() const { return path; }
+
+    /**
      * @brief Returns the creation time of the asset as a raw timestamp
      */
     std::uint64_t getCreationTimeRaw() const { return creationTime; }
@@ -68,6 +74,13 @@ public:
     void setDescription(const std::string& description);
 
     /**
+     * @brief Sets the path of the asset
+     *
+     * @param path The new path
+     */
+    void setPath(const std::string& path);
+
+    /**
      * @brief Sets the creation time of the asset as a raw timestamp
      *
      * @param time The new creation time
@@ -84,11 +97,39 @@ public:
 private:
     std::string displayName;
     std::string description;
+    std::string path;
     std::uint64_t creationTime;
     bool isAutoLoaded;
+
+    friend struct serial::SerializableObject<as::Metadata>;
 };
 
 } // namespace as
+
+namespace serial
+{
+template<>
+struct SerializableObject<as::Metadata> : public SerializableObjectBase {
+    SerializableField<1, as::Metadata, std::string> displayName;
+    SerializableField<2, as::Metadata, std::string> description;
+    SerializableField<3, as::Metadata, std::string> path;
+    SerializableField<4, as::Metadata, std::uint64_t> creationTime;
+    SerializableField<5, as::Metadata, bool> isAutoLoaded;
+
+    SerializableObject()
+    : SerializableObjectBase("AssetMetadata")
+    , displayName("displayName", *this, &as::Metadata::displayName,
+                  SerializableFieldBase::Required{})
+    , description("description", *this, &as::Metadata::description,
+                  SerializableFieldBase::Required{})
+    , path("path", *this, &as::Metadata::path, SerializableFieldBase::Required{})
+    , creationTime("creationTime", *this, &as::Metadata::creationTime,
+                   SerializableFieldBase::Required{})
+    , isAutoLoaded("isAutoLoaded", *this, &as::Metadata::isAutoLoaded,
+                   SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

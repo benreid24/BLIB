@@ -5,6 +5,7 @@
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/RepoDependency.hpp>
 #include <BLIB/Assets/State.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <atomic>
 #include <memory>
@@ -15,6 +16,10 @@ namespace bl
 /// Contains the Asset system
 namespace as
 {
+namespace detail
+{
+class DriverBase;
+}
 class Payload;
 class Repository;
 class Ref;
@@ -41,7 +46,7 @@ public:
     /**
      * @brief Returns the type of the asset
      */
-    const std::string_view& getType() const { return type; }
+    const std::string& getType() const { return type; }
 
     /**
      * @brief Returns the metadata of the asset
@@ -83,7 +88,7 @@ public:
 private:
     Repository& repo;
     util::UUID uuid;
-    std::string_view type;
+    std::string type;
     Metadata metadata;
     std::unique_ptr<Payload> payload;
     std::atomic<State> state;
@@ -91,12 +96,37 @@ private:
     std::atomic<unsigned int> refCount;
 
     bool create(const CreateContext::CustomData& data);
+    bool saveEditor();
+    bool writePayload();
+    detail::DriverBase* getDriver();
 
     friend class Repository;
     friend class Ref;
+    friend struct serial::SerializableObject<as::Asset>;
 };
 
 } // namespace as
+
+namespace serial
+{
+template<>
+struct SerializableObject<as::Asset> : public SerializableObjectBase {
+    SerializableField<1, as::Asset, util::UUID> uuid;
+    SerializableField<2, as::Asset, std::string> type;
+    SerializableField<3, as::Asset, as::Metadata> metadata;
+    SerializableField<4, as::Asset, std::vector<as::RepoDependency>> dependencies;
+
+    SerializableObject()
+    : SerializableObjectBase("Asset")
+    , uuid("uuid", *this, &as::Asset::uuid, SerializableFieldBase::Required{})
+    , type("type", *this, &as::Asset::type, SerializableFieldBase::Required{})
+    , metadata("metadata", *this, &as::Asset::metadata, SerializableFieldBase::Required{})
+    , dependencies("dependencies", *this, &as::Asset::dependencies,
+                   SerializableFieldBase::Required{}) {}
+};
+
+} // namespace serial
+
 } // namespace bl
 
 #endif

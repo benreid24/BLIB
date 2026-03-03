@@ -1,28 +1,28 @@
 #include <BLIB/Assets/EditorPaths.hpp>
 
+#include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 
 namespace bl
 {
 namespace as
 {
-std::string EditorPaths::getAssetPath(std::string_view assetType, std::string_view assetDiskName) {
-    const std::string typePath =
-        util::FileUtil::joinPath(std::string(RootPath), std::string(assetType));
-    return util::FileUtil::joinPath(typePath, std::string(assetDiskName));
+std::string EditorPaths::getAssetPath(const std::string& repoRoot, const Asset& asset) {
+    const std::string assetRoot = util::FileUtil::joinPath(repoRoot, std::string(RootPath));
+    const std::string assetPath =
+        util::FileUtil::joinPath(assetRoot, asset.getMetadata().getPath());
+    return util::FileUtil::joinPath(assetPath, asset.getMetadata().getDisplayName());
 }
 
-std::string EditorPaths::getAssetFilesPath(std::string_view assetType,
-                                           std::string_view assetDiskName) {
-    const std::string assetPath = getAssetPath(assetType, assetDiskName);
+std::string EditorPaths::getAssetFilesPath(const std::string& repoRoot, const Asset& asset) {
+    const std::string assetPath = getAssetPath(repoRoot, asset);
     return util::FileUtil::joinPath(assetPath, std::string(FilesDirname));
 }
 
-std::string EditorPaths::getAssetMetadataFilePath(std::string_view assetType,
-                                                  std::string_view assetDiskName,
-                                                  const std::string& assetUuid) {
-    const std::string assetPath = getAssetPath(assetType, assetDiskName);
-    return util::FileUtil::joinPath(assetPath, assetUuid + std::string(MetadataExtension));
+std::string EditorPaths::getAssetMetadataFilePath(const std::string& repoRoot, const Asset& asset) {
+    const std::string assetPath = getAssetPath(repoRoot, asset);
+    return util::FileUtil::joinPath(assetPath,
+                                    asset.getUUID().toString() + std::string(MetadataExtension));
 }
 
 } // namespace as

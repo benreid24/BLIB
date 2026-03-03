@@ -145,9 +145,9 @@ struct Serializer<util::UUID> {
         return true;
     }
 
-    static bool serializeStream(std::ostream& stream, const std::string& value, unsigned int,
+    static bool serializeStream(std::ostream& stream, const util::UUID& value, unsigned int,
                                 unsigned int) {
-        return Serializer<std::string>::serializeStream(stream, value, 0, 0);
+        return Serializer<std::string>::serializeStream(stream, value.toString(), 0, 0);
     }
 };
 } // namespace json
