@@ -35,8 +35,9 @@ namespace json
  * @tparam Helper for specializations, ignore
  * @ingroup JSON
  */
-template<typename T, bool = (std::is_integral_v<T> || std::is_enum_v<T> ||
-                             std::is_floating_point_v<T>)&&!std::is_same_v<T, bool>>
+template<typename T,
+         bool = (std::is_integral_v<T> || std::is_enum_v<T> || std::is_floating_point_v<T>) &&
+                !std::is_same_v<T, bool>>
 struct Serializer {
     /**
      * @brief Deserializes the given object from the json tree
@@ -700,18 +701,33 @@ struct Serializer<std::unordered_map<std::string, U>, false> {
 
 template<typename U, typename V>
 struct Serializer<std::unordered_map<U, V>, false> {
-    static_assert(std::is_integral_v<U> || std::is_enum_v<U>, "Map must have integer keys");
+    static constexpr bool IsIntegral = std::is_integral_v<U> || std::is_enum_v<U>;
+    static constexpr bool IsString   = std::is_same_v<U, std::string>;
+    static constexpr bool IsStringCompat =
+        std::is_constructible_v<U, std::string> && std::is_convertible_v<std::string, U>;
     using T = util::UnderlyingTypeT<U>;
+    static_assert(IsIntegral || IsString || IsStringCompat, "Map must have integer or string keys");
+
+    static U keyFromString(const std::string& s) {
+        if constexpr (IsString) { return s; }
+        else if constexpr (IsStringCompat) { return U(s); }
+        else { return static_cast<U>(static_cast<T>(std::stoll(s))); }
+    }
+
+    static std::string keyToString(const U& k) {
+        if constexpr (IsString) { return k; }
+        else if constexpr (IsStringCompat) { return std::string(k); }
+        else { return std::to_string(static_cast<T>(k)); }
+    }
 
     static bool deserialize(std::unordered_map<U, V>& result, const Value& v) {
         const Group* group = v.getAsGroup();
         if (group != nullptr) {
             const Group& g = *group;
             for (const std::string& field : g.getFields()) {
-                const U k = static_cast<U>(static_cast<T>(std::stoll(field)));
-                V f;
-                if (!Serializer<V>::deserialize(f, *g.getField(field))) return false;
-                result.emplace(k, std::move(f));
+                const U k = keyFromString(field);
+                auto it   = result.try_emplace(k).first;
+                if (!Serializer<V>::deserialize(it->second, *g.getField(field))) { return false; }
             }
             return true;
         }
@@ -727,8 +743,7 @@ struct Serializer<std::unordered_map<U, V>, false> {
     static Value serialize(const std::unordered_map<U, V>& value) {
         Group result;
         for (const auto& p : value) {
-            result.addField(std::to_string(static_cast<T>(p.first)),
-                            Serializer<V>::serialize(p.second));
+            result.addField(keyToString(p.first), Serializer<V>::serialize(p.second));
         }
         return {result};
     }
@@ -754,7 +769,7 @@ struct Serializer<std::unordered_map<U, V>, false> {
         unsigned int i        = 0;
         for (const auto& pair : value) {
             if (!util::StreamUtil::writeRepeated(stream, ' ', sc)) return false;
-            stream << '"' << pair.first << "\": ";
+            stream << '"' << keyToString(pair.first) << "\": ";
             if (!Serializer<V>::serializeStream(stream, pair.second, tabSize, sc)) return false;
             if (i < value.size() - 1) stream << ',';
             if (tabSize > 0) stream << "\n";

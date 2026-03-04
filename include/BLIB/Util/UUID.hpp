@@ -46,6 +46,20 @@ public:
     UUID(std::string_view str);
 
     /**
+     * @brief Constructs the UUID from a string
+     *
+     * @param str The string to parse and construct from
+     */
+    UUID(const std::string& str);
+
+    /**
+     * @brief Constructs the UUID from a string
+     *
+     * @param str The string to parse and construct from
+     */
+    UUID(const char* str);
+
+    /**
      * @brief Constructs the UUID from its two 64 bit parts
      *
      * @param part1 The first 64 bits of the UUID
@@ -75,6 +89,11 @@ public:
      * @brief Converts the UUID to a string
      */
     std::string toString() const;
+
+    /**
+     * @brief Converts the UUID to a string
+     */
+    operator std::string() const { return toString(); }
 
     /**
      * @brief Returns the first part of the UUID

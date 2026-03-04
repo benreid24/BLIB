@@ -10,13 +10,19 @@ namespace bl
 {
 namespace as
 {
-Asset::Asset(Repository& repo)
-: repo(repo)
+Asset::Asset()
+: repo(nullptr)
 , uuid()
 , type()
 , metadata()
 , payload(nullptr)
-, state(State::Unknown) {}
+, state(State::Unknown)
+, refCount(0) {}
+
+Asset::Asset(Repository& r)
+: Asset() {
+    repo = &r;
+}
 
 Payload& Asset::getPayload() {
     if (state != State::Loaded) {
@@ -33,7 +39,7 @@ bool Asset::create(const CreateContext::CustomData& createData) {
     if (!driver) { return false; }
 
     state = State::Loading;
-    CreateContext context(repo, *this, createData);
+    CreateContext context(*repo, *this, createData);
     payload = driver->create(context);
     if (!payload) {
         BL_LOG_ERROR << "Driver failed to create asset of type " << type;
@@ -52,7 +58,7 @@ bool Asset::load() {
     if (!driver) { return false; }
 
     state = State::Loading;
-    ReadContext context(repo, *this);
+    ReadContext context(*repo, *this);
     payload = driver->read(context);
     if (!payload) {
         BL_LOG_ERROR << "Driver failed to read asset of type " << type;
@@ -71,7 +77,7 @@ bool Asset::unload(bool force) {
         return false;
     }
 
-    if (repo.getMode() == Mode::Editor) {
+    if (repo->getMode() == Mode::Editor) {
         BL_LOG_WARN << "Asset " << uuid.toString()
                     << " is being unloaded before being saved. Flushing changes to disk to prevent "
                        "data loss.";
@@ -88,8 +94,8 @@ bool Asset::unload(bool force) {
 
 bool Asset::saveEditor() {
     // create directories
-    const std::string assetDir = EditorPaths::getAssetPath(repo.getAssetDirectory(), *this);
-    const std::string filesDir = EditorPaths::getAssetFilesPath(repo.getAssetDirectory(), *this);
+    const std::string assetDir = EditorPaths::getAssetPath(repo->getAssetDirectory(), *this);
+    const std::string filesDir = EditorPaths::getAssetFilesPath(repo->getAssetDirectory(), *this);
     if (!util::FileUtil::createDirectory(assetDir)) {
         BL_LOG_ERROR << "Failed to create asset directory: " << assetDir;
         return false;
@@ -101,7 +107,7 @@ bool Asset::saveEditor() {
 
     // write metadata file
     std::string metadataPath =
-        EditorPaths::getAssetMetadataFilePath(repo.getAssetDirectory(), *this);
+        EditorPaths::getAssetMetadataFilePath(repo->getAssetDirectory(), *this);
     std::ofstream metadataFile(metadataPath);
     if (!serial::json::Serializer<Asset>::serializeStream(metadataFile, *this, 4, 0)) {
         BL_LOG_ERROR << "Failed to write asset metadata to " << metadataPath;
@@ -116,9 +122,9 @@ bool Asset::saveEditor() {
 }
 
 bool Asset::writePayload() {
-    if (repo.getMode() == Mode::Editor && payload && !payload->flushed) {
+    if (repo->getMode() == Mode::Editor && payload && !payload->flushed) {
         payload->flushed = true;
-        WriteContext ctx(repo, *this);
+        WriteContext ctx(*repo, *this);
         detail::DriverBase* driver = getDriver();
         if (!driver) { return false; }
         return driver->write(ctx);
@@ -127,7 +133,7 @@ bool Asset::writePayload() {
 }
 
 detail::DriverBase* Asset::getDriver() {
-    detail::DriverBase* driver = repo.getDriver(type);
+    detail::DriverBase* driver = repo->getDriver(type);
     if (!driver) {
         BL_LOG_ERROR << "Attempted to load asset with type " << type
                      << " but no driver is registered for that type";

@@ -32,6 +32,12 @@ class Ref;
 class Asset {
 public:
     /**
+     * @brief Creates an empty asset. Does not leave the asset in a valid state unless called by the
+     *        repository
+     */
+    Asset();
+
+    /**
      * @brief Creates an empty asset
      *
      * @param repo The repository this asset belongs to
@@ -86,7 +92,7 @@ public:
     bool unload(bool force = false);
 
 private:
-    Repository& repo;
+    Repository* repo;
     util::UUID uuid;
     std::string type;
     Metadata metadata;
@@ -95,6 +101,7 @@ private:
     std::vector<RepoDependency> dependencies;
     std::atomic<unsigned int> refCount;
 
+    void initAfterDeserialize(Repository& repo);
     bool create(const CreateContext::CustomData& data);
     bool saveEditor();
     bool writePayload();

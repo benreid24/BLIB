@@ -4,26 +4,15 @@
 
 namespace bl
 {
-namespace as
-{
-namespace
-{
-struct Manifest {
-    std::vector<util::UUID> assetUuids;
-};
-} // namespace
-} // namespace as
-
 namespace serial
 {
 template<>
-struct SerializableObject<as::Manifest> : public SerializableObjectBase {
-    SerializableField<1, as::Manifest, std::vector<util::UUID>> assetUuids;
+struct SerializableObject<as::Repository> : public SerializableObjectBase {
+    SerializableField<1, as::Repository, std::unordered_map<util::UUID, as::Asset>> assets;
 
     SerializableObject()
     : SerializableObjectBase("AssetManifest")
-    , assetUuids("assetUuids", *this, &as::Manifest::assetUuids,
-                 SerializableFieldBase::Required{}) {}
+    , assets("assets", *this, &as::Repository::assets, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 
@@ -120,11 +109,8 @@ bool Repository::saveRepository() {
 
     // write manifest
     const std::string manifestPath = util::FileUtil::joinPath(assetDirectory, "manifest.json");
-    Manifest manifest;
-    manifest.assetUuids.reserve(assets.size());
-    for (const auto& pair : assets) { manifest.assetUuids.emplace_back(pair.first); }
     std::ofstream manifestFile(manifestPath);
-    if (!serial::json::Serializer<Manifest>::serializeStream(manifestFile, manifest, 4, 0)) {
+    if (!serial::json::Serializer<Repository>::serializeStream(manifestFile, *this, 4, 0)) {
         BL_LOG_ERROR << "Failed to write asset manifest to " << manifestPath;
         return false;
     }
@@ -143,8 +129,49 @@ bool Repository::saveRepository() {
 }
 
 bool Repository::loadRepository() {
-    // TODO
-    return false;
+    std::unique_lock lock(assetMutex);
+    std::unique_lock unloadLock(unloadQueueMutex);
+
+    assets.clear();
+    unloadQueue.clear();
+
+    if (mode == Mode::Editor) {
+        // TODO - should path loaded from depend on mode?
+        const std::string manifestPath = util::FileUtil::joinPath(assetDirectory, "manifest.json");
+        std::ifstream manifestFile(manifestPath);
+        if (!manifestFile.is_open()) {
+            BL_LOG_ERROR << "Failed to open asset manifest at " << manifestPath;
+            return false;
+        }
+        if (!serial::json::Serializer<Repository>::deserializeStream(manifestFile, *this)) {
+            BL_LOG_ERROR << "Failed to deserialize asset manifest at " << manifestPath;
+            return false;
+        }
+        // TODO - check for missing asset files and search if moved
+    }
+    else {
+        // TODO - implement bundle loading
+        return false;
+    }
+
+    for (auto& pair : assets) {
+        pair.second.initAfterDeserialize(*this);
+        for (const RepoDependency& dep : pair.second.dependencies) {
+            if (assets.find(dep.uuid) == assets.end()) {
+                BL_LOG_ERROR << "Asset with UUID " << pair.first.toString()
+                             << " has dependency with UUID " << dep.uuid.toString()
+                             << " but it does not exist";
+            }
+        }
+        if (pair.second.getMetadata().getIsAutoLoaded()) {
+            if (!pair.second.load()) {
+                BL_LOG_ERROR << "Failed to auto load auto-load asset with UUID "
+                             << pair.first.toString();
+            }
+        }
+    }
+
+    return true;
 }
 
 bool Repository::exportRepository(const std::string& path) {

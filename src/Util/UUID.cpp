@@ -31,6 +31,12 @@ UUID::UUID()
 : part1(0)
 , part2(0) {}
 
+UUID::UUID(const std::string& str)
+: UUID(std::string_view(str)) {}
+
+UUID::UUID(const char* str)
+: UUID(std::string_view(str)) {}
+
 UUID::UUID(std::string_view str)
 : UUID() {
     part1 = 0;
@@ -115,36 +121,26 @@ std::string UUID::toString() const {
     // part1: 8 bytes (first 8, then 4, then 4 hex chars with hyphens)
     // Byte indices: 7 6 5 4 - 3 2 - 1 0
     // Char groups:  8 chars - 4   - 4
-    
+
     // First 4 bytes (8 hex chars)
-    for (int i = 7; i >= 4; --i) {
-        appendByte((temp1 >> (i * 8)) & 0xFF);
-    }
+    for (int i = 7; i >= 4; --i) { appendByte((temp1 >> (i * 8)) & 0xFF); }
     result += '-';
-    
+
     // Next 2 bytes (4 hex chars)
-    for (int i = 3; i >= 2; --i) {
-        appendByte((temp1 >> (i * 8)) & 0xFF);
-    }
+    for (int i = 3; i >= 2; --i) { appendByte((temp1 >> (i * 8)) & 0xFF); }
     result += '-';
-    
+
     // Last 2 bytes of part1 (4 hex chars)
-    for (int i = 1; i >= 0; --i) {
-        appendByte((temp1 >> (i * 8)) & 0xFF);
-    }
+    for (int i = 1; i >= 0; --i) { appendByte((temp1 >> (i * 8)) & 0xFF); }
     result += '-';
 
     // part2: 8 bytes (first 4, then 12 hex chars with hyphen)
     // First 2 bytes (4 hex chars)
-    for (int i = 7; i >= 6; --i) {
-        appendByte((temp2 >> (i * 8)) & 0xFF);
-    }
+    for (int i = 7; i >= 6; --i) { appendByte((temp2 >> (i * 8)) & 0xFF); }
     result += '-';
-    
+
     // Last 6 bytes (12 hex chars)
-    for (int i = 5; i >= 0; --i) {
-        appendByte((temp2 >> (i * 8)) & 0xFF);
-    }
+    for (int i = 5; i >= 0; --i) { appendByte((temp2 >> (i * 8)) & 0xFF); }
 
     return result;
 }

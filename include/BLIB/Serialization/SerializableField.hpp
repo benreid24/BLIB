@@ -29,7 +29,7 @@ struct DefaultHolder {
 
     U* get();
 };
-}
+} // namespace priv
 
 /**
  * @brief Base class for SerializableField objects. Not to be used directly
@@ -209,7 +209,7 @@ public:
      * @param owner The parent Serializable object to register with
      * @param member Pointer to the member to serialize
      */
-    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::*member,
+    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::* member,
                       SerializableFieldBase::Required&&);
 
     /**
@@ -219,7 +219,7 @@ public:
      * @param owner The parent Serializable object to register with
      * @param member Pointer to the member to serialize
      */
-    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::*member,
+    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::* member,
                       SerializableFieldBase::Optional&&);
 
     /**
@@ -315,7 +315,7 @@ public:
     T& getDefault();
 
 private:
-    T C::*const member;
+    T C::* const member;
     priv::DefaultHolder<C, T> defVal;
 };
 
@@ -326,14 +326,19 @@ namespace priv
 template<typename C, typename U>
 struct DefaultHolder<C, U, true> {
     std::unique_ptr<U> defVal;
+    void (*copyFn)(U&, const U&);
+
+    DefaultHolder()
+    : copyFn(nullptr) {}
 
     template<typename... TArgs>
     void make(TArgs&&... args) {
-        defVal = std::make_unique<U>(std::forward<TArgs>(args)...);
+        defVal  = std::make_unique<U>(std::forward<TArgs>(args)...);
+        copyFn = [](U& dst, const U& src) { dst = src; };
     }
 
     void assign(U& result) const {
-        if (defVal) { result = *defVal; }
+        if (defVal && copyFn) { copyFn(result, *defVal); }
     }
 
     U* get() { return defVal.get(); }
@@ -353,8 +358,8 @@ struct DefaultHolder<C, U, false> {
 
     void assign(U&) const {
         if (set) {
-            BL_LOG_WARN << "Tried to default field " << typeid(U).name() << " on object " << typeid(C).name()
-                        << " but copy assignment is not allowed";
+            BL_LOG_WARN << "Tried to default field " << typeid(U).name() << " on object "
+                        << typeid(C).name() << " but copy assignment is not allowed";
         }
     }
 
@@ -376,18 +381,18 @@ struct DefaultHolder<C, U[N], false> {
 
     U* get() { return *defVal.get(); }
 };
-}
+} // namespace priv
 
 template<std::uint16_t Id, typename C, typename T>
 SerializableField<Id, C, T>::SerializableField(const std::string& name,
-                                               SerializableObjectBase& owner, T C::*member,
+                                               SerializableObjectBase& owner, T C::* member,
                                                SerializableFieldBase::Required&&)
 : SerializableFieldBase(Id, name, owner, member, false)
 , member(member) {}
 
 template<std::uint16_t Id, typename C, typename T>
 SerializableField<Id, C, T>::SerializableField(const std::string& name,
-                                               SerializableObjectBase& owner, T C::*member,
+                                               SerializableObjectBase& owner, T C::* member,
                                                SerializableFieldBase::Optional&&)
 : SerializableFieldBase(Id, name, owner, member, true)
 , member(member) {}

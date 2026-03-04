@@ -58,6 +58,15 @@ public:
     bool write(std::string_view data);
 
     /**
+     * @brief Writes the string to the stream. Stores 4 bytes for the length, then the content of
+     *        the string
+     *
+     * @param data The string to write
+     * @return bool True if the value could be written
+     */
+    bool write(const char* data);
+
+    /**
      * @brief Returns the status of the stream
      *
      */

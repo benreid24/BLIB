@@ -189,6 +189,7 @@ private:
 
     friend class detail::DependencyChain;
     friend class Ref;
+    friend struct serial::SerializableObject<Repository>;
 };
 
 } // namespace as
