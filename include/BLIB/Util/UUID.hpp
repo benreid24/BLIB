@@ -19,6 +19,9 @@ namespace util
  */
 class UUID {
 public:
+    /// The fixed length of UUID strings
+    static constexpr std::size_t StringLength = 36;
+
     /**
      * @brief Generates a new UUID string
      *

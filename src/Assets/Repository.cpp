@@ -1,5 +1,6 @@
 #include <BLIB/Assets/Repository.hpp>
 
+#include <BLIB/Assets/EditorPaths.hpp>
 #include <BLIB/Serialization.hpp>
 
 namespace bl
@@ -147,7 +148,58 @@ bool Repository::loadRepository() {
             BL_LOG_ERROR << "Failed to deserialize asset manifest at " << manifestPath;
             return false;
         }
-        // TODO - check for missing asset files and search if moved
+        // check for missing asset files and search if moved
+        std::unordered_map<std::string, std::string> foundAssetPaths;
+        std::vector<util::UUID> missingAssets;
+        for (auto& pair : assets) {
+            const std::string assetPath =
+                EditorPaths::getAssetMetadataFilePath(assetDirectory, pair.second);
+            if (!util::FileUtil::exists(assetPath)) {
+                BL_LOG_WARN << "Asset with UUID " << pair.first.toString()
+                            << " is missing its metadata file at expected path " << assetPath;
+
+                // find all asset metadata files
+                if (foundAssetPaths.empty()) {
+                    const std::vector<std::string> metadataFiles = util::FileUtil::listDirectory(
+                        assetDirectory, std::string(EditorPaths::MetadataExtension), true);
+                    for (const auto& path : metadataFiles) {
+                        const std::string uuid = util::FileUtil::getBaseName(path);
+                        foundAssetPaths[uuid]  = util::FileUtil::joinPath(assetDirectory, path);
+                    }
+                }
+
+                // see if our missing asset was moved or deleted
+                const auto it = foundAssetPaths.find(pair.first.toString());
+                if (it != foundAssetPaths.end()) {
+                    BL_LOG_INFO << "Found metadata file for asset with UUID "
+                                << pair.first.toString() << " at " << it->second
+                                << ". Updating asset path and display name";
+                    const std::string displayName = util::FileUtil::getFolder(it->second);
+                    std::string folder            = it->second;
+                    // remove folder + filename + assetDirectory
+                    const std::size_t rmStart = assetDirectory.size() + 1;
+                    const std::size_t rmSize  = rmStart + displayName.size() + 1 +
+                                               EditorPaths::MetadataExtension.size() +
+                                               util::UUID::StringLength;
+                    folder = folder.substr(rmStart, folder.size() - rmSize);
+
+                    pair.second.getMetadata().setDisplayName(displayName);
+                    pair.second.getMetadata().setPath(folder);
+                }
+                else {
+                    BL_LOG_ERROR << "Asset with UUID " << pair.first.toString()
+                                 << " is missing its metadata file and could not be found in "
+                                    "asset directory. Asset will be deleted";
+                    missingAssets.push_back(pair.first);
+                }
+            }
+        }
+
+        // delete missing assets
+        if (!missingAssets.empty()) {
+            BL_LOG_WARN << "Deleting " << missingAssets.size() << " missing assets";
+            for (const util::UUID& uuid : missingAssets) { assets.erase(uuid); }
+        }
     }
     else {
         // TODO - implement bundle loading

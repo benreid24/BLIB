@@ -42,7 +42,7 @@ UUID::UUID(std::string_view str)
     part1 = 0;
     part2 = 0;
 
-    if (str.length() != 36) {
+    if (str.length() != StringLength) {
         BL_LOG_ERROR << "Invalid UUID string: " << str;
         return;
     }
@@ -64,7 +64,7 @@ UUID::UUID(std::string_view str)
         return 0;
     };
 
-    for (std::size_t i = 0; i < 36; ++i) {
+    for (std::size_t i = 0; i < StringLength; ++i) {
         if (i == 8 || i == 13 || i == 18 || i == 23) { continue; }
         if (!isHexDigit(str[i])) {
             BL_LOG_ERROR << "Invalid UUID string: " << str;
@@ -102,7 +102,7 @@ UUID::UUID(std::uint64_t part1, std::uint64_t part2)
 std::string UUID::toString() const {
     const char* hexChars = "0123456789abcdef";
     std::string result;
-    result.reserve(36);
+    result.reserve(StringLength);
 
     auto appendByte = [&](std::uint8_t byte) {
         result += hexChars[(byte >> 4) & 0xF];

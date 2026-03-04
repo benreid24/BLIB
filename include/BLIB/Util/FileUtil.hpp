@@ -86,6 +86,15 @@ struct FileUtil {
     static std::string getPath(const std::string& file);
 
     /**
+     * @brief Returns the folder name of the given filename.
+     *        Example: "folder/subfolder/file.txt" folder is "subfolder"
+     *
+     * @param path The file path to parse
+     * @return std::string The folder name, or empty if no folder present
+     */
+    static std::string getFolder(const std::string& path);
+
+    /**
      * @brief Joins a file path with another path or filename. Takes care of slashes
      *        Example: "path/" + "/file.txt" becomes "path/file.txt"
      *

@@ -59,6 +59,12 @@ std::string FileUtil::getPath(const std::string& file) {
     return path.empty() ? file : path;
 }
 
+std::string FileUtil::getFolder(const std::string& path) {
+    const std::filesystem::path p(path);
+    if (p.has_parent_path()) { return p.parent_path().filename().generic_string(); }
+    return "";
+}
+
 std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     if (l.empty()) return r;
     if (r.empty()) return l;
