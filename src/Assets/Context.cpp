@@ -50,7 +50,7 @@ bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuff
 WriteContext::WriteContext(Repository& repo, Asset& asset)
 : Context(repo, asset) {}
 
-bool WriteContext::writeFile(std::string_view filename, const std::vector<char>& buffer) const {
+bool WriteContext::writeFile(std::string_view filename, std::span<const char> buffer) const {
     switch (getMode()) {
     case Mode::Game:
         // TODO - implement bundle writing

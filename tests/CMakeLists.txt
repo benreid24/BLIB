@@ -21,6 +21,7 @@ target_link_libraries(BLIB.t PRIVATE
 )
 
 add_subdirectory(AI)
+add_subdirectory(Assets)
 add_subdirectory(Components)
 add_subdirectory(Containers)
 add_subdirectory(ECS)

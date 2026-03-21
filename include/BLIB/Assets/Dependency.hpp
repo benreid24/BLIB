@@ -12,27 +12,71 @@ namespace bl
 {
 namespace as
 {
-
+/**
+ * @brief Dependency of a payload on another asset
+ *
+ * @tparam T The type of payload of the dependency
+ * @ingroup Assets
+ */
 template<typename T = Payload>
 class Dependency : public detail::DependencyChain {
 public:
     static_assert(std::is_base_of<Payload, T>::value, "T must be a Payload type");
 
-    Dependency(Repository& repo, Asset& owner, std::string_view tag);
+    /**
+     * @brief Creates the dependency in the empty state
+     *
+     * @param repo The asset repository
+     * @param owner The asset that owns this dependency
+     * @param tag The asset local tag to identify this dependency
+     */
+    Dependency(Repository& repo, Payload& owner, std::string_view tag)
+    : DependencyChain(repo, owner, tag) {}
 
-    Dependency(const Dependency&) = delete;
-
-    Dependency(Dependency&&);
-
+    /**
+     * @brief Destroys the dependency
+     */
     ~Dependency() = default;
 
-    Dependency& operator=(Dependency&&);
+    /**
+     * @brief Returns the payload of the dependency
+     */
+    T& get() { return dependency.getAsset().getPayload().as<T>(); }
 
-    Dependency& operator=(const Dependency&) = delete;
+    /**
+     * @brief Returns the payload of the dependency
+     */
+    const T& get() const { return dependency.getAsset().getPayload().as<T>(); }
 
-    T& get();
+    /**
+     * @brief Returns the payload of the dependency
+     */
+    T* operator->() { return &get(); }
 
-    const T& get() const;
+    /**
+     * @brief Returns the payload of the dependency
+     */
+    const T* operator->() const { return &get(); }
+
+    /**
+     * @brief Returns the payload of the dependency
+     */
+    T& operator*() { return get(); }
+
+    /**
+     * @brief Returns the payload of the dependency
+     */
+    const T& operator*() const { return get(); }
+
+    /**
+     * @brief Returns the asset of the dependency
+     */
+    Asset& getAsset() { return dependency.getAsset(); }
+
+    /**
+     * @brief Returns the asset of the dependency
+     */
+    const Asset& getAsset() const { return dependency.getAsset(); }
 };
 
 } // namespace as

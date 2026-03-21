@@ -75,6 +75,11 @@ public:
     Payload& getPayload();
 
     /**
+     * @brief Returns the payload of the asset. Must only be called if the state is Loaded
+     */
+    const Payload& getPayload() const;
+
+    /**
      * @brief Loads the payload. Will generally be called for you, but may need to be called
      *        manually if the asset is explicitly unloaded. Maintaining a Ref to an asset will
      *        prevent automatic unloading
@@ -101,7 +106,7 @@ private:
     std::vector<RepoDependency> dependencies;
     std::atomic<unsigned int> refCount;
 
-    void initAfterDeserialize(Repository& repo);
+    bool initAfterDeserialize(Repository& repo);
     bool create(const CreateContext::CustomData& data);
     bool saveEditor();
     bool writePayload();

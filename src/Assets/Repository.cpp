@@ -38,9 +38,11 @@ Ref Repository::createAsset(std::string_view type, const std::string& name,
     util::UUID uuid = util::UUID::generate();
     auto it         = assets.try_emplace(uuid, *this).first;
     it->second.getMetadata().setDisplayName(name);
+    it->second.uuid = uuid;
     it->second.type = type;
     if (!it->second.create(createData)) {
         BL_LOG_ERROR << "Failed to create new asset '" << name << "' of type " << type;
+        assets.erase(it);
         return Ref();
     }
 
@@ -48,7 +50,7 @@ Ref Repository::createAsset(std::string_view type, const std::string& name,
 }
 
 Ref Repository::getAsset(util::UUID uuid, State desiredState) {
-    std::shared_lock lock(assetMutex);
+    std::unique_lock lock(assetMutex);
     auto it = assets.find(uuid);
     if (it == assets.end()) {
         BL_LOG_ERROR << "Attempted to get asset with UUID " << uuid.toString()
@@ -81,7 +83,7 @@ void Repository::queueUnload(util::UUID uuid) {
 }
 
 const std::vector<RepoDependency>& Repository::getDependencies(util::UUID uuid) const {
-    std::shared_lock lock(assetMutex);
+    std::unique_lock lock(assetMutex);
     auto it = assets.find(uuid);
     if (it == assets.end()) {
         BL_LOG_ERROR << "Attempted to get dependencies for asset with UUID " << uuid.toString()
@@ -101,7 +103,10 @@ detail::DriverBase* Repository::getDriver(std::string_view tag) {
 
 bool Repository::saveRepository() {
     std::unique_lock lock(assetMutex);
+    return saveRepositoryLocked();
+}
 
+bool Repository::saveRepositoryLocked() {
     // ensure root dir exists
     if (!util::FileUtil::createDirectory(assetDirectory)) {
         BL_LOG_ERROR << "Failed to create asset directory at " << assetDirectory;
@@ -164,7 +169,7 @@ bool Repository::loadRepository() {
                         assetDirectory, std::string(EditorPaths::MetadataExtension), true);
                     for (const auto& path : metadataFiles) {
                         const std::string uuid = util::FileUtil::getBaseName(path);
-                        foundAssetPaths[uuid]  = util::FileUtil::joinPath(assetDirectory, path);
+                        foundAssetPaths[uuid]  = path;
                     }
                 }
 
@@ -177,8 +182,9 @@ bool Repository::loadRepository() {
                     const std::string displayName = util::FileUtil::getFolder(it->second);
                     std::string folder            = it->second;
                     // remove folder + filename + assetDirectory
-                    const std::size_t rmStart = assetDirectory.size() + 1;
-                    const std::size_t rmSize  = rmStart + displayName.size() + 1 +
+                    const std::size_t rmStart =
+                        assetDirectory.size() + EditorPaths::RootPath.size() + 2;
+                    const std::size_t rmSize = rmStart + displayName.size() + 1 +
                                                EditorPaths::MetadataExtension.size() +
                                                util::UUID::StringLength;
                     folder = folder.substr(rmStart, folder.size() - rmSize);
@@ -207,23 +213,28 @@ bool Repository::loadRepository() {
     }
 
     for (auto& pair : assets) {
-        pair.second.initAfterDeserialize(*this);
-        for (const RepoDependency& dep : pair.second.dependencies) {
-            if (assets.find(dep.uuid) == assets.end()) {
-                BL_LOG_ERROR << "Asset with UUID " << pair.first.toString()
-                             << " has dependency with UUID " << dep.uuid.toString()
-                             << " but it does not exist";
-            }
-        }
+        const bool hasAllDeps = pair.second.initAfterDeserialize(*this);
         if (pair.second.getMetadata().getIsAutoLoaded()) {
-            if (!pair.second.load()) {
-                BL_LOG_ERROR << "Failed to auto load auto-load asset with UUID "
-                             << pair.first.toString();
+            if (hasAllDeps) {
+                if (!pair.second.load()) {
+                    BL_LOG_ERROR << "Failed to auto load auto-load asset with UUID "
+                                 << pair.first.toString();
+                }
+            }
+            else {
+                BL_LOG_ERROR << "Skipping auto-load of asset " << pair.first.toString()
+                             << " due to missing dependencies";
             }
         }
     }
 
     return true;
+}
+
+Asset* Repository::getDependencyForInit(util::UUID uuid) {
+    auto it = assets.find(uuid);
+    if (it == assets.end()) { return nullptr; }
+    return &it->second;
 }
 
 bool Repository::exportRepository(const std::string& path) {
@@ -234,6 +245,13 @@ bool Repository::exportRepository(const std::string& path) {
 void Repository::releaseUnused() {
     std::unique_lock lock(assetMutex);
     std::unique_lock unloadLock(unloadQueueMutex);
+
+    if (mode == Mode::Editor) {
+        if (!saveRepositoryLocked()) {
+            BL_LOG_WARN << "Failed to save repository before releasing unused assets";
+        }
+    }
+
     for (const util::UUID& uuid : unloadQueue) {
         auto it = assets.find(uuid);
         if (it == assets.end()) {

@@ -5,6 +5,7 @@
 #include <BLIB/Assets/Ref.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <stdexcept>
 #include <type_traits>
@@ -28,7 +29,7 @@ namespace detail
  *
  * @ingroup Assets
  */
-class DependencyChain {
+class DependencyChain : private util::NonCopyable {
 public:
     /**
      * @brief Creates the dependency chain node
@@ -73,6 +74,11 @@ public:
      * @brief Release the ref to the depenency which may result in it being unloaded
      */
     void unload();
+
+    /**
+     * @brief Returns whether the dependency points to a valid asset
+     */
+    bool isValid() const { return dependency.isValid(); }
 
 protected:
     const std::string_view tag;

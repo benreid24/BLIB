@@ -188,4 +188,9 @@ struct hash<bl::util::UUID> {
 };
 } // namespace std
 
+inline std::ostream& operator<<(std::ostream& os, const bl::util::UUID& uuid) {
+    os << uuid.toString();
+    return os;
+}
+
 #endif

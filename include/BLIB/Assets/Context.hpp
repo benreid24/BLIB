@@ -3,6 +3,7 @@
 
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Logging.hpp>
+#include <span>
 #include <stdexcept>
 #include <string>
 #include <string_view>
@@ -73,7 +74,9 @@ private:
 class CreateContext : public detail::Context {
 public:
     /// Custom data can be passed to asset drivers by deriving from this struct
-    struct CustomData {};
+    struct CustomData {
+        virtual ~CustomData() = default;
+    };
 
     /**
      * @brief Creates a context for asset importing
@@ -104,6 +107,22 @@ public:
             throw std::bad_cast();
         }
         return *cast;
+    }
+
+    /**
+     * @brief Returns the custom data cast as the given type
+     *
+     * @tparam T The type to cast to
+     * @return The custom data cast as the given type
+     */
+    template<typename T>
+    const T* getCustomDataAsMaybe() const {
+        const T* cast = dynamic_cast<const T*>(&customData);
+        if (!cast) {
+            BL_LOG_ERROR << "Invalid custom data cast to " << typeid(T).name();
+            return nullptr;
+        }
+        return cast;
     }
 
 private:
@@ -164,7 +183,7 @@ public:
      * @param buffer The content of the file to write
      * @return True if the file could be written, false otherwise
      */
-    bool writeFile(std::string_view filename, const std::vector<char>& buffer) const;
+    bool writeFile(std::string_view filename, std::span<const char> buffer) const;
 
     // TODO - stream based methods?
 

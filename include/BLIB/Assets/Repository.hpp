@@ -3,6 +3,7 @@
 
 #include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Assets/Context.hpp>
+#include <BLIB/Assets/Dependency.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Assets/State.hpp>
@@ -168,7 +169,7 @@ public:
     const std::string& getAssetDirectory() const { return assetDirectory; }
 
 private:
-    mutable std::shared_mutex assetMutex;
+    mutable std::recursive_mutex assetMutex;
     const Mode mode;
     const std::string assetDirectory;
     std::unordered_map<util::UUID, Asset> assets;
@@ -181,15 +182,21 @@ private:
     std::mutex unloadQueueMutex;
     std::vector<util::UUID> unloadQueue;
 
+    bool saveRepositoryLocked();
+
     // used by Dependency
     void registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
 
     // used by Ref
     void queueUnload(util::UUID uuid);
 
+    // used by Asset
+    Asset* getDependencyForInit(util::UUID uuid);
+
     friend class detail::DependencyChain;
     friend class Ref;
     friend struct serial::SerializableObject<Repository>;
+    friend class Asset;
 };
 
 } // namespace as

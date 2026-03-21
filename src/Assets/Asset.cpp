@@ -24,7 +24,42 @@ Asset::Asset(Repository& r)
     repo = &r;
 }
 
+bool Asset::initAfterDeserialize(Repository& r) {
+    // already inited via dependency chain
+    if (state != State::Unknown) { return true; }
+
+    repo  = &r;
+    state = State::Unloaded;
+
+    for (const RepoDependency& dep : dependencies) {
+        Asset* depAsset = r.getDependencyForInit(dep.uuid);
+        if (!depAsset) {
+            state = State::Failed;
+            BL_LOG_ERROR << "Failed to find dependency with UUID " << dep.uuid.toString()
+                         << " for asset " << uuid.toString();
+            return false;
+        }
+
+        if (!depAsset->initAfterDeserialize(r)) {
+            state = State::Failed;
+            BL_LOG_ERROR << "Failed to initialize dependency with UUID " << dep.uuid.toString()
+                         << " for asset " << uuid.toString();
+            return false;
+        }
+    }
+
+    return true;
+}
+
 Payload& Asset::getPayload() {
+    if (state != State::Loaded) {
+        BL_LOG_ERROR << "Attempted to access asset payload when asset is not loaded";
+        throw std::runtime_error("Asset payload is not loaded");
+    }
+    return *payload;
+}
+
+const Payload& Asset::getPayload() const {
     if (state != State::Loaded) {
         BL_LOG_ERROR << "Attempted to access asset payload when asset is not loaded";
         throw std::runtime_error("Asset payload is not loaded");
