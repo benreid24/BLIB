@@ -246,8 +246,8 @@ bool Engine::loop() {
         std::int64_t elapsedTime = updateOuterTimer.getElapsedTime().asMicroseconds();
         lag += scaleTime(elapsedTime, timeScale);
         if (elapsedTime > 0) { updateOuterTimer.restart(); }
-        const std::uint64_t startingLag = lag;
-        std::uint64_t totalDt           = 0;
+        const std::int64_t startingLag = lag;
+        std::uint64_t totalDt          = 0;
         updateMeasureTimer.restart();
 
         // update until caught up
@@ -256,11 +256,11 @@ bool Engine::loop() {
             totalDt += updateTimestep;
             lag -= updateTimestep;
 
-            const std::uint64_t updateStart = updateMeasureTimer.getElapsedTime().asMicroseconds();
-            const float dt                  = toSeconds(updateTimestep);
-            const float realDt              = toRealSeconds(updateTimestep, timeScale);
-            const float lagSeconds          = toSeconds(lag);
-            const float realLagSeconds      = toRealSeconds(lag, timeScale);
+            const std::int64_t updateStart = updateMeasureTimer.getElapsedTime().asMicroseconds();
+            const float dt                 = toSeconds(updateTimestep);
+            const float realDt             = toRealSeconds(updateTimestep, timeScale);
+            const float lagSeconds         = toSeconds(lag);
+            const float realLagSeconds     = toRealSeconds(lag, timeScale);
 
             // core update game logic
             input.update();
@@ -281,13 +281,10 @@ bool Engine::loop() {
             }
 
             // handle timing
-            averageUpdateTime =
-                (8 * averageUpdateTime +
-                 2 * (updateMeasureTimer.getElapsedTime().asMicroseconds() - updateStart)) /
-                10;
-            if (updateMeasureTimer.getElapsedTime().asMicroseconds() > startingLag * 11 / 10) {
-                fallBehindWarning(updateMeasureTimer.getElapsedTime().asMicroseconds() -
-                                  startingLag);
+            const std::int64_t updateEnd = updateMeasureTimer.getElapsedTime().asMicroseconds();
+            averageUpdateTime = (8 * averageUpdateTime + 2 * (updateEnd - updateStart)) / 10;
+            if (updateEnd > startingLag * 11 / 10) {
+                fallBehindWarning(updateEnd - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = updateTimestep * 21 / 20;
                     BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep << "s to "
