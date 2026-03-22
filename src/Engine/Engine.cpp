@@ -18,7 +18,8 @@ namespace engine
 {
 namespace
 {
-constexpr std::uint64_t MinFrameLengthMicroseconds = 100;
+constexpr std::int64_t MinFrameLengthMicroseconds = 100;
+
 float toSeconds(std::uint64_t microseconds) {
     return static_cast<float>(microseconds) / 1'000'000.f;
 }
@@ -169,8 +170,8 @@ bool Engine::loop() {
     const float minFrameLengthSeconds =
         engineSettings.maximumFramerate() > 0.f ? 1.f / engineSettings.maximumFramerate() : 0.f;
     // always limit to at least 100us to avoid issues with SFML time resolution
-    const std::uint64_t minFrameLength =
-        std::max(static_cast<std::uint64_t>(minFrameLengthSeconds * 1'000'000.f), MinFrameLengthMicroseconds);
+    const std::int64_t minFrameLength = std::max(
+        static_cast<std::int64_t>(minFrameLengthSeconds * 1'000'000.f), MinFrameLengthMicroseconds);
     std::uint64_t lag = 0;
 
     sf::Clock updateMeasureTimer; // measures duration of update ticks
@@ -242,8 +243,9 @@ bool Engine::loop() {
         ecsSystems.notifyFrameStart();
 
         // Update and render
-        lag += scaleTime(updateOuterTimer.getElapsedTime().asMicroseconds(), timeScale);
-        updateOuterTimer.restart();
+        std::int64_t elapsedTime = updateOuterTimer.getElapsedTime().asMicroseconds();
+        lag += scaleTime(elapsedTime, timeScale);
+        if (elapsedTime > 0) { updateOuterTimer.restart(); }
         const std::uint64_t startingLag = lag;
         std::uint64_t totalDt           = 0;
         updateMeasureTimer.restart();
@@ -392,7 +394,7 @@ bool Engine::loop() {
             }
 
             // Adhere to FPS cap
-            const std::uint64_t st = minFrameLength - loopTimer.getElapsedTime().asMicroseconds();
+            const std::int64_t st = minFrameLength - loopTimer.getElapsedTime().asMicroseconds();
             if (st > 0) { sf::sleep(sf::microseconds(st)); }
             loopTimer.restart();
 
