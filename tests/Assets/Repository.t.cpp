@@ -266,6 +266,38 @@ TEST_F(RepositoryTest, ReleaseUnused) {
     EXPECT_EQ(asset->data, "test_data");
 }
 
+TEST_F(RepositoryTest, FindMissing) {
+    util::UUID uuid1;
+    util::UUID uuid2;
+    {
+        Repository repo(Mode::Editor, "test_assets");
+        repo.registerDriver<TestDriver>(TestTypeTag);
+
+        auto asset1 = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
+        uuid1       = asset1.getAsset().getUUID();
+        ASSERT_TRUE(repo.saveRepository());
+
+        auto asset2 = repo.createAsset<TestPayload>("TestName2", TestCreateContext("test_data2"));
+        uuid2       = asset2.getAsset().getUUID();
+        // do not save repo
+    }
+
+    // delete asset1
+    util::FileUtil::deleteDirectory("test_assets/Assets/TestName");
+
+    Repository repo(Mode::Editor, "test_assets");
+    repo.registerDriver<TestDriver>(TestTypeTag);
+
+    ASSERT_TRUE(repo.loadRepository());
+
+    auto asset1 = repo.getAsset(uuid1);
+    EXPECT_EQ(asset1.getAsset().getState(), State::Missing);
+
+    auto asset2 = repo.getAsset(uuid2);
+    EXPECT_TRUE(asset2.isValid());
+    EXPECT_EQ(asset2.getAsset().getState(), State::Loaded);
+}
+
 } // namespace unittest
 } // namespace as
 } // namespace bl

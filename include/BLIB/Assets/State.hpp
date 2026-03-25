@@ -15,7 +15,8 @@ enum struct State {
     Loading  = 2,  ///< The asset payload is being loaded and should not be accessed yet
     Loaded   = 3,  ///< The asset is fully loaded and ready to use
     Failed   = -1, ///< The asset failed to load
-    Unknown  = -2  ///< Used when invalid UUIDs are searched
+    Unknown  = -2, ///< Used when invalid UUIDs are searched
+    Missing  = -3  ///< Used when an asset is missing
 };
 
 } // namespace as

@@ -61,6 +61,13 @@ Ref Repository::createAsset(std::string_view type, const std::string& name,
         return Ref();
     }
 
+    if (mode == Mode::Editor) {
+        if (!it->second.saveEditor()) {
+            BL_LOG_WARN << "Failed to save newly created asset '" << name << "' of type " << type
+                        << " to disk";
+        }
+    }
+
     return Ref(this, &it->second);
 }
 
@@ -74,7 +81,7 @@ Ref Repository::getAsset(util::UUID uuid, State desiredState) {
     }
     // TODO - when bundling is added we will have an index of known but unloaded assets to check
     Asset& stored = it->second;
-    if (stored.getState() < desiredState) {
+    if (stored.getState() < desiredState && stored.getState() >= State::Failed) {
         if (!stored.load()) { return Ref(); }
     }
     return Ref(this, &stored);
@@ -198,25 +205,23 @@ bool Repository::loadRepository() {
             BL_LOG_ERROR << "Failed to deserialize asset manifest at " << manifestPath;
             return false;
         }
-        // check for missing asset files and search if moved
+
+        // load asset metadata from filesystem to find missing or moved assets
         std::unordered_map<std::string, std::string> foundAssetPaths;
-        std::vector<util::UUID> missingAssets;
+        const std::vector<std::string> metadataFiles = util::FileUtil::listDirectory(
+            assetDirectory, std::string(EditorPaths::MetadataExtension), true);
+        for (const auto& path : metadataFiles) {
+            const std::string uuid = util::FileUtil::getBaseName(path);
+            foundAssetPaths[uuid]  = path;
+        }
+
+        // find and relink moved assets
         for (auto& pair : assets) {
             const std::string assetPath =
                 EditorPaths::getAssetMetadataFilePath(assetDirectory, pair.second);
             if (!util::FileUtil::exists(assetPath)) {
                 BL_LOG_WARN << "Asset with UUID " << pair.first.toString()
                             << " is missing its metadata file at expected path " << assetPath;
-
-                // find all asset metadata files
-                if (foundAssetPaths.empty()) {
-                    const std::vector<std::string> metadataFiles = util::FileUtil::listDirectory(
-                        assetDirectory, std::string(EditorPaths::MetadataExtension), true);
-                    for (const auto& path : metadataFiles) {
-                        const std::string uuid = util::FileUtil::getBaseName(path);
-                        foundAssetPaths[uuid]  = path;
-                    }
-                }
 
                 // see if our missing asset was moved or deleted
                 const auto it = foundAssetPaths.find(pair.first.toString());
@@ -240,16 +245,43 @@ bool Repository::loadRepository() {
                 else {
                     BL_LOG_ERROR << "Asset with UUID " << pair.first.toString()
                                  << " is missing its metadata file and could not be found in "
-                                    "asset directory. Asset will be deleted";
-                    missingAssets.push_back(pair.first);
+                                    "asset directory";
+                    pair.second.state = State::Missing;
                 }
             }
         }
 
-        // delete missing assets
-        if (!missingAssets.empty()) {
-            BL_LOG_WARN << "Deleting " << missingAssets.size() << " missing assets";
-            for (const util::UUID& uuid : missingAssets) { assets.erase(uuid); }
+        // search discovered assets for any unregistered and add them to manifest
+        for (const auto& pair : foundAssetPaths) {
+            const util::UUID uuid(pair.first);
+            if (assets.find(uuid) == assets.end()) {
+                BL_LOG_INFO << "Found unregistered asset with UUID " << pair.first << " at "
+                            << pair.second << ". Adding to repository manifest";
+
+                // deserialize metadata file
+                std::ifstream assetFile(pair.second);
+                if (!assetFile.is_open()) {
+                    BL_LOG_ERROR << "Failed to open asset file at " << pair.second;
+                    continue;
+                }
+
+                // load asset info
+                auto it = assets.try_emplace(uuid, *this).first;
+                if (!serial::json::Serializer<Asset>::deserializeStream(assetFile, it->second)) {
+                    BL_LOG_ERROR << "Failed to deserialize asset metadata at " << pair.second;
+                    assets.erase(it);
+                    continue;
+                }
+
+                // validate
+                if (it->second.getUUID() != uuid) {
+                    BL_LOG_ERROR << "Deserialized asset metadata at " << pair.second
+                                 << " has mismatched UUID " << it->second.getUUID().toString()
+                                 << " (expected " << uuid.toString() << ")";
+                    assets.erase(it);
+                    continue;
+                }
+            }
         }
     }
     else {
