@@ -10,15 +10,30 @@ namespace serial
 template<>
 struct SerializableObject<as::Repository> : public SerializableObjectBase {
     SerializableField<1, as::Repository, std::unordered_map<util::UUID, as::Asset>> assets;
+    SerializableField<2, as::Repository, std::unordered_map<std::string, as::StaticAsset>>
+        staticAssets;
 
     SerializableObject()
     : SerializableObjectBase("AssetManifest")
-    , assets("assets", *this, &as::Repository::assets, SerializableFieldBase::Required{}) {}
+    , assets("assets", *this, &as::Repository::assets, SerializableFieldBase::Required{})
+    , staticAssets("staticAssets", *this, &as::Repository::staticAssets,
+                   SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 
 namespace as
 {
+namespace
+{
+std::string makeStaticPath(std::string_view type) {
+    constexpr std::string_view prefix = "Static - ";
+    std::string path;
+    path.reserve(prefix.size() + type.size());
+    path += prefix;
+    path += type;
+    return path;
+}
+} // namespace
 
 Repository::Repository(Mode mode, const std::string& path)
 : mode(mode)
@@ -27,7 +42,7 @@ Repository::Repository(Mode mode, const std::string& path)
 }
 
 Ref Repository::createAsset(std::string_view type, const std::string& name,
-                            const CreateContext::CustomData& createData) {
+                            const CreateContext::CreateData& createData) {
     if (!getDriver(type)) {
         BL_LOG_ERROR << "Attempted to create asset with type " << type
                      << " but no driver is registered for that type";
@@ -63,6 +78,36 @@ Ref Repository::getAsset(util::UUID uuid, State desiredState) {
         if (!stored.load()) { return Ref(); }
     }
     return Ref(this, &stored);
+}
+
+Ref Repository::getStaticAsset(std::string_view type, const std::string& path, State desiredState) {
+    std::unique_lock lock(staticAssetMutex);
+
+    auto it = staticAssets.find(path);
+    if (it == staticAssets.end()) {
+        Ref ref = createAsset(type, path, CreateContext::CreateData(path));
+        if (!ref) { return ref; }
+        staticAssets.try_emplace(path, ref->getUUID(), path, type);
+        ref->getMetadata().setPath(makeStaticPath(type));
+        return ref;
+    }
+    else {
+        if (it->second.type != type) {
+            BL_LOG_ERROR << "Attempted to get static asset with path " << path << " and type "
+                         << type << " but a static asset with that path exists with type "
+                         << it->second.type;
+            return Ref();
+        }
+        return getAsset(it->second.uuid, desiredState);
+    }
+}
+
+std::optional<util::UUID> Repository::findStaticAssetId(const std::string& path) const {
+    std::unique_lock lock(staticAssetMutex);
+
+    auto it = staticAssets.find(path);
+    if (it == staticAssets.end()) { return std::nullopt; }
+    return it->second.uuid;
 }
 
 void Repository::registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency) {

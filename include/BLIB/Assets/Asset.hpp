@@ -107,7 +107,7 @@ private:
     std::atomic<unsigned int> refCount;
 
     bool initAfterDeserialize(Repository& repo);
-    bool create(const CreateContext::CustomData& data);
+    bool create(const CreateContext::CreateData& data);
     bool saveEditor();
     bool writePayload();
     detail::DriverBase* getDriver();

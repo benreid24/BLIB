@@ -26,7 +26,7 @@ std::string Context::getFilePath(std::string_view filename) const {
 
 } // namespace detail
 
-CreateContext::CreateContext(Repository& repo, Asset& asset, const CustomData& data)
+CreateContext::CreateContext(Repository& repo, Asset& asset, const CreateData& data)
 : Context(repo, asset)
 , customData(data) {}
 

@@ -67,7 +67,7 @@ const Payload& Asset::getPayload() const {
     return *payload;
 }
 
-bool Asset::create(const CreateContext::CustomData& createData) {
+bool Asset::create(const CreateContext::CreateData& createData) {
     state = State::Unloaded;
 
     detail::DriverBase* driver = getDriver();

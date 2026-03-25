@@ -74,8 +74,34 @@ private:
 class CreateContext : public detail::Context {
 public:
     /// Custom data can be passed to asset drivers by deriving from this struct
-    struct CustomData {
-        virtual ~CustomData() = default;
+    class CreateData {
+    public:
+        /**
+         * @brief Creates empty create data
+         */
+        CreateData()
+        : CreateData("") {}
+
+        /**
+         * @brief Creates the custom data. Path is provided for convenience
+         *
+         * @param path The path to create from
+         */
+        CreateData(const std::string& path)
+        : path(&path) {}
+
+        /**
+         * @brief Destroys the custom data
+         */
+        virtual ~CreateData() = default;
+
+        /**
+         * @brief Returns the file path that should be imported from. Not a required field
+         */
+        const std::string& getPath() const { return *path; }
+
+    private:
+        const std::string* path;
     };
 
     /**
@@ -86,12 +112,12 @@ public:
      * @param asset The asset being imported
      * @param customData Custom data to pass to the driver for asset creation
      */
-    CreateContext(Repository& repo, Asset& asset, const CustomData& customData);
+    CreateContext(Repository& repo, Asset& asset, const CreateData& customData);
 
     /**
      * @brief Returns the custom data passed to the driver for asset creation
      */
-    const CustomData& getCustomData() const { return customData; }
+    const CreateData& getCustomData() const { return customData; }
 
     /**
      * @brief Returns the custom data cast as the given type
@@ -126,7 +152,7 @@ public:
     }
 
 private:
-    const CustomData& customData;
+    const CreateData& customData;
 };
 
 /**

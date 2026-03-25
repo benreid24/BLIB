@@ -16,7 +16,7 @@ public:
     void SetUp() override { util::FileUtil::deleteDirectory("test_assets"); }
 };
 
-struct TestCreateContext : public CreateContext::CustomData {
+struct TestCreateContext : public CreateContext::CreateData {
     TestCreateContext(const std::string& data, util::UUID dep = {})
     : data(data)
     , dep(dep) {}

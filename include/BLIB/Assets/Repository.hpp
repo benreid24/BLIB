@@ -7,6 +7,7 @@
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Assets/State.hpp>
+#include <BLIB/Assets/StaticAsset.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <memory>
 #include <mutex>
@@ -45,7 +46,7 @@ public:
      * @return A ref to the newly created asset. May be invalid if creation failed
      */
     Ref createAsset(std::string_view type, const std::string& name,
-                    const CreateContext::CustomData& createData = {});
+                    const CreateContext::CreateData& createData = {});
 
     /**
      * @brief Creates and returns a new asset with the given type and creation data
@@ -57,16 +58,9 @@ public:
      */
     template<typename T>
     TypedRef<T> createAsset(const std::string& name,
-                            const CreateContext::CustomData& createData = {}) {
-        std::shared_lock lock(driverMutex);
-        const auto it = driversByType.find(std::type_index(typeid(T)));
-        if (it == driversByType.end()) {
-            BL_LOG_ERROR << "Attempted to create asset with payload type " << typeid(T).name()
-                         << " but no driver is registered for that type";
-            return TypedRef<T>();
-        }
-        std::string_view tag = it->second->getSupportedType();
-        lock.unlock();
+                            const CreateContext::CreateData& createData = {}) {
+        std::string_view tag = getTagForType<T>();
+        if (tag.empty()) { return TypedRef<T>(); }
         return TypedRef<T>(createAsset(tag, name, createData));
     }
 
@@ -90,6 +84,44 @@ public:
     TypedRef<T> getTypedAsset(util::UUID uuid) {
         return TypedRef<T>(getAsset(uuid, State::Loaded));
     }
+
+    /**
+     * @brief Finds or creates a static asset from the given file path. Static assets are assets
+     *        derived from files in the game source directory, such as simple images or other files
+     *        with hard coded paths
+     *
+     * @param type The type tag of the asset to get
+     * @param path The file path of the asset to get
+     * @param desiredState The desired state of the asset
+     * @return A Ref to the asset. May be invalid if the asset does not exist or failed to load
+     */
+    Ref getStaticAsset(std::string_view type, const std::string& path,
+                       State desiredState = State::Loaded);
+
+    /**
+     * @brief Finds or creates a static asset from the given file path. Static assets are assets
+     *        derived from files in the game source directory, such as simple images or other files
+     *        with hard coded paths
+     *
+     * @tparam T The type of payload the asset is expected to have
+     * @param path The file path of the asset to get
+     * @param desiredState The desired state of the asset
+     * @return A Ref to the asset. May be invalid if the asset does not exist or failed to load
+     */
+    template<typename T>
+    TypedRef<T> getStaticAsset(const std::string& path, State desiredState = State::Loaded) {
+        std::string_view tag = getTagForType<T>();
+        if (tag.empty()) { return TypedRef<T>(); }
+        return TypedRef<T>(getStaticAsset(tag, path, desiredState));
+    }
+
+    /**
+     * @brief Performs a lookup of known static assets by file path
+     *
+     * @param path The path to search for
+     * @return The UUID of the static asset with the given path
+     */
+    std::optional<util::UUID> findStaticAssetId(const std::string& path) const;
 
     /**
      * @brief Returns the dependency list for the asset with the given UUID
@@ -174,6 +206,9 @@ private:
     const std::string assetDirectory;
     std::unordered_map<util::UUID, Asset> assets;
 
+    mutable std::mutex staticAssetMutex;
+    std::unordered_map<std::string, StaticAsset> staticAssets;
+
     std::shared_mutex driverMutex;
     std::vector<std::unique_ptr<detail::DriverBase>> drivers;
     std::unordered_map<std::type_index, detail::DriverBase*> driversByType;
@@ -183,6 +218,18 @@ private:
     std::vector<util::UUID> unloadQueue;
 
     bool saveRepositoryLocked();
+
+    template<typename T>
+    std::string_view getTagForType() {
+        std::shared_lock lock(driverMutex);
+        const auto it = driversByType.find(std::type_index(typeid(T)));
+        if (it == driversByType.end()) {
+            BL_LOG_ERROR << "Attempted to create asset with payload type " << typeid(T).name()
+                         << " but no driver is registered for that type";
+            return "";
+        }
+        return it->second->getSupportedType();
+    }
 
     // used by Dependency
     void registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
