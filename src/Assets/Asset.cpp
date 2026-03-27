@@ -127,7 +127,7 @@ bool Asset::unload(bool force) {
     return true;
 }
 
-bool Asset::saveEditor() {
+bool Asset::saveEditor(const std::vector<std::string>& existingPaths) {
     // create directories
     const std::string assetDir = EditorPaths::getAssetPath(repo->getAssetDirectory(), *this);
     const std::string filesDir = EditorPaths::getAssetFilesPath(repo->getAssetDirectory(), *this);
@@ -149,6 +149,40 @@ bool Asset::saveEditor() {
         return false;
     }
     metadataFile.close();
+
+    // copy payload files from old paths if we are not writing it now
+    const bool willWritePayload = payload && !payload->flushed;
+    if (!willWritePayload) {
+        if (!existingPaths.empty() && existingPaths[0] != metadataPath) {
+            const std::string oldPayloadDir =
+                EditorPaths::getAssetFilesPath(util::FileUtil::getPath(existingPaths[0]));
+            if (!util::FileUtil::copyDirectoryContents(oldPayloadDir, filesDir, true)) {
+                if (payload) {
+                    payload->markForFlush();
+                    BL_LOG_WARN << "Failed to copy payload files for asset " << uuid.toString()
+                                << " when moving directories. Will flush payload again";
+                }
+                else {
+                    BL_LOG_ERROR
+                        << "Failed to copy payload files for asset " << uuid.toString()
+                        << " when moving directories, and no payload to flush. Asset may be "
+                           "corrupted";
+                    return false;
+                }
+            }
+        }
+    }
+
+    // delete old asset directories
+    for (const std::string& path : existingPaths) {
+        if (path != metadataPath) {
+            const std::string oldAssetDir = util::FileUtil::getPath(path);
+            if (!util::FileUtil::deleteDirectory(oldAssetDir)) {
+                BL_LOG_WARN << "Failed to delete old asset directory at " << oldAssetDir
+                            << " after moving asset " << uuid.toString();
+            }
+        }
+    }
 
     // write payload if loaded
     if (!writePayload()) { return false; }
@@ -176,6 +210,11 @@ detail::DriverBase* Asset::getDriver() {
         return nullptr;
     }
     return driver;
+}
+
+Metadata& Asset::getMetadata() {
+    if (payload) { payload->markForFlush(); }
+    return metadata;
 }
 
 } // namespace as

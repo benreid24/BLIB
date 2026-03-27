@@ -145,7 +145,8 @@ public:
     const T* getCustomDataAsMaybe() const {
         const T* cast = dynamic_cast<const T*>(&customData);
         if (!cast) {
-            BL_LOG_ERROR << "Invalid custom data cast to " << typeid(T).name();
+            BL_LOG_INFO << "Invalid custom data cast to " << typeid(T).name()
+                        << " returning nullptr";
             return nullptr;
         }
         return cast;

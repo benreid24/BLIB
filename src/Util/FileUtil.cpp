@@ -197,5 +197,20 @@ bool FileUtil::queryFileInfo(const std::string& path, FileInfo& result) {
     return true;
 }
 
+bool FileUtil::copyDirectoryContents(const std::string& src, const std::string& dest,
+                                     bool recursive) {
+    if (!directoryExists(src)) { return false; }
+    if (!directoryExists(dest)) {
+        if (!createDirectory(dest)) { return false; }
+    }
+
+    std::error_code ec;
+    std::filesystem::copy_options options = std::filesystem::copy_options::overwrite_existing;
+    if (recursive) { options |= std::filesystem::copy_options::recursive; }
+    std::filesystem::copy(src, dest, options, ec);
+    if (ec) { return false; }
+    return true;
+}
+
 } // namespace util
 } // namespace bl

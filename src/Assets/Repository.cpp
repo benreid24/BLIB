@@ -62,7 +62,7 @@ Ref Repository::createAsset(std::string_view type, const std::string& name,
     }
 
     if (mode == Mode::Editor) {
-        if (!it->second.saveEditor()) {
+        if (!it->second.saveEditor({})) {
             BL_LOG_WARN << "Failed to save newly created asset '" << name << "' of type " << type
                         << " to disk";
         }
@@ -174,10 +174,32 @@ bool Repository::saveRepositoryLocked() {
     }
     manifestFile.close();
 
+    // build map of uuid -> existing asset paths
+    std::unordered_map<util::UUID, std::vector<std::string>> existingPaths;
+    const std::vector<std::string> metadataFiles = util::FileUtil::listDirectory(
+        assetDirectory, std::string(EditorPaths::MetadataExtension), true);
+    for (const std::string& path : metadataFiles) {
+        const std::string uuidStr = util::FileUtil::getBaseName(path);
+        existingPaths[util::UUID(uuidStr)].push_back(path);
+    }
+
+    // put most updated path in the first slot for each found asset
+    for (auto& pair : existingPaths) {
+        std::time_t mtime = 0;
+        for (unsigned int i = 0; i < pair.second.size(); ++i) {
+            util::FileUtil::FileInfo info;
+            if (!util::FileUtil::queryFileInfo(pair.second[i], info)) { continue; }
+            if (info.modifiedTime > mtime) {
+                mtime = info.modifiedTime;
+                if (i != 0) { std::swap(pair.second[0], pair.second[i]); }
+            }
+        }
+    }
+
     // flush assets to disk
     bool allSuccess = true;
     for (auto& pair : assets) {
-        if (!pair.second.saveEditor()) {
+        if (!pair.second.saveEditor(existingPaths[pair.first])) {
             BL_LOG_ERROR << "Failed to save asset for editor with UUID " << pair.first.toString();
             allSuccess = false;
         }

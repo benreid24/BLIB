@@ -31,6 +31,8 @@ struct TestPayload : public Payload {
 
     void init(const TestCreateContext& createData) { data = createData.data; }
 
+    void init(const std::string& str) { data = str; }
+
     std::string data;
 };
 
@@ -44,7 +46,10 @@ struct TestDriver : public Driver<TestPayload> {
             payload.init(*createData);
             return true;
         }
-        return false;
+        else {
+            payload.init(ctx.getCustomData().getPath());
+            return true;
+        }
     }
 
     virtual bool doRead(const ReadContext& ctx, TestPayload& payload) override {
@@ -296,6 +301,34 @@ TEST_F(RepositoryTest, FindMissing) {
     auto asset2 = repo.getAsset(uuid2);
     EXPECT_TRUE(asset2.isValid());
     EXPECT_EQ(asset2.getAsset().getState(), State::Loaded);
+}
+
+TEST_F(RepositoryTest, StaticAssets) {
+    util::UUID uuid;
+    {
+        Repository repo(Mode::Editor, "test_assets");
+        repo.registerDriver<TestDriver>(TestTypeTag);
+
+        auto asset = repo.getStaticAsset<TestPayload>("/path/asset.png");
+        uuid       = asset.getAsset().getUUID();
+
+        ASSERT_TRUE(asset.isValid());
+        EXPECT_EQ(asset->data, "/path/asset.png");
+        ASSERT_TRUE(repo.saveRepository());
+    }
+
+    Repository repo(Mode::Editor, "test_assets");
+    repo.registerDriver<TestDriver>(TestTypeTag);
+
+    ASSERT_TRUE(repo.loadRepository());
+
+    auto asset = repo.getStaticAsset<TestPayload>("/path/asset.png");
+    ASSERT_TRUE(asset.isValid());
+    EXPECT_EQ(asset->data, "/path/asset.png");
+    EXPECT_EQ(asset.getAsset().getUUID(), uuid);
+
+    auto badTypeFetch = repo.getStaticAsset("unknown", "/path/asset.png");
+    EXPECT_FALSE(badTypeFetch.isValid());
 }
 
 } // namespace unittest

@@ -207,6 +207,17 @@ struct FileUtil {
      * @return True if the file could be queries, false otherwise
      */
     static bool queryFileInfo(const std::string& path, FileInfo& result);
+
+    /**
+     * @brief Copies the contents from src directory into dest directory. Creates dest if required
+     *
+     * @param src The source directory to copy out of
+     * @param dest The destination directory to copy into
+     * @param recursive True to copy recursively
+     * @return True on success, false on error
+     */
+    static bool copyDirectoryContents(const std::string& src, const std::string& dest,
+                                      bool recursive);
 };
 
 } // namespace util

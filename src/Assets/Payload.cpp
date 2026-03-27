@@ -111,7 +111,7 @@ bool Payload::loadDependencies() {
     return allLoaded;
 }
 
-void Payload::markForFlush() { flushed = true; }
+void Payload::markForFlush() { flushed = false; }
 
 } // namespace as
 } // namespace bl

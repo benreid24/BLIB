@@ -57,7 +57,7 @@ public:
     /**
      * @brief Returns the metadata of the asset
      */
-    Metadata& getMetadata() { return metadata; }
+    Metadata& getMetadata();
 
     /**
      * @brief Returns the metadata of the asset
@@ -108,7 +108,7 @@ private:
 
     bool initAfterDeserialize(Repository& repo);
     bool create(const CreateContext::CreateData& data);
-    bool saveEditor();
+    bool saveEditor(const std::vector<std::string>& existingPaths);
     bool writePayload();
     detail::DriverBase* getDriver();
 

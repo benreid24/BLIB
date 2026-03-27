@@ -7,15 +7,33 @@ namespace bl
 {
 namespace as
 {
+namespace
+{
+std::string filterAssetName(const std::string& name) {
+    std::string filtered;
+    filtered.reserve(name.size());
+    for (char c : name) {
+        if (c == '/' || c == '\\' || c == '.') { filtered += '_'; }
+        else { filtered += c; }
+    }
+    return filtered;
+}
+} // namespace
+
 std::string EditorPaths::getAssetPath(const std::string& repoRoot, const Asset& asset) {
     const std::string assetRoot = util::FileUtil::joinPath(repoRoot, std::string(RootPath));
     const std::string assetPath =
         util::FileUtil::joinPath(assetRoot, asset.getMetadata().getPath());
-    return util::FileUtil::joinPath(assetPath, asset.getMetadata().getDisplayName());
+    return util::FileUtil::joinPath(assetPath,
+                                    filterAssetName(asset.getMetadata().getDisplayName()));
 }
 
 std::string EditorPaths::getAssetFilesPath(const std::string& repoRoot, const Asset& asset) {
     const std::string assetPath = getAssetPath(repoRoot, asset);
+    return util::FileUtil::joinPath(assetPath, std::string(FilesDirname));
+}
+
+std::string EditorPaths::getAssetFilesPath(const std::string& assetPath) {
     return util::FileUtil::joinPath(assetPath, std::string(FilesDirname));
 }
 
