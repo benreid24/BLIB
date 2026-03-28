@@ -43,6 +43,11 @@ Repository::Repository(Mode mode, const std::string& path)
 
 Ref Repository::createAsset(std::string_view type, const std::string& name,
                             const CreateContext::CreateData& createData) {
+    return createAssetShared(type, name, createData, true);
+}
+
+Ref Repository::createAssetShared(std::string_view type, const std::string& name,
+                                  const CreateContext::CreateData& createData, bool sync) {
     if (!getDriver(type)) {
         BL_LOG_ERROR << "Attempted to create asset with type " << type
                      << " but no driver is registered for that type";
@@ -61,10 +66,16 @@ Ref Repository::createAsset(std::string_view type, const std::string& name,
         return Ref();
     }
 
-    if (mode == Mode::Editor) {
-        if (!it->second.saveEditor({})) {
+    if (mode == Mode::Editor && sync) {
+        it->second.markReadyForAutoSync();
+
+        if (!it->second.saveEditor()) {
             BL_LOG_WARN << "Failed to save newly created asset '" << name << "' of type " << type
                         << " to disk";
+        }
+        if (!writeManifestLocked()) {
+            BL_LOG_WARN << "Failed to save asset manifest after creating new asset '" << name
+                        << "' of type " << type;
         }
     }
 
@@ -92,10 +103,22 @@ Ref Repository::getStaticAsset(std::string_view type, const std::string& path, S
 
     auto it = staticAssets.find(path);
     if (it == staticAssets.end()) {
-        Ref ref = createAsset(type, path, CreateContext::CreateData(path));
+        Ref ref = createAssetShared(type, path, CreateContext::CreateData(path), false);
         if (!ref) { return ref; }
         staticAssets.try_emplace(path, ref->getUUID(), path, type);
         ref->getMetadata().setPath(makeStaticPath(type));
+        ref->markReadyForAutoSync();
+        if (mode == Mode::Editor) {
+            if (!writeManifestLocked()) {
+                BL_LOG_WARN
+                    << "Failed to save asset manifest after creating static asset with path "
+                    << path << " and type " << type;
+            }
+            if (!ref.getAsset().saveEditor()) {
+                BL_LOG_WARN << "Failed to save newly created static asset '" << path << "' of type "
+                            << type << " to disk";
+            }
+        }
         return ref;
     }
     else {
@@ -127,6 +150,13 @@ void Repository::registerDependency(util::UUID uuid, std::string_view tag, util:
     }
     Asset& stored = it->second;
     stored.dependencies.push_back(RepoDependency{dependency, std::string(tag)});
+
+    if (mode == Mode::Editor) {
+        if (!writeManifestLocked()) {
+            BL_LOG_WARN << "Failed to save asset manifest after registering dependency "
+                        << uuid.toString() << " -> " << dependency.toString() << " (" << tag << ")";
+        }
+    }
 }
 
 void Repository::queueUnload(util::UUID uuid) {
@@ -153,12 +183,12 @@ detail::DriverBase* Repository::getDriver(std::string_view tag) {
     return it->second;
 }
 
-bool Repository::saveRepository() {
+bool Repository::writeManifest() {
     std::unique_lock lock(assetMutex);
-    return saveRepositoryLocked();
+    return writeManifestLocked();
 }
 
-bool Repository::saveRepositoryLocked() {
+bool Repository::writeManifestLocked() {
     // ensure root dir exists
     if (!util::FileUtil::createDirectory(assetDirectory)) {
         BL_LOG_ERROR << "Failed to create asset directory at " << assetDirectory;
@@ -174,38 +204,7 @@ bool Repository::saveRepositoryLocked() {
     }
     manifestFile.close();
 
-    // build map of uuid -> existing asset paths
-    std::unordered_map<util::UUID, std::vector<std::string>> existingPaths;
-    const std::vector<std::string> metadataFiles = util::FileUtil::listDirectory(
-        assetDirectory, std::string(EditorPaths::MetadataExtension), true);
-    for (const std::string& path : metadataFiles) {
-        const std::string uuidStr = util::FileUtil::getBaseName(path);
-        existingPaths[util::UUID(uuidStr)].push_back(path);
-    }
-
-    // put most updated path in the first slot for each found asset
-    for (auto& pair : existingPaths) {
-        std::time_t mtime = 0;
-        for (unsigned int i = 0; i < pair.second.size(); ++i) {
-            util::FileUtil::FileInfo info;
-            if (!util::FileUtil::queryFileInfo(pair.second[i], info)) { continue; }
-            if (info.modifiedTime > mtime) {
-                mtime = info.modifiedTime;
-                if (i != 0) { std::swap(pair.second[0], pair.second[i]); }
-            }
-        }
-    }
-
-    // flush assets to disk
-    bool allSuccess = true;
-    for (auto& pair : assets) {
-        if (!pair.second.saveEditor(existingPaths[pair.first])) {
-            BL_LOG_ERROR << "Failed to save asset for editor with UUID " << pair.first.toString();
-            allSuccess = false;
-        }
-    }
-
-    return allSuccess;
+    return true;
 }
 
 bool Repository::loadRepository() {
@@ -260,6 +259,13 @@ bool Repository::loadRepository() {
                                                EditorPaths::MetadataExtension.size() +
                                                util::UUID::StringLength;
                     folder = folder.substr(rmStart, folder.size() - rmSize);
+
+                    if (!folder.empty()) {
+                        if (folder.front() == '/' || folder.front() == '\\') { folder.erase(0, 1); }
+                    }
+                    if (!folder.empty()) {
+                        if (folder.back() == '/' || folder.back() == '\\') { folder.pop_back(); }
+                    }
 
                     pair.second.getMetadata().setDisplayName(displayName);
                     pair.second.getMetadata().setPath(folder);
@@ -344,12 +350,6 @@ bool Repository::exportRepository(const std::string& path) {
 void Repository::releaseUnused() {
     std::unique_lock lock(assetMutex);
     std::unique_lock unloadLock(unloadQueueMutex);
-
-    if (mode == Mode::Editor) {
-        if (!saveRepositoryLocked()) {
-            BL_LOG_WARN << "Failed to save repository before releasing unused assets";
-        }
-    }
 
     for (const util::UUID& uuid : unloadQueue) {
         auto it = assets.find(uuid);

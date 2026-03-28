@@ -21,11 +21,15 @@ std::string filterAssetName(const std::string& name) {
 } // namespace
 
 std::string EditorPaths::getAssetPath(const std::string& repoRoot, const Asset& asset) {
+    return getAssetPath(
+        repoRoot, asset.getMetadata().getPath(), asset.getMetadata().getDisplayName());
+}
+
+std::string EditorPaths::getAssetPath(const std::string& repoRoot, const std::string& assetFolder,
+                                      const std::string& assetName) {
     const std::string assetRoot = util::FileUtil::joinPath(repoRoot, std::string(RootPath));
-    const std::string assetPath =
-        util::FileUtil::joinPath(assetRoot, asset.getMetadata().getPath());
-    return util::FileUtil::joinPath(assetPath,
-                                    filterAssetName(asset.getMetadata().getDisplayName()));
+    const std::string assetPath = util::FileUtil::joinPath(assetRoot, assetFolder);
+    return util::FileUtil::joinPath(assetPath, filterAssetName(assetName));
 }
 
 std::string EditorPaths::getAssetFilesPath(const std::string& repoRoot, const Asset& asset) {

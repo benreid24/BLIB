@@ -57,7 +57,7 @@ public:
     /**
      * @brief Returns the metadata of the asset
      */
-    Metadata& getMetadata();
+    Metadata& getMetadata() { return metadata; }
 
     /**
      * @brief Returns the metadata of the asset
@@ -108,13 +108,26 @@ private:
 
     bool initAfterDeserialize(Repository& repo);
     bool create(const CreateContext::CreateData& data);
-    bool saveEditor(const std::vector<std::string>& existingPaths);
+    bool saveEditor();
     bool writePayload();
     detail::DriverBase* getDriver();
+
+    // Called by Payload
+    void flushPayload();
+
+    // Called by metadata
+    void handleDisplayNameChange(const std::string& oldName, const std::string& newName);
+    void handlePathChange(const std::string& oldPath, const std::string& newPath);
+    void handleAutoLoadChange();
+
+    // Called by Repository
+    void markReadyForAutoSync();
 
     friend class Repository;
     friend class Ref;
     friend struct serial::SerializableObject<as::Asset>;
+    friend class Payload;
+    friend class Metadata;
 };
 
 } // namespace as

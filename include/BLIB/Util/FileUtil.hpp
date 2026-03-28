@@ -218,6 +218,15 @@ struct FileUtil {
      */
     static bool copyDirectoryContents(const std::string& src, const std::string& dest,
                                       bool recursive);
+
+    /**
+     * @brief Moves a directory from src to dest
+     *
+     * @param src The source directory to move
+     * @param dest The destination to move the directory to. Will be created if it does not exist
+     * @return True on success, false on error
+     */
+    static bool moveDirectory(const std::string& src, const std::string& dest);
 };
 
 } // namespace util

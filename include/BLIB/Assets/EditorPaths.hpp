@@ -35,6 +35,17 @@ struct EditorPaths {
     static std::string getAssetPath(const std::string& repoRoot, const Asset& asset);
 
     /**
+     * @brief Returns the path to the asset on disk
+     *
+     * @param repoRoot The root path of the asset repository
+     * @param assetFolder The folder path of the asset
+     * @param assetName The display name of the asset
+     * @return The path to the asset on disk
+     */
+    static std::string getAssetPath(const std::string& repoRoot, const std::string& assetFolder,
+                                    const std::string& assetName);
+
+    /**
      * @brief Returns the path to the directory containing the asset files on disk
      *
      * @param repoRoot The root path of the asset repository

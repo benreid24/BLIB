@@ -56,8 +56,7 @@ void DependencyChain::unload() {
 Payload::Payload(const ConstructContext& ctx)
 : repo(ctx.repo)
 , owner(ctx.asset)
-, dependencyChain(nullptr)
-, flushed(false) {}
+, dependencyChain(nullptr) {}
 
 void Payload::registerDependency(detail::DependencyChain* chain) {
     if (dependencyChain) {
@@ -111,7 +110,7 @@ bool Payload::loadDependencies() {
     return allLoaded;
 }
 
-void Payload::markForFlush() { flushed = false; }
+void Payload::flush() { owner.flushPayload(); }
 
 } // namespace as
 } // namespace bl

@@ -24,6 +24,8 @@ Asset::Asset(Repository& r)
     repo = &r;
 }
 
+void Asset::markReadyForAutoSync() { metadata.owner = this; }
+
 bool Asset::initAfterDeserialize(Repository& r) {
     // already inited via dependency chain
     if (state != State::Unknown) { return true; }
@@ -112,22 +114,13 @@ bool Asset::unload(bool force) {
         return false;
     }
 
-    if (repo->getMode() == Mode::Editor) {
-        BL_LOG_WARN << "Asset " << uuid.toString()
-                    << " is being unloaded before being saved. Flushing changes to disk to prevent "
-                       "data loss.";
-        if (!writePayload()) {
-            BL_LOG_ERROR << "Failed to flush asset " << uuid.toString() << " to disk before unload";
-        }
-    }
-
     payload.reset();
     state = State::Unloaded;
 
     return true;
 }
 
-bool Asset::saveEditor(const std::vector<std::string>& existingPaths) {
+bool Asset::saveEditor() {
     // create directories
     const std::string assetDir = EditorPaths::getAssetPath(repo->getAssetDirectory(), *this);
     const std::string filesDir = EditorPaths::getAssetFilesPath(repo->getAssetDirectory(), *this);
@@ -150,40 +143,6 @@ bool Asset::saveEditor(const std::vector<std::string>& existingPaths) {
     }
     metadataFile.close();
 
-    // copy payload files from old paths if we are not writing it now
-    const bool willWritePayload = payload && !payload->flushed;
-    if (!willWritePayload) {
-        if (!existingPaths.empty() && existingPaths[0] != metadataPath) {
-            const std::string oldPayloadDir =
-                EditorPaths::getAssetFilesPath(util::FileUtil::getPath(existingPaths[0]));
-            if (!util::FileUtil::copyDirectoryContents(oldPayloadDir, filesDir, true)) {
-                if (payload) {
-                    payload->markForFlush();
-                    BL_LOG_WARN << "Failed to copy payload files for asset " << uuid.toString()
-                                << " when moving directories. Will flush payload again";
-                }
-                else {
-                    BL_LOG_ERROR
-                        << "Failed to copy payload files for asset " << uuid.toString()
-                        << " when moving directories, and no payload to flush. Asset may be "
-                           "corrupted";
-                    return false;
-                }
-            }
-        }
-    }
-
-    // delete old asset directories
-    for (const std::string& path : existingPaths) {
-        if (path != metadataPath) {
-            const std::string oldAssetDir = util::FileUtil::getPath(path);
-            if (!util::FileUtil::deleteDirectory(oldAssetDir)) {
-                BL_LOG_WARN << "Failed to delete old asset directory at " << oldAssetDir
-                            << " after moving asset " << uuid.toString();
-            }
-        }
-    }
-
     // write payload if loaded
     if (!writePayload()) { return false; }
 
@@ -191,8 +150,7 @@ bool Asset::saveEditor(const std::vector<std::string>& existingPaths) {
 }
 
 bool Asset::writePayload() {
-    if (repo->getMode() == Mode::Editor && payload && !payload->flushed) {
-        payload->flushed = true;
+    if (repo->getMode() == Mode::Editor && payload) {
         WriteContext ctx(*repo, *this);
         detail::DriverBase* driver = getDriver();
         if (!driver) { return false; }
@@ -200,6 +158,38 @@ bool Asset::writePayload() {
     }
     return true;
 }
+
+void Asset::flushPayload() {
+    if (!writePayload()) {
+        BL_LOG_ERROR << "Failed to flush asset " << uuid.toString() << " to disk";
+    }
+}
+
+void Asset::handleDisplayNameChange(const std::string& oldName, const std::string& newName) {
+    const std::string oldDir =
+        EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), oldName);
+    const std::string newDir =
+        EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), newName);
+
+    if (!util::FileUtil::moveDirectory(oldDir, newDir)) {
+        BL_LOG_ERROR << "Failed to move asset directory from " << oldDir << " to " << newDir
+                     << " for rename";
+    }
+}
+
+void Asset::handlePathChange(const std::string& oldPath, const std::string& newPath) {
+    const std::string oldDir =
+        EditorPaths::getAssetPath(repo->getAssetDirectory(), oldPath, metadata.getDisplayName());
+    const std::string newDir =
+        EditorPaths::getAssetPath(repo->getAssetDirectory(), newPath, metadata.getDisplayName());
+
+    if (!util::FileUtil::moveDirectory(oldDir, newDir)) {
+        BL_LOG_ERROR << "Failed to move asset directory from " << oldDir << " to " << newDir
+                     << " for path change";
+    }
+}
+
+void Asset::handleAutoLoadChange() { repo->writeManifest(); }
 
 detail::DriverBase* Asset::getDriver() {
     detail::DriverBase* driver = repo->getDriver(type);
@@ -210,11 +200,6 @@ detail::DriverBase* Asset::getDriver() {
         return nullptr;
     }
     return driver;
-}
-
-Metadata& Asset::getMetadata() {
-    if (payload) { payload->markForFlush(); }
-    return metadata;
 }
 
 } // namespace as

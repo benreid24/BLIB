@@ -10,6 +10,8 @@ namespace bl
 {
 namespace as
 {
+class Asset;
+
 /**
  * @brief Asset metadata storage
  *
@@ -100,7 +102,9 @@ private:
     std::string path;
     std::uint64_t creationTime;
     bool isAutoLoaded;
+    Asset* owner;
 
+    friend class Asset;
     friend struct serial::SerializableObject<as::Metadata>;
 };
 

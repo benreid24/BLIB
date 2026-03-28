@@ -212,5 +212,20 @@ bool FileUtil::copyDirectoryContents(const std::string& src, const std::string& 
     return true;
 }
 
+bool FileUtil::moveDirectory(const std::string& src, const std::string& dest) {
+    if (!directoryExists(src)) { return false; }
+    if (directoryExists(dest)) { return false; }
+
+    const std::string destParent = getPath(dest);
+    if (!directoryExists(destParent)) {
+        if (!createDirectory(destParent)) { return false; }
+    }
+
+    std::error_code ec;
+    std::filesystem::rename(src, dest, ec);
+    if (ec) { return false; }
+    return true;
+}
+
 } // namespace util
 } // namespace bl

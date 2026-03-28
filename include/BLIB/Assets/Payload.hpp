@@ -167,13 +167,12 @@ protected:
      * @brief Call when the payload content changes. Ensures that changes get saved to disk before
      *        unload when in editor mode
      */
-    void markForFlush();
+    void flush();
 
 private:
     Repository& repo;
     Asset& owner;
     detail::DependencyChain* dependencyChain;
-    bool flushed;
 
     void registerDependency(detail::DependencyChain* chain);
     bool loadDependencies();

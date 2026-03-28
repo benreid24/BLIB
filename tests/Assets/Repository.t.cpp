@@ -181,7 +181,6 @@ TEST_F(RepositoryTest, EditorSaveLoad) {
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
         uuid       = asset.getAsset().getUUID();
         ASSERT_TRUE(asset.isValid());
-        ASSERT_TRUE(repo.saveRepository());
     }
 
     Repository repo(Mode::Editor, "test_assets");
@@ -203,7 +202,6 @@ TEST_F(RepositoryTest, EditorLoadMissingDependency) {
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
         uuid       = asset.getAsset().getUUID();
         ASSERT_TRUE(asset.isValid());
-        ASSERT_TRUE(repo.saveRepository());
     }
 
     std::filesystem::rename("test_assets/Assets/TestName", "test_assets/Assets/renamed");
@@ -233,8 +231,6 @@ TEST_F(RepositoryTest, AutoLoad) {
             repo.createAsset<TestPayload>("AutoLoadName", TestCreateContext("auto_load_data"));
         autoLoadAsset.getAsset().getMetadata().setIsAutoLoaded(true);
         autoLoadUUID = autoLoadAsset.getAsset().getUUID();
-
-        ASSERT_TRUE(repo.saveRepository());
     }
 
     Repository repo(Mode::Editor, "test_assets");
@@ -280,15 +276,17 @@ TEST_F(RepositoryTest, FindMissing) {
 
         auto asset1 = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
         uuid1       = asset1.getAsset().getUUID();
-        ASSERT_TRUE(repo.saveRepository());
 
         auto asset2 = repo.createAsset<TestPayload>("TestName2", TestCreateContext("test_data2"));
         uuid2       = asset2.getAsset().getUUID();
-        // do not save repo
     }
 
     // delete asset1
     util::FileUtil::deleteDirectory("test_assets/Assets/TestName");
+
+    // move asset2
+    util::FileUtil::moveDirectory("test_assets/Assets/TestName2",
+                                  "test_assets/Assets/TestFolder/TestName2Renamed");
 
     Repository repo(Mode::Editor, "test_assets");
     repo.registerDriver<TestDriver>(TestTypeTag);
@@ -301,6 +299,8 @@ TEST_F(RepositoryTest, FindMissing) {
     auto asset2 = repo.getAsset(uuid2);
     EXPECT_TRUE(asset2.isValid());
     EXPECT_EQ(asset2.getAsset().getState(), State::Loaded);
+    EXPECT_EQ(asset2->getMetadata().getDisplayName(), "TestName2Renamed");
+    EXPECT_EQ(asset2->getMetadata().getPath(), "TestFolder");
 }
 
 TEST_F(RepositoryTest, StaticAssets) {
@@ -314,7 +314,6 @@ TEST_F(RepositoryTest, StaticAssets) {
 
         ASSERT_TRUE(asset.isValid());
         EXPECT_EQ(asset->data, "/path/asset.png");
-        ASSERT_TRUE(repo.saveRepository());
     }
 
     Repository repo(Mode::Editor, "test_assets");

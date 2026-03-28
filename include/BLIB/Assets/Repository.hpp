@@ -167,11 +167,6 @@ public:
     detail::DriverBase* getDriver(std::string_view type);
 
     /**
-     * @brief Saves the repository to disk
-     */
-    bool saveRepository();
-
-    /**
      * @brief Loads the repository from disk
      */
     bool loadRepository();
@@ -217,8 +212,6 @@ private:
     std::mutex unloadQueueMutex;
     std::vector<util::UUID> unloadQueue;
 
-    bool saveRepositoryLocked();
-
     template<typename T>
     std::string_view getTagForType() {
         std::shared_lock lock(driverMutex);
@@ -239,6 +232,11 @@ private:
 
     // used by Asset
     Asset* getDependencyForInit(util::UUID uuid);
+    bool writeManifest();
+
+    Ref createAssetShared(std::string_view type, const std::string& name,
+                          const CreateContext::CreateData& createData, bool syncImmediate);
+    bool writeManifestLocked();
 
     friend class detail::DependencyChain;
     friend class Ref;
