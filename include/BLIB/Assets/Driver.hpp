@@ -149,9 +149,6 @@ protected:
      * @return True on success, false on error
      */
     virtual bool doWrite(const WriteContext& ctx, const T& payload) = 0;
-
-private:
-    //
 };
 
 } // namespace as
