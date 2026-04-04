@@ -91,6 +91,11 @@ public:
     void open(std::span<char> data);
 
     /**
+     * @brief Closes and invalidates the stream
+     */
+    void close();
+
+    /**
      * @brief Reads data from the stream into the given buffer
      *
      * @param data Pointer to the buffer to read into

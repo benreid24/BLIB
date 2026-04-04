@@ -18,12 +18,13 @@ InputStream::InputStream(std::istream& stream, std::size_t size) { open(stream, 
 InputStream::InputStream(std::span<char> data) { open(data); }
 
 bool InputStream::isValid() const {
-    return std::visit(
-        util::Visitor{[](const std::monostate&) { return false; },
-                      [](const std::ifstream& stream) { return stream.is_open(); },
-                      [](const Buffer&) { return true; },
-                      [](const std::istream* stream) { return stream != nullptr && stream->good(); }},
-        stream);
+    return std::visit(util::Visitor{[](const std::monostate&) { return false; },
+                                    [](const std::ifstream& stream) { return stream.is_open(); },
+                                    [](const Buffer&) { return true; },
+                                    [](const std::istream* stream) {
+                                        return stream != nullptr && stream->good();
+                                    }},
+                      stream);
 }
 
 Mode InputStream::getMode() const {
@@ -51,6 +52,11 @@ void InputStream::open(std::istream& s, std::size_t size) {
 void InputStream::open(std::span<char> data) {
     stream.emplace<Buffer>(data);
     knownSize = data.size();
+}
+
+void InputStream::close() {
+    stream.emplace<std::monostate>();
+    knownSize = 0;
 }
 
 std::size_t InputStream::read(void* data, std::size_t len) {
@@ -82,34 +88,34 @@ std::size_t InputStream::read(std::vector<char>& buf, std::size_t len) {
 }
 
 std::size_t InputStream::seek(std::size_t pos) {
-return std::visit(util::Visitor{[](const std::monostate&) -> std::size_t { return 0; },
-                                [pos](std::ifstream& stream) -> std::size_t {
-                                    stream.seekg(pos);
-                                    return static_cast<std::size_t>(stream.tellg());
-                                },
-                                [pos](Buffer& buf) -> std::size_t {
-                                    buf.pos = std::min(pos, buf.data.size());
-                                    return buf.pos;
-                                },
-                                [pos](std::istream* s) -> std::size_t {
-                                    if (s && s->good()) { s->seekg(pos); }
-                                    return static_cast<std::size_t>(s->tellg());
-                                }},
-                  stream);
+    return std::visit(util::Visitor{[](const std::monostate&) -> std::size_t { return 0; },
+                                    [pos](std::ifstream& stream) -> std::size_t {
+                                        stream.seekg(pos);
+                                        return static_cast<std::size_t>(stream.tellg());
+                                    },
+                                    [pos](Buffer& buf) -> std::size_t {
+                                        buf.pos = std::min(pos, buf.data.size());
+                                        return buf.pos;
+                                    },
+                                    [pos](std::istream* s) -> std::size_t {
+                                        if (s && s->good()) { s->seekg(pos); }
+                                        return static_cast<std::size_t>(s->tellg());
+                                    }},
+                      stream);
 }
 
 std::size_t InputStream::tell() const {
-return std::visit(
-    util::Visitor{
-        [](const std::monostate&) -> std::size_t { return 0; },
-        [](const std::ifstream& stream) -> std::size_t {
-            return static_cast<std::size_t>(const_cast<std::ifstream&>(stream).tellg());
-        },
-        [](const Buffer& buf) -> std::size_t { return buf.pos; },
-        [](const std::istream* s) -> std::size_t {
-            return static_cast<std::size_t>(const_cast<std::istream*>(s)->tellg());
-        }},
-    stream);
+    return std::visit(util::Visitor{[](const std::monostate&) -> std::size_t { return 0; },
+                                    [](const std::ifstream& stream) -> std::size_t {
+                                        return static_cast<std::size_t>(
+                                            const_cast<std::ifstream&>(stream).tellg());
+                                    },
+                                    [](const Buffer& buf) -> std::size_t { return buf.pos; },
+                                    [](const std::istream* s) -> std::size_t {
+                                        return static_cast<std::size_t>(
+                                            const_cast<std::istream*>(s)->tellg());
+                                    }},
+                      stream);
 }
 
 } // namespace stream
