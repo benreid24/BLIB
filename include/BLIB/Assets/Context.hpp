@@ -3,6 +3,7 @@
 
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Streams.hpp>
 #include <span>
 #include <stdexcept>
 #include <string>
@@ -176,15 +177,10 @@ public:
      * @brief Reads the contents of the given asset file for the current asset
      *
      * @param filename The local name of the file to read
-     * @param outBuffer The buffer to write into
+     * @param input The stream to populate with the file contents
      * @return True if the file was able to be read, false otherwise
      */
-    bool readFile(std::string_view filename, std::vector<char>& outBuffer) const;
-
-    // TODO - stream based methods?
-
-private:
-    //
+    bool setupReadStream(std::string_view filename, stream::InputStream& input) const;
 };
 
 /**
@@ -207,15 +203,10 @@ public:
      * @brief Writes the file to asset storage
      *
      * @param filename The filename to use
-     * @param buffer The content of the file to write
-     * @return True if the file could be written, false otherwise
+     * @param output The stream to setup for output
+     * @return True if the file can be written, false otherwise
      */
-    bool writeFile(std::string_view filename, std::span<const char> buffer) const;
-
-    // TODO - stream based methods?
-
-private:
-    //
+    bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
 };
 
 } // namespace as

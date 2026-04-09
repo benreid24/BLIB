@@ -53,15 +53,20 @@ struct TestDriver : public Driver<TestPayload> {
     }
 
     virtual bool doRead(const ReadContext& ctx, TestPayload& payload) override {
+        stream::InputStream input;
+        if (!ctx.setupReadStream("payload.txt", input)) { return false; }
         std::vector<char> buf;
-        if (!ctx.readFile("payload.txt", buf)) { return false; }
-        payload.data = std::string(buf.begin(), buf.end());
+        buf.resize(100);
+        const std::size_t read = input.read(buf.data(), 100);
+        payload.data           = std::string(buf.begin(), buf.begin() + read);
         return true;
     }
 
     virtual bool doWrite(const WriteContext& ctx, const TestPayload& payload) override {
-        return ctx.writeFile("payload.txt",
-                             std::span<const char>(payload.data.data(), payload.data.size()));
+        stream::OutputStream output;
+        if (!ctx.setupWriteStream("payload.txt", output)) { return false; }
+        if (!output.write(payload.data.data(), payload.data.size())) { return false; }
+        return true;
     }
 };
 
@@ -92,17 +97,21 @@ struct TestDriverWithDep : public Driver<TestPayloadWithDependency> {
     }
 
     virtual bool doRead(const ReadContext& ctx, TestPayloadWithDependency& payload) override {
+        stream::InputStream input;
+        if (!ctx.setupReadStream("payloadAdvanced.txt", input)) { return false; }
         std::vector<char> buf;
-        if (!ctx.readFile("payloadAdvanced.txt", buf)) { return false; }
-        payload.localData = std::string(buf.begin(), buf.end());
+        buf.resize(100);
+        const std::size_t read = input.read(buf.data(), 100);
+        payload.localData      = std::string(buf.begin(), buf.begin() + read);
         return true;
     }
 
     virtual bool doWrite(const WriteContext& ctx,
                          const TestPayloadWithDependency& payload) override {
-        return ctx.writeFile(
-            "payloadAdvanced.txt",
-            std::span<const char>(payload.localData.data(), payload.localData.size()));
+        stream::OutputStream output;
+        if (!ctx.setupWriteStream("payloadAdvanced.txt", output)) { return false; }
+        output.write(payload.localData.data(), payload.localData.size());
+        return true;
     }
 };
 

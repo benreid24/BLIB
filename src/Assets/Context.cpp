@@ -33,13 +33,13 @@ CreateContext::CreateContext(Repository& repo, Asset& asset, const CreateData& d
 ReadContext::ReadContext(Repository& repo, Asset& asset)
 : Context(repo, asset) {}
 
-bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuffer) const {
+bool ReadContext::setupReadStream(std::string_view filename, stream::InputStream& input) const {
     switch (getMode()) {
     case Mode::Game:
         // TODO - implement bundle reading
         return false;
     case Mode::Editor:
-        return util::FileUtil::readFile(getFilePath(filename), outBuffer);
+        return input.open(getFilePath(filename));
 
     default:
         BL_LOG_ERROR << "Invalid asset context mode " << static_cast<int>(getMode());
@@ -50,24 +50,13 @@ bool ReadContext::readFile(std::string_view filename, std::vector<char>& outBuff
 WriteContext::WriteContext(Repository& repo, Asset& asset)
 : Context(repo, asset) {}
 
-bool WriteContext::writeFile(std::string_view filename, std::span<const char> buffer) const {
+bool WriteContext::setupWriteStream(std::string_view filename, stream::OutputStream& output) const {
     switch (getMode()) {
     case Mode::Game:
         // TODO - implement bundle writing
         return false;
-    case Mode::Editor: {
-        std::ofstream out(getFilePath(filename), std::ios::binary);
-        if (!out) {
-            BL_LOG_ERROR << "Failed to open file for writing: " << getFilePath(filename);
-            return false;
-        }
-        out.write(buffer.data(), buffer.size());
-        if (!out) {
-            BL_LOG_ERROR << "Failed to write data to file: " << getFilePath(filename);
-            return false;
-        }
-        return true;
-    }
+    case Mode::Editor:
+        return output.open(getFilePath(filename));
     default:
         BL_LOG_ERROR << "Invalid asset context mode " << static_cast<int>(getMode());
         return false;

@@ -62,12 +62,11 @@ void InputStream::close() {
 std::size_t InputStream::read(void* data, std::size_t len) {
     return std::visit(
         util::Visitor{[](const std::monostate&) { return static_cast<std::size_t>(0); },
-                      [data, len](std::ifstream& stream) {
-                          const std::size_t start = stream.tellg();
+                      [data, len](std::ifstream& stream) -> std::size_t {
                           stream.read(static_cast<char*>(data), len);
-                          return static_cast<std::size_t>(stream.tellg()) - start;
+                          return stream.gcount();
                       },
-                      [data, len](Buffer& buf) {
+                      [data, len](Buffer& buf) -> std::size_t {
                           const std::size_t toRead = std::min(len, buf.data.size() - buf.pos);
                           std::memcpy(data, buf.data.data() + buf.pos, toRead);
                           buf.pos += toRead;
@@ -75,9 +74,8 @@ std::size_t InputStream::read(void* data, std::size_t len) {
                       },
                       [data, len](std::istream* s) -> std::size_t {
                           if (!s || !s->good()) { return static_cast<std::size_t>(0); }
-                          const std::size_t start = s->tellg();
                           s->read(static_cast<char*>(data), len);
-                          return static_cast<std::size_t>(s->tellg()) - start;
+                          return s->gcount();
                       }},
         stream);
 }
