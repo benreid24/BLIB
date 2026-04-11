@@ -34,9 +34,8 @@ TEST_F(OutputStreamTest, OpenMemory) {
     EXPECT_TRUE(stream.isValid());
     EXPECT_EQ(stream.getMode(), Mode::Memory);
     EXPECT_TRUE(stream.write(TestString.data(), TestString.size()));
-    const std::vector<char>* buf = stream.getBuffer();
-    ASSERT_NE(buf, nullptr);
-    EXPECT_EQ(std::string(buf->data(), buf->size()), TestString);
+    const auto buf = stream.getBuffer();
+    EXPECT_EQ(std::string(buf.data(), buf.size()), TestString);
 }
 
 TEST_F(OutputStreamTest, OpenWrapper) {

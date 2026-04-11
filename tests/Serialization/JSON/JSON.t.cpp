@@ -76,7 +76,7 @@ TEST(JSON, GroupValue) {
 
 TEST(JSON, BasicGroup) {
     const std::string json = "{ \"num\": 123.45, \"str\": \"hello\", \"b\": true }";
-    std::stringstream stream(json);
+    stream::InputStream stream(std::span<const char>(json.data(), json.size()));
 
     Group root;
     ASSERT_TRUE(loadFromStream(stream, root));
@@ -91,10 +91,11 @@ TEST(JSON, BasicGroup) {
 }
 
 TEST(JSON, NestedGroup) {
-    std::stringstream json("{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}");
+    const std::string json("{\"grp\":{\"deep\":{\"wogh\":12},\"list\": [1,2,3]}, \"b\": false}");
+    stream::InputStream stream(std::span<const char>(json.data(), json.size()));
 
     Group root;
-    ASSERT_TRUE(loadFromStream(json, root));
+    ASSERT_TRUE(loadFromStream(stream, root));
     ASSERT_TRUE(root.getGroup("grp"));
     ASSERT_TRUE(root.getGroup("grp/deep"));
     ASSERT_TRUE(root.getList("grp/list"));
@@ -109,10 +110,11 @@ TEST(JSON, NestedGroup) {
 }
 
 TEST(JSON, GroupList) {
-    std::stringstream json("{\"l\":[{\"name\": 15}]}");
+    const std::string json("{\"l\":[{\"name\": 15}]}");
+    stream::InputStream stream(std::span<const char>(json.data(), json.size()));
 
     Group root;
-    ASSERT_TRUE(loadFromStream(json, root));
+    ASSERT_TRUE(loadFromStream(stream, root));
     ASSERT_TRUE(root.hasField("l"));
     ASSERT_NE(root.getField("l")->getAsList(), nullptr);
     const List& list = *root.getField("l")->getAsList();
@@ -124,11 +126,12 @@ TEST(JSON, GroupList) {
 }
 
 TEST(JSON, Files) {
-    std::stringstream json("{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }");
+    const std::string json("{ \"num\": 123.45, \"str\": \"hello\", \"b\": true, \"ls\": [1,2,3] }");
+    stream::InputStream stream(std::span<const char>(json.data(), json.size()));
     const std::string filename = util::FileUtil::genTempName("json", "json");
 
     Group goodRoot;
-    ASSERT_TRUE(loadFromStream(json, goodRoot));
+    ASSERT_TRUE(loadFromStream(stream, goodRoot));
     util::FileUtil::createDirectory("json");
     ASSERT_TRUE(saveToFile(filename, goodRoot));
     Group root;

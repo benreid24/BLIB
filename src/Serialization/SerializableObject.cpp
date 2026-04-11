@@ -1,3 +1,5 @@
+#include <BLIB/Serialization/Binary/Detail/InputStreamWrapper.hpp>
+#include <BLIB/Serialization/Binary/Detail/OutputStreamWrapper.hpp>
 #include <BLIB/Serialization/SerializableField.hpp>
 #include <BLIB/Serialization/SerializableObject.hpp>
 
@@ -46,17 +48,20 @@ json::Group SerializableObjectBase::serializeJSON(const void* obj) const {
     return group;
 }
 
-bool SerializableObjectBase::serializeBinary(binary::OutputStream& stream, const void* obj) const {
-    if (!stream.write<std::uint16_t>(fieldsBinary.size())) return false;
+bool SerializableObjectBase::serializeBinary(stream::OutputStream& stream, const void* obj) const {
+    binary::detail::OutputStreamWrapper wrapper(stream);
+    if (!wrapper.write<std::uint16_t>(fieldsBinary.size())) return false;
     for (const auto& p : fieldsBinary) {
-        if (!stream.write<std::uint16_t>(p.first)) return false;
-        if (!stream.write<std::uint32_t>(p.second->binarySize(obj))) return false;
+        if (!wrapper.write<std::uint16_t>(p.first)) return false;
+        if (!wrapper.write<std::uint32_t>(p.second->binarySize(obj))) return false;
         if (!p.second->serializeBinary(stream, obj)) return false;
     }
     return true;
 }
 
-bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void* obj) const {
+bool SerializableObjectBase::deserializeBinary(stream::InputStream& stream, void* obj) const {
+    binary::detail::InputStreamWrapper wrapper(stream);
+
     char foundFields[MaxFieldCount];
     std::memset(foundFields, 0, MaxFieldCount);
 
@@ -65,18 +70,18 @@ bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void
     };
 
     std::uint16_t n = 0;
-    if (!stream.read<std::uint16_t>(n)) {
+    if (!wrapper.read<std::uint16_t>(n)) {
         logReadError("field count");
         return false;
     }
     for (std::uint16_t i = 0; i < n; ++i) {
         std::uint16_t id    = 0;
         std::uint32_t fsize = 0;
-        if (!stream.read<std::uint16_t>(id)) {
+        if (!wrapper.read<std::uint16_t>(id)) {
             logReadError("field id");
             return false;
         }
-        if (!stream.read<std::uint32_t>(fsize)) {
+        if (!wrapper.read<std::uint32_t>(fsize)) {
             logReadError("field size");
             return false;
         }
@@ -94,7 +99,7 @@ bool SerializableObjectBase::deserializeBinary(binary::InputStream& stream, void
             foundFields[id] = 1;
         }
         else {
-            if (!stream.skip(fsize)) {
+            if (!wrapper.skip(fsize)) {
                 logReadError("skip field");
                 return false;
             }
@@ -123,7 +128,7 @@ std::size_t SerializableObjectBase::binarySize(const void* obj) const {
     return s;
 }
 
-bool SerializableObjectBase::serializePackedBinary(binary::OutputStream& stream,
+bool SerializableObjectBase::serializePackedBinary(stream::OutputStream& stream,
                                                    const void* obj) const {
     for (const auto& field : sortedFields) {
         if (!field.second->serializeBinary(stream, obj)) return false;
@@ -131,14 +136,14 @@ bool SerializableObjectBase::serializePackedBinary(binary::OutputStream& stream,
     return true;
 }
 
-bool SerializableObjectBase::deserializePackedBinary(binary::InputStream& stream, void* obj) const {
+bool SerializableObjectBase::deserializePackedBinary(stream::InputStream& stream, void* obj) const {
     for (const auto& field : sortedFields) {
         if (!field.second->deserializeBinary(stream, obj)) return false;
     }
     return true;
 }
 
-bool SerializableObjectBase::serializeJsonStream(std::ostream& stream, const void* obj,
+bool SerializableObjectBase::serializeJsonStream(stream::OutputStream& stream, const void* obj,
                                                  unsigned int ts, unsigned int ilvl) {
     stream << "{";
     if (ts > 0) stream << '\n';
@@ -157,10 +162,10 @@ bool SerializableObjectBase::serializeJsonStream(std::ostream& stream, const voi
     util::StreamUtil::writeRepeated(stream, ' ', ilvl);
     stream << "}";
 
-    return stream.good();
+    return stream.isValid();
 }
 
-bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* obj) {
+bool SerializableObjectBase::deserializeJsonStream(stream::InputStream& stream, void* obj) {
     using FIter = decltype(fieldsJson)::iterator;
     std::pair<bool, FIter> fields[MaxFieldCount];
     unsigned int fieldCount = 0;
@@ -190,7 +195,7 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
     }
     stream.get();
 
-    while (stream.good()) {
+    while (stream.isValid()) {
         util::StreamUtil::skipWhitespace(stream);
         if (stream.peek() != '"') {
             logParseError(std::string("Expected '\"' but got ") + static_cast<char>(stream.peek()));
@@ -199,8 +204,8 @@ bool SerializableObjectBase::deserializeJsonStream(std::istream& stream, void* o
         stream.get();
 
         std::string name;
-        std::getline(stream, name, '"');
-        if (!stream.good()) {
+        util::StreamUtil::getline(stream, name, '"');
+        if (!stream.isValid()) {
             logParseError("End of stream while reading field name");
             return false;
         }

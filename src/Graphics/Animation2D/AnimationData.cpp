@@ -71,18 +71,14 @@ AnimationData::AnimationData()
 , centerShards(true)
 , slideshow(false) {}
 
-bool AnimationData::loadFromFile(const std::string& filename) {
-    serial::binary::InputFile file(filename);
+bool AnimationData::importFromFile(const std::string& filename) {
+    stream::InputStream file(filename);
     return doLoad(file, filename, false);
 }
 
-bool AnimationData::loadFromFileForBundling(const std::string& filename) {
-    serial::binary::InputFile file(filename);
-    return doLoad(file, filename, true);
-}
-
 bool AnimationData::saveToBundle(std::ostream& os) const {
-    serial::StreamOutputBuffer wrapper(os);
+    // TODO - move to driver? maybe we ditch backwards compatibility here
+    /*serial::StreamOutputBuffer wrapper(os);
     serial::binary::OutputStream output(wrapper);
 
     output.write(spritesheetSource);
@@ -106,17 +102,14 @@ bool AnimationData::saveToBundle(std::ostream& os) const {
         }
     }
 
-    return output.good();
+    return output.good();*/
+    return false;
 }
 
-bool AnimationData::loadFromMemory(const char* buffer, std::size_t len, const std::string& path) {
-    serial::MemoryInputBuffer buf(buffer, len);
-    serial::binary::InputStream stream(buf);
-    return doLoad(stream, path, false);
-}
+bool AnimationData::doLoad(stream::InputStream& stream, const std::string& ogPath, bool forBundle) {
+    // TODO - consider ditching backwards compatibility (or add versioning)
+    serial::binary::detail::InputStreamWrapper input(stream);
 
-bool AnimationData::doLoad(serial::binary::InputStream& input, const std::string& ogPath,
-                           bool forBundle) {
     frames.clear();
     stateOffsets.clear();
     slideshow = false;

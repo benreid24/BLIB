@@ -9,7 +9,7 @@ namespace bundle
 {
 bool AnimationHandler::processFile(const std::string& path, std::ostream& output,
                                    FileHandlerContext& ctx) {
-    gfx::a2d::AnimationData anim;
+    /*gfx::a2d::AnimationData anim;
     if (!anim.loadFromFileForBundling(path)) {
         BL_LOG_ERROR << "Failed to load animation: " << path;
         return false;
@@ -18,7 +18,7 @@ bool AnimationHandler::processFile(const std::string& path, std::ostream& output
         BL_LOG_ERROR << "Failed to save animation: " << path;
         return false;
     }
-    ctx.addDependencyFile(anim.spritesheetFile());
+    ctx.addDependencyFile(anim.spritesheetFile());*/
     return true;
 }
 

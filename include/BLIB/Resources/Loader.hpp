@@ -125,12 +125,12 @@ template<>
 struct DefaultLoader<audio::Playlist> : public LoaderBase<audio::Playlist> {
     virtual ~DefaultLoader() = default;
 
-    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
-                      audio::Playlist& result) override {
-        if (!result.loadJson(buffer, len)) {
+    virtual bool load(const std::string&, const char*, std::size_t, std::istream&,
+                      audio::Playlist&) override {
+        /*if (!result.loadJson(buffer, len)) {
             BL_LOG_ERROR << "Failed to load playlist: " << path;
             return false;
-        }
+        } */
         return true;
     }
 };
@@ -140,12 +140,12 @@ using RawPlaylistLoader = DefaultLoader<audio::Playlist>;
 struct BundledPlaylistLoader : public LoaderBase<audio::Playlist> {
     virtual ~BundledPlaylistLoader() = default;
 
-    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
-                      audio::Playlist& result) override {
-        if (!result.loadBinary(buffer, len)) {
-            BL_LOG_ERROR << "Failed to load playlist: " << path;
-            return false;
-        }
+    virtual bool load(const std::string&, const char*, std::size_t, std::istream&,
+                      audio::Playlist&) override {
+        /* if (!result.loadBinary(buffer, len)) {
+             BL_LOG_ERROR << "Failed to load playlist: " << path;
+             return false;
+         }*/
         return true;
     }
 };
@@ -196,12 +196,12 @@ template<>
 struct DefaultLoader<gfx::a2d::AnimationData> : public LoaderBase<gfx::a2d::AnimationData> {
     virtual ~DefaultLoader() = default;
 
-    virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
-                      gfx::a2d::AnimationData& result) override {
-        if (!result.loadFromMemory(buffer, len, path)) {
+    virtual bool load(const std::string&, const char*, std::size_t, std::istream&,
+                      gfx::a2d::AnimationData&) override {
+        /*if (!result.loadFromMemory(buffer, len, path)) {
             BL_LOG_ERROR << "Failed to load animation: " << path;
             return false;
-        }
+        }*/
         return true;
     }
 };

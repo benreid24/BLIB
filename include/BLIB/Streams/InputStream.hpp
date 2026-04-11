@@ -30,7 +30,21 @@ public:
      *
      * @param path The file to open
      */
+    InputStream(const std::string& path);
+
+    /**
+     * @brief Creates a stream for the given file path
+     *
+     * @param path The file to open
+     */
     InputStream(std::string_view path);
+
+    /**
+     * @brief Creates a stream for the given file path
+     *
+     * @param path The file to open
+     */
+    InputStream(const char* path);
 
     /**
      * @brief Creates a stream wrapping an existing stream
@@ -45,7 +59,7 @@ public:
      *
      * @param data The buffer to wrap
      */
-    InputStream(std::span<char> data);
+    InputStream(std::span<const char> data);
 
     /**
      * @brief Destroys the stream
@@ -73,7 +87,23 @@ public:
      * @param path The path to the file to open
      * @return True if the file was successfully opened, false otherwise
      */
+    bool open(const std::string& path);
+
+    /**
+     * @brief Opens the stream with the given file path
+     *
+     * @param path The path to the file to open
+     * @return True if the file was successfully opened, false otherwise
+     */
     bool open(std::string_view path);
+
+    /**
+     * @brief Opens the stream with the given file path
+     *
+     * @param path The path to the file to open
+     * @return True if the file was successfully opened, false otherwise
+     */
+    bool open(const char* path);
 
     /**
      * @brief Opens the stream as a wrapper over the existing stream
@@ -88,7 +118,7 @@ public:
      *
      * @param data The buffer to wrap
      */
-    void open(std::span<char> data);
+    void open(std::span<const char> data);
 
     /**
      * @brief Closes and invalidates the stream
@@ -127,16 +157,26 @@ public:
     std::size_t tell() const;
 
     /**
+     * @brief Peeks the next byte in the stream without advancing the position
+     */
+    char peek();
+
+    /**
+     * @brief Reads and returns the next byte in the stream
+     */
+    char get();
+
+    /**
      * @brief Returns the total size of the stream in bytes
      */
     std::size_t getSize() const { return knownSize; }
 
 private:
     struct Buffer {
-        std::span<char> data;
+        std::span<const char> data;
         std::size_t pos;
 
-        Buffer(std::span<char> data)
+        Buffer(std::span<const char> data)
         : data(data)
         , pos(0) {}
     };

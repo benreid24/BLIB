@@ -197,7 +197,7 @@ bool Repository::writeManifestLocked() {
 
     // write manifest
     const std::string manifestPath = util::FileUtil::joinPath(assetDirectory, "manifest.json");
-    std::ofstream manifestFile(manifestPath);
+    stream::OutputStream manifestFile(manifestPath);
     if (!serial::json::Serializer<Repository>::serializeStream(manifestFile, *this, 4, 0)) {
         BL_LOG_ERROR << "Failed to write asset manifest to " << manifestPath;
         return false;
@@ -217,8 +217,8 @@ bool Repository::loadRepository() {
     if (mode == Mode::Editor) {
         // TODO - should path loaded from depend on mode?
         const std::string manifestPath = util::FileUtil::joinPath(assetDirectory, "manifest.json");
-        std::ifstream manifestFile(manifestPath);
-        if (!manifestFile.is_open()) {
+        stream::InputStream manifestFile(manifestPath);
+        if (!manifestFile.isValid()) {
             BL_LOG_ERROR << "Failed to open asset manifest at " << manifestPath;
             return false;
         }
@@ -287,8 +287,8 @@ bool Repository::loadRepository() {
                             << pair.second << ". Adding to repository manifest";
 
                 // deserialize metadata file
-                std::ifstream assetFile(pair.second);
-                if (!assetFile.is_open()) {
+                stream::InputStream assetFile(pair.second);
+                if (!assetFile.isValid()) {
                     BL_LOG_ERROR << "Failed to open asset file at " << pair.second;
                     continue;
                 }

@@ -36,7 +36,7 @@ struct TestBoi {
         smfield["df1"] = "test value 1";
         smfield["df2"] = "test value 2";
 
-        imfield[5] = "field 5";
+        imfield[5]  = "field 5";
         imfield[-5] = "field -5";
     }
 };
@@ -224,13 +224,12 @@ TEST(JsonSerializer, Pointers) {
 }
 
 TEST(JsonSerializer, DirectSerialization) {
-    std::stringstream out;
+    stream::OutputStream out(1024);
 
     TestBoi good(5);
     ASSERT_TRUE(TestySerial::serializeStream(out, good, 4, 0));
-    BL_LOG_INFO << out.str();
 
-    std::stringstream in(out.str());
+    stream::InputStream in(out.getBuffer());
     TestBoi read;
     ASSERT_TRUE(TestySerial::deserializeStream(in, read));
 

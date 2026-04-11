@@ -213,11 +213,6 @@ long Value::getNumericAsInteger() const {
     }
 }
 
-std::ostream& operator<<(std::ostream& stream, const SourceInfo& info) {
-    stream << info.filename << ":" << info.lineNumber;
-    return stream;
-}
-
 void Group::print(std::ostream& stream, int ilvl) const {
     stream << "{";
     if (!fields.empty()) stream << "\n";
@@ -274,6 +269,32 @@ void Value::print(std::ostream& stream, int ilvl) const {
     }
 }
 
+bool loadFromStream(stream::InputStream& stream, Group& result) {
+    Loader loader(stream);
+    return loader.loadGroup(result);
+}
+
+bool loadFromFile(const std::string& file, Group& result) {
+    Loader loader(file);
+    return loader.loadGroup(result);
+}
+
+bool saveToFile(const std::string& file, const Group& group) {
+    std::ofstream out(file.c_str());
+    out << group;
+    return out.good();
+}
+
+bool saveToStream(stream::OutputStream& stream, const Group& group) {
+    stream << group;
+    return stream.isValid();
+}
+
+std::ostream& operator<<(std::ostream& stream, const SourceInfo& info) {
+    stream << info.filename << ":" << info.lineNumber;
+    return stream;
+}
+
 std::ostream& operator<<(std::ostream& stream, const Value::Type& type) {
     switch (type) {
     case Value::Type::Bool:
@@ -321,27 +342,6 @@ std::ostream& operator<<(std::ostream& stream, const List& list) {
     }
     stream << "]";
     return stream;
-}
-
-bool loadFromStream(std::istream& stream, Group& result) {
-    Loader loader(stream);
-    return loader.loadGroup(result);
-}
-
-bool loadFromFile(const std::string& file, Group& result) {
-    Loader loader(file);
-    return loader.loadGroup(result);
-}
-
-bool saveToFile(const std::string& file, const Group& group) {
-    std::ofstream out(file.c_str());
-    out << group;
-    return out.good();
-}
-
-bool saveToStream(std::ostream& stream, const Group& group) {
-    stream << group;
-    return stream.good();
 }
 
 } // namespace json

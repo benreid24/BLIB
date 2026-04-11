@@ -1,7 +1,7 @@
 #ifndef BLIB_SERIALIZATION_INPUTSTREAM_HPP
 #define BLIB_SERIALIZATION_INPUTSTREAM_HPP
 
-#include <BLIB/Serialization/Buffers/InputBuffer.hpp>
+#include <BLIB/Streams/InputStream.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <cstdint>
 
@@ -20,20 +20,23 @@ namespace serial
 /// Module for serializing and deserializing binary data
 namespace binary
 {
+/// Implementation details for binary serialization
+namespace detail
+{
 /**
  * @brief A readable stream for binary deserialization
  *
  * @ingroup Binary
  *
  */
-class InputStream {
+class InputStreamWrapper {
 public:
     /**
      * @brief Construct a new Binary Input Stream
      *
      * @param underlying The underlying buffer to read from
      */
-    InputStream(InputBuffer& underlying);
+    InputStreamWrapper(stream::InputStream& underlying);
 
     /**
      * @brief Reads the integral type from the underlying
@@ -78,17 +81,17 @@ public:
     bool good();
 
 private:
-    InputBuffer& underlying;
+    stream::InputStream& underlying;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
-inline InputStream::InputStream(InputBuffer& u)
+inline InputStreamWrapper::InputStreamWrapper(stream::InputStream& u)
 : underlying(u) {}
 
 template<typename T>
-typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::read(T& output) {
-    if (!underlying.good()) return false;
+typename std::enable_if<std::is_integral_v<T>, bool>::type InputStreamWrapper::read(T& output) {
+    if (!underlying.isValid()) return false;
 
     constexpr std::size_t size = sizeof(T);
     char* bytes                = static_cast<char*>(static_cast<void*>(&output));
@@ -106,15 +109,15 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::read(T& 
 }
 
 template<typename T>
-typename std::enable_if<std::is_integral_v<T>, bool>::type InputStream::peek(T& output) {
+typename std::enable_if<std::is_integral_v<T>, bool>::type InputStreamWrapper::peek(T& output) {
     const std::size_t s = sizeof(T);
     const bool r        = read<T>(output);
-    underlying.seekg(underlying.tellg() - s);
+    underlying.seek(underlying.tell() - s);
     return r;
 }
 
-inline bool InputStream::read(std::string& output) {
-    if (!underlying.good()) return false;
+inline bool InputStreamWrapper::read(std::string& output) {
+    if (!underlying.isValid()) return false;
     std::uint32_t size;
     if (!read<std::uint32_t>(size)) return false;
     output.clear();
@@ -122,15 +125,17 @@ inline bool InputStream::read(std::string& output) {
     return underlying.read(output.data(), size);
 }
 
-inline bool InputStream::skip(std::size_t bytes) {
-    return underlying.seekg(underlying.tellg() + bytes);
+inline bool InputStreamWrapper::skip(std::size_t bytes) {
+    const std::size_t pos = underlying.tell() + bytes;
+    return pos == underlying.seek(pos);
 }
 
-inline bool InputStream::good() {
+inline bool InputStreamWrapper::good() {
     const bool eof = underlying.peek() == EOF;
-    return underlying.good() && !eof;
+    return underlying.isValid() && !eof;
 }
 
+} // namespace detail
 } // namespace binary
 } // namespace serial
 } // namespace bl

@@ -13,7 +13,7 @@ PlaylistHandler::PlaylistHandler(bool bdeps)
 
 bool PlaylistHandler::processFile(const std::string& path, std::ostream& output,
                                   FileHandlerContext& ctx) {
-    audio::Playlist playlist;
+    /*audio::Playlist playlist;
     if (!playlist.loadFromFile(path)) return false;
 
     serial::StreamOutputBuffer wrapper(output);
@@ -22,7 +22,7 @@ bool PlaylistHandler::processFile(const std::string& path, std::ostream& output,
 
     if (bundleMusicFiles) {
         for (const std::string& song : playlist.getSongList()) { ctx.addDependencyFile(song); }
-    }
+    }*/
     return true;
 }
 

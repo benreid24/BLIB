@@ -66,9 +66,11 @@ bool OutputStream::write(const char* data, std::size_t len) {
                       stream);
 }
 
-const std::vector<char>* OutputStream::getBuffer() const {
-    if (auto* buffer = std::get_if<std::vector<char>>(&stream)) { return buffer; }
-    return nullptr;
+std::span<const char> OutputStream::getBuffer() const {
+    if (auto* buffer = std::get_if<std::vector<char>>(&stream)) {
+        return std::span<const char>(buffer->data(), buffer->size());
+    }
+    return std::span<const char>();
 }
 
 } // namespace stream

@@ -1,7 +1,7 @@
-#ifndef BLIB_SERIALIZATION_BINARY_OUTPUTSTREAM_HPP
-#define BLIB_SERIALIZATION_BINARY_OUTPUTSTREAM_HPP
+#ifndef BLIB_SERIALIZATION_BINARY_DETAIL_OUTPUTSTREAMWRAPPER_HPP
+#define BLIB_SERIALIZATION_BINARY_DETAIL_OUTPUTSTREAMWRAPPER_HPP
 
-#include <BLIB/Serialization/Buffers/OutputBuffer.hpp>
+#include <BLIB/Streams/OutputStream.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <cstdint>
 #include <cstring>
@@ -14,20 +14,22 @@ namespace serial
 {
 namespace binary
 {
+namespace detail
+{
 /**
  * @brief A writable stream for binary serialization
  *
  * @ingroup Binary
  *
  */
-class OutputStream {
+class OutputStreamWrapper {
 public:
     /**
-     * @brief Construct a new Output Stream
+     * @brief Construct a new stream wrapper
      *
-     * @param buffer The underlying buffer to write to
+     * @param stream The underlying stream to write to
      */
-    OutputStream(OutputBuffer& buffer);
+    OutputStreamWrapper(stream::OutputStream& stream);
 
     /**
      * @brief Writes an integral type to the stream in it's binary representation
@@ -73,14 +75,15 @@ public:
     bool good() const;
 
 private:
-    OutputBuffer& buffer;
+    stream::OutputStream& buffer;
 };
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename T>
-typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(const T& data) {
-    if (!buffer.good()) return false;
+typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStreamWrapper::write(
+    const T& data) {
+    if (!buffer.isValid()) return false;
 
     constexpr std::size_t size = sizeof(T);
     char bytes[size];
@@ -95,8 +98,9 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type OutputStream::write(c
     return buffer.write(bytes, size);
 }
 
-inline bool OutputStream::good() const { return buffer.good(); }
+inline bool OutputStreamWrapper::good() const { return buffer.isValid(); }
 
+} // namespace detail
 } // namespace binary
 } // namespace serial
 } // namespace bl

@@ -27,14 +27,16 @@ void Manifest::registerFileBundle(const std::string& path, const std::string& bu
 }
 
 bool Manifest::load() {
-    manifest.clear();
+    /*manifest.clear();
     serial::binary::InputFile input(manifestFile);
-    return Serializer::deserialize(input, *this);
+    return Serializer::deserialize(input, *this);*/
+    return false;
 }
 
 bool Manifest::save() const {
-    serial::binary::OutputFile output(manifestFile);
-    return Serializer::serialize(output, *this);
+    /*serial::binary::OutputFile output(manifestFile);
+    return Serializer::serialize(output, *this);*/
+    return false;
 }
 
 } // namespace bundle

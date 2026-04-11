@@ -11,11 +11,15 @@ InputStream::InputStream()
 : stream(std::monostate{})
 , knownSize(0) {}
 
-InputStream::InputStream(std::string_view path) { open(path); }
+InputStream::InputStream(const std::string& path) { open(path); }
+
+InputStream::InputStream(std::string_view path) { open(std::string(path)); }
+
+InputStream::InputStream(const char* path) { open(path); }
 
 InputStream::InputStream(std::istream& stream, std::size_t size) { open(stream, size); }
 
-InputStream::InputStream(std::span<char> data) { open(data); }
+InputStream::InputStream(std::span<const char> data) { open(data); }
 
 bool InputStream::isValid() const {
     return std::visit(util::Visitor{[](const std::monostate&) { return false; },
@@ -35,8 +39,12 @@ Mode InputStream::getMode() const {
                       stream);
 }
 
-bool InputStream::open(std::string_view path) {
-    auto& file = stream.emplace<std::ifstream>(std::string(path));
+bool InputStream::open(std::string_view path) { return open(std::string(path)); }
+
+bool InputStream::open(const char* path) { return open(std::string(path)); }
+
+bool InputStream::open(const std::string& path) {
+    auto& file = stream.emplace<std::ifstream>(path);
     if (!file.good()) { return false; }
     file.seekg(0, std::ios::end);
     knownSize = file.tellg();
@@ -49,7 +57,7 @@ void InputStream::open(std::istream& s, std::size_t size) {
     knownSize = size;
 }
 
-void InputStream::open(std::span<char> data) {
+void InputStream::open(std::span<const char> data) {
     stream.emplace<Buffer>(data);
     knownSize = data.size();
 }
@@ -112,6 +120,36 @@ std::size_t InputStream::tell() const {
                                     [](const std::istream* s) -> std::size_t {
                                         return static_cast<std::size_t>(
                                             const_cast<std::istream*>(s)->tellg());
+                                    }},
+                      stream);
+}
+
+char InputStream::peek() {
+    return std::visit(util::Visitor{[](const std::monostate&) -> char { return EOF; },
+                                    [](std::ifstream& stream) -> char { return stream.peek(); },
+                                    [](Buffer& buf) -> char {
+                                        if (buf.pos < buf.data.size()) { return buf.data[buf.pos]; }
+                                        else { return EOF; }
+                                    },
+                                    [](std::istream* s) -> char {
+                                        if (s) { return s->peek(); }
+                                        else { return EOF; }
+                                    }},
+                      stream);
+}
+
+char InputStream::get() {
+    return std::visit(util::Visitor{[](const std::monostate&) -> char { return EOF; },
+                                    [](std::ifstream& stream) -> char { return stream.get(); },
+                                    [](Buffer& buf) -> char {
+                                        if (buf.pos < buf.data.size()) {
+                                            return buf.data[buf.pos++];
+                                        }
+                                        else { return EOF; }
+                                    },
+                                    [](std::istream* s) -> char {
+                                        if (s) { return s->get(); }
+                                        else { return EOF; }
                                     }},
                       stream);
 }

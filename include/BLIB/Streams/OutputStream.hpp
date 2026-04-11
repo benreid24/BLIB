@@ -1,8 +1,11 @@
 #ifndef BLIB_STREAMS_OUTPUTSTREAM_HPP
 #define BLIB_STREAMS_OUTPUTSTREAM_HPP
 
+#include <BLIB/Logging/Outputters.hpp>
 #include <BLIB/Streams/Mode.hpp>
 #include <fstream>
+#include <span>
+#include <sstream>
 #include <string_view>
 #include <variant>
 #include <vector>
@@ -103,11 +106,29 @@ public:
     /**
      * @brief Returns the underlying buffer. Only valid if the stream is in Memory mode
      */
-    const std::vector<char>* getBuffer() const;
+    std::span<const char> getBuffer() const;
 
 private:
     std::variant<std::monostate, std::ofstream, std::ostream*, std::vector<char>> stream;
 };
+
+/**
+ * @brief Helper method to provide stream operator for output stream
+ * @ingroup Streams
+ *
+ * @tparam T The type to write
+ * @param stream The stream to write to
+ * @param value The value to write
+ * @return The stream that was written to
+ */
+template<typename T>
+OutputStream& operator<<(OutputStream& stream, const T& value) {
+    std::stringstream ss;
+    ss << value;
+    const std::string& str = ss.str();
+    stream.write(str.data(), str.size());
+    return stream;
+}
 
 } // namespace stream
 } // namespace bl

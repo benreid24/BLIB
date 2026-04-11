@@ -18,17 +18,19 @@ BundledFileMetadata BundleMetadata::getFileInfo(const std::string& path) const {
 }
 
 bool BundleMetadata::save(std::ostream& stream) const {
-    serial::StreamOutputBuffer wrapper(stream);
+    /*serial::StreamOutputBuffer wrapper(stream);
     serial::binary::OutputStream bs(wrapper);
-    return Serializer::serialize(bs, *this);
+    return Serializer::serialize(bs, *this);*/
+    return false;
 }
 
 bool BundleMetadata::load(std::istream& stream) {
-    manifest.clear();
+    /*manifest.clear();
 
     serial::StreamInputBuffer wrapper(stream);
     serial::binary::InputStream bs(wrapper);
-    return Serializer::deserialize(bs, *this);
+    return Serializer::deserialize(bs, *this);*/
+    return false;
 }
 
 } // namespace bundle

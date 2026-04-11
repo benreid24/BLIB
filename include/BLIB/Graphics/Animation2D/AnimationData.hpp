@@ -50,7 +50,6 @@ public:
 
     /**
      * @brief Create empty AnimationData to be loaded later
-     *
      */
     AnimationData();
 
@@ -63,16 +62,9 @@ public:
      * @param spritesheetDir Optional additional directory to search for spritesheets
      * @return bool True if the animation could be loaded, false otherwise
      */
-    bool loadFromFile(const std::string& filename);
+    bool importFromFile(const std::string& filename);
 
-    /**
-     * @brief Same as loadFromFile, but rewrites the spritesheet source to be the full path to the
-     *        spritesheet so that it may be directly added to the bundle
-     *
-     * @param filename Path to the animation to load
-     * @return True if the animation could be loaded, false otherwise
-     */
-    bool loadFromFileForBundling(const std::string& filename);
+    // TODO - load from asset dir methods (in driver?)
 
     /**
      * @brief Saves the animation data to the bundle
@@ -83,43 +75,27 @@ public:
     bool saveToBundle(std::ostream& output) const;
 
     /**
-     * @brief Loads the AnimationData from the given file. Spritesheets are searched for in the
-     *        same directory as the animation file. If not found then
-     *        engine::Configuration::get("blib.animation.spritesheet_path") is used
-     *
-     * @param buffer The memory buffer to load from
-     * @param len Size of the buffer to load from
-     * @param originalPath The original file path of the animation. Used to help locate spritesheet
-     * @return True if the animation could be loaded, false on error
-     */
-    bool loadFromMemory(const char* buffer, std::size_t len, const std::string& originalPath);
-
-    /**
      * @brief Returns the filename of the spritesheet
-     *
      */
     const std::string& spritesheetFile() const;
 
     /**
      * @brief Returns the resolved spritesheet path
      */
-    constexpr const std::string& resolvedSpritesheet() const;
+    const std::string& resolvedSpritesheet() const;
 
     /**
      * @brief Returns if the animation is set to loop on end. Can be overridden in Animation
-     *
      */
     bool isLooping() const;
 
     /**
      * @brief Returns the total length of the animation in seconds
-     *
      */
     float getLength() const;
 
     /**
      * @brief Returns the number of frames in the animation
-     *
      */
     std::size_t frameCount() const;
 
@@ -141,7 +117,6 @@ public:
 
     /**
      * @brief Returns the size of the largest frame
-     *
      */
     sf::Vector2f getMaxSize() const;
 
@@ -203,7 +178,7 @@ public:
     /**
      * @brief Returns whether or not the animation is a slideshow
      */
-    constexpr bool isSlideshow() const;
+    bool isSlideshow() const;
 
     /**
      * @brief Returns whether or not shards should be centered
@@ -233,7 +208,7 @@ private:
 
     void populateDerivedState();
     static void computeFrameSize(Frame& frame);
-    bool doLoad(serial::binary::InputStream& input, const std::string& path, bool forBundle);
+    bool doLoad(stream::InputStream& input, const std::string& path, bool forBundle);
     static bool isValidSlideshow(const AnimationData& data);
 };
 
@@ -257,11 +232,11 @@ inline const sf::Vector2f& AnimationData::getFrameSize(std::size_t i) const {
     return frames[i].size;
 }
 
-inline constexpr const std::string& AnimationData::resolvedSpritesheet() const {
+inline const std::string& AnimationData::resolvedSpritesheet() const {
     return actualSpritesheetPath;
 }
 
-inline constexpr bool AnimationData::isSlideshow() const { return slideshow; }
+inline bool AnimationData::isSlideshow() const { return slideshow; }
 
 inline bool AnimationData::shardsAreCentered() const { return centerShards; }
 

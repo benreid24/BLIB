@@ -30,11 +30,6 @@ Playlist::Playlist()
 , playing(false)
 , paused(false) {}
 
-Playlist::Playlist(const std::string& file)
-: Playlist() {
-    loadFromFile(file);
-}
-
 Playlist::Playlist(const Playlist& copy)
 : Playlist() {
     songs         = copy.songs;
@@ -49,31 +44,16 @@ Playlist::~Playlist() {
     }
 }
 
-bool Playlist::saveToFile(const std::string& path) const {
-    std::ofstream file(path.c_str());
-    return JsonSerializer::serializeStream(file, *this, 4, 0);
+bool Playlist::saveJson(stream::OutputStream& stream) const {
+    return JsonSerializer::serializeStream(stream, *this, 4, 0);
 }
 
-bool Playlist::saveToMemory(serial::binary::OutputStream& os) const {
-    return serial::binary::Serializer<Playlist>::serialize(os, *this);
+bool Playlist::saveBinary(stream::OutputStream& stream) const {
+    return serial::binary::Serializer<Playlist>::serialize(stream, *this);
 }
 
-bool Playlist::loadFromFile(const std::string& path) {
-    std::ifstream file(path.c_str());
-    if (!JsonSerializer::deserializeStream(file, *this)) {
-        BL_LOG_ERROR << "Failed to load playlist from file: " << path;
-        return false;
-    }
-    playing      = false;
-    paused       = false;
-    currentIndex = 0;
-    return true;
-}
-
-bool Playlist::loadBinary(const char* buffer, std::size_t len) {
-    serial::MemoryInputBuffer buf(buffer, len);
-    serial::binary::InputStream in(buf);
-    if (!BinarySerializer::deserialize(in, *this)) {
+bool Playlist::loadBinary(stream::InputStream& stream) {
+    if (!BinarySerializer::deserialize(stream, *this)) {
         BL_LOG_ERROR << "Failed to load playlist from memory";
         return false;
     }
@@ -83,10 +63,8 @@ bool Playlist::loadBinary(const char* buffer, std::size_t len) {
     return true;
 }
 
-bool Playlist::loadJson(const char* buffer, std::size_t len) {
-    util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
-    std::istream is(&buf);
-    if (!JsonSerializer::deserializeStream(is, *this)) {
+bool Playlist::loadJson(stream::InputStream& stream) {
+    if (!JsonSerializer::deserializeStream(stream, *this)) {
         BL_LOG_ERROR << "Failed to load playlist from memory";
         return false;
     }

@@ -11,8 +11,7 @@ namespace binary
 namespace unittest
 {
 TEST(BinarySerializer, Integers) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const std::uint8_t u8   = 123;
     const std::uint16_t u16 = 8734;
@@ -32,8 +31,7 @@ TEST(BinarySerializer, Integers) {
     ASSERT_TRUE(Serializer<std::int32_t>::serialize(stream, i32));
     ASSERT_TRUE(Serializer<std::int64_t>::serialize(stream, i64));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::uint8_t u8a   = 123;
     std::uint16_t u16a = 8734;
@@ -64,14 +62,12 @@ TEST(BinarySerializer, Integers) {
 }
 
 TEST(BinarySerializer, String) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const std::string str = "hello world";
     ASSERT_TRUE(Serializer<std::string>::serialize(stream, str));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::string read;
     ASSERT_TRUE(Serializer<std::string>::deserialize(in, read));
@@ -79,14 +75,12 @@ TEST(BinarySerializer, String) {
 }
 
 TEST(BinarySerializer, Array) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const std::uint16_t arr[3] = {34, 13, 5};
     ASSERT_TRUE(Serializer<decltype(arr)>::serialize(stream, arr));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::uint16_t read[3];
     ASSERT_TRUE(Serializer<decltype(read)>::deserialize(in, read));
@@ -96,14 +90,12 @@ TEST(BinarySerializer, Array) {
 }
 
 TEST(BinarySerializer, Vector) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const std::vector<std::uint16_t> arr = {34, 13, 5};
     ASSERT_TRUE(Serializer<std::vector<std::uint16_t>>::serialize(stream, arr));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::vector<std::uint16_t> read;
     ASSERT_TRUE(Serializer<std::vector<std::uint16_t>>::deserialize(in, read));
@@ -114,8 +106,7 @@ TEST(BinarySerializer, Vector) {
 }
 
 TEST(BinarySerializer, Vector2D) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     ctr::Vector2D<std::uint8_t> arr;
     arr.setSize(2, 2);
@@ -125,8 +116,7 @@ TEST(BinarySerializer, Vector2D) {
     arr(1, 1) = 25;
     ASSERT_TRUE(Serializer<ctr::Vector2D<std::uint8_t>>::serialize(stream, arr));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     ctr::Vector2D<std::uint8_t> read;
     ASSERT_TRUE(Serializer<ctr::Vector2D<std::uint8_t>>::deserialize(in, read));
@@ -139,8 +129,7 @@ TEST(BinarySerializer, Vector2D) {
 }
 
 TEST(BinarySerializer, HashMap) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     std::unordered_map<std::string, std::string> map;
     map["hello"] = "world";
@@ -149,8 +138,7 @@ TEST(BinarySerializer, HashMap) {
         Serializer<std::unordered_map<std::string, std::string>>::serialize(stream, map);
     ASSERT_TRUE(rs);
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::unordered_map<std::string, std::string> read;
     const bool rd = Serializer<std::unordered_map<std::string, std::string>>::deserialize(in, read);
@@ -164,14 +152,12 @@ TEST(BinarySerializer, HashMap) {
 }
 
 TEST(BinarySerializer, HashSet) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const std::unordered_set<std::string> set = {"one", "fish", "two", "foosh"};
     ASSERT_TRUE(Serializer<std::unordered_set<std::string>>::serialize(stream, set));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::unordered_set<std::string> read;
     ASSERT_TRUE(Serializer<std::unordered_set<std::string>>::deserialize(in, read));
@@ -182,8 +168,7 @@ TEST(BinarySerializer, HashSet) {
 }
 
 TEST(BinarySerializer, SFML) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const sf::Vector2i v2i(54, -108);
     const sf::Vector2u v2u(343, 234234);
@@ -192,8 +177,7 @@ TEST(BinarySerializer, SFML) {
     ASSERT_TRUE(Serializer<sf::Vector2u>::serialize(stream, v2u));
     ASSERT_TRUE(Serializer<sf::IntRect>::serialize(stream, rect));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     sf::Vector2i r2i;
     sf::Vector2u r2u;
@@ -207,8 +191,7 @@ TEST(BinarySerializer, SFML) {
 }
 
 TEST(BinarySerializer, PairVariant) {
-    MemoryOutputBuffer outbuf;
-    OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
 
     const std::pair<std::uint8_t, std::int32_t> pair(34, -2342);
     const std::variant<std::string, std::uint8_t> variant("fish");
@@ -217,8 +200,7 @@ TEST(BinarySerializer, PairVariant) {
     const bool rv = Serializer<std::variant<std::string, std::uint8_t>>::serialize(stream, variant);
     ASSERT_TRUE(rv);
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
 
     std::pair<std::uint8_t, std::int32_t> rpair;
     std::variant<std::string, std::uint8_t> rvar;

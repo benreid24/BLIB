@@ -2,6 +2,7 @@
 #define BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 
 #include <BLIB/Serialization.hpp>
+#include <BLIB/Streams.hpp>
 #include <SFML/Audio/Music.hpp>
 
 #include <string>
@@ -26,13 +27,6 @@ public:
     Playlist();
 
     /**
-     * @brief Loads the playlist from the given file
-     *
-     * @param source The file to load from
-     */
-    Playlist(const std::string& source);
-
-    /**
      * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
      *
      * @param copy The playlist to duplicate
@@ -55,46 +49,36 @@ public:
     Playlist& operator=(const Playlist& copy);
 
     /**
-     * @brief Loads the playlist from the given JSON file
+     * @brief Loads the playlist from the given stream. Expects the json format
      *
-     * @param path The file to load from
-     * @return True on success, false on error
-     */
-    bool loadFromFile(const std::string& path);
-
-    /**
-     * @brief Loads the playlist from the given memory buffer. Expects the json format
-     *
-     * @param buffer The memory buffer to load from
-     * @param len Size of the buffer to load from
+     * @param stream The stream to load from
      * @return True if the playlist could be loaded, false otherwise
      */
-    bool loadJson(const char* buffer, std::size_t len);
+    bool loadJson(stream::InputStream& stream);
 
     /**
-     * @brief Loads the playlist from the given memory buffer. Expects the binary format
+     * @brief Loads the playlist from the given stream. Expects the binary format
      *
-     * @param buffer The memory buffer to load from
-     * @param len Size of the buffer to load from
+     * @param stream The stream to load from
      * @return True if the playlist could be loaded, false otherwise
      */
-    bool loadBinary(const char* buffer, std::size_t len);
+    bool loadBinary(stream::InputStream& stream);
 
     /**
-     * @brief Saves the conversation to the given JSON file
+     * @brief Saves the playlist in json format to the given stream
      *
-     * @param path The file to save to
-     * @return True if the conversation could be saved, false on error
+     * @param stream The stream to save to
+     * @return True if the data could be saved, false otherwise
      */
-    bool saveToFile(const std::string& path) const;
+    bool saveJson(stream::OutputStream& stream) const;
 
     /**
      * @brief Saves the playlist in binary format to the given stream
      *
-     * @param output The stream to save to
+     * @param stream The stream to save to
      * @return True if the data could be saved, false otherwise
      */
-    bool saveToMemory(serial::binary::OutputStream& output) const;
+    bool saveBinary(stream::OutputStream& stream) const;
 
     /**
      * @brief Returns whether or not the playlist is playing

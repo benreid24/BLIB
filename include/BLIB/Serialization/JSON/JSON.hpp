@@ -1,6 +1,7 @@
 #ifndef BLIB_SERIALIZATION_JSON_JSON_HPP
 #define BLIB_SERIALIZATION_JSON_JSON_HPP
 
+#include <BLIB/Streams.hpp>
 #include <map>
 #include <optional>
 #include <ostream>
@@ -392,12 +393,6 @@ private:
     std::variant<bool, long, std::string, float, Group, List> data;
 };
 
-std::ostream& operator<<(std::ostream& stream, const SourceInfo& info);
-std::ostream& operator<<(std::ostream& stream, const Value::Type& type);
-std::ostream& operator<<(std::ostream& stream, const Group& type);
-std::ostream& operator<<(std::ostream& stream, const Value& type);
-std::ostream& operator<<(std::ostream& stream, const List& list);
-
 /**
  * @brief Loads json data from the given stream and returns the constructed Group
  *
@@ -405,7 +400,7 @@ std::ostream& operator<<(std::ostream& stream, const List& list);
  * @param result JSON Group to read into
  * @return True on success, false on error
  */
-bool loadFromStream(std::istream& stream, json::Group& result);
+bool loadFromStream(stream::InputStream& stream, json::Group& result);
 
 /**
  * @brief Loads json data from the given file
@@ -432,7 +427,57 @@ bool saveToFile(const std::string& file, const json::Group& data);
  * @param data The top level json data to write
  * @return True on success, false on error
  */
-bool saveToStream(std::ostream& stream, const json::Group& data);
+bool saveToStream(stream::OutputStream& stream, const json::Group& data);
+
+/**
+ * @brief Outputs the source information to the given stream
+ * @ingroup JSON
+ *
+ * @param stream The stream to output to
+ * @param info The source information to output
+ * @return The stream
+ */
+std::ostream& operator<<(std::ostream& stream, const SourceInfo& info);
+
+/**
+ * @brief Outputs the value type to the given stream
+ * @ingroup JSON
+ *
+ * @param stream The stream to output to
+ * @param type The value type to output
+ * @return The stream
+ */
+std::ostream& operator<<(std::ostream& stream, const Value::Type& type);
+
+/**
+ * @brief Outputs the json group to the given stream
+ * @ingroup JSON
+ *
+ * @param stream The stream to output to
+ * @param group The json group to output
+ * @return The stream
+ */
+std::ostream& operator<<(std::ostream& stream, const Group& type);
+
+/**
+ * @brief Outputs the json value to the given stream
+ * @ingroup JSON
+ *
+ * @param stream The stream to output to
+ * @param value The json value to output
+ * @return The stream
+ */
+std::ostream& operator<<(std::ostream& stream, const Value& type);
+
+/**
+ * @brief Outputs the json list to the given stream
+ * @ingroup JSON
+ *
+ * @param stream The stream to output to
+ * @param list The json list to output
+ * @return The stream
+ */
+std::ostream& operator<<(std::ostream& stream, const List& list);
 
 } // namespace json
 } // namespace serial

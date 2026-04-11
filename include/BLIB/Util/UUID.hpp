@@ -121,14 +121,16 @@ namespace binary
 {
 template<>
 struct Serializer<util::UUID> {
-    static bool serialize(OutputStream& output, const util::UUID& uuid) {
-        if (!output.write<std::uint64_t>(uuid.getPart1())) return false;
-        return output.write<std::uint64_t>(uuid.getPart2());
+    static bool serialize(stream::OutputStream& output, const util::UUID& uuid) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint64_t>(uuid.getPart1())) return false;
+        return wrapper.write<std::uint64_t>(uuid.getPart2());
     }
-    static bool deserialize(InputStream& input, util::UUID& uuid) {
+    static bool deserialize(stream::InputStream& input, util::UUID& uuid) {
+        detail::InputStreamWrapper wrapper(input);
         std::uint64_t part1, part2;
-        if (!input.read<std::uint64_t>(part1)) return false;
-        if (!input.read<std::uint64_t>(part2)) return false;
+        if (!wrapper.read<std::uint64_t>(part1)) return false;
+        if (!wrapper.read<std::uint64_t>(part2)) return false;
         uuid = util::UUID(part1, part2);
         return true;
     }
@@ -159,7 +161,7 @@ struct Serializer<util::UUID> {
         priv::Serializer<util::UUID>::serializeInto(result, name, value, &serialize);
     }
 
-    static bool deserializeStream(std::istream& stream, util::UUID& result) {
+    static bool deserializeStream(stream::InputStream& stream, util::UUID& result) {
         json::Loader loader(stream);
         std::string str;
         if (!loader.loadString(str)) { return false; }
@@ -167,7 +169,7 @@ struct Serializer<util::UUID> {
         return true;
     }
 
-    static bool serializeStream(std::ostream& stream, const util::UUID& value, unsigned int,
+    static bool serializeStream(stream::OutputStream& stream, const util::UUID& value, unsigned int,
                                 unsigned int) {
         return Serializer<std::string>::serializeStream(stream, value.toString(), 0, 0);
     }
