@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_DRIVER_HPP
 #define BLIB_ASSETS_DRIVER_HPP
 
+#include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <memory>

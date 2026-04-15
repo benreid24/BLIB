@@ -101,7 +101,7 @@ public:
      * @param len The number of bytes to write
      * @return True if the data was successfully written, false otherwise
      */
-    bool write(const char* data, std::size_t len);
+    bool write(const void* data, std::size_t len);
 
     /**
      * @brief Returns the underlying buffer. Only valid if the stream is in Memory mode

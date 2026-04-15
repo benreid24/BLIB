@@ -48,7 +48,8 @@ void OutputStream::open(std::ostream& s) { stream.emplace<std::ostream*>(&s); }
 
 void OutputStream::close() { stream.emplace<std::monostate>(); }
 
-bool OutputStream::write(const char* data, std::size_t len) {
+bool OutputStream::write(const void* voidData, std::size_t len) {
+    const char* data = static_cast<const char*>(voidData);
     return std::visit(util::Visitor{[](const std::monostate&) { return false; },
                                     [data, len](std::ofstream& stream) {
                                         stream.write(data, len);
