@@ -123,6 +123,14 @@ struct FileUtil {
     static std::string genTempName(const std::string& path, const std::string& ext = "");
 
     /**
+     * @brief Generates a temporary filename in the given path, guaranteed to not exist
+     *
+     * @param ext An optional extension to use
+     * @return std::string A temporary filename that does not exist
+     */
+    static std::string genTempNameInTempDir(const std::string& ext = "");
+
+    /**
      * @brief Copies a file from src to dest on the file system
      *
      * @param src The file to copy

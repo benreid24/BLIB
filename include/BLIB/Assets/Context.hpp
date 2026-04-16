@@ -51,7 +51,24 @@ public:
      */
     Asset& getAsset() const { return asset; }
 
-protected:
+    /**
+     * @brief Reads the contents of the given asset file for the current asset
+     *
+     * @param filename The local name of the file to read
+     * @param input The stream to populate with the file contents
+     * @return True if the file was able to be read, false otherwise
+     */
+    virtual bool setupReadStream(std::string_view filename, stream::InputStream& input) const;
+
+    /**
+     * @brief Writes the file to asset storage
+     *
+     * @param filename The filename to use
+     * @param output The stream to setup for output
+     * @return True if the file can be written, false otherwise
+     */
+    virtual bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
+
     /**
      * @brief Returns the full path for the given filename relative to the asset's files directory
      *
@@ -66,6 +83,60 @@ private:
 };
 
 } // namespace detail
+
+/**
+ * @brief Context for existing assets being loaded into memory
+ *
+ * @ingroup Assets
+ */
+class ReadContext : public detail::Context {
+public:
+    /**
+     * @brief Creates the context for asset loading
+     *
+     * @param mode The mode the asset system is in
+     * @param repo The repository the asset belongs to
+     * @param asset The asset being loaded
+     */
+    ReadContext(Repository& repo, Asset& asset);
+
+    /**
+     * @brief Reads the contents of the given asset file for the current asset
+     *
+     * @param filename The local name of the file to read
+     * @param input The stream to populate with the file contents
+     * @return True if the file was able to be read, false otherwise
+     */
+    virtual bool setupReadStream(std::string_view filename,
+                                 stream::InputStream& input) const override;
+};
+
+/**
+ * @brief Context for writing asset data to disk
+ *
+ * @ingroup Assets
+ */
+class WriteContext : public detail::Context {
+public:
+    /**
+     * @brief Creates the write context
+     *
+     * @param mode The mode the asset system is in
+     * @param repo The repository the asset belongs to
+     * @param asset The asset being written
+     */
+    WriteContext(Repository& repo, Asset& asset);
+
+    /**
+     * @brief Writes the file to asset storage
+     *
+     * @param filename The filename to use
+     * @param output The stream to setup for output
+     * @return True if the file can be written, false otherwise
+     */
+    virtual bool setupWriteStream(std::string_view filename,
+                                  stream::OutputStream& output) const override;
+};
 
 /**
  * @brief Context for asset imports. Import is when assets are created from external files
@@ -155,58 +226,6 @@ public:
 
 private:
     const CreateData& customData;
-};
-
-/**
- * @brief Context for existing assets being loaded into memory
- *
- * @ingroup Assets
- */
-class ReadContext : public detail::Context {
-public:
-    /**
-     * @brief Creates the context for asset loading
-     *
-     * @param mode The mode the asset system is in
-     * @param repo The repository the asset belongs to
-     * @param asset The asset being loaded
-     */
-    ReadContext(Repository& repo, Asset& asset);
-
-    /**
-     * @brief Reads the contents of the given asset file for the current asset
-     *
-     * @param filename The local name of the file to read
-     * @param input The stream to populate with the file contents
-     * @return True if the file was able to be read, false otherwise
-     */
-    bool setupReadStream(std::string_view filename, stream::InputStream& input) const;
-};
-
-/**
- * @brief Context for writing asset data to disk
- *
- * @ingroup Assets
- */
-class WriteContext : public detail::Context {
-public:
-    /**
-     * @brief Creates the write context
-     *
-     * @param mode The mode the asset system is in
-     * @param repo The repository the asset belongs to
-     * @param asset The asset being written
-     */
-    WriteContext(Repository& repo, Asset& asset);
-
-    /**
-     * @brief Writes the file to asset storage
-     *
-     * @param filename The filename to use
-     * @param output The stream to setup for output
-     * @return True if the file can be written, false otherwise
-     */
-    bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
 };
 
 } // namespace as

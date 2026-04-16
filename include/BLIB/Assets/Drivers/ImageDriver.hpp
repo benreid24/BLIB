@@ -4,7 +4,6 @@
 #include <BLIB/Assets/Builtin/ImagePayload.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/PayloadGeneric.hpp>
-#include <SFML/Graphics/Image.hpp>
 
 namespace bl
 {

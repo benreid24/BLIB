@@ -20,8 +20,26 @@ Context::Context(Repository& repo, Asset& asset)
 Mode Context::getMode() const { return repo.getMode(); }
 
 std::string Context::getFilePath(std::string_view filename) const {
+    if (getMode() == Mode::Game) {
+        BL_LOG_WARN << "Asset repo paths are not valid while in game mode";
+    }
+
     return util::FileUtil::joinPath(EditorPaths::getAssetFilesPath(repo.getAssetDirectory(), asset),
                                     std::string(filename));
+}
+
+bool Context::setupReadStream(std::string_view filename, stream::InputStream& input) const {
+    if (getMode() == Mode::Game) { BL_LOG_WARN << "Creating read stream while in game mode"; }
+
+    // always read from repo in base
+    return input.open(getFilePath(filename));
+}
+
+bool Context::setupWriteStream(std::string_view filename, stream::OutputStream& output) const {
+    if (getMode() == Mode::Game) { BL_LOG_WARN << "Creating write stream while in game mode"; }
+
+    // always write to repo in base
+    return output.open(getFilePath(filename));
 }
 
 } // namespace detail
@@ -39,7 +57,7 @@ bool ReadContext::setupReadStream(std::string_view filename, stream::InputStream
         // TODO - implement bundle reading
         return false;
     case Mode::Editor:
-        return input.open(getFilePath(filename));
+        return Context::setupReadStream(filename, input);
 
     default:
         BL_LOG_ERROR << "Invalid asset context mode " << static_cast<int>(getMode());
@@ -56,7 +74,7 @@ bool WriteContext::setupWriteStream(std::string_view filename, stream::OutputStr
         // TODO - implement bundle writing
         return false;
     case Mode::Editor:
-        return output.open(getFilePath(filename));
+        return Context::setupWriteStream(filename, output);
     default:
         BL_LOG_ERROR << "Invalid asset context mode " << static_cast<int>(getMode());
         return false;
