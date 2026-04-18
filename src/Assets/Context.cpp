@@ -28,6 +28,10 @@ std::string Context::getFilePath(std::string_view filename) const {
                                     std::string(filename));
 }
 
+PersistentStream* Context::getPersistentStream(std::string_view filename) const {
+    return repo.getPersistentStream(asset.getUUID(), getFilePath(filename));
+}
+
 bool Context::setupReadStream(std::string_view filename, stream::InputStream& input) const {
     if (getMode() == Mode::Game) { BL_LOG_WARN << "Creating read stream while in game mode"; }
 

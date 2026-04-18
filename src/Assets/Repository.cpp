@@ -1,5 +1,8 @@
 #include <BLIB/Assets/Repository.hpp>
 
+#include <BLIB/Assets/Drivers/ImageDriver.hpp>
+#include <BLIB/Assets/Drivers/MusicDriver.hpp>
+#include <BLIB/Assets/Drivers/SoundDriver.hpp>
 #include <BLIB/Assets/EditorPaths.hpp>
 #include <BLIB/Serialization.hpp>
 
@@ -39,6 +42,11 @@ Repository::Repository(Mode mode, const std::string& path)
 : mode(mode)
 , assetDirectory(path) {
     drivers.reserve(16);
+
+    // register built-in drivers
+    registerDriver<asi::ImageDriver>(asi::ImageDriver::TypeName);
+    registerDriver<asi::SoundDriver>(asi::SoundDriver::TypeName);
+    registerDriver<asi::MusicDriver>(asi::MusicDriver::TypeName);
 }
 
 Ref Repository::createAsset(std::string_view type, const std::string& name,
@@ -363,6 +371,10 @@ void Repository::releaseUnused() {
             BL_LOG_WARN << "Failed to unload asset with UUID " << uuid.toString();
         }
     }
+}
+
+PersistentStream* Repository::getPersistentStream(util::UUID uuid, const std::string& path) {
+    return streamCache.getStream(uuid, path);
 }
 
 } // namespace as

@@ -17,6 +17,9 @@ namespace asi
  */
 class SoundDriver : public as::Driver<SoundPayload> {
 public:
+    /// The string id of this driver type
+    static constexpr std::string_view TypeName = "sf::SoundBuffer";
+
     /**
      * @brief Creates the driver
      */

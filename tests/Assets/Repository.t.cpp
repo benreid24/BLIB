@@ -37,8 +37,6 @@ struct TestPayload : public Payload {
 };
 
 struct TestDriver : public Driver<TestPayload> {
-    using PayloadType = TestPayload;
-
     virtual ~TestDriver() = default;
 
     virtual bool doCreate(const CreateContext& ctx, TestPayload& payload) override {
@@ -88,8 +86,6 @@ struct TestPayloadWithDependency : public Payload {
 };
 
 struct TestDriverWithDep : public Driver<TestPayloadWithDependency> {
-    using PayloadType = TestPayloadWithDependency;
-
     virtual ~TestDriverWithDep() = default;
 
     virtual bool doCreate(const CreateContext& ctx, TestPayloadWithDependency& payload) override {

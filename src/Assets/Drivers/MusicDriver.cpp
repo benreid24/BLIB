@@ -45,8 +45,10 @@ bool MusicDriver::doCreate(const as::CreateContext& ctx, MusicPayload& payload) 
 }
 
 bool MusicDriver::doRead(const as::ReadContext& ctx, MusicPayload& payload) {
-    // TODO - we need persistent streams
-    return false;
+    as::PersistentStream* stream = ctx.getPersistentStream("music.ogg");
+    if (!stream) { return false; }
+    if (!payload.get().openFromStream(stream->getSFMLAdaptor())) { return false; }
+    return true;
 }
 
 bool MusicDriver::doWrite(const as::WriteContext&, const MusicPayload&) {

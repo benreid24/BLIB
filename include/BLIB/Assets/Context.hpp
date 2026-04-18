@@ -2,6 +2,7 @@
 #define BLIB_ASSETS_CONTEXT_HPP
 
 #include <BLIB/Assets/Mode.hpp>
+#include <BLIB/Assets/PersistentStream.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Streams.hpp>
 #include <span>
@@ -50,6 +51,16 @@ public:
      * @brief Returns the asset being loaded
      */
     Asset& getAsset() const { return asset; }
+
+    /**
+     * @brief Returns an input stream to the given file. The stream will remain valid until the
+     *        asset is unloaded. Use this method for payloads that continue to stream from disk
+     *        after initialization, such as sf::Music
+     *
+     * @param filename The local name of the file to get a stream for
+     * @return A pointer to the stream, or nullptr if the stream could not be created
+     */
+    PersistentStream* getPersistentStream(std::string_view filename) const;
 
     /**
      * @brief Reads the contents of the given asset file for the current asset

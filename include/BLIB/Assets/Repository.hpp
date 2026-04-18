@@ -8,6 +8,7 @@
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Assets/StaticAsset.hpp>
+#include <BLIB/Assets/StreamCache.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <memory>
 #include <mutex>
@@ -145,11 +146,11 @@ public:
         static_assert(std::is_base_of_v<detail::DriverBase, TDriver>,
                       "TDriver must be a subclass of DriverBase");
 
-        std::type_index typeIndex(typeid(typename TDriver::PayloadType));
+        std::type_index typeIndex(typeid(typename TDriver::TPayload));
         std::unique_lock lock(driverMutex);
         if (driversByType.find(typeIndex) != driversByType.end()) {
             BL_LOG_ERROR << "Attempted to register multiple drivers for asset type "
-                         << typeid(typename TDriver::PayloadType).name();
+                         << typeid(typename TDriver::TPayload).name();
             throw std::runtime_error("Driver for asset type is already registered");
         }
         drivers.emplace_back(std::make_unique<TDriver>(std::forward<TArgs>(args)...));
@@ -200,6 +201,7 @@ private:
     const Mode mode;
     const std::string assetDirectory;
     std::unordered_map<util::UUID, Asset> assets;
+    StreamCache streamCache;
 
     mutable std::mutex staticAssetMutex;
     std::unordered_map<std::string, StaticAsset> staticAssets;
@@ -234,6 +236,9 @@ private:
     Asset* getDependencyForInit(util::UUID uuid);
     bool writeManifest();
 
+    // used by Context
+    PersistentStream* getPersistentStream(util::UUID uuid, const std::string& path);
+
     Ref createAssetShared(std::string_view type, const std::string& name,
                           const CreateContext::CreateData& createData, bool syncImmediate);
     bool writeManifestLocked();
@@ -242,6 +247,7 @@ private:
     friend class Ref;
     friend struct serial::SerializableObject<Repository>;
     friend class Asset;
+    friend class detail::Context;
 };
 
 } // namespace as

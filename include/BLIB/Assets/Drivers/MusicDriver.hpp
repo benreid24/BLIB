@@ -17,6 +17,9 @@ namespace asi
  */
 class MusicDriver : public as::Driver<MusicPayload> {
 public:
+    /// The string id of this driver type
+    static constexpr std::string_view TypeName = "sf::Music";
+
     /**
      * @brief Creates the driver
      */

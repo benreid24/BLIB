@@ -6,6 +6,7 @@ target_sources(BLIB PRIVATE
     Payload.cpp
     Ref.cpp
     Repository.cpp
+    StreamCache.cpp
 )
 
 add_subdirectory(Drivers)
