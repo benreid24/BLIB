@@ -81,6 +81,11 @@ public:
     virtual bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
 
     /**
+     * @brief Returns the directory that asset files are stored in
+     */
+    std::string getFilesDirectory() const;
+
+    /**
      * @brief Returns the full path for the given filename relative to the asset's files directory
      *
      * @param filename The filename to use

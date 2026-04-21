@@ -2,6 +2,7 @@
 #define BLIB_MODELS_MATERIALSET_HPP
 
 #include <BLIB/Models/Material.hpp>
+#include <BLIB/Models/Visitor.hpp>
 #include <assimp/material.h>
 #include <assimp/scene.h>
 #include <vector>
@@ -42,6 +43,13 @@ public:
      * @brief Returns the number of materials in the set
      */
     unsigned int numMaterials() const { return materials.size(); }
+
+    /**
+     * @brief Visits all dependencies of the model with the given visitor
+     *
+     * @param visitor The visitor to visit dependencies with
+     */
+    void visitDependencies(const DependencyVisitor& visitor);
 
 private:
     std::vector<Material> materials;

@@ -1,6 +1,7 @@
 #ifndef BLIB_MODELS_TEXTURE_HPP
 #define BLIB_MODELS_TEXTURE_HPP
 
+#include <BLIB/Models/Visitor.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <assimp/texture.h>
@@ -55,6 +56,13 @@ public:
      * @brief Returns the embedded image
      */
     const sf::Image& getEmbedded() const;
+
+    /**
+     * @brief Visits the texture file path if it is not embedded
+     *
+     * @param visitor The visitor to visit the file path with
+     */
+    void visit(const DependencyVisitor& visitor);
 
     /**
      * @brief Texts whether this texture is the same as another

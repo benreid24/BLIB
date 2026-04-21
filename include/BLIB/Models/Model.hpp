@@ -6,6 +6,7 @@
 #include <BLIB/Models/MaterialSet.hpp>
 #include <BLIB/Models/MeshSet.hpp>
 #include <BLIB/Models/NodeSet.hpp>
+#include <BLIB/Models/Visitor.hpp>
 
 namespace bl
 {
@@ -65,6 +66,13 @@ public:
      * @brief Flips the V texture coordinates of all meshes in the model
      */
     void flipUVs();
+
+    /**
+     * @brief Visits all dependencies of the model with the given visitor
+     *
+     * @param visitor The visitor to visit dependencies with
+     */
+    void visitDependencies(const DependencyVisitor& visitor);
 
 private:
     NodeSet nodes;

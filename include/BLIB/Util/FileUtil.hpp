@@ -135,8 +135,9 @@ struct FileUtil {
      *
      * @param src The file to copy
      * @param dest Where to copy it to
+     * @return True if the file was copied successfully, false on error
      */
-    static void copyFile(const std::string& src, const std::string& dest);
+    static bool copyFile(const std::string& src, const std::string& dest);
 
     /**
      * @brief Creates a directory on the file system, creating subdirectories as necessary

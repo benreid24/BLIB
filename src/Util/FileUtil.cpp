@@ -99,9 +99,9 @@ std::string FileUtil::genTempNameInTempDir(const std::string& ext) {
     return genTempName(std::filesystem::temp_directory_path().generic_string(), ext);
 }
 
-void FileUtil::copyFile(const std::string& src, const std::string& dest) {
-    if (src == dest) return;
-    std::filesystem::copy_file(src, dest, std::filesystem::copy_options::overwrite_existing);
+bool FileUtil::copyFile(const std::string& src, const std::string& dest) {
+    if (src == dest) return true;
+    return std::filesystem::copy_file(src, dest, std::filesystem::copy_options::overwrite_existing);
 }
 
 bool FileUtil::createDirectory(const std::string& path) {

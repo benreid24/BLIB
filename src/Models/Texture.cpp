@@ -25,8 +25,15 @@ void Texture::makeFromRaw(unsigned int width, unsigned int height, const aiTexel
 
 void Texture::makeFromFile(const std::string& file, const std::string& modelPath) {
     const std::string rel = util::FileUtil::joinPath(modelPath, file);
-    if (resource::FileSystem::resourceExists(rel)) { texture = rel; }
+    const std::string relBaseName =
+        util::FileUtil::joinPath(modelPath, util::FileUtil::getBaseName(file));
+    if (resource::FileSystem::resourceExists(relBaseName)) { texture = relBaseName; }
+    else if (resource::FileSystem::resourceExists(rel)) { texture = rel; }
     else { texture = file; }
+}
+
+void Texture::visit(const DependencyVisitor& visitor) {
+    if (!isEmbedded() && !getFilePath().empty()) { texture = visitor(getFilePath()); }
 }
 
 bool Texture::isEmbedded() const { return std::holds_alternative<sf::Image>(texture); }

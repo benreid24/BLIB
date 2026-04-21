@@ -19,13 +19,19 @@ Context::Context(Repository& repo, Asset& asset)
 
 Mode Context::getMode() const { return repo.getMode(); }
 
+std::string Context::getFilesDirectory() const {
+    if (getMode() == Mode::Game) {
+        BL_LOG_WARN << "Asset repo paths are not valid while in game mode";
+    }
+    return EditorPaths::getAssetFilesPath(repo.getAssetDirectory(), asset);
+}
+
 std::string Context::getFilePath(std::string_view filename) const {
     if (getMode() == Mode::Game) {
         BL_LOG_WARN << "Asset repo paths are not valid while in game mode";
     }
 
-    return util::FileUtil::joinPath(EditorPaths::getAssetFilesPath(repo.getAssetDirectory(), asset),
-                                    std::string(filename));
+    return util::FileUtil::joinPath(getFilesDirectory(), std::string(filename));
 }
 
 PersistentStream* Context::getPersistentStream(std::string_view filename) const {

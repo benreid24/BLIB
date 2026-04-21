@@ -14,6 +14,10 @@ void Model::populate(const aiScene* scene, const std::string& path) {
     flipUVs();
 }
 
+void Model::visitDependencies(const DependencyVisitor& visitor) {
+    materials.visitDependencies(visitor);
+}
+
 void Model::flipUVs() { meshes.flipUVs(); }
 
 } // namespace mdl

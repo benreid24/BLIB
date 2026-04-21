@@ -70,6 +70,7 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
     it->second.type = type;
     if (!it->second.create(createData)) {
         BL_LOG_ERROR << "Failed to create new asset '" << name << "' of type " << type;
+        util::FileUtil::deleteDirectory(EditorPaths::getAssetPath(assetDirectory, it->second));
         assets.erase(it);
         return Ref();
     }
