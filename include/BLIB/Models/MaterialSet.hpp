@@ -3,6 +3,7 @@
 
 #include <BLIB/Models/Material.hpp>
 #include <BLIB/Models/Visitor.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/material.h>
 #include <assimp/scene.h>
 #include <vector>
@@ -53,9 +54,25 @@ public:
 
 private:
     std::vector<Material> materials;
+
+    friend class serial::SerializableObject<MaterialSet>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::MaterialSet> : public SerializableObjectBase {
+    SerializableField<1, mdl::MaterialSet, std::vector<mdl::Material>> materials;
+
+    SerializableObject()
+    : SerializableObjectBase("MaterialSet")
+    , materials("materials", *this, &mdl::MaterialSet::materials,
+                SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

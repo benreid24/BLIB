@@ -7,6 +7,7 @@
 #include <BLIB/Models/MeshSet.hpp>
 #include <BLIB/Models/NodeSet.hpp>
 #include <BLIB/Models/Visitor.hpp>
+#include <BLIB/Serialization.hpp>
 
 namespace bl
 {
@@ -80,9 +81,32 @@ private:
     BoneSet bones;
     MeshSet meshes;
     AnimationSet animations;
+
+    friend class serial::SerializableObject<Model>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::Model> : public SerializableObjectBase {
+    SerializableField<1, mdl::Model, mdl::NodeSet> nodes;
+    SerializableField<2, mdl::Model, mdl::MaterialSet> materials;
+    SerializableField<3, mdl::Model, mdl::BoneSet> bones;
+    SerializableField<4, mdl::Model, mdl::MeshSet> meshes;
+    SerializableField<5, mdl::Model, mdl::AnimationSet> animations;
+
+    SerializableObject()
+    : SerializableObjectBase("Model")
+    , nodes("nodes", *this, &mdl::Model::nodes, SerializableFieldBase::Required{})
+    , materials("materials", *this, &mdl::Model::materials, SerializableFieldBase::Required{})
+    , bones("bones", *this, &mdl::Model::bones, SerializableFieldBase::Required{})
+    , meshes("meshes", *this, &mdl::Model::meshes, SerializableFieldBase::Required{})
+    , animations("animations", *this, &mdl::Model::animations, SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

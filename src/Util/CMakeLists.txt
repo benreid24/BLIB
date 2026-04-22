@@ -1,4 +1,5 @@
 target_sources(BLIB PRIVATE
+    Base64.cpp
     FileUtil.cpp
     ImageStitcher.cpp
     ReadWriteLock.cpp

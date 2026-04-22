@@ -8,6 +8,7 @@
 #include <BLIB/Serialization/SerializableObject.hpp>
 #include <BLIB/Streams.hpp>
 
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
@@ -746,6 +747,33 @@ private:
         default:
             return false;
         }
+    }
+};
+
+template<>
+struct Serializer<sf::Image, false> {
+    static bool serialize(stream::OutputStream& stream, const sf::Image& image) {
+        const auto data = image.saveToMemory("png");
+        if (!data.has_value()) { return false; }
+
+        detail::OutputStreamWrapper wrapper(stream);
+        if (!wrapper.write<std::uint32_t>(data.value().size())) { return false; }
+        return stream.write(data.value().data(), data.value().size());
+    }
+
+    static bool deserialize(stream::InputStream& stream, sf::Image& image) {
+        detail::InputStreamWrapper wrapper(stream);
+        std::uint32_t size;
+        if (!wrapper.read<std::uint32_t>(size)) { return false; }
+        std::vector<char> data(size);
+        if (!stream.read(data.data(), size)) { return false; }
+        return image.loadFromMemory(data.data(), size);
+    }
+
+    static std::uint32_t size(const sf::Image& image) {
+        const auto data = image.saveToMemory("png");
+        if (!data.has_value()) { return sizeof(std::uint32_t); }
+        return sizeof(std::uint32_t) + data.value().size();
     }
 };
 

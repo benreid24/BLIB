@@ -2,6 +2,7 @@
 #define BLIB_MODELS_NODESET_HPP
 
 #include <BLIB/Models/Node.hpp>
+#include <BLIB/Serialization.hpp>
 #include <vector>
 
 namespace bl
@@ -68,9 +69,24 @@ public:
 
 private:
     std::vector<Node> nodes;
+
+    friend class serial::SerializableObject<NodeSet>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::NodeSet> : public SerializableObjectBase {
+    SerializableField<1, mdl::NodeSet, std::vector<mdl::Node>> nodes;
+
+    SerializableObject()
+    : SerializableObjectBase("NodeSet")
+    , nodes("nodes", *this, &mdl::NodeSet::nodes, SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

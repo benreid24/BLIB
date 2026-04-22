@@ -12,6 +12,7 @@
 #include <BLIB/Scripts.hpp>
 #include <BLIB/Util/StreamUtil.hpp>
 #include <BLIB/Util/UnderlyingType.hpp>
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
@@ -1426,6 +1427,45 @@ struct Serializer<std::pair<U, V>, false> {
             return false;
         stream << " }";
         return stream.isValid();
+    }
+};
+
+template<>
+struct Serializer<sf::Image, false> {
+    static Value serialize(const sf::Image& image) {
+        const auto data = image.saveToMemory("png");
+        if (!data) return Value("<INVALID_IMAGE>");
+
+        // TODO - base64 encode
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const sf::Image& val) {
+        priv::Serializer<sf::Image>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(sf::Image& result, const Value& val) {
+        const std::string* data = val.getAsString();
+        if (!data) return false;
+        // TODO - base64 decode
+        return result.loadFromMemory(data->data(), data->size());
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, sf::Image& result) {
+        return priv::Serializer<sf::Image>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool serializeStream(stream::OutputStream& stream, const sf::Image& value, unsigned int,
+                                unsigned int) {
+        const Value encoded = serialize(value);
+        stream << encoded;
+        return stream.isValid();
+    }
+
+    static bool deserializeStream(stream::InputStream& stream, sf::Image& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
     }
 };
 
