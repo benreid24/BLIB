@@ -13,14 +13,14 @@ namespace serial
 template<>
 struct SerializableObject<as::Repository> : public SerializableObjectBase {
     SerializableField<1, as::Repository, std::unordered_map<util::UUID, as::Asset>> assets;
-    SerializableField<2, as::Repository, std::unordered_map<std::string, as::StaticAsset>>
-        staticAssets;
+    SerializableField<2, as::Repository, std::unordered_map<std::string, as::SourceLink>>
+        sourceLinks;
 
     SerializableObject()
     : SerializableObjectBase("AssetManifest")
     , assets("assets", *this, &as::Repository::assets, SerializableFieldBase::Required{})
-    , staticAssets("staticAssets", *this, &as::Repository::staticAssets,
-                   SerializableFieldBase::Required{}) {}
+    , sourceLinks("sourceLinks", *this, &as::Repository::sourceLinks,
+                  SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 
@@ -107,14 +107,15 @@ Ref Repository::getAsset(util::UUID uuid, State desiredState) {
     return Ref(this, &stored);
 }
 
-Ref Repository::getStaticAsset(std::string_view type, const std::string& path, State desiredState) {
-    std::unique_lock lock(staticAssetMutex);
+Ref Repository::getAssetFromSourcePath(std::string_view type, const std::string& path,
+                                       State desiredState) {
+    std::unique_lock lock(sourceLinkMutex);
 
-    auto it = staticAssets.find(path);
-    if (it == staticAssets.end()) {
+    auto it = sourceLinks.find(path);
+    if (it == sourceLinks.end()) {
         Ref ref = createAssetShared(type, path, CreateContext::CreateData(path), false);
         if (!ref) { return ref; }
-        staticAssets.try_emplace(path, ref->getUUID(), path, type);
+        sourceLinks.try_emplace(path, ref->getUUID(), path, type);
         ref->getMetadata().setPath(makeStaticPath(type));
         ref->markReadyForAutoSync();
         if (mode == Mode::Editor) {
@@ -142,10 +143,10 @@ Ref Repository::getStaticAsset(std::string_view type, const std::string& path, S
 }
 
 std::optional<util::UUID> Repository::findStaticAssetId(const std::string& path) const {
-    std::unique_lock lock(staticAssetMutex);
+    std::unique_lock lock(sourceLinkMutex);
 
-    auto it = staticAssets.find(path);
-    if (it == staticAssets.end()) { return std::nullopt; }
+    auto it = sourceLinks.find(path);
+    if (it == sourceLinks.end()) { return std::nullopt; }
     return it->second.uuid;
 }
 

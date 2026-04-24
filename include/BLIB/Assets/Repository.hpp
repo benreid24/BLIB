@@ -6,8 +6,8 @@
 #include <BLIB/Assets/Dependency.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/Mode.hpp>
+#include <BLIB/Assets/SourceLink.hpp>
 #include <BLIB/Assets/State.hpp>
-#include <BLIB/Assets/StaticAsset.hpp>
 #include <BLIB/Assets/StreamCache.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <memory>
@@ -87,22 +87,18 @@ public:
     }
 
     /**
-     * @brief Finds or creates a static asset from the given file path. Static assets are assets
-     *        derived from files in the game source directory, such as simple images or other files
-     *        with hard coded paths
+     * @brief Finds or creates an asset from the given source file path
      *
      * @param type The type tag of the asset to get
      * @param path The file path of the asset to get
      * @param desiredState The desired state of the asset
      * @return A Ref to the asset. May be invalid if the asset does not exist or failed to load
      */
-    Ref getStaticAsset(std::string_view type, const std::string& path,
-                       State desiredState = State::Loaded);
+    Ref getAssetFromSourcePath(std::string_view type, const std::string& path,
+                               State desiredState = State::Loaded);
 
     /**
-     * @brief Finds or creates a static asset from the given file path. Static assets are assets
-     *        derived from files in the game source directory, such as simple images or other files
-     *        with hard coded paths
+     * @brief Finds or creates an asset from the given source file path
      *
      * @tparam T The type of payload the asset is expected to have
      * @param path The file path of the asset to get
@@ -110,10 +106,11 @@ public:
      * @return A Ref to the asset. May be invalid if the asset does not exist or failed to load
      */
     template<typename T>
-    TypedRef<T> getStaticAsset(const std::string& path, State desiredState = State::Loaded) {
+    TypedRef<T> getAssetFromSourcePath(const std::string& path,
+                                       State desiredState = State::Loaded) {
         std::string_view tag = getTagForType<T>();
         if (tag.empty()) { return TypedRef<T>(); }
-        return TypedRef<T>(getStaticAsset(tag, path, desiredState));
+        return TypedRef<T>(getAssetFromSourcePath(tag, path, desiredState));
     }
 
     /**
@@ -203,8 +200,8 @@ private:
     std::unordered_map<util::UUID, Asset> assets;
     StreamCache streamCache;
 
-    mutable std::mutex staticAssetMutex;
-    std::unordered_map<std::string, StaticAsset> staticAssets;
+    mutable std::mutex sourceLinkMutex;
+    std::unordered_map<std::string, SourceLink> sourceLinks;
 
     std::shared_mutex driverMutex;
     std::vector<std::unique_ptr<detail::DriverBase>> drivers;

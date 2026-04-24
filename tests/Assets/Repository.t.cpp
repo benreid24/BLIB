@@ -308,13 +308,13 @@ TEST_F(RepositoryTest, FindMissing) {
     EXPECT_EQ(asset2->getMetadata().getPath(), "TestFolder");
 }
 
-TEST_F(RepositoryTest, StaticAssets) {
+TEST_F(RepositoryTest, SourceLinkAssets) {
     util::UUID uuid;
     {
         Repository repo(Mode::Editor, "test_assets");
         repo.registerDriver<TestDriver>(TestTypeTag);
 
-        auto asset = repo.getStaticAsset<TestPayload>("/path/asset.png");
+        auto asset = repo.getAssetFromSourcePath<TestPayload>("/path/asset.png");
         uuid       = asset.getAsset().getUUID();
 
         ASSERT_TRUE(asset.isValid());
@@ -326,12 +326,12 @@ TEST_F(RepositoryTest, StaticAssets) {
 
     ASSERT_TRUE(repo.loadRepository());
 
-    auto asset = repo.getStaticAsset<TestPayload>("/path/asset.png");
+    auto asset = repo.getAssetFromSourcePath<TestPayload>("/path/asset.png");
     ASSERT_TRUE(asset.isValid());
     EXPECT_EQ(asset->data, "/path/asset.png");
     EXPECT_EQ(asset.getAsset().getUUID(), uuid);
 
-    auto badTypeFetch = repo.getStaticAsset("unknown", "/path/asset.png");
+    auto badTypeFetch = repo.getAssetFromSourcePath("unknown", "/path/asset.png");
     EXPECT_FALSE(badTypeFetch.isValid());
 }
 
