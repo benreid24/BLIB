@@ -167,8 +167,7 @@ public:
         /**
          * @brief Creates empty create data
          */
-        CreateData()
-        : CreateData("") {}
+        CreateData();
 
         /**
          * @brief Creates the custom data. Path is provided for convenience

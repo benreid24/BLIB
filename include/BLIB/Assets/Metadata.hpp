@@ -20,6 +20,14 @@ class Asset;
 class Metadata {
 public:
     /**
+     * @brief Basic struct for storing source file info
+     */
+    struct SourceFileInfo {
+        std::string path;
+        std::time_t lastModified;
+    };
+
+    /**
      * @brief Creates default metadata
      */
     Metadata();
@@ -96,12 +104,37 @@ public:
      */
     void setIsAutoLoaded(bool autoLoad);
 
+    /**
+     * @brief Initializes the source file info for this asset.
+     *
+     * @param path The path of the source file this asset was created from
+     */
+    void setSourceFileInfo(const std::string& path);
+
+    /**
+     * @brief Queries and updates the last modified time of the source file
+     */
+    void updateSourceFileModifiedTime();
+
+    /**
+     * @brief Returns a pointer to the source file info. Nullptr if none is present
+     */
+    const SourceFileInfo* getSourceFileInfo() const {
+        return sourceFileInfo ? &*sourceFileInfo : nullptr;
+    }
+
+    /**
+     * @brief Returns whether this metadata has source file info
+     */
+    bool hasSourceFileInfo() const { return sourceFileInfo.has_value(); }
+
 private:
     std::string displayName;
     std::string description;
     std::string path;
     std::uint64_t creationTime;
     bool isAutoLoaded;
+    std::optional<SourceFileInfo> sourceFileInfo;
     Asset* owner;
 
     friend class Asset;
@@ -113,12 +146,25 @@ private:
 namespace serial
 {
 template<>
+struct SerializableObject<as::Metadata::SourceFileInfo> : public SerializableObjectBase {
+    SerializableField<1, as::Metadata::SourceFileInfo, std::string> path;
+    SerializableField<2, as::Metadata::SourceFileInfo, std::time_t> lastModified;
+
+    SerializableObject()
+    : SerializableObjectBase("SourceFileInfo")
+    , path("path", *this, &as::Metadata::SourceFileInfo::path, SerializableFieldBase::Required{})
+    , lastModified("lastModified", *this, &as::Metadata::SourceFileInfo::lastModified,
+                   SerializableFieldBase::Required{}) {}
+};
+
+template<>
 struct SerializableObject<as::Metadata> : public SerializableObjectBase {
     SerializableField<1, as::Metadata, std::string> displayName;
     SerializableField<2, as::Metadata, std::string> description;
     SerializableField<3, as::Metadata, std::string> path;
     SerializableField<4, as::Metadata, std::uint64_t> creationTime;
     SerializableField<5, as::Metadata, bool> isAutoLoaded;
+    SerializableField<6, as::Metadata, std::optional<as::Metadata::SourceFileInfo>> sourceFileInfo;
 
     SerializableObject()
     : SerializableObjectBase("AssetMetadata")
@@ -130,7 +176,9 @@ struct SerializableObject<as::Metadata> : public SerializableObjectBase {
     , creationTime("creationTime", *this, &as::Metadata::creationTime,
                    SerializableFieldBase::Required{})
     , isAutoLoaded("isAutoLoaded", *this, &as::Metadata::isAutoLoaded,
-                   SerializableFieldBase::Required{}) {}
+                   SerializableFieldBase::Required{})
+    , sourceFileInfo("sourceFileInfo", *this, &as::Metadata::sourceFileInfo,
+                     SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 

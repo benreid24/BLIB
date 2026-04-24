@@ -16,7 +16,7 @@ namespace asi
 class ModelDriver : public as::Driver<ModelPayload> {
 public:
     /// The string id of this driver type
-    static constexpr std::string_view TypeName = "bl::mdl::Model";
+    static constexpr std::string_view TypeName = "Models";
 
     /**
      * @brief Creates the driver

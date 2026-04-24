@@ -11,6 +11,10 @@ namespace bl
 {
 namespace as
 {
+namespace
+{
+std::string EmptyString;
+}
 namespace detail
 {
 Context::Context(Repository& repo, Asset& asset)
@@ -53,6 +57,9 @@ bool Context::setupWriteStream(std::string_view filename, stream::OutputStream& 
 }
 
 } // namespace detail
+
+CreateContext::CreateData::CreateData()
+: CreateData(EmptyString) {}
 
 CreateContext::CreateContext(Repository& repo, Asset& asset, const CreateData& data)
 : Context(repo, asset)

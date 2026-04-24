@@ -1,6 +1,7 @@
 #include <BLIB/Assets/Metadata.hpp>
 
 #include <BLIB/Assets/Asset.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 
 namespace bl
 {
@@ -44,6 +45,24 @@ void Metadata::setCreationTime(std::uint64_t time) { creationTime = time; }
 void Metadata::setIsAutoLoaded(bool al) {
     isAutoLoaded = al;
     if (owner) { owner->handleAutoLoadChange(); }
+}
+
+void Metadata::setSourceFileInfo(const std::string& path) {
+    sourceFileInfo.reset();
+
+    util::FileUtil::FileInfo info;
+    if (!util::FileUtil::queryFileInfo(path, info)) { return; }
+
+    sourceFileInfo.emplace();
+    sourceFileInfo->path         = path;
+    sourceFileInfo->lastModified = info.modifiedTime;
+}
+
+void Metadata::updateSourceFileModifiedTime() {
+    if (!sourceFileInfo) { return; }
+    util::FileUtil::FileInfo info;
+    if (!util::FileUtil::queryFileInfo(sourceFileInfo->path, info)) { return; }
+    sourceFileInfo->lastModified = info.modifiedTime;
 }
 
 } // namespace as

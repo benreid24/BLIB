@@ -18,7 +18,7 @@ namespace asi
 class ImageDriver : public as::Driver<ImagePayload> {
 public:
     /// The string id of this driver type
-    static constexpr std::string_view TypeName = "sf::Image";
+    static constexpr std::string_view TypeName = "Images";
 
     /**
      * @brief Optional creation parameters for image assets

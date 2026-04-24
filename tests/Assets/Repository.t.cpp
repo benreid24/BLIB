@@ -1,6 +1,7 @@
 #include <BLIB/Assets/Repository.hpp>
 #include <gtest/gtest.h>
 
+#include <BLIB/Assets/Builtin/ImagePayload.hpp>
 #include <filesystem>
 
 namespace bl
@@ -333,6 +334,26 @@ TEST_F(RepositoryTest, SourceLinkAssets) {
 
     auto badTypeFetch = repo.getAssetFromSourcePath("unknown", "/path/asset.png");
     EXPECT_FALSE(badTypeFetch.isValid());
+}
+
+TEST_F(RepositoryTest, SourceFileInfo) {
+    ASSERT_TRUE(util::FileUtil::createDirectory("test_assets_source"));
+
+    sf::Image image;
+    image.resize({10, 10}, sf::Color::Red);
+    image.saveToFile("test_assets_source/test_image.png");
+
+    util::FileUtil::FileInfo info;
+    ASSERT_TRUE(util::FileUtil::queryFileInfo("test_assets_source/test_image.png", info));
+
+    Repository repo(Mode::Editor, "test_assets");
+    auto asset =
+        repo.getAssetFromSourcePath<asi::ImagePayload>("test_assets_source/test_image.png");
+
+    EXPECT_TRUE(asset.isValid());
+    EXPECT_EQ(asset.getAsset().getMetadata().getSourceFileInfo()->lastModified, info.modifiedTime);
+    EXPECT_EQ(asset.getAsset().getMetadata().getSourceFileInfo()->path,
+              "test_assets_source/test_image.png");
 }
 
 } // namespace unittest

@@ -75,6 +75,10 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
         return Ref();
     }
 
+    if (!createData.getPath().empty()) {
+        it->second.getMetadata().setSourceFileInfo(createData.getPath());
+    }
+
     if (mode == Mode::Editor && sync) {
         it->second.markReadyForAutoSync();
 
