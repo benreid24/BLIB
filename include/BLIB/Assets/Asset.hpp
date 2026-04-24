@@ -96,6 +96,11 @@ public:
      */
     bool unload(bool force = false);
 
+    /**
+     * @brief Reloads the asset from its source file if it has one
+     */
+    bool reloadFromSource();
+
 private:
     Repository* repo;
     util::UUID uuid;

@@ -193,6 +193,11 @@ public:
      */
     const std::string& getAssetDirectory() const { return assetDirectory; }
 
+    /**
+     * @brief Reloads all assets from their source files if changed
+     */
+    void reloadFromSource();
+
 private:
     mutable std::recursive_mutex assetMutex;
     const Mode mode;

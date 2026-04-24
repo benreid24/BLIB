@@ -165,6 +165,33 @@ void Asset::flushPayload() {
     }
 }
 
+bool Asset::reloadFromSource() {
+    if (state != State::Loaded) {
+        if (!load()) { return false; }
+    }
+
+    if (!metadata.hasSourceFileInfo()) { return true; }
+
+    util::FileUtil::FileInfo info;
+    if (!util::FileUtil::queryFileInfo(metadata.getSourceFileInfo()->path, info)) {
+        BL_LOG_WARN << "Failed to query source file '" << metadata.getSourceFileInfo()->path
+                    << "' for asset " << uuid.toString();
+        return false;
+    }
+
+    if (metadata.getSourceFileInfo()->lastModified < info.modifiedTime) {
+        CreateContext::CreateData createData(metadata.getSourceFileInfo()->path);
+        if (!create(createData)) {
+            BL_LOG_ERROR << "Failed to reload asset " << uuid.toString() << " from source file "
+                         << metadata.getSourceFileInfo()->path;
+            return false;
+        }
+        metadata.updateSourceFileModifiedTime();
+    }
+
+    return true;
+}
+
 void Asset::handleDisplayNameChange(const std::string& oldName, const std::string& newName) {
     const std::string oldDir =
         EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), oldName);

@@ -84,7 +84,8 @@ public:
     virtual ~Driver() = default;
 
     /**
-     * @brief Imports the asset from an external source
+     * @brief Imports the asset from an external source. Also used when reloading an existing asset
+     *        from a source file so should be idempotent
      *
      * @param ctx The context for the import operation
      * @return The payload containing the imported asset data, or nullptr if the import failed

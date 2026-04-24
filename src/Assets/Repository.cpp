@@ -383,5 +383,16 @@ PersistentStream* Repository::getPersistentStream(util::UUID uuid, const std::st
     return streamCache.getStream(uuid, path);
 }
 
+void Repository::reloadFromSource() {
+    std::unique_lock lock(assetMutex);
+    for (auto& pair : assets) {
+        Asset& asset = pair.second;
+        if (!asset.reloadFromSource()) {
+            BL_LOG_WARN << "Failed to reload asset with UUID " << pair.first.toString()
+                        << " from source";
+        }
+    }
+}
+
 } // namespace as
 } // namespace bl

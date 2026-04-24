@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <SFML/System.hpp>
 #include <filesystem>
 
 namespace bl
@@ -341,7 +342,7 @@ TEST_F(RepositoryTest, SourceFileInfo) {
 
     sf::Image image;
     image.resize({10, 10}, sf::Color::Red);
-    image.saveToFile("test_assets_source/test_image.png");
+    ASSERT_TRUE(image.saveToFile("test_assets_source/test_image.png"));
 
     util::FileUtil::FileInfo info;
     ASSERT_TRUE(util::FileUtil::queryFileInfo("test_assets_source/test_image.png", info));
@@ -354,6 +355,21 @@ TEST_F(RepositoryTest, SourceFileInfo) {
     EXPECT_EQ(asset.getAsset().getMetadata().getSourceFileInfo()->lastModified, info.modifiedTime);
     EXPECT_EQ(asset.getAsset().getMetadata().getSourceFileInfo()->path,
               "test_assets_source/test_image.png");
+    EXPECT_EQ(asset->get().getSize().x, 10);
+    EXPECT_EQ(asset->get().getSize().y, 10);
+    EXPECT_EQ(asset->get().getPixel({0, 0}), sf::Color::Red);
+
+    // update the image and reload from source
+    sf::sleep(sf::milliseconds(1200));
+    const auto prevTime = asset.getAsset().getMetadata().getSourceFileInfo()->lastModified;
+    image.resize({20, 20}, sf::Color::Blue);
+    ASSERT_TRUE(image.saveToFile("test_assets_source/test_image.png"));
+
+    ASSERT_TRUE(asset.getAsset().reloadFromSource());
+    EXPECT_EQ(asset->get().getSize().x, 20);
+    EXPECT_EQ(asset->get().getSize().y, 20);
+    EXPECT_EQ(asset->get().getPixel({0, 0}), sf::Color::Blue);
+    EXPECT_GT(asset.getAsset().getMetadata().getSourceFileInfo()->lastModified, prevTime);
 }
 
 } // namespace unittest
