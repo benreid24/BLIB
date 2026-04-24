@@ -11,6 +11,7 @@ namespace mdl
 {
 class NodeSet;
 class MeshSet;
+class BoneSet;
 
 /**
  * @brief Represents a node in a model hierarchy
@@ -86,7 +87,7 @@ private:
     glm::mat4 transform;
     std::optional<std::uint32_t> boneIndex;
 
-    friend class serial::SerializableObject<Node>;
+    friend struct serial::SerializableObject<Node>;
 };
 
 } // namespace mdl

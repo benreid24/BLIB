@@ -19,6 +19,7 @@
 #include <array>
 #include <cstdint>
 #include <glm/glm.hpp>
+#include <optional>
 #include <unordered_map>
 #include <unordered_set>
 #include <variant>
@@ -1051,6 +1052,129 @@ struct Serializer<glm::vec<4, U, P>, false> {
     }
 };
 
+template<typename T, enum glm::qualifier Q>
+struct Serializer<glm::qua<T, Q>, false> {
+    using S = Serializer<T>;
+    using V = glm::qua<T, Q>;
+
+    static Value serialize(const V& v) {
+        Group g;
+        g.addField("x", S::serialize(v.x));
+        g.addField("y", S::serialize(v.y));
+        g.addField("z", S::serialize(v.z));
+        g.addField("w", S::serialize(v.w));
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const V& val) {
+        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(V& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g = *rg;
+        const Value* x = g.getField("x");
+        const Value* y = g.getField("y");
+        const Value* z = g.getField("z");
+        const Value* w = g.getField("w");
+        if (!x || !y || !z || !w) return false;
+        if (!S::deserialize(result.x, *x)) return false;
+        if (!S::deserialize(result.y, *y)) return false;
+        if (!S::deserialize(result.z, *z)) return false;
+        if (!S::deserialize(result.w, *w)) return false;
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
+        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(stream::InputStream& stream, V& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(stream::OutputStream& stream, const V& value, unsigned int,
+                                unsigned int) {
+        stream << "{ ";
+        stream << "\"x\": ";
+        S::serializeStream(stream, value.x, 0, 0);
+        stream << ", \"y\": ";
+        S::serializeStream(stream, value.y, 0, 0);
+        stream << ", \"z\": ";
+        S::serializeStream(stream, value.z, 0, 0);
+        stream << ", \"w\": ";
+        S::serializeStream(stream, value.w, 0, 0);
+        stream << " }";
+        return stream.isValid();
+    }
+};
+
+template<glm::length_t C, glm::length_t R, typename T, enum glm::qualifier Q>
+struct Serializer<glm::mat<C, R, T, Q>, false> {
+    using M = glm::mat<C, R, T, Q>;
+    using S = Serializer<T>;
+
+    static Value serialize(const M& v) {
+        List cols;
+        cols.reserve(C);
+        for (unsigned int i = 0; i < C; ++i) {
+            List col;
+            col.reserve(R);
+            for (unsigned int j = 0; j < R; ++j) { col.emplace_back(S::serialize(v[i][j])); }
+            cols.emplace_back(col);
+        }
+        return {cols};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const M& val) {
+        priv::Serializer<M>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(M& result, const Value& val) {
+        const List* cols = val.getAsList();
+        if (!cols || cols->size() != C) return false;
+        for (unsigned int i = 0; i < C; ++i) {
+            const List* col = cols->at(i).getAsList();
+            if (!col || col->size() != R) return false;
+            for (unsigned int j = 0; j < R; ++j) {
+                if (!S::deserialize(result[i][j], col->at(j))) return false;
+            }
+        }
+        return true;
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key, M& result) {
+        return priv::Serializer<M>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(stream::InputStream& stream, M& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(stream::OutputStream& stream, const M& value, unsigned int,
+                                unsigned int) {
+        stream << "[ ";
+        for (unsigned int i = 0; i < C; ++i) {
+            if (i > 0) stream << ", ";
+            stream << "[ ";
+            for (unsigned int j = 0; j < R; ++j) {
+                if (j > 0) stream << ", ";
+                if (!S::serializeStream(stream, value[i][j], 0, 0)) return false;
+            }
+            stream << " ]";
+        }
+        stream << " ]";
+        return stream.isValid();
+    }
+};
+
 template<typename U>
 struct Serializer<sf::Rect<U>, false> {
     static Value serialize(const sf::Rect<U>& v) {
@@ -1466,6 +1590,63 @@ struct Serializer<sf::Image, false> {
         Value val(0);
         if (!loader.loadValue(val)) return false;
         return deserialize(result, val);
+    }
+};
+
+template<typename T>
+struct Serializer<std::optional<T>, false> {
+    static Value serialize(const std::optional<T>& opt) {
+        Group g;
+        if (opt) {
+            g.addField("has_value", true);
+            g.addField("value", Serializer<T>::serialize(*opt));
+        }
+        else { g.addField("has_value", false); }
+        return {g};
+    }
+
+    static void serializeInto(const std::string& key, Group& g, const std::optional<T>& val) {
+        priv::Serializer<std::optional<T>>::serializeInto(g, key, val, &serialize);
+    }
+
+    static bool deserialize(std::optional<T>& result, const Value& val) {
+        const Group* rg = val.getAsGroup();
+        if (rg == nullptr) return false;
+        const Group& g  = *rg;
+        const Value* hv = g.getField("has_value");
+        if (!hv || hv->getType() != Value::Type::Bool) return false;
+        if (!*hv->getAsBool()) {
+            result.reset();
+            return true;
+        }
+        const Value* v = g.getField("value");
+        if (!v) return false;
+        result.emplace();
+        return Serializer<T>::deserialize(*result, *v);
+    }
+
+    static bool deserializeFrom(const Value& val, const std::string& key,
+                                std::optional<T>& result) {
+        return priv::Serializer<std::optional<T>>::deserializeFrom(val, key, result, &deserialize);
+    }
+
+    static bool deserializeStream(stream::InputStream& stream, std::optional<T>& result) {
+        json::Loader loader(stream);
+        Value val(0);
+        if (!loader.loadValue(val)) return false;
+        return deserialize(result, val);
+    }
+
+    static bool serializeStream(stream::OutputStream& stream, const std::optional<T>& value,
+                                unsigned int, unsigned int) {
+        stream << "{ ";
+        stream << "\"has_value\": " << (value.has_value() ? "true" : "false");
+        if (value.has_value()) {
+            stream << ", \"value\": ";
+            if (!Serializer<T>::serializeStream(stream, *value, 0, 0)) return false;
+        }
+        stream << " }";
+        return stream.isValid();
     }
 };
 

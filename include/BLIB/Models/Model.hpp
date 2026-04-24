@@ -82,7 +82,7 @@ private:
     MeshSet meshes;
     AnimationSet animations;
 
-    friend class serial::SerializableObject<Model>;
+    friend struct serial::SerializableObject<Model>;
 };
 
 } // namespace mdl

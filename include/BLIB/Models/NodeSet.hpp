@@ -70,7 +70,7 @@ public:
 private:
     std::vector<Node> nodes;
 
-    friend class serial::SerializableObject<NodeSet>;
+    friend struct serial::SerializableObject<NodeSet>;
 };
 
 } // namespace mdl

@@ -2,6 +2,7 @@
 #define BLIB_MODELS_BONESET_HPP
 
 #include <BLIB/Models/Bone.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
 #include <optional>
 #include <vector>
@@ -60,9 +61,23 @@ public:
 
 private:
     std::vector<Bone> bones;
+
+    friend struct serial::SerializableObject<BoneSet>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::BoneSet> : public SerializableObjectBase {
+    SerializableField<1, mdl::BoneSet, std::vector<mdl::Bone>> bones;
+    SerializableObject()
+    : SerializableObjectBase("BoneSet")
+    , bones("bones", *this, &mdl::BoneSet::bones, SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

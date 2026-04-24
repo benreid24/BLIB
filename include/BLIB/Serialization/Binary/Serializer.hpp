@@ -15,6 +15,7 @@
 #include <array>
 #include <cstring>
 #include <glm/glm.hpp>
+#include <optional>
 #include <string_view>
 #include <type_traits>
 #include <unordered_map>
@@ -175,6 +176,28 @@ struct Serializer<float> {
     }
 
     static std::uint32_t size(const float& s) {
+        return Serializer<std::string>::size(std::to_string(s));
+    }
+};
+
+template<>
+struct Serializer<double> {
+    static bool serialize(stream::OutputStream& output, const double& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        return wrapper.write(std::to_string(value));
+    }
+
+    static bool deserialize(stream::InputStream& input, double& result) {
+        detail::InputStreamWrapper wrapper(input);
+        std::string str;
+        if (!wrapper.read(str)) return false;
+        try {
+            result = std::stof(str);
+            return true;
+        } catch (...) { return false; }
+    }
+
+    static std::uint32_t size(const double& s) {
         return Serializer<std::string>::size(std::to_string(s));
     }
 };
@@ -469,6 +492,56 @@ struct Serializer<glm::vec<4, U, P>, false> {
     static std::uint32_t size(const V& v) {
         return S::size(v.x) + S::size(v.y) + S::size(v.z) + S::size(v.w);
     }
+};
+
+template<typename U, glm::qualifier P>
+struct Serializer<glm::qua<U, P>, false> {
+    using S = Serializer<U>;
+    using V = glm::qua<U, P>;
+
+    static bool serialize(stream::OutputStream& output, const V& v) {
+        if (!S::serialize(output, v.x)) return false;
+        if (!S::serialize(output, v.y)) return false;
+        if (!S::serialize(output, v.z)) return false;
+        return S::serialize(output, v.w);
+    }
+
+    static bool deserialize(stream::InputStream& input, V& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        if (!S::deserialize(input, v.y)) return false;
+        if (!S::deserialize(input, v.z)) return false;
+        return S::deserialize(input, v.w);
+    }
+
+    static std::uint32_t size(const V& v) {
+        return S::size(v.x) + S::size(v.y) + S::size(v.z) + S::size(v.w);
+    }
+};
+
+template<glm::length_t C, glm::length_t R, typename T, enum glm::qualifier Q>
+struct Serializer<glm::mat<C, R, T, Q>, false> {
+    using S   = Serializer<T>;
+    using Mat = glm::mat<C, R, T, Q>;
+
+    static bool serialize(stream::OutputStream& output, const Mat& m) {
+        for (int c = 0; c < C; ++c) {
+            for (int r = 0; r < R; ++r) {
+                if (!S::serialize(output, m[c][r])) return false;
+            }
+        }
+        return true;
+    }
+
+    static bool deserialize(stream::InputStream& input, Mat& m) {
+        for (int c = 0; c < C; ++c) {
+            for (int r = 0; r < R; ++r) {
+                if (!S::deserialize(input, m[c][r])) return false;
+            }
+        }
+        return true;
+    }
+
+    static std::uint32_t size(const Mat& m) { return S::size(m[0][0]) * C * R; }
 };
 
 template<>
@@ -774,6 +847,36 @@ struct Serializer<sf::Image, false> {
         const auto data = image.saveToMemory("png");
         if (!data.has_value()) { return sizeof(std::uint32_t); }
         return sizeof(std::uint32_t) + data.value().size();
+    }
+};
+
+template<typename T>
+struct Serializer<std::optional<T>, false> {
+    static bool serialize(stream::OutputStream& output, const std::optional<T>& opt) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint8_t>(opt.has_value() ? 1 : 0)) return false;
+        if (opt.has_value()) {
+            if (!Serializer<T>::serialize(output, *opt)) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(stream::InputStream& input, std::optional<T>& opt) {
+        detail::InputStreamWrapper wrapper(input);
+        std::uint8_t hasValue;
+        if (!wrapper.read<std::uint8_t>(hasValue)) return false;
+        if (hasValue) {
+            opt.emplace();
+            if (!Serializer<T>::deserialize(input, *opt)) return false;
+        }
+        else { opt.reset(); }
+        return true;
+    }
+
+    static std::uint32_t size(const std::optional<T>& opt) {
+        std::uint32_t s = sizeof(std::uint8_t);
+        if (opt.has_value()) { s += Serializer<T>::size(*opt); }
+        return s;
     }
 };
 

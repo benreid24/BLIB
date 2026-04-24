@@ -2,6 +2,7 @@
 #define BLIB_MODELS_ANIMATIONSET_HPP
 
 #include <BLIB/Models/Animation.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
 
 namespace bl
@@ -39,9 +40,26 @@ public:
 
 private:
     std::vector<Animation> animations;
+
+    friend struct serial::SerializableObject<AnimationSet>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::AnimationSet> : public SerializableObjectBase {
+    SerializableField<1, mdl::AnimationSet, std::vector<mdl::Animation>> animations;
+
+    SerializableObject()
+    : SerializableObjectBase("AnimationSet")
+    , animations("animations", *this, &mdl::AnimationSet::animations,
+                 SerializableFieldBase::Required{}) {}
+};
+
+} // namespace serial
+
 } // namespace bl
 
 #endif

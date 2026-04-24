@@ -55,7 +55,7 @@ public:
 private:
     std::vector<Material> materials;
 
-    friend class serial::SerializableObject<MaterialSet>;
+    friend struct serial::SerializableObject<MaterialSet>;
 };
 
 } // namespace mdl

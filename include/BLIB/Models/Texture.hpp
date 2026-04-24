@@ -80,7 +80,7 @@ public:
 private:
     std::variant<std::string, sf::Image> texture;
 
-    friend class serial::SerializableObject<Texture>;
+    friend struct serial::SerializableObject<Texture>;
 };
 
 } // namespace mdl
