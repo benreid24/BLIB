@@ -1,4 +1,5 @@
 target_sources(BLIB.t PUBLIC
+    Base64.t.cpp
     EmplaceHelper.t.cpp
     FileUtil.t.cpp
     IdAllocator.t.cpp

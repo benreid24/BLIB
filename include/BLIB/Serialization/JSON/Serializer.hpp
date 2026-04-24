@@ -6,6 +6,7 @@
 #include <BLIB/Serialization/SerializableObject.hpp>
 #include <BLIB/Streams/InputStream.hpp>
 #include <BLIB/Streams/OutputStream.hpp>
+#include <BLIB/Util/Base64.hpp>
 
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Logging.hpp>
@@ -214,6 +215,7 @@ struct Serializer<T, true> {
 
     static Value serialize(T value) {
         if constexpr (std::is_enum_v<T>) { return Value(static_cast<long>(value)); }
+        else if constexpr (std::is_floating_point_v<T>) { return Value(static_cast<float>(value)); }
         else { return Value(value); }
     }
 
@@ -858,7 +860,7 @@ struct Serializer<sf::Vector3<U>, false> {
         if (!x || !y || !z) return false;
         if (!Serializer<U>::deserialize(result.x, *x)) return false;
         if (!Serializer<U>::deserialize(result.y, *y)) return false;
-        if (!Serializer<U>::deserialize(result.y, *z)) return false;
+        if (!Serializer<U>::deserialize(result.z, *z)) return false;
         return true;
     }
 
@@ -1560,7 +1562,8 @@ struct Serializer<sf::Image, false> {
         const auto data = image.saveToMemory("png");
         if (!data) return Value("<INVALID_IMAGE>");
 
-        // TODO - base64 encode
+        return Value(util::Base64::encode(
+            std::span<const char>(reinterpret_cast<const char*>(data->data()), data->size())));
     }
 
     static void serializeInto(const std::string& key, Group& g, const sf::Image& val) {
@@ -1570,8 +1573,9 @@ struct Serializer<sf::Image, false> {
     static bool deserialize(sf::Image& result, const Value& val) {
         const std::string* data = val.getAsString();
         if (!data) return false;
-        // TODO - base64 decode
-        return result.loadFromMemory(data->data(), data->size());
+        std::vector<char> decoded;
+        if (!util::Base64::decode(*data, decoded)) return false;
+        return result.loadFromMemory(decoded.data(), decoded.size());
     }
 
     static bool deserializeFrom(const Value& val, const std::string& key, sf::Image& result) {
