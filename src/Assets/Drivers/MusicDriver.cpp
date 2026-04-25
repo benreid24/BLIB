@@ -13,7 +13,14 @@ constexpr std::string_view TempName = "asset_sound_temp.wav";
 }
 
 bool MusicDriver::doCreate(const as::CreateContext& ctx, MusicPayload& payload) {
-    if (ctx.getCustomData().getPath().empty()) { return false; }
+    if (ctx.getCustomData().getPath().empty()) {
+        BL_LOG_ERROR << "Music assets require a file path to import from";
+        return false;
+    }
+    if (ctx.getMode() != as::Mode::Editor) {
+        BL_LOG_ERROR << "Music assets can only be created in editor mode";
+        return false;
+    }
 
     const std::string filepath = ctx.getFilePath("music.ogg");
     sf::InputSoundFile inputFile;

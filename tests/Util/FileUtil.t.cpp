@@ -1,4 +1,5 @@
 #include <BLIB/Util/FileUtil.hpp>
+#include <filesystem>
 #include <fstream>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
@@ -106,6 +107,29 @@ TEST(FileUtil, ListDirectory) {
     EXPECT_EQ(dirs[0], "subdir");
 
     EXPECT_TRUE(FileUtil::deleteDirectory("list_dir"));
+}
+
+TEST(FileUtil, IsSubpath) {
+    ASSERT_TRUE(util::FileUtil::createDirectory("folder/subfolder"));
+    {
+        std::ofstream out("folder/file.txt");
+        out << "hello";
+        ASSERT_TRUE(out.good());
+
+        out.close();
+        out.open("folder/subfolder/file.txt");
+        out << "hello";
+        ASSERT_TRUE(out.good());
+    }
+    EXPECT_TRUE(FileUtil::isSubpath("file.txt", "folder"));
+    EXPECT_TRUE(FileUtil::isSubpath("subfolder/file.txt", "folder"));
+    EXPECT_TRUE(FileUtil::isSubpath("file.txt", "folder/subfolder"));
+    EXPECT_FALSE(FileUtil::isSubpath("file.txt", "other"));
+    EXPECT_TRUE(FileUtil::isSubpath(
+        FileUtil::joinPath(std::filesystem::current_path().generic_string(), "folder/file.txt"),
+        "folder"));
+    EXPECT_TRUE(FileUtil::isSubpath("folder/file.txt"));
+    util::FileUtil::deleteDirectory("folder");
 }
 
 } // namespace unittest

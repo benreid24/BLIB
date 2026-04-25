@@ -231,5 +231,21 @@ bool FileUtil::moveDirectory(const std::string& src, const std::string& dest) {
     return true;
 }
 
+bool FileUtil::isSubpath(const std::string& path, const std::string& parent) {
+    std::filesystem::path rel =
+        parent.empty() ? std::filesystem::current_path() : std::filesystem::path(parent);
+    std::filesystem::path checkPath = std::filesystem::path(path);
+    if (checkPath.is_relative()) {
+        const auto joined = rel / checkPath;
+        return std::filesystem::exists(rel / checkPath);
+    }
+    else {
+        rel = std::filesystem::absolute(rel);
+        if (rel == checkPath) { return true; }
+        return std::mismatch(rel.begin(), rel.end(), checkPath.begin(), checkPath.end()).first ==
+               rel.end();
+    }
+}
+
 } // namespace util
 } // namespace bl

@@ -236,6 +236,16 @@ struct FileUtil {
      * @return True on success, false on error
      */
     static bool moveDirectory(const std::string& src, const std::string& dest);
+
+    /**
+     * @brief Determines whether a path is relative, optionally with respect to a reference path.
+     *        Will return false if the path does not exist on the filesystem
+     *
+     * @param path The path to check for relativity.
+     * @param reference Optional reference path to compare against. Defaults to current directory
+     * @return True if the path is a subpath of reference, false otherwise
+     */
+    static bool isSubpath(const std::string& path, const std::string& reference = std::string());
 };
 
 } // namespace util

@@ -76,7 +76,16 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
     }
 
     if (!createData.getPath().empty()) {
-        it->second.getMetadata().setSourceFileInfo(createData.getPath());
+        std::filesystem::path source = createData.getPath();
+        if (util::FileUtil::isSubpath(createData.getPath())) {
+            source = std::filesystem::proximate(createData.getPath());
+        }
+        else {
+            BL_LOG_WARN << "Source file path '" << createData.getPath()
+                        << "' is not a subpath of the current working directory. Storing absolute "
+                           "path in asset metadata, which may cause issues if the asset is moved";
+        }
+        it->second.getMetadata().setSourceFileInfo(source.generic_string());
     }
 
     if (mode == Mode::Editor && sync) {
