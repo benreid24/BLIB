@@ -3,4 +3,5 @@ target_sources(BLIB PRIVATE
     ModelDriver.cpp
     MusicDriver.cpp
     SoundDriver.cpp
+    TextureDriver.cpp
 )

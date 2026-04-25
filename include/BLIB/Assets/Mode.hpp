@@ -15,7 +15,10 @@ enum struct Mode {
     Editor,
 
     /// Assets are stored in optimized formats and loaded from optimized bundles
-    Game
+    Game,
+
+    /// Special mode for bundle creation. Same as Game but used when writing
+    BundleCreation = Game
 };
 
 } // namespace as

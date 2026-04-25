@@ -9,4 +9,5 @@ target_sources(BLIB PRIVATE
     StreamCache.cpp
 )
 
+add_subdirectory(Builtin)
 add_subdirectory(Drivers)
