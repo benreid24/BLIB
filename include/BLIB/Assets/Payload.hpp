@@ -155,6 +155,12 @@ public:
         return dynamic_cast<const T*>(this) != nullptr;
     }
 
+    /**
+     * @brief Call when the payload content changes. Ensures that changes get saved to disk before
+     *        unload when in editor mode
+     */
+    void flush();
+
 protected:
     /**
      * @brief Creates the payload
@@ -162,12 +168,6 @@ protected:
      * @param ctx The context to construct with
      */
     Payload(const ConstructContext& ctx);
-
-    /**
-     * @brief Call when the payload content changes. Ensures that changes get saved to disk before
-     *        unload when in editor mode
-     */
-    void flush();
 
 private:
     Repository& repo;

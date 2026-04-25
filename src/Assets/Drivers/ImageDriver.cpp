@@ -10,7 +10,14 @@ bool ImageDriver::doCreate(const as::CreateContext& ctx, ImagePayload& payload) 
     }
 
     const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>();
-    if (params) { payload.get().resize({params->width, params->height}, params->fillColor); }
+    if (params) {
+        if (params->sourceImage) {
+            payload.get().resize(
+                {params->sourceImage->getSize().x, params->sourceImage->getSize().y});
+            return payload.get().copy(*params->sourceImage, {});
+        }
+        else { payload.get().resize({params->width, params->height}, params->fillColor); }
+    }
     return true;
 }
 

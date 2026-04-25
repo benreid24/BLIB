@@ -19,10 +19,16 @@ namespace asi
  */
 struct TexturePayload : public as::Payload {
     /// Represents the role of the texture
-    enum Type : std::uint8_t { Generic, NormalMap, SpecularMap, DisplacementMap };
+    enum Type : std::uint8_t {
+        Generic         = 0,
+        Diffuse         = 1,
+        NormalMap       = 2,
+        SpecularMap     = 3,
+        DisplacementMap = 4
+    };
 
     /// Represents the color space of the image
-    enum ColorSpace : std::uint8_t { Linear, sRGB };
+    enum ColorSpace : std::uint8_t { Linear = 0, sRGB = 1 };
 
     /**
      * @brief Creation parameters for texture assets

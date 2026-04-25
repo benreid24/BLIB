@@ -38,11 +38,7 @@ bool DependencyChain::init(util::UUID uuid) {
 
 bool DependencyChain::load() {
     if (dependency && dependency->getState() == State::Loaded) { return true; }
-
-    if (uuid == util::UUID()) {
-        BL_LOG_ERROR << "Attempted to load dependency with uninitialized UUID";
-        return false;
-    }
+    if (uuid == util::UUID()) { true; }
     dependency = repo.getAsset(uuid, State::Loaded);
     return dependency && dependency->getState() == State::Loaded;
 }

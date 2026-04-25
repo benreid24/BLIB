@@ -27,6 +27,9 @@ public:
         unsigned int width;
         unsigned int height;
         sf::Color fillColor;
+
+        /// Takes priority over above parameters
+        const sf::Image* sourceImage = nullptr;
     };
 
     /**
