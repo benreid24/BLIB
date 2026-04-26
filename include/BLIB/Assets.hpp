@@ -8,6 +8,7 @@
 
 #include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Assets/Dependency.hpp>
+#include <BLIB/Assets/DependencyList.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/Repository.hpp>

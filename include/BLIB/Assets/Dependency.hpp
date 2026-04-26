@@ -3,8 +3,6 @@
 
 #include <BLIB/Assets/Detail/DependencySingleBase.hpp>
 #include <BLIB/Assets/Repository.hpp>
-#include <BLIB/Serialization/SerializableField.hpp>
-#include <BLIB/Serialization/SerializableObject.hpp>
 #include <string_view>
 #include <type_traits>
 
@@ -80,20 +78,6 @@ public:
 };
 
 } // namespace as
-
-namespace serial
-{
-template<typename T>
-struct SerializableObject<as::Dependency<T>> : public SerializableObjectBase {
-    SerializableField<1, as::Dependency<T>, util::UUID> uuid;
-
-    SerializableObject()
-    : SerializableObjectBase("AssetDependency")
-    , uuid("uuid", *this, &as::Dependency<T>::uuid, SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
-
 } // namespace bl
 
 #endif
