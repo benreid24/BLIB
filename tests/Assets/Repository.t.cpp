@@ -140,7 +140,7 @@ TEST_F(RepositoryTest, Dependencies) {
     auto asset = repo.createAsset<TestPayloadWithDependency>(
         "TestName", TestCreateContext("test_data", child.getAsset().getUUID()));
     auto badAsset = repo.createAsset<TestPayloadWithDependency>(
-        "BadTestName", TestCreateContext("test_data", util::UUID()));
+        "BadTestName", TestCreateContext("test_data", util::UUID::generate()));
 
     ASSERT_TRUE(asset.isValid());
     EXPECT_EQ(asset.getState(), State::Loaded);

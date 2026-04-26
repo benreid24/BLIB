@@ -1,7 +1,7 @@
 #ifndef BLIB_ASSETS_DEPENDENCY_HPP
 #define BLIB_ASSETS_DEPENDENCY_HPP
 
-#include <BLIB/Assets/Payload.hpp>
+#include <BLIB/Assets/Detail/DependencySingleBase.hpp>
 #include <BLIB/Assets/Repository.hpp>
 #include <BLIB/Serialization/SerializableField.hpp>
 #include <BLIB/Serialization/SerializableObject.hpp>
@@ -19,7 +19,7 @@ namespace as
  * @ingroup Assets
  */
 template<typename T = Payload>
-class Dependency : public detail::DependencyChain {
+class Dependency : public detail::DependencySingleBase {
 public:
     static_assert(std::is_base_of<Payload, T>::value, "T must be a Payload type");
 
@@ -31,7 +31,7 @@ public:
      * @param tag The asset local tag to identify this dependency
      */
     Dependency(Repository& repo, Payload& owner, std::string_view tag)
-    : DependencyChain(repo, owner, tag) {}
+    : DependencySingleBase(repo, owner, tag) {}
 
     /**
      * @brief Destroys the dependency
@@ -41,12 +41,12 @@ public:
     /**
      * @brief Returns the payload of the dependency
      */
-    T& get() { return dependency.getAsset().getPayload().as<T>(); }
+    T& get() { return dependency.getAsset().getPayload().template as<T>(); }
 
     /**
      * @brief Returns the payload of the dependency
      */
-    const T& get() const { return dependency.getAsset().getPayload().as<T>(); }
+    const T& get() const { return dependency.getAsset().getPayload().template as<T>(); }
 
     /**
      * @brief Returns the payload of the dependency

@@ -10,4 +10,5 @@ target_sources(BLIB PRIVATE
 )
 
 add_subdirectory(Builtin)
+add_subdirectory(Detail)
 add_subdirectory(Drivers)

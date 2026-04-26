@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_PAYLOAD_HPP
 #define BLIB_ASSETS_PAYLOAD_HPP
 
+#include <BLIB/Assets/Detail/DependencyChain.hpp>
 #include <BLIB/Assets/Mode.hpp>
 #include <BLIB/Assets/Ref.hpp>
 #include <BLIB/Assets/State.hpp>
@@ -21,77 +22,6 @@ class Dependency;
 class Payload;
 class Asset;
 class Repository;
-
-namespace detail
-{
-/**
- * @brief Implement detail. Helps Payload manage its tagged dependency list without allocations
- *
- * @ingroup Assets
- */
-class DependencyChain : private util::NonCopyable {
-public:
-    /**
-     * @brief Creates the dependency chain node
-     *
-     * @param repo The asset repository
-     * @param owner The payload that owns this dependency
-     * @param tag The tag of this specific dependency
-     */
-    DependencyChain(Repository& repo, Payload& owner, std::string_view tag);
-
-    /**
-     * @brief Releases the ref to the dependency if it is loaded and has no other refs
-     */
-    ~DependencyChain() = default;
-
-    /**
-     * @brief Returns the state of the dependency
-     */
-    State getState() const;
-
-    /**
-     * @brief Returns the UUID of the dependency
-     */
-    util::UUID getUUID() const;
-
-    /**
-     * @brief Initializes the dependency. Should only be called during asset creation
-     *
-     * @param uuid The UUID of the asset this dependency points to
-     * @return True if the dependency was successfully initialized and loaded, false otherwise
-     */
-    bool init(util::UUID uuid);
-
-    /**
-     * @brief Ensures that the dependency is valid and loaded
-     *
-     * @return True if the dependency is valid and loaded, false otherwise
-     */
-    bool load();
-
-    /**
-     * @brief Release the ref to the depenency which may result in it being unloaded
-     */
-    void unload();
-
-    /**
-     * @brief Returns whether the dependency points to a valid asset
-     */
-    bool isValid() const { return dependency.isValid(); }
-
-protected:
-    const std::string_view tag;
-    Repository& repo;
-    Payload& owner;
-    util::UUID uuid;
-    Ref dependency;
-    DependencyChain* next;
-    bool loaded;
-
-    friend class Payload;
-};
-} // namespace detail
 
 /**
  * @brief Base class for asset payloads. Payloads are the actual data of assets such as images
