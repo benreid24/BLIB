@@ -3,6 +3,7 @@
 #include <BLIB/Assets/Drivers/Animation3DDriver.hpp>
 #include <BLIB/Assets/Drivers/ImageDriver.hpp>
 #include <BLIB/Assets/Drivers/MaterialDriver.hpp>
+#include <BLIB/Assets/Drivers/ModelDriver.hpp>
 #include <BLIB/Assets/Drivers/MusicDriver.hpp>
 #include <BLIB/Assets/Drivers/SoundDriver.hpp>
 #include <BLIB/Assets/Drivers/TextureDriver.hpp>
@@ -53,6 +54,7 @@ Repository::Repository(Mode mode, const std::string& path)
     registerDriver<asi::TextureDriver>(asi::TextureDriver::TypeName);
     registerDriver<asi::MaterialDriver>(asi::MaterialDriver::TypeName);
     registerDriver<asi::Animation3DDriver>(asi::Animation3DDriver::TypeName);
+    registerDriver<asi::ModelDriver>(asi::ModelDriver::TypeName);
 }
 
 Ref Repository::createAsset(std::string_view type, const std::string& name,
