@@ -25,6 +25,7 @@ struct TestCreateContext : public CreateContext::CreateData {
 
     std::string data;
     util::UUID dep;
+    util::UUID depLazy;
     std::vector<util::UUID> depList;
 };
 
@@ -75,6 +76,7 @@ struct TestPayloadWithDependency : public Payload {
     TestPayloadWithDependency(const Payload::ConstructContext& ctx)
     : Payload(ctx)
     , dependency(ctx.repo, *this, "depTag")
+    , dependencyLazy(ctx.repo, *this, "depLazyTag")
     , dependencyList(ctx.repo, *this, "depListTag") {}
 
     bool init(const CreateContext& ctx) {
@@ -83,6 +85,7 @@ struct TestPayloadWithDependency : public Payload {
             for (const util::UUID& dep : createData->depList) {
                 if (!dependencyList.addDependency(dep)) { return false; }
             }
+            if (!dependencyLazy.init(createData->depLazy)) { return false; }
             return dependency.init(createData->dep);
         }
         return false;
@@ -90,6 +93,7 @@ struct TestPayloadWithDependency : public Payload {
 
     std::string localData;
     Dependency<TestPayload> dependency;
+    Dependency<TestPayload, LoadPolicy::Lazy, DependencyPolicy::Optional> dependencyLazy;
     DependencyList<TestPayload> dependencyList;
 };
 
@@ -143,6 +147,8 @@ TEST_F(RepositoryTest, Dependencies) {
     repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
     auto child = repo.createAsset<TestPayload>("ChildName", TestCreateContext("child_data"));
+    auto lazyChild =
+        repo.createAsset<TestPayload>("LazyChildName", TestCreateContext("lazy_child_data"));
     auto asset = repo.createAsset<TestPayloadWithDependency>(
         "TestName", TestCreateContext("test_data", child.getAsset().getUUID()));
     auto badAsset = repo.createAsset<TestPayloadWithDependency>(
@@ -154,6 +160,39 @@ TEST_F(RepositoryTest, Dependencies) {
     EXPECT_EQ(asset->dependency.getState(), State::Loaded);
     EXPECT_EQ(asset->dependency.get().data, "child_data");
     EXPECT_FALSE(badAsset.isValid());
+}
+
+TEST_F(RepositoryTest, LazyDependencies) {
+    util::UUID assetUUID;
+
+    {
+        Repository repo(Mode::Editor, "test_assets");
+        repo.registerDriver<TestDriver>(TestTypeTag);
+        repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
+
+        auto child = repo.createAsset<TestPayload>("ChildName", TestCreateContext("child_data"));
+        auto lazyChild =
+            repo.createAsset<TestPayload>("LazyChildName", TestCreateContext("lazy_child_data"));
+        TestCreateContext createData("test_data", child.getAsset().getUUID());
+        createData.depLazy = lazyChild.getAsset().getUUID();
+        auto asset         = repo.createAsset<TestPayloadWithDependency>("TestName", createData);
+        assetUUID          = asset.getAsset().getUUID();
+    }
+
+    Repository repo2(Mode::Editor, "test_assets");
+    repo2.registerDriver<TestDriver>(TestTypeTag);
+    repo2.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
+
+    ASSERT_TRUE(repo2.loadRepository());
+    auto asset = repo2.getTypedAsset<TestPayloadWithDependency>(assetUUID);
+
+    ASSERT_TRUE(asset.isValid());
+    EXPECT_EQ(asset.getState(), State::Loaded);
+    EXPECT_EQ(asset->localData, "test_data");
+    EXPECT_EQ(asset->dependency.getState(), State::Loaded);
+    EXPECT_EQ(asset->dependency.get().data, "child_data");
+    EXPECT_NE(asset->dependencyLazy.getState(), State::Loaded);
+    EXPECT_EQ(asset->dependencyLazy.get().data, "lazy_child_data"); // lazy loads on access
 }
 
 TEST_F(RepositoryTest, DependencyLists) {

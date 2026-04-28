@@ -1,7 +1,9 @@
 #ifndef BLIB_ASSETS_DETAIL_DEPENDENCYSINGLEBASE_HPP
 #define BLIB_ASSETS_DETAIL_DEPENDENCYSINGLEBASE_HPP
 
+#include <BLIB/Assets/DependencyPolicy.hpp>
 #include <BLIB/Assets/Detail/DependencyChain.hpp>
+#include <BLIB/Assets/LoadPolicy.hpp>
 #include <BLIB/Assets/Ref.hpp>
 #include <BLIB/Assets/State.hpp>
 
@@ -18,7 +20,7 @@ namespace detail
  *
  * @ingroup Assets
  */
-class DependencySingleBase : private DependencyChain {
+class DependencySingleBase : public DependencyChain {
 public:
     /**
      * @brief Creates the dependency chain node
@@ -26,8 +28,11 @@ public:
      * @param repo The asset repository
      * @param owner The payload that owns this dependency
      * @param tag The tag of this specific dependency
+     * @param policy The load policy for this dependency
+     * @param depPolicy The dependency policy for this dependency
      */
-    DependencySingleBase(Repository& repo, Payload& owner, std::string_view tag);
+    DependencySingleBase(Repository& repo, Payload& owner, std::string_view tag, LoadPolicy policy,
+                         DependencyPolicy depPolicy);
 
     /**
      * @brief Releases the ref to the dependency if it is loaded and has no other refs
@@ -70,6 +75,8 @@ public:
     bool isValid() const { return dependency.isValid(); }
 
 protected:
+    const LoadPolicy policy;
+    const DependencyPolicy depPolicy;
     util::UUID uuid;
     Ref dependency;
 

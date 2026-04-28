@@ -9,8 +9,11 @@ namespace as
 {
 namespace detail
 {
-DependencySingleBase::DependencySingleBase(Repository& repo, Payload& owner, std::string_view tag)
-: DependencyChain(repo, owner, tag) {}
+DependencySingleBase::DependencySingleBase(Repository& repo, Payload& owner, std::string_view tag,
+                                           LoadPolicy policy, DependencyPolicy depPolicy)
+: DependencyChain(repo, owner, tag)
+, policy(policy)
+, depPolicy(depPolicy) {}
 
 State DependencySingleBase::getState() const {
     if (!dependency) { return State::Unknown; }
@@ -20,6 +23,11 @@ State DependencySingleBase::getState() const {
 util::UUID DependencySingleBase::getUUID() const { return uuid; }
 
 bool DependencySingleBase::init(util::UUID uuid) {
+    if (uuid == util::UUID()) {
+        BL_LOG_WARN << "Ignoring attempt to initialize dependency with empty UUID for asset "
+                    << owner.getAsset().getUUID().toString() << " and tag '" << tag << "'";
+        return true;
+    }
     if (this->uuid != util::UUID()) {
         BL_LOG_ERROR << "Attempted to initialize dependency with UUID " << uuid.toString()
                      << " but it is already initialized with UUID " << this->uuid.toString();
@@ -55,13 +63,15 @@ bool DependencySingleBase::matchAndLoad(const std::vector<RepoDependency>& depen
     if (!match) {
         BL_LOG_ERROR << "Failed to find dependency with tag '" << tag << "' for asset "
                      << owner.getAsset().getUUID().toString();
-        return false;
+        return depPolicy != DependencyPolicy::Required;
     }
     uuid = match->uuid;
-    if (!load()) {
-        BL_LOG_ERROR << "Failed to load dependency with UUID " << uuid.toString() << " for asset "
-                     << owner.getAsset().getUUID().toString();
-        return false;
+    if (policy == LoadPolicy::Eager) {
+        if (!load()) {
+            BL_LOG_ERROR << "Failed to load dependency with UUID " << uuid.toString()
+                         << " for asset " << owner.getAsset().getUUID().toString();
+            return depPolicy != DependencyPolicy::Required;
+        }
     }
     return true;
 }

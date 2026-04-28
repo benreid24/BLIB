@@ -42,6 +42,12 @@ std::string makeStaticPath(std::string_view type) {
 }
 } // namespace
 
+Repository::~Repository() {
+    // Need to force clear here so that refs in payloads do not attempt to release from partially
+    // destroyed repository
+    for (auto& [uuid, asset] : assets) { asset.unload(true); }
+}
+
 Repository::Repository(Mode mode, const std::string& path)
 : mode(mode)
 , assetDirectory(path) {

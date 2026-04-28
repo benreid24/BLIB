@@ -40,6 +40,11 @@ public:
     Repository(Mode mode, const std::string& path);
 
     /**
+     * @brief Destroys the repository, releasing all assets
+     */
+    ~Repository();
+
+    /**
      * @brief Creates and returns a new asset with the given type and creation data
      *
      * @param type The tag of the type of asset to create

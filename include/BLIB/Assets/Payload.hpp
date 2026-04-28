@@ -17,8 +17,6 @@ namespace as
 {
 template<typename T>
 class Driver;
-template<typename T>
-class Dependency;
 class Payload;
 class Asset;
 class Repository;
