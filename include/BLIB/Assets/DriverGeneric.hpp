@@ -13,17 +13,36 @@ namespace bl
 {
 namespace as
 {
+namespace detail
+{
+template<typename T>
+struct ExtractPayload {
+    using Type = T;
+};
+
+template<typename T>
+struct ExtractPayload<PayloadGeneric<T>> {
+    using Type = T;
+};
+
+} // namespace detail
+
 /**
- * @brief Generic driver that can be used for assets that are trivially serializable. Intended for
- *        use with PayloadGeneric and the underlying asset payload which should be serializable
+ * @brief Generic driver that can be used for assets that are trivially serializable
  *
  * @tparam T The type of data stored in the payload. Must be serializable
  * @tparam Name The string literal name of this driver type
  * @ingroup Assets
  */
 template<typename T, util::TemplateString Name>
-class DriverGeneric : public Driver<PayloadGeneric<T>> {
+class DriverGeneric : public Driver<T> {
 public:
+    /// The type of the underlying payload. Extracts from PayloadGeneric
+    using DataType = typename detail::ExtractPayload<T>::Type;
+
+    /// Helper to determine if T is an instance of PayloadGeneric
+    static constexpr bool IsPayloadGeneric = std::is_same_v<T, PayloadGeneric<DataType>>;
+
     /// The name of the type that this driver is for
     static constexpr std::string_view TypeName = Name.toStringView();
 
@@ -33,14 +52,14 @@ public:
      * @ingroup Assets
      */
     struct CreateParams : public CreateContext::CreateData {
-        const T& data;
+        const DataType& data;
 
         /**
          * @brief Creates the create params with the given data
          *
          * @param data The payload value to create with
          */
-        CreateParams(const T& data)
+        CreateParams(const DataType& data)
         : data(data) {}
     };
 
@@ -61,10 +80,10 @@ public:
      * @param payload The payload to populate with the created asset data
      * @return Always true
      */
-    virtual bool doCreate(const CreateContext& ctx, PayloadGeneric<T>& payload) override {
+    virtual bool doCreate(const CreateContext& ctx, T& payload) override {
         const auto* createData = ctx.getCustomDataAsMaybe<CreateParams>();
-        if constexpr (std::is_copy_assignable_v<T>) {
-            if (createData) { payload.get() = createData->data; }
+        if constexpr (std::is_copy_assignable_v<DataType>) {
+            if (createData) { getData(payload) = createData->data; }
         }
         else {
             if (createData) {
@@ -82,13 +101,13 @@ public:
      * @param payload The asset to populate
      * @return True if the asset could be read successfully, false otherwise
      */
-    virtual bool doRead(const ReadContext& ctx, PayloadGeneric<T>& payload) override {
+    virtual bool doRead(const ReadContext& ctx, T& payload) override {
         stream::InputStream input;
         if (!ctx.setupReadStream("payload.json", input)) { return false; }
         if (ctx.getMode() == Mode::Editor) {
-            return serial::json::Serializer<T>::deserializeStream(input, payload.get());
+            return serial::json::Serializer<DataType>::deserializeStream(input, getData(payload));
         }
-        else { return serial::binary::Serializer<T>::deserialize(input, payload.get()); }
+        else { return serial::binary::Serializer<DataType>::deserialize(input, getData(payload)); }
     }
 
     /**
@@ -98,13 +117,25 @@ public:
      * @param payload The asset to write
      * @return True if the asset could be written successfully, false otherwise
      */
-    virtual bool doWrite(const WriteContext& ctx, const PayloadGeneric<T>& payload) override {
+    virtual bool doWrite(const WriteContext& ctx, const T& payload) override {
         stream::OutputStream output;
         if (!ctx.setupWriteStream("payload.json", output)) { return false; }
         if (ctx.getMode() == Mode::Editor) {
-            return serial::json::Serializer<T>::serializeStream(output, payload.get(), 4, 0);
+            return serial::json::Serializer<DataType>::serializeStream(
+                output, getData(payload), 4, 0);
         }
-        else { return serial::binary::Serializer<T>::serialize(output, payload.get()); }
+        else { return serial::binary::Serializer<DataType>::serialize(output, getData(payload)); }
+    }
+
+private:
+    DataType& getData(T& payload) {
+        if constexpr (IsPayloadGeneric) { return payload.get(); }
+        else { return payload; }
+    }
+
+    const DataType& getData(const T& payload) const {
+        if constexpr (IsPayloadGeneric) { return payload.get(); }
+        else { return payload; }
     }
 };
 

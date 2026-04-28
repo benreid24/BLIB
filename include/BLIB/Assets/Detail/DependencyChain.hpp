@@ -62,6 +62,14 @@ protected:
     void registerDependency(util::UUID uuid);
 
     /**
+     * @brief Unregisters the given dependency with the repository
+     *
+     * @param uuid The UUID of the dependency to unregister
+     * @return True if the dependency was successfully unregistered, false otherwise
+     */
+    bool unregisterDependency(util::UUID uuid);
+
+    /**
      * @brief Performs post deserialization initialization and loads the dependency
      */
     virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies) = 0;

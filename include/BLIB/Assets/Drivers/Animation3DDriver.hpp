@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_DRIVERS_ANIMATION3DDRIVER_HPP
 #define BLIB_ASSETS_DRIVERS_ANIMATION3DDRIVER_HPP
 
+#include <BLIB/Assets/Builtin/Animation3DPayload.hpp>
 #include <BLIB/Assets/DriverGeneric.hpp>
 #include <BLIB/Models/Animation.hpp>
 
@@ -13,7 +14,8 @@ namespace asi
  *
  * @ingroup Assets
  */
-using Animation3DDriver = as::DriverGeneric<mdl::Animation, util::TemplateString{"Animation3D"}>;
+using Animation3DDriver =
+    as::DriverGeneric<Animation3DPayload, util::TemplateString{"Animation3D"}>;
 
 } // namespace asi
 } // namespace bl

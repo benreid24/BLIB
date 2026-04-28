@@ -5,6 +5,7 @@
 #include <BLIB/Assets/Drivers/MaterialDriver.hpp>
 #include <BLIB/Assets/Drivers/ModelDriver.hpp>
 #include <BLIB/Assets/Drivers/MusicDriver.hpp>
+#include <BLIB/Assets/Drivers/PlaylistDriver.hpp>
 #include <BLIB/Assets/Drivers/SoundDriver.hpp>
 #include <BLIB/Assets/Drivers/TextureDriver.hpp>
 #include <BLIB/Assets/EditorPaths.hpp>
@@ -61,6 +62,7 @@ Repository::Repository(Mode mode, const std::string& path)
     registerDriver<asi::MaterialDriver>(asi::MaterialDriver::TypeName);
     registerDriver<asi::Animation3DDriver>(asi::Animation3DDriver::TypeName);
     registerDriver<asi::ModelDriver>(asi::ModelDriver::TypeName);
+    registerDriver<asi::PlaylistDriver>(asi::PlaylistDriver::TypeName);
 }
 
 Ref Repository::createAsset(std::string_view type, const std::string& name,
@@ -186,7 +188,16 @@ void Repository::registerDependency(util::UUID uuid, std::string_view tag, util:
         return;
     }
     Asset& stored = it->second;
-    stored.dependencies.push_back(RepoDependency{dependency, std::string(tag)});
+
+    for (const auto& dep : stored.dependencies) {
+        if (dep.uuid == dependency && dep.tag == tag) {
+            BL_LOG_WARN << "Ignoring duplicate dependency with UUID " << dependency.toString()
+                        << " and tag " << tag << " for asset " << uuid.toString();
+            return;
+        }
+    }
+
+    stored.dependencies.emplace_back(dependency, std::string(tag));
 
     if (mode == Mode::Editor) {
         if (!writeManifestLocked()) {
@@ -194,6 +205,31 @@ void Repository::registerDependency(util::UUID uuid, std::string_view tag, util:
                         << uuid.toString() << " -> " << dependency.toString() << " (" << tag << ")";
         }
     }
+}
+
+bool Repository::unregisterDependency(util::UUID uuid, std::string_view tag, util::UUID dep) {
+    std::unique_lock lock(assetMutex);
+    auto it = assets.find(uuid);
+    if (it == assets.end()) {
+        BL_LOG_ERROR << "Attempted to register dependency for asset with UUID " << uuid.toString()
+                     << " but it does not exist";
+        return false;
+    }
+    Asset& stored = it->second;
+    for (auto it = stored.dependencies.begin(); it != stored.dependencies.end(); ++it) {
+        if (it->tag == tag && it->uuid == uuid) {
+            stored.dependencies.erase(it);
+            if (mode == Mode::Editor) {
+                if (!writeManifestLocked()) {
+                    BL_LOG_WARN << "Failed to save asset manifest after unregistering dependency "
+                                << uuid.toString() << " -> " << dep.toString() << " (" << tag
+                                << ")";
+                }
+            }
+            return true;
+        }
+    }
+    return false;
 }
 
 void Repository::queueUnload(util::UUID uuid) {

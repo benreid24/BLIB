@@ -36,6 +36,20 @@ bool DependencyListBase::addDependency(util::UUID uuid) {
     return true;
 }
 
+bool DependencyListBase::removeDependency(std::size_t i) {
+    if (i >= dependencies.size()) {
+        BL_LOG_ERROR << "Attempted to remove dependency at index " << i << " but there are only "
+                     << dependencies.size() << " dependencies for asset "
+                     << owner.getAsset().getUUID().toString();
+        return false;
+    }
+    auto& entry = dependencies[i];
+    if (entry.dependency) { entry.dependency.release(); }
+    const bool result = unregisterDependency(entry.uuid);
+    dependencies.erase(dependencies.begin() + i);
+    return result;
+}
+
 bool DependencyListBase::load() {
     bool success = true;
     bool any     = false;

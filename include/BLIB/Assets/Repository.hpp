@@ -236,6 +236,7 @@ private:
 
     // used by Dependency
     void registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
+    bool unregisterDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
 
     // used by Ref
     void queueUnload(util::UUID uuid);

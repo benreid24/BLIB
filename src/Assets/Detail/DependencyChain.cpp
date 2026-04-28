@@ -21,6 +21,10 @@ void DependencyChain::registerDependency(util::UUID uuid) {
     repo.registerDependency(owner.getAsset().getUUID(), tag, uuid);
 }
 
+bool DependencyChain::unregisterDependency(util::UUID uuid) {
+    return repo.unregisterDependency(owner.getAsset().getUUID(), tag, uuid);
+}
+
 } // namespace detail
 } // namespace as
 } // namespace bl

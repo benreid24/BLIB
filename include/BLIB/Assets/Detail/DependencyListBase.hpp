@@ -39,12 +39,20 @@ public:
     virtual ~DependencyListBase() = default;
 
     /**
-     * @brief Adds a new dependency to the list. Should only be called during asset creation
+     * @brief Adds a new dependency to the list
      *
      * @param uuid The UUID of the asset to add as a dependency
      * @return True if the dependency was successfully initialized and loaded, false otherwise
      */
     bool addDependency(util::UUID uuid);
+
+    /**
+     * @brief Removes the dependency at the given index from the list
+     *
+     * @param index The index of the dependency to remove
+     * @return True if the dependency was successfully removed, false otherwise
+     */
+    bool removeDependency(std::size_t index);
 
     /**
      * @brief Ensures that the dependency is valid and loaded
