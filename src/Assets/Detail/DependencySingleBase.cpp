@@ -41,8 +41,10 @@ bool DependencySingleBase::init(util::UUID uuid) {
 bool DependencySingleBase::load() {
     if (dependency && dependency->getState() == State::Loaded) { return true; }
     if (uuid == util::UUID()) { return true; }
-    dependency = repo.getAsset(uuid, State::Loaded);
-    return dependency && dependency->getState() == State::Loaded;
+
+    const State desiredState = policy == LoadPolicy::Eager ? State::Loaded : State::Unloaded;
+    dependency               = repo.getAsset(uuid, desiredState);
+    return dependency && dependency->getState() >= desiredState;
 }
 
 void DependencySingleBase::unload() {
@@ -66,12 +68,10 @@ bool DependencySingleBase::matchAndLoad(const std::vector<RepoDependency>& depen
         return depPolicy != DependencyPolicy::Required;
     }
     uuid = match->uuid;
-    if (policy == LoadPolicy::Eager) {
-        if (!load()) {
-            BL_LOG_ERROR << "Failed to load dependency with UUID " << uuid.toString()
-                         << " for asset " << owner.getAsset().getUUID().toString();
-            return depPolicy != DependencyPolicy::Required;
-        }
+    if (!load()) {
+        BL_LOG_ERROR << "Failed to load dependency with UUID " << uuid.toString() << " for asset "
+                     << owner.getAsset().getUUID().toString();
+        return depPolicy != DependencyPolicy::Required;
     }
     return true;
 }

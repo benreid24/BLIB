@@ -53,7 +53,7 @@ public:
      * @brief Returns the payload of the dependency
      */
     const T& get() const {
-        const_cast<Dependency*>(this)->ensure();
+        ensure();
         return dependency.getAsset().getPayload().template as<T>();
     }
 
@@ -88,7 +88,7 @@ public:
     const Asset& getAsset() const { return dependency.getAsset(); }
 
 private:
-    void ensure() {
+    void ensure() const {
         if (uuid == util::UUID()) {
             BL_LOG_ERROR << "Accessing invalid dependency: " << uuid.toString() << " (" << tag
                          << ")";
@@ -100,7 +100,7 @@ private:
                     << "Attempted to access dependency that is not loaded with Manual load policy: "
                     << uuid.toString() << " (" << tag << "). Attempting auto-load";
             }
-            if (!load()) {
+            if (!const_cast<Dependency*>(this)->dependency.getAsset().load()) {
                 BL_LOG_ERROR << "Failed to load dependency: " << uuid.toString() << " (" << tag
                              << ")";
             }

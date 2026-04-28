@@ -27,6 +27,7 @@ struct TestCreateContext : public CreateContext::CreateData {
     util::UUID dep;
     util::UUID depLazy;
     std::vector<util::UUID> depList;
+    std::vector<util::UUID> lazyList;
 };
 
 struct TestPayload : public Payload {
@@ -77,7 +78,8 @@ struct TestPayloadWithDependency : public Payload {
     : Payload(ctx)
     , dependency(ctx.repo, *this, "depTag")
     , dependencyLazy(ctx.repo, *this, "depLazyTag")
-    , dependencyList(ctx.repo, *this, "depListTag") {}
+    , dependencyList(ctx.repo, *this, "depListTag")
+    , dependencyListLazy(ctx.repo, *this, "depListLazyTag") {}
 
     bool init(const CreateContext& ctx) {
         if (const TestCreateContext* createData = ctx.getCustomDataAsMaybe<TestCreateContext>()) {
@@ -86,6 +88,9 @@ struct TestPayloadWithDependency : public Payload {
                 if (!dependencyList.addDependency(dep)) { return false; }
             }
             if (!dependencyLazy.init(createData->depLazy)) { return false; }
+            for (const util::UUID& dep : createData->lazyList) {
+                if (!dependencyListLazy.addDependency(dep)) { return false; }
+            }
             return dependency.init(createData->dep);
         }
         return false;
@@ -95,6 +100,7 @@ struct TestPayloadWithDependency : public Payload {
     Dependency<TestPayload> dependency;
     Dependency<TestPayload, LoadPolicy::Lazy, DependencyPolicy::Optional> dependencyLazy;
     DependencyList<TestPayload> dependencyList;
+    DependencyList<TestPayload, LoadPolicy::Lazy, DependencyPolicy::Optional> dependencyListLazy;
 };
 
 struct TestDriverWithDep : public Driver<TestPayloadWithDependency> {
@@ -229,6 +235,47 @@ TEST_F(RepositoryTest, DependencyLists) {
     EXPECT_EQ(asset->dependencyList.getSize(), 2);
     EXPECT_EQ(asset->dependencyList.get(0).data, "child_data1");
     EXPECT_EQ(asset->dependencyList.get(1).data, "child_data2");
+}
+
+TEST_F(RepositoryTest, DependencyLazyLists) {
+    util::UUID assetUUID;
+
+    {
+        Repository repo(Mode::Editor, "test_assets");
+        repo.registerDriver<TestDriver>(TestTypeTag);
+        repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
+
+        auto child  = repo.createAsset<TestPayload>("ChildName", TestCreateContext("child_data"));
+        auto child1 = repo.createAsset<TestPayload>("ChildName1", TestCreateContext("child_data1"));
+        auto child2 = repo.createAsset<TestPayload>("ChildName2", TestCreateContext("child_data2"));
+
+        TestCreateContext createParams("test_data", child.getAsset().getUUID());
+        createParams.lazyList = {child1.getAsset().getUUID(), child2.getAsset().getUUID()};
+        auto asset = repo.createAsset<TestPayloadWithDependency>("TestName", createParams);
+
+        assetUUID = asset.getAsset().getUUID();
+    }
+
+    Repository repo(Mode::Editor, "test_assets");
+    repo.registerDriver<TestDriver>(TestTypeTag);
+    repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
+
+    ASSERT_TRUE(repo.loadRepository());
+
+    auto asset = repo.getTypedAsset<TestPayloadWithDependency>(assetUUID);
+    ASSERT_TRUE(asset.isValid());
+    EXPECT_EQ(asset.getState(), State::Loaded);
+    EXPECT_EQ(asset->localData, "test_data");
+    EXPECT_EQ(asset->dependency.getState(), State::Loaded);
+    EXPECT_EQ(asset->dependency.get().data, "child_data");
+    EXPECT_EQ(asset->dependencyListLazy.getSize(), 2);
+    EXPECT_NE(asset->dependencyListLazy.getAsset(0).getState(), State::Loaded);
+    EXPECT_NE(asset->dependencyListLazy.getAsset(1).getState(), State::Loaded);
+    EXPECT_EQ(asset->dependencyListLazy.get(0).data, "child_data1");
+    EXPECT_EQ(asset->dependencyListLazy.getAsset(0).getState(), State::Loaded);
+    EXPECT_NE(asset->dependencyListLazy.getAsset(1).getState(), State::Loaded);
+    EXPECT_EQ(asset->dependencyListLazy.get(1).data, "child_data2");
+    EXPECT_EQ(asset->dependencyListLazy.getAsset(1).getState(), State::Loaded);
 }
 
 TEST_F(RepositoryTest, GetAsset) {

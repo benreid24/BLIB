@@ -1,7 +1,9 @@
 #ifndef BLIB_ASSETS_DETAIL_DEPENDENCYLISTBASE_HPP
 #define BLIB_ASSETS_DETAIL_DEPENDENCYLISTBASE_HPP
 
+#include <BLIB/Assets/DependencyPolicy.hpp>
 #include <BLIB/Assets/Detail/DependencyChain.hpp>
+#include <BLIB/Assets/LoadPolicy.hpp>
 #include <BLIB/Assets/Ref.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <vector>
@@ -19,7 +21,7 @@ namespace detail
  *
  * @ingroup Assets
  */
-class DependencyListBase : private DependencyChain {
+class DependencyListBase : public DependencyChain {
 public:
     /**
      * @brief Creates the dependency chain node
@@ -28,7 +30,8 @@ public:
      * @param owner The payload that owns this dependency
      * @param tag The tag of this specific dependency
      */
-    DependencyListBase(Repository& repo, Payload& owner, std::string_view tag);
+    DependencyListBase(Repository& repo, Payload& owner, std::string_view tag, LoadPolicy policy,
+                       DependencyPolicy depPolicy);
 
     /**
      * @brief Releases the ref to the dependency if it is loaded and has no other refs
@@ -74,6 +77,8 @@ protected:
         Ref dependency;
     };
 
+    const LoadPolicy policy;
+    const DependencyPolicy depPolicy;
     std::vector<Entry> dependencies;
 
     /**
@@ -83,6 +88,7 @@ protected:
 
 private:
     bool loadEntry(Entry& entry);
+    bool getStatus(bool allSuccess, bool anySuccess) const;
 
     friend class Payload;
 };

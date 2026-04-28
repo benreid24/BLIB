@@ -9,8 +9,11 @@ namespace as
 {
 namespace detail
 {
-DependencyListBase::DependencyListBase(Repository& repo, Payload& owner, std::string_view tag)
-: DependencyChain(repo, owner, tag) {}
+DependencyListBase::DependencyListBase(Repository& repo, Payload& owner, std::string_view tag,
+                                       LoadPolicy policy, DependencyPolicy depPolicy)
+: DependencyChain(repo, owner, tag)
+, policy(policy)
+, depPolicy(depPolicy) {}
 
 bool DependencyListBase::addDependency(util::UUID uuid) {
     for (const auto& dep : dependencies) {
@@ -35,10 +38,27 @@ bool DependencyListBase::addDependency(util::UUID uuid) {
 
 bool DependencyListBase::load() {
     bool success = true;
+    bool any     = false;
     for (auto& entry : dependencies) {
         if (!loadEntry(entry)) { success = false; }
+        else { any = true; }
     }
-    return success;
+
+    return getStatus(success, any);
+}
+
+bool DependencyListBase::getStatus(bool success, bool any) const {
+    switch (depPolicy) {
+    case DependencyPolicy::Required:
+        return success;
+    case DependencyPolicy::Partial:
+        return any || dependencies.empty();
+    case DependencyPolicy::Optional:
+        return true;
+    default:
+        BL_LOG_ERROR << "Invalid dependency policy: " << depPolicy;
+        return false;
+    }
 }
 
 void DependencyListBase::unload() {
@@ -54,6 +74,7 @@ bool DependencyListBase::matchAndLoad(const std::vector<RepoDependency>& taggedD
     dependencies.reserve(n);
 
     bool success = true;
+    bool any     = false;
     for (const auto& dep : taggedDeps) {
         if (dep.tag != tag) { continue; }
 
@@ -63,15 +84,18 @@ bool DependencyListBase::matchAndLoad(const std::vector<RepoDependency>& taggedD
                          << " for asset " << owner.getAsset().getUUID().toString();
             success = false;
         }
+        else { any = true; }
     }
 
-    return success;
+    return getStatus(success, any);
 }
 
 bool DependencyListBase::loadEntry(Entry& entry) {
     if (entry.dependency && entry.dependency->getState() == State::Loaded) { return true; }
-    entry.dependency = repo.getAsset(entry.uuid, State::Loaded);
-    return entry.dependency && entry.dependency->getState() == State::Loaded;
+
+    const State desiredState = policy == LoadPolicy::Eager ? State::Loaded : State::Unloaded;
+    entry.dependency         = repo.getAsset(entry.uuid, desiredState);
+    return entry.dependency && entry.dependency->getState() >= desiredState;
 }
 
 Ref DependencyListBase::getItem(std::size_t index) const {

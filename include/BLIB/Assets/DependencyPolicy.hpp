@@ -16,7 +16,10 @@ enum struct DependencyPolicy {
     Required,
 
     /// The dependency is optional and may be missing or failed
-    Optional
+    Optional,
+
+    /// Used for dependency lists. Partial policy considers the dependency valid on partial load
+    Partial
 };
 
 } // namespace as
