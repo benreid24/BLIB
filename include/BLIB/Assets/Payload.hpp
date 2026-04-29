@@ -72,6 +72,24 @@ public:
     }
 
     /**
+     * @brief Safely casts the payload to the given type. Will throw if the cast is invalid
+     *
+     * @tparam T The payload type to cast to
+     * @return A reference to this object as the given type
+     */
+    template<typename T>
+    const T& as() const {
+        static_assert(std::is_base_of_v<Payload, T>, "T must be a subclass of Payload");
+        const T* casted = dynamic_cast<const T*>(this);
+        if (!casted) {
+            BL_LOG_ERROR << "Invalid Asset payload cast from " << typeid(*this).name() << " to "
+                         << typeid(T).name();
+            throw std::bad_cast();
+        }
+        return *casted;
+    }
+
+    /**
      * @brief Tests whether the payload is of the given type
      *
      * @tparam T The type to test for

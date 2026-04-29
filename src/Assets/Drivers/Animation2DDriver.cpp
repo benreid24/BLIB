@@ -1,0 +1,141 @@
+#include <BLIB/Assets/Drivers/Animation2DDriver.hpp>
+
+#include <BLIB/Engine/Configuration.hpp>
+
+namespace bl
+{
+namespace asi
+{
+// TODO - this currently only reads the legacy format. In the future it may need to be updated
+bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayload& payload) {
+    if (ctx.getCustomData().getPath().empty()) {
+        BL_LOG_ERROR << "No path provided for Animation2D asset creation";
+        return false;
+    }
+
+    stream::InputStream stream;
+    if (!stream.open(ctx.getCustomData().getPath())) {
+        BL_LOG_ERROR << "Failed to open stream for Animation2D asset creation from path: "
+                     << ctx.getCustomData().getPath();
+        return false;
+    }
+
+    serial::binary::detail::InputStreamWrapper input(stream);
+
+    payload.frames.clear();
+
+    const std::string path            = util::FileUtil::getPath(ctx.getCustomData().getPath());
+    const std::string& spritesheetDir = // TODO - does this have a place here still?
+        engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
+
+    std::string sheet;
+    if (!input.read(sheet)) return false;
+
+    // 1. first try whole past as is
+    as::Ref resolvedSheetRef = ctx.getRepository().getAssetFromSourcePath<ImagePayload>(sheet);
+    if (!resolvedSheetRef) {
+        // 2. then try relative to the animation file
+        resolvedSheetRef = ctx.getRepository().getAssetFromSourcePath<ImagePayload>(
+            util::FileUtil::joinPath(path, sheet));
+        if (!resolvedSheetRef) {
+            // 3. then try relative to the spritesheet directory
+            resolvedSheetRef = ctx.getRepository().getAssetFromSourcePath<ImagePayload>(
+                util::FileUtil::joinPath(spritesheetDir, sheet));
+            if (!resolvedSheetRef) {
+                // 4. give up
+                BL_LOG_ERROR
+                    << "Failed to resolve spritesheet reference for Animation2D asset from path: "
+                    << ctx.getCustomData().getPath() << " with sheet name: " << sheet;
+                return false;
+            }
+        }
+    }
+
+    // this should always pass here but still check
+    if (!payload.spritesheet.init(resolvedSheetRef.getAsset().getUUID())) { return false; }
+
+    if (!input.read(payload.loop)) return false;
+
+    std::uint16_t nFrames = 0;
+    if (!input.read(nFrames)) return false;
+    payload.frames.reserve(nFrames);
+    for (unsigned int i = 0; i < nFrames; ++i) {
+        Animation2DPayload::Frame& frame = payload.frames.emplace_back();
+
+        std::uint32_t length;
+        if (!input.read(length)) return false;
+        frame.length = static_cast<float>(length) / 1000.0f;
+
+        std::uint16_t nShards = 0;
+        if (!input.read(nShards)) return false;
+        frame.shards.reserve(nShards);
+
+        for (unsigned int j = 0; j < nShards; ++j) {
+            frame.shards.emplace_back();
+            Animation2DPayload::Frame::Shard& shard = frame.shards.back();
+
+            uint32_t u32;
+            int32_t s32;
+            if (!input.read(u32)) return false;
+            shard.source.position.x = u32;
+            if (!input.read(u32)) return false;
+            shard.source.position.y = u32;
+            if (!input.read(u32)) return false;
+            shard.source.size.x = u32;
+            if (!input.read(u32)) return false;
+            shard.source.size.y = u32;
+            if (!input.read(u32)) return false;
+            shard.scale.x = static_cast<float>(u32) / 100.0f;
+            if (!input.read(u32)) return false;
+            shard.scale.y = static_cast<float>(u32) / 100.0f;
+            if (!input.read(s32)) return false;
+            shard.offset.x = s32;
+            if (!input.read(s32)) return false;
+            shard.offset.y = s32;
+            if (!input.read(u32)) return false;
+            shard.rotation = u32;
+            if (!input.read(shard.alpha)) return false;
+            frame.shards.push_back(shard);
+        }
+    }
+
+    // bool value not present in legacy files
+    std::uint8_t u8;
+    if (!input.read(u8)) { payload.centerShards = false; }
+    else { payload.centerShards = u8 == 1; }
+
+    return true;
+}
+
+bool Animation2DDriver::doRead(const as::ReadContext& ctx, Animation2DPayload& payload) {
+    stream::InputStream stream;
+    if (!ctx.setupReadStream("animation.banim", stream)) {
+        BL_LOG_ERROR << "Failed to setup read stream for Animation2D asset with UUID: "
+                     << ctx.getAsset().getUUID();
+        return false;
+    }
+    if (!serial::binary::Serializer<Animation2DPayload>::deserialize(stream, payload)) {
+        BL_LOG_ERROR << "Failed to deserialize Animation2D asset with UUID: "
+                     << ctx.getAsset().getUUID();
+        return false;
+    }
+    return true;
+}
+
+bool Animation2DDriver::doWrite(const as::WriteContext& ctx, const Animation2DPayload& payload) {
+    stream::OutputStream stream;
+    if (!ctx.setupWriteStream("animation.banim", stream)) {
+        BL_LOG_ERROR << "Failed to setup write stream for Animation2D asset with UUID: "
+                     << ctx.getAsset().getUUID();
+        return false;
+    }
+    if (!serial::binary::Serializer<Animation2DPayload>::serialize(stream, payload)) {
+        BL_LOG_ERROR << "Failed to serialize Animation2D asset with UUID: "
+                     << ctx.getAsset().getUUID();
+        return false;
+    }
+    return true;
+}
+
+} // namespace asi
+} // namespace bl
