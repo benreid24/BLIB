@@ -35,7 +35,7 @@ TexturePool::TexturePool(Renderer& r, vk::VulkanLayer& vs)
 , freeRtSlots(cfg::Limits::MaxRenderTextures)
 , cubemapRefCounts(cfg::Limits::MaxCubemapCount)
 , cubemapFreeSlots(cfg::Limits::MaxCubemapCount)
-, reverseFileMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures)
+, reverseAssetMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures)
 , reverseImageMap(cfg::Limits::MaxTextureCount - cfg::Limits::MaxRenderTextures) {
     errorTexture.renderer = &r;
     errorTexture.parent   = this;
@@ -170,28 +170,29 @@ void TexturePool::doRelease(vk::Texture* texture) {
         std::uint32_t i = texture - textures.data();
         refCounts[i]    = 0;
 
-        if (i < reverseFileMap.size()) {
+        if (i < reverseAssetMap.size()) {
             freeSlots.release(i);
-            if (reverseFileMap[i]) {
-                fileMap.erase(*reverseFileMap[i]);
-                reverseFileMap[i] = nullptr;
+            if (reverseAssetMap[i] != util::UUID()) {
+                assetMap.erase(reverseAssetMap[i]);
+                reverseAssetMap[i] = util::UUID();
             }
             if (reverseImageMap[i]) {
                 imageMap.erase(reverseImageMap[i]);
                 reverseImageMap[i] = nullptr;
             }
         }
-        else { freeRtSlots.release(i - reverseFileMap.size()); }
+        else { freeRtSlots.release(i - reverseAssetMap.size()); }
     }
     else {
         std::uint32_t i = texture - cubemaps.data();
 
         cubemapRefCounts[i] = 0;
         cubemapFreeSlots.release(i);
-        if (cubemapFileMap.find(*reverseFileMap[i]) != cubemapFileMap.end()) {
+        // TODO - cubemap asset map
+        /*if (cubemapFileMap.find(*reverseFileMap[i]) != cubemapFileMap.end()) {
             cubemapFileMap.erase(*cubeMapReverseFileMap[i]);
             cubeMapReverseFileMap[i] = nullptr;
-        }
+        }*/
     }
     resetTexture(texture);
 }
@@ -209,7 +210,7 @@ TextureRef TexturePool::allocateTexture() {
 
     const std::uint32_t i = freeSlots.allocate();
     refCounts[i].store(0);
-    reverseFileMap[i]  = nullptr;
+    reverseAssetMap[i] = util::UUID();
     reverseImageMap[i] = nullptr;
 
     return TextureRef{*this, textures[i], i};
@@ -262,7 +263,7 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat f
         }
     }
 
-    const std::uint32_t i = freeRtSlots.allocate() + reverseFileMap.size();
+    const std::uint32_t i = freeRtSlots.allocate() + reverseAssetMap.size();
     refCounts[i].store(0);
 
     // init texture
@@ -273,25 +274,68 @@ TextureRef TexturePool::createRenderTexture(const glm::u32vec2& size, VkFormat f
     return txtr;
 }
 
-TextureRef TexturePool::getOrLoadTexture(const std::string& path,
+TextureRef TexturePool::getOrLoadTexture(as::TypedRef<asi::ImagePayload> imageAsset,
                                          const vk::TextureOptions& options) {
+    if (!imageAsset) {
+        BL_LOG_ERROR << "Attempted to get or load texture with null image asset";
+        return TextureRef{*this, errorTexture, ErrorTextureId};
+    }
+
     std::unique_lock lock(mutex);
 
-    auto it = fileMap.find(path);
-    if (it != fileMap.end()) {
+    auto it = assetMap.find(imageAsset.getUUID());
+    if (it != assetMap.end()) {
         auto& t = textures[it->second];
         cancelRelease(&t);
         return TextureRef{*this, t, it->second};
     }
 
+    if (imageAsset.getState() != as::State::Loaded) {
+        BL_LOG_INFO << "Requested texture asset " << imageAsset.getUUID()
+                    << " is not loaded, attempting to load";
+        if (!imageAsset.getAsset().load()) {
+            BL_LOG_ERROR << "Failed to load texture asset " << imageAsset.getUUID();
+
+            return TextureRef{*this, errorTexture, ErrorTextureId};
+        }
+    }
+
     TextureRef txtr = allocateTexture();
-    prepareTextureUpdate(txtr.get(), path);
-    it                        = fileMap.try_emplace(path, txtr.id()).first;
-    reverseFileMap[txtr.id()] = &it->first;
+    prepareTextureUpdate(txtr.get(), imageAsset);
+    it                         = assetMap.try_emplace(imageAsset.getUUID(), txtr.id()).first;
+    reverseAssetMap[txtr.id()] = it->first;
     txtr->createFromContentsAndQueue(vk::Texture::Type::Texture2D, options);
     updateTexture(txtr.get());
 
     return txtr;
+}
+
+TextureRef TexturePool::getOrLoadTexture(as::TypedRef<asi::TexturePayload> textureAsset,
+                                         const vk::TextureOptions& options) {
+    if (!textureAsset) {
+        BL_LOG_ERROR << "Attempted to get or load texture with null texture asset";
+        return TextureRef{*this, errorTexture, ErrorTextureId};
+    }
+    if (textureAsset.getState() != as::State::Loaded) {
+        BL_LOG_INFO << "Requested texture asset " << textureAsset.getUUID()
+                    << " is not loaded, attempting to load";
+        if (!textureAsset.getAsset().load()) {
+            BL_LOG_ERROR << "Failed to load texture asset " << textureAsset.getUUID();
+            return TextureRef{*this, errorTexture, ErrorTextureId};
+        }
+    }
+
+    vk::TextureOptions actualOptions = options;
+    switch (textureAsset->colorSpace) {
+    case asi::TexturePayload::ColorSpace::Linear:
+        actualOptions.format = vk::CommonTextureFormats::LinearRGBA32Bit;
+        break;
+    case asi::TexturePayload::ColorSpace::sRGB:
+        actualOptions.format = vk::CommonTextureFormats::SRGBA32Bit;
+        break;
+    }
+
+    return getOrLoadTexture(textureAsset->image.getRef(), actualOptions);
 }
 
 TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, const vk::TextureOptions& options) {
@@ -316,43 +360,59 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, const vk::Texture
 
 TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback,
                                            const vk::TextureOptions& options) {
-    if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), options); }
+    /*if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), options); }
     if (texture.getFilePath().empty() ||
         !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
         if (fallback) { return fallback; }
     }
-    return getOrLoadTexture(texture.getFilePath(), options);
+    return getOrLoadTexture(texture.getFilePath(), options);*/
+    return {}; // TODO - determine how to best update this when update models
 }
 
-TextureRef TexturePool::createCubemap(const std::string& right, const std::string& left,
-                                      const std::string& top, const std::string& bottom,
-                                      const std::string& back, const std::string& front,
-                                      VkFormat format, vk::SamplerOptions::Type sampler) {
-    auto load = resource::ResourceManager<sf::Image>::load;
-    return createCubemap(
-        load(right), load(left), load(top), load(bottom), load(back), load(front), format, sampler);
-}
-
-TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::Ref<sf::Image> left,
-                                      resource::Ref<sf::Image> top, resource::Ref<sf::Image> bottom,
-                                      resource::Ref<sf::Image> back, resource::Ref<sf::Image> front,
-                                      VkFormat format, vk::SamplerOptions::Type sampler) {
+TextureRef TexturePool::createCubemap(as::TypedRef<asi::ImagePayload> right,
+                                      as::TypedRef<asi::ImagePayload> left,
+                                      as::TypedRef<asi::ImagePayload> top,
+                                      as::TypedRef<asi::ImagePayload> bottom,
+                                      as::TypedRef<asi::ImagePayload> back,
+                                      as::TypedRef<asi::ImagePayload> front, VkFormat format,
+                                      vk::SamplerOptions::Type sampler) {
     // validate faces
-    std::array<sf::Image*, 6> faces = {
-        right.get(), left.get(), top.get(), bottom.get(), front.get(), back.get()};
+    std::array<as::TypedRef<asi::ImagePayload>*, 6> faces = {
+        &right, &left, &top, &bottom, &front, &back};
     glm::u32vec2 faceSize(0, 0);
-    for (auto& face : faces) {
-        if (face && face->getSize().x > 0) {
+    for (as::TypedRef<asi::ImagePayload>*& face : faces) {
+        if (!*face) {
+            BL_LOG_ERROR << "Cubemap face ref is not valid";
+            face = nullptr;
+            continue;
+        }
+
+        if (face->getState() != as::State::Loaded) {
+            BL_LOG_INFO << "Cubemap face asset " << face->getAsset().getUUID()
+                        << " is not loaded, attempting to load";
+            if (!face->getAsset().load()) {
+                BL_LOG_ERROR << "Failed to load cubemap face asset " << face->getUUID();
+                face = nullptr;
+                continue;
+            }
+        }
+
+        const sf::Image& img = (*face)->get();
+        if (img.getSize().x > 0 && img.getSize().y > 0) {
             if (faceSize.x == 0) {
-                faceSize.x = face->getSize().x;
-                faceSize.y = face->getSize().y;
+                faceSize.x = img.getSize().x;
+                faceSize.y = img.getSize().y;
             }
             else {
-                if (faceSize.x != face->getSize().x || faceSize.y != face->getSize().y) {
+                if (faceSize.x != img.getSize().x || faceSize.y != img.getSize().y) {
                     BL_LOG_ERROR << "Cubemap faces must all be the same size";
                     face = nullptr;
                 }
             }
+        }
+        else {
+            BL_LOG_ERROR << "Cubemap face " << face->getAsset().getUUID() << " has invalid size";
+            face = nullptr;
         }
     }
     if (faceSize.x == 0) {
@@ -368,63 +428,13 @@ TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> right, resource::
     cm->altImg = &cm->localImage;
     cm->localImage.resize({faceSize.x, faceSize.y * 6}, sf::Color::Transparent);
     for (std::size_t i = 0; i < 6; ++i) {
-        if (faces[i]) { cm->localImage.copy(*faces[i], sf::Vector2u(0, i * faceSize.y)); }
+        if (faces[i]) { cm->localImage.copy((*faces[i])->get(), sf::Vector2u(0, i * faceSize.y)); }
         else {
             generateErrorPattern(cm->localImage, 0, i * faceSize.y, faceSize.x, faceSize.y, 16);
             BL_LOG_WARN << "Cubemap face " << i << " is invalid, using error pattern";
         }
     }
 
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
-                                   {.format = format, .sampler = sampler});
-    updateTexture(cm.get());
-
-    return cm;
-}
-
-TextureRef TexturePool::createCubemap(resource::Ref<sf::Image> packed, VkFormat format,
-                                      vk::SamplerOptions::Type sampler) {
-    std::unique_lock lock(mutex);
-
-    TextureRef cm = allocateCubemap();
-    if (packed && packed->getSize().x > 0) { cm->transferImg = packed; }
-    else { cm->altImg = &errorPattern; }
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
-                                   {.format = format, .sampler = sampler});
-    updateTexture(cm.get());
-
-    return cm;
-}
-
-TextureRef TexturePool::getOrCreateCubemap(const std::string& packed, VkFormat format,
-                                           vk::SamplerOptions::Type sampler) {
-    std::unique_lock lock(mutex);
-
-    auto it = cubemapFileMap.find(packed);
-    if (it != cubemapFileMap.end()) {
-        auto& t = cubemaps[it->second];
-        cancelRelease(&t);
-        return TextureRef{*this, t, it->second};
-    }
-
-    TextureRef cm = allocateCubemap();
-    prepareTextureUpdate(cm.get(), packed);
-    auto fit                       = cubemapFileMap.try_emplace(packed, cm.id()).first;
-    cubeMapReverseFileMap[cm.id()] = &fit->first;
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
-                                   {.format = format, .sampler = sampler});
-    updateTexture(cm.get());
-
-    return cm;
-}
-
-TextureRef TexturePool::createCubemap(const sf::Image& packed, VkFormat format,
-                                      vk::SamplerOptions::Type sampler) {
-    std::unique_lock lock(mutex);
-
-    TextureRef cm  = allocateCubemap();
-    cm->localImage = packed;
-    cm->altImg     = &cm->localImage;
     cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
                                    {.format = format, .sampler = sampler});
     updateTexture(cm.get());
@@ -514,10 +524,12 @@ VkDescriptorSetLayoutBinding TexturePool::getCubemapLayoutBinding() const {
     return binding;
 }
 
-void TexturePool::prepareTextureUpdate(vk::Texture* texture, const std::string& path) {
-    auto img = resource::ResourceManager<sf::Image>::load(path);
-    if (img->getSize().x > 0) { texture->transferImg = img; }
-    else { texture->altImg = &errorPattern; }
+void TexturePool::prepareTextureUpdate(vk::Texture* texture,
+                                       as::TypedRef<asi::ImagePayload> asset) {
+    if (!asset || asset.getState() != as::State::Loaded || asset->get().getSize().x == 0) {
+        texture->altImg = &errorPattern;
+    }
+    else { texture->transferImg = asset; }
 }
 
 void TexturePool::prepareTextureUpdate(vk::Texture* texture, const sf::Image& src) {

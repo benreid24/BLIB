@@ -4,8 +4,8 @@ namespace bl
 {
 namespace com
 {
-Animation2DPlayer::Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& a, bool s,
-                                     bool p, bool l)
+Animation2DPlayer::Animation2DPlayer(as::TypedRef<asi::Animation2DSetPayload> a, bool s, bool p,
+                                     bool l)
 : forSlideshow(s)
 , animation(a)
 , currentState(0)

@@ -36,10 +36,17 @@ public:
             sf::Vector2f scale;
             float rotation;
             std::uint8_t alpha;
+
+            // computed
+            sf::FloatRect normalizedSource;
         };
 
         std::vector<Shard> shards;
         float length;
+
+        // computed
+        std::uint32_t shardIndex;
+        sf::Vector2f size;
     };
 
     /**
@@ -57,7 +64,7 @@ public:
     /**
      * @brief Returns the spritesheet asset payload
      */
-    const ImagePayload& getSpritesheet() const { return spritesheet.get(); }
+    const as::TypedRef<ImagePayload>& getSpritesheet() const { return spritesheet.getRef(); }
 
     /**
      * @brief Returns the UUID of the spritesheet asset
@@ -77,13 +84,30 @@ public:
     /**
      * @brief Returns whether shards are centered or if the origin is the local top left corner
      */
-    bool isCenterShards() const { return centerShards; }
+    bool shardsAreCentered() const { return centerShards; }
+
+    /**
+     * @brief Returns the total duration of the animation in seconds
+     */
+    float getDuration() const { return totalLength; }
+
+    /**
+     * @brief Returns whether or not the animation is a slideshow
+     */
+    bool isSlideshow() const { return slideshow; }
 
 private:
     as::Dependency<ImagePayload> spritesheet;
     std::vector<Frame> frames;
     bool loop;
     bool centerShards;
+
+    // derived
+    float totalLength;
+    bool slideshow;
+
+    void computeDerivedData();
+    bool isValidSlideshow();
 
     friend struct serial::SerializableObject<Animation2DPayload>;
     friend class Animation2DDriver;

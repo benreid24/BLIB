@@ -81,6 +81,11 @@ const Asset& Ref::getAsset() const {
     return *asset;
 }
 
+util::UUID Ref::getUUID() const {
+    if (!asset) { return util::UUID(); }
+    return asset->getUUID();
+}
+
 Asset* Ref::operator->() { return &getAsset(); }
 
 const Asset* Ref::operator->() const { return &getAsset(); }

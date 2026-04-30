@@ -5,6 +5,7 @@
 #include <BLIB/Assets/Detail/DependencySingleBase.hpp>
 #include <BLIB/Assets/LoadPolicy.hpp>
 #include <BLIB/Assets/Repository.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <string_view>
 #include <type_traits>
 
@@ -86,6 +87,11 @@ public:
      * @brief Returns the asset of the dependency
      */
     const Asset& getAsset() const { return dependency.getAsset(); }
+
+    /**
+     * @brief Returns a ref to the asset of the dependency
+     */
+    typename TypedRef<T> getRef() const { return TypedRef<T>(dependency); }
 
 private:
     void ensure() const {

@@ -4,9 +4,10 @@ namespace bl
 {
 namespace gfx
 {
-void Skybox::create(engine::World& world, const std::string& right, const std::string& left,
-                    const std::string& top, const std::string& bottom, const std::string& back,
-                    const std::string& front) {
+void Skybox::create(engine::World& world, as::TypedRef<asi::ImagePayload> right,
+                    as::TypedRef<asi::ImagePayload> left, as::TypedRef<asi::ImagePayload> top,
+                    as::TypedRef<asi::ImagePayload> bottom, as::TypedRef<asi::ImagePayload> back,
+                    as::TypedRef<asi::ImagePayload> front) {
     rc::res::TextureRef cubemap = world.engine().renderer().texturePool().createCubemap(
         right,
         left,

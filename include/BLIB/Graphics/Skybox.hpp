@@ -1,6 +1,8 @@
 #ifndef BLIB_GRAPHICS_SKYBOX_HPP
 #define BLIB_GRAPHICS_SKYBOX_HPP
 
+#include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Graphics/Cube.hpp>
 
 namespace bl
@@ -30,9 +32,10 @@ public:
      * @param back The back face image
      * @param front The front face image
      */
-    void create(engine::World& world, const std::string& right, const std::string& left,
-                const std::string& top, const std::string& bottom, const std::string& back,
-                const std::string& front);
+    void create(engine::World& world, as::TypedRef<asi::ImagePayload> right,
+                as::TypedRef<asi::ImagePayload> left, as::TypedRef<asi::ImagePayload> top,
+                as::TypedRef<asi::ImagePayload> bottom, as::TypedRef<asi::ImagePayload> back,
+                as::TypedRef<asi::ImagePayload> front);
 
     /**
      * @brief Adds this entity to the given scene

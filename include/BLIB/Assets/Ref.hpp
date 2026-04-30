@@ -2,6 +2,7 @@
 #define BLIB_ASSETS_REF_HPP
 
 #include <BLIB/Assets/State.hpp>
+#include <BLIB/Util/UUID.hpp>
 
 namespace bl
 {
@@ -82,6 +83,11 @@ public:
      * @brief Returns the underlying asset. Must only be called if the ref is valid
      */
     const Asset& getAsset() const;
+
+    /**
+     * @brief Returns the UUID of the underlying asset, or a default 0 UUID if this ref is not valid
+     */
+    util::UUID getUUID() const;
 
     /**
      * @brief Returns a pointer to the underlying asset, must only be called if the ref is valid

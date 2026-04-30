@@ -1,12 +1,13 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTURE_HPP
 #define BLIB_RENDER_RENDERER_TEXTURE_HPP
 
+#include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Render/Transfers/Transferable.hpp>
 #include <BLIB/Render/Vulkan/Image.hpp>
 #include <BLIB/Render/Vulkan/Sampler.hpp>
 #include <BLIB/Render/Vulkan/SamplerOptions.hpp>
 #include <BLIB/Render/Vulkan/TextureOptions.hpp>
-#include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 
 namespace bl
@@ -97,7 +98,7 @@ public:
      * @param destPos Offset into the texture to copy the new content
      * @param source Region from the source to copy
      */
-    void update(const resource::Ref<sf::Image>& content, const glm::u32vec2& destPos = {0, 0},
+    void update(as::TypedRef<asi::ImagePayload> content, const glm::u32vec2& destPos = {0, 0},
                 const sf::IntRect& source = {});
 
     /**
@@ -158,7 +159,7 @@ private:
 
     // transfer data
     const sf::Image* altImg;
-    resource::Ref<sf::Image> transferImg;
+    as::TypedRef<asi::ImagePayload> transferImg;
     sf::Image localImage;
     glm::u32vec2 destPos;
     sf::IntRect source;
