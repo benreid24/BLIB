@@ -71,7 +71,7 @@ struct Animation2DPlayer {
     /**
      * @brief Returns the animation being played
      */
-    const as::TypedRef<asi::Animation2DSetPayload>& getAnimation() const { return animation; }
+    as::TypedRef<asi::Animation2DSetPayload> getAnimation() const { return animation; }
 
     /**
      * @brief Returns whether the animation being played is a slideshow or not

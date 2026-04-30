@@ -13,6 +13,14 @@ Animation2DSetPayload::Animation2DSetPayload(const as::Payload::ConstructContext
 : Payload(ctx)
 , animations(ctx.repo, *this, "animations") {}
 
+as::TypedRef<ImagePayload> Animation2DSetPayload::getSpritesheet() const {
+    if (animations.getSize() == 0) {
+        BL_LOG_ERROR << "Accessing spritesheet of empty animation set";
+        return {};
+    }
+    return animations.get(0).getSpritesheet();
+}
+
 bool Animation2DSetPayload::isLooping() const {
     if (animations.getSize() == 0) { return false; }
     return animations.get(0).isLooping();

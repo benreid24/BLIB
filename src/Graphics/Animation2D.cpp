@@ -6,7 +6,7 @@ namespace gfx
 {
 namespace
 {
-glm::vec2 getSize(const resource::Ref<a2d::AnimationData>& animation) {
+glm::vec2 getSize(as::TypedRef<asi::Animation2DSetPayload> animation) {
     if (!animation || animation->frameCount() == 0) { return {1.f, 1.f}; }
     sf::Vector2f s = animation->getFrameSize(0);
     for (unsigned int i = 1; i < animation->frameCount(); ++i) {
@@ -20,14 +20,14 @@ glm::vec2 getSize(const resource::Ref<a2d::AnimationData>& animation) {
 Animation2D::Animation2D()
 : Animation2DPlayer(false) {}
 
-Animation2D::Animation2D(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
+Animation2D::Animation2D(engine::World& world, as::TypedRef<asi::Animation2DSetPayload> animation,
                          bool play, bool forceLoop)
 : Animation2D() {
     createWithUniquePlayer(world, animation, play, forceLoop);
 }
 
 Animation2D::Animation2D(engine::World& world, ecs::Entity existing,
-                         const resource::Ref<a2d::AnimationData>& animation, bool play,
+                         as::TypedRef<asi::Animation2DSetPayload> animation, bool play,
                          bool forceLoop)
 : Animation2D() {
     createWithUniquePlayer(world, existing, animation, play, forceLoop);
@@ -44,7 +44,7 @@ Animation2D::Animation2D(engine::World& world, ecs::Entity existing, const Anima
 }
 
 void Animation2D::createWithUniquePlayer(engine::World& world,
-                                         const resource::Ref<a2d::AnimationData>& animation,
+                                         as::TypedRef<asi::Animation2DSetPayload> animation,
                                          bool play, bool forceLoop) {
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
@@ -55,7 +55,7 @@ void Animation2D::createWithUniquePlayer(engine::World& world,
 }
 
 void Animation2D::createWithUniquePlayer(engine::World& world, ecs::Entity existing,
-                                         const resource::Ref<a2d::AnimationData>& animation,
+                                         as::TypedRef<asi::Animation2DSetPayload> animation,
                                          bool play, bool forceLoop) {
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());
@@ -84,7 +84,7 @@ void Animation2D::createWithSharedPlayer(engine::World& world, ecs::Entity exist
     component().setContainsTransparency(Textured::getTexture()->containsTransparency());
 }
 
-void Animation2D::setAnimationWithUniquePlayer(const resource::Ref<a2d::AnimationData>& animation,
+void Animation2D::setAnimationWithUniquePlayer(as::TypedRef<asi::Animation2DSetPayload> animation,
                                                bool play, bool forceLoop) {
     Animation2DPlayer::createNewPlayer(animation, play, forceLoop);
     component().create(engine(), Animation2DPlayer::getPlayer());

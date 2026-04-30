@@ -40,6 +40,11 @@ public:
     virtual ~Animation2DSetPayload() = default;
 
     /**
+     * @brief Returns the spritesheet for this animation set
+     */
+    as::TypedRef<ImagePayload> getSpritesheet() const;
+
+    /**
      * @brief Returns if the animation is set to loop on end. Can be overridden in Animation
      */
     bool isLooping() const;
