@@ -37,6 +37,7 @@ Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
 , ecsSystems(*this)
+, assetRepository(as::Mode::Editor, "Assets") // TODO - add to settings
 , entityRegistry()
 , renderThreadShouldRun(true)
 , input(*this) {

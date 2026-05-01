@@ -22,12 +22,15 @@ struct SerializableObject<as::Repository> : public SerializableObjectBase {
     SerializableField<1, as::Repository, std::unordered_map<util::UUID, as::Asset>> assets;
     SerializableField<2, as::Repository, std::unordered_map<std::string, as::SourceLink>>
         sourceLinks;
+    SerializableField<3, as::Repository, std::unordered_map<std::string, util::UUID>> keyToAsset;
 
     SerializableObject()
     : SerializableObjectBase("AssetManifest")
     , assets("assets", *this, &as::Repository::assets, SerializableFieldBase::Required{})
     , sourceLinks("sourceLinks", *this, &as::Repository::sourceLinks,
-                  SerializableFieldBase::Required{}) {}
+                  SerializableFieldBase::Required{})
+    , keyToAsset("keyToAsset", *this, &as::Repository::keyToAsset,
+                 SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 
@@ -122,6 +125,25 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
     }
 
     return Ref(this, &it->second);
+}
+
+Ref Repository::getOrCreateAsset(std::string_view key, std::string_view type,
+                                 const std::string& name,
+                                 const CreateContext::CreateData& createData) {
+    std::string keyStr(key);
+
+    std::unique_lock lock(assetMutex);
+    auto it = keyToAsset.find(keyStr);
+    if (it != keyToAsset.end()) {
+        auto asset = getAsset(it->second, State::Loaded);
+        if (asset) { return asset; }
+        BL_LOG_WARN << "Asset with key '" << key
+                    << "' exists but failed to load, attempting to create new asset";
+    }
+
+    auto ref = createAsset(type, name, createData);
+    if (ref) { keyToAsset.try_emplace(std::move(keyStr), ref.getUUID()); }
+    return ref;
 }
 
 Ref Repository::getAsset(util::UUID uuid, State desiredState) {

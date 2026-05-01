@@ -56,6 +56,18 @@ public:
                     const CreateContext::CreateData& createData = {});
 
     /**
+     * @brief Searches for an existing asset by the given key, creating a new one if not found
+     *
+     * @param key The key of the asset to find or create
+     * @param type The tag of the type of asset to create
+     * @param name The name of the asset
+     * @param createData Custom data to pass to the driver for the asset type
+     * @return A ref to the newly created asset. May be invalid if creation failed
+     */
+    Ref getOrCreateAsset(std::string_view key, std::string_view type, const std::string& name,
+                         const CreateContext::CreateData& createData = {});
+
+    /**
      * @brief Creates and returns a new asset with the given type and creation data
      *
      * @tparam T The payload type of the asset to create
@@ -69,6 +81,23 @@ public:
         std::string_view tag = getTagForType<T>();
         if (tag.empty()) { return TypedRef<T>(); }
         return TypedRef<T>(createAsset(tag, name, createData));
+    }
+
+    /**
+     * @brief Searches for an existing asset by the given key, creating a new one if not found
+     *
+     * @param key The key of the asset to find or create
+     * @tparam T The payload type of the asset to create
+     * @param name The name of the asset
+     * @param createData Custom data to pass to the driver for the asset type
+     * @return A TypedRef to the newly created asset. May be invalid if creation failed
+     */
+    template<typename T>
+    TypedRef<T> getOrCreateAsset(std::string_view key, const std::string& name,
+                                 const CreateContext::CreateData& createData = {}) {
+        std::string_view tag = getTagForType<T>();
+        if (tag.empty()) { return TypedRef<T>(); }
+        return TypedRef<T>(getOrCreateAsset(key, tag, name, createData));
     }
 
     /**
@@ -209,6 +238,7 @@ private:
     const Mode mode;
     const std::string assetDirectory;
     std::unordered_map<util::UUID, Asset> assets;
+    std::unordered_map<std::string, util::UUID> keyToAsset;
     StreamCache streamCache;
 
     mutable std::mutex sourceLinkMutex;

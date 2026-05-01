@@ -74,18 +74,18 @@ private:
         std::vector<DrawIndices> frameToIndices;
         unsigned int useCount;
 
-        VertexAnimation(rc::Renderer& renderer, const gfx::a2d::AnimationData& anim);
+        VertexAnimation(rc::Renderer& renderer, const asi::Animation2DSetPayload& anim);
     };
 
     rc::Renderer& renderer;
     VkDescriptorSetLayout descriptorLayout;
     ecs::ComponentPool<com::Animation2DPlayer>* players;
     ecs::ComponentPool<com::Animation2D>* vertexPool;
-    resource::Ref<gfx::a2d::AnimationData> errorAnim;
+    as::TypedRef<asi::Animation2DSetPayload> errorAnim;
 
     // slideshow data
-    std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowFrameMap;
-    std::unordered_map<const gfx::a2d::AnimationData*, std::uint32_t> slideshowDataRefCounts;
+    std::unordered_map<util::UUID, std::uint32_t> slideshowFrameMap;
+    std::unordered_map<util::UUID, std::uint32_t> slideshowDataRefCounts;
     util::IdAllocatorUnbounded<std::uint32_t> slideshowPlayerIds;
     util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
     rc::buf::BufferSingleDeviceLocalSourcedSSBO<SlideshowFrame>
@@ -101,7 +101,7 @@ private:
     std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates
 
     // non-slideshow data
-    std::unordered_map<const gfx::a2d::AnimationData*, VertexAnimation> vertexAnimationData;
+    std::unordered_map<util::UUID, VertexAnimation> vertexAnimationData;
     std::vector<com::Animation2D*> vertexAnimations;
 
     virtual void init(engine::Engine& engine) override;
@@ -123,6 +123,8 @@ private:
     VertexAnimation* doNonSlideshowCreate(const com::Animation2DPlayer& player);
     void doNonSlideshowRemove(const com::Animation2D& anim);
     void tryFreeVertexData(const com::Animation2DPlayer& player);
+
+    void createErrorAnimation(engine::Engine& engine);
 
     friend class rc::Renderer;
     friend struct com::Animation2D;

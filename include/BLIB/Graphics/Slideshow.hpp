@@ -35,7 +35,7 @@ public:
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    Slideshow(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
+    Slideshow(engine::World& world, as::TypedRef<asi::Animation2DSetPayload> animation,
               bool play = false, bool forceLoop = false);
 
     /**
@@ -56,7 +56,7 @@ public:
      * @param forceLoop True to always loop, false defer to animation setting
      */
     Slideshow(engine::World& world, ecs::Entity existingEntity,
-              const resource::Ref<a2d::AnimationData>& animation, bool play = false,
+              as::TypedRef<asi::Animation2DSetPayload> animation, bool play = false,
               bool forceLoop = false);
 
     /**
@@ -78,7 +78,7 @@ public:
      * @param forceLoop True to always loop, false defer to animation setting
      */
     void createWithUniquePlayer(engine::World& world,
-                                const resource::Ref<a2d::AnimationData>& animation,
+                                as::TypedRef<asi::Animation2DSetPayload> animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
@@ -91,7 +91,7 @@ public:
      * @param forceLoop True to always loop, false defer to animation setting
      */
     void createWithUniquePlayer(engine::World& world, ecs::Entity existingEntity,
-                                const resource::Ref<a2d::AnimationData>& animation,
+                                as::TypedRef<asi::Animation2DSetPayload> animation,
                                 bool play = false, bool forceLoop = false);
 
     /**

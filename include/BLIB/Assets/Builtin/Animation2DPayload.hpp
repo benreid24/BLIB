@@ -5,6 +5,7 @@
 #include <BLIB/Assets/Dependency.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Serialization.hpp>
+#include <SFML/System.hpp>
 
 namespace bl
 {
@@ -64,7 +65,7 @@ public:
     /**
      * @brief Returns the spritesheet asset payload
      */
-    const as::TypedRef<ImagePayload>& getSpritesheet() const { return spritesheet.getRef(); }
+    as::TypedRef<ImagePayload> getSpritesheet() const { return spritesheet.getRef(); }
 
     /**
      * @brief Returns the UUID of the spritesheet asset

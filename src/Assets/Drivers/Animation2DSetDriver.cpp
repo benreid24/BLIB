@@ -24,16 +24,34 @@ bool Animation2DSetDriver::doCreate(const as::CreateContext& ctx, Animation2DSet
     }
     else { baseAnim = data->baseAnimation; }
 
+    if (!baseAnim) {
+        if (data->debugCreateData.has_value()) {
+            auto animation = ctx.getRepository().createAsset<Animation2DPayload>("", *data);
+            if (!animation) {
+                BL_LOG_ERROR << "Failed to create base animation from debug data for animation set "
+                                "asset creation";
+                return false;
+            }
+            baseAnim = animation;
+        }
+        else {
+            BL_LOG_ERROR << "No base animation provided for animation set asset creation";
+            return false;
+        }
+    }
+
     if (!payload.animations.addDependency(baseAnim.getUUID())) {
         BL_LOG_ERROR << "Failed to set base animation for new animation set asset";
         return false;
     }
     payload.computeDerivedState();
 
-    for (const auto& anim : data->additionalAnimations) {
-        if (!payload.addState(payload.animations.getSize(), anim, data->enforceSlideshow)) {
-            BL_LOG_ERROR << "Failed to add additional animation to new animation set asset";
-            return false;
+    if (data) {
+        for (const auto& anim : data->additionalAnimations) {
+            if (!payload.addState(payload.animations.getSize(), anim, data->enforceSlideshow)) {
+                BL_LOG_ERROR << "Failed to add additional animation to new animation set asset";
+                return false;
+            }
         }
     }
     return true;

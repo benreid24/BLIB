@@ -3,6 +3,7 @@
 
 #include <BLIB/Assets/Builtin/Animation2DPayload.hpp>
 #include <BLIB/Assets/DependencyList.hpp>
+#include <optional>
 
 namespace bl
 {
@@ -25,6 +26,23 @@ public:
         as::TypedRef<Animation2DPayload> baseAnimation;
         std::vector<as::TypedRef<Animation2DPayload>> additionalAnimations;
         bool enforceSlideshow = false;
+
+        struct DebugCreate {
+            as::TypedRef<ImagePayload> spritesheet;
+            std::vector<Animation2DPayload::Frame>& frames;
+            bool loop;
+            bool centerShards;
+
+            DebugCreate(as::TypedRef<ImagePayload> spritesheet,
+                        std::vector<Animation2DPayload::Frame>& frames, bool loop,
+                        bool centerShards)
+            : spritesheet(spritesheet)
+            , frames(frames)
+            , loop(loop)
+            , centerShards(centerShards) {}
+        };
+
+        std::optional<DebugCreate> debugCreateData;
     };
 
     /**

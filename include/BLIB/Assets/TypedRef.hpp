@@ -69,18 +69,18 @@ public:
      */
     TypedRef(Ref&& ref)
     : Ref(std::forward<Ref>(ref)) {
-        if (isValid()) {
-            if (getState() != State::Loaded) {
-                BL_LOG_WARN << "Constructed TypedRef for asset " << getAsset().getUUID().toString()
-                            << " but it is not in state Loaded";
-                return;
-            }
-            if (!getAsset().getPayload().is<T>()) {
-                BL_LOG_ERROR << "Constructed TypedRef for asset " << getAsset().getUUID().toString()
-                             << " but it does not have the correct payload type";
-                release();
-            }
-        }
+        validateAfterBaseRefConstruct();
+    }
+
+    /**
+     * @brief Constructs from an untyped ref and validates the type. The ref must point to a loaded
+     *        asset with the correct payload type
+     *
+     * @param ref The ref to construct from
+     */
+    TypedRef(const Ref& ref)
+    : Ref(ref) {
+        validateAfterBaseRefConstruct();
     }
 
     /**
@@ -127,6 +127,22 @@ public:
      * @brief Returns whether this ref is in a valid state and the payload can be accessed
      */
     operator bool() const { return isValid(); }
+
+private:
+    void validateAfterBaseRefConstruct() {
+        if (isValid()) {
+            if (getState() != State::Loaded) {
+                BL_LOG_WARN << "Constructed TypedRef for asset " << getAsset().getUUID().toString()
+                            << " but it is not in state Loaded";
+                return;
+            }
+            if (!getAsset().getPayload().is<T>()) {
+                BL_LOG_ERROR << "Constructed TypedRef for asset " << getAsset().getUUID().toString()
+                             << " but it does not have the correct payload type";
+                release();
+            }
+        }
+    }
 };
 
 } // namespace as

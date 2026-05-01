@@ -14,6 +14,11 @@ namespace bl
 {
 namespace rc
 {
+namespace res
+{
+class TexturePool;
+}
+
 namespace vk
 {
 struct VulkanLayer;

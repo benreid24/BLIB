@@ -1,5 +1,6 @@
 #include <BLIB/Assets/Drivers/Animation2DDriver.hpp>
 
+#include <BLIB/Assets/Drivers/Animation2DSetDriver.hpp>
 #include <BLIB/Engine/Configuration.hpp>
 
 namespace bl
@@ -9,7 +10,18 @@ namespace asi
 // TODO - this currently only reads the legacy format. In the future it may need to be updated
 bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
-        BL_LOG_ERROR << "No path provided for Animation2D asset creation";
+        const Animation2DSetPayload::CreateData* debugData =
+            ctx.getCustomDataAsMaybe<Animation2DSetPayload::CreateData>();
+        if (debugData && debugData->debugCreateData.has_value()) {
+            const auto& debugInit = debugData->debugCreateData.value();
+            if (!payload.spritesheet.init(debugInit.spritesheet.getUUID())) { return false; }
+            payload.frames       = std::move(debugInit.frames);
+            payload.loop         = debugInit.loop;
+            payload.centerShards = debugInit.centerShards;
+            payload.computeDerivedData();
+            return true;
+        }
+        else { BL_LOG_ERROR << "No path provided for Animation2D asset creation"; }
         return false;
     }
 

@@ -1,6 +1,7 @@
 #ifndef BLIB_ENGINE_ENGINE_HPP
 #define BLIB_ENGINE_ENGINE_HPP
 
+#include <BLIB/Assets/Repository.hpp>
 #include <BLIB/Containers/RefPool.hpp>
 #include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Engine/Events.hpp>
@@ -62,6 +63,11 @@ public:
      * @brief Returns the systems registry of the engine
      */
     Systems& systems();
+
+    /**
+     * @brief Returns the engine asset repository
+     */
+    as::Repository& assets();
 
     /**
      * @brief Returns a reference to the engine's script Manager
@@ -253,6 +259,7 @@ private:
 
     Systems ecsSystems;
     script::Manager engineScriptManager;
+    as::Repository assetRepository;
     ecs::Registry entityRegistry;
     std::optional<rc::Renderer> rendererInstance;
     input::InputSystem input;
@@ -283,6 +290,8 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 inline ecs::Registry& Engine::ecs() { return entityRegistry; }
+
+inline as::Repository& Engine::assets() { return assetRepository; }
 
 inline Systems& Engine::systems() { return ecsSystems; }
 

@@ -7,21 +7,21 @@ namespace bl
 namespace gui
 {
 
-Animation::Ptr Animation::create(resource::Ref<gfx::a2d::AnimationData> anim) {
+Animation::Ptr Animation::create(as::TypedRef<asi::Animation2DSetPayload> anim) {
     return Ptr(new Animation(anim));
 }
 
-Animation::Animation(resource::Ref<gfx::a2d::AnimationData> anim)
+Animation::Animation(as::TypedRef<asi::Animation2DSetPayload> anim)
 : Element()
 , source(anim) {}
 
-void Animation::setAnimation(resource::Ref<gfx::a2d::AnimationData> src) {
+void Animation::setAnimation(as::TypedRef<asi::Animation2DSetPayload> src) {
     source = src;
     makeDirty();
     if (getComponent()) { getComponent()->onElementUpdated(); }
 }
 
-resource::Ref<gfx::a2d::AnimationData>& Animation::getAnimation() { return source; }
+as::TypedRef<asi::Animation2DSetPayload> Animation::getAnimation() { return source; }
 
 const std::optional<sf::Vector2f>& Animation::getSize() const { return size; }
 

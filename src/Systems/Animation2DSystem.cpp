@@ -1,5 +1,6 @@
 #include <BLIB/Systems/Animation2DSystem.hpp>
 
+#include <BLIB/Assets/Drivers/ImageDriver.hpp>
 #include <BLIB/Components/Transform2D.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Render.hpp>
@@ -12,57 +13,6 @@ namespace
 {
 constexpr std::uint32_t InitialSlideshowFrameCapacity = 128;
 
-resource::Ref<gfx::a2d::AnimationData> getErrorPlaceholder() {
-    using ImageManager                = resource::ResourceManager<sf::Image>;
-    using AnimationManager            = resource::ResourceManager<gfx::a2d::AnimationData>;
-    constexpr const char* Spritesheet = "blib.animation.error_spritesheet";
-    constexpr const char* Path        = "blib.animation.error_animation";
-
-    if (!AnimationManager::available(Path)) {
-        // Create spritesheet
-        if (!ImageManager::available(Spritesheet)) {
-            sf::Image img;
-            img.resize({202, 100}, sf::Color::Transparent);
-
-            const auto fillSquare = [&img](unsigned int baseX, sf::Color main, sf::Color alt) {
-                constexpr unsigned int BoxSize = 4;
-                for (unsigned int x = 0; x < 100; ++x) {
-                    for (unsigned int y = 0; y < 100; ++y) {
-                        const unsigned int xi = x / BoxSize;
-                        const unsigned int yi = y / BoxSize;
-                        const auto& col       = (xi % 2) == (yi % 2) ? main : alt;
-                        img.setPixel({x + baseX, y}, col);
-                    }
-                }
-            };
-
-            const sf::Color c1(230, 66, 245);
-            const sf::Color c2(255, 254, 196);
-            fillSquare(0, c1, c2);
-            fillSquare(102, c2, c1);
-            ImageManager::put(Spritesheet, img);
-        }
-
-        std::vector<gfx::a2d::AnimationData::Frame> frames;
-        frames.resize(2);
-        for (unsigned int i = 0; i < 2; ++i) {
-            auto& frame    = frames[i];
-            frame.length   = 0.75f;
-            auto& shard    = frame.shards.emplace_back();
-            shard.source   = sf::IntRect{{i == 0 ? 0 : 102, 0}, {100, 100}};
-            shard.alpha    = 255;
-            shard.rotation = 0.f;
-            shard.offset   = {0.f, 0.f};
-            shard.scale    = {1.f, 1.f};
-        }
-
-        gfx::a2d::AnimationData anim;
-        anim.debugInitialize(Spritesheet, std::move(frames), true, false);
-        return AnimationManager::put(Path, anim);
-    }
-
-    return AnimationManager::load(Path);
-}
 } // namespace
 
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
@@ -109,6 +59,7 @@ void Animation2DSystem::init(engine::Engine& engine) {
     slideshowPlayerCurrentFrameSSBO.create(renderer, 32);
     slideshowPlayerCurrentFrameSSBO.transferEveryFrame();
 
+    createErrorAnimation(engine);
     subscribe(engine.ecs().getSignalChannel());
 }
 
@@ -142,7 +93,7 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 void Animation2DSystem::process(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
     if (event.component.animation->frameCount() == 0) {
         auto& component     = const_cast<com::Animation2DPlayer&>(event.component);
-        component.animation = getErrorPlaceholder();
+        component.animation = errorAnim;
     }
 
     if (event.component.forSlideshow) {
@@ -165,7 +116,7 @@ void Animation2DSystem::process(const ecs::event::ComponentRemoved<com::Animatio
 
 void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     // determine frame offset and player index
-    const auto it           = slideshowFrameMap.find(player.animation.get());
+    const auto it           = slideshowFrameMap.find(player.animation.getUUID());
     const bool uploadFrames = it == slideshowFrameMap.end();
     const std::uint32_t offset =
         uploadFrames ?
@@ -189,18 +140,15 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
     slideshowFrameOffsetSSBO.markDirty(index, 1);
 
     // fetch texture to convert texCoords and set texture id
-    rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(
-        player.animation->resolvedSpritesheet(),
-        {.format  = rc::vk::CommonTextureFormats::SRGBA32Bit,
-         .sampler = rc::vk::SamplerOptions::Type::NoFilterEdgeClamped}); // TODO - parameterize?
-    player.texture = texture;
+    as::TypedRef<asi::ImagePayload> spritesheet = player.animation->getSpritesheet();
+    rc::res::TextureRef texture = renderer.texturePool().getOrLoadTexture(spritesheet);
     slideshowTextureSSBO.ensureSize(index + 1);
     slideshowTextureSSBO[index] = texture.id();
     slideshowTextureSSBO.markDirty(index, 1);
 
     // add frames to SSBO if required
     if (uploadFrames) {
-        slideshowFrameMap[player.animation.get()] = offset;
+        slideshowFrameMap[player.animation.getUUID()] = offset;
         slideshowFramesSSBO.ensureSize(offset + player.animation->frameCount());
         for (std::size_t i = 0; i < player.animation->frameCount(); ++i) {
             const auto& src          = player.animation->getFrame(i).shards.front();
@@ -217,7 +165,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
         }
         slideshowFramesSSBO.markDirty(offset, player.animation->frameCount());
     }
-    slideshowDataRefCounts[player.animation.get()] += 1;
+    slideshowDataRefCounts[player.animation.getUUID()] += 1;
 
     // mark that descriptors need to be reset
     slideshowRefreshRequired = rc::cfg::Limits::MaxConcurrentFrames;
@@ -226,7 +174,7 @@ void Animation2DSystem::doSlideshowAdd(com::Animation2DPlayer& player) {
 void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {
     slideshowPlayerIds.release(player.playerIndex);
 
-    const auto refCountIt = slideshowDataRefCounts.find(player.animation.get());
+    const auto refCountIt = slideshowDataRefCounts.find(player.animation.getUUID());
     if (refCountIt == slideshowDataRefCounts.end()) {
         throw std::runtime_error("Player component removed without having been added");
     }
@@ -234,7 +182,7 @@ void Animation2DSystem::doSlideshowFree(const com::Animation2DPlayer& player) {
 
     if (refCountIt->second == 0) {
         slideshowDataRefCounts.erase(refCountIt);
-        const auto offsetIt = slideshowFrameMap.find(player.animation.get());
+        const auto offsetIt = slideshowFrameMap.find(player.animation.getUUID());
         if (offsetIt == slideshowFrameMap.end()) {
             throw std::runtime_error("Failed to find cached frame offset for animation");
         }
@@ -315,7 +263,7 @@ void Animation2DSystem::updateSlideshowDescriptorSets() {
 void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,
                                            const com::Animation2DPlayer& player) {
     if (player.animation->frameCount() == 0) {
-        const_cast<com::Animation2DPlayer&>(player).animation = getErrorPlaceholder();
+        const_cast<com::Animation2DPlayer&>(player).animation = errorAnim;
     }
     doNonSlideshowRemove(anim);
     VertexAnimation* data = doNonSlideshowCreate(player);
@@ -326,10 +274,11 @@ void Animation2DSystem::createNonSlideshow(com::Animation2D& anim,
 
 Animation2DSystem::VertexAnimation* Animation2DSystem::doNonSlideshowCreate(
     const com::Animation2DPlayer& player) {
-    auto it = vertexAnimationData.find(player.animation.get());
+    auto it = vertexAnimationData.find(player.animation.getUUID());
     if (it == vertexAnimationData.end()) {
-        it = vertexAnimationData.try_emplace(player.animation.get(), renderer, *player.animation)
-                 .first;
+        it =
+            vertexAnimationData.try_emplace(player.animation.getUUID(), renderer, *player.animation)
+                .first;
     }
     return &it->second;
 }
@@ -343,7 +292,7 @@ void Animation2DSystem::doNonSlideshowRemove(const com::Animation2D& anim) {
 }
 
 void Animation2DSystem::tryFreeVertexData(const com::Animation2DPlayer& player) {
-    const auto it = vertexAnimationData.find(player.animation.get());
+    const auto it = vertexAnimationData.find(player.animation.getUUID());
     if (it != vertexAnimationData.end()) {
         it->second.useCount -= 1;
         if (it->second.useCount == 0) { vertexAnimationData.erase(it); }
@@ -351,7 +300,7 @@ void Animation2DSystem::tryFreeVertexData(const com::Animation2DPlayer& player) 
 }
 
 Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
-                                                    const gfx::a2d::AnimationData& anim)
+                                                    const asi::Animation2DSetPayload& anim)
 : useCount(0) {
     unsigned int shardCount = 0;
     for (unsigned int i = 0; i < anim.frameCount(); ++i) {
@@ -365,7 +314,7 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
 
         // fetch texture to convert texCoords
         rc::res::TextureRef texture =
-            renderer.texturePool().getOrLoadTexture(anim.resolvedSpritesheet());
+            renderer.texturePool().getOrLoadTexture(anim.getSpritesheet());
 
         // populate buffer
         std::uint32_t vi = 0;
@@ -447,6 +396,58 @@ Animation2DSystem::VertexAnimation::VertexAnimation(rc::Renderer& renderer,
         }
         indexBuffer.queueTransfer();
     }
+}
+
+void Animation2DSystem::createErrorAnimation(engine::Engine& engine) {
+    constexpr std::string_view SpritesheetKey = "AnimationErrorSpritesheet";
+    constexpr std::string_view AnimationKey   = "ErrorAnimation";
+
+    // Create spritesheet
+    sf::Image img;
+    img.resize({202, 100}, sf::Color::Transparent);
+
+    const auto fillSquare = [&img](unsigned int baseX, sf::Color main, sf::Color alt) {
+        constexpr unsigned int BoxSize = 4;
+        for (unsigned int x = 0; x < 100; ++x) {
+            for (unsigned int y = 0; y < 100; ++y) {
+                const unsigned int xi = x / BoxSize;
+                const unsigned int yi = y / BoxSize;
+                const auto& col       = (xi % 2) == (yi % 2) ? main : alt;
+                img.setPixel({x + baseX, y}, col);
+            }
+        }
+    };
+
+    const sf::Color c1(230, 66, 245);
+    const sf::Color c2(255, 254, 196);
+    fillSquare(0, c1, c2);
+    fillSquare(102, c2, c1);
+
+    asi::ImageDriver::CreateParams params;
+    params.sourceImage = &img;
+    auto spritesheet   = engine.assets().getOrCreateAsset<asi::ImagePayload>(
+        SpritesheetKey, std::string(SpritesheetKey), params);
+
+    // Create debug frames
+    std::vector<asi::Animation2DPayload::Frame> frames;
+    frames.resize(2);
+    for (unsigned int i = 0; i < 2; ++i) {
+        auto& frame    = frames[i];
+        frame.length   = 0.75f;
+        auto& shard    = frame.shards.emplace_back();
+        shard.source   = sf::IntRect{{i == 0 ? 0 : 102, 0}, {100, 100}};
+        shard.alpha    = 255;
+        shard.rotation = 0.f;
+        shard.offset   = {0.f, 0.f};
+        shard.scale    = {1.f, 1.f};
+    }
+
+    asi::Animation2DSetPayload::CreateData createData;
+    createData.debugCreateData.emplace(spritesheet, frames, true, false);
+
+    errorAnim = engine.assets().getOrCreateAsset<asi::Animation2DSetPayload>(
+        AnimationKey, std::string(AnimationKey), createData);
+    if (!errorAnim) { throw std::runtime_error("Failed to create error animation"); }
 }
 
 } // namespace sys
