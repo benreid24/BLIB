@@ -60,7 +60,7 @@ public:
 private:
     std::string_view supportedType;
 
-    friend class Repository;
+    friend class ::bl::as::Repository;
 };
 } // namespace detail
 
@@ -151,6 +151,9 @@ protected:
      * @return True on success, false on error
      */
     virtual bool doWrite(const WriteContext& ctx, const T& payload) = 0;
+
+private:
+    friend class ::bl::as::Repository;
 };
 
 } // namespace as

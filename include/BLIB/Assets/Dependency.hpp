@@ -91,7 +91,7 @@ public:
     /**
      * @brief Returns a ref to the asset of the dependency
      */
-    typename TypedRef<T> getRef() const { return TypedRef<T>(dependency); }
+    TypedRef<T> getRef() const { return TypedRef<T>(dependency); }
 
 private:
     void ensure() const {

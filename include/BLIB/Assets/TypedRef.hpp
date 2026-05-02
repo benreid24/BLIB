@@ -86,12 +86,12 @@ public:
     /**
      * @brief Returns a reference to the typed payload
      */
-    T& payload() { return getAsset().getPayload().as<T>(); }
+    T& payload() { return getAsset().getPayload().template as<T>(); }
 
     /**
      * @brief Returns a reference to the typed payload
      */
-    const T& payload() const { return getAsset().getPayload().as<T>(); }
+    const T& payload() const { return getAsset().getPayload().template as<T>(); }
 
     /**
      * @brief Returns a reference to the typed payload
@@ -119,7 +119,7 @@ public:
     bool isValid() const {
         if (!Ref::isValid()) { return false; }
         if (getState() != State::Loaded) { return false; }
-        if (!getAsset().getPayload().is<T>()) { return false; }
+        if (!getAsset().getPayload().template is<T>()) { return false; }
         return true;
     }
 
@@ -136,7 +136,7 @@ private:
                             << " but it is not in state Loaded";
                 return;
             }
-            if (!getAsset().getPayload().is<T>()) {
+            if (!getAsset().getPayload().template is<T>()) {
                 BL_LOG_ERROR << "Constructed TypedRef for asset " << getAsset().getUUID().toString()
                              << " but it does not have the correct payload type";
                 release();

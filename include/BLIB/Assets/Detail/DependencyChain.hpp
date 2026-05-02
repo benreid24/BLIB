@@ -74,7 +74,7 @@ protected:
      */
     virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies) = 0;
 
-    friend class Payload;
+    friend class ::bl::as::Payload;
 };
 
 } // namespace detail

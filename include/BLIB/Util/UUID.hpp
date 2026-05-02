@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <string>
 #include <string_view>
+#include <ostream>
 
 namespace bl
 {
@@ -113,6 +114,11 @@ private:
     std::uint64_t part2;
 };
 
+inline std::ostream& operator<<(std::ostream& os, const UUID& uuid) {
+    os << uuid.toString();
+    return os;
+}
+
 } // namespace util
 
 namespace serial
@@ -190,9 +196,5 @@ struct hash<bl::util::UUID> {
 };
 } // namespace std
 
-inline std::ostream& operator<<(std::ostream& os, const bl::util::UUID& uuid) {
-    os << uuid.toString();
-    return os;
-}
 
 #endif

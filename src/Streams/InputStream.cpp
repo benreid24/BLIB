@@ -2,6 +2,7 @@
 
 #include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/Visitor.hpp>
+#include <cstring>
 
 namespace bl
 {

@@ -1,5 +1,7 @@
 #include <BLIB/Util/Base64.hpp>
 
+#include <cstring>
+
 namespace bl
 {
 namespace util
@@ -35,14 +37,14 @@ bool Base64::decode(const std::string& encoded, std::vector<char>& result) {
         const char c3 = encoded[i + 2];
         const char c4 = encoded[i + 3];
         if (c1 == '=' || c2 == '=') return false;
-        const auto b1 = static_cast<unsigned char>(strchr(Table, c1) - Table);
-        const auto b2 = static_cast<unsigned char>(strchr(Table, c2) - Table);
+        const auto b1 = static_cast<unsigned char>(std::strchr(Table, c1) - Table);
+        const auto b2 = static_cast<unsigned char>(std::strchr(Table, c2) - Table);
         result.push_back(static_cast<char>((b1 << 2) | (b2 >> 4)));
         if (c3 != '=') {
-            const auto b3 = static_cast<unsigned char>(strchr(Table, c3) - Table);
+            const auto b3 = static_cast<unsigned char>(std::strchr(Table, c3) - Table);
             result.push_back(static_cast<char>(((b2 & 0x0F) << 4) | (b3 >> 2)));
             if (c4 != '=') {
-                const auto b4 = static_cast<unsigned char>(strchr(Table, c4) - Table);
+                const auto b4 = static_cast<unsigned char>(std::strchr(Table, c4) - Table);
                 result.push_back(static_cast<char>(((b3 & 0x03) << 6) | b4));
             }
         }
