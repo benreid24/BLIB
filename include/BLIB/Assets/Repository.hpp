@@ -151,10 +151,12 @@ public:
     /**
      * @brief Performs a lookup of known static assets by file path
      *
+     * @param type The type tag of the asset to find
      * @param path The path to search for
      * @return The UUID of the static asset with the given path
      */
-    std::optional<util::UUID> findStaticAssetId(const std::string& path) const;
+    std::optional<util::UUID> findAssetIdFromSourcePath(std::string_view type,
+                                                        const std::string& path) const;
 
     /**
      * @brief Returns the dependency list for the asset with the given UUID
@@ -241,15 +243,15 @@ private:
     std::unordered_map<std::string, util::UUID> keyToAsset;
     StreamCache streamCache;
 
-    mutable std::mutex sourceLinkMutex;
-    std::unordered_map<std::string, SourceLink> sourceLinks;
+    mutable std::recursive_mutex sourceLinkMutex;
+    std::unordered_map<std::string, std::unordered_map<std::string, SourceLink>> sourceLinks;
 
     std::shared_mutex driverMutex;
     std::vector<std::unique_ptr<detail::DriverBase>> drivers;
     std::unordered_map<std::type_index, detail::DriverBase*> driversByType;
     std::unordered_map<std::string_view, detail::DriverBase*> driversByName;
 
-    std::mutex unloadQueueMutex;
+    std::recursive_mutex unloadQueueMutex;
     std::vector<util::UUID> unloadQueue;
 
     template<typename T>

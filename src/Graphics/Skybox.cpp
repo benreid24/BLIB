@@ -23,6 +23,20 @@ void Skybox::create(engine::World& world, as::TypedRef<asi::ImagePayload> right,
     cube.component().setContainsTransparency(true); // always forward render
 }
 
+void Skybox::create(engine::World& world, as::TypedRef<asi::TexturePayload> right,
+                    as::TypedRef<asi::TexturePayload> left, as::TypedRef<asi::TexturePayload> top,
+                    as::TypedRef<asi::TexturePayload> bottom,
+                    as::TypedRef<asi::TexturePayload> back,
+                    as::TypedRef<asi::TexturePayload> front) {
+    create(world,
+           right->image.getRef(),
+           left->image.getRef(),
+           top->image.getRef(),
+           bottom->image.getRef(),
+           back->image.getRef(),
+           front->image.getRef());
+}
+
 void Skybox::addToScene(rc::Scene* scene) { cube.addToScene(scene, rc::UpdateSpeed::Static); }
 
 void Skybox::removeFromScene() { cube.removeFromScene(); }

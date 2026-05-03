@@ -7,7 +7,6 @@ namespace bl
 {
 namespace asi
 {
-// TODO - this currently only reads the legacy format. In the future it may need to be updated
 bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
         const Animation2DSetPayload::CreateData* debugData =
@@ -36,23 +35,28 @@ bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayloa
 
     payload.frames.clear();
 
-    const std::string path            = util::FileUtil::getPath(ctx.getCustomData().getPath());
-    const std::string& spritesheetDir = // TODO - does this have a place here still?
+    const std::string path = util::FileUtil::getPath(ctx.getCustomData().getPath());
+    const std::string& spritesheetDir =
         engine::Configuration::get<std::string>("blib.animation.spritesheet_path");
 
     std::string sheet;
     if (!input.read(sheet)) return false;
 
+    const auto trySheetPath = [ctx](const std::string& path) -> as::TypedRef<asi::ImagePayload> {
+        if (util::FileUtil::exists(path)) {
+            return ctx.getRepository().getAssetFromSourcePath<ImagePayload>(path);
+        }
+        return {};
+    };
+
     // 1. first try whole past as is
-    as::Ref resolvedSheetRef = ctx.getRepository().getAssetFromSourcePath<ImagePayload>(sheet);
+    as::Ref resolvedSheetRef = trySheetPath(sheet);
     if (!resolvedSheetRef) {
         // 2. then try relative to the animation file
-        resolvedSheetRef = ctx.getRepository().getAssetFromSourcePath<ImagePayload>(
-            util::FileUtil::joinPath(path, sheet));
+        resolvedSheetRef = trySheetPath(util::FileUtil::joinPath(path, sheet));
         if (!resolvedSheetRef) {
             // 3. then try relative to the spritesheet directory
-            resolvedSheetRef = ctx.getRepository().getAssetFromSourcePath<ImagePayload>(
-                util::FileUtil::joinPath(spritesheetDir, sheet));
+            resolvedSheetRef = trySheetPath(util::FileUtil::joinPath(spritesheetDir, sheet));
             if (!resolvedSheetRef) {
                 // 4. give up
                 BL_LOG_ERROR

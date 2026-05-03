@@ -8,7 +8,7 @@ namespace
 {
 glm::vec2 getSize(as::TypedRef<asi::Animation2DSetPayload> animation) {
     if (!animation || animation->frameCount() == 0) { return {1.f, 1.f}; }
-    sf::Vector2f s = animation->getFrameSize(0);
+    glm::vec2 s = animation->getFrameSize(0);
     for (unsigned int i = 1; i < animation->frameCount(); ++i) {
         s.x = std::max(s.x, animation->getFrame(i).size.x);
         s.y = std::max(s.y, animation->getFrame(i).size.y);

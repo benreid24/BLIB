@@ -91,7 +91,7 @@ void Animation2DSystem::ensureSlideshowDescriptorsUpdated() {
 }
 
 void Animation2DSystem::process(const ecs::event::ComponentAdded<com::Animation2DPlayer>& event) {
-    if (event.component.animation->frameCount() == 0) {
+    if (!event.component.animation.isValid() || event.component.animation->frameCount() == 0) {
         auto& component     = const_cast<com::Animation2DPlayer&>(event.component);
         component.animation = errorAnim;
     }

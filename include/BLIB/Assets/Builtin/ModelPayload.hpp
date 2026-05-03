@@ -36,6 +36,11 @@ public:
     virtual ~ModelPayload() = default;
 
     /**
+     * @brief Flips the V texture coordinates of all meshes in the model
+     */
+    void flipUVs();
+
+    /**
      * @brief Returns the root node of the model. Only call after loading
      */
     const mdl::Node& getRoot() const { return nodes.getNode(0); }
@@ -64,11 +69,41 @@ public:
     const MaterialPayload& getMaterial(std::size_t i) const { return materials.get(i); }
 
     /**
+     * @brief Returns the material at the given index
+     *
+     * @param i The index of the material to fetch
+     * @return A ref to the asset of the material at the given index
+     */
+    as::TypedRef<MaterialPayload> getMaterialRef(std::size_t i) const {
+        return materials.getRef(i);
+    }
+
+    /**
+     * @brief Returns the number of materials in the model
+     */
+    unsigned int getMaterialCount() const { return materials.getSize(); }
+
+    /**
      * @brief Returns the animation at the given index
      * @param i The index of the animation to fetch
      * @return The animation at the given index
      */
     const Animation3DPayload& getAnimation(std::size_t i) const { return animations.get(i); }
+
+    /**
+     * @brief Returns the animation at the given index
+     *
+     * @param i The index of the animation to fetch
+     * @return A ref to the asset of the animation at the given index
+     */
+    as::TypedRef<Animation3DPayload> getAnimationRef(std::size_t i) const {
+        return animations.getRef(i);
+    }
+
+    /**
+     * @brief Returns the number of animations in the model
+     */
+    unsigned int getAnimationCount() const { return animations.getSize(); }
 
 private:
     mdl::NodeSet nodes;

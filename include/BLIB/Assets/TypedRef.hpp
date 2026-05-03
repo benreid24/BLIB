@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_TYPEDREF_HPP
 #define BLIB_ASSETS_TYPEDREF_HPP
 
+#include <BLIB/Assets/Asset.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Assets/Ref.hpp>
 #include <type_traits>
@@ -39,6 +40,18 @@ public:
      * @param ref The ref to adopt from
      */
     TypedRef(TypedRef&& ref) = default;
+
+    /**
+     * @brief Deleted
+     */
+    template<typename U>
+    TypedRef(const TypedRef<U>&) = delete;
+
+    /**
+     * @brief Deleted
+     */
+    template<typename U>
+    TypedRef(TypedRef<U>&&) = delete;
 
     /**
      * @brief Releases the ref

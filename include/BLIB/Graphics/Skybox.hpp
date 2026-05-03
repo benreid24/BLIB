@@ -38,6 +38,22 @@ public:
                 as::TypedRef<asi::ImagePayload> front);
 
     /**
+     * @brief Creates the skybox from the 6 faces
+     *
+     * @param world The world to create the skybox in
+     * @param right The right face image
+     * @param left The left face image
+     * @param top The top face image
+     * @param bottom The bottom face image
+     * @param back The back face image
+     * @param front The front face image
+     */
+    void create(engine::World& world, as::TypedRef<asi::TexturePayload> right,
+                as::TypedRef<asi::TexturePayload> left, as::TypedRef<asi::TexturePayload> top,
+                as::TypedRef<asi::TexturePayload> bottom, as::TypedRef<asi::TexturePayload> back,
+                as::TypedRef<asi::TexturePayload> front);
+
+    /**
      * @brief Adds this entity to the given scene
      *
      * @param scene The scene to add to

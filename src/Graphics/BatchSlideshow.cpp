@@ -43,7 +43,7 @@ void BatchSlideshow::scaleToSize(const glm::vec2& size) {
         return;
     }
 
-    const sf::Vector2f srcSize = player->getAnimation()->getMaxSize();
+    const glm::vec2 srcSize = player->getAnimation()->getMaxSize();
     transform.setScale({size.x / srcSize.x, size.y / srcSize.y});
 }
 

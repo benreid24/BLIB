@@ -139,40 +139,35 @@ MaterialRef MaterialPool::getOrCreateFromNormalAndParallax(const TextureRef& dif
     return MaterialRef(this, newId);
 }
 
-MaterialRef MaterialPool::getOrCreateFromModelMaterial(const mdl::Material& src) {
+MaterialRef MaterialPool::getOrCreateFromAsset(as::TypedRef<asi::MaterialPayload> src) {
     std::unique_lock lock(mutex);
 
     checkLazyInit();
 
-    const auto it = modelMaterialToId.find(src);
-    if (it != modelMaterialToId.end()) { return MaterialRef(this, it->second); }
+    const auto it = materialAssetToId.find(src.getUUID());
+    if (it != materialAssetToId.end()) { return MaterialRef(this, it->second); }
 
-    auto diffuse = renderer.texturePool().getOrCreateTexture(
-        src.diffuse,
-        {},
-        {.format  = vk::CommonTextureFormats::SRGBA32Bit,
-         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
-    auto specular = renderer.texturePool().getOrCreateTexture(
-        src.specular,
-        diffuse,
-        {.format  = vk::CommonTextureFormats::LinearRGBA32Bit,
-         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
-    auto normal = renderer.texturePool().getOrCreateTexture(
-        src.normal,
-        defaultNormalMap,
-        {.format  = vk::CommonTextureFormats::LinearRGBA32Bit,
-         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
-    auto parallax = renderer.texturePool().getOrCreateTexture(
-        src.parallax,
-        defaultParallaxMap,
-        {.format  = vk::CommonTextureFormats::LinearRGBA32Bit,
-         .sampler = vk::SamplerOptions::Type::FilteredRepeated});
+    const auto getTexture = [this](as::TypedRef<asi::TexturePayload> tex,
+                                   TextureRef fallback) -> TextureRef {
+        if (!tex) { return fallback; }
+        auto ref = renderer.texturePool().getOrLoadTexture(
+            tex,
+            {.format  = vk::CommonTextureFormats::SRGBA32Bit,
+             .sampler = vk::SamplerOptions::Type::FilteredRepeated});
+        if (!ref) { return fallback; }
+        return ref;
+    };
+
+    auto diffuse  = getTexture(src->diffuse.getRef(), {});
+    auto specular = getTexture(src->specular.getRef(), diffuse);
+    auto normal   = getTexture(src->normal.getRef(), defaultNormalMap);
+    auto parallax = getTexture(src->parallax.getRef(), defaultParallaxMap);
 
     const auto newId = freeIds.allocate();
     materials[newId] =
-        mat::Material(diffuse, specular, normal, parallax, src.heightScale, src.shininess);
+        mat::Material(diffuse, specular, normal, parallax, src->heightScale, src->shininess);
 
-    modelMaterialToId[src] = newId;
+    materialAssetToId[src.getUUID()] = newId;
     markForUpdate(newId);
     return MaterialRef(this, newId);
 }

@@ -11,15 +11,14 @@ void Skeleton::playAnimation(unsigned int index, float weight) {
     anim.animationIndex = index;
     anim.weight         = weight;
 
-    const auto& src = animations.getAnimations()[index];
+    const auto& src = animations[index].payload().get();
     unsigned int bi = 0;
     for (auto& bone : bones) { bone.bone->animations.emplace_back(&src.getBoneAnimations()[bi++]); }
 }
 
 void Skeleton::playAnimation(const std::string& name, float weight) {
-    const auto& anims = animations.getAnimations();
-    for (unsigned int i = 0; i < anims.size(); ++i) {
-        if (anims[i].getName() == name) {
+    for (unsigned int i = 0; i < animations.size(); ++i) {
+        if (animations[i].payload().get().getName() == name) {
             playAnimation(i, weight);
             return;
         }
@@ -37,9 +36,8 @@ void Skeleton::stopAnimation(unsigned int index) {
 }
 
 void Skeleton::stopAnimation(const std::string& name) {
-    const auto& anims = animations.getAnimations();
-    for (unsigned int i = 0; i < anims.size(); ++i) {
-        if (anims[i].getName() == name) {
+    for (unsigned int i = 0; i < animations.size(); ++i) {
+        if (animations[i].payload().get().getName() == name) {
             stopAnimation(i);
             return;
         }

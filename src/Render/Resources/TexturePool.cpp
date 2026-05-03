@@ -358,15 +358,21 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, const vk::Texture
     return txtr;
 }
 
-TextureRef TexturePool::getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback,
-                                           const vk::TextureOptions& options) {
-    /*if (texture.isEmbedded()) { return getOrLoadTexture(texture.getEmbedded(), options); }
-    if (texture.getFilePath().empty() ||
-        !resource::ResourceManager<sf::Image>::load(texture.getFilePath())) {
-        if (fallback) { return fallback; }
-    }
-    return getOrLoadTexture(texture.getFilePath(), options);*/
-    return {}; // TODO - determine how to best update this when update models
+TextureRef TexturePool::createCubemap(as::TypedRef<asi::TexturePayload> right,
+                                      as::TypedRef<asi::TexturePayload> left,
+                                      as::TypedRef<asi::TexturePayload> top,
+                                      as::TypedRef<asi::TexturePayload> bottom,
+                                      as::TypedRef<asi::TexturePayload> back,
+                                      as::TypedRef<asi::TexturePayload> front, VkFormat format,
+                                      vk::SamplerOptions::Type sampler) {
+    return createCubemap(right->image.getRef(),
+                         left->image.getRef(),
+                         top->image.getRef(),
+                         bottom->image.getRef(),
+                         back->image.getRef(),
+                         front->image.getRef(),
+                         format,
+                         sampler);
 }
 
 TextureRef TexturePool::createCubemap(as::TypedRef<asi::ImagePayload> right,

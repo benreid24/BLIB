@@ -1,6 +1,8 @@
 #ifndef BLIB_GRAPHICS_MODELSKELETAL_HPP
 #define BLIB_GRAPHICS_MODELSKELETAL_HPP
 
+#include <BLIB/Assets/Builtin/ModelPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Components/Skeleton.hpp>
 #include <BLIB/Components/SkeletonIndexLink.hpp>
@@ -9,7 +11,6 @@
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
-#include <BLIB/Resources/Ref.hpp>
 #include <variant>
 
 namespace bl
@@ -61,7 +62,7 @@ public:
      * @return True if the model was able to created, false on error
      */
     bool create(
-        engine::World& world, resource::Ref<mdl::Model> model,
+        engine::World& world, as::TypedRef<asi::ModelPayload> model,
         std::uint32_t skinnedMeshMaterialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3DSkinned,
         std::uint32_t unskinnedMeshMaterialPipelineId =
             rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
@@ -92,7 +93,7 @@ private:
 
     void processNode(engine::World& world, Tx& tx, std::uint32_t skinnedMaterialPipelineId,
                      std::uint32_t nonSkinnedMaterialPipelineId, com::Skeleton& skeleton,
-                     const resource::Ref<mdl::Model>& model, const mdl::Node& node,
+                     const as::TypedRef<asi::ModelPayload>& model, const mdl::Node& node,
                      ecs::Entity parentEntity);
 
     virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;

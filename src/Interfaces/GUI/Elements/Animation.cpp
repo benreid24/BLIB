@@ -31,7 +31,10 @@ void Animation::scaleToSize(const sf::Vector2f& s) {
     makeDirty();
 }
 
-sf::Vector2f Animation::minimumRequisition() const { return size.value_or(source->getMaxSize()); }
+sf::Vector2f Animation::minimumRequisition() const {
+    const auto ms = source->getMaxSize();
+    return size.value_or({ms.x, ms.y});
+}
 
 rdr::Component* Animation::doPrepareRender(rdr::Renderer& renderer) {
     return renderer.createComponent<Animation>(*this);

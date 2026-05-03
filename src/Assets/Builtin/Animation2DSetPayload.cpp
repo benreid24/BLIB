@@ -65,18 +65,18 @@ const Animation2DPayload::Frame& Animation2DSetPayload::getFrame(std::size_t fra
     return emptyFrame;
 }
 
-const sf::Vector2f& Animation2DSetPayload::getFrameSize(std::size_t i) const {
+const glm::vec2& Animation2DSetPayload::getFrameSize(std::size_t i) const {
     return getFrame(i).size;
 }
 
 float Animation2DSetPayload::getFrameLength(std::size_t i) const { return getFrame(i).length; }
 
-sf::Vector2f Animation2DSetPayload::getMaxSize() const {
-    sf::Vector2f max(0, 0);
+glm::vec2 Animation2DSetPayload::getMaxSize() const {
+    glm::vec2 max(0, 0);
     for (unsigned int i = 0; i < totalFrames; ++i) {
-        const sf::Vector2f s = getFrame(i).size;
-        max.x                = std::max(max.x, s.x);
-        max.y                = std::max(max.y, s.y);
+        const glm::vec2 s = getFrame(i).size;
+        max.x             = std::max(max.x, s.x);
+        max.y             = std::max(max.y, s.y);
     }
     return max;
 }

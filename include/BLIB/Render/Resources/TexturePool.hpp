@@ -113,17 +113,6 @@ public:
     TextureRef getOrLoadTexture(const sf::Image& src, const vk::TextureOptions& options = {});
 
     /**
-     * @brief Gets or creates a texture from the given model texture
-     *
-     * @param texture The source model texture
-     * @param fallback The fallback texture to use if loading fails
-     * @param options The texture options
-     * @return A ref to the new or existing texture
-     */
-    TextureRef getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback = {},
-                                  const vk::TextureOptions& options = {}); // TODO - remove
-
-    /**
      * @brief Creates a cubemap texture from the given faces
      *
      * @param right The right face image
@@ -140,6 +129,26 @@ public:
         as::TypedRef<asi::ImagePayload> right, as::TypedRef<asi::ImagePayload> left,
         as::TypedRef<asi::ImagePayload> top, as::TypedRef<asi::ImagePayload> bottom,
         as::TypedRef<asi::ImagePayload> back, as::TypedRef<asi::ImagePayload> front,
+        VkFormat format                  = vk::CommonTextureFormats::SRGBA32Bit,
+        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
+
+    /**
+     * @brief Creates a cubemap texture from the given faces
+     *
+     * @param right The right face image
+     * @param left The left face image
+     * @param top The top face image
+     * @param bottom The bottom face image
+     * @param back The back face image
+     * @param front The front face image
+     * @param format The format of the texture
+     * @param sampler The sampler to use
+     * @return A ref to the new cubemap texture
+     */
+    TextureRef createCubemap(
+        as::TypedRef<asi::TexturePayload> right, as::TypedRef<asi::TexturePayload> left,
+        as::TypedRef<asi::TexturePayload> top, as::TypedRef<asi::TexturePayload> bottom,
+        as::TypedRef<asi::TexturePayload> back, as::TypedRef<asi::TexturePayload> front,
         VkFormat format                  = vk::CommonTextureFormats::SRGBA32Bit,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 

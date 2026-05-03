@@ -14,12 +14,12 @@ ModelSkeletal::ModelSkeletal()
 
 bool ModelSkeletal::create(engine::World& world, const std::string& file,
                            std::uint32_t skinnedMaterial, std::uint32_t unskinnedMaterial) {
-    auto model = resource::ResourceManager<mdl::Model>::load(file);
+    auto model = world.engine().assets().getAssetFromSourcePath<asi::ModelPayload>(file);
     if (!model) { return false; }
     return create(world, model, skinnedMaterial, unskinnedMaterial);
 }
 
-bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model,
+bool ModelSkeletal::create(engine::World& world, as::TypedRef<asi::ModelPayload> model,
                            std::uint32_t skinnedMaterial, std::uint32_t unskinnedMaterial) {
     if (model->getNodes().size() == 0) { return false; }
 
@@ -34,8 +34,12 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 
     skeleton = world.engine().ecs().emplaceComponentWithTx<com::Skeleton>(entity(), tx);
     skeleton->bones.resize(model->getBones().numBones(), {});
-    skeleton->animations     = model->getAnimations(); // TODO - better storage solution
     skeleton->worldTransform = &getTransform();
+
+    skeleton->animations.reserve(model->getAnimationCount());
+    for (unsigned int i = 0; i < model->getAnimationCount(); ++i) {
+        skeleton->animations.emplace_back(model->getAnimationRef(i));
+    }
 
     processNode(world,
                 tx,
@@ -67,7 +71,7 @@ bool ModelSkeletal::create(engine::World& world, resource::Ref<mdl::Model> model
 void ModelSkeletal::processNode(engine::World& world, Tx& tx,
                                 std::uint32_t skinnedMaterialPipelineId,
                                 std::uint32_t nonSkinnedMaterialPipelineId, com::Skeleton& skeleton,
-                                const resource::Ref<mdl::Model>& model, const mdl::Node& node,
+                                const as::TypedRef<asi::ModelPayload>& model, const mdl::Node& node,
                                 ecs::Entity parentEntity) {
     ecs::Entity nodeEntity = world.createEntity(tx);
     world.engine().ecs().setEntityParent(nodeEntity, parentEntity, tx);
@@ -108,8 +112,8 @@ void ModelSkeletal::processNode(engine::World& world, Tx& tx,
         // mesh material
         const std::uint32_t materialId =
             mesh.getIsSkinned() ? skinnedMaterialPipelineId : nonSkinnedMaterialPipelineId;
-        auto mat = world.engine().renderer().materialPool().getOrCreateFromModelMaterial(
-            model->getMaterials().getMaterial(mesh.getMaterialIndex()));
+        auto mat = world.engine().renderer().materialPool().getOrCreateFromAsset(
+            model->getMaterialRef(mesh.getMaterialIndex()));
 
         // skinned meshes are direct children of the root node. bone transforms provide the
         // accumulated node transforms

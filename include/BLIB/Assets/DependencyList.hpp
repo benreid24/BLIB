@@ -3,6 +3,7 @@
 
 #include <BLIB/Assets/Detail/DependencyListBase.hpp>
 #include <BLIB/Assets/Repository.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <string_view>
 #include <type_traits>
 
@@ -59,6 +60,17 @@ public:
     const T& get(std::size_t i) const {
         ensure(i);
         return getItem(i).getAsset().getPayload().template as<T>();
+    }
+
+    /**
+     * @brief Returns the payload of the dependency at the given index
+     *
+     * @param i The index of the dependency to get
+     * @return A ref to the payload of the dependency at the given index
+     */
+    TypedRef<T> getRef(std::size_t i) const {
+        ensure(i);
+        return TypedRef<T>(getItem(i));
     }
 
     /**

@@ -8,7 +8,7 @@ namespace asi
 {
 namespace
 {
-bool compareVectors(const sf::Vector2f& left, const sf::Vector2f& right) {
+bool compareVectors(const glm::vec2& left, const glm::vec2& right) {
     if (std::abs(left.x - right.x) >= 0.9f || std::abs(left.y - right.y) >= 0.9f) { return false; }
     return true;
 }
@@ -30,8 +30,8 @@ void computeFrameSize(Animation2DPayload::Frame& frame) {
         const sf::Vector2f center(source.size.x * 0.5f, source.size.y * 0.5f);
         sf::Transform transform;
         transform.rotate(sf::degrees(shard.rotation), center);
-        transform.scale(shard.scale, center);
-        transform.translate(shard.offset);
+        transform.scale({shard.scale.x, shard.scale.y}, center);
+        transform.translate({shard.offset.x, shard.offset.y});
 
         const sf::FloatRect shardBounds = transform.transformRect(source);
         bounds.position.x               = std::min(bounds.position.x, shardBounds.position.x);
@@ -93,8 +93,8 @@ bool Animation2DPayload::isValidSlideshow() {
         }
     }
 
-    const sf::Vector2f pos   = frames.front().shards.front().offset;
-    const sf::Vector2f scale = frames.front().shards.front().scale;
+    const glm::vec2 pos   = frames.front().shards.front().offset;
+    const glm::vec2 scale = frames.front().shards.front().scale;
     for (const auto& frame : frames) {
         if (!compareVectors(scale, frame.shards.front().scale)) {
             BL_LOG_DEBUG << "Slideshow check fail: Frame scales inconsistent";

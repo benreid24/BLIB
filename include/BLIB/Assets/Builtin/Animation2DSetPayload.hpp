@@ -99,14 +99,14 @@ public:
      * @brief Returns the width and height of the given frame
      *
      * @param frameIndex Index of the frame to check
-     * @return sf::Vector2f Size of the frame
+     * @return glm::vec2 Size of the frame
      */
-    const sf::Vector2f& getFrameSize(std::size_t frameIndex) const;
+    const glm::vec2& getFrameSize(std::size_t frameIndex) const;
 
     /**
      * @brief Returns the size of the largest frame
      */
-    sf::Vector2f getMaxSize() const;
+    glm::vec2 getMaxSize() const;
 
     /**
      * @brief Returns the index of the next frame from the current frame

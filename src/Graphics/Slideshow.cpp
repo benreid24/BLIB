@@ -10,8 +10,7 @@ glm::vec2 getSize(as::TypedRef<asi::Animation2DSetPayload> animation) {
     if (!animation || animation->frameCount() == 0 || !animation->isSlideshow()) {
         return {1.f, 1.f};
     }
-    const sf::Vector2f s = animation->getFrameSize(0);
-    return {s.x, s.y};
+    return animation->getFrameSize(0);
 }
 } // namespace
 

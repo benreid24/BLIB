@@ -12,5 +12,7 @@ ModelPayload::ModelPayload(const as::Payload::ConstructContext& ctx)
 , materials(ctx.repo, *this, "material")
 , animations(ctx.repo, *this, "animation") {}
 
+void ModelPayload::flipUVs() { meshes.flipUVs(); }
+
 } // namespace asi
 } // namespace bl

@@ -1,6 +1,8 @@
 #ifndef BLIB_COMPONENTS_SKELETON_HPP
 #define BLIB_COMPONENTS_SKELETON_HPP
 
+#include <BLIB/Assets/Builtin/Animation3DPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Containers/StaticVector.hpp>
 #include <BLIB/Models/Model.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
@@ -43,7 +45,7 @@ public:
     std::vector<BoneLink> bones;
     com::Transform3D* worldTransform;
     rc::sri::SkeletalBonesResource::ComponentLink resourceLink;
-    mdl::AnimationSet animations; // TODO - better interface. Separate component? external storage?
+    std::vector<as::TypedRef<asi::Animation3DPayload>> animations;
     ctr::StaticVector<AnimationState, 4> activeAnimations;
     bool needsRefresh;
 

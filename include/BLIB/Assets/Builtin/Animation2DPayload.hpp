@@ -6,6 +6,7 @@
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Serialization.hpp>
 #include <SFML/System.hpp>
+#include <glm/glm.hpp>
 
 namespace bl
 {
@@ -33,8 +34,8 @@ public:
          */
         struct Shard {
             sf::IntRect source;
-            sf::Vector2f offset;
-            sf::Vector2f scale;
+            glm::vec2 offset;
+            glm::vec2 scale;
             float rotation;
             std::uint8_t alpha;
 
@@ -47,7 +48,7 @@ public:
 
         // computed
         std::uint32_t shardIndex;
-        sf::Vector2f size;
+        glm::vec2 size;
     };
 
     /**
@@ -151,8 +152,8 @@ struct SerializableObject<asi::Animation2DPayload::Frame> : public SerializableO
 template<>
 struct SerializableObject<asi::Animation2DPayload::Frame::Shard> : public SerializableObjectBase {
     SerializableField<1, asi::Animation2DPayload::Frame::Shard, sf::IntRect> source;
-    SerializableField<2, asi::Animation2DPayload::Frame::Shard, sf::Vector2f> offset;
-    SerializableField<3, asi::Animation2DPayload::Frame::Shard, sf::Vector2f> scale;
+    SerializableField<2, asi::Animation2DPayload::Frame::Shard, glm::vec2> offset;
+    SerializableField<3, asi::Animation2DPayload::Frame::Shard, glm::vec2> scale;
     SerializableField<4, asi::Animation2DPayload::Frame::Shard, float> rotation;
     SerializableField<5, asi::Animation2DPayload::Frame::Shard, std::uint8_t> alpha;
 
