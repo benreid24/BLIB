@@ -1,7 +1,7 @@
 #ifndef BLIB_GRAPHICS_SKYBOX_HPP
 #define BLIB_GRAPHICS_SKYBOX_HPP
 
-#include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <BLIB/Assets/Builtin/CubemapPayload.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Graphics/Cube.hpp>
 
@@ -25,33 +25,9 @@ public:
      * @brief Creates the skybox from the 6 faces
      *
      * @param world The world to create the skybox in
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
+     * @param cubemap The cubemap containing the 6 faces of the skybox
      */
-    void create(engine::World& world, as::TypedRef<asi::ImagePayload> right,
-                as::TypedRef<asi::ImagePayload> left, as::TypedRef<asi::ImagePayload> top,
-                as::TypedRef<asi::ImagePayload> bottom, as::TypedRef<asi::ImagePayload> back,
-                as::TypedRef<asi::ImagePayload> front);
-
-    /**
-     * @brief Creates the skybox from the 6 faces
-     *
-     * @param world The world to create the skybox in
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
-     */
-    void create(engine::World& world, as::TypedRef<asi::TexturePayload> right,
-                as::TypedRef<asi::TexturePayload> left, as::TypedRef<asi::TexturePayload> top,
-                as::TypedRef<asi::TexturePayload> bottom, as::TypedRef<asi::TexturePayload> back,
-                as::TypedRef<asi::TexturePayload> front);
+    void create(engine::World& world, as::TypedRef<asi::CubemapPayload> cubemap);
 
     /**
      * @brief Adds this entity to the given scene

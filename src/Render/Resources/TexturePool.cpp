@@ -23,6 +23,18 @@ void generateErrorPattern(sf::Image& img, unsigned int left, unsigned int top, u
         }
     }
 }
+
+VkFormat mapColorSpaceToFormat(asi::TexturePayload::ColorSpace colorSpace) {
+    switch (colorSpace) {
+    case asi::TexturePayload::ColorSpace::Linear:
+        return vk::CommonTextureFormats::LinearRGBA32Bit;
+    case asi::TexturePayload::ColorSpace::sRGB:
+        return vk::CommonTextureFormats::SRGBA32Bit;
+    default:
+        return vk::CommonTextureFormats::SRGBA32Bit;
+    }
+}
+
 } // namespace
 
 TexturePool::TexturePool(Renderer& r, vk::VulkanLayer& vs)
@@ -188,11 +200,8 @@ void TexturePool::doRelease(vk::Texture* texture) {
 
         cubemapRefCounts[i] = 0;
         cubemapFreeSlots.release(i);
-        // TODO - cubemap asset map
-        /*if (cubemapFileMap.find(*reverseFileMap[i]) != cubemapFileMap.end()) {
-            cubemapFileMap.erase(*cubeMapReverseFileMap[i]);
-            cubeMapReverseFileMap[i] = nullptr;
-        }*/
+        cubemapAssetMap.erase(reverseCubemapAssetMap[i]);
+        reverseCubemapAssetMap[i] = util::UUID();
     }
     resetTexture(texture);
 }
@@ -326,14 +335,7 @@ TextureRef TexturePool::getOrLoadTexture(as::TypedRef<asi::TexturePayload> textu
     }
 
     vk::TextureOptions actualOptions = options;
-    switch (textureAsset->colorSpace) {
-    case asi::TexturePayload::ColorSpace::Linear:
-        actualOptions.format = vk::CommonTextureFormats::LinearRGBA32Bit;
-        break;
-    case asi::TexturePayload::ColorSpace::sRGB:
-        actualOptions.format = vk::CommonTextureFormats::SRGBA32Bit;
-        break;
-    }
+    actualOptions.format             = mapColorSpaceToFormat(textureAsset->colorSpace);
 
     return getOrLoadTexture(textureAsset->image.getRef(), actualOptions);
 }
@@ -358,35 +360,28 @@ TextureRef TexturePool::getOrLoadTexture(const sf::Image& src, const vk::Texture
     return txtr;
 }
 
-TextureRef TexturePool::createCubemap(as::TypedRef<asi::TexturePayload> right,
-                                      as::TypedRef<asi::TexturePayload> left,
-                                      as::TypedRef<asi::TexturePayload> top,
-                                      as::TypedRef<asi::TexturePayload> bottom,
-                                      as::TypedRef<asi::TexturePayload> back,
-                                      as::TypedRef<asi::TexturePayload> front, VkFormat format,
-                                      vk::SamplerOptions::Type sampler) {
-    return createCubemap(right->image.getRef(),
-                         left->image.getRef(),
-                         top->image.getRef(),
-                         bottom->image.getRef(),
-                         back->image.getRef(),
-                         front->image.getRef(),
-                         format,
-                         sampler);
-}
+TextureRef TexturePool::getOrCreateCubemap(as::TypedRef<asi::CubemapPayload> cubemap,
+                                           vk::SamplerOptions::Type sampler) {
+    // check if we already have it
+    const auto it = cubemapAssetMap.find(cubemap.getUUID());
+    if (it != cubemapAssetMap.end()) {
+        auto& t = cubemaps[it->second];
+        cancelRelease(&t);
+        return TextureRef{*this, t, it->second};
+    }
 
-TextureRef TexturePool::createCubemap(as::TypedRef<asi::ImagePayload> right,
-                                      as::TypedRef<asi::ImagePayload> left,
-                                      as::TypedRef<asi::ImagePayload> top,
-                                      as::TypedRef<asi::ImagePayload> bottom,
-                                      as::TypedRef<asi::ImagePayload> back,
-                                      as::TypedRef<asi::ImagePayload> front, VkFormat format,
-                                      vk::SamplerOptions::Type sampler) {
     // validate faces
-    std::array<as::TypedRef<asi::ImagePayload>*, 6> faces = {
-        &right, &left, &top, &bottom, &front, &back};
+    std::array<as::TypedRef<asi::TexturePayload>, 6> faceRefs = {cubemap->right.getRef(),
+                                                                 cubemap->left.getRef(),
+                                                                 cubemap->top.getRef(),
+                                                                 cubemap->bottom.getRef(),
+                                                                 cubemap->front.getRef(),
+                                                                 cubemap->back.getRef()};
+    std::array<as::TypedRef<asi::TexturePayload>*, 6> faces   = {
+        &faceRefs[0], &faceRefs[1], &faceRefs[2], &faceRefs[3], &faceRefs[4], &faceRefs[5]};
+    asi::TexturePayload::ColorSpace colorSpace = asi::TexturePayload::ColorSpace::sRGB;
     glm::u32vec2 faceSize(0, 0);
-    for (as::TypedRef<asi::ImagePayload>*& face : faces) {
+    for (as::TypedRef<asi::TexturePayload>*& face : faces) {
         if (!*face) {
             BL_LOG_ERROR << "Cubemap face ref is not valid";
             face = nullptr;
@@ -403,16 +398,28 @@ TextureRef TexturePool::createCubemap(as::TypedRef<asi::ImagePayload> right,
             }
         }
 
-        const sf::Image& img = (*face)->get();
+        if (!(*face)->image.isValid()) {
+            BL_LOG_ERROR << "Cubemap face " << face->getAsset().getUUID() << " has invalid image";
+            face = nullptr;
+            continue;
+        }
+
+        const sf::Image& img = (*face)->image.get().get();
         if (img.getSize().x > 0 && img.getSize().y > 0) {
             if (faceSize.x == 0) {
                 faceSize.x = img.getSize().x;
                 faceSize.y = img.getSize().y;
+                colorSpace = (*face)->colorSpace;
             }
             else {
                 if (faceSize.x != img.getSize().x || faceSize.y != img.getSize().y) {
                     BL_LOG_ERROR << "Cubemap faces must all be the same size";
                     face = nullptr;
+                }
+                if (colorSpace != (*face)->colorSpace) {
+                    BL_LOG_WARN
+                        << "Cubemap faces must all have the same color space. Offending cubemap: "
+                        << cubemap.getUUID();
                 }
             }
         }
@@ -434,15 +441,18 @@ TextureRef TexturePool::createCubemap(as::TypedRef<asi::ImagePayload> right,
     cm->altImg = &cm->localImage;
     cm->localImage.resize({faceSize.x, faceSize.y * 6}, sf::Color::Transparent);
     for (std::size_t i = 0; i < 6; ++i) {
-        if (faces[i]) { cm->localImage.copy((*faces[i])->get(), sf::Vector2u(0, i * faceSize.y)); }
+        if (faces[i]) {
+            cm->localImage.copy((*faces[i])->image.get().get(), sf::Vector2u(0, i * faceSize.y));
+        }
         else {
             generateErrorPattern(cm->localImage, 0, i * faceSize.y, faceSize.x, faceSize.y, 16);
             BL_LOG_WARN << "Cubemap face " << i << " is invalid, using error pattern";
         }
     }
 
-    cm->createFromContentsAndQueue(vk::Texture::Type::Cubemap,
-                                   {.format = format, .sampler = sampler});
+    cm->createFromContentsAndQueue(
+        vk::Texture::Type::Cubemap,
+        {.format = mapColorSpaceToFormat(colorSpace), .sampler = sampler});
     updateTexture(cm.get());
 
     return cm;

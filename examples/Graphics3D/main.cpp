@@ -168,19 +168,28 @@ private:
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        skybox.create(*world,
-                      engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
-                          "Resources/Textures/skybox/right.jpg"),
-                      engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
-                          "Resources/Textures/skybox/left.jpg"),
-                      engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
-                          "Resources/Textures/skybox/top.jpg"),
-                      engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
-                          "Resources/Textures/skybox/bottom.jpg"),
-                      engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
-                          "Resources/Textures/skybox/back.jpg"),
-                      engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
-                          "Resources/Textures/skybox/front.jpg"));
+        auto skyboxTopTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/top.jpg");
+        auto skyboxBottomTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/bottom.jpg");
+        auto skyboxLeftTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/left.jpg");
+        auto skyboxRightTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/right.jpg");
+        auto skyboxFrontTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/front.jpg");
+        auto skyboxBackTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/back.jpg");
+        const bl::asi::CubemapPayload::CreateParams cubemapParams(skyboxTopTexture,
+                                                                  skyboxBottomTexture,
+                                                                  skyboxLeftTexture,
+                                                                  skyboxRightTexture,
+                                                                  skyboxFrontTexture,
+                                                                  skyboxBackTexture);
+        auto skyboxCubemap =
+            engine.assets().createAsset<bl::asi::CubemapPayload>("SkyboxCubemap", cubemapParams);
+
+        skybox.create(*world, skyboxCubemap);
         skybox.addToScene(scene);
 
         auto containerTexture = engine.renderer().texturePool().getOrLoadTexture(

@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
+#include <BLIB/Assets/Builtin/CubemapPayload.hpp>
 #include <BLIB/Assets/Builtin/ImagePayload.hpp>
 #include <BLIB/Assets/Builtin/TexturePayload.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
@@ -115,44 +116,13 @@ public:
     /**
      * @brief Creates a cubemap texture from the given faces
      *
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
-     * @param format The format of the texture
+     * @param cubemap The cubemap asset to use
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
-    TextureRef createCubemap(
-        as::TypedRef<asi::ImagePayload> right, as::TypedRef<asi::ImagePayload> left,
-        as::TypedRef<asi::ImagePayload> top, as::TypedRef<asi::ImagePayload> bottom,
-        as::TypedRef<asi::ImagePayload> back, as::TypedRef<asi::ImagePayload> front,
-        VkFormat format                  = vk::CommonTextureFormats::SRGBA32Bit,
+    TextureRef getOrCreateCubemap(
+        as::TypedRef<asi::CubemapPayload> cubemap,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
-
-    /**
-     * @brief Creates a cubemap texture from the given faces
-     *
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
-     * @param format The format of the texture
-     * @param sampler The sampler to use
-     * @return A ref to the new cubemap texture
-     */
-    TextureRef createCubemap(
-        as::TypedRef<asi::TexturePayload> right, as::TypedRef<asi::TexturePayload> left,
-        as::TypedRef<asi::TexturePayload> top, as::TypedRef<asi::TexturePayload> bottom,
-        as::TypedRef<asi::TexturePayload> back, as::TypedRef<asi::TexturePayload> front,
-        VkFormat format                  = vk::CommonTextureFormats::SRGBA32Bit,
-        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
-
-    // TODO - cubemap asset type
 
     /**
      * @brief Frees all textures that no longer have any valid refs pointing to them
@@ -206,8 +176,10 @@ private:
     // indices
     std::unordered_map<util::UUID, std::uint32_t> assetMap;
     std::unordered_map<const sf::Image*, std::uint32_t> imageMap;
+    std::unordered_map<util::UUID, std::uint32_t> cubemapAssetMap;
     std::vector<util::UUID> reverseAssetMap;
     std::vector<const sf::Image*> reverseImageMap;
+    std::vector<util::UUID> reverseCubemapAssetMap;
 
     // dynamics
     std::vector<vk::Texture*> toRelease;
