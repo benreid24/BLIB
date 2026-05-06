@@ -2,7 +2,6 @@
 #define BLIB_RESOURCES_RESOURCELOADER_HPP
 
 #include <BLIB/Audio/Playlist.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Models/Importer.hpp>
@@ -188,20 +187,6 @@ struct DefaultLoader<sf::Image> : public LoaderBase<sf::Image> {
             BL_LOG_ERROR << "Failed to load image: " << path;
             return false;
         }
-        return true;
-    }
-};
-
-template<>
-struct DefaultLoader<gfx::a2d::AnimationData> : public LoaderBase<gfx::a2d::AnimationData> {
-    virtual ~DefaultLoader() = default;
-
-    virtual bool load(const std::string&, const char*, std::size_t, std::istream&,
-                      gfx::a2d::AnimationData&) override {
-        /*if (!result.loadFromMemory(buffer, len, path)) {
-            BL_LOG_ERROR << "Failed to load animation: " << path;
-            return false;
-        }*/
         return true;
     }
 };

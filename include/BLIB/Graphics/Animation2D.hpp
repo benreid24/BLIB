@@ -2,7 +2,6 @@
 #define BLIB_GRAPHICS_ANIMATION2D_HPP
 
 #include <BLIB/Components/Animation2D.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Components/Animation2DPlayer.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>

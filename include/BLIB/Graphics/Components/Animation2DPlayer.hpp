@@ -3,7 +3,6 @@
 
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 
 namespace bl

@@ -2,7 +2,6 @@
 #define BILB_GRAPHICS_SLIDESHOW_HPP
 
 #include <BLIB/Components/Slideshow.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Components/Animation2DPlayer.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>

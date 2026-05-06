@@ -3,7 +3,6 @@
 
 #include <BLIB/Assets/Builtin/Animation2DSetPayload.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 #include <BLIB/Util/VectorRef.hpp>
