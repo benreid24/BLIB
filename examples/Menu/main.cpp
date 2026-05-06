@@ -19,7 +19,9 @@ public:
         auto world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::Overlay>>();
 
         font.loadFromFile("font.ttf");
-        auto texture = engine.renderer().texturePool().getOrLoadTexture("title.png");
+        auto textureSrc =
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>("title.png");
+        auto texture = engine.renderer().texturePool().getOrLoadTexture(textureSrc);
 
         ArrowSelector::Ptr selector = ArrowSelector::create(12, sf::Color::White);
         menu.create(*world, engine.getPlayer(), selector);

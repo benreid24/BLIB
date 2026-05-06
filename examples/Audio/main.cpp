@@ -11,13 +11,10 @@ int main() {
     // We will use these later for demonstrating AudioSystem
     bl::audio::Playlist list1;
     list1.addSong("resources/song1.ogg");
-    list1.saveToFile("list1.plst");
     bl::audio::Playlist list2;
     list2.addSong("resources/song2.ogg");
-    list2.saveToFile("list2.plst");
     bl::audio::Playlist list3;
     list3.addSong("resources/song3.ogg");
-    list3.saveToFile("list3.plst");
 
     // playlists may be created manually
     bl::audio::Playlist playlist;
@@ -38,6 +35,7 @@ int main() {
     playlist.stop();
 
     // AudioSystem has a background thread which calls update() for us
+    // TODO - update when audio system interface updated
     AudioSystem::Handle h1 = AudioSystem::getOrLoadPlaylist("list1.plst");
     AudioSystem::pushPlaylist(h1);
     std::cout << "Playing playlist through AudioSystem\n";

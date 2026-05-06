@@ -184,8 +184,9 @@ public:
         box->pack(gui::Label::create("This is a notebook"));
         nb->addPage("page2.0",
                     "Animation",
-                    gui::Animation::create(resource::ResourceManager<gfx::a2d::AnimationData>::load(
-                        "Resources/water.anim")));
+                    gui::Animation::create(
+                        engine.assets().getAssetFromSourcePath<bl::asi::Animation2DSetPayload>(
+                            "Resources/water.anim")));
         nb->addPage("page2", "More Stuff", box);
         box = gui::Box::create(gui::LinePacker::create(gui::LinePacker::Vertical));
         box->pack(gui::CheckButton::create("Check me"));

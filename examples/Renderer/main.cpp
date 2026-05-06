@@ -48,10 +48,12 @@ public:
         renderer     = &engine.renderer();
 
         // load resources
-        texture =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
-        messageBoxTxtr =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
+        texture = engine.renderer().texturePool().getOrLoadTexture(
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>(
+                "Resources/Textures/texture.png"));
+        messageBoxTxtr = engine.renderer().texturePool().getOrLoadTexture(
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>(
+                "Resources/Textures/messageBox.png"));
         font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
 
         // get first observer and set background color
