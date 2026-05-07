@@ -27,8 +27,7 @@ std::string EditorPaths::getAssetPath(const std::string& repoRoot, const Asset& 
 
 std::string EditorPaths::getAssetPath(const std::string& repoRoot, const std::string& assetFolder,
                                       const std::string& assetName) {
-    const std::string assetRoot = util::FileUtil::joinPath(repoRoot, std::string(RootPath));
-    const std::string assetPath = util::FileUtil::joinPath(assetRoot, assetFolder);
+    const std::string assetPath = util::FileUtil::joinPath(repoRoot, assetFolder);
     return util::FileUtil::joinPath(assetPath, filterAssetName(assetName));
 }
 

@@ -16,9 +16,6 @@ class Asset;
  * @ingroup Assets
  */
 struct EditorPaths {
-    /// The root path for all assets on disk
-    static constexpr std::string_view RootPath = "Assets";
-
     /// The directory in the asset folder where asset files are stored
     static constexpr std::string_view FilesDirname = "files";
 

@@ -359,9 +359,8 @@ bool Repository::loadRepository() {
                     const std::string displayName = util::FileUtil::getFolder(it->second);
                     std::string folder            = it->second;
                     // remove folder + filename + assetDirectory
-                    const std::size_t rmStart =
-                        assetDirectory.size() + EditorPaths::RootPath.size() + 2;
-                    const std::size_t rmSize = rmStart + displayName.size() + 1 +
+                    const std::size_t rmStart = assetDirectory.size() + 1;
+                    const std::size_t rmSize  = rmStart + displayName.size() + 1 +
                                                EditorPaths::MetadataExtension.size() +
                                                util::UUID::StringLength;
                     folder = folder.substr(rmStart, folder.size() - rmSize);

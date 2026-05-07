@@ -1,10 +1,10 @@
 #ifndef BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 #define BLIB_MEDIA_AUDIO_PLAYLIST_HPP
 
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Assets/Builtin/PlaylistPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Streams.hpp>
 #include <SFML/Audio/Music.hpp>
-
 #include <string>
 #include <vector>
 
@@ -13,72 +13,18 @@ namespace bl
 namespace audio
 {
 /**
- * @brief A playable, serializable music playlist. Can be manually manipulated or loaded from files
+ * @brief Play state provider for playlist assets
  *
  * @ingroup Audio
- *
  */
 class Playlist {
 public:
     /**
-     * @brief Creates an empty playlist
+     * @brief Creates the playlist from the underlying asset
      *
+     * @param asset The playlist asset
      */
-    Playlist();
-
-    /**
-     * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
-     *
-     * @param copy The playlist to duplicate
-     *
-     */
-    Playlist(const Playlist& copy);
-
-    /**
-     * @brief Stops the music and cleans up resources
-     *
-     */
-    ~Playlist();
-
-    /**
-     * @brief Copies the song list and shuffle setting from the given playlist, but not it's state
-     *
-     * @param copy The playlist to duplicate
-     *
-     */
-    Playlist& operator=(const Playlist& copy);
-
-    /**
-     * @brief Loads the playlist from the given stream. Expects the json format
-     *
-     * @param stream The stream to load from
-     * @return True if the playlist could be loaded, false otherwise
-     */
-    bool loadJson(stream::InputStream& stream);
-
-    /**
-     * @brief Loads the playlist from the given stream. Expects the binary format
-     *
-     * @param stream The stream to load from
-     * @return True if the playlist could be loaded, false otherwise
-     */
-    bool loadBinary(stream::InputStream& stream);
-
-    /**
-     * @brief Saves the playlist in json format to the given stream
-     *
-     * @param stream The stream to save to
-     * @return True if the data could be saved, false otherwise
-     */
-    bool saveJson(stream::OutputStream& stream) const;
-
-    /**
-     * @brief Saves the playlist in binary format to the given stream
-     *
-     * @param stream The stream to save to
-     * @return True if the data could be saved, false otherwise
-     */
-    bool saveBinary(stream::OutputStream& stream) const;
+    Playlist(as::TypedRef<asi::PlaylistPayload> asset);
 
     /**
      * @brief Returns whether or not the playlist is playing
@@ -90,20 +36,17 @@ public:
     /**
      * @brief Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles
      *        the songs before starting
-     *
      */
     void play();
 
     /**
      * @brief Pauses the playlist at the current time and current song. play() will resume from the
      *        pause point
-     *
      */
     void pause();
 
     /**
      * @brief Stops the playlist. play() will restart from the beginning
-     *
      */
     void stop();
 
@@ -111,7 +54,6 @@ public:
      * @brief Updates the state of the playlist. This is called in the background if using
      *        AudioSystem. If not, then it must be called periodically. update() switches songs when
      *        current ones finish
-     *
      */
     void update();
 
@@ -124,30 +66,8 @@ public:
 
     /**
      * @brief Returns the current volume
-     *
      */
     float getVolume() const;
-
-    /**
-     * @brief Add a song to the playlist to be played. Not threadsafe
-     *
-     * @param song The filename of the song to play
-     */
-    void addSong(const std::string& song);
-
-    /**
-     * @brief Removes the song from the queue
-     *
-     * @param song The filename of the song to remove
-     */
-    void removeSong(const std::string& song);
-
-    /**
-     * @brief Returns the immutable list of songs in the queue in their shuffled order
-     *
-     * @return const std::vector<std::string>& The list of song filenames
-     */
-    const std::vector<std::string>& getSongList() const;
 
     /**
      * @brief Set whether or not the playlist should shuffle
@@ -178,43 +98,21 @@ public:
     bool shufflingOnLoop() const;
 
 private:
-    std::vector<std::string> songs;
+    as::TypedRef<asi::PlaylistPayload> asset;
+    std::vector<unsigned int> playOrder;
     bool _shuffle;
     bool shuffleOnLoop;
 
-    sf::Music current;
+    as::TypedRef<asi::MusicPayload> current;
     unsigned int currentIndex;
     unsigned int startIndex;
     bool playing, paused;
 
     void shuffle();
     bool openMusic(unsigned int i);
-
-    friend struct serial::SerializableObject<audio::Playlist>;
 };
 
 } // namespace audio
-
-namespace serial
-{
-template<>
-struct SerializableObject<audio::Playlist> : public SerializableObjectBase {
-    SerializableField<1, audio::Playlist, std::vector<std::string>> songs;
-    SerializableField<2, audio::Playlist, bool> shuffle;
-    SerializableField<3, audio::Playlist, bool> shuffleOnLoop;
-
-    SerializableObject()
-    : SerializableObjectBase("Playlist")
-    , songs("songs", *this, &audio::Playlist::songs, SerializableFieldBase::Required{})
-    , shuffle("shuffle", *this, &audio::Playlist::_shuffle, SerializableFieldBase::Optional{})
-    , shuffleOnLoop("shuffleOnLoop", *this, &audio::Playlist::shuffleOnLoop,
-                    SerializableFieldBase::Optional{}) {
-        shuffle.setDefault(true);
-        shuffleOnLoop.setDefault(true);
-    }
-};
-
-} // namespace serial
 } // namespace bl
 
 #endif

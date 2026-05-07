@@ -23,6 +23,11 @@ bool MusicDriver::doCreate(const as::CreateContext& ctx, MusicPayload& payload) 
     }
 
     const std::string filepath = ctx.getFilePath("music.ogg");
+    if (!util::FileUtil::createDirectory(util::FileUtil::getPath(filepath))) {
+        BL_LOG_ERROR << "Failed to create directory for music asset at path " << filepath;
+        return false;
+    }
+
     sf::InputSoundFile inputFile;
     if (!inputFile.openFromFile(ctx.getCustomData().getPath())) { return false; }
 

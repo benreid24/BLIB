@@ -40,8 +40,7 @@ bool SoundDriver::doWrite(const as::WriteContext& ctx, const SoundPayload& paylo
         BL_LOG_ERROR << "Failed to open temp sound file for writing";
         return false;
     }
-    soundFile.write(payload.get().getSamples(),
-                    payload.get().getSampleCount() * payload.get().getChannelCount());
+    soundFile.write(payload.get().getSamples(), payload.get().getSampleCount());
     soundFile.close();
 
     // now we can write the data from the temp file to the output stream
@@ -60,6 +59,7 @@ bool SoundDriver::doWrite(const as::WriteContext& ctx, const SoundPayload& paylo
     }
 
     // cleanup but dont fail if it doesnt work
+    tempInput.close();
     util::FileUtil::deleteFile(tempFilename);
 
     return true;

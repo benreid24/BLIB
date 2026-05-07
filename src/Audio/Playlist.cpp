@@ -12,85 +12,30 @@ namespace bl
 {
 namespace audio
 {
-namespace
-{
-inline std::string songfile(const std::string& path) {
-    return util::FileUtil::joinPath(
-        engine::Configuration::get<std::string>("blib.playlist.song_path"), path);
-}
 
-using BinarySerializer = serial::binary::Serializer<Playlist>;
-using JsonSerializer   = serial::json::Serializer<Playlist>;
-} // namespace
-
-Playlist::Playlist()
-: _shuffle(false)
-, shuffleOnLoop(false)
+Playlist::Playlist(as::TypedRef<asi::PlaylistPayload> asset)
+: asset(asset)
+, _shuffle(asset->getShuffle())
+, shuffleOnLoop(asset->getReshuffleOnLoop())
 , currentIndex(0)
 , playing(false)
-, paused(false) {}
-
-Playlist::Playlist(const Playlist& copy)
-: Playlist() {
-    songs         = copy.songs;
-    _shuffle      = copy._shuffle;
-    shuffleOnLoop = copy.shuffleOnLoop;
-}
-
-Playlist::~Playlist() {
-    if (!songs.empty() && playing) {
-        stop();
-        resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
-    }
-}
-
-bool Playlist::saveJson(stream::OutputStream& stream) const {
-    return JsonSerializer::serializeStream(stream, *this, 4, 0);
-}
-
-bool Playlist::saveBinary(stream::OutputStream& stream) const {
-    return serial::binary::Serializer<Playlist>::serialize(stream, *this);
-}
-
-bool Playlist::loadBinary(stream::InputStream& stream) {
-    if (!BinarySerializer::deserialize(stream, *this)) {
-        BL_LOG_ERROR << "Failed to load playlist from memory";
-        return false;
-    }
-    playing      = false;
-    paused       = false;
-    currentIndex = 0;
-    return true;
-}
-
-bool Playlist::loadJson(stream::InputStream& stream) {
-    if (!JsonSerializer::deserializeStream(stream, *this)) {
-        BL_LOG_ERROR << "Failed to load playlist from memory";
-        return false;
-    }
-    playing      = false;
-    paused       = false;
-    currentIndex = 0;
-    return true;
-}
-
-Playlist& Playlist::operator=(const Playlist& copy) {
-    songs         = copy.songs;
-    _shuffle      = copy._shuffle;
-    shuffleOnLoop = copy.shuffleOnLoop;
-    return *this;
+, paused(false) {
+    playOrder.reserve(asset->getSongCount());
+    for (unsigned int i = 0; i < asset->getSongCount(); ++i) { playOrder.push_back(i); }
+    if (_shuffle) { shuffle(); }
+    openMusic(currentIndex);
 }
 
 bool Playlist::isPlaying() const { return playing; }
 
 void Playlist::play() {
-    if (!playing && !songs.empty()) {
+    if (!playing && asset->getSongCount() > 0) {
         playing = true;
         if (!paused) {
-            if (_shuffle) shuffle();
+            if (_shuffle) { shuffle(); }
             currentIndex = 0;
             while (!openMusic(currentIndex)) {
-                currentIndex = (currentIndex + 1) % songs.size();
+                currentIndex = (currentIndex + 1) % playOrder.size();
                 if (currentIndex == 0) {
                     playing = false;
                     break;
@@ -99,63 +44,50 @@ void Playlist::play() {
             startIndex = currentIndex;
         }
         paused = false;
-        if (playing) current.play();
+        if (playing) { current->get().play(); }
     }
 }
 
 bool Playlist::openMusic(unsigned int i) {
-    if (i != currentIndex) {
-        current.stop();
-        resource::FileSystem::purgePersistentData(songfile(songs[currentIndex]));
+    if (i != currentIndex && current) {
+        current->get().stop();
+        current->getAsset().unload();
     }
-    char* buffer    = nullptr;
-    std::size_t len = 0;
-    if (!resource::FileSystem::getData(songfile(songs[i]), &buffer, len)) return false;
-    return current.openFromMemory(buffer, len);
+
+    current = asset->getSong(playOrder[i]);
+    if (!current.getAsset().load()) { return false; }
+    return true;
 }
 
 void Playlist::pause() {
     playing = false;
     paused  = true;
-    current.pause();
+    current->get().pause();
 }
 
 void Playlist::stop() {
     playing = false;
-    current.stop();
+    current->get().stop();
 }
 
-void Playlist::setVolume(float volume) { current.setVolume(volume); }
+void Playlist::setVolume(float volume) { current->get().setVolume(volume); }
 
-float Playlist::getVolume() const { return current.getVolume(); }
+float Playlist::getVolume() const { return current->get().getVolume(); }
 
 void Playlist::update() {
     if (playing) {
-        if (current.getStatus() == sf::Music::Status::Stopped) {
-            unsigned int newI = (currentIndex + 1) % songs.size();
+        if (current->get().getStatus() == sf::Music::Status::Stopped) {
+            unsigned int newI = (currentIndex + 1) % playOrder.size();
             if (newI == startIndex && shuffleOnLoop) shuffle();
             while (!openMusic(newI)) {
-                newI = (newI + 1) % songs.size();
+                newI = (newI + 1) % playOrder.size();
                 if (newI == currentIndex) break;
             }
             currentIndex = newI;
-            current.play();
+            current->get().play();
         }
     }
 }
-
-void Playlist::addSong(const std::string& song) { songs.push_back(song); }
-
-void Playlist::removeSong(const std::string& song) {
-    for (unsigned int i = 0; i < songs.size(); ++i) {
-        if (songs[i] == song) {
-            songs.erase(songs.begin() + i);
-            --i;
-        }
-    }
-}
-
-const std::vector<std::string>& Playlist::getSongList() const { return songs; }
 
 void Playlist::setShuffle(bool s) { _shuffle = s; }
 
@@ -166,18 +98,13 @@ void Playlist::setShuffleOnLoop(bool s) { shuffleOnLoop = s; }
 bool Playlist::shufflingOnLoop() const { return shuffleOnLoop; }
 
 void Playlist::shuffle() {
-    const std::vector<std::string> order(std::move(songs));
-    ctr::FastEraseVector<std::size_t> indices;
-    indices.reserve(songs.size());
-    songs.reserve(order.size());
-    songs.clear();
+    std::vector<unsigned int> priorOrder = playOrder;
 
-    for (std::size_t i = 0; i < order.size(); ++i) { indices.push_back(i); }
-
-    while (!indices.empty()) {
-        const std::size_t i = util::Random::get<std::size_t>(0, indices.size() - 1);
-        songs.emplace_back(std::move(order[indices[i]]));
-        indices.erase(i);
+    playOrder.clear();
+    while (!priorOrder.empty()) {
+        const unsigned int i = util::Random::get<unsigned int>(0, priorOrder.size() - 1);
+        playOrder.push_back(priorOrder[i]);
+        priorOrder.erase(priorOrder.begin() + i);
     }
 }
 
