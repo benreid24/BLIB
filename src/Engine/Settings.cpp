@@ -17,7 +17,8 @@ Settings::Settings()
 : updateTime(DefaultUpdateInterval)
 , maxFps(DefaultMaximumFramerate)
 , allowVariableInterval(DefaultAllowVariableTimestep)
-, loggingFps(DefaultLogFps) {}
+, loggingFps(DefaultLogFps)
+, assetsDir(DefaultAssetsPath) {}
 
 Settings& Settings::withMaxFramerate(float fps) {
     maxFps = fps;
@@ -41,6 +42,11 @@ Settings& Settings::withLogFps(bool log) {
 
 Settings& Settings::withRenderer(const rc::CreationSettings& settings) {
     rendererSettings = settings;
+    return *this;
+}
+
+Settings& Settings::withAssetsPath(std::string_view path) {
+    assetsDir = path;
     return *this;
 }
 
@@ -85,6 +91,8 @@ bool Settings::logFps() const { return loggingFps; }
 const std::optional<rc::CreationSettings>& Settings::getRendererCreationSettings() const {
     return rendererSettings;
 }
+
+std::string_view Settings::assetsPath() const { return assetsDir; }
 
 } // namespace engine
 } // namespace bl

@@ -163,9 +163,9 @@ bool Renderer::createWindow() {
     }
 
     if (!params.icon().empty()) {
-        sf::Image icon;
-        if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
-            window.getSfWindow().setIcon(icon.getSize(), icon.getPixelsPtr());
+        auto icon = engine.assets().getAssetFromSourcePath<asi::ImagePayload>(params.icon());
+        if (icon) {
+            window.getSfWindow().setIcon(icon->get().getSize(), icon->get().getPixelsPtr());
         }
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
