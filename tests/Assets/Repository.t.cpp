@@ -339,7 +339,7 @@ TEST_F(RepositoryTest, EditorLoadMissingDependency) {
         ASSERT_TRUE(asset.isValid());
     }
 
-    std::filesystem::rename("test_assets/Assets/TestName", "test_assets/Assets/renamed");
+    std::filesystem::rename("test_assets/TestName", "test_assets/renamed");
 
     Repository repo(Mode::Editor, "test_assets");
     repo.registerDriver<TestDriver>(TestTypeTag);
@@ -417,11 +417,11 @@ TEST_F(RepositoryTest, FindMissing) {
     }
 
     // delete asset1
-    util::FileUtil::deleteDirectory("test_assets/Assets/TestName");
+    util::FileUtil::deleteDirectory("test_assets/TestName");
 
     // move asset2
-    util::FileUtil::moveDirectory("test_assets/Assets/TestName2",
-                                  "test_assets/Assets/TestFolder/TestName2Renamed");
+    util::FileUtil::moveDirectory("test_assets/TestName2",
+                                  "test_assets/TestFolder/TestName2Renamed");
 
     Repository repo(Mode::Editor, "test_assets");
     repo.registerDriver<TestDriver>(TestTypeTag);

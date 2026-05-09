@@ -1,7 +1,6 @@
 #ifndef BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 #define BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 
-#include <BLIB/Assets/Bundles/BundleMetadata.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <string>

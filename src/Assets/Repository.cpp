@@ -1,5 +1,6 @@
 #include <BLIB/Assets/Repository.hpp>
 
+#include <BLIB/Assets/Bundles/Manifest.hpp>
 #include <BLIB/Assets/Drivers/Animation2DDriver.hpp>
 #include <BLIB/Assets/Drivers/Animation2DSetDriver.hpp>
 #include <BLIB/Assets/Drivers/Animation3DDriver.hpp>
@@ -16,24 +17,57 @@
 
 namespace bl
 {
+namespace as
+{
+struct EditorRuntimeData {
+    std::unordered_map<util::UUID, as::Asset>* assets;
+    std::unordered_map<std::string, std::unordered_map<std::string, as::SourceLink>>* sourceLinks;
+    std::unordered_map<std::string, util::UUID>* keyToAsset;
+};
+
+struct GameRuntimeData {
+    std::unordered_map<util::UUID, as::Asset>* assets;
+    std::unordered_map<std::string, util::UUID>* keyToAsset;
+    bdl::Manifest* bundleManifest;
+};
+} // namespace as
+
 namespace serial
 {
 template<>
-struct SerializableObject<as::Repository> : public SerializableObjectBase {
-    SerializableField<1, as::Repository, std::unordered_map<util::UUID, as::Asset>> assets;
+struct SerializableObject<as::EditorRuntimeData> : public SerializableObjectBase {
+    SerializableField<1, as::EditorRuntimeData, std::unordered_map<util::UUID, as::Asset>*> assets;
     SerializableField<
-        2, as::Repository,
-        std::unordered_map<std::string, std::unordered_map<std::string, as::SourceLink>>>
+        2, as::EditorRuntimeData,
+        std::unordered_map<std::string, std::unordered_map<std::string, as::SourceLink>>*>
         sourceLinks;
-    SerializableField<3, as::Repository, std::unordered_map<std::string, util::UUID>> keyToAsset;
+    SerializableField<3, as::EditorRuntimeData, std::unordered_map<std::string, util::UUID>*>
+        keyToAsset;
 
     SerializableObject()
     : SerializableObjectBase("AssetManifest")
-    , assets("assets", *this, &as::Repository::assets, SerializableFieldBase::Required{})
-    , sourceLinks("sourceLinks", *this, &as::Repository::sourceLinks,
+    , assets("assets", *this, &as::EditorRuntimeData::assets, SerializableFieldBase::Required{})
+    , sourceLinks("sourceLinks", *this, &as::EditorRuntimeData::sourceLinks,
                   SerializableFieldBase::Required{})
-    , keyToAsset("keyToAsset", *this, &as::Repository::keyToAsset,
+    , keyToAsset("keyToAsset", *this, &as::EditorRuntimeData::keyToAsset,
                  SerializableFieldBase::Required{}) {}
+};
+
+template<>
+struct SerializableObject<as::GameRuntimeData> : public SerializableObjectBase {
+    SerializableField<1, as::GameRuntimeData, std::unordered_map<util::UUID, as::Asset>*> assets;
+    // source links slot 2 ommitted
+    SerializableField<3, as::GameRuntimeData, std::unordered_map<std::string, util::UUID>*>
+        keyToAsset;
+    SerializableField<4, as::GameRuntimeData, as::bdl::Manifest*> bundleManifest;
+
+    SerializableObject()
+    : SerializableObjectBase("AssetManifest")
+    , assets("assets", *this, &as::GameRuntimeData::assets, SerializableFieldBase::Required{})
+    , keyToAsset("keyToAsset", *this, &as::GameRuntimeData::keyToAsset,
+                 SerializableFieldBase::Required{})
+    , bundleManifest("bundleManifest", *this, &as::GameRuntimeData::bundleManifest,
+                     SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 
@@ -304,7 +338,12 @@ bool Repository::writeManifestLocked() {
     // write manifest
     const std::string manifestPath = util::FileUtil::joinPath(assetDirectory, "manifest.json");
     stream::OutputStream manifestFile(manifestPath);
-    if (!serial::json::Serializer<Repository>::serializeStream(manifestFile, *this, 4, 0)) {
+    const EditorRuntimeData data{
+        .assets      = &assets,
+        .sourceLinks = &sourceLinks,
+        .keyToAsset  = &keyToAsset,
+    };
+    if (!serial::json::Serializer<EditorRuntimeData>::serializeStream(manifestFile, data, 4, 0)) {
         BL_LOG_ERROR << "Failed to write asset manifest to " << manifestPath;
         return false;
     }
@@ -328,7 +367,13 @@ bool Repository::loadRepository() {
             BL_LOG_ERROR << "Failed to open asset manifest at " << manifestPath;
             return false;
         }
-        if (!serial::json::Serializer<Repository>::deserializeStream(manifestFile, *this)) {
+
+        EditorRuntimeData data{
+            .assets      = &assets,
+            .sourceLinks = &sourceLinks,
+            .keyToAsset  = &keyToAsset,
+        };
+        if (!serial::json::Serializer<EditorRuntimeData>::deserializeStream(manifestFile, data)) {
             BL_LOG_ERROR << "Failed to deserialize asset manifest at " << manifestPath;
             return false;
         }
