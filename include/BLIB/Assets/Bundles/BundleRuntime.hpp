@@ -51,10 +51,19 @@ public:
     bool initStreamDirect(stream::InputStream& stream, util::UUID assetId,
                           std::string_view localPath);
 
+    /**
+     * @brief Releases stale bundles
+     */
+    void releaseStale();
+
 private:
     std::recursive_mutex mutex;
+    Repository& repo;
+    std::string path;
     Manifest manifest;
     std::unordered_map<util::UUID, MountedBundle> mountedBundles;
+
+    MountedBundle* getBundle(util::UUID uuid);
 };
 
 } // namespace bdl

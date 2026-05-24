@@ -51,6 +51,11 @@ const FileMetadata* MountedBundle::findFile(util::UUID uuid, std::string_view pa
     return &fileIt->second;
 }
 
+bool MountedBundle::isExpired() const {
+    const auto now = std::chrono::steady_clock::now();
+    return now - touchTime >= std::chrono::minutes(2);
+}
+
 } // namespace bdl
 } // namespace as
 } // namespace bl

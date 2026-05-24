@@ -52,6 +52,11 @@ public:
     bool initStreamDirect(stream::InputStream& stream, util::UUID assetId,
                           std::string_view localPath);
 
+    /**
+     * @brief Returns whether the bundle is expired
+     */
+    bool isExpired() const;
+
 private:
     std::string bundlePath;
     BundleData data;
