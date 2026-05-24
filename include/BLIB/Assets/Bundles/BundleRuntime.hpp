@@ -64,6 +64,8 @@ private:
     std::unordered_map<util::UUID, MountedBundle> mountedBundles;
 
     MountedBundle* getBundle(util::UUID uuid);
+
+    friend class ::bl::as::Repository;
 };
 
 } // namespace bdl

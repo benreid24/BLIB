@@ -65,14 +65,14 @@ CreateContext::CreateContext(Repository& repo, Asset& asset, const CreateData& d
 : Context(repo, asset)
 , customData(data) {}
 
-ReadContext::ReadContext(Repository& repo, Asset& asset)
-: Context(repo, asset) {}
+ReadContext::ReadContext(Repository& repo, bdl::BundleRuntime& br, Asset& asset)
+: Context(repo, asset)
+, bundleRuntime(br) {}
 
 bool ReadContext::setupReadStream(std::string_view filename, stream::InputStream& input) const {
     switch (getMode()) {
     case Mode::Game:
-        // TODO - implement bundle reading
-        return false;
+        return bundleRuntime.initStream(input, asset.getUUID(), filename);
     case Mode::Editor:
         return Context::setupReadStream(filename, input);
 

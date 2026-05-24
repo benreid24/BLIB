@@ -83,6 +83,11 @@ std::string makeStaticPath(std::string_view type) {
     path += type;
     return path;
 }
+
+std::string makeBundleManifestPath(const std::string& base) {
+    return util::FileUtil::joinPath(base, "assets.asb");
+}
+
 } // namespace
 
 Repository::~Repository() {
@@ -93,7 +98,8 @@ Repository::~Repository() {
 
 Repository::Repository(Mode mode, const std::string& path)
 : mode(mode)
-, assetDirectory(path) {
+, assetDirectory(path)
+, bundleRuntime(*this, path) {
     drivers.reserve(16);
 
     // register built-in drivers
@@ -360,7 +366,6 @@ bool Repository::loadRepository() {
     unloadQueue.clear();
 
     if (mode == Mode::Editor) {
-        // TODO - should path loaded from depend on mode?
         const std::string manifestPath = util::FileUtil::joinPath(assetDirectory, "manifest.json");
         stream::InputStream manifestFile(manifestPath);
         if (!manifestFile.isValid()) {
@@ -463,10 +468,25 @@ bool Repository::loadRepository() {
         }
     }
     else {
-        // TODO - implement bundle loading
-        return false;
+        const std::string manifestPath = makeBundleManifestPath(assetDirectory);
+        stream::InputStream manifestFile(manifestPath);
+        if (!manifestFile.isValid()) {
+            BL_LOG_ERROR << "Failed to open asset manifest at " << manifestPath;
+            return false;
+        }
+
+        GameRuntimeData data{.assets         = &assets,
+                             .keyToAsset     = &keyToAsset,
+                             .bundleManifest = &bundleRuntime.manifest};
+        if (!serial::binary::Serializer<GameRuntimeData>::deserialize(manifestFile, data)) {
+            BL_LOG_ERROR << "Failed to read asset manifest file";
+            return false;
+        }
+
+        streamCache.useBundles(&bundleRuntime);
     }
 
+    // auto load assets that are marked as such
     for (auto& pair : assets) {
         const bool hasAllDeps = pair.second.initAfterDeserialize(*this);
         if (pair.second.getMetadata().getIsAutoLoaded()) {

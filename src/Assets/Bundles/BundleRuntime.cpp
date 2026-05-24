@@ -11,18 +11,7 @@ namespace bdl
 {
 BundleRuntime::BundleRuntime(Repository& repo, const std::string& path)
 : repo(repo)
-, path(path) {
-    stream::InputStream input;
-    if (!input.open(util::FileUtil::joinPath(path, std::string(RuntimePaths::ManifestPath)))) {
-        BL_LOG_CRITICAL << "Failed to mount bundle runtime manifest";
-        throw std::runtime_error("Failed to mount bundle runtime manifest");
-    }
-
-    if (!serial::binary::Serializer<Manifest>::deserialize(input, manifest)) {
-        BL_LOG_CRITICAL << "Failed to read bundle runtime manifest";
-        throw std::runtime_error("Failed to read bundle runtime manifest");
-    }
-}
+, path(path) {}
 
 bool BundleRuntime::initStream(stream::InputStream& stream, util::UUID uuid,
                                std::string_view path) {

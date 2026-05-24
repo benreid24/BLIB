@@ -95,7 +95,7 @@ bool Asset::load() {
     if (!driver) { return false; }
 
     state = State::Loading;
-    ReadContext context(*repo, *this);
+    ReadContext context(*repo, repo->bundleRuntime, *this);
     payload = driver->read(context);
     if (!payload) {
         BL_LOG_ERROR << "Driver failed to read asset of type " << type;

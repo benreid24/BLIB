@@ -2,6 +2,7 @@
 #define BLIB_ASSETS_REPOSITORY_HPP
 
 #include <BLIB/Assets/Asset.hpp>
+#include <BLIB/Assets/Bundles/BundleRuntime.hpp>
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Dependency.hpp>
 #include <BLIB/Assets/DependencyList.hpp>
@@ -242,6 +243,7 @@ private:
     std::unordered_map<util::UUID, Asset> assets;
     std::unordered_map<std::string, util::UUID> keyToAsset;
     StreamCache streamCache;
+    bdl::BundleRuntime bundleRuntime;
 
     mutable std::recursive_mutex sourceLinkMutex;
     std::unordered_map<std::string, std::unordered_map<std::string, SourceLink>> sourceLinks;

@@ -18,6 +18,11 @@ namespace as
 class Asset;
 class Repository;
 
+namespace bdl
+{
+class BundleRuntime;
+}
+
 namespace detail
 {
 /**
@@ -69,7 +74,7 @@ public:
      * @param input The stream to populate with the file contents
      * @return True if the file was able to be read, false otherwise
      */
-    virtual bool setupReadStream(std::string_view filename, stream::InputStream& input) const;
+    bool setupReadStream(std::string_view filename, stream::InputStream& input) const;
 
     /**
      * @brief Writes the file to asset storage
@@ -78,7 +83,7 @@ public:
      * @param output The stream to setup for output
      * @return True if the file can be written, false otherwise
      */
-    virtual bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
+    bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
 
     /**
      * @brief Returns the directory that asset files are stored in
@@ -93,7 +98,7 @@ public:
      */
     std::string getFilePath(std::string_view filename) const;
 
-private:
+protected:
     Repository& repo;
     Asset& asset;
 };
@@ -110,11 +115,11 @@ public:
     /**
      * @brief Creates the context for asset loading
      *
-     * @param mode The mode the asset system is in
      * @param repo The repository the asset belongs to
+     * @param bundleRuntime The repository bundle runtime
      * @param asset The asset being loaded
      */
-    ReadContext(Repository& repo, Asset& asset);
+    ReadContext(Repository& repo, bdl::BundleRuntime& bundleRuntime, Asset& asset);
 
     /**
      * @brief Reads the contents of the given asset file for the current asset
@@ -123,8 +128,10 @@ public:
      * @param input The stream to populate with the file contents
      * @return True if the file was able to be read, false otherwise
      */
-    virtual bool setupReadStream(std::string_view filename,
-                                 stream::InputStream& input) const override;
+    bool setupReadStream(std::string_view filename, stream::InputStream& input) const;
+
+private:
+    bdl::BundleRuntime& bundleRuntime;
 };
 
 /**
@@ -150,8 +157,7 @@ public:
      * @param output The stream to setup for output
      * @return True if the file can be written, false otherwise
      */
-    virtual bool setupWriteStream(std::string_view filename,
-                                  stream::OutputStream& output) const override;
+    bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
 };
 
 /**
@@ -231,9 +237,7 @@ public:
     template<typename T>
     const T* getCustomDataAsMaybe() const {
         const T* cast = dynamic_cast<const T*>(&customData);
-        if (!cast) {
-            return nullptr;
-        }
+        if (!cast) { return nullptr; }
         return cast;
     }
 
