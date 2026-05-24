@@ -32,9 +32,11 @@ struct ExtractPayload<PayloadGeneric<T>> {
  *
  * @tparam T The type of data stored in the payload. Must be serializable
  * @tparam Name The string literal name of this driver type
+ * @tparam BundleConfig The bundle config for assets of this type
  * @ingroup Assets
  */
-template<typename T, util::TemplateString Name>
+template<typename T, util::TemplateString Name,
+         bdl::AssetBundleConfig BundleConfig = bdl::AssetBundleConfig()>
 class DriverGeneric : public Driver<T> {
 public:
     /// The type of the underlying payload. Extracts from PayloadGeneric
@@ -66,7 +68,8 @@ public:
     /**
      * @brief Creates the driver
      */
-    DriverGeneric() = default;
+    DriverGeneric()
+    : Driver<T>(BundleConfig) {}
 
     /**
      * @brief Destroys the driver

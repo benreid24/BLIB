@@ -21,7 +21,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    ModelDriver() = default;
+    ModelDriver();
 
     /**
      * @brief Destroys the driver

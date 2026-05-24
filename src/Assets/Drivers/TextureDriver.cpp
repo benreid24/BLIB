@@ -4,6 +4,12 @@ namespace bl
 {
 namespace asi
 {
+TextureDriver::TextureDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool TextureDriver::doCreate(const as::CreateContext& ctx, TexturePayload& payload) {
     const TexturePayload::CreateData* createData =
         ctx.getCustomDataAsMaybe<TexturePayload::CreateData>();

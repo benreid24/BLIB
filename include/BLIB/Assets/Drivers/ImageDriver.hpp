@@ -35,7 +35,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    ImageDriver() = default;
+    ImageDriver();
 
     /**
      * @brief Destroys the driver

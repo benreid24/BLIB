@@ -21,7 +21,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    TextureDriver() = default;
+    TextureDriver();
 
     /**
      * @brief Destroys the driver

@@ -7,6 +7,12 @@ namespace bl
 {
 namespace asi
 {
+Animation2DDriver::Animation2DDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
         const Animation2DSetPayload::CreateData* debugData =

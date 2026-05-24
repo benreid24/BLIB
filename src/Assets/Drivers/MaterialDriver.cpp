@@ -6,6 +6,12 @@ namespace bl
 {
 namespace asi
 {
+MaterialDriver::MaterialDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool MaterialDriver::doCreate(const as::CreateContext& ctx, MaterialPayload& payload) {
     const MaterialPayload::CreateData* createData =
         ctx.getCustomDataAsMaybe<MaterialPayload::CreateData>();

@@ -23,7 +23,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    MusicDriver() = default;
+    MusicDriver();
 
     /**
      * @brief Destroys the driver

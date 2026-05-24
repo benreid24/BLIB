@@ -15,7 +15,11 @@ namespace asi
  * @ingroup Assets
  */
 using Animation3DDriver =
-    as::DriverGeneric<Animation3DPayload, util::TemplateString{"Animation3D"}>;
+    as::DriverGeneric<Animation3DPayload, util::TemplateString{"Animation3D"},
+                      as::bdl::AssetBundleConfig{
+                          .affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                          .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                          .onMount   = as::bdl::AssetBundleConfig::OnMount::WhenRequested}>;
 
 } // namespace asi
 } // namespace bl

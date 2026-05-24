@@ -8,6 +8,12 @@ namespace bl
 {
 namespace asi
 {
+ModelDriver::ModelDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool ModelDriver::doCreate(const as::CreateContext& ctx, ModelPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) { return false; }
 

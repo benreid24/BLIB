@@ -12,6 +12,12 @@ namespace
 constexpr std::string_view TempName = "asset_sound_temp.wav";
 }
 
+MusicDriver::MusicDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool MusicDriver::doCreate(const as::CreateContext& ctx, MusicPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
         BL_LOG_ERROR << "Music assets require a file path to import from";

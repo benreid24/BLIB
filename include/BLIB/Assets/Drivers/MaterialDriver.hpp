@@ -21,7 +21,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    MaterialDriver() = default;
+    MaterialDriver();
 
     /**
      * @brief Destroys the driver

@@ -4,6 +4,12 @@ namespace bl
 {
 namespace asi
 {
+CubemapDriver::CubemapDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool CubemapDriver::doCreate(const as::CreateContext& ctx, CubemapPayload& payload) {
     const CubemapPayload::CreateParams* params =
         ctx.getCustomDataAsMaybe<CubemapPayload::CreateParams>();

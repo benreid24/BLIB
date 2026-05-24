@@ -12,6 +12,11 @@ namespace
 constexpr std::string_view TempName = "asset_sound_temp.wav";
 }
 
+SoundDriver::SoundDriver()
+: Driver(as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Type,
+                                    .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                    .onMount   = as::bdl::AssetBundleConfig::OnMount::AutoLoad}) {}
+
 bool SoundDriver::doCreate(const as::CreateContext& ctx, SoundPayload& payload) {
     if (!ctx.getCustomData().getPath().empty()) {
         return payload.get().loadFromFile(ctx.getCustomData().getPath());

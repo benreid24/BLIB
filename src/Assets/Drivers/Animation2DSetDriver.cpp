@@ -4,6 +4,12 @@ namespace bl
 {
 namespace asi
 {
+Animation2DSetDriver::Animation2DSetDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool Animation2DSetDriver::doCreate(const as::CreateContext& ctx, Animation2DSetPayload& payload) {
     const Animation2DSetPayload::CreateData* data =
         ctx.getCustomDataAsMaybe<Animation2DSetPayload::CreateData>();

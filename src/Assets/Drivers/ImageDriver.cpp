@@ -4,6 +4,12 @@ namespace bl
 {
 namespace asi
 {
+ImageDriver::ImageDriver()
+: Driver(
+      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
+                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
+                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
+
 bool ImageDriver::doCreate(const as::CreateContext& ctx, ImagePayload& payload) {
     if (!ctx.getCustomData().getPath().empty()) {
         return payload.get().loadFromFile(ctx.getCustomData().getPath());

@@ -20,7 +20,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    Animation2DSetDriver() = default;
+    Animation2DSetDriver();
 
     /**
      * @brief Destroys the driver

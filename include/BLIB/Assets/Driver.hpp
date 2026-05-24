@@ -2,6 +2,7 @@
 #define BLIB_ASSETS_DRIVER_HPP
 
 #include <BLIB/Assets/Asset.hpp>
+#include <BLIB/Assets/Bundles/AssetBundleConfig.hpp>
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <memory>
@@ -57,8 +58,23 @@ public:
      */
     virtual bool write(const WriteContext& ctx) = 0;
 
+    /**
+     * @brief Returns the bundle config for this asset type
+     */
+    const bdl::AssetBundleConfig& getBundleConfig() const { return bundleConfig; }
+
+protected:
+    /**
+     * @brief Creates the driver
+     *
+     * @param bundleConfig The bundle config for the asset type
+     */
+    DriverBase(const bdl::AssetBundleConfig& bundleConfig)
+    : bundleConfig(bundleConfig) {}
+
 private:
     std::string_view supportedType;
+    bdl::AssetBundleConfig bundleConfig;
 
     friend class ::bl::as::Repository;
 };
@@ -125,6 +141,13 @@ public:
     }
 
 protected:
+    /**
+     * @brief Creates the driver
+     *
+     * @param bundleConfig The bundle config for assets of this type
+     */
+    Driver(const bdl::AssetBundleConfig& bundleConfig = bdl::AssetBundleConfig());
+
     /**
      * @brief Payload type specific create logic goes here
      *

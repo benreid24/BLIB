@@ -21,7 +21,7 @@ public:
     /**
      * @brief Creates the driver
      */
-    CubemapDriver() = default;
+    CubemapDriver();
 
     /**
      * @brief Destroys the driver

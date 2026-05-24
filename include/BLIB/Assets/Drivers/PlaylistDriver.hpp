@@ -13,7 +13,12 @@ namespace asi
  *
  * @ingroup Assets
  */
-using PlaylistDriver = as::DriverGeneric<PlaylistPayload, util::TemplateString{"Playlist"}>;
+using PlaylistDriver =
+    as::DriverGeneric<PlaylistPayload, util::TemplateString{"Playlist"},
+                      as::bdl::AssetBundleConfig{
+                          .affinity  = as::bdl::AssetBundleConfig::Affinity::Type,
+                          .selection = as::bdl::AssetBundleConfig::Selection::Root,
+                          .onMount   = as::bdl::AssetBundleConfig::OnMount::WhenRequested}>;
 
 } // namespace asi
 } // namespace bl
