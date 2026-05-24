@@ -106,6 +106,16 @@ public:
     bool open(const char* path);
 
     /**
+     * @brief Opens a section of a file
+     *
+     * @param path The file to open
+     * @param offset The byte offset to treat as position 0
+     * @param length The number of bytes to consider the full stream length
+     * @return True if the file section was successfully opened, false otherwise
+     */
+    bool open(const std::string& path, std::size_t offset, std::size_t length);
+
+    /**
      * @brief Opens the stream as a wrapper over the existing stream
      *
      * @param stream The stream to wrap
@@ -181,7 +191,16 @@ private:
         , pos(0) {}
     };
 
-    std::variant<std::monostate, std::ifstream, Buffer, std::istream*> stream;
+    struct FileSection {
+        std::ifstream file;
+        std::size_t offset;
+
+        FileSection(const std::string& path, std::size_t offset)
+        : file(path)
+        , offset(offset) {}
+    };
+
+    std::variant<std::monostate, std::ifstream, FileSection, Buffer, std::istream*> stream;
     std::size_t knownSize;
 };
 

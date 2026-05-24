@@ -12,6 +12,11 @@ namespace as
 {
 class Repository;
 
+namespace bdl
+{
+class BundleRuntime;
+}
+
 /**
  * @brief Utility that provides persistent streams for asset payloads that require continued access
  *        to their data such as sf::Music
@@ -25,7 +30,12 @@ public:
      */
     StreamCache() = default;
 
-    // TODO - methods to hook into bundles
+    /**
+     * @brief Uses the provided bundle runtime instead of direct file access
+     *
+     * @param runtime The bundle runtime to use
+     */
+    void useBundles(bdl::BundleRuntime* runtime);
 
     /**
      * @brief Creates and returns a new stream for the given asset and full path
@@ -45,7 +55,7 @@ public:
 
 private:
     std::unordered_map<util::UUID, std::list<PersistentStream>> streams;
-    // TODO - bundle backing store when implemented
+    bdl::BundleRuntime* runtime;
 };
 
 } // namespace as

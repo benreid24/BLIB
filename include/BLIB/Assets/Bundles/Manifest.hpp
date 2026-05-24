@@ -13,6 +13,11 @@ namespace as
 /// Collection of classes for asset bundling
 namespace bdl
 {
+/**
+ * @brief Mapping from asset to the UUID of the bundle containing its data
+ *
+ * @ingroup Assets
+ */
 struct Manifest {
     std::unordered_map<util::UUID, util::UUID> assetToBundle;
 };

@@ -17,6 +17,9 @@ enum struct Mode {
     /// The stream is reading from a file
     File,
 
+    /// The stream is reading from a section of a file
+    FileSection,
+
     /// The stream is reading from a block of memory
     Memory,
 

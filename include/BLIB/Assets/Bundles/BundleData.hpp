@@ -18,6 +18,7 @@ namespace bdl
  * @ingroup Assets
  */
 struct BundleData {
+    std::uint32_t headerSize;
     std::unordered_map<util::UUID, std::unordered_map<std::string, FileMetadata>> assetFileManifest;
     std::vector<char> data;
 };
@@ -29,15 +30,19 @@ namespace serial
 {
 template<>
 struct SerializableObject<as::bdl::BundleData> : public SerializableObjectBase {
-    SerializableField<1, as::bdl::BundleData,
-                      std::unordered_map<util::UUID, std::unordered_map<std::string, FileMetadata>>>
+    SerializableField<1, as::bdl::BundleData, std::uint32_t> headerSize;
+    SerializableField<
+        2, as::bdl::BundleData,
+        std::unordered_map<util::UUID, std::unordered_map<std::string, as::bdl::FileMetadata>>>
         assetFileManifest;
-    SerializableField<2, as::bdl::BundleData, std::vector<char>> data;
+    SerializableField<3, as::bdl::BundleData, std::vector<char>> data;
 
     SerializableObject()
     : SerializableObjectBase("BundleData")
+    , headerSize("headerSize", *this, &as::bdl::BundleData::headerSize,
+                 SerializableFieldBase::Required{})
     , assetFileManifest("assetFileManifest", *this, &as::bdl::BundleData::assetFileManifest,
-                        SerializbleFieldBase::Required{})
+                        SerializableFieldBase::Required{})
     , data("data", *this, &as::bdl::BundleData::data, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial

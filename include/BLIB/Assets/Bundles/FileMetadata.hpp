@@ -21,6 +21,7 @@ struct FileMetadata {
     std::uint64_t offset;
     std::uint64_t size;
 };
+
 } // namespace bdl
 } // namespace as
 
@@ -36,7 +37,7 @@ struct SerializableObject<as::bdl::FileMetadata> : public SerializableObjectBase
     : SerializableObjectBase("FileMetadata")
     , path("path", *this, &as::bdl::FileMetadata::path, SerializableFieldBase::Required{})
     , offset("offset", *this, &as::bdl::FileMetadata::offset, SerializableFieldBase::Required{})
-    , offset("size", *this, &as::bdl::FileMetadata::size, SerializableFieldBase::Required{}) {}
+    , size("size", *this, &as::bdl::FileMetadata::size, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
 

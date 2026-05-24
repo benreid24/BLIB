@@ -23,18 +23,20 @@ InputStream::InputStream(std::istream& stream, std::size_t size) { open(stream, 
 InputStream::InputStream(std::span<const char> data) { open(data); }
 
 bool InputStream::isValid() const {
-    return std::visit(util::Visitor{[](const std::monostate&) { return false; },
-                                    [](const std::ifstream& stream) { return stream.is_open(); },
-                                    [](const Buffer&) { return true; },
-                                    [](const std::istream* stream) {
-                                        return stream != nullptr && stream->good();
-                                    }},
-                      stream);
+    return std::visit(
+        util::Visitor{
+            [](const std::monostate&) { return false; },
+            [](const std::ifstream& stream) { return stream.is_open(); },
+            [](const FileSection& section) { return section.file.is_open(); },
+            [](const Buffer&) { return true; },
+            [](const std::istream* stream) { return stream != nullptr && stream->good(); }},
+        stream);
 }
 
 Mode InputStream::getMode() const {
     return std::visit(util::Visitor{[](const std::monostate&) { return Mode::Unknown; },
                                     [](const std::ifstream&) { return Mode::File; },
+                                    [](const FileSection&) { return Mode::FileSection; },
                                     [](const Buffer&) { return Mode::Memory; },
                                     [](const std::istream*) { return Mode::Wrapper; }},
                       stream);
@@ -50,6 +52,16 @@ bool InputStream::open(const std::string& path) {
     file.seekg(0, std::ios::end);
     knownSize = file.tellg();
     file.seekg(0, std::ios::beg);
+    return true;
+}
+
+bool InputStream::open(const std::string& path, std::size_t offset, std::size_t length) {
+    auto& section = stream.emplace<FileSection>(path, offset);
+    if (!section.file.good()) { return false; }
+    section.file.seekg(offset + length);
+    if (!section.file.good()) { return false; }
+    section.file.seekg(offset);
+    knownSize = length;
     return true;
 }
 
@@ -74,6 +86,13 @@ std::size_t InputStream::read(void* data, std::size_t len) {
                       [data, len](std::ifstream& stream) -> std::size_t {
                           stream.read(static_cast<char*>(data), len);
                           return stream.gcount();
+                      },
+                      [this, data, len](FileSection& section) {
+                          const std::size_t globalPos = section.file.tellg();
+                          const std::size_t localPos  = globalPos - section.offset;
+                          const std::size_t toRead    = std::min(len, knownSize - localPos);
+                          section.file.read(static_cast<char*>(data), toRead);
+                          return toRead;
                       },
                       [data, len](Buffer& buf) -> std::size_t {
                           const std::size_t toRead = std::min(len, buf.data.size() - buf.pos);
@@ -100,6 +119,11 @@ std::size_t InputStream::seek(std::size_t pos) {
                                         stream.seekg(pos);
                                         return static_cast<std::size_t>(stream.tellg());
                                     },
+                                    [pos](FileSection& section) -> std::size_t {
+                                        section.file.seekg(section.offset + pos);
+                                        return static_cast<std::size_t>(section.file.tellg()) -
+                                               section.offset;
+                                    },
                                     [pos](Buffer& buf) -> std::size_t {
                                         buf.pos = std::min(pos, buf.data.size());
                                         return buf.pos;
@@ -112,22 +136,30 @@ std::size_t InputStream::seek(std::size_t pos) {
 }
 
 std::size_t InputStream::tell() const {
-    return std::visit(util::Visitor{[](const std::monostate&) -> std::size_t { return 0; },
-                                    [](const std::ifstream& stream) -> std::size_t {
-                                        return static_cast<std::size_t>(
-                                            const_cast<std::ifstream&>(stream).tellg());
-                                    },
-                                    [](const Buffer& buf) -> std::size_t { return buf.pos; },
-                                    [](const std::istream* s) -> std::size_t {
-                                        return static_cast<std::size_t>(
-                                            const_cast<std::istream*>(s)->tellg());
-                                    }},
-                      stream);
+    return std::visit(
+        util::Visitor{
+            [](const std::monostate&) -> std::size_t { return 0; },
+            [](const std::ifstream& stream) -> std::size_t {
+                return static_cast<std::size_t>(const_cast<std::ifstream&>(stream).tellg());
+            },
+            [](const FileSection& section) -> std::size_t {
+                return static_cast<std::size_t>(const_cast<FileSection&>(section).file.tellg()) -
+                       section.offset;
+            },
+            [](const Buffer& buf) -> std::size_t { return buf.pos; },
+            [](const std::istream* s) -> std::size_t {
+                return static_cast<std::size_t>(const_cast<std::istream*>(s)->tellg());
+            }},
+        stream);
 }
 
 char InputStream::peek() {
     return std::visit(util::Visitor{[](const std::monostate&) -> char { return EOF; },
                                     [](std::ifstream& stream) -> char { return stream.peek(); },
+                                    [this](FileSection& section) -> char {
+                                        const std::size_t pos = tell();
+                                        return pos < knownSize ? section.file.peek() : EOF;
+                                    },
                                     [](Buffer& buf) -> char {
                                         if (buf.pos < buf.data.size()) { return buf.data[buf.pos]; }
                                         else { return EOF; }
@@ -142,6 +174,10 @@ char InputStream::peek() {
 char InputStream::get() {
     return std::visit(util::Visitor{[](const std::monostate&) -> char { return EOF; },
                                     [](std::ifstream& stream) -> char { return stream.get(); },
+                                    [this](FileSection& section) -> char {
+                                        const std::size_t pos = tell();
+                                        return pos < knownSize ? section.file.get() : EOF;
+                                    },
                                     [](Buffer& buf) -> char {
                                         if (buf.pos < buf.data.size()) {
                                             return buf.data[buf.pos++];

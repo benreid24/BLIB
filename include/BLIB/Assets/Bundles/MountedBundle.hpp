@@ -53,8 +53,11 @@ public:
                           std::string_view localPath);
 
 private:
+    std::string bundlePath;
     BundleData data;
     std::chrono::steady_clock::time_point touchTime;
+
+    const FileMetadata* findFile(util::UUID uuid, std::string_view path);
 };
 
 } // namespace bdl
