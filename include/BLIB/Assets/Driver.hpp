@@ -146,7 +146,8 @@ protected:
      *
      * @param bundleConfig The bundle config for assets of this type
      */
-    Driver(const bdl::AssetBundleConfig& bundleConfig = bdl::AssetBundleConfig());
+    Driver(const bdl::AssetBundleConfig& bundleConfig = bdl::AssetBundleConfig())
+    : DriverBase(bundleConfig) {}
 
     /**
      * @brief Payload type specific create logic goes here
