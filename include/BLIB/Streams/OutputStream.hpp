@@ -48,6 +48,13 @@ public:
     OutputStream(std::size_t initialSize);
 
     /**
+     * @brief Opens the stream over an existing vector<char> buffer. Appends to the vector
+     *
+     * @param buffer The vector to write to
+     */
+    OutputStream(std::vector<char>& buffer);
+
+    /**
      * @brief Destroys the stream
      */
     ~OutputStream() = default;
@@ -90,6 +97,13 @@ public:
     void open(std::ostream& stream);
 
     /**
+     * @brief Opens the stream over an existing vector<char> buffer. Appends to the vector
+     *
+     * @param buffer The vector to write to
+     */
+    void open(std::vector<char>& buffer);
+
+    /**
      * @brief Closes and invalidates the stream
      */
     void close();
@@ -109,7 +123,9 @@ public:
     std::span<const char> getBuffer() const;
 
 private:
-    std::variant<std::monostate, std::ofstream, std::ostream*, std::vector<char>> stream;
+    std::variant<std::monostate, std::ofstream, std::ostream*, std::vector<char>,
+                 std::vector<char>*>
+        stream;
 };
 
 /**

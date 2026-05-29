@@ -44,7 +44,7 @@ struct TestPayload : public Payload {
 struct TestDriver : public Driver<TestPayload> {
     virtual ~TestDriver() = default;
 
-    virtual bool doCreate(const CreateContext& ctx, TestPayload& payload) override {
+    virtual bool doCreate(CreateContext& ctx, TestPayload& payload) override {
         if (const TestCreateContext* createData = ctx.getCustomDataAsMaybe<TestCreateContext>()) {
             payload.init(*createData);
             return true;
@@ -55,7 +55,7 @@ struct TestDriver : public Driver<TestPayload> {
         }
     }
 
-    virtual bool doRead(const ReadContext& ctx, TestPayload& payload) override {
+    virtual bool doRead(ReadContext& ctx, TestPayload& payload) override {
         stream::InputStream input;
         if (!ctx.setupReadStream("payload.txt", input)) { return false; }
         std::vector<char> buf;
@@ -65,7 +65,7 @@ struct TestDriver : public Driver<TestPayload> {
         return true;
     }
 
-    virtual bool doWrite(const WriteContext& ctx, const TestPayload& payload) override {
+    virtual bool doWrite(WriteContext& ctx, const TestPayload& payload) override {
         stream::OutputStream output;
         if (!ctx.setupWriteStream("payload.txt", output)) { return false; }
         if (!output.write(payload.data.data(), payload.data.size())) { return false; }
@@ -81,7 +81,7 @@ struct TestPayloadWithDependency : public Payload {
     , dependencyList(ctx.repo, *this, "depListTag")
     , dependencyListLazy(ctx.repo, *this, "depListLazyTag") {}
 
-    bool init(const CreateContext& ctx) {
+    bool init(CreateContext& ctx) {
         if (const TestCreateContext* createData = ctx.getCustomDataAsMaybe<TestCreateContext>()) {
             localData = createData->data;
             for (const util::UUID& dep : createData->depList) {
@@ -106,11 +106,11 @@ struct TestPayloadWithDependency : public Payload {
 struct TestDriverWithDep : public Driver<TestPayloadWithDependency> {
     virtual ~TestDriverWithDep() = default;
 
-    virtual bool doCreate(const CreateContext& ctx, TestPayloadWithDependency& payload) override {
+    virtual bool doCreate(CreateContext& ctx, TestPayloadWithDependency& payload) override {
         return payload.init(ctx);
     }
 
-    virtual bool doRead(const ReadContext& ctx, TestPayloadWithDependency& payload) override {
+    virtual bool doRead(ReadContext& ctx, TestPayloadWithDependency& payload) override {
         stream::InputStream input;
         if (!ctx.setupReadStream("payloadAdvanced.txt", input)) { return false; }
         std::vector<char> buf;
@@ -120,8 +120,7 @@ struct TestDriverWithDep : public Driver<TestPayloadWithDependency> {
         return true;
     }
 
-    virtual bool doWrite(const WriteContext& ctx,
-                         const TestPayloadWithDependency& payload) override {
+    virtual bool doWrite(WriteContext& ctx, const TestPayloadWithDependency& payload) override {
         stream::OutputStream output;
         if (!ctx.setupWriteStream("payloadAdvanced.txt", output)) { return false; }
         output.write(payload.localData.data(), payload.localData.size());

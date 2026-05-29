@@ -10,7 +10,7 @@ Animation2DSetDriver::Animation2DSetDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool Animation2DSetDriver::doCreate(const as::CreateContext& ctx, Animation2DSetPayload& payload) {
+bool Animation2DSetDriver::doCreate(as::CreateContext& ctx, Animation2DSetPayload& payload) {
     const Animation2DSetPayload::CreateData* data =
         ctx.getCustomDataAsMaybe<Animation2DSetPayload::CreateData>();
     as::TypedRef<Animation2DPayload> baseAnim;
@@ -63,14 +63,12 @@ bool Animation2DSetDriver::doCreate(const as::CreateContext& ctx, Animation2DSet
     return true;
 }
 
-bool Animation2DSetDriver::doRead(const as::ReadContext&, Animation2DSetPayload& payload) {
+bool Animation2DSetDriver::doRead(as::ReadContext&, Animation2DSetPayload& payload) {
     payload.computeDerivedState();
     return true;
 }
 
-bool Animation2DSetDriver::doWrite(const as::WriteContext&, const Animation2DSetPayload&) {
-    return true;
-}
+bool Animation2DSetDriver::doWrite(as::WriteContext&, const Animation2DSetPayload&) { return true; }
 
 } // namespace asi
 } // namespace bl

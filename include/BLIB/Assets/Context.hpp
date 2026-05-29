@@ -21,7 +21,8 @@ class Repository;
 namespace bdl
 {
 class BundleRuntime;
-}
+struct BundleData;
+} // namespace bdl
 
 namespace detail
 {
@@ -144,11 +145,24 @@ public:
     /**
      * @brief Creates the write context
      *
-     * @param mode The mode the asset system is in
      * @param repo The repository the asset belongs to
      * @param asset The asset being written
      */
     WriteContext(Repository& repo, Asset& asset);
+
+    /**
+     * @brief Creates the write context for writing to a bundle
+     *
+     * @param repo The repository the asset belongs to
+     * @param asset The asset being written
+     * @param bundle The bundle being written to
+     */
+    WriteContext(Repository& repo, Asset& asset, bdl::BundleData& bundle);
+
+    /**
+     * @brief Flushes the last bundle write if writing bundle
+     */
+    ~WriteContext();
 
     /**
      * @brief Writes the file to asset storage
@@ -157,7 +171,14 @@ public:
      * @param output The stream to setup for output
      * @return True if the file can be written, false otherwise
      */
-    bool setupWriteStream(std::string_view filename, stream::OutputStream& output) const;
+    bool setupWriteStream(std::string_view filename, stream::OutputStream& output);
+
+private:
+    bdl::BundleData* bundle;
+    std::size_t priorFileOffset;
+    std::string_view priorFile;
+
+    void flushBundleWrite();
 };
 
 /**

@@ -83,7 +83,7 @@ public:
      * @param payload The payload to populate with the created asset data
      * @return Always true
      */
-    virtual bool doCreate(const CreateContext& ctx, T& payload) override {
+    virtual bool doCreate(CreateContext& ctx, T& payload) override {
         const auto* createData = ctx.getCustomDataAsMaybe<CreateParams>();
         if constexpr (std::is_copy_assignable_v<DataType>) {
             if (createData) { getData(payload) = createData->data; }
@@ -104,7 +104,7 @@ public:
      * @param payload The asset to populate
      * @return True if the asset could be read successfully, false otherwise
      */
-    virtual bool doRead(const ReadContext& ctx, T& payload) override {
+    virtual bool doRead(ReadContext& ctx, T& payload) override {
         stream::InputStream input;
         if (!ctx.setupReadStream("payload.json", input)) { return false; }
         if (ctx.getMode() == Mode::Editor) {
@@ -120,7 +120,7 @@ public:
      * @param payload The asset to write
      * @return True if the asset could be written successfully, false otherwise
      */
-    virtual bool doWrite(const WriteContext& ctx, const T& payload) override {
+    virtual bool doWrite(WriteContext& ctx, const T& payload) override {
         stream::OutputStream output;
         if (!ctx.setupWriteStream("payload.json", output)) { return false; }
         if (ctx.getMode() == Mode::Editor) {

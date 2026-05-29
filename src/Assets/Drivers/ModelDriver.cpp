@@ -14,7 +14,7 @@ ModelDriver::ModelDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool ModelDriver::doCreate(const as::CreateContext& ctx, ModelPayload& payload) {
+bool ModelDriver::doCreate(as::CreateContext& ctx, ModelPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) { return false; }
 
     mdl::Importer importer;
@@ -58,13 +58,13 @@ bool ModelDriver::doCreate(const as::CreateContext& ctx, ModelPayload& payload) 
     return true;
 }
 
-bool ModelDriver::doRead(const as::ReadContext& ctx, ModelPayload& payload) {
+bool ModelDriver::doRead(as::ReadContext& ctx, ModelPayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("model.bmdl", input)) { return false; }
     return serial::binary::Serializer<ModelPayload>::deserialize(input, payload);
 }
 
-bool ModelDriver::doWrite(const as::WriteContext& ctx, const ModelPayload& payload) {
+bool ModelDriver::doWrite(as::WriteContext& ctx, const ModelPayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("model.bmdl", output)) { return false; }
     return serial::binary::Serializer<ModelPayload>::serialize(output, payload);

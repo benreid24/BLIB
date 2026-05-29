@@ -17,21 +17,21 @@ SoundDriver::SoundDriver()
                                     .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                     .onMount   = as::bdl::AssetBundleConfig::OnMount::AutoLoad}) {}
 
-bool SoundDriver::doCreate(const as::CreateContext& ctx, SoundPayload& payload) {
+bool SoundDriver::doCreate(as::CreateContext& ctx, SoundPayload& payload) {
     if (!ctx.getCustomData().getPath().empty()) {
         return payload.get().loadFromFile(ctx.getCustomData().getPath());
     }
     return false;
 }
 
-bool SoundDriver::doRead(const as::ReadContext& ctx, SoundPayload& payload) {
+bool SoundDriver::doRead(as::ReadContext& ctx, SoundPayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("sound.wav", input)) { return false; }
     stream::SfInputStreamAdaptor adaptor(input);
     return payload.get().loadFromStream(adaptor);
 }
 
-bool SoundDriver::doWrite(const as::WriteContext& ctx, const SoundPayload& payload) {
+bool SoundDriver::doWrite(as::WriteContext& ctx, const SoundPayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("sound.wav", output)) { return false; }
 

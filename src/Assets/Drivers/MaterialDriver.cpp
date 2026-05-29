@@ -12,7 +12,7 @@ MaterialDriver::MaterialDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool MaterialDriver::doCreate(const as::CreateContext& ctx, MaterialPayload& payload) {
+bool MaterialDriver::doCreate(as::CreateContext& ctx, MaterialPayload& payload) {
     const MaterialPayload::CreateData* createData =
         ctx.getCustomDataAsMaybe<MaterialPayload::CreateData>();
     if (!createData) { return false; } // allow creating empty?
@@ -83,7 +83,7 @@ bool MaterialDriver::doCreate(const as::CreateContext& ctx, MaterialPayload& pay
     return true;
 }
 
-bool MaterialDriver::doRead(const as::ReadContext& ctx, MaterialPayload& payload) {
+bool MaterialDriver::doRead(as::ReadContext& ctx, MaterialPayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("materialMetadata.json", input)) { return false; }
     if (ctx.getMode() == as::Mode::Editor) {
@@ -92,7 +92,7 @@ bool MaterialDriver::doRead(const as::ReadContext& ctx, MaterialPayload& payload
     else { return serial::binary::Serializer<MaterialPayload>::deserialize(input, payload); }
 }
 
-bool MaterialDriver::doWrite(const as::WriteContext& ctx, const MaterialPayload& payload) {
+bool MaterialDriver::doWrite(as::WriteContext& ctx, const MaterialPayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("materialMetadata.json", output)) { return false; }
     if (ctx.getMode() == as::Mode::Editor) {

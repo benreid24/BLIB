@@ -83,18 +83,53 @@ bool ReadContext::setupReadStream(std::string_view filename, stream::InputStream
 }
 
 WriteContext::WriteContext(Repository& repo, Asset& asset)
-: Context(repo, asset) {}
+: Context(repo, asset)
+, priorFileOffset(0)
+, priorFile() {}
 
-bool WriteContext::setupWriteStream(std::string_view filename, stream::OutputStream& output) const {
+WriteContext::WriteContext(Repository& repo, Asset& asset, bdl::BundleData& b)
+: WriteContext(repo, asset) {
+    bundle = &b;
+}
+
+WriteContext::~WriteContext() {
+    if (getMode() == Mode::BundleCreation) { flushBundleWrite(); }
+}
+
+bool WriteContext::setupWriteStream(std::string_view filename, stream::OutputStream& output) {
     switch (getMode()) {
-    case Mode::Game:
-        // TODO - implement bundle writing
-        return false;
+    case Mode::Game: // equal to BundleCreation
+        if (!bundle) {
+            BL_LOG_ERROR << "Writing in Game mode but bundle not present";
+            return false;
+        }
+        flushBundleWrite();
+        priorFile       = filename;
+        priorFileOffset = bundle->data.size();
+        output.open(bundle->data);
+        return true;
     case Mode::Editor:
         return Context::setupWriteStream(filename, output);
     default:
         BL_LOG_ERROR << "Invalid asset context mode " << static_cast<int>(getMode());
         return false;
+    }
+}
+
+void WriteContext::flushBundleWrite() {
+    if (!priorFile.empty() && bundle) {
+        const std::size_t end  = bundle->data.size();
+        const std::size_t size = end > priorFileOffset ? end - priorFileOffset : 0;
+        auto& fileMap          = bundle->assetFileManifest[asset.getUUID()];
+        std::string path(priorFile);
+        auto result = fileMap.try_emplace(path, path, priorFileOffset, size);
+        if (!result.second) {
+            BL_LOG_ERROR << "Failed to save duplicate file '" << path << "' for asset "
+                         << asset.getUUID() << " to bundle";
+        }
+
+        // clear so we do not double write in destructor
+        priorFile = std::string_view();
     }
 }
 

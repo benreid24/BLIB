@@ -10,7 +10,7 @@ ImageDriver::ImageDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool ImageDriver::doCreate(const as::CreateContext& ctx, ImagePayload& payload) {
+bool ImageDriver::doCreate(as::CreateContext& ctx, ImagePayload& payload) {
     if (!ctx.getCustomData().getPath().empty()) {
         return payload.get().loadFromFile(ctx.getCustomData().getPath());
     }
@@ -27,14 +27,14 @@ bool ImageDriver::doCreate(const as::CreateContext& ctx, ImagePayload& payload) 
     return true;
 }
 
-bool ImageDriver::doRead(const as::ReadContext& ctx, ImagePayload& payload) {
+bool ImageDriver::doRead(as::ReadContext& ctx, ImagePayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("image.png", input)) { return false; }
     stream::SfInputStreamAdaptor adaptor(input);
     return payload.get().loadFromStream(adaptor);
 }
 
-bool ImageDriver::doWrite(const as::WriteContext& ctx, const ImagePayload& payload) {
+bool ImageDriver::doWrite(as::WriteContext& ctx, const ImagePayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("image.png", output)) { return false; }
     const auto data = payload.get().saveToMemory("png");

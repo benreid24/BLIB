@@ -18,7 +18,7 @@ MusicDriver::MusicDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool MusicDriver::doCreate(const as::CreateContext& ctx, MusicPayload& payload) {
+bool MusicDriver::doCreate(as::CreateContext& ctx, MusicPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
         BL_LOG_ERROR << "Music assets require a file path to import from";
         return false;
@@ -62,15 +62,42 @@ bool MusicDriver::doCreate(const as::CreateContext& ctx, MusicPayload& payload) 
     return payload.get().openFromFile(filepath);
 }
 
-bool MusicDriver::doRead(const as::ReadContext& ctx, MusicPayload& payload) {
+bool MusicDriver::doRead(as::ReadContext& ctx, MusicPayload& payload) {
     as::PersistentStream* stream = ctx.getPersistentStream("music.ogg");
     if (!stream) { return false; }
     if (!payload.get().openFromStream(stream->getSFMLAdaptor())) { return false; }
     return true;
 }
 
-bool MusicDriver::doWrite(const as::WriteContext&, const MusicPayload&) {
-    // write is handled on create. sf::Music is read-only after create
+bool MusicDriver::doWrite(as::WriteContext& ctx, const MusicPayload&) {
+    stream::InputStream readStream;
+    if (!readStream.open(ctx.getFilePath("music.ogg"))) {
+        BL_LOG_ERROR << "Failed to open source music file";
+        return false;
+    }
+    stream::OutputStream writeStream;
+    if (!ctx.setupWriteStream("music.ogg", writeStream)) {
+        BL_LOG_ERROR << "Failed to setup music write stream";
+        return false;
+    }
+    constexpr std::size_t ChunkSize = 8192;
+    const std::size_t fullChunks    = readStream.getSize() / ChunkSize;
+    const std::size_t lastChunkSize = readStream.getSize() % ChunkSize;
+    const std::size_t totalChunks   = fullChunks + (lastChunkSize > 0 ? 1 : 0);
+
+    std::vector<char> buffer;
+    buffer.resize(ChunkSize);
+    for (std::size_t i = 0; i < totalChunks; ++i) {
+        const std::size_t toRead = i < fullChunks ? ChunkSize : lastChunkSize;
+        if (!readStream.read(buffer, toRead)) {
+            BL_LOG_ERROR << "Failed to read music chunk";
+            return false;
+        }
+        if (!writeStream.write(buffer.data(), toRead)) {
+            BL_LOG_ERROR << "Failed to write music chunk";
+            return false;
+        }
+    }
     return true;
 }
 

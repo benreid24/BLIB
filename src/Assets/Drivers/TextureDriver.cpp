@@ -10,7 +10,7 @@ TextureDriver::TextureDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool TextureDriver::doCreate(const as::CreateContext& ctx, TexturePayload& payload) {
+bool TextureDriver::doCreate(as::CreateContext& ctx, TexturePayload& payload) {
     const TexturePayload::CreateData* createData =
         ctx.getCustomDataAsMaybe<TexturePayload::CreateData>();
     if (createData) {
@@ -27,7 +27,7 @@ bool TextureDriver::doCreate(const as::CreateContext& ctx, TexturePayload& paylo
     return payload.image.init(image.getAsset().getUUID());
 }
 
-bool TextureDriver::doRead(const as::ReadContext& ctx, TexturePayload& payload) {
+bool TextureDriver::doRead(as::ReadContext& ctx, TexturePayload& payload) {
     stream::InputStream input;
     if (!ctx.setupReadStream("textureMetadata.json", input)) { return false; }
     if (ctx.getMode() == as::Mode::Editor) {
@@ -36,7 +36,7 @@ bool TextureDriver::doRead(const as::ReadContext& ctx, TexturePayload& payload) 
     else { return serial::binary::Serializer<TexturePayload>::deserialize(input, payload); }
 }
 
-bool TextureDriver::doWrite(const as::WriteContext& ctx, const TexturePayload& payload) {
+bool TextureDriver::doWrite(as::WriteContext& ctx, const TexturePayload& payload) {
     stream::OutputStream output;
     if (!ctx.setupWriteStream("textureMetadata.json", output)) { return false; }
     if (ctx.getMode() == as::Mode::Editor) {

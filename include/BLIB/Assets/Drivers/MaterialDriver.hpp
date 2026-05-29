@@ -35,7 +35,7 @@ public:
      * @param payload The payload to populate with the created asset data
      * @return True on success, false on failure
      */
-    virtual bool doCreate(const as::CreateContext& ctx, MaterialPayload& payload) override;
+    virtual bool doCreate(as::CreateContext& ctx, MaterialPayload& payload) override;
 
     /**
      * @brief Reads the material asset data from the repository
@@ -44,7 +44,7 @@ public:
      * @param payload The payload to populate with the read asset data
      * @return True on success, false on failure
      */
-    virtual bool doRead(const as::ReadContext& ctx, MaterialPayload& payload) override;
+    virtual bool doRead(as::ReadContext& ctx, MaterialPayload& payload) override;
 
     /**
      * @brief Writes the material asset data to the repository
@@ -53,7 +53,7 @@ public:
      * @param payload The payload containing the asset data to write
      * @return True on success, false on failure
      */
-    virtual bool doWrite(const as::WriteContext& ctx, const MaterialPayload& payload) override;
+    virtual bool doWrite(as::WriteContext& ctx, const MaterialPayload& payload) override;
 };
 
 } // namespace asi

@@ -16,11 +16,14 @@ OutputStream::OutputStream(std::ostream& stream) { open(stream); }
 
 OutputStream::OutputStream(std::size_t initialSize) { open(initialSize); }
 
+OutputStream::OutputStream(std::vector<char>& buf) { open(buf); }
+
 Mode OutputStream::getMode() const {
     return std::visit(util::Visitor{[](const std::monostate&) { return Mode::Unknown; },
                                     [](const std::ofstream&) { return Mode::File; },
                                     [](const std::vector<char>&) { return Mode::Memory; },
-                                    [](const std::ostream*) { return Mode::Wrapper; }},
+                                    [](const std::ostream*) { return Mode::Wrapper; },
+                                    [](const std::vector<char>*) { return Mode::Memory; }},
                       stream);
 }
 
@@ -30,7 +33,9 @@ bool OutputStream::isValid() const {
                                     [](const std::vector<char>&) { return true; },
                                     [](const std::ostream* stream) {
                                         return stream != nullptr && stream->good();
-                                    }},
+                                    },
+                                    [](const std::vector<char>*) { return true; }},
+
                       stream);
 }
 
@@ -45,6 +50,8 @@ void OutputStream::open(std::size_t initialSize) {
 }
 
 void OutputStream::open(std::ostream& s) { stream.emplace<std::ostream*>(&s); }
+
+void OutputStream::open(std::vector<char>& buf) { stream.emplace<std::vector<char>*>(&buf); }
 
 void OutputStream::close() { stream.emplace<std::monostate>(); }
 
@@ -63,6 +70,12 @@ bool OutputStream::write(const void* voidData, std::size_t len) {
                                         if (stream == nullptr) { return false; }
                                         stream->write(data, len);
                                         return stream->good();
+                                    },
+                                    [data, len](std::vector<char>* buf) {
+                                        const std::size_t start = buf->size();
+                                        buf->resize(buf->size() + len);
+                                        std::memcpy(&buf[start], data, len);
+                                        return true;
                                     }},
                       stream);
 }
@@ -70,6 +83,9 @@ bool OutputStream::write(const void* voidData, std::size_t len) {
 std::span<const char> OutputStream::getBuffer() const {
     if (auto* buffer = std::get_if<std::vector<char>>(&stream)) {
         return std::span<const char>(buffer->data(), buffer->size());
+    }
+    if (const auto* buffer = std::get_if<std::vector<char>*>(&stream)) {
+        return std::span<const char>((*buffer)->data(), (*buffer)->size());
     }
     return std::span<const char>();
 }

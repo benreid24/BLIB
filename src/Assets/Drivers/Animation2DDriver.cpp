@@ -13,7 +13,7 @@ Animation2DDriver::Animation2DDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayload& payload) {
+bool Animation2DDriver::doCreate(as::CreateContext& ctx, Animation2DPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
         const Animation2DSetPayload::CreateData* debugData =
             ctx.getCustomDataAsMaybe<Animation2DSetPayload::CreateData>();
@@ -129,7 +129,7 @@ bool Animation2DDriver::doCreate(const as::CreateContext& ctx, Animation2DPayloa
     return true;
 }
 
-bool Animation2DDriver::doRead(const as::ReadContext& ctx, Animation2DPayload& payload) {
+bool Animation2DDriver::doRead(as::ReadContext& ctx, Animation2DPayload& payload) {
     stream::InputStream stream;
     if (!ctx.setupReadStream("animation.banim", stream)) {
         BL_LOG_ERROR << "Failed to setup read stream for Animation2D asset with UUID: "
@@ -144,7 +144,7 @@ bool Animation2DDriver::doRead(const as::ReadContext& ctx, Animation2DPayload& p
     return true;
 }
 
-bool Animation2DDriver::doWrite(const as::WriteContext& ctx, const Animation2DPayload& payload) {
+bool Animation2DDriver::doWrite(as::WriteContext& ctx, const Animation2DPayload& payload) {
     stream::OutputStream stream;
     if (!ctx.setupWriteStream("animation.banim", stream)) {
         BL_LOG_ERROR << "Failed to setup write stream for Animation2D asset with UUID: "

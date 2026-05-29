@@ -10,7 +10,7 @@ CubemapDriver::CubemapDriver()
                                  .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
-bool CubemapDriver::doCreate(const as::CreateContext& ctx, CubemapPayload& payload) {
+bool CubemapDriver::doCreate(as::CreateContext& ctx, CubemapPayload& payload) {
     const CubemapPayload::CreateParams* params =
         ctx.getCustomDataAsMaybe<CubemapPayload::CreateParams>();
     if (!params) {
@@ -30,12 +30,12 @@ bool CubemapDriver::doCreate(const as::CreateContext& ctx, CubemapPayload& paylo
     return true;
 }
 
-bool CubemapDriver::doRead(const as::ReadContext&, CubemapPayload&) {
+bool CubemapDriver::doRead(as::ReadContext&, CubemapPayload&) {
     // dependencies are handled automatically
     return true;
 }
 
-bool CubemapDriver::doWrite(const as::WriteContext&, const CubemapPayload&) {
+bool CubemapDriver::doWrite(as::WriteContext&, const CubemapPayload&) {
     // nothing to write, all data is in the dependencies
     return true;
 }

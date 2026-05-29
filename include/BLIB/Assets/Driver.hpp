@@ -40,7 +40,7 @@ public:
      * @param ctx The context for the import operation
      * @return The payload containing the imported asset data, or nullptr if the import failed
      */
-    virtual std::unique_ptr<Payload> create(const CreateContext& ctx) = 0;
+    virtual std::unique_ptr<Payload> create(CreateContext& ctx) = 0;
 
     /**
      * @brief Reads an existing asset into memory
@@ -48,7 +48,7 @@ public:
      * @param ctx The context for the read operation
      * @return The payload containing the read asset data, or nullptr if the read failed
      */
-    virtual std::unique_ptr<Payload> read(const ReadContext& ctx) = 0;
+    virtual std::unique_ptr<Payload> read(ReadContext& ctx) = 0;
 
     /**
      * @brief Writes the asset data to disk in the appropriate format
@@ -56,7 +56,7 @@ public:
      * @param ctx The context for the write operation
      * @return True if the write succeeded, false otherwise
      */
-    virtual bool write(const WriteContext& ctx) = 0;
+    virtual bool write(WriteContext& ctx) = 0;
 
     /**
      * @brief Returns the bundle config for this asset type
@@ -106,7 +106,7 @@ public:
      * @param ctx The context for the import operation
      * @return The payload containing the imported asset data, or nullptr if the import failed
      */
-    virtual std::unique_ptr<Payload> create(const CreateContext& ctx) override final {
+    virtual std::unique_ptr<Payload> create(CreateContext& ctx) override final {
         Payload::ConstructContext constructCtx{ctx.getMode(), ctx.getRepository(), ctx.getAsset()};
         std::unique_ptr<Payload> payload = std::make_unique<T>(constructCtx);
         if (!doCreate(ctx, payload->as<T>())) { return nullptr; }
@@ -119,7 +119,7 @@ public:
      * @param ctx The context for the read operation
      * @return The payload containing the read asset data, or nullptr if the read failed
      */
-    virtual std::unique_ptr<Payload> read(const ReadContext& ctx) override final {
+    virtual std::unique_ptr<Payload> read(ReadContext& ctx) override final {
         Payload::ConstructContext constructCtx{ctx.getMode(), ctx.getRepository(), ctx.getAsset()};
         std::unique_ptr<Payload> payload = std::make_unique<T>(constructCtx);
         if (!payload->loadDependencies()) {
@@ -136,7 +136,7 @@ public:
      * @param ctx The context for the write operation
      * @return True if the write succeeded, false otherwise
      */
-    virtual bool write(const WriteContext& ctx) override final {
+    virtual bool write(WriteContext& ctx) override final {
         return doWrite(ctx, ctx.getAsset().getPayload().as<T>());
     }
 
@@ -156,7 +156,7 @@ protected:
      * @param payload The payload to populate
      * @return True on success, false on error
      */
-    virtual bool doCreate(const CreateContext& ctx, T& payload) = 0;
+    virtual bool doCreate(CreateContext& ctx, T& payload) = 0;
 
     /**
      * @brief Payload type specific read logic goes here
@@ -165,7 +165,7 @@ protected:
      * @param payload The payload to populate
      * @return True on success, false on error
      */
-    virtual bool doRead(const ReadContext& ctx, T& payload) = 0;
+    virtual bool doRead(ReadContext& ctx, T& payload) = 0;
 
     /**
      * @brief Payload type specific write logic goes here
@@ -174,7 +174,7 @@ protected:
      * @param payload The payload to write
      * @return True on success, false on error
      */
-    virtual bool doWrite(const WriteContext& ctx, const T& payload) = 0;
+    virtual bool doWrite(WriteContext& ctx, const T& payload) = 0;
 
 private:
     friend class ::bl::as::Repository;
