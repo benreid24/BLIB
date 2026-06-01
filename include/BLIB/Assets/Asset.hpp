@@ -115,7 +115,7 @@ private:
     bool create(const CreateContext::CreateData& data);
     bool saveEditor();
     bool writePayload();
-    detail::DriverBase* getDriver();
+    detail::DriverBase* getDriver() const;
 
     // Called by Payload
     void flushPayload();

@@ -1,6 +1,7 @@
 #include <BLIB/Assets/Repository.hpp>
 
 #include <BLIB/Assets/Bundles/Manifest.hpp>
+#include <BLIB/Assets/Bundles/RuntimePaths.hpp>
 #include <BLIB/Assets/Drivers/Animation2DDriver.hpp>
 #include <BLIB/Assets/Drivers/Animation2DSetDriver.hpp>
 #include <BLIB/Assets/Drivers/Animation3DDriver.hpp>
@@ -14,6 +15,7 @@
 #include <BLIB/Assets/Drivers/TextureDriver.hpp>
 #include <BLIB/Assets/EditorPaths.hpp>
 #include <BLIB/Serialization.hpp>
+#include <queue>
 
 namespace bl
 {
@@ -513,8 +515,120 @@ Asset* Repository::getDependencyForInit(util::UUID uuid) {
 }
 
 bool Repository::exportRepository(const std::string& path) {
-    // TODO
-    return false;
+    std::unique_lock assetLock(assetMutex);
+    std::unique_lock driverLock(driverMutex);
+
+    // build set of root assets
+    std::unordered_set<util::UUID> roots;
+    for (const auto& asset : assets) {
+        for (const auto& dep : asset.second.dependencies) { roots.erase(dep.uuid); }
+        roots.emplace(asset.second.getUUID());
+    }
+
+    // second pass to eliminate middle of the tree assets
+    for (auto possibleRoot : roots) {
+        const auto it = assets.find(possibleRoot);
+        for (const auto& dep : it->second.dependencies) { roots.erase(dep.uuid); }
+    }
+
+    constexpr std::size_t BundleSoftSize = 10485760; // 10M
+    bdl::Manifest manifest;
+    std::unordered_set<util::UUID> bundled;
+    std::queue<util::UUID> toVisit;
+    for (auto root : roots) { toVisit.emplace(root); }
+
+    const auto addToBundle = [this, &manifest](bdl::BundleData& bundle, Asset& asset) -> bool {
+        WriteContext context(*this, asset, bundle);
+        if (!asset.getDriver()->write(context)) { return false; }
+        manifest.assetToBundle[asset.getUUID()] = bundle.uuid;
+        return true;
+    };
+
+    // add root trees to export based on affinity
+    bdl::BundleData currentBundle;
+    while (!toVisit.empty()) {
+        util::UUID uuid = toVisit.front();
+        toVisit.pop();
+
+        Asset& asset               = assets[uuid];
+        detail::DriverBase* driver = asset.getDriver();
+        if (driver->getBundleConfig().affinity != bdl::AssetBundleConfig::Affinity::Parent) {
+            continue;
+        }
+
+        // check if we should flush if next asset is a root
+        if (roots.find(asset.getUUID()) != roots.end()) {
+            if (currentBundle.data.size() >= BundleSoftSize) {
+                if (!currentBundle.flush(path)) {
+                    BL_LOG_ERROR << "Failed to flush bundle";
+                    return false;
+                }
+                currentBundle.reset();
+            }
+        }
+
+        if (!addToBundle(currentBundle, asset)) {
+            BL_LOG_ERROR << "Failed to bundle asset " << asset.getUUID();
+        }
+
+        for (auto dep : asset.dependencies) {
+            if (bundled.find(dep.uuid) != bundled.end()) { continue; }
+            toVisit.emplace(dep.uuid);
+        }
+    }
+
+    // final flush
+    if (!currentBundle.data.empty()) {
+        if (!currentBundle.flush(path)) {
+            BL_LOG_ERROR << "Failed to flush bundle";
+            return false;
+        }
+        currentBundle.reset();
+    }
+
+    // bundle remaining assets by type
+    std::unordered_map<std::string_view, bdl::BundleData> bundlesByType;
+    for (auto& asset : assets) {
+        if (bundled.find(asset.second.getUUID()) != bundled.end()) { continue; }
+        bundled.emplace(asset.second.getUUID());
+
+        detail::DriverBase* driver  = asset.second.getDriver();
+        bdl::BundleData& bundleData = bundlesByType[driver->getSupportedType()];
+        if (!addToBundle(bundleData, asset.second)) {
+            BL_LOG_ERROR << "Failed to bundle asset " << asset.second.getUUID();
+        }
+
+        // flush if necessary
+        if (bundleData.data.size() >= BundleSoftSize) {
+            if (!bundleData.flush(path)) {
+                BL_LOG_ERROR << "Failed to flush bundle";
+                return false;
+            }
+            bundleData.reset();
+        }
+    }
+
+    // final flush bundles
+    for (auto& bundle : bundlesByType) {
+        if (!bundle.second.data.empty()) {
+            if (!bundle.second.flush(path)) {
+                BL_LOG_ERROR << "Failed to flush bundle";
+                return false;
+            }
+            bundle.second.reset();
+        }
+    }
+
+    // write manifest & metadata
+    GameRuntimeData manifestData{
+        .assets = &assets, .keyToAsset = &keyToAsset, .bundleManifest = &manifest};
+    stream::OutputStream output(
+        util::FileUtil::joinPath(path, std::string(bdl::RuntimePaths::ManifestPath)));
+    if (!output.isValid()) {
+        BL_LOG_ERROR << "Failed to open manifest file for writing";
+        return false;
+    }
+    return serial::binary::Serializer<GameRuntimeData>::serialize(output, manifestData);
 }
 
 void Repository::releaseUnused() {

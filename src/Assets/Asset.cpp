@@ -218,7 +218,7 @@ void Asset::handlePathChange(const std::string& oldPath, const std::string& newP
 
 void Asset::handleAutoLoadChange() { repo->writeManifest(); }
 
-detail::DriverBase* Asset::getDriver() {
+detail::DriverBase* Asset::getDriver() const {
     detail::DriverBase* driver = repo->getDriver(type);
     if (!driver) {
         BL_LOG_ERROR << "Attempted to load asset with type " << type
