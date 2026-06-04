@@ -502,10 +502,6 @@ TEST_F(RepositoryTest, SourceFileInfo) {
     EXPECT_GT(asset.getAsset().getMetadata().getSourceFileInfo()->lastModified, prevTime);
 }
 
-TEST_F(RepositoryTest, ReloadFromSource) {
-    // TODO
-}
-
 TEST_F(RepositoryTest, BasicBundle) {
     util::UUID uuid;
     {
