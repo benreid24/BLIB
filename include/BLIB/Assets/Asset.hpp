@@ -107,7 +107,7 @@ private:
     std::string type;
     Metadata metadata;
     std::unique_ptr<Payload> payload;
-    std::atomic<State> state;
+    mutable std::atomic<State> state;
     std::vector<RepoDependency> dependencies;
     std::atomic<unsigned int> refCount;
 

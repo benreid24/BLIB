@@ -15,7 +15,10 @@ namespace
 {
 class RepositoryTest : public ::testing::Test {
 public:
-    void SetUp() override { util::FileUtil::deleteDirectory("test_assets"); }
+    void SetUp() override {
+        util::FileUtil::deleteDirectory("test_assets");
+        util::FileUtil::deleteDirectory("test_bundle");
+    }
 };
 
 struct TestCreateContext : public CreateContext::CreateData {
@@ -497,6 +500,32 @@ TEST_F(RepositoryTest, SourceFileInfo) {
     EXPECT_EQ(asset->get().getSize().y, 20);
     EXPECT_EQ(asset->get().getPixel({0, 0}), sf::Color::Blue);
     EXPECT_GT(asset.getAsset().getMetadata().getSourceFileInfo()->lastModified, prevTime);
+}
+
+TEST_F(RepositoryTest, ReloadFromSource) {
+    // TODO
+}
+
+TEST_F(RepositoryTest, BasicBundle) {
+    util::UUID uuid;
+    {
+        Repository repo(Mode::Editor, "test_assets");
+        repo.registerDriver<TestDriver>(TestTypeTag);
+
+        auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
+        ASSERT_TRUE(asset.isValid());
+        uuid = asset.getAsset().getUUID();
+
+        ASSERT_TRUE(repo.exportRepository("test_bundle"));
+    }
+
+    Repository repo(Mode::Game, "test_bundle");
+    repo.registerDriver<TestDriver>(TestTypeTag);
+
+    ASSERT_TRUE(repo.loadRepository());
+    auto asset = repo.getTypedAsset<TestPayload>(uuid);
+    ASSERT_TRUE(asset.isValid());
+    EXPECT_EQ(asset->data, "test_data");
 }
 
 } // namespace unittest

@@ -85,7 +85,8 @@ bool ReadContext::setupReadStream(std::string_view filename, stream::InputStream
 WriteContext::WriteContext(Repository& repo, Asset& asset)
 : Context(repo, asset)
 , priorFileOffset(0)
-, priorFile() {}
+, priorFile()
+, bundle(nullptr){}
 
 WriteContext::WriteContext(Repository& repo, Asset& asset, bdl::BundleData& b)
 : WriteContext(repo, asset) {
@@ -94,6 +95,11 @@ WriteContext::WriteContext(Repository& repo, Asset& asset, bdl::BundleData& b)
 
 WriteContext::~WriteContext() {
     if (getMode() == Mode::BundleCreation) { flushBundleWrite(); }
+}
+
+Mode WriteContext::getMode() const {
+    if (bundle) { return Mode::BundleCreation; }
+    return Context::getMode();
 }
 
 bool WriteContext::setupWriteStream(std::string_view filename, stream::OutputStream& output) {

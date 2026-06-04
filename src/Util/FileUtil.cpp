@@ -151,7 +151,9 @@ std::vector<std::string> FileUtil::listDirectoryFolders(const std::string& path)
 bool FileUtil::deleteFile(const std::string& file) { return std::filesystem::remove(file); }
 
 bool FileUtil::deleteDirectory(const std::string& path) {
-    return std::filesystem::remove_all(path) > 0;
+    std::error_code ec;
+    std::filesystem::remove_all(path, ec);
+    return ec.value() == 0;
 }
 
 std::string FileUtil::getDataDirectory(const std::string& appName) {

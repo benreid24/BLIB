@@ -268,6 +268,8 @@ private:
         return it->second->getSupportedType();
     }
 
+    detail::DriverBase* getDriverLocked(std::string_view type);
+
     // used by Dependency
     void registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
     bool unregisterDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);

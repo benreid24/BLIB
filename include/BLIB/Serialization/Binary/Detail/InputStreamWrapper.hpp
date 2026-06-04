@@ -97,7 +97,7 @@ typename std::enable_if<std::is_integral_v<T>, bool>::type InputStreamWrapper::r
     char* bytes                = static_cast<char*>(static_cast<void*>(&output));
 
     output       = 0;
-    const bool r = underlying.read(bytes, size);
+    const bool r = underlying.read(bytes, size) == size;
     if constexpr (size > 1) {
         if (util::FileUtil::isBigEndian()) {
             for (unsigned int i = 0; i < size / 2; ++i) {
@@ -122,7 +122,7 @@ inline bool InputStreamWrapper::read(std::string& output) {
     if (!read<std::uint32_t>(size)) return false;
     output.clear();
     output.resize(size);
-    return underlying.read(output.data(), size);
+    return underlying.read(output.data(), size) == size;
 }
 
 inline bool InputStreamWrapper::skip(std::size_t bytes) {

@@ -74,7 +74,7 @@ bool OutputStream::write(const void* voidData, std::size_t len) {
                                     [data, len](std::vector<char>* buf) {
                                         const std::size_t start = buf->size();
                                         buf->resize(buf->size() + len);
-                                        std::memcpy(&buf[start], data, len);
+                                        std::memcpy(buf->data() + start, data, len);
                                         return true;
                                     }},
                       stream);

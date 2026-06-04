@@ -173,6 +173,11 @@ public:
      */
     bool setupWriteStream(std::string_view filename, stream::OutputStream& output);
 
+    /**
+     * @brief Returns the mode the asset system is in
+     */
+    Mode getMode() const;
+
 private:
     bdl::BundleData* bundle;
     std::size_t priorFileOffset;

@@ -86,10 +86,6 @@ std::string makeStaticPath(std::string_view type) {
     return path;
 }
 
-std::string makeBundleManifestPath(const std::string& base) {
-    return util::FileUtil::joinPath(base, "assets.asb");
-}
-
 } // namespace
 
 Repository::~Repository() {
@@ -326,6 +322,10 @@ const std::vector<RepoDependency>& Repository::getDependencies(util::UUID uuid) 
 
 detail::DriverBase* Repository::getDriver(std::string_view tag) {
     std::shared_lock lock(driverMutex);
+    return getDriverLocked(tag);
+}
+
+detail::DriverBase* Repository::getDriverLocked(std::string_view tag) {
     auto it = driversByName.find(tag);
     if (it == driversByName.end()) { return nullptr; }
     return it->second;
@@ -470,7 +470,8 @@ bool Repository::loadRepository() {
         }
     }
     else {
-        const std::string manifestPath = makeBundleManifestPath(assetDirectory);
+        const std::string manifestPath =
+            util::FileUtil::joinPath(assetDirectory, std::string(bdl::RuntimePaths::ManifestPath));
         stream::InputStream manifestFile(manifestPath);
         if (!manifestFile.isValid()) {
             BL_LOG_ERROR << "Failed to open asset manifest at " << manifestPath;
@@ -518,6 +519,12 @@ bool Repository::exportRepository(const std::string& path) {
     std::unique_lock assetLock(assetMutex);
     std::unique_lock driverLock(driverMutex);
 
+    // create bundle directory
+    if (!util::FileUtil::createDirectory(path)) {
+        BL_LOG_ERROR << "Failed to create bundle directory at " << path;
+        return false;
+    }
+
     // build set of root assets
     std::unordered_set<util::UUID> roots;
     for (const auto& asset : assets) {
@@ -539,7 +546,13 @@ bool Repository::exportRepository(const std::string& path) {
 
     const auto addToBundle = [this, &manifest](bdl::BundleData& bundle, Asset& asset) -> bool {
         WriteContext context(*this, asset, bundle);
-        if (!asset.getDriver()->write(context)) { return false; }
+        detail::DriverBase* driver = getDriverLocked(asset.getType());
+        if (!driver) {
+            BL_LOG_ERROR << "Failed to find driver for asset with type " << asset.getType()
+                         << " while adding to bundle";
+            return false;
+        }
+        if (!driver->write(context)) { return false; }
         manifest.assetToBundle[asset.getUUID()] = bundle.uuid;
         return true;
     };
@@ -551,10 +564,17 @@ bool Repository::exportRepository(const std::string& path) {
         toVisit.pop();
 
         Asset& asset               = assets[uuid];
-        detail::DriverBase* driver = asset.getDriver();
+        detail::DriverBase* driver = getDriverLocked(asset.getType());
+        if (!driver) {
+            BL_LOG_ERROR << "Failed to find driver for asset with type " << asset.getType()
+                         << " while adding to bundle";
+            continue;
+        }
         if (driver->getBundleConfig().affinity != bdl::AssetBundleConfig::Affinity::Parent) {
             continue;
         }
+
+        bundled.emplace(uuid);
 
         // check if we should flush if next asset is a root
         if (roots.find(asset.getUUID()) != roots.end()) {
@@ -592,7 +612,12 @@ bool Repository::exportRepository(const std::string& path) {
         if (bundled.find(asset.second.getUUID()) != bundled.end()) { continue; }
         bundled.emplace(asset.second.getUUID());
 
-        detail::DriverBase* driver  = asset.second.getDriver();
+        detail::DriverBase* driver = getDriverLocked(asset.second.getType());
+        if (!driver) {
+            BL_LOG_ERROR << "Failed to find driver for asset with type " << asset.second.getType()
+                         << " while adding to bundle";
+            continue;
+        }
         bdl::BundleData& bundleData = bundlesByType[driver->getSupportedType()];
         if (!addToBundle(bundleData, asset.second)) {
             BL_LOG_ERROR << "Failed to bundle asset " << asset.second.getUUID();
