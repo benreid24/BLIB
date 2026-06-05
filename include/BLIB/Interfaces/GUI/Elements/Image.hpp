@@ -1,8 +1,9 @@
 #ifndef BLIB_GUI_ELEMENTS_IMAGE_HPP
 #define BLIB_GUI_ELEMENTS_IMAGE_HPP
 
+#include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Image.hpp>
 
 namespace bl
@@ -20,6 +21,9 @@ class Image : public Element {
 public:
     typedef std::shared_ptr<Image> Ptr;
 
+    /**
+     * @brief Destroys the image element
+     */
     virtual ~Image() = default;
 
     /**
@@ -28,7 +32,7 @@ public:
      * @param texture The texture of the image to render
      * @return Ptr The new image
      */
-    static Ptr create(resource::Ref<sf::Image> texture);
+    static Ptr create(as::TypedRef<asi::ImagePayload> texture);
 
     /**
      * @brief Create a new Image from a non managed texture
@@ -74,7 +78,7 @@ public:
      * @param texture The new texture to display
      * @param resetScale True to reset the display size, false to keep it
      */
-    void setImage(const resource::Ref<sf::Image>& texture, bool resetScale);
+    void setImage(const as::TypedRef<asi::ImagePayload>& texture, bool resetScale);
 
     /**
      * @brief Returns the offset to position the image at within the acquisition
@@ -98,7 +102,7 @@ protected:
      * @param texture The texture of the image to render
      * @return Ptr The new image
      */
-    Image(resource::Ref<sf::Image> texture);
+    Image(as::TypedRef<asi::ImagePayload> texture);
 
     /**
      * @brief Create a new Image from a non managed texture
@@ -123,7 +127,7 @@ protected:
     virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    resource::Ref<sf::Image> textureHandle;
+    as::TypedRef<asi::ImagePayload> textureHandle;
     const sf::Image* texture;
     std::optional<sf::Vector2f> size;
     sf::Vector2f offset;

@@ -9,12 +9,13 @@ namespace
 constexpr float InnerRatio = 0.45f;
 }
 
-ToggleTextItem::Ptr ToggleTextItem::create(const std::string& text, const sf::VulkanFont& font,
+ToggleTextItem::Ptr ToggleTextItem::create(const std::string& text,
+                                           as::TypedRef<asi::FontPayload> font,
                                            const sf::Color& color, unsigned int fontSize) {
     return Ptr{new ToggleTextItem(text, font, color, fontSize)};
 }
 
-ToggleTextItem::ToggleTextItem(const std::string& text, const sf::VulkanFont& font,
+ToggleTextItem::ToggleTextItem(const std::string& text, as::TypedRef<asi::FontPayload> font,
                                const sf::Color& color, unsigned int fontSize)
 : TextItem(text, font, color, fontSize)
 , checked(false) {

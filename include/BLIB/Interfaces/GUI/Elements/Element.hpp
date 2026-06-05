@@ -1,7 +1,8 @@
 #ifndef BLIB_GUI_ELEMENTS_ELEMENT_HPP
 #define BLIB_GUI_ELEMENTS_ELEMENT_HPP
 
-#include <BLIB/Graphics/Text/VulkanFont.hpp>
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Interfaces/GUI/Event.hpp>
 #include <BLIB/Interfaces/GUI/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
@@ -295,7 +296,7 @@ public:
      *
      * @param font Resource managed font to use
      */
-    void setFont(bl::resource::Ref<sf::VulkanFont> font);
+    void setFont(as::TypedRef<asi::FontPayload> font);
 
     /**
      * @brief Set the horizontal alignment. Doesn't apply to all Element types

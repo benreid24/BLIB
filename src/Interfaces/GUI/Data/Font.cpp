@@ -1,5 +1,8 @@
 #include "Font.hpp"
 
+#include <BLIB/Assets/Drivers/FontDriver.hpp>
+#include <BLIB/Assets/Repository.hpp>
+
 namespace bl
 {
 namespace gui
@@ -7,7 +10,7 @@ namespace gui
 namespace
 {
 #ifndef BLIB_NO_FONT
-const uint8_t font[] = {
+const std::uint8_t font[] = {
     0x0,  0x1,  0x0,  0x0,  0x0,  0x13, 0x1,  0x0,  0x0,  0x4,  0x0,  0x30, 0x47, 0x50, 0x4f, 0x53,
     0x20, 0x8c, 0x34, 0xac, 0x0,  0x0,  0xcd, 0xc,  0x0,  0x0,  0x30, 0x4a, 0x47, 0x53, 0x55, 0x42,
     0xda, 0x31, 0xdd, 0x9f, 0x0,  0x0,  0xfd, 0x58, 0x0,  0x0,  0x0,  0x58, 0x4c, 0x54, 0x53, 0x48,
@@ -4071,19 +4074,21 @@ const uint8_t font[] = {
 const uint8_t[] font = {};
 #endif
 
-constexpr std::size_t fontSize = sizeof(font);
+constexpr std::size_t fontSize     = sizeof(font);
+constexpr std::string_view FontTag = "blib.gui.font";
 
-resource::Resource<sf::VulkanFont>* load() {
-    static resource::Resource<sf::VulkanFont> sf;
+as::TypedRef<asi::FontPayload> load(as::Repository& repo) {
     if constexpr (fontSize > 0) {
-        if (sf.data.loadFromMemory(font, fontSize)) return &sf;
+        asi::FontDriver::CreateParams params(std::span<const char>(
+            static_cast<const char*>(static_cast<const void*>(font)), fontSize));
+        return repo.getOrCreateAsset<asi::FontPayload>(FontTag, std::string(FontTag), params);
     }
-    return nullptr;
+    return {};
 }
 } // namespace
 
-resource::Ref<sf::VulkanFont> Font::get() {
-    static resource::Ref<sf::VulkanFont> f(load());
+as::TypedRef<asi::FontPayload> Font::get(as::Repository& repo) {
+    static as::TypedRef<asi::FontPayload> f(load(repo));
     return f;
 }
 

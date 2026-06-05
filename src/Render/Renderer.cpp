@@ -216,7 +216,6 @@ void Renderer::cleanup() {
     commonObserver.cleanup();
     scenes.cleanup();
     globalShaderResources.cleanup();
-    resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     computePipelines.cleanup();
     pipelines.cleanup();
     pipelineLayouts.cleanup();

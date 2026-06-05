@@ -35,8 +35,9 @@ void TextEntryComponent::onRenderSettingChange() {
     box.setOutlineColor(caratCol);
     box.setOutlineThickness(-settings.outlineThickness.value_or(1.f));
 
-    auto& sec                   = text.getSection();
-    const sf::VulkanFont& font  = *settings.font.value_or(Font::get());
+    auto& sec = text.getSection();
+    as::TypedRef<asi::FontPayload> font =
+        settings.font.value_or(Font::get(engine::Engine::getInstance()->assets()));
     const unsigned int charSize = settings.characterSize.value_or(Label::DefaultFontSize);
     text.setFont(font);
     sec.setFillColor(settings.secondaryFillColor.value_or(sf::Color::Black));
@@ -46,7 +47,7 @@ void TextEntryComponent::onRenderSettingChange() {
     sec.setStyle(settings.style.value_or(sf::Text::Regular));
 
     carat.setFillColor(caratCol);
-    carat.scaleToSize({CaratWidth, font.getLineSpacing(charSize)});
+    carat.scaleToSize({CaratWidth, font->getLineSpacing(charSize)});
 
     positionItems();
 }
@@ -61,7 +62,7 @@ unsigned int TextEntryComponent::findCursorPosition(const sf::Vector2f& overlayP
     const TextEntry& owner = getOwnerAs<TextEntry>();
     const glm::vec2 gp     = text.getTransform().getGlobalPosition();
     const sf::Vector2f lp  = overlayPos - sf::Vector2f(gp.x, gp.y);
-    const float lineHeight = text.getFont().getLineSpacing(text.getSection().getCharacterSize());
+    const float lineHeight = text.getFont()->getLineSpacing(text.getSection().getCharacterSize());
 
     if (lp.y < 0.f) { return 0; }
     if (lp.y > lineHeight * static_cast<float>(owner.getLineCount())) {
@@ -92,12 +93,12 @@ void TextEntryComponent::resetCaratFlash() {
 }
 
 void TextEntryComponent::doCreate(engine::World& world, rdr::Renderer&) {
-Element& owner = getOwnerAs<Element>();
-box.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
-box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
+    Element& owner = getOwnerAs<Element>();
+    box.create(world, {owner.getAcquisition().size.x, owner.getAcquisition().size.y});
+    box.getOverlayScaler().setScissorMode(com::OverlayScaler::ScissorSelfConstrained);
 
     const RenderSettings& settings = getOwnerAs<Element>().getRenderSettings();
-    text.create(world, *settings.font.value_or(Font::get()));
+    text.create(world, settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
     text.setParent(box);
 
     carat.create(world, {10.f, 40.f});
@@ -134,9 +135,10 @@ void TextEntryComponent::positionItems() {
     const glm::vec2 cpos       = text.findCharacterPosition(0, owner.getCursorPosition());
 
     glm::vec2 textOffset(0.f, 0.f);
-    if ((bounds.size.x + bounds.position.x) > acq.size.x || (bounds.position.y + bounds.size.y) > acq.size.y) {
+    if ((bounds.size.x + bounds.position.x) > acq.size.x ||
+        (bounds.position.y + bounds.size.y) > acq.size.y) {
         const glm::vec2 gcpos = cpos + text.getTransform().getLocalPosition();
-        const sf::Glyph& g    = text.getFont().getGlyph(
+        const sf::Glyph& g    = text.getFont()->getGlyph(
             text.getSection().getString()[owner.getCursorPosition()],
             text.getSection().getCharacterSize(),
             (text.getSection().getStyle() & sf::Text::Style::Bold) == sf::Text::Style::Bold,
@@ -149,7 +151,7 @@ void TextEntryComponent::positionItems() {
         }
 
         const float lineHeight =
-            text.getFont().getLineSpacing(text.getSection().getCharacterSize());
+            text.getFont()->getLineSpacing(text.getSection().getCharacterSize());
         const float y      = static_cast<float>(owner.getCurrentLine()) * lineHeight;
         const float by     = y + lineHeight;
         const float bottom = acq.size.y - Padding * 2.f;

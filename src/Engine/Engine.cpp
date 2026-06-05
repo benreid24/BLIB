@@ -3,8 +3,6 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
-#include <BLIB/Resources/GarbageCollector.hpp>
-#include <BLIB/Resources/State.hpp>
 #include <BLIB/Signals/Table.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Systems/MarkedForDeath.hpp>
@@ -19,6 +17,7 @@ namespace engine
 namespace
 {
 constexpr std::int64_t MinFrameLengthMicroseconds = 100;
+Engine* instance                                  = nullptr;
 
 float toSeconds(std::uint64_t microseconds) {
     return static_cast<float>(microseconds) / 1'000'000.f;
@@ -41,6 +40,11 @@ Engine::Engine(const Settings& settings)
 , entityRegistry()
 , renderThreadShouldRun(true)
 , input(*this) {
+    if (!instance) { instance = this; }
+    else {
+        BL_LOG_WARN << "Multiple engine instances created. Some features may break or misbehave";
+    }
+
     settings.syncToConfig();
 
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
@@ -59,8 +63,6 @@ Engine::Engine(const Settings& settings)
 }
 
 Engine::~Engine() {
-    resource::State::appExiting = true;
-
     if (renderingThread.has_value()) {
         renderThreadShouldRun = false;
         renderingCv.notify_one();
@@ -102,13 +104,12 @@ Engine::~Engine() {
     entityRegistry.destroyAllEntities();
 
     audio::AudioSystem::shutdown();
-    resource::GarbageCollector::get().clear();
+    assetRepository.forceUnloadAll();
     systems().cleanup();
 
     if (rendererInstance.has_value()) { rendererInstance->cleanup(); }
 
-    // reset resource manager state for other instances
-    resource::State::appExiting = false;
+    if (instance == this) { instance = nullptr; }
 }
 
 void Engine::pushState(State::Ptr next) {
@@ -492,6 +493,8 @@ void Engine::renderThreadBody() {
 void Engine::preStateChange() {
     if (rendererInstance.has_value()) { rendererInstance->waitIdleGPU(); }
 }
+
+Engine* Engine::getInstance() { return instance; }
 
 } // namespace engine
 } // namespace bl

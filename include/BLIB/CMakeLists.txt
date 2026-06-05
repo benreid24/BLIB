@@ -15,7 +15,6 @@ target_sources(BLIB PUBLIC
     Parser.hpp
     Particles.hpp
     Render.hpp
-    Resources.hpp
     Scripts.hpp
     Serialization.hpp
     Signals.hpp

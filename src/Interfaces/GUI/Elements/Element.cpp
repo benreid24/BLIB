@@ -252,12 +252,12 @@ void Element::requestMakeDirty(const Element* child) {
 }
 
 bool Element::shouldMarkSelfDirty() {
-constexpr float ShrinkThresh = 0.75f;
-const sf::Vector2f newReq    = getRequisition();
-const sf::FloatRect& acq     = getAcquisition();
-if (newReq.x > acq.size.x || newReq.y > acq.size.y ||
-    (!fillX && newReq.x < acq.size.x * ShrinkThresh) ||
-    (!fillY && newReq.y < acq.size.y * ShrinkThresh)) {
+    constexpr float ShrinkThresh = 0.75f;
+    const sf::Vector2f newReq    = getRequisition();
+    const sf::FloatRect& acq     = getAcquisition();
+    if (newReq.x > acq.size.x || newReq.y > acq.size.y ||
+        (!fillX && newReq.x < acq.size.x * ShrinkThresh) ||
+        (!fillY && newReq.y < acq.size.y * ShrinkThresh)) {
         return true;
     }
     return false;
@@ -312,9 +312,9 @@ void Element::setExpandsHeight(bool expand) {
 bool Element::expandsHeight() const { return fillY; }
 
 void Element::assignAcquisition(const sf::FloatRect& acq) {
-markClean();
-cachedArea = acq;
-const sf::Vector2f globalPos(cachedArea.position.x, cachedArea.position.y);
+    markClean();
+    cachedArea = acq;
+    const sf::Vector2f globalPos(cachedArea.position.x, cachedArea.position.y);
     if (parent) { position = globalPos - parent->getPosition(); }
     else { position = globalPos; }
     fireSignal(Event(Event::AcquisitionChanged));
@@ -322,10 +322,10 @@ const sf::Vector2f globalPos(cachedArea.position.x, cachedArea.position.y);
 }
 
 void Element::setPosition(const sf::Vector2f& pos) {
-const sf::Vector2f diff = pos - sf::Vector2f(cachedArea.position.x, cachedArea.position.y);
-dragStart += diff;
-cachedArea.position.x = pos.x;
-cachedArea.position.y = pos.y;
+    const sf::Vector2f diff = pos - sf::Vector2f(cachedArea.position.x, cachedArea.position.y);
+    dragStart += diff;
+    cachedArea.position.x = pos.x;
+    cachedArea.position.y = pos.y;
     if (parent) { position = pos - parent->getPosition(); }
     else { position = pos; }
     fireSignal(Event(Event::Moved));
@@ -333,11 +333,11 @@ cachedArea.position.y = pos.y;
 }
 
 void Element::recalculatePosition() {
-if (parent) {
-    const sf::Vector2f npos = parent->getPosition() + position;
-    if (npos.x != cachedArea.position.x || npos.y != cachedArea.position.y) {
-        cachedArea.position.x = npos.x;
-        cachedArea.position.y = npos.y;
+    if (parent) {
+        const sf::Vector2f npos = parent->getPosition() + position;
+        if (npos.x != cachedArea.position.x || npos.y != cachedArea.position.y) {
+            cachedArea.position.x = npos.x;
+            cachedArea.position.y = npos.y;
             fireSignal(Event(Event::Moved));
             if (component) { component->onMove(); }
         }
@@ -354,7 +354,7 @@ void Element::setChildParent(Element* p) { p->parent = this; }
 
 const RenderSettings& Element::renderSettings() const { return settings; }
 
-void Element::setFont(bl::resource::Ref<sf::VulkanFont> f) {
+void Element::setFont(as::TypedRef<asi::FontPayload> f) {
     settings.font = f;
     onRenderChange();
 }

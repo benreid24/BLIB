@@ -8,18 +8,18 @@ RebindState::RebindState(unsigned int ctrl)
 : State(bl::engine::StateMask::All)
 , configurator()
 , ctrl(ctrl)
-, inited(false) {
-    font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
-}
+, inited(false) {}
 
 const char* RebindState::name() const { return "RebindState"; }
 
 void RebindState::activate(bl::engine::Engine& engine) {
+    font = engine.assets().getAssetFromSourcePath<bl::asi::FontPayload>("font.ttf");
+
     auto world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene2D>>();
     engine.renderer().getObserver().setClearColor({1.f, 1.f, 1.f, 1.f});
 
     if (!inited) {
-        text.create(*world, *font, "", 22, {0.1f, 0.65f, 0.22f, 1.f});
+        text.create(*world, font, "", 22, {0.1f, 0.65f, 0.22f, 1.f});
         text.getTransform().setPosition({50.f, 300.f});
     }
 

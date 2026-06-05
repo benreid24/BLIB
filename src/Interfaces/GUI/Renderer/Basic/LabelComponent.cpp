@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/LabelComponent.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <BLIB/Interfaces/GUI/GUI.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
@@ -38,7 +39,7 @@ void LabelComponent::onElementUpdated() {
 void LabelComponent::onRenderSettingChange() {
     const RenderSettings& settings = getOwnerAs<Label>().renderSettings();
     auto& sec                      = text.getSection();
-    text.setFont(*settings.font.value_or(Font::get()));
+    text.setFont(settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
     sec.setCharacterSize(settings.characterSize.value_or(Label::DefaultFontSize));
     sec.setFillColor(settings.fillColor.value_or(sf::Color::Black));
     sec.setOutlineColor(settings.outlineColor.value_or(sf::Color::Transparent));
@@ -51,7 +52,7 @@ ecs::Entity LabelComponent::getEntity() const { return text.entity(); }
 
 void LabelComponent::doCreate(engine::World& world, rdr::Renderer&) {
     const RenderSettings& settings = getOwnerAs<Label>().renderSettings();
-    text.create(world, *settings.font.value_or(Font::get()));
+    text.create(world, settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
 }
 
 void LabelComponent::doSceneAdd(rc::Overlay* overlay) {

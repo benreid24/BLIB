@@ -1,38 +1,8 @@
-////////////////////////////////////////////////////////////
-//
-// SFML - Simple and Fast Multimedia Library
-// Copyright (C) 2007-2022 Laurent Gomila (laurent@sfml-dev.org)
-//
-// This software is provided 'as-is', without any express or implied warranty.
-// In no event will the authors be held liable for any damages arising from the use of this
-// software.
-//
-// Permission is granted to anyone to use this software for any purpose,
-// including commercial applications, and to alter it and redistribute it freely,
-// subject to the following restrictions:
-//
-// 1. The origin of this software must not be misrepresented;
-//    you must not claim that you wrote the original software.
-//    If you use this software in a product, an acknowledgment
-//    in the product documentation would be appreciated but is not required.
-//
-// 2. Altered source versions must be plainly marked as such,
-//    and must not be misrepresented as being the original software.
-//
-// 3. This notice may not be removed or altered from any source distribution.
-//
-////////////////////////////////////////////////////////////
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
 
-////////////////////////////////////////////////////////////
-// Headers
-////////////////////////////////////////////////////////////
-#include <BLIB/Graphics/Text/VulkanFont.hpp>
+// TODO - consider splitting out runtime state
 #include <BLIB/Render/Renderer.hpp>
-#ifdef SFML_SYSTEM_ANDROID
-#include <SFML/System/Android/ResourceStream.hpp>
-#endif
-#include <SFML/System/Err.hpp>
-#include <SFML/System/InputStream.hpp>
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
@@ -43,6 +13,10 @@
 #include <cstdlib>
 #include <cstring>
 
+namespace bl
+{
+namespace asi
+{
 namespace
 {
 // FreeType callbacks that operate on a sf::InputStream
@@ -79,25 +53,22 @@ std::uint64_t combine(std::uint8_t size, float outlineThickness, bool bold, std:
 }
 } // namespace
 
-namespace sf
-{
-////////////////////////////////////////////////////////////
-VulkanFont::VulkanFont()
-: needsUpload(true)
+FontPayload::FontPayload(const as::Payload::ConstructContext& ctx)
+: Payload(ctx)
+, needsUpload(true)
 , m_library(NULL)
 , m_face(NULL)
 , m_streamRec(NULL)
 , m_stroker(NULL)
-, m_refCount(NULL)
 , m_isSmooth(true)
 , m_info()
 , nextRow(3) {
-    texture.resize({128, 128}, Color(255, 255, 255, 0));
+    texture.resize({128, 128}, sf::Color(255, 255, 255, 0));
 
     // Reserve a 2x2 white square for texturing underlines
     for (unsigned int x = 0; x < 2; ++x) {
         for (unsigned int y = 0; y < 2; ++y) {
-            texture.setPixel({x, y}, Color(255, 255, 255, 255));
+            texture.setPixel({x, y}, sf::Color(255, 255, 255, 255));
         }
     }
 
@@ -106,126 +77,20 @@ VulkanFont::VulkanFont()
 #endif
 }
 
-////////////////////////////////////////////////////////////
-VulkanFont::VulkanFont(const VulkanFont& copy)
-: needsUpload(true)
-, m_library(copy.m_library)
-, m_face(copy.m_face)
-, m_streamRec(copy.m_streamRec)
-, m_stroker(copy.m_stroker)
-, m_refCount(copy.m_refCount)
-, m_isSmooth(copy.m_isSmooth)
-, m_info(copy.m_info)
-, glyphs(copy.glyphs)
-, texture(copy.texture)
-, nextRow(copy.nextRow)
-, rows(copy.rows)
-, m_pixelBuffer(copy.m_pixelBuffer) {
-#ifdef SFML_SYSTEM_ANDROID
-    m_stream = NULL;
-#endif
+FontPayload::~FontPayload() { cleanup(); }
 
-    // Note: as FreeType doesn't provide functions for copying/cloning,
-    // we must share all the FreeType pointers
-
-    if (m_refCount) (*m_refCount)++;
-}
-
-////////////////////////////////////////////////////////////
-VulkanFont::~VulkanFont() {
-    cleanup();
-
-#ifdef SFML_SYSTEM_ANDROID
-
-    if (m_stream) delete static_cast<priv::ResourceStream*>(m_stream);
-
-#endif
-}
-
-////////////////////////////////////////////////////////////
-bool VulkanFont::loadFromFile(const std::string& filename) {
+bool FontPayload::loadFromMemory() {
     needsUpload = true;
-
-#ifndef SFML_SYSTEM_ANDROID
 
     // Cleanup the previous resources
     cleanup();
-    m_refCount = new int(1);
 
     // Initialize FreeType
     // Note: we initialize FreeType for every font instance in order to avoid having a single
     // global manager that would create a lot of issues regarding creation and destruction order.
     FT_Library library;
     if (FT_Init_FreeType(&library) != 0) {
-        err() << "Failed to load font \"" << filename << "\" (failed to initialize FreeType)"
-              << std::endl;
-        return false;
-    }
-    m_library = library;
-
-    // Load the new font face from the specified file
-    FT_Face face;
-    if (FT_New_Face(static_cast<FT_Library>(m_library), filename.c_str(), 0, &face) != 0) {
-        err() << "Failed to load font \"" << filename << "\" (failed to create the font face)"
-              << std::endl;
-        return false;
-    }
-
-    // Load the stroker that will be used to outline the font
-    FT_Stroker stroker;
-    if (FT_Stroker_New(static_cast<FT_Library>(m_library), &stroker) != 0) {
-        err() << "Failed to load font \"" << filename << "\" (failed to create the stroker)"
-              << std::endl;
-        FT_Done_Face(face);
-        return false;
-    }
-
-    // Select the unicode character map
-    if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0) {
-        err() << "Failed to load font \"" << filename
-              << "\" (failed to set the Unicode character set)" << std::endl;
-        FT_Stroker_Done(stroker);
-        FT_Done_Face(face);
-        return false;
-    }
-
-    // Store the loaded font in our ugly void* :)
-    m_stroker = stroker;
-    m_face    = face;
-
-    // Store the font information
-    m_info.family = face->family_name ? face->family_name : std::string();
-
-    return true;
-
-#else
-
-    if (m_stream) delete static_cast<priv::ResourceStream*>(m_stream);
-
-    m_stream = new priv::ResourceStream(filename);
-    return loadFromStream(*static_cast<priv::ResourceStream*>(m_stream));
-
-#endif
-}
-
-////////////////////////////////////////////////////////////
-bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
-    needsUpload = true;
-
-    // Cleanup the previous resources
-    cleanup();
-    m_refCount = new int(1);
-
-    // copy data into owned buffer
-    buffer.resize(sizeInBytes);
-    std::memcpy(buffer.data(), data, sizeInBytes);
-
-    // Initialize FreeType
-    // Note: we initialize FreeType for every font instance in order to avoid having a single
-    // global manager that would create a lot of issues regarding creation and destruction order.
-    FT_Library library;
-    if (FT_Init_FreeType(&library) != 0) {
-        err() << "Failed to load font from memory (failed to initialize FreeType)" << std::endl;
+        BL_LOG_ERROR << "Failed to load font from memory (failed to initialize FreeType)";
         return false;
     }
     m_library = library;
@@ -234,25 +99,24 @@ bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
     FT_Face face;
     if (FT_New_Memory_Face(static_cast<FT_Library>(m_library),
                            reinterpret_cast<const FT_Byte*>(buffer.data()),
-                           static_cast<FT_Long>(sizeInBytes),
+                           static_cast<FT_Long>(buffer.size()),
                            0,
                            &face) != 0) {
-        err() << "Failed to load font from memory (failed to create the font face)" << std::endl;
+        BL_LOG_ERROR << "Failed to load font from memory (failed to create the font face)";
         return false;
     }
 
     // Load the stroker that will be used to outline the font
     FT_Stroker stroker;
     if (FT_Stroker_New(static_cast<FT_Library>(m_library), &stroker) != 0) {
-        err() << "Failed to load font from memory (failed to create the stroker)" << std::endl;
+        BL_LOG_ERROR << "Failed to load font from memory (failed to create the stroker)";
         FT_Done_Face(face);
         return false;
     }
 
     // Select the Unicode character map
     if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0) {
-        err() << "Failed to load font from memory (failed to set the Unicode character set)"
-              << std::endl;
+        BL_LOG_ERROR << "Failed to load font from memory (failed to set the Unicode character set)";
         FT_Stroker_Done(stroker);
         FT_Done_Face(face);
         return false;
@@ -268,87 +132,10 @@ bool VulkanFont::loadFromMemory(const void* data, std::size_t sizeInBytes) {
     return true;
 }
 
-////////////////////////////////////////////////////////////
-bool VulkanFont::loadFromStream(InputStream& stream) {
-    needsUpload = true;
+const FontPayload::Info& FontPayload::getInfo() const { return m_info; }
 
-    // Cleanup the previous resources
-    cleanup();
-    m_refCount = new int(1);
-
-    // Initialize FreeType
-    // Note: we initialize FreeType for every font instance in order to avoid having a single
-    // global manager that would create a lot of issues regarding creation and destruction order.
-    FT_Library library;
-    if (FT_Init_FreeType(&library) != 0) {
-        err() << "Failed to load font from stream (failed to initialize FreeType)" << std::endl;
-        return false;
-    }
-    m_library = library;
-
-    // Make sure that the stream's reading position is at the beginning
-    stream.seek(0);
-
-    // Prepare a wrapper for our stream, that we'll pass to FreeType callbacks
-    FT_StreamRec* rec = new FT_StreamRec;
-    std::memset(rec, 0, sizeof(*rec));
-    rec->base               = NULL;
-    rec->size               = static_cast<unsigned long>(stream.getSize().value_or(0));
-    rec->pos                = 0;
-    rec->descriptor.pointer = &stream;
-    rec->read               = &read;
-    rec->close              = &close;
-
-    // Setup the FreeType callbacks that will read our stream
-    FT_Open_Args args;
-    args.flags  = FT_OPEN_STREAM;
-    args.stream = rec;
-    args.driver = 0;
-
-    // Load the new font face from the specified stream
-    FT_Face face;
-    if (FT_Open_Face(static_cast<FT_Library>(m_library), &args, 0, &face) != 0) {
-        err() << "Failed to load font from stream (failed to create the font face)" << std::endl;
-        delete rec;
-        return false;
-    }
-
-    // Load the stroker that will be used to outline the font
-    FT_Stroker stroker;
-    if (FT_Stroker_New(static_cast<FT_Library>(m_library), &stroker) != 0) {
-        err() << "Failed to load font from stream (failed to create the stroker)" << std::endl;
-        FT_Done_Face(face);
-        delete rec;
-        return false;
-    }
-
-    // Select the Unicode character map
-    if (FT_Select_Charmap(face, FT_ENCODING_UNICODE) != 0) {
-        err() << "Failed to load font from stream (failed to set the Unicode character set)"
-              << std::endl;
-        FT_Done_Face(face);
-        FT_Stroker_Done(stroker);
-        delete rec;
-        return false;
-    }
-
-    // Store the loaded font in our ugly void* :)
-    m_stroker   = stroker;
-    m_face      = face;
-    m_streamRec = rec;
-
-    // Store the font information
-    m_info.family = face->family_name ? face->family_name : std::string();
-
-    return true;
-}
-
-////////////////////////////////////////////////////////////
-const VulkanFont::Info& VulkanFont::getInfo() const { return m_info; }
-
-////////////////////////////////////////////////////////////
-const Glyph& VulkanFont::getGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
-                                  float outlineThickness) const {
+const sf::Glyph& FontPayload::getGlyph(std::uint32_t codePoint, unsigned int characterSize,
+                                       bool bold, float outlineThickness) const {
     // Build the key by combining the glyph index (based on code point), bold flag, and outline
     // thickness
     std::uint64_t key = combine(characterSize,
@@ -364,20 +151,18 @@ const Glyph& VulkanFont::getGlyph(std::uint32_t codePoint, unsigned int characte
     }
     else {
         // Not found: we have to load it
-        const_cast<sf::VulkanFont*>(this)->needsUpload = true;
-        Glyph glyph = loadGlyph(codePoint, characterSize, bold, outlineThickness);
+        needsUpload      = true;
+        sf ::Glyph glyph = loadGlyph(codePoint, characterSize, bold, outlineThickness);
         return glyphs.insert(std::make_pair(key, glyph)).first->second;
     }
 }
 
-////////////////////////////////////////////////////////////
-bool VulkanFont::hasGlyph(std::uint32_t codePoint) const {
+bool FontPayload::hasGlyph(std::uint32_t codePoint) const {
     return FT_Get_Char_Index(static_cast<FT_Face>(m_face), codePoint) != 0;
 }
 
-////////////////////////////////////////////////////////////
-float VulkanFont::getKerning(std::uint32_t first, std::uint32_t second, unsigned int characterSize,
-                             bool bold) const {
+float FontPayload::getKerning(std::uint32_t first, std::uint32_t second, unsigned int characterSize,
+                              bool bold) const {
     // Special case where first or second is 0 (null character)
     if (first == 0 || second == 0) return 0.f;
 
@@ -413,8 +198,7 @@ float VulkanFont::getKerning(std::uint32_t first, std::uint32_t second, unsigned
     }
 }
 
-////////////////////////////////////////////////////////////
-float VulkanFont::getLineSpacing(unsigned int characterSize) const {
+float FontPayload::getLineSpacing(unsigned int characterSize) const {
     FT_Face face = static_cast<FT_Face>(m_face);
 
     if (face && setCurrentSize(characterSize)) {
@@ -423,8 +207,7 @@ float VulkanFont::getLineSpacing(unsigned int characterSize) const {
     else { return 0.f; }
 }
 
-////////////////////////////////////////////////////////////
-float VulkanFont::getUnderlinePosition(unsigned int characterSize) const {
+float FontPayload::getUnderlinePosition(unsigned int characterSize) const {
     FT_Face face = static_cast<FT_Face>(m_face);
 
     if (face && setCurrentSize(characterSize)) {
@@ -438,8 +221,7 @@ float VulkanFont::getUnderlinePosition(unsigned int characterSize) const {
     else { return 0.f; }
 }
 
-////////////////////////////////////////////////////////////
-float VulkanFont::getUnderlineThickness(unsigned int characterSize) const {
+float FontPayload::getUnderlineThickness(unsigned int characterSize) const {
     FT_Face face = static_cast<FT_Face>(m_face);
 
     if (face && setCurrentSize(characterSize)) {
@@ -453,57 +235,22 @@ float VulkanFont::getUnderlineThickness(unsigned int characterSize) const {
     else { return 0.f; }
 }
 
-////////////////////////////////////////////////////////////
-const Image& VulkanFont::getGlyphAtlas() const { return texture; }
+const sf::Image& FontPayload::getGlyphAtlas() const { return texture; }
 
-////////////////////////////////////////////////////////////
-VulkanFont& VulkanFont::operator=(const VulkanFont& right) {
-    VulkanFont temp(right);
-
-    needsUpload = true;
-    std::swap(m_library, temp.m_library);
-    std::swap(m_face, temp.m_face);
-    std::swap(m_streamRec, temp.m_streamRec);
-    std::swap(m_stroker, temp.m_stroker);
-    std::swap(m_refCount, temp.m_refCount);
-    std::swap(m_isSmooth, temp.m_isSmooth);
-    std::swap(m_info, temp.m_info);
-    std::swap(glyphs, temp.glyphs);
-    std::swap(texture, temp.texture);
-    std::swap(rows, temp.rows);
-    std::swap(m_pixelBuffer, temp.m_pixelBuffer);
-
-#ifdef SFML_SYSTEM_ANDROID
-    std::swap(m_stream, temp.m_stream);
-#endif
-
-    return *this;
-}
-
-////////////////////////////////////////////////////////////
-void VulkanFont::cleanup() {
+void FontPayload::cleanup() {
     // Check if we must destroy the FreeType pointers
-    if (m_refCount) {
-        // Decrease the reference counter
-        (*m_refCount)--;
+    if (m_library) {
+        // Destroy the stroker
+        if (m_stroker) FT_Stroker_Done(static_cast<FT_Stroker>(m_stroker));
 
-        // Free the resources only if we are the last owner
-        if (*m_refCount == 0) {
-            // Delete the reference counter
-            delete m_refCount;
+        // Destroy the font face
+        if (m_face) FT_Done_Face(static_cast<FT_Face>(m_face));
 
-            // Destroy the stroker
-            if (m_stroker) FT_Stroker_Done(static_cast<FT_Stroker>(m_stroker));
+        // Destroy the stream rec instance, if any (must be done after FT_Done_Face!)
+        if (m_streamRec) delete static_cast<FT_StreamRec*>(m_streamRec);
 
-            // Destroy the font face
-            if (m_face) FT_Done_Face(static_cast<FT_Face>(m_face));
-
-            // Destroy the stream rec instance, if any (must be done after FT_Done_Face!)
-            if (m_streamRec) delete static_cast<FT_StreamRec*>(m_streamRec);
-
-            // Close the library
-            if (m_library) FT_Done_FreeType(static_cast<FT_Library>(m_library));
-        }
+        // Close the library
+        if (m_library) FT_Done_FreeType(static_cast<FT_Library>(m_library));
     }
 
     // Reset members
@@ -511,7 +258,6 @@ void VulkanFont::cleanup() {
     m_face      = NULL;
     m_stroker   = NULL;
     m_streamRec = NULL;
-    m_refCount  = NULL;
     glyphs.clear();
     rows.clear();
     nextRow     = 3;
@@ -521,11 +267,10 @@ void VulkanFont::cleanup() {
     buffer.clear();
 }
 
-////////////////////////////////////////////////////////////
-Glyph VulkanFont::loadGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
-                            float outlineThickness) const {
+sf::Glyph FontPayload::loadGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
+                                 float outlineThickness) const {
     // The glyph to return
-    Glyph glyph;
+    sf::Glyph glyph;
 
     // First, transform our ugly void* to a FT_Face
     FT_Face face = static_cast<FT_Face>(m_face);
@@ -577,7 +322,7 @@ Glyph VulkanFont::loadGlyph(std::uint32_t codePoint, unsigned int characterSize,
         if (bold) FT_Bitmap_Embolden(static_cast<FT_Library>(m_library), &bitmap, weight, weight);
 
         if (outlineThickness != 0)
-            err() << "Failed to outline glyph (no fallback available)" << std::endl;
+            BL_LOG_ERROR << "Failed to outline glyph (no fallback available)";
     }
 
     // Compute the glyph's advance offset
@@ -674,8 +419,7 @@ Glyph VulkanFont::loadGlyph(std::uint32_t codePoint, unsigned int characterSize,
     return glyph;
 }
 
-////////////////////////////////////////////////////////////
-IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const {
+sf::IntRect FontPayload::findGlyphRect(unsigned int width, unsigned int height) const {
     // Find the line that fits well the glyph
     Row* row        = NULL;
     float bestRatio = 0;
@@ -705,7 +449,7 @@ IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const
             unsigned int textureHeight = texture.getSize().y;
 
             // Make the texture 2 times bigger
-            Image newTexture;
+            sf::Image newTexture;
             newTexture.resize({textureWidth * 2, textureHeight * 2}, sf::Color(255, 255, 255, 0));
             newTexture.copy(texture, {0, 0});
             texture = std::move(newTexture);
@@ -718,7 +462,7 @@ IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const
     }
 
     // Find the glyph's rectangle on the selected row
-    IntRect rect(Rect<unsigned int>({row->width, row->top}, {width, height}));
+    sf::IntRect rect(sf::Rect<unsigned int>({row->width, row->top}, {width, height}));
 
     // Update the row informations
     row->width += width;
@@ -726,8 +470,7 @@ IntRect VulkanFont::findGlyphRect(unsigned int width, unsigned int height) const
     return rect;
 }
 
-////////////////////////////////////////////////////////////
-bool VulkanFont::setCurrentSize(unsigned int characterSize) const {
+bool FontPayload::setCurrentSize(unsigned int characterSize) const {
     // FT_Set_Pixel_Sizes is an expensive function, so we must call it
     // only when necessary to avoid killing performances
 
@@ -741,15 +484,15 @@ bool VulkanFont::setCurrentSize(unsigned int characterSize) const {
             // In the case of bitmap fonts, resizing can
             // fail if the requested size is not available
             if (!FT_IS_SCALABLE(face)) {
-                err() << "Failed to set bitmap font size to " << characterSize << std::endl;
-                err() << "Available sizes are: ";
+                BL_LOG_ERROR << "Failed to set bitmap font size to " << characterSize;
+                BL_LOG_ERROR << "Available sizes are: ";
                 for (int i = 0; i < face->num_fixed_sizes; ++i) {
                     const long size = (face->available_sizes[i].y_ppem + 32) >> 6;
-                    err() << size << " ";
+                    BL_LOG_ERROR << size << " ";
                 }
-                err() << std::endl;
+                BL_LOG_ERROR;
             }
-            else { err() << "Failed to set font size to " << characterSize << std::endl; }
+            else { BL_LOG_ERROR << "Failed to set font size to " << characterSize; }
         }
 
         return result == FT_Err_Ok;
@@ -758,7 +501,7 @@ bool VulkanFont::setCurrentSize(unsigned int characterSize) const {
     return true;
 }
 
-bl::rc::res::TextureRef VulkanFont::syncTexture(bl::rc::Renderer& renderer) const {
+bl::rc::res::TextureRef FontPayload::syncTexture(bl::rc::Renderer& renderer) const {
     if (!vulkanTexture) { vulkanTexture = renderer.texturePool().createTexture(texture); }
     else if (needsUpload) {
         needsUpload = false;
@@ -768,4 +511,5 @@ bl::rc::res::TextureRef VulkanFont::syncTexture(bl::rc::Renderer& renderer) cons
     return vulkanTexture;
 }
 
-} // namespace sf
+} // namespace asi
+} // namespace bl

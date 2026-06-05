@@ -4,7 +4,6 @@
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Input/Listener.hpp>
 #include <BLIB/Render.hpp>
-#include <BLIB/Resources.hpp>
 
 class InputListener : public bl::input::Listener {
 public:
@@ -21,7 +20,7 @@ public:
     bool shouldRebindMovement();
 
 private:
-    bl::resource::Ref<sf::VulkanFont> font;
+    bl::as::TypedRef<bl::asi::FontPayload> font;
     bl::gfx::Text text;
     bool rebindExample;
     bool rebindMovement;

@@ -236,6 +236,11 @@ public:
      */
     void reloadFromSource();
 
+    /**
+     * @brief Only intended for use during engine shutdown. Will destroy all loaded assets
+     */
+    void forceUnloadAll();
+
 private:
     mutable std::recursive_mutex assetMutex;
     const Mode mode;

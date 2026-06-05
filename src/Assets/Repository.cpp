@@ -91,7 +91,7 @@ std::string makeStaticPath(std::string_view type) {
 Repository::~Repository() {
     // Need to force clear here so that refs in payloads do not attempt to release from partially
     // destroyed repository
-    for (auto& [uuid, asset] : assets) { asset.unload(true); }
+    forceUnloadAll();
 }
 
 Repository::Repository(Mode mode, const std::string& path)
@@ -686,6 +686,14 @@ void Repository::reloadFromSource() {
             BL_LOG_WARN << "Failed to reload asset with UUID " << pair.first.toString()
                         << " from source";
         }
+    }
+}
+
+void Repository::forceUnloadAll() {
+    std::unique_lock lock(assetMutex);
+    for (auto& pair : assets) {
+        Asset& asset = pair.second;
+        asset.unload(true);
     }
 }
 

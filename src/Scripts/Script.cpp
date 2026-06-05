@@ -3,7 +3,6 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Resources.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Scripts/Parser.hpp>
 #include <Scripts/ScriptImpl.hpp>
@@ -15,13 +14,14 @@ namespace bl
 namespace script
 {
 bool Script::getFullScriptPath(std::string& script) {
+    // TODO - update to take string or UUID for script asset
     static const auto exists = [](const std::string& v) {
-        if (resource::FileSystem::resourceExists(v)) {
-            if (util::FileUtil::getExtension(v) != "bs") {
-                BL_LOG_WARN << "bScript files should have '.bs' extension: " << v;
-            }
-            return true;
-        }
+        /* if (resource::FileSystem::resourceExists(v)) {
+             if (util::FileUtil::getExtension(v) != "bs") {
+                 BL_LOG_WARN << "bScript files should have '.bs' extension: " << v;
+             }
+             return true;
+         }*/
         return false;
     };
     static const std::string path =
@@ -40,7 +40,7 @@ Script::Script(const std::string& data, bool addDefaults)
         BL_LOG_DEBUG << "Loading bScript: " << input;
         char* buf       = nullptr;
         std::size_t len = 0;
-        resource::FileSystem::getData(input, &buf, len);
+        // resource::FileSystem::getData(input, &buf, len);
         root = script::Parser::parse(std::string{buf, len}, &error);
     }
     else {

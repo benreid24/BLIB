@@ -6,14 +6,16 @@ namespace bl
 {
 namespace gui
 {
-Image::Ptr Image::create(resource::Ref<sf::Image> texture) { return Ptr(new Image(texture)); }
+Image::Ptr Image::create(as::TypedRef<asi::ImagePayload> texture) {
+    return Ptr(new Image(texture));
+}
 
 Image::Ptr Image::create(const sf::Image& texture) { return Ptr(new Image(texture)); }
 
-Image::Image(resource::Ref<sf::Image> th)
+Image::Image(as::TypedRef<asi::ImagePayload> th)
 : Element()
 , textureHandle(th)
-, texture(th.get())
+, texture(&th->get())
 , offset(0.f, 0.f)
 , scale(1.f, 1.f)
 , fillAcq(false)
@@ -40,9 +42,9 @@ void Image::setImage(const sf::Image& txtr, bool rs) {
     setScale();
 }
 
-void Image::setImage(const resource::Ref<sf::Image>& txtr, bool rs) {
+void Image::setImage(const as::TypedRef<asi::ImagePayload>& txtr, bool rs) {
     textureHandle = txtr;
-    texture       = txtr.get();
+    texture       = &txtr->get();
     if (rs) {
         size.reset();
         makeDirty();

@@ -32,7 +32,8 @@ void BasicTooltipProvider::displayTooltip(Element* element, const glm::vec2& mou
     text.wordWrap(cam::OverlayCamera::getOverlayCoordinateSpace().x * 0.3f);
     text.getSection().setString(element->getTooltip());
     const sf::FloatRect tb = text.getLocalBounds();
-    const glm::vec2 size(tb.position.x + tb.size.x + Padding * 2.f, tb.position.y + tb.size.y + Padding * 2.f);
+    const glm::vec2 size(tb.position.x + tb.size.x + Padding * 2.f,
+                         tb.position.y + tb.size.y + Padding * 2.f);
     box.setSize(size);
 
     glm::vec2 pos(mousePos.x, mousePos.y - size.y);
@@ -59,7 +60,7 @@ void BasicTooltipProvider::doCreate(engine::World& world) {
     box.getTransform().setDepth(cam::OverlayCamera::MinDepth);
     box.setHidden(true);
 
-    text.create(world, *Font::get(), "", FontSize);
+    text.create(world, Font::get(world.engine().assets()), "", FontSize);
     text.wordWrap(MaxWidth);
     text.setParent(box);
     text.getTransform().setPosition({Padding, Padding});

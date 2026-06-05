@@ -1,11 +1,11 @@
 #ifndef BLIB_GRAPHICS_TEXT_BASICTEXT_HPP
 #define BLIB_GRAPHICS_TEXT_BASICTEXT_HPP
 
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
-#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
-#include <BLIB/Resources.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/System/String.hpp>
@@ -118,7 +118,7 @@ public:
      * @param font The font to get the glyph width for
      * @return The glyph width in local units
      */
-    float computeGlyphWidth(const sf::VulkanFont& font) const;
+    float computeGlyphWidth(as::TypedRef<asi::FontPayload> font) const;
 
     /**
      * @brief Returns the letter spacing when using the given font
@@ -126,7 +126,7 @@ public:
      * @param font The font to get the letter spacing for
      * @return The letter spacing in local units
      */
-    float computeLetterSpacing(const sf::VulkanFont& font) const;
+    float computeLetterSpacing(as::TypedRef<asi::FontPayload> font) const;
 
     /**
      * @brief Returns the width of whitespace when using the given font
@@ -134,7 +134,7 @@ public:
      * @param font The font to get the whitespace width for
      * @return The whitespace width in local units
      */
-    float computeWhitespaceWidth(const sf::VulkanFont& font) const;
+    float computeWhitespaceWidth(as::TypedRef<asi::FontPayload> font) const;
 
     /**
      * @brief Returns the line spacing when using the given font
@@ -142,7 +142,7 @@ public:
      * @param font The font to get the line spacing for
      * @return The line spacing in local units
      */
-    float computeLineSpacing(const sf::VulkanFont& font) const;
+    float computeLineSpacing(as::TypedRef<asi::FontPayload> font) const;
 
     /**
      * @brief Returns the glyph for the given character using the settings from this text
@@ -151,7 +151,7 @@ public:
      * @param code The character to get the glyph for
      * @return The glyph of the given character
      */
-    const sf::Glyph& getGlyph(const sf::VulkanFont& font, std::uint32_t code) const;
+    const sf::Glyph& getGlyph(as::TypedRef<asi::FontPayload> font, std::uint32_t code) const;
 
 private:
     bl::gfx::Text& owner;
@@ -169,12 +169,12 @@ private:
     glm::vec2 cachedPos;
     sf::FloatRect cachedBounds;
 
-    std::uint32_t refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
+    std::uint32_t refreshVertices(as::TypedRef<asi::FontPayload> font, rc::prim::Vertex* vertices,
                                   glm::vec2& cornerPos);
-    glm::vec2 advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 pos, std::uint32_t curChar,
-                                  std::uint32_t prevChar) const;
+    glm::vec2 advanceCharacterPos(as::TypedRef<asi::FontPayload> font, glm::vec2 pos,
+                                  std::uint32_t curChar, std::uint32_t prevChar) const;
     const sf::FloatRect& getBounds() const;
-    glm::vec2 findCharacterPos(const sf::VulkanFont& font, unsigned int index) const;
+    glm::vec2 findCharacterPos(as::TypedRef<asi::FontPayload> font, unsigned int index) const;
 
     friend class bl::gfx::Text;
 };
@@ -197,20 +197,20 @@ inline unsigned int BasicText::getOutlineThickness() const { return outlineThick
 
 inline const sf::FloatRect& BasicText::getBounds() const { return cachedBounds; }
 
-inline float BasicText::computeGlyphWidth(const sf::VulkanFont& font) const {
-    return font.getGlyph(L' ', fontSize, (style & sf::Text::Bold) != 0).advance;
+inline float BasicText::computeGlyphWidth(as::TypedRef<asi::FontPayload> font) const {
+    return font->getGlyph(L' ', fontSize, (style & sf::Text::Bold) != 0).advance;
 }
 
-inline float BasicText::computeLetterSpacing(const sf::VulkanFont& font) const {
+inline float BasicText::computeLetterSpacing(as::TypedRef<asi::FontPayload> font) const {
     return (computeGlyphWidth(font) / 3.f) * (letterSpacingFactor - 1.f);
 }
 
-inline float BasicText::computeWhitespaceWidth(const sf::VulkanFont& font) const {
+inline float BasicText::computeWhitespaceWidth(as::TypedRef<asi::FontPayload> font) const {
     return computeGlyphWidth(font) + computeLetterSpacing(font);
 }
 
-inline float BasicText::computeLineSpacing(const sf::VulkanFont& font) const {
-    return font.getLineSpacing(fontSize) * lineSpacingFactor;
+inline float BasicText::computeLineSpacing(as::TypedRef<asi::FontPayload> font) const {
+    return font->getLineSpacing(fontSize) * lineSpacingFactor;
 }
 
 } // namespace txt

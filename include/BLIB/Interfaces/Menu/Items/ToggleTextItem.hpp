@@ -27,7 +27,7 @@ public:
      * @param fontSize The size of the text
      * @return Ptr The new menu item
      */
-    static Ptr create(const std::string& text, const sf::VulkanFont& font,
+    static Ptr create(const std::string& text, as::TypedRef<asi::FontPayload> font,
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30);
 
     /**
@@ -77,8 +77,8 @@ protected:
      * @param color The color to make the text
      * @param fontSize The size of the text
      */
-    ToggleTextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
-                   unsigned int fontSize);
+    ToggleTextItem(const std::string& text, as::TypedRef<asi::FontPayload> font,
+                   const sf::Color& color, unsigned int fontSize);
 
     /**
      * @brief Called at least once when the item is added to a menu. Should create required graphics

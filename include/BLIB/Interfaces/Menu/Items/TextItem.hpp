@@ -28,7 +28,7 @@ public:
      * @param style The style of the text
      * @return Ptr The created text menu item
      */
-    static Ptr create(const std::string& text, const sf::VulkanFont& font,
+    static Ptr create(const std::string& text, as::TypedRef<asi::FontPayload> font,
                       const sf::Color& color = sf::Color::Black, unsigned int fontSize = 30,
                       std::uint32_t style = sf::Text::Regular);
 
@@ -57,7 +57,7 @@ protected:
      * @param fontSize The font size
      * @param style The style of the text
      */
-    TextItem(const std::string& text, const sf::VulkanFont& font, const sf::Color& color,
+    TextItem(const std::string& text, as::TypedRef<asi::FontPayload> font, const sf::Color& color,
              unsigned int fontSize, std::uint32_t style = 0);
 
     /**
@@ -94,7 +94,7 @@ protected:
 
 private:
     const std::string string;
-    const sf::VulkanFont& font;
+    as::TypedRef<asi::FontPayload> font;
     const sf::Color color;
     const unsigned int fontSize;
     const std::uint32_t style;

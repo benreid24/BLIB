@@ -1,7 +1,5 @@
 #include <BLIB/Models/Texture.hpp>
 
-#include <BLIB/Resources/FileSystem.hpp>
-
 namespace bl
 {
 namespace mdl
@@ -27,8 +25,8 @@ void Texture::makeFromFile(const std::string& file, const std::string& modelPath
     const std::string rel = util::FileUtil::joinPath(modelPath, file);
     const std::string relBaseName =
         util::FileUtil::joinPath(modelPath, util::FileUtil::getBaseName(file));
-    if (resource::FileSystem::resourceExists(relBaseName)) { texture = relBaseName; }
-    else if (resource::FileSystem::resourceExists(rel)) { texture = rel; }
+    if (util::FileUtil::exists(relBaseName)) { texture = relBaseName; }
+    else if (util::FileUtil::exists(rel)) { texture = rel; }
     else { texture = file; }
 }
 

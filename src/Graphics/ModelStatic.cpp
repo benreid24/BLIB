@@ -1,7 +1,5 @@
 #include <BLIB/Graphics/ModelStatic.hpp>
 
-#include <BLIB/Resources.hpp>
-
 namespace bl
 {
 namespace gfx

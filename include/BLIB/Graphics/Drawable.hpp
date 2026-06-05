@@ -6,9 +6,9 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Engine.hpp>
+#include <BLIB/Engine/HeaderHelpers.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Scenes/CodeScene.hpp>
-#include <BLIB/Resources/State.hpp>
 #include <type_traits>
 
 namespace bl
@@ -225,7 +225,8 @@ Drawable<TCom>::Drawable()
 template<typename TCom>
 Drawable<TCom>::~Drawable() {
     if (exists() && component().getSceneRef().scene && component().getSceneRef().object &&
-        entityIsDeletedOnDestruction() && !resource::State::engineShuttingDown()) {
+        entityIsDeletedOnDestruction() &&
+        engine::HeaderHelpers::getPhase(engine()) == engine::Phase::Running) {
         removeFromScene();
     }
 }
@@ -238,9 +239,7 @@ void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
         throw std::runtime_error("Drawable must be created before adding to scene");
     }
 
-    if (hasHandle) {
-        component().addToScene(engine().ecs(), entity(), scene, updateFreq);
-    }
+    if (hasHandle) { component().addToScene(engine().ecs(), entity(), scene, updateFreq); }
     onAdd(scene, updateFreq);
 }
 

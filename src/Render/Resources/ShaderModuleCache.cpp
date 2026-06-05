@@ -1,8 +1,8 @@
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/ShaderIds.hpp>
-#include <BLIB/Resources.hpp>
 
 #define STRINGIFY_HELPER(X) #X
 #define STRINGIFY(x) STRINGIFY_HELPER(x)
@@ -129,10 +129,11 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         }
     }
     else {
-        if (!resource::FileSystem::getData(path, &data, len) || len < 4) {
-            BL_LOG_ERROR << "Failed to load shader: " << path;
-            throw std::runtime_error("Failed to load shader");
-        }
+        // TODO - update to asset
+        /* if (!resource::FileSystem::getData(path, &data, len) || len < 4) {
+             BL_LOG_ERROR << "Failed to load shader: " << path;
+             throw std::runtime_error("Failed to load shader");
+         }*/
     }
 
     const std::uint32_t* u32data = reinterpret_cast<const std::uint32_t*>(data);

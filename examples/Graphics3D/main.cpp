@@ -5,7 +5,6 @@
 #include <BLIB/Graphics/ModelStatic.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
-#include <BLIB/Resources.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Util/Visitor.hpp>
 #include <iostream>

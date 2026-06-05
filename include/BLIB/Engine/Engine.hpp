@@ -7,6 +7,7 @@
 #include <BLIB/Engine/Events.hpp>
 #include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/Flags.hpp>
+#include <BLIB/Engine/Phase.hpp>
 #include <BLIB/Engine/Player.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
@@ -17,7 +18,6 @@
 #include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Render/Events/WindowResize.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Resources.hpp>
 #include <BLIB/Scripts/Manager.hpp>
 #include <BLIB/Signals/Channel.hpp>
 #include <BLIB/Signals/Emitter.hpp>
@@ -112,6 +112,11 @@ public:
      * @brief Returns the flags that can be set to control Engine behavior
      */
     Flags& flags();
+
+    /**
+     * @brief Returns the current phase of the engine lifecycle
+     */
+    Phase getPhase() const;
 
     /**
      * @brief Runs the main game loop starting in the given initial state. This is the main
@@ -246,10 +251,16 @@ public:
      */
     sig::Channel& getSignalChannel();
 
+    /**
+     * @brief Returns the active engine instance if one exists
+     */
+    static Engine* getInstance();
+
 private:
     Worker worker;
     Settings engineSettings;
     Flags engineFlags;
+    Phase phase;
     std::stack<State::Ptr> states;
     std::vector<std::unique_ptr<Player>> players;
     ctr::RefPool<World> worldPool;
@@ -304,6 +315,8 @@ inline input::InputSystem& Engine::inputSystem() { return input; }
 inline const Settings& Engine::settings() const { return engineSettings; }
 
 inline Flags& Engine::flags() { return engineFlags; }
+
+inline Phase Engine::getPhase() const { return phase; }
 
 inline util::ThreadPool& Engine::threadPool() { return workers; }
 

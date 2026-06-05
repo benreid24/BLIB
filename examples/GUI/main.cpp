@@ -4,7 +4,6 @@
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Render.hpp>
-#include <BLIB/Resources.hpp>
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
@@ -42,8 +41,8 @@ public:
         gui->setOutlineThickness(1);
         gui->setColor(sf::Color::Transparent, sf::Color::Red);
 
-        gui::Image::Ptr image =
-            gui::Image::create(resource::ResourceManager<sf::Image>::load("Resources/image.png"));
+        gui::Image::Ptr image = gui::Image::create(
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>("Resources/image.png"));
         image->setFillAcquisition(true, true);
         gui->pack(image, true, true);
 

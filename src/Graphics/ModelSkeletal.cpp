@@ -1,7 +1,6 @@
 #include <BLIB/Graphics/ModelSkeletal.hpp>
 
 #include <BLIB/Components/Bone.hpp>
-#include <BLIB/Resources.hpp>
 
 namespace bl
 {

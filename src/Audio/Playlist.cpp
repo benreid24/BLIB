@@ -3,7 +3,6 @@
 #include <BLIB/Containers/FastEraseVector.hpp>
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/Random.hpp>
