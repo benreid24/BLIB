@@ -13,42 +13,25 @@ namespace bl
 {
 namespace script
 {
-bool Script::getFullScriptPath(std::string& script) {
-    // TODO - update to take string or UUID for script asset
-    static const auto exists = [](const std::string& v) {
-        /* if (resource::FileSystem::resourceExists(v)) {
-             if (util::FileUtil::getExtension(v) != "bs") {
-                 BL_LOG_WARN << "bScript files should have '.bs' extension: " << v;
-             }
-             return true;
-         }*/
-        return false;
-    };
-    static const std::string path =
-        engine::Configuration::getOrDefault<std::string>("blib.script.path", "");
-
-    if (exists(script)) return true;
-    script = util::FileUtil::joinPath(path, script);
-    if (exists(script)) return true;
-    return false;
-}
 
 Script::Script(const std::string& data, bool addDefaults)
 : source(data) {
-    std::string input = data;
-    if (getFullScriptPath(input)) {
-        BL_LOG_DEBUG << "Loading bScript: " << input;
-        char* buf       = nullptr;
-        std::size_t len = 0;
-        // resource::FileSystem::getData(input, &buf, len);
-        root = script::Parser::parse(std::string{buf, len}, &error);
-    }
-    else {
-        BL_LOG_DEBUG << "Loading bScript: " << data;
-        root = script::Parser::parse(data, &error);
-    }
+    root = script::Parser::parse(data, &error);
 
-    if (addDefaults) Context().initializeTable(defaultTable);
+    if (addDefaults) { Context().initializeTable(defaultTable); }
+}
+
+Script::Script(as::TypedRef<asi::FilePayload> file)
+: Script(std::string(file->getData().data(), file->getData().size()), true) {}
+
+Script::Script(as::TypedRef<asi::FilePayload> file, const Context& ctx)
+: Script(std::string(file->getData().data(), file->getData().size()), false) {
+    ctx.initializeTable(defaultTable);
+}
+
+Script::Script(as::TypedRef<asi::FilePayload> file, const SymbolTable& t)
+: Script(std::string(file->getData().data(), file->getData().size()), false) {
+    defaultTable.copy(t);
 }
 
 Script::Script(const std::string& data)

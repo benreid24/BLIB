@@ -7,6 +7,11 @@
 
 namespace bl
 {
+namespace as
+{
+class Repository;
+}
+
 namespace rc
 {
 class Renderer;
@@ -34,11 +39,12 @@ public:
     VkShaderModule loadShader(const std::string& path);
 
 private:
+    as::Repository* repo;
     VkDevice device;
     std::unordered_map<std::string, VkShaderModule> cache;
 
     ShaderModuleCache() = default;
-    void init(VkDevice device);
+    void init(as::Repository& repo, VkDevice device);
     void cleanup();
 
     friend struct vk::VulkanLayer;

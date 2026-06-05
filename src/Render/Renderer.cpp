@@ -88,7 +88,7 @@ bool Renderer::initialize() {
     swapchain.create();
     transferEngine.init();
     descriptorPool.init();
-    shaderCache.init(state.getDevice());
+    shaderCache.init(engine.assets(), state.getDevice());
     samplers.init();
     renderPasses.addDefaults();
     globalDescriptors.init();

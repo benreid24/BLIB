@@ -10,7 +10,7 @@
 
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Scripts.hpp>
+#include <BLIB/Scripts/Value.hpp>
 #include <BLIB/Util/StreamUtil.hpp>
 #include <BLIB/Util/UnderlyingType.hpp>
 #include <SFML/Graphics/Image.hpp>
