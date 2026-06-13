@@ -457,6 +457,7 @@ void Engine::postStateChange(State::Ptr& prev) {
     states.top()->activate(*this);
     eventEmitter.emit<event::StateChange>({states.top(), prev});
     if (rendererInstance) { rendererInstance->texturePool().releaseUnused(); }
+    assetRepository.releaseUnused();
 }
 
 pcl::ParticleSystem& Engine::particleSystem() {
