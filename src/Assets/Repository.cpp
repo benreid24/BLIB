@@ -196,7 +196,6 @@ Ref Repository::getAsset(util::UUID uuid, State desiredState) {
                      << " but it does not exist";
         return Ref();
     }
-    // TODO - when bundling is added we will have an index of known but unloaded assets to check
     Asset& stored = it->second;
     if (stored.getState() < desiredState && stored.getState() >= State::Failed) {
         if (!stored.load()) { return Ref(); }
@@ -508,6 +507,20 @@ bool Repository::loadRepository() {
         }
     }
 
+    // recheck source files on load in editor mode
+    if (mode == Mode::Editor) {
+        for (auto& pair : assets) {
+            Asset& asset = pair.second;
+            if (asset.getState() < State::Unloaded) { continue; }
+            const bool wasLoaded = asset.getState() == State::Loaded;
+            if (!asset.reloadFromSource()) {
+                BL_LOG_WARN << "Failed to reload asset with UUID " << pair.first.toString()
+                            << " from source";
+            }
+            if (!wasLoaded) { asset.unload(); }
+        }
+    }
+
     return true;
 }
 
@@ -556,6 +569,9 @@ bool Repository::exportRepository(const std::string& path) {
         }
         if (!driver->write(context)) { return false; }
         manifest.assetToBundle[asset.getUUID()] = bundle.uuid;
+        if (driver->getBundleConfig().onMount == bdl::AssetBundleConfig::OnMount::AutoLoad) {
+            bundle.autoLoadAssets.emplace_back(asset.getUUID());
+        }
         return true;
     };
 

@@ -21,6 +21,7 @@ struct BundleData {
     std::uint32_t headerSize;
     util::UUID uuid;
     std::unordered_map<util::UUID, std::unordered_map<std::string, FileMetadata>> assetFileManifest;
+    std::vector<util::UUID> autoLoadAssets;
     std::vector<char> data;
 
     /**
@@ -55,7 +56,8 @@ struct SerializableObject<as::bdl::BundleData> : public SerializableObjectBase {
         3, as::bdl::BundleData,
         std::unordered_map<util::UUID, std::unordered_map<std::string, as::bdl::FileMetadata>>>
         assetFileManifest;
-    SerializableField<4, as::bdl::BundleData, std::vector<char>> data;
+    SerializableField<4, as::bdl::BundleData, std::vector<util::UUID>> autoLoadAssets;
+    SerializableField<5, as::bdl::BundleData, std::vector<char>> data;
 
     SerializableObject()
     : SerializableObjectBase("BundleData")
@@ -64,6 +66,8 @@ struct SerializableObject<as::bdl::BundleData> : public SerializableObjectBase {
     , uuid("uuid", *this, &as::bdl::BundleData::uuid, SerializableFieldBase::Required{})
     , assetFileManifest("assetFileManifest", *this, &as::bdl::BundleData::assetFileManifest,
                         SerializableFieldBase::Required{})
+    , autoLoadAssets("autoLoadAssets", *this, &as::bdl::BundleData::autoLoadAssets,
+                     SerializableFieldBase::Required{})
     , data("data", *this, &as::bdl::BundleData::data, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial

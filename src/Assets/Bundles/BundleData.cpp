@@ -22,8 +22,9 @@ bool BundleData::flush(const std::string& base) {
 
 void BundleData::reset() {
     uuid = util::UUID::generate();
-    data.clear(); // TODO - crashes here
+    data.clear();
     assetFileManifest.clear();
+    autoLoadAssets.clear();
     headerSize = 0;
 }
 

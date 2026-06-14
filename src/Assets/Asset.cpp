@@ -27,10 +27,11 @@ Asset::Asset(Repository& r)
 void Asset::markReadyForAutoSync() { metadata.owner = this; }
 
 bool Asset::initAfterDeserialize(Repository& r) {
+    repo = &r;
+
     // already inited via dependency chain
     if (state != State::Unknown) { return true; }
 
-    repo  = &r;
     state = State::Unloaded;
 
     for (const RepoDependency& dep : dependencies) {

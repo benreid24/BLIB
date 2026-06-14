@@ -1,5 +1,7 @@
 #include <BLIB/Assets/Bundles/MountedBundle.hpp>
 
+#include <BLIB/Assets/Repository.hpp>
+
 namespace bl
 {
 namespace as
@@ -18,6 +20,9 @@ MountedBundle::MountedBundle(Repository& owner, const std::string& path)
     if (!serial::binary::Serializer<BundleData>::deserialize(input, data)) {
         BL_LOG_ERROR << "Failed to load bundle: " << path;
     }
+
+    // autoload assets on mount
+    for (const auto& uuid : data.autoLoadAssets) { owner.getAsset(uuid, State::Loaded); }
 }
 
 bool MountedBundle::initStream(stream::InputStream& stream, util::UUID uuid,
