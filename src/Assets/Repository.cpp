@@ -408,11 +408,13 @@ bool Repository::loadRepository() {
                     BL_LOG_INFO << "Found metadata file for asset with UUID "
                                 << pair.first.toString() << " at " << it->second
                                 << ". Updating asset path and display name";
-                    const std::string displayName = util::FileUtil::getFolder(it->second);
+                    const std::string assetFolder = util::FileUtil::getFolder(it->second);
+                    auto parsed                   = EditorPaths::parseAssetFolderName(assetFolder);
+                    const std::string displayName = parsed ? parsed->second : "RecoveredAsset";
                     std::string folder            = it->second;
                     // remove folder + filename + assetDirectory
                     const std::size_t rmStart = assetDirectory.size() + 1;
-                    const std::size_t rmSize  = rmStart + displayName.size() + 1 +
+                    const std::size_t rmSize  = rmStart + assetFolder.size() + 1 +
                                                EditorPaths::MetadataExtension.size() +
                                                util::UUID::StringLength;
                     folder = folder.substr(rmStart, folder.size() - rmSize);

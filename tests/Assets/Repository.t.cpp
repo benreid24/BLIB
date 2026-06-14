@@ -2,6 +2,7 @@
 #include <gtest/gtest.h>
 
 #include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <BLIB/Assets/EditorPaths.hpp>
 #include <SFML/System.hpp>
 #include <filesystem>
 
@@ -341,7 +342,8 @@ TEST_F(RepositoryTest, EditorLoadMissingDependency) {
         ASSERT_TRUE(asset.isValid());
     }
 
-    std::filesystem::rename("test_assets/TestName", "test_assets/renamed");
+    std::filesystem::rename(EditorPaths::getAssetPath("test_assets", "", uuid, "TestName"),
+                            EditorPaths::getAssetPath("test_assets", "", uuid, "renamed"));
 
     Repository repo(Mode::Editor, "test_assets");
     repo.registerDriver<TestDriver>(TestTypeTag);
@@ -419,11 +421,13 @@ TEST_F(RepositoryTest, FindMissing) {
     }
 
     // delete asset1
-    util::FileUtil::deleteDirectory("test_assets/TestName");
+    util::FileUtil::deleteDirectory(
+        EditorPaths::getAssetPath("test_assets", "", uuid1, "TestName"));
 
     // move asset2
-    util::FileUtil::moveDirectory("test_assets/TestName2",
-                                  "test_assets/TestFolder/TestName2Renamed");
+    util::FileUtil::moveDirectory(
+        EditorPaths::getAssetPath("test_assets", "", uuid2, "TestName2"),
+        EditorPaths::getAssetPath("test_assets", "TestFolder", uuid2, "TestName2Renamed"));
 
     Repository repo(Mode::Editor, "test_assets");
     repo.registerDriver<TestDriver>(TestTypeTag);

@@ -5,9 +5,9 @@
 #include <BLIB/Serialization/JSON/Serializer.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <cstdint>
+#include <ostream>
 #include <string>
 #include <string_view>
-#include <ostream>
 
 namespace bl
 {
@@ -88,6 +88,14 @@ public:
     bool operator==(const UUID& other) const {
         return part1 == other.part1 && part2 == other.part2;
     }
+
+    /**
+     * @brief Parses the UUID from a string. Only modifies if parsing is successful
+     *
+     * @param str The string to parse
+     * @return True if the string was successfully parsed, false otherwise
+     */
+    bool parse(std::string_view str);
 
     /**
      * @brief Converts the UUID to a string
@@ -195,6 +203,5 @@ struct hash<bl::util::UUID> {
     }
 };
 } // namespace std
-
 
 #endif

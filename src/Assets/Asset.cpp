@@ -194,9 +194,9 @@ bool Asset::reloadFromSource() {
 
 void Asset::handleDisplayNameChange(const std::string& oldName, const std::string& newName) {
     const std::string oldDir =
-        EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), oldName);
+        EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), uuid, oldName);
     const std::string newDir =
-        EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), newName);
+        EditorPaths::getAssetPath(repo->getAssetDirectory(), metadata.getPath(), uuid, newName);
 
     if (!util::FileUtil::moveDirectory(oldDir, newDir)) {
         BL_LOG_ERROR << "Failed to move asset directory from " << oldDir << " to " << newDir
@@ -205,10 +205,10 @@ void Asset::handleDisplayNameChange(const std::string& oldName, const std::strin
 }
 
 void Asset::handlePathChange(const std::string& oldPath, const std::string& newPath) {
-    const std::string oldDir =
-        EditorPaths::getAssetPath(repo->getAssetDirectory(), oldPath, metadata.getDisplayName());
-    const std::string newDir =
-        EditorPaths::getAssetPath(repo->getAssetDirectory(), newPath, metadata.getDisplayName());
+    const std::string oldDir = EditorPaths::getAssetPath(
+        repo->getAssetDirectory(), oldPath, uuid, metadata.getDisplayName());
+    const std::string newDir = EditorPaths::getAssetPath(
+        repo->getAssetDirectory(), newPath, uuid, metadata.getDisplayName());
 
     if (!util::FileUtil::moveDirectory(oldDir, newDir)) {
         BL_LOG_ERROR << "Failed to move asset directory from " << oldDir << " to " << newDir

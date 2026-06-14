@@ -145,5 +145,12 @@ std::string UUID::toString() const {
     return result;
 }
 
+bool UUID::parse(std::string_view str) {
+    UUID temp(str);
+    if (temp == UUID()) { return false; }
+    *this = temp;
+    return true;
+}
+
 } // namespace util
 } // namespace bl

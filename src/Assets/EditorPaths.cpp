@@ -20,15 +20,36 @@ std::string filterAssetName(const std::string& name) {
 }
 } // namespace
 
+std::string EditorPaths::getAssetFolderName(util::UUID uuid, const std::string& displayName) {
+    return displayName + "_" + uuid.toString();
+}
+
+std::optional<std::pair<util::UUID, std::string>> EditorPaths::parseAssetFolderName(
+    const std::string& folderName) {
+    const std::size_t i = folderName.find_last_of('_');
+    if (i == std::string::npos) { return std::nullopt; }
+
+    const std::string displayName = folderName.substr(0, i);
+    const std::string uuidStr     = folderName.substr(i + 1);
+
+    util::UUID uuid;
+    if (!uuid.parse(uuidStr)) { return std::nullopt; }
+
+    return std::make_pair(uuid, displayName);
+}
+
 std::string EditorPaths::getAssetPath(const std::string& repoRoot, const Asset& asset) {
-    return getAssetPath(
-        repoRoot, asset.getMetadata().getPath(), asset.getMetadata().getDisplayName());
+    return getAssetPath(repoRoot,
+                        asset.getMetadata().getPath(),
+                        asset.getUUID(),
+                        asset.getMetadata().getDisplayName());
 }
 
 std::string EditorPaths::getAssetPath(const std::string& repoRoot, const std::string& assetFolder,
-                                      const std::string& assetName) {
+                                      util::UUID uuid, const std::string& assetName) {
     const std::string assetPath = util::FileUtil::joinPath(repoRoot, assetFolder);
-    return util::FileUtil::joinPath(assetPath, filterAssetName(assetName));
+    return util::FileUtil::joinPath(assetPath,
+                                    getAssetFolderName(uuid, filterAssetName(assetName)));
 }
 
 std::string EditorPaths::getAssetFilesPath(const std::string& repoRoot, const Asset& asset) {
