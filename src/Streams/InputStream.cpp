@@ -1,6 +1,5 @@
 #include <BLIB/Streams/InputStream.hpp>
 
-#include <BLIB/Util/FileUtil.hpp>
 #include <BLIB/Util/Visitor.hpp>
 #include <cstring>
 
@@ -47,7 +46,7 @@ bool InputStream::open(std::string_view path) { return open(std::string(path)); 
 bool InputStream::open(const char* path) { return open(std::string(path)); }
 
 bool InputStream::open(const std::string& path) {
-    auto& file = stream.emplace<std::ifstream>(path);
+    auto& file = stream.emplace<std::ifstream>(path, std::ios::binary);
     if (!file.good()) { return false; }
     file.seekg(0, std::ios::end);
     knownSize = file.tellg();

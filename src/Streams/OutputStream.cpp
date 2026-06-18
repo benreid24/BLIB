@@ -40,7 +40,7 @@ bool OutputStream::isValid() const {
 }
 
 bool OutputStream::open(std::string_view path) {
-    auto& file = stream.emplace<std::ofstream>(std::string(path));
+    auto& file = stream.emplace<std::ofstream>(std::string(path), std::ios::binary);
     return file.good();
 }
 

@@ -1,3 +1,4 @@
+#include "Common.hpp"
 #include <BLIB/Assets/Repository.hpp>
 #include <gtest/gtest.h>
 
@@ -14,13 +15,6 @@ namespace unittest
 {
 namespace
 {
-class RepositoryTest : public ::testing::Test {
-public:
-    void SetUp() override {
-        util::FileUtil::deleteDirectory("test_assets");
-        util::FileUtil::deleteDirectory("test_bundle");
-    }
-};
 
 struct TestCreateContext : public CreateContext::CreateData {
     TestCreateContext(const std::string& data, util::UUID dep = {})
@@ -137,7 +131,7 @@ const std::string_view TestTypeWithDepTag = "test_type_with_dep";
 } // namespace
 
 TEST_F(RepositoryTest, CreateAsset) {
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -151,7 +145,7 @@ TEST_F(RepositoryTest, CreateAsset) {
 }
 
 TEST_F(RepositoryTest, Dependencies) {
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
     repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -175,7 +169,7 @@ TEST_F(RepositoryTest, LazyDependencies) {
     util::UUID assetUUID;
 
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
         repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -188,7 +182,7 @@ TEST_F(RepositoryTest, LazyDependencies) {
         assetUUID          = asset.getAsset().getUUID();
     }
 
-    Repository repo2(Mode::Editor, "test_assets");
+    Repository repo2(Mode::Editor, AssetDirectory);
     repo2.registerDriver<TestDriver>(TestTypeTag);
     repo2.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -208,7 +202,7 @@ TEST_F(RepositoryTest, DependencyLists) {
     util::UUID assetUUID;
 
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
         repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -223,7 +217,7 @@ TEST_F(RepositoryTest, DependencyLists) {
         assetUUID = asset.getAsset().getUUID();
     }
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
     repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -244,7 +238,7 @@ TEST_F(RepositoryTest, DependencyLazyLists) {
     util::UUID assetUUID;
 
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
         repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -259,7 +253,7 @@ TEST_F(RepositoryTest, DependencyLazyLists) {
         assetUUID = asset.getAsset().getUUID();
     }
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
     repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -282,7 +276,7 @@ TEST_F(RepositoryTest, DependencyLazyLists) {
 }
 
 TEST_F(RepositoryTest, GetAsset) {
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     auto asset   = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -297,7 +291,7 @@ TEST_F(RepositoryTest, GetAsset) {
 }
 
 TEST_F(RepositoryTest, Drivers) {
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
     repo.registerDriver<TestDriverWithDep>(TestTypeWithDepTag);
 
@@ -313,7 +307,7 @@ TEST_F(RepositoryTest, Drivers) {
 TEST_F(RepositoryTest, EditorSaveLoad) {
     util::UUID uuid;
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -321,7 +315,7 @@ TEST_F(RepositoryTest, EditorSaveLoad) {
         ASSERT_TRUE(asset.isValid());
     }
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     ASSERT_TRUE(repo.loadRepository());
@@ -334,7 +328,7 @@ TEST_F(RepositoryTest, EditorSaveLoad) {
 TEST_F(RepositoryTest, EditorLoadMissingDependency) {
     util::UUID uuid;
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -342,10 +336,10 @@ TEST_F(RepositoryTest, EditorLoadMissingDependency) {
         ASSERT_TRUE(asset.isValid());
     }
 
-    std::filesystem::rename(EditorPaths::getAssetPath("test_assets", "", uuid, "TestName"),
-                            EditorPaths::getAssetPath("test_assets", "", uuid, "renamed"));
+    std::filesystem::rename(EditorPaths::getAssetPath(AssetDirectory, "", uuid, "TestName"),
+                            EditorPaths::getAssetPath(AssetDirectory, "", uuid, "renamed"));
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     ASSERT_TRUE(repo.loadRepository());
@@ -360,7 +354,7 @@ TEST_F(RepositoryTest, AutoLoad) {
     util::UUID uuid;
     util::UUID autoLoadUUID;
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -372,7 +366,7 @@ TEST_F(RepositoryTest, AutoLoad) {
         autoLoadUUID = autoLoadAsset.getAsset().getUUID();
     }
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     ASSERT_TRUE(repo.loadRepository());
@@ -387,7 +381,7 @@ TEST_F(RepositoryTest, AutoLoad) {
 }
 
 TEST_F(RepositoryTest, ReleaseUnused) {
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     auto asset    = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -410,7 +404,7 @@ TEST_F(RepositoryTest, FindMissing) {
     util::UUID uuid1;
     util::UUID uuid2;
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
         auto asset1 = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
@@ -422,14 +416,14 @@ TEST_F(RepositoryTest, FindMissing) {
 
     // delete asset1
     util::FileUtil::deleteDirectory(
-        EditorPaths::getAssetPath("test_assets", "", uuid1, "TestName"));
+        EditorPaths::getAssetPath(AssetDirectory, "", uuid1, "TestName"));
 
     // move asset2
     util::FileUtil::moveDirectory(
-        EditorPaths::getAssetPath("test_assets", "", uuid2, "TestName2"),
-        EditorPaths::getAssetPath("test_assets", "TestFolder", uuid2, "TestName2Renamed"));
+        EditorPaths::getAssetPath(AssetDirectory, "", uuid2, "TestName2"),
+        EditorPaths::getAssetPath(AssetDirectory, "TestFolder", uuid2, "TestName2Renamed"));
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     ASSERT_TRUE(repo.loadRepository());
@@ -447,7 +441,7 @@ TEST_F(RepositoryTest, FindMissing) {
 TEST_F(RepositoryTest, SourceLinkAssets) {
     util::UUID uuid;
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
         auto asset = repo.getAssetFromSourcePath<TestPayload>("/path/asset.png");
@@ -457,7 +451,7 @@ TEST_F(RepositoryTest, SourceLinkAssets) {
         EXPECT_EQ(asset->data, "/path/asset.png");
     }
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     ASSERT_TRUE(repo.loadRepository());
@@ -481,7 +475,7 @@ TEST_F(RepositoryTest, SourceFileInfo) {
     util::FileUtil::FileInfo info;
     ASSERT_TRUE(util::FileUtil::queryFileInfo("test_assets_source/test_image.png", info));
 
-    Repository repo(Mode::Editor, "test_assets");
+    Repository repo(Mode::Editor, AssetDirectory);
     auto asset =
         repo.getAssetFromSourcePath<asi::ImagePayload>("test_assets_source/test_image.png");
 
@@ -509,17 +503,17 @@ TEST_F(RepositoryTest, SourceFileInfo) {
 TEST_F(RepositoryTest, BasicBundle) {
     util::UUID uuid;
     {
-        Repository repo(Mode::Editor, "test_assets");
+        Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
 
         auto asset = repo.createAsset<TestPayload>("TestName", TestCreateContext("test_data"));
         ASSERT_TRUE(asset.isValid());
         uuid = asset.getAsset().getUUID();
 
-        ASSERT_TRUE(repo.exportRepository("test_bundle"));
+        ASSERT_TRUE(repo.exportRepository(BundleDirectory));
     }
 
-    Repository repo(Mode::Game, "test_bundle");
+    Repository repo(Mode::Game, BundleDirectory);
     repo.registerDriver<TestDriver>(TestTypeTag);
 
     ASSERT_TRUE(repo.loadRepository());

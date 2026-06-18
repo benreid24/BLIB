@@ -196,7 +196,7 @@ private:
         std::size_t offset;
 
         FileSection(const std::string& path, std::size_t offset)
-        : file(path)
+        : file(path, std::ios::binary)
         , offset(offset) {}
     };
 
