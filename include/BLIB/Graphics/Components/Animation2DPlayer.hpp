@@ -3,7 +3,6 @@
 
 #include <BLIB/Components/Animation2DPlayer.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Components/Textured.hpp>
 
 namespace bl
@@ -43,8 +42,8 @@ public:
      * @param play True to begin playing immediately, false to start paused
      * @param forceLoop True to loop the animation, false to use the animation's loop setting
      */
-    void createNewPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation, bool play = false,
-                         bool forceLoop = false);
+    void createNewPlayer(const as::TypedRef<asi::Animation2DSetPayload> animation,
+                         bool play = false, bool forceLoop = false);
 
     /**
      * @brief Returns the animation player for this animation
@@ -84,7 +83,8 @@ protected:
      * @param forceLoop True to loop the animation, false to use the animation's loop setting
      */
     void create(engine::World& world, ecs::Entity entity, com::MaterialInstance& material,
-                const resource::Ref<gfx::a2d::AnimationData>& animation, bool play, bool forceLoop);
+                const as::TypedRef<asi::Animation2DSetPayload> animation, bool play,
+                bool forceLoop);
 
 private:
     const bool forSlideshow;

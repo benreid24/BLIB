@@ -30,5 +30,15 @@ void Animation::populate(const aiAnimation* src, const NodeSet& nodes, const Bon
     }
 }
 
+void Animation::init(const std::string& animName, double duration, double tps) {
+    name            = animName;
+    durationInTicks = duration;
+    ticksPerSecond  = tps;
+}
+
+void Animation::addBoneAnimation(BoneAnimation boneAnim) {
+    boneAnimations.push_back(std::move(boneAnim));
+}
+
 } // namespace mdl
 } // namespace bl

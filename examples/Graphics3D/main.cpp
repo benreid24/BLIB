@@ -5,7 +5,6 @@
 #include <BLIB/Graphics/ModelStatic.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
-#include <BLIB/Resources.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Util/Visitor.hpp>
 #include <iostream>
@@ -140,7 +139,8 @@ private:
         controller = cam->setController<CameraController>();
 
         auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/wood.png",
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/wood.png"),
             {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto woodMaterial = engine.renderer().materialPool().getOrCreateFromTexture(woodTexture);
 
@@ -167,34 +167,59 @@ private:
         floor.commit();
         floor.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        skybox.create(*world,
-                      "Resources/Textures/skybox/right.jpg",
-                      "Resources/Textures/skybox/left.jpg",
-                      "Resources/Textures/skybox/top.jpg",
-                      "Resources/Textures/skybox/bottom.jpg",
-                      "Resources/Textures/skybox/back.jpg",
-                      "Resources/Textures/skybox/front.jpg");
+        auto skyboxTopTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/top.jpg");
+        auto skyboxBottomTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/bottom.jpg");
+        auto skyboxLeftTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/left.jpg");
+        auto skyboxRightTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/right.jpg");
+        auto skyboxFrontTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/front.jpg");
+        auto skyboxBackTexture = engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+            "Resources/Textures/skybox/back.jpg");
+        const bl::asi::CubemapPayload::CreateParams cubemapParams(skyboxTopTexture,
+                                                                  skyboxBottomTexture,
+                                                                  skyboxLeftTexture,
+                                                                  skyboxRightTexture,
+                                                                  skyboxFrontTexture,
+                                                                  skyboxBackTexture);
+        auto skyboxCubemap =
+            engine.assets().createAsset<bl::asi::CubemapPayload>("SkyboxCubemap", cubemapParams);
+
+        skybox.create(*world, skyboxCubemap);
         skybox.addToScene(scene);
 
         auto containerTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container.jpg",
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/container.jpg"),
             {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit});
         auto material = engine.renderer().materialPool().getOrCreateFromTexture(containerTexture);
 
         auto brickTexture = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/bricks2.jpg",
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/bricks2.jpg"),
             {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto brickNormal = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/bricks2_normal.jpg", {.genMipmaps = true});
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/bricks2_normal.jpg"),
+            {.genMipmaps = true});
         auto brickParallax = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/bricks2_disp.jpg", {.genMipmaps = true});
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/bricks2_disp.jpg"),
+            {.genMipmaps = true});
         auto brickMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             brickTexture, brickNormal, brickParallax, 0.1f);
 
         auto toyBoxNormal = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/toy_box_normal.png", {.genMipmaps = true});
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/toy_box_normal.png"),
+            {.genMipmaps = true});
         auto toyBoxParallax = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/toy_box_disp.png", {.genMipmaps = true});
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/toy_box_disp.png"),
+            {.genMipmaps = true});
         auto toyBoxMaterial = engine.renderer().materialPool().getOrCreateFromNormalAndParallax(
             woodTexture, toyBoxNormal, toyBoxParallax, 0.1f);
 
@@ -215,10 +240,13 @@ private:
         cube4.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         auto diffuse = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container2.png",
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/container2.png"),
             {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto specular = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/container2_specular.png", {.genMipmaps = true});
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/container2_specular.png"),
+            {.genMipmaps = true});
         auto material2 =
             engine.renderer().materialPool().getOrCreateFromDiffuseAndSpecular(diffuse, specular);
 
@@ -231,10 +259,13 @@ private:
         cube6.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
         auto diffuse3 = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/brickwall.jpg",
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/brickwall.jpg"),
             {.format = bl::rc::vk::CommonTextureFormats::SRGBA32Bit, .genMipmaps = true});
         auto normal3 = engine.renderer().texturePool().getOrLoadTexture(
-            "Resources/Textures/brickwall_normal.jpg", {.genMipmaps = true});
+            engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(
+                "Resources/Textures/brickwall_normal.jpg"),
+            {.genMipmaps = true});
         auto material3 = engine.renderer().materialPool().create(
             diffuse3,
             diffuse3,
@@ -247,7 +278,7 @@ private:
         cube7.getTransform().setPosition({2.f, 1.75f, 0.f});
         cube7.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-        auto model = bl::resource::ResourceManager<bl::mdl::Model>::load(
+        auto model = engine.assets().getAssetFromSourcePath<bl::asi::ModelPayload>(
             "Resources/Models/backpack/backpack.obj");
         model->flipUVs(); // this model has inverted V coords
         model1.create(*world, model);

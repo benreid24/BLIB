@@ -1,9 +1,8 @@
 #ifndef BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 #define BLIB_GUI_RENDERERS_RENDERSETTINGS_HPP
 
-#include <BLIB/Graphics/Text/VulkanFont.hpp>
-#include <BLIB/Resources/Loader.hpp>
-#include <BLIB/Resources/Ref.hpp>
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <SFML/Graphics.hpp>
 #include <optional>
 
@@ -43,7 +42,7 @@ struct RenderSettings {
     std::optional<sf::Color> secondaryOutlineColor;
     std::optional<float> secondaryOutlineThickness;
 
-    std::optional<bl::resource::Ref<sf::VulkanFont>> font;
+    std::optional<as::TypedRef<asi::FontPayload>> font;
     std::optional<std::uint32_t> style;
     std::optional<unsigned int> characterSize;
 

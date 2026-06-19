@@ -1,6 +1,8 @@
 #ifndef BLIB_GRAPHICS_TEXT_HPP
 #define BLIB_GRAPHICS_TEXT_HPP
 
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Text.hpp>
 #include <BLIB/Engine/Systems.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
@@ -8,7 +10,6 @@
 #include <BLIB/Graphics/Components/Transform2D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Graphics/Text/BasicText.hpp>
-#include <BLIB/Graphics/Text/VulkanFont.hpp>
 #include <BLIB/Render/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <initializer_list>
@@ -74,21 +75,21 @@ public:
      * @param color The color of the text
      * @param style The style of the text
      */
-    void create(engine::World& world, const sf::VulkanFont& font, const sf::String& content = {},
-                unsigned int fontSize = 18, const rc::Color& color = sf::Color::Black,
-                std::uint32_t style = sf::Text::Regular);
+    void create(engine::World& world, as::TypedRef<asi::FontPayload> font,
+                const sf::String& content = {}, unsigned int fontSize = 18,
+                const rc::Color& color = sf::Color::Black, std::uint32_t style = sf::Text::Regular);
 
     /**
      * @brief Changes the font used to render the text
      *
      * @param font The new font to use
      */
-    void setFont(const sf::VulkanFont& font);
+    void setFont(as::TypedRef<asi::FontPayload> font);
 
     /**
      * @brief Returns the font used by the text
      */
-    const sf::VulkanFont& getFont() const;
+    as::TypedRef<asi::FontPayload> getFont() const;
 
     /**
      * @brief Returns a section of formatted text within this text
@@ -249,7 +250,7 @@ private:
     enum struct WrapType { None, Absolute, Relative };
 
     engine::Systems* systems;
-    const sf::VulkanFont* font;
+    as::TypedRef<asi::FontPayload> font;
     std::vector<txt::BasicText> sections;
     WrapType wrapType;
     float wordWrapWidth;
@@ -266,7 +267,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline const sf::VulkanFont& Text::getFont() const { return *font; }
+inline as::TypedRef<asi::FontPayload> Text::getFont() const { return font; }
 
 inline txt::BasicText& Text::getSection(unsigned int i) { return sections[i]; }
 

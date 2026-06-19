@@ -41,5 +41,14 @@ void MaterialSet::populate(const aiScene* scene, const std::string& modelPath) {
     }
 }
 
+void MaterialSet::visitDependencies(const DependencyVisitor& visitor) {
+    for (Material& material : materials) {
+        material.diffuse.visit(visitor);
+        material.normal.visit(visitor);
+        material.specular.visit(visitor);
+        material.parallax.visit(visitor);
+    }
+}
+
 } // namespace mdl
 } // namespace bl

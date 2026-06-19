@@ -19,15 +19,17 @@ struct Payload {
 };
 
 struct DefaultLoader {
-    static bool read(Payload& result, InputStream& input) {
-        if (!input.read(result.ogField)) return false;
-        if (!input.read(result.ogString)) return false;
+    static bool read(Payload& result, stream::InputStream& input) {
+        detail::InputStreamWrapper wrapper(input);
+        if (!wrapper.read(result.ogField)) return false;
+        if (!wrapper.read(result.ogString)) return false;
         return true;
     }
 
-    static bool write(const Payload& value, OutputStream& output) {
-        if (!output.write(value.ogField)) return false;
-        if (!output.write(value.ogString)) return false;
+    static bool write(const Payload& value, stream::OutputStream& output) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write(value.ogField)) return false;
+        if (!wrapper.write(value.ogString)) return false;
         return true;
     }
 };
@@ -35,29 +37,33 @@ struct DefaultLoader {
 using Version0 = DefaultLoader;
 
 struct Version1 {
-    static bool read(Payload& result, InputStream& input) {
+    static bool read(Payload& result, stream::InputStream& input) {
+        detail::InputStreamWrapper wrapper(input);
         if (!Version0::read(result, input)) return false;
-        if (!input.read(result.newInt)) return false;
+        if (!wrapper.read(result.newInt)) return false;
         return true;
     }
 
-    static bool write(const Payload& value, OutputStream& output) {
+    static bool write(const Payload& value, stream::OutputStream& output) {
+        detail::OutputStreamWrapper wrapper(output);
         if (!Version0::write(value, output)) return false;
-        if (!output.write(value.newInt)) return false;
+        if (!wrapper.write(value.newInt)) return false;
         return true;
     }
 };
 
 struct Version2 {
-    static bool read(Payload& result, InputStream& input) {
+    static bool read(Payload& result, stream::InputStream& input) {
+        detail::InputStreamWrapper wrapper(input);
         if (!Version1::read(result, input)) return false;
-        if (!input.read(result.newerString)) return false;
+        if (!wrapper.read(result.newerString)) return false;
         return true;
     }
 
-    static bool write(const Payload& value, OutputStream& output) {
+    static bool write(const Payload& value, stream::OutputStream& output) {
+        detail::OutputStreamWrapper wrapper(output);
         if (!Version1::write(value, output)) return false;
-        if (!output.write(value.newerString)) return false;
+        if (!wrapper.write(value.newerString)) return false;
         return true;
     }
 };
@@ -69,12 +75,10 @@ TEST(BinaryVersionedSerializer, DefaultLoader) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     using TestLoader = VersionedSerializer<Payload, DefaultLoader, DefaultLoader>;
-    MemoryOutputBuffer outbuf;
-    OutputStream out(outbuf);
+    stream::OutputStream out(1024);
     ASSERT_TRUE(TestLoader::write(out, orig));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(out.getBuffer());
     ASSERT_TRUE(TestLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, 42);
@@ -88,12 +92,10 @@ TEST(BinaryVersionedSerializer, MultipleVersions) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     using TestLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
-    MemoryOutputBuffer outbuf;
-    OutputStream out(outbuf);
+    stream::OutputStream out(1024);
     ASSERT_TRUE(TestLoader::write(out, orig));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(out.getBuffer());
     ASSERT_TRUE(TestLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
@@ -107,13 +109,11 @@ TEST(BinaryVersionedSerializer, LoadOldVersion) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     using OldLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1>;
-    MemoryOutputBuffer outbuf;
-    OutputStream out(outbuf);
+    stream::OutputStream out(1024);
     ASSERT_TRUE(OldLoader::write(out, orig));
 
     using NewLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(out.getBuffer());
     ASSERT_TRUE(NewLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
@@ -127,13 +127,11 @@ TEST(BinaryVersionedSerializer, LoadNoVersion) {
     Payload loaded     = {1234, "oh no", 77, "not goodbye"};
 
     using OldLoader = VersionedSerializer<Payload, DefaultLoader, DefaultLoader>;
-    MemoryOutputBuffer outbuf;
-    OutputStream out(outbuf);
+    stream::OutputStream out(1024);
     ASSERT_TRUE(OldLoader::write(out, orig));
 
     using NewLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(out.getBuffer());
     ASSERT_TRUE(NewLoader::read(in, loaded));
 
     EXPECT_EQ(loaded.ogField, orig.ogField);
@@ -149,12 +147,10 @@ TEST(BinaryVersionedSerializer, BadVersion) {
     using OldLoader = VersionedSerializer<Payload, DefaultLoader, Version0>;
     using NewLoader = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
 
-    MemoryOutputBuffer outbuf;
-    OutputStream out(outbuf);
+    stream::OutputStream out(1024);
     ASSERT_TRUE(NewLoader::write(out, orig));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(out.getBuffer());
     ASSERT_FALSE(OldLoader::read(in, loaded));
 }
 
@@ -162,17 +158,16 @@ TEST(BinaryVersionedSerializer, EnsureVersionOrder) {
     using VS = VersionedSerializer<Payload, DefaultLoader, Version0, Version1, Version2>;
 
     Payload value = {1234, "oh no", 77, "not goodbye"};
-    MemoryOutputBuffer outbuf;
-    OutputStream out(outbuf);
+    stream::OutputStream out(1024);
     ASSERT_TRUE(VS::write(out, value));
 
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    InputStream in(inbuf);
+    stream::InputStream in(out.getBuffer());
+    detail::InputStreamWrapper wrapper(in);
 
     std::uint32_t header;
-    ASSERT_TRUE(in.read<std::uint32_t>(header));
+    ASSERT_TRUE(wrapper.read<std::uint32_t>(header));
     std::uint32_t version;
-    ASSERT_TRUE(in.read<std::uint32_t>(version));
+    ASSERT_TRUE(wrapper.read<std::uint32_t>(version));
     EXPECT_EQ(version, 2);
 }
 

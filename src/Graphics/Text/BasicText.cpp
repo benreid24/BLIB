@@ -127,8 +127,8 @@ void BasicText::setOutlineThickness(unsigned int t) {
     owner.queueCommit();
 }
 
-std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::Vertex* vertices,
-                                         glm::vec2& cornerPos) {
+std::uint32_t BasicText::refreshVertices(as::TypedRef<asi::FontPayload> font,
+                                         rc::prim::Vertex* vertices, glm::vec2& cornerPos) {
     // Clear the previous geometry
     cachedBounds = sf::FloatRect();
     cachedPos    = cornerPos;
@@ -144,13 +144,13 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
     const bool isUnderlined    = style & sf::Text::Underlined;
     const bool isStrikeThrough = style & sf::Text::StrikeThrough;
     const float italicShear    = (style & sf::Text::Italic) ? 0.209f : 0.f; // 12 degrees in radians
-    const float underlineOffset    = font.getUnderlinePosition(fontSize);
-    const float underlineThickness = font.getUnderlineThickness(fontSize);
+    const float underlineOffset    = font->getUnderlinePosition(fontSize);
+    const float underlineThickness = font->getUnderlineThickness(fontSize);
 
     // Compute the location of the strike through dynamically
     // We use the center point of the lowercase 'x' glyph as the reference
     // We reuse the underline thickness as the thickness of the strike through as well
-    const sf::FloatRect xBounds     = font.getGlyph(L'x', fontSize, isBold).bounds;
+    const sf::FloatRect xBounds     = font->getGlyph(L'x', fontSize, isBold).bounds;
     const float strikeThroughOffset = xBounds.position.y + xBounds.size.y / 2.f;
 
     // Precompute the variables needed by the algorithm
@@ -174,7 +174,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
         if (curChar == L'\r') continue;
 
         // Apply the kerning offset
-        x += font.getKerning(prevChar, curChar, fontSize, isBold);
+        x += font->getKerning(prevChar, curChar, fontSize, isBold);
 
         // If we're using the underlined style and there's a new line, draw a line
         if (isUnderlined && (curChar == L'\n' && prevChar != L'\n')) {
@@ -239,14 +239,14 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
 
         // Apply the outline
         if (outlineThickness != 0) {
-            const sf::Glyph& glyph = font.getGlyph(curChar, fontSize, isBold, outlineThickness);
+            const sf::Glyph& glyph = font->getGlyph(curChar, fontSize, isBold, outlineThickness);
 
             // Add the outline glyph to the vertices
             vi = addGlyphQuad(vertices, vi, glm::vec2(x, y), outlineColor, glyph, italicShear);
         }
 
         // Extract the current glyph's description
-        const sf::Glyph& glyph = font.getGlyph(curChar, fontSize, isBold);
+        const sf::Glyph& glyph = font->getGlyph(curChar, fontSize, isBold);
 
         // Add the glyph to the vertices
         vi = addGlyphQuad(vertices, vi, glm::vec2(x, y), fillColor, glyph, italicShear);
@@ -327,7 +327,7 @@ std::uint32_t BasicText::refreshVertices(const sf::VulkanFont& font, rc::prim::V
     return vi;
 }
 
-glm::vec2 BasicText::advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 pos,
+glm::vec2 BasicText::advanceCharacterPos(as::TypedRef<asi::FontPayload> font, glm::vec2 pos,
                                          std::uint32_t curChar, std::uint32_t prevChar) const {
     // Precompute the variables needed by the algorithm
     const bool isBold           = style & sf::Text::Bold;
@@ -336,7 +336,7 @@ glm::vec2 BasicText::advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 p
     const float lineSpacing     = cachedLineHeight;
 
     // Apply the kerning offset
-    pos.x += font.getKerning(prevChar, curChar, fontSize, isBold);
+    pos.x += font->getKerning(prevChar, curChar, fontSize, isBold);
 
     // Handle special characters
     switch (curChar) {
@@ -352,19 +352,21 @@ glm::vec2 BasicText::advanceCharacterPos(const sf::VulkanFont& font, glm::vec2 p
         break;
     default:
         // For regular characters, add the advance offset of the glyph
-        pos.x += font.getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
+        pos.x += font->getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
         break;
     }
 
     return pos;
 }
 
-const sf::Glyph& BasicText::getGlyph(const sf::VulkanFont& font, std::uint32_t code) const {
-    return font.getGlyph(
+const sf::Glyph& BasicText::getGlyph(as::TypedRef<asi::FontPayload> font,
+                                     std::uint32_t code) const {
+    return font->getGlyph(
         code, fontSize, (style & sf::Text::Bold) != 0, static_cast<float>(outlineThickness));
 }
 
-glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, unsigned int index) const {
+glm::vec2 BasicText::findCharacterPos(as::TypedRef<asi::FontPayload> font,
+                                      unsigned int index) const {
     index = index > content.getSize() ? content.getSize() : index;
 
     const bool isBold           = style & sf::Text::Bold;
@@ -378,7 +380,7 @@ glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, unsigned int i
         const std::uint32_t curChar = content[i];
 
         // Apply the kerning offset
-        position.x += font.getKerning(prevChar, curChar, fontSize, isBold);
+        position.x += font->getKerning(prevChar, curChar, fontSize, isBold);
         prevChar = curChar;
 
         // Handle special characters
@@ -396,7 +398,7 @@ glm::vec2 BasicText::findCharacterPos(const sf::VulkanFont& font, unsigned int i
         }
 
         // For regular characters, add the advance offset of the glyph
-        position.x += font.getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
+        position.x += font->getGlyph(curChar, fontSize, isBold).advance + letterSpacing;
     }
 
     return position;

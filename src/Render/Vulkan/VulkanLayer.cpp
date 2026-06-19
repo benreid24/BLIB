@@ -7,7 +7,6 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
-#include <BLIB/Resources/FileSystem.hpp>
 #include <Render/Vulkan/Utils/QueueFamilyLocator.hpp>
 #include <Render/Vulkan/Utils/SwapChainSupportDetails.hpp>
 #include <set>

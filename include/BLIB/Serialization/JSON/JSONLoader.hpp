@@ -2,6 +2,7 @@
 #define BLIB_FILES_JSONLOADER_HPP
 
 #include <BLIB/Serialization/JSON/JSON.hpp>
+#include <BLIB/Streams/InputStream.hpp>
 #include <fstream>
 #include <sstream>
 
@@ -32,7 +33,7 @@ public:
      *
      * @param stream The stream to read from
      */
-    Loader(std::istream& stream);
+    Loader(stream::InputStream& stream);
 
     /**
      * @brief Loads a JSON value from the underlying stream
@@ -83,8 +84,8 @@ public:
     bool loadGroup(Group& group);
 
 private:
-    std::ifstream fileInput;
-    std::istream& input;
+    stream::InputStream fileInput;
+    stream::InputStream& input;
     bool valid;
 
     const std::string filename;

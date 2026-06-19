@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Elements/TextEntry.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
 #include <cmath>
@@ -73,7 +74,8 @@ void TextEntry::updateCursorState() {
 }
 
 sf::Vector2f TextEntry::minimumRequisition() const {
-    resource::Ref<sf::VulkanFont> font = renderSettings().font.value_or(Font::get());
+    as::TypedRef<asi::FontPayload> font =
+        renderSettings().font.value_or(Font::get(engine::Engine::getInstance()->assets()));
     const int csize     = renderSettings().characterSize.value_or(TextEntry::DefaultCharacterSize);
     const float spacing = font ? std::ceil(font->getLineSpacing(csize)) : csize;
     const float paddedSpacing = spacing * 1.2f;

@@ -86,6 +86,15 @@ struct FileUtil {
     static std::string getPath(const std::string& file);
 
     /**
+     * @brief Returns the folder name of the given filename.
+     *        Example: "folder/subfolder/file.txt" folder is "subfolder"
+     *
+     * @param path The file path to parse
+     * @return std::string The folder name, or empty if no folder present
+     */
+    static std::string getFolder(const std::string& path);
+
+    /**
      * @brief Joins a file path with another path or filename. Takes care of slashes
      *        Example: "path/" + "/file.txt" becomes "path/file.txt"
      *
@@ -114,12 +123,21 @@ struct FileUtil {
     static std::string genTempName(const std::string& path, const std::string& ext = "");
 
     /**
+     * @brief Generates a temporary filename in the given path, guaranteed to not exist
+     *
+     * @param ext An optional extension to use
+     * @return std::string A temporary filename that does not exist
+     */
+    static std::string genTempNameInTempDir(const std::string& ext = "");
+
+    /**
      * @brief Copies a file from src to dest on the file system
      *
      * @param src The file to copy
      * @param dest Where to copy it to
+     * @return True if the file was copied successfully, false on error
      */
-    static void copyFile(const std::string& src, const std::string& dest);
+    static bool copyFile(const std::string& src, const std::string& dest);
 
     /**
      * @brief Creates a directory on the file system, creating subdirectories as necessary
@@ -198,6 +216,36 @@ struct FileUtil {
      * @return True if the file could be queries, false otherwise
      */
     static bool queryFileInfo(const std::string& path, FileInfo& result);
+
+    /**
+     * @brief Copies the contents from src directory into dest directory. Creates dest if required
+     *
+     * @param src The source directory to copy out of
+     * @param dest The destination directory to copy into
+     * @param recursive True to copy recursively
+     * @return True on success, false on error
+     */
+    static bool copyDirectoryContents(const std::string& src, const std::string& dest,
+                                      bool recursive);
+
+    /**
+     * @brief Moves a directory from src to dest
+     *
+     * @param src The source directory to move
+     * @param dest The destination to move the directory to. Will be created if it does not exist
+     * @return True on success, false on error
+     */
+    static bool moveDirectory(const std::string& src, const std::string& dest);
+
+    /**
+     * @brief Determines whether a path is relative, optionally with respect to a reference path.
+     *        Will return false if the path does not exist on the filesystem
+     *
+     * @param path The path to check for relativity.
+     * @param reference Optional reference path to compare against. Defaults to current directory
+     * @return True if the path is a subpath of reference, false otherwise
+     */
+    static bool isSubpath(const std::string& path, const std::string& reference = std::string());
 };
 
 } // namespace util

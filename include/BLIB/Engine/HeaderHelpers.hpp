@@ -1,6 +1,7 @@
 #ifndef BLIB_RENDER_ENGINEHELPERS_HPP
 #define BLIB_RENDER_ENGINEHELPERS_HPP
 
+#include <BLIB/Engine/Phase.hpp>
 #include <BLIB/Signals/Channel.hpp>
 
 namespace bl
@@ -70,6 +71,14 @@ struct HeaderHelpers {
      * @return The signal channel of the renderer
      */
     static sig::Channel& getRendererSignalChannel(engine::Engine& engine);
+
+    /**
+     * @brief Returns the phase of the engine lifecycle
+     *
+     * @param engine The main engine instance
+     * @return The current phase of the engine lifecycle
+     */
+    static Phase getPhase(engine::Engine& engine);
 };
 
 } // namespace engine

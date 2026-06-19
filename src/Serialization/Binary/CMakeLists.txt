@@ -1,4 +1,1 @@
-target_sources(BLIB PRIVATE
-    InputFile.cpp
-    OutputFile.cpp
-)
+add_subdirectory(Detail)

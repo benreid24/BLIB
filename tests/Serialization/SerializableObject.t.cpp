@@ -106,7 +106,9 @@ TEST(JsonSerializableObject, Nested) {
 }
 
 TEST(JsonSerializableObject, DefaultValue) {
-    std::stringstream input("{\"one\": 5, \"three\": 6}");
+    const std::string json("{\"one\": 5, \"three\": 6}");
+    stream::InputStream input(std::span<const char>(json.c_str(), json.size()));
+
     json::Group data;
     ASSERT_TRUE(json::loadFromStream(input, data));
     ASSERT_EQ(data.getInteger("one"), 5);
@@ -118,7 +120,8 @@ TEST(JsonSerializableObject, DefaultValue) {
 }
 
 TEST(JsonSerializableObject, RequiredField) {
-    std::stringstream ss("{\"one\": 5}");
+    const std::string json("{\"one\": 5}");
+    stream::InputStream ss(std::span<const char>(json.c_str(), json.size()));
     json::Group data;
     ASSERT_TRUE(json::loadFromStream(ss, data));
     Relaxed result;
@@ -214,14 +217,12 @@ TEST(BinarySerializableObject, SerializeObject) {
     boi.bF()       = true;
     boi.fF()       = 0.55f;
 
-    MemoryOutputBuffer outbuf;
-    binary::OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
     ASSERT_TRUE(binary::Serializer<TestyBoi>::serialize(stream, boi));
-    ASSERT_EQ(outbuf.size(), binary::Serializer<TestyBoi>::size(boi));
+    ASSERT_EQ(stream.getBuffer().size(), binary::Serializer<TestyBoi>::size(boi));
 
     TestyBoi read;
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    binary::InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
     ASSERT_TRUE(binary::Serializer<TestyBoi>::deserialize(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
@@ -238,14 +239,12 @@ TEST(BinarySerializableObject, NewReadOld) {
     boi.nowidthF() = -4534;
     boi.bF()       = true;
 
-    MemoryOutputBuffer outbuf;
-    binary::OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
     ASSERT_TRUE(binary::Serializer<TestyBoi>::serialize(stream, boi));
-    ASSERT_EQ(outbuf.size(), binary::Serializer<TestyBoi>::size(boi));
+    ASSERT_EQ(stream.getBuffer().size(), binary::Serializer<TestyBoi>::size(boi));
 
     TestyBoi2 read;
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    binary::InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
     ASSERT_TRUE(binary::Serializer<TestyBoi2>::deserialize(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
@@ -263,14 +262,12 @@ TEST(BinarySerializableObject, OldReadNew) {
     boi.bF()        = true;
     boi.newfieldF() = "unread";
 
-    MemoryOutputBuffer outbuf;
-    binary::OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
     ASSERT_TRUE(binary::Serializer<TestyBoi2>::serialize(stream, boi));
-    ASSERT_EQ(outbuf.size(), binary::Serializer<TestyBoi2>::size(boi));
+    ASSERT_EQ(stream.getBuffer().size(), binary::Serializer<TestyBoi2>::size(boi));
 
     TestyBoi read;
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    binary::InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
     ASSERT_TRUE(binary::Serializer<TestyBoi>::deserialize(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());
@@ -287,13 +284,11 @@ TEST(BinarySerializableObject, SerializePackedObject) {
     boi.bF()       = true;
     boi.fF()       = 0.55f;
 
-    MemoryOutputBuffer outbuf;
-    binary::OutputStream stream(outbuf);
+    stream::OutputStream stream(1024);
     ASSERT_TRUE(binary::Serializer<TestyBoi>::serializePacked(stream, boi));
 
     TestyBoi read;
-    MemoryInputBuffer inbuf(outbuf.data(), outbuf.size());
-    binary::InputStream in(inbuf);
+    stream::InputStream in(stream.getBuffer());
     ASSERT_TRUE(binary::Serializer<TestyBoi>::deserializePacked(in, read));
 
     EXPECT_EQ(boi.strF(), read.strF());

@@ -1,10 +1,10 @@
 #ifndef BLIB_COMPONENTS_ANIMATION2DPLAYER_HPP
 #define BLIB_COMPONENTS_ANIMATION2DPLAYER_HPP
 
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Assets/Builtin/Animation2DSetPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Render/Buffers/AlignedBuffer.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
-#include <BLIB/Resources/Ref.hpp>
 #include <BLIB/Util/VectorRef.hpp>
 
 namespace bl
@@ -38,7 +38,7 @@ struct Animation2DPlayer {
      * @param play True to begin playing immediately
      * @param forceLoop True to always loop, false to defer to animation loop setting
      */
-    Animation2DPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation, bool forSlideshow,
+    Animation2DPlayer(as::TypedRef<asi::Animation2DSetPayload> animation, bool forSlideshow,
                       bool play, bool forceLoop = false);
 
     /**
@@ -70,7 +70,7 @@ struct Animation2DPlayer {
     /**
      * @brief Returns the animation being played
      */
-    const resource::Ref<gfx::a2d::AnimationData>& getAnimation() const { return animation; }
+    as::TypedRef<asi::Animation2DSetPayload> getAnimation() const { return animation; }
 
     /**
      * @brief Returns whether the animation being played is a slideshow or not
@@ -109,7 +109,7 @@ struct Animation2DPlayer {
 
 private:
     const bool forSlideshow;
-    resource::Ref<gfx::a2d::AnimationData> animation;
+    as::TypedRef<asi::Animation2DSetPayload> animation;
     bool isPlaying;
     bool forceLoop;
     bool loop;
@@ -122,9 +122,6 @@ private:
 
     // in descriptor set
     util::VectorRef<std::uint32_t, rc::buf::AlignedBuffer<std::uint32_t>> framePayload;
-
-    // assigned by Animation2DSystem to keep texture alive
-    rc::res::TextureRef texture;
 
     friend class sys::Animation2DSystem;
 };

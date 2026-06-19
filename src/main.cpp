@@ -1,7 +1,6 @@
 #include <BLIB/Game.hpp>
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Resources/GarbageCollector.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
 using namespace bl::game;
@@ -46,9 +45,6 @@ int main(int argc, char** argv) {
         BL_LOG_INFO << "Unblocking waiting threads";
         bl::util::Waiter::unblockAll();
     }
-
-    BL_LOG_INFO << "Freeing resources";
-    bl::resource::GarbageCollector::shutdownAndClear();
 
     BL_LOG_INFO << "Completing shutdown";
     game.completeShutdown();

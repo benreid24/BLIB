@@ -6,26 +6,25 @@ namespace gfx
 {
 namespace
 {
-glm::vec2 getSize(const resource::Ref<a2d::AnimationData>& animation) {
+glm::vec2 getSize(as::TypedRef<asi::Animation2DSetPayload> animation) {
     if (!animation || animation->frameCount() == 0 || !animation->isSlideshow()) {
         return {1.f, 1.f};
     }
-    const sf::Vector2f s = animation->getFrameSize(0);
-    return {s.x, s.y};
+    return animation->getFrameSize(0);
 }
 } // namespace
 
 Slideshow::Slideshow()
 : Animation2DPlayer(true) {}
 
-Slideshow::Slideshow(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
+Slideshow::Slideshow(engine::World& world, as::TypedRef<asi::Animation2DSetPayload> animation,
                      bool play, bool forceLoop)
 : Slideshow() {
     createWithUniquePlayer(world, animation, play, forceLoop);
 }
 
 Slideshow::Slideshow(engine::World& world, ecs::Entity existing,
-                     const resource::Ref<a2d::AnimationData>& animation, bool play, bool forceLoop)
+                     as::TypedRef<asi::Animation2DSetPayload> animation, bool play, bool forceLoop)
 : Slideshow() {
     createWithUniquePlayer(world, existing, animation, play, forceLoop);
 }
@@ -41,7 +40,7 @@ Slideshow::Slideshow(engine::World& world, ecs::Entity existing, const Slideshow
 }
 
 void Slideshow::createWithUniquePlayer(engine::World& world,
-                                       const resource::Ref<a2d::AnimationData>& animation,
+                                       as::TypedRef<asi::Animation2DSetPayload> animation,
                                        bool play, bool forceLoop) {
     Drawable::create(world);
     OverlayScalable::create(world.engine(), entity());
@@ -52,7 +51,7 @@ void Slideshow::createWithUniquePlayer(engine::World& world,
 }
 
 void Slideshow::createWithUniquePlayer(engine::World& world, ecs::Entity existing,
-                                       const resource::Ref<a2d::AnimationData>& animation,
+                                       as::TypedRef<asi::Animation2DSetPayload> animation,
                                        bool play, bool forceLoop) {
     Drawable::createComponentOnly(world, existing);
     OverlayScalable::create(world.engine(), entity());

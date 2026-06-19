@@ -13,6 +13,14 @@ Mesh::Mesh()
 : materialIndex(0)
 , isSkinned(false) {}
 
+void Mesh::init(const std::vector<Vertex>& verts, const std::vector<std::uint32_t>& inds,
+                std::uint32_t matIdx, bool skinned) {
+    vertices      = verts;
+    indices       = inds;
+    materialIndex = matIdx;
+    isSkinned     = skinned;
+}
+
 Mesh::Mesh(const Mesh& src, const glm::mat4& transform)
 : materialIndex(src.materialIndex)
 , indices(src.indices)

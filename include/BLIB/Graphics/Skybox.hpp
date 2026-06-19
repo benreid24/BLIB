@@ -1,6 +1,8 @@
 #ifndef BLIB_GRAPHICS_SKYBOX_HPP
 #define BLIB_GRAPHICS_SKYBOX_HPP
 
+#include <BLIB/Assets/Builtin/CubemapPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Graphics/Cube.hpp>
 
 namespace bl
@@ -23,16 +25,9 @@ public:
      * @brief Creates the skybox from the 6 faces
      *
      * @param world The world to create the skybox in
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
+     * @param cubemap The cubemap containing the 6 faces of the skybox
      */
-    void create(engine::World& world, const std::string& right, const std::string& left,
-                const std::string& top, const std::string& bottom, const std::string& back,
-                const std::string& front);
+    void create(engine::World& world, as::TypedRef<asi::CubemapPayload> cubemap);
 
     /**
      * @brief Adds this entity to the given scene

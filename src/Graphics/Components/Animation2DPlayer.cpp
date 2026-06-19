@@ -16,7 +16,7 @@ Animation2DPlayer::Animation2DPlayer(bool fs)
 , playerEntity(ecs::InvalidEntity)
 , player(nullptr) {}
 
-void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationData>& animation,
+void Animation2DPlayer::createNewPlayer(as::TypedRef<asi::Animation2DSetPayload> animation,
                                         bool play, bool forceLoop) {
     // cleanup prior player. will be marked for removal only if other users still
     const bool isUpdate = cleanupPlayerDep();
@@ -28,7 +28,7 @@ void Animation2DPlayer::createNewPlayer(const resource::Ref<gfx::a2d::AnimationD
     addPlayerDep();
     if (isUpdate) {
         Textured::setTexture(world->engine().renderer().texturePool().getOrLoadTexture(
-            player->getAnimation()->resolvedSpritesheet()));
+            player->getAnimation()->getSpritesheet()));
     }
 }
 
@@ -39,7 +39,7 @@ void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
     addPlayerDep();
     if (isUpdate) {
         Textured::setTexture(world->engine().renderer().texturePool().getOrLoadTexture(
-            player->getAnimation()->resolvedSpritesheet()));
+            player->getAnimation()->getSpritesheet()));
     }
 }
 
@@ -51,12 +51,12 @@ void Animation2DPlayer::create(engine::World& w, ecs::Entity entity, ecs::Entity
     Textured::create(w.engine().renderer(),
                      &material,
                      world->engine().renderer().texturePool().getOrLoadTexture(
-                         player->getAnimation()->resolvedSpritesheet()));
+                         player->getAnimation()->getSpritesheet()));
 }
 
 void Animation2DPlayer::create(engine::World& w, ecs::Entity entity,
                                com::MaterialInstance& material,
-                               const resource::Ref<gfx::a2d::AnimationData>& anim, bool play,
+                               as::TypedRef<asi::Animation2DSetPayload> anim, bool play,
                                bool forceLoop) {
     world = &w;
     me    = entity;
@@ -64,7 +64,7 @@ void Animation2DPlayer::create(engine::World& w, ecs::Entity entity,
     Textured::create(w.engine().renderer(),
                      &material,
                      world->engine().renderer().texturePool().getOrLoadTexture(
-                         player->getAnimation()->resolvedSpritesheet()));
+                         player->getAnimation()->getSpritesheet()));
 }
 
 void Animation2DPlayer::addPlayerDep() { world->engine().ecs().addDependency(playerEntity, me); }

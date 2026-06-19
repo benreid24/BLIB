@@ -3,8 +3,6 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
-#include <BLIB/Resources/GarbageCollector.hpp>
-#include <BLIB/Resources/State.hpp>
 #include <BLIB/Signals/Table.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Systems/MarkedForDeath.hpp>
@@ -18,7 +16,9 @@ namespace engine
 {
 namespace
 {
-constexpr std::uint64_t MinFrameLengthMicroseconds = 100;
+constexpr std::int64_t MinFrameLengthMicroseconds = 100;
+Engine* instance                                  = nullptr;
+
 float toSeconds(std::uint64_t microseconds) {
     return static_cast<float>(microseconds) / 1'000'000.f;
 }
@@ -36,9 +36,15 @@ Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
 , ecsSystems(*this)
+, assetRepository(as::Mode::Editor, std::string(settings.assetsPath()))
 , entityRegistry()
 , renderThreadShouldRun(true)
 , input(*this) {
+    if (!instance) { instance = this; }
+    else {
+        BL_LOG_WARN << "Multiple engine instances created. Some features may break or misbehave";
+    }
+
     settings.syncToConfig();
 
     systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
@@ -57,8 +63,6 @@ Engine::Engine(const Settings& settings)
 }
 
 Engine::~Engine() {
-    resource::State::appExiting = true;
-
     if (renderingThread.has_value()) {
         renderThreadShouldRun = false;
         renderingCv.notify_one();
@@ -100,13 +104,12 @@ Engine::~Engine() {
     entityRegistry.destroyAllEntities();
 
     audio::AudioSystem::shutdown();
-    resource::GarbageCollector::get().clear();
+    assetRepository.forceUnloadAll();
     systems().cleanup();
 
     if (rendererInstance.has_value()) { rendererInstance->cleanup(); }
 
-    // reset resource manager state for other instances
-    resource::State::appExiting = false;
+    if (instance == this) { instance = nullptr; }
 }
 
 void Engine::pushState(State::Ptr next) {
@@ -169,8 +172,8 @@ bool Engine::loop() {
     const float minFrameLengthSeconds =
         engineSettings.maximumFramerate() > 0.f ? 1.f / engineSettings.maximumFramerate() : 0.f;
     // always limit to at least 100us to avoid issues with SFML time resolution
-    const std::uint64_t minFrameLength =
-        std::max(static_cast<std::uint64_t>(minFrameLengthSeconds * 1'000'000.f), MinFrameLengthMicroseconds);
+    const std::int64_t minFrameLength = std::max(
+        static_cast<std::int64_t>(minFrameLengthSeconds * 1'000'000.f), MinFrameLengthMicroseconds);
     std::uint64_t lag = 0;
 
     sf::Clock updateMeasureTimer; // measures duration of update ticks
@@ -242,10 +245,11 @@ bool Engine::loop() {
         ecsSystems.notifyFrameStart();
 
         // Update and render
-        lag += scaleTime(updateOuterTimer.getElapsedTime().asMicroseconds(), timeScale);
-        updateOuterTimer.restart();
-        const std::uint64_t startingLag = lag;
-        std::uint64_t totalDt           = 0;
+        std::int64_t elapsedTime = updateOuterTimer.getElapsedTime().asMicroseconds();
+        lag += scaleTime(elapsedTime, timeScale);
+        if (elapsedTime > 0) { updateOuterTimer.restart(); }
+        const std::int64_t startingLag = lag;
+        std::uint64_t totalDt          = 0;
         updateMeasureTimer.restart();
 
         // update until caught up
@@ -254,11 +258,11 @@ bool Engine::loop() {
             totalDt += updateTimestep;
             lag -= updateTimestep;
 
-            const std::uint64_t updateStart = updateMeasureTimer.getElapsedTime().asMicroseconds();
-            const float dt                  = toSeconds(updateTimestep);
-            const float realDt              = toRealSeconds(updateTimestep, timeScale);
-            const float lagSeconds          = toSeconds(lag);
-            const float realLagSeconds      = toRealSeconds(lag, timeScale);
+            const std::int64_t updateStart = updateMeasureTimer.getElapsedTime().asMicroseconds();
+            const float dt                 = toSeconds(updateTimestep);
+            const float realDt             = toRealSeconds(updateTimestep, timeScale);
+            const float lagSeconds         = toSeconds(lag);
+            const float realLagSeconds     = toRealSeconds(lag, timeScale);
 
             // core update game logic
             input.update();
@@ -279,13 +283,10 @@ bool Engine::loop() {
             }
 
             // handle timing
-            averageUpdateTime =
-                (8 * averageUpdateTime +
-                 2 * (updateMeasureTimer.getElapsedTime().asMicroseconds() - updateStart)) /
-                10;
-            if (updateMeasureTimer.getElapsedTime().asMicroseconds() > startingLag * 11 / 10) {
-                fallBehindWarning(updateMeasureTimer.getElapsedTime().asMicroseconds() -
-                                  startingLag);
+            const std::int64_t updateEnd = updateMeasureTimer.getElapsedTime().asMicroseconds();
+            averageUpdateTime = (8 * averageUpdateTime + 2 * (updateEnd - updateStart)) / 10;
+            if (updateEnd > startingLag * 11 / 10) {
+                fallBehindWarning(updateEnd - startingLag);
                 if (engineSettings.allowVariableTimestep()) {
                     const float newTs = updateTimestep * 21 / 20;
                     BL_LOG_INFO << "Adjusting update timestep from " << updateTimestep << "s to "
@@ -392,7 +393,7 @@ bool Engine::loop() {
             }
 
             // Adhere to FPS cap
-            const std::uint64_t st = minFrameLength - loopTimer.getElapsedTime().asMicroseconds();
+            const std::int64_t st = minFrameLength - loopTimer.getElapsedTime().asMicroseconds();
             if (st > 0) { sf::sleep(sf::microseconds(st)); }
             loopTimer.restart();
 
@@ -456,6 +457,7 @@ void Engine::postStateChange(State::Ptr& prev) {
     states.top()->activate(*this);
     eventEmitter.emit<event::StateChange>({states.top(), prev});
     if (rendererInstance) { rendererInstance->texturePool().releaseUnused(); }
+    assetRepository.releaseUnused();
 }
 
 pcl::ParticleSystem& Engine::particleSystem() {
@@ -492,6 +494,8 @@ void Engine::renderThreadBody() {
 void Engine::preStateChange() {
     if (rendererInstance.has_value()) { rendererInstance->waitIdleGPU(); }
 }
+
+Engine* Engine::getInstance() { return instance; }
 
 } // namespace engine
 } // namespace bl

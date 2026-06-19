@@ -1,6 +1,9 @@
 #ifndef BLIB_AUDIO_AUDIOSYSTEM_HPP
 #define BLIB_AUDIO_AUDIOSYSTEM_HPP
 
+#include <BLIB/Assets/Builtin/PlaylistPayload.hpp>
+#include <BLIB/Assets/Builtin/SoundPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Audio/Playlist.hpp>
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <SFML/Audio.hpp>
@@ -35,10 +38,10 @@ public:
     /**
      * @brief Loads a sound and returns a handle for it. Sounds are loaded at most once
      *
-     * @param path The file to load from
+     * @param sound The sound asset to load into the audio system
      * @return Handle The handle to the loaded or existing sound. May be InvalidHandle
      */
-    static Handle getOrLoadSound(const std::string& path);
+    static Handle getOrLoadSound(as::TypedRef<asi::SoundPayload> sound);
 
     /**
      * @brief Plays the sound with the given handle
@@ -74,10 +77,10 @@ public:
     /**
      * @brief Loads a playlist and returns a handle for it. Playlists are loaded at most once
      *
-     * @param path The file to load from
+     * @param playlist The playlist asset to load into the audio system
      * @return Handle The handle to the loaded or existing playlist. May be InvalidHandle
      */
-    static Handle getOrLoadPlaylist(const std::string& path);
+    static Handle getOrLoadPlaylist(as::TypedRef<asi::PlaylistPayload> playlist);
 
     /**
      * @brief Begins playing the new playlist with the optional crossfade. Previously playing

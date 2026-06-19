@@ -2,6 +2,7 @@
 #define BLIB_MODELS_ANIMATION_HPP
 
 #include <BLIB/Models/BoneAnimation.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/anim.h>
 #include <string>
 #include <vector>
@@ -55,14 +56,55 @@ public:
      */
     const std::vector<BoneAnimation>& getBoneAnimations() const { return boneAnimations; }
 
+    /**
+     * @brief Initializes the animation with the given metadata
+     *
+     * @param name The name of the animation
+     * @param durationInTicks The duration of the animation in ticks
+     * @param ticksPerSecond The number of ticks per second
+     */
+    void init(const std::string& name, double durationInTicks, double ticksPerSecond);
+
+    /**
+     * @brief Adds a bone animation channel to this animation
+     *
+     * @param boneAnim The bone animation to add
+     */
+    void addBoneAnimation(BoneAnimation boneAnim);
+
 private:
     std::string name;
     double durationInTicks;
     double ticksPerSecond;
     std::vector<BoneAnimation> boneAnimations;
+
+    friend struct serial::SerializableObject<Animation>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::Animation> : public SerializableObjectBase {
+    SerializableField<1, mdl::Animation, std::string> name;
+    SerializableField<2, mdl::Animation, double> durationInTicks;
+    SerializableField<3, mdl::Animation, double> ticksPerSecond;
+    SerializableField<4, mdl::Animation, std::vector<mdl::BoneAnimation>> boneAnimations;
+
+    SerializableObject()
+    : SerializableObjectBase("Animation")
+    , name("name", *this, &mdl::Animation::name, SerializableFieldBase::Required{})
+    , durationInTicks("durationInTicks", *this, &mdl::Animation::durationInTicks,
+                      SerializableFieldBase::Required{})
+    , ticksPerSecond("ticksPerSecond", *this, &mdl::Animation::ticksPerSecond,
+                     SerializableFieldBase::Required{})
+    , boneAnimations("boneAnimations", *this, &mdl::Animation::boneAnimations,
+                     SerializableFieldBase::Required{}) {}
+};
+
+} // namespace serial
+
 } // namespace bl
 
 #endif

@@ -48,11 +48,14 @@ public:
         renderer     = &engine.renderer();
 
         // load resources
-        texture =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/texture.png");
-        messageBoxTxtr =
-            engine.renderer().texturePool().getOrLoadTexture("Resources/Textures/messageBox.png");
-        font = bl::resource::ResourceManager<sf::VulkanFont>::load("Resources/Fonts/font.ttf");
+        texture = engine.renderer().texturePool().getOrLoadTexture(
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>(
+                "Resources/Textures/texture.png"));
+        messageBoxTxtr = engine.renderer().texturePool().getOrLoadTexture(
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>(
+                "Resources/Textures/messageBox.png"));
+        font = engine.assets().getAssetFromSourcePath<bl::asi::FontPayload>(
+            "Resources/Fonts/font.ttf");
 
         // get first observer and set background color
         bl::rc::Observer& p1 = engine.getPlayer().getRenderObserver();
@@ -135,7 +138,7 @@ public:
         messageBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
         //// add text to overlay
-        text.create(*p2World, *font, "Text can now be", 64);
+        text.create(*p2World, font, "Text can now be", 64);
         text.addSection("rendered.", 64, {0.f, 0.8f, 0.6f, 1.f}, sf::Text::Italic);
         text.addSection("What a great time to be alive. I wonder if this will wrap properly.", 64);
         text.getOverlayScaler().positionInParentSpace({0.02f, 0.05f});
@@ -208,7 +211,7 @@ private:
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;
-    bl::resource::Ref<sf::VulkanFont> font;
+    bl::as::TypedRef<bl::asi::FontPayload> font;
     bl::gfx::Text text;
     bl::rc::vk::RenderTexture::Handle renderTexture;
     bl::gfx::Sprite renderTextureInnerSprite;

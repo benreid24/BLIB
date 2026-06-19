@@ -1,10 +1,11 @@
 #ifndef REBINDSTATE_HPP
 #define REBINDSTATE_HPP
 
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Input.hpp>
-#include <BLIB/Resources.hpp>
 
 class RebindState : public bl::engine::State {
 public:
@@ -21,7 +22,7 @@ public:
 private:
     bl::input::Configurator configurator;
 
-    bl::resource::Ref<sf::VulkanFont> font;
+    bl::as::TypedRef<bl::asi::FontPayload> font;
     bl::gfx::Text text;
     const unsigned int ctrl;
     bool inited;

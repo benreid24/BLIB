@@ -19,7 +19,20 @@ jobs:
       run: sudo apt-get update
 
     - name: package-install
-      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev libasound2t64 libasound2-plugins
+
+    - name: Configure dummy audio device
+      run: |
+        cat > ~/.asoundrc <<'EOF'
+        pcm.!default {
+            type null
+        }
+
+        ctl.!default {
+            type hw
+            card 0
+        }
+        EOF
 
     - name: Install Vulkan SDK
       uses: humbletim/install-vulkan-sdk@v1.2

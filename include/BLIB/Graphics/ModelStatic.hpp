@@ -1,13 +1,14 @@
 #ifndef BLIB_GRAPHICS_MODELSTATIC_HPP
 #define BLIB_GRAPHICS_MODELSTATIC_HPP
 
+#include <BLIB/Assets/Builtin/ModelPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Graphics/Components/Outline3D.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
-#include <BLIB/Resources/Ref.hpp>
 
 namespace bl
 {
@@ -47,7 +48,7 @@ public:
      * @param materialPipelineId The material pipeline to render with
      * @return True if the model was able to created, false on error
      */
-    bool create(engine::World& world, resource::Ref<mdl::Model> model,
+    bool create(engine::World& world, as::TypedRef<asi::ModelPayload> model,
                 std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
 
 private:
@@ -65,13 +66,13 @@ private:
 
     com::BasicMesh* createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
                                      std::uint32_t materialPipelineId,
-                                     const resource::Ref<mdl::Model>& model, const mdl::Mesh& src,
-                                     const glm::mat4& transform);
+                                     const as::TypedRef<asi::ModelPayload>& model,
+                                     const mdl::Mesh& src, const glm::mat4& transform);
     void createChild(engine::World& world, Tx& tx, ecs::Entity parent,
-                     std::uint32_t materialPipelineId, const resource::Ref<mdl::Model>& model,
+                     std::uint32_t materialPipelineId, const as::TypedRef<asi::ModelPayload>& model,
                      const mdl::Mesh& src);
     void processNode(engine::World& world, Tx& tx, ecs::Entity parent,
-                     std::uint32_t materialPipelineId, const resource::Ref<mdl::Model>& model,
+                     std::uint32_t materialPipelineId, const as::TypedRef<asi::ModelPayload>& model,
                      const mdl::Node& node);
 
     virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;

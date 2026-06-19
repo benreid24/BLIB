@@ -2,8 +2,7 @@
 #define BLIB_FILES_BINARY_VERSIONEDBINARYFILE_HPP
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Serialization/Binary/InputStream.hpp>
-#include <BLIB/Serialization/Binary/OutputStream.hpp>
+#include <BLIB/Streams.hpp>
 #include <BLIB/Util/LastVariadic.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Util/TupleLoop.hpp>
@@ -51,13 +50,13 @@ public:
 template<typename T, typename TPayload>
 struct ReadSigChecker {
     static constexpr bool Conforms =
-        std::is_invocable_r_v<bool, decltype(&T::read), TPayload&, InputStream&>;
+        std::is_invocable_r_v<bool, decltype(&T::read), TPayload&, stream::InputStream&>;
 };
 
 template<typename T, typename TPayload>
 struct WriteSigChecker {
     static constexpr bool Conforms =
-        std::is_invocable_r_v<bool, decltype(&T::write), const TPayload&, OutputStream&>;
+        std::is_invocable_r_v<bool, decltype(&T::write), const TPayload&, stream::OutputStream&>;
 };
 
 } // namespace priv
@@ -102,7 +101,7 @@ public:
      * @param payload The payload to write
      * @return True if the payload was written, false on error
      */
-    static bool write(OutputStream& output, const Payload& payload);
+    static bool write(stream::OutputStream& output, const Payload& payload);
 
     /**
      * @brief Reads the given object from the given stream
@@ -111,7 +110,7 @@ public:
      * @param payload The payload to read into
      * @return True if the payload was read, false on error
      */
-    static bool read(InputStream& input, Payload& payload);
+    static bool read(stream::InputStream& input, Payload& payload);
 
 private:
     static constexpr std::uint32_t Header = 3257628152;
@@ -120,26 +119,28 @@ private:
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedSerializer<Payload, DefaultLoader, Versions...>::write(OutputStream& output,
+bool VersionedSerializer<Payload, DefaultLoader, Versions...>::write(stream::OutputStream& output,
                                                                      const Payload& value) {
-    if (!output.write<std::uint32_t>(Header)) return false;
-    if (!output.write<std::uint32_t>(CurrentVersionNumber)) return false;
+    detail::OutputStreamWrapper wrapper(output);
+    if (!wrapper.write<std::uint32_t>(Header)) return false;
+    if (!wrapper.write<std::uint32_t>(CurrentVersionNumber)) return false;
     return LatestVersion::write(value, output);
 }
 
 template<typename Payload, typename DefaultLoader, typename... Versions>
-bool VersionedSerializer<Payload, DefaultLoader, Versions...>::read(InputStream& input,
+bool VersionedSerializer<Payload, DefaultLoader, Versions...>::read(stream::InputStream& input,
                                                                     Payload& value) {
-    constexpr bool (*loaders[])(Payload&, InputStream&) = {&Versions::read...};
+    constexpr bool (*loaders[])(Payload&, stream::InputStream&) = {&Versions::read...};
 
+    detail::InputStreamWrapper wrapper(input);
     std::uint32_t header = 0;
-    if (!input.peek<uint32_t>(header)) return false;
+    if (!wrapper.peek<uint32_t>(header)) return false;
 
     if (header == Header) {
-        input.skip(sizeof(std::uint32_t)); // skip header
+        wrapper.skip(sizeof(std::uint32_t)); // skip header
 
         std::uint32_t version;
-        if (!input.read<std::uint32_t>(version)) return false;
+        if (!wrapper.read<std::uint32_t>(version)) return false;
         if (version >= VersionCount) {
             BL_LOG_ERROR << "Invalid file version for payload" << typeid(Payload).name() << ": "
                          << " version=" << version << " max version=" << CurrentVersionNumber;

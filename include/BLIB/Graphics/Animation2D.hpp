@@ -2,7 +2,6 @@
 #define BLIB_GRAPHICS_ANIMATION2D_HPP
 
 #include <BLIB/Components/Animation2D.hpp>
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
 #include <BLIB/Graphics/Components/Animation2DPlayer.hpp>
 #include <BLIB/Graphics/Components/OverlayScalable.hpp>
 #include <BLIB/Graphics/Components/Transform2D.hpp>
@@ -37,7 +36,7 @@ public:
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    Animation2D(engine::World& world, const resource::Ref<a2d::AnimationData>& animation,
+    Animation2D(engine::World& world, as::TypedRef<asi::Animation2DSetPayload> animation,
                 bool play = false, bool forceLoop = false);
 
     /**
@@ -50,7 +49,7 @@ public:
      * @param forceLoop True to always loop, false defer to animation setting
      */
     Animation2D(engine::World& world, ecs::Entity existingEntity,
-                const resource::Ref<a2d::AnimationData>& animation, bool play = false,
+                as::TypedRef<asi::Animation2DSetPayload> animation, bool play = false,
                 bool forceLoop = false);
 
     /**
@@ -79,7 +78,7 @@ public:
      * @param forceLoop True to always loop, false defer to animation setting
      */
     void createWithUniquePlayer(engine::World& world,
-                                const resource::Ref<a2d::AnimationData>& animation,
+                                as::TypedRef<asi::Animation2DSetPayload> animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
@@ -92,7 +91,7 @@ public:
      * @param forceLoop True to always loop, false defer to animation setting
      */
     void createWithUniquePlayer(engine::World& world, ecs::Entity existingEntity,
-                                const resource::Ref<a2d::AnimationData>& animation,
+                                as::TypedRef<asi::Animation2DSetPayload> animation,
                                 bool play = false, bool forceLoop = false);
 
     /**
@@ -120,7 +119,7 @@ public:
      * @param play True to play immediately, false to start paused
      * @param forceLoop True to always loop, false defer to animation setting
      */
-    void setAnimationWithUniquePlayer(const resource::Ref<a2d::AnimationData>& animation, bool play,
+    void setAnimationWithUniquePlayer(as::TypedRef<asi::Animation2DSetPayload> animation, bool play,
                                       bool forceLoop);
 
     /**

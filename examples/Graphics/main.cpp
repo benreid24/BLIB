@@ -71,7 +71,7 @@ private:
         // add slideshow animation to scene
         slideshow.createWithUniquePlayer(
             *world,
-            bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
+            engine.assets().getAssetFromSourcePath<bl::asi::Animation2DSetPayload>(
                 "resources/water.anim"),
             true,
             true);
@@ -81,7 +81,7 @@ private:
         // add standard animation to scene
         animation.createWithUniquePlayer(
             *world,
-            bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
+            engine.assets().getAssetFromSourcePath<bl::asi::Animation2DSetPayload>(
                 "resources/animation.anim"),
             true,
             true);
@@ -142,8 +142,10 @@ private:
         batchTriangle.getLocalTransform().setPosition({60.f, 95.f});
 
         // add a set of batched sprites to the scene
+        auto spritesheetAsset =
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>("resources/water.png");
         spriteBatch.create(
-            *world, engine.renderer().texturePool().getOrLoadTexture("resources/water.png"), 2);
+            *world, engine.renderer().texturePool().getOrLoadTexture(spritesheetAsset), 2);
         spriteBatch.getTransform().setPosition({400.f, 750.f});
         spriteBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -158,7 +160,7 @@ private:
         waterBatch.getTransform().setPosition({1500.f, 800.f});
         waterBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
         waterPlayer.create(*world,
-                           bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>::load(
+                           engine.assets().getAssetFromSourcePath<bl::asi::Animation2DSetPayload>(
                                "resources/water.anim"),
                            bl::gfx::DiscreteAnimation2DPlayer::Slideshow,
                            true,

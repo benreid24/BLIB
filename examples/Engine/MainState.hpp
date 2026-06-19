@@ -19,7 +19,7 @@ public:
 
 private:
     bl::ctr::Ref<bl::engine::World> world;
-    bl::resource::Ref<sf::VulkanFont> font;
+    bl::as::TypedRef<bl::asi::FontPayload> font;
     bl::gfx::Text kbmControls;
     bl::gfx::Text jsControls;
     bl::gfx::Rectangle cover;

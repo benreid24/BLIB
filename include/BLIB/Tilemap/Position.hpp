@@ -128,13 +128,13 @@ namespace binary
 {
 template<>
 struct Serializer<tmap::Position, false> {
-    static bool serialize(OutputStream& output, const tmap::Position& position) {
+    static bool serialize(stream::OutputStream& output, const tmap::Position& position) {
         if (!Serializer<glm::i32vec2>::serialize(output, position.position)) return false;
         if (!Serializer<tmap::Direction>::serialize(output, position.direction)) { return false; }
         return Serializer<std::uint8_t>::serialize(output, position.level);
     }
 
-    static bool deserialize(InputStream& input, tmap::Position& result) {
+    static bool deserialize(stream::InputStream& input, tmap::Position& result) {
         if (!Serializer<glm::i32vec2>::deserialize(input, result.position)) return false;
         if (!Serializer<tmap::Direction>::deserialize(input, result.direction)) { return false; }
         return Serializer<std::uint8_t>::deserialize(input, result.level);

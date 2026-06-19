@@ -11,18 +11,18 @@ namespace serial
 namespace json
 {
 Loader::Loader(const std::string& filename)
-: input(fileInput)
-, valid(true)
+: fileInput(filename)
+, input(fileInput)
+, valid(input.isValid())
 , filename(filename)
 , currentLine(0) {
-    fileInput.open(filename.c_str());
     util::StreamUtil::skipWhitespace(input);
 }
 
-Loader::Loader(std::istream& stream)
+Loader::Loader(stream::InputStream& stream)
 : input(stream)
-, valid(true)
 , filename("memory")
+, valid(input.isValid())
 , currentLine(0) {
     util::StreamUtil::skipWhitespace(input);
 }
@@ -48,7 +48,7 @@ void Loader::skipSymbol() {
     }
 }
 
-bool Loader::isValid() const { return input.good() && valid; }
+bool Loader::isValid() const { return input.isValid() && valid; }
 
 bool Loader::isWhitespace(int c) const { return c == '\n' || c == ' ' || c == '\r' || c == '\t'; }
 
@@ -95,7 +95,7 @@ bool Loader::loadBool(bool& result) {
     if (input.peek() == 't' || input.peek() == 'f') {
         std::string word;
         word.reserve(5);
-        while (std::isalpha(input.peek()) && input.good()) {
+        while (std::isalpha(input.peek()) && input.isValid()) {
             word.push_back(input.get());
             if (word == "true") {
                 util::StreamUtil::skipWhitespace(input);
@@ -113,7 +113,7 @@ bool Loader::loadBool(bool& result) {
                 return false;
             }
         }
-        if (input.good()) {
+        if (input.isValid()) {
             BL_LOG_ERROR << error() << "'" << word << "' is not a boolean value";
             valid = false;
             return false;
@@ -151,7 +151,7 @@ bool Loader::loadNumeric(Value& val) {
 
                 num.push_back(n);
                 input.get();
-                if (!input.good()) {
+                if (!input.isValid()) {
                     BL_LOG_ERROR << error() << "Unexpected end of file";
                     valid = false;
                     return false;
@@ -198,7 +198,7 @@ bool Loader::loadString(std::string& result) {
                     }
                 }
                 else { result.push_back(n); }
-                if (!input.good()) {
+                if (!input.isValid()) {
                     valid = false;
                     BL_LOG_ERROR << "Unexpected end of file";
                     return false;

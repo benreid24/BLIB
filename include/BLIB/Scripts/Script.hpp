@@ -1,6 +1,8 @@
 #ifndef BLIB_SCRIPTS_SCRIPT_HPP
 #define BLIB_SCRIPTS_SCRIPT_HPP
 
+#include <BLIB/Assets/Builtin/FilePayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Parser/Node.hpp>
 #include <BLIB/Scripts/Context.hpp>
 #include <BLIB/Scripts/SymbolTable.hpp>
@@ -30,20 +32,35 @@ class Manager;
 class Script {
 public:
     /**
-     * @brief Modifies the given script to its full file path and returns true if the script points
-     *        to a file. If the file is not found then the input is not modified and false is
-     *        returned
+     * @brief Creates the script from the file
      *
-     * @param path The script to try and find the full path for
-     * @return True if the script points to a file, false otherwise
+     * @param file The file to load from
      */
-    static bool getFullScriptPath(std::string& path);
+    Script(as::TypedRef<asi::FilePayload> file);
+
+    /**
+     * @brief Determines if the input is a file, then loads the script from the file or from
+     *        the input directly. Uses a custom context to initialize built-in functions
+     *
+     * @param file The script content to run
+     * @param ctx Context to initialize the default symbol table with
+     */
+    Script(as::TypedRef<asi::FilePayload> file, const Context& ctx);
+
+    /**
+     * @brief Special constructor that takes an assembled table and uses that instead of using a
+     *        context to add built-in functions
+     *
+     * @param file The script content to run
+     * @param startingTable The symbol table to begin with
+     */
+    Script(as::TypedRef<asi::FilePayload> file, const SymbolTable& startingTable);
 
     /**
      * @brief Determines if the input is a file, then loads the script from the file or from
      *        the input directly
      *
-     * @param data The script content to run, or a filename containing a script
+     * @param data The script content to run
      * @param ctx Context to initialize the default symbol table with
      */
     Script(const std::string& data);
@@ -52,7 +69,7 @@ public:
      * @brief Determines if the input is a file, then loads the script from the file or from
      *        the input directly. Uses a custom context to initialize built-in functions
      *
-     * @param data The script content to run, or a filename containing a script
+     * @param data The script content to run
      * @param ctx Context to initialize the default symbol table with
      */
     Script(const std::string& data, const Context& ctx);
@@ -61,7 +78,7 @@ public:
      * @brief Special constructor that takes an assembled table and uses that instead of using a
      *        context to add built-in functions
      *
-     * @param data The script content to run, or a filename containing a script
+     * @param data The script content to run
      * @param startingTable The symbol table to begin with
      */
     Script(const std::string& script, const SymbolTable& startingTable);

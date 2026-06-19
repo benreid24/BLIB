@@ -1,7 +1,7 @@
 #ifndef BLIB_MODELS_NODE_HPP
 #define BLIB_MODELS_NODE_HPP
 
-#include <BLIB/Models/Mesh.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
 #include <optional>
 
@@ -11,6 +11,7 @@ namespace mdl
 {
 class NodeSet;
 class MeshSet;
+class BoneSet;
 
 /**
  * @brief Represents a node in a model hierarchy
@@ -77,6 +78,18 @@ public:
      */
     const std::string& getName() const { return name; }
 
+    /**
+     * @brief Initializes the node with the given data
+     *
+     * @param name The name of the node
+     * @param transform The local transform of the node
+     * @param meshIndices The indices of the meshes attached to this node
+     * @param boneIndex The index of the bone for this node, if any
+     */
+    void init(const std::string& name, const glm::mat4& transform,
+              const std::vector<std::uint32_t>& meshIndices = {},
+              std::optional<std::uint32_t> boneIndex        = std::nullopt);
+
 private:
     std::uint32_t parent;
     std::uint32_t ownIndex;
@@ -85,9 +98,36 @@ private:
     std::vector<std::uint32_t> meshes;
     glm::mat4 transform;
     std::optional<std::uint32_t> boneIndex;
+
+    friend struct serial::SerializableObject<Node>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::Node> : public SerializableObjectBase {
+    SerializableField<1, mdl::Node, std::uint32_t> parent;
+    SerializableField<2, mdl::Node, std::uint32_t> ownIndex;
+    SerializableField<3, mdl::Node, std::string> name;
+    SerializableField<4, mdl::Node, std::vector<std::uint32_t>> children;
+    SerializableField<5, mdl::Node, std::vector<std::uint32_t>> meshes;
+    SerializableField<6, mdl::Node, glm::mat4> transform;
+    SerializableField<7, mdl::Node, std::optional<std::uint32_t>> boneIndex;
+
+    SerializableObject()
+    : SerializableObjectBase("Node")
+    , parent("parent", *this, &mdl::Node::parent, SerializableFieldBase::Required{})
+    , ownIndex("ownIndex", *this, &mdl::Node::ownIndex, SerializableFieldBase::Required{})
+    , name("name", *this, &mdl::Node::name, SerializableFieldBase::Required{})
+    , children("children", *this, &mdl::Node::children, SerializableFieldBase::Required{})
+    , meshes("meshes", *this, &mdl::Node::meshes, SerializableFieldBase::Required{})
+    , transform("transform", *this, &mdl::Node::transform, SerializableFieldBase::Required{})
+    , boneIndex("boneIndex", *this, &mdl::Node::boneIndex, SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

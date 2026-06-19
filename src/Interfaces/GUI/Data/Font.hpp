@@ -1,12 +1,15 @@
 #ifndef BLIB_GUI_DATA_FONT_HPP
 #define BLIB_GUI_DATA_FONT_HPP
 
-#include <BLIB/Graphics/Text/VulkanFont.hpp>
-#include <BLIB/Resources/Loader.hpp>
-#include <BLIB/Resources/Ref.hpp>
+#include <BLIB/Assets/Builtin/FontPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 
 namespace bl
 {
+namespace as
+{
+class Repository;
+}
 namespace gui
 {
 /**
@@ -20,8 +23,9 @@ struct Font {
     /**
      * @brief Returns a loaded sf::Font resource from the built in font
      *
+     * @param repo The repository to fetch the font from
      */
-    static resource::Ref<sf::VulkanFont> get();
+    static as::TypedRef<asi::FontPayload> get(as::Repository& repo);
 };
 
 } // namespace gui

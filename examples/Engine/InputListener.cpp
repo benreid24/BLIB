@@ -8,8 +8,8 @@ InputListener::InputListener()
 , rebindMovement(false) {}
 
 void InputListener::init(bl::engine::World& world) {
-    font = bl::resource::ResourceManager<sf::VulkanFont>::load("font.ttf");
-    text.create(world, *font, "Last input:", 22, {0.f, 0.2f, 0.72f, 1.f});
+    font = world.engine().assets().getAssetFromSourcePath<bl::asi::FontPayload>("font.ttf");
+    text.create(world, font, "Last input:", 22, {0.f, 0.2f, 0.72f, 1.f});
     text.getTransform().setPosition({10.f, 50.f});
 }
 

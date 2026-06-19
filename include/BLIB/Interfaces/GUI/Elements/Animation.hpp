@@ -1,9 +1,9 @@
 #ifndef BLIB_INTERFACES_GUI_ELEMENTS_ANIMATION_HPP
 #define BLIB_INTERFACES_GUI_ELEMENTS_ANIMATION_HPP
 
-#include <BLIB/Graphics/Animation2D/AnimationData.hpp>
+#include <BLIB/Assets/Builtin/Animation2DSetPayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
-#include <BLIB/Resources.hpp>
 
 namespace bl
 {
@@ -26,14 +26,14 @@ public:
      * @param anim The animation to use
      * @return Ptr The new Animation
      */
-    static Ptr create(resource::Ref<gfx::a2d::AnimationData> anim);
+    static Ptr create(as::TypedRef<asi::Animation2DSetPayload> anim);
 
     /**
      * @brief Sets the animation to render. Does not reset any applied size
      *
      * @param anim The animation to render
      */
-    void setAnimation(resource::Ref<gfx::a2d::AnimationData> anim);
+    void setAnimation(as::TypedRef<asi::Animation2DSetPayload> anim);
 
     /**
      * @brief Scales the rendered animation to the given size
@@ -45,7 +45,7 @@ public:
     /**
      * @brief Returns the animation being rendered by this element
      */
-    resource::Ref<gfx::a2d::AnimationData>& getAnimation();
+    as::TypedRef<asi::Animation2DSetPayload> getAnimation();
 
     /**
      * @brief Returns the size being scaled to, if any
@@ -58,7 +58,7 @@ protected:
      *
      * @param anim The animation to use
      */
-    Animation(resource::Ref<gfx::a2d::AnimationData> anim);
+    Animation(as::TypedRef<asi::Animation2DSetPayload> anim);
 
     /**
      * @brief Returns the size required to render the animation
@@ -74,7 +74,7 @@ protected:
     virtual rdr::Component* doPrepareRender(rdr::Renderer& renderer) override;
 
 private:
-    resource::Ref<gfx::a2d::AnimationData> source;
+    as::TypedRef<asi::Animation2DSetPayload> source;
     std::optional<sf::Vector2f> size;
 };
 

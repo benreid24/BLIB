@@ -29,7 +29,7 @@ struct DefaultHolder {
 
     U* get();
 };
-}
+} // namespace priv
 
 /**
  * @brief Base class for SerializableField objects. Not to be used directly
@@ -77,7 +77,8 @@ public:
      * @param currentIndent Current level of indentation in spaces
      * @return True on success, false on error
      */
-    virtual bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+    virtual bool serializeJsonStream(stream::OutputStream& stream, const void* object,
+                                     unsigned int tabSize,
                                      unsigned int currentIndent = 0) const = 0;
 
     /**
@@ -87,7 +88,7 @@ public:
      * @param object The object to deserialize
      * @return True on success, false on error
      */
-    virtual bool deserializeJsonStream(std::istream& stream, void* object) const = 0;
+    virtual bool deserializeJsonStream(stream::InputStream& stream, void* object) const = 0;
 
     /**
      * @brief Serializes the object at the given address to the given stream
@@ -96,7 +97,7 @@ public:
      * @param object The object to serialize
      * @return True on success, false on error
      */
-    virtual bool serializeBinary(binary::OutputStream& stream, const void* object) const = 0;
+    virtual bool serializeBinary(stream::OutputStream& stream, const void* object) const = 0;
 
     /**
      * @brief Deserializes the object at the given address to the given stream
@@ -105,7 +106,7 @@ public:
      * @param object The object to deserialize
      * @return True on success, false on error
      */
-    virtual bool deserializeBinary(binary::InputStream& stream, void* object) const = 0;
+    virtual bool deserializeBinary(stream::InputStream& stream, void* object) const = 0;
 
     /**
      * @brief Returns the serialized size of the field in the given object
@@ -209,7 +210,7 @@ public:
      * @param owner The parent Serializable object to register with
      * @param member Pointer to the member to serialize
      */
-    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::*member,
+    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::* member,
                       SerializableFieldBase::Required&&);
 
     /**
@@ -219,7 +220,7 @@ public:
      * @param owner The parent Serializable object to register with
      * @param member Pointer to the member to serialize
      */
-    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::*member,
+    SerializableField(const std::string& name, SerializableObjectBase& owner, T C::* member,
                       SerializableFieldBase::Optional&&);
 
     /**
@@ -248,7 +249,8 @@ public:
      * @param currentIndent Current level of indentation in spaces
      * @return True on success, false on error
      */
-    virtual bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+    virtual bool serializeJsonStream(stream::OutputStream& stream, const void* object,
+                                     unsigned int tabSize,
                                      unsigned int currentIndent = 0) const override;
 
     /**
@@ -258,7 +260,7 @@ public:
      * @param object The object to deserialize
      * @return True on success, false on error
      */
-    virtual bool deserializeJsonStream(std::istream& stream, void* object) const override;
+    virtual bool deserializeJsonStream(stream::InputStream& stream, void* object) const override;
 
     /**
      * @brief Serializes the object at the given address to the given stream
@@ -267,7 +269,7 @@ public:
      * @param object The object to serialize
      * @return True on success, false on error
      */
-    virtual bool serializeBinary(binary::OutputStream& stream, const void* object) const override;
+    virtual bool serializeBinary(stream::OutputStream& stream, const void* object) const override;
 
     /**
      * @brief Deserializes the object at the given address to the given stream
@@ -276,7 +278,7 @@ public:
      * @param object The object to deserialize
      * @return True on success, false on error
      */
-    virtual bool deserializeBinary(binary::InputStream& stream, void* object) const override;
+    virtual bool deserializeBinary(stream::InputStream& stream, void* object) const override;
 
     /**
      * @brief Returns the serialized size of the field in the given object
@@ -315,7 +317,7 @@ public:
     T& getDefault();
 
 private:
-    T C::*const member;
+    T C::* const member;
     priv::DefaultHolder<C, T> defVal;
 };
 
@@ -326,14 +328,19 @@ namespace priv
 template<typename C, typename U>
 struct DefaultHolder<C, U, true> {
     std::unique_ptr<U> defVal;
+    void (*copyFn)(U&, const U&);
+
+    DefaultHolder()
+    : copyFn(nullptr) {}
 
     template<typename... TArgs>
     void make(TArgs&&... args) {
         defVal = std::make_unique<U>(std::forward<TArgs>(args)...);
+        copyFn = [](U& dst, const U& src) { dst = src; };
     }
 
     void assign(U& result) const {
-        if (defVal) { result = *defVal; }
+        if (defVal && copyFn) { copyFn(result, *defVal); }
     }
 
     U* get() { return defVal.get(); }
@@ -353,8 +360,8 @@ struct DefaultHolder<C, U, false> {
 
     void assign(U&) const {
         if (set) {
-            BL_LOG_WARN << "Tried to default field " << typeid(U).name() << " on object " << typeid(C).name()
-                        << " but copy assignment is not allowed";
+            BL_LOG_WARN << "Tried to default field " << typeid(U).name() << " on object "
+                        << typeid(C).name() << " but copy assignment is not allowed";
         }
     }
 
@@ -376,18 +383,18 @@ struct DefaultHolder<C, U[N], false> {
 
     U* get() { return *defVal.get(); }
 };
-}
+} // namespace priv
 
 template<std::uint16_t Id, typename C, typename T>
 SerializableField<Id, C, T>::SerializableField(const std::string& name,
-                                               SerializableObjectBase& owner, T C::*member,
+                                               SerializableObjectBase& owner, T C::* member,
                                                SerializableFieldBase::Required&&)
 : SerializableFieldBase(Id, name, owner, member, false)
 , member(member) {}
 
 template<std::uint16_t Id, typename C, typename T>
 SerializableField<Id, C, T>::SerializableField(const std::string& name,
-                                               SerializableObjectBase& owner, T C::*member,
+                                               SerializableObjectBase& owner, T C::* member,
                                                SerializableFieldBase::Optional&&)
 : SerializableFieldBase(Id, name, owner, member, true)
 , member(member) {}
@@ -405,13 +412,13 @@ json::Value SerializableField<Id, C, T>::serializeJSON(const void* obj) const {
 }
 
 template<std::uint16_t Id, typename C, typename T>
-bool SerializableField<Id, C, T>::deserializeJsonStream(std::istream& s, void* obj) const {
+bool SerializableField<Id, C, T>::deserializeJsonStream(stream::InputStream& s, void* obj) const {
     C& o = *static_cast<C*>(obj);
     return json::Serializer<T>::deserializeStream(s, o.*member);
 }
 
 template<std::uint16_t Id, typename C, typename T>
-bool SerializableField<Id, C, T>::serializeJsonStream(std::ostream& s, const void* obj,
+bool SerializableField<Id, C, T>::serializeJsonStream(stream::OutputStream& s, const void* obj,
                                                       unsigned int tabSize,
                                                       unsigned int currentIndent) const {
     const C& o = *static_cast<const C*>(obj);
@@ -419,14 +426,14 @@ bool SerializableField<Id, C, T>::serializeJsonStream(std::ostream& s, const voi
 }
 
 template<std::uint16_t Id, typename C, typename T>
-bool SerializableField<Id, C, T>::serializeBinary(binary::OutputStream& out,
+bool SerializableField<Id, C, T>::serializeBinary(stream::OutputStream& out,
                                                   const void* obj) const {
     const C& o = *static_cast<const C*>(obj);
     return binary::Serializer<T>::serialize(out, o.*member);
 }
 
 template<std::uint16_t Id, typename C, typename T>
-bool SerializableField<Id, C, T>::deserializeBinary(binary::InputStream& in, void* obj) const {
+bool SerializableField<Id, C, T>::deserializeBinary(stream::InputStream& in, void* obj) const {
     C& o = *static_cast<C*>(obj);
     return binary::Serializer<T>::deserialize(in, o.*member);
 }

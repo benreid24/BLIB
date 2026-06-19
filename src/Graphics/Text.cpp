@@ -8,7 +8,7 @@ namespace bl
 namespace gfx
 {
 Text::Text()
-: font(nullptr)
+: font()
 , wrapType(WrapType::None)
 , wordWrapWidth(-1.f)
 , boundsComputedWhileDirty(false) {
@@ -19,10 +19,10 @@ Text::~Text() {
     if (commitTask.isQueued()) { commitTask.cancel(); }
 }
 
-void Text::create(engine::World& world, const sf::VulkanFont& f, const sf::String& content,
+void Text::create(engine::World& world, as::TypedRef<asi::FontPayload> f, const sf::String& content,
                   unsigned int fontSize, const rc::Color& color, std::uint32_t style) {
     systems = &world.engine().systems();
-    font    = &f;
+    font    = f;
     queueCommit();
 
     Drawable::create(world);
@@ -51,8 +51,8 @@ txt::BasicText& Text::addSection(const sf::String& content, unsigned int fontSiz
     return t;
 }
 
-void Text::setFont(const sf::VulkanFont& f) {
-    font = &f;
+void Text::setFont(as::TypedRef<asi::FontPayload> f) {
+    font = f;
     queueCommit();
 }
 
@@ -72,7 +72,7 @@ void Text::computeBoundsIfNeeded() const {
         glm::vec2 cornerPos(0.f, 0.f);
         for (const auto& section : sections) {
             txt::BasicText& sec = const_cast<txt::BasicText&>(section);
-            sec.refreshVertices(*font, nullptr, cornerPos);
+            sec.refreshVertices(font, nullptr, cornerPos);
         }
     }
 }
@@ -87,9 +87,7 @@ void Text::commit() {
     // count required vertex amount
     std::uint32_t vertexCount = 0;
     glm::vec2 trash;
-    for (auto& section : sections) {
-        vertexCount += section.refreshVertices(*font, nullptr, trash);
-    }
+    for (auto& section : sections) { vertexCount += section.refreshVertices(font, nullptr, trash); }
 
     // create larger buffer if required
     if (component().vertices.vertexCount() < vertexCount) {
@@ -100,7 +98,7 @@ void Text::commit() {
     std::uint32_t vi = 0;
     glm::vec2 cornerPos(0.f, 0.f);
     for (auto& section : sections) {
-        vi += section.refreshVertices(*font, &component().vertices.vertices()[vi], cornerPos);
+        vi += section.refreshVertices(font, &component().vertices.vertices()[vi], cornerPos);
     }
 
     // upload vertices
@@ -121,7 +119,7 @@ void Text::commit() {
 
 glm::vec2 Text::findCharacterPosition(unsigned int section, unsigned int index) const {
     computeBoundsIfNeeded();
-    return sections[section].findCharacterPos(*font, index);
+    return sections[section].findCharacterPos(font, index);
 }
 
 void Text::wordWrap(float w) {
@@ -145,7 +143,7 @@ void Text::stopWordWrap() {
 void Text::computeWordWrap() {
     for (auto& section : sections) {
         section.wordWrappedContent = section.content;
-        section.cachedLineHeight   = section.computeLineSpacing(*font);
+        section.cachedLineHeight   = section.computeLineSpacing(font);
     }
     if (wrapType == WrapType::None || wordWrapWidth <= 0.f) { return; }
 
@@ -173,16 +171,15 @@ void Text::computeWordWrap() {
     const auto resetLine = [this, &maxLineHeight, &prevSpace, &lineOnNextSpace, EndIter](Iter it) {
         prevSpace                     = EndIter;
         lineOnNextSpace               = false;
-        it.getText().cachedLineHeight = it.getText().computeLineSpacing(*font);
+        it.getText().cachedLineHeight = it.getText().computeLineSpacing(font);
         maxLineHeight                 = it.getText().cachedLineHeight;
     };
 
     for (Iter it = Iter::begin(sections); it != EndIter; ++it) {
-        maxLineHeight = std::max(it.getText().computeLineSpacing(*font), maxLineHeight);
+        maxLineHeight = std::max(it.getText().computeLineSpacing(font), maxLineHeight);
         it.getText().cachedLineHeight = maxLineHeight;
-        glm::vec2 advance =
-            it.getText().advanceCharacterPos(*font, nextPos, it.getChar(), prevChar);
-        prevChar = it.getChar();
+        glm::vec2 advance = it.getText().advanceCharacterPos(font, nextPos, it.getChar(), prevChar);
+        prevChar          = it.getChar();
 
         if (it.getChar() == ' ') {
             if (lineOnNextSpace) {
@@ -266,10 +263,10 @@ Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& posit
         for (std::uint32_t i = 0; i < sections[si].wordWrappedContent.getSize(); ++i) {
             const std::uint32_t curChar = sections[si].wordWrappedContent[i];
             const glm::vec2 advance =
-                sections[si].advanceCharacterPos(*font, nextPos, curChar, prevChar);
+                sections[si].advanceCharacterPos(font, nextPos, curChar, prevChar);
             const sf::FloatRect bounds(
                 {nextPos.x, nextPos.y},
-                {advance.x - nextPos.x, sections[si].computeLineSpacing(*font)});
+                {advance.x - nextPos.x, sections[si].computeLineSpacing(font)});
 
             if (bounds.contains(localPos)) { return {si, i}; }
 
@@ -284,7 +281,7 @@ Text::CharSearchResult Text::findCharacterAtLocalPosition(const glm::vec2& posit
         case '\n':
             break;
         default:
-            nextPos.x += sections[si].computeWhitespaceWidth(*font);
+            nextPos.x += sections[si].computeWhitespaceWidth(font);
             break;
         }
     }

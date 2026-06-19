@@ -1,9 +1,8 @@
 #ifndef BLIB_SERIALIZATION_SERIALIZABLEOBJECT_HPP
 #define BLIB_SERIALIZATION_SERIALIZABLEOBJECT_HPP
 
-#include <BLIB/Serialization/Binary/InputStream.hpp>
-#include <BLIB/Serialization/Binary/OutputStream.hpp>
 #include <BLIB/Serialization/JSON/JSON.hpp>
+#include <BLIB/Streams.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <unordered_map>
 #include <vector>
@@ -17,6 +16,7 @@ class SerializableFieldBase;
 /**
  * @brief Base class for all serializable objects
  *
+ * @ingroup Serialization
  */
 struct SerializableObjectBase : private util::NonCopyable {
     /**
@@ -45,7 +45,7 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @param currentIndent Current level of indentation in spaces
      * @return True on success, false on error
      */
-    bool serializeJsonStream(std::ostream& stream, const void* object, unsigned int tabSize,
+    bool serializeJsonStream(stream::OutputStream& stream, const void* object, unsigned int tabSize,
                              unsigned int currentIndent = 0);
 
     /**
@@ -55,7 +55,7 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @param object The object to deserialize
      * @return True on success, false on error
      */
-    bool deserializeJsonStream(std::istream& stream, void* object);
+    bool deserializeJsonStream(stream::InputStream& stream, void* object);
 
     /**
      * @brief Serializes the given object to the given stream
@@ -64,7 +64,7 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @param object The object to serialize
      * @return True on success, false on error
      */
-    bool serializeBinary(binary::OutputStream& stream, const void* object) const;
+    bool serializeBinary(stream::OutputStream& stream, const void* object) const;
 
     /**
      * @brief Deserializes from the stream into the given object
@@ -73,7 +73,7 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @param object The object to read into
      * @return True on success, false on error
      */
-    bool deserializeBinary(binary::InputStream& stream, void* object) const;
+    bool deserializeBinary(stream::InputStream& stream, void* object) const;
 
     /**
      * @brief Serializes the given object to the given stream without writing any additional
@@ -84,7 +84,7 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @param object The object to serialize
      * @return True on success, false on error
      */
-    bool serializePackedBinary(binary::OutputStream& stream, const void* object) const;
+    bool serializePackedBinary(stream::OutputStream& stream, const void* object) const;
 
     /**
      * @brief Deserializes from the packed binary data into the given object
@@ -93,7 +93,7 @@ struct SerializableObjectBase : private util::NonCopyable {
      * @param object The object to read into
      * @return True on success, false on error
      */
-    bool deserializePackedBinary(binary::InputStream& stream, void* object) const;
+    bool deserializePackedBinary(stream::InputStream& stream, void* object) const;
 
     /**
      * @brief Returns the size of the object when serialized, in bytes
@@ -115,7 +115,7 @@ struct SerializableObjectBase : private util::NonCopyable {
 protected:
     /**
      * @brief Construct a new Serializable Object
-     * 
+     *
      * @param debugName The name to output in debug logs
      */
     SerializableObjectBase(const std::string& debugName);
@@ -138,7 +138,7 @@ private:
  * will be nested must provide a copy constructor that registers each contained field.
  *
  * @tparam T The type of object to serialize
- * @ingroup JSON
+ * @ingroup Serialization
  */
 template<typename T>
 struct SerializableObject : public SerializableObjectBase {

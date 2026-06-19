@@ -1,6 +1,10 @@
 #ifndef BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 #define BLIB_RENDER_RENDERER_TEXTUREPOOL_HPP
 
+#include <BLIB/Assets/Builtin/CubemapPayload.hpp>
+#include <BLIB/Assets/Builtin/ImagePayload.hpp>
+#include <BLIB/Assets/Builtin/TexturePayload.hpp>
+#include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Models/Texture.hpp>
 #include <BLIB/Render/Descriptors/SetWriteHelper.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
@@ -76,14 +80,26 @@ public:
 
     /**
      * @brief Potentially creates a new texture and returns it. The texture contents are loaded from
-     *        the given resource id. If a texture for the given resource id already exists then it
+     *        the given asset. If a texture for the given asset already exists then it
      *        is returned immediately.
      *
-     * @param filePath The resource id to load the contents from
+     * @param imageAsset The asset to load the contents from
      * @param options The texture options
      * @return A ref to the new or existing texture
      */
-    TextureRef getOrLoadTexture(const std::string& filePath,
+    TextureRef getOrLoadTexture(as::TypedRef<asi::ImagePayload> imageAsset,
+                                const vk::TextureOptions& options = {});
+
+    /**
+     * @brief Potentially creates a new texture and returns it. The texture contents are loaded from
+     *        the given asset. If a texture for the given asset already exists then it
+     *        is returned immediately.
+     *
+     * @param textureAsset The asset to load the contents from
+     * @param options The texture options
+     * @return A ref to the new or existing texture
+     */
+    TextureRef getOrLoadTexture(as::TypedRef<asi::TexturePayload> textureAsset,
                                 const vk::TextureOptions& options = {});
 
     /**
@@ -98,91 +114,14 @@ public:
     TextureRef getOrLoadTexture(const sf::Image& src, const vk::TextureOptions& options = {});
 
     /**
-     * @brief Gets or creates a texture from the given model texture
-     *
-     * @param texture The source model texture
-     * @param fallback The fallback texture to use if loading fails
-     * @param options The texture options
-     * @return A ref to the new or existing texture
-     */
-    TextureRef getOrCreateTexture(const mdl::Texture& texture, TextureRef fallback = {},
-                                  const vk::TextureOptions& options = {});
-
-    /**
      * @brief Creates a cubemap texture from the given faces
      *
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
-     * @param format The format of the texture
-     * @param sampler The sampler to use
-     * @return A ref to the new cubemap texture
-     */
-    TextureRef createCubemap(
-        const std::string& right, const std::string& left, const std::string& top,
-        const std::string& bottom, const std::string& back, const std::string& front,
-        VkFormat format                  = vk::CommonTextureFormats::SRGBA32Bit,
-        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
-
-    /**
-     * @brief Creates a cubemap texture from the given faces
-     *
-     * @param right The right face image
-     * @param left The left face image
-     * @param top The top face image
-     * @param bottom The bottom face image
-     * @param back The back face image
-     * @param front The front face image
-     * @param format The format of the texture
-     * @param sampler The sampler to use
-     * @return A ref to the new cubemap texture
-     */
-    TextureRef createCubemap(
-        resource::Ref<sf::Image> right, resource::Ref<sf::Image> left, resource::Ref<sf::Image> top,
-        resource::Ref<sf::Image> bottom, resource::Ref<sf::Image> back,
-        resource::Ref<sf::Image> front, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
-        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
-
-    /**
-     * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
-     *        VK_TEXTURE_CUBE_MAP_{face} order in a row
-     *
-     * @param packed The packed image to use
-     * @param format The format of the texture
-     * @param sampler The sampler to use
-     * @return A ref to the new cubemap texture
-     */
-    TextureRef createCubemap(
-        resource::Ref<sf::Image> packed, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
-        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
-
-    /**
-     * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
-     *        VK_TEXTURE_CUBE_MAP_{face} order in a row
-     *
-     * @param packed The packed image to use
-     * @param format The format of the texture
+     * @param cubemap The cubemap asset to use
      * @param sampler The sampler to use
      * @return A ref to the new cubemap texture
      */
     TextureRef getOrCreateCubemap(
-        const std::string& packed, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
-        vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
-
-    /**
-     * @brief Creates a cubemap texture from the given packed texture. Should be packed according to
-     *        VK_TEXTURE_CUBE_MAP_{face} order in a row
-     *
-     * @param packed The packed image to use. Will be copied to local storage
-     * @param format The format of the texture
-     * @param sampler The sampler to use
-     * @return A ref to the new cubemap texture
-     */
-    TextureRef createCubemap(
-        const sf::Image& packed, VkFormat format = vk::CommonTextureFormats::SRGBA32Bit,
+        as::TypedRef<asi::CubemapPayload> cubemap,
         vk::SamplerOptions::Type sampler = vk::SamplerOptions::Type::FilteredEdgeClamped);
 
     /**
@@ -235,12 +174,12 @@ private:
     util::IdAllocator<std::uint32_t> cubemapFreeSlots;
 
     // indices
-    std::unordered_map<std::string, std::uint32_t> fileMap;
+    std::unordered_map<util::UUID, std::uint32_t> assetMap;
     std::unordered_map<const sf::Image*, std::uint32_t> imageMap;
-    std::vector<const std::string*> reverseFileMap;
+    std::unordered_map<util::UUID, std::uint32_t> cubemapAssetMap;
+    std::vector<util::UUID> reverseAssetMap;
     std::vector<const sf::Image*> reverseImageMap;
-    std::unordered_map<std::string, std::uint32_t> cubemapFileMap;
-    std::vector<const std::string*> cubeMapReverseFileMap;
+    std::vector<util::UUID> reverseCubemapAssetMap;
 
     // dynamics
     std::vector<vk::Texture*> toRelease;
@@ -263,7 +202,7 @@ private:
     void updateTexture(vk::Texture* texture);
     void resetTexture(vk::Texture* texture);
     void prepareTextureUpdate(vk::Texture* texture, const sf::Image& src);
-    void prepareTextureUpdate(vk::Texture* texture, const std::string& path);
+    void prepareTextureUpdate(vk::Texture* texture, as::TypedRef<asi::ImagePayload> asset);
 
     friend class TextureRef;
     friend class bl::rc::Renderer;

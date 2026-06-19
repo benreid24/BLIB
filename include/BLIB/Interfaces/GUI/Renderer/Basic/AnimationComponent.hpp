@@ -82,7 +82,7 @@ protected:
     virtual void handleMove() override;
 
 private:
-    resource::Ref<gfx::a2d::AnimationData> source;
+    as::TypedRef<asi::Animation2DSetPayload> source;
     gfx::Animation2D anim;
     engine::Engine* enginePtr;
     rc::Overlay* currentOverlay;

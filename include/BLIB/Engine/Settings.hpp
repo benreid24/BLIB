@@ -6,6 +6,7 @@
 #include <SFML/Window.hpp>
 #include <optional>
 #include <string>
+#include <string_view>
 
 namespace bl
 {
@@ -18,16 +19,18 @@ namespace engine
  */
 class Settings {
 public:
-    static constexpr float DefaultUpdateInterval       = 1.f / 120.f;
-    static constexpr float DefaultMaximumFramerate     = 0.f;
-    static constexpr bool DefaultAllowVariableTimestep = true;
-    static constexpr bool DefaultCreateWindow          = true;
+    static constexpr std::string_view DefaultAssetsPath = "Assets";
+    static constexpr float DefaultUpdateInterval        = 1.f / 120.f;
+    static constexpr float DefaultMaximumFramerate      = 0.f;
+    static constexpr bool DefaultAllowVariableTimestep  = true;
+    static constexpr bool DefaultCreateWindow           = true;
 #ifdef BLIB_DEBUG
     static constexpr bool DefaultLogFps = true;
 #else
     static constexpr bool DefaultLogFps = false;
 #endif
 
+    static constexpr const char* AssetsPathKey       = "blib.engine.assets_path";
     static constexpr const char* UpdatePeriodKey     = "blib.engine.update_period";
     static constexpr const char* MaxFpsKey           = "blib.engine.max_fps";
     static constexpr const char* VariableTimestepKey = "blib.engine.variable_timestep";
@@ -84,6 +87,14 @@ public:
     Settings& withRenderer(const rc::CreationSettings& settings);
 
     /**
+     * @brief Sets the root path of where engine assets are stored
+     *
+     * @param path The root asset path
+     * @return A reference to this object
+     */
+    Settings& withAssetsPath(std::string_view path);
+
+    /**
      * @brief Loads the settings from the global engine config. See Settings.cpp for keys
      *
      * @return Settings& A reference to this object
@@ -130,12 +141,18 @@ public:
      */
     bool logFps() const;
 
+    /**
+     * @brief Returns the path to where engine assets are stored
+     */
+    std::string_view assetsPath() const;
+
 private:
     float updateTime;
     float maxFps;
     bool allowVariableInterval;
     bool loggingFps;
     std::optional<rc::CreationSettings> rendererSettings;
+    std::string_view assetsDir;
 };
 
 } // namespace engine

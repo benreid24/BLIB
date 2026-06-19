@@ -1,7 +1,6 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Render.hpp>
-#include <BLIB/Resources.hpp>
 #include <iostream>
 
 using namespace bl::menu;
@@ -18,8 +17,10 @@ public:
     virtual void activate(bl::engine::Engine& engine) override {
         auto world = engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::Overlay>>();
 
-        font.loadFromFile("font.ttf");
-        auto texture = engine.renderer().texturePool().getOrLoadTexture("title.png");
+        font = engine.assets().getAssetFromSourcePath<bl::asi::FontPayload>("font.ttf");
+        auto textureSrc =
+            engine.assets().getAssetFromSourcePath<bl::asi::ImagePayload>("title.png");
+        auto texture = engine.renderer().texturePool().getOrLoadTexture(textureSrc);
 
         ArrowSelector::Ptr selector = ArrowSelector::create(12, sf::Color::White);
         menu.create(*world, engine.getPlayer(), selector);
@@ -80,7 +81,7 @@ public:
     }
 
 private:
-    sf::VulkanFont font;
+    bl::as::TypedRef<bl::asi::FontPayload> font;
     Menu menu;
     KeyboardDriver keyboardEventGenerator;
     MouseDriver mouseEventGenerator;

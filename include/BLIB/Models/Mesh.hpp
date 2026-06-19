@@ -2,6 +2,7 @@
 #define BLIB_MODELS_MESH_HPP
 
 #include <BLIB/Models/Vertex.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/mesh.h>
 #include <cstdint>
 #include <vector>
@@ -66,7 +67,7 @@ public:
     /**
      * @brief Returns the material index of the mesh
      */
-    unsigned int getMaterialIndex() const { return materialIndex; }
+    std::uint32_t getMaterialIndex() const { return materialIndex; }
 
     /**
      * @brief Flips the V texture coordinates of all vertices in the mesh
@@ -78,16 +79,49 @@ public:
      */
     bool getIsSkinned() const { return isSkinned; }
 
+    /**
+     * @brief Initializes the mesh with the given data
+     *
+     * @param vertices The vertices of the mesh
+     * @param indices The indices of the mesh
+     * @param matIdx The material index for the mesh
+     * @param skinned Whether the mesh is skinned
+     */
+    void init(const std::vector<Vertex>& vertices, const std::vector<std::uint32_t>& indices,
+              std::uint32_t matIdx, bool skinned = false);
+
 private:
     std::vector<Vertex> vertices;
     std::vector<std::uint32_t> indices;
-    unsigned int materialIndex;
+    std::uint32_t materialIndex;
     bool isSkinned;
 
     void transformVertices(const std::vector<Vertex>& src, const glm::mat4& transform);
+
+    friend struct serial::SerializableObject<Mesh>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::Mesh> : public SerializableObjectBase {
+    SerializableField<1, mdl::Mesh, std::vector<mdl::Vertex>> vertices;
+    SerializableField<2, mdl::Mesh, std::vector<std::uint32_t>> indices;
+    SerializableField<3, mdl::Mesh, std::uint32_t> materialIndex;
+    SerializableField<4, mdl::Mesh, bool> isSkinned;
+
+    SerializableObject()
+    : SerializableObjectBase("Mesh")
+    , vertices("vertices", *this, &mdl::Mesh::vertices, SerializableFieldBase::Required{})
+    , indices("indices", *this, &mdl::Mesh::indices, SerializableFieldBase::Required{})
+    , materialIndex("materialIndex", *this, &mdl::Mesh::materialIndex,
+                    SerializableFieldBase::Required{})
+    , isSkinned("isSkinned", *this, &mdl::Mesh::isSkinned, SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

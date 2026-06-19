@@ -2,6 +2,8 @@
 #define BLIB_MODELS_MATERIALSET_HPP
 
 #include <BLIB/Models/Material.hpp>
+#include <BLIB/Models/Visitor.hpp>
+#include <BLIB/Serialization.hpp>
 #include <assimp/material.h>
 #include <assimp/scene.h>
 #include <vector>
@@ -43,11 +45,34 @@ public:
      */
     unsigned int numMaterials() const { return materials.size(); }
 
+    /**
+     * @brief Visits all dependencies of the model with the given visitor
+     *
+     * @param visitor The visitor to visit dependencies with
+     */
+    void visitDependencies(const DependencyVisitor& visitor);
+
 private:
     std::vector<Material> materials;
+
+    friend struct serial::SerializableObject<MaterialSet>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::MaterialSet> : public SerializableObjectBase {
+    SerializableField<1, mdl::MaterialSet, std::vector<mdl::Material>> materials;
+
+    SerializableObject()
+    : SerializableObjectBase("MaterialSet")
+    , materials("materials", *this, &mdl::MaterialSet::materials,
+                SerializableFieldBase::Required{}) {}
+};
+} // namespace serial
+
 } // namespace bl
 
 #endif

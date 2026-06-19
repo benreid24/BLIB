@@ -1,8 +1,10 @@
 #include <BLIB/Render/Resources/ShaderModuleCache.hpp>
 
+#include <BLIB/Assets/Builtin/FilePayload.hpp>
+#include <BLIB/Assets/Repository.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Config/ShaderIds.hpp>
-#include <BLIB/Resources.hpp>
 
 #define STRINGIFY_HELPER(X) #X
 #define STRINGIFY(x) STRINGIFY_HELPER(x)
@@ -20,6 +22,7 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
 
     char* data      = nullptr;
     std::size_t len = 0;
+    as::TypedRef<asi::FilePayload> asset;
 
     if (path[1] == '\0') {
         switch (path[0]) {
@@ -129,10 +132,12 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
         }
     }
     else {
-        if (!resource::FileSystem::getData(path, &data, len) || len < 4) {
-            BL_LOG_ERROR << "Failed to load shader: " << path;
-            throw std::runtime_error("Failed to load shader");
+        asset = repo->getAssetFromSourcePath<asi::FilePayload>(path);
+        if (!asset.isValid() || asset->getData().size() < 4) {
+            throw std::runtime_error("Failed to load shader: " + path);
         }
+        data = asset->getData().data();
+        len  = asset->getData().size();
     }
 
     const std::uint32_t* u32data = reinterpret_cast<const std::uint32_t*>(data);
@@ -153,7 +158,10 @@ VkShaderModule ShaderModuleCache::loadShader(const std::string& path) {
     return shaderModule;
 }
 
-void ShaderModuleCache::init(VkDevice d) { device = d; }
+void ShaderModuleCache::init(as::Repository& r, VkDevice d) {
+    repo   = &r;
+    device = d;
+}
 
 void ShaderModuleCache::cleanup() {
     for (auto& pair : cache) { vkDestroyShaderModule(device, pair.second, nullptr); }

@@ -185,13 +185,13 @@ template<>
 struct Serializer<rc::Color> {
     using ChannelSerial = Serializer<std::uint8_t>;
 
-    static bool serialize(OutputStream& output, const rc::Color& v) {
+    static bool serialize(stream::OutputStream& output, const rc::Color& v) {
         const sf::Color col = v.toSfColor();
         return ChannelSerial::serialize(output, col.r) && ChannelSerial::serialize(output, col.g) &&
                ChannelSerial::serialize(output, col.b) && ChannelSerial::serialize(output, col.a);
     }
 
-    static bool deserialize(InputStream& input, rc::Color& v) {
+    static bool deserialize(stream::InputStream& input, rc::Color& v) {
         std::uint8_t r, g, b, a;
         if (!ChannelSerial::deserialize(input, r) || !ChannelSerial::deserialize(input, g) ||
             !ChannelSerial::deserialize(input, b) || !ChannelSerial::deserialize(input, a)) {
@@ -229,15 +229,15 @@ struct Serializer<rc::Color> {
         return priv::Serializer<rc::Color>::deserializeFrom(val, key, result, &deserialize);
     }
 
-    static bool deserializeStream(std::istream& stream, rc::Color& result) {
+    static bool deserializeStream(stream::InputStream& stream, rc::Color& result) {
         json::Loader loader(stream);
         Value val(0);
         if (!loader.loadValue(val)) return false;
         return deserialize(result, val);
     }
 
-    static bool serializeStream(std::ostream& stream, const rc::Color& value, unsigned int tab,
-                                unsigned int indent) {
+    static bool serializeStream(stream::OutputStream& stream, const rc::Color& value,
+                                unsigned int tab, unsigned int indent) {
         return VecSerial::serializeStream(stream, value.toVec4(), tab, indent);
     }
 };

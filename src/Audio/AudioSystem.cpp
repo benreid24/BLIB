@@ -1,7 +1,6 @@
 #include <BLIB/Audio/AudioSystem.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <SFML/Audio.hpp>
 #include <atomic>
@@ -18,15 +17,12 @@ namespace audio
 {
 namespace
 {
-using SoundHandle    = resource::Ref<sf::SoundBuffer>;
-using PlaylistHandle = resource::Ref<Playlist>;
-
 struct Sound {
-    SoundHandle buffer;
+    as::TypedRef<asi::SoundPayload> buffer;
     sf::Sound sound;
     float lastInteractTime;
 
-    Sound(SoundHandle&& buffer);
+    Sound(as::TypedRef<asi::SoundPayload>&& buffer);
 };
 
 struct SoundFader {
@@ -39,6 +35,7 @@ struct SoundFader {
 };
 
 struct PlaylistFader {
+    std::optional<Playlist> localPlaylist;
     Playlist* playlist;
     float fvel;
 
@@ -54,21 +51,22 @@ public:
 
     std::unordered_map<AudioSystem::Handle, Sound>::iterator validateAndLoadSound(
         AudioSystem::Handle handle);
-    PlaylistHandle validateAndLoadPlaylist(AudioSystem::Handle handle);
+    as::TypedRef<asi::PlaylistPayload> validateAndLoadPlaylist(AudioSystem::Handle handle);
 
     sf::Clock timer;
     float unloadTimeout = 120.f;
 
-    std::unordered_map<std::string, AudioSystem::Handle> soundHandles;
-    std::unordered_map<AudioSystem::Handle, std::string> soundSources;
+    std::unordered_map<util::UUID, AudioSystem::Handle> soundHandles;
+    std::unordered_map<AudioSystem::Handle, util::UUID> soundSources;
     std::unordered_map<AudioSystem::Handle, Sound> sounds;
     std::list<SoundFader> fadingSounds;
     sf::Clock soundTimer;
     std::shared_mutex soundMutex;
 
-    std::unordered_map<std::string, AudioSystem::Handle> playlistHandles;
-    std::unordered_map<AudioSystem::Handle, std::string> playlistSources;
-    std::vector<PlaylistHandle> playlistStack;
+    std::unordered_map<util::UUID, AudioSystem::Handle> playlistHandles;
+    std::unordered_map<AudioSystem::Handle, util::UUID> playlistSources;
+    std::unordered_map<AudioSystem::Handle, as::TypedRef<asi::PlaylistPayload>> playlists;
+    std::list<Playlist> playlistStack;
     sf::Clock fadeTimer;
     PlaylistFader fadeIn;
     PlaylistFader fadeOut;
@@ -104,7 +102,7 @@ struct SystemSettings {
 
 std::atomic<bool> Runner::started = false;
 
-inline AudioSystem::Handle makeHandle() {
+AudioSystem::Handle makeHandle() {
     auto& s = Runner::get().soundSources;
     AudioSystem::Handle h;
     do {
@@ -117,29 +115,31 @@ inline AudioSystem::Handle makeHandle() {
 
 void AudioSystem::setUnloadTimeout(float t) { Runner::get().unloadTimeout = t; }
 
-AudioSystem::Handle AudioSystem::getOrLoadSound(const std::string& path) {
+AudioSystem::Handle AudioSystem::getOrLoadSound(as::TypedRef<asi::SoundPayload> sound) {
+    if (!sound) {
+        BL_LOG_ERROR << "Attempted to load invalid sound";
+        return InvalidHandle;
+    }
+    if (sound->getAsset().getState() != as::State::Loaded) {
+        BL_LOG_INFO << "Sound asset '" << sound.getUUID() << "' is not loaded, attempting to load";
+        if (!sound->getAsset().load()) {
+            BL_LOG_ERROR << "Failed to load sound asset";
+            return InvalidHandle;
+        }
+    }
+
     std::unique_lock lock(Runner::get().soundMutex);
     auto& r = Runner::get();
 
     // Create or find handle
     Handle handle = AudioSystem::InvalidHandle;
-    auto it       = r.soundHandles.find(path);
+    auto it       = r.soundHandles.find(sound.getUUID());
     if (it != r.soundHandles.end()) { handle = it->second; }
     else {
         handle = makeHandle();
-        r.soundHandles.emplace(path, handle);
-        r.soundSources.emplace(handle, path);
-    }
-
-    // Ensure sound loaded
-    auto sit = r.sounds.find(handle);
-    if (sit == r.sounds.end()) {
-        auto buffer = resource::ResourceManager<sf::SoundBuffer>::load(path);
-        if (buffer->getSampleCount() == 0) {
-            BL_LOG_ERROR << "Failed to load sound: " << path;
-            return InvalidHandle;
-        }
-        sit = r.sounds.try_emplace(handle, std::move(buffer)).first;
+        r.soundHandles.try_emplace(sound.getUUID(), handle);
+        r.soundSources.try_emplace(handle, sound.getUUID());
+        r.sounds.try_emplace(handle, std::move(sound));
     }
 
     return handle;
@@ -212,90 +212,108 @@ void AudioSystem::stopAllSounds() {
     }
 }
 
-AudioSystem::Handle AudioSystem::getOrLoadPlaylist(const std::string& path) {
-    std::unique_lock lock(Runner::get().playlistMutex);
+AudioSystem::Handle AudioSystem::getOrLoadPlaylist(as::TypedRef<asi::PlaylistPayload> asset) {
+    if (!asset) {
+        BL_LOG_ERROR << "Attempted to load invalid playlist";
+        return InvalidHandle;
+    }
+    if (asset->getAsset().getState() != as::State::Loaded) {
+        BL_LOG_INFO << "Playlist asset '" << asset.getUUID()
+                    << "' is not loaded. Attempting to load";
+        if (!asset->getAsset().load()) {
+            BL_LOG_ERROR << "Failed to load playlist asset";
+            return InvalidHandle;
+        }
+    }
+    if (asset->getSongCount() == 0) {
+        BL_LOG_ERROR << "Playlist asset '" << asset.getUUID() << "' is empty";
+        return InvalidHandle;
+    }
 
-    const auto it = Runner::get().playlistHandles.find(path);
-    if (it != Runner::get().playlistHandles.end()) return it->second;
+    auto& r = Runner::get();
+    std::unique_lock lock(r.playlistMutex);
 
-    resource::Ref<Playlist> res = resource::ResourceManager<Playlist>::load(path);
-    if (res->getSongList().empty()) return AudioSystem::InvalidHandle;
+    const auto it = r.playlistHandles.find(asset.getUUID());
+    if (it != r.playlistHandles.end()) return it->second;
 
     const Handle handle = makeHandle();
-    Runner::get().playlistHandles.emplace(path, handle);
-    Runner::get().playlistSources.emplace(handle, path);
+    r.playlistHandles.try_emplace(asset.getUUID(), handle);
+    r.playlistSources.try_emplace(handle, asset.getUUID());
+    r.playlists.try_emplace(handle, std::move(asset));
     return handle;
 }
 
 bool AudioSystem::pushPlaylist(Handle playlist, float inTime, float outTime) {
-    std::unique_lock lock(Runner::get().playlistMutex);
+    auto& r = Runner::get();
+    std::unique_lock lock(r.playlistMutex);
 
-    PlaylistHandle handle = Runner::get().validateAndLoadPlaylist(playlist);
+    auto handle = r.validateAndLoadPlaylist(playlist);
     if (!handle) return false;
 
-    initiateCrossfade(
-        handle.get(),
-        Runner::get().playlistStack.empty() ? nullptr : Runner::get().playlistStack.back().get(),
-        inTime,
-        outTime);
-    Runner::get().playlistStack.emplace_back(handle);
+    auto* current = r.playlistStack.empty() ? nullptr : &r.playlistStack.back();
+    auto& next    = r.playlistStack.emplace_back(handle);
+    initiateCrossfade(&next, current, inTime, outTime);
     return true;
 }
 
 bool AudioSystem::replacePlaylist(Handle playlist, float inTime, float outTime) {
-    std::unique_lock lock(Runner::get().playlistMutex);
+    auto& r = Runner::get();
+    std::unique_lock lock(r.playlistMutex);
 
-    PlaylistHandle handle = Runner::get().validateAndLoadPlaylist(playlist);
+    auto handle = r.validateAndLoadPlaylist(playlist);
     if (!handle) return false;
 
     Playlist* out = nullptr;
-    if (!Runner::get().playlistStack.empty()) {
-        out = Runner::get().playlistStack.back().get();
-        // NOTE: If crossfade length exceeds resource timeout this will cause a crash
-        Runner::get().playlistStack.pop_back();
+    if (!r.playlistStack.empty()) {
+        r.fadeOut.localPlaylist.emplace(r.playlistStack.back());
+        out = &r.fadeOut.localPlaylist.value();
+        r.playlistStack.pop_back();
     }
-    initiateCrossfade(handle.get(), out, inTime, outTime);
-    Runner::get().playlistStack.emplace_back(handle);
+    Playlist& next = r.playlistStack.emplace_back(handle);
+    initiateCrossfade(&next, out, inTime, outTime);
     return true;
 }
 
 void AudioSystem::popPlaylist(float inTime, float outTime) {
-    std::unique_lock lock(Runner::get().playlistMutex);
-    if (Runner::get().playlistStack.empty()) return;
+    auto& r = Runner::get();
+    std::unique_lock lock(r.playlistMutex);
+    if (r.playlistStack.empty()) return;
 
-    Playlist* in  = Runner::get().playlistStack.size() >= 2 ?
-                        Runner::get().playlistStack[Runner::get().playlistStack.size() - 2].get() :
-                        nullptr;
-    Playlist* out = Runner::get().playlistStack.back().get();
-    // NOTE: If crossfade length exceeds resource timeout this will cause a crash
-    Runner::get().playlistStack.pop_back();
+    Playlist* in = r.playlistStack.size() >= 2 ? &*(++r.playlistStack.rbegin()) : nullptr;
+    r.fadeOut.localPlaylist.emplace(r.playlistStack.back());
+    Playlist* out = &r.fadeOut.localPlaylist.value();
+    r.playlistStack.pop_back();
     initiateCrossfade(in, out, inTime, outTime);
 }
 
 bool AudioSystem::replaceAllPlaylists(Handle playlist, float inTime, float outTime) {
-    std::unique_lock lock(Runner::get().playlistMutex);
+    auto& r = Runner::get();
+    std::unique_lock lock(r.playlistMutex);
 
-    PlaylistHandle handle = Runner::get().validateAndLoadPlaylist(playlist);
+    auto handle = r.validateAndLoadPlaylist(playlist);
     if (!handle) return false;
 
-    initiateCrossfade(
-        handle.get(),
-        Runner::get().playlistStack.empty() ? nullptr : Runner::get().playlistStack.back().get(),
-        inTime,
-        outTime);
-    // NOTE: If crossfade length exceeds resource timeout this will cause a crash
-    Runner::get().playlistStack.clear();
-    Runner::get().playlistStack.emplace_back(handle);
+    Playlist* out = nullptr;
+    if (!r.playlistStack.empty()) {
+        r.fadeOut.localPlaylist.emplace(r.playlistStack.back());
+        out = &r.fadeOut.localPlaylist.value();
+    }
+
+    r.playlistStack.clear();
+    auto& next = r.playlistStack.emplace_back(handle);
+
+    initiateCrossfade(&next, out, inTime, outTime);
     return true;
 }
 
 void AudioSystem::stopAllPlaylists(float outTime) {
-    std::unique_lock lock(Runner::get().playlistMutex);
+    auto& r = Runner::get();
+    std::unique_lock lock(r.playlistMutex);
 
-    if (!Runner::get().playlistStack.empty()) {
-        initiateCrossfade(nullptr, Runner::get().playlistStack.back().get(), 0.f, outTime);
-        // NOTE: If crossfade length exceeds resource timeout this will cause a crash
-        Runner::get().playlistStack.clear();
+    if (!r.playlistStack.empty()) {
+        r.fadeOut.localPlaylist.emplace(r.playlistStack.back());
+        Playlist* out = &r.fadeOut.localPlaylist.value();
+        initiateCrossfade(nullptr, out, 0.f, outTime);
     }
 }
 
@@ -326,55 +344,56 @@ void AudioSystem::saveToConfig() {
 }
 
 void AudioSystem::pause() {
-    std::unique_lock lock(Runner::get().pauseMutex);
-    if (Runner::get().paused) return;
-    Runner::get().paused = true;
+    auto& r = Runner::get();
+    std::unique_lock lock(r.pauseMutex);
+    if (r.paused) return;
+    r.paused = true;
 
-    for (auto& sound : Runner::get().sounds) {
+    for (auto& sound : r.sounds) {
         if (sound.second.sound.getStatus() == sf::Sound::Status::Playing) {
             sound.second.sound.pause();
         }
     }
-    if (!Runner::get().playlistStack.empty() && Runner::get().playlistStack.front()->isPlaying()) {
-        Runner::get().playlistStack.front()->pause();
+    if (!r.playlistStack.empty() && r.playlistStack.back().isPlaying()) {
+        r.playlistStack.back().pause();
     }
-    if (Runner::get().fadeIn.playlist && Runner::get().fadeIn.playlist->isPlaying()) {
-        Runner::get().fadeIn.playlist->pause();
-    }
-    if (Runner::get().fadeOut.playlist && Runner::get().fadeOut.playlist->isPlaying()) {
-        Runner::get().fadeOut.playlist->pause();
-    }
+    if (r.fadeIn.playlist && r.fadeIn.playlist->isPlaying()) { r.fadeIn.playlist->pause(); }
+    if (r.fadeOut.playlist && r.fadeOut.playlist->isPlaying()) { r.fadeOut.playlist->pause(); }
 }
 
 void AudioSystem::resume() {
-    std::unique_lock lock(Runner::get().pauseMutex);
-    if (!Runner::get().paused) return;
-    Runner::get().paused = false;
+    auto& r = Runner::get();
+    std::unique_lock lock(r.pauseMutex);
+    if (!r.paused) return;
+    r.paused = false;
 
-    for (auto& sound : Runner::get().sounds) {
+    for (auto& sound : r.sounds) {
         if (sound.second.sound.getStatus() == sf::Sound::Status::Paused) {
             sound.second.sound.play();
         }
     }
-    if (!Runner::get().playlistStack.empty()) { Runner::get().playlistStack.front()->play(); }
-    if (Runner::get().fadeIn.playlist) { Runner::get().fadeIn.playlist->play(); }
-    if (Runner::get().fadeOut.playlist) { Runner::get().fadeOut.playlist->play(); }
+    if (!r.playlistStack.empty()) { r.playlistStack.back().play(); }
+    if (r.fadeIn.playlist) { r.fadeIn.playlist->play(); }
+    if (r.fadeOut.playlist) { r.fadeOut.playlist->play(); }
 
-    Runner::get().pauseCond.notify_all();
+    r.pauseCond.notify_all();
 }
 
 void AudioSystem::stop() {
+    auto& r = Runner::get();
     {
-        std::unique_lock lock(Runner::get().soundMutex);
-        for (auto& sound : Runner::get().sounds) { sound.second.sound.stop(); }
+        std::unique_lock lock(r.soundMutex);
+        for (auto& sound : r.sounds) { sound.second.sound.stop(); }
     }
 
     {
-        std::unique_lock lock(Runner::get().playlistMutex);
-        for (auto p : Runner::get().playlistStack) { p->stop(); }
-        Runner::get().playlistStack.clear();
-        Runner::get().fadeIn.playlist  = nullptr;
-        Runner::get().fadeOut.playlist = nullptr;
+        std::unique_lock lock(r.playlistMutex);
+        for (auto p : r.playlistStack) { p.stop(); }
+        r.playlistStack.clear();
+        r.fadeIn.localPlaylist.reset();
+        r.fadeOut.localPlaylist.reset();
+        r.fadeIn.playlist  = nullptr;
+        r.fadeOut.playlist = nullptr;
     }
 }
 
@@ -393,9 +412,9 @@ void AudioSystem::shutdown(bool fade) {
 
 namespace
 {
-Sound::Sound(SoundHandle&& buffer)
+Sound::Sound(as::TypedRef<asi::SoundPayload>&& buffer)
 : buffer(std::move(buffer))
-, sound(*this->buffer)
+, sound(this->buffer->get())
 , lastInteractTime(Runner::get().timer.getElapsedTime().asSeconds()) {}
 
 Runner::Runner()
@@ -445,7 +464,8 @@ void Runner::run() {
                     auto it = sounds.find(j->second);
                     if (it != sounds.end()) {
                         if (timer.getElapsedTime().asSeconds() - it->second.lastInteractTime >=
-                                unloadTimeout + it->second.buffer->getDuration().asSeconds() &&
+                                unloadTimeout +
+                                    it->second.buffer->get().getDuration().asSeconds() &&
                             it->second.sound.getStatus() != sf::Sound::Status::Playing) {
                             sounds.erase(it);
                             soundHandles.erase(j);
@@ -464,8 +484,8 @@ void Runner::run() {
             {
                 std::unique_lock plock(playlistMutex);
 
-                if (!playlistStack.empty() && playlistStack.front()->isPlaying()) {
-                    playlistStack.front()->update();
+                if (!playlistStack.empty() && playlistStack.front().isPlaying()) {
+                    playlistStack.front().update();
                 }
 
                 fadeIn.update();
@@ -482,26 +502,13 @@ void Runner::run() {
 
 std::unordered_map<AudioSystem::Handle, Sound>::iterator Runner::validateAndLoadSound(
     AudioSystem::Handle sound) {
-    // load sound if we need to
-    auto it = sounds.find(sound);
-    if (it == sounds.end()) {
-        auto hit = soundSources.find(sound);
-        if (hit == soundSources.end()) return sounds.end();
-
-        auto buffer = resource::ResourceManager<sf::SoundBuffer>::load(hit->second);
-        if (buffer->getSampleCount() == 0) { return sounds.end(); }
-        it = sounds.try_emplace(sound, std::move(buffer)).first;
-    }
-    return it;
+    return sounds.find(sound);
 }
 
-PlaylistHandle Runner::validateAndLoadPlaylist(AudioSystem::Handle handle) {
-    const auto sit = playlistSources.find(handle);
-    if (sit == playlistSources.end()) return {};
-
-    PlaylistHandle res = resource::ResourceManager<Playlist>::load(sit->second);
-    if (res->getSongList().empty()) return {};
-    return res;
+as::TypedRef<asi::PlaylistPayload> Runner::validateAndLoadPlaylist(AudioSystem::Handle handle) {
+    const auto sit = playlists.find(handle);
+    if (sit == playlists.end()) return {};
+    return sit->second;
 }
 
 void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime) {
@@ -539,10 +546,12 @@ void PlaylistFader::update() {
         if (vol <= 0.f) {
             playlist->setVolume(0.f);
             playlist->pause();
+            localPlaylist.reset();
             playlist = nullptr;
         }
         else if (vol >= 100.f) {
             playlist->setVolume(100.f);
+            localPlaylist.reset();
             playlist = nullptr;
         }
         else { playlist->setVolume(vol); }

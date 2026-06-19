@@ -3,15 +3,20 @@
 
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Scripts/Value.hpp>
-#include <BLIB/Serialization/Binary/InputStream.hpp>
-#include <BLIB/Serialization/Binary/OutputStream.hpp>
+#include <BLIB/Serialization/Binary/Detail/InputStreamWrapper.hpp>
+#include <BLIB/Serialization/Binary/Detail/OutputStreamWrapper.hpp>
 #include <BLIB/Serialization/SerializableObject.hpp>
+#include <BLIB/Streams.hpp>
 
+#include <SFML/Graphics/Image.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <SFML/System/Vector3.hpp>
 #include <array>
+#include <cstring>
 #include <glm/glm.hpp>
+#include <optional>
+#include <string_view>
 #include <type_traits>
 #include <unordered_map>
 #include <unordered_set>
@@ -41,7 +46,7 @@ struct Serializer {
      * @param value The value to write
      * @return True if written, false on error
      */
-    static bool serialize(OutputStream& output, const T& value);
+    static bool serialize(stream::OutputStream& output, const T& value);
 
     /**
      * @brief Reads the value from input into result
@@ -50,7 +55,7 @@ struct Serializer {
      * @param result The object to read into
      * @return True if read, false on error
      */
-    static bool deserialize(InputStream& input, T& result);
+    static bool deserialize(stream::InputStream& input, T& result);
 
     /**
      * @brief Returns the size of the value when serialized
@@ -65,19 +70,19 @@ struct Serializer {
 
 template<typename T>
 struct Serializer<T, false> {
-    static bool serialize(OutputStream& output, const T& value) {
+    static bool serialize(stream::OutputStream& output, const T& value) {
         return SerializableObjectBase::get<T>().serializeBinary(output, &value);
     }
 
-    static bool deserialize(InputStream& input, T& result) {
+    static bool deserialize(stream::InputStream& input, T& result) {
         return SerializableObjectBase::get<T>().deserializeBinary(input, &result);
     }
 
-    static bool serializePacked(OutputStream& output, const T& value) {
+    static bool serializePacked(stream::OutputStream& output, const T& value) {
         return SerializableObjectBase::get<T>().serializePackedBinary(output, &value);
     }
 
-    static bool deserializePacked(InputStream& input, T& result) {
+    static bool deserializePacked(stream::InputStream& input, T& result) {
         return SerializableObjectBase::get<T>().deserializePackedBinary(input, &result);
     }
 
@@ -90,27 +95,29 @@ private:
 
 template<typename T>
 struct Serializer<T, true> {
-    static bool serialize(OutputStream& output, const T& value) {
+    static bool serialize(stream::OutputStream& output, const T& value) {
+        detail::OutputStreamWrapper wrapper(output);
         if constexpr (std::is_enum<T>::value) {
-            return output.write<std::underlying_type_t<T>>(
+            return wrapper.write<std::underlying_type_t<T>>(
                 static_cast<std::underlying_type_t<T>>(value));
         }
-        else if constexpr (std::is_same_v<T, bool>) { return output.write<std::uint8_t>(value); }
-        else { return output.write<T>(value); }
+        else if constexpr (std::is_same_v<T, bool>) { return wrapper.write<std::uint8_t>(value); }
+        else { return wrapper.write<T>(value); }
     }
 
-    static bool deserialize(InputStream& input, T& result) {
+    static bool deserialize(stream::InputStream& input, T& result) {
+        detail::InputStreamWrapper wrapper(input);
         if constexpr (std::is_enum<T>::value) {
-            return input.read<std::underlying_type_t<T>>(
+            return wrapper.read<std::underlying_type_t<T>>(
                 *reinterpret_cast<std::underlying_type_t<T>*>(&result));
         }
         else if constexpr (std::is_same_v<T, bool>) {
             std::uint8_t v;
-            if (!input.read<std::uint8_t>(v)) return false;
+            if (!wrapper.read<std::uint8_t>(v)) return false;
             result = v != 0;
             return true;
         }
-        else { return input.read<T>(result); }
+        else { return wrapper.read<T>(result); }
     }
 
     static std::uint32_t size(const T&) { return sizeof(T); }
@@ -118,13 +125,15 @@ struct Serializer<T, true> {
 
 template<>
 struct Serializer<bool, false> {
-    static bool serialize(OutputStream& output, const bool& value) {
-        return output.write<std::uint8_t>(value ? 1 : 0);
+    static bool serialize(stream::OutputStream& output, const bool& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        return wrapper.write<std::uint8_t>(value ? 1 : 0);
     }
 
-    static bool deserialize(InputStream& input, bool& value) {
+    static bool deserialize(stream::InputStream& input, bool& value) {
+        detail::InputStreamWrapper wrapper(input);
         std::uint8_t v;
-        if (!input.read<std::uint8_t>(v)) return false;
+        if (!wrapper.read<std::uint8_t>(v)) return false;
         value = v == 1;
         return true;
     }
@@ -134,11 +143,15 @@ struct Serializer<bool, false> {
 
 template<>
 struct Serializer<std::string> {
-    static bool serialize(OutputStream& output, const std::string& value) {
-        return output.write(value);
+    static bool serialize(stream::OutputStream& output, const std::string& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        return wrapper.write(value);
     }
 
-    static bool deserialize(InputStream& input, std::string& result) { return input.read(result); }
+    static bool deserialize(stream::InputStream& input, std::string& result) {
+        detail::InputStreamWrapper wrapper(input);
+        return wrapper.read(result);
+    }
 
     static std::uint32_t size(const std::string& s) {
         return static_cast<std::uint32_t>(sizeof(std::uint32_t) + s.size());
@@ -147,13 +160,15 @@ struct Serializer<std::string> {
 
 template<>
 struct Serializer<float> {
-    static bool serialize(OutputStream& output, const float& value) {
-        return output.write(std::to_string(value));
+    static bool serialize(stream::OutputStream& output, const float& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        return wrapper.write(std::to_string(value));
     }
 
-    static bool deserialize(InputStream& input, float& result) {
+    static bool deserialize(stream::InputStream& input, float& result) {
+        detail::InputStreamWrapper wrapper(input);
         std::string str;
-        if (!input.read(str)) return false;
+        if (!wrapper.read(str)) return false;
         try {
             result = std::stof(str);
             return true;
@@ -165,19 +180,43 @@ struct Serializer<float> {
     }
 };
 
+template<>
+struct Serializer<double> {
+    static bool serialize(stream::OutputStream& output, const double& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        return wrapper.write(std::to_string(value));
+    }
+
+    static bool deserialize(stream::InputStream& input, double& result) {
+        detail::InputStreamWrapper wrapper(input);
+        std::string str;
+        if (!wrapper.read(str)) return false;
+        try {
+            result = std::stof(str);
+            return true;
+        } catch (...) { return false; }
+    }
+
+    static std::uint32_t size(const double& s) {
+        return Serializer<std::string>::size(std::to_string(s));
+    }
+};
+
 template<typename U, std::size_t N>
 struct Serializer<U[N], false> {
-    static bool serialize(OutputStream& out, const U* arr) {
-        if (!out.write<std::uint32_t>(N)) return false;
+    static bool serialize(stream::OutputStream& out, const U* arr) {
+        detail::OutputStreamWrapper wrapper(out);
+        if (!wrapper.write<std::uint32_t>(N)) return false;
         for (std::size_t i = 0; i < N; ++i) {
             if (!Serializer<U>::serialize(out, arr[i])) return false;
         }
         return true;
     }
 
-    static bool deserialize(InputStream& in, U* arr) {
+    static bool deserialize(stream::InputStream& in, U* arr) {
+        detail::InputStreamWrapper wrapper(in);
         std::uint32_t n = 0;
-        if (!in.read<std::uint32_t>(n)) return false;
+        if (!wrapper.read<std::uint32_t>(n)) return false;
         if (n != N) return false;
         for (std::size_t i = 0; i < N; ++i) {
             if (!Serializer<U>::deserialize(in, arr[i])) return false;
@@ -196,17 +235,19 @@ template<typename U, std::size_t N>
 struct Serializer<std::array<U, N>, false> {
     using T = std::array<U, N>;
 
-    static bool serialize(OutputStream& out, const T& arr) {
-        if (!out.write<std::uint32_t>(N)) return false;
+    static bool serialize(stream::OutputStream& out, const T& arr) {
+        detail::OutputStreamWrapper wrapper(out);
+        if (!wrapper.write<std::uint32_t>(N)) return false;
         for (std::size_t i = 0; i < N; ++i) {
             if (!Serializer<U>::serialize(out, arr[i])) return false;
         }
         return true;
     }
 
-    static bool deserialize(InputStream& in, T& arr) {
+    static bool deserialize(stream::InputStream& in, T& arr) {
+        detail::InputStreamWrapper wrapper(in);
         std::uint32_t n = 0;
-        if (!in.read<std::uint32_t>(n)) return false;
+        if (!wrapper.read<std::uint32_t>(n)) return false;
         if (n != N) return false;
         for (std::size_t i = 0; i < N; ++i) {
             if (!Serializer<U>::deserialize(in, arr[i])) return false;
@@ -223,18 +264,20 @@ struct Serializer<std::array<U, N>, false> {
 
 template<typename U>
 struct Serializer<std::vector<U>, false> {
-    static bool serialize(OutputStream& output, const std::vector<U>& value) {
-        if (!output.write<std::uint32_t>(value.size())) return false;
+    static bool serialize(stream::OutputStream& output, const std::vector<U>& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint32_t>(value.size())) return false;
         for (const U& v : value) {
             if (!Serializer<U>::serialize(output, v)) return false;
         }
         return true;
     }
 
-    static bool deserialize(InputStream& input, std::vector<U>& value) {
+    static bool deserialize(stream::InputStream& input, std::vector<U>& value) {
+        detail::InputStreamWrapper wrapper(input);
         value.clear();
         std::uint32_t size;
-        if (!input.read<std::uint32_t>(size)) return false;
+        if (!wrapper.read<std::uint32_t>(size)) return false;
         value.resize(size);
         for (unsigned int i = 0; i < size; ++i) {
             if (!Serializer<U>::deserialize(input, value[i])) return false;
@@ -251,9 +294,10 @@ struct Serializer<std::vector<U>, false> {
 
 template<typename U>
 struct Serializer<ctr::Vector2D<U>, false> {
-    static bool serialize(OutputStream& output, const ctr::Vector2D<U>& val) {
-        if (!output.write<std::uint32_t>(val.getWidth())) return false;
-        if (!output.write<std::uint32_t>(val.getHeight())) return false;
+    static bool serialize(stream::OutputStream& output, const ctr::Vector2D<U>& val) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint32_t>(val.getWidth())) return false;
+        if (!wrapper.write<std::uint32_t>(val.getHeight())) return false;
         for (unsigned int x = 0; x < val.getWidth(); ++x) {
             for (unsigned int y = 0; y < val.getHeight(); ++y) {
                 if (!Serializer<U>::serialize(output, val(x, y))) return false;
@@ -262,10 +306,11 @@ struct Serializer<ctr::Vector2D<U>, false> {
         return true;
     }
 
-    static bool deserialize(InputStream& input, ctr::Vector2D<U>& result) {
+    static bool deserialize(stream::InputStream& input, ctr::Vector2D<U>& result) {
+        detail::InputStreamWrapper wrapper(input);
         std::uint32_t w, h;
-        if (!input.read<std::uint32_t>(w)) return false;
-        if (!input.read<std::uint32_t>(h)) return false;
+        if (!wrapper.read<std::uint32_t>(w)) return false;
+        if (!wrapper.read<std::uint32_t>(h)) return false;
         result.setSize(w, h);
         for (unsigned int x = 0; x < w; ++x) {
             for (unsigned int y = 0; y < h; ++y) {
@@ -288,8 +333,10 @@ struct Serializer<ctr::Vector2D<U>, false> {
 
 template<typename TKey, typename TValue>
 struct Serializer<std::unordered_map<TKey, TValue>, false> {
-    static bool serialize(OutputStream& output, const std::unordered_map<TKey, TValue>& value) {
-        if (!output.write<std::uint32_t>(value.size())) return false;
+    static bool serialize(stream::OutputStream& output,
+                          const std::unordered_map<TKey, TValue>& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint32_t>(value.size())) return false;
         for (const auto& pair : value) {
             if (!Serializer<TKey>::serialize(output, pair.first)) return false;
             if (!Serializer<TValue>::serialize(output, pair.second)) return false;
@@ -297,9 +344,10 @@ struct Serializer<std::unordered_map<TKey, TValue>, false> {
         return true;
     }
 
-    static bool deserialize(InputStream& input, std::unordered_map<TKey, TValue>& value) {
+    static bool deserialize(stream::InputStream& input, std::unordered_map<TKey, TValue>& value) {
+        detail::InputStreamWrapper wrapper(input);
         std::uint32_t size;
-        if (!input.read<std::uint32_t>(size)) return false;
+        if (!wrapper.read<std::uint32_t>(size)) return false;
         for (std::uint32_t i = 0; i < size; ++i) {
             TKey key;
             if (!Serializer<TKey>::deserialize(input, key)) return false;
@@ -321,18 +369,20 @@ struct Serializer<std::unordered_map<TKey, TValue>, false> {
 
 template<typename U>
 struct Serializer<std::unordered_set<U>, false> {
-    static bool serialize(OutputStream& output, const std::unordered_set<U>& value) {
-        if (!output.write<std::uint32_t>(value.size())) return false;
+    static bool serialize(stream::OutputStream& output, const std::unordered_set<U>& value) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint32_t>(value.size())) return false;
         for (const U& v : value) {
             if (!Serializer<U>::serialize(output, v)) return false;
         }
         return true;
     }
 
-    static bool deserialize(InputStream& input, std::unordered_set<U>& value) {
+    static bool deserialize(stream::InputStream& input, std::unordered_set<U>& value) {
+        detail::InputStreamWrapper wrapper(input);
         value.clear();
         std::uint32_t size;
-        if (!input.read<std::uint32_t>(size)) return false;
+        if (!wrapper.read<std::uint32_t>(size)) return false;
         for (unsigned int i = 0; i < size; ++i) {
             U k;
             if (!Serializer<U>::deserialize(input, k)) return false;
@@ -351,12 +401,12 @@ struct Serializer<std::unordered_set<U>, false> {
 template<typename U>
 struct Serializer<sf::Vector2<U>, false> {
     using S = Serializer<U>;
-    static bool serialize(OutputStream& output, const sf::Vector2<U>& v) {
+    static bool serialize(stream::OutputStream& output, const sf::Vector2<U>& v) {
         if (!S::serialize(output, v.x)) return false;
         return S::serialize(output, v.y);
     }
 
-    static bool deserialize(InputStream& input, sf::Vector2<U>& v) {
+    static bool deserialize(stream::InputStream& input, sf::Vector2<U>& v) {
         if (!S::deserialize(input, v.x)) return false;
         return S::deserialize(input, v.y);
     }
@@ -367,13 +417,13 @@ struct Serializer<sf::Vector2<U>, false> {
 template<typename U>
 struct Serializer<sf::Vector3<U>, false> {
     using S = Serializer<U>;
-    static bool serialize(OutputStream& output, const sf::Vector3<U>& v) {
+    static bool serialize(stream::OutputStream& output, const sf::Vector3<U>& v) {
         if (!S::serialize(output, v.x)) return false;
         if (!S::serialize(output, v.y)) return false;
         return S::serialize(output, v.z);
     }
 
-    static bool deserialize(InputStream& input, sf::Vector3<U>& v) {
+    static bool deserialize(stream::InputStream& input, sf::Vector3<U>& v) {
         if (!S::deserialize(input, v.x)) return false;
         if (!S::deserialize(input, v.y)) return false;
         return S::deserialize(input, v.z);
@@ -387,12 +437,12 @@ struct Serializer<glm::vec<2, U, P>, false> {
     using S = Serializer<U>;
     using V = glm::vec<2, U, P>;
 
-    static bool serialize(OutputStream& output, const V& v) {
+    static bool serialize(stream::OutputStream& output, const V& v) {
         if (!S::serialize(output, v.x)) return false;
         return S::serialize(output, v.y);
     }
 
-    static bool deserialize(InputStream& input, V& v) {
+    static bool deserialize(stream::InputStream& input, V& v) {
         if (!S::deserialize(input, v.x)) return false;
         return S::deserialize(input, v.y);
     }
@@ -405,13 +455,13 @@ struct Serializer<glm::vec<3, U, P>, false> {
     using S = Serializer<U>;
     using V = glm::vec<3, U, P>;
 
-    static bool serialize(OutputStream& output, const V& v) {
+    static bool serialize(stream::OutputStream& output, const V& v) {
         if (!S::serialize(output, v.x)) return false;
         if (!S::serialize(output, v.y)) return false;
         return S::serialize(output, v.z);
     }
 
-    static bool deserialize(InputStream& input, V& v) {
+    static bool deserialize(stream::InputStream& input, V& v) {
         if (!S::deserialize(input, v.x)) return false;
         if (!S::deserialize(input, v.y)) return false;
         return S::deserialize(input, v.z);
@@ -425,14 +475,14 @@ struct Serializer<glm::vec<4, U, P>, false> {
     using S = Serializer<U>;
     using V = glm::vec<4, U, P>;
 
-    static bool serialize(OutputStream& output, const V& v) {
+    static bool serialize(stream::OutputStream& output, const V& v) {
         if (!S::serialize(output, v.x)) return false;
         if (!S::serialize(output, v.y)) return false;
         if (!S::serialize(output, v.z)) return false;
         return S::serialize(output, v.w);
     }
 
-    static bool deserialize(InputStream& input, V& v) {
+    static bool deserialize(stream::InputStream& input, V& v) {
         if (!S::deserialize(input, v.x)) return false;
         if (!S::deserialize(input, v.y)) return false;
         if (!S::deserialize(input, v.z)) return false;
@@ -444,20 +494,72 @@ struct Serializer<glm::vec<4, U, P>, false> {
     }
 };
 
-template<>
-struct Serializer<sf::IntRect> {
-    static bool serialize(OutputStream& output, const sf::IntRect& r) {
-        if (!output.write<std::int32_t>(r.position.x)) return false;
-        if (!output.write<std::int32_t>(r.position.y)) return false;
-        if (!output.write<std::int32_t>(r.size.x)) return false;
-        return output.write<std::int32_t>(r.size.y);
+template<typename U, glm::qualifier P>
+struct Serializer<glm::qua<U, P>, false> {
+    using S = Serializer<U>;
+    using V = glm::qua<U, P>;
+
+    static bool serialize(stream::OutputStream& output, const V& v) {
+        if (!S::serialize(output, v.x)) return false;
+        if (!S::serialize(output, v.y)) return false;
+        if (!S::serialize(output, v.z)) return false;
+        return S::serialize(output, v.w);
     }
 
-    static bool deserialize(InputStream& input, sf::IntRect& r) {
-        if (!input.read<std::int32_t>(r.position.x)) return false;
-        if (!input.read<std::int32_t>(r.position.y)) return false;
-        if (!input.read<std::int32_t>(r.size.x)) return false;
-        return input.read<std::int32_t>(r.size.y);
+    static bool deserialize(stream::InputStream& input, V& v) {
+        if (!S::deserialize(input, v.x)) return false;
+        if (!S::deserialize(input, v.y)) return false;
+        if (!S::deserialize(input, v.z)) return false;
+        return S::deserialize(input, v.w);
+    }
+
+    static std::uint32_t size(const V& v) {
+        return S::size(v.x) + S::size(v.y) + S::size(v.z) + S::size(v.w);
+    }
+};
+
+template<glm::length_t C, glm::length_t R, typename T, enum glm::qualifier Q>
+struct Serializer<glm::mat<C, R, T, Q>, false> {
+    using S   = Serializer<T>;
+    using Mat = glm::mat<C, R, T, Q>;
+
+    static bool serialize(stream::OutputStream& output, const Mat& m) {
+        for (int c = 0; c < C; ++c) {
+            for (int r = 0; r < R; ++r) {
+                if (!S::serialize(output, m[c][r])) return false;
+            }
+        }
+        return true;
+    }
+
+    static bool deserialize(stream::InputStream& input, Mat& m) {
+        for (int c = 0; c < C; ++c) {
+            for (int r = 0; r < R; ++r) {
+                if (!S::deserialize(input, m[c][r])) return false;
+            }
+        }
+        return true;
+    }
+
+    static std::uint32_t size(const Mat& m) { return S::size(m[0][0]) * C * R; }
+};
+
+template<>
+struct Serializer<sf::IntRect> {
+    static bool serialize(stream::OutputStream& output, const sf::IntRect& r) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::int32_t>(r.position.x)) return false;
+        if (!wrapper.write<std::int32_t>(r.position.y)) return false;
+        if (!wrapper.write<std::int32_t>(r.size.x)) return false;
+        return wrapper.write<std::int32_t>(r.size.y);
+    }
+
+    static bool deserialize(stream::InputStream& input, sf::IntRect& r) {
+        detail::InputStreamWrapper wrapper(input);
+        if (!wrapper.read<std::int32_t>(r.position.x)) return false;
+        if (!wrapper.read<std::int32_t>(r.position.y)) return false;
+        if (!wrapper.read<std::int32_t>(r.size.x)) return false;
+        return wrapper.read<std::int32_t>(r.size.y);
     }
 
     static std::uint32_t size(const sf::IntRect&) { return sizeof(std::int32_t) * 4; }
@@ -465,14 +567,16 @@ struct Serializer<sf::IntRect> {
 
 template<>
 struct Serializer<sf::Vector2u> {
-    static bool serialize(OutputStream& output, const sf::Vector2u& v) {
-        if (!output.write<std::uint32_t>(v.x)) return false;
-        return output.write<std::uint32_t>(v.y);
+    static bool serialize(stream::OutputStream& output, const sf::Vector2u& v) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint32_t>(v.x)) return false;
+        return wrapper.write<std::uint32_t>(v.y);
     }
 
-    static bool deserialize(InputStream& input, sf::Vector2u& v) {
-        if (!input.read<std::uint32_t>(v.x)) return false;
-        return input.read<std::uint32_t>(v.y);
+    static bool deserialize(stream::InputStream& input, sf::Vector2u& v) {
+        detail::InputStreamWrapper wrapper(input);
+        if (!wrapper.read<std::uint32_t>(v.x)) return false;
+        return wrapper.read<std::uint32_t>(v.y);
     }
 
     static std::uint32_t size(const sf::Vector2u&) { return sizeof(std::uint32_t) * 2; }
@@ -480,12 +584,12 @@ struct Serializer<sf::Vector2u> {
 
 template<typename U, typename V>
 struct Serializer<std::pair<U, V>, false> {
-    static bool serialize(OutputStream& output, const std::pair<U, V>& v) {
+    static bool serialize(stream::OutputStream& output, const std::pair<U, V>& v) {
         if (!Serializer<U>::serialize(output, v.first)) return false;
         return Serializer<V>::serialize(output, v.second);
     }
 
-    static bool deserialize(InputStream& input, std::pair<U, V>& v) {
+    static bool deserialize(stream::InputStream& input, std::pair<U, V>& v) {
         if (!Serializer<U>::deserialize(input, v.first)) return false;
         return Serializer<V>::deserialize(input, v.second);
     }
@@ -499,33 +603,36 @@ template<typename... Ts>
 struct Serializer<std::variant<Ts...>, false> {
 private:
     struct HelperBase {
-        virtual bool deserialize(InputStream& input, std::variant<Ts...>& v) const = 0;
+        virtual bool deserialize(stream::InputStream& input, std::variant<Ts...>& v) const = 0;
     };
 
     template<typename U>
     struct Helper : public HelperBase {
-        virtual bool deserialize(InputStream& input, std::variant<Ts...>& v) const override {
+        virtual bool deserialize(stream::InputStream& input,
+                                 std::variant<Ts...>& v) const override {
             v.template emplace<U>();
             return Serializer<U>::deserialize(input, std::get<U>(v));
         }
     };
 
 public:
-    static bool serialize(OutputStream& output, const std::variant<Ts...>& v) {
+    static bool serialize(stream::OutputStream& output, const std::variant<Ts...>& v) {
         const auto visitor = [&output](const auto& c) -> bool {
             return Serializer<std::decay_t<decltype(c)>>::serialize(output, c);
         };
 
-        if (!output.write<std::uint16_t>(v.index())) return false;
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint16_t>(v.index())) return false;
         return std::visit(visitor, v);
     }
 
-    static bool deserialize(InputStream& input, std::variant<Ts...>& v) {
+    static bool deserialize(stream::InputStream& input, std::variant<Ts...>& v) {
         static const std::tuple<Helper<Ts>...> helperTuple(Helper<Ts>{}...);
         static const HelperBase* helpers[] = {&std::get<Helper<Ts>>(helperTuple)...};
 
+        detail::InputStreamWrapper wrapper(input);
         std::uint16_t i = 0;
-        if (!input.read<std::uint16_t>(i)) return false;
+        if (!wrapper.read<std::uint16_t>(i)) return false;
         if (i >= sizeof...(Ts)) return false;
         return helpers[i]->deserialize(input, v);
     }
@@ -543,12 +650,12 @@ template<typename U>
 struct Serializer<U*, false> {
     using T = U*;
 
-    static bool serialize(OutputStream& output, const T v) {
+    static bool serialize(stream::OutputStream& output, const T v) {
         if (!v) return false;
         return Serializer<U>::serialize(output, *v);
     }
 
-    static bool deserialize(InputStream& input, T v) {
+    static bool deserialize(stream::InputStream& input, T v) {
         if (!v) return false;
         return Serializer<U>::deserialize(input, *v);
     }
@@ -561,18 +668,20 @@ struct Serializer<U*, false> {
 
 template<>
 struct Serializer<script::Value, false> {
-    static bool serialize(OutputStream& output, const script::Value& v) {
+    static bool serialize(stream::OutputStream& output, const script::Value& v) {
         const script::PrimitiveValue& value = v.value();
         if (!Serializer<script::PrimitiveValue::Type>::serialize(output, value.getType()))
             return false;
         if (!supported(v.value().getType())) return true;
+
+        detail::OutputStreamWrapper wrapper(output);
 
         switch (v.value().getType()) {
         case script::PrimitiveValue::TBool:
             if (!Serializer<bool>::serialize(output, value.getAsBool())) return false;
             break;
         case script::PrimitiveValue::TInteger:
-            if (!output.write<std::int32_t>(value.getAsInt())) return false;
+            if (!wrapper.write<std::int32_t>(value.getAsInt())) return false;
             break;
         case script::PrimitiveValue::TFloat:
             if (!Serializer<float>::serialize(output, value.getAsFloat())) return false;
@@ -581,7 +690,7 @@ struct Serializer<script::Value, false> {
             if (!Serializer<std::string>::serialize(output, value.getAsString())) return false;
             break;
         case script::PrimitiveValue::TArray:
-            if (!output.write<std::uint32_t>(
+            if (!wrapper.write<std::uint32_t>(
                     static_cast<std::uint32_t>(value.getAsArray().size()))) {
                 return false;
             }
@@ -593,7 +702,7 @@ struct Serializer<script::Value, false> {
             break;
         }
 
-        if (!output.write<std::uint32_t>(v.allProperties().size())) return false;
+        if (!wrapper.write<std::uint32_t>(v.allProperties().size())) return false;
         for (const auto& prop : v.allProperties()) {
             if (!Serializer<std::string>::serialize(output, prop.first)) return false;
             if (!Serializer<script::Value>::serialize(output, prop.second.deref())) return false;
@@ -602,7 +711,7 @@ struct Serializer<script::Value, false> {
         return true;
     }
 
-    static bool deserialize(InputStream& input, script::Value& v) {
+    static bool deserialize(stream::InputStream& input, script::Value& v) {
         script::PrimitiveValue& value = v.value();
         script::PrimitiveValue::Type type;
         if (!Serializer<script::PrimitiveValue::Type>::deserialize(input, type)) return false;
@@ -610,6 +719,8 @@ struct Serializer<script::Value, false> {
             value = "<UNSUPPORTED TYPE>";
             return true;
         }
+
+        detail::InputStreamWrapper wrapper(input);
 
         switch (type) {
         case script::PrimitiveValue::TBool: {
@@ -620,7 +731,7 @@ struct Serializer<script::Value, false> {
         }
         case script::PrimitiveValue::TInteger: {
             std::int32_t i;
-            if (!input.read<std::int32_t>(i)) return false;
+            if (!wrapper.read<std::int32_t>(i)) return false;
             value = i;
             break;
         }
@@ -638,7 +749,7 @@ struct Serializer<script::Value, false> {
         }
         case script::PrimitiveValue::TArray: {
             std::uint32_t s;
-            if (!input.read<std::uint32_t>(s)) return false;
+            if (!wrapper.read<std::uint32_t>(s)) return false;
             value = script::ArrayValue{};
             value.getAsArray().resize(s);
             for (unsigned int i = 0; i < s; ++s) {
@@ -651,7 +762,7 @@ struct Serializer<script::Value, false> {
         }
 
         std::uint32_t s;
-        if (!input.read<std::uint32_t>(s)) return false;
+        if (!wrapper.read<std::uint32_t>(s)) return false;
         for (unsigned int i = 0; i < s; ++i) {
             std::string key;
             script::Value pv;
@@ -709,6 +820,63 @@ private:
         default:
             return false;
         }
+    }
+};
+
+template<>
+struct Serializer<sf::Image, false> {
+    static bool serialize(stream::OutputStream& stream, const sf::Image& image) {
+        const auto data = image.saveToMemory("png");
+        if (!data.has_value()) { return false; }
+
+        detail::OutputStreamWrapper wrapper(stream);
+        if (!wrapper.write<std::uint32_t>(data.value().size())) { return false; }
+        return stream.write(data.value().data(), data.value().size());
+    }
+
+    static bool deserialize(stream::InputStream& stream, sf::Image& image) {
+        detail::InputStreamWrapper wrapper(stream);
+        std::uint32_t size;
+        if (!wrapper.read<std::uint32_t>(size)) { return false; }
+        std::vector<char> data(size);
+        if (!stream.read(data.data(), size)) { return false; }
+        return image.loadFromMemory(data.data(), size);
+    }
+
+    static std::uint32_t size(const sf::Image& image) {
+        const auto data = image.saveToMemory("png");
+        if (!data.has_value()) { return sizeof(std::uint32_t); }
+        return sizeof(std::uint32_t) + data.value().size();
+    }
+};
+
+template<typename T>
+struct Serializer<std::optional<T>, false> {
+    static bool serialize(stream::OutputStream& output, const std::optional<T>& opt) {
+        detail::OutputStreamWrapper wrapper(output);
+        if (!wrapper.write<std::uint8_t>(opt.has_value() ? 1 : 0)) return false;
+        if (opt.has_value()) {
+            if (!Serializer<T>::serialize(output, *opt)) return false;
+        }
+        return true;
+    }
+
+    static bool deserialize(stream::InputStream& input, std::optional<T>& opt) {
+        detail::InputStreamWrapper wrapper(input);
+        std::uint8_t hasValue;
+        if (!wrapper.read<std::uint8_t>(hasValue)) return false;
+        if (hasValue) {
+            opt.emplace();
+            if (!Serializer<T>::deserialize(input, *opt)) return false;
+        }
+        else { opt.reset(); }
+        return true;
+    }
+
+    static std::uint32_t size(const std::optional<T>& opt) {
+        std::uint32_t s = sizeof(std::uint8_t);
+        if (opt.has_value()) { s += Serializer<T>::size(*opt); }
+        return s;
     }
 };
 

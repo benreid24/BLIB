@@ -1,0 +1,15 @@
+target_sources(BLIB PRIVATE
+    Asset.cpp
+    Context.cpp
+    EditorPaths.cpp
+    Metadata.cpp
+    Payload.cpp
+    Ref.cpp
+    Repository.cpp
+    StreamCache.cpp
+)
+
+add_subdirectory(Builtin)
+add_subdirectory(Bundles)
+add_subdirectory(Detail)
+add_subdirectory(Drivers)

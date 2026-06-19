@@ -1,6 +1,8 @@
 #ifndef BLIB_MODELS_TEXTURE_HPP
 #define BLIB_MODELS_TEXTURE_HPP
 
+#include <BLIB/Models/Visitor.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <assimp/texture.h>
@@ -42,6 +44,13 @@ public:
     void makeFromFile(const std::string& file, const std::string& modelPath);
 
     /**
+     * @brief Creates the texture from an existing sf::Image
+     *
+     * @param image The image to embed
+     */
+    void makeFromImage(const sf::Image& image);
+
+    /**
      * @brief Returns whether this texture contains embedded image data
      */
     bool isEmbedded() const;
@@ -57,6 +66,13 @@ public:
     const sf::Image& getEmbedded() const;
 
     /**
+     * @brief Visits the texture file path if it is not embedded
+     *
+     * @param visitor The visitor to visit the file path with
+     */
+    void visit(const DependencyVisitor& visitor);
+
+    /**
      * @brief Texts whether this texture is the same as another
      *
      * @param other The other texture to compare to
@@ -70,9 +86,25 @@ public:
 
 private:
     std::variant<std::string, sf::Image> texture;
+
+    friend struct serial::SerializableObject<Texture>;
 };
 
 } // namespace mdl
+
+namespace serial
+{
+template<>
+struct SerializableObject<mdl::Texture> : public SerializableObjectBase {
+    SerializableField<1, mdl::Texture, std::variant<std::string, sf::Image>> texture;
+
+    SerializableObject()
+    : SerializableObjectBase("Texture")
+    , texture("texture", *this, &mdl::Texture::texture, SerializableFieldBase::Required{}) {}
+};
+
+} // namespace serial
+
 } // namespace bl
 
 namespace std

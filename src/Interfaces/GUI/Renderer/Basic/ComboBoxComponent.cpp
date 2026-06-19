@@ -1,5 +1,6 @@
 #include <BLIB/Interfaces/GUI/Renderer/Basic/ComboBoxComponent.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Interfaces/GUI/Elements/ComboBox.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Label.hpp>
 #include <Interfaces/GUI/Data/Font.hpp>
@@ -80,7 +81,8 @@ void ComboBoxComponent::doCreate(engine::World& world, rdr::Renderer&) {
     arrow.setParent(arrowBox);
 
     // selected text
-    selectedOption.create(world, *settings.font.value_or(Font::get()));
+    selectedOption.create(
+        world, settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
     selectedOption.setParent(box);
 
     // open state items
@@ -146,7 +148,7 @@ void ComboBoxComponent::handleMove() {
 
 void ComboBoxComponent::configureText(gfx::Text& text, const RenderSettings& settings) {
     auto& sec = text.getSection();
-    text.setFont(*settings.font.value_or(Font::get()));
+    text.setFont(settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
     sec.setCharacterSize(settings.characterSize.value_or(Label::DefaultFontSize));
     sec.setFillColor(settings.secondaryFillColor.value_or(sf::Color::Black));
     sec.setOutlineColor(settings.secondaryOutlineColor.value_or(sf::Color::Transparent));
@@ -185,7 +187,9 @@ void ComboBoxComponent::updateOptions() {
         if (!o.created) {
             o.created = true;
             o.background.create(worldPtr->engine(), openOptionBoxes, boxSize);
-            o.text.create(*worldPtr, *settings.font.value_or(Font::get()));
+            o.text.create(
+                *worldPtr,
+                settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
             o.text.setParent(openOptionBoxes);
             if (currentOverlay) { o.text.addToScene(currentOverlay, rc::UpdateSpeed::Static); }
         }

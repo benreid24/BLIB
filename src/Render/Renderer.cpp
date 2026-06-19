@@ -88,7 +88,7 @@ bool Renderer::initialize() {
     swapchain.create();
     transferEngine.init();
     descriptorPool.init();
-    shaderCache.init(state.getDevice());
+    shaderCache.init(engine.assets(), state.getDevice());
     samplers.init();
     renderPasses.addDefaults();
     globalDescriptors.init();
@@ -163,9 +163,9 @@ bool Renderer::createWindow() {
     }
 
     if (!params.icon().empty()) {
-        sf::Image icon;
-        if (resource::ResourceManager<sf::Image>::initializeExisting(params.icon(), icon)) {
-            window.getSfWindow().setIcon(icon.getSize(), icon.getPixelsPtr());
+        auto icon = engine.assets().getAssetFromSourcePath<asi::ImagePayload>(params.icon());
+        if (icon) {
+            window.getSfWindow().setIcon(icon->get().getSize(), icon->get().getPixelsPtr());
         }
         else { BL_LOG_WARN << "Failed to load icon: " << params.icon(); }
     }
@@ -216,7 +216,6 @@ void Renderer::cleanup() {
     commonObserver.cleanup();
     scenes.cleanup();
     globalShaderResources.cleanup();
-    resource::ResourceManager<sf::VulkanFont>::freeAndDestroyAll();
     computePipelines.cleanup();
     pipelines.cleanup();
     pipelineLayouts.cleanup();

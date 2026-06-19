@@ -59,6 +59,12 @@ std::string FileUtil::getPath(const std::string& file) {
     return path.empty() ? file : path;
 }
 
+std::string FileUtil::getFolder(const std::string& path) {
+    const std::filesystem::path p(path);
+    if (p.has_parent_path()) { return p.parent_path().filename().generic_string(); }
+    return "";
+}
+
 std::string FileUtil::joinPath(const std::string& l, const std::string& r) {
     if (l.empty()) return r;
     if (r.empty()) return l;
@@ -89,9 +95,13 @@ std::string FileUtil::genTempName(const std::string& path, const std::string& ex
     return file;
 }
 
-void FileUtil::copyFile(const std::string& src, const std::string& dest) {
-    if (src == dest) return;
-    std::filesystem::copy_file(src, dest, std::filesystem::copy_options::overwrite_existing);
+std::string FileUtil::genTempNameInTempDir(const std::string& ext) {
+    return genTempName(std::filesystem::temp_directory_path().generic_string(), ext);
+}
+
+bool FileUtil::copyFile(const std::string& src, const std::string& dest) {
+    if (src == dest) return true;
+    return std::filesystem::copy_file(src, dest, std::filesystem::copy_options::overwrite_existing);
 }
 
 bool FileUtil::createDirectory(const std::string& path) {
@@ -141,7 +151,9 @@ std::vector<std::string> FileUtil::listDirectoryFolders(const std::string& path)
 bool FileUtil::deleteFile(const std::string& file) { return std::filesystem::remove(file); }
 
 bool FileUtil::deleteDirectory(const std::string& path) {
-    return std::filesystem::remove_all(path) > 0;
+    std::error_code ec;
+    std::filesystem::remove_all(path, ec);
+    return ec.value() == 0;
 }
 
 std::string FileUtil::getDataDirectory(const std::string& appName) {
@@ -189,6 +201,52 @@ bool FileUtil::queryFileInfo(const std::string& path, FileInfo& result) {
     result.modifiedTime = info.st_mtime;
     result.size         = info.st_size;
     return true;
+}
+
+bool FileUtil::copyDirectoryContents(const std::string& src, const std::string& dest,
+                                     bool recursive) {
+    if (!directoryExists(src)) { return false; }
+    if (!directoryExists(dest)) {
+        if (!createDirectory(dest)) { return false; }
+    }
+
+    std::error_code ec;
+    std::filesystem::copy_options options = std::filesystem::copy_options::overwrite_existing;
+    if (recursive) { options |= std::filesystem::copy_options::recursive; }
+    std::filesystem::copy(src, dest, options, ec);
+    if (ec) { return false; }
+    return true;
+}
+
+bool FileUtil::moveDirectory(const std::string& src, const std::string& dest) {
+    if (!directoryExists(src)) { return false; }
+    if (directoryExists(dest)) { return false; }
+
+    const std::string destParent = getPath(dest);
+    if (!directoryExists(destParent)) {
+        if (!createDirectory(destParent)) { return false; }
+    }
+
+    std::error_code ec;
+    std::filesystem::rename(src, dest, ec);
+    if (ec) { return false; }
+    return true;
+}
+
+bool FileUtil::isSubpath(const std::string& path, const std::string& parent) {
+    std::filesystem::path rel =
+        parent.empty() ? std::filesystem::current_path() : std::filesystem::path(parent);
+    std::filesystem::path checkPath = std::filesystem::path(path);
+    if (checkPath.is_relative()) {
+        const auto joined = rel / checkPath;
+        return std::filesystem::exists(rel / checkPath);
+    }
+    else {
+        rel = std::filesystem::absolute(rel);
+        if (rel == checkPath) { return true; }
+        return std::mismatch(rel.begin(), rel.end(), checkPath.begin(), checkPath.end()).first ==
+               rel.end();
+    }
 }
 
 } // namespace util

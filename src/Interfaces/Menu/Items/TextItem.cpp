@@ -4,13 +4,13 @@ namespace bl
 {
 namespace menu
 {
-TextItem::Ptr TextItem::create(const std::string& text, const sf::VulkanFont& font,
+TextItem::Ptr TextItem::create(const std::string& text, as::TypedRef<asi::FontPayload> font,
                                const sf::Color& color, unsigned int fontSize, std::uint32_t style) {
     return Ptr(new TextItem(text, font, color, fontSize, style));
 }
 
-TextItem::TextItem(const std::string& t, const sf::VulkanFont& font, const sf::Color& color,
-                   unsigned int fontSize, std::uint32_t style)
+TextItem::TextItem(const std::string& t, as::TypedRef<asi::FontPayload> font,
+                   const sf::Color& color, unsigned int fontSize, std::uint32_t style)
 : string(t)
 , font(font)
 , color(color)

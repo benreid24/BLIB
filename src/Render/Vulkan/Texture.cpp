@@ -67,7 +67,7 @@ void Texture::ensureSize(const glm::u32vec2& s) {
 void Texture::updateDescriptors() { parent->updateTexture(this); }
 
 void Texture::createFromContentsAndQueue(Type type, const TextureOptions& options) {
-    const sf::Image& src = altImg ? *altImg : *transferImg;
+    const sf::Image& src = altImg ? *altImg : transferImg->get();
     glm::vec2 createSize = {src.getSize().x, src.getSize().y};
     if (type == Type::Cubemap) { createSize.y /= 6; }
     create(type, createSize, options);
@@ -103,12 +103,12 @@ void Texture::update(const sf::Image& content, const glm::u32vec2& dp, const sf:
     queueTransfer(SyncRequirement::Immediate);
 }
 
-void Texture::update(const resource::Ref<sf::Image>& content, const glm::u32vec2& dp,
+void Texture::update(as::TypedRef<asi::ImagePayload> content, const glm::u32vec2& dp,
                      const sf::IntRect& s) {
     transferImg = content;
     destPos     = dp;
     source      = s;
-    updateTrans(*content);
+    updateTrans(content->get());
     queueTransfer(SyncRequirement::Immediate);
 }
 
@@ -151,7 +151,7 @@ void Texture::executeTransfer(VkCommandBuffer cb, tfr::TransferContext& engine) 
 
     // copy image contents if required
     if (altImg || transferImg) {
-        const sf::Image& src = altImg ? *altImg : *transferImg;
+        const sf::Image& src = altImg ? *altImg : transferImg->get();
 
         bool fullImage = false;
         if (source.size.x == 0 || source.size.y == 0) {

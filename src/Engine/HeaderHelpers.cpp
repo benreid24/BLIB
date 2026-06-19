@@ -21,5 +21,7 @@ sig::Channel& HeaderHelpers::getRendererSignalChannel(engine::Engine& engine) {
     return engine.renderer().getSignalChannel();
 }
 
+Phase HeaderHelpers::getPhase(engine::Engine& engine) { return engine.getPhase(); }
+
 } // namespace engine
 } // namespace bl

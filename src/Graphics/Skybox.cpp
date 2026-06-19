@@ -4,18 +4,9 @@ namespace bl
 {
 namespace gfx
 {
-void Skybox::create(engine::World& world, const std::string& right, const std::string& left,
-                    const std::string& top, const std::string& bottom, const std::string& back,
-                    const std::string& front) {
-    rc::res::TextureRef cubemap = world.engine().renderer().texturePool().createCubemap(
-        right,
-        left,
-        top,
-        bottom,
-        back,
-        front,
-        rc::vk::CommonTextureFormats::SRGBA32Bit,
-        rc::vk::SamplerOptions::Type::FilteredEdgeClamped);
+void Skybox::create(engine::World& world, as::TypedRef<asi::CubemapPayload> asset) {
+    rc::res::TextureRef cubemap = world.engine().renderer().texturePool().getOrCreateCubemap(
+        asset, rc::vk::SamplerOptions::Type::FilteredEdgeClamped);
     rc::res::MaterialRef material =
         world.engine().renderer().materialPool().getOrCreateFromTexture(cubemap);
     cube.create(world, 1.0f, material, rc::cfg::MaterialPipelineIds::Skybox);

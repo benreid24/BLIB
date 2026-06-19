@@ -1,0 +1,135 @@
+#ifndef BLIB_ASSETS_PAYLOAD_HPP
+#define BLIB_ASSETS_PAYLOAD_HPP
+
+#include <BLIB/Assets/Detail/DependencyChain.hpp>
+#include <BLIB/Assets/Mode.hpp>
+#include <BLIB/Assets/Ref.hpp>
+#include <BLIB/Assets/State.hpp>
+#include <BLIB/Logging.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
+#include <BLIB/Util/UUID.hpp>
+#include <stdexcept>
+#include <type_traits>
+
+namespace bl
+{
+namespace as
+{
+template<typename T>
+class Driver;
+class Payload;
+class Asset;
+class Repository;
+
+/**
+ * @brief Base class for asset payloads. Payloads are the actual data of assets such as images
+ *
+ * @ingroup Assets
+ */
+class Payload {
+public:
+    /**
+     * @brief Struct of parameters passed to Payload constructors. All derived classes should be
+     *        constructible from this struct
+     */
+    struct ConstructContext {
+        Mode mode;
+        Repository& repo;
+        Asset& asset;
+    };
+
+    /**
+     * @brief Destroys the payload
+     */
+    virtual ~Payload() = default;
+
+    /**
+     * @brief Returns the repository this payload belongs to
+     */
+    Repository& getRepository() { return repo; }
+
+    /**
+     * @brief Returns the asset this payload belongs to
+     */
+    Asset& getAsset() { return owner; }
+
+    /**
+     * @brief Safely casts the payload to the given type. Will throw if the cast is invalid
+     *
+     * @tparam T The payload type to cast to
+     * @return A reference to this object as the given type
+     */
+    template<typename T>
+    T& as() {
+        static_assert(std::is_base_of_v<Payload, T>, "T must be a subclass of Payload");
+        T* casted = dynamic_cast<T*>(this);
+        if (!casted) {
+            BL_LOG_ERROR << "Invalid Asset payload cast from " << typeid(*this).name() << " to "
+                         << typeid(T).name();
+            throw std::bad_cast();
+        }
+        return *casted;
+    }
+
+    /**
+     * @brief Safely casts the payload to the given type. Will throw if the cast is invalid
+     *
+     * @tparam T The payload type to cast to
+     * @return A reference to this object as the given type
+     */
+    template<typename T>
+    const T& as() const {
+        static_assert(std::is_base_of_v<Payload, T>, "T must be a subclass of Payload");
+        const T* casted = dynamic_cast<const T*>(this);
+        if (!casted) {
+            BL_LOG_ERROR << "Invalid Asset payload cast from " << typeid(*this).name() << " to "
+                         << typeid(T).name();
+            throw std::bad_cast();
+        }
+        return *casted;
+    }
+
+    /**
+     * @brief Tests whether the payload is of the given type
+     *
+     * @tparam T The type to test for
+     * @return True if this payload is T, false otherwise
+     */
+    template<typename T>
+    bool is() const {
+        static_assert(std::is_base_of_v<Payload, T>, "T must be a subclass of Payload");
+        return dynamic_cast<const T*>(this) != nullptr;
+    }
+
+    /**
+     * @brief Call when the payload content changes. Ensures that changes get saved to disk before
+     *        unload when in editor mode
+     */
+    void flush();
+
+protected:
+    /**
+     * @brief Creates the payload
+     *
+     * @param ctx The context to construct with
+     */
+    Payload(const ConstructContext& ctx);
+
+private:
+    Repository& repo;
+    Asset& owner;
+    detail::DependencyChain* dependencyChain;
+
+    void registerDependency(detail::DependencyChain* chain);
+    bool loadDependencies();
+
+    template<typename T>
+    friend class Driver;
+    friend class detail::DependencyChain;
+    friend class Asset;
+};
+
+} // namespace as
+} // namespace bl
+
+#endif

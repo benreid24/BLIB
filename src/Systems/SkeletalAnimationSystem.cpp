@@ -3,8 +3,8 @@
 #include <BLIB/Components/Bone.hpp>
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <glm/gtx/transform.hpp>
 #include <cmath>
+#include <glm/gtx/transform.hpp>
 
 namespace bl
 {
@@ -18,7 +18,7 @@ void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float)
     skeletons->forEach([dt](ecs::Entity, com::Skeleton& skeleton) {
         if (skeleton.needsRefresh || !skeleton.activeAnimations.empty()) {
             for (auto& animation : skeleton.activeAnimations) {
-                const auto& src = skeleton.animations.getAnimations()[animation.animationIndex];
+                const auto& src = skeleton.animations[animation.animationIndex].payload().get();
                 animation.time += dt * src.getTicksPerSecond();
                 if (animation.time > src.getDurationInTicks()) {
                     animation.time =

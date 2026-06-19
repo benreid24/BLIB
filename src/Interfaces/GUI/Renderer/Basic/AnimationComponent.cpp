@@ -17,7 +17,7 @@ void AnimationComponent::setVisible(bool v) { anim.setHidden(!v); }
 
 void AnimationComponent::onElementUpdated() {
     Animation& owner = getOwnerAs<Animation>();
-    if (owner.getAnimation().get() != source.get() && enginePtr) {
+    if (owner.getAnimation().getUUID() != source.getUUID() && enginePtr) {
         anim.setAnimationWithUniquePlayer(owner.getAnimation(), true, true);
         setPosition();
         if (currentOverlay) { doSceneAdd(currentOverlay); }

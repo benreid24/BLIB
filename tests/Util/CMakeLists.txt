@@ -1,4 +1,5 @@
 target_sources(BLIB.t PUBLIC
+    Base64.t.cpp
     EmplaceHelper.t.cpp
     FileUtil.t.cpp
     IdAllocator.t.cpp
@@ -6,6 +7,7 @@ target_sources(BLIB.t PUBLIC
     RangeAllocatorUnbounded.t.cpp
     Signal.t.cpp
     ThreadPool.t.cpp
+    UUID.t.cpp
     VariadicHelpers.t.cpp
     Waiter.t.cpp
 )
