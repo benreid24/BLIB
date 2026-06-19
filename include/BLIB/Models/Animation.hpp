@@ -56,6 +56,22 @@ public:
      */
     const std::vector<BoneAnimation>& getBoneAnimations() const { return boneAnimations; }
 
+    /**
+     * @brief Initializes the animation with the given metadata
+     *
+     * @param name The name of the animation
+     * @param durationInTicks The duration of the animation in ticks
+     * @param ticksPerSecond The number of ticks per second
+     */
+    void init(const std::string& name, double durationInTicks, double ticksPerSecond);
+
+    /**
+     * @brief Adds a bone animation channel to this animation
+     *
+     * @param boneAnim The bone animation to add
+     */
+    void addBoneAnimation(BoneAnimation boneAnim);
+
 private:
     std::string name;
     double durationInTicks;

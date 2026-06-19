@@ -1,6 +1,7 @@
 target_sources(BLIB.t PRIVATE
 	Animation2DDriver.t.cpp
 	Animation2DSetDriver.t.cpp
+	Animation3DDriver.t.cpp
 	ImageDriver.t.cpp
 	MusicDriver.t.cpp
 	Repository.t.cpp

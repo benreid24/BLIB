@@ -130,6 +130,22 @@ void BoneAnimation::populate(const aiNodeAnim& src, const NodeSet& nodes) {
     }
 }
 
+void BoneAnimation::init(const std::string& bone, Behavior pre, Behavior post,
+                         glm::vec3 bindPos, glm::vec3 bindScale, glm::quat bindRot) {
+    boneName         = bone;
+    preBehavior      = pre;
+    postBehavior     = post;
+    bindPosePosition = bindPos;
+    bindPoseScale    = bindScale;
+    bindPoseRotation = bindRot;
+}
+
+void BoneAnimation::addPositionKey(KeyframeVector key) { positionKeys.push_back(key); }
+
+void BoneAnimation::addRotationKey(KeyframeQuaternion key) { rotationKeys.push_back(key); }
+
+void BoneAnimation::addScaleKey(KeyframeVector key) { scaleKeys.push_back(key); }
+
 glm::quat BoneAnimation::interpolateRotation(double time) const {
     if (rotationKeys.empty()) { return bindPoseRotation; }
     if (rotationKeys.size() == 1) { return rotationKeys.front().value; }

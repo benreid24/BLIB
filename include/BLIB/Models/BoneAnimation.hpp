@@ -105,6 +105,34 @@ public:
      */
     Behavior getPostDoneBehavior() const { return postBehavior; }
 
+    /**
+     * @brief Initializes the bone animation with the given metadata
+     *
+     * @param boneName The name of the bone this animation applies to
+     * @param pre The behavior before the first keyframe
+     * @param post The behavior after the last keyframe
+     * @param bindPos The bind pose position
+     * @param bindScale The bind pose scale
+     * @param bindRot The bind pose rotation
+     */
+    void init(const std::string& boneName, Behavior pre, Behavior post, glm::vec3 bindPos,
+              glm::vec3 bindScale, glm::quat bindRot);
+
+    /**
+     * @brief Adds a position keyframe
+     */
+    void addPositionKey(KeyframeVector key);
+
+    /**
+     * @brief Adds a rotation keyframe
+     */
+    void addRotationKey(KeyframeQuaternion key);
+
+    /**
+     * @brief Adds a scale keyframe
+     */
+    void addScaleKey(KeyframeVector key);
+
 private:
     std::string boneName;
     std::vector<KeyframeVector> positionKeys;
