@@ -15,6 +15,28 @@ ModelDriver::ModelDriver()
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
 bool ModelDriver::doCreate(as::CreateContext& ctx, ModelPayload& payload) {
+    const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>();
+    if (params) {
+        payload.nodes  = params->nodes;
+        payload.meshes = params->meshes;
+        payload.bones  = params->bones;
+        for (const auto& mat : params->materials) {
+            if (!mat.isValid()) {
+                BL_LOG_ERROR << "Invalid material ref in ModelDriver::CreateParams";
+                return false;
+            }
+            payload.materials.addDependency(mat.getAsset().getUUID());
+        }
+        for (const auto& anim : params->animations) {
+            if (!anim.isValid()) {
+                BL_LOG_ERROR << "Invalid animation ref in ModelDriver::CreateParams";
+                return false;
+            }
+            payload.animations.addDependency(anim.getAsset().getUUID());
+        }
+        return true;
+    }
+
     if (ctx.getCustomData().getPath().empty()) { return false; }
 
     mdl::Importer importer;

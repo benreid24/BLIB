@@ -36,5 +36,7 @@ std::optional<unsigned int> BoneSet::getBoneIndexByName(const std::string_view& 
     return std::nullopt;
 }
 
+void BoneSet::addBone(const Bone& bone) { bones.emplace_back(bone); }
+
 } // namespace mdl
 } // namespace bl

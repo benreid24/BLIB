@@ -59,6 +59,13 @@ public:
      */
     unsigned int numBones() const { return bones.size(); }
 
+    /**
+     * @brief Adds a bone directly to the set
+     *
+     * @param bone The bone to add
+     */
+    void addBone(const Bone& bone);
+
 private:
     std::vector<Bone> bones;
 

@@ -58,6 +58,11 @@ public:
      */
     void flipUVs();
 
+    /**
+     * @brief Adds a new empty mesh to the set and returns a reference to it
+     */
+    Mesh& addMesh();
+
 private:
     std::vector<Mesh> meshes;
 

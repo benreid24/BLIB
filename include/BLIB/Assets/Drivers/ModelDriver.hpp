@@ -19,6 +19,22 @@ public:
     static constexpr std::string_view TypeName = "Models";
 
     /**
+     * @brief Optional creation parameters to build a model payload directly from data
+     */
+    struct CreateParams : public as::CreateContext::CreateData {
+        /// Pre-built node hierarchy
+        mdl::NodeSet nodes;
+        /// Pre-built mesh set
+        mdl::MeshSet meshes;
+        /// Pre-built bone set (may be empty)
+        mdl::BoneSet bones;
+        /// Material assets to associate with the model
+        std::vector<as::TypedRef<MaterialPayload>> materials;
+        /// Animation assets to associate with the model
+        std::vector<as::TypedRef<Animation3DPayload>> animations;
+    };
+
+    /**
      * @brief Creates the driver
      */
     ModelDriver();

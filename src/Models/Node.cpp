@@ -34,5 +34,14 @@ void Node::populate(NodeSet& nodeSet, const aiScene* scene, const aiNode* src, B
     boneIndex = bones.getBoneIndexByName(name);
 }
 
+void Node::init(const std::string& nodeName, const glm::mat4& nodeTransform,
+                const std::vector<std::uint32_t>& meshIndices,
+                std::optional<std::uint32_t> nodeBoneIndex) {
+    name      = nodeName;
+    transform = nodeTransform;
+    meshes    = meshIndices;
+    boneIndex = nodeBoneIndex;
+}
+
 } // namespace mdl
 } // namespace bl

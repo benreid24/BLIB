@@ -79,6 +79,17 @@ public:
      */
     bool getIsSkinned() const { return isSkinned; }
 
+    /**
+     * @brief Initializes the mesh with the given data
+     *
+     * @param vertices The vertices of the mesh
+     * @param indices The indices of the mesh
+     * @param matIdx The material index for the mesh
+     * @param skinned Whether the mesh is skinned
+     */
+    void init(const std::vector<Vertex>& vertices, const std::vector<std::uint32_t>& indices,
+              std::uint32_t matIdx, bool skinned = false);
+
 private:
     std::vector<Vertex> vertices;
     std::vector<std::uint32_t> indices;

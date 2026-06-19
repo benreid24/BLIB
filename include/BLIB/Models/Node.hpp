@@ -78,6 +78,18 @@ public:
      */
     const std::string& getName() const { return name; }
 
+    /**
+     * @brief Initializes the node with the given data
+     *
+     * @param name The name of the node
+     * @param transform The local transform of the node
+     * @param meshIndices The indices of the meshes attached to this node
+     * @param boneIndex The index of the bone for this node, if any
+     */
+    void init(const std::string& name, const glm::mat4& transform,
+              const std::vector<std::uint32_t>& meshIndices = {},
+              std::optional<std::uint32_t> boneIndex        = std::nullopt);
+
 private:
     std::uint32_t parent;
     std::uint32_t ownIndex;

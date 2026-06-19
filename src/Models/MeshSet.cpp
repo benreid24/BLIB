@@ -15,5 +15,7 @@ void MeshSet::flipUVs() {
     for (Mesh& mesh : meshes) { mesh.flipUVs(); }
 }
 
+Mesh& MeshSet::addMesh() { return meshes.emplace_back(); }
+
 } // namespace mdl
 } // namespace bl
