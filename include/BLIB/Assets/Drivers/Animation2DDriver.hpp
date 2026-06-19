@@ -19,6 +19,17 @@ public:
     static constexpr std::string_view TypeName = "Animation2D";
 
     /**
+     * @brief Optional creation parameters to populate an animation directly from data
+     */
+    struct CreateParams : public as::CreateContext::CreateData {
+        /// The spritesheet image asset. Takes priority over path
+        as::TypedRef<ImagePayload> spritesheet;
+        std::vector<Animation2DPayload::Frame> frames;
+        bool loop         = false;
+        bool centerShards = false;
+    };
+
+    /**
      * @brief Creates the driver
      */
     Animation2DDriver();

@@ -15,6 +15,18 @@ Animation2DDriver::Animation2DDriver()
 
 bool Animation2DDriver::doCreate(as::CreateContext& ctx, Animation2DPayload& payload) {
     if (ctx.getCustomData().getPath().empty()) {
+        const CreateParams* createParams = ctx.getCustomDataAsMaybe<CreateParams>();
+        if (createParams && createParams->spritesheet.isValid()) {
+            if (!payload.spritesheet.init(createParams->spritesheet.getAsset().getUUID())) {
+                return false;
+            }
+            payload.frames       = createParams->frames;
+            payload.loop         = createParams->loop;
+            payload.centerShards = createParams->centerShards;
+            payload.computeDerivedData();
+            return true;
+        }
+
         const Animation2DSetPayload::CreateData* debugData =
             ctx.getCustomDataAsMaybe<Animation2DSetPayload::CreateData>();
         if (debugData && debugData->debugCreateData.has_value()) {
@@ -126,6 +138,8 @@ bool Animation2DDriver::doCreate(as::CreateContext& ctx, Animation2DPayload& pay
     if (!input.read(u8)) { payload.centerShards = false; }
     else { payload.centerShards = u8 == 1; }
 
+    payload.computeDerivedData();
+
     return true;
 }
 
@@ -141,6 +155,7 @@ bool Animation2DDriver::doRead(as::ReadContext& ctx, Animation2DPayload& payload
                      << ctx.getAsset().getUUID();
         return false;
     }
+    payload.computeDerivedData();
     return true;
 }
 
