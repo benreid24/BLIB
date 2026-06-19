@@ -51,7 +51,7 @@ json::Group SerializableObjectBase::serializeJSON(const void* obj) const {
 bool SerializableObjectBase::serializeBinary(stream::OutputStream& stream, const void* obj) const {
     binary::detail::OutputStreamWrapper wrapper(stream);
     if (!wrapper.write<std::uint16_t>(fieldsBinary.size())) return false;
-    for (const auto& p : fieldsBinary) {
+    for (const auto& p : sortedFields) {
         if (!wrapper.write<std::uint16_t>(p.first)) return false;
         if (!wrapper.write<std::uint32_t>(p.second->binarySize(obj))) return false;
         if (!p.second->serializeBinary(stream, obj)) return false;

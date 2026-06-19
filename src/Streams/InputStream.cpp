@@ -60,6 +60,7 @@ bool InputStream::open(const std::string& path, std::size_t offset, std::size_t 
     section.file.seekg(offset + length);
     if (!section.file.good()) { return false; }
     section.file.seekg(offset);
+    if (!section.file.good()) { return false; }
     knownSize = length;
     return true;
 }
@@ -86,12 +87,12 @@ std::size_t InputStream::read(void* data, std::size_t len) {
                           stream.read(static_cast<char*>(data), len);
                           return stream.gcount();
                       },
-                      [this, data, len](FileSection& section) {
+                      [this, data, len](FileSection& section) -> std::size_t {
                           const std::size_t globalPos = section.file.tellg();
                           const std::size_t localPos  = globalPos - section.offset;
                           const std::size_t toRead    = std::min(len, knownSize - localPos);
                           section.file.read(static_cast<char*>(data), toRead);
-                          return toRead;
+                          return section.file.gcount();
                       },
                       [data, len](Buffer& buf) -> std::size_t {
                           const std::size_t toRead = std::min(len, buf.data.size() - buf.pos);
