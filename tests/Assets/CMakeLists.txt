@@ -7,6 +7,7 @@ target_sources(BLIB.t PRIVATE
 	MaterialDriver.t.cpp
 	ModelDriver.t.cpp
 	MusicDriver.t.cpp
+	PlaylistDriver.t.cpp
 	Repository.t.cpp
 	SoundDriver.t.cpp
 	TextureDriver.t.cpp
