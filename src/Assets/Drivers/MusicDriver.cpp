@@ -19,10 +19,6 @@ MusicDriver::MusicDriver()
                                  .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}
 
 bool MusicDriver::doCreate(as::CreateContext& ctx, MusicPayload& payload) {
-    if (ctx.getCustomData().getPath().empty()) {
-        BL_LOG_ERROR << "Music assets require a file path to import from";
-        return false;
-    }
     if (ctx.getMode() != as::Mode::Editor) {
         BL_LOG_ERROR << "Music assets can only be created in editor mode";
         return false;
@@ -31,6 +27,24 @@ bool MusicDriver::doCreate(as::CreateContext& ctx, MusicPayload& payload) {
     const std::string filepath = ctx.getFilePath("music.ogg");
     if (!util::FileUtil::createDirectory(util::FileUtil::getPath(filepath))) {
         BL_LOG_ERROR << "Failed to create directory for music asset at path " << filepath;
+        return false;
+    }
+
+    const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>();
+    if (params && params->samples) {
+        sf::OutputSoundFile outputFile;
+        if (!outputFile.openFromFile(
+                filepath, params->sampleRate, params->channelCount, params->channelMap)) {
+            BL_LOG_ERROR << "Failed to open output sound file for writing at path " << filepath;
+            return false;
+        }
+        outputFile.write(params->samples, params->sampleCount);
+        outputFile.close();
+        return payload.get().openFromFile(filepath);
+    }
+
+    if (ctx.getCustomData().getPath().empty()) {
+        BL_LOG_ERROR << "Music assets require a file path or sample data to import from";
         return false;
     }
 
@@ -70,6 +84,9 @@ bool MusicDriver::doRead(as::ReadContext& ctx, MusicPayload& payload) {
 }
 
 bool MusicDriver::doWrite(as::WriteContext& ctx, const MusicPayload&) {
+    // only write in Export mode otherwise we clobber the source file
+    if (ctx.getMode() != as::Mode::BundleCreation) { return true; }
+
     stream::InputStream readStream;
     if (!readStream.open(ctx.getFilePath("music.ogg"))) {
         BL_LOG_ERROR << "Failed to open source music file";

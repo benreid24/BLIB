@@ -11,6 +11,7 @@ namespace bl
 namespace as
 {
 class Repository;
+class Asset;
 
 namespace bdl
 {
@@ -27,8 +28,10 @@ class StreamCache {
 public:
     /**
      * @brief Creates an empty stream cache
+     *
+     * @param repoRoot The root path of the asset repository
      */
-    StreamCache() = default;
+    StreamCache(const std::string& repoRoot);
 
     /**
      * @brief Uses the provided bundle runtime instead of direct file access
@@ -41,10 +44,10 @@ public:
      * @brief Creates and returns a new stream for the given asset and full path
      *
      * @param uuid The asset uuid the stream is being created for
-     * @param path The full path of the file to create the stream from
+     * @param localPath The asset local path to get the stream for
      * @return A pointer to the new stream, or nullptr if the stream could not be created
      */
-    PersistentStream* getStream(util::UUID uuid, const std::string& path);
+    PersistentStream* getStream(Asset& asset, std::string_view localPath);
 
     /**
      * @brief Releases all streams for the given asset. Called when an asset is unloaded
@@ -54,6 +57,7 @@ public:
     void releaseStreams(util::UUID uuid);
 
 private:
+    const std::string& repoRoot;
     std::unordered_map<util::UUID, std::list<PersistentStream>> streams;
     bdl::BundleRuntime* runtime;
 };

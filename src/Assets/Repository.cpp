@@ -97,6 +97,7 @@ Repository::~Repository() {
 Repository::Repository(Mode mode, const std::string& path)
 : mode(mode)
 , assetDirectory(path)
+, streamCache(assetDirectory)
 , bundleRuntime(*this, path) {
     drivers.reserve(16);
 
@@ -696,8 +697,8 @@ void Repository::releaseUnused() {
     }
 }
 
-PersistentStream* Repository::getPersistentStream(util::UUID uuid, const std::string& path) {
-    return streamCache.getStream(uuid, path);
+PersistentStream* Repository::getPersistentStream(Asset& asset, std::string_view localPath) {
+    return streamCache.getStream(asset, localPath);
 }
 
 void Repository::reloadFromSource() {

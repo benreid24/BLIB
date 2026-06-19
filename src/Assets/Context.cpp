@@ -39,7 +39,7 @@ std::string Context::getFilePath(std::string_view filename) const {
 }
 
 PersistentStream* Context::getPersistentStream(std::string_view filename) const {
-    return repo.getPersistentStream(asset.getUUID(), getFilePath(filename));
+    return repo.getPersistentStream(asset, filename);
 }
 
 bool Context::setupReadStream(std::string_view filename, stream::InputStream& input) const {
@@ -86,7 +86,7 @@ WriteContext::WriteContext(Repository& repo, Asset& asset)
 : Context(repo, asset)
 , priorFileOffset(0)
 , priorFile()
-, bundle(nullptr){}
+, bundle(nullptr) {}
 
 WriteContext::WriteContext(Repository& repo, Asset& asset, bdl::BundleData& b)
 : WriteContext(repo, asset) {

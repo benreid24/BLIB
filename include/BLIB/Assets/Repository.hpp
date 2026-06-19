@@ -287,7 +287,7 @@ private:
     bool writeManifest();
 
     // used by Context
-    PersistentStream* getPersistentStream(util::UUID uuid, const std::string& path);
+    PersistentStream* getPersistentStream(Asset& asset, std::string_view localPath);
 
     Ref createAssetShared(std::string_view type, const std::string& name,
                           const CreateContext::CreateData& createData, bool syncImmediate);

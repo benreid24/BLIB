@@ -4,6 +4,9 @@
 #include <BLIB/Assets/Builtin/MusicPayload.hpp>
 #include <BLIB/Assets/Driver.hpp>
 #include <BLIB/Assets/PayloadGeneric.hpp>
+#include <SFML/Audio/SoundChannel.hpp>
+#include <cstdint>
+#include <vector>
 
 namespace bl
 {
@@ -19,6 +22,18 @@ class MusicDriver : public as::Driver<MusicPayload> {
 public:
     /// The string id of this driver type
     static constexpr std::string_view TypeName = "Music";
+
+    /**
+     * @brief Optional creation parameters for music assets using in-memory samples
+     */
+    struct CreateParams : public as::CreateContext::CreateData {
+        /// Raw 16-bit audio samples. Takes priority over path
+        const std::int16_t* samples = nullptr;
+        std::uint64_t sampleCount   = 0;
+        unsigned int channelCount   = 1;
+        unsigned int sampleRate     = 44100;
+        std::vector<sf::SoundChannel> channelMap;
+    };
 
     /**
      * @brief Creates the driver
