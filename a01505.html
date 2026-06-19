@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/StateMask.hpp File Reference</title>
+<title>BLIB: include/BLIB/Util/EmplaceHelper.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,97 +74,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">StateMask.hpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">EmplaceHelper.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;type_traits&gt;</code><br />
-</div>
+
 <p><a href="a01505_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03775.html">bl::engine::StateMask</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper struct for state masks. An engine state has a mask which determines which systems run while that state is active. Any systems whose mask overlaps the state mask are executed each frame while the others are skipped.  <a href="a03775.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06916.html">bl::util::EmplaceHelper&lt; F &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper to emplace non-constructible objects (private constructor, factory methods, etc)  <a href="a06916.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03002" id="r_a03002"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03002.html">bl::engine</a></td></tr>
-<tr class="memdesc:a03002"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="memitem:a03222" id="r_a03222"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03222.html">bl::util</a></td></tr>
+<tr class="memdesc:a03222"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of common utility classes that do not fit into any other modules. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:aba56c436dcb266634cb696ae1127cde9" id="r_aba56c436dcb266634cb696ae1127cde9"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a03775.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01505.html#aba56c436dcb266634cb696ae1127cde9">operator|</a> (<a class="el" href="a03775.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> left, <a class="el" href="a03775.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> right)</td></tr>
-<tr class="memdesc:aba56c436dcb266634cb696ae1127cde9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Explicitly defined binary OR operator for easy typing.  <br /></td></tr>
-<tr class="separator:aba56c436dcb266634cb696ae1127cde9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="aba56c436dcb266634cb696ae1127cde9" name="aba56c436dcb266634cb696ae1127cde9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba56c436dcb266634cb696ae1127cde9">&#9670;&#160;</a></span>operator|()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="a03775.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a> operator| </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03775.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03775.html#aae4beb82249d6acee3fae792b71efdd5">bl::engine::StateMask::V</a>&#160;</td>
-          <td class="paramname"><em>right</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Explicitly defined binary OR operator for easy typing. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">left</td><td>The left mask </td></tr>
-    <tr><td class="paramname">right</td><td>The right mask </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The mask containing both left and right </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01505_source.html#l00051">51</a> of file <a class="el" href="a01505_source.html">StateMask.hpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

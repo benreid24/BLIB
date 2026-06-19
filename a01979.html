@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Audio/Playlist.cpp File Reference</title>
+<title>BLIB: include/BLIB/ECS.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,40 +74,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c64386e93f356b78d4612c7b7741707c.html">Audio</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Playlist.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">ECS.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00185_source.html">BLIB/Audio/Playlist.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00275_source.html">BLIB/Containers/FastEraseVector.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01487_source.html">BLIB/Engine/Configuration.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00263_source.html">BLIB/Resources.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00197_source.html">BLIB/Serialization.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01811_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01784_source.html">BLIB/Util/Random.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00407_source.html">BLIB/ECS/Cleaner.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00401_source.html">BLIB/ECS/ComponentMask.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00395_source.html">BLIB/ECS/ComponentPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00428_source.html">BLIB/ECS/ComponentSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00410_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00431_source.html">BLIB/ECS/EntityBacked.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09574_source.html">BLIB/ECS/Events.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00437_source.html">BLIB/ECS/Registry.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00416_source.html">BLIB/ECS/Transaction.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00413_source.html">BLIB/ECS/View.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00449_source.html">BLIB/ECS/Traits/ChildAware.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00452_source.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00455_source.html">BLIB/ECS/Traits/ParentAwareVersioned.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00446_source.html">BLIB/ECS/Traits/Versioned.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01979_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02996" id="r_a02996"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02996.html">bl::audio</a></td></tr>
-<tr class="memdesc:a02996"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio utilities, tools, and functionality. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

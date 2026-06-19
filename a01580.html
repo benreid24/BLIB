@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/ComponentPool.hpp File Reference</title>
+<title>BLIB: include/BLIB/Models/MaterialSet.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,58 +74,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_dea097b7efa3121d8e11b185c993d8b3.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">ComponentPool.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">MaterialSet.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01550_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a07967_source.html">BLIB/ECS/Events.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01565_source.html">BLIB/ECS/Traits/ChildAware.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01571_source.html">BLIB/ECS/Traits/ParentAware.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01577_source.html">BLIB/ECS/Transaction.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a08501_source.html">BLIB/Signals/Emitter.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01787_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01793_source.html">BLIB/Util/ReadWriteLock.hpp</a>&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
-<code>#include &lt;limits&gt;</code><br />
-<code>#include &lt;plf_colony.h&gt;</code><br />
-<code>#include &lt;type_traits&gt;</code><br />
-<code>#include &lt;utility&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a09757_source.html">BLIB/Models/Material.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09847_source.html">BLIB/Models/Visitor.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01754_source.html">BLIB/Serialization.hpp</a>&gt;</code><br />
+<code>#include &lt;assimp/material.h&gt;</code><br />
+<code>#include &lt;assimp/scene.h&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a01580_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03515.html">bl::ecs::ComponentPoolBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for component pools. Not intended to be used directly.  <a href="a03515.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03519.html">bl::ecs::ComponentPool&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides storage and management for components in the ECS. Used internally in the <a class="el" href="a03591.html" title="This is the main interface of the ECS. This class manages all entities and components and views and s...">Registry</a>.  <a href="a03519.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05008.html">bl::mdl::MaterialSet</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the set of materials in a model.  <a href="a05008.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03009" id="r_a03009"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03009.html">bl::ecs</a></td></tr>
-<tr class="memdesc:a03009"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a03543.html" title="Entity is simply an id. Components are added via a Registry and they own all the relevant properties....">Entity</a> Component System. <br /></td></tr>
+<tr class="memitem:a03183" id="r_a03183"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03183.html">bl::mdl</a></td></tr>
+<tr class="memdesc:a03183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains data structures and functionality for 3d models and animations. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03142" id="r_a03142"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03142.html">bl::serial</a></td></tr>
+<tr class="memdesc:a03142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Lighting/SpotLight3DShadow.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/ShadowMapBinding.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,83 +79,93 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_91f9057575a339ed5473f88b0062d2bc.html">Lighting</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SpotLight3DShadow.hpp</div></div>
+  <div class="headertitle"><div class="title">ShadowMapBinding.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00827.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_LIGHTING_SPOTLIGHT3DSHADOW_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_LIGHTING_SPOTLIGHT3DSHADOW_HPP</span></div>
+<a href="a00827.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08528.html">BLIB/Render/Config/Constants.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00809.html">BLIB/Render/Lighting/SpotLight3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;glm/gtc/matrix_transform.hpp&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;glm/gtx/transform.hpp&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>lgt</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05263.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a05263.html">SpotLight3DShadow</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05259.html">SpotLight3D</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05263.html#a2010554d4f51bc554c156a088b25e8c7">   25</a></span>    <a class="code hl_function" href="a05263.html#a2010554d4f51bc554c156a088b25e8c7">SpotLight3DShadow</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a05263.html#a717fbea241cd3ca3bd4f9bcb3f348893">   30</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05263.html#a717fbea241cd3ca3bd4f9bcb3f348893">updateLightMatrix</a>() {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        glm::mat4 projection =</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            glm::perspective(<a class="code hl_variable" href="a05259.html#a0cdc29a6d7f659867d26f16f1db6d548">outerCutoff</a> * 2.f, 1.f, 0.1f, <a class="code hl_function" href="a05259.html#a49439108d62db36e37651487514d52f8">computeFalloffRadius</a>());</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        glm::mat4 view       = glm::lookAt(<a class="code hl_variable" href="a05259.html#a48c81c0897f79c65d379543e784bcc9b">pos</a>, <a class="code hl_variable" href="a05259.html#a48c81c0897f79c65d379543e784bcc9b">pos</a> + <a class="code hl_variable" href="a05259.html#ae92e42e6edf0c5d307b1af7ee0397e4e">dir</a>, <a class="code hl_variable" href="a04779.html#a5fa7f3547b6c955ce49b9c952716e7d6">cfg::Constants::UpDirection</a>);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        viewProjectionMatrix = projection * view;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00893.html">BLIB/Render/Descriptors/Generic/Binding.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00953.html">BLIB/Render/Lighting/Scene3DLighting.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01004.html">BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>dsi</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Scene3DInstance;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05396.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="a05396.html">ShadowMapBinding</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05432.html">ds::Binding</a> {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="a05396.html#a648db6e7c58badee1b8eb4f41e74719a">ShadowMapBinding</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a06064.html">sri::ShadowMapCameraShaderResource</a>* storage;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a05420.html#a587b054106ae5b4911a145a1d2928eaa">ds::DescriptorSetInstance::EntityBindMode</a> getBindMode()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a05420.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">ds::DescriptorSetInstance::EntityBindMode::Bindless</a>;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a05263.html#a7ce997c45e41f1084f15023366beacfd">   42</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05263.html#a7ce997c45e41f1084f15023366beacfd">copyAsUniform</a>(<span class="keyword">const</span> <a class="code hl_class" href="a05263.html">SpotLight3DShadow</a>&amp; other) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <a class="code hl_function" href="a05259.html#a9b52bd9a147383806e442369446fdab6">SpotLight3D::copyAsUniform</a>(other);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_function" href="a05263.html#a717fbea241cd3ca3bd4f9bcb3f348893">updateLightMatrix</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
-</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a05263.html#acb52ce5d8957110919897b05f5743abd">   50</a></span>    <span class="keyword">const</span> glm::mat4&amp; <a class="code hl_function" href="a05263.html#acb52ce5d8957110919897b05f5743abd">getViewProjectionMatrix</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> viewProjectionMatrix; }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a05420.html#a56d01a7643e3e65933db3c5a957db66f">ds::DescriptorSetInstance::SpeedBucketSetting</a> getSpeedMode()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a05420.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">ds::DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_struct" href="a06376.html">vk::VulkanLayer</a>&amp; vulkanState, <a class="code hl_struct" href="a05460.html">ds::InitContext</a>&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> writeSet(<a class="code hl_class" href="a05468.html">ds::SetWriteHelper</a>&amp; writer, VkDescriptorSet set, <a class="code hl_enumeration" href="a03124.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>,</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                          std::uint32_t frameIndex) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> allocateObject(<a class="code hl_struct" href="a04040.html">ecs::Entity</a>, <a class="code hl_struct" href="a05976.html">scene::Key</a>)<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> releaseObject(<a class="code hl_struct" href="a04040.html">ecs::Entity</a>, <a class="code hl_struct" href="a05976.html">scene::Key</a>)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onFrameStart() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> staticDescriptorUpdateRequired()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> dynamicDescriptorUpdateRequired()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> std::uint32_t getDynamicOffsetForPipeline(<a class="code hl_class" href="a06032.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>,</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                                      VkPipelineLayout, std::uint32_t,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                      <a class="code hl_enumeration" href="a03124.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>) <span class="keyword">override</span>;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    glm::mat4 viewProjectionMatrix;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a05263.html#ab80f9d2e0a5f6d008501375d63b66863">   55</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05251.html">Scene3DLighting</a>;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a05396.html#a98f9552925093268ac75bc5a878dd013">   53</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05428.html">ds::Bindings</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace lgt</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00809_html"><div class="ttname"><a href="a00809.html">SpotLight3D.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04779_html_a5fa7f3547b6c955ce49b9c952716e7d6"><div class="ttname"><a href="a04779.html#a5fa7f3547b6c955ce49b9c952716e7d6">bl::rc::cfg::Constants::UpDirection</a></div><div class="ttdeci">static constexpr glm::vec3 UpDirection</div><div class="ttdef"><b>Definition</b> <a href="a08528_source.html#l00025">Constants.hpp:25</a></div></div>
-<div class="ttc" id="aa05251_html"><div class="ttname"><a href="a05251.html">bl::rc::lgt::Scene3DLighting</a></div><div class="ttdoc">Lighting manager for 3d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00833_source.html#l00026">Scene3DLighting.hpp:26</a></div></div>
-<div class="ttc" id="aa05259_html"><div class="ttname"><a href="a05259.html">bl::rc::lgt::SpotLight3D</a></div><div class="ttdoc">Basic struct representing a spotlight in a 3d scene.</div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00021">SpotLight3D.hpp:21</a></div></div>
-<div class="ttc" id="aa05259_html_a0cdc29a6d7f659867d26f16f1db6d548"><div class="ttname"><a href="a05259.html#a0cdc29a6d7f659867d26f16f1db6d548">bl::rc::lgt::SpotLight3D::outerCutoff</a></div><div class="ttdeci">float outerCutoff</div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00158">SpotLight3D.hpp:158</a></div></div>
-<div class="ttc" id="aa05259_html_a48c81c0897f79c65d379543e784bcc9b"><div class="ttname"><a href="a05259.html#a48c81c0897f79c65d379543e784bcc9b">bl::rc::lgt::SpotLight3D::pos</a></div><div class="ttdeci">glm::vec3 pos</div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00155">SpotLight3D.hpp:155</a></div></div>
-<div class="ttc" id="aa05259_html_a49439108d62db36e37651487514d52f8"><div class="ttname"><a href="a05259.html#a49439108d62db36e37651487514d52f8">bl::rc::lgt::SpotLight3D::computeFalloffRadius</a></div><div class="ttdeci">float computeFalloffRadius(float threshold=5.f/256.f) const</div><div class="ttdoc">Returns the radius of the light volume for this light.</div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00136">SpotLight3D.hpp:136</a></div></div>
-<div class="ttc" id="aa05259_html_a9b52bd9a147383806e442369446fdab6"><div class="ttname"><a href="a05259.html#a9b52bd9a147383806e442369446fdab6">bl::rc::lgt::SpotLight3D::copyAsUniform</a></div><div class="ttdeci">void copyAsUniform(const SpotLight3D &amp;other)</div><div class="ttdoc">Copies the light data from another light to this one which will be used by shaders.</div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00145">SpotLight3D.hpp:145</a></div></div>
-<div class="ttc" id="aa05259_html_ae92e42e6edf0c5d307b1af7ee0397e4e"><div class="ttname"><a href="a05259.html#ae92e42e6edf0c5d307b1af7ee0397e4e">bl::rc::lgt::SpotLight3D::dir</a></div><div class="ttdeci">glm::vec3 dir</div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00157">SpotLight3D.hpp:157</a></div></div>
-<div class="ttc" id="aa05263_html"><div class="ttname"><a href="a05263.html">bl::rc::lgt::SpotLight3DShadow</a></div><div class="ttdoc">3D spotlight that casts a shadow</div><div class="ttdef"><b>Definition</b> <a href="a00827_source.html#l00020">SpotLight3DShadow.hpp:20</a></div></div>
-<div class="ttc" id="aa05263_html_a2010554d4f51bc554c156a088b25e8c7"><div class="ttname"><a href="a05263.html#a2010554d4f51bc554c156a088b25e8c7">bl::rc::lgt::SpotLight3DShadow::SpotLight3DShadow</a></div><div class="ttdeci">SpotLight3DShadow()=default</div><div class="ttdoc">Initializes the spotlight with sane defaults.</div></div>
-<div class="ttc" id="aa05263_html_a717fbea241cd3ca3bd4f9bcb3f348893"><div class="ttname"><a href="a05263.html#a717fbea241cd3ca3bd4f9bcb3f348893">bl::rc::lgt::SpotLight3DShadow::updateLightMatrix</a></div><div class="ttdeci">void updateLightMatrix()</div><div class="ttdoc">Computes the new view projection matrix for the light.</div><div class="ttdef"><b>Definition</b> <a href="a00827_source.html#l00030">SpotLight3DShadow.hpp:30</a></div></div>
-<div class="ttc" id="aa05263_html_a7ce997c45e41f1084f15023366beacfd"><div class="ttname"><a href="a05263.html#a7ce997c45e41f1084f15023366beacfd">bl::rc::lgt::SpotLight3DShadow::copyAsUniform</a></div><div class="ttdeci">void copyAsUniform(const SpotLight3DShadow &amp;other)</div><div class="ttdoc">Copies the light data from another light to this one which will be used by shaders.</div><div class="ttdef"><b>Definition</b> <a href="a00827_source.html#l00042">SpotLight3DShadow.hpp:42</a></div></div>
-<div class="ttc" id="aa05263_html_acb52ce5d8957110919897b05f5743abd"><div class="ttname"><a href="a05263.html#acb52ce5d8957110919897b05f5743abd">bl::rc::lgt::SpotLight3DShadow::getViewProjectionMatrix</a></div><div class="ttdeci">const glm::mat4 &amp; getViewProjectionMatrix() const</div><div class="ttdoc">Returns the camera matrix for this light.</div><div class="ttdef"><b>Definition</b> <a href="a00827_source.html#l00050">SpotLight3DShadow.hpp:50</a></div></div>
-<div class="ttc" id="aa08528_html"><div class="ttname"><a href="a08528.html">Constants.hpp</a></div></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace dsi</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00893_html"><div class="ttname"><a href="a00893.html">Binding.hpp</a></div></div>
+<div class="ttc" id="aa00953_html"><div class="ttname"><a href="a00953.html">Scene3DLighting.hpp</a></div></div>
+<div class="ttc" id="aa01004_html"><div class="ttname"><a href="a01004.html">ShadowMapCameraShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa02858_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03124_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a03124.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04040_html"><div class="ttname"><a href="a04040.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa05396_html"><div class="ttname"><a href="a05396.html">bl::rc::dsi::ShadowMapBinding</a></div><div class="ttdoc">Binding for light camera matrices for rendering shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00827_source.html#l00023">ShadowMapBinding.hpp:23</a></div></div>
+<div class="ttc" id="aa05396_html_a648db6e7c58badee1b8eb4f41e74719a"><div class="ttname"><a href="a05396.html#a648db6e7c58badee1b8eb4f41e74719a">bl::rc::dsi::ShadowMapBinding::ShadowMapBinding</a></div><div class="ttdeci">ShadowMapBinding()</div><div class="ttdoc">Creates the binding.</div><div class="ttdef"><b>Definition</b> <a href="a02429_source.html#l00012">ShadowMapBinding.cpp:12</a></div></div>
+<div class="ttc" id="aa05420_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a05420.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a09709_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa05420_html_a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"><div class="ttname"><a href="a05420.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">bl::rc::ds::DescriptorSetInstance::SpeedAgnostic</a></div><div class="ttdeci">@ SpeedAgnostic</div><div class="ttdef"><b>Definition</b> <a href="a09709_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa05420_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a05420.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a09709_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa05420_html_a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957"><div class="ttname"><a href="a05420.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">bl::rc::ds::DescriptorSetInstance::Bindless</a></div><div class="ttdeci">@ Bindless</div><div class="ttdef"><b>Definition</b> <a href="a09709_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa05428_html"><div class="ttname"><a href="a05428.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a00899_source.html#l00023">Bindings.hpp:23</a></div></div>
+<div class="ttc" id="aa05432_html"><div class="ttname"><a href="a05432.html">bl::rc::ds::Binding</a></div><div class="ttdoc">Base class for generic descriptor set binding providers.</div><div class="ttdef"><b>Definition</b> <a href="a00893_source.html#l00031">Binding.hpp:31</a></div></div>
+<div class="ttc" id="aa05460_html"><div class="ttname"><a href="a05460.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a09745_source.html#l00030">InitContext.hpp:30</a></div></div>
+<div class="ttc" id="aa05468_html"><div class="ttname"><a href="a05468.html">bl::rc::ds::SetWriteHelper</a></div><div class="ttdoc">Utility to perform arbitrary descriptor set writes using stack allocated memory.</div><div class="ttdef"><b>Definition</b> <a href="a00908_source.html#l00018">SetWriteHelper.hpp:18</a></div></div>
+<div class="ttc" id="aa05976_html"><div class="ttname"><a href="a05976.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a09775_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa06032_html"><div class="ttname"><a href="a06032.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a01016_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="ttc" id="aa06064_html"><div class="ttname"><a href="a06064.html">bl::rc::sr::BufferShaderResource</a></div><div class="ttdoc">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00024">BufferShaderResource.hpp:24</a></div></div>
+<div class="ttc" id="aa06376_html"><div class="ttname"><a href="a06376.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01073_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

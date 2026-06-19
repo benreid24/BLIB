@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Scripts</title>
+<title>BLIB: src/Interfaces/GUI/Elements/Element.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,7 +51,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -73,59 +72,39 @@ $(function() {
 </div>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_2f8d53e1ba10fbf191c8865f2f20ae97.html">Elements</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">Scripts</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">Element.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of classes for parsing and executing scripts.  
-<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="a01817_source.html">BLIB/Interfaces/GUI/Elements/Element.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09793_source.html">BLIB/Interfaces/GUI/Elements/Window.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09667_source.html">BLIB/Interfaces/GUI/GUI.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01751_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
+</div>
+<p><a href="a02981_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05995.html">bl::script::Context</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A context to run a script with. Custom context classes may be created to have different types of scripts. For example, an NPC running a script may have a context that adds several global functions to manipulate that NPC directly from the script.  <a href="a05995.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05999.html">bl::script::Error</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a06027.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> utility class to represent an error. Can be used to build a call stack for script errors.  <a href="a05999.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06003.html">bl::script::Exit</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special Exception for Scripts to exit without an <a class="el" href="a05999.html" title="Script utility class to represent an error. Can be used to build a call stack for script errors.">Error</a>.  <a href="a06003.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06007.html">bl::script::Function</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for functions defined in scripts themselves.  <a href="a06007.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06015.html">bl::script::PrimitiveValue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the lowest level values in scripts.  <a href="a06015.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06023.html">bl::script::ReferenceValue</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference type for values. Wrapper around std::shared_ptr.  <a href="a06023.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06027.html">bl::script::Script</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads scripts. Can run scripts directly or in the background. Is threadsafe.  <a href="a06027.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06035.html">bl::script::SymbolTable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stack aware symbol table for managing functions and variables Each <a class="el" href="a06027.html" title="Loads scripts. Can run scripts directly or in the background. Is threadsafe.">Script</a> holds a single instance.  <a href="a06035.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06039.html">bl::script::Value</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Main representation of a value in scripts.  <a href="a06039.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06767.html">bl::script::Parser</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a <a class="el" href="a06767.html" title="Implementation of a Parser for the scripting language.">Parser</a> for the scripting language.  <a href="a06767.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06779.html">bl::script::Library</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static helper to add built-in functions to each script.  <a href="a06779.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a03174" id="r_a03174"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03174.html">bl::gui</a></td></tr>
+<tr class="memdesc:a03174"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of classes for parsing and executing scripts. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

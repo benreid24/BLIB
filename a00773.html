@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/RenderTarget.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,57 +74,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bb95439065f6a606d9dbc4385f71a79c.html">ShaderResources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">CameraBufferShaderResource.hpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">RenderTarget.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00230_source.html">BLIB/Cameras/Camera.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00542_source.html">BLIB/Render/Buffers/BufferDoubleStaged.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00770_source.html">BLIB/Render/ShaderResources/BufferShaderResource.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a08564_source.html">BLIB/Render/ShaderResources/Key.hpp</a>&gt;</code><br />
-<code>#include &lt;glm/glm.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00005_source.html">BLIB/Cameras/Camera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00026_source.html">BLIB/Cameras/OverlayCamera.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00776_source.html">BLIB/Render/Color.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00506_source.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00569_source.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00509_source.html">BLIB/Render/Graph/RenderGraph.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00770_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00797_source.html">BLIB/Render/Resources/SceneRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01022_source.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09784_source.html">BLIB/Render/Vulkan/Image.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01124_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01484_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01250_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;stack&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00773_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05531.html">bl::rc::sri::CameraBufferUniform</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uniform structure for camera data.  <a href="a05531.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05872.html">bl::rc::RenderTarget</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05535.html">bl::rc::sri::CameraBufferShaderResource</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shader resource for the camera uniform buffer.  <a href="a05535.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05876.html">bl::rc::RenderTarget::SceneInstance</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03004" id="r_a03004"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03004.html">bl::rc</a></td></tr>
-<tr class="memdesc:a03004"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05331.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05868.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03052" id="r_a03052"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03052.html">bl::rc::sri</a></td></tr>
-<tr class="memdesc:a03052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing implementations of specific shader resources. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gaf5bf441bbad46439d7cb612f23fb7111" id="r_gaf5bf441bbad46439d7cb612f23fb7111"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="a05567.html">sr::Key</a>&lt; <a class="el" href="a05535.html">CameraBufferShaderResource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02979.html#gaf5bf441bbad46439d7cb612f23fb7111">bl::rc::sri::CameraBufferKey</a> (&quot;__builtin_CameraBuffer&quot;)</td></tr>
-<tr class="memdesc:gaf5bf441bbad46439d7cb612f23fb7111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key for the built-in camera buffer shader resource.  <br /></td></tr>
-<tr class="separator:gaf5bf441bbad46439d7cb612f23fb7111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

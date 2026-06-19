@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/TaskAssetTags.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Assets/TaggedEmptyAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,57 +79,61 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">TaskAssetTags.hpp</div></div>
+  <div class="headertitle"><div class="title">TaggedEmptyAsset.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00566.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKASSETTAGS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKASSETTAGS_HPP</span></div>
+<a href="a00566.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_TAGGEDEMPTYASSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_TAGGEDEMPTYASSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00641.html">BLIB/Render/Graph/TaskInput.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00701.html">BLIB/Render/Graph/TaskOutput.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rg</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05107.html">   20</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a05107.html">TaskAssetTags</a> {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05107.html#a4e0f4dd559079f76277fe20455135007">   22</a></span>    std::vector&lt;TaskOutput&gt; <a class="code hl_variable" href="a05107.html#a4e0f4dd559079f76277fe20455135007">outputs</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05107.html#af629a8d79e580fce30b340ddc7a18985">   25</a></span>    std::vector&lt;TaskInput&gt; <a class="code hl_variable" href="a05107.html#af629a8d79e580fce30b340ddc7a18985">requiredInputs</a>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a05107.html#a643dfc7073ed1a88677ab7012e562b5d">   28</a></span>    std::vector&lt;TaskInput&gt; <a class="code hl_variable" href="a05107.html#a643dfc7073ed1a88677ab7012e562b5d">optionalInputs</a>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05107.html#abc849125664d8fc508592d2c9f40a181">   31</a></span>    std::vector&lt;std::string_view&gt; <a class="code hl_variable" href="a05107.html#abc849125664d8fc508592d2c9f40a181">sidecarAssets</a>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09736.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a05572.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a05572.html">TaggedEmptyAsset</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05512.html">rg::Asset</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05572.html#a97286e6c65db74e79e526f27b349c71b">   25</a></span>    <a class="code hl_function" href="a05572.html#a97286e6c65db74e79e526f27b349c71b">TaggedEmptyAsset</a>(std::string_view tag, <span class="keywordtype">bool</span> terminal)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    : <a class="code hl_function" href="a05512.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset</a>(tag, terminal) {}</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace rg</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00641_html"><div class="ttname"><a href="a00641.html">TaskInput.hpp</a></div></div>
-<div class="ttc" id="aa00701_html"><div class="ttname"><a href="a00701.html">TaskOutput.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05107_html"><div class="ttname"><a href="a05107.html">bl::rc::rg::TaskAssetTags</a></div><div class="ttdoc">Basic struct containing the tags for a task for linking within a graph.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00020">TaskAssetTags.hpp:20</a></div></div>
-<div class="ttc" id="aa05107_html_a4e0f4dd559079f76277fe20455135007"><div class="ttname"><a href="a05107.html#a4e0f4dd559079f76277fe20455135007">bl::rc::rg::TaskAssetTags::outputs</a></div><div class="ttdeci">std::vector&lt; TaskOutput &gt; outputs</div><div class="ttdoc">The type of outputs that the task can output to.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00022">TaskAssetTags.hpp:22</a></div></div>
-<div class="ttc" id="aa05107_html_a643dfc7073ed1a88677ab7012e562b5d"><div class="ttname"><a href="a05107.html#a643dfc7073ed1a88677ab7012e562b5d">bl::rc::rg::TaskAssetTags::optionalInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; optionalInputs</div><div class="ttdoc">List of optional inputs.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00028">TaskAssetTags.hpp:28</a></div></div>
-<div class="ttc" id="aa05107_html_abc849125664d8fc508592d2c9f40a181"><div class="ttname"><a href="a05107.html#abc849125664d8fc508592d2c9f40a181">bl::rc::rg::TaskAssetTags::sidecarAssets</a></div><div class="ttdeci">std::vector&lt; std::string_view &gt; sidecarAssets</div><div class="ttdoc">Assets that are required during execution of the task that aren't inputs or outputs.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00031">TaskAssetTags.hpp:31</a></div></div>
-<div class="ttc" id="aa05107_html_af629a8d79e580fce30b340ddc7a18985"><div class="ttname"><a href="a05107.html#af629a8d79e580fce30b340ddc7a18985">bl::rc::rg::TaskAssetTags::requiredInputs</a></div><div class="ttdeci">std::vector&lt; TaskInput &gt; requiredInputs</div><div class="ttdoc">List of required inputs.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00025">TaskAssetTags.hpp:25</a></div></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05572.html#a86aaa499021e8051696e20346888877a">   31</a></span>    <a class="code hl_function" href="a05572.html#a86aaa499021e8051696e20346888877a">~TaggedEmptyAsset</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordtype">void</span> doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05592.html">rg::InitContext</a>&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code hl_struct" href="a05580.html">rg::ExecutionContext</a>&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordtype">void</span> doStartOutput(<span class="keyword">const</span> <a class="code hl_struct" href="a05580.html">rg::ExecutionContext</a>&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">void</span> doEndOutput(<span class="keyword">const</span> rg::ExecutionContext&amp;)<span class="keyword"> override </span>{}</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>};</div>
+</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05512_html"><div class="ttname"><a href="a05512.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a09736_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa05512_html_a8cae6ec2b55cce7383ddc721a46cbe26"><div class="ttname"><a href="a05512.html#a8cae6ec2b55cce7383ddc721a46cbe26">bl::rc::rg::Asset::Asset</a></div><div class="ttdeci">Asset(std::string_view tag, bool terminal)</div><div class="ttdoc">Initializes the asset.</div><div class="ttdef"><b>Definition</b> <a href="a09946_source.html#l00014">Asset.cpp:14</a></div></div>
+<div class="ttc" id="aa05572_html"><div class="ttname"><a href="a05572.html">bl::rc::rgi::TaggedEmptyAsset</a></div><div class="ttdoc">Empty asset that can be used for creating dependencies between tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00017">TaggedEmptyAsset.hpp:17</a></div></div>
+<div class="ttc" id="aa05572_html_a86aaa499021e8051696e20346888877a"><div class="ttname"><a href="a05572.html#a86aaa499021e8051696e20346888877a">bl::rc::rgi::TaggedEmptyAsset::~TaggedEmptyAsset</a></div><div class="ttdeci">~TaggedEmptyAsset()=default</div><div class="ttdoc">Destroys the asset.</div></div>
+<div class="ttc" id="aa05572_html_a97286e6c65db74e79e526f27b349c71b"><div class="ttname"><a href="a05572.html#a97286e6c65db74e79e526f27b349c71b">bl::rc::rgi::TaggedEmptyAsset::TaggedEmptyAsset</a></div><div class="ttdeci">TaggedEmptyAsset(std::string_view tag, bool terminal)</div><div class="ttdoc">Creates an empty asset with the given tag.</div><div class="ttdef"><b>Definition</b> <a href="a00566_source.html#l00025">TaggedEmptyAsset.hpp:25</a></div></div>
+<div class="ttc" id="aa05580_html"><div class="ttname"><a href="a05580.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00662_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa05592_html"><div class="ttname"><a href="a05592.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a09748_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa09736_html"><div class="ttname"><a href="a09736.html">Asset.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

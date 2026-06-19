@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Serialization/SerializableObject.hpp File Reference</title>
+<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/Basic/ProgressBarComponent.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,50 +74,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_c6abb0a9a0ffd97b434d53646f50bd53.html">Basic</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">SerializableObject.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">ProgressBarComponent.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01880_source.html">BLIB/Serialization/Binary/InputStream.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01877_source.html">BLIB/Serialization/Binary/OutputStream.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a08591_source.html">BLIB/Serialization/JSON/JSON.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01787_source.html">BLIB/Util/NonCopyable.hpp</a>&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00125_source.html">BLIB/Graphics/Rectangle.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01934_source.html">BLIB/Interfaces/GUI/Renderer/Component.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01865_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06355.html">bl::serial::SerializableObjectBase</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all serializable objects.  <a href="a06355.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06359.html">bl::serial::SerializableObject&lt; T &gt;</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for user defined classes meant to be serialized to and from JSON. Data members of serializable objects should be of type <a class="el" href="a06339.html" title="Represents a field in a class that can be serialized. Serializable objects should inherit from Serial...">SerializableField</a>. JSON native types, vector, unordered_map, and nested <a class="el" href="a06359.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> members are supported out of the box. For user defined types as fields they must either extend <a class="el" href="a06359.html" title="Base class for user defined classes meant to be serialized to and from JSON. Data members of serializ...">SerializableObject</a> themselves, or a specialization of Serializer must be provided for the desired type. SerializableObjects that will be nested must provide a copy constructor that registers each contained field.  <a href="a06359.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06363.html">bl::serial::SerializableObject&lt; T &gt;::MakeError&lt; U &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04756.html">bl::gui::defcoms::ProgressBarComponent</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default component type for <a class="el" href="a04640.html" title="Simple progress bar.">ProgressBar</a> elements.  <a href="a04756.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02997" id="r_a02997"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02997.html">bl::serial</a></td></tr>
-<tr class="memdesc:a02997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="memitem:a03174" id="r_a03174"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03174.html">bl::gui</a></td></tr>
+<tr class="memdesc:a03174"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03176" id="r_a03176"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03176.html">bl::gui::defcoms</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

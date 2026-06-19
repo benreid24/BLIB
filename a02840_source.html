@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Graphics/Circle.cpp Source File</title>
+<title>BLIB: src/Models/BoneSet.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,52 +79,73 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Circle.cpp</div></div>
+  <div class="headertitle"><div class="title">BoneSet.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02840.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01643.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
+<a href="a02840.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01577.html">BLIB/Models/BoneSet.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>gfx</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>mdl</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03887.html#a9d18a3cbd0e5c7a276fcd740709192f6">    7</a></span><a class="code hl_function" href="a03887.html#a9d18a3cbd0e5c7a276fcd740709192f6">Circle::Circle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: CircleBase(pointCount) {}</div>
-</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a03887.html#aadc977f6c83141e81514bd9e47869271">   10</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03887.html#aadc977f6c83141e81514bd9e47869271">Circle::create</a>(<a class="code hl_class" href="a03807.html">engine::World</a>&amp; world, <span class="keywordtype">float</span> r) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_function" href="a03959.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    SingleShape2D::create(world);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04964.html#a5ac27fb1a93c365cd08d4fa04799004a">    7</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04964.html#a5ac27fb1a93c365cd08d4fa04799004a">BoneSet::populate</a>(<span class="keyword">const</span> aiScene* scene) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> boneCount = 0;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; scene-&gt;mNumMeshes; ++i) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        boneCount += scene-&gt;mMeshes[i]-&gt;mNumBones;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    }</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    bones.reserve(boneCount);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03887.html#a6c33e6ea96b5747f7de6448b66781c76">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03887.html#aadc977f6c83141e81514bd9e47869271">Circle::create</a>(<a class="code hl_class" href="a03807.html">engine::World</a>&amp; world, <a class="code hl_struct" href="a03543.html">ecs::Entity</a> existing, <span class="keywordtype">float</span> r) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_function" href="a03959.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    SingleShape2D::create(world, existing);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; scene-&gt;mNumMeshes; ++i) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; scene-&gt;mMeshes[i]-&gt;mNumBones; ++j) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_function" href="a04964.html#a96c6fac7a7bf6ca4e713d31217f4ee03">getOrAddBone</a>(scene-&gt;mMeshes[i]-&gt;mBones[j]);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace gfx</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01643_html"><div class="ttname"><a href="a01643.html">Circle.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa03807_html"><div class="ttname"><a href="a03807.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01496_source.html#l00022">World.hpp:22</a></div></div>
-<div class="ttc" id="aa03887_html_a9d18a3cbd0e5c7a276fcd740709192f6"><div class="ttname"><a href="a03887.html#a9d18a3cbd0e5c7a276fcd740709192f6">bl::gfx::Circle::Circle</a></div><div class="ttdeci">Circle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition</b> <a href="a02840_source.html#l00007">Circle.cpp:7</a></div></div>
-<div class="ttc" id="aa03887_html_aadc977f6c83141e81514bd9e47869271"><div class="ttname"><a href="a03887.html#aadc977f6c83141e81514bd9e47869271">bl::gfx::Circle::create</a></div><div class="ttdeci">void create(engine::World &amp;world, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition</b> <a href="a02840_source.html#l00010">Circle.cpp:10</a></div></div>
-<div class="ttc" id="aa03959_html_ade9c3d7c900c2b150bf0812f79720a1c"><div class="ttname"><a href="a03959.html#ade9c3d7c900c2b150bf0812f79720a1c">bl::gfx::s2d::CircleBase&lt; s2d::SingleShape2D &gt;::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the circles radius.</div><div class="ttdef"><b>Definition</b> <a href="a01697_source.html#l00038">CircleBase.hpp:90</a></div></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04964.html#a96c6fac7a7bf6ca4e713d31217f4ee03">   22</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a04964.html#a96c6fac7a7bf6ca4e713d31217f4ee03">BoneSet::getOrAddBone</a>(<span class="keyword">const</span> aiBone* bone) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> <span class="keyword">auto</span> existingIndex =</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_function" href="a04964.html#aca2fcb7ae1f10c63acffe82288fb6557">getBoneIndexByName</a>(std::string_view(bone-&gt;mName.data, bone-&gt;mName.length));</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (existingIndex.has_value()) { <span class="keywordflow">return</span> existingIndex.value(); }</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = bones.size();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    bones.emplace_back(bone);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> i;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04964.html#aca2fcb7ae1f10c63acffe82288fb6557">   32</a></span>std::optional&lt;unsigned int&gt; <a class="code hl_function" href="a04964.html#aca2fcb7ae1f10c63acffe82288fb6557">BoneSet::getBoneIndexByName</a>(<span class="keyword">const</span> std::string_view&amp; name)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; bones.size(); ++i) {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (bones[i].name == name) { <span class="keywordflow">return</span> i; }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a04964.html#a233ed328de02f3fd15a537fd6d33b167">   39</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04964.html#a233ed328de02f3fd15a537fd6d33b167">BoneSet::addBone</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04948.html">Bone</a>&amp; bone) { bones.emplace_back(bone); }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace mdl</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01577_html"><div class="ttname"><a href="a01577.html">BoneSet.hpp</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04948_html"><div class="ttname"><a href="a04948.html">bl::mdl::Bone</a></div><div class="ttdoc">Basic struct representing a bone in a model.</div><div class="ttdef"><b>Definition</b> <a href="a09547_source.html#l00017">Bone.hpp:17</a></div></div>
+<div class="ttc" id="aa04964_html_a233ed328de02f3fd15a537fd6d33b167"><div class="ttname"><a href="a04964.html#a233ed328de02f3fd15a537fd6d33b167">bl::mdl::BoneSet::addBone</a></div><div class="ttdeci">void addBone(const Bone &amp;bone)</div><div class="ttdoc">Adds a bone directly to the set.</div><div class="ttdef"><b>Definition</b> <a href="a02840_source.html#l00039">BoneSet.cpp:39</a></div></div>
+<div class="ttc" id="aa04964_html_a5ac27fb1a93c365cd08d4fa04799004a"><div class="ttname"><a href="a04964.html#a5ac27fb1a93c365cd08d4fa04799004a">bl::mdl::BoneSet::populate</a></div><div class="ttdeci">void populate(const aiScene *scene)</div><div class="ttdoc">Creates the bone set and tries to load all bones.</div><div class="ttdef"><b>Definition</b> <a href="a02840_source.html#l00007">BoneSet.cpp:7</a></div></div>
+<div class="ttc" id="aa04964_html_a96c6fac7a7bf6ca4e713d31217f4ee03"><div class="ttname"><a href="a04964.html#a96c6fac7a7bf6ca4e713d31217f4ee03">bl::mdl::BoneSet::getOrAddBone</a></div><div class="ttdeci">unsigned int getOrAddBone(const aiBone *bone)</div><div class="ttdoc">Returns the index of the bone in the set. If the bone is not in the set it is added.</div><div class="ttdef"><b>Definition</b> <a href="a02840_source.html#l00022">BoneSet.cpp:22</a></div></div>
+<div class="ttc" id="aa04964_html_aca2fcb7ae1f10c63acffe82288fb6557"><div class="ttname"><a href="a04964.html#aca2fcb7ae1f10c63acffe82288fb6557">bl::mdl::BoneSet::getBoneIndexByName</a></div><div class="ttdeci">std::optional&lt; unsigned int &gt; getBoneIndexByName(const std::string_view &amp;name) const</div><div class="ttdoc">Finds the bone with the given name and returns its index if found.</div><div class="ttdef"><b>Definition</b> <a href="a02840_source.html#l00032">BoneSet.cpp:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/GUI/Renderer/Component.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Vulkan/SemanticTextureFormat.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,49 +74,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_488290d74f9e6b3540591d02cc875229.html">GUI</a></li><li class="navelem"><a class="el" href="dir_d5cd77a65f52f9a63455a724bc15c589.html">Renderer</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Component.hpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
+  <div class="headertitle"><div class="title">SemanticTextureFormat.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01550_source.html">BLIB/ECS/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Logging.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00797_source.html">BLIB/Render/Overlays/Overlay.hpp</a>&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-</div>
+
 <p><a href="a01088_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04319.html">bl::gui::rdr::Component</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer components. Each <a class="el" href="a04211.html" title="Top level class for creating a graphical user interface.">GUI</a> element owns a handle to a component owned by the renderer. Components are created by factories registered in the <a class="el" href="a04211.html" title="Top level class for creating a graphical user interface.">GUI</a>'s <a class="el" href="a04331.html" title="Managed mapping of GUI Element to ComponentFactory. Allows swapping out render behavior for specific ...">FactoryTable</a>.  <a href="a04319.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03002" id="r_a03002"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03002.html">bl::engine</a></td></tr>
-<tr class="memdesc:a03002"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core game engine and related classes. <br /></td></tr>
+<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05868.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03029" id="r_a03029"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03029.html">bl::gui</a></td></tr>
-<tr class="memdesc:a03029"><td class="mdescLeft">&#160;</td><td class="mdescRight">A window based graphical user interface. <br /></td></tr>
+<tr class="memitem:a03166" id="r_a03166"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03166.html">bl::rc::vk</a></td></tr>
+<tr class="memdesc:a03166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of interfaces and utilities directly related to Vulkan. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03032" id="r_a03032"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03032.html">bl::gui::rdr</a></td></tr>
-<tr class="memdesc:a03032"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04211.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer classes. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga5edbf7bf53f275665e759e042079f4b2" id="r_ga5edbf7bf53f275665e759e042079f4b2"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03124.html#ga5edbf7bf53f275665e759e042079f4b2">bl::rc::vk::SemanticTextureFormat</a> { <br />
+&#160;&#160;<a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2acb5feb1b7314637725a2e73bdc9f7295">bl::rc::vk::SemanticTextureFormat::Color</a>
+, <a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2a675056ad1441b6375b2c5abd48c27ef1">bl::rc::vk::SemanticTextureFormat::Depth</a>
+, <a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2a2fa8076285272883c91e14402975a441">bl::rc::vk::SemanticTextureFormat::DepthStencil</a>
+, <a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2a3b904dc704b6d06b8e2f920ec038ee26">bl::rc::vk::SemanticTextureFormat::LinearRGBA32Bit</a>
+, <br />
+&#160;&#160;<a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2a313c5421ebbf50948a17f170fb9597c5">bl::rc::vk::SemanticTextureFormat::SRGBA32Bit</a>
+, <a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2af9fb2343389f462322ec3b6e064ae13f">bl::rc::vk::SemanticTextureFormat::SFloatR16G16B16A16</a>
+, <a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2aa1e2a26e9906510d188c76bed968c8ce">bl::rc::vk::SemanticTextureFormat::HighPrecisionColor</a>
+, <a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2afaba6607e6e6b595c9849330391b93bb">bl::rc::vk::SemanticTextureFormat::SingleChannelUnorm8</a>
+, <br />
+&#160;&#160;<a class="el" href="a03124.html#gga5edbf7bf53f275665e759e042079f4b2af81a5fb46f20c0fc2f1251cb9a28bcb1">bl::rc::vk::SemanticTextureFormat::NonSematic</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:ga5edbf7bf53f275665e759e042079f4b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a semantic texture format. Underlying formats can be changed at runtime.  <a href="a03124.html#ga5edbf7bf53f275665e759e042079f4b2">More...</a><br /></td></tr>
+<tr class="separator:ga5edbf7bf53f275665e759e042079f4b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

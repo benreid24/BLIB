@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Config/RenderPhases.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Scenes/SceneSync.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,67 +79,87 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_7beaa7d5a013b140dcf3c4b40b713cd0.html">Config</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">RenderPhases.hpp</div></div>
+  <div class="headertitle"><div class="title">SceneSync.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01010.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_CONFIG_RENDERPHASES_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_CONFIG_RENDERPHASES_HPP</span></div>
+<a href="a01010.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_SCENES_SCENESYNC_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_SCENES_SCENESYNC_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00563.html">BLIB/Render/RenderPhase.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>cfg</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04799.html">   18</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a04799.html">RenderPhases</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04799.html#a62f053c9f127cd158eb63b578153d3f7">   20</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#a62f053c9f127cd158eb63b578153d3f7">Forward</a> = 0;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00251.html">BLIB/Components/Rendered.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09574.html">BLIB/ECS/Events.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00758.html">BLIB/Render/Events/SceneDestroyed.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Events/SceneObjectRemoved.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00203.html">BLIB/Signals/Channel.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00218.html">BLIB/Signals/Router.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>Registry;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">class </span>Renderer;</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04799.html#a8f952d13abf11419355ad61d2307168b">   23</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#a8f952d13abf11419355ad61d2307168b">Deferred</a> = 1;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a04799.html#ae694720a8ea5d8607f88b99bc5373edd">   26</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#ae694720a8ea5d8607f88b99bc5373edd">ShadowMap</a> = 2;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04799.html#adccd1903c805a2c1b70082f4571c0131">   29</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#adccd1903c805a2c1b70082f4571c0131">ShadowPointMap</a> = 3;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04799.html#a9fd256b73f33c08db67fdb981c97198a">   32</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_class" href="a05299.html">Overlay</a> = 4;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a04799.html#a1d998efdfbca5cfb154e8c61d4f63468">   35</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#a1d998efdfbca5cfb154e8c61d4f63468">PostProcess</a> = 5;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">namespace </span>scene</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="foldopen" id="foldopen00030" data-start="{" data-end="};">
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a06036.html">   30</a></span><span class="keyword">class </span><a class="code hl_class" href="a06036.html">SceneSync</a> {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a06036.html#a904854d91a6f81cd4ac6b0e923473064">   35</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a06036.html#a904854d91a6f81cd4ac6b0e923473064">~SceneSync</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a04799.html#aaa1fc67a303af0b35b6717adf1d8ab22">   38</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#aaa1fc67a303af0b35b6717adf1d8ab22">Outline</a> = 6;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04799.html#a883e26fc4562ba98b989dc46236e8134">   41</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <a class="code hl_typedef" href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">RenderPhase</a> <a class="code hl_variable" href="a04799.html#a883e26fc4562ba98b989dc46236e8134">Compute</a> = 7;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>};</div>
-</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="a04088.html">ecs::Registry</a>&amp; registry;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="a06796.html">sig::Router&lt;ecs::event::ComponentAdded&lt;com::Rendered&gt;</a>,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                <a class="code hl_struct" href="a04064.html">ecs::event::ComponentRemoved&lt;com::Rendered&gt;</a>&gt;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        ecsRouter;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a06796.html">sig::Router&lt;rc::event::SceneObjectRemoved, rc::event::SceneDestroyed&gt;</a> renderRouter;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace cfg</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00563_html"><div class="ttname"><a href="a00563.html">RenderPhase.hpp</a></div></div>
-<div class="ttc" id="aa02979_html_ga9cff422b0b5d7b144baff1cc32aa2142"><div class="ttname"><a href="a02979.html#ga9cff422b0b5d7b144baff1cc32aa2142">bl::rc::RenderPhase</a></div><div class="ttdeci">std::uint8_t RenderPhase</div><div class="ttdoc">Enum representing the different possible phases of rendering.</div><div class="ttdef"><b>Definition</b> <a href="a00563_source.html#l00015">RenderPhase.hpp:15</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04799_html"><div class="ttname"><a href="a04799.html">bl::rc::cfg::RenderPhases</a></div><div class="ttdoc">Collection of built-in render phases.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00018">RenderPhases.hpp:18</a></div></div>
-<div class="ttc" id="aa04799_html_a1d998efdfbca5cfb154e8c61d4f63468"><div class="ttname"><a href="a04799.html#a1d998efdfbca5cfb154e8c61d4f63468">bl::rc::cfg::RenderPhases::PostProcess</a></div><div class="ttdeci">static constexpr RenderPhase PostProcess</div><div class="ttdoc">Use when post processing phases.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00035">RenderPhases.hpp:35</a></div></div>
-<div class="ttc" id="aa04799_html_a62f053c9f127cd158eb63b578153d3f7"><div class="ttname"><a href="a04799.html#a62f053c9f127cd158eb63b578153d3f7">bl::rc::cfg::RenderPhases::Forward</a></div><div class="ttdeci">static constexpr RenderPhase Forward</div><div class="ttdoc">The default forward render phase.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00020">RenderPhases.hpp:20</a></div></div>
-<div class="ttc" id="aa04799_html_a883e26fc4562ba98b989dc46236e8134"><div class="ttname"><a href="a04799.html#a883e26fc4562ba98b989dc46236e8134">bl::rc::cfg::RenderPhases::Compute</a></div><div class="ttdeci">static constexpr RenderPhase Compute</div><div class="ttdoc">Use when doing compute work.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00041">RenderPhases.hpp:41</a></div></div>
-<div class="ttc" id="aa04799_html_a8f952d13abf11419355ad61d2307168b"><div class="ttname"><a href="a04799.html#a8f952d13abf11419355ad61d2307168b">bl::rc::cfg::RenderPhases::Deferred</a></div><div class="ttdeci">static constexpr RenderPhase Deferred</div><div class="ttdoc">Use when doing deferred rendering.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00023">RenderPhases.hpp:23</a></div></div>
-<div class="ttc" id="aa04799_html_aaa1fc67a303af0b35b6717adf1d8ab22"><div class="ttname"><a href="a04799.html#aaa1fc67a303af0b35b6717adf1d8ab22">bl::rc::cfg::RenderPhases::Outline</a></div><div class="ttdeci">static constexpr RenderPhase Outline</div><div class="ttdoc">Use when rendering an object outline.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00038">RenderPhases.hpp:38</a></div></div>
-<div class="ttc" id="aa04799_html_adccd1903c805a2c1b70082f4571c0131"><div class="ttname"><a href="a04799.html#adccd1903c805a2c1b70082f4571c0131">bl::rc::cfg::RenderPhases::ShadowPointMap</a></div><div class="ttdeci">static constexpr RenderPhase ShadowPointMap</div><div class="ttdoc">Use when rendering to a point shadow map.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00029">RenderPhases.hpp:29</a></div></div>
-<div class="ttc" id="aa04799_html_ae694720a8ea5d8607f88b99bc5373edd"><div class="ttname"><a href="a04799.html#ae694720a8ea5d8607f88b99bc5373edd">bl::rc::cfg::RenderPhases::ShadowMap</a></div><div class="ttdeci">static constexpr RenderPhase ShadowMap</div><div class="ttdoc">Use when rendering to a shadow map.</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00026">RenderPhases.hpp:26</a></div></div>
-<div class="ttc" id="aa05299_html"><div class="ttname"><a href="a05299.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition</b> <a href="a00797_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="a06036.html">SceneSync</a>(<a class="code hl_class" href="a04088.html">ecs::Registry</a>&amp; registry);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> handleComponentAdd(<span class="keyword">const</span> <a class="code hl_struct" href="a04060.html">ecs::event::ComponentAdded&lt;com::Rendered&gt;</a>&amp; event);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> handleComponentRemove(<span class="keyword">const</span> <a class="code hl_struct" href="a04064.html">ecs::event::ComponentRemoved&lt;com::Rendered&gt;</a>&amp; event);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordtype">void</span> handleSceneRemove(<span class="keyword">const</span> <a class="code hl_struct" href="a05488.html">rc::event::SceneObjectRemoved</a>&amp; event);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">void</span> handleSceneDestroy(<span class="keyword">const</span> <a class="code hl_struct" href="a05484.html">rc::event::SceneDestroyed</a>&amp; event);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> subscribe(<a class="code hl_class" href="a06764.html">sig::Channel</a>&amp; renderChannel);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordtype">void</span> unsubscribe();</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a06036.html#aa2cc13185ddec619c41d90af5e836399">   53</a></span>    <span class="keyword">friend</span> class ::bl::rc::Renderer;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace scene</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00203_html"><div class="ttname"><a href="a00203.html">Channel.hpp</a></div></div>
+<div class="ttc" id="aa00218_html"><div class="ttname"><a href="a00218.html">Router.hpp</a></div></div>
+<div class="ttc" id="aa00251_html"><div class="ttname"><a href="a00251.html">Rendered.hpp</a></div></div>
+<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">SceneObjectRemoved.hpp</a></div></div>
+<div class="ttc" id="aa00758_html"><div class="ttname"><a href="a00758.html">SceneDestroyed.hpp</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04060_html"><div class="ttname"><a href="a04060.html">bl::ecs::event::ComponentAdded</a></div><div class="ttdoc">Fired when a component is added to an entity.</div><div class="ttdef"><b>Definition</b> <a href="a09574_source.html#l00045">Events.hpp:45</a></div></div>
+<div class="ttc" id="aa04064_html"><div class="ttname"><a href="a04064.html">bl::ecs::event::ComponentRemoved</a></div><div class="ttdoc">Fired right before a component is removed from an entity.</div><div class="ttdef"><b>Definition</b> <a href="a09574_source.html#l00070">Events.hpp:70</a></div></div>
+<div class="ttc" id="aa04088_html"><div class="ttname"><a href="a04088.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a00437_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa05484_html"><div class="ttname"><a href="a05484.html">bl::rc::event::SceneDestroyed</a></div><div class="ttdoc">Fired when a scene is destroyed. Systems should subscribe to this event in order to correctly update ...</div><div class="ttdef"><b>Definition</b> <a href="a00758_source.html#l00019">SceneDestroyed.hpp:19</a></div></div>
+<div class="ttc" id="aa05488_html"><div class="ttname"><a href="a05488.html">bl::rc::event::SceneObjectRemoved</a></div><div class="ttdoc">Fired when an object is removed from a scene.</div><div class="ttdef"><b>Definition</b> <a href="a00755_source.html#l00019">SceneObjectRemoved.hpp:19</a></div></div>
+<div class="ttc" id="aa06036_html"><div class="ttname"><a href="a06036.html">bl::rc::scene::SceneSync</a></div><div class="ttdoc">An instance of this object will be owned by the Renderer to synchronize entities in the ECS to the sc...</div><div class="ttdef"><b>Definition</b> <a href="a01010_source.html#l00030">SceneSync.hpp:30</a></div></div>
+<div class="ttc" id="aa06036_html_a904854d91a6f81cd4ac6b0e923473064"><div class="ttname"><a href="a06036.html#a904854d91a6f81cd4ac6b0e923473064">bl::rc::scene::SceneSync::~SceneSync</a></div><div class="ttdeci">virtual ~SceneSync()=default</div><div class="ttdoc">Destroys the sync object.</div></div>
+<div class="ttc" id="aa06764_html"><div class="ttname"><a href="a06764.html">bl::sig::Channel</a></div><div class="ttdoc">A collection of signal streams. Listeners and emitters can connect to channels to send and receive si...</div><div class="ttdef"><b>Definition</b> <a href="a00203_source.html#l00030">Channel.hpp:30</a></div></div>
+<div class="ttc" id="aa06796_html"><div class="ttname"><a href="a06796.html">bl::sig::Router</a></div><div class="ttdoc">Utility to route signals to callbacks. Is instantiated and callbacks are registered for specific sign...</div><div class="ttdef"><b>Definition</b> <a href="a00218_source.html#l00043">Router.hpp:43</a></div></div>
+<div class="ttc" id="aa09574_html"><div class="ttname"><a href="a09574.html">Events.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

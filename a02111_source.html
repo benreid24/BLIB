@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Vulkan/Utils/QueueFamilyLocator.cpp Source File</title>
+<title>BLIB: src/Graphics/Circle.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,73 +79,52 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li><li class="navelem"><a class="el" href="dir_5a895c0b57455ce42bcec1a8fbc390f8.html">Utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3419e189e460663ec2c964233bf8dcd6.html">Graphics</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">QueueFamilyLocator.cpp</div></div>
+  <div class="headertitle"><div class="title">Circle.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02111.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a02108.html">Render/Vulkan/Utils/QueueFamilyLocator.hpp</a>&gt;</span></div>
+<a href="a02111.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00116.html">BLIB/Graphics/Circle.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00446.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>gfx</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04372.html#a9d18a3cbd0e5c7a276fcd740709192f6">    7</a></span><a class="code hl_function" href="a04372.html#a9d18a3cbd0e5c7a276fcd740709192f6">Circle::Circle</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pointCount)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: CircleBase(pointCount) {}</div>
+</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a06747.html#abf077b33effb16d9e597eb7e516845a6">   10</a></span><a class="code hl_function" href="a06747.html#ab5c31507770656779a3aa5fa99c59e54">QueueFamilyLocator::QueueFamilyLocator</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_function" href="a06747.html#ad1c1d597b0e1b2a45334ae128242570b">populate</a>(device, surface);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a04372.html#aadc977f6c83141e81514bd9e47869271">   10</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04372.html#aadc977f6c83141e81514bd9e47869271">Circle::create</a>(<a class="code hl_class" href="a04304.html">engine::World</a>&amp; world, <span class="keywordtype">float</span> r) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_function" href="a04444.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    SingleShape2D::create(world);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a06747.html#ad1c1d597b0e1b2a45334ae128242570b">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06747.html#ad1c1d597b0e1b2a45334ae128242570b">QueueFamilyLocator::populate</a>(VkPhysicalDevice device, VkSurfaceKHR surface) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::uint32_t queueFamilyCount = 0;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, <span class="keyword">nullptr</span>);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::vector&lt;VkQueueFamilyProperties&gt; queueFamilies(queueFamilyCount);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    vkGetPhysicalDeviceQueueFamilyProperties(device, &amp;queueFamilyCount, queueFamilies.data());</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="comment">// find queues</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; queueFamilies.size(); ++i) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// graphics queue</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">if</span> (queueFamilies[i].queueFlags &amp; VK_QUEUE_GRAPHICS_BIT) { <a class="code hl_variable" href="a06747.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a> = i; }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// presentation support</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        VkBool32 presentSupport = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_define" href="a00446.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkGetPhysicalDeviceSurfaceSupportKHR(device, i, surface, &amp;presentSupport));</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">if</span> (presentSupport) { <a class="code hl_variable" href="a06747.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a> = i; }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">if</span> (<a class="code hl_function" href="a06747.html#aecff064c1d89b3dee0d7344bd84c6b74">complete</a>()) <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04372.html#a6c33e6ea96b5747f7de6448b66781c76">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04372.html#aadc977f6c83141e81514bd9e47869271">Circle::create</a>(<a class="code hl_class" href="a04304.html">engine::World</a>&amp; world, <a class="code hl_struct" href="a04040.html">ecs::Entity</a> existing, <span class="keywordtype">float</span> r) {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_function" href="a04444.html#ade9c3d7c900c2b150bf0812f79720a1c">setRadius</a>(r);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    SingleShape2D::create(world, existing);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
 </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a06747.html#aecff064c1d89b3dee0d7344bd84c6b74">   35</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a06747.html#aecff064c1d89b3dee0d7344bd84c6b74">QueueFamilyLocator::complete</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a06747.html#ab88679f0de04a766f7cd93b6b8330c95">graphicsFamily</a>.has_value() &amp;&amp; <a class="code hl_variable" href="a06747.html#a8ec71bc186887ea633c17e7c85d0fff4">presentFamily</a>.has_value();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
-</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00446_html"><div class="ttname"><a href="a00446.html">VkCheck.hpp</a></div></div>
-<div class="ttc" id="aa00446_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a00446.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition</b> <a href="a00446_source.html#l00015">VkCheck.hpp:15</a></div></div>
-<div class="ttc" id="aa02108_html"><div class="ttname"><a href="a02108.html">QueueFamilyLocator.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa06747_html_a8ec71bc186887ea633c17e7c85d0fff4"><div class="ttname"><a href="a06747.html#a8ec71bc186887ea633c17e7c85d0fff4">bl::rc::QueueFamilyLocator::presentFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; presentFamily</div><div class="ttdef"><b>Definition</b> <a href="a02108_source.html#l00014">QueueFamilyLocator.hpp:14</a></div></div>
-<div class="ttc" id="aa06747_html_ab5c31507770656779a3aa5fa99c59e54"><div class="ttname"><a href="a06747.html#ab5c31507770656779a3aa5fa99c59e54">bl::rc::QueueFamilyLocator::QueueFamilyLocator</a></div><div class="ttdeci">QueueFamilyLocator()=default</div></div>
-<div class="ttc" id="aa06747_html_ab88679f0de04a766f7cd93b6b8330c95"><div class="ttname"><a href="a06747.html#ab88679f0de04a766f7cd93b6b8330c95">bl::rc::QueueFamilyLocator::graphicsFamily</a></div><div class="ttdeci">std::optional&lt; std::uint32_t &gt; graphicsFamily</div><div class="ttdef"><b>Definition</b> <a href="a02108_source.html#l00013">QueueFamilyLocator.hpp:13</a></div></div>
-<div class="ttc" id="aa06747_html_ad1c1d597b0e1b2a45334ae128242570b"><div class="ttname"><a href="a06747.html#ad1c1d597b0e1b2a45334ae128242570b">bl::rc::QueueFamilyLocator::populate</a></div><div class="ttdeci">void populate(VkPhysicalDevice device, VkSurfaceKHR surface)</div><div class="ttdef"><b>Definition</b> <a href="a02111_source.html#l00014">QueueFamilyLocator.cpp:14</a></div></div>
-<div class="ttc" id="aa06747_html_aecff064c1d89b3dee0d7344bd84c6b74"><div class="ttname"><a href="a06747.html#aecff064c1d89b3dee0d7344bd84c6b74">bl::rc::QueueFamilyLocator::complete</a></div><div class="ttdeci">bool complete() const</div><div class="ttdef"><b>Definition</b> <a href="a02111_source.html#l00035">QueueFamilyLocator.cpp:35</a></div></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace gfx</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00116_html"><div class="ttname"><a href="a00116.html">Circle.hpp</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04040_html"><div class="ttname"><a href="a04040.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa04304_html"><div class="ttname"><a href="a04304.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01625_source.html#l00022">World.hpp:22</a></div></div>
+<div class="ttc" id="aa04372_html_a9d18a3cbd0e5c7a276fcd740709192f6"><div class="ttname"><a href="a04372.html#a9d18a3cbd0e5c7a276fcd740709192f6">bl::gfx::Circle::Circle</a></div><div class="ttdeci">Circle(unsigned int pointCount=300)</div><div class="ttdoc">Creates the circle with the given point count.</div><div class="ttdef"><b>Definition</b> <a href="a02111_source.html#l00007">Circle.cpp:7</a></div></div>
+<div class="ttc" id="aa04372_html_aadc977f6c83141e81514bd9e47869271"><div class="ttname"><a href="a04372.html#aadc977f6c83141e81514bd9e47869271">bl::gfx::Circle::create</a></div><div class="ttdeci">void create(engine::World &amp;world, float radius)</div><div class="ttdoc">Creates the circle entity and components.</div><div class="ttdef"><b>Definition</b> <a href="a02111_source.html#l00010">Circle.cpp:10</a></div></div>
+<div class="ttc" id="aa04444_html_ade9c3d7c900c2b150bf0812f79720a1c"><div class="ttname"><a href="a04444.html#ade9c3d7c900c2b150bf0812f79720a1c">bl::gfx::s2d::CircleBase&lt; s2d::SingleShape2D &gt;::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdoc">Sets the circles radius.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00038">CircleBase.hpp:90</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/ParentGraph.cpp Source File</title>
+<title>BLIB: src/Tilemap/Direction.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,142 +79,126 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_83ee56d96ca7dd1352089bbfec9b101f.html">Tilemap</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ParentGraph.cpp</div></div>
+  <div class="headertitle"><div class="title">Direction.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02774.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01541.html">BLIB/ECS/ParentGraph.hpp</a>&gt;</span></div>
+<a href="a02774.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01532.html">BLIB/Tilemap/Direction.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01751.html">BLIB/Logging.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>tmap</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a03587.html#ad26ff71314c9640bc163c7e814445c9d">    9</a></span><a class="code hl_function" href="a03587.html#ad26ff71314c9640bc163c7e814445c9d">ecs::ParentGraph::ParentGraph</a>(std::size_t capacityHint)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: parentMap(capacityHint, <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, childMap(capacityHint) {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a03130.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">    9</a></span><a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a03130.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">oppositeDirection</a>(<a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>:</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>:</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_define" href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Invalid direction: &quot;</span> &lt;&lt; dir;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a03587.html#a9121be6b1da7de47f609491e7b84dd1e">   13</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03587.html#a9121be6b1da7de47f609491e7b84dd1e">ParentGraph::setParent</a>(<a class="code hl_struct" href="a03543.html">Entity</a> child, <a class="code hl_struct" href="a03543.html">Entity</a> parent) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    ensureParentCap(child);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">const</span> std::size_t i   = child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03543.html">Entity</a> ogParent = parentMap[i];</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (ogParent == parent) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (ogParent != <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <a class="code hl_function" href="a03587.html#a965b2d787f0e6ccb2beed91b3d70a815">unParent</a>(child); }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    parentMap[i] = parent;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    childMap.add(parent.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">#ifdef BLIB_DEBUG</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (checkForCycles(child)) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_define" href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a> &lt;&lt; <span class="stringliteral">&quot;Cycle created when assigning parent &quot;</span> &lt;&lt; parent &lt;&lt; <span class="stringliteral">&quot; to entity &quot;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>                        &lt;&lt; child;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        std::abort();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03130.html#ga220339ef558132abe716abe33a18dadb">   25</a></span><a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a03130.html#ga220339ef558132abe716abe33a18dadb">nextClockwiseDirection</a>(<a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>:</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <a class="code hl_define" href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Invalid direction: &quot;</span> &lt;&lt; dir;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a03587.html#a965b2d787f0e6ccb2beed91b3d70a815">   33</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03587.html#a965b2d787f0e6ccb2beed91b3d70a815">ParentGraph::unParent</a>(<a class="code hl_struct" href="a03543.html">Entity</a> child) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">const</span> std::size_t i = child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (parentMap.size() &lt;= i) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (parentMap[i] == <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">const</span> std::uint32_t j = parentMap[i].getIndex();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    parentMap[i]          = <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    childMap.removeValue(j, child);</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03587.html#ab26869bf08eb3701dc146e226ef887da">   43</a></span><a class="code hl_struct" href="a03543.html">Entity</a> <a class="code hl_function" href="a03587.html#ab26869bf08eb3701dc146e226ef887da">ParentGraph::getParent</a>(<a class="code hl_struct" href="a03543.html">Entity</a> child)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">const</span> std::size_t i = child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">return</span> i &lt; parentMap.size() ? parentMap[i] : <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
-</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03587.html#ade74b5299fd5c0df5933e636664d07eb">   48</a></span><a class="code hl_struct" href="a03395.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code hl_function" href="a03587.html#ade74b5299fd5c0df5933e636664d07eb">ParentGraph::getChildren</a>(<a class="code hl_struct" href="a03543.html">Entity</a> parent) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">return</span> childMap.getValues(parent.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>}</div>
-</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a03587.html#acbcc3b794d2c338032bb80fc5bbbfc8f">   52</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03587.html#acbcc3b794d2c338032bb80fc5bbbfc8f">ParentGraph::reset</a>() {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    std::fill(parentMap.begin(), parentMap.end(), <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    childMap.clear();</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a03130.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">   41</a></span><a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a03130.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">nextCounterClockwiseDirection</a>(<a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>:</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>:</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>:</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_define" href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Invalid direction: &quot;</span> &lt;&lt; dir;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a03587.html#a17db4dda4272bce51c49a7c96b71b03d">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03587.html#a17db4dda4272bce51c49a7c96b71b03d">ParentGraph::removeEntity</a>(<a class="code hl_struct" href="a03543.html">Entity</a> entity) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">const</span> std::size_t i = entity.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>();</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">if</span> (i &gt;= parentMap.size()) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03543.html">Entity</a> parent = parentMap[i];</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    parentMap[i]        = <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    childMap.remove(entity);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span> (parent != <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { childMap.removeValue(parent.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), entity); }</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a03130.html#ga50423a802de9a1c43478aab60328719e">   57</a></span><a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> <a class="code hl_function" href="a03130.html#ga50423a802de9a1c43478aab60328719e">directionFromString</a>(<span class="keyword">const</span> std::string&amp; dir) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">switch</span> (dir.empty() ? <span class="charliteral">&#39;u&#39;</span> : dir[0]) {</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">case</span> <span class="charliteral">&#39;u&#39;</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">case</span> <span class="charliteral">&#39;r&#39;</span>:</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">case</span> <span class="charliteral">&#39;d&#39;</span>:</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
 </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keywordtype">void</span> ParentGraph::ensureParentCap(<a class="code hl_struct" href="a03543.html">Entity</a> child) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> std::size_t cap = child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>() + 1;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">if</span> (cap &gt; parentMap.size()) { parentMap.resize(cap, <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>); }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">bool</span> ParentGraph::checkForCycles(Entity start) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::vector&lt;bool&gt; visited(parentMap.size(), <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::vector&lt;Entity&gt; toVisit;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    toVisit.reserve(32);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    toVisit.emplace_back(start);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">while</span> (!toVisit.empty()) {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> Entity ent = toVisit.back();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        toVisit.pop_back();</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keyword">const</span> std::uint32_t i = ent.getIndex();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="a03130.html#ga74da6f2d6ed6515b52ebdb22ecce7997">   70</a></span>std::string <a class="code hl_function" href="a03130.html#ga74da6f2d6ed6515b52ebdb22ecce7997">directionToString</a>(<a class="code hl_enumeration" href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">Direction</a> dir) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a>:</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;up&quot;</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">Direction::Right</a>:</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;right&quot;</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">Direction::Down</a>:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;down&quot;</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> <span class="stringliteral">&quot;left&quot;</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">if</span> (i &gt;= visited.size()) { visited.resize(i + 1, <span class="keyword">false</span>); }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (visited[i]) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        visited[i] = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">const</span> Entity parent = <a class="code hl_function" href="a03587.html#ab26869bf08eb3701dc146e226ef887da">getParent</a>(ent);</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> (parent != <a class="code hl_variable" href="a03009.html#a01655307bcb32baf2884e18213123917">InvalidEntity</a>) { toVisit.emplace_back(parent); }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    }</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01541_html"><div class="ttname"><a href="a01541.html">ParentGraph.hpp</a></div></div>
-<div class="ttc" id="aa01586_html_aab250887595d9e02b1f0b670fe342683"><div class="ttname"><a href="a01586.html#aab250887595d9e02b1f0b670fe342683">BL_LOG_CRITICAL</a></div><div class="ttdeci">#define BL_LOG_CRITICAL</div><div class="ttdoc">Helper macro to log at critical level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00098">Logger.hpp:98</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03009_html_a01655307bcb32baf2884e18213123917"><div class="ttname"><a href="a03009.html#a01655307bcb32baf2884e18213123917">bl::ecs::InvalidEntity</a></div><div class="ttdeci">constexpr Entity InvalidEntity</div><div class="ttdoc">Special value to indicate that an Entity is not valid.</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00188">Entity.hpp:188</a></div></div>
-<div class="ttc" id="aa03395_html"><div class="ttname"><a href="a03395.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition</b> <a href="a00314_source.html#l00188">IndexMappedList.hpp:188</a></div></div>
-<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa03543_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00107">Entity.hpp:107</a></div></div>
-<div class="ttc" id="aa03587_html_a17db4dda4272bce51c49a7c96b71b03d"><div class="ttname"><a href="a03587.html#a17db4dda4272bce51c49a7c96b71b03d">bl::ecs::ParentGraph::removeEntity</a></div><div class="ttdeci">void removeEntity(Entity entity)</div><div class="ttdoc">Removes the given entity from the graph. Does not update children. remove() must be called manually f...</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00057">ParentGraph.cpp:57</a></div></div>
-<div class="ttc" id="aa03587_html_a9121be6b1da7de47f609491e7b84dd1e"><div class="ttname"><a href="a03587.html#a9121be6b1da7de47f609491e7b84dd1e">bl::ecs::ParentGraph::setParent</a></div><div class="ttdeci">void setParent(Entity child, Entity parent)</div><div class="ttdoc">Adds a parent &lt;-&gt; child association.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00013">ParentGraph.cpp:13</a></div></div>
-<div class="ttc" id="aa03587_html_a965b2d787f0e6ccb2beed91b3d70a815"><div class="ttname"><a href="a03587.html#a965b2d787f0e6ccb2beed91b3d70a815">bl::ecs::ParentGraph::unParent</a></div><div class="ttdeci">void unParent(Entity child)</div><div class="ttdoc">Removes the parent from the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00033">ParentGraph.cpp:33</a></div></div>
-<div class="ttc" id="aa03587_html_ab26869bf08eb3701dc146e226ef887da"><div class="ttname"><a href="a03587.html#ab26869bf08eb3701dc146e226ef887da">bl::ecs::ParentGraph::getParent</a></div><div class="ttdeci">Entity getParent(Entity child) const</div><div class="ttdoc">Returns the parent for the given child.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00043">ParentGraph.cpp:43</a></div></div>
-<div class="ttc" id="aa03587_html_acbcc3b794d2c338032bb80fc5bbbfc8f"><div class="ttname"><a href="a03587.html#acbcc3b794d2c338032bb80fc5bbbfc8f">bl::ecs::ParentGraph::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Resets the entire graph to the empty state.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00052">ParentGraph.cpp:52</a></div></div>
-<div class="ttc" id="aa03587_html_ad26ff71314c9640bc163c7e814445c9d"><div class="ttname"><a href="a03587.html#ad26ff71314c9640bc163c7e814445c9d">bl::ecs::ParentGraph::ParentGraph</a></div><div class="ttdeci">ParentGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates an empty graph.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00009">ParentGraph.cpp:9</a></div></div>
-<div class="ttc" id="aa03587_html_ade74b5299fd5c0df5933e636664d07eb"><div class="ttname"><a href="a03587.html#ade74b5299fd5c0df5933e636664d07eb">bl::ecs::ParentGraph::getChildren</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getChildren(Entity parent)</div><div class="ttdoc">Returns a range of children for the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00048">ParentGraph.cpp:48</a></div></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace tmap</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00365_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa01532_html"><div class="ttname"><a href="a01532.html">Direction.hpp</a></div></div>
+<div class="ttc" id="aa01751_html"><div class="ttname"><a href="a01751.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa03130_html_ga1d948d110c8c972bc5b6f45d06c9e3f9"><div class="ttname"><a href="a03130.html#ga1d948d110c8c972bc5b6f45d06c9e3f9">bl::tmap::oppositeDirection</a></div><div class="ttdeci">Direction oppositeDirection(Direction dir)</div><div class="ttdoc">Returns the Direction that is opposite of the given direction.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00009">Direction.cpp:9</a></div></div>
+<div class="ttc" id="aa03130_html_ga220339ef558132abe716abe33a18dadb"><div class="ttname"><a href="a03130.html#ga220339ef558132abe716abe33a18dadb">bl::tmap::nextClockwiseDirection</a></div><div class="ttdeci">Direction nextClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next clockwise direction from the given current direction.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00025">Direction.cpp:25</a></div></div>
+<div class="ttc" id="aa03130_html_ga50423a802de9a1c43478aab60328719e"><div class="ttname"><a href="a03130.html#ga50423a802de9a1c43478aab60328719e">bl::tmap::directionFromString</a></div><div class="ttdeci">Direction directionFromString(const std::string &amp;dir)</div><div class="ttdoc">Converts the given string into a direction.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00057">Direction.cpp:57</a></div></div>
+<div class="ttc" id="aa03130_html_ga718359d5f56e8650998bc14f045c3f64"><div class="ttname"><a href="a03130.html#ga718359d5f56e8650998bc14f045c3f64">bl::tmap::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing in a tilemap.</div><div class="ttdef"><b>Definition</b> <a href="a01532_source.html#l00016">Direction.hpp:16</a></div></div>
+<div class="ttc" id="aa03130_html_ga74da6f2d6ed6515b52ebdb22ecce7997"><div class="ttname"><a href="a03130.html#ga74da6f2d6ed6515b52ebdb22ecce7997">bl::tmap::directionToString</a></div><div class="ttdeci">std::string directionToString(Direction dir)</div><div class="ttdoc">Converts the given direction to a string.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00070">Direction.cpp:70</a></div></div>
+<div class="ttc" id="aa03130_html_ga887ba83d0d54b0b5bd9ffb0ee4018fb7"><div class="ttname"><a href="a03130.html#ga887ba83d0d54b0b5bd9ffb0ee4018fb7">bl::tmap::nextCounterClockwiseDirection</a></div><div class="ttdeci">Direction nextCounterClockwiseDirection(Direction dir)</div><div class="ttdoc">Returns the next counterclockwise direction from the given current direction.</div><div class="ttdef"><b>Definition</b> <a href="a02774_source.html#l00041">Direction.cpp:41</a></div></div>
+<div class="ttc" id="aa03130_html_gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53"><div class="ttname"><a href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a08a38277b0309070706f6652eeae9a53">bl::tmap::Direction::Down</a></div><div class="ttdeci">@ Down</div></div>
+<div class="ttc" id="aa03130_html_gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa"><div class="ttname"><a href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a258f49887ef8d14ac268c92b02503aaa">bl::tmap::Direction::Up</a></div><div class="ttdeci">@ Up</div></div>
+<div class="ttc" id="aa03130_html_gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c"><div class="ttname"><a href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a92b09c7c48c520c3c55e497875da437c">bl::tmap::Direction::Right</a></div><div class="ttdeci">@ Right</div></div>
+<div class="ttc" id="aa03130_html_gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff"><div class="ttname"><a href="a03130.html#gga718359d5f56e8650998bc14f045c3f64a945d5e233cf7d6240f6b783b36a374ff">bl::tmap::Direction::Left</a></div><div class="ttdeci">@ Left</div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

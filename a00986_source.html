@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Generic/Binding.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/ShaderResources/ShadowMapShaderResource.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,147 +79,131 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_600ddcc7b79895ce322a22c27a3d925e.html">Generic</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bb95439065f6a606d9dbc4385f71a79c.html">ShaderResources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Binding.hpp</div></div>
+  <div class="headertitle"><div class="title">ShadowMapShaderResource.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00986.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_GENERIC_BINDING_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_GENERIC_BINDING_HPP</span></div>
+<a href="a00986.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_SHADERRESOURCES_SHADOWMAPSHADERRESOURCE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_SHADERRESOURCES_SHADOWMAPSHADERRESOURCE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01550.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08495.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">BLIB/Render/Descriptors/SetWriteHelper.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a08561.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00752.html">BLIB/Render/ShaderResources/ShaderResourceStore.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00401.html">BLIB/Render/Vulkan/VulkanLayer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00173.html">BLIB/Vulkan.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>engine</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Engine;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>Bindings;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04895.html">   31</a></span><span class="keyword">class </span><a class="code hl_class" href="a04895.html">Binding</a> {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04895.html#aa610fc8b67930a4033cb31b6987d0ba8">   36</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04895.html#aa610fc8b67930a4033cb31b6987d0ba8">~Binding</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04895.html#ab03ca013c004f2341bd5abce8ded224e">   41</a></span>    VkDescriptorType <a class="code hl_function" href="a04895.html#ab03ca013c004f2341bd5abce8ded224e">getDescriptorType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a04895.html#ace1b299914ba8309b2adba375bb91636">   46</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a04895.html#ace1b299914ba8309b2adba375bb91636">isDynamic</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">return</span> type == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC ||</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>               type == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01211.html">BLIB/Render/Config/Limits.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00743.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00764.html">BLIB/Render/Events/ShadowMapsInvalidated.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a09778.html">BLIB/Render/ShaderResources/Key.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00989.html">BLIB/Render/ShaderResources/ShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01127.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a09784.html">BLIB/Render/Vulkan/Image.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a09817.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a09823.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>sri</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a06120.html">   27</a></span><span class="keyword">class </span><a class="code hl_class" href="a06120.html">ShadowMapShaderResource</a></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>: <span class="keyword">public</span> <a class="code hl_class" href="a06108.html">sr::ShaderResource</a></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>, <span class="keyword">public</span> <a class="code hl_class" href="a06784.html">sig::Listener</a>&lt;event::SettingsChanged&gt; {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a06120.html#a38f7d4fce70efa819746838c5a842708">   34</a></span>    <a class="code hl_function" href="a06120.html#a38f7d4fce70efa819746838c5a842708">ShadowMapShaderResource</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a06120.html#a219b1ac64aa830c4978302beabc09b75">   39</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a06120.html#a219b1ac64aa830c4978302beabc09b75">~ShadowMapShaderResource</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a06120.html#acf353f322f7c49520b85b76d54c75cba">   47</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a06244.html">vk::Image</a>&amp; <a class="code hl_function" href="a06120.html#acf353f322f7c49520b85b76d54c75cba">getSpotShadowImage</a>(std::uint32_t index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> spotShadowMaps[index].image;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
 </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a04895.html#a5ea4fcfcb55892bd3dc0a493669c71d0">   54</a></span>    std::uint32_t <a class="code hl_function" href="a04895.html#a5ea4fcfcb55892bd3dc0a493669c71d0">getBindingIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index; }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a04895.html#a3903aa64997cb22ff251107c8c057aa8">   59</a></span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">DescriptorSetInstance::EntityBindMode</a> <a class="code hl_function" href="a04895.html#a3903aa64997cb22ff251107c8c057aa8">getBindMode</a>() <span class="keyword">const</span> = 0;</div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a06120.html#a58479235eb19ce367299c52f714fc320">   57</a></span>    <a class="code hl_class" href="a06240.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a06120.html#a58479235eb19ce367299c52f714fc320">getSpotShadowFramebuffer</a>(std::uint32_t index) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">return</span> spotShadowMaps[index].framebuffer;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a04895.html#a6fe9ffa398cbad55cf190d981ac315a2">   64</a></span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">DescriptorSetInstance::SpeedBucketSetting</a> <a class="code hl_function" href="a04895.html#a6fe9ffa398cbad55cf190d981ac315a2">getSpeedMode</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="a04895.html#af295ade562756910b84fbe652643069a">   72</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04895.html#af295ade562756910b84fbe652643069a">init</a>(<a class="code hl_struct" href="a05839.html">vk::VulkanLayer</a>&amp; vulkanState, <a class="code hl_struct" href="a04923.html">InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) = 0;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="a04895.html#a6e8912139d20f11525b01e739f8f49ce">   82</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04895.html#a6e8912139d20f11525b01e739f8f49ce">writeSet</a>(<a class="code hl_class" href="a04931.html">SetWriteHelper</a>&amp; writer, VkDescriptorSet set, <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> speed,</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                          std::uint32_t frameIndex) = 0;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a04895.html#a4b4d2b0d313180b3ba7e8abdcbf330a5">   92</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04895.html#a4b4d2b0d313180b3ba7e8abdcbf330a5">allocateObject</a>(<a class="code hl_struct" href="a03543.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05439.html">scene::Key</a> key) = 0;</div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a06120.html#af35e8be8335dd36c957df2c9ab39a209">   67</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a06244.html">vk::Image</a>&amp; <a class="code hl_function" href="a06120.html#af35e8be8335dd36c957df2c9ab39a209">getPointShadowImage</a>(std::uint32_t index)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">return</span> pointShadowMaps[index].image;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a06120.html#a04ab2452846a1b1442ff7412789c778c">   77</a></span>    <a class="code hl_class" href="a06240.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a06120.html#a04ab2452846a1b1442ff7412789c778c">getPointShadowFramebuffer</a>(std::uint32_t index) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> pointShadowMaps[index].framebuffer;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keyword">struct </span>ShadowMap {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <a class="code hl_class" href="a06244.html">vk::Image</a> image;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        std::optional&lt;vk::AttachmentSet&gt; attachmentSet;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <a class="code hl_class" href="a06240.html">vk::Framebuffer</a> framebuffer;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    };</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_class" href="a05868.html">Renderer</a>* renderer;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    std::array&lt;ShadowMap, cfg::Limits::MaxSpotShadows&gt; spotShadowMaps;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    std::array&lt;ShadowMap, cfg::Limits::MaxPointShadows&gt; pointShadowMaps;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <a class="code hl_class" href="a06772.html">sig::Emitter&lt;event::ShadowMapsInvalidated&gt;</a> emitter;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> dirtyFrames;</div>
 <div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno"><a class="line" href="a04895.html#ac0179f419b44444c9d9d6a7f324a708b">  100</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04895.html#ac0179f419b44444c9d9d6a7f324a708b">releaseObject</a>(<a class="code hl_struct" href="a03543.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05439.html">scene::Key</a> key) = 0;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a04895.html#a273b895d89fd4a5d48bf18aa462a3562">  105</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04895.html#a273b895d89fd4a5d48bf18aa462a3562">onFrameStart</a>() = 0;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a04895.html#a42605fbadc79a57f54a031ea48a6af57">  110</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04895.html#a42605fbadc79a57f54a031ea48a6af57">staticDescriptorUpdateRequired</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a04895.html#a463e6623181e0b826caaa65293557ac9">  115</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04895.html#a463e6623181e0b826caaa65293557ac9">dynamicDescriptorUpdateRequired</a>() <span class="keyword">const</span> = 0;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="foldopen" id="foldopen00126" data-start="{" data-end="}">
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="a04895.html#a86308849b9e410519b9f6b7b6511eced">  126</a></span>    <span class="keyword">virtual</span> std::uint32_t <a class="code hl_function" href="a04895.html#a86308849b9e410519b9f6b7b6511eced">getDynamicOffsetForPipeline</a>(<a class="code hl_class" href="a05495.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>,</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                                                      VkPipelineLayout layout,</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                                                      std::uint32_t setIndex,</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>                                                      <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        (void)<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        (void)layout;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        (void)setIndex;</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        (void)updateFreq;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">return</span> std::numeric_limits&lt;std::uint32_t&gt;::max();</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    }</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_class" href="a04196.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05872.html">RenderTarget</a>&amp; owner) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> cleanup() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> performTransfer() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> copyFromSource() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> dynamicDescriptorUpdateRequired() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> staticDescriptorUpdateRequired() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a05492.html">event::SettingsChanged</a>&amp; e) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">void</span> createImages();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>};</div>
 </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00143" data-start="{" data-end="}">
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno"><a class="line" href="a04895.html#af0952d1f16aa276a9822d4dc57268dc7">  143</a></span>    <a class="code hl_function" href="a04895.html#af0952d1f16aa276a9822d4dc57268dc7">Binding</a>(VkDescriptorType type)</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    : type(type)</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    , index(0) {}</div>
-</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keyword">const</span> VkDescriptorType type;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    std::uint32_t index;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno"><a class="line" href="a04895.html#a5aa561a9f69080c19f2f69336777458e">  152</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04891.html">Bindings</a>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>};</div>
-</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00173_html"><div class="ttname"><a href="a00173.html">Vulkan.hpp</a></div></div>
-<div class="ttc" id="aa00401_html"><div class="ttname"><a href="a00401.html">VulkanLayer.hpp</a></div></div>
-<div class="ttc" id="aa00752_html"><div class="ttname"><a href="a00752.html">ShaderResourceStore.hpp</a></div></div>
-<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">SetWriteHelper.hpp</a></div></div>
-<div class="ttc" id="aa01550_html"><div class="ttname"><a href="a01550.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04883_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a08495_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
-<div class="ttc" id="aa04883_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a08495_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
-<div class="ttc" id="aa04891_html"><div class="ttname"><a href="a04891.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a00989_source.html#l00023">Bindings.hpp:23</a></div></div>
-<div class="ttc" id="aa04895_html"><div class="ttname"><a href="a04895.html">bl::rc::ds::Binding</a></div><div class="ttdoc">Base class for generic descriptor set binding providers.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00031">Binding.hpp:31</a></div></div>
-<div class="ttc" id="aa04895_html_a273b895d89fd4a5d48bf18aa462a3562"><div class="ttname"><a href="a04895.html#a273b895d89fd4a5d48bf18aa462a3562">bl::rc::ds::Binding::onFrameStart</a></div><div class="ttdeci">virtual void onFrameStart()=0</div><div class="ttdoc">Called once at the beginning of every frame.</div></div>
-<div class="ttc" id="aa04895_html_a3903aa64997cb22ff251107c8c057aa8"><div class="ttname"><a href="a04895.html#a3903aa64997cb22ff251107c8c057aa8">bl::rc::ds::Binding::getBindMode</a></div><div class="ttdeci">virtual DescriptorSetInstance::EntityBindMode getBindMode() const =0</div><div class="ttdoc">Should return the bind mode required by this binding.</div></div>
-<div class="ttc" id="aa04895_html_a42605fbadc79a57f54a031ea48a6af57"><div class="ttname"><a href="a04895.html#a42605fbadc79a57f54a031ea48a6af57">bl::rc::ds::Binding::staticDescriptorUpdateRequired</a></div><div class="ttdeci">virtual bool staticDescriptorUpdateRequired() const =0</div><div class="ttdoc">Should return whether or not the static descriptor set needs to be updated.</div></div>
-<div class="ttc" id="aa04895_html_a463e6623181e0b826caaa65293557ac9"><div class="ttname"><a href="a04895.html#a463e6623181e0b826caaa65293557ac9">bl::rc::ds::Binding::dynamicDescriptorUpdateRequired</a></div><div class="ttdeci">virtual bool dynamicDescriptorUpdateRequired() const =0</div><div class="ttdoc">Should return whether or not the static descriptor set needs to be updated.</div></div>
-<div class="ttc" id="aa04895_html_a4b4d2b0d313180b3ba7e8abdcbf330a5"><div class="ttname"><a href="a04895.html#a4b4d2b0d313180b3ba7e8abdcbf330a5">bl::rc::ds::Binding::allocateObject</a></div><div class="ttdeci">virtual bool allocateObject(ecs::Entity entity, scene::Key key)=0</div><div class="ttdoc">Called when a new object will be using the descriptor set.</div></div>
-<div class="ttc" id="aa04895_html_a5ea4fcfcb55892bd3dc0a493669c71d0"><div class="ttname"><a href="a04895.html#a5ea4fcfcb55892bd3dc0a493669c71d0">bl::rc::ds::Binding::getBindingIndex</a></div><div class="ttdeci">std::uint32_t getBindingIndex() const</div><div class="ttdoc">Returns the binding index of this binding.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00054">Binding.hpp:54</a></div></div>
-<div class="ttc" id="aa04895_html_a6e8912139d20f11525b01e739f8f49ce"><div class="ttname"><a href="a04895.html#a6e8912139d20f11525b01e739f8f49ce">bl::rc::ds::Binding::writeSet</a></div><div class="ttdeci">virtual void writeSet(SetWriteHelper &amp;writer, VkDescriptorSet set, UpdateSpeed speed, std::uint32_t frameIndex)=0</div><div class="ttdoc">Called to write this binding to the given descriptor set.</div></div>
-<div class="ttc" id="aa04895_html_a6fe9ffa398cbad55cf190d981ac315a2"><div class="ttname"><a href="a04895.html#a6fe9ffa398cbad55cf190d981ac315a2">bl::rc::ds::Binding::getSpeedMode</a></div><div class="ttdeci">virtual DescriptorSetInstance::SpeedBucketSetting getSpeedMode() const =0</div><div class="ttdoc">Should return the speed mode required by this binding.</div></div>
-<div class="ttc" id="aa04895_html_a86308849b9e410519b9f6b7b6511eced"><div class="ttname"><a href="a04895.html#a86308849b9e410519b9f6b7b6511eced">bl::rc::ds::Binding::getDynamicOffsetForPipeline</a></div><div class="ttdeci">virtual std::uint32_t getDynamicOffsetForPipeline(scene::SceneRenderContext &amp;ctx, VkPipelineLayout layout, std::uint32_t setIndex, UpdateSpeed updateFreq)</div><div class="ttdoc">Returns the dynamic offset to use at pipeline bind time.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00126">Binding.hpp:126</a></div></div>
-<div class="ttc" id="aa04895_html_aa610fc8b67930a4033cb31b6987d0ba8"><div class="ttname"><a href="a04895.html#aa610fc8b67930a4033cb31b6987d0ba8">bl::rc::ds::Binding::~Binding</a></div><div class="ttdeci">virtual ~Binding()=default</div><div class="ttdoc">Destroys the binding.</div></div>
-<div class="ttc" id="aa04895_html_ab03ca013c004f2341bd5abce8ded224e"><div class="ttname"><a href="a04895.html#ab03ca013c004f2341bd5abce8ded224e">bl::rc::ds::Binding::getDescriptorType</a></div><div class="ttdeci">VkDescriptorType getDescriptorType() const</div><div class="ttdoc">Returns the descriptor type of this binding.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00041">Binding.hpp:41</a></div></div>
-<div class="ttc" id="aa04895_html_ac0179f419b44444c9d9d6a7f324a708b"><div class="ttname"><a href="a04895.html#ac0179f419b44444c9d9d6a7f324a708b">bl::rc::ds::Binding::releaseObject</a></div><div class="ttdeci">virtual void releaseObject(ecs::Entity entity, scene::Key key)=0</div><div class="ttdoc">Called when an object will no longer be using the set.</div></div>
-<div class="ttc" id="aa04895_html_ace1b299914ba8309b2adba375bb91636"><div class="ttname"><a href="a04895.html#ace1b299914ba8309b2adba375bb91636">bl::rc::ds::Binding::isDynamic</a></div><div class="ttdeci">bool isDynamic() const</div><div class="ttdoc">Returns whether this descriptor binding is dynamic.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00046">Binding.hpp:46</a></div></div>
-<div class="ttc" id="aa04895_html_af0952d1f16aa276a9822d4dc57268dc7"><div class="ttname"><a href="a04895.html#af0952d1f16aa276a9822d4dc57268dc7">bl::rc::ds::Binding::Binding</a></div><div class="ttdeci">Binding(VkDescriptorType type)</div><div class="ttdoc">Creates the binding.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00143">Binding.hpp:143</a></div></div>
-<div class="ttc" id="aa04895_html_af295ade562756910b84fbe652643069a"><div class="ttname"><a href="a04895.html#af295ade562756910b84fbe652643069a">bl::rc::ds::Binding::init</a></div><div class="ttdeci">virtual void init(vk::VulkanLayer &amp;vulkanState, InitContext &amp;ctx)=0</div><div class="ttdoc">Called once after the descriptor set is created.</div></div>
-<div class="ttc" id="aa04923_html"><div class="ttname"><a href="a04923.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a08537_source.html#l00030">InitContext.hpp:30</a></div></div>
-<div class="ttc" id="aa04931_html"><div class="ttname"><a href="a04931.html">bl::rc::ds::SetWriteHelper</a></div><div class="ttdoc">Utility to perform arbitrary descriptor set writes using stack allocated memory.</div><div class="ttdef"><b>Definition</b> <a href="a00974_source.html#l00018">SetWriteHelper.hpp:18</a></div></div>
-<div class="ttc" id="aa05439_html"><div class="ttname"><a href="a05439.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08561_source.html#l00023">Key.hpp:23</a></div></div>
-<div class="ttc" id="aa05495_html"><div class="ttname"><a href="a05495.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
-<div class="ttc" id="aa05839_html"><div class="ttname"><a href="a05839.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a00401_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
-<div class="ttc" id="aa08495_html"><div class="ttname"><a href="a08495.html">DescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa08561_html"><div class="ttname"><a href="a08561.html">Key.hpp</a></div></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="a03124.html#gae9727d4b333f4e14a1581a080fcc29cf">  109</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06104.html">sr::Key&lt;ShadowMapShaderResource&gt;</a> <a class="code hl_variable" href="a03124.html#gae9727d4b333f4e14a1581a080fcc29cf">ShadowMapResourceKey</a>{<span class="stringliteral">&quot;__builtin_ShadowMaps&quot;</span>};</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>} <span class="comment">// namespace sri</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00743_html"><div class="ttname"><a href="a00743.html">SettingsChanged.hpp</a></div></div>
+<div class="ttc" id="aa00764_html"><div class="ttname"><a href="a00764.html">ShadowMapsInvalidated.hpp</a></div></div>
+<div class="ttc" id="aa00989_html"><div class="ttname"><a href="a00989.html">ShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa01127_html"><div class="ttname"><a href="a01127.html">Framebuffer.hpp</a></div></div>
+<div class="ttc" id="aa01211_html"><div class="ttname"><a href="a01211.html">Limits.hpp</a></div></div>
+<div class="ttc" id="aa03124_html_gae9727d4b333f4e14a1581a080fcc29cf"><div class="ttname"><a href="a03124.html#gae9727d4b333f4e14a1581a080fcc29cf">bl::rc::sri::ShadowMapResourceKey</a></div><div class="ttdeci">constexpr sr::Key&lt; ShadowMapShaderResource &gt; ShadowMapResourceKey</div><div class="ttdoc">The shader resource key for accessing shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00109">ShadowMapShaderResource.hpp:109</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04196_html"><div class="ttname"><a href="a04196.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09586_source.html#l00040">Engine.hpp:40</a></div></div>
+<div class="ttc" id="aa05492_html"><div class="ttname"><a href="a05492.html">bl::rc::event::SettingsChanged</a></div><div class="ttdoc">Fired when renderer settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a00743_source.html#l00017">SettingsChanged.hpp:17</a></div></div>
+<div class="ttc" id="aa05868_html"><div class="ttname"><a href="a05868.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09718_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05872_html"><div class="ttname"><a href="a05872.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a00773_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa06104_html"><div class="ttname"><a href="a06104.html">bl::rc::sr::Key</a></div><div class="ttdoc">Key type for a shader resource. Allows encoding both type and id into one value.</div><div class="ttdef"><b>Definition</b> <a href="a09778_source.html#l00020">Key.hpp:20</a></div></div>
+<div class="ttc" id="aa06108_html"><div class="ttname"><a href="a06108.html">bl::rc::sr::ShaderResource</a></div><div class="ttdoc">Base class for shader inputs. Shader inputs are the images and buffers that descriptors point to....</div><div class="ttdef"><b>Definition</b> <a href="a00989_source.html#l00032">ShaderResource.hpp:32</a></div></div>
+<div class="ttc" id="aa06120_html"><div class="ttname"><a href="a06120.html">bl::rc::sri::ShadowMapShaderResource</a></div><div class="ttdoc">Shader resource containing the shadow map images and framebuffers.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00027">ShadowMapShaderResource.hpp:29</a></div></div>
+<div class="ttc" id="aa06120_html_a04ab2452846a1b1442ff7412789c778c"><div class="ttname"><a href="a06120.html#a04ab2452846a1b1442ff7412789c778c">bl::rc::sri::ShadowMapShaderResource::getPointShadowFramebuffer</a></div><div class="ttdeci">vk::Framebuffer &amp; getPointShadowFramebuffer(std::uint32_t index)</div><div class="ttdoc">Returns the framebuffer of the point shadow map at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00077">ShadowMapShaderResource.hpp:77</a></div></div>
+<div class="ttc" id="aa06120_html_a219b1ac64aa830c4978302beabc09b75"><div class="ttname"><a href="a06120.html#a219b1ac64aa830c4978302beabc09b75">bl::rc::sri::ShadowMapShaderResource::~ShadowMapShaderResource</a></div><div class="ttdeci">virtual ~ShadowMapShaderResource()=default</div><div class="ttdoc">Destroys the shader resource.</div></div>
+<div class="ttc" id="aa06120_html_a38f7d4fce70efa819746838c5a842708"><div class="ttname"><a href="a06120.html#a38f7d4fce70efa819746838c5a842708">bl::rc::sri::ShadowMapShaderResource::ShadowMapShaderResource</a></div><div class="ttdeci">ShadowMapShaderResource()=default</div><div class="ttdoc">Creates the shader resource.</div></div>
+<div class="ttc" id="aa06120_html_a58479235eb19ce367299c52f714fc320"><div class="ttname"><a href="a06120.html#a58479235eb19ce367299c52f714fc320">bl::rc::sri::ShadowMapShaderResource::getSpotShadowFramebuffer</a></div><div class="ttdeci">vk::Framebuffer &amp; getSpotShadowFramebuffer(std::uint32_t index)</div><div class="ttdoc">Returns the framebuffer of the spot shadow map at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00057">ShadowMapShaderResource.hpp:57</a></div></div>
+<div class="ttc" id="aa06120_html_acf353f322f7c49520b85b76d54c75cba"><div class="ttname"><a href="a06120.html#acf353f322f7c49520b85b76d54c75cba">bl::rc::sri::ShadowMapShaderResource::getSpotShadowImage</a></div><div class="ttdeci">const vk::Image &amp; getSpotShadowImage(std::uint32_t index) const</div><div class="ttdoc">Returns the image of the spot shadow map at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00047">ShadowMapShaderResource.hpp:47</a></div></div>
+<div class="ttc" id="aa06120_html_af35e8be8335dd36c957df2c9ab39a209"><div class="ttname"><a href="a06120.html#af35e8be8335dd36c957df2c9ab39a209">bl::rc::sri::ShadowMapShaderResource::getPointShadowImage</a></div><div class="ttdeci">const vk::Image &amp; getPointShadowImage(std::uint32_t index) const</div><div class="ttdoc">Returns the image of the point shadow map at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00067">ShadowMapShaderResource.hpp:67</a></div></div>
+<div class="ttc" id="aa06240_html"><div class="ttname"><a href="a06240.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition</b> <a href="a01127_source.html#l00024">Framebuffer.hpp:24</a></div></div>
+<div class="ttc" id="aa06244_html"><div class="ttname"><a href="a06244.html">bl::rc::vk::Image</a></div><div class="ttdoc">Utility class to create and manage an image.</div><div class="ttdef"><b>Definition</b> <a href="a09784_source.html#l00022">Image.hpp:22</a></div></div>
+<div class="ttc" id="aa06772_html"><div class="ttname"><a href="a06772.html">bl::sig::Emitter</a></div><div class="ttdoc">Signal emitter that connects to a channel and allows the sending of signals.</div><div class="ttdef"><b>Definition</b> <a href="a09817_source.html#l00022">Emitter.hpp:22</a></div></div>
+<div class="ttc" id="aa06784_html"><div class="ttname"><a href="a06784.html">bl::sig::Listener</a></div><div class="ttdoc">Base class for signal listeners. Create classes that derive from this to process signals.</div><div class="ttdef"><b>Definition</b> <a href="a09823_source.html#l00023">Listener.hpp:23</a></div></div>
+<div class="ttc" id="aa09778_html"><div class="ttname"><a href="a09778.html">Key.hpp</a></div></div>
+<div class="ttc" id="aa09784_html"><div class="ttname"><a href="a09784.html">Image.hpp</a></div></div>
+<div class="ttc" id="aa09817_html"><div class="ttname"><a href="a09817.html">Emitter.hpp</a></div></div>
+<div class="ttc" id="aa09823_html"><div class="ttname"><a href="a09823.html">Listener.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

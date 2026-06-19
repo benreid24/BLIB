@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Models/BoneSet.cpp Source File</title>
+<title>BLIB: src/Assets/Builtin/MaterialPayload.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,69 +79,55 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_36df885461d6bd14211edf06510d126c.html">Models</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e0c1ede47f21c4a643a1257f949f98e0.html">Assets</a></li><li class="navelem"><a class="el" href="dir_51dd36276e204989e590023a2b6d63c5.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">BoneSet.cpp</div></div>
+  <div class="headertitle"><div class="title">MaterialPayload.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02702.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01418.html">BLIB/Models/BoneSet.hpp</a>&gt;</span></div>
+<a href="a02702.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01358.html">BLIB/Assets/Builtin/MaterialPayload.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>mdl</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>asi</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04475.html#a5ac27fb1a93c365cd08d4fa04799004a">    7</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04475.html#a5ac27fb1a93c365cd08d4fa04799004a">BoneSet::populate</a>(<span class="keyword">const</span> aiScene* scene) {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> boneCount = 0;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; scene-&gt;mNumMeshes; ++i) {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        boneCount += scene-&gt;mMeshes[i]-&gt;mNumBones;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    }</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    bones.reserve(boneCount);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; scene-&gt;mNumMeshes; ++i) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; scene-&gt;mMeshes[i]-&gt;mNumBones; ++j) {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>            <a class="code hl_function" href="a04475.html#a96c6fac7a7bf6ca4e713d31217f4ee03">getOrAddBone</a>(scene-&gt;mMeshes[i]-&gt;mBones[j]);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03396.html#a59ea33d8bf69567647f50932f2775111">    7</a></span><a class="code hl_function" href="a03488.html#a1d30ee7c915de320149246a3325dd1bb">MaterialPayload::CreateData::CreateData</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a04996.html">mdl::Material</a>&amp; material)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: material(material) {}</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04475.html#a96c6fac7a7bf6ca4e713d31217f4ee03">   22</a></span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a04475.html#a96c6fac7a7bf6ca4e713d31217f4ee03">BoneSet::getOrAddBone</a>(<span class="keyword">const</span> aiBone* bone) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> <span class="keyword">auto</span> existingIndex =</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_function" href="a04475.html#aca2fcb7ae1f10c63acffe82288fb6557">getBoneIndexByName</a>(std::string_view(bone-&gt;mName.data, bone-&gt;mName.length));</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (existingIndex.has_value()) { <span class="keywordflow">return</span> existingIndex.value(); }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = bones.size();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    bones.emplace_back(bone);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> i;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a03392.html#af152df671a25dc75e36d02ef81e8d1ff">   10</a></span><a class="code hl_function" href="a03392.html#af152df671a25dc75e36d02ef81e8d1ff">MaterialPayload::MaterialPayload</a>(<span class="keyword">const</span> Payload::ConstructContext&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>: <a class="code hl_function" href="a03628.html#ad1592c1b0a60bcf46fe9d2b5cc4800a0">Payload</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, <a class="code hl_variable" href="a03392.html#af84284f9737a76366d6d12798de6817e">diffuse</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;diffuse&quot;</span>)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, <a class="code hl_variable" href="a03392.html#a6077cfde5f600de3d8c0ef68ccff7d5f">normal</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;normal&quot;</span>)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, <a class="code hl_variable" href="a03392.html#a99a6ce538d6efa0667f4dc6199f940b5">specular</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;specular&quot;</span>)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>, <a class="code hl_variable" href="a03392.html#a8e68e9e948c5bd2fe5f5f0ebbec9fba6">parallax</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;parallax&quot;</span>)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, <a class="code hl_variable" href="a03392.html#a8283ecda7d124f99ad7bb5bd08279c88">shininess</a>(0.5f)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, <a class="code hl_variable" href="a03392.html#a1c1527bffc11930e0186d91817771d47">heightScale</a>(0.f) {}</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="}">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04475.html#aca2fcb7ae1f10c63acffe82288fb6557">   32</a></span>std::optional&lt;unsigned int&gt; <a class="code hl_function" href="a04475.html#aca2fcb7ae1f10c63acffe82288fb6557">BoneSet::getBoneIndexByName</a>(<span class="keyword">const</span> std::string_view&amp; name)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; bones.size(); ++i) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (bones[i].name == name) { <span class="keywordflow">return</span> i; }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>
-</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>} <span class="comment">// namespace mdl</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01418_html"><div class="ttname"><a href="a01418.html">BoneSet.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04475_html_a5ac27fb1a93c365cd08d4fa04799004a"><div class="ttname"><a href="a04475.html#a5ac27fb1a93c365cd08d4fa04799004a">bl::mdl::BoneSet::populate</a></div><div class="ttdeci">void populate(const aiScene *scene)</div><div class="ttdoc">Creates the bone set and tries to load all bones.</div><div class="ttdef"><b>Definition</b> <a href="a02702_source.html#l00007">BoneSet.cpp:7</a></div></div>
-<div class="ttc" id="aa04475_html_a96c6fac7a7bf6ca4e713d31217f4ee03"><div class="ttname"><a href="a04475.html#a96c6fac7a7bf6ca4e713d31217f4ee03">bl::mdl::BoneSet::getOrAddBone</a></div><div class="ttdeci">unsigned int getOrAddBone(const aiBone *bone)</div><div class="ttdoc">Returns the index of the bone in the set. If the bone is not in the set it is added.</div><div class="ttdef"><b>Definition</b> <a href="a02702_source.html#l00022">BoneSet.cpp:22</a></div></div>
-<div class="ttc" id="aa04475_html_aca2fcb7ae1f10c63acffe82288fb6557"><div class="ttname"><a href="a04475.html#aca2fcb7ae1f10c63acffe82288fb6557">bl::mdl::BoneSet::getBoneIndexByName</a></div><div class="ttdeci">std::optional&lt; unsigned int &gt; getBoneIndexByName(const std::string_view &amp;name) const</div><div class="ttdoc">Finds the bone with the given name and returns its index if found.</div><div class="ttdef"><b>Definition</b> <a href="a02702_source.html#l00032">BoneSet.cpp:32</a></div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace asi</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01358_html"><div class="ttname"><a href="a01358.html">MaterialPayload.hpp</a></div></div>
+<div class="ttc" id="aa02858_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03392_html_a1c1527bffc11930e0186d91817771d47"><div class="ttname"><a href="a03392.html#a1c1527bffc11930e0186d91817771d47">bl::asi::MaterialPayload::heightScale</a></div><div class="ttdeci">float heightScale</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00022">MaterialPayload.hpp:22</a></div></div>
+<div class="ttc" id="aa03392_html_a6077cfde5f600de3d8c0ef68ccff7d5f"><div class="ttname"><a href="a03392.html#a6077cfde5f600de3d8c0ef68ccff7d5f">bl::asi::MaterialPayload::normal</a></div><div class="ttdeci">as::Dependency&lt; TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional &gt; normal</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00018">MaterialPayload.hpp:18</a></div></div>
+<div class="ttc" id="aa03392_html_a8283ecda7d124f99ad7bb5bd08279c88"><div class="ttname"><a href="a03392.html#a8283ecda7d124f99ad7bb5bd08279c88">bl::asi::MaterialPayload::shininess</a></div><div class="ttdeci">float shininess</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00021">MaterialPayload.hpp:21</a></div></div>
+<div class="ttc" id="aa03392_html_a8e68e9e948c5bd2fe5f5f0ebbec9fba6"><div class="ttname"><a href="a03392.html#a8e68e9e948c5bd2fe5f5f0ebbec9fba6">bl::asi::MaterialPayload::parallax</a></div><div class="ttdeci">as::Dependency&lt; TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional &gt; parallax</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00020">MaterialPayload.hpp:20</a></div></div>
+<div class="ttc" id="aa03392_html_a99a6ce538d6efa0667f4dc6199f940b5"><div class="ttname"><a href="a03392.html#a99a6ce538d6efa0667f4dc6199f940b5">bl::asi::MaterialPayload::specular</a></div><div class="ttdeci">as::Dependency&lt; TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional &gt; specular</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00019">MaterialPayload.hpp:19</a></div></div>
+<div class="ttc" id="aa03392_html_af152df671a25dc75e36d02ef81e8d1ff"><div class="ttname"><a href="a03392.html#af152df671a25dc75e36d02ef81e8d1ff">bl::asi::MaterialPayload::MaterialPayload</a></div><div class="ttdeci">MaterialPayload(const Payload::ConstructContext &amp;ctx)</div><div class="ttdoc">Creates the material payload.</div><div class="ttdef"><b>Definition</b> <a href="a02702_source.html#l00010">MaterialPayload.cpp:10</a></div></div>
+<div class="ttc" id="aa03392_html_af84284f9737a76366d6d12798de6817e"><div class="ttname"><a href="a03392.html#af84284f9737a76366d6d12798de6817e">bl::asi::MaterialPayload::diffuse</a></div><div class="ttdeci">as::Dependency&lt; TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional &gt; diffuse</div><div class="ttdef"><b>Definition</b> <a href="a01358_source.html#l00017">MaterialPayload.hpp:17</a></div></div>
+<div class="ttc" id="aa03488_html_a1d30ee7c915de320149246a3325dd1bb"><div class="ttname"><a href="a03488.html#a1d30ee7c915de320149246a3325dd1bb">bl::as::CreateContext::CreateData::CreateData</a></div><div class="ttdeci">CreateData()</div><div class="ttdoc">Creates empty create data.</div><div class="ttdef"><b>Definition</b> <a href="a09979_source.html#l00061">Context.cpp:61</a></div></div>
+<div class="ttc" id="aa03628_html_ad1592c1b0a60bcf46fe9d2b5cc4800a0"><div class="ttname"><a href="a03628.html#ad1592c1b0a60bcf46fe9d2b5cc4800a0">bl::as::Payload::Payload</a></div><div class="ttdeci">Payload(const ConstructContext &amp;ctx)</div><div class="ttdoc">Creates the payload.</div><div class="ttdef"><b>Definition</b> <a href="a02726_source.html#l00011">Payload.cpp:11</a></div></div>
+<div class="ttc" id="aa04996_html"><div class="ttname"><a href="a04996.html">bl::mdl::Material</a></div><div class="ttdoc">Basic struct with material info for a mesh.</div><div class="ttdef"><b>Definition</b> <a href="a09757_source.html#l00017">Material.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

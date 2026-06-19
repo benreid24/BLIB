@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/ECS/DependencyGraph.cpp Source File</title>
+<title>BLIB: src/Math/Trig.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,76 +79,71 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b1a122bf62c958266ec5bf64d14fde5a.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3813464283bee2267f39dcf080a84d74.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">DependencyGraph.cpp</div></div>
+  <div class="headertitle"><div class="title">Trig.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02768.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01547.html">BLIB/ECS/DependencyGraph.hpp</a>&gt;</span></div>
+<a href="a02768.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01526.html">BLIB/Math/Trig.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>ecs</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03539.html#a42ca2d87dfe5867e1e48b7cd927e8998">    7</a></span><a class="code hl_function" href="a03539.html#a42ca2d87dfe5867e1e48b7cd927e8998">ecs::DependencyGraph::DependencyGraph</a>(std::size_t capacityHint)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: parentsToChildren(capacityHint)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, childrenToParents(capacityHint) {}</div>
-</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a03539.html#a5be0aef92ec886c39769384811f02ccc">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03539.html#a5be0aef92ec886c39769384811f02ccc">DependencyGraph::addDependency</a>(<a class="code hl_struct" href="a03543.html">Entity</a> parent, <a class="code hl_struct" href="a03543.html">Entity</a> child) {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    parentsToChildren.add(parent.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    childrenToParents.add(child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
-</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>math</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keywordtype">float</span> cachedCos[1440];</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keywordtype">bool</span> cosAvail = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">float</span> cachedSin[1440];</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keywordtype">bool</span> sinAvail = <span class="keyword">false</span>;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03539.html#a306e898c7fab38052be04f243e154f8c">   16</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03539.html#a306e898c7fab38052be04f243e154f8c">DependencyGraph::hasDependencies</a>(<a class="code hl_struct" href="a03543.html">Entity</a> parent)<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">return</span> parentsToChildren.hasValues(parent.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
-</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03539.html#a578885f410b0ca7aa8551962258bb59f">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03539.html#a578885f410b0ca7aa8551962258bb59f">DependencyGraph::removeDependency</a>(<a class="code hl_struct" href="a03543.html">Entity</a> parent, <a class="code hl_struct" href="a03543.html">Entity</a> child) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    parentsToChildren.removeValue(parent.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), child);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    childrenToParents.removeValue(child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>(), parent);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
-</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03539.html#a46bb4369e09fcc49d21b3f8c07946f4c">   25</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03539.html#a46bb4369e09fcc49d21b3f8c07946f4c">DependencyGraph::clear</a>() {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    parentsToChildren.clear();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    childrenToParents.clear();</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">void</span> cacheCos() {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 1440; ++i) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        cachedCos[i] = std::cos(<a class="code hl_function" href="a03120.html#ga798f04ddeba68968d5339859b62b3500">degreesToRadians</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(i) / 4.f));</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    cosAvail = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">void</span> cacheSin() {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 1440; ++i) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        cachedSin[i] = std::sin(<a class="code hl_function" href="a03120.html#ga798f04ddeba68968d5339859b62b3500">degreesToRadians</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(i) / 4.f));</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    sinAvail = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a03120.html#gae8e482156412ed87dc2d91572ee817ab">   31</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a03120.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(<span class="keywordtype">float</span> a) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (!cosAvail) { cacheCos(); }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordflow">if</span> (a &lt; 0.f) { a += std::ceil(-a / 360.f) * 360.f; }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> cachedCos[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(a * 4.f) % 1440];</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03539.html#a334277ed7244554257b87ee0530b6d3a">   30</a></span><a class="code hl_struct" href="a03395.html">ctr::IndexMappedList&lt;std::uint32_t, Entity&gt;::Range</a> <a class="code hl_function" href="a03539.html#a334277ed7244554257b87ee0530b6d3a">DependencyGraph::getResources</a>(<a class="code hl_struct" href="a03543.html">Entity</a> child) {</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">return</span> childrenToParents.getValues(child.<a class="code hl_function" href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">getIndex</a>());</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03120.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">   37</a></span><span class="keywordtype">float</span> <a class="code hl_function" href="a03120.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(<span class="keywordtype">float</span> a) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span> (!sinAvail) { cacheSin(); }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">if</span> (a &lt; 0.f) { a += std::ceil(-a / 360.f) * 360.f; }</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span> cachedSin[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(a * 4.f) % 1440];</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
 </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace ecs</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01547_html"><div class="ttname"><a href="a01547.html">DependencyGraph.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03395_html"><div class="ttname"><a href="a03395.html">bl::ctr::IndexMappedList::Range</a></div><div class="ttdoc">Helper struct to allow range-based for loops.</div><div class="ttdef"><b>Definition</b> <a href="a00314_source.html#l00188">IndexMappedList.hpp:188</a></div></div>
-<div class="ttc" id="aa03539_html_a306e898c7fab38052be04f243e154f8c"><div class="ttname"><a href="a03539.html#a306e898c7fab38052be04f243e154f8c">bl::ecs::DependencyGraph::hasDependencies</a></div><div class="ttdeci">bool hasDependencies(Entity parent) const</div><div class="ttdoc">Returns whether or not the given entity has others depending on it.</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00016">DependencyGraph.cpp:16</a></div></div>
-<div class="ttc" id="aa03539_html_a334277ed7244554257b87ee0530b6d3a"><div class="ttname"><a href="a03539.html#a334277ed7244554257b87ee0530b6d3a">bl::ecs::DependencyGraph::getResources</a></div><div class="ttdeci">ctr::IndexMappedList&lt; std::uint32_t, Entity &gt;::Range getResources(Entity child)</div><div class="ttdoc">Returns an iterable of dependencies for the given entity.</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00030">DependencyGraph.cpp:30</a></div></div>
-<div class="ttc" id="aa03539_html_a42ca2d87dfe5867e1e48b7cd927e8998"><div class="ttname"><a href="a03539.html#a42ca2d87dfe5867e1e48b7cd927e8998">bl::ecs::DependencyGraph::DependencyGraph</a></div><div class="ttdeci">DependencyGraph(std::size_t capacityHint)</div><div class="ttdoc">Creates the graph with the given capacity hint.</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00007">DependencyGraph.cpp:7</a></div></div>
-<div class="ttc" id="aa03539_html_a46bb4369e09fcc49d21b3f8c07946f4c"><div class="ttname"><a href="a03539.html#a46bb4369e09fcc49d21b3f8c07946f4c">bl::ecs::DependencyGraph::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears out all relationship data.</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00025">DependencyGraph.cpp:25</a></div></div>
-<div class="ttc" id="aa03539_html_a578885f410b0ca7aa8551962258bb59f"><div class="ttname"><a href="a03539.html#a578885f410b0ca7aa8551962258bb59f">bl::ecs::DependencyGraph::removeDependency</a></div><div class="ttdeci">void removeDependency(Entity parent, Entity child)</div><div class="ttdoc">Removes the given dependency.</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00020">DependencyGraph.cpp:20</a></div></div>
-<div class="ttc" id="aa03539_html_a5be0aef92ec886c39769384811f02ccc"><div class="ttname"><a href="a03539.html#a5be0aef92ec886c39769384811f02ccc">bl::ecs::DependencyGraph::addDependency</a></div><div class="ttdeci">void addDependency(Entity parent, Entity child)</div><div class="ttdoc">Adds a dependency between two entities.</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00011">DependencyGraph.cpp:11</a></div></div>
-<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa03543_html_aa3cb71b47f3a72f20913a27233a5dad0"><div class="ttname"><a href="a03543.html#aa3cb71b47f3a72f20913a27233a5dad0">bl::ecs::Entity::getIndex</a></div><div class="ttdeci">std::uint64_t getIndex() const</div><div class="ttdoc">Returns the 0-based index for the entity.</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00107">Entity.hpp:107</a></div></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>} <span class="comment">// namespace math</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01526_html"><div class="ttname"><a href="a01526.html">Trig.hpp</a></div></div>
+<div class="ttc" id="aa03120_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a03120.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00037">Trig.cpp:37</a></div></div>
+<div class="ttc" id="aa03120_html_ga798f04ddeba68968d5339859b62b3500"><div class="ttname"><a href="a03120.html#ga798f04ddeba68968d5339859b62b3500">bl::math::degreesToRadians</a></div><div class="ttdeci">constexpr float degreesToRadians(float degrees)</div><div class="ttdoc">Converts an angle in degrees to radians.</div><div class="ttdef"><b>Definition</b> <a href="a01526_source.html#l00050">Trig.hpp:50</a></div></div>
+<div class="ttc" id="aa03120_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a03120.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00031">Trig.cpp:31</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

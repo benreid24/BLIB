@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::ecs::event::EntityDependencyAdded Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,27 +74,135 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03027.html">input</a></li><li class="navelem"><a class="el" href="a04079.html">Listener</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03138.html">bl</a></li><li class="navelem"><a class="el" href="a03157.html">ecs</a></li><li class="navelem"><a class="el" href="a03160.html">event</a></li><li class="navelem"><a class="el" href="a04076.html">EntityDependencyAdded</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::input::Listener Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a04073.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::ecs::event::EntityDependencyAdded Struct Reference<div class="ingroups"><a class="el" href="a03113.html">ECS</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a04079.html">bl::input::Listener</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a04079.html#ae4af50bf1743d112cb2c2c784bea21c8">Actor</a></td><td class="entry"><a class="el" href="a04079.html">bl::input::Listener</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04079.html#a079b505ecaed9f6afd8278bbb7f38a44">Listener</a>()</td><td class="entry"><a class="el" href="a04079.html">bl::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04079.html#ae3540d1af77f94edd329e089eec2da82">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a04079.html">bl::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04079.html#a29b323fc5a97661724c3a97790d72758">Listener</a>(Listener &amp;&amp;moved)</td><td class="entry"><a class="el" href="a04079.html">bl::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a04079.html#a181ea3ab33bd70036b0498cc90198902">observe</a>(const Actor &amp;actor, unsigned int activatedControl, DispatchType eventType, bool eventTriggered)=0</td><td class="entry"><a class="el" href="a04079.html">bl::input::Listener</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a04079.html#a483ff531396a8a888ece355a945985cd">~Listener</a>()</td><td class="entry"><a class="el" href="a04079.html">bl::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Fired when an entity is marked as a dependency of another.  
+ <a href="a04076.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a09574_source.html">Events.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ab185d730d4e338be9dd885d969ecccc0" id="r_ab185d730d4e338be9dd885d969ecccc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04076.html#ab185d730d4e338be9dd885d969ecccc0">EntityDependencyAdded</a> (<a class="el" href="a04040.html">Entity</a> <a class="el" href="a04076.html#a41827df257bbde0372c40fbf61310239">resource</a>, <a class="el" href="a04040.html">Entity</a> <a class="el" href="a04076.html#a058886a19ee66d3bf90f077acbb3c9a0">user</a>)</td></tr>
+<tr class="memdesc:ab185d730d4e338be9dd885d969ecccc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new resource event.  <br /></td></tr>
+<tr class="separator:ab185d730d4e338be9dd885d969ecccc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a41827df257bbde0372c40fbf61310239" id="r_a41827df257bbde0372c40fbf61310239"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04040.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04076.html#a41827df257bbde0372c40fbf61310239">resource</a></td></tr>
+<tr class="memdesc:a41827df257bbde0372c40fbf61310239"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity being depended on.  <br /></td></tr>
+<tr class="separator:a41827df257bbde0372c40fbf61310239"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a058886a19ee66d3bf90f077acbb3c9a0" id="r_a058886a19ee66d3bf90f077acbb3c9a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04040.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04076.html#a058886a19ee66d3bf90f077acbb3c9a0">user</a></td></tr>
+<tr class="memdesc:a058886a19ee66d3bf90f077acbb3c9a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity depending on resource.  <br /></td></tr>
+<tr class="separator:a058886a19ee66d3bf90f077acbb3c9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fired when an entity is marked as a dependency of another. </p>
+
+<p class="definition">Definition at line <a class="el" href="a09574_source.html#l00139">139</a> of file <a class="el" href="a09574_source.html">Events.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab185d730d4e338be9dd885d969ecccc0" name="ab185d730d4e338be9dd885d969ecccc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab185d730d4e338be9dd885d969ecccc0">&#9670;&#160;</a></span>EntityDependencyAdded()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::event::EntityDependencyAdded::EntityDependencyAdded </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04040.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04040.html">Entity</a>&#160;</td>
+          <td class="paramname"><em>user</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new resource event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">resource</td><td>The entity being depended on </td></tr>
+    <tr><td class="paramname">user</td><td>The entity depending on resource </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09574_source.html#l00152">152</a> of file <a class="el" href="a09574_source.html">Events.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a41827df257bbde0372c40fbf61310239" name="a41827df257bbde0372c40fbf61310239"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41827df257bbde0372c40fbf61310239">&#9670;&#160;</a></span>resource</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04040.html">Entity</a> bl::ecs::event::EntityDependencyAdded::resource</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The entity being depended on. </p>
+
+<p class="definition">Definition at line <a class="el" href="a09574_source.html#l00141">141</a> of file <a class="el" href="a09574_source.html">Events.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a058886a19ee66d3bf90f077acbb3c9a0" name="a058886a19ee66d3bf90f077acbb3c9a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a058886a19ee66d3bf90f077acbb3c9a0">&#9670;&#160;</a></span>user</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04040.html">Entity</a> bl::ecs::event::EntityDependencyAdded::user</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The entity depending on resource. </p>
+
+<p class="definition">Definition at line <a class="el" href="a09574_source.html#l00144">144</a> of file <a class="el" href="a09574_source.html">Events.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/ECS/<a class="el" href="a09574_source.html">Events.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:06 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

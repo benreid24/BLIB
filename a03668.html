@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Member List</title>
+<title>BLIB: bl::as::StreamCache Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,22 +74,176 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a02994.html">bl</a></li><li class="navelem"><a class="el" href="a03009.html">ecs</a></li><li class="navelem"><a class="el" href="a03015.html">txp</a></li><li class="navelem"><a class="el" href="a03671.html">TxEntityResolve&lt; tx::EntityWrite &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03138.html">bl</a></li><li class="navelem"><a class="el" href="a03140.html">as</a></li><li class="navelem"><a class="el" href="a03668.html">StreamCache</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt; Member List</div></div>
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a03665.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">bl::as::StreamCache Class Reference<div class="ingroups"><a class="el" href="a03108.html">Assets</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a03671.html">bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a03671.html#a8ff873723381a4ddc2a0ce2de5cb71bc">T</a> typedef</td><td class="entry"><a class="el" href="a03671.html">bl::ecs::txp::TxEntityResolve&lt; tx::EntityWrite &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Utility that provides persistent streams for asset payloads that require continued access to their data such as sf::Music.  
+ <a href="a03668.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01376_source.html">StreamCache.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a078506f7231422178db1a93043955abe" id="r_a078506f7231422178db1a93043955abe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03668.html#a078506f7231422178db1a93043955abe">StreamCache</a> (const std::string &amp;repoRoot)</td></tr>
+<tr class="memdesc:a078506f7231422178db1a93043955abe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty stream cache.  <br /></td></tr>
+<tr class="separator:a078506f7231422178db1a93043955abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef76d38e72f2451457c8ccfe0d2ce631" id="r_aef76d38e72f2451457c8ccfe0d2ce631"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03668.html#aef76d38e72f2451457c8ccfe0d2ce631">useBundles</a> (<a class="el" href="a03444.html">bdl::BundleRuntime</a> *runtime)</td></tr>
+<tr class="memdesc:aef76d38e72f2451457c8ccfe0d2ce631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the provided bundle runtime instead of direct file access.  <br /></td></tr>
+<tr class="separator:aef76d38e72f2451457c8ccfe0d2ce631"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefac78b757daa3b2e0fd43e572f3aedf" id="r_aefac78b757daa3b2e0fd43e572f3aedf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03640.html">PersistentStream</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03668.html#aefac78b757daa3b2e0fd43e572f3aedf">getStream</a> (<a class="el" href="a03324.html">Asset</a> &amp;asset, std::string_view localPath)</td></tr>
+<tr class="memdesc:aefac78b757daa3b2e0fd43e572f3aedf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a new stream for the given asset and full path.  <br /></td></tr>
+<tr class="separator:aefac78b757daa3b2e0fd43e572f3aedf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30c73bdd1ae84d4418357daeaa7c7b90" id="r_a30c73bdd1ae84d4418357daeaa7c7b90"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03668.html#a30c73bdd1ae84d4418357daeaa7c7b90">releaseStreams</a> (<a class="el" href="a07056.html">util::UUID</a> uuid)</td></tr>
+<tr class="memdesc:a30c73bdd1ae84d4418357daeaa7c7b90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases all streams for the given asset. Called when an asset is unloaded.  <br /></td></tr>
+<tr class="separator:a30c73bdd1ae84d4418357daeaa7c7b90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Utility that provides persistent streams for asset payloads that require continued access to their data such as sf::Music. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01376_source.html#l00027">27</a> of file <a class="el" href="a01376_source.html">StreamCache.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a078506f7231422178db1a93043955abe" name="a078506f7231422178db1a93043955abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a078506f7231422178db1a93043955abe">&#9670;&#160;</a></span>StreamCache()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::as::StreamCache::StreamCache </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>repoRoot</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty stream cache. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">repoRoot</td><td>The root path of the asset repository </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02717_source.html#l00012">12</a> of file <a class="el" href="a02717_source.html">StreamCache.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aefac78b757daa3b2e0fd43e572f3aedf" name="aefac78b757daa3b2e0fd43e572f3aedf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefac78b757daa3b2e0fd43e572f3aedf">&#9670;&#160;</a></span>getStream()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03640.html">PersistentStream</a> * bl::as::StreamCache::getStream </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03324.html">Asset</a> &amp;&#160;</td>
+          <td class="paramname"><em>asset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>localPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates and returns a new stream for the given asset and full path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uuid</td><td>The asset uuid the stream is being created for </td></tr>
+    <tr><td class="paramname">localPath</td><td>The asset local path to get the stream for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the new stream, or nullptr if the stream could not be created </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02717_source.html#l00023">23</a> of file <a class="el" href="a02717_source.html">StreamCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a30c73bdd1ae84d4418357daeaa7c7b90" name="a30c73bdd1ae84d4418357daeaa7c7b90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30c73bdd1ae84d4418357daeaa7c7b90">&#9670;&#160;</a></span>releaseStreams()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::as::StreamCache::releaseStreams </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a07056.html">util::UUID</a>&#160;</td>
+          <td class="paramname"><em>uuid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases all streams for the given asset. Called when an asset is unloaded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uuid</td><td>The asset uuid to release streams for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02717_source.html#l00048">48</a> of file <a class="el" href="a02717_source.html">StreamCache.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aef76d38e72f2451457c8ccfe0d2ce631" name="aef76d38e72f2451457c8ccfe0d2ce631"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef76d38e72f2451457c8ccfe0d2ce631">&#9670;&#160;</a></span>useBundles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::as::StreamCache::useBundles </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03444.html">bdl::BundleRuntime</a> *&#160;</td>
+          <td class="paramname"><em>runtime</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uses the provided bundle runtime instead of direct file access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">runtime</td><td>The bundle runtime to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02717_source.html#l00016">16</a> of file <a class="el" href="a02717_source.html">StreamCache.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Assets/<a class="el" href="a01376_source.html">StreamCache.hpp</a></li>
+<li>src/Assets/<a class="el" href="a02717_source.html">StreamCache.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

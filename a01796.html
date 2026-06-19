@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/HashCombine.hpp File Reference</title>
+<title>BLIB: include/BLIB/Interfaces/Menu.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,41 +74,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">HashCombine.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Menu.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstddef&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01757_source.html">BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01760_source.html">BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01763_source.html">BLIB/Interfaces/Menu/Drivers/MovementDriver.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01766_source.html">BLIB/Interfaces/Menu/Drivers/TriggerDriver.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09673_source.html">BLIB/Interfaces/Menu/Event.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01781_source.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01784_source.html">BLIB/Interfaces/Menu/Items/ImageItem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01787_source.html">BLIB/Interfaces/Menu/Items/SubmenuItem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01790_source.html">BLIB/Interfaces/Menu/Items/TextItem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01793_source.html">BLIB/Interfaces/Menu/Items/ToggleTextItem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09676_source.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01769_source.html">BLIB/Interfaces/Menu/Selector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01775_source.html">BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01778_source.html">BLIB/Interfaces/Menu/Selectors/NoSelector.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01796_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03075" id="r_a03075"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03075.html">bl::util</a></td></tr>
-<tr class="memdesc:a03075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a set of common utility classes that do not fit into any other modules. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:abaae3e313bb3be50f72287689e261af1" id="r_abaae3e313bb3be50f72287689e261af1"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03075.html#abaae3e313bb3be50f72287689e261af1">bl::util::hashCombine</a> (std::size_t left, std::size_t right)</td></tr>
-<tr class="memdesc:abaae3e313bb3be50f72287689e261af1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Combines two hash values.  <br /></td></tr>
-<tr class="separator:abaae3e313bb3be50f72287689e261af1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

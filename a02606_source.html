@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/Menu/Drivers/KeyboardDriver.cpp Source File</title>
+<title>BLIB: src/Render/Vulkan/Sampler.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,82 +79,116 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_a5850f6e383b3d533b6a0a91dee002d1.html">Menu</a></li><li class="navelem"><a class="el" href="dir_8225f553c4118c74e51abfe13787127e.html">Drivers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_2a24e9216d188d12785cf0650df1274b.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">KeyboardDriver.cpp</div></div>
+  <div class="headertitle"><div class="title">Sampler.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02606.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01274.html">BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp</a>&gt;</span></div>
+<a href="a02606.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01115.html">BLIB/Render/Vulkan/Sampler.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>menu</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a09718.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04375.html#a2ad0cadf931d0bf13c0f33b63d6c43f4">    7</a></span><a class="code hl_function" href="a04375.html#a2ad0cadf931d0bf13c0f33b63d6c43f4">KeyboardDriver::KeyboardDriver</a>(<a class="code hl_class" href="a04431.html">Menu</a>&amp; menu, sf::Keyboard::Key upCtrl, sf::Keyboard::Key rightCtrl,</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                               sf::Keyboard::Key downCtrl, sf::Keyboard::Key leftCtrl,</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>                               sf::Keyboard::Key activateCtrl)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: menu(menu)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, moveControls{upCtrl, rightCtrl, downCtrl, leftCtrl}</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, activateControl(activateCtrl) {}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a06328.html#a5a70451d50c6964380fa95e444e42463">   11</a></span><a class="code hl_function" href="a06328.html#a5a70451d50c6964380fa95e444e42463">Sampler::Sampler</a>()</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: renderer(nullptr)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, sampler(nullptr)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, owner(false) {}</div>
 </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04375.html#acafe5b641c1bacfa8212898f825d0237">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04375.html#acafe5b641c1bacfa8212898f825d0237">KeyboardDriver::setMoveControl</a>(<a class="code hl_enumeration" href="a04411.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> dir, sf::Keyboard::Key ctrl) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    moveControls[dir] = ctrl;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a06328.html#a797fc1110657e0534f2af9355364e949">   16</a></span><a class="code hl_function" href="a06328.html#a5a70451d50c6964380fa95e444e42463">Sampler::Sampler</a>(<a class="code hl_class" href="a05868.html">Renderer</a>&amp; renderer, VkSampler sampler, <span class="keywordtype">bool</span> owner)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: renderer(&amp;renderer)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, sampler(sampler)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, owner(owner) {}</div>
 </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04375.html#aca60b6e65572c3ed0cc34781030a971d">   18</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04375.html#aca60b6e65572c3ed0cc34781030a971d">KeyboardDriver::setActivateControl</a>(sf::Keyboard::Key ctrl) { activateControl = ctrl; }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="}">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04375.html#a46fc8369668d385d80ca21fae97c356a">   20</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04375.html#a46fc8369668d385d80ca21fae97c356a">KeyboardDriver::process</a>(<span class="keyword">const</span> sf::Event&amp; event) {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span> (event.is&lt;sf::Event::KeyPressed&gt;()) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> sf::Event::KeyPressed&amp; keyEvent = *<span class="keyword">event</span>.getIf&lt;sf::Event::KeyPressed&gt;();</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">if</span> (keyEvent.code == moveControls[<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Item::Top</a>]) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            menu.<a class="code hl_function" href="a04431.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04391.html">Event</a>(<a class="code hl_struct" href="a04395.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Item::Top</a>)));</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyEvent.code == moveControls[<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Item::Right</a>]) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            menu.<a class="code hl_function" href="a04431.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04391.html">Event</a>(<a class="code hl_struct" href="a04395.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Item::Right</a>)));</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyEvent.code == moveControls[<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Item::Bottom</a>]) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            menu.<a class="code hl_function" href="a04431.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04391.html">Event</a>(<a class="code hl_struct" href="a04395.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Item::Bottom</a>)));</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyEvent.code == moveControls[<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Item::Left</a>]) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            menu.<a class="code hl_function" href="a04431.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04391.html">Event</a>(<a class="code hl_struct" href="a04395.html">Event::MoveEvent</a>(<a class="code hl_enumvalue" href="a04411.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Item::Left</a>)));</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (keyEvent.code == activateControl) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>            menu.<a class="code hl_function" href="a04431.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04391.html">Event</a>(<a class="code hl_struct" href="a04399.html">Event::ActivateEvent</a>()));</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a06328.html#a177ebd0ae209ea9baf056544acbf0f27">   21</a></span><a class="code hl_function" href="a06328.html#a5a70451d50c6964380fa95e444e42463">Sampler::Sampler</a>(<a class="code hl_class" href="a06328.html">Sampler</a>&amp;&amp; ms)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>: renderer(ms.renderer)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>, sampler(ms.sampler)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>, owner(ms.owner) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (ms.owner) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        ms.renderer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        ms.sampler  = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        ms.owner    = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a06328.html#a23eb8d24011540ba9f0b999cc66af39d">   32</a></span><a class="code hl_function" href="a06328.html#a23eb8d24011540ba9f0b999cc66af39d">Sampler::~Sampler</a>() { <a class="code hl_function" href="a06328.html#a7de48602061b18d97bbf23f932736139">release</a>(); }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a06328.html#a3d2d352f9fdb17c2a154e7e360e70789">   34</a></span><a class="code hl_class" href="a06328.html">Sampler</a>&amp; <a class="code hl_function" href="a06328.html#a3d2d352f9fdb17c2a154e7e360e70789">Sampler::operator=</a>(<a class="code hl_class" href="a06328.html">Sampler</a>&amp;&amp; ms) {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <a class="code hl_function" href="a06328.html#a7de48602061b18d97bbf23f932736139">release</a>();</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    renderer = ms.renderer;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    sampler  = ms.sampler;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    owner    = ms.owner;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace menu</span></div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01274_html"><div class="ttname"><a href="a01274.html">KeyboardDriver.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04375_html_a2ad0cadf931d0bf13c0f33b63d6c43f4"><div class="ttname"><a href="a04375.html#a2ad0cadf931d0bf13c0f33b63d6c43f4">bl::menu::KeyboardDriver::KeyboardDriver</a></div><div class="ttdeci">KeyboardDriver(Menu &amp;menu, sf::Keyboard::Key upCtrl=sf::Keyboard::Key::Up, sf::Keyboard::Key rightCtrl=sf::Keyboard::Key::Right, sf::Keyboard::Key downCtrl=sf::Keyboard::Key::Down, sf::Keyboard::Key leftCtrl=sf::Keyboard::Key::Left, sf::Keyboard::Key activateCtrl=sf::Keyboard::Key::Space)</div><div class="ttdoc">Create a new keyboard generator that services the given menu.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00007">KeyboardDriver.cpp:7</a></div></div>
-<div class="ttc" id="aa04375_html_a46fc8369668d385d80ca21fae97c356a"><div class="ttname"><a href="a04375.html#a46fc8369668d385d80ca21fae97c356a">bl::menu::KeyboardDriver::process</a></div><div class="ttdeci">virtual void process(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00020">KeyboardDriver.cpp:20</a></div></div>
-<div class="ttc" id="aa04375_html_aca60b6e65572c3ed0cc34781030a971d"><div class="ttname"><a href="a04375.html#aca60b6e65572c3ed0cc34781030a971d">bl::menu::KeyboardDriver::setActivateControl</a></div><div class="ttdeci">void setActivateControl(sf::Keyboard::Key control)</div><div class="ttdoc">Set the key that is bound to the activate event. Default is space bar.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00018">KeyboardDriver.cpp:18</a></div></div>
-<div class="ttc" id="aa04375_html_acafe5b641c1bacfa8212898f825d0237"><div class="ttname"><a href="a04375.html#acafe5b641c1bacfa8212898f825d0237">bl::menu::KeyboardDriver::setMoveControl</a></div><div class="ttdeci">void setMoveControl(Item::AttachPoint direction, sf::Keyboard::Key control)</div><div class="ttdoc">Set the key bound to the given direction. Defaults are the arrow keys.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00014">KeyboardDriver.cpp:14</a></div></div>
-<div class="ttc" id="aa04391_html"><div class="ttname"><a href="a04391.html">bl::menu::Event</a></div><div class="ttdoc">Data struct representing an event in a Menu.</div><div class="ttdef"><b>Definition</b> <a href="a08006_source.html#l00016">Event.hpp:16</a></div></div>
-<div class="ttc" id="aa04395_html"><div class="ttname"><a href="a04395.html">bl::menu::Event::MoveEvent</a></div><div class="ttdoc">Data struct for a SelectorMove event.</div><div class="ttdef"><b>Definition</b> <a href="a08006_source.html#l00027">Event.hpp:27</a></div></div>
-<div class="ttc" id="aa04399_html"><div class="ttname"><a href="a04399.html">bl::menu::Event::ActivateEvent</a></div><div class="ttdoc">Data struct for an Activate event.</div><div class="ttdef"><b>Definition</b> <a href="a08006_source.html#l00039">Event.hpp:39</a></div></div>
-<div class="ttc" id="aa04411_html_a59352334626855d0cd8c8ca1b173db68"><div class="ttname"><a href="a04411.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></div><div class="ttdeci">AttachPoint</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04411_html_a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c"><div class="ttname"><a href="a04411.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">bl::menu::Item::Top</a></div><div class="ttdeci">@ Top</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04411_html_a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d"><div class="ttname"><a href="a04411.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">bl::menu::Item::Bottom</a></div><div class="ttdeci">@ Bottom</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04411_html_a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f"><div class="ttname"><a href="a04411.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">bl::menu::Item::Left</a></div><div class="ttdeci">@ Left</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04411_html_a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866"><div class="ttname"><a href="a04411.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">bl::menu::Item::Right</a></div><div class="ttdeci">@ Right</div><div class="ttdef"><b>Definition</b> <a href="a01271_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04431_html"><div class="ttname"><a href="a04431.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a08018_source.html#l00033">Menu.hpp:33</a></div></div>
-<div class="ttc" id="aa04431_html_a994d802c062248a8017e3bcb454073a9"><div class="ttname"><a href="a04431.html#a994d802c062248a8017e3bcb454073a9">bl::menu::Menu::processEvent</a></div><div class="ttdeci">void processEvent(const Event &amp;event)</div><div class="ttdoc">Processes the event and updates the Menu state.</div><div class="ttdef"><b>Definition</b> <a href="a02624_source.html#l00240">Menu.cpp:240</a></div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span> (ms.owner) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        ms.renderer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        ms.sampler  = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        ms.owner    = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a06328.html#a7de48602061b18d97bbf23f932736139">   50</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06328.html#a7de48602061b18d97bbf23f932736139">Sampler::release</a>() {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span> (sampler &amp;&amp; owner) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        vkDestroySampler(renderer-&gt;<a class="code hl_function" href="a05868.html#a08a7c4dd10a489527c258f8cac76b13e">vulkanState</a>().<a class="code hl_function" href="a06376.html#accb407e454e5b298930adf4d939fa9a0">getDevice</a>(), sampler, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        renderer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        sampler  = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        owner    = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a06328.html#a21f9ce12cc0c133798978dc7bce76f13">   59</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a06328.html#a21f9ce12cc0c133798978dc7bce76f13">Sampler::deferRelease</a>() {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordflow">if</span> (sampler &amp;&amp; owner) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        renderer-&gt;<a class="code hl_function" href="a05868.html#af4378f76e82d22ac5177b54e531bbeb3">getCleanupManager</a>().<a class="code hl_function" href="a06192.html#a0be2d519d4e836c5040713fda94e8cee">add</a>([s = sampler, d = renderer-&gt;<a class="code hl_function" href="a05868.html#a08a7c4dd10a489527c258f8cac76b13e">vulkanState</a>().<a class="code hl_function" href="a06376.html#accb407e454e5b298930adf4d939fa9a0">getDevice</a>()]() {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            vkDestroySampler(d, s, nullptr);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        });</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        renderer = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        sampler  = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        owner    = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>}</div>
+</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace vk</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01115_html"><div class="ttname"><a href="a01115.html">Sampler.hpp</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05868_html"><div class="ttname"><a href="a05868.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09718_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05868_html_a08a7c4dd10a489527c258f8cac76b13e"><div class="ttname"><a href="a05868.html#a08a7c4dd10a489527c258f8cac76b13e">bl::rc::Renderer::vulkanState</a></div><div class="ttdeci">vk::VulkanLayer &amp; vulkanState()</div><div class="ttdoc">Returns the Vulkan state of the renderer.</div><div class="ttdef"><b>Definition</b> <a href="a09718_source.html#l00400">Renderer.hpp:400</a></div></div>
+<div class="ttc" id="aa05868_html_af4378f76e82d22ac5177b54e531bbeb3"><div class="ttname"><a href="a05868.html#af4378f76e82d22ac5177b54e531bbeb3">bl::rc::Renderer::getCleanupManager</a></div><div class="ttdeci">vk::CleanupManager &amp; getCleanupManager()</div><div class="ttdoc">Returns the cleanup manager.</div><div class="ttdef"><b>Definition</b> <a href="a09718_source.html#l00319">Renderer.hpp:319</a></div></div>
+<div class="ttc" id="aa06192_html_a0be2d519d4e836c5040713fda94e8cee"><div class="ttname"><a href="a06192.html#a0be2d519d4e836c5040713fda94e8cee">bl::rc::vk::CleanupManager::add</a></div><div class="ttdeci">void add(Callback &amp;&amp;cb)</div><div class="ttdoc">Adds the given callback to the queue.</div><div class="ttdef"><b>Definition</b> <a href="a02594_source.html#l00031">CleanupManager.cpp:31</a></div></div>
+<div class="ttc" id="aa06328_html"><div class="ttname"><a href="a06328.html">bl::rc::vk::Sampler</a></div><div class="ttdoc">Thin wrapper for managed VkSampler objects.</div><div class="ttdef"><b>Definition</b> <a href="a01115_source.html#l00019">Sampler.hpp:19</a></div></div>
+<div class="ttc" id="aa06328_html_a21f9ce12cc0c133798978dc7bce76f13"><div class="ttname"><a href="a06328.html#a21f9ce12cc0c133798978dc7bce76f13">bl::rc::vk::Sampler::deferRelease</a></div><div class="ttdeci">void deferRelease()</div><div class="ttdoc">Defers the call to release for several frames to ensure the sampler is no longer used.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00059">Sampler.cpp:59</a></div></div>
+<div class="ttc" id="aa06328_html_a23eb8d24011540ba9f0b999cc66af39d"><div class="ttname"><a href="a06328.html#a23eb8d24011540ba9f0b999cc66af39d">bl::rc::vk::Sampler::~Sampler</a></div><div class="ttdeci">~Sampler()</div><div class="ttdoc">Releases the held sampler if present and owned.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00032">Sampler.cpp:32</a></div></div>
+<div class="ttc" id="aa06328_html_a3d2d352f9fdb17c2a154e7e360e70789"><div class="ttname"><a href="a06328.html#a3d2d352f9fdb17c2a154e7e360e70789">bl::rc::vk::Sampler::operator=</a></div><div class="ttdeci">Sampler &amp; operator=(Sampler &amp;&amp;sampler)</div><div class="ttdoc">Assumes ownership of the underlying sampler from the other object.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00034">Sampler.cpp:34</a></div></div>
+<div class="ttc" id="aa06328_html_a5a70451d50c6964380fa95e444e42463"><div class="ttname"><a href="a06328.html#a5a70451d50c6964380fa95e444e42463">bl::rc::vk::Sampler::Sampler</a></div><div class="ttdeci">Sampler()</div><div class="ttdoc">Creates an empty sampler object.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00011">Sampler.cpp:11</a></div></div>
+<div class="ttc" id="aa06328_html_a7de48602061b18d97bbf23f932736139"><div class="ttname"><a href="a06328.html#a7de48602061b18d97bbf23f932736139">bl::rc::vk::Sampler::release</a></div><div class="ttdeci">void release()</div><div class="ttdoc">Releases the underlying sampler if present and owned.</div><div class="ttdef"><b>Definition</b> <a href="a02606_source.html#l00050">Sampler.cpp:50</a></div></div>
+<div class="ttc" id="aa06376_html_accb407e454e5b298930adf4d939fa9a0"><div class="ttname"><a href="a06376.html#accb407e454e5b298930adf4d939fa9a0">bl::rc::vk::VulkanLayer::getDevice</a></div><div class="ttdeci">VkDevice getDevice() const</div><div class="ttdoc">Returns the logical device used for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a01073_source.html#l00283">VulkanLayer.hpp:283</a></div></div>
+<div class="ttc" id="aa09718_html"><div class="ttname"><a href="a09718.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

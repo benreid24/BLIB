@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Strategies/Scene2DRenderStrategy.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,66 +83,46 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Scene3DDeferredRenderStrategy.hpp</div></div>
+  <div class="headertitle"><div class="title">Scene2DRenderStrategy.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00626.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_STRATEGIES_SCENE3DDEFERREDRENDERSTRATEGY_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_STRATEGIES_SCENE3DDEFERREDRENDERSTRATEGY_HPP</span></div>
+<a href="a00626.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_STRATEGIES_SCENE2DRENDERSTRATEGY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_STRATEGIES_SCENE2DRENDERSTRATEGY_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00392.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00572.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a07988.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00617.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rgi</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05087.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a05087.html">Scene3DDeferredRenderStrategy</a></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>: <span class="keyword">public</span> <a class="code hl_class" href="a05095.html">rg::Strategy</a></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>, <span class="keyword">public</span> <a class="code hl_class" href="a06387.html">sig::Listener</a>&lt;event::SettingsChanged&gt; {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="a05087.html#a24a4f933a8a799a5af8e9cd979b0dd28">Scene3DDeferredRenderStrategy</a>();</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a05087.html#a66b912268c9ab4f54fc7d2f484bc117b">   32</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05087.html#a66b912268c9ab4f54fc7d2f484bc117b">~Scene3DDeferredRenderStrategy</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05087.html#a52b84dc9157164210d330cfcbd031a0f">populate</a>(<a class="code hl_class" href="a05075.html">rg::RenderGraph</a>&amp; graph) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05087.html#ac8d79a861d46cb6985971f7ba4ac2e0a">init</a>(<a class="code hl_class" href="a05331.html">Renderer</a>&amp; renderer);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="a05331.html">Renderer</a>* renderer;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> process(<span class="keyword">const</span> <a class="code hl_struct" href="a04955.html">event::SettingsChanged</a>&amp; signal) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a05620.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a05620.html">Scene2DRenderStrategy</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05632.html">rg::Strategy</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05620.html#a58b83eae0f5043078d202fc3491c12d9">   23</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05620.html#a58b83eae0f5043078d202fc3491c12d9">~Scene2DRenderStrategy</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05620.html#a852b7d1f374008880db230fb9997762b">populate</a>(<a class="code hl_class" href="a05612.html">rg::RenderGraph</a>&amp; graph) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>};</div>
 </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">SettingsChanged.hpp</a></div></div>
-<div class="ttc" id="aa00572_html"><div class="ttname"><a href="a00572.html">Strategy.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04955_html"><div class="ttname"><a href="a04955.html">bl::rc::event::SettingsChanged</a></div><div class="ttdoc">Fired when renderer settings are changed.</div><div class="ttdef"><b>Definition</b> <a href="a00392_source.html#l00017">SettingsChanged.hpp:17</a></div></div>
-<div class="ttc" id="aa05075_html"><div class="ttname"><a href="a05075.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition</b> <a href="a00695_source.html#l00031">RenderGraph.hpp:31</a></div></div>
-<div class="ttc" id="aa05087_html"><div class="ttname"><a href="a05087.html">bl::rc::rgi::Scene3DDeferredRenderStrategy</a></div><div class="ttdoc">Deferred render strategy for 3d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00626_source.html#l00020">Scene3DDeferredRenderStrategy.hpp:22</a></div></div>
-<div class="ttc" id="aa05087_html_a24a4f933a8a799a5af8e9cd979b0dd28"><div class="ttname"><a href="a05087.html#a24a4f933a8a799a5af8e9cd979b0dd28">bl::rc::rgi::Scene3DDeferredRenderStrategy::Scene3DDeferredRenderStrategy</a></div><div class="ttdeci">Scene3DDeferredRenderStrategy()</div><div class="ttdoc">Creates the strategy.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00022">Scene3DDeferredRenderStrategy.cpp:22</a></div></div>
-<div class="ttc" id="aa05087_html_a52b84dc9157164210d330cfcbd031a0f"><div class="ttname"><a href="a05087.html#a52b84dc9157164210d330cfcbd031a0f">bl::rc::rgi::Scene3DDeferredRenderStrategy::populate</a></div><div class="ttdeci">virtual void populate(rg::RenderGraph &amp;graph) override</div><div class="ttdoc">Adds the rendering tasks to the given graph.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00025">Scene3DDeferredRenderStrategy.cpp:25</a></div></div>
-<div class="ttc" id="aa05087_html_a66b912268c9ab4f54fc7d2f484bc117b"><div class="ttname"><a href="a05087.html#a66b912268c9ab4f54fc7d2f484bc117b">bl::rc::rgi::Scene3DDeferredRenderStrategy::~Scene3DDeferredRenderStrategy</a></div><div class="ttdeci">virtual ~Scene3DDeferredRenderStrategy()=default</div><div class="ttdoc">Destroys the strategy.</div></div>
-<div class="ttc" id="aa05087_html_ac8d79a861d46cb6985971f7ba4ac2e0a"><div class="ttname"><a href="a05087.html#ac8d79a861d46cb6985971f7ba4ac2e0a">bl::rc::rgi::Scene3DDeferredRenderStrategy::init</a></div><div class="ttdeci">void init(Renderer &amp;renderer)</div><div class="ttdoc">Must call at least once before use.</div><div class="ttdef"><b>Definition</b> <a href="a02204_source.html#l00042">Scene3DDeferredRenderStrategy.cpp:42</a></div></div>
-<div class="ttc" id="aa05095_html"><div class="ttname"><a href="a05095.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition</b> <a href="a00572_source.html#l00018">Strategy.hpp:18</a></div></div>
-<div class="ttc" id="aa05331_html"><div class="ttname"><a href="a05331.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a08510_source.html#l00058">Renderer.hpp:58</a></div></div>
-<div class="ttc" id="aa06387_html"><div class="ttname"><a href="a06387.html">bl::sig::Listener</a></div><div class="ttdoc">Base class for signal listeners. Create classes that derive from this to process signals.</div><div class="ttdef"><b>Definition</b> <a href="a07988_source.html#l00023">Listener.hpp:23</a></div></div>
-<div class="ttc" id="aa07988_html"><div class="ttname"><a href="a07988.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00617_html"><div class="ttname"><a href="a00617.html">Strategy.hpp</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05612_html"><div class="ttname"><a href="a05612.html">bl::rc::rg::RenderGraph</a></div><div class="ttdoc">The core render graph functionality. Drives rendering for each observer.</div><div class="ttdef"><b>Definition</b> <a href="a00509_source.html#l00031">RenderGraph.hpp:31</a></div></div>
+<div class="ttc" id="aa05620_html"><div class="ttname"><a href="a05620.html">bl::rc::rgi::Scene2DRenderStrategy</a></div><div class="ttdoc">Render strategy for 2d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00626_source.html#l00018">Scene2DRenderStrategy.hpp:18</a></div></div>
+<div class="ttc" id="aa05620_html_a58b83eae0f5043078d202fc3491c12d9"><div class="ttname"><a href="a05620.html#a58b83eae0f5043078d202fc3491c12d9">bl::rc::rgi::Scene2DRenderStrategy::~Scene2DRenderStrategy</a></div><div class="ttdeci">virtual ~Scene2DRenderStrategy()=default</div><div class="ttdoc">Destroys the strategy.</div></div>
+<div class="ttc" id="aa05620_html_a852b7d1f374008880db230fb9997762b"><div class="ttname"><a href="a05620.html#a852b7d1f374008880db230fb9997762b">bl::rc::rgi::Scene2DRenderStrategy::populate</a></div><div class="ttdeci">virtual void populate(rg::RenderGraph &amp;graph) override</div><div class="ttdoc">Adds the rendering tasks to the given graph.</div><div class="ttdef"><b>Definition</b> <a href="a02321_source.html#l00013">Scene2DRenderStrategy.cpp:13</a></div></div>
+<div class="ttc" id="aa05632_html"><div class="ttname"><a href="a05632.html">bl::rc::rg::Strategy</a></div><div class="ttdoc">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are...</div><div class="ttdef"><b>Definition</b> <a href="a00617_source.html#l00018">Strategy.hpp:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

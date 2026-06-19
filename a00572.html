@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Strategy.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Graph/Assets/GenericTargetAsset.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,42 +74,74 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Strategy.hpp File Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">GenericTargetAsset.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &lt;<a class="el" href="a00743_source.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00752_source.html">BLIB/Render/Events/TextureFormatChanged.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00674_source.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00554_source.html">BLIB/Render/Graph/Assets/DepthAttachmentType.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00548_source.html">BLIB/Render/Graph/Assets/DepthBuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00569_source.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00545_source.html">BLIB/Render/Graph/Assets/RenderPassBehavior.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09772_source.html">BLIB/Render/Settings.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00962_source.html">BLIB/Render/ShaderResources/AttachmentImageSetResource.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09778_source.html">BLIB/Render/ShaderResources/Key.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01001_source.html">BLIB/Render/ShaderResources/StoreKey.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01127_source.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01124_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+</div>
 <p><a href="a00572_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05095.html">bl::rc::rg::Strategy</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created.  <a href="a05095.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05552.html">bl::rc::rgi::GenericTargetAsset&lt; TShaderResource, StoreKey, RenderPassId, RenderPassMode, DepthAttachment &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic asset for a templated set of attachments.  <a href="a05552.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05556.html">bl::rc::rgi::GenericTargetAssetTraits&lt; TGenericTargetAsset &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trait deduction helper for <a class="el" href="a05552.html" title="Generic asset for a templated set of attachments.">GenericTargetAsset</a>.  <a href="a05556.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05560.html">bl::rc::rgi::GenericTargetAssetTraits&lt; GenericTargetAsset&lt; TShaderResource, StoreKey, RenderPassId, RenderPassMode, DepthAttachment &gt; &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03004" id="r_a03004"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03004.html">bl::rc</a></td></tr>
-<tr class="memdesc:a03004"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05331.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05868.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03059" id="r_a03059"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03059.html">bl::rc::rg</a></td></tr>
-<tr class="memdesc:a03059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes that comprise the render graph. <br /></td></tr>
+<tr class="memitem:a03202" id="r_a03202"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03202.html">bl::rc::rgi</a></td></tr>
+<tr class="memdesc:a03202"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains render graph asset, task, and strategy implementations. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gaba30859f1d24644ac2d095d54bccee14" id="r_gaba30859f1d24644ac2d095d54bccee14"><td class="memTemplParams" colspan="2">template&lt;typename TShaderResource &gt; </td></tr>
+<tr class="memitem:gaba30859f1d24644ac2d095d54bccee14"><td class="memTemplItemLeft" align="right" valign="top">constexpr <a class="el" href="a06104.html">sr::Key</a>&lt; TShaderResource &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03124.html#gaba30859f1d24644ac2d095d54bccee14">bl::rc::rgi::makeShaderResourceKey</a> (std::string_view assetTag)</td></tr>
+<tr class="memdesc:gaba30859f1d24644ac2d095d54bccee14"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to generate a shader resource key from an asset tag.  <br /></td></tr>
+<tr class="separator:gaba30859f1d24644ac2d095d54bccee14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab230968d9e1483bee84d82480a07af07" id="r_gab230968d9e1483bee84d82480a07af07"><td class="memTemplParams" colspan="2">template&lt;typename TShaderResource &gt; </td></tr>
+<tr class="memitem:gab230968d9e1483bee84d82480a07af07"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a06104.html">sr::Key</a>&lt; TShaderResource &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03124.html#gab230968d9e1483bee84d82480a07af07">bl::rc::rgi::makeShaderResourceKey</a> (std::string_view assetTag, std::string_view purpose, unsigned int i)</td></tr>
+<tr class="memdesc:gab230968d9e1483bee84d82480a07af07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to generate a shader resource key from an asset tag.  <br /></td></tr>
+<tr class="separator:gab230968d9e1483bee84d82480a07af07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

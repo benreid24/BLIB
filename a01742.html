@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Resources/Bundling/BundledFileMetadata.hpp File Reference</title>
+<title>BLIB: include/BLIB/Systems/OverlayScalerSystem.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,49 +74,48 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_70ae3ed4186da77d71126d34066606f0.html">Resources</a></li><li class="navelem"><a class="el" href="dir_8c0830a2e11435882738e77910337c62.html">Bundling</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">BundledFileMetadata.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">OverlayScalerSystem.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00197_source.html">BLIB/Serialization.hpp</a>&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00278_source.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09619_source.html">BLIB/Components/Transform2D.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01979_source.html">BLIB/ECS.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09721_source.html">BLIB/Engine/System.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00737_source.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00767_source.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a01742_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05859.html">bl::resource::bundle::BundledFileMetadata</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing metadata about a file in a bundle.  <a href="a05859.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05863.html">bl::serial::SerializableObject&lt; resource::bundle::BundledFileMetadata &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06848.html">bl::sys::OverlayScalerSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size changes.  <a href="a06848.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03066" id="r_a03066"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03066.html">bl::resource</a></td></tr>
-<tr class="memdesc:a03066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for resource management and flyweight pattern. <br /></td></tr>
+<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05868.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03067" id="r_a03067"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03067.html">bl::resource::bundle</a></td></tr>
-<tr class="memdesc:a03067"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05979.html" title="Internal struct used by ResourceManager. Use Ref externally.">Resource</a> bundling utility for combining external files into bundles. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02997" id="r_a02997"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02997.html">bl::serial</a></td></tr>
-<tr class="memdesc:a02997"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="memitem:a03150" id="r_a03150"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03150.html">bl::sys</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

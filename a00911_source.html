@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Builtin/ShadowMapBinding.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/DescriptorSetFactoryCache.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,93 +79,112 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ShadowMapBinding.hpp</div></div>
+  <div class="headertitle"><div class="title">DescriptorSetFactoryCache.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00911.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SHADOWMAPBINDING_HPP</span></div>
+<a href="a00911.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORYCACHE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_DESCRIPTORSETFACTORYCACHE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/Render/Descriptors/Generic/Binding.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00833.html">BLIB/Render/Lighting/Scene3DLighting.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00785.html">BLIB/Render/ShaderResources/ShadowMapCameraShaderResource.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;array&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>dsi</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Scene3DInstance;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04859.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="a04859.html">ShadowMapBinding</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04895.html">ds::Binding</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="a04859.html#a648db6e7c58badee1b8eb4f41e74719a">ShadowMapBinding</a>();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a05527.html">sri::ShadowMapCameraShaderResource</a>* storage;</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">ds::DescriptorSetInstance::EntityBindMode</a> getBindMode()<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a04883.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">ds::DescriptorSetInstance::EntityBindMode::Bindless</a>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">virtual</span> <a class="code hl_enumeration" href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">ds::DescriptorSetInstance::SpeedBucketSetting</a> getSpeedMode()<span class="keyword"> const override </span>{</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="a04883.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">ds::DescriptorSetInstance::SpeedBucketSetting::SpeedAgnostic</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_struct" href="a05839.html">vk::VulkanLayer</a>&amp; vulkanState, <a class="code hl_struct" href="a04923.html">ds::InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> writeSet(<a class="code hl_class" href="a04931.html">ds::SetWriteHelper</a>&amp; writer, VkDescriptorSet set, <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                          std::uint32_t frameIndex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> allocateObject(<a class="code hl_struct" href="a03543.html">ecs::Entity</a>, <a class="code hl_struct" href="a05439.html">scene::Key</a>)<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> releaseObject(<a class="code hl_struct" href="a03543.html">ecs::Entity</a>, <a class="code hl_struct" href="a05439.html">scene::Key</a>)<span class="keyword"> override </span>{}</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onFrameStart() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> staticDescriptorUpdateRequired()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> dynamicDescriptorUpdateRequired()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> std::uint32_t getDynamicOffsetForPipeline(<a class="code hl_class" href="a05495.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>,</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                                                      VkPipelineLayout, std::uint32_t,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                                      <a class="code hl_enumeration" href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TBindings&gt;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a04859.html#a98f9552925093268ac75bc5a878dd013">   53</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04891.html">ds::Bindings</a>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09703.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;typeindex&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>Engine;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>Renderer;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="};">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a05416.html">   28</a></span><span class="keyword">class </span><a class="code hl_class" href="a05416.html">DescriptorSetFactoryCache</a> {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    T* <a class="code hl_function" href="a05416.html#ae7fa86995060f4e006707e0472f4627a">getFactory</a>();</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="a05412.html">DescriptorSetFactory</a>* <a class="code hl_function" href="a05416.html#a28f61c708e0e041938fce05317a1c071">getOrAddFactory</a>(std::type_index derivedType,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                                          std::unique_ptr&lt;DescriptorSetFactory&gt;&amp;&amp; factory);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    T* <a class="code hl_function" href="a05416.html#a96cacebb79b14ad001e964c308ef1af9">getOrCreateFactory</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <a class="code hl_class" href="a05412.html">DescriptorSetFactory</a>* <a class="code hl_function" href="a05416.html#a349f65a441a42ef4cf1542185a914f06">getFactoryThatMakes</a>();</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <a class="code hl_class" href="a04196.html">engine::Engine</a>&amp; engine;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <a class="code hl_class" href="a05868.html">Renderer</a>&amp; renderer;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    std::unordered_map&lt;std::type_index, std::unique_ptr&lt;DescriptorSetFactory&gt;&gt; cache;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_class" href="a05416.html">DescriptorSetFactoryCache</a>(<a class="code hl_class" href="a04196.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05868.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a05416.html#a1fc8c4ea65463b448e068f1287349540">   79</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05868.html">bl::rc::Renderer</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>};</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace dsi</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00785_html"><div class="ttname"><a href="a00785.html">ShadowMapCameraShaderResource.hpp</a></div></div>
-<div class="ttc" id="aa00833_html"><div class="ttname"><a href="a00833.html">Scene3DLighting.hpp</a></div></div>
-<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">Binding.hpp</a></div></div>
-<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02979_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a02979.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a00872_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04859_html"><div class="ttname"><a href="a04859.html">bl::rc::dsi::ShadowMapBinding</a></div><div class="ttdoc">Binding for light camera matrices for rendering shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00023">ShadowMapBinding.hpp:23</a></div></div>
-<div class="ttc" id="aa04859_html_a648db6e7c58badee1b8eb4f41e74719a"><div class="ttname"><a href="a04859.html#a648db6e7c58badee1b8eb4f41e74719a">bl::rc::dsi::ShadowMapBinding::ShadowMapBinding</a></div><div class="ttdeci">ShadowMapBinding()</div><div class="ttdoc">Creates the binding.</div><div class="ttdef"><b>Definition</b> <a href="a02384_source.html#l00012">ShadowMapBinding.cpp:12</a></div></div>
-<div class="ttc" id="aa04883_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a04883.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a08495_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
-<div class="ttc" id="aa04883_html_a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d"><div class="ttname"><a href="a04883.html#a56d01a7643e3e65933db3c5a957db66fa0e36b32fa7aa8a6327f0832d2470a57d">bl::rc::ds::DescriptorSetInstance::SpeedAgnostic</a></div><div class="ttdeci">@ SpeedAgnostic</div><div class="ttdef"><b>Definition</b> <a href="a08495_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
-<div class="ttc" id="aa04883_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a04883.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a08495_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
-<div class="ttc" id="aa04883_html_a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957"><div class="ttname"><a href="a04883.html#a587b054106ae5b4911a145a1d2928eaaaca3f770200fb26547b3e7b354d670957">bl::rc::ds::DescriptorSetInstance::Bindless</a></div><div class="ttdeci">@ Bindless</div><div class="ttdef"><b>Definition</b> <a href="a08495_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
-<div class="ttc" id="aa04891_html"><div class="ttname"><a href="a04891.html">bl::rc::ds::Bindings</a></div><div class="ttdoc">Helper for containing a set of bindings for a generic descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a00989_source.html#l00023">Bindings.hpp:23</a></div></div>
-<div class="ttc" id="aa04895_html"><div class="ttname"><a href="a04895.html">bl::rc::ds::Binding</a></div><div class="ttdoc">Base class for generic descriptor set binding providers.</div><div class="ttdef"><b>Definition</b> <a href="a00986_source.html#l00031">Binding.hpp:31</a></div></div>
-<div class="ttc" id="aa04923_html"><div class="ttname"><a href="a04923.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a08537_source.html#l00030">InitContext.hpp:30</a></div></div>
-<div class="ttc" id="aa04931_html"><div class="ttname"><a href="a04931.html">bl::rc::ds::SetWriteHelper</a></div><div class="ttdoc">Utility to perform arbitrary descriptor set writes using stack allocated memory.</div><div class="ttdef"><b>Definition</b> <a href="a00974_source.html#l00018">SetWriteHelper.hpp:18</a></div></div>
-<div class="ttc" id="aa05439_html"><div class="ttname"><a href="a05439.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a08561_source.html#l00023">Key.hpp:23</a></div></div>
-<div class="ttc" id="aa05495_html"><div class="ttname"><a href="a05495.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
-<div class="ttc" id="aa05527_html"><div class="ttname"><a href="a05527.html">bl::rc::sr::BufferShaderResource</a></div><div class="ttdoc">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.</div><div class="ttdef"><b>Definition</b> <a href="a00770_source.html#l00024">BufferShaderResource.hpp:24</a></div></div>
-<div class="ttc" id="aa05839_html"><div class="ttname"><a href="a05839.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a00401_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05416.html#ae7fa86995060f4e006707e0472f4627a">   85</a></span><span class="keyword">inline</span> T* <a class="code hl_function" href="a05416.html#ae7fa86995060f4e006707e0472f4627a">DescriptorSetFactoryCache::getFactory</a>() {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">if</span> (it == cache.end()) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00092" data-start="{" data-end="}">
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="a05416.html#a96cacebb79b14ad001e964c308ef1af9">   92</a></span>T* <a class="code hl_function" href="a05416.html#a96cacebb79b14ad001e964c308ef1af9">DescriptorSetFactoryCache::getOrCreateFactory</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">auto</span> it = cache.find(<span class="keyword">typeid</span>(T));</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">if</span> (it == cache.end()) {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        it = cache.try_emplace(<span class="keyword">typeid</span>(T), std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...)).first;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        it-&gt;second-&gt;init(engine, renderer);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>T*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>}</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="a05416.html#a349f65a441a42ef4cf1542185a914f06">  102</a></span><a class="code hl_class" href="a05412.html">DescriptorSetFactory</a>* <a class="code hl_function" href="a05416.html#a349f65a441a42ef4cf1542185a914f06">DescriptorSetFactoryCache::getFactoryThatMakes</a>() {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; p : cache) {</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="keywordflow">if</span> (p.second-&gt;creates() == <span class="keyword">typeid</span>(T)) { <span class="keywordflow">return</span> p.second.get(); }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>}</div>
+</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace ds</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04196_html"><div class="ttname"><a href="a04196.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09586_source.html#l00040">Engine.hpp:40</a></div></div>
+<div class="ttc" id="aa05412_html"><div class="ttname"><a href="a05412.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition</b> <a href="a09703_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
+<div class="ttc" id="aa05416_html"><div class="ttname"><a href="a05416.html">bl::rc::ds::DescriptorSetFactoryCache</a></div><div class="ttdoc">Internal cache for descriptor set factories. Ensures that only one instance of each derived factory t...</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00028">DescriptorSetFactoryCache.hpp:28</a></div></div>
+<div class="ttc" id="aa05416_html_a28f61c708e0e041938fce05317a1c071"><div class="ttname"><a href="a05416.html#a28f61c708e0e041938fce05317a1c071">bl::rc::ds::DescriptorSetFactoryCache::getOrAddFactory</a></div><div class="ttdeci">DescriptorSetFactory * getOrAddFactory(std::type_index derivedType, std::unique_ptr&lt; DescriptorSetFactory &gt; &amp;&amp;factory)</div><div class="ttdoc">Returns a pointer to the correct instance of the factory to use for the given derived type....</div><div class="ttdef"><b>Definition</b> <a href="a02453_source.html#l00015">DescriptorSetFactoryCache.cpp:15</a></div></div>
+<div class="ttc" id="aa05416_html_a349f65a441a42ef4cf1542185a914f06"><div class="ttname"><a href="a05416.html#a349f65a441a42ef4cf1542185a914f06">bl::rc::ds::DescriptorSetFactoryCache::getFactoryThatMakes</a></div><div class="ttdeci">DescriptorSetFactory * getFactoryThatMakes()</div><div class="ttdoc">Returns the factory that creates the given type.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00102">DescriptorSetFactoryCache.hpp:102</a></div></div>
+<div class="ttc" id="aa05416_html_a96cacebb79b14ad001e964c308ef1af9"><div class="ttname"><a href="a05416.html#a96cacebb79b14ad001e964c308ef1af9">bl::rc::ds::DescriptorSetFactoryCache::getOrCreateFactory</a></div><div class="ttdeci">T * getOrCreateFactory(TArgs &amp;&amp;... args)</div><div class="ttdoc">Helper method for fetching or creating a factory without unnecessarily allocating a new factory if on...</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00092">DescriptorSetFactoryCache.hpp:92</a></div></div>
+<div class="ttc" id="aa05416_html_ae7fa86995060f4e006707e0472f4627a"><div class="ttname"><a href="a05416.html#ae7fa86995060f4e006707e0472f4627a">bl::rc::ds::DescriptorSetFactoryCache::getFactory</a></div><div class="ttdeci">T * getFactory()</div><div class="ttdoc">Returns a pointer to a contained factory of the given type, or nullptr if not found.</div><div class="ttdef"><b>Definition</b> <a href="a00911_source.html#l00085">DescriptorSetFactoryCache.hpp:85</a></div></div>
+<div class="ttc" id="aa05868_html"><div class="ttname"><a href="a05868.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09718_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa09703_html"><div class="ttname"><a href="a09703.html">DescriptorSetFactory.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/Asset.cpp Source File</title>
+<title>BLIB: src/Scripts/Manager.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,162 +79,92 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3ac9928fc2e7e2cbc53db7c1a11acda2.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Asset.cpp</div></div>
+  <div class="headertitle"><div class="title">Manager.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02180.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00692.html">BLIB/Render/Graph/Asset.hpp</a>&gt;</span></div>
+<a href="a02180.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00392.html">BLIB/Scripts/Manager.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00593.html">BLIB/Render/Graph/AssetPool.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01070.html">BLIB/Render/RenderTarget.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01751.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>script</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rg</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04975.html#a8cae6ec2b55cce7383ddc721a46cbe26">   14</a></span><a class="code hl_function" href="a04975.html#a8cae6ec2b55cce7383ddc721a46cbe26">Asset::Asset</a>(std::string_view tag, <span class="keywordtype">bool</span> terminal)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>: tag(tag)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, terminal(terminal)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, created(false)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, <a class="code hl_variable" href="a02882.html#a78e9caf76db8ca6165c238dcbaa19443">refCount</a>(0)</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, mode(InputMode::Unset)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>, external(false) {}</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a06404.html#a852d6375512d9961149f3132353c6252">   10</a></span><a class="code hl_function" href="a06404.html#a852d6375512d9961149f3132353c6252">Manager::~Manager</a>() {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <a class="code hl_define" href="a00365.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;ScriptManager (&quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="stringliteral">&quot;) terminating with timeout = 2s&quot;</span>;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_function" href="a06404.html#a77731bb5ef00afb950102d45f9de967d">terminateAll</a>(2.f);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_define" href="a00365.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a> &lt;&lt; <span class="stringliteral">&quot;ScriptManager (&quot;</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="stringliteral">&quot;) terminated&quot;</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
 </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">void</span> Manager::watch(Script::ExecutionContext::WPtr record) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::lock_guard guard(mutex);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    clean();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    scripts.push_back(record);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04975.html#a10db5fc41697b72ea81b8bbcbbb9e125">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04975.html#a10db5fc41697b72ea81b8bbcbbb9e125">Asset::addDependency</a>(std::string_view depTag) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">if</span> (created) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Cannot add dependency after asset creation&quot;</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    depTags.emplace_back(depTag);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a06404.html#a77731bb5ef00afb950102d45f9de967d">   22</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a06404.html#a77731bb5ef00afb950102d45f9de967d">Manager::terminateAll</a>(<span class="keywordtype">float</span> timeout) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::lock_guard guard(mutex);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = scripts.begin(); i != scripts.end(); ++i) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">if</span> (i-&gt;expired())</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            i = scripts.erase(i);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keyword">auto</span> ptr = i-&gt;lock();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <span class="keywordflow">if</span> (ptr)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>                ptr-&gt;table.kill();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                i = scripts.erase(i);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        }</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keywordflow">if</span> (i == scripts.end()) <span class="keywordflow">break</span>; <span class="comment">// break before ++i</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> ms = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(timeout * 1000.0f);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> t = 0; t &lt; ms; t += 30) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        clean();</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">if</span> (scripts.empty()) <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        std::this_thread::sleep_for(std::chrono::milliseconds(30));</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (!scripts.empty()) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_define" href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; scripts.size() &lt;&lt; <span class="stringliteral">&quot;scripts still running after &quot;</span> &lt;&lt; timeout &lt;&lt; <span class="stringliteral">&quot;s  timeout&quot;</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
 </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04975.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">   31</a></span><a class="code hl_class" href="a04975.html">Asset</a>* <a class="code hl_function" href="a04975.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">Asset::getDependency</a>(std::string_view depTag) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; depTags.size(); ++i) {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">if</span> (depTags[i] == depTag) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">if</span> (i &lt; dependencies.size()) { <span class="keywordflow">return</span> &amp;dependencies[i].get(); }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Dependency tag &quot;</span> &lt;&lt; depTag</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                         &lt;&lt; <span class="stringliteral">&quot; not found in dependencies, but was registered&quot;</span>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        }</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Dependency tag &quot;</span> &lt;&lt; depTag &lt;&lt; <span class="stringliteral">&quot; not found in asset dependencies&quot;</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
-</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a04975.html#a223b5b5b9c58ebf7d8e77157cf26c9c4">   44</a></span><a class="code hl_class" href="a04975.html">Asset</a>* <a class="code hl_function" href="a04975.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">Asset::getDependency</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index) { <span class="keywordflow">return</span> &amp;dependencies[index].get(); }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keywordtype">bool</span> Asset::create(<span class="keyword">const</span> <a class="code hl_struct" href="a05055.html">InitContext</a>&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_class" href="a05051.html">GraphAssetPool</a>* pool) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">if</span> (!created) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        created = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        dependencies.reserve(depTags.size());</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; depTag : depTags) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_class" href="a04991.html">AssetRef</a> dep = pool-&gt;<a class="code hl_function" href="a05051.html#ad67e17e872f263eaa2bf665cf3aea80a">getAssetForAsset</a>(depTag, <span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">if</span> (!dep.<a class="code hl_function" href="a04991.html#a9995d62f1c832066874751a2580cbaaa">valid</a>()) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                <a class="code hl_define" href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to find dependency asset with tag: &quot;</span> &lt;&lt; depTag;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            dep-&gt;create(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, pool);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            dependencies.emplace_back(dep);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keywordtype">void</span> Manager::clean() {</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = scripts.begin(); i != scripts.end(); ++i) {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">if</span> (i-&gt;expired())</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            i = scripts.erase(i);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keyword">auto</span> ptr = i-&gt;lock();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            <span class="keywordflow">if</span> (!ptr || !ptr-&gt;running) i = scripts.erase(i);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <a class="code hl_function" href="a04975.html#a146f3cdc708b7681c7731b9b5aa96764">doCreate</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keywordtype">void</span> Asset::prepareForInput(<span class="keyword">const</span> ExecutionContext&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">if</span> (mode != InputMode::Input) {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        mode = InputMode::Input;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_function" href="a04975.html#ab78fbbf18304eeb57015200c5e7b60b1">doPrepareForInput</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">for</span> (<a class="code hl_friend" href="a04975.html#aacadff13b18b866c449d6543b8b5d0d4">AssetRef</a>&amp; dep : dependencies) { dep-&gt;prepareForInput(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>); }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> Asset::startOutput(<span class="keyword">const</span> ExecutionContext&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (mode != InputMode::OutputStart) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        mode = InputMode::OutputStart;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">for</span> (<a class="code hl_friend" href="a04975.html#aacadff13b18b866c449d6543b8b5d0d4">AssetRef</a>&amp; dep : dependencies) { dep-&gt;startOutput(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>); }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_function" href="a04975.html#a8462d4d53a82dbbd7f523dadac442f2e">doStartOutput</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    }</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keywordtype">void</span> Asset::endOutput(<span class="keyword">const</span> ExecutionContext&amp; <a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (mode != InputMode::OutputEnd) {</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        mode = InputMode::OutputEnd;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">for</span> (<a class="code hl_friend" href="a04975.html#aacadff13b18b866c449d6543b8b5d0d4">AssetRef</a>&amp; dep : dependencies) { dep-&gt;endOutput(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>); }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_function" href="a04975.html#a1de1648f1d22ccb61778f195b3abf1d8">doEndOutput</a>(<a class="code hl_variable" href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keywordtype">bool</span> Asset::isOwnedBy(GraphAssetPool* pool) {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">return</span> pool &amp;&amp; std::find(owners.begin(), owners.end(), pool) != owners.end();</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>}</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="keywordtype">void</span> Asset::addOwner(GraphAssetPool* pool) {</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    owners.emplace_back(pool);</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">for</span> (<a class="code hl_friend" href="a04975.html#aacadff13b18b866c449d6543b8b5d0d4">AssetRef</a>&amp; dep : dependencies) { dep-&gt;addOwner(pool); }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="keywordtype">void</span> Asset::removeOwner(GraphAssetPool* pool) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = std::find(owners.begin(), owners.end(), pool);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (it != owners.end()) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        owners.erase(it);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">for</span> (<a class="code hl_friend" href="a04975.html#aacadff13b18b866c449d6543b8b5d0d4">AssetRef</a>&amp; dep : dependencies) { dep-&gt;removeOwner(pool); }</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keywordtype">void</span> Asset::reset() {</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    mode = InputMode::Unset;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <a class="code hl_function" href="a04975.html#ade5f0792cd101a716faa2d6a693c2807">onReset</a>();</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a04975.html#a4fd6583ff53289c920ab7ebddf4ec7be">  110</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04975.html#a4fd6583ff53289c920ab7ebddf4ec7be">Asset::onResize</a>(glm::u32vec2) {}</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>} <span class="comment">// namespace rg</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00593_html"><div class="ttname"><a href="a00593.html">AssetPool.hpp</a></div></div>
-<div class="ttc" id="aa00692_html"><div class="ttname"><a href="a00692.html">Asset.hpp</a></div></div>
-<div class="ttc" id="aa01070_html"><div class="ttname"><a href="a01070.html">RenderTarget.hpp</a></div></div>
-<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa01586_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a01586.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a01586_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa02753_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02753.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02882_html_a78e9caf76db8ca6165c238dcbaa19443"><div class="ttname"><a href="a02882.html#a78e9caf76db8ca6165c238dcbaa19443">refCount</a></div><div class="ttdeci">std::size_t refCount</div><div class="ttdef"><b>Definition</b> <a href="a02882_source.html#l00014">FileSystem.cpp:14</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04975_html"><div class="ttname"><a href="a04975.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00039">Asset.hpp:39</a></div></div>
-<div class="ttc" id="aa04975_html_a10db5fc41697b72ea81b8bbcbbb9e125"><div class="ttname"><a href="a04975.html#a10db5fc41697b72ea81b8bbcbbb9e125">bl::rc::rg::Asset::addDependency</a></div><div class="ttdeci">void addDependency(std::string_view depTag)</div><div class="ttdoc">Registers a dependency on another asset. This must be called from the constructor.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00022">Asset.cpp:22</a></div></div>
-<div class="ttc" id="aa04975_html_a146f3cdc708b7681c7731b9b5aa96764"><div class="ttname"><a href="a04975.html#a146f3cdc708b7681c7731b9b5aa96764">bl::rc::rg::Asset::doCreate</a></div><div class="ttdeci">virtual void doCreate(const InitContext &amp;ctx)=0</div><div class="ttdoc">Called once after the asset is added to a pool for the first time.</div></div>
-<div class="ttc" id="aa04975_html_a1de1648f1d22ccb61778f195b3abf1d8"><div class="ttname"><a href="a04975.html#a1de1648f1d22ccb61778f195b3abf1d8">bl::rc::rg::Asset::doEndOutput</a></div><div class="ttdeci">virtual void doEndOutput(const ExecutionContext &amp;context)=0</div><div class="ttdoc">Finalizes the asset when output is done. Child classes should insert pipeline barriers or end render ...</div></div>
-<div class="ttc" id="aa04975_html_a4dfd154a7e02bc2cbd1cc74f62791f0f"><div class="ttname"><a href="a04975.html#a4dfd154a7e02bc2cbd1cc74f62791f0f">bl::rc::rg::Asset::getDependency</a></div><div class="ttdeci">Asset * getDependency(std::string_view depTag)</div><div class="ttdoc">Returns the dependency asset with the given tag. Prefer the index version for performance....</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00031">Asset.cpp:31</a></div></div>
-<div class="ttc" id="aa04975_html_a4fd6583ff53289c920ab7ebddf4ec7be"><div class="ttname"><a href="a04975.html#a4fd6583ff53289c920ab7ebddf4ec7be">bl::rc::rg::Asset::onResize</a></div><div class="ttdeci">virtual void onResize(glm::u32vec2 newSize)</div><div class="ttdoc">Called when the observer render region changes size.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00110">Asset.cpp:110</a></div></div>
-<div class="ttc" id="aa04975_html_a8462d4d53a82dbbd7f523dadac442f2e"><div class="ttname"><a href="a04975.html#a8462d4d53a82dbbd7f523dadac442f2e">bl::rc::rg::Asset::doStartOutput</a></div><div class="ttdeci">virtual void doStartOutput(const ExecutionContext &amp;context)=0</div><div class="ttdoc">Prepares the asset for being an output. Child classes should insert pipeline barriers or start render...</div></div>
-<div class="ttc" id="aa04975_html_a8cae6ec2b55cce7383ddc721a46cbe26"><div class="ttname"><a href="a04975.html#a8cae6ec2b55cce7383ddc721a46cbe26">bl::rc::rg::Asset::Asset</a></div><div class="ttdeci">Asset(std::string_view tag, bool terminal)</div><div class="ttdoc">Initializes the asset.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00014">Asset.cpp:14</a></div></div>
-<div class="ttc" id="aa04975_html_aacadff13b18b866c449d6543b8b5d0d4"><div class="ttname"><a href="a04975.html#aacadff13b18b866c449d6543b8b5d0d4">bl::rc::rg::Asset::AssetRef</a></div><div class="ttdeci">friend class AssetRef</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00179">Asset.hpp:179</a></div></div>
-<div class="ttc" id="aa04975_html_ab78fbbf18304eeb57015200c5e7b60b1"><div class="ttname"><a href="a04975.html#ab78fbbf18304eeb57015200c5e7b60b1">bl::rc::rg::Asset::doPrepareForInput</a></div><div class="ttdeci">virtual void doPrepareForInput(const ExecutionContext &amp;context)=0</div><div class="ttdoc">Prepares the asset for being an input. Child classes should insert pipeline barriers here if required...</div></div>
-<div class="ttc" id="aa04975_html_ade5f0792cd101a716faa2d6a693c2807"><div class="ttname"><a href="a04975.html#ade5f0792cd101a716faa2d6a693c2807">bl::rc::rg::Asset::onReset</a></div><div class="ttdeci">virtual void onReset()</div><div class="ttdoc">Called when the asset is reset before the graph is executed.</div><div class="ttdef"><b>Definition</b> <a href="a00692_source.html#l00087">Asset.hpp:87</a></div></div>
-<div class="ttc" id="aa04991_html"><div class="ttname"><a href="a04991.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00017">AssetRef.hpp:17</a></div></div>
-<div class="ttc" id="aa04991_html_a9995d62f1c832066874751a2580cbaaa"><div class="ttname"><a href="a04991.html#a9995d62f1c832066874751a2580cbaaa">bl::rc::rg::AssetRef::valid</a></div><div class="ttdeci">bool valid() const</div><div class="ttdoc">Returns whether or not the handle is valid. Only valid handles should be dereferenced.</div><div class="ttdef"><b>Definition</b> <a href="a00623_source.html#l00097">AssetRef.hpp:97</a></div></div>
-<div class="ttc" id="aa05051_html"><div class="ttname"><a href="a05051.html">bl::rc::rg::GraphAssetPool</a></div><div class="ttdoc">Asset pool for individual RenderGraph instances that exist per scene per observer.</div><div class="ttdef"><b>Definition</b> <a href="a00590_source.html#l00028">GraphAssetPool.hpp:28</a></div></div>
-<div class="ttc" id="aa05051_html_ad67e17e872f263eaa2bf665cf3aea80a"><div class="ttname"><a href="a05051.html#ad67e17e872f263eaa2bf665cf3aea80a">bl::rc::rg::GraphAssetPool::getAssetForAsset</a></div><div class="ttdeci">AssetRef getAssetForAsset(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Gets or creates an asset to be used by another asset.</div><div class="ttdef"><b>Definition</b> <a href="a02237_source.html#l00023">GraphAssetPool.cpp:23</a></div></div>
-<div class="ttc" id="aa05055_html"><div class="ttname"><a href="a05055.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a08540_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordflow">if</span> (i == scripts.end()) <span class="keywordflow">break</span>; <span class="comment">// break before ++i</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace script</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00365_html_a459f7ea96e34815206480bf681ee2a2f"><div class="ttname"><a href="a00365.html#a459f7ea96e34815206480bf681ee2a2f">BL_LOG_INFO</a></div><div class="ttdeci">#define BL_LOG_INFO</div><div class="ttdoc">Helper macro to log at info level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00107">Logger.hpp:107</a></div></div>
+<div class="ttc" id="aa00365_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">Manager.hpp</a></div></div>
+<div class="ttc" id="aa01751_html"><div class="ttname"><a href="a01751.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa06404_html_a77731bb5ef00afb950102d45f9de967d"><div class="ttname"><a href="a06404.html#a77731bb5ef00afb950102d45f9de967d">bl::script::Manager::terminateAll</a></div><div class="ttdeci">bool terminateAll(float timeout=5.0f)</div><div class="ttdoc">Terminates all running scripts.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00022">Manager.cpp:22</a></div></div>
+<div class="ttc" id="aa06404_html_a852d6375512d9961149f3132353c6252"><div class="ttname"><a href="a06404.html#a852d6375512d9961149f3132353c6252">bl::script::Manager::~Manager</a></div><div class="ttdeci">~Manager()</div><div class="ttdoc">Terminates all running scripts.</div><div class="ttdef"><b>Definition</b> <a href="a02180_source.html#l00010">Manager.cpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

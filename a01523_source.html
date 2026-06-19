@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/ECS/Cleaner.hpp Source File</title>
+<title>BLIB: include/BLIB/Math/Interpolate.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,74 +79,57 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ce575a5afd2ea0954c4dff0006796805.html">ECS</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Cleaner.hpp</div></div>
+  <div class="headertitle"><div class="title">Interpolate.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01523.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ECS_CLEANER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ECS_CLEANER_HPP</span></div>
+<a href="a01523.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MATH_INTERPOLATE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MATH_INTERPOLATE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01544.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a02994.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>math</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="a03009.html">    8</a></span><span class="keyword">namespace </span>ecs</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03503.html">   18</a></span><span class="keyword">class </span><a class="code hl_class" href="a03503.html">Cleaner</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_class" href="a03503.html">Cleaner</a>(<a class="code hl_class" href="a03591.html">Registry</a>&amp; registry, <a class="code hl_struct" href="a03543.html">Entity</a> entity);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">   22</a></span>T <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originEnd, T destStart, T destEnd, T value) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> T fr = originEnd - originStart;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> T dr = destEnd - destStart;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> (value - originStart) / fr * dr + destStart;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_function" href="a03503.html#a0644e801b619139c143a1c1b42a88209">~Cleaner</a>();</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03503.html#a38dbf3ffd4f0dc4e950886581fc9b15f">disarm</a>();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <a class="code hl_class" href="a03591.html">Registry</a>&amp; registry;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03543.html">Entity</a> entity;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">bool</span> armed;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>};</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03120.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">   44</a></span>T <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destEnd, T value) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> T destMid = (destEnd + destStart) / <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(2);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
 </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03503.html#ab6248b85fbd69834e0155f72a360651b">   48</a></span><span class="keyword">inline</span> <a class="code hl_function" href="a03503.html#ab6248b85fbd69834e0155f72a360651b">Cleaner::Cleaner</a>(<a class="code hl_class" href="a03591.html">Registry</a>&amp; registry, <a class="code hl_struct" href="a03543.html">Entity</a> entity)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>: registry(registry)</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>, entity(entity)</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>, armed(true) {}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a03120.html#ga51b3900901959abab6d527e6f849fab5">   67</a></span>T <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                <a class="code hl_function" href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
 </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="a03503.html#a0644e801b619139c143a1c1b42a88209">   53</a></span><span class="keyword">inline</span> <a class="code hl_function" href="a03503.html#a0644e801b619139c143a1c1b42a88209">Cleaner::~Cleaner</a>() {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">if</span> (armed) registry.<a class="code hl_function" href="a03591.html#afbbbe957b4c0cc0f85be34421cae9a53">destroyEntity</a>(entity);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a03503.html#a38dbf3ffd4f0dc4e950886581fc9b15f">   57</a></span><span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a03503.html#a38dbf3ffd4f0dc4e950886581fc9b15f">Cleaner::disarm</a>() { armed = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace ecs</span></div>
-</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01544_html"><div class="ttname"><a href="a01544.html">Registry.hpp</a></div></div>
-<div class="ttc" id="aa02994_html"><div class="ttname"><a href="a02994.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00191_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03503_html"><div class="ttname"><a href="a03503.html">bl::ecs::Cleaner</a></div><div class="ttdoc">Helper class to automatically remove entities using RAII based cleanup. Useful for functions that bui...</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00018">Cleaner.hpp:18</a></div></div>
-<div class="ttc" id="aa03503_html_a0644e801b619139c143a1c1b42a88209"><div class="ttname"><a href="a03503.html#a0644e801b619139c143a1c1b42a88209">bl::ecs::Cleaner::~Cleaner</a></div><div class="ttdeci">~Cleaner()</div><div class="ttdoc">Destroys the entity unless disarmed.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00053">Cleaner.hpp:53</a></div></div>
-<div class="ttc" id="aa03503_html_a38dbf3ffd4f0dc4e950886581fc9b15f"><div class="ttname"><a href="a03503.html#a38dbf3ffd4f0dc4e950886581fc9b15f">bl::ecs::Cleaner::disarm</a></div><div class="ttdeci">void disarm()</div><div class="ttdoc">Prevents destruction of the entity.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00057">Cleaner.hpp:57</a></div></div>
-<div class="ttc" id="aa03503_html_ab6248b85fbd69834e0155f72a360651b"><div class="ttname"><a href="a03503.html#ab6248b85fbd69834e0155f72a360651b">bl::ecs::Cleaner::Cleaner</a></div><div class="ttdeci">Cleaner(Registry &amp;registry, Entity entity)</div><div class="ttdoc">Construct a new Cleaner object.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00048">Cleaner.hpp:48</a></div></div>
-<div class="ttc" id="aa03543_html"><div class="ttname"><a href="a03543.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa03591_html"><div class="ttname"><a href="a03591.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a01544_source.html#l00035">Registry.hpp:35</a></div></div>
-<div class="ttc" id="aa03591_html_afbbbe957b4c0cc0f85be34421cae9a53"><div class="ttname"><a href="a03591.html#afbbbe957b4c0cc0f85be34421cae9a53">bl::ecs::Registry::destroyEntity</a></div><div class="ttdeci">bool destroyEntity(Entity entity)</div><div class="ttdoc">Removes the given entity and destroys all of its components. Destruction will not occur if the entity...</div><div class="ttdef"><b>Definition</b> <a href="a02771_source.html#l00065">Registry.cpp:65</a></div></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace math</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa03120_html_ga8753daa77ceb8a99501d08876804bd00"><div class="ttname"><a href="a03120.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a></div><div class="ttdeci">T interpolate(T originStart, T originEnd, T destStart, T destEnd, T value)</div><div class="ttdoc">Linearly interpolate a value from one range to another.</div><div class="ttdef"><b>Definition</b> <a href="a01523_source.html#l00022">Interpolate.hpp:22</a></div></div>
+<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:04 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

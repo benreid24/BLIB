@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Trig.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Vulkan/VulkanLayer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,49 +74,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_e9abbcd9e0c082db5b09973bee2e6f6b.html">Math</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_49b99cfd015d92f767de1d8dec868906.html">Vulkan</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">Trig.hpp File Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
+  <div class="headertitle"><div class="title">VulkanLayer.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a08525_source.html">BLIB/Math/Constants.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01211_source.html">BLIB/Render/Config/Limits.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00809_source.html">BLIB/Render/Resources/ShaderModuleCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01187_source.html">BLIB/Render/Transfers/TransferEngine.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01127_source.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01124_source.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01100_source.html">BLIB/Render/Vulkan/PerFrameVector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01088_source.html">BLIB/Render/Vulkan/SemanticTextureFormat.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01166_source.html">BLIB/Render/Vulkan/VkCheck.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09796_source.html">BLIB/Render/Window.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01250_source.html">BLIB/Vulkan.hpp</a>&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;initializer_list&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a01073_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a02994" id="r_a02994"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02994.html">bl</a></td></tr>
-<tr class="memdesc:a02994"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03036" id="r_a03036"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03036.html">bl::math</a></td></tr>
-<tr class="memdesc:a03036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of functions and constants for doing math. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06376.html">bl::rc::vk::VulkanLayer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary owner and manager of the Vulkan renderer's state.  <a href="a06376.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:gae8e482156412ed87dc2d91572ee817ab" id="r_gae8e482156412ed87dc2d91572ee817ab"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02975.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a> (float degrees)</td></tr>
-<tr class="memdesc:gae8e482156412ed87dc2d91572ee817ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the cosine of the given angle using cached values. Values are cached in quarter degree increments.  <br /></td></tr>
-<tr class="separator:gae8e482156412ed87dc2d91572ee817ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0379b8bbdfc3c74fecd12c93fdf0ca5b" id="r_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02975.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a> (float degrees)</td></tr>
-<tr class="memdesc:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the sine of the given angle using cached values. Values are cached in quarter degree increments.  <br /></td></tr>
-<tr class="separator:ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0b0fbb9303004f139568c5a7554c3637" id="r_ga0b0fbb9303004f139568c5a7554c3637"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02975.html#ga0b0fbb9303004f139568c5a7554c3637">bl::math::radiansToDegrees</a> (float radians)</td></tr>
-<tr class="memdesc:ga0b0fbb9303004f139568c5a7554c3637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle in radians to degrees.  <br /></td></tr>
-<tr class="separator:ga0b0fbb9303004f139568c5a7554c3637"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga798f04ddeba68968d5339859b62b3500" id="r_ga798f04ddeba68968d5339859b62b3500"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02975.html#ga798f04ddeba68968d5339859b62b3500">bl::math::degreesToRadians</a> (float degrees)</td></tr>
-<tr class="memdesc:ga798f04ddeba68968d5339859b62b3500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an angle in degrees to radians.  <br /></td></tr>
-<tr class="separator:ga798f04ddeba68968d5339859b62b3500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
+<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05868.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03166" id="r_a03166"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03166.html">bl::rc::vk</a></td></tr>
+<tr class="memdesc:a03166"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of interfaces and utilities directly related to Vulkan. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 26 2026 02:07:05 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>
