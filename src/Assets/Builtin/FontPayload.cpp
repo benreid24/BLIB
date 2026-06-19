@@ -82,8 +82,8 @@ FontPayload::~FontPayload() { cleanup(); }
 bool FontPayload::loadFromMemory() {
     needsUpload = true;
 
-    // Cleanup the previous resources
-    cleanup();
+    // Cleanup the previous resources (excluding buffer that we are loading from)
+    cleanup(false);
 
     // Initialize FreeType
     // Note: we initialize FreeType for every font instance in order to avoid having a single
@@ -237,7 +237,7 @@ float FontPayload::getUnderlineThickness(unsigned int characterSize) const {
 
 const sf::Image& FontPayload::getGlyphAtlas() const { return texture; }
 
-void FontPayload::cleanup() {
+void FontPayload::cleanup(bool freeBuffer) {
     // Check if we must destroy the FreeType pointers
     if (m_library) {
         // Destroy the stroker
@@ -264,7 +264,7 @@ void FontPayload::cleanup() {
     needsUpload = true;
     vulkanTexture.release();
     std::vector<std::uint8_t>().swap(m_pixelBuffer);
-    buffer.clear();
+    if (freeBuffer) { buffer.clear(); }
 }
 
 sf::Glyph FontPayload::loadGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,

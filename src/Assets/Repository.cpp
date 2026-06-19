@@ -6,6 +6,8 @@
 #include <BLIB/Assets/Drivers/Animation2DSetDriver.hpp>
 #include <BLIB/Assets/Drivers/Animation3DDriver.hpp>
 #include <BLIB/Assets/Drivers/CubemapDriver.hpp>
+#include <BLIB/Assets/Drivers/FileDriver.hpp>
+#include <BLIB/Assets/Drivers/FontDriver.hpp>
 #include <BLIB/Assets/Drivers/ImageDriver.hpp>
 #include <BLIB/Assets/Drivers/MaterialDriver.hpp>
 #include <BLIB/Assets/Drivers/ModelDriver.hpp>
@@ -113,6 +115,8 @@ Repository::Repository(Mode mode, const std::string& path)
     registerDriver<asi::PlaylistDriver>(asi::PlaylistDriver::TypeName);
     registerDriver<asi::Animation2DDriver>(asi::Animation2DDriver::TypeName);
     registerDriver<asi::Animation2DSetDriver>(asi::Animation2DSetDriver::TypeName);
+    registerDriver<asi::FileDriver>(asi::FileDriver::TypeName);
+    registerDriver<asi::FontDriver>(asi::FontDriver::TypeName);
 }
 
 Ref Repository::createAsset(std::string_view type, const std::string& name,

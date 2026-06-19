@@ -69,7 +69,8 @@ Engine::~Engine() {
         renderingThread.value().join();
     }
 
-    backgroundWorkers.shutdown();
+    fastTaskWorkers.shutdown();
+    longTaskWorkers.shutdown();
     workers.shutdown();
     signalChannel.shutdown();
     if (rendererInstance.has_value()) {
@@ -201,7 +202,8 @@ bool Engine::loop() {
     float frameCount = 0.f;
 
     workers.start();
-    backgroundWorkers.start(2);
+    fastTaskWorkers.start(2);
+    longTaskWorkers.start(2);
     states.top()->activate(*this);
     eventEmitter.emit<event::Startup>({states.top()});
 

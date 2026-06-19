@@ -3,6 +3,8 @@ target_sources(BLIB.t PRIVATE
 	Animation2DSetDriver.t.cpp
 	Animation3DDriver.t.cpp
 	CubemapDriver.t.cpp
+	FileDriver.t.cpp
+	FontDriver.t.cpp
 	ImageDriver.t.cpp
 	MaterialDriver.t.cpp
 	ModelDriver.t.cpp

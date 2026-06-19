@@ -140,7 +140,7 @@ private:
     typedef std::map<std::uint64_t, sf::Glyph> GlyphTable;
 
     bool loadFromMemory();
-    void cleanup();
+    void cleanup(bool freeBuffer = true);
 
     sf::Glyph loadGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold,
                         float outlineThickness) const;

@@ -4092,5 +4092,9 @@ as::TypedRef<asi::FontPayload> Font::get(as::Repository& repo) {
     return f;
 }
 
+std::span<const char> Font::getData() {
+    return std::span<const char>(reinterpret_cast<const char*>(font), fontSize);
+}
+
 } // namespace gui
 } // namespace bl

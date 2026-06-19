@@ -8,7 +8,6 @@ target_sources(BLIB PRIVATE
     Property.cpp
     Settings.cpp
     Systems.cpp
-    Worker.cpp
     World.cpp
 )
 

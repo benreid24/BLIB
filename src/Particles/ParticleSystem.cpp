@@ -47,7 +47,7 @@ void ParticleSystem::removeAllSystems() {
 
 void ParticleSystem::init(engine::Engine& e) {
     engine           = &e;
-    engineThreadpool = &e.threadPool();
+    engineThreadpool = &e.engineLoopThreadpool();
     particleThreadpool.start(4);
 }
 

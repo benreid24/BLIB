@@ -12,7 +12,6 @@
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/Systems.hpp>
-#include <BLIB/Engine/Worker.hpp>
 #include <BLIB/Engine/World.hpp>
 #include <BLIB/Input.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
@@ -91,12 +90,17 @@ public:
     /**
      * @brief Returns the engine thread pool
      */
-    util::ThreadPool& threadPool();
+    util::ThreadPool& engineLoopThreadpool();
+
+    /**
+     * @brief Returns the thread pool for fast background tasks
+     */
+    util::ThreadPool& fastTaskThreadpool();
 
     /**
      * @brief Returns the threadpool to be used for long running background tasks
      */
-    util::ThreadPool& longRunningThreadpool();
+    util::ThreadPool& slowTaskThreadpool();
 
     /**
      * @brief Returns the engine particle system
@@ -257,7 +261,6 @@ public:
     static Engine* getInstance();
 
 private:
-    Worker worker;
     Settings engineSettings;
     Flags engineFlags;
     Phase phase;
@@ -275,7 +278,8 @@ private:
     std::optional<rc::Renderer> rendererInstance;
     input::InputSystem input;
     util::ThreadPool workers;
-    util::ThreadPool backgroundWorkers;
+    util::ThreadPool fastTaskWorkers;
+    util::ThreadPool longTaskWorkers;
 
     sig::Channel signalChannel;
     sig::Emitter<event::Paused, event::PlayerAdded, event::PlayerRemoved, event::Resumed,
@@ -318,9 +322,11 @@ inline Flags& Engine::flags() { return engineFlags; }
 
 inline Phase Engine::getPhase() const { return phase; }
 
-inline util::ThreadPool& Engine::threadPool() { return workers; }
+inline util::ThreadPool& Engine::engineLoopThreadpool() { return workers; }
 
-inline util::ThreadPool& Engine::longRunningThreadpool() { return backgroundWorkers; }
+inline util::ThreadPool& Engine::fastTaskThreadpool() { return fastTaskWorkers; }
+
+inline util::ThreadPool& Engine::slowTaskThreadpool() { return longTaskWorkers; }
 
 inline StateMask::V Engine::getCurrentStateMask() const {
     return !states.empty() ? states.top()->systemsMask() : StateMask::None;

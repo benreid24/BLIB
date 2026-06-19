@@ -273,7 +273,7 @@ private:
                         isScreen ?
                             renderer->textureExporter().exportSwapImage() :
                             renderer->textureExporter().exportTexture(renderTexture->getTexture());
-                    engine->longRunningThreadpool().queueTask([this, te, isScreen]() {
+                    engine->slowTaskThreadpool().queueTask([this, te, isScreen]() {
                         exportTexture(te,
                                       isScreen ? "exportedScreen.png" : "exportedRenderTexture.png",
                                       exportInProgress);
