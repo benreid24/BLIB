@@ -14,10 +14,10 @@ namespace asi
  * @ingroup Assets
  */
 struct MaterialPayload : public as::Payload {
-    as::Dependency<TexturePayload> diffuse;
-    as::Dependency<TexturePayload> normal;
-    as::Dependency<TexturePayload> specular;
-    as::Dependency<TexturePayload> parallax;
+    as::Dependency<TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional> diffuse;
+    as::Dependency<TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional> normal;
+    as::Dependency<TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional> specular;
+    as::Dependency<TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional> parallax;
     float shininess;
     float heightScale;
 

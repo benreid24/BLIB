@@ -44,6 +44,13 @@ public:
     void makeFromFile(const std::string& file, const std::string& modelPath);
 
     /**
+     * @brief Creates the texture from an existing sf::Image
+     *
+     * @param image The image to embed
+     */
+    void makeFromImage(const sf::Image& image);
+
+    /**
      * @brief Returns whether this texture contains embedded image data
      */
     bool isEmbedded() const;

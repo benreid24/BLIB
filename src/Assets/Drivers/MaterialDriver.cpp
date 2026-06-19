@@ -17,9 +17,12 @@ bool MaterialDriver::doCreate(as::CreateContext& ctx, MaterialPayload& payload) 
         ctx.getCustomDataAsMaybe<MaterialPayload::CreateData>();
     if (!createData) { return false; } // allow creating empty?
 
-    const auto prepareTexture = [&ctx](as::Dependency<TexturePayload>& dst,
-                                       const mdl::Texture& tex,
-                                       TexturePayload::Type type) -> bool {
+    const auto prepareTexture =
+        [&ctx](
+            as::Dependency<TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional>&
+                dst,
+            const mdl::Texture& tex,
+            TexturePayload::Type type) -> bool {
         if (!tex.isEmbedded() && tex.getFilePath().empty()) { return true; }
 
         if (tex.isEmbedded()) {

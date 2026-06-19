@@ -30,6 +30,8 @@ void Texture::makeFromFile(const std::string& file, const std::string& modelPath
     else { texture = file; }
 }
 
+void Texture::makeFromImage(const sf::Image& image) { texture.emplace<sf::Image>(image); }
+
 void Texture::visit(const DependencyVisitor& visitor) {
     if (!isEmbedded() && !getFilePath().empty()) { texture = visitor(getFilePath()); }
 }
