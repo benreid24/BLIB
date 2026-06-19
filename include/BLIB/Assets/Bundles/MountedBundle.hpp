@@ -14,6 +14,8 @@ class Repository;
 
 namespace bdl
 {
+class BundleRuntime;
+
 /**
  * @brief Interface for a mounted bundle file of asset data
  *
@@ -63,6 +65,8 @@ private:
     std::chrono::steady_clock::time_point touchTime;
 
     const FileMetadata* findFile(util::UUID uuid, std::string_view path);
+
+    friend class BundleRuntime;
 };
 
 } // namespace bdl

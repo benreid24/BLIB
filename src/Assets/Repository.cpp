@@ -199,6 +199,9 @@ Ref Repository::getAsset(util::UUID uuid, State desiredState) {
     Asset& stored = it->second;
     if (stored.getState() < desiredState && stored.getState() >= State::Failed) {
         if (!stored.load()) { return Ref(); }
+
+        // we may have mounted new bundles
+        if (mode == Mode::Game) { bundleRuntime.performPostMountAutoload(); }
     }
     return Ref(this, &stored);
 }
@@ -520,6 +523,7 @@ bool Repository::loadRepository() {
             if (!wasLoaded) { asset.unload(); }
         }
     }
+    else { bundleRuntime.performPostMountAutoload(); } // autoload from bundles of autoload assets
 
     return true;
 }

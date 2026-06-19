@@ -21,6 +21,14 @@ public:
     static constexpr std::string_view TypeName = "Sounds";
 
     /**
+     * @brief Optional creation parameters for sound assets
+     */
+    struct CreateParams : public as::CreateContext::CreateData {
+        /// Pointer to the source sound buffer to copy from. Takes priority over path
+        const sf::SoundBuffer* sourceBuffer = nullptr;
+    };
+
+    /**
      * @brief Creates the driver
      */
     SoundDriver();

@@ -1,6 +1,7 @@
 #include <BLIB/Assets/Bundles/BundleRuntime.hpp>
 
 #include <BLIB/Assets/Bundles/RuntimePaths.hpp>
+#include <BLIB/Assets/Repository.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 
 namespace bl
@@ -38,13 +39,25 @@ MountedBundle* BundleRuntime::getBundle(util::UUID uuid) {
     if (bundleIt != mountedBundles.end()) { return &bundleIt->second; }
 
     const std::string bundlePath = RuntimePaths::getBundlePath(path, assetIt->second);
-    return &mountedBundles.try_emplace(assetIt->second, repo, bundlePath).first->second;
+    MountedBundle* mounted =
+        &mountedBundles.try_emplace(assetIt->second, repo, bundlePath).first->second;
+    if (!mounted->data.autoLoadAssets.empty()) { bundlesToAutoload.push_back(mounted); }
+    return mounted;
 }
 
 void BundleRuntime::releaseStale() {
     std::erase_if(mountedBundles, [](const std::pair<util::UUID, MountedBundle>& bundle) -> bool {
         return bundle.second.isExpired();
     });
+}
+
+void BundleRuntime::performPostMountAutoload() {
+    for (MountedBundle* bundle : bundlesToAutoload) {
+        for (const util::UUID& asset : bundle->data.autoLoadAssets) {
+            repo.getAsset(asset, State::Loaded);
+        }
+    }
+    bundlesToAutoload.clear();
 }
 
 } // namespace bdl

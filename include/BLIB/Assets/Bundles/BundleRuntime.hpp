@@ -56,12 +56,18 @@ public:
      */
     void releaseStale();
 
+    /**
+     * @brief Auto-loads assets from newly mounted bundles
+     */
+    void performPostMountAutoload();
+
 private:
     std::recursive_mutex mutex;
     Repository& repo;
     std::string path;
     Manifest manifest;
     std::unordered_map<util::UUID, MountedBundle> mountedBundles;
+    std::vector<MountedBundle*> bundlesToAutoload;
 
     MountedBundle* getBundle(util::UUID uuid);
 

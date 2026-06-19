@@ -18,6 +18,14 @@ SoundDriver::SoundDriver()
                                     .onMount   = as::bdl::AssetBundleConfig::OnMount::AutoLoad}) {}
 
 bool SoundDriver::doCreate(as::CreateContext& ctx, SoundPayload& payload) {
+    const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>();
+    if (params && params->sourceBuffer) {
+        return payload.get().loadFromSamples(params->sourceBuffer->getSamples(),
+                                             params->sourceBuffer->getSampleCount(),
+                                             params->sourceBuffer->getChannelCount(),
+                                             params->sourceBuffer->getSampleRate(),
+                                             params->sourceBuffer->getChannelMap());
+    }
     if (!ctx.getCustomData().getPath().empty()) {
         return payload.get().loadFromFile(ctx.getCustomData().getPath());
     }
