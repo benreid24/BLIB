@@ -4,6 +4,7 @@ target_sources(BLIB PRIVATE
     ImageStitcher.cpp
     ReadWriteLock.cpp
     StreamUtil.cpp
+    TaskScheduler.cpp
     ThreadPool.cpp
     Timer.cpp
     UUID.cpp

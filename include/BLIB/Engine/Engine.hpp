@@ -9,6 +9,7 @@
 #include <BLIB/Engine/Flags.hpp>
 #include <BLIB/Engine/Phase.hpp>
 #include <BLIB/Engine/Player.hpp>
+#include <BLIB/Engine/Schedulers.hpp>
 #include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Engine/State.hpp>
 #include <BLIB/Engine/Systems.hpp>
@@ -101,6 +102,11 @@ public:
      * @brief Returns the threadpool to be used for long running background tasks
      */
     util::ThreadPool& slowTaskThreadpool();
+
+    /**
+     * @brief Returns the engine task schedulers
+     */
+    Schedulers& taskSchedulers();
 
     /**
      * @brief Returns the engine particle system
@@ -280,6 +286,7 @@ private:
     util::ThreadPool workers;
     util::ThreadPool fastTaskWorkers;
     util::ThreadPool longTaskWorkers;
+    Schedulers schedulers;
 
     sig::Channel signalChannel;
     sig::Emitter<event::Paused, event::PlayerAdded, event::PlayerRemoved, event::Resumed,
@@ -327,6 +334,8 @@ inline util::ThreadPool& Engine::engineLoopThreadpool() { return workers; }
 inline util::ThreadPool& Engine::fastTaskThreadpool() { return fastTaskWorkers; }
 
 inline util::ThreadPool& Engine::slowTaskThreadpool() { return longTaskWorkers; }
+
+inline Schedulers& Engine::taskSchedulers() { return schedulers; }
 
 inline StateMask::V Engine::getCurrentStateMask() const {
     return !states.empty() ? states.top()->systemsMask() : StateMask::None;
