@@ -48,31 +48,24 @@ void ParticleSystem::removeAllSystems() {
 void ParticleSystem::init(engine::Engine& e) {
     engine           = &e;
     engineThreadpool = &e.engineLoopThreadpool();
-    particleThreadpool.start(4);
 }
 
 void ParticleSystem::update(std::mutex&, float dt, float realDt, float, float) {
     std::unique_lock lock(mutex);
 
-    futures.reserve(singleSystems.size() + multiSystems.size());
     for (auto& p : singleSystems) {
-        futures.emplace_back(engineThreadpool->queueTask(
-            [this, &p, dt, realDt]() { p.second->update(particleThreadpool, dt, realDt); }));
+        engineThreadpool->queueTask(
+            [this, &p, dt, realDt]() { p.second->update(*engineThreadpool, dt, realDt); });
     }
     for (auto& p : multiSystems) {
         for (auto& m : p.second) {
-            futures.emplace_back(engineThreadpool->queueTask(
-                [this, &m, dt, realDt]() { m->update(particleThreadpool, dt, realDt); }));
+            engineThreadpool->queueTask(
+                [this, &m, dt, realDt]() { m->update(*engineThreadpool, dt, realDt); });
         }
     }
-    for (auto& f : futures) { f.wait(); }
-    futures.clear();
 }
 
-void ParticleSystem::earlyCleanup() {
-    particleThreadpool.shutdown();
-    removeAllSystems();
-}
+void ParticleSystem::earlyCleanup() { removeAllSystems(); }
 
 } // namespace pcl
 } // namespace bl

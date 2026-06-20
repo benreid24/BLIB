@@ -105,11 +105,9 @@ private:
     engine::Engine* engine;
     std::mutex mutex;
     util::ThreadPool* engineThreadpool;
-    util::ThreadPool particleThreadpool;
     std::unordered_map<std::type_index, std::unique_ptr<ParticleManagerBase>> singleSystems;
     std::unordered_map<std::type_index, std::vector<std::unique_ptr<ParticleManagerBase>>>
         multiSystems;
-    std::vector<std::future<void>> futures;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
