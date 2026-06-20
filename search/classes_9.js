@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joystick_0',['Joystick',['../a04548.html',1,'bl::input']]]
+  ['joystick_0',['Joystick',['../a04554.html',1,'bl::input']]]
 ];

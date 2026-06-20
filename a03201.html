@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::lgt Namespace Reference</title>
+<title>BLIB: bl::rc::mat Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,81 +74,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03138.html">bl</a></li><li class="navelem"><a class="el" href="a03144.html">rc</a></li><li class="navelem"><a class="el" href="a03201.html">lgt</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03201.html">mat</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::lgt Namespace Reference</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::mat Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains the lighting classes for the renderer.  
+<p>Namespace containing classes and functionality related to materials.  
 <a href="a03201.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05744.html">Attenuation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing attenuation parameters for 3d lights.  <a href="a05744.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05818.html">Material</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores all data for a material.  <a href="a05818.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05748.html">Color3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing the color of a 3d light.  <a href="a05748.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05822.html">MaterialDescriptor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05818.html" title="Stores all data for a material.">Material</a> data that gets sent to the GPU for use in shaders.  <a href="a05822.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05752.html">Light2D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle for a light in a 2d scene.  <a href="a05752.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05826.html">MaterialId</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct to disambiguate material and texture ids for descriptor bindings.  <a href="a05826.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05756.html">Light3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a light in 3d scene.  <a href="a05756.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05830.html">MaterialPipeline</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendering pipeline for a material. Contains pipelines for each render phase.  <a href="a05830.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05760.html">LightingDescriptor3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing lighting info for 3d scenes (excluding point &amp; spot lights)  <a href="a05760.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05834.html">MaterialPipelineSettings</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a06054.html" title="Basic class containing the renderer graphics settings.">Settings</a> that define the behavior of a material pipeline.  <a href="a05834.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05764.html">PointLight3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a 3d point light.  <a href="a05764.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05768.html">PointLight3DShadow</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Omnidirectional light that casts shadows.  <a href="a05768.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05776.html">Scene2DLighting</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05784.html" title="POD for 2d scene lighting data.">Lighting</a> manager for 2d scenes.  <a href="a05776.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05788.html">Scene3DLighting</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lighting manager for 3d scenes.  <a href="a05788.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05796.html">SpotLight3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a spotlight in a 3d scene.  <a href="a05796.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05800.html">SpotLight3DShadow</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D spotlight that casts a shadow  <a href="a05800.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05804.html">SunLight3D</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a global directional light in a scene.  <a href="a05804.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga43c4ba4ef116220daec99d7ed2e34ed9" id="r_ga43c4ba4ef116220daec99d7ed2e34ed9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03124.html#ga43c4ba4ef116220daec99d7ed2e34ed9">PointLightHandle</a> = <a class="el" href="a05756.html">Light3D</a>&lt; <a class="el" href="a05764.html">PointLight3D</a> &gt;</td></tr>
-<tr class="memdesc:ga43c4ba4ef116220daec99d7ed2e34ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a point light in 3d scene.  <br /></td></tr>
-<tr class="separator:ga43c4ba4ef116220daec99d7ed2e34ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7a23e7a8ae6e232a0ef97bcbc5d9c2db" id="r_ga7a23e7a8ae6e232a0ef97bcbc5d9c2db"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03124.html#ga7a23e7a8ae6e232a0ef97bcbc5d9c2db">PointLightShadowHandle</a> = <a class="el" href="a05756.html">Light3D</a>&lt; <a class="el" href="a05768.html">PointLight3DShadow</a> &gt;</td></tr>
-<tr class="memdesc:ga7a23e7a8ae6e232a0ef97bcbc5d9c2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a point light with shadow in 3d scene.  <br /></td></tr>
-<tr class="separator:ga7a23e7a8ae6e232a0ef97bcbc5d9c2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4901cb82364c48429bc38b53e688465f" id="r_ga4901cb82364c48429bc38b53e688465f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03124.html#ga4901cb82364c48429bc38b53e688465f">SpotLightHandle</a> = <a class="el" href="a05756.html">Light3D</a>&lt; <a class="el" href="a05796.html">SpotLight3D</a> &gt;</td></tr>
-<tr class="memdesc:ga4901cb82364c48429bc38b53e688465f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a spot light in 3d scene.  <br /></td></tr>
-<tr class="separator:ga4901cb82364c48429bc38b53e688465f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga528f3b4db46678f8004d6c073d642a31" id="r_ga528f3b4db46678f8004d6c073d642a31"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03124.html#ga528f3b4db46678f8004d6c073d642a31">SpotLightShadowHandle</a> = <a class="el" href="a05756.html">Light3D</a>&lt; <a class="el" href="a05800.html">SpotLight3DShadow</a> &gt;</td></tr>
-<tr class="memdesc:ga528f3b4db46678f8004d6c073d642a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a spot light with shadow in 3d scene.  <br /></td></tr>
-<tr class="separator:ga528f3b4db46678f8004d6c073d642a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains the lighting classes for the renderer. </p>
+<div class="textblock"><p>Namespace containing classes and functionality related to materials. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

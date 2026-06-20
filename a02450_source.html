@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Descriptors/DescriptorSetInstanceCache.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/DescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,69 +83,39 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">DescriptorSetInstanceCache.cpp</div></div>
+  <div class="headertitle"><div class="title">DescriptorSetInstance.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02450.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00905.html">BLIB/Render/Descriptors/DescriptorSetInstanceCache.hpp</a>&gt;</span></div>
+<a href="a02450.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a09725.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a05424.html#ac492b869bcdcf22cfea865acd94af0ea">    9</a></span><a class="code hl_function" href="a05424.html#ac492b869bcdcf22cfea865acd94af0ea">DescriptorSetInstanceCache::DescriptorSetInstanceCache</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a05460.html">InitContext</a>&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>: <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a05430.html#a251468a362a276e66b0a71379d187b4d">   11</a></span><a class="code hl_function" href="a05430.html#a251468a362a276e66b0a71379d187b4d">DescriptorSetInstance::DescriptorSetInstance</a>(<a class="code hl_enumeration" href="a05430.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a> bindMode,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                                             <a class="code hl_enumeration" href="a05430.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> speedSetting)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: bindless(bindMode == Bindless)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, speedBind(speedSetting == RebindForNewSpeed) {}</div>
 </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a05424.html#a8dcb4b2f5b976a9adc001e56814c9907">   12</a></span><a class="code hl_class" href="a05420.html">DescriptorSetInstance</a>* <a class="code hl_function" href="a05424.html#a7b982dc859100ce34080fb0eabc89968">DescriptorSetInstanceCache::getDescriptorSet</a>(<a class="code hl_class" href="a05412.html">DescriptorSetFactory</a>* factory) {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">if</span> (!factory-&gt;<a class="code hl_function" href="a05412.html#a10fa6ac35d09f924d43ecfeddcabb35e">isAutoConstructable</a>()) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">auto</span> it = cache.find(factory);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> (it != cache.end()) { <span class="keywordflow">return</span> it-&gt;second.get(); }</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    it = cache.try_emplace(factory, factory-&gt;<a class="code hl_function" href="a05412.html#a7973aebf5885407d48dd7a6ca8a0ce56">createDescriptorSet</a>()).first;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    it-&gt;second-&gt;init(ctx);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">return</span> it-&gt;second.get();</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
-</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05424.html#a6e7d26105df64eeed94d20246f352bd6">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05424.html#a6e7d26105df64eeed94d20246f352bd6">DescriptorSetInstanceCache::unlinkSceneObject</a>(<a class="code hl_struct" href="a04040.html">ecs::Entity</a> ent, <a class="code hl_struct" href="a05976.html">scene::Key</a> key) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { pair.second-&gt;releaseObject(ent, key); }</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
-</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a05424.html#a0227ae2faf28760810b0f5357b384875">   27</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05424.html#a0227ae2faf28760810b0f5357b384875">DescriptorSetInstanceCache::updateDescriptors</a>() {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; pair : cache) { pair.second-&gt;updateDescriptors(); }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
-</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00905_html"><div class="ttname"><a href="a00905.html">DescriptorSetInstanceCache.hpp</a></div></div>
-<div class="ttc" id="aa02858_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04040_html"><div class="ttname"><a href="a04040.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa05412_html"><div class="ttname"><a href="a05412.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition</b> <a href="a09703_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
-<div class="ttc" id="aa05412_html_a10fa6ac35d09f924d43ecfeddcabb35e"><div class="ttname"><a href="a05412.html#a10fa6ac35d09f924d43ecfeddcabb35e">bl::rc::ds::DescriptorSetFactory::isAutoConstructable</a></div><div class="ttdeci">virtual bool isAutoConstructable() const</div><div class="ttdoc">Returns whether the factory can automatically create instances of its descriptor set....</div><div class="ttdef"><b>Definition</b> <a href="a09703_source.html#l00069">DescriptorSetFactory.hpp:69</a></div></div>
-<div class="ttc" id="aa05412_html_a7973aebf5885407d48dd7a6ca8a0ce56"><div class="ttname"><a href="a05412.html#a7973aebf5885407d48dd7a6ca8a0ce56">bl::rc::ds::DescriptorSetFactory::createDescriptorSet</a></div><div class="ttdeci">virtual std::unique_ptr&lt; DescriptorSetInstance &gt; createDescriptorSet() const =0</div><div class="ttdoc">Called when a descriptor set instance of this type is needed for a scene.</div></div>
-<div class="ttc" id="aa05420_html"><div class="ttname"><a href="a05420.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a09709_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
-<div class="ttc" id="aa05424_html_a0227ae2faf28760810b0f5357b384875"><div class="ttname"><a href="a05424.html#a0227ae2faf28760810b0f5357b384875">bl::rc::ds::DescriptorSetInstanceCache::updateDescriptors</a></div><div class="ttdeci">void updateDescriptors()</div><div class="ttdoc">Called once prior to TransferEngine kicking off.</div><div class="ttdef"><b>Definition</b> <a href="a02450_source.html#l00027">DescriptorSetInstanceCache.cpp:27</a></div></div>
-<div class="ttc" id="aa05424_html_a6e7d26105df64eeed94d20246f352bd6"><div class="ttname"><a href="a05424.html#a6e7d26105df64eeed94d20246f352bd6">bl::rc::ds::DescriptorSetInstanceCache::unlinkSceneObject</a></div><div class="ttdeci">void unlinkSceneObject(ecs::Entity entity, scene::Key key)</div><div class="ttdoc">Goes through all descriptor set instances and calls removeObject for the given object.</div><div class="ttdef"><b>Definition</b> <a href="a02450_source.html#l00023">DescriptorSetInstanceCache.cpp:23</a></div></div>
-<div class="ttc" id="aa05424_html_a7b982dc859100ce34080fb0eabc89968"><div class="ttname"><a href="a05424.html#a7b982dc859100ce34080fb0eabc89968">bl::rc::ds::DescriptorSetInstanceCache::getDescriptorSet</a></div><div class="ttdeci">T * getDescriptorSet()</div><div class="ttdoc">Fetches the contained descriptor set by type, if present.</div><div class="ttdef"><b>Definition</b> <a href="a00905_source.html#l00070">DescriptorSetInstanceCache.hpp:70</a></div></div>
-<div class="ttc" id="aa05424_html_ac492b869bcdcf22cfea865acd94af0ea"><div class="ttname"><a href="a05424.html#ac492b869bcdcf22cfea865acd94af0ea">bl::rc::ds::DescriptorSetInstanceCache::DescriptorSetInstanceCache</a></div><div class="ttdeci">DescriptorSetInstanceCache(const InitContext &amp;ctx)</div><div class="ttdoc">Creates the descriptor set cache.</div><div class="ttdef"><b>Definition</b> <a href="a02450_source.html#l00009">DescriptorSetInstanceCache.cpp:9</a></div></div>
-<div class="ttc" id="aa05460_html"><div class="ttname"><a href="a05460.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a09745_source.html#l00030">InitContext.hpp:30</a></div></div>
-<div class="ttc" id="aa05976_html"><div class="ttname"><a href="a05976.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a09775_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace ds</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05430_html_a251468a362a276e66b0a71379d187b4d"><div class="ttname"><a href="a05430.html#a251468a362a276e66b0a71379d187b4d">bl::rc::ds::DescriptorSetInstance::DescriptorSetInstance</a></div><div class="ttdeci">DescriptorSetInstance(EntityBindMode bindMode, SpeedBucketSetting speedSetting)</div><div class="ttdoc">Creates a new DescriptorSetInstance.</div><div class="ttdef"><b>Definition</b> <a href="a02450_source.html#l00011">DescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa05430_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a05430.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a09725_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa05430_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a05430.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a09725_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa09725_html"><div class="ttname"><a href="a09725.html">DescriptorSetInstance.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

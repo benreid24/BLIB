@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Worker.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine/Property.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,93 +83,125 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Worker.hpp</div></div>
+  <div class="headertitle"><div class="title">Property.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01661.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_WORKER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_WORKER_HPP</span></div>
+<a href="a01661.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_PROPERTY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_PROPERTY_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01703.html">BLIB/Containers/RingQueue.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01664.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01484.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;condition_variable&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;thread&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>engine</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="foldopen" id="foldopen00013" data-start="{" data-end="}">
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a03173.html">   13</a></span><span class="keyword">namespace </span>priv</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>engine</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>Engine;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a04300.html">   27</a></span><span class="keyword">class </span><a class="code hl_class" href="a04300.html">Worker</a> : <span class="keyword">private</span> <a class="code hl_class" href="a06964.html">util::NonCopyable</a> {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a04300.html#af3d2209ab584a19616e88a973adb2b71">   30</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a04300.html#af3d2209ab584a19616e88a973adb2b71">QueuedTask</a> = std::function&lt;void()&gt;;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Task&gt;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04300.html#a2bcafcef59a2e5f33043b9623f16135d">   41</a></span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04300.html#a2bcafcef59a2e5f33043b9623f16135d">submit</a>(Task&amp;&amp; <a class="code hl_variable" href="a02342.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">static</span> <a class="code hl_class" href="a04300.html">Worker</a>* worker;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    std::atomic_bool running;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="a03984.html">ctr::RingQueue&lt;QueuedTask&gt;</a> workQueue;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    std::mutex mutex;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    std::condition_variable cv;</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    std::thread runner;</div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="};">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04262.html">   15</a></span><span class="keyword">class </span><a class="code hl_class" href="a04262.html">PropertyBase</a> : <span class="keyword">private</span> <a class="code hl_class" href="a06974.html">util::NonCopyable</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <a class="code hl_function" href="a04262.html#a96f6dfb0bbc885db088ae31e0d4f3729">PropertyBase</a>();</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_function" href="a04262.html#a7cd41d1a088e29160f322a1ed0304edc">~PropertyBase</a>();</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04262.html#a20439a876feb4e2ecbf2006b8243cfc4">   19</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04262.html#a20439a876feb4e2ecbf2006b8243cfc4">syncFromConfig</a>() = 0;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04262.html#ad5c4ef6b4e0700b7249d37fad6a2d528">   20</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04262.html#ad5c4ef6b4e0700b7249d37fad6a2d528">syncToConfig</a>()   = 0;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace priv</span></div>
+</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04266.html">   32</a></span><span class="keyword">class </span><a class="code hl_class" href="a04266.html">Property</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04262.html">priv::PropertyBase</a> {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a04266.html">Property</a>(<span class="keyword">const</span> T&amp; <a class="code hl_function" href="a04266.html#a236e03478d9e2af42416f7e4f56aed0f">defaultValue</a>, std::string_view path);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a04266.html#a62e1c4144e1b7f1b9f10a71aeb4e02c6">   45</a></span>    <a class="code hl_function" href="a04266.html#a62e1c4144e1b7f1b9f10a71aeb4e02c6">~Property</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a04266.html#a236e03478d9e2af42416f7e4f56aed0f">   50</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a04266.html#a236e03478d9e2af42416f7e4f56aed0f">defaultValue</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> initialValue; }</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_class" href="a04300.html">Worker</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_class" href="a04300.html">~Worker</a>();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">void</span> runLoop();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a04300.html#a3e1914489e4bed4f9f23cdeab34a43dc">   56</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04196.html">Engine</a>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a04266.html#a61feb730af0d959b4dc4f40034241e12">   55</a></span>    <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code hl_function" href="a04266.html#a61feb730af0d959b4dc4f40034241e12">configPath</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> path.data(); }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a04266.html#abd91b54df340eb074db6a78838767a92">   60</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a04266.html#abd91b54df340eb074db6a78838767a92">get</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> currentValue; }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04266.html#af0c6417355d62a5c2ef856c4bca9dff6">set</a>(<span class="keyword">const</span> T&amp; newValue, <span class="keywordtype">bool</span> writeThrough = <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04266.html#ab79ad16ae3312789aefdc9b06de546e9">syncFromConfig</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04266.html#a63c1b1a4c844e45adf2752dd7f748802">syncToConfig</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    std::string_view path;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    T initialValue;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    T currentValue;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>};</div>
 </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00062" data-start="{" data-end="}">
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a04300.html#a4f19ad9dab7cefc3e05c26cddad0a9b6">   62</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04300.html#a2bcafcef59a2e5f33043b9623f16135d">Worker::submit</a>(T&amp;&amp; <a class="code hl_variable" href="a02342.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">static_assert</span>(std::is_invocable_v&lt;T&gt;,</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                  <span class="stringliteral">&quot;submit() only accepts callables with the signature void()&quot;</span>);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> (worker) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        std::unique_lock lock(worker-&gt;mutex);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keywordflow">if</span> (worker) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            worker-&gt;workQueue.<a class="code hl_function" href="a03984.html#a2cb724314fa29dfdb8b962f6235bcab2">emplace</a>(std::forward&lt;T&gt;(<a class="code hl_variable" href="a02342.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>));</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            lock.unlock();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            worker-&gt;cv.notify_all();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        }</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <a class="code hl_variable" href="a02342.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>();</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00089" data-start="{" data-end="}">
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno"><a class="line" href="a04266.html#af14c5387fcf247903992057e28e16948">   89</a></span><span class="keyword">inline</span> <a class="code hl_function" href="a04266.html#af14c5387fcf247903992057e28e16948">Property&lt;T&gt;::Property</a>(<span class="keyword">const</span> T&amp; dv, std::string_view path)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>: path(path)</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>, initialValue(dv)</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>, currentValue(dv) {}</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>} <span class="comment">// namespace engine</span></div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="a04266.html#af0c6417355d62a5c2ef856c4bca9dff6">   95</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04266.html#af0c6417355d62a5c2ef856c4bca9dff6">Property&lt;T&gt;::set</a>(<span class="keyword">const</span> T&amp; newValue, <span class="keywordtype">bool</span> wt) {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    currentValue = newValue;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (wt) { syncToConfig(); }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>}</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00101" data-start="{" data-end="}">
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno"><a class="line" href="a04266.html#ab79ad16ae3312789aefdc9b06de546e9">  101</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04266.html#ab79ad16ae3312789aefdc9b06de546e9">Property&lt;T&gt;::syncFromConfig</a>() {</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    currentValue = Configuration::getOrDefault&lt;T&gt;(path.data(), currentValue);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a04266.html#a63c1b1a4c844e45adf2752dd7f748802">  106</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04266.html#a63c1b1a4c844e45adf2752dd7f748802">Property&lt;T&gt;::syncToConfig</a>() {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    Configuration::set&lt;T&gt;(path.data(), currentValue);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="foldopen" id="foldopen00110" data-start="" data-end="">
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a01661.html#a01065ba9c4ccfeed83b8dcaa6484496a">  110</a></span><span class="preprocessor">#define BLIB_PROPERTY(Name, Type, Path, DefaultValue) \</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">    bl::engine::Property&lt;Type&gt; Name = bl::engine::Property&lt;Type&gt;(DefaultValue, Path);</span></div>
+</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa01484_html"><div class="ttname"><a href="a01484.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01703_html"><div class="ttname"><a href="a01703.html">RingQueue.hpp</a></div></div>
-<div class="ttc" id="aa02342_html_adac025b94121ea5ab5dd2a3a715ca778"><div class="ttname"><a href="a02342.html#adac025b94121ea5ab5dd2a3a715ca778">task</a></div><div class="ttdeci">Task * task</div><div class="ttdef"><b>Definition</b> <a href="a02342_source.html#l00023">Timeline.cpp:23</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03984_html"><div class="ttname"><a href="a03984.html">bl::ctr::RingQueue</a></div><div class="ttdoc">Queue that uses a fixed size buffer internally to maintain contiguous storage and avoid allocations....</div><div class="ttdef"><b>Definition</b> <a href="a01703_source.html#l00020">RingQueue.hpp:20</a></div></div>
-<div class="ttc" id="aa03984_html_a2cb724314fa29dfdb8b962f6235bcab2"><div class="ttname"><a href="a03984.html#a2cb724314fa29dfdb8b962f6235bcab2">bl::ctr::RingQueue::emplace</a></div><div class="ttdeci">bool emplace(TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs a new value at the front of the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01703_source.html#l00160">RingQueue.hpp:160</a></div></div>
-<div class="ttc" id="aa04196_html"><div class="ttname"><a href="a04196.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09586_source.html#l00040">Engine.hpp:40</a></div></div>
-<div class="ttc" id="aa04300_html"><div class="ttname"><a href="a04300.html">bl::engine::Worker</a></div><div class="ttdoc">Worker interface providing access to the background worker thread of the engine. This thread performs...</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00027">Worker.hpp:27</a></div></div>
-<div class="ttc" id="aa04300_html_a2bcafcef59a2e5f33043b9623f16135d"><div class="ttname"><a href="a04300.html#a2bcafcef59a2e5f33043b9623f16135d">bl::engine::Worker::submit</a></div><div class="ttdeci">static void submit(Task &amp;&amp;task)</div><div class="ttdoc">Submit a task to be executed. Submitted tasks should be relatively lightweight. More advanced or inte...</div></div>
-<div class="ttc" id="aa04300_html_af3d2209ab584a19616e88a973adb2b71"><div class="ttname"><a href="a04300.html#af3d2209ab584a19616e88a973adb2b71">bl::engine::Worker::QueuedTask</a></div><div class="ttdeci">std::function&lt; void()&gt; QueuedTask</div><div class="ttdoc">Represents a task that is queued.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00030">Worker.hpp:30</a></div></div>
-<div class="ttc" id="aa06964_html"><div class="ttname"><a href="a06964.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a01484_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa01664_html"><div class="ttname"><a href="a01664.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04262_html"><div class="ttname"><a href="a04262.html">bl::engine::priv::PropertyBase</a></div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00015">Property.hpp:15</a></div></div>
+<div class="ttc" id="aa04262_html_a20439a876feb4e2ecbf2006b8243cfc4"><div class="ttname"><a href="a04262.html#a20439a876feb4e2ecbf2006b8243cfc4">bl::engine::priv::PropertyBase::syncFromConfig</a></div><div class="ttdeci">virtual void syncFromConfig()=0</div></div>
+<div class="ttc" id="aa04262_html_a7cd41d1a088e29160f322a1ed0304edc"><div class="ttname"><a href="a04262.html#a7cd41d1a088e29160f322a1ed0304edc">bl::engine::priv::PropertyBase::~PropertyBase</a></div><div class="ttdeci">~PropertyBase()</div><div class="ttdef"><b>Definition</b> <a href="a02870_source.html#l00013">Property.cpp:13</a></div></div>
+<div class="ttc" id="aa04262_html_a96f6dfb0bbc885db088ae31e0d4f3729"><div class="ttname"><a href="a04262.html#a96f6dfb0bbc885db088ae31e0d4f3729">bl::engine::priv::PropertyBase::PropertyBase</a></div><div class="ttdeci">PropertyBase()</div><div class="ttdef"><b>Definition</b> <a href="a02870_source.html#l00011">Property.cpp:11</a></div></div>
+<div class="ttc" id="aa04262_html_ad5c4ef6b4e0700b7249d37fad6a2d528"><div class="ttname"><a href="a04262.html#ad5c4ef6b4e0700b7249d37fad6a2d528">bl::engine::priv::PropertyBase::syncToConfig</a></div><div class="ttdeci">virtual void syncToConfig()=0</div></div>
+<div class="ttc" id="aa04266_html"><div class="ttname"><a href="a04266.html">bl::engine::Property</a></div><div class="ttdoc">Helper class to manage application properties stored in engine Configuration.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00032">Property.hpp:32</a></div></div>
+<div class="ttc" id="aa04266_html_a236e03478d9e2af42416f7e4f56aed0f"><div class="ttname"><a href="a04266.html#a236e03478d9e2af42416f7e4f56aed0f">bl::engine::Property::defaultValue</a></div><div class="ttdeci">const T &amp; defaultValue() const</div><div class="ttdoc">Returns the default value of the property.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00050">Property.hpp:50</a></div></div>
+<div class="ttc" id="aa04266_html_a61feb730af0d959b4dc4f40034241e12"><div class="ttname"><a href="a04266.html#a61feb730af0d959b4dc4f40034241e12">bl::engine::Property::configPath</a></div><div class="ttdeci">const char * configPath() const</div><div class="ttdoc">Returns the URI of the property in Configuration.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00055">Property.hpp:55</a></div></div>
+<div class="ttc" id="aa04266_html_a62e1c4144e1b7f1b9f10a71aeb4e02c6"><div class="ttname"><a href="a04266.html#a62e1c4144e1b7f1b9f10a71aeb4e02c6">bl::engine::Property::~Property</a></div><div class="ttdeci">~Property()=default</div><div class="ttdoc">Destroys the property.</div></div>
+<div class="ttc" id="aa04266_html_a63c1b1a4c844e45adf2752dd7f748802"><div class="ttname"><a href="a04266.html#a63c1b1a4c844e45adf2752dd7f748802">bl::engine::Property::syncToConfig</a></div><div class="ttdeci">virtual void syncToConfig() override</div><div class="ttdoc">Writes the current value of the property to Configuration.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00106">Property.hpp:106</a></div></div>
+<div class="ttc" id="aa04266_html_ab79ad16ae3312789aefdc9b06de546e9"><div class="ttname"><a href="a04266.html#ab79ad16ae3312789aefdc9b06de546e9">bl::engine::Property::syncFromConfig</a></div><div class="ttdeci">virtual void syncFromConfig() override</div><div class="ttdoc">Reads the value of the property from Configuration. Keeps current value if missing.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00101">Property.hpp:101</a></div></div>
+<div class="ttc" id="aa04266_html_abd91b54df340eb074db6a78838767a92"><div class="ttname"><a href="a04266.html#abd91b54df340eb074db6a78838767a92">bl::engine::Property::get</a></div><div class="ttdeci">const T &amp; get() const</div><div class="ttdoc">Returns the current value of the property.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00060">Property.hpp:60</a></div></div>
+<div class="ttc" id="aa04266_html_af0c6417355d62a5c2ef856c4bca9dff6"><div class="ttname"><a href="a04266.html#af0c6417355d62a5c2ef856c4bca9dff6">bl::engine::Property::set</a></div><div class="ttdeci">void set(const T &amp;newValue, bool writeThrough=true)</div><div class="ttdoc">Sets the value of the property.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00095">Property.hpp:95</a></div></div>
+<div class="ttc" id="aa04266_html_af14c5387fcf247903992057e28e16948"><div class="ttname"><a href="a04266.html#af14c5387fcf247903992057e28e16948">bl::engine::Property::Property</a></div><div class="ttdeci">Property(const T &amp;defaultValue, std::string_view path)</div><div class="ttdoc">Creates the property.</div><div class="ttdef"><b>Definition</b> <a href="a01661_source.html#l00089">Property.hpp:89</a></div></div>
+<div class="ttc" id="aa06974_html"><div class="ttname"><a href="a06974.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a01484_source.html#l00013">NonCopyable.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

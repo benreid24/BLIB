@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/Worlds/World2D.hpp Source File</title>
+<title>BLIB: include/BLIB/Engine.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,82 +79,53 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li><li class="navelem"><a class="el" href="dir_cbf19c2dd3177da6fdbb442681111049.html">Worlds</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">World2D.hpp</div></div>
+  <div class="headertitle"><div class="title">Engine.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01616.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_WORLDS_WORLD2D_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_WORLDS_WORLD2D_HPP</span></div>
+<a href="a01616.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09562.html">BLIB/Components/Physics2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01619.html">BLIB/Engine/Worlds/BasicWorld.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01043.html">BLIB/Render/Scenes/Scene2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;box2d/box2d.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>engine</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04312.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a04312.html">World2D</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04308.html">BasicWorld</a>&lt;rc::scene::Scene2D&gt; {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04312.html#a31b38168d1f8ab70aa04f4a22ebe4934">   22</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a04312.html#a31b38168d1f8ab70aa04f4a22ebe4934">WorldQueryCallback</a> = bool (*)(<a class="code hl_class" href="a03804.html">com::Physics2D</a>*, <span class="keywordtype">void</span>*);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_class" href="a04312.html">World2D</a>(<a class="code hl_class" href="a04196.html">Engine</a>&amp; owner);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04312.html#a0f9fccfcc38eb86e8bacc79f94af8830">~World2D</a>();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a04312.html#a6e195a9b57c9978a7573733984d01bc7">   39</a></span>    b2WorldId <a class="code hl_function" href="a04312.html#a6e195a9b57c9978a7573733984d01bc7">getBox2dWorldId</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> boxWorld; }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04312.html#abbdfbe7dc771a0103e843495df6b9171">setGravity</a>(<span class="keyword">const</span> glm::vec2&amp; gravity);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a04312.html#ab069c258b82b32a13038bb7eb753c9e9">   51</a></span>    <span class="keyword">const</span> glm::vec2&amp; <a class="code hl_function" href="a04312.html#ab069c258b82b32a13038bb7eb753c9e9">getGravity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> gravity; }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04312.html#a7e00df89460eec2f8e4e7eaeee11b04f">setLengthUnitScale</a>(<span class="keywordtype">float</span> worldToBoxScale);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a04312.html#a124088708bb82e6f2cfffb3ad93259d9">   63</a></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a04312.html#a124088708bb82e6f2cfffb3ad93259d9">getWorldToBoxScale</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> worldToBoxScale; }</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04312.html#a762a5dcfc5cb91cc4f57bd18f1be5263">queryAABB</a>(glm::vec2 upperBound, glm::vec2 lowerBound, b2QueryFilter filter,</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                   <a class="code hl_typedef" href="a04312.html#a31b38168d1f8ab70aa04f4a22ebe4934">WorldQueryCallback</a> <a class="code hl_variable" href="a02858.html#a6546e90ed77dc1a7bfeba3fb43a02fd8">callback</a>, <span class="keywordtype">void</span>* <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">float</span> worldToBoxScale;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    glm::vec2 gravity;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    b2WorldId boxWorld;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>};</div>
-</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace engine</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01043_html"><div class="ttname"><a href="a01043.html">Scene2D.hpp</a></div></div>
-<div class="ttc" id="aa01619_html"><div class="ttname"><a href="a01619.html">BasicWorld.hpp</a></div></div>
-<div class="ttc" id="aa02858_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa02858_html_a6546e90ed77dc1a7bfeba3fb43a02fd8"><div class="ttname"><a href="a02858.html#a6546e90ed77dc1a7bfeba3fb43a02fd8">callback</a></div><div class="ttdeci">World2D::WorldQueryCallback callback</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00012">World2D.cpp:12</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03804_html"><div class="ttname"><a href="a03804.html">bl::com::Physics2D</a></div><div class="ttdoc">Component that can be added to entities to give them 2d physics.</div><div class="ttdef"><b>Definition</b> <a href="a09562_source.html#l00023">Physics2D.hpp:23</a></div></div>
-<div class="ttc" id="aa04196_html"><div class="ttname"><a href="a04196.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09586_source.html#l00040">Engine.hpp:40</a></div></div>
-<div class="ttc" id="aa04308_html"><div class="ttname"><a href="a04308.html">bl::engine::BasicWorld</a></div><div class="ttdoc">Basic world that uses a specific scene type.</div><div class="ttdef"><b>Definition</b> <a href="a01619_source.html#l00018">BasicWorld.hpp:18</a></div></div>
-<div class="ttc" id="aa04312_html"><div class="ttname"><a href="a04312.html">bl::engine::World2D</a></div><div class="ttdoc">World type for 2d worlds with physics and collisions.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00019">World2D.hpp:19</a></div></div>
-<div class="ttc" id="aa04312_html_a0f9fccfcc38eb86e8bacc79f94af8830"><div class="ttname"><a href="a04312.html#a0f9fccfcc38eb86e8bacc79f94af8830">bl::engine::World2D::~World2D</a></div><div class="ttdeci">virtual ~World2D()</div><div class="ttdoc">Destroys the world.</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00074">World2D.cpp:74</a></div></div>
-<div class="ttc" id="aa04312_html_a124088708bb82e6f2cfffb3ad93259d9"><div class="ttname"><a href="a04312.html#a124088708bb82e6f2cfffb3ad93259d9">bl::engine::World2D::getWorldToBoxScale</a></div><div class="ttdeci">float getWorldToBoxScale() const</div><div class="ttdoc">Returns the scale factor to convert world units to Box2D meters.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00063">World2D.hpp:63</a></div></div>
-<div class="ttc" id="aa04312_html_a31b38168d1f8ab70aa04f4a22ebe4934"><div class="ttname"><a href="a04312.html#a31b38168d1f8ab70aa04f4a22ebe4934">bl::engine::World2D::WorldQueryCallback</a></div><div class="ttdeci">bool(*)(com::Physics2D *, void *) WorldQueryCallback</div><div class="ttdoc">Callback signature for world spatial queries. Return false to terminate the query.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00022">World2D.hpp:22</a></div></div>
-<div class="ttc" id="aa04312_html_a6e195a9b57c9978a7573733984d01bc7"><div class="ttname"><a href="a04312.html#a6e195a9b57c9978a7573733984d01bc7">bl::engine::World2D::getBox2dWorldId</a></div><div class="ttdeci">b2WorldId getBox2dWorldId() const</div><div class="ttdoc">Returns the Box2D world id for this world.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00039">World2D.hpp:39</a></div></div>
-<div class="ttc" id="aa04312_html_a762a5dcfc5cb91cc4f57bd18f1be5263"><div class="ttname"><a href="a04312.html#a762a5dcfc5cb91cc4f57bd18f1be5263">bl::engine::World2D::queryAABB</a></div><div class="ttdeci">void queryAABB(glm::vec2 upperBound, glm::vec2 lowerBound, b2QueryFilter filter, WorldQueryCallback callback, void *ctx) const</div><div class="ttdoc">Queries the world and calls the callback for each entity within the rectangle.</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00085">World2D.cpp:85</a></div></div>
-<div class="ttc" id="aa04312_html_a7e00df89460eec2f8e4e7eaeee11b04f"><div class="ttname"><a href="a04312.html#a7e00df89460eec2f8e4e7eaeee11b04f">bl::engine::World2D::setLengthUnitScale</a></div><div class="ttdeci">void setLengthUnitScale(float worldToBoxScale)</div><div class="ttdoc">Sets the scale factor to convert world units to Box2D meters. Default is 1.</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00083">World2D.cpp:83</a></div></div>
-<div class="ttc" id="aa04312_html_ab069c258b82b32a13038bb7eb753c9e9"><div class="ttname"><a href="a04312.html#ab069c258b82b32a13038bb7eb753c9e9">bl::engine::World2D::getGravity</a></div><div class="ttdeci">const glm::vec2 &amp; getGravity() const</div><div class="ttdoc">Returns the acceleration from gravity in m/s.</div><div class="ttdef"><b>Definition</b> <a href="a01616_source.html#l00051">World2D.hpp:51</a></div></div>
-<div class="ttc" id="aa04312_html_abbdfbe7dc771a0103e843495df6b9171"><div class="ttname"><a href="a04312.html#abbdfbe7dc771a0103e843495df6b9171">bl::engine::World2D::setGravity</a></div><div class="ttdeci">void setGravity(const glm::vec2 &amp;gravity)</div><div class="ttdoc">Set the acceleration of gravity in the physics world.</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00078">World2D.cpp:78</a></div></div>
-<div class="ttc" id="aa09562_html"><div class="ttname"><a href="a09562.html">Physics2D.hpp</a></div></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01664.html">BLIB/Engine/Configuration.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a09596.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a09587.html">BLIB/Engine/Events.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01646.html">BLIB/Engine/Events/Worlds.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a09593.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a01658.html">BLIB/Engine/FrameStage.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a01670.html">BLIB/Engine/Player.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;<a class="code" href="a01667.html">BLIB/Engine/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &lt;<a class="code" href="a09785.html">BLIB/Engine/Settings.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &lt;<a class="code" href="a09104.html">BLIB/Engine/State.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &lt;<a class="code" href="a09737.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#include &lt;<a class="code" href="a09854.html">BLIB/Engine/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#include &lt;<a class="code" href="a01628.html">BLIB/Engine/World.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;<a class="code" href="a01622.html">BLIB/Engine/Worlds/BasicWorld.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;<a class="code" href="a01619.html">BLIB/Engine/Worlds/World2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01619_html"><div class="ttname"><a href="a01619.html">World2D.hpp</a></div></div>
+<div class="ttc" id="aa01622_html"><div class="ttname"><a href="a01622.html">BasicWorld.hpp</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">World.hpp</a></div></div>
+<div class="ttc" id="aa01646_html"><div class="ttname"><a href="a01646.html">Worlds.hpp</a></div></div>
+<div class="ttc" id="aa01658_html"><div class="ttname"><a href="a01658.html">FrameStage.hpp</a></div></div>
+<div class="ttc" id="aa01664_html"><div class="ttname"><a href="a01664.html">Configuration.hpp</a></div></div>
+<div class="ttc" id="aa01667_html"><div class="ttname"><a href="a01667.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa01670_html"><div class="ttname"><a href="a01670.html">Player.hpp</a></div></div>
+<div class="ttc" id="aa09104_html"><div class="ttname"><a href="a09104.html">State.hpp</a></div></div>
+<div class="ttc" id="aa09587_html"><div class="ttname"><a href="a09587.html">Events.hpp</a></div></div>
+<div class="ttc" id="aa09593_html"><div class="ttname"><a href="a09593.html">Flags.hpp</a></div></div>
+<div class="ttc" id="aa09596_html"><div class="ttname"><a href="a09596.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa09737_html"><div class="ttname"><a href="a09737.html">System.hpp</a></div></div>
+<div class="ttc" id="aa09785_html"><div class="ttname"><a href="a09785.html">Settings.hpp</a></div></div>
+<div class="ttc" id="aa09854_html"><div class="ttname"><a href="a09854.html">Systems.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

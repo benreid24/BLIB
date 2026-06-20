@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Graph/Assets/DepthBuffer.cpp Source File</title>
+<title>BLIB: src/Render/Graph/GraphAssetPool.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,94 +79,188 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li><li class="navelem"><a class="el" href="dir_be4517bec2734308d87aa8b601dda893.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_7ebf59129457ae24134db92256c2545a.html">Graph</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">DepthBuffer.cpp</div></div>
+  <div class="headertitle"><div class="title">GraphAssetPool.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02264.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00548.html">BLIB/Render/Graph/Assets/DepthBuffer.hpp</a>&gt;</span></div>
+<a href="a02264.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a00497.html">BLIB/Render/Graph/GraphAssetPool.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a09586.html">BLIB/Engine/Engine.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00773.html">BLIB/Render/RenderTarget.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a09718.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00674.html">BLIB/Render/Graph/AssetTags.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09734.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rg</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a05536.html#ac7f99857bc3b6949b2be5fd3ab2b6cf1">   14</a></span><a class="code hl_function" href="a05536.html#ac7f99857bc3b6949b2be5fd3ab2b6cf1">DepthBuffer::DepthBuffer</a>()</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>: Asset(rg::AssetTags::<a class="code hl_class" href="a05536.html">DepthBuffer</a>, false)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, <a class="code hl_variable" href="a02816.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>(nullptr)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, cleared(false) {}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a05598.html#a54bb399d6ae205a8c4107ee6ccc5e426">   15</a></span><a class="code hl_function" href="a05598.html#a54bb399d6ae205a8c4107ee6ccc5e426">GraphAssetPool::GraphAssetPool</a>(<a class="code hl_class" href="a05878.html">Renderer</a>&amp; renderer, <a class="code hl_class" href="a05530.html">AssetPool</a>&amp; pool, <a class="code hl_class" href="a05882.html">RenderTarget</a>* owner,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                               <a class="code hl_class" href="a05998.html">Scene</a>* scene)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>: owner(owner)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, scene(scene)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, pool(pool) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    emitter.connect(renderer.<a class="code hl_function" href="a05878.html#a743526c33f2fa24840c00326554fe64f">getSignalChannel</a>());</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
 </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> DepthBuffer::doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05592.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    buffer = <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getShaderResourceStore(<a class="code hl_enumvalue" href="a03124.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a83d694b8b98b155b8817ac412c4d3e9c">sr::StoreKey::Observer</a>)</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                 .getShaderResourceWithKey(<a class="code hl_variable" href="a03124.html#ga2c11be5e5fdb9ab8864047741d665d59">sri::DepthBufferResourceKey</a>);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> DepthBuffer::onResize(glm::u32vec2) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="comment">// noop</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a05536.html#a4ca96114e403caf45da92ae3ab4ed672">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05536.html#a4ca96114e403caf45da92ae3ab4ed672">DepthBuffer::setSizeMode</a>(<a class="code hl_enumeration" href="a06076.html#a0017d48c6bab3a2229e3f8914d9df89a">sri::DepthBufferShaderResource::SizeMode</a> m) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    buffer-&gt;<a class="code hl_function" href="a06076.html#ae4b01809184985589857a5f4407c484f">setSizeMode</a>(m);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05598.html#ad67e17e872f263eaa2bf665cf3aea80a">   23</a></span><a class="code hl_class" href="a05538.html">AssetRef</a> <a class="code hl_function" href="a05598.html#ad67e17e872f263eaa2bf665cf3aea80a">GraphAssetPool::getAssetForAsset</a>(std::string_view tag, std::string_view purpose) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">auto</span> it = assets.find(tag);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">if</span> (it != assets.end() &amp;&amp; !it-&gt;second.empty()) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">if</span> (it-&gt;second.size() &gt; 1) {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <a class="code hl_define" href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;More than one asset found for asset dependency: &quot;</span> &lt;&lt; tag</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                        &lt;&lt; <span class="stringliteral">&quot;. Choosing first&quot;</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        }</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> it-&gt;second.front().asset;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span> (it == assets.end()) { it = assets.try_emplace(tag).first; }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_struct" href="a05594.html">GraphAsset</a>&amp; ga = it-&gt;second.emplace_back(pool.<a class="code hl_function" href="a05530.html#a6af42836614b9d28b9227bb2d9665876">getOrCreateAsset</a>(tag, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    setPurpose(ga, purpose);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">return</span> ga.<a class="code hl_variable" href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
 </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a05536.html#a3a564637ef13c1b92d213d81ff50399f">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05536.html#a3a564637ef13c1b92d213d81ff50399f">DepthBuffer::clear</a>(VkCommandBuffer commandBuffer) { buffer-&gt;<a class="code hl_function" href="a06076.html#a74037c9f861294a0c8209d54b2e86d52">clear</a>(commandBuffer); }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keywordtype">void</span> DepthBuffer::onReset() { cleared = <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keywordtype">void</span> DepthBuffer::doStartOutput(<span class="keyword">const</span> <a class="code hl_struct" href="a05580.html">rg::ExecutionContext</a>&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordflow">if</span> (!cleared) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        cleared = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <a class="code hl_function" href="a05536.html#a3a564637ef13c1b92d213d81ff50399f">clear</a>(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.commandBuffer);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a05536.html#abfcc6d8459c763c7d79ede3086d2ef1e">   43</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05536.html#abfcc6d8459c763c7d79ede3086d2ef1e">DepthBuffer::ensureValid</a>(<span class="keyword">const</span> glm::u32vec2&amp; size, VkSampleCountFlagBits samples) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> (buffer) { buffer-&gt;<a class="code hl_function" href="a06076.html#adb834dd9c4b4aea620b0d66ef591bb35">ensureValid</a>(size, samples); }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a05598.html#a63a3e675fdb6fa2095e17e1d05d3f57a">   38</a></span><a class="code hl_struct" href="a05594.html">GraphAsset</a>* <a class="code hl_function" href="a05598.html#a63a3e675fdb6fa2095e17e1d05d3f57a">GraphAssetPool::getFinalOutput</a>() {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">auto</span>&amp; set = assets[<a class="code hl_variable" href="a05586.html#ae7fa88a06ee1be0c8f575b9eeaa29fa0">AssetTags::FinalFrameOutput</a>];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (set.size() != 1) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Swap frame output is missing from asset pool&quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">return</span> &amp;set.front();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>}</div>
 </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00548_html"><div class="ttname"><a href="a00548.html">DepthBuffer.hpp</a></div></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05598.html#a5f93b21507f5b0943195eb8555aad197">   46</a></span><a class="code hl_struct" href="a05594.html">GraphAsset</a>* <a class="code hl_function" href="a05598.html#a5f93b21507f5b0943195eb8555aad197">GraphAssetPool::getAssetForOutput</a>(std::string_view tag, <a class="code hl_class" href="a05646.html">Task</a>* <a class="code hl_variable" href="a02348.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>,</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                              std::string_view purpose) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <a class="code hl_class" href="a05522.html">Asset</a>* asset = pool.<a class="code hl_function" href="a05530.html#a37a92b67a2a1afb525ff1d45099610a6">getAsset</a>(tag, <a class="code hl_variable" href="a02348.html#adac025b94121ea5ab5dd2a3a715ca778">task</a> != <span class="keyword">nullptr</span> ? <span class="keyword">this</span> : <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span> (asset) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="comment">// dont return non-external assets for inputs</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="a02348.html#adac025b94121ea5ab5dd2a3a715ca778">task</a> &amp;&amp; !asset-&gt;<a class="code hl_function" href="a05522.html#a41d5c8b6593d33a48d60872677275822">isExternal</a>()) { <span class="keywordflow">return</span> <span class="keyword">nullptr</span>; }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">auto</span>&amp; set            = assets[tag];</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">const</span> <span class="keywordtype">bool</span> createNew = !asset-&gt;<a class="code hl_function" href="a05522.html#a41d5c8b6593d33a48d60872677275822">isExternal</a>() || set.empty();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_struct" href="a05594.html">GraphAsset</a>* ga       = createNew ? &amp;set.emplace_back(asset) : &amp;set.front();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        setPurpose(*ga, purpose);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">if</span> (createNew) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            emitter.emit&lt;<a class="code hl_struct" href="a05482.html">event::SceneGraphAssetCreated</a>&gt;(</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                {.target = owner, .scene = scene, .asset = ga});</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        }</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">return</span> ga;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="foldopen" id="foldopen00066" data-start="{" data-end="}">
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="a05598.html#ad9775f60e2f18bf281982d09d783d014">   66</a></span><a class="code hl_struct" href="a05594.html">GraphAsset</a>* <a class="code hl_function" href="a05598.html#ad9775f60e2f18bf281982d09d783d014">GraphAssetPool::getAssetForSharedOutput</a>(</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    std::string_view tag, <span class="keyword">const</span> <span class="keyword">decltype</span>(<a class="code hl_variable" href="a05666.html#a0a1e6725343f67aa915f12711a1dfb55">TaskOutput::sharedWith</a>)&amp; sharedWith,</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    std::string_view purpose) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = assets.find(tag);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keywordflow">if</span> (it != assets.end()) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; asset : it-&gt;second) {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keywordflow">for</span> (<span class="keyword">auto</span>* other : asset.outputtedBy) {</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; tag : sharedWith) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    <span class="keywordflow">if</span> (other-&gt;getId() == tag) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                        setPurpose(asset, purpose);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                        <span class="keywordflow">return</span> &amp;asset;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                    }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="a05598.html#a8ac87df76a2f7472fd3fc9bcba726908">   85</a></span><a class="code hl_struct" href="a05594.html">GraphAsset</a>* <a class="code hl_function" href="a05598.html#a8ac87df76a2f7472fd3fc9bcba726908">GraphAssetPool::getAssetForInput</a>(std::string_view tag, std::string_view purpose) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">// search for existing asset before falling back onto pool</span></div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keyword">const</span> <span class="keyword">auto</span> it = assets.find(tag);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (it != assets.end() &amp;&amp; it-&gt;second.size() == 1) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        setPurpose(it-&gt;second.front(), purpose);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> &amp;it-&gt;second.front();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="comment">// fallback into pool to find external asset</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a05598.html#a5f93b21507f5b0943195eb8555aad197">getAssetForOutput</a>(tag, <span class="keyword">nullptr</span>, purpose);</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="a05598.html#a2856f61c1bec3c0083efc29610516288">   97</a></span><a class="code hl_struct" href="a05594.html">GraphAsset</a>* <a class="code hl_function" href="a05598.html#a2856f61c1bec3c0083efc29610516288">GraphAssetPool::createAsset</a>(std::string_view tag, std::string_view purpose) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">auto</span>&amp; set         = assets[tag];</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <a class="code hl_struct" href="a05594.html">GraphAsset</a>&amp; asset = set.emplace_back(pool.<a class="code hl_function" href="a05530.html#a6af42836614b9d28b9227bb2d9665876">getOrCreateAsset</a>(tag, <span class="keyword">this</span>));</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    setPurpose(asset, purpose);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    emitter.emit&lt;<a class="code hl_struct" href="a05482.html">event::SceneGraphAssetCreated</a>&gt;({.target = owner, .scene = scene, .asset = &amp;asset});</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> &amp;asset;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="foldopen" id="foldopen00105" data-start="{" data-end="}">
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="a05598.html#a099f1d0022b8e681b04e91c422c991dd">  105</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05598.html#a099f1d0022b8e681b04e91c422c991dd">GraphAssetPool::reset</a>() {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    pool.<a class="code hl_function" href="a05530.html#ab583deaf609eccab3a4d1bc42bbe5b6d">reset</a>(<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    assets.clear();</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>}</div>
+</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keywordtype">void</span> GraphAssetPool::setPurpose(<a class="code hl_struct" href="a05594.html">GraphAsset</a>&amp; asset, std::string_view purpose) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">if</span> (!asset.<a class="code hl_variable" href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose.empty() &amp;&amp; !purpose.empty() &amp;&amp; asset.<a class="code hl_variable" href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose != purpose) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <a class="code hl_define" href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a> &lt;&lt; <span class="stringliteral">&quot;Same asset (&quot;</span> &lt;&lt; asset.<a class="code hl_variable" href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;<a class="code hl_function" href="a05522.html#a21f7426568111c24acf8af2ccf3dafd8">getTag</a>()</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                    &lt;&lt; <span class="stringliteral">&quot;) used for multiple purposes: &quot;</span> &lt;&lt; asset.<a class="code hl_variable" href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose &lt;&lt; <span class="stringliteral">&quot; and &quot;</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                    &lt;&lt; purpose &lt;&lt; <span class="stringliteral">&quot;. This may cause issues with descriptor sets&quot;</span>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    asset.<a class="code hl_variable" href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>-&gt;purpose = purpose;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>} <span class="comment">// namespace rg</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa00365_html_af954e63cd52a20dcd7087a8c569f373f"><div class="ttname"><a href="a00365.html#af954e63cd52a20dcd7087a8c569f373f">BL_LOG_WARN</a></div><div class="ttdeci">#define BL_LOG_WARN</div><div class="ttdoc">Helper macro to log at warn level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00104">Logger.hpp:104</a></div></div>
+<div class="ttc" id="aa00497_html"><div class="ttname"><a href="a00497.html">GraphAssetPool.hpp</a></div></div>
+<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">Task.hpp</a></div></div>
 <div class="ttc" id="aa00674_html"><div class="ttname"><a href="a00674.html">AssetTags.hpp</a></div></div>
-<div class="ttc" id="aa00773_html"><div class="ttname"><a href="a00773.html">RenderTarget.hpp</a></div></div>
-<div class="ttc" id="aa02816_html_aed1171abd529e4d892f21a37c79b5e0b"><div class="ttname"><a href="a02816.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a></div><div class="ttdeci">as::TypedRef&lt; asi::SoundPayload &gt; buffer</div><div class="ttdef"><b>Definition</b> <a href="a02816_source.html#l00021">AudioSystem.cpp:21</a></div></div>
-<div class="ttc" id="aa02858_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03124_html_ga2c11be5e5fdb9ab8864047741d665d59"><div class="ttname"><a href="a03124.html#ga2c11be5e5fdb9ab8864047741d665d59">bl::rc::sri::DepthBufferResourceKey</a></div><div class="ttdeci">constexpr sr::Key&lt; DepthBufferShaderResource &gt; DepthBufferResourceKey</div><div class="ttdoc">Shader resource key for the depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00095">DepthBufferShaderResource.hpp:95</a></div></div>
-<div class="ttc" id="aa03124_html_gga3dcc36a289dbe2cd2b0bac51fcf14713a83d694b8b98b155b8817ac412c4d3e9c"><div class="ttname"><a href="a03124.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a83d694b8b98b155b8817ac412c4d3e9c">bl::rc::sr::StoreKey::Observer</a></div><div class="ttdeci">@ Observer</div><div class="ttdoc">The resource store for an observer and all of its scenes.</div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05536_html"><div class="ttname"><a href="a05536.html">bl::rc::rgi::DepthBuffer</a></div><div class="ttdoc">Wrapper asset around the global renderer depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00548_source.html#l00023">DepthBuffer.hpp:23</a></div></div>
-<div class="ttc" id="aa05536_html_a3a564637ef13c1b92d213d81ff50399f"><div class="ttname"><a href="a05536.html#a3a564637ef13c1b92d213d81ff50399f">bl::rc::rgi::DepthBuffer::clear</a></div><div class="ttdeci">void clear(VkCommandBuffer commandBuffer)</div><div class="ttdoc">Clears the depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00032">DepthBuffer.cpp:32</a></div></div>
-<div class="ttc" id="aa05536_html_a4ca96114e403caf45da92ae3ab4ed672"><div class="ttname"><a href="a05536.html#a4ca96114e403caf45da92ae3ab4ed672">bl::rc::rgi::DepthBuffer::setSizeMode</a></div><div class="ttdeci">void setSizeMode(sri::DepthBufferShaderResource::SizeMode mode)</div><div class="ttdoc">Called by the final asset in order to properly size the depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00028">DepthBuffer.cpp:28</a></div></div>
-<div class="ttc" id="aa05536_html_abfcc6d8459c763c7d79ede3086d2ef1e"><div class="ttname"><a href="a05536.html#abfcc6d8459c763c7d79ede3086d2ef1e">bl::rc::rgi::DepthBuffer::ensureValid</a></div><div class="ttdeci">void ensureValid(const glm::u32vec2 &amp;size, VkSampleCountFlagBits sampleCount)</div><div class="ttdoc">Recreates the depth buffer with the given size and sample count if it does not match.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00043">DepthBuffer.cpp:43</a></div></div>
-<div class="ttc" id="aa05536_html_ac7f99857bc3b6949b2be5fd3ab2b6cf1"><div class="ttname"><a href="a05536.html#ac7f99857bc3b6949b2be5fd3ab2b6cf1">bl::rc::rgi::DepthBuffer::DepthBuffer</a></div><div class="ttdeci">DepthBuffer()</div><div class="ttdoc">Creates the depth buffer asset.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00014">DepthBuffer.cpp:14</a></div></div>
-<div class="ttc" id="aa05580_html"><div class="ttname"><a href="a05580.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00662_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
-<div class="ttc" id="aa05592_html"><div class="ttname"><a href="a05592.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a09748_source.html#l00032">InitContext.hpp:32</a></div></div>
-<div class="ttc" id="aa06076_html_a0017d48c6bab3a2229e3f8914d9df89a"><div class="ttname"><a href="a06076.html#a0017d48c6bab3a2229e3f8914d9df89a">bl::rc::sri::DepthBufferShaderResource::SizeMode</a></div><div class="ttdeci">SizeMode</div><div class="ttdoc">How the depth buffer is sized.</div><div class="ttdef"><b>Definition</b> <a href="a00968_source.html#l00026">DepthBufferShaderResource.hpp:26</a></div></div>
-<div class="ttc" id="aa06076_html_a74037c9f861294a0c8209d54b2e86d52"><div class="ttname"><a href="a06076.html#a74037c9f861294a0c8209d54b2e86d52">bl::rc::sri::DepthBufferShaderResource::clear</a></div><div class="ttdeci">void clear(VkCommandBuffer commandBuffer)</div><div class="ttdoc">Clears the depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02480_source.html#l00018">DepthBufferShaderResource.cpp:18</a></div></div>
-<div class="ttc" id="aa06076_html_adb834dd9c4b4aea620b0d66ef591bb35"><div class="ttname"><a href="a06076.html#adb834dd9c4b4aea620b0d66ef591bb35">bl::rc::sri::DepthBufferShaderResource::ensureValid</a></div><div class="ttdeci">void ensureValid(const glm::u32vec2 &amp;size, VkSampleCountFlagBits sampleCount)</div><div class="ttdoc">Recreates the depth buffer with the given size and sample count if it does not match.</div><div class="ttdef"><b>Definition</b> <a href="a02480_source.html#l00087">DepthBufferShaderResource.cpp:87</a></div></div>
-<div class="ttc" id="aa06076_html_ae4b01809184985589857a5f4407c484f"><div class="ttname"><a href="a06076.html#ae4b01809184985589857a5f4407c484f">bl::rc::sri::DepthBufferShaderResource::setSizeMode</a></div><div class="ttdeci">void setSizeMode(SizeMode mode)</div><div class="ttdoc">Called by the final asset in order to properly size the depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02480_source.html#l00024">DepthBufferShaderResource.cpp:24</a></div></div>
-<div class="ttc" id="aa09586_html"><div class="ttname"><a href="a09586.html">Engine.hpp</a></div></div>
-<div class="ttc" id="aa09718_html"><div class="ttname"><a href="a09718.html">Renderer.hpp</a></div></div>
+<div class="ttc" id="aa02348_html_adac025b94121ea5ab5dd2a3a715ca778"><div class="ttname"><a href="a02348.html#adac025b94121ea5ab5dd2a3a715ca778">task</a></div><div class="ttdeci">Task * task</div><div class="ttdef"><b>Definition</b> <a href="a02348_source.html#l00023">Timeline.cpp:23</a></div></div>
+<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05482_html"><div class="ttname"><a href="a05482.html">bl::rc::event::SceneGraphAssetCreated</a></div><div class="ttdoc">Fired when a new asset is created for a scene render graph. The asset will not have been initialized ...</div><div class="ttdef"><b>Definition</b> <a href="a00746_source.html#l00024">GraphEvents.hpp:24</a></div></div>
+<div class="ttc" id="aa05522_html"><div class="ttname"><a href="a05522.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a09752_source.html#l00039">Asset.hpp:39</a></div></div>
+<div class="ttc" id="aa05522_html_a21f7426568111c24acf8af2ccf3dafd8"><div class="ttname"><a href="a05522.html#a21f7426568111c24acf8af2ccf3dafd8">bl::rc::rg::Asset::getTag</a></div><div class="ttdeci">std::string_view getTag() const</div><div class="ttdoc">Returns the tag of this asset.</div><div class="ttdef"><b>Definition</b> <a href="a09752_source.html#l00092">Asset.hpp:92</a></div></div>
+<div class="ttc" id="aa05522_html_a41d5c8b6593d33a48d60872677275822"><div class="ttname"><a href="a05522.html#a41d5c8b6593d33a48d60872677275822">bl::rc::rg::Asset::isExternal</a></div><div class="ttdeci">bool isExternal() const</div><div class="ttdoc">Returns true if the asset was manually created, false if created by the factory.</div><div class="ttdef"><b>Definition</b> <a href="a09752_source.html#l00102">Asset.hpp:102</a></div></div>
+<div class="ttc" id="aa05530_html"><div class="ttname"><a href="a05530.html">bl::rc::rg::AssetPool</a></div><div class="ttdoc">Observer level asset pool that owns assets directly.</div><div class="ttdef"><b>Definition</b> <a href="a00506_source.html#l00028">AssetPool.hpp:28</a></div></div>
+<div class="ttc" id="aa05530_html_a37a92b67a2a1afb525ff1d45099610a6"><div class="ttname"><a href="a05530.html#a37a92b67a2a1afb525ff1d45099610a6">bl::rc::rg::AssetPool::getAsset</a></div><div class="ttdeci">Asset * getAsset(std::string_view tag, GraphAssetPool *requester)</div><div class="ttdoc">Fetches an existing asset from the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02342_source.html#l00024">AssetPool.cpp:24</a></div></div>
+<div class="ttc" id="aa05530_html_a6af42836614b9d28b9227bb2d9665876"><div class="ttname"><a href="a05530.html#a6af42836614b9d28b9227bb2d9665876">bl::rc::rg::AssetPool::getOrCreateAsset</a></div><div class="ttdeci">Asset * getOrCreateAsset(std::string_view tag, GraphAssetPool *requester)</div><div class="ttdoc">Gets or creates an asset of the given tag for the given pool.</div><div class="ttdef"><b>Definition</b> <a href="a02342_source.html#l00040">AssetPool.cpp:40</a></div></div>
+<div class="ttc" id="aa05530_html_ab583deaf609eccab3a4d1bc42bbe5b6d"><div class="ttname"><a href="a05530.html#ab583deaf609eccab3a4d1bc42bbe5b6d">bl::rc::rg::AssetPool::reset</a></div><div class="ttdeci">void reset(GraphAssetPool *pool)</div><div class="ttdoc">Resets resources used by the given pool.</div><div class="ttdef"><b>Definition</b> <a href="a02342_source.html#l00062">AssetPool.cpp:62</a></div></div>
+<div class="ttc" id="aa05538_html"><div class="ttname"><a href="a05538.html">bl::rc::rg::AssetRef</a></div><div class="ttdoc">Handle to an asset in an AssetPool.</div><div class="ttdef"><b>Definition</b> <a href="a00518_source.html#l00017">AssetRef.hpp:17</a></div></div>
+<div class="ttc" id="aa05586_html_ae7fa88a06ee1be0c8f575b9eeaa29fa0"><div class="ttname"><a href="a05586.html#ae7fa88a06ee1be0c8f575b9eeaa29fa0">bl::rc::rg::AssetTags::FinalFrameOutput</a></div><div class="ttdeci">static constexpr std::string_view FinalFrameOutput</div><div class="ttdef"><b>Definition</b> <a href="a00674_source.html#l00021">AssetTags.hpp:21</a></div></div>
+<div class="ttc" id="aa05594_html"><div class="ttname"><a href="a05594.html">bl::rc::rg::GraphAsset</a></div><div class="ttdoc">Wrapper around AssetRef for assets owned by a RenderGraph instance.</div><div class="ttdef"><b>Definition</b> <a href="a00671_source.html#l00021">GraphAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa05594_html_a6215eb2ba33408469b3d677370b66c1c"><div class="ttname"><a href="a05594.html#a6215eb2ba33408469b3d677370b66c1c">bl::rc::rg::GraphAsset::asset</a></div><div class="ttdeci">AssetRef asset</div><div class="ttdef"><b>Definition</b> <a href="a00671_source.html#l00022">GraphAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa05598_html_a099f1d0022b8e681b04e91c422c991dd"><div class="ttname"><a href="a05598.html#a099f1d0022b8e681b04e91c422c991dd">bl::rc::rg::GraphAssetPool::reset</a></div><div class="ttdeci">void reset()</div><div class="ttdoc">Releases all held assets to allow rebuilding of the graph.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00105">GraphAssetPool.cpp:105</a></div></div>
+<div class="ttc" id="aa05598_html_a2856f61c1bec3c0083efc29610516288"><div class="ttname"><a href="a05598.html#a2856f61c1bec3c0083efc29610516288">bl::rc::rg::GraphAssetPool::createAsset</a></div><div class="ttdeci">GraphAsset * createAsset(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Creates a new asset with the given tag and creator.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00097">GraphAssetPool.cpp:97</a></div></div>
+<div class="ttc" id="aa05598_html_a54bb399d6ae205a8c4107ee6ccc5e426"><div class="ttname"><a href="a05598.html#a54bb399d6ae205a8c4107ee6ccc5e426">bl::rc::rg::GraphAssetPool::GraphAssetPool</a></div><div class="ttdeci">GraphAssetPool(Renderer &amp;renderer, AssetPool &amp;pool, RenderTarget *owner, Scene *scene)</div><div class="ttdoc">Creates the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00015">GraphAssetPool.cpp:15</a></div></div>
+<div class="ttc" id="aa05598_html_a5f93b21507f5b0943195eb8555aad197"><div class="ttname"><a href="a05598.html#a5f93b21507f5b0943195eb8555aad197">bl::rc::rg::GraphAssetPool::getAssetForOutput</a></div><div class="ttdeci">GraphAsset * getAssetForOutput(std::string_view tag, Task *task, std::string_view purpose)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as an output.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00046">GraphAssetPool.cpp:46</a></div></div>
+<div class="ttc" id="aa05598_html_a63a3e675fdb6fa2095e17e1d05d3f57a"><div class="ttname"><a href="a05598.html#a63a3e675fdb6fa2095e17e1d05d3f57a">bl::rc::rg::GraphAssetPool::getFinalOutput</a></div><div class="ttdeci">GraphAsset * getFinalOutput()</div><div class="ttdoc">Fetches the swap frame asset from the pool.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00038">GraphAssetPool.cpp:38</a></div></div>
+<div class="ttc" id="aa05598_html_a8ac87df76a2f7472fd3fc9bcba726908"><div class="ttname"><a href="a05598.html#a8ac87df76a2f7472fd3fc9bcba726908">bl::rc::rg::GraphAssetPool::getAssetForInput</a></div><div class="ttdeci">GraphAsset * getAssetForInput(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as an input. Only use for external assets....</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00085">GraphAssetPool.cpp:85</a></div></div>
+<div class="ttc" id="aa05598_html_ad67e17e872f263eaa2bf665cf3aea80a"><div class="ttname"><a href="a05598.html#ad67e17e872f263eaa2bf665cf3aea80a">bl::rc::rg::GraphAssetPool::getAssetForAsset</a></div><div class="ttdeci">AssetRef getAssetForAsset(std::string_view tag, std::string_view purpose)</div><div class="ttdoc">Gets or creates an asset to be used by another asset.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00023">GraphAssetPool.cpp:23</a></div></div>
+<div class="ttc" id="aa05598_html_ad9775f60e2f18bf281982d09d783d014"><div class="ttname"><a href="a05598.html#ad9775f60e2f18bf281982d09d783d014">bl::rc::rg::GraphAssetPool::getAssetForSharedOutput</a></div><div class="ttdeci">GraphAsset * getAssetForSharedOutput(std::string_view tag, const decltype(TaskOutput::sharedWith)&amp;sharedWith, std::string_view purpose)</div><div class="ttdoc">Fetch an existing asset from the pool to be used as a shared output.</div><div class="ttdef"><b>Definition</b> <a href="a02264_source.html#l00066">GraphAssetPool.cpp:66</a></div></div>
+<div class="ttc" id="aa05646_html"><div class="ttname"><a href="a05646.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition</b> <a href="a00620_source.html#l00030">Task.hpp:30</a></div></div>
+<div class="ttc" id="aa05666_html_a0a1e6725343f67aa915f12711a1dfb55"><div class="ttname"><a href="a05666.html#a0a1e6725343f67aa915f12711a1dfb55">bl::rc::rg::TaskOutput::sharedWith</a></div><div class="ttdeci">ctr::StaticVector&lt; std::string_view, 4 &gt; sharedWith</div><div class="ttdef"><b>Definition</b> <a href="a00638_source.html#l00087">TaskOutput.hpp:87</a></div></div>
+<div class="ttc" id="aa05878_html"><div class="ttname"><a href="a05878.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa05878_html_a743526c33f2fa24840c00326554fe64f"><div class="ttname"><a href="a05878.html#a743526c33f2fa24840c00326554fe64f">bl::rc::Renderer::getSignalChannel</a></div><div class="ttdeci">sig::Channel &amp; getSignalChannel()</div><div class="ttdoc">Returns the channel for renderer events.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00461">Renderer.hpp:461</a></div></div>
+<div class="ttc" id="aa05882_html"><div class="ttname"><a href="a05882.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a00773_source.html#l00030">RenderTarget.hpp:30</a></div></div>
+<div class="ttc" id="aa05998_html"><div class="ttname"><a href="a05998.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="ttc" id="aa09734_html"><div class="ttname"><a href="a09734.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

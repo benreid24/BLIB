@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: Streams</title>
+<title>BLIB: Parser</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -75,144 +75,39 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">Streams</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">Parser</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Custom stream classes for handling file, buffer, and wrapper cases.  
+<p>Collection of classes implementing a generic LR0 parser.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06808.html">bl::stream::InputStream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal input stream which can operate on files, buffers, and other streams.  <a href="a06808.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05106.html">bl::parser::ISkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for custom parsers to skip past unwanted characters such as whitespace or comments.  <a href="a05106.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06820.html">bl::stream::OutputStream</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal output stream which can operate on files, buffers, and other streams.  <a href="a06820.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05110.html">bl::parser::Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a basic parse node. Can be both tokens (terminals) or non terminal grammar elements.  <a href="a05110.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06824.html">bl::stream::SfInputStreamAdaptor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptor class to wrap an <a class="el" href="a06808.html" title="Universal input stream which can operate on files, buffers, and other streams.">InputStream</a> for use with SFML.  <a href="a06824.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05118.html">bl::parser::Parser</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level <a class="el" href="a05118.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a05090.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence.">Grammar</a> and <a class="el" href="a05134.html" title="Utility class for a Parser to break down an input string into tokens.">Tokenizer</a>.  <a href="a05118.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gad28ae24b17733287821dbabe2e610c0c" id="r_gad28ae24b17733287821dbabe2e610c0c"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03128.html#gad28ae24b17733287821dbabe2e610c0c">bl::stream::Mode</a> { <br />
-&#160;&#160;<a class="el" href="a03128.html#ggad28ae24b17733287821dbabe2e610c0ca88183b946cc5f0e8c96b2e66e1c74a7e">bl::stream::Mode::Unknown</a>
-, <a class="el" href="a03128.html#ggad28ae24b17733287821dbabe2e610c0ca0b27918290ff5323bea1e3b78a9cf04e">bl::stream::Mode::File</a>
-, <a class="el" href="a03128.html#ggad28ae24b17733287821dbabe2e610c0ca109f548676125cad46c0f2da5db9f8eb">bl::stream::Mode::FileSection</a>
-, <a class="el" href="a03128.html#ggad28ae24b17733287821dbabe2e610c0ca4789f23283b3a61f858b641a1bef19a3">bl::stream::Mode::Memory</a>
-, <br />
-&#160;&#160;<a class="el" href="a03128.html#ggad28ae24b17733287821dbabe2e610c0cae229a672e0df4c202a248ad2e24adab8">bl::stream::Mode::Wrapper</a>
-<br />
- }</td></tr>
-<tr class="memdesc:gad28ae24b17733287821dbabe2e610c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the various modes a stream may operate in.  <a href="a03128.html#gad28ae24b17733287821dbabe2e610c0c">More...</a><br /></td></tr>
-<tr class="separator:gad28ae24b17733287821dbabe2e610c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga1d6436746bdb26fe949bc13d6420f97f" id="r_ga1d6436746bdb26fe949bc13d6420f97f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ga1d6436746bdb26fe949bc13d6420f97f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a06820.html">OutputStream</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03128.html#ga1d6436746bdb26fe949bc13d6420f97f">bl::stream::operator&lt;&lt;</a> (<a class="el" href="a06820.html">OutputStream</a> &amp;stream, const T &amp;value)</td></tr>
-<tr class="memdesc:ga1d6436746bdb26fe949bc13d6420f97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to provide stream operator for output stream.  <br /></td></tr>
-<tr class="separator:ga1d6436746bdb26fe949bc13d6420f97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05130.html">bl::parser::Stream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper class around std::ostream. Used for keeping track of current line and column numbers.  <a href="a05130.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05134.html">bl::parser::Tokenizer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Utility class for a <a class="el" href="a05118.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> to break down an input string into tokens.  <a href="a05134.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Custom stream classes for handling file, buffer, and wrapper cases. </p>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="gad28ae24b17733287821dbabe2e610c0c" name="gad28ae24b17733287821dbabe2e610c0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gad28ae24b17733287821dbabe2e610c0c">&#9670;&#160;</a></span>Mode</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum struct <a class="el" href="a03128.html#gad28ae24b17733287821dbabe2e610c0c">bl::stream::Mode</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Represents the various modes a stream may operate in. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca88183b946cc5f0e8c96b2e66e1c74a7e" name="ggad28ae24b17733287821dbabe2e610c0ca88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>The stream is uninitialized or failed. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca0b27918290ff5323bea1e3b78a9cf04e" name="ggad28ae24b17733287821dbabe2e610c0ca0b27918290ff5323bea1e3b78a9cf04e"></a>File&#160;</td><td class="fielddoc"><p>The stream is reading from a file. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca109f548676125cad46c0f2da5db9f8eb" name="ggad28ae24b17733287821dbabe2e610c0ca109f548676125cad46c0f2da5db9f8eb"></a>FileSection&#160;</td><td class="fielddoc"><p>The stream is reading from a section of a file. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca4789f23283b3a61f858b641a1bef19a3" name="ggad28ae24b17733287821dbabe2e610c0ca4789f23283b3a61f858b641a1bef19a3"></a>Memory&#160;</td><td class="fielddoc"><p>The stream is reading from a block of memory. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0cae229a672e0df4c202a248ad2e24adab8" name="ggad28ae24b17733287821dbabe2e610c0cae229a672e0df4c202a248ad2e24adab8"></a>Wrapper&#160;</td><td class="fielddoc"><p>The stream is wrapping an external std::istream. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a09835_source.html#l00013">13</a> of file <a class="el" href="a09835_source.html">Mode.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ga1d6436746bdb26fe949bc13d6420f97f" name="ga1d6436746bdb26fe949bc13d6420f97f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1d6436746bdb26fe949bc13d6420f97f">&#9670;&#160;</a></span>operator&lt;&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a06820.html">OutputStream</a> &amp; bl::stream::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a06820.html">OutputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>value</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper method to provide stream operator for output stream. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>The stream to write to </td></tr>
-    <tr><td class="paramname">value</td><td>The value to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The stream that was written to </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00141">141</a> of file <a class="el" href="a00356_source.html">OutputStream.hpp</a>.</p>
-
-</div>
-</div>
+<p>Collection of classes implementing a generic LR0 parser. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

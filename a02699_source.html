@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Assets/Builtin/ModelPayload.cpp Source File</title>
+<title>BLIB: src/Assets/Builtin/PlaylistPayload.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,41 +83,67 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ModelPayload.cpp</div></div>
+  <div class="headertitle"><div class="title">PlaylistPayload.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02699.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01328.html">BLIB/Assets/Builtin/ModelPayload.hpp</a>&gt;</span></div>
+<a href="a02699.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01334.html">BLIB/Assets/Builtin/PlaylistPayload.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>asi</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03404.html#a91ccbb27929bcf56dbe9281bb3604f35">    7</a></span><a class="code hl_function" href="a03404.html#a91ccbb27929bcf56dbe9281bb3604f35">ModelPayload::ModelPayload</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03632.html">as::Payload::ConstructContext</a>&amp; <a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: as::Payload(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, nodes()</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>, meshes()</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, bones()</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>, materials(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;material&quot;</span>)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, animations(<a class="code hl_variable" href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;animation&quot;</span>) {}</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03418.html#adf2a0dbb60187fd20c83a64ccc4322a9">    7</a></span><a class="code hl_function" href="a03418.html#adf2a0dbb60187fd20c83a64ccc4322a9">PlaylistPayload::PlaylistPayload</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03638.html">as::Payload::ConstructContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: Payload(<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, songs(<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.repo, *this, <span class="stringliteral">&quot;songs&quot;</span>)</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>, shuffle(true)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>, reshuffleOnLoop(true) {}</div>
 </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno"><a class="line" href="a03418.html#aa18c79ddee00560f5e69f787fa27ecf4">   13</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03418.html#aa18c79ddee00560f5e69f787fa27ecf4">PlaylistPayload::addSong</a>(<a class="code hl_class" href="a07074.html">util::UUID</a> song) { <span class="keywordflow">return</span> songs.addDependency(song); }</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03404.html#a05dc4e0ecca56748f66ebffae8e04153">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03404.html#a05dc4e0ecca56748f66ebffae8e04153">ModelPayload::flipUVs</a>() { meshes.<a class="code hl_function" href="a05024.html#a5b8f5f5851979c72e14d13fcaae5bea8">flipUVs</a>(); }</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03418.html#a1fd808a7eade65413a1bbce6d8be6302">   15</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03418.html#a1fd808a7eade65413a1bbce6d8be6302">PlaylistPayload::removeSong</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i) { <span class="keywordflow">return</span> songs.removeDependency(i); }</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace asi</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01328_html"><div class="ttname"><a href="a01328.html">ModelPayload.hpp</a></div></div>
-<div class="ttc" id="aa02858_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02858.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02858_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03404_html_a05dc4e0ecca56748f66ebffae8e04153"><div class="ttname"><a href="a03404.html#a05dc4e0ecca56748f66ebffae8e04153">bl::asi::ModelPayload::flipUVs</a></div><div class="ttdeci">void flipUVs()</div><div class="ttdoc">Flips the V texture coordinates of all meshes in the model.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00015">ModelPayload.cpp:15</a></div></div>
-<div class="ttc" id="aa03404_html_a91ccbb27929bcf56dbe9281bb3604f35"><div class="ttname"><a href="a03404.html#a91ccbb27929bcf56dbe9281bb3604f35">bl::asi::ModelPayload::ModelPayload</a></div><div class="ttdeci">ModelPayload(const as::Payload::ConstructContext &amp;ctx)</div><div class="ttdoc">Creates an empty model payload.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00007">ModelPayload.cpp:7</a></div></div>
-<div class="ttc" id="aa03632_html"><div class="ttname"><a href="a03632.html">bl::as::Payload::ConstructContext</a></div><div class="ttdoc">Struct of parameters passed to Payload constructors. All derived classes should be constructible from...</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00035">Payload.hpp:35</a></div></div>
-<div class="ttc" id="aa05024_html_a5b8f5f5851979c72e14d13fcaae5bea8"><div class="ttname"><a href="a05024.html#a5b8f5f5851979c72e14d13fcaae5bea8">bl::mdl::MeshSet::flipUVs</a></div><div class="ttdeci">void flipUVs()</div><div class="ttdoc">Flips the V texture coordinates of all meshes in the set.</div><div class="ttdef"><b>Definition</b> <a href="a02819_source.html#l00014">MeshSet.cpp:14</a></div></div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03418.html#a49e96cf86bf088d7202c5d3b26c18968">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03418.html#a49e96cf86bf088d7202c5d3b26c18968">PlaylistPayload::setShuffle</a>(<span class="keywordtype">bool</span> s) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    shuffle = s;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_function" href="a03634.html#a7cd4861d86fd68298dda54a7bbd814e8">flush</a>();</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03418.html#a73eb144851e099fcd42bb49131deb932">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03418.html#a73eb144851e099fcd42bb49131deb932">PlaylistPayload::setReshuffleOnLoop</a>(<span class="keywordtype">bool</span> r) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    reshuffleOnLoop = r;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="a03634.html#a7cd4861d86fd68298dda54a7bbd814e8">flush</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
+</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="}">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a03418.html#a07156349c69c54643b894f6ccadedba7">   27</a></span><a class="code hl_class" href="a03678.html">as::TypedRef&lt;MusicPayload&gt;</a> <a class="code hl_function" href="a03418.html#a07156349c69c54643b894f6ccadedba7">PlaylistPayload::getSong</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> songs.getItem(i);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace asi</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01334_html"><div class="ttname"><a href="a01334.html">PlaylistPayload.hpp</a></div></div>
+<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03418_html_a07156349c69c54643b894f6ccadedba7"><div class="ttname"><a href="a03418.html#a07156349c69c54643b894f6ccadedba7">bl::asi::PlaylistPayload::getSong</a></div><div class="ttdeci">as::TypedRef&lt; MusicPayload &gt; getSong(unsigned int i) const</div><div class="ttdoc">Returns a ref to the song at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00027">PlaylistPayload.cpp:27</a></div></div>
+<div class="ttc" id="aa03418_html_a1fd808a7eade65413a1bbce6d8be6302"><div class="ttname"><a href="a03418.html#a1fd808a7eade65413a1bbce6d8be6302">bl::asi::PlaylistPayload::removeSong</a></div><div class="ttdeci">bool removeSong(unsigned int i)</div><div class="ttdoc">Removes the song at the given index from the playlist.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00015">PlaylistPayload.cpp:15</a></div></div>
+<div class="ttc" id="aa03418_html_a49e96cf86bf088d7202c5d3b26c18968"><div class="ttname"><a href="a03418.html#a49e96cf86bf088d7202c5d3b26c18968">bl::asi::PlaylistPayload::setShuffle</a></div><div class="ttdeci">void setShuffle(bool shuffle)</div><div class="ttdoc">Sets whether the playlist should shuffle on play.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00017">PlaylistPayload.cpp:17</a></div></div>
+<div class="ttc" id="aa03418_html_a73eb144851e099fcd42bb49131deb932"><div class="ttname"><a href="a03418.html#a73eb144851e099fcd42bb49131deb932">bl::asi::PlaylistPayload::setReshuffleOnLoop</a></div><div class="ttdeci">void setReshuffleOnLoop(bool reshuffleOnLoop)</div><div class="ttdoc">Sets whether the playlist should reshuffle when it loops.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00022">PlaylistPayload.cpp:22</a></div></div>
+<div class="ttc" id="aa03418_html_aa18c79ddee00560f5e69f787fa27ecf4"><div class="ttname"><a href="a03418.html#aa18c79ddee00560f5e69f787fa27ecf4">bl::asi::PlaylistPayload::addSong</a></div><div class="ttdeci">bool addSong(util::UUID song)</div><div class="ttdoc">Adds a song to the playlist.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00013">PlaylistPayload.cpp:13</a></div></div>
+<div class="ttc" id="aa03418_html_adf2a0dbb60187fd20c83a64ccc4322a9"><div class="ttname"><a href="a03418.html#adf2a0dbb60187fd20c83a64ccc4322a9">bl::asi::PlaylistPayload::PlaylistPayload</a></div><div class="ttdeci">PlaylistPayload(const as::Payload::ConstructContext &amp;ctx)</div><div class="ttdoc">Creates an empty playlist payload.</div><div class="ttdef"><b>Definition</b> <a href="a02699_source.html#l00007">PlaylistPayload.cpp:7</a></div></div>
+<div class="ttc" id="aa03634_html_a7cd4861d86fd68298dda54a7bbd814e8"><div class="ttname"><a href="a03634.html#a7cd4861d86fd68298dda54a7bbd814e8">bl::as::Payload::flush</a></div><div class="ttdeci">void flush()</div><div class="ttdoc">Call when the payload content changes. Ensures that changes get saved to disk before unload when in e...</div><div class="ttdef"><b>Definition</b> <a href="a02732_source.html#l00038">Payload.cpp:38</a></div></div>
+<div class="ttc" id="aa03638_html"><div class="ttname"><a href="a03638.html">bl::as::Payload::ConstructContext</a></div><div class="ttdoc">Struct of parameters passed to Payload constructors. All derived classes should be constructible from...</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00035">Payload.hpp:35</a></div></div>
+<div class="ttc" id="aa03678_html"><div class="ttname"><a href="a03678.html">bl::as::TypedRef</a></div><div class="ttdoc">Helper class to reference assets with known payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01388_source.html#l00021">TypedRef.hpp:21</a></div></div>
+<div class="ttc" id="aa07074_html"><div class="ttname"><a href="a07074.html">bl::util::UUID</a></div><div class="ttdoc">UUID Generator.</div><div class="ttdef"><b>Definition</b> <a href="a01442_source.html#l00021">UUID.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:51 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

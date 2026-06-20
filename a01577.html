@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Models/BoneSet.hpp File Reference</title>
+<title>BLIB: include/BLIB/Models/Model.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -81,40 +81,42 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">BoneSet.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Model.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a09547_source.html">BLIB/Models/Bone.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01754_source.html">BLIB/Serialization.hpp</a>&gt;</code><br />
-<code>#include &lt;assimp/scene.h&gt;</code><br />
-<code>#include &lt;optional&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a01592_source.html">BLIB/Models/AnimationSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01580_source.html">BLIB/Models/BoneSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01583_source.html">BLIB/Models/MaterialSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01586_source.html">BLIB/Models/MeshSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01598_source.html">BLIB/Models/NodeSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09863_source.html">BLIB/Models/Visitor.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01757_source.html">BLIB/Serialization.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01577_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04964.html">bl::mdl::BoneSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The set of bones in a model.  <a href="a04964.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05042.html">bl::mdl::Model</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level class representing a 3d model.  <a href="a05042.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a03138" id="r_a03138"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03138.html">bl</a></td></tr>
-<tr class="memdesc:a03138"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl</a></td></tr>
+<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03183" id="r_a03183"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03183.html">bl::mdl</a></td></tr>
-<tr class="memdesc:a03183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains data structures and functionality for 3d models and animations. <br /></td></tr>
+<tr class="memitem:a03189" id="r_a03189"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03189.html">bl::mdl</a></td></tr>
+<tr class="memdesc:a03189"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains data structures and functionality for 3d models and animations. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03142" id="r_a03142"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03142.html">bl::serial</a></td></tr>
-<tr class="memdesc:a03142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
+<tr class="memitem:a03148" id="r_a03148"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03148.html">bl::serial</a></td></tr>
+<tr class="memdesc:a03148"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for serializing and deserializing data. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

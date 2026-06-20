@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::asi Namespace Reference</title>
+<title>BLIB: Binary</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,6 +51,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,113 +73,35 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a03138.html">bl</a></li><li class="navelem"><a class="el" href="a03143.html">asi</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
-  <div class="headertitle"><div class="title">bl::asi Namespace Reference</div></div>
+<a href="#nested-classes">Classes</a>  </div>
+  <div class="headertitle"><div class="title">Binary<div class="ingroups"><a class="el" href="a03132.html">Serialization</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Contains built-in payloads and drivers.  
-<a href="a03143.html#details">More...</a></p>
+<p>Collection of classes and utilities for serializing data to a binary format.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03540.html">Animation2DDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for 2D animation assets.  <a href="a03540.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06446.html">bl::serial::binary::detail::InputStreamWrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A readable stream for binary deserialization.  <a href="a06446.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03332.html">Animation2DPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for a 2D animation asset.  <a href="a03332.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06450.html">bl::serial::binary::detail::OutputStreamWrapper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A writable stream for binary serialization.  <a href="a06450.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03548.html">Animation2DSetDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for 2d animation set assets.  <a href="a03548.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06454.html">bl::serial::binary::Serializer&lt; T, bool &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct for serializing types into binary streams. Integral types, strings, vector, and SerializableObjects are supported out of the box. Specializations may be provided for user defined types.  <a href="a06454.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03356.html">Animation2DSetPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of 2d animations. Used to allow multiple animations to be applied to a single entity while keeping data locality high.  <a href="a03356.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03552.html">CubemapDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset driver for cubemaps.  <a href="a03552.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03368.html">CubemapPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of textures representing the faces of a cubemap.  <a href="a03368.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03556.html">FileDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for generic file assets.  <a href="a03556.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03376.html">FilePayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic payload container for single files.  <a href="a03376.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03560.html">FontDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for font assets.  <a href="a03560.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03380.html">FontPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for fonts. Derived from sf::Font.  <a href="a03380.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03568.html">ImageDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for sf::Image assets.  <a href="a03568.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03576.html">MaterialDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset driver for loading and saving materials.  <a href="a03576.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03392.html">MaterialPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload type for 3d materials.  <a href="a03392.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03580.html">ModelDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset driver for loading and saving 3d models using Assimp.  <a href="a03580.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03404.html">ModelPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for a model asset.  <a href="a03404.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03588.html">MusicDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for sf::Music assets.  <a href="a03588.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03412.html">PlaylistPayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for a music playlist asset.  <a href="a03412.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03596.html">SoundDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for sf::SoundBuffer assets.  <a href="a03596.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03604.html">TextureDriver</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asset driver for loading and saving textures.  <a href="a03604.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03420.html">TexturePayload</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for texture assets. Textures depend on an image asset and provide additional metadata for rendering.  <a href="a03420.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga6e3a353d7ecb7c9e4912c0dcf2ffef38" id="r_ga6e3a353d7ecb7c9e4912c0dcf2ffef38"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#ga6e3a353d7ecb7c9e4912c0dcf2ffef38">Animation3DPayload</a> = <a class="el" href="a03636.html">as::PayloadGeneric</a>&lt; <a class="el" href="a04932.html">mdl::Animation</a> &gt;</td></tr>
-<tr class="memdesc:ga6e3a353d7ecb7c9e4912c0dcf2ffef38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload type for 3d animations.  <br /></td></tr>
-<tr class="separator:ga6e3a353d7ecb7c9e4912c0dcf2ffef38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0cce5013a9bc1f1e7926dabd1ce5c0cf" id="r_ga0cce5013a9bc1f1e7926dabd1ce5c0cf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#ga0cce5013a9bc1f1e7926dabd1ce5c0cf">ImagePayload</a> = <a class="el" href="a03636.html">as::PayloadGeneric</a>&lt; sf::Image &gt;</td></tr>
-<tr class="memdesc:ga0cce5013a9bc1f1e7926dabd1ce5c0cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for sf::Image.  <br /></td></tr>
-<tr class="separator:ga0cce5013a9bc1f1e7926dabd1ce5c0cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8f0fd2cd8f61f859e0406c7cf26c1f93" id="r_ga8f0fd2cd8f61f859e0406c7cf26c1f93"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> = <a class="el" href="a03636.html">as::PayloadGeneric</a>&lt; sf::Music &gt;</td></tr>
-<tr class="memdesc:ga8f0fd2cd8f61f859e0406c7cf26c1f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for sf::Music.  <br /></td></tr>
-<tr class="separator:ga8f0fd2cd8f61f859e0406c7cf26c1f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac8abef62beedefcec7126a3b645b9382" id="r_gac8abef62beedefcec7126a3b645b9382"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#gac8abef62beedefcec7126a3b645b9382">SoundPayload</a> = <a class="el" href="a03636.html">as::PayloadGeneric</a>&lt; sf::SoundBuffer &gt;</td></tr>
-<tr class="memdesc:gac8abef62beedefcec7126a3b645b9382"><td class="mdescLeft">&#160;</td><td class="mdescRight">Payload for sf::SoundBuffer.  <br /></td></tr>
-<tr class="separator:gac8abef62beedefcec7126a3b645b9382"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga83aa4a411cfce8bf48160d4166bd027e" id="r_ga83aa4a411cfce8bf48160d4166bd027e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#ga83aa4a411cfce8bf48160d4166bd027e">Animation3DDriver</a> = <a class="el" href="a03532.html">as::DriverGeneric</a>&lt; <a class="el" href="a03108.html#ga6e3a353d7ecb7c9e4912c0dcf2ffef38">Animation3DPayload</a>, <a class="el" href="a07032.html">util::TemplateString</a>{&quot;Animation3D&quot;}, <a class="el" href="a03432.html">as::bdl::AssetBundleConfig</a>{ .affinity=<a class="el" href="a03432.html#adf5c1b5c9b1d035cec0c507dd03ff74ca30269022e9d8f51beaabb52e5d0de2b7">as::bdl::AssetBundleConfig::Affinity::Parent</a>,.selection=<a class="el" href="a03432.html#aa199a919bfcb44a88933507aa7565af6a3eda2fdb056ffbebae6dc5f66a6c901b">as::bdl::AssetBundleConfig::Selection::NonRoot</a>,.onMount=<a class="el" href="a03432.html#a72a32f3eb90612d172f696c715b5ca06a666482ac64ba886bfd1ed95f50f7b240">as::bdl::AssetBundleConfig::OnMount::WhenRequested</a>}&gt;</td></tr>
-<tr class="memdesc:ga83aa4a411cfce8bf48160d4166bd027e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for 3d model animations.  <br /></td></tr>
-<tr class="separator:ga83aa4a411cfce8bf48160d4166bd027e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga60811d5d8e0b5383a3ac278437ed0573" id="r_ga60811d5d8e0b5383a3ac278437ed0573"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03108.html#ga60811d5d8e0b5383a3ac278437ed0573">PlaylistDriver</a> = <a class="el" href="a03532.html">as::DriverGeneric</a>&lt; <a class="el" href="a03412.html">PlaylistPayload</a>, <a class="el" href="a07032.html">util::TemplateString</a>{&quot;Playlist&quot;}, <a class="el" href="a03432.html">as::bdl::AssetBundleConfig</a>{ .affinity=<a class="el" href="a03432.html#adf5c1b5c9b1d035cec0c507dd03ff74caa1fa27779242b4902f7ae3bdd5c6d508">as::bdl::AssetBundleConfig::Affinity::Type</a>,.selection=<a class="el" href="a03432.html#aa199a919bfcb44a88933507aa7565af6afa03eb688ad8aa1db593d33dabd89bad">as::bdl::AssetBundleConfig::Selection::Root</a>,.onMount=<a class="el" href="a03432.html#a72a32f3eb90612d172f696c715b5ca06a666482ac64ba886bfd1ed95f50f7b240">as::bdl::AssetBundleConfig::OnMount::WhenRequested</a>}&gt;</td></tr>
-<tr class="memdesc:ga60811d5d8e0b5383a3ac278437ed0573"><td class="mdescLeft">&#160;</td><td class="mdescRight">Driver for playlist assets.  <br /></td></tr>
-<tr class="separator:ga60811d5d8e0b5383a3ac278437ed0573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Contains built-in payloads and drivers. </p>
-</div></div><!-- contents -->
+<p>Collection of classes and utilities for serializing data to a binary format. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:52 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

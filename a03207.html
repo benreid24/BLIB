@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::event Namespace Reference</title>
+<title>BLIB: bl::rc::lgt Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,56 +74,81 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03138.html">bl</a></li><li class="navelem"><a class="el" href="a03144.html">rc</a></li><li class="navelem"><a class="el" href="a03207.html">event</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03207.html">lgt</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::event Namespace Reference</div></div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
+  <div class="headertitle"><div class="title">bl::rc::lgt Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of events related to the renderer.  
+<p>Contains the lighting classes for the renderer.  
 <a href="a03207.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05480.html">RenderPassInvalidated</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a render pass is recreated for any reason.  <a href="a05480.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05754.html">Attenuation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing attenuation parameters for 3d lights.  <a href="a05754.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05484.html">SceneDestroyed</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a scene is destroyed. Systems should subscribe to this event in order to correctly update objects that were members of the destroyed scene.  <a href="a05484.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05758.html">Color3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing the color of a 3d light.  <a href="a05758.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05472.html">SceneGraphAssetCreated</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a new asset is created for a scene render graph. The asset will not have been initialized at this point.  <a href="a05472.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05762.html">Light2D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle for a light in a 2d scene.  <a href="a05762.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05476.html">SceneGraphAssetInitialized</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when an asset in a graph timeline is initialized. This means the asset is in use and resources have been created.  <a href="a05476.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05766.html">Light3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a light in 3d scene.  <a href="a05766.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05488.html">SceneObjectRemoved</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when an object is removed from a scene.  <a href="a05488.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05770.html">LightingDescriptor3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct containing lighting info for 3d scenes (excluding point &amp; spot lights)  <a href="a05770.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05492.html">SettingsChanged</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when renderer settings are changed.  <a href="a05492.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html">PointLight3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a 3d point light.  <a href="a05774.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05496.html">ShadowMapsInvalidated</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when shadow maps are re-created and descriptors need to be updated.  <a href="a05496.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05778.html">PointLight3DShadow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Omnidirectional light that casts shadows.  <a href="a05778.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05500.html">TextureFormatChanged</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the underlying VkFormat for a semantic texture format changes.  <a href="a05500.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05786.html">Scene2DLighting</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05794.html" title="POD for 2d scene lighting data.">Lighting</a> manager for 2d scenes.  <a href="a05786.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05504.html">WindowResized</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the renderer window is resized from a user event.  <a href="a05504.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html">Scene3DLighting</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lighting manager for 3d scenes.  <a href="a05798.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05806.html">SpotLight3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a spotlight in a 3d scene.  <a href="a05806.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05810.html">SpotLight3DShadow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">3D spotlight that casts a shadow  <a href="a05810.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05814.html">SunLight3D</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a global directional light in a scene.  <a href="a05814.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:ga43c4ba4ef116220daec99d7ed2e34ed9" id="r_ga43c4ba4ef116220daec99d7ed2e34ed9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html#ga43c4ba4ef116220daec99d7ed2e34ed9">PointLightHandle</a> = <a class="el" href="a05766.html">Light3D</a>&lt; <a class="el" href="a05774.html">PointLight3D</a> &gt;</td></tr>
+<tr class="memdesc:ga43c4ba4ef116220daec99d7ed2e34ed9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a point light in 3d scene.  <br /></td></tr>
+<tr class="separator:ga43c4ba4ef116220daec99d7ed2e34ed9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7a23e7a8ae6e232a0ef97bcbc5d9c2db" id="r_ga7a23e7a8ae6e232a0ef97bcbc5d9c2db"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html#ga7a23e7a8ae6e232a0ef97bcbc5d9c2db">PointLightShadowHandle</a> = <a class="el" href="a05766.html">Light3D</a>&lt; <a class="el" href="a05778.html">PointLight3DShadow</a> &gt;</td></tr>
+<tr class="memdesc:ga7a23e7a8ae6e232a0ef97bcbc5d9c2db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a point light with shadow in 3d scene.  <br /></td></tr>
+<tr class="separator:ga7a23e7a8ae6e232a0ef97bcbc5d9c2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4901cb82364c48429bc38b53e688465f" id="r_ga4901cb82364c48429bc38b53e688465f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html#ga4901cb82364c48429bc38b53e688465f">SpotLightHandle</a> = <a class="el" href="a05766.html">Light3D</a>&lt; <a class="el" href="a05806.html">SpotLight3D</a> &gt;</td></tr>
+<tr class="memdesc:ga4901cb82364c48429bc38b53e688465f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a spot light in 3d scene.  <br /></td></tr>
+<tr class="separator:ga4901cb82364c48429bc38b53e688465f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga528f3b4db46678f8004d6c073d642a31" id="r_ga528f3b4db46678f8004d6c073d642a31"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03130.html#ga528f3b4db46678f8004d6c073d642a31">SpotLightShadowHandle</a> = <a class="el" href="a05766.html">Light3D</a>&lt; <a class="el" href="a05810.html">SpotLight3DShadow</a> &gt;</td></tr>
+<tr class="memdesc:ga528f3b4db46678f8004d6c073d642a31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle to a spot light with shadow in 3d scene.  <br /></td></tr>
+<tr class="separator:ga528f3b4db46678f8004d6c073d642a31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of events related to the renderer. </p>
+<div class="textblock"><p>Contains the lighting classes for the renderer. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:54 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

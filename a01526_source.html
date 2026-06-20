@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Math/Trig.hpp Source File</title>
+<title>BLIB: include/BLIB/Math/Interpolate.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,42 +83,53 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Trig.hpp</div></div>
+  <div class="headertitle"><div class="title">Interpolate.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01526.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MATH_TRIG_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MATH_TRIG_HPP</span></div>
+<a href="a01526.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MATH_INTERPOLATE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MATH_INTERPOLATE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09727.html">BLIB/Math/Constants.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03138.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>math</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>math</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">float</span> <a class="code hl_function" href="a03120.html#gae8e482156412ed87dc2d91572ee817ab">cos</a>(<span class="keywordtype">float</span> degrees);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keywordtype">float</span> <a class="code hl_function" href="a03120.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">sin</a>(<span class="keywordtype">float</span> degrees);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03120.html#ga0b0fbb9303004f139568c5a7554c3637">   40</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_function" href="a03120.html#ga0b0fbb9303004f139568c5a7554c3637">radiansToDegrees</a>(<span class="keywordtype">float</span> radians) { <span class="keywordflow">return</span> radians * 180.f / <a class="code hl_variable" href="a03182.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>; }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="a03120.html#ga798f04ddeba68968d5339859b62b3500">   50</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">float</span> <a class="code hl_function" href="a03120.html#ga798f04ddeba68968d5339859b62b3500">degreesToRadians</a>(<span class="keywordtype">float</span> degrees) { <span class="keywordflow">return</span> degrees / 180.f * <a class="code hl_variable" href="a03182.html#a5d956eb5741fd61ccb4d7a18bd6fd431">Pi</a>; }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>} <span class="comment">// namespace math</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa03120_html_ga0379b8bbdfc3c74fecd12c93fdf0ca5b"><div class="ttname"><a href="a03120.html#ga0379b8bbdfc3c74fecd12c93fdf0ca5b">bl::math::sin</a></div><div class="ttdeci">float sin(float degrees)</div><div class="ttdoc">Computes the sine of the given angle using cached values. Values are cached in quarter degree increme...</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00037">Trig.cpp:37</a></div></div>
-<div class="ttc" id="aa03120_html_ga0b0fbb9303004f139568c5a7554c3637"><div class="ttname"><a href="a03120.html#ga0b0fbb9303004f139568c5a7554c3637">bl::math::radiansToDegrees</a></div><div class="ttdeci">constexpr float radiansToDegrees(float radians)</div><div class="ttdoc">Converts an angle in radians to degrees.</div><div class="ttdef"><b>Definition</b> <a href="a01526_source.html#l00040">Trig.hpp:40</a></div></div>
-<div class="ttc" id="aa03120_html_ga798f04ddeba68968d5339859b62b3500"><div class="ttname"><a href="a03120.html#ga798f04ddeba68968d5339859b62b3500">bl::math::degreesToRadians</a></div><div class="ttdeci">constexpr float degreesToRadians(float degrees)</div><div class="ttdoc">Converts an angle in degrees to radians.</div><div class="ttdef"><b>Definition</b> <a href="a01526_source.html#l00050">Trig.hpp:50</a></div></div>
-<div class="ttc" id="aa03120_html_gae8e482156412ed87dc2d91572ee817ab"><div class="ttname"><a href="a03120.html#gae8e482156412ed87dc2d91572ee817ab">bl::math::cos</a></div><div class="ttdeci">float cos(float degrees)</div><div class="ttdoc">Computes the cosine of the given angle using cached values. Values are cached in quarter degree incre...</div><div class="ttdef"><b>Definition</b> <a href="a02768_source.html#l00031">Trig.cpp:31</a></div></div>
-<div class="ttc" id="aa03138_html"><div class="ttname"><a href="a03138.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03182_html_a5d956eb5741fd61ccb4d7a18bd6fd431"><div class="ttname"><a href="a03182.html#a5d956eb5741fd61ccb4d7a18bd6fd431">bl::math::Pi</a></div><div class="ttdeci">constexpr float Pi</div><div class="ttdoc">It's pi.</div><div class="ttdef"><b>Definition</b> <a href="a09727_source.html#l00010">Constants.hpp:10</a></div></div>
-<div class="ttc" id="aa09727_html"><div class="ttname"><a href="a09727.html">Constants.hpp</a></div></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">   22</a></span>T <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originEnd, T destStart, T destEnd, T value) {</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> T fr = originEnd - originStart;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> T dr = destEnd - destStart;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> (value - originStart) / fr * dr + destStart;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00044" data-start="{" data-end="}">
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03126.html#ga6830e4fa6ad4c4737f34c0ea10cfa12e">   44</a></span>T <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destEnd, T value) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">const</span> T destMid = (destEnd + destStart) / <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(2);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                                <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00067" data-start="{" data-end="}">
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a03126.html#ga51b3900901959abab6d527e6f849fab5">   67</a></span>T <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(T originStart, T originMid, T originEnd, T destStart, T destMid, T destEnd, T value) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> value &lt;= originMid ? <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originStart, originMid, destStart, destMid, value) :</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                <a class="code hl_function" href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">interpolate</a>(originMid, originEnd, destMid, destEnd, value);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace math</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa03126_html_ga8753daa77ceb8a99501d08876804bd00"><div class="ttname"><a href="a03126.html#ga8753daa77ceb8a99501d08876804bd00">bl::math::interpolate</a></div><div class="ttdeci">T interpolate(T originStart, T originEnd, T destStart, T destEnd, T value)</div><div class="ttdoc">Linearly interpolate a value from one range to another.</div><div class="ttdef"><b>Definition</b> <a href="a01526_source.html#l00022">Interpolate.hpp:22</a></div></div>
+<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 19 2026 21:50:50 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>
