@@ -381,6 +381,8 @@ void AudioSystem::resume() {
 }
 
 void AudioSystem::stop(bool fade) {
+    if (!Runner::instance) { return; }
+
     if (fade) {
         sf::Clock timer;
         while (sf::Listener::getGlobalVolume() > 0.01f) {
