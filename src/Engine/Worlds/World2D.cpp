@@ -63,7 +63,7 @@ World2D::World2D(Engine& owner)
     def.gravity.x  = gravity.x;
     def.gravity.y  = gravity.y;
 
-    def.userTaskContext = new TaskSet(owner.threadPool());
+    def.userTaskContext = new TaskSet(owner.engineLoopThreadpool());
     def.enqueueTask     = &parallelizePhysicsTasks;
     def.finishTask      = &waitPhysicsTasks;
     def.workerCount     = MaxWorkers;

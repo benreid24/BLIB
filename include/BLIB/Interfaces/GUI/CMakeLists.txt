@@ -1,5 +1,6 @@
 target_sources(BLIB PUBLIC
     Event.hpp
+    Font.hpp
     GUI.hpp
     RenderSettings.hpp
     Signal.hpp

@@ -37,7 +37,7 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
                      float dt, float realDt, float lag, float realLag) {
     const auto beg = systems.begin() + startStage;
     const auto end = systems.begin() + endStage;
-    auto& tp       = engine.threadPool();
+    auto& tp       = engine.engineLoopThreadpool();
 
     for (auto it = beg; it != end; ++it) {
         if (!it->tasks.empty()) {
@@ -60,6 +60,11 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
         }
         tp.drain();
     }
+}
+
+void Systems::updateInBackground() {
+    std::mutex backgroundMutex;
+    for (System* s : backgroundSystems) { s->update(backgroundMutex, 0.f, 0.f, 0.f, 0.f); }
 }
 
 void Systems::earlyCleanup() {

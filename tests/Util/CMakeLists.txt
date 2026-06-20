@@ -6,6 +6,7 @@ target_sources(BLIB.t PUBLIC
     IdAllocatorUnbounded.t.cpp
     RangeAllocatorUnbounded.t.cpp
     Signal.t.cpp
+    TaskScheduler.t.cpp
     ThreadPool.t.cpp
     UUID.t.cpp
     VariadicHelpers.t.cpp

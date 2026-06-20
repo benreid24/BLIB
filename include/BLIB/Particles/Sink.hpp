@@ -58,14 +58,19 @@ public:
         std::vector<bool>& freed;
         bool erased;
 
-        Proxy(std::mutex& mutex, ParticleManager<T>& manager, T* base,
-              std::vector<std::size_t>& freeList, std::vector<bool>& freed)
+        Proxy(std::mutex& mutex, ParticleManager<T>& manager, std::vector<std::size_t>& freeList,
+              std::vector<bool>& freed)
         : mutex(mutex)
         , manager(manager)
-        , base(base)
+        , base(nullptr)
         , freeList(freeList)
         , freed(freed)
         , erased(false) {}
+
+        void reset(T* front) {
+            erased = false;
+            base   = front;
+        }
 
         friend class ParticleManager<T>;
     };

@@ -10,7 +10,8 @@ namespace pcl
 {
 
 template<typename T>
-ParticleManager<T>::ParticleManager() {
+ParticleManager<T>::ParticleManager()
+: sinkProxy(releaseMutex, *this, freeList, freed) {
     constexpr std::size_t DefaultCapacity = 512;
 
     particles.reserve(DefaultCapacity);
@@ -26,8 +27,6 @@ void ParticleManager<T>::init(engine::World& w) {
 
 template<typename T>
 void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float realDt) {
-    std::unique_lock lock(mutex);
-
     // call updaters before anything else
     if (!updaters.empty()) {
         typename TUpdater::Proxy proxy(*this, affectors, emitters, sinks);
@@ -49,13 +48,51 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
         std::fill(freed.begin(), freed.end(), false);
 
         // update sinks first to populate freelist
-        for (std::size_t i = sinks.size(); i > 0; --i) {
-            updateSink(i - 1, threadPool, dt, realDt);
-        }
+        updateSink(sinks.size() - 1, threadPool, dt, realDt);
+    }
+    else { updateEmittersAndAffectors(threadPool, dt, realDt); }
+}
+
+template<typename T>
+void ParticleManager<T>::updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt) {
+    auto* sink = sinks[i].get();
+    auto it    = particles.begin();
+
+    sinkProxy.reset(&particles.front());
+    futures.reserve(particles.size() / ParticlesPerThread + 1);
+    while (it != particles.end()) {
+        const std::size_t len =
+            std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
+        futures.emplace_back(pool.queueTask([this, it, len, sink, dt, realDt]() {
+            sink->update(sinkProxy, std::span<T>(&*it, len), dt, realDt);
+        }));
+        it += len;
     }
 
+    pool.queueTask([this, &pool, i, dt, realDt]() { awaitSinkAndContinue(i, pool, dt, realDt); });
+}
+
+template<typename T>
+void ParticleManager<T>::awaitSinkAndContinue(std::size_t i, util::ThreadPool& pool, float dt,
+                                              float realDt) {
+    awaitFutures();
+
+    if (sinkProxy.erased) {
+        std::unique_lock lock(mutex);
+        if (i != sinks.size() - 1) { sinks[i] = std::move(sinks.back()); }
+        sinks.pop_back();
+    }
+
+    if (i > 0 && !particles.empty()) { updateSink(i - 1, pool, dt, realDt); }
+    else { updateEmittersAndAffectors(pool, dt, realDt); }
+}
+
+template<typename T>
+void ParticleManager<T>::updateEmittersAndAffectors(util::ThreadPool& threadPool, float dt,
+                                                    float realDt) {
     // run emitters to fill holes
     if (!emitters.empty()) {
+        std::unique_lock lock(mutex);
         typename TEmitter::Proxy proxy(*this, particles, freeList);
         for (std::size_t i = emitters.size(); i > 0; --i) {
             const std::size_t idx = i - 1;
@@ -77,20 +114,19 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
 
     // run affectors over all particles
     if (!affectors.empty()) {
-        std::vector<std::uint8_t> erased;
-        erased.resize(affectors.size(), 0);
+        erasedAffectors.resize(affectors.size(), 0);
 
         futures.reserve(particles.size() / ParticlesPerThread + 1);
         auto it = particles.begin();
         while (it != particles.end()) {
             const std::size_t len =
                 std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
-            futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt, &erased]() {
+            futures.emplace_back(threadPool.queueTask([this, it, len, dt, realDt]() {
                 typename TAffector::Proxy proxy(*this, std::span<T>(&*it, len));
                 unsigned int i = 0;
                 for (auto& affector : affectors) {
                     affector->update(proxy, dt, realDt);
-                    erased[i] = proxy.erased ? 1 : 0;
+                    erasedAffectors[i] = proxy.erased ? 1 : 0;
                     proxy.reset();
                     ++i;
                 }
@@ -98,18 +134,29 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
             it += len;
         }
 
-        for (auto& f : futures) { f.wait(); }
-        futures.clear();
+        threadPool.queueTask([this]() { awaitEmittersAndAffectorsAndFinish(); });
+    }
+    else { finish(); }
+}
 
-        for (std::size_t i = affectors.size(); i > 0; --i) {
-            const std::size_t idx = i - 1;
-            if (erased[idx] != 0) {
-                if (i != affectors.size()) { affectors[idx] = std::move(affectors.back()); }
-                affectors.pop_back();
-            }
+template<typename T>
+void ParticleManager<T>::awaitEmittersAndAffectorsAndFinish() {
+    awaitFutures();
+
+    std::unique_lock lock(mutex);
+    for (std::size_t i = affectors.size(); i > 0; --i) {
+        const std::size_t idx = i - 1;
+        if (erasedAffectors[idx] != 0) {
+            if (i != affectors.size()) { affectors[idx] = std::move(affectors.back()); }
+            affectors.pop_back();
         }
     }
 
+    finish();
+}
+
+template<typename T>
+void ParticleManager<T>::finish() {
     // update global info
     globalInfo.cameraToWindowScale =
         world->engine().renderer().getObserver().getRegionSize().x /
@@ -117,6 +164,12 @@ void ParticleManager<T>::update(util::ThreadPool& threadPool, float dt, float re
 
     // update renderer data
     renderer.notifyData(particles.data(), particles.size());
+}
+
+template<typename T>
+void ParticleManager<T>::awaitFutures() {
+    for (auto& f : futures) { f.wait(); }
+    futures.clear();
 }
 
 template<typename T>
@@ -238,31 +291,6 @@ std::size_t ParticleManager<T>::getParticleCountLocked() const {
 template<typename T>
 void ParticleManager<T>::draw(rc::scene::CodeScene::RenderContext& ctx) {
     renderer.draw(ctx);
-}
-
-template<typename T>
-void ParticleManager<T>::updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt) {
-    auto* sink = sinks[i].get();
-    typename TSink::Proxy proxy(releaseMutex, *this, &particles.front(), freeList, freed);
-    auto it = particles.begin();
-
-    futures.reserve(particles.size() / ParticlesPerThread + 1);
-    while (it != particles.end()) {
-        const std::size_t len =
-            std::min<std::size_t>(std::distance(it, particles.end()), ParticlesPerThread);
-        futures.emplace_back(pool.queueTask([this, &proxy, it, len, sink, dt, realDt]() {
-            sink->update(proxy, std::span<T>(&*it, len), dt, realDt);
-        }));
-        it += len;
-    }
-
-    for (auto& f : futures) { f.wait(); }
-    futures.clear();
-
-    if (proxy.erased) {
-        if (i != sinks.size() - 1) { sinks[i] = std::move(sinks.back()); }
-        sinks.pop_back();
-    }
 }
 
 template<typename T>

@@ -20,7 +20,7 @@ FontDriver::FontDriver()
 bool FontDriver::doCreate(as::CreateContext& ctx, FontPayload& payload) {
     if (const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>()) {
         if (params->data.size() > 0) {
-            payload.buffer.reserve(params->data.size());
+            payload.buffer.resize(params->data.size());
             std::memcpy(payload.buffer.data(), params->data.data(), params->data.size());
         }
     }

@@ -14,6 +14,7 @@ target_link_libraries(BLIB.t PRIVATE
     sfml-window
     sfml-network
     sfml-system
+    Freetype::Freetype
     
     gtest
     gmock

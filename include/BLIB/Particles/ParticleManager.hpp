@@ -281,12 +281,21 @@ private:
     std::vector<bool> freed;
     std::vector<std::future<void>> futures;
 
+    typename TSink::Proxy sinkProxy;
+    std::vector<std::uint8_t> erasedAffectors;
+
     std::vector<std::unique_ptr<TUpdater>> updaters;
     std::vector<std::unique_ptr<TAffector>> affectors;
     std::vector<std::unique_ptr<TEmitter>> emitters;
     std::vector<std::unique_ptr<TSink>> sinks;
 
     void updateSink(std::size_t i, util::ThreadPool& pool, float dt, float realDt);
+    void awaitSinkAndContinue(std::size_t i, util::ThreadPool& pool, float dt, float realDt);
+    void updateEmittersAndAffectors(util::ThreadPool& pool, float dt, float realDt);
+    void awaitEmittersAndAffectorsAndFinish();
+    void finish();
+
+    void awaitFutures();
 };
 
 } // namespace pcl

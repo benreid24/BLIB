@@ -1,6 +1,6 @@
 #include <BLIB/Logging.hpp>
 
-#include <BLIB/Engine/Worker.hpp>
+#include <BLIB/Engine/Engine.hpp>
 
 namespace bl
 {
@@ -25,7 +25,12 @@ Logger::Logger(int level)
 
 Logger::~Logger() {
     if (ss.str().back() != '\n') { ss << '\n'; }
-    engine::Worker::submit(std::bind(&Config::doWrite, &Config::get(), ss.str(), level));
+    engine::Engine* engine = engine::Engine::getInstance();
+    if (engine) {
+        engine->fastTaskThreadpool().queueTask(
+            std::bind(&Config::doWrite, &Config::get(), ss.str(), level));
+    }
+    else { Config::get().doWrite(ss.str(), level); }
 }
 
 } // namespace logging

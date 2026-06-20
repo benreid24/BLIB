@@ -6,9 +6,9 @@ target_sources(BLIB PRIVATE
     Player.cpp
     Properties.cpp
     Property.cpp
+    Schedulers.cpp
     Settings.cpp
     Systems.cpp
-    Worker.cpp
     World.cpp
 )
 

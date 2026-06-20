@@ -39,7 +39,8 @@ Engine::Engine(const Settings& settings)
 , assetRepository(as::Mode::Editor, std::string(settings.assetsPath()))
 , entityRegistry()
 , renderThreadShouldRun(true)
-, input(*this) {
+, input(*this)
+, schedulers(workers, fastTaskWorkers, longTaskWorkers) {
     if (!instance) { instance = this; }
     else {
         BL_LOG_WARN << "Multiple engine instances created. Some features may break or misbehave";
@@ -53,6 +54,7 @@ Engine::Engine(const Settings& settings)
     systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::Physics2D>(FrameStage::Physics, StateMask::Running);
+    audio::AudioSystem::registerSystem(*this);
 
     eventEmitter.connect(signalChannel);
     sig::Table::registerChannel(SignalChannelKey, signalChannel);
@@ -69,7 +71,8 @@ Engine::~Engine() {
         renderingThread.value().join();
     }
 
-    backgroundWorkers.shutdown();
+    fastTaskWorkers.shutdown();
+    longTaskWorkers.shutdown();
     workers.shutdown();
     signalChannel.shutdown();
     if (rendererInstance.has_value()) {
@@ -103,7 +106,6 @@ Engine::~Engine() {
     systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
 
-    audio::AudioSystem::shutdown();
     assetRepository.forceUnloadAll();
     systems().cleanup();
 
@@ -201,7 +203,8 @@ bool Engine::loop() {
     float frameCount = 0.f;
 
     workers.start();
-    backgroundWorkers.start(2);
+    fastTaskWorkers.start(2);
+    longTaskWorkers.start(2);
     states.top()->activate(*this);
     eventEmitter.emit<event::Startup>({states.top()});
 
@@ -209,6 +212,7 @@ bool Engine::loop() {
         // Clear flags from last loop
         engineFlags.clear();
 
+        // Process window events
         if (rendererInstance.has_value()) {
             std::optional<sf::Event> event = rendererInstance->getWindow().pollEvent();
             while (event.has_value()) {
@@ -263,6 +267,9 @@ bool Engine::loop() {
             const float realDt             = toRealSeconds(updateTimestep, timeScale);
             const float lagSeconds         = toSeconds(lag);
             const float realLagSeconds     = toRealSeconds(lag, timeScale);
+
+            // dispatch scheduled tasks
+            schedulers.update(dt, realDt);
 
             // core update game logic
             input.update();
@@ -418,12 +425,28 @@ bool Engine::loop() {
 }
 
 bool Engine::awaitFocus() {
+    sf::Clock taskClock;
+
     while (rendererInstance->getWindow().isOpen()) {
-        std::optional<sf::Event> event = rendererInstance->getWindow().waitEvent();
-        if (event.has_value()) {
-            if (event->is<sf::Event::Closed>()) { return false; }
-            if (event->is<sf::Event::FocusGained>()) { return true; }
-        }
+        // poll events
+        std::optional<sf::Event> event;
+        do {
+            event = rendererInstance->getWindow().pollEvent();
+            if (event.has_value()) {
+                if (event->is<sf::Event::Closed>()) { return false; }
+                if (event->is<sf::Event::FocusGained>()) { return true; }
+            }
+        } while (event.has_value());
+
+        // update background systems (such as audio)
+        ecsSystems.updateInBackground();
+
+        // allow background scheduled tasks to run
+        auto dt = taskClock.restart().asSeconds();
+        schedulers.updateBackground(dt);
+
+        // sleep to avoid busy waiting
+        sf::sleep(sf::milliseconds(33));
     }
     return false;
 }
