@@ -11,6 +11,11 @@
 
 namespace bl
 {
+namespace engine
+{
+class Engine;
+}
+
 /// Audio utilities, tools, and functionality
 namespace audio
 {
@@ -70,7 +75,6 @@ public:
 
     /**
      * @brief Stops all sounds immediately
-     *
      */
     static void stopAllSounds();
 
@@ -158,42 +162,37 @@ public:
 
     /**
      * @brief Loads system settings from the engine config
-     *
      */
     static void loadFromConfig();
 
     /**
      * @brief Saves system settings to the engine config
-     *
      */
     static void saveToConfig();
 
     /**
      * @brief Pauses all sounds and playlists
-     *
      */
     static void pause();
 
     /**
      * @brief Resumes all paused sounds and playlists
-     *
      */
     static void resume();
 
     /**
      * @brief Stops all sounds and playlists
      *
+     * @param fade True to fade out, false to stop immediately
      */
-    static void stop();
+    static void stop(bool fade = false);
 
     /**
-     * @brief This should be called at the end of main() if the audiosystem is used. Note that this
-     *        is called by Engine if it is used
+     * @brief Called by the engine at creation time
      *
-     * @param fade True to fade out all sound, false to hard stop
-     *
+     * @param engine The game engine instance
      */
-    static void shutdown(bool fade = true);
+    static void registerSystem(engine::Engine& engine);
 };
 
 } // namespace audio

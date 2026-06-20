@@ -53,6 +53,7 @@ Engine::Engine(const Settings& settings)
     systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
     systems().registerSystem<sys::Physics2D>(FrameStage::Physics, StateMask::Running);
+    audio::AudioSystem::registerSystem(*this);
 
     eventEmitter.connect(signalChannel);
     sig::Table::registerChannel(SignalChannelKey, signalChannel);
@@ -104,7 +105,6 @@ Engine::~Engine() {
     systems().earlyCleanup();
     entityRegistry.destroyAllEntities();
 
-    audio::AudioSystem::shutdown();
     assetRepository.forceUnloadAll();
     systems().cleanup();
 
@@ -421,11 +421,21 @@ bool Engine::loop() {
 
 bool Engine::awaitFocus() {
     while (rendererInstance->getWindow().isOpen()) {
-        std::optional<sf::Event> event = rendererInstance->getWindow().waitEvent();
-        if (event.has_value()) {
-            if (event->is<sf::Event::Closed>()) { return false; }
-            if (event->is<sf::Event::FocusGained>()) { return true; }
-        }
+        // poll events
+        std::optional<sf::Event> event;
+        do {
+            event = rendererInstance->getWindow().pollEvent();
+            if (event.has_value()) {
+                if (event->is<sf::Event::Closed>()) { return false; }
+                if (event->is<sf::Event::FocusGained>()) { return true; }
+            }
+        } while (event.has_value());
+
+        // update background systems (such as audio)
+        ecsSystems.updateInBackground();
+
+        // sleep to avoid busy waiting
+        sf::sleep(sf::milliseconds(33));
     }
     return false;
 }

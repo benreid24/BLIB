@@ -1,6 +1,8 @@
 #include <BLIB/Audio/AudioSystem.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <SFML/Audio.hpp>
 #include <atomic>
@@ -39,12 +41,13 @@ struct PlaylistFader {
     Playlist* playlist;
     float fvel;
 
+    PlaylistFader();
     void update();
 };
 
 void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime);
 
-class Runner {
+class Runner : public engine::System {
 public:
     static Runner& get();
     static void stop();
@@ -76,17 +79,17 @@ public:
     std::condition_variable pauseCond;
     bool paused;
 
-private:
+    virtual void init(engine::Engine& engine) override;
+    virtual void update(std::mutex&, float, float, float, float) override;
+    virtual void earlyCleanup() override;
+
     Runner();
     ~Runner();
 
-    std::thread thread;
-    static std::atomic<bool> started;
-    std::atomic<bool> shouldStop;
-
-    void run();
-    void shutdown();
+    static Runner* instance;
 };
+
+Runner* Runner::instance = nullptr;
 
 struct SystemSettings {
     const std::string MuteKey   = "blib.audio.muted";
@@ -99,8 +102,6 @@ struct SystemSettings {
     : muted(false)
     , volume(100.f) {}
 } Settings;
-
-std::atomic<bool> Runner::started = false;
 
 AudioSystem::Handle makeHandle() {
     auto& s = Runner::get().soundSources;
@@ -379,7 +380,17 @@ void AudioSystem::resume() {
     r.pauseCond.notify_all();
 }
 
-void AudioSystem::stop() {
+void AudioSystem::stop(bool fade) {
+    if (fade) {
+        sf::Clock timer;
+        while (sf::Listener::getGlobalVolume() > 0.01f) {
+            sf::Listener::setGlobalVolume(
+                100.f * std::max(0.f, (0.5f - timer.getElapsedTime().asSeconds()) / 0.5f));
+            sf::sleep(sf::milliseconds(13));
+        }
+        sf::Listener::setGlobalVolume(0.f);
+    }
+
     auto& r = Runner::get();
     {
         std::unique_lock lock(r.soundMutex);
@@ -395,19 +406,13 @@ void AudioSystem::stop() {
         r.fadeIn.playlist  = nullptr;
         r.fadeOut.playlist = nullptr;
     }
+
+    if (fade) { sf::Listener::setGlobalVolume(1.f); }
 }
 
-void AudioSystem::shutdown(bool fade) {
-    if (fade) {
-        sf::Clock timer;
-        while (sf::Listener::getGlobalVolume() > 0.01f) {
-            sf::Listener::setGlobalVolume(
-                100.f * std::max(0.f, (0.5f - timer.getElapsedTime().asSeconds()) / 0.5f));
-            sf::sleep(sf::milliseconds(13));
-        }
-        sf::Listener::setGlobalVolume(0.f);
-    }
-    Runner::stop();
+void AudioSystem::registerSystem(engine::Engine& engine) {
+    engine.systems().registerBackgroundSystem<Runner>(engine::FrameStage::FrameStart,
+                                                      engine::StateMask::All);
 }
 
 namespace
@@ -418,86 +423,73 @@ Sound::Sound(as::TypedRef<asi::SoundPayload>&& buffer)
 , lastInteractTime(Runner::get().timer.getElapsedTime().asSeconds()) {}
 
 Runner::Runner()
-: paused(false)
-, thread(&Runner::run, this)
-, shouldStop(false) {
-    Runner::started = true;
-    BL_LOG_INFO << "Started AudioSystem";
-}
+: paused(false) {}
 
-Runner::~Runner() {}
+Runner::~Runner() {
+    if (instance == this) { instance = nullptr; }
+}
 
 Runner& Runner::get() {
-    static Runner runner;
-    return runner;
+    if (!instance) { BL_LOG_CRITICAL << "Accessing AudioSystem before it is initialized!"; }
+
+    return *instance;
 }
 
-void Runner::stop() {
-    if (started) {
-        BL_LOG_INFO << "Shutting down AudioSystem";
-        started = false;
-        get().shutdown();
-        AudioSystem::stop();
-        sf::sleep(sf::milliseconds(500)); // for music threads to stop
-        BL_LOG_INFO << "AudioSystem shutdown";
+void Runner::init(engine::Engine&) {
+    if (instance) {
+        BL_LOG_CRITICAL << "AudioSystem initialized more than once!";
+        return;
     }
+    instance = this;
+    AudioSystem::loadFromConfig();
 }
 
-void Runner::shutdown() {
-    shouldStop = true;
-    pauseCond.notify_all();
-    thread.join();
+void Runner::earlyCleanup() {
+    BL_LOG_INFO << "Shutting down AudioSystem";
+    AudioSystem::stop(true);
+    sf::sleep(sf::milliseconds(500)); // for music threads to stop
+    BL_LOG_INFO << "AudioSystem shutdown";
 }
 
-void Runner::run() {
-    while (!shouldStop) {
-        {
-            std::unique_lock plock(pauseMutex);
-            if (paused) { pauseCond.wait(plock); }
+void Runner::update(std::mutex&, float, float, float, float) {
+    if (paused) { return; }
 
-            // sound cleanup and fadeouts
-            {
-                std::unique_lock slock(soundMutex);
+    // sound cleanup and fadeouts
+    {
+        std::unique_lock slock(soundMutex);
 
-                for (auto i = soundHandles.begin(); i != soundHandles.end();) {
-                    auto j  = i++;
-                    auto it = sounds.find(j->second);
-                    if (it != sounds.end()) {
-                        if (timer.getElapsedTime().asSeconds() - it->second.lastInteractTime >=
-                                unloadTimeout +
-                                    it->second.buffer->get().getDuration().asSeconds() &&
-                            it->second.sound.getStatus() != sf::Sound::Status::Playing) {
-                            sounds.erase(it);
-                            soundHandles.erase(j);
-                        }
-                    }
+        for (auto i = soundHandles.begin(); i != soundHandles.end();) {
+            auto j  = i++;
+            auto it = sounds.find(j->second);
+            if (it != sounds.end()) {
+                if (timer.getElapsedTime().asSeconds() - it->second.lastInteractTime >=
+                        unloadTimeout + it->second.buffer->get().getDuration().asSeconds() &&
+                    it->second.sound.getStatus() != sf::Sound::Status::Playing) {
+                    sounds.erase(it);
+                    soundHandles.erase(j);
                 }
-
-                for (auto i = fadingSounds.begin(); i != fadingSounds.end();) {
-                    auto j = i++;
-                    j->update();
-                }
-                soundTimer.restart();
-            }
-
-            // playlist crossfade update and song update
-            {
-                std::unique_lock plock(playlistMutex);
-
-                if (!playlistStack.empty() && playlistStack.front().isPlaying()) {
-                    playlistStack.front().update();
-                }
-
-                fadeIn.update();
-                fadeOut.update();
-                fadeTimer.restart();
             }
         }
 
-        sf::sleep(sf::milliseconds(30));
+        for (auto i = fadingSounds.begin(); i != fadingSounds.end();) {
+            auto j = i++;
+            j->update();
+        }
+        soundTimer.restart();
     }
 
-    BL_LOG_INFO << "AudioSystem thread terminated";
+    // playlist crossfade update and song update
+    {
+        std::unique_lock plock(playlistMutex);
+
+        if (!playlistStack.empty() && playlistStack.front().isPlaying()) {
+            playlistStack.front().update();
+        }
+
+        fadeIn.update();
+        fadeOut.update();
+        fadeTimer.restart();
+    }
 }
 
 std::unordered_map<AudioSystem::Handle, Sound>::iterator Runner::validateAndLoadSound(
@@ -538,6 +530,9 @@ void initiateCrossfade(Playlist* in, Playlist* out, float inTime, float outTime)
         else { out->pause(); }
     }
 }
+
+PlaylistFader::PlaylistFader()
+: playlist(nullptr) {}
 
 void PlaylistFader::update() {
     if (playlist) {

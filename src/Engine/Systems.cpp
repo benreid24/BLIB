@@ -62,6 +62,11 @@ void Systems::update(FrameStage::V startStage, FrameStage::V endStage, StateMask
     }
 }
 
+void Systems::updateInBackground() {
+    std::mutex backgroundMutex;
+    for (System* s : backgroundSystems) { s->update(backgroundMutex, 0.f, 0.f, 0.f, 0.f); }
+}
+
 void Systems::earlyCleanup() {
     for (auto& set : systems) {
         for (auto& system : set.systems) { system.system->earlyCleanup(); }

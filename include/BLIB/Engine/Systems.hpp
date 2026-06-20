@@ -121,6 +121,21 @@ public:
     T& registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args);
 
     /**
+     * @brief Creates and adds a new system to the registry. Background systems run even if the
+     *        window is not focused. When the window is not focused background systems are all
+     *        ran together sequentially instead of running in their respective stages
+     *
+     * @tparam T The type of system to add
+     * @tparam ...TArgs Constructor argument types for the system
+     * @param stage The frame stage to run the system in. Systems in the same stage may be
+     *              ran simultaneously. Dependencies should run in later stages
+     * @param stateMask Mask to use to selectively run the system during certain engine states
+     * @param ...args Arguments to the system's constructor
+     */
+    template<typename T, typename... TArgs>
+    T& registerBackgroundSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args);
+
+    /**
      * @brief Returns a reference to the given system. System must exist
      *
      * @tparam T The type of system to fetch
@@ -187,6 +202,7 @@ private:
     Engine& engine;
     std::array<StageSet, FrameStage::COUNT> systems;
     std::unordered_map<std::type_index, System*> typeMap;
+    std::vector<System*> backgroundSystems;
     bool inited;
 
     Systems(Engine& engine);
@@ -194,6 +210,7 @@ private:
     void notifyFrameStart();
     void update(FrameStage::V startStage, FrameStage::V endStage, StateMask::V stateMask, float dt,
                 float realDt, float lag, float realLag);
+    void updateInBackground();
     void earlyCleanup();
     void cleanup();
 
@@ -223,6 +240,13 @@ T& Systems::registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&.
     typeMap[typeid(T)] = s;
     if (inited) { s->init(engine); }
     return static_cast<T&>(*s);
+}
+
+template<typename T, typename... TArgs>
+T& Systems::registerBackgroundSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args) {
+    T& s = registerSystem<T, TArgs...>(stage, stateMask, std::forward<TArgs>(args)...);
+    backgroundSystems.push_back(&s);
+    return s;
 }
 
 template<typename T>
