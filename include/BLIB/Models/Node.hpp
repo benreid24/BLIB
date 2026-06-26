@@ -5,6 +5,7 @@
 #include <assimp/scene.h>
 #include <glm/glm.hpp>
 #include <optional>
+#include <vector>
 
 namespace bl
 {

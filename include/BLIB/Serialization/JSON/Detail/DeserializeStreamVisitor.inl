@@ -55,11 +55,11 @@ bool deserializeStreamVisitor(stream::InputStream& stream, T& value) {
             refl::visit(value, [&foundFields, &result](const auto& reflMember, auto& memberValue) {
                 if (!result) { return; }
                 if (foundFields[reflMember.getId()] == 0) {
-                    if constexpr (reflMember.hasAttribute<Trait::Optional>()) {
+                    if constexpr (reflMember.template hasAttribute<Trait::Optional>()) {
                         using DefaultTrait =
                             refl::attr::DefaultValue<std::decay_t<decltype(memberValue)>>;
-                        if constexpr (reflMember.hasAttribute<DefaultTrait>()) {
-                            const auto* defaultAttr = reflMember.getAttribute<DefaultTrait>();
+                        if constexpr (reflMember.template hasAttribute<DefaultTrait>()) {
+                            const auto* defaultAttr = reflMember.template getAttribute<DefaultTrait>();
                             if (defaultAttr) { memberValue = defaultAttr->value; }
                         }
                     }

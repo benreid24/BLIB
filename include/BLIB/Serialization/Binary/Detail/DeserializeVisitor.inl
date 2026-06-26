@@ -11,8 +11,6 @@ constexpr unsigned int MaxFieldCount = 128;
 
 template<typename T>
 bool deserializeVisitor(stream::InputStream& stream, T& value) {
-    using Reflected = refl::ReflectedObject<T>;
-
     bool result = true;
     InputStreamWrapper wrapper(stream);
     char foundFields[MaxFieldCount];
@@ -50,12 +48,12 @@ bool deserializeVisitor(stream::InputStream& stream, T& value) {
         using MemberType   = std::decay_t<decltype(member)>;
         using DefaultTrait = refl::attr::DefaultValue<MemberType>;
 
-        if constexpr (!reflMember.hasAttribute<Trait::Optional>()) {
+        if constexpr (!reflMember.template hasAttribute<Trait::Optional>()) {
             if (foundFields[reflMember.getId()] == 0) { result = false; }
         }
-        else if constexpr (reflMember.hasAttribute<DefaultTrait>()) {
+        else if constexpr (reflMember.template hasAttribute<DefaultTrait>()) {
             if (foundFields[reflMember.getId()] == 0) {
-                member = reflMember.getAttribute<DefaultTrait>()->value;
+                member = reflMember.template getAttribute<DefaultTrait>()->value;
             }
         }
     });

@@ -50,8 +50,8 @@ struct TemplateVisitor {
     void operator()(const ReflectedMember<ObjectType, MemberType, Attributes...>& member,
                     MemberType& value) {
         member.getMember(result) = value;
-        if constexpr (member.hasAttribute<attr::DefaultValue<MemberType>>()) {
-            const auto* defaultAttr = member.getAttribute<attr::DefaultValue<MemberType>>();
+        if constexpr (member.template hasAttribute<attr::DefaultValue<MemberType>>()) {
+            const auto* defaultAttr = member.template getAttribute<attr::DefaultValue<MemberType>>();
             if (defaultAttr) { member.getMember(result) = defaultAttr->value; }
         }
     }
