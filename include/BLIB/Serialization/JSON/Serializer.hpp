@@ -1,6 +1,7 @@
 #ifndef BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 #define BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/JSONLoader.hpp>
 #include <BLIB/Serialization/SerializableObject.hpp>
@@ -133,34 +134,36 @@ struct Serializer {
 
 } // namespace priv
 
+#include <BLIB/Serialization/JSON/Detail/DeserializeStreamVisitor.inl>
+#include <BLIB/Serialization/JSON/Detail/DeserializeVisitor.inl>
+#include <BLIB/Serialization/JSON/Detail/SerializeStreamVisitor.inl>
+#include <BLIB/Serialization/JSON/Detail/SerializeVisitor.inl>
+
 template<typename T>
 struct Serializer<T, false> {
     static bool deserialize(T& result, const Value& value) {
         const auto* g = value.getAsGroup();
         if (g == nullptr) return false;
-        return SerializableObjectBase::get<T>().deserializeJSON(*g, &result);
+        return detail::deserializeVisitor(*g, result);
     }
 
     static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
         return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
     }
 
-    static Value serialize(const T& value) {
-        return SerializableObjectBase::get<T>().serializeJSON(&value);
-    }
+    static Value serialize(const T& value) { return detail::serializeVisitor(value); }
 
     static void serializeInto(Group& result, const std::string& name, const T& val) {
         priv::Serializer<T>::serializeInto(result, name, val, &serialize);
     }
 
     static bool deserializeStream(stream::InputStream& stream, T& result) {
-        return SerializableObjectBase::get<T>().deserializeJsonStream(stream, &result);
+        return detail::deserializeStreamVisitor(stream, result);
     }
 
     static bool serializeStream(stream::OutputStream& stream, const T& value, unsigned int tabSize,
                                 unsigned int currentIndent) {
-        return SerializableObjectBase::get<T>().serializeJsonStream(
-            stream, &value, tabSize, currentIndent);
+        return detail::serializeStreamVisitor(stream, value, tabSize, currentIndent);
     }
 };
 

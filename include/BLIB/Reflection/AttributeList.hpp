@@ -16,6 +16,14 @@ namespace refl
 template<typename... TAttrs>
 struct AttributeList {
     std::tuple<TAttrs...> attrs;
+
+    /**
+     * @brief Creates the attribute list from the given attributes
+     *
+     * @param ...attrs The attributes to store in the list
+     */
+    AttributeList(TAttrs&&... attrs)
+    : attrs(std::forward<TAttrs>(attrs)...) {}
 };
 
 namespace detail

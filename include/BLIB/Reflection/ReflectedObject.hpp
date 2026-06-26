@@ -77,6 +77,24 @@ void visit(const ObjectType& object, VisitorType&& visitor) {
         Reflected::spec.members);
 }
 
+/**
+ * @brief Convenience accessor for the name of a reflected type
+ *
+ * @tparam T The object type to get the name of
+ * @ingroup Reflection
+ */
+template<typename T>
+constexpr std::string_view name = ReflectedObject<T>::spec.name;
+
+/**
+ * @brief Convenience accessor for the number of members in a reflected type
+ *
+ * @tparam ObjectType The object type to get the member count of
+ * @ingroup Reflection
+ */
+template<typename ObjectType>
+constexpr std::size_t memberCount = ReflectedObject<ObjectType>::spec.memberCount;
+
 } // namespace refl
 } // namespace bl
 

@@ -111,7 +111,8 @@ struct ReflectedObject<serial::Relaxed> {
     inline static const auto spec = makeSpec<serial::Relaxed>(
         "Relaxed",
         memberList(defineMember(1, "one", &serial::Relaxed::one),
-                   defineMember(2, "two", &serial::Relaxed::two, serial::Trait::Optional{}),
+                   defineMember(2, "two", &serial::Relaxed::two, serial::Trait::Optional{},
+                                attr::withDefaultValue<int>(56)),
                    defineMember(3, "three", &serial::Relaxed::three)));
 };
 } // namespace refl
