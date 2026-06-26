@@ -9,8 +9,6 @@ namespace detail
 {
 template<typename T>
 bool deserializePackedVisitor(stream::InputStream& stream, T& value) {
-    using Reflected = refl::ReflectedObject<T>;
-
     bool result = true;
     refl::visit(value, [&stream, &result](const auto& reflMember, auto& member) {
         using MemberType = std::decay_t<decltype(member)>;
