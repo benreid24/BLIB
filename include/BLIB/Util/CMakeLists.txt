@@ -23,4 +23,5 @@ target_sources(BLIB PUBLIC
     VectorRef.hpp
     Visitor.hpp
     Waiter.hpp
+    Natvis/UUID.natvis
 )

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+  <Type Name="bl::ecs::Entity">
+    <DisplayString Condition="id == InvalidId">&lt;invalid&gt;</DisplayString>
+    <DisplayString Condition="id != InvalidId">{id &amp; 0x00000000FFFFFFFF}-v{(id &amp; 0xFFFF000000000000) &gt;&gt; 48}</DisplayString>
+
+    <Expand>
+      <Item Name="Index">id &amp; 0x00000000FFFFFFFF</Item>
+      <Item Name="Version">(id &amp; 0xFFFF000000000000) &gt;&gt; 48</Item>
+      <Item Name="Flags">(id &amp; 0x0000FF0000000000) &gt;&gt; 40</Item>
+      <Item Name="World">(id &amp; 0x0000000700000000) &gt;&gt; 32</Item>
+      <Item Name="Id">id</Item>
+    </Expand>
+  </Type>
+
+</AutoVisualizer>
