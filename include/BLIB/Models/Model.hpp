@@ -7,7 +7,7 @@
 #include <BLIB/Models/MeshSet.hpp>
 #include <BLIB/Models/NodeSet.hpp>
 #include <BLIB/Models/Visitor.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 
 namespace bl
 {
@@ -82,30 +82,23 @@ private:
     MeshSet meshes;
     AnimationSet animations;
 
-    friend struct serial::SerializableObject<Model>;
+    friend struct refl::ReflectedObject<Model>;
 };
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::Model> : public SerializableObjectBase {
-    SerializableField<1, mdl::Model, mdl::NodeSet> nodes;
-    SerializableField<2, mdl::Model, mdl::MaterialSet> materials;
-    SerializableField<3, mdl::Model, mdl::BoneSet> bones;
-    SerializableField<4, mdl::Model, mdl::MeshSet> meshes;
-    SerializableField<5, mdl::Model, mdl::AnimationSet> animations;
-
-    SerializableObject()
-    : SerializableObjectBase("Model")
-    , nodes("nodes", *this, &mdl::Model::nodes, SerializableFieldBase::Required{})
-    , materials("materials", *this, &mdl::Model::materials, SerializableFieldBase::Required{})
-    , bones("bones", *this, &mdl::Model::bones, SerializableFieldBase::Required{})
-    , meshes("meshes", *this, &mdl::Model::meshes, SerializableFieldBase::Required{})
-    , animations("animations", *this, &mdl::Model::animations, SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::Model> {
+    inline static const auto spec = makeSpec<mdl::Model>(
+        "Model", memberList(defineMember(1, "nodes", &mdl::Model::nodes),
+                            defineMember(2, "materials", &mdl::Model::materials),
+                            defineMember(3, "bones", &mdl::Model::bones),
+                            defineMember(4, "meshes", &mdl::Model::meshes),
+                            defineMember(5, "animations", &mdl::Model::animations)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

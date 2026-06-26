@@ -5,7 +5,7 @@
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/RepoDependency.hpp>
 #include <BLIB/Assets/State.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <atomic>
 #include <memory>
@@ -130,32 +130,24 @@ private:
 
     friend class Repository;
     friend class Ref;
-    friend struct serial::SerializableObject<as::Asset>;
+    friend struct refl::ReflectedObject<as::Asset>;
     friend class Payload;
     friend class Metadata;
 };
 
 } // namespace as
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<as::Asset> : public SerializableObjectBase {
-    SerializableField<1, as::Asset, util::UUID> uuid;
-    SerializableField<2, as::Asset, std::string> type;
-    SerializableField<3, as::Asset, as::Metadata> metadata;
-    SerializableField<4, as::Asset, std::vector<as::RepoDependency>> dependencies;
-
-    SerializableObject()
-    : SerializableObjectBase("Asset")
-    , uuid("uuid", *this, &as::Asset::uuid, SerializableFieldBase::Required{})
-    , type("type", *this, &as::Asset::type, SerializableFieldBase::Required{})
-    , metadata("metadata", *this, &as::Asset::metadata, SerializableFieldBase::Required{})
-    , dependencies("dependencies", *this, &as::Asset::dependencies,
-                   SerializableFieldBase::Required{}) {}
+struct ReflectedObject<as::Asset> {
+    inline static const auto spec = makeSpec<as::Asset>(
+        "Asset", memberList(defineMember(1, "uuid", &as::Asset::uuid),
+                            defineMember(2, "type", &as::Asset::type),
+                            defineMember(3, "metadata", &as::Asset::metadata),
+                            defineMember(4, "dependencies", &as::Asset::dependencies)));
 };
-
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

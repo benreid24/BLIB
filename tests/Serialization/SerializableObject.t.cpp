@@ -16,16 +16,20 @@ struct Nested {
     , floatValue(f) {}
 };
 
-template<>
-struct SerializableObject<Nested> : public SerializableObjectBase {
-    SerializableField<1, Nested, bool> boolValue;
-    SerializableField<2, Nested, float> floatValue;
+} // namespace serial
 
-    SerializableObject()
-    : SerializableObjectBase("Nested")
-    , boolValue("bval", *this, &Nested::boolValue, SerializableFieldBase::Required{})
-    , floatValue("fval", *this, &Nested::floatValue, SerializableFieldBase::Required{}) {}
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::Nested> {
+    inline static const auto spec = makeSpec<serial::Nested>(
+        "Nested", memberList(defineMember(1, "bval", &serial::Nested::boolValue),
+                             defineMember(2, "fval", &serial::Nested::floatValue)));
 };
+} // namespace refl
+
+namespace serial
+{
 
 struct Data {
     Data(int ival, const std::string sval, const std::vector<Nested>& nval)
@@ -38,18 +42,21 @@ struct Data {
     std::vector<Nested> nestedValue;
 };
 
-template<>
-struct SerializableObject<Data> : public SerializableObjectBase {
-    SerializableField<1, Data, int> intValue;
-    SerializableField<2, Data, std::string> stringValue;
-    SerializableField<3, Data, std::vector<Nested>> nestedValue;
+} // namespace serial
 
-    SerializableObject()
-    : SerializableObjectBase("Data")
-    , intValue("ival", *this, &Data::intValue, SerializableFieldBase::Required{})
-    , stringValue("sval", *this, &Data::stringValue, SerializableFieldBase::Required{})
-    , nestedValue("nval", *this, &Data::nestedValue, SerializableFieldBase::Required{}) {}
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::Data> {
+    inline static const auto spec = makeSpec<serial::Data>(
+        "Data", memberList(defineMember(1, "ival", &serial::Data::intValue),
+                           defineMember(2, "sval", &serial::Data::stringValue),
+                           defineMember(3, "nval", &serial::Data::nestedValue)));
 };
+} // namespace refl
+
+namespace serial
+{
 
 struct Relaxed {
     int one;
@@ -57,20 +64,23 @@ struct Relaxed {
     int three;
 };
 
-template<>
-struct SerializableObject<Relaxed> : SerializableObjectBase {
-    SerializableField<1, Relaxed, int> one;
-    SerializableField<2, Relaxed, int> two;
-    SerializableField<3, Relaxed, int> three;
+} // namespace serial
 
-    SerializableObject()
-    : SerializableObjectBase("Relaxed")
-    , one("one", *this, &Relaxed::one, SerializableFieldBase::Required{})
-    , two("two", *this, &Relaxed::two, SerializableFieldBase::Optional{})
-    , three("three", *this, &Relaxed::three, SerializableFieldBase::Required{}) {
-        two.setDefault(56);
-    }
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::Relaxed> {
+    inline static const auto spec = makeSpec<serial::Relaxed>(
+        "Relaxed",
+        memberList(defineMember(1, "one", &serial::Relaxed::one),
+                   defineMember(2, "two", &serial::Relaxed::two, serial::Trait::Optional{},
+                                attr::withDefaultValue<int>(56)),
+                   defineMember(3, "three", &serial::Relaxed::three)));
 };
+} // namespace refl
+
+namespace serial
+{
 
 namespace unittest
 {
@@ -148,25 +158,26 @@ private:
     bool b;
     float f;
 
-    friend struct SerializableObject<TestyBoi>;
+    friend struct refl::ReflectedObject<TestyBoi>;
 };
 
+} // namespace serial
+namespace refl
+{
 template<>
-struct SerializableObject<TestyBoi> : public SerializableObjectBase {
-    SerializableField<1, TestyBoi, std::string> str;
-    SerializableField<2, TestyBoi, std::uint32_t> u32;
-    SerializableField<3, TestyBoi, std::int16_t> nowidth;
-    SerializableField<4, TestyBoi, bool> b;
-    SerializableField<5, TestyBoi, float> f;
-
-    SerializableObject()
-    : SerializableObjectBase("TestyBoi")
-    , str("str", *this, &TestyBoi::str, SerializableFieldBase::Required{})
-    , u32("u32", *this, &TestyBoi::u32, SerializableFieldBase::Required{})
-    , nowidth("nowidth", *this, &TestyBoi::nowidth, SerializableFieldBase::Required{})
-    , b("b", *this, &TestyBoi::b, SerializableFieldBase::Required{})
-    , f("f1", *this, &TestyBoi::f, SerializableFieldBase::Optional{}) {}
+struct ReflectedObject<serial::TestyBoi> {
+    inline static const auto spec = makeSpec<serial::TestyBoi>(
+        "TestyBoi",
+        memberList(defineMember(1, "str", &serial::TestyBoi::str),
+                   defineMember(2, "u32", &serial::TestyBoi::u32),
+                   defineMember(3, "nowidth", &serial::TestyBoi::nowidth),
+                   defineMember(4, "b", &serial::TestyBoi::b),
+                   defineMember(5, "f", &serial::TestyBoi::f, serial::Trait::Optional{})));
 };
+} // namespace refl
+
+namespace serial
+{
 
 class TestyBoi2 {
 public:
@@ -187,26 +198,27 @@ private:
     bool b;
     std::string newfield;
 
-    friend struct SerializableObject<TestyBoi2>;
+    friend struct refl::ReflectedObject<TestyBoi2>;
 };
 
+} // namespace serial
+
+namespace refl
+{
 template<>
-struct SerializableObject<TestyBoi2> : public SerializableObjectBase {
-    SerializableField<1, TestyBoi2, std::string> str;
-    SerializableField<2, TestyBoi2, std::uint32_t> u32;
-    SerializableField<3, TestyBoi2, std::int16_t> nowidth;
-    SerializableField<4, TestyBoi2, bool> b;
-    SerializableField<6, TestyBoi2, std::string> newfield;
-
-    SerializableObject()
-    : SerializableObjectBase("TestyBoi2")
-    , str("str", *this, &TestyBoi2::str, SerializableFieldBase::Required{})
-    , u32("u32", *this, &TestyBoi2::u32, SerializableFieldBase::Required{})
-    , nowidth("nowidth", *this, &TestyBoi2::nowidth, SerializableFieldBase::Required{})
-    , b("b", *this, &TestyBoi2::b, SerializableFieldBase::Required{})
-    , newfield("f", *this, &TestyBoi2::newfield, SerializableFieldBase::Optional{}) {}
+struct ReflectedObject<serial::TestyBoi2> {
+    inline static const auto spec = makeSpec<serial::TestyBoi2>(
+        "TestyBoi2",
+        memberList(defineMember(1, "str", &serial::TestyBoi2::str),
+                   defineMember(2, "u32", &serial::TestyBoi2::u32),
+                   defineMember(3, "nowidth", &serial::TestyBoi2::nowidth),
+                   defineMember(4, "b", &serial::TestyBoi2::b),
+                   defineMember(6, "f", &serial::TestyBoi2::newfield, serial::Trait::Optional{})));
 };
+} // namespace refl
 
+namespace serial
+{
 namespace unittest
 {
 TEST(BinarySerializableObject, SerializeObject) {

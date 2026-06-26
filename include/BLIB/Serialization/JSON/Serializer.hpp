@@ -1,9 +1,10 @@
 #ifndef BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 #define BLIB_SERIALIZATION_JSON_SERIALIZER_HPP
 
+#include <BLIB/Reflection/ProvidedTypes.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/JSONLoader.hpp>
-#include <BLIB/Serialization/SerializableObject.hpp>
 #include <BLIB/Streams/InputStream.hpp>
 #include <BLIB/Streams/OutputStream.hpp>
 #include <BLIB/Util/Base64.hpp>
@@ -33,7 +34,7 @@ namespace json
 {
 /**
  * @brief Helper class for SerializableField. Specializations are provided for json native types,
- *        vector, and unordered_map. User defined types should either implement SerializableObject
+ *        vector, and unordered_map. User defined types should either implement ReflectedObject
  *        or provide a specialization of this class
  *
  * @tparam T The type to serialize
@@ -133,34 +134,36 @@ struct Serializer {
 
 } // namespace priv
 
+#include <BLIB/Serialization/JSON/Detail/DeserializeStreamVisitor.inl>
+#include <BLIB/Serialization/JSON/Detail/DeserializeVisitor.inl>
+#include <BLIB/Serialization/JSON/Detail/SerializeStreamVisitor.inl>
+#include <BLIB/Serialization/JSON/Detail/SerializeVisitor.inl>
+
 template<typename T>
 struct Serializer<T, false> {
     static bool deserialize(T& result, const Value& value) {
         const auto* g = value.getAsGroup();
         if (g == nullptr) return false;
-        return SerializableObjectBase::get<T>().deserializeJSON(*g, &result);
+        return detail::deserializeVisitor(*g, result);
     }
 
     static bool deserializeFrom(const Value& val, const std::string& name, T& result) {
         return priv::Serializer<T>::deserializeFrom(val, name, result, &deserialize);
     }
 
-    static Value serialize(const T& value) {
-        return SerializableObjectBase::get<T>().serializeJSON(&value);
-    }
+    static Value serialize(const T& value) { return detail::serializeVisitor(value); }
 
     static void serializeInto(Group& result, const std::string& name, const T& val) {
         priv::Serializer<T>::serializeInto(result, name, val, &serialize);
     }
 
     static bool deserializeStream(stream::InputStream& stream, T& result) {
-        return SerializableObjectBase::get<T>().deserializeJsonStream(stream, &result);
+        return detail::deserializeStreamVisitor(stream, result);
     }
 
     static bool serializeStream(stream::OutputStream& stream, const T& value, unsigned int tabSize,
                                 unsigned int currentIndent) {
-        return SerializableObjectBase::get<T>().serializeJsonStream(
-            stream, &value, tabSize, currentIndent);
+        return detail::serializeStreamVisitor(stream, value, tabSize, currentIndent);
     }
 };
 
@@ -788,333 +791,6 @@ struct Serializer<std::unordered_map<U, V>, false> {
     }
 };
 
-template<typename U>
-struct Serializer<sf::Vector2<U>, false> {
-    static Value serialize(const sf::Vector2<U>& v) {
-        Group g;
-        g.addField("x", Serializer<U>::serialize(v.x));
-        g.addField("y", Serializer<U>::serialize(v.y));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const sf::Vector2<U>& val) {
-        priv::Serializer<sf::Vector2<U>>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(sf::Vector2<U>& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* x = g.getField("x");
-        const Value* y = g.getField("y");
-        if (!x || !y) return false;
-        if (!Serializer<U>::deserialize(result.x, *x)) return false;
-        if (!Serializer<U>::deserialize(result.y, *y)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, sf::Vector2<U>& result) {
-        return priv::Serializer<sf::Vector2<U>>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, sf::Vector2<U>& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const sf::Vector2<U>& value,
-                                unsigned int, unsigned int) {
-        stream << "{ ";
-        stream << "\"x\": ";
-        Serializer<U>::serializeStream(stream, value.x, 0, 0);
-        stream << ", \"y\": ";
-        Serializer<U>::serializeStream(stream, value.y, 0, 0);
-        stream << " }";
-        return stream.isValid();
-    }
-};
-
-template<typename U>
-struct Serializer<sf::Vector3<U>, false> {
-    static Value serialize(const sf::Vector3<U>& v) {
-        Group g;
-        g.addField("x", Serializer<U>::serialize(v.x));
-        g.addField("y", Serializer<U>::serialize(v.y));
-        g.addField("z", Serializer<U>::serialize(v.z));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const sf::Vector3<U>& val) {
-        priv::Serializer<sf::Vector3<U>>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(sf::Vector3<U>& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* x = g.getField("x");
-        const Value* y = g.getField("y");
-        const Value* z = g.getField("z");
-        if (!x || !y || !z) return false;
-        if (!Serializer<U>::deserialize(result.x, *x)) return false;
-        if (!Serializer<U>::deserialize(result.y, *y)) return false;
-        if (!Serializer<U>::deserialize(result.z, *z)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, sf::Vector3<U>& result) {
-        return priv::Serializer<sf::Vector3<U>>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, sf::Vector3<U>& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const sf::Vector3<U>& value,
-                                unsigned int, unsigned int) {
-        stream << "{ ";
-        stream << "\"x\": ";
-        Serializer<U>::serializeStream(stream, value.x, 0, 0);
-        stream << ", \"y\": ";
-        Serializer<U>::serializeStream(stream, value.y, 0, 0);
-        stream << ", \"z\": ";
-        Serializer<U>::serializeStream(stream, value.z, 0, 0);
-        stream << " }";
-        return stream.isValid();
-    }
-};
-
-template<typename U, glm::qualifier P>
-struct Serializer<glm::vec<2, U, P>, false> {
-    using V = glm::vec<2, U, P>;
-
-    static Value serialize(const V& v) {
-        Group g;
-        g.addField("x", Serializer<U>::serialize(v.x));
-        g.addField("y", Serializer<U>::serialize(v.y));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const V& val) {
-        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(V& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* x = g.getField("x");
-        const Value* y = g.getField("y");
-        if (!x || !y) return false;
-        if (!Serializer<U>::deserialize(result.x, *x)) return false;
-        if (!Serializer<U>::deserialize(result.y, *y)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
-        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, V& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const V& value, unsigned int,
-                                unsigned int) {
-        stream << "{ ";
-        stream << "\"x\": ";
-        Serializer<U>::serializeStream(stream, value.x, 0, 0);
-        stream << ", \"y\": ";
-        Serializer<U>::serializeStream(stream, value.y, 0, 0);
-        stream << " }";
-        return stream.isValid();
-    }
-};
-
-template<typename U, glm::qualifier P>
-struct Serializer<glm::vec<3, U, P>, false> {
-    using V = glm::vec<3, U, P>;
-
-    static Value serialize(const V& v) {
-        Group g;
-        g.addField("x", Serializer<U>::serialize(v.x));
-        g.addField("y", Serializer<U>::serialize(v.y));
-        g.addField("z", Serializer<U>::serialize(v.z));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const V& val) {
-        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(V& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* x = g.getField("x");
-        const Value* y = g.getField("y");
-        const Value* z = g.getField("z");
-        if (!x || !y || !z) return false;
-        if (!Serializer<U>::deserialize(result.x, *x)) return false;
-        if (!Serializer<U>::deserialize(result.y, *y)) return false;
-        if (!Serializer<U>::deserialize(result.z, *z)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
-        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, V& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const V& value, unsigned int,
-                                unsigned int) {
-        stream << "{ ";
-        stream << "\"x\": ";
-        Serializer<U>::serializeStream(stream, value.x, 0, 0);
-        stream << ", \"y\": ";
-        Serializer<U>::serializeStream(stream, value.y, 0, 0);
-        stream << ", \"z\": ";
-        Serializer<U>::serializeStream(stream, value.z, 0, 0);
-        stream << " }";
-        return stream.isValid();
-    }
-};
-
-template<typename U, glm::qualifier P>
-struct Serializer<glm::vec<4, U, P>, false> {
-    using V = glm::vec<4, U, P>;
-
-    static Value serialize(const V& v) {
-        Group g;
-        g.addField("x", Serializer<U>::serialize(v.x));
-        g.addField("y", Serializer<U>::serialize(v.y));
-        g.addField("z", Serializer<U>::serialize(v.z));
-        g.addField("w", Serializer<U>::serialize(v.w));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const V& val) {
-        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(V& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* x = g.getField("x");
-        const Value* y = g.getField("y");
-        const Value* z = g.getField("z");
-        const Value* w = g.getField("w");
-        if (!x || !y || !z || !w) return false;
-        if (!Serializer<U>::deserialize(result.x, *x)) return false;
-        if (!Serializer<U>::deserialize(result.y, *y)) return false;
-        if (!Serializer<U>::deserialize(result.z, *z)) return false;
-        if (!Serializer<U>::deserialize(result.w, *w)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
-        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, V& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const V& value, unsigned int,
-                                unsigned int) {
-        stream << "{ ";
-        stream << "\"x\": ";
-        Serializer<U>::serializeStream(stream, value.x, 0, 0);
-        stream << ", \"y\": ";
-        Serializer<U>::serializeStream(stream, value.y, 0, 0);
-        stream << ", \"z\": ";
-        Serializer<U>::serializeStream(stream, value.z, 0, 0);
-        stream << ", \"w\": ";
-        Serializer<U>::serializeStream(stream, value.w, 0, 0);
-        stream << " }";
-        return stream.isValid();
-    }
-};
-
-template<typename T, enum glm::qualifier Q>
-struct Serializer<glm::qua<T, Q>, false> {
-    using S = Serializer<T>;
-    using V = glm::qua<T, Q>;
-
-    static Value serialize(const V& v) {
-        Group g;
-        g.addField("x", S::serialize(v.x));
-        g.addField("y", S::serialize(v.y));
-        g.addField("z", S::serialize(v.z));
-        g.addField("w", S::serialize(v.w));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const V& val) {
-        priv::Serializer<V>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(V& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* x = g.getField("x");
-        const Value* y = g.getField("y");
-        const Value* z = g.getField("z");
-        const Value* w = g.getField("w");
-        if (!x || !y || !z || !w) return false;
-        if (!S::deserialize(result.x, *x)) return false;
-        if (!S::deserialize(result.y, *y)) return false;
-        if (!S::deserialize(result.z, *z)) return false;
-        if (!S::deserialize(result.w, *w)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, V& result) {
-        return priv::Serializer<V>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, V& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const V& value, unsigned int,
-                                unsigned int) {
-        stream << "{ ";
-        stream << "\"x\": ";
-        S::serializeStream(stream, value.x, 0, 0);
-        stream << ", \"y\": ";
-        S::serializeStream(stream, value.y, 0, 0);
-        stream << ", \"z\": ";
-        S::serializeStream(stream, value.z, 0, 0);
-        stream << ", \"w\": ";
-        S::serializeStream(stream, value.w, 0, 0);
-        stream << " }";
-        return stream.isValid();
-    }
-};
-
 template<glm::length_t C, glm::length_t R, typename T, enum glm::qualifier Q>
 struct Serializer<glm::mat<C, R, T, Q>, false> {
     using M = glm::mat<C, R, T, Q>;
@@ -1173,64 +849,6 @@ struct Serializer<glm::mat<C, R, T, Q>, false> {
             stream << " ]";
         }
         stream << " ]";
-        return stream.isValid();
-    }
-};
-
-template<typename U>
-struct Serializer<sf::Rect<U>, false> {
-    static Value serialize(const sf::Rect<U>& v) {
-        Group g;
-        g.addField("left", Serializer<U>::serialize(v.position.x));
-        g.addField("top", Serializer<U>::serialize(v.position.y));
-        g.addField("width", Serializer<U>::serialize(v.size.x));
-        g.addField("height", Serializer<U>::serialize(v.size.y));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const sf::Rect<U>& val) {
-        priv::Serializer<sf::Rect<U>>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(sf::Rect<U>& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* l = g.getField("left");
-        const Value* t = g.getField("top");
-        const Value* w = g.getField("width");
-        const Value* h = g.getField("height");
-        if (!l || !t || !w || !h) return false;
-        if (!Serializer<U>::deserialize(result.position.x, *l)) return false;
-        if (!Serializer<U>::deserialize(result.position.y, *t)) return false;
-        if (!Serializer<U>::deserialize(result.size.x, *w)) return false;
-        if (!Serializer<U>::deserialize(result.size.y, *h)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, sf::Rect<U>& result) {
-        return priv::Serializer<sf::Rect<U>>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, sf::Rect<U>& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const sf::Rect<U>& value,
-                                unsigned int, unsigned int) {
-        stream << "{ ";
-        stream << "\"left\": ";
-        Serializer<U>::serializeStream(stream, value.position.x, 0, 0);
-        stream << ", \"top\": ";
-        Serializer<U>::serializeStream(stream, value.position.y, 0, 0);
-        stream << ", \"width\": ";
-        Serializer<U>::serializeStream(stream, value.size.x, 0, 0);
-        stream << ", \"height\": ";
-        Serializer<U>::serializeStream(stream, value.size.y, 0, 0);
-        stream << " }";
         return stream.isValid();
     }
 };
@@ -1502,56 +1120,6 @@ public:
                                 unsigned int, unsigned int) {
         const Value val = serialize(value);
         stream << val;
-        return stream.isValid();
-    }
-};
-
-template<typename U, typename V>
-struct Serializer<std::pair<U, V>, false> {
-    static Value serialize(const std::pair<U, V>& v) {
-        Group g;
-        g.addField("first", Serializer<U>::serialize(v.first));
-        g.addField("second", Serializer<V>::serialize(v.second));
-        return {g};
-    }
-
-    static void serializeInto(const std::string& key, Group& g, const std::pair<U, V>& val) {
-        priv::Serializer<std::pair<U, V>>::serializeInto(g, key, val, &serialize);
-    }
-
-    static bool deserialize(std::pair<U, V>& result, const Value& val) {
-        const Group* rg = val.getAsGroup();
-        if (rg == nullptr) return false;
-        const Group& g = *rg;
-        const Value* f = g.getField("first");
-        const Value* s = g.getField("second");
-        if (!f || !s) return false;
-        if (!Serializer<U>::deserialize(result.first, *f)) return false;
-        if (!Serializer<V>::deserialize(result.second, *s)) return false;
-        return true;
-    }
-
-    static bool deserializeFrom(const Value& val, const std::string& key, std::pair<U, V>& result) {
-        return priv::Serializer<std::pair<U, V>>::deserializeFrom(val, key, result, &deserialize);
-    }
-
-    static bool deserializeStream(stream::InputStream& stream, std::pair<U, V>& result) {
-        json::Loader loader(stream);
-        Value val(0);
-        if (!loader.loadValue(val)) return false;
-        return deserialize(result, val);
-    }
-
-    static bool serializeStream(stream::OutputStream& stream, const std::pair<U, V>& value,
-                                unsigned int tabSize, unsigned int currentIndent) {
-        stream << "{ ";
-        stream << "\"first\": ";
-        if (!Serializer<U>::serializeStream(stream, value.first, tabSize, currentIndent + tabSize))
-            return false;
-        stream << ", \"second\": ";
-        if (!Serializer<V>::serializeStream(stream, value.second, tabSize, currentIndent + tabSize))
-            return false;
-        stream << " }";
         return stream.isValid();
     }
 };

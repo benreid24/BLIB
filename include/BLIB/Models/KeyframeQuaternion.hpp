@@ -1,7 +1,7 @@
 #ifndef BLIB_MODELS_KEYFRAMEQUATERNION_HPP
 #define BLIB_MODELS_KEYFRAMEQUATERNION_HPP
 
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <assimp/anim.h>
 #include <cstdint>
 #include <glm/detail/type_quat.hpp>
@@ -46,24 +46,17 @@ struct KeyframeQuaternion {
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::KeyframeQuaternion> : public SerializableObjectBase {
-    SerializableField<1, mdl::KeyframeQuaternion, double> time;
-    SerializableField<2, mdl::KeyframeQuaternion, glm::quat> value;
-    SerializableField<3, mdl::KeyframeQuaternion, mdl::KeyframeQuaternion::Interpolation>
-        interpolation;
-
-    SerializableObject()
-    : SerializableObjectBase("KeyframeQuaternion")
-    , time("time", *this, &mdl::KeyframeQuaternion::time, SerializableFieldBase::Required{})
-    , value("value", *this, &mdl::KeyframeQuaternion::value, SerializableFieldBase::Required{})
-    , interpolation("interpolation", *this, &mdl::KeyframeQuaternion::interpolation,
-                    SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::KeyframeQuaternion> {
+    inline static const auto spec = makeSpec<mdl::KeyframeQuaternion>(
+        "KeyframeQuaternion",
+        memberList(defineMember(1, "time", &mdl::KeyframeQuaternion::time),
+                   defineMember(2, "value", &mdl::KeyframeQuaternion::value),
+                   defineMember(3, "interpolation", &mdl::KeyframeQuaternion::interpolation)));
 };
-
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

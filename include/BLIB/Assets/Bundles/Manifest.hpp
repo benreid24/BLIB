@@ -1,7 +1,7 @@
 #ifndef BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 #define BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <string>
 #include <unordered_map>
@@ -25,19 +25,15 @@ struct Manifest {
 } // namespace bdl
 } // namespace as
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<as::bdl::Manifest> : public SerializableObjectBase {
-    SerializableField<1, as::bdl::Manifest, std::unordered_map<util::UUID, util::UUID>>
-        assetToBundle;
-
-    SerializableObject()
-    : SerializableObjectBase("Manifest")
-    , assetToBundle("assetToBundle", *this, &as::bdl::Manifest::assetToBundle,
-                    SerializableFieldBase::Required{}) {}
+struct ReflectedObject<as::bdl::Manifest> {
+    inline static const auto spec = makeSpec<as::bdl::Manifest>(
+        "Manifest",
+        memberList(defineMember(1, "assetToBundle", &as::bdl::Manifest::assetToBundle)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

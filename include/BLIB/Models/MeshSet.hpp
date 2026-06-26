@@ -2,7 +2,7 @@
 #define BLIB_MODELS_MESHSET_HPP
 
 #include <BLIB/Models/Mesh.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <assimp/scene.h>
 #include <vector>
 
@@ -66,22 +66,19 @@ public:
 private:
     std::vector<Mesh> meshes;
 
-    friend struct serial::SerializableObject<MeshSet>;
+    friend struct refl::ReflectedObject<MeshSet>;
 };
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::MeshSet> : public SerializableObjectBase {
-    SerializableField<1, mdl::MeshSet, std::vector<mdl::Mesh>> meshes;
-
-    SerializableObject()
-    : SerializableObjectBase("MeshSet")
-    , meshes("meshes", *this, &mdl::MeshSet::meshes, SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::MeshSet> {
+    inline static const auto spec = makeSpec<mdl::MeshSet>(
+        "MeshSet", memberList(defineMember(1, "meshes", &mdl::MeshSet::meshes)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

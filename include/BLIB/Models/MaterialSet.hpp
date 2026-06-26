@@ -3,7 +3,7 @@
 
 #include <BLIB/Models/Material.hpp>
 #include <BLIB/Models/Visitor.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <assimp/material.h>
 #include <assimp/scene.h>
 #include <vector>
@@ -55,23 +55,19 @@ public:
 private:
     std::vector<Material> materials;
 
-    friend struct serial::SerializableObject<MaterialSet>;
+    friend struct refl::ReflectedObject<MaterialSet>;
 };
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::MaterialSet> : public SerializableObjectBase {
-    SerializableField<1, mdl::MaterialSet, std::vector<mdl::Material>> materials;
-
-    SerializableObject()
-    : SerializableObjectBase("MaterialSet")
-    , materials("materials", *this, &mdl::MaterialSet::materials,
-                SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::MaterialSet> {
+    inline static const auto spec = makeSpec<mdl::MaterialSet>(
+        "MaterialSet", memberList(defineMember(1, "materials", &mdl::MaterialSet::materials)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

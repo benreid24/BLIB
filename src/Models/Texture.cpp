@@ -1,5 +1,7 @@
 #include <BLIB/Models/Texture.hpp>
 
+#include <BLIB/Util/FileUtil.hpp>
+
 namespace bl
 {
 namespace mdl

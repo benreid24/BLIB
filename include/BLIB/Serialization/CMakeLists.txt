@@ -1,8 +1,6 @@
 target_sources(BLIB PUBLIC
     Binary.hpp
     JSON.hpp
-    SerializableField.hpp
-    SerializableObject.hpp
 )
 
 add_subdirectory(Binary)

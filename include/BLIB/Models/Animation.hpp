@@ -2,7 +2,7 @@
 #define BLIB_MODELS_ANIMATION_HPP
 
 #include <BLIB/Models/BoneAnimation.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <assimp/anim.h>
 #include <string>
 #include <vector>
@@ -78,32 +78,23 @@ private:
     double ticksPerSecond;
     std::vector<BoneAnimation> boneAnimations;
 
-    friend struct serial::SerializableObject<Animation>;
+    friend struct refl::ReflectedObject<Animation>;
 };
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::Animation> : public SerializableObjectBase {
-    SerializableField<1, mdl::Animation, std::string> name;
-    SerializableField<2, mdl::Animation, double> durationInTicks;
-    SerializableField<3, mdl::Animation, double> ticksPerSecond;
-    SerializableField<4, mdl::Animation, std::vector<mdl::BoneAnimation>> boneAnimations;
-
-    SerializableObject()
-    : SerializableObjectBase("Animation")
-    , name("name", *this, &mdl::Animation::name, SerializableFieldBase::Required{})
-    , durationInTicks("durationInTicks", *this, &mdl::Animation::durationInTicks,
-                      SerializableFieldBase::Required{})
-    , ticksPerSecond("ticksPerSecond", *this, &mdl::Animation::ticksPerSecond,
-                     SerializableFieldBase::Required{})
-    , boneAnimations("boneAnimations", *this, &mdl::Animation::boneAnimations,
-                     SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::Animation> {
+    inline static const auto spec = makeSpec<mdl::Animation>(
+        "Animation",
+        memberList(defineMember(1, "name", &mdl::Animation::name),
+                   defineMember(2, "durationInTicks", &mdl::Animation::durationInTicks),
+                   defineMember(3, "ticksPerSecond", &mdl::Animation::ticksPerSecond),
+                   defineMember(4, "boneAnimations", &mdl::Animation::boneAnimations)));
 };
-
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

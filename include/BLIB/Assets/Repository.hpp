@@ -295,7 +295,6 @@ private:
 
     friend class detail::DependencyChain;
     friend class Ref;
-    friend struct serial::SerializableObject<Repository>;
     friend class Asset;
     friend class detail::Context;
 };

@@ -19,24 +19,6 @@ namespace asi
 {
 namespace
 {
-// FreeType callbacks that operate on a sf::InputStream
-unsigned long read(FT_Stream rec, unsigned long offset, unsigned char* buffer,
-                   unsigned long count) {
-    std::uint64_t convertedOffset = static_cast<std::uint64_t>(offset);
-    sf::InputStream* stream       = static_cast<sf::InputStream*>(rec->descriptor.pointer);
-    if (stream->seek(convertedOffset) == convertedOffset) {
-        if (count > 0) {
-            auto read =
-                stream->read(reinterpret_cast<char*>(buffer), static_cast<std::uint64_t>(count));
-            return read.value_or(0);
-        }
-        else { return 0; }
-    }
-    else
-        return count > 0 ? 0 : 1; // error code is 0 if we're reading, or nonzero if we're seeking
-}
-void close(FT_Stream) {}
-
 // Helper to interpret memory as a specific type
 template<typename T, typename U>
 inline T reinterpret(const U& input) {

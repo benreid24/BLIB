@@ -11,8 +11,6 @@ namespace json
 {
 namespace unittest
 {
-namespace
-{
 struct TestBoi {
     bool bfield;
     int ifield;
@@ -42,32 +40,28 @@ struct TestBoi {
         imfield[-5] = "field -5";
     }
 };
-} // namespace
 } // namespace unittest
 } // namespace json
+} // namespace serial
 
+namespace refl
+{
 template<>
-struct SerializableObject<json::unittest::TestBoi> : public SerializableObjectBase {
-    using T = json::unittest::TestBoi;
-
-    SerializableField<1, T, bool> bfield;
-    SerializableField<2, T, int> ifield;
-    SerializableField<3, T, float> ffield;
-    SerializableField<4, T, std::string> sfield;
-    SerializableField<5, T, std::vector<int>> vfield;
-    SerializableField<6, T, std::unordered_map<std::string, std::string>> smfield;
-    SerializableField<7, T, std::unordered_map<int, std::string>> imfield;
-
-    SerializableObject()
-    : SerializableObjectBase("TestBoi")
-    , bfield("bfield", *this, &T::bfield, SerializableFieldBase::Required{})
-    , ifield("ifield", *this, &T::ifield, SerializableFieldBase::Required{})
-    , ffield("ffield", *this, &T::ffield, SerializableFieldBase::Required{})
-    , sfield("sfield", *this, &T::sfield, SerializableFieldBase::Required{})
-    , vfield("vfield", *this, &T::vfield, SerializableFieldBase::Required{})
-    , smfield("smfield", *this, &T::smfield, SerializableFieldBase::Required{})
-    , imfield("imfield", *this, &T::imfield, SerializableFieldBase::Required{}) {}
+struct ReflectedObject<serial::json::unittest::TestBoi> {
+    inline static const auto spec = makeSpec<serial::json::unittest::TestBoi>(
+        "TestBoi",
+        memberList(defineMember(1, "bfield", &serial::json::unittest::TestBoi::bfield),
+                   defineMember(2, "ifield", &serial::json::unittest::TestBoi::ifield),
+                   defineMember(3, "ffield", &serial::json::unittest::TestBoi::ffield),
+                   defineMember(4, "sfield", &serial::json::unittest::TestBoi::sfield),
+                   defineMember(5, "vfield", &serial::json::unittest::TestBoi::vfield),
+                   defineMember(6, "smfield", &serial::json::unittest::TestBoi::smfield),
+                   defineMember(7, "imfield", &serial::json::unittest::TestBoi::imfield)));
 };
+} // namespace refl
+
+namespace serial
+{
 namespace json
 {
 namespace unittest
@@ -256,7 +250,7 @@ TEST(JsonSerializer, DirectSerialization) {
 }
 
 TEST(JsonSerializer, Double) {
-    double value = 2.71828;
+    double value  = 2.71828;
     double result = 0.0;
     EXPECT_TRUE(Serializer<double>::deserialize(result, Serializer<double>::serialize(value)));
     EXPECT_NEAR(result, value, 0.0001);
@@ -333,8 +327,7 @@ TEST(JsonSerializer, SFMLRect) {
 TEST(JsonSerializer, GlmVec2) {
     const glm::vec2 v(1.5f, 2.5f);
     glm::vec2 result(0.f);
-    EXPECT_TRUE(
-        (Serializer<glm::vec2>::deserialize(result, Serializer<glm::vec2>::serialize(v))));
+    EXPECT_TRUE((Serializer<glm::vec2>::deserialize(result, Serializer<glm::vec2>::serialize(v))));
     EXPECT_NEAR(result.x, v.x, 0.001f);
     EXPECT_NEAR(result.y, v.y, 0.001f);
 }
@@ -342,8 +335,7 @@ TEST(JsonSerializer, GlmVec2) {
 TEST(JsonSerializer, GlmVec3) {
     const glm::vec3 v(1.0f, 2.0f, 3.0f);
     glm::vec3 result(0.f);
-    EXPECT_TRUE(
-        (Serializer<glm::vec3>::deserialize(result, Serializer<glm::vec3>::serialize(v))));
+    EXPECT_TRUE((Serializer<glm::vec3>::deserialize(result, Serializer<glm::vec3>::serialize(v))));
     EXPECT_NEAR(result.x, v.x, 0.001f);
     EXPECT_NEAR(result.y, v.y, 0.001f);
     EXPECT_NEAR(result.z, v.z, 0.001f);
@@ -352,8 +344,7 @@ TEST(JsonSerializer, GlmVec3) {
 TEST(JsonSerializer, GlmVec4) {
     const glm::vec4 v(1.0f, 2.0f, 3.0f, 4.0f);
     glm::vec4 result(0.f);
-    EXPECT_TRUE(
-        (Serializer<glm::vec4>::deserialize(result, Serializer<glm::vec4>::serialize(v))));
+    EXPECT_TRUE((Serializer<glm::vec4>::deserialize(result, Serializer<glm::vec4>::serialize(v))));
     EXPECT_NEAR(result.x, v.x, 0.001f);
     EXPECT_NEAR(result.y, v.y, 0.001f);
     EXPECT_NEAR(result.z, v.z, 0.001f);
@@ -363,8 +354,7 @@ TEST(JsonSerializer, GlmVec4) {
 TEST(JsonSerializer, GlmQuat) {
     const glm::quat q(1.0f, 0.5f, 0.25f, 0.1f);
     glm::quat result(0.f, 0.f, 0.f, 0.f);
-    EXPECT_TRUE(
-        (Serializer<glm::quat>::deserialize(result, Serializer<glm::quat>::serialize(q))));
+    EXPECT_TRUE((Serializer<glm::quat>::deserialize(result, Serializer<glm::quat>::serialize(q))));
     EXPECT_NEAR(result.x, q.x, 0.001f);
     EXPECT_NEAR(result.y, q.y, 0.001f);
     EXPECT_NEAR(result.z, q.z, 0.001f);
@@ -377,8 +367,7 @@ TEST(JsonSerializer, GlmMat4) {
         for (int r = 0; r < 4; ++r) { m[c][r] = static_cast<float>(c * 4 + r); }
     }
     glm::mat4 result(0.f);
-    EXPECT_TRUE(
-        (Serializer<glm::mat4>::deserialize(result, Serializer<glm::mat4>::serialize(m))));
+    EXPECT_TRUE((Serializer<glm::mat4>::deserialize(result, Serializer<glm::mat4>::serialize(m))));
     for (int c = 0; c < 4; ++c) {
         for (int r = 0; r < 4; ++r) { EXPECT_NEAR(result[c][r], m[c][r], 0.001f); }
     }
@@ -429,7 +418,8 @@ TEST(JsonSerializer, SFMLImage) {
     image.setPixel({1, 1}, sf::Color(255, 255, 0, 255));
 
     sf::Image result;
-    EXPECT_TRUE(Serializer<sf::Image>::deserialize(result, Serializer<sf::Image>::serialize(image)));
+    EXPECT_TRUE(
+        Serializer<sf::Image>::deserialize(result, Serializer<sf::Image>::serialize(image)));
     ASSERT_EQ(result.getSize(), sf::Vector2u(2, 2));
     EXPECT_EQ(result.getPixel({0, 0}), sf::Color(255, 0, 0, 255));
     EXPECT_EQ(result.getPixel({1, 0}), sf::Color(0, 255, 0, 255));

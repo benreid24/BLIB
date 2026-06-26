@@ -1,7 +1,7 @@
 #ifndef BLIB_MODELS_KEYFRAMEVECTOR_HPP
 #define BLIB_MODELS_KEYFRAMEVECTOR_HPP
 
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <assimp/anim.h>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -45,23 +45,17 @@ struct KeyframeVector {
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::KeyframeVector> : public SerializableObjectBase {
-    SerializableField<1, mdl::KeyframeVector, double> time;
-    SerializableField<2, mdl::KeyframeVector, glm::vec3> value;
-    SerializableField<3, mdl::KeyframeVector, mdl::KeyframeVector::Interpolation> interpolation;
-
-    SerializableObject()
-    : SerializableObjectBase("KeyframeVector")
-    , time("time", *this, &mdl::KeyframeVector::time, SerializableFieldBase::Required{})
-    , value("value", *this, &mdl::KeyframeVector::value, SerializableFieldBase::Required{})
-    , interpolation("interpolation", *this, &mdl::KeyframeVector::interpolation,
-                    SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::KeyframeVector> {
+    inline static const auto spec = makeSpec<mdl::KeyframeVector>(
+        "KeyframeVector",
+        memberList(defineMember(1, "time", &mdl::KeyframeVector::time),
+                   defineMember(2, "value", &mdl::KeyframeVector::value),
+                   defineMember(3, "interpolation", &mdl::KeyframeVector::interpolation)));
 };
-
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

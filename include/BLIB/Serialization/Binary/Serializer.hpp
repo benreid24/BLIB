@@ -2,10 +2,12 @@
 #define BLIB_FILES_BINARY_SERIALIZER_HPP
 
 #include <BLIB/Containers/Vector2d.hpp>
+#include <BLIB/Reflection/Attributes/DefaultValue.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Scripts/Value.hpp>
 #include <BLIB/Serialization/Binary/Detail/InputStreamWrapper.hpp>
 #include <BLIB/Serialization/Binary/Detail/OutputStreamWrapper.hpp>
-#include <BLIB/Serialization/SerializableObject.hpp>
+#include <BLIB/Serialization/Traits.hpp>
 #include <BLIB/Streams.hpp>
 
 #include <SFML/Graphics/Image.hpp>
@@ -68,27 +70,30 @@ struct Serializer {
 
 ///////////////////////////// INLINE FUNCTIONS ////////////////////////////////////
 
+#include <BLIB/Serialization/Binary/Detail/DeserializePackedVisitor.inl>
+#include <BLIB/Serialization/Binary/Detail/DeserializeVisitor.inl>
+#include <BLIB/Serialization/Binary/Detail/SerializeVisitor.inl>
+#include <BLIB/Serialization/Binary/Detail/SizeVisitor.inl>
+
 template<typename T>
 struct Serializer<T, false> {
     static bool serialize(stream::OutputStream& output, const T& value) {
-        return SerializableObjectBase::get<T>().serializeBinary(output, &value);
+        return detail::serializeVisitor(output, value, false);
     }
 
     static bool deserialize(stream::InputStream& input, T& result) {
-        return SerializableObjectBase::get<T>().deserializeBinary(input, &result);
+        return detail::deserializeVisitor(input, result);
     }
 
     static bool serializePacked(stream::OutputStream& output, const T& value) {
-        return SerializableObjectBase::get<T>().serializePackedBinary(output, &value);
+        return detail::serializeVisitor(output, value, true);
     }
 
     static bool deserializePacked(stream::InputStream& input, T& result) {
-        return SerializableObjectBase::get<T>().deserializePackedBinary(input, &result);
+        return detail::deserializePackedVisitor(input, result);
     }
 
-    static std::uint32_t size(const T& value) {
-        return SerializableObjectBase::get<T>().binarySize(&value);
-    }
+    static std::uint32_t size(const T& value) { return detail::sizeVisitor(value); }
 
 private:
 };

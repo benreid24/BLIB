@@ -8,7 +8,7 @@
 #include <BLIB/Assets/DependencyList.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Models/Model.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 
 namespace bl
 {
@@ -113,27 +113,22 @@ private:
     as::DependencyList<Animation3DPayload> animations;
 
     friend class ModelDriver;
-    friend struct serial::SerializableObject<ModelPayload>;
+    friend struct refl::ReflectedObject<ModelPayload>;
 };
 
 } // namespace asi
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<asi::ModelPayload> : public SerializableObjectBase {
-    SerializableField<1, asi::ModelPayload, mdl::NodeSet> nodes;
-    SerializableField<2, asi::ModelPayload, mdl::MeshSet> meshes;
-    SerializableField<3, asi::ModelPayload, mdl::BoneSet> bones;
-
-    SerializableObject()
-    : SerializableObjectBase("ModelPayload")
-    , nodes("nodes", *this, &asi::ModelPayload::nodes, SerializableFieldBase::Required{})
-    , meshes("meshes", *this, &asi::ModelPayload::meshes, SerializableFieldBase::Required{})
-    , bones("bones", *this, &asi::ModelPayload::bones, SerializableFieldBase::Required{}) {}
+struct ReflectedObject<asi::ModelPayload> {
+    inline static const auto spec = makeSpec<asi::ModelPayload>(
+        "ModelPayload", memberList(defineMember(1, "nodes", &asi::ModelPayload::nodes),
+                                   defineMember(2, "meshes", &asi::ModelPayload::meshes),
+                                   defineMember(3, "bones", &asi::ModelPayload::bones)));
 };
+} // namespace refl
 
-} // namespace serial
 } // namespace bl
 
 #endif

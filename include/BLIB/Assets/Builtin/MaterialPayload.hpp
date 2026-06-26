@@ -3,6 +3,7 @@
 
 #include <BLIB/Assets/Builtin/TexturePayload.hpp>
 #include <BLIB/Models/Material.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 
 namespace bl
 {
@@ -52,21 +53,16 @@ struct MaterialPayload : public as::Payload {
 
 } // namespace asi
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<asi::MaterialPayload> : public SerializableObjectBase {
-    SerializableField<1, asi::MaterialPayload, float> shininess;
-    SerializableField<2, asi::MaterialPayload, float> heightScale;
-
-    SerializableObject()
-    : SerializableObjectBase("MaterialPayload")
-    , shininess("shininess", *this, &asi::MaterialPayload::shininess,
-                SerializableFieldBase::Required{})
-    , heightScale("heightScale", *this, &asi::MaterialPayload::heightScale,
-                  SerializableFieldBase::Required{}) {}
+struct ReflectedObject<asi::MaterialPayload> {
+    inline static const auto spec = makeSpec<asi::MaterialPayload>(
+        "MaterialPayload",
+        memberList(defineMember(1, "shininess", &asi::MaterialPayload::shininess),
+                   defineMember(2, "heightScale", &asi::MaterialPayload::heightScale)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

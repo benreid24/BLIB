@@ -2,7 +2,7 @@
 #define BLIB_MODELS_BONESET_HPP
 
 #include <BLIB/Models/Bone.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <assimp/scene.h>
 #include <optional>
 #include <vector>
@@ -69,21 +69,19 @@ public:
 private:
     std::vector<Bone> bones;
 
-    friend struct serial::SerializableObject<BoneSet>;
+    friend struct refl::ReflectedObject<BoneSet>;
 };
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::BoneSet> : public SerializableObjectBase {
-    SerializableField<1, mdl::BoneSet, std::vector<mdl::Bone>> bones;
-    SerializableObject()
-    : SerializableObjectBase("BoneSet")
-    , bones("bones", *this, &mdl::BoneSet::bones, SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::BoneSet> {
+    inline static const auto spec = makeSpec<mdl::BoneSet>(
+        "BoneSet", memberList(defineMember(1, "bones", &mdl::BoneSet::bones)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

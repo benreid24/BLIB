@@ -8,7 +8,7 @@ namespace as
 {
 namespace bdl
 {
-MountedBundle::MountedBundle(Repository& owner, const std::string& path)
+MountedBundle::MountedBundle(Repository&, const std::string& path)
 : bundlePath(path)
 , touchTime(std::chrono::steady_clock::now()) {
     stream::InputStream input;

@@ -5,7 +5,7 @@
 #include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Dependency.hpp>
 #include <BLIB/Assets/Payload.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 
 namespace bl
 {
@@ -80,20 +80,15 @@ struct TexturePayload : public as::Payload {
 
 } // namespace asi
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<asi::TexturePayload> : public SerializableObjectBase {
-    SerializableField<1, asi::TexturePayload, asi::TexturePayload::Type> type;
-    SerializableField<2, asi::TexturePayload, asi::TexturePayload::ColorSpace> colorSpace;
-
-    SerializableObject()
-    : SerializableObjectBase("Texture")
-    , type("type", *this, &asi::TexturePayload::type, SerializableFieldBase::Required{})
-    , colorSpace("colorSpace", *this, &asi::TexturePayload::colorSpace,
-                 SerializableFieldBase::Required{}) {}
+struct ReflectedObject<asi::TexturePayload> {
+    inline static const auto spec = makeSpec<asi::TexturePayload>(
+        "Texture", memberList(defineMember(1, "type", &asi::TexturePayload::type),
+                              defineMember(2, "colorSpace", &asi::TexturePayload::colorSpace)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

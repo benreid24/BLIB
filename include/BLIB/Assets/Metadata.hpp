@@ -1,7 +1,7 @@
 #ifndef BLIB_ASSETS_METADATA_HPP
 #define BLIB_ASSETS_METADATA_HPP
 
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <chrono>
 #include <cstdint>
 #include <string>
@@ -138,49 +138,33 @@ private:
     Asset* owner;
 
     friend class Asset;
-    friend struct serial::SerializableObject<as::Metadata>;
+    friend struct refl::ReflectedObject<as::Metadata>;
 };
 
 } // namespace as
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<as::Metadata::SourceFileInfo> : public SerializableObjectBase {
-    SerializableField<1, as::Metadata::SourceFileInfo, std::string> path;
-    SerializableField<2, as::Metadata::SourceFileInfo, std::time_t> lastModified;
-
-    SerializableObject()
-    : SerializableObjectBase("SourceFileInfo")
-    , path("path", *this, &as::Metadata::SourceFileInfo::path, SerializableFieldBase::Required{})
-    , lastModified("lastModified", *this, &as::Metadata::SourceFileInfo::lastModified,
-                   SerializableFieldBase::Required{}) {}
+struct ReflectedObject<as::Metadata::SourceFileInfo> {
+    inline static const auto spec = makeSpec<as::Metadata::SourceFileInfo>(
+        "SourceFileInfo",
+        memberList(defineMember(1, "path", &as::Metadata::SourceFileInfo::path),
+                   defineMember(2, "lastModified", &as::Metadata::SourceFileInfo::lastModified)));
 };
 
 template<>
-struct SerializableObject<as::Metadata> : public SerializableObjectBase {
-    SerializableField<1, as::Metadata, std::string> displayName;
-    SerializableField<2, as::Metadata, std::string> description;
-    SerializableField<3, as::Metadata, std::string> path;
-    SerializableField<4, as::Metadata, std::uint64_t> creationTime;
-    SerializableField<5, as::Metadata, bool> isAutoLoaded;
-    SerializableField<6, as::Metadata, std::optional<as::Metadata::SourceFileInfo>> sourceFileInfo;
-
-    SerializableObject()
-    : SerializableObjectBase("AssetMetadata")
-    , displayName("displayName", *this, &as::Metadata::displayName,
-                  SerializableFieldBase::Required{})
-    , description("description", *this, &as::Metadata::description,
-                  SerializableFieldBase::Required{})
-    , path("path", *this, &as::Metadata::path, SerializableFieldBase::Required{})
-    , creationTime("creationTime", *this, &as::Metadata::creationTime,
-                   SerializableFieldBase::Required{})
-    , isAutoLoaded("isAutoLoaded", *this, &as::Metadata::isAutoLoaded,
-                   SerializableFieldBase::Required{})
-    , sourceFileInfo("sourceFileInfo", *this, &as::Metadata::sourceFileInfo,
-                     SerializableFieldBase::Required{}) {}
+struct ReflectedObject<as::Metadata> {
+    inline static const auto spec = makeSpec<as::Metadata>(
+        "AssetMetadata",
+        memberList(defineMember(1, "displayName", &as::Metadata::displayName),
+                   defineMember(2, "description", &as::Metadata::description),
+                   defineMember(3, "path", &as::Metadata::path),
+                   defineMember(4, "creationTime", &as::Metadata::creationTime),
+                   defineMember(5, "isAutoLoaded", &as::Metadata::isAutoLoaded),
+                   defineMember(6, "sourceFileInfo", &as::Metadata::sourceFileInfo)));
 };
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

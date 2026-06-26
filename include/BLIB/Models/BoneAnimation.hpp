@@ -3,7 +3,7 @@
 
 #include <BLIB/Models/KeyframeQuaternion.hpp>
 #include <BLIB/Models/KeyframeVector.hpp>
-#include <BLIB/Serialization.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -144,47 +144,28 @@ private:
     glm::vec3 bindPoseScale;
     glm::quat bindPoseRotation;
 
-    friend struct serial::SerializableObject<BoneAnimation>;
+    friend struct refl::ReflectedObject<BoneAnimation>;
 };
 
 } // namespace mdl
 
-namespace serial
+namespace refl
 {
 template<>
-struct SerializableObject<mdl::BoneAnimation> : public SerializableObjectBase {
-    SerializableField<1, mdl::BoneAnimation, std::string> boneName;
-    SerializableField<2, mdl::BoneAnimation, std::vector<mdl::KeyframeVector>> positionKeys;
-    SerializableField<3, mdl::BoneAnimation, std::vector<mdl::KeyframeQuaternion>> rotationKeys;
-    SerializableField<4, mdl::BoneAnimation, std::vector<mdl::KeyframeVector>> scaleKeys;
-    SerializableField<5, mdl::BoneAnimation, mdl::BoneAnimation::Behavior> preBehavior;
-    SerializableField<6, mdl::BoneAnimation, mdl::BoneAnimation::Behavior> postBehavior;
-    SerializableField<7, mdl::BoneAnimation, glm::vec3> bindPosePosition;
-    SerializableField<8, mdl::BoneAnimation, glm::vec3> bindPoseScale;
-    SerializableField<9, mdl::BoneAnimation, glm::quat> bindPoseRotation;
-
-    SerializableObject()
-    : SerializableObjectBase("BoneAnimation")
-    , boneName("boneName", *this, &mdl::BoneAnimation::boneName, SerializableFieldBase::Required{})
-    , positionKeys("positionKeys", *this, &mdl::BoneAnimation::positionKeys,
-                   SerializableFieldBase::Required{})
-    , rotationKeys("rotationKeys", *this, &mdl::BoneAnimation::rotationKeys,
-                   SerializableFieldBase::Required{})
-    , scaleKeys("scaleKeys", *this, &mdl::BoneAnimation::scaleKeys,
-                SerializableFieldBase::Required{})
-    , preBehavior("preBehavior", *this, &mdl::BoneAnimation::preBehavior,
-                  SerializableFieldBase::Required{})
-    , postBehavior("postBehavior", *this, &mdl::BoneAnimation::postBehavior,
-                   SerializableFieldBase::Required{})
-    , bindPosePosition("bindPosePosition", *this, &mdl::BoneAnimation::bindPosePosition,
-                       SerializableFieldBase::Required{})
-    , bindPoseScale("bindPoseScale", *this, &mdl::BoneAnimation::bindPoseScale,
-                    SerializableFieldBase::Required{})
-    , bindPoseRotation("bindPoseRotation", *this, &mdl::BoneAnimation::bindPoseRotation,
-                       SerializableFieldBase::Required{}) {}
+struct ReflectedObject<mdl::BoneAnimation> {
+    inline static const auto spec = makeSpec<mdl::BoneAnimation>(
+        "BoneAnimation",
+        memberList(defineMember(1, "boneName", &mdl::BoneAnimation::boneName),
+                   defineMember(2, "positionKeys", &mdl::BoneAnimation::positionKeys),
+                   defineMember(3, "rotationKeys", &mdl::BoneAnimation::rotationKeys),
+                   defineMember(4, "scaleKeys", &mdl::BoneAnimation::scaleKeys),
+                   defineMember(5, "preBehavior", &mdl::BoneAnimation::preBehavior),
+                   defineMember(6, "postBehavior", &mdl::BoneAnimation::postBehavior),
+                   defineMember(7, "bindPosePosition", &mdl::BoneAnimation::bindPosePosition),
+                   defineMember(8, "bindPoseScale", &mdl::BoneAnimation::bindPoseScale),
+                   defineMember(9, "bindPoseRotation", &mdl::BoneAnimation::bindPoseRotation)));
 };
-
-} // namespace serial
+} // namespace refl
 
 } // namespace bl
 

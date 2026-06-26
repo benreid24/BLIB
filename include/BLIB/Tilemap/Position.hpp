@@ -2,6 +2,7 @@
 #define BLIB_TILEMAP_POSITION_HPP
 
 #include <BLIB/Components/Transform2D.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Tilemap/Direction.hpp>
 #include <glm/glm.hpp>
@@ -149,23 +150,18 @@ struct Serializer<tmap::Position, false> {
 
 } // namespace binary
 
-template<>
-struct SerializableObject<tmap::Position> : SerializableObjectBase {
-    using Pos = tmap::Position;
-    using Dir = tmap::Direction;
-
-    SerializableField<1, Pos, std::uint8_t> level;
-    SerializableField<2, Pos, Dir> direction;
-    SerializableField<3, Pos, glm::i32vec2> position;
-
-    SerializableObject()
-    : SerializableObjectBase("Position")
-    , level("level", *this, &Pos::level, SerializableFieldBase::Required{})
-    , direction("direction", *this, &Pos::direction, SerializableFieldBase::Required{})
-    , position("position", *this, &Pos::position, SerializableFieldBase::Required{}) {}
-};
-
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<tmap::Position> {
+    inline static const auto spec = makeSpec<tmap::Position>(
+        "Position", memberList(defineMember(1, "level", &tmap::Position::level),
+                               defineMember(2, "direction", &tmap::Position::direction),
+                               defineMember(3, "position", &tmap::Position::position)));
+};
+} // namespace refl
 
 } // namespace bl
 
