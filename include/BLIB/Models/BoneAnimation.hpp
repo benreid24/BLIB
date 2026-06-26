@@ -3,6 +3,7 @@
 
 #include <BLIB/Models/KeyframeQuaternion.hpp>
 #include <BLIB/Models/KeyframeVector.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <cstdint>
 #include <string>
@@ -145,6 +146,7 @@ private:
     glm::quat bindPoseRotation;
 
     friend struct serial::SerializableObject<BoneAnimation>;
+    friend struct refl::ReflectedObject<BoneAnimation>;
 };
 
 } // namespace mdl
@@ -185,6 +187,24 @@ struct SerializableObject<mdl::BoneAnimation> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::BoneAnimation> {
+    inline static const auto spec = makeSpec<mdl::BoneAnimation>(
+        "BoneAnimation",
+        memberList(defineMember(1, "boneName", &mdl::BoneAnimation::boneName),
+                   defineMember(2, "positionKeys", &mdl::BoneAnimation::positionKeys),
+                   defineMember(3, "rotationKeys", &mdl::BoneAnimation::rotationKeys),
+                   defineMember(4, "scaleKeys", &mdl::BoneAnimation::scaleKeys),
+                   defineMember(5, "preBehavior", &mdl::BoneAnimation::preBehavior),
+                   defineMember(6, "postBehavior", &mdl::BoneAnimation::postBehavior),
+                   defineMember(7, "bindPosePosition", &mdl::BoneAnimation::bindPosePosition),
+                   defineMember(8, "bindPoseScale", &mdl::BoneAnimation::bindPoseScale),
+                   defineMember(9, "bindPoseRotation", &mdl::BoneAnimation::bindPoseRotation)));
+};
+} // namespace refl
 
 } // namespace bl
 

@@ -1,6 +1,7 @@
 #ifndef BLIB_MODELS_NODE_HPP
 #define BLIB_MODELS_NODE_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
 #include <optional>
@@ -100,6 +101,7 @@ private:
     std::optional<std::uint32_t> boneIndex;
 
     friend struct serial::SerializableObject<Node>;
+    friend struct refl::ReflectedObject<Node>;
 };
 
 } // namespace mdl
@@ -127,6 +129,21 @@ struct SerializableObject<mdl::Node> : public SerializableObjectBase {
     , boneIndex("boneIndex", *this, &mdl::Node::boneIndex, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Node> {
+    inline static const auto spec = makeSpec<mdl::Node>(
+        "Node", memberList(defineMember(1, "parent", &mdl::Node::parent),
+                           defineMember(2, "ownIndex", &mdl::Node::ownIndex),
+                           defineMember(3, "name", &mdl::Node::name),
+                           defineMember(4, "children", &mdl::Node::children),
+                           defineMember(5, "meshes", &mdl::Node::meshes),
+                           defineMember(6, "transform", &mdl::Node::transform),
+                           defineMember(7, "boneIndex", &mdl::Node::boneIndex)));
+};
+} // namespace refl
 
 } // namespace bl
 

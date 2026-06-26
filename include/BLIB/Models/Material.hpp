@@ -2,6 +2,7 @@
 #define BLIB_MODELS_MATERIAL_HPP
 
 #include <BLIB/Models/Texture.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <string>
 
@@ -68,6 +69,20 @@ struct SerializableObject<bl::mdl::Material> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Material> {
+    inline static const auto spec = makeSpec<mdl::Material>(
+        "Material", memberList(defineMember(1, "diffuse", &mdl::Material::diffuse),
+                               defineMember(2, "normal", &mdl::Material::normal),
+                               defineMember(3, "specular", &mdl::Material::specular),
+                               defineMember(4, "parallax", &mdl::Material::parallax),
+                               defineMember(5, "shininess", &mdl::Material::shininess),
+                               defineMember(6, "heightScale", &mdl::Material::heightScale)));
+};
+} // namespace refl
 
 } // namespace bl
 

@@ -1,6 +1,7 @@
 #ifndef BLIB_MODELS_VERTEX_HPP
 #define BLIB_MODELS_VERTEX_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <array>
 #include <glm/glm.hpp>
@@ -69,6 +70,22 @@ struct SerializableObject<mdl::Vertex> : public SerializableObjectBase {
                   SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Vertex> {
+    inline static const auto spec = makeSpec<mdl::Vertex>(
+        "Vertex", memberList(defineMember(1, "pos", &mdl::Vertex::pos),
+                             defineMember(2, "color", &mdl::Vertex::color),
+                             defineMember(3, "texCoord", &mdl::Vertex::texCoord),
+                             defineMember(4, "tangent", &mdl::Vertex::tangent),
+                             defineMember(5, "bitangent", &mdl::Vertex::bitangent),
+                             defineMember(6, "normal", &mdl::Vertex::normal),
+                             defineMember(7, "boneIds", &mdl::Vertex::boneIds),
+                             defineMember(8, "boneWeights", &mdl::Vertex::boneWeights)));
+};
+} // namespace refl
 
 } // namespace bl
 

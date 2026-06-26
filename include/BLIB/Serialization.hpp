@@ -11,5 +11,6 @@
 #include <BLIB/Serialization/JSON.hpp>
 #include <BLIB/Serialization/SerializableField.hpp>
 #include <BLIB/Serialization/SerializableObject.hpp>
+#include <BLIB/Serialization/Traits.hpp>
 
 #endif

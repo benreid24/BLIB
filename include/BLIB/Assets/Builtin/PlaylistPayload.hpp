@@ -4,6 +4,7 @@
 #include <BLIB/Assets/Builtin/MusicPayload.hpp>
 #include <BLIB/Assets/DependencyList.hpp>
 #include <BLIB/Assets/Payload.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 
 namespace bl
@@ -87,6 +88,7 @@ private:
     bool reshuffleOnLoop;
 
     friend struct serial::SerializableObject<PlaylistPayload>;
+    friend struct refl::ReflectedObject<PlaylistPayload>;
 };
 
 } // namespace asi
@@ -105,6 +107,17 @@ struct SerializableObject<asi::PlaylistPayload> : public SerializableObjectBase 
                       SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<asi::PlaylistPayload> {
+    inline static const auto spec = makeSpec<asi::PlaylistPayload>(
+        "Playlist",
+        memberList(defineMember(1, "shuffle", &asi::PlaylistPayload::shuffle),
+                   defineMember(2, "reshuffleOnLoop", &asi::PlaylistPayload::reshuffleOnLoop)));
+};
+} // namespace refl
 
 } // namespace bl
 

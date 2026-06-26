@@ -2,6 +2,7 @@
 #define BLIB_MODELS_BONE_HPP
 
 #include <BLIB/Models/ConversionHelpers.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/mesh.h>
 
@@ -50,6 +51,16 @@ struct SerializableObject<mdl::Bone> : public SerializableObjectBase {
     , transform("transform", *this, &mdl::Bone::transform, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Bone> {
+    inline static const auto spec = makeSpec<mdl::Bone>(
+        "Bone", memberList(defineMember(1, "name", &mdl::Bone::name),
+                           defineMember(2, "transform", &mdl::Bone::transform)));
+};
+} // namespace refl
 
 } // namespace bl
 

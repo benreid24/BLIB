@@ -1,6 +1,7 @@
 #ifndef BLIB_MODELS_KEYFRAMEVECTOR_HPP
 #define BLIB_MODELS_KEYFRAMEVECTOR_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/anim.h>
 #include <cstdint>
@@ -62,6 +63,18 @@ struct SerializableObject<mdl::KeyframeVector> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::KeyframeVector> {
+    inline static const auto spec = makeSpec<mdl::KeyframeVector>(
+        "KeyframeVector",
+        memberList(defineMember(1, "time", &mdl::KeyframeVector::time),
+                   defineMember(2, "value", &mdl::KeyframeVector::value),
+                   defineMember(3, "interpolation", &mdl::KeyframeVector::interpolation)));
+};
+} // namespace refl
 
 } // namespace bl
 

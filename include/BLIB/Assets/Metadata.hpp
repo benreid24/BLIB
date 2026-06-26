@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_METADATA_HPP
 #define BLIB_ASSETS_METADATA_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <chrono>
 #include <cstdint>
@@ -139,6 +140,7 @@ private:
 
     friend class Asset;
     friend struct serial::SerializableObject<as::Metadata>;
+    friend struct refl::ReflectedObject<as::Metadata>;
 };
 
 } // namespace as
@@ -181,6 +183,29 @@ struct SerializableObject<as::Metadata> : public SerializableObjectBase {
                      SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<as::Metadata::SourceFileInfo> {
+    inline static const auto spec = makeSpec<as::Metadata::SourceFileInfo>(
+        "SourceFileInfo",
+        memberList(defineMember(1, "path", &as::Metadata::SourceFileInfo::path),
+                   defineMember(2, "lastModified", &as::Metadata::SourceFileInfo::lastModified)));
+};
+
+template<>
+struct ReflectedObject<as::Metadata> {
+    inline static const auto spec = makeSpec<as::Metadata>(
+        "AssetMetadata",
+        memberList(defineMember(1, "displayName", &as::Metadata::displayName),
+                   defineMember(2, "description", &as::Metadata::description),
+                   defineMember(3, "path", &as::Metadata::path),
+                   defineMember(4, "creationTime", &as::Metadata::creationTime),
+                   defineMember(5, "isAutoLoaded", &as::Metadata::isAutoLoaded),
+                   defineMember(6, "sourceFileInfo", &as::Metadata::sourceFileInfo)));
+};
+} // namespace refl
 
 } // namespace bl
 

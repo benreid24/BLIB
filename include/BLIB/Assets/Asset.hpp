@@ -5,6 +5,7 @@
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/RepoDependency.hpp>
 #include <BLIB/Assets/State.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <atomic>
@@ -131,6 +132,7 @@ private:
     friend class Repository;
     friend class Ref;
     friend struct serial::SerializableObject<as::Asset>;
+    friend struct refl::ReflectedObject<as::Asset>;
     friend class Payload;
     friend class Metadata;
 };
@@ -156,6 +158,18 @@ struct SerializableObject<as::Asset> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<as::Asset> {
+    inline static const auto spec = makeSpec<as::Asset>(
+        "Asset", memberList(defineMember(1, "uuid", &as::Asset::uuid),
+                            defineMember(2, "type", &as::Asset::type),
+                            defineMember(3, "metadata", &as::Asset::metadata),
+                            defineMember(4, "dependencies", &as::Asset::dependencies)));
+};
+} // namespace refl
 
 } // namespace bl
 

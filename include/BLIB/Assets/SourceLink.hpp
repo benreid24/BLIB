@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_SOURCELINK_HPP
 #define BLIB_ASSETS_SOURCELINK_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/UUID.hpp>
 
@@ -56,6 +57,17 @@ struct SerializableObject<as::SourceLink> : public SerializableObjectBase {
     , type("type", *this, &as::SourceLink::type, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<as::SourceLink> {
+    inline static const auto spec = makeSpec<as::SourceLink>(
+        "SourceLink", memberList(defineMember(1, "uuid", &as::SourceLink::uuid),
+                                 defineMember(2, "path", &as::SourceLink::path),
+                                 defineMember(3, "type", &as::SourceLink::type)));
+};
+} // namespace refl
 
 } // namespace bl
 

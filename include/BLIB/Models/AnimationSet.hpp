@@ -2,6 +2,7 @@
 #define BLIB_MODELS_ANIMATIONSET_HPP
 
 #include <BLIB/Models/Animation.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
 
@@ -42,6 +43,7 @@ private:
     std::vector<Animation> animations;
 
     friend struct serial::SerializableObject<AnimationSet>;
+    friend struct refl::ReflectedObject<AnimationSet>;
 };
 
 } // namespace mdl
@@ -59,6 +61,15 @@ struct SerializableObject<mdl::AnimationSet> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::AnimationSet> {
+    inline static const auto spec = makeSpec<mdl::AnimationSet>(
+        "AnimationSet", memberList(defineMember(1, "animations", &mdl::AnimationSet::animations)));
+};
+} // namespace refl
 
 } // namespace bl
 

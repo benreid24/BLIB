@@ -21,6 +21,7 @@ struct BasicObject {
 template<>
 struct ReflectedObject<unittest::BasicObject> {
     inline static const auto spec = makeSpec<unittest::BasicObject>(
+        "BasicObject",
         memberList(defineMember(1, "a", &unittest::BasicObject::a, attr::withDefaultValue(0)),
                    defineMember(2, "b", &unittest::BasicObject::b),
                    defineMember(3, "c", &unittest::BasicObject::c)),

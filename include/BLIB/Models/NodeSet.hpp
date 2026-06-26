@@ -2,6 +2,7 @@
 #define BLIB_MODELS_NODESET_HPP
 
 #include <BLIB/Models/Node.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <vector>
 
@@ -71,6 +72,7 @@ private:
     std::vector<Node> nodes;
 
     friend struct serial::SerializableObject<NodeSet>;
+    friend struct refl::ReflectedObject<NodeSet>;
 };
 
 } // namespace mdl
@@ -86,6 +88,15 @@ struct SerializableObject<mdl::NodeSet> : public SerializableObjectBase {
     , nodes("nodes", *this, &mdl::NodeSet::nodes, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::NodeSet> {
+    inline static const auto spec = makeSpec<mdl::NodeSet>(
+        "NodeSet", memberList(defineMember(1, "nodes", &mdl::NodeSet::nodes)));
+};
+} // namespace refl
 
 } // namespace bl
 

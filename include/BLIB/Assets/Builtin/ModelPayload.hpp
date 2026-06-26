@@ -8,6 +8,7 @@
 #include <BLIB/Assets/DependencyList.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Models/Model.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 
 namespace bl
@@ -114,6 +115,7 @@ private:
 
     friend class ModelDriver;
     friend struct serial::SerializableObject<ModelPayload>;
+    friend struct refl::ReflectedObject<ModelPayload>;
 };
 
 } // namespace asi
@@ -134,6 +136,18 @@ struct SerializableObject<asi::ModelPayload> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<asi::ModelPayload> {
+    inline static const auto spec = makeSpec<asi::ModelPayload>(
+        "ModelPayload", memberList(defineMember(1, "nodes", &asi::ModelPayload::nodes),
+                                   defineMember(2, "meshes", &asi::ModelPayload::meshes),
+                                   defineMember(3, "bones", &asi::ModelPayload::bones)));
+};
+} // namespace refl
+
 } // namespace bl
 
 #endif

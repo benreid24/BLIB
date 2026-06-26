@@ -27,6 +27,21 @@ struct SerializableObject<Nested> : public SerializableObjectBase {
     , floatValue("fval", *this, &Nested::floatValue, SerializableFieldBase::Required{}) {}
 };
 
+} // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::Nested> {
+    inline static const auto spec = makeSpec<serial::Nested>(
+        "Nested", memberList(defineMember(1, "bval", &serial::Nested::boolValue),
+                             defineMember(2, "fval", &serial::Nested::floatValue)));
+};
+} // namespace refl
+
+namespace serial
+{
+
 struct Data {
     Data(int ival, const std::string sval, const std::vector<Nested>& nval)
     : intValue(ival)
@@ -50,6 +65,21 @@ struct SerializableObject<Data> : public SerializableObjectBase {
     , stringValue("sval", *this, &Data::stringValue, SerializableFieldBase::Required{})
     , nestedValue("nval", *this, &Data::nestedValue, SerializableFieldBase::Required{}) {}
 };
+} // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::Data> {
+    inline static const auto spec = makeSpec<serial::Data>(
+        "Data", memberList(defineMember(1, "ival", &serial::Data::intValue),
+                           defineMember(2, "sval", &serial::Data::stringValue),
+                           defineMember(3, "nval", &serial::Data::nestedValue)));
+};
+} // namespace refl
+
+namespace serial
+{
 
 struct Relaxed {
     int one;
@@ -71,6 +101,23 @@ struct SerializableObject<Relaxed> : SerializableObjectBase {
         two.setDefault(56);
     }
 };
+
+} // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::Relaxed> {
+    inline static const auto spec = makeSpec<serial::Relaxed>(
+        "Relaxed",
+        memberList(defineMember(1, "one", &serial::Relaxed::one),
+                   defineMember(2, "two", &serial::Relaxed::two, serial::Trait::Optional{}),
+                   defineMember(3, "three", &serial::Relaxed::three)));
+};
+} // namespace refl
+
+namespace serial
+{
 
 namespace unittest
 {
@@ -149,7 +196,26 @@ private:
     float f;
 
     friend struct SerializableObject<TestyBoi>;
+    friend struct refl::ReflectedObject<TestyBoi>;
 };
+
+} // namespace serial
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::TestyBoi> {
+    inline static const auto spec = makeSpec<serial::TestyBoi>(
+        "TestyBoi",
+        memberList(defineMember(1, "str", &serial::TestyBoi::str),
+                   defineMember(2, "u32", &serial::TestyBoi::u32),
+                   defineMember(3, "nowidth", &serial::TestyBoi::nowidth),
+                   defineMember(4, "b", &serial::TestyBoi::b),
+                   defineMember(5, "f", &serial::TestyBoi::f, serial::Trait::Optional{})));
+};
+} // namespace refl
+
+namespace serial
+{
 
 template<>
 struct SerializableObject<TestyBoi> : public SerializableObjectBase {
@@ -188,7 +254,27 @@ private:
     std::string newfield;
 
     friend struct SerializableObject<TestyBoi2>;
+    friend struct refl::ReflectedObject<TestyBoi2>;
 };
+
+} // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<serial::TestyBoi2> {
+    inline static const auto spec = makeSpec<serial::TestyBoi2>(
+        "TestyBoi2",
+        memberList(defineMember(1, "str", &serial::TestyBoi2::str),
+                   defineMember(2, "u32", &serial::TestyBoi2::u32),
+                   defineMember(3, "nowidth", &serial::TestyBoi2::nowidth),
+                   defineMember(4, "b", &serial::TestyBoi2::b),
+                   defineMember(6, "f", &serial::TestyBoi2::newfield, serial::Trait::Optional{})));
+};
+} // namespace refl
+
+namespace serial
+{
 
 template<>
 struct SerializableObject<TestyBoi2> : public SerializableObjectBase {

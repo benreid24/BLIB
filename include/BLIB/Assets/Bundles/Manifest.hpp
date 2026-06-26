@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 #define BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <string>
@@ -38,6 +39,16 @@ struct SerializableObject<as::bdl::Manifest> : public SerializableObjectBase {
                     SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<as::bdl::Manifest> {
+    inline static const auto spec = makeSpec<as::bdl::Manifest>(
+        "Manifest",
+        memberList(defineMember(1, "assetToBundle", &as::bdl::Manifest::assetToBundle)));
+};
+} // namespace refl
 
 } // namespace bl
 

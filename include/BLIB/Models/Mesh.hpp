@@ -2,6 +2,7 @@
 #define BLIB_MODELS_MESH_HPP
 
 #include <BLIB/Models/Vertex.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/mesh.h>
 #include <cstdint>
@@ -99,6 +100,7 @@ private:
     void transformVertices(const std::vector<Vertex>& src, const glm::mat4& transform);
 
     friend struct serial::SerializableObject<Mesh>;
+    friend struct refl::ReflectedObject<Mesh>;
 };
 
 } // namespace mdl
@@ -121,6 +123,18 @@ struct SerializableObject<mdl::Mesh> : public SerializableObjectBase {
     , isSkinned("isSkinned", *this, &mdl::Mesh::isSkinned, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Mesh> {
+    inline static const auto spec = makeSpec<mdl::Mesh>(
+        "Mesh", memberList(defineMember(1, "vertices", &mdl::Mesh::vertices),
+                           defineMember(2, "indices", &mdl::Mesh::indices),
+                           defineMember(3, "materialIndex", &mdl::Mesh::materialIndex),
+                           defineMember(4, "isSkinned", &mdl::Mesh::isSkinned)));
+};
+} // namespace refl
 
 } // namespace bl
 

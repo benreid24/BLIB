@@ -2,6 +2,7 @@
 #define BLIB_ASSETS_BUNDLES_BUNDLADATA_HPP
 
 #include <BLIB/Assets/Bundles/FileMetadata.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <unordered_map>
 #include <vector>
@@ -71,6 +72,20 @@ struct SerializableObject<as::bdl::BundleData> : public SerializableObjectBase {
     , data("data", *this, &as::bdl::BundleData::data, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<as::bdl::BundleData> {
+    inline static const auto spec = makeSpec<as::bdl::BundleData>(
+        "BundleData",
+        memberList(defineMember(1, "headerSize", &as::bdl::BundleData::headerSize),
+                   defineMember(2, "uuid", &as::bdl::BundleData::uuid),
+                   defineMember(3, "assetFileManifest", &as::bdl::BundleData::assetFileManifest),
+                   defineMember(4, "autoLoadAssets", &as::bdl::BundleData::autoLoadAssets),
+                   defineMember(5, "data", &as::bdl::BundleData::data)));
+};
+} // namespace refl
 
 } // namespace bl
 

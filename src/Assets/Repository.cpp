@@ -75,6 +75,28 @@ struct SerializableObject<as::GameRuntimeData> : public SerializableObjectBase {
 };
 } // namespace serial
 
+namespace refl
+{
+template<>
+struct ReflectedObject<as::EditorRuntimeData> {
+    inline static const auto spec = makeSpec<as::EditorRuntimeData>(
+        "AssetManifest",
+        memberList(defineMember(1, "assets", &as::EditorRuntimeData::assets),
+                   defineMember(2, "sourceLinks", &as::EditorRuntimeData::sourceLinks),
+                   defineMember(3, "keyToAsset", &as::EditorRuntimeData::keyToAsset)));
+};
+
+template<>
+struct ReflectedObject<as::GameRuntimeData> {
+    inline static const auto spec = makeSpec<as::GameRuntimeData>(
+        "AssetManifest",
+        memberList(defineMember(1, "assets", &as::GameRuntimeData::assets),
+                   defineMember(3, "keyToAsset", &as::GameRuntimeData::keyToAsset),
+                   defineMember(4, "bundleManifest", &as::GameRuntimeData::bundleManifest)));
+};
+
+} // namespace refl
+
 namespace as
 {
 namespace

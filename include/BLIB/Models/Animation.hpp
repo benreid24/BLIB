@@ -2,6 +2,7 @@
 #define BLIB_MODELS_ANIMATION_HPP
 
 #include <BLIB/Models/BoneAnimation.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/anim.h>
 #include <string>
@@ -79,6 +80,7 @@ private:
     std::vector<BoneAnimation> boneAnimations;
 
     friend struct serial::SerializableObject<Animation>;
+    friend struct refl::ReflectedObject<Animation>;
 };
 
 } // namespace mdl
@@ -104,6 +106,19 @@ struct SerializableObject<mdl::Animation> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Animation> {
+    inline static const auto spec = makeSpec<mdl::Animation>(
+        "Animation",
+        memberList(defineMember(1, "name", &mdl::Animation::name),
+                   defineMember(2, "durationInTicks", &mdl::Animation::durationInTicks),
+                   defineMember(3, "ticksPerSecond", &mdl::Animation::ticksPerSecond),
+                   defineMember(4, "boneAnimations", &mdl::Animation::boneAnimations)));
+};
+} // namespace refl
 
 } // namespace bl
 

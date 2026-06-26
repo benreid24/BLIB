@@ -2,6 +2,7 @@
 #define BLIB_MODELS_TEXTURE_HPP
 
 #include <BLIB/Models/Visitor.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <SFML/Graphics/Image.hpp>
@@ -88,6 +89,7 @@ private:
     std::variant<std::string, sf::Image> texture;
 
     friend struct serial::SerializableObject<Texture>;
+    friend struct refl::ReflectedObject<Texture>;
 };
 
 } // namespace mdl
@@ -104,6 +106,15 @@ struct SerializableObject<mdl::Texture> : public SerializableObjectBase {
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Texture> {
+    inline static const auto spec = makeSpec<mdl::Texture>(
+        "Texture", memberList(defineMember(1, "texture", &mdl::Texture::texture)));
+};
+} // namespace refl
 
 } // namespace bl
 

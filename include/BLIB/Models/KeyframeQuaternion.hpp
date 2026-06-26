@@ -1,6 +1,7 @@
 #ifndef BLIB_MODELS_KEYFRAMEQUATERNION_HPP
 #define BLIB_MODELS_KEYFRAMEQUATERNION_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 #include <assimp/anim.h>
 #include <cstdint>
@@ -64,6 +65,18 @@ struct SerializableObject<mdl::KeyframeQuaternion> : public SerializableObjectBa
 };
 
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::KeyframeQuaternion> {
+    inline static const auto spec = makeSpec<mdl::KeyframeQuaternion>(
+        "KeyframeQuaternion",
+        memberList(defineMember(1, "time", &mdl::KeyframeQuaternion::time),
+                   defineMember(2, "value", &mdl::KeyframeQuaternion::value),
+                   defineMember(3, "interpolation", &mdl::KeyframeQuaternion::interpolation)));
+};
+} // namespace refl
 
 } // namespace bl
 

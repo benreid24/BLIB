@@ -7,6 +7,7 @@
 #include <BLIB/Models/MeshSet.hpp>
 #include <BLIB/Models/NodeSet.hpp>
 #include <BLIB/Models/Visitor.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization.hpp>
 
 namespace bl
@@ -83,6 +84,7 @@ private:
     AnimationSet animations;
 
     friend struct serial::SerializableObject<Model>;
+    friend struct refl::ReflectedObject<Model>;
 };
 
 } // namespace mdl
@@ -106,6 +108,19 @@ struct SerializableObject<mdl::Model> : public SerializableObjectBase {
     , animations("animations", *this, &mdl::Model::animations, SerializableFieldBase::Required{}) {}
 };
 } // namespace serial
+
+namespace refl
+{
+template<>
+struct ReflectedObject<mdl::Model> {
+    inline static const auto spec = makeSpec<mdl::Model>(
+        "Model", memberList(defineMember(1, "nodes", &mdl::Model::nodes),
+                            defineMember(2, "materials", &mdl::Model::materials),
+                            defineMember(3, "bones", &mdl::Model::bones),
+                            defineMember(4, "meshes", &mdl::Model::meshes),
+                            defineMember(5, "animations", &mdl::Model::animations)));
+};
+} // namespace refl
 
 } // namespace bl
 

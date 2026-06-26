@@ -22,7 +22,7 @@ template<typename ObjectType>
 struct ReflectedObject {
     static_assert(false, "No reflection spec defined for this object type");
 
-    inline static const auto spec = makeSpec<void>(memberList());
+    inline static const auto spec = makeSpec<void>("", memberList());
 };
 
 /**
@@ -36,6 +36,32 @@ struct ReflectedObject {
  */
 template<typename VisitorType, typename ObjectType>
 void visit(ObjectType& object, VisitorType&& visitor) {
+    using Reflected = ReflectedObject<ObjectType>;
+
+    using TSpec = std::decay_t<decltype(ReflectedObject<ObjectType>::spec)>;
+    static_assert(detail::IsSpec<TSpec>::value,
+                  "ReflectedObject<T>::spec() must return a refl::Spec");
+
+    std::apply(
+        [&object, &visitor](const auto&... member) {
+            static_assert((detail::IsMemberT<std::decay_t<decltype(member)>>::value && ...),
+                          "ReflectedObject members must be of type Member");
+            (visitor(member, member.getMember(object)), ...);
+        },
+        Reflected::spec.members);
+}
+
+/**
+ * @brief Visit all members of a reflected object
+ *
+ * @tparam VisitorType The type of the visitor function or class
+ * @tparam ObjectType The type of object to visit
+ * @param object The object to visit
+ * @param visitor The visitor to call
+ * @ingroup Reflection
+ */
+template<typename VisitorType, typename ObjectType>
+void visit(const ObjectType& object, VisitorType&& visitor) {
     using Reflected = ReflectedObject<ObjectType>;
 
     using TSpec = std::decay_t<decltype(ReflectedObject<ObjectType>::spec)>;
