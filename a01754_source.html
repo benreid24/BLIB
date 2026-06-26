@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Logging.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/FastQueue.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,29 +79,189 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Logging.hpp</div></div>
+  <div class="headertitle"><div class="title">FastQueue.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01754.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_LOGGING_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_LOGGING_HPP</span></div>
+<a href="a01754.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_FASTQUEUE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_FASTQUEUE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00359.html">BLIB/Logging/Config.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00365.html">BLIB/Logging/Logger.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a00362.html">BLIB/Logging/Outputters.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00359_html"><div class="ttname"><a href="a00359.html">Config.hpp</a></div></div>
-<div class="ttc" id="aa00362_html"><div class="ttname"><a href="a00362.html">Outputters.hpp</a></div></div>
-<div class="ttc" id="aa00365_html"><div class="ttname"><a href="a00365.html">Logger.hpp</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>ctr</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03930.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a03930.html">FastQueue</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a03930.html#a05fff1511bac48ffaf33f5e78d139310">   28</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a05fff1511bac48ffaf33f5e78d139310">push_front</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03930.html#ab033d3c33b39b3e8617411e35cfd8c3b">   37</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#ab033d3c33b39b3e8617411e35cfd8c3b">promote_front</a>(<span class="keyword">const</span> T&amp; value, <span class="keywordtype">bool</span> addIfNotFound = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a03930.html#aa92247b94102e1e7f60bf7026fde9b68">   45</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#aa92247b94102e1e7f60bf7026fde9b68">remove</a>(<span class="keyword">const</span> T&amp; value);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a03930.html#a473e4d50dea6273f67d2a1fac147106a">   54</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a473e4d50dea6273f67d2a1fac147106a">pop_back</a>(T&amp; value);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a03930.html#a9eb8d07e44f81714ab5c724f8f57c788">   61</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a9eb8d07e44f81714ab5c724f8f57c788">pop_back</a>();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="foldopen" id="foldopen00068" data-start="{" data-end="}">
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a03930.html#ac18a9a58c3c183246bdc4fdd5dc5206f">   68</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03930.html#ac18a9a58c3c183246bdc4fdd5dc5206f">back</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="foldopen" id="foldopen00074" data-start="{" data-end="}">
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a03930.html#a3880207a983db6da30ed87e6878d41d1">   74</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a3880207a983db6da30ed87e6878d41d1">empty</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="a03930.html#a680b0be9c6d923c33874f26335d23107">   80</a></span>    <span class="keywordtype">size_t</span> <a class="code hl_function" href="a03930.html#a680b0be9c6d923c33874f26335d23107">size</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a03930.html#abaa77cb378a322509272db6e3ee9ba5b">   86</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03930.html#abaa77cb378a322509272db6e3ee9ba5b">clear</a>();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    std::unordered_map&lt;T, typename std::list&lt;T&gt;::iterator&gt; containedValues;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    std::list&lt;T&gt; queue;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>};</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="a03930.html#a05fff1511bac48ffaf33f5e78d139310">   96</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a05fff1511bac48ffaf33f5e78d139310">FastQueue&lt;T&gt;::push_front</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span> (containedValues.find(value) == containedValues.end()) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        queue.emplace_front(value);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        containedValues.emplace(value, queue.begin());</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>}</div>
+</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00106" data-start="{" data-end="}">
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a03930.html#ab033d3c33b39b3e8617411e35cfd8c3b">  106</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#ab033d3c33b39b3e8617411e35cfd8c3b">FastQueue&lt;T&gt;::promote_front</a>(<span class="keyword">const</span> T&amp; value, <span class="keywordtype">bool</span> insert) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">auto</span> it = containedValues.find(value);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordflow">if</span> (it != containedValues.end()) {</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        queue.erase(it-&gt;second);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        queue.emplace_front(value);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        it-&gt;second = queue.begin();</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (insert) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        queue.emplace_front(value);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        containedValues.emplace(value, queue.begin());</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>}</div>
+</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a03930.html#aa92247b94102e1e7f60bf7026fde9b68">  123</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#aa92247b94102e1e7f60bf7026fde9b68">FastQueue&lt;T&gt;::remove</a>(<span class="keyword">const</span> T&amp; value) {</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keyword">auto</span> it = containedValues.find(value);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span> (it != containedValues.end()) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        queue.erase(it-&gt;second);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        containedValues.erase(it);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00134" data-start="{" data-end="}">
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="a03930.html#a473e4d50dea6273f67d2a1fac147106a">  134</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a9eb8d07e44f81714ab5c724f8f57c788">FastQueue&lt;T&gt;::pop_back</a>(T&amp; value) {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">if</span> (!queue.empty()) {</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        value = queue.back();</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        containedValues.erase(value);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        queue.pop_back();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00145" data-start="{" data-end="}">
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno"><a class="line" href="a03930.html#a9eb8d07e44f81714ab5c724f8f57c788">  145</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a9eb8d07e44f81714ab5c724f8f57c788">FastQueue&lt;T&gt;::pop_back</a>() {</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">if</span> (!queue.empty()) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        containedValues.erase(queue.back());</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        queue.pop_back();</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    }</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>}</div>
+</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="a03930.html#ac18a9a58c3c183246bdc4fdd5dc5206f">  155</a></span><span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03930.html#ac18a9a58c3c183246bdc4fdd5dc5206f">FastQueue&lt;T&gt;::back</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">return</span> queue.back();</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>}</div>
+</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="a03930.html#a3880207a983db6da30ed87e6878d41d1">  160</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03930.html#a3880207a983db6da30ed87e6878d41d1">FastQueue&lt;T&gt;::empty</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="keywordflow">return</span> queue.empty();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>}</div>
+</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="a03930.html#a680b0be9c6d923c33874f26335d23107">  165</a></span><span class="keywordtype">size_t</span> <a class="code hl_function" href="a03930.html#a680b0be9c6d923c33874f26335d23107">FastQueue&lt;T&gt;::size</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">return</span> queue.size();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>}</div>
+</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span> </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00170" data-start="{" data-end="}">
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno"><a class="line" href="a03930.html#abaa77cb378a322509272db6e3ee9ba5b">  170</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03930.html#abaa77cb378a322509272db6e3ee9ba5b">FastQueue&lt;T&gt;::clear</a>() {</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    queue.clear();</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    containedValues.clear();</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>} <span class="comment">// namespace ctr</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">#endif</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03930_html"><div class="ttname"><a href="a03930.html">bl::ctr::FastQueue</a></div><div class="ttdoc">FIFO Container class similar to std::queue but allows promoting an element back to the front in O(1) ...</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00020">FastQueue.hpp:20</a></div></div>
+<div class="ttc" id="aa03930_html_a05fff1511bac48ffaf33f5e78d139310"><div class="ttname"><a href="a03930.html#a05fff1511bac48ffaf33f5e78d139310">bl::ctr::FastQueue::push_front</a></div><div class="ttdeci">bool push_front(const T &amp;value)</div><div class="ttdoc">Push the given value onto the front of the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00096">FastQueue.hpp:96</a></div></div>
+<div class="ttc" id="aa03930_html_a3880207a983db6da30ed87e6878d41d1"><div class="ttname"><a href="a03930.html#a3880207a983db6da30ed87e6878d41d1">bl::ctr::FastQueue::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdoc">Returns whether or not the queue is empty.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00160">FastQueue.hpp:160</a></div></div>
+<div class="ttc" id="aa03930_html_a473e4d50dea6273f67d2a1fac147106a"><div class="ttname"><a href="a03930.html#a473e4d50dea6273f67d2a1fac147106a">bl::ctr::FastQueue::pop_back</a></div><div class="ttdeci">bool pop_back(T &amp;value)</div><div class="ttdoc">Removes the value in the back of the queue and sets the parameter to the removed value.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00134">FastQueue.hpp:134</a></div></div>
+<div class="ttc" id="aa03930_html_a680b0be9c6d923c33874f26335d23107"><div class="ttname"><a href="a03930.html#a680b0be9c6d923c33874f26335d23107">bl::ctr::FastQueue::size</a></div><div class="ttdeci">size_t size() const</div><div class="ttdoc">Returns the number of elements in the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00165">FastQueue.hpp:165</a></div></div>
+<div class="ttc" id="aa03930_html_a9eb8d07e44f81714ab5c724f8f57c788"><div class="ttname"><a href="a03930.html#a9eb8d07e44f81714ab5c724f8f57c788">bl::ctr::FastQueue::pop_back</a></div><div class="ttdeci">bool pop_back()</div><div class="ttdoc">Removes the value in the back of the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00145">FastQueue.hpp:145</a></div></div>
+<div class="ttc" id="aa03930_html_aa92247b94102e1e7f60bf7026fde9b68"><div class="ttname"><a href="a03930.html#aa92247b94102e1e7f60bf7026fde9b68">bl::ctr::FastQueue::remove</a></div><div class="ttdeci">bool remove(const T &amp;value)</div><div class="ttdoc">Delete the given value from the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00123">FastQueue.hpp:123</a></div></div>
+<div class="ttc" id="aa03930_html_ab033d3c33b39b3e8617411e35cfd8c3b"><div class="ttname"><a href="a03930.html#ab033d3c33b39b3e8617411e35cfd8c3b">bl::ctr::FastQueue::promote_front</a></div><div class="ttdeci">bool promote_front(const T &amp;value, bool addIfNotFound=false)</div><div class="ttdoc">Promote the given value back to the front of the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00106">FastQueue.hpp:106</a></div></div>
+<div class="ttc" id="aa03930_html_abaa77cb378a322509272db6e3ee9ba5b"><div class="ttname"><a href="a03930.html#abaa77cb378a322509272db6e3ee9ba5b">bl::ctr::FastQueue::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00170">FastQueue.hpp:170</a></div></div>
+<div class="ttc" id="aa03930_html_ac18a9a58c3c183246bdc4fdd5dc5206f"><div class="ttname"><a href="a03930.html#ac18a9a58c3c183246bdc4fdd5dc5206f">bl::ctr::FastQueue::back</a></div><div class="ttdeci">const T &amp; back() const</div><div class="ttdoc">Returns the value contained in the back of the queue.</div><div class="ttdef"><b>Definition</b> <a href="a01754_source.html#l00155">FastQueue.hpp:155</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Items/SubmenuItem.hpp Source File</title>
+<title>BLIB: include/BLIB/Systems/OverlayScalerSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,104 +79,93 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_fe1d2d20871395ed290489bc84d47034.html">Items</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_daaf59349fe9c08c8ba4d716035ae7ff.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SubmenuItem.hpp</div></div>
+  <div class="headertitle"><div class="title">OverlayScalerSystem.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01790.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MENU_ITEMS_SUBMENUITEM_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MENU_ITEMS_SUBMENUITEM_HPP</span></div>
+<a href="a01790.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SYSTEMS_OVERLAYSCALER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_SYSTEMS_OVERLAYSCALER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01784.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>menu</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">class </span>Menu;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04902.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a04902.html">SubmenuItem</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04894.html">Item</a> {</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04902.html#a7080a4036d05869ae00d6a0ecd779caa">   23</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a04902.html#a7080a4036d05869ae00d6a0ecd779caa">Ptr</a> = std::shared_ptr&lt;SubmenuItem&gt;;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keyword">static</span> <a class="code hl_typedef" href="a04902.html#a7080a4036d05869ae00d6a0ecd779caa">Ptr</a> <a class="code hl_function" href="a04902.html#aadc05fcda30d9f37683770591863bd2b">create</a>(<a class="code hl_class" href="a04914.html">Menu</a>&amp; parent, <span class="keyword">const</span> <a class="code hl_typedef" href="a04894.html#ac09f75d0ea24baafc88f39b9e30e20ce">Item::Ptr</a>&amp; item, <a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> spawnSide,</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                      <a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> submenuDirection);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04902.html#a299aa71c21d0eea64278f66a9de4954d">   41</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04902.html#a299aa71c21d0eea64278f66a9de4954d">~SubmenuItem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#a06a733478ac58c266c30da09a9b71ca0">addOption</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a04894.html#ac09f75d0ea24baafc88f39b9e30e20ce">Item::Ptr</a>&amp; option, <span class="keywordtype">bool</span> isBackItem = <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#aea436e6840442b156fa47428bcd427aa">openMenu</a>();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#a97c45422945b38677268fd22bdbbfe34">closeMenu</a>();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a04902.html#aaa21b81f878b632eb8371902a90d3729">isOpen</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">virtual</span> glm::vec2 <a class="code hl_function" href="a04902.html#aacfa9f8e47e48c18cc90da8e13efa0f1">getSize</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_friend" href="a04894.html#ae8455080d0b86b045618069add0a6bf0">SubmenuItem</a>(<a class="code hl_class" href="a04914.html">Menu</a>&amp; parent, <span class="keyword">const</span> <a class="code hl_typedef" href="a04894.html#ac09f75d0ea24baafc88f39b9e30e20ce">Item::Ptr</a>&amp; item, <a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> spawnSide,</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                <a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> submenuDirection);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#af25947681ea5cb38d91ab51b2e649407">doCreate</a>(<a class="code hl_class" href="a04310.html">engine::World</a>&amp; world) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#a1ba9d7288c65c1d80dc4a07a00f2676c">doSceneAdd</a>(<a class="code hl_class" href="a05998.html">rc::Scene</a>* scene) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#a37de51d62180b1537399e8c3d936b4d7">doSceneRemove</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04902.html#a72d3783d4f21b724482beddf7a472d4d">draw</a>(<a class="code hl_class" href="a05974.html">rc::scene::CodeScene::RenderContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="a04046.html">ecs::Entity</a> <a class="code hl_function" href="a04902.html#aefd090dafabff4bd1b2ec81d0dd03da0">getEntity</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> openDir;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> menuDir;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <a class="code hl_class" href="a04914.html">Menu</a>&amp; parent;</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <a class="code hl_typedef" href="a04894.html#ac09f75d0ea24baafc88f39b9e30e20ce">Item::Ptr</a> self;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    std::vector&lt;Item::Ptr&gt; options;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordtype">bool</span> open;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00278.html">BLIB/Components/OverlayScaler.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08896.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a02030.html">BLIB/ECS.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a09004.html">BLIB/Engine/System.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00779.html">BLIB/Render/Components/SceneObjectRef.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00809.html">BLIB/Render/Overlays/OverlayObject.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">class </span>Overlay;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>sys</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00027" data-start="{" data-end="};">
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a06922.html">   27</a></span><span class="keyword">class </span><a class="code hl_class" href="a06922.html">OverlayScalerSystem</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04334.html">engine::System</a> {</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a06922.html#a75639242703a1261289a6009aa8ecd4d">   32</a></span>    <a class="code hl_function" href="a06922.html#a75639242703a1261289a6009aa8ecd4d">OverlayScalerSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a06922.html#a0ad29736ce5c3a7f845d77df11881700">   37</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a06922.html#a0ad29736ce5c3a7f845d77df11881700">~OverlayScalerSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">using </span><a class="code hl_struct" href="a04158.html">Required</a> = <a class="code hl_struct" href="a04158.html">ecs::Require&lt;rc::ovy::OverlayObject, com::OverlayScaler, com::Transform2D&gt;</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">using </span><a class="code hl_struct" href="a04162.html">Optional</a> = <a class="code hl_struct" href="a04162.html">ecs::Optional&lt;&gt;</a>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">using </span><a class="code hl_class" href="a04082.html">Result</a>   = <a class="code hl_class" href="a04082.html">ecs::ComponentSet&lt;Required, Optional&gt;</a>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <a class="code hl_class" href="a04142.html">ecs::Registry</a>* registry;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    std::vector&lt;rc::Overlay*&gt; overlays;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="a04062.html">ecs::View&lt;Required, Optional&gt;</a>* view;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_class" href="a04070.html">ecs::ComponentPool&lt;com::OverlayScaler&gt;</a>* scalerPool;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_class" href="a04250.html">engine::Engine</a>&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// called by Overlay</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> refreshObjectAndChildren(<a class="code hl_struct" href="a05982.html">rc::ovy::OverlayObject</a>&amp; obj);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordtype">void</span> refreshObjectAndChildren(<a class="code hl_class" href="a04082.html">Result</a>&amp; row);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordtype">void</span> refreshEntity(<a class="code hl_class" href="a04082.html">Result</a>&amp; row);</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordtype">void</span> updateScissor(<a class="code hl_class" href="a04082.html">Result</a>&amp; cset, <span class="keywordtype">float</span> xScale, <span class="keywordtype">float</span> yScale);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="a06922.html#a39c5d4176e64d9904d9d4b68edcb0b73">   59</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05978.html">bl::rc::Overlay</a>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
 </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>} <span class="comment">// namespace menu</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01784_html"><div class="ttname"><a href="a01784.html">Item.hpp</a></div></div>
-<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04046_html"><div class="ttname"><a href="a04046.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04310_html"><div class="ttname"><a href="a04310.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00022">World.hpp:22</a></div></div>
-<div class="ttc" id="aa04894_html"><div class="ttname"><a href="a04894.html">bl::menu::Item</a></div><div class="ttdoc">Item for a mouseless menu. Can be 'attached' to other items in a Menu, configured to be selectable,...</div><div class="ttdef"><b>Definition</b> <a href="a01784_source.html#l00033">Item.hpp:33</a></div></div>
-<div class="ttc" id="aa04894_html_a59352334626855d0cd8c8ca1b173db68"><div class="ttname"><a href="a04894.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></div><div class="ttdeci">AttachPoint</div><div class="ttdef"><b>Definition</b> <a href="a01784_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04894_html_ac09f75d0ea24baafc88f39b9e30e20ce"><div class="ttname"><a href="a04894.html#ac09f75d0ea24baafc88f39b9e30e20ce">bl::menu::Item::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Item &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01784_source.html#l00035">Item.hpp:35</a></div></div>
-<div class="ttc" id="aa04894_html_ae8455080d0b86b045618069add0a6bf0"><div class="ttname"><a href="a04894.html#ae8455080d0b86b045618069add0a6bf0">bl::menu::Item::SubmenuItem</a></div><div class="ttdeci">friend class SubmenuItem</div><div class="ttdef"><b>Definition</b> <a href="a01784_source.html#l00156">Item.hpp:156</a></div></div>
-<div class="ttc" id="aa04902_html"><div class="ttname"><a href="a04902.html">bl::menu::SubmenuItem</a></div><div class="ttdoc">Wrapper item that serves as a dropdown menu of sorts. A base item is used to provide the behavior and...</div><div class="ttdef"><b>Definition</b> <a href="a01790_source.html#l00020">SubmenuItem.hpp:20</a></div></div>
-<div class="ttc" id="aa04902_html_a06a733478ac58c266c30da09a9b71ca0"><div class="ttname"><a href="a04902.html#a06a733478ac58c266c30da09a9b71ca0">bl::menu::SubmenuItem::addOption</a></div><div class="ttdeci">void addOption(const Item::Ptr &amp;option, bool isBackItem=false)</div><div class="ttdoc">Add a new item to the submenu. Items are shown in the order they are added.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00030">SubmenuItem.cpp:30</a></div></div>
-<div class="ttc" id="aa04902_html_a1ba9d7288c65c1d80dc4a07a00f2676c"><div class="ttname"><a href="a04902.html#a1ba9d7288c65c1d80dc4a07a00f2676c">bl::menu::SubmenuItem::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Scene *scene) override</div><div class="ttdoc">Called when the item should be added to the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00024">SubmenuItem.cpp:24</a></div></div>
-<div class="ttc" id="aa04902_html_a299aa71c21d0eea64278f66a9de4954d"><div class="ttname"><a href="a04902.html#a299aa71c21d0eea64278f66a9de4954d">bl::menu::SubmenuItem::~SubmenuItem</a></div><div class="ttdeci">virtual ~SubmenuItem()=default</div><div class="ttdoc">Destroy the Submenu Item object.</div></div>
-<div class="ttc" id="aa04902_html_a37de51d62180b1537399e8c3d936b4d7"><div class="ttname"><a href="a04902.html#a37de51d62180b1537399e8c3d936b4d7">bl::menu::SubmenuItem::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00026">SubmenuItem.cpp:26</a></div></div>
-<div class="ttc" id="aa04902_html_a7080a4036d05869ae00d6a0ecd779caa"><div class="ttname"><a href="a04902.html#a7080a4036d05869ae00d6a0ecd779caa">bl::menu::SubmenuItem::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; SubmenuItem &gt; Ptr</div><div class="ttdoc">Pointer to a submenu object.</div><div class="ttdef"><b>Definition</b> <a href="a01790_source.html#l00023">SubmenuItem.hpp:23</a></div></div>
-<div class="ttc" id="aa04902_html_a72d3783d4f21b724482beddf7a472d4d"><div class="ttname"><a href="a04902.html#a72d3783d4f21b724482beddf7a472d4d">bl::menu::SubmenuItem::draw</a></div><div class="ttdeci">virtual void draw(rc::scene::CodeScene::RenderContext &amp;ctx) override</div><div class="ttdoc">Manually draw the item.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00063">SubmenuItem.cpp:63</a></div></div>
-<div class="ttc" id="aa04902_html_a97c45422945b38677268fd22bdbbfe34"><div class="ttname"><a href="a04902.html#a97c45422945b38677268fd22bdbbfe34">bl::menu::SubmenuItem::closeMenu</a></div><div class="ttdeci">void closeMenu()</div><div class="ttdoc">Closes the menu if open. This must be called manually as menus do not have a Back action as of now.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00051">SubmenuItem.cpp:51</a></div></div>
-<div class="ttc" id="aa04902_html_aaa21b81f878b632eb8371902a90d3729"><div class="ttname"><a href="a04902.html#aaa21b81f878b632eb8371902a90d3729">bl::menu::SubmenuItem::isOpen</a></div><div class="ttdeci">constexpr bool isOpen() const</div><div class="ttdoc">Returns whether or not the menu is currently open.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00059">SubmenuItem.cpp:59</a></div></div>
-<div class="ttc" id="aa04902_html_aacfa9f8e47e48c18cc90da8e13efa0f1"><div class="ttname"><a href="a04902.html#aacfa9f8e47e48c18cc90da8e13efa0f1">bl::menu::SubmenuItem::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size of the underlying item as the size of this item.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00061">SubmenuItem.cpp:61</a></div></div>
-<div class="ttc" id="aa04902_html_aadc05fcda30d9f37683770591863bd2b"><div class="ttname"><a href="a04902.html#aadc05fcda30d9f37683770591863bd2b">bl::menu::SubmenuItem::create</a></div><div class="ttdeci">static Ptr create(Menu &amp;parent, const Item::Ptr &amp;item, AttachPoint spawnSide, AttachPoint submenuDirection)</div><div class="ttdoc">Create a new Submenu menu item. Signals on the base item are never triggered. Use signals on this ite...</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00007">SubmenuItem.cpp:7</a></div></div>
-<div class="ttc" id="aa04902_html_aea436e6840442b156fa47428bcd427aa"><div class="ttname"><a href="a04902.html#aea436e6840442b156fa47428bcd427aa">bl::menu::SubmenuItem::openMenu</a></div><div class="ttdeci">void openMenu()</div><div class="ttdoc">Opens the menu if not already open. This is called when the item is interacted with.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00037">SubmenuItem.cpp:37</a></div></div>
-<div class="ttc" id="aa04902_html_aefd090dafabff4bd1b2ec81d0dd03da0"><div class="ttname"><a href="a04902.html#aefd090dafabff4bd1b2ec81d0dd03da0">bl::menu::SubmenuItem::getEntity</a></div><div class="ttdeci">virtual ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00028">SubmenuItem.cpp:28</a></div></div>
-<div class="ttc" id="aa04902_html_af25947681ea5cb38d91ab51b2e649407"><div class="ttname"><a href="a04902.html#af25947681ea5cb38d91ab51b2e649407">bl::menu::SubmenuItem::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::World &amp;world) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition</b> <a href="a02945_source.html#l00022">SubmenuItem.cpp:22</a></div></div>
-<div class="ttc" id="aa04914_html"><div class="ttname"><a href="a04914.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a09692_source.html#l00033">Menu.hpp:33</a></div></div>
-<div class="ttc" id="aa05974_html"><div class="ttname"><a href="a05974.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00031">CodeScene.hpp:31</a></div></div>
-<div class="ttc" id="aa05998_html"><div class="ttname"><a href="a05998.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace sys</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">OverlayScaler.hpp</a></div></div>
+<div class="ttc" id="aa00779_html"><div class="ttname"><a href="a00779.html">SceneObjectRef.hpp</a></div></div>
+<div class="ttc" id="aa00809_html"><div class="ttname"><a href="a00809.html">OverlayObject.hpp</a></div></div>
+<div class="ttc" id="aa02030_html"><div class="ttname"><a href="a02030.html">ECS.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04062_html"><div class="ttname"><a href="a04062.html">bl::ecs::View</a></div><div class="ttdoc">Base definition of the View class. Use the tagged specialization.</div><div class="ttdef"><b>Definition</b> <a href="a00440_source.html#l00060">View.hpp:60</a></div></div>
+<div class="ttc" id="aa04070_html"><div class="ttname"><a href="a04070.html">bl::ecs::ComponentPool</a></div><div class="ttdoc">Provides storage and management for components in the ECS. Used internally in the Registry.</div><div class="ttdef"><b>Definition</b> <a href="a00422_source.html#l00079">ComponentPool.hpp:79</a></div></div>
+<div class="ttc" id="aa04082_html"><div class="ttname"><a href="a04082.html">bl::ecs::ComponentSet</a></div><div class="ttdoc">Contains a set of components for a single entity. May not always be valid. Does not update if compone...</div><div class="ttdef"><b>Definition</b> <a href="a00455_source.html#l00043">ComponentSet.hpp:43</a></div></div>
+<div class="ttc" id="aa04142_html"><div class="ttname"><a href="a04142.html">bl::ecs::Registry</a></div><div class="ttdoc">This is the main interface of the ECS. This class manages all entities and components and views and s...</div><div class="ttdef"><b>Definition</b> <a href="a00464_source.html#l00035">Registry.hpp:35</a></div></div>
+<div class="ttc" id="aa04158_html"><div class="ttname"><a href="a04158.html">bl::ecs::Require</a></div><div class="ttdoc">Tag that indicates a set of components are required.</div><div class="ttdef"><b>Definition</b> <a href="a00461_source.html#l00035">Tags.hpp:35</a></div></div>
+<div class="ttc" id="aa04162_html"><div class="ttname"><a href="a04162.html">bl::ecs::Optional</a></div><div class="ttdoc">Tag that indicates a set of components are optional.</div><div class="ttdef"><b>Definition</b> <a href="a00461_source.html#l00044">Tags.hpp:44</a></div></div>
+<div class="ttc" id="aa04250_html"><div class="ttname"><a href="a04250.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a08863_source.html#l00040">Engine.hpp:40</a></div></div>
+<div class="ttc" id="aa04334_html"><div class="ttname"><a href="a04334.html">bl::engine::System</a></div><div class="ttdoc">Base class for Engine systems which can be registered in the Systems registry.</div><div class="ttdef"><b>Definition</b> <a href="a09004_source.html#l00018">System.hpp:18</a></div></div>
+<div class="ttc" id="aa05978_html"><div class="ttname"><a href="a05978.html">bl::rc::Overlay</a></div><div class="ttdoc">Special type of scene specialized for 2d overlays with fixed cameras. Objects are organized into a tr...</div><div class="ttdef"><b>Definition</b> <a href="a00812_source.html#l00036">Overlay.hpp:39</a></div></div>
+<div class="ttc" id="aa05982_html"><div class="ttname"><a href="a05982.html">bl::rc::ovy::OverlayObject</a></div><div class="ttdef"><b>Definition</b> <a href="a00809_source.html#l00028">OverlayObject.hpp:31</a></div></div>
+<div class="ttc" id="aa06922_html"><div class="ttname"><a href="a06922.html">bl::sys::OverlayScalerSystem</a></div><div class="ttdoc">System that processes entities that are scaled for overlays. Keeps scales up-to-date as overlay size ...</div><div class="ttdef"><b>Definition</b> <a href="a01790_source.html#l00027">OverlayScalerSystem.hpp:27</a></div></div>
+<div class="ttc" id="aa06922_html_a0ad29736ce5c3a7f845d77df11881700"><div class="ttname"><a href="a06922.html#a0ad29736ce5c3a7f845d77df11881700">bl::sys::OverlayScalerSystem::~OverlayScalerSystem</a></div><div class="ttdeci">virtual ~OverlayScalerSystem()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa06922_html_a75639242703a1261289a6009aa8ecd4d"><div class="ttname"><a href="a06922.html#a75639242703a1261289a6009aa8ecd4d">bl::sys::OverlayScalerSystem::OverlayScalerSystem</a></div><div class="ttdeci">OverlayScalerSystem()=default</div><div class="ttdoc">Creates the system.</div></div>
+<div class="ttc" id="aa08896_html"><div class="ttname"><a href="a08896.html">Transform2D.hpp</a></div></div>
+<div class="ttc" id="aa09004_html"><div class="ttname"><a href="a09004.html">System.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

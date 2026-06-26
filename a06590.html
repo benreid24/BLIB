@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt; Class Template Reference</title>
+<title>BLIB: bl::serial::binary::Serializer&lt; T, false &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,78 +74,59 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03148.html">serial</a></li><li class="navelem"><a class="el" href="a03197.html">binary</a></li><li class="navelem"><a class="el" href="a06590.html">VersionedSerializer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03245.html">serial</a></li><li class="navelem"><a class="el" href="a03246.html">binary</a></li><li class="navelem"><a class="el" href="a06590.html">Serializer&lt; T, false &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a06587.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">bl::serial::binary::Serializer&lt; T, false &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files.  
- <a href="a06590.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00482_source.html">VersionedSerializer.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a06590.png" usemap="#bl::serial::binary::VersionedSerializer_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map" alt=""/>
-  <map id="bl::serial::binary::VersionedSerializer_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map" name="bl::serial::binary::VersionedSerializer_3C_20Payload_2C_20DefaultLoader_2C_20Versions_20_3E_map">
-<area href="a06974.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,437,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a09100_source.html">Serializer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2c0bab35e3696f53bdd55a57ab4c1dfc" id="r_a2c0bab35e3696f53bdd55a57ab4c1dfc"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#a2c0bab35e3696f53bdd55a57ab4c1dfc">write</a> (<a class="el" href="a06830.html">stream::OutputStream</a> &amp;output, const Payload &amp;payload)</td></tr>
-<tr class="memdesc:a2c0bab35e3696f53bdd55a57ab4c1dfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the given object to the given stream.  <br /></td></tr>
-<tr class="separator:a2c0bab35e3696f53bdd55a57ab4c1dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d5d46f36e4d03002104240978c31688" id="r_a8d5d46f36e4d03002104240978c31688"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#a8d5d46f36e4d03002104240978c31688">read</a> (<a class="el" href="a06818.html">stream::InputStream</a> &amp;input, Payload &amp;payload)</td></tr>
-<tr class="memdesc:a8d5d46f36e4d03002104240978c31688"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the given object from the given stream.  <br /></td></tr>
-<tr class="separator:a8d5d46f36e4d03002104240978c31688"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5599c19e405b618388e169c158cbfd99" id="r_a5599c19e405b618388e169c158cbfd99"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#a5599c19e405b618388e169c158cbfd99">serialize</a> (<a class="el" href="a06894.html">stream::OutputStream</a> &amp;output, const T &amp;value)</td></tr>
+<tr class="separator:a5599c19e405b618388e169c158cbfd99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4666060be24e56949fccfdfdecd88e" id="r_a9a4666060be24e56949fccfdfdecd88e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#a9a4666060be24e56949fccfdfdecd88e">deserialize</a> (<a class="el" href="a06882.html">stream::InputStream</a> &amp;input, T &amp;result)</td></tr>
+<tr class="separator:a9a4666060be24e56949fccfdfdecd88e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac7910fd58fa0e78af8b7bc82e3dea47" id="r_aac7910fd58fa0e78af8b7bc82e3dea47"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#aac7910fd58fa0e78af8b7bc82e3dea47">serializePacked</a> (<a class="el" href="a06894.html">stream::OutputStream</a> &amp;output, const T &amp;value)</td></tr>
+<tr class="separator:aac7910fd58fa0e78af8b7bc82e3dea47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0490e3950da65969f9bea6c86d1a309c" id="r_a0490e3950da65969f9bea6c86d1a309c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#a0490e3950da65969f9bea6c86d1a309c">deserializePacked</a> (<a class="el" href="a06882.html">stream::InputStream</a> &amp;input, T &amp;result)</td></tr>
+<tr class="separator:a0490e3950da65969f9bea6c86d1a309c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c3f78dc0ee6ce6653d7f551ba1a18d" id="r_ac4c3f78dc0ee6ce6653d7f551ba1a18d"><td class="memItemLeft" align="right" valign="top">static std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06590.html#ac4c3f78dc0ee6ce6653d7f551ba1a18d">size</a> (const T &amp;value)</td></tr>
+<tr class="separator:ac4c3f78dc0ee6ce6653d7f551ba1a18d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename Payload, typename DefaultLoader, typename... Versions&gt;<br />
-class bl::serial::binary::VersionedSerializer&lt; Payload, DefaultLoader, Versions &gt;</div><p>Helper class to facilitate the versioning of binary files. Versions are represented by the provided loaders. Version numbers are derived from the template ordering so care must be taken to keep it consistent. A special header value is written to versioned files in order to detect versioned from non-versioned files. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Payload</td><td>The type of object to read and write </td></tr>
-    <tr><td class="paramname">DefaultLoader</td><td>The SerializerVersion to use if version information is missing </td></tr>
-    <tr><td class="paramname">Versions</td><td>A list of SerializerVersion for all the versions of the object </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00076">76</a> of file <a class="el" href="a00482_source.html">VersionedSerializer.hpp</a>.</p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+struct bl::serial::binary::Serializer&lt; T, false &gt;</div>
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00079">79</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8d5d46f36e4d03002104240978c31688" name="a8d5d46f36e4d03002104240978c31688"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d5d46f36e4d03002104240978c31688">&#9670;&#160;</a></span>read()</h2>
+<a id="a9a4666060be24e56949fccfdfdecd88e" name="a9a4666060be24e56949fccfdfdecd88e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4666060be24e56949fccfdfdecd88e">&#9670;&#160;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a06590.html">bl::serial::binary::VersionedSerializer</a>&lt; Payload, DefaultLoader, Versions &gt;::read </td>
+          <td class="memname">static bool <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; T, false &gt;::deserialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a06818.html">stream::InputStream</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="a06882.html">stream::InputStream</a> &amp;&#160;</td>
           <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Payload &amp;&#160;</td>
-          <td class="paramname"><em>payload</em>&#160;</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -155,47 +136,37 @@ template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt;
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Reads the given object from the given stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">input</td><td>The stream to read from </td></tr>
-    <tr><td class="paramname">payload</td><td>The payload to read into </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the payload was read, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00131">131</a> of file <a class="el" href="a00482_source.html">VersionedSerializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00084">84</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2c0bab35e3696f53bdd55a57ab4c1dfc" name="a2c0bab35e3696f53bdd55a57ab4c1dfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c0bab35e3696f53bdd55a57ab4c1dfc">&#9670;&#160;</a></span>write()</h2>
+<a id="a0490e3950da65969f9bea6c86d1a309c" name="a0490e3950da65969f9bea6c86d1a309c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0490e3950da65969f9bea6c86d1a309c">&#9670;&#160;</a></span>deserializePacked()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="a06590.html">bl::serial::binary::VersionedSerializer</a>&lt; Payload, DefaultLoader, Versions &gt;::write </td>
+          <td class="memname">static bool <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; T, false &gt;::deserializePacked </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a06830.html">stream::OutputStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>output</em>, </td>
+          <td class="paramtype"><a class="el" href="a06882.html">stream::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const Payload &amp;&#160;</td>
-          <td class="paramname"><em>payload</em>&#160;</td>
+          <td class="paramtype">T &amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -205,33 +176,133 @@ template&lt;typename Payload , typename DefaultLoader , typename... Versions&gt;
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Writes the given object to the given stream. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>The stream to write to </td></tr>
-    <tr><td class="paramname">payload</td><td>The payload to write </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the payload was written, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00122">122</a> of file <a class="el" href="a00482_source.html">VersionedSerializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00092">92</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Serialization/Binary/<a class="el" href="a00482_source.html">VersionedSerializer.hpp</a></li>
+<a id="a5599c19e405b618388e169c158cbfd99" name="a5599c19e405b618388e169c158cbfd99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5599c19e405b618388e169c158cbfd99">&#9670;&#160;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; T, false &gt;::serialize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a06894.html">stream::OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00080">80</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aac7910fd58fa0e78af8b7bc82e3dea47" name="aac7910fd58fa0e78af8b7bc82e3dea47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac7910fd58fa0e78af8b7bc82e3dea47">&#9670;&#160;</a></span>serializePacked()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; T, false &gt;::serializePacked </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a06894.html">stream::OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00088">88</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac4c3f78dc0ee6ce6653d7f551ba1a18d" name="ac4c3f78dc0ee6ce6653d7f551ba1a18d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c3f78dc0ee6ce6653d7f551ba1a18d">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::uint32_t <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; T, false &gt;::size </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00096">96</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Serialization/Binary/<a class="el" href="a09100_source.html">Serializer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

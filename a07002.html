@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::util::RangeAllocatorUnbounded&lt; T &gt;::Range Struct Reference</title>
+<title>BLIB: bl::util::PairHash&lt; T1, T2, T1Hash, T2Hash &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,101 +74,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03228.html">util</a></li><li class="navelem"><a class="el" href="a06998.html">RangeAllocatorUnbounded</a></li><li class="navelem"><a class="el" href="a07002.html">Range</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03277.html">util</a></li><li class="navelem"><a class="el" href="a07002.html">PairHash</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a06999.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::util::RangeAllocatorUnbounded&lt; T &gt;::Range Struct Reference</div></div>
+  <div class="headertitle"><div class="title">bl::util::PairHash&lt; T1, T2, T1Hash, T2Hash &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a03183.html">Util</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>An allocated range.  
+<p>Utility struct to allow hashing of std::pair objects.  
  <a href="a07002.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01454_source.html">RangeAllocatorUnbounded.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01553_source.html">Hashes.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a70040704fd1f98e63ffb4101b182435e" id="r_a70040704fd1f98e63ffb4101b182435e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07002.html#a70040704fd1f98e63ffb4101b182435e">Range</a> ()=default</td></tr>
-<tr class="memdesc:a70040704fd1f98e63ffb4101b182435e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets fields to 0.  <br /></td></tr>
-<tr class="separator:a70040704fd1f98e63ffb4101b182435e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a48d97b162b2bec1b714d6a3376a4cc" id="r_a2a48d97b162b2bec1b714d6a3376a4cc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07002.html#a2a48d97b162b2bec1b714d6a3376a4cc">Range</a> (T <a class="el" href="a07002.html#a288b19b143888752c70b22481dd08eff">start</a>, T <a class="el" href="a07002.html#a856652f614fabec8a6bbe1a2fd275359">size</a>)</td></tr>
-<tr class="memdesc:a2a48d97b162b2bec1b714d6a3376a4cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a range.  <br /></td></tr>
-<tr class="separator:a2a48d97b162b2bec1b714d6a3376a4cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a288b19b143888752c70b22481dd08eff" id="r_a288b19b143888752c70b22481dd08eff"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07002.html#a288b19b143888752c70b22481dd08eff">start</a></td></tr>
-<tr class="separator:a288b19b143888752c70b22481dd08eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a856652f614fabec8a6bbe1a2fd275359" id="r_a856652f614fabec8a6bbe1a2fd275359"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07002.html#a856652f614fabec8a6bbe1a2fd275359">size</a></td></tr>
-<tr class="separator:a856652f614fabec8a6bbe1a2fd275359"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac78b7fecff9c68299acb571e3edc722a" id="r_ac78b7fecff9c68299acb571e3edc722a"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07002.html#ac78b7fecff9c68299acb571e3edc722a">operator()</a> (const std::pair&lt; T1, T2 &gt; &amp;pair) const</td></tr>
+<tr class="memdesc:ac78b7fecff9c68299acb571e3edc722a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashes the given pair using the hash function for each member of the pair.  <br /></td></tr>
+<tr class="separator:ac78b7fecff9c68299acb571e3edc722a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-struct bl::util::RangeAllocatorUnbounded&lt; T &gt;::Range</div><p>An allocated range. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T1, typename T2, typename T1Hash = std::hash&lt;T1&gt;, typename T2Hash = std::hash&lt;T2&gt;&gt;<br />
+struct bl::util::PairHash&lt; T1, T2, T1Hash, T2Hash &gt;</div><p>Utility struct to allow hashing of std::pair objects. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T1</td><td>Type of the first element </td></tr>
+    <tr><td class="paramname">T2</td><td>Type of the second element </td></tr>
+    <tr><td class="paramname">T1Hash</td><td>Hasher to use for the first element </td></tr>
+    <tr><td class="paramname">T2Hash</td><td>Hasher to use for the second element </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01454_source.html#l00028">28</a> of file <a class="el" href="a01454_source.html">RangeAllocatorUnbounded.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a70040704fd1f98e63ffb4101b182435e" name="a70040704fd1f98e63ffb4101b182435e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70040704fd1f98e63ffb4101b182435e">&#9670;&#160;</a></span>Range() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01553_source.html#l00024">24</a> of file <a class="el" href="a01553_source.html">Hashes.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac78b7fecff9c68299acb571e3edc722a" name="ac78b7fecff9c68299acb571e3edc722a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac78b7fecff9c68299acb571e3edc722a">&#9670;&#160;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename T1 , typename T2 , typename T1Hash  = std::hash&lt;T1&gt;, typename T2Hash  = std::hash&lt;T2&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a06998.html">bl::util::RangeAllocatorUnbounded</a>&lt; T &gt;::Range::Range </td>
+          <td class="memname">std::size_t <a class="el" href="a07002.html">bl::util::PairHash</a>&lt; T1, T2, T1Hash, T2Hash &gt;::operator() </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets fields to 0. </p>
-
-</div>
-</div>
-<a id="a2a48d97b162b2bec1b714d6a3376a4cc" name="a2a48d97b162b2bec1b714d6a3376a4cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a48d97b162b2bec1b714d6a3376a4cc">&#9670;&#160;</a></span>Range() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a06998.html">bl::util::RangeAllocatorUnbounded</a>&lt; T &gt;::Range::Range </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">const std::pair&lt; T1, T2 &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pair</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
@@ -178,64 +137,27 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a range. </p>
+<p>Hashes the given pair using the hash function for each member of the pair. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">start</td><td>The start index of the range </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the range </td></tr>
+    <tr><td class="paramname">pair</td><td>The pair to hash </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>std::size_t A hash of the items in the pair </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01454_source.html#l00043">43</a> of file <a class="el" href="a01454_source.html">RangeAllocatorUnbounded.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a856652f614fabec8a6bbe1a2fd275359" name="a856652f614fabec8a6bbe1a2fd275359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a856652f614fabec8a6bbe1a2fd275359">&#9670;&#160;</a></span>size</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="a06998.html">bl::util::RangeAllocatorUnbounded</a>&lt; T &gt;::Range::size</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01454_source.html#l00030">30</a> of file <a class="el" href="a01454_source.html">RangeAllocatorUnbounded.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a288b19b143888752c70b22481dd08eff" name="a288b19b143888752c70b22481dd08eff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a288b19b143888752c70b22481dd08eff">&#9670;&#160;</a></span>start</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="a06998.html">bl::util::RangeAllocatorUnbounded</a>&lt; T &gt;::Range::start</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01454_source.html#l00029">29</a> of file <a class="el" href="a01454_source.html">RangeAllocatorUnbounded.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01553_source.html#l00031">31</a> of file <a class="el" href="a01553_source.html">Hashes.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Util/<a class="el" href="a01454_source.html">RangeAllocatorUnbounded.hpp</a></li>
+<li>include/BLIB/Util/<a class="el" href="a01553_source.html">Hashes.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

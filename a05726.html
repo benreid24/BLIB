@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rgi::SSAOTask Class Reference</title>
+<title>BLIB: bl::rc::rg::GraphAsset Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,84 +74,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03208.html">rgi</a></li><li class="navelem"><a class="el" href="a05726.html">SSAOTask</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03261.html">rg</a></li><li class="navelem"><a class="el" href="a05726.html">GraphAsset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05723.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::rgi::SSAOTask Class Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::GraphAsset Struct Reference<div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Task that performs SSAO on 3d scenes.  
+<p>Wrapper around <a class="el" href="a05670.html" title="Handle to an asset in an AssetPool.">AssetRef</a> for assets owned by a <a class="el" href="a05754.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instance.  
  <a href="a05726.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00608_source.html">SSAOTask.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rgi::SSAOTask:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05726.png" usemap="#bl::rc::rgi::SSAOTask_map" alt=""/>
-  <map id="bl::rc::rgi::SSAOTask_map" name="bl::rc::rgi::SSAOTask_map">
-<area href="a05646.html" title="Base class for tasks within a RenderGraph." alt="bl::rc::rg::Task" shape="rect" coords="0,0,128,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00713_source.html">GraphAsset.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab669a785f736c8a74b46437fa9938f85" id="r_ab669a785f736c8a74b46437fa9938f85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html#ab669a785f736c8a74b46437fa9938f85">SSAOTask</a> ()</td></tr>
-<tr class="memdesc:ab669a785f736c8a74b46437fa9938f85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the task.  <br /></td></tr>
-<tr class="separator:ab669a785f736c8a74b46437fa9938f85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a482a6b842780df2ffcdfbf5629a98628" id="r_a482a6b842780df2ffcdfbf5629a98628"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html#a482a6b842780df2ffcdfbf5629a98628">~SSAOTask</a> ()=default</td></tr>
-<tr class="memdesc:a482a6b842780df2ffcdfbf5629a98628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the task.  <br /></td></tr>
-<tr class="separator:a482a6b842780df2ffcdfbf5629a98628"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a21c62dc186d4f548cbefde6c600e25" id="r_a4a21c62dc186d4f548cbefde6c600e25"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05646.html#a4a21c62dc186d4f548cbefde6c600e25">update</a> (float dt)</td></tr>
-<tr class="memdesc:a4a21c62dc186d4f548cbefde6c600e25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called each frame with the elapsed time.  <br /></td></tr>
-<tr class="separator:a4a21c62dc186d4f548cbefde6c600e25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e8312f9541f9759694772892a95bcec" id="r_a0e8312f9541f9759694772892a95bcec"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05646.html#a0e8312f9541f9759694772892a95bcec">getId</a> () const</td></tr>
-<tr class="memdesc:a0e8312f9541f9759694772892a95bcec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the task.  <br /></td></tr>
-<tr class="separator:a0e8312f9541f9759694772892a95bcec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb346b0d37370e4a771426f047c99d4e" id="r_aeb346b0d37370e4a771426f047c99d4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html#aeb346b0d37370e4a771426f047c99d4e">GraphAsset</a> (<a class="el" href="a05654.html">Asset</a> *<a class="el" href="a05726.html#a6215eb2ba33408469b3d677370b66c1c">asset</a>)</td></tr>
+<tr class="memdesc:aeb346b0d37370e4a771426f047c99d4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new graph asset.  <br /></td></tr>
+<tr class="separator:aeb346b0d37370e4a771426f047c99d4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:aeca701513a61a6e75e5525db2d180cbc" id="r_aeca701513a61a6e75e5525db2d180cbc"><td class="memItemLeft" align="right" valign="top">TaskAssetTags&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05646.html#aeca701513a61a6e75e5525db2d180cbc">assetTags</a></td></tr>
-<tr class="separator:aeca701513a61a6e75e5525db2d180cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a663136a9c9645a13f420b7bf622ece36" id="r_a663136a9c9645a13f420b7bf622ece36"><td class="memItemLeft" align="right" valign="top">TaskAssets&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05646.html#a663136a9c9645a13f420b7bf622ece36">assets</a></td></tr>
-<tr class="separator:a663136a9c9645a13f420b7bf622ece36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a6215eb2ba33408469b3d677370b66c1c" id="r_a6215eb2ba33408469b3d677370b66c1c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05670.html">AssetRef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html#a6215eb2ba33408469b3d677370b66c1c">asset</a></td></tr>
+<tr class="separator:a6215eb2ba33408469b3d677370b66c1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69717813502845651006ef73afe1d430" id="r_a69717813502845651006ef73afe1d430"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a05778.html">Task</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html#a69717813502845651006ef73afe1d430">outputtedBy</a></td></tr>
+<tr class="separator:a69717813502845651006ef73afe1d430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c84c9c08de0afb30a3e03df8a8ecff1" id="r_a4c84c9c08de0afb30a3e03df8a8ecff1"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05726.html#a4c84c9c08de0afb30a3e03df8a8ecff1">firstAvailableStep</a></td></tr>
+<tr class="separator:a4c84c9c08de0afb30a3e03df8a8ecff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Task that performs SSAO on 3d scenes. </p>
+<div class="textblock"><p>Wrapper around <a class="el" href="a05670.html" title="Handle to an asset in an AssetPool.">AssetRef</a> for assets owned by a <a class="el" href="a05754.html" title="The core render graph functionality. Drives rendering for each observer.">RenderGraph</a> instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00608_source.html#l00026">26</a> of file <a class="el" href="a00608_source.html">SSAOTask.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00021">21</a> of file <a class="el" href="a00713_source.html">GraphAsset.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab669a785f736c8a74b46437fa9938f85" name="ab669a785f736c8a74b46437fa9938f85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab669a785f736c8a74b46437fa9938f85">&#9670;&#160;</a></span>SSAOTask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::rgi::SSAOTask::SSAOTask </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the task. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02318_source.html#l00020">20</a> of file <a class="el" href="a02318_source.html">SSAOTask.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a482a6b842780df2ffcdfbf5629a98628" name="a482a6b842780df2ffcdfbf5629a98628"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a482a6b842780df2ffcdfbf5629a98628">&#9670;&#160;</a></span>~SSAOTask()</h2>
+<a id="aeb346b0d37370e4a771426f047c99d4e" name="aeb346b0d37370e4a771426f047c99d4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb346b0d37370e4a771426f047c99d4e">&#9670;&#160;</a></span>GraphAsset()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -160,149 +121,89 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::rc::rgi::SSAOTask::~SSAOTask </td>
+          <td class="memname">bl::rc::rg::GraphAsset::GraphAsset </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05654.html">Asset</a> *&#160;</td>
+          <td class="paramname"><em>asset</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys the task. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0e8312f9541f9759694772892a95bcec" name="a0e8312f9541f9759694772892a95bcec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e8312f9541f9759694772892a95bcec">&#9670;&#160;</a></span>getId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string_view bl::rc::rg::Task::getId </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the id of the task. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00620_source.html#l00075">75</a> of file <a class="el" href="a00620_source.html">Task.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4a21c62dc186d4f548cbefde6c600e25" name="a4a21c62dc186d4f548cbefde6c600e25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a21c62dc186d4f548cbefde6c600e25">&#9670;&#160;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::Task::update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called each frame with the elapsed time. </p>
+<p>Creates a new graph asset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>The elapsed time in seconds since the last call to update </td></tr>
+    <tr><td class="paramname">asset</td><td>The asset to wrap </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented in <a class="el" href="a05694.html#acb9b3f7739cf04562aa253d458817e2e">bl::rc::rgi::FadeEffectTask</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02252_source.html#l00021">21</a> of file <a class="el" href="a02252_source.html">Task.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00031">31</a> of file <a class="el" href="a00713_source.html">GraphAsset.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a663136a9c9645a13f420b7bf622ece36" name="a663136a9c9645a13f420b7bf622ece36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a663136a9c9645a13f420b7bf622ece36">&#9670;&#160;</a></span>assets</h2>
+<a id="a6215eb2ba33408469b3d677370b66c1c" name="a6215eb2ba33408469b3d677370b66c1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6215eb2ba33408469b3d677370b66c1c">&#9670;&#160;</a></span>asset</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">TaskAssets bl::rc::rg::Task::assets</td>
+          <td class="memname"><a class="el" href="a05670.html">AssetRef</a> bl::rc::rg::GraphAsset::asset</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00620_source.html#l00079">79</a> of file <a class="el" href="a00620_source.html">Task.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00022">22</a> of file <a class="el" href="a00713_source.html">GraphAsset.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aeca701513a61a6e75e5525db2d180cbc" name="aeca701513a61a6e75e5525db2d180cbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeca701513a61a6e75e5525db2d180cbc">&#9670;&#160;</a></span>assetTags</h2>
+<a id="a4c84c9c08de0afb30a3e03df8a8ecff1" name="a4c84c9c08de0afb30a3e03df8a8ecff1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c84c9c08de0afb30a3e03df8a8ecff1">&#9670;&#160;</a></span>firstAvailableStep</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">TaskAssetTags bl::rc::rg::Task::assetTags</td>
+          <td class="memname">unsigned int bl::rc::rg::GraphAsset::firstAvailableStep</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00620_source.html#l00078">78</a> of file <a class="el" href="a00620_source.html">Task.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00024">24</a> of file <a class="el" href="a00713_source.html">GraphAsset.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Graph/Tasks/<a class="el" href="a00608_source.html">SSAOTask.hpp</a></li>
-<li>src/Render/Graph/Tasks/<a class="el" href="a02318_source.html">SSAOTask.cpp</a></li>
+<a id="a69717813502845651006ef73afe1d430" name="a69717813502845651006ef73afe1d430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69717813502845651006ef73afe1d430">&#9670;&#160;</a></span>outputtedBy</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a05778.html">Task</a>*&gt; bl::rc::rg::GraphAsset::outputtedBy</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00023">23</a> of file <a class="el" href="a00713_source.html">GraphAsset.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00713_source.html">GraphAsset.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

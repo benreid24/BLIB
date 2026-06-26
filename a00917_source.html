@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/GenericDescriptorSetFactory.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/InputAttachmentFactory.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,122 +79,96 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_154b49fde9d17c5da5d7cb000b858c0e.html">Descriptors</a></li><li class="navelem"><a class="el" href="dir_792f3e8afd589e1154463a1acff3bd49.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">GenericDescriptorSetFactory.hpp</div></div>
+  <div class="headertitle"><div class="title">InputAttachmentFactory.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00917.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_GENERICDESCRIPTORSETFACTORY_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_GENERICDESCRIPTORSETFACTORY_HPP</span></div>
+<a href="a00917.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_INPUTATTACHMENTFACTORY_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_INPUTATTACHMENTFACTORY_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09719.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00899.html">BLIB/Render/Descriptors/Generic/Bindings.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00821.html">BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a09734.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>ds</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TBindings, VkPipelineStageFlags... BindingStages&gt;</div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a05454.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a05454.html">GenericDescriptorSetFactory</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05422.html">DescriptorSetFactory</a> {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">static_assert</span>(<a class="code hl_struct" href="a05458.html">priv::IsBindings&lt;TBindings&gt;::value</a>,</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                  <span class="stringliteral">&quot;TBindings must be a specialization of the Bindings class&quot;</span>);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>...(BindingStages) == TBindings::NBindings,</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                  <span class="stringliteral">&quot;Number of pipeline stages should match number of bindings&quot;</span>);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a05454.html#ae54439b5117cedff577411f2a01d3fa1">   34</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05454.html#ae54439b5117cedff577411f2a01d3fa1">~GenericDescriptorSetFactory</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a05454.html#a90523a76c8c43813c8eac0c56aab0bfd">init</a>(<a class="code hl_class" href="a04202.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05878.html">Renderer</a>&amp; renderer) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> std::unique_ptr&lt;DescriptorSetInstance&gt; <a class="code hl_function" href="a05454.html#ac08cca33fb7e9bc90abba3e5269bb5e7">createDescriptorSet</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> std::type_index <a class="code hl_function" href="a05454.html#abaa9a27d5980b4010b1c234c81ec2dfd">creates</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="a05878.html">Renderer</a>* renderer;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a08986.html">BLIB/Render/Descriptors/DescriptorSetFactory.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a09001.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>dsi</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;std::uint32_t AttachmentCount, std::uint32_t StartIndex = 0,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>         VkShaderStageFlags ShaderStages = VK_SHADER_STAGE_FRAGMENT_BIT&gt;</div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05506.html">   25</a></span><span class="keyword">class </span><a class="code hl_class" href="a05506.html">InputAttachmentFactory</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05554.html">ds::DescriptorSetFactory</a> {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a05506.html#a48834be3e9e23b7743687e73149de7a2">   30</a></span>    <a class="code hl_function" href="a05506.html#a48834be3e9e23b7743687e73149de7a2">InputAttachmentFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05506.html#a2479012c41de5f2ec52da42233f34b09">   35</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05506.html#a2479012c41de5f2ec52da42233f34b09">~InputAttachmentFactory</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="}">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a05506.html#aaed087f0720218313934c2c9fc03b3c3">   40</a></span>    <span class="keyword">virtual</span> std::unique_ptr&lt;ds::DescriptorSetInstance&gt; <a class="code hl_function" href="a05506.html#aaed087f0720218313934c2c9fc03b3c3">createDescriptorSet</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">return</span> std::make_unique&lt;InputAttachmentInstance&gt;(</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>            *renderer, <a class="code hl_variable" href="a05554.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>, AttachmentCount, StartIndex);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    }</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TBindings, VkPipelineStageFlags... BindingStages&gt;</div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a05454.html#a90523a76c8c43813c8eac0c56aab0bfd">   61</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05454.html#a90523a76c8c43813c8eac0c56aab0bfd">GenericDescriptorSetFactory&lt;TBindings, BindingStages...&gt;::init</a>(<a class="code hl_class" href="a04202.html">engine::Engine</a>&amp;, <a class="code hl_class" href="a05878.html">Renderer</a>&amp; r) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    renderer = &amp;r;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    TBindings bindingInfo;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_struct" href="a06230.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a> bindings;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    bindings.<a class="code hl_variable" href="a06230.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = TBindings::NBindings;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keyword">const</span> <span class="keyword">auto</span> setBinding = [&amp;bindings, &amp;bindingInfo](std::uint32_t i, VkPipelineStageFlags flags) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        bindings.<a class="code hl_variable" href="a06230.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].binding            = i;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        bindings.<a class="code hl_variable" href="a06230.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].descriptorCount    = 1;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        bindings.<a class="code hl_variable" href="a06230.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].descriptorType     = bindingInfo.getDescriptorType(i);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        bindings.<a class="code hl_variable" href="a06230.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].pImmutableSamplers = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        bindings.<a class="code hl_variable" href="a06230.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].stageFlags         = flags;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    };</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    std::uint32_t i = 0;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    (..., (setBinding(i++, BindingStages)));</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    descriptorSetLayout = r.<a class="code hl_function" href="a05878.html#a1c822b87c86ba837de2f57076f14ecf4">getDescriptorPool</a>().<a class="code hl_function" href="a06226.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindings);</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>}</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="a06010.html">Renderer</a>* renderer;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_class" href="a04250.html">engine::Engine</a>&amp;, <a class="code hl_class" href="a06010.html">Renderer</a>&amp; renderer)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        this-&gt;renderer = &amp;renderer;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_struct" href="a06362.html">vk::DescriptorPool::SetBindingInfo</a> bindingInfo;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">for</span> (std::uint32_t i = 0; i &lt; AttachmentCount; ++i) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            bindingInfo.<a class="code hl_variable" href="a06362.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].binding            = i;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            bindingInfo.<a class="code hl_variable" href="a06362.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].descriptorCount    = 1;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>            bindingInfo.<a class="code hl_variable" href="a06362.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].descriptorType     = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            bindingInfo.<a class="code hl_variable" href="a06362.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].pImmutableSamplers = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            bindingInfo.<a class="code hl_variable" href="a06362.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bindings</a>[i].stageFlags         = ShaderStages;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        bindingInfo.<a class="code hl_variable" href="a06362.html#ad44b120901116ab5216ddfdc35d30d95">bindingCount</a> = AttachmentCount;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_variable" href="a05554.html#a272948ed73908bcc35626a495366cba6">descriptorSetLayout</a>      = renderer.<a class="code hl_function" href="a06010.html#a1c822b87c86ba837de2f57076f14ecf4">getDescriptorPool</a>().<a class="code hl_function" href="a06358.html#a5a206bab1969632a78bca5e79532eb70">createLayout</a>(bindingInfo);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> std::type_index creates()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">typeid</span>(InputAttachmentInstance); }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> isAutoConstructable()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>};</div>
 </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TBindings, VkPipelineStageFlags... BindingStages&gt;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>std::unique_ptr&lt;DescriptorSetInstance&gt;</div>
-<div class="foldopen" id="foldopen00084" data-start="{" data-end="}">
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a05454.html#ac08cca33fb7e9bc90abba3e5269bb5e7">   84</a></span><a class="code hl_function" href="a05454.html#ac08cca33fb7e9bc90abba3e5269bb5e7">GenericDescriptorSetFactory&lt;TBindings, BindingStages...&gt;::createDescriptorSet</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    TBindings bindingInfo;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> std::make_unique&lt;GenericDescriptorSetInstance&lt;TBindings&gt;&gt;(</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        *renderer, descriptorSetLayout, bindingInfo.getBindMode(), bindingInfo.getSpeedMode());</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
-</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TBindings, VkPipelineStageFlags... BindingStages&gt;</div>
-<div class="foldopen" id="foldopen00091" data-start="{" data-end="}">
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a05454.html#abaa9a27d5980b4010b1c234c81ec2dfd">   91</a></span>std::type_index <a class="code hl_function" href="a05454.html#abaa9a27d5980b4010b1c234c81ec2dfd">GenericDescriptorSetFactory&lt;TBindings, BindingStages...&gt;::creates</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> <span class="keyword">typeid</span>(<a class="code hl_class" href="a05466.html">GenericDescriptorSetInstance&lt;TBindings&gt;</a>);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
-</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>} <span class="comment">// namespace ds</span></div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00821_html"><div class="ttname"><a href="a00821.html">GenericDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00899_html"><div class="ttname"><a href="a00899.html">Bindings.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04202_html"><div class="ttname"><a href="a04202.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09596_source.html#l00040">Engine.hpp:40</a></div></div>
-<div class="ttc" id="aa05422_html"><div class="ttname"><a href="a05422.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition</b> <a href="a09719_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
-<div class="ttc" id="aa05454_html"><div class="ttname"><a href="a05454.html">bl::rc::ds::GenericDescriptorSetFactory</a></div><div class="ttdoc">Generic descriptor set factory. Takes the set of bindings and their pipeline stages.</div><div class="ttdef"><b>Definition</b> <a href="a00917_source.html#l00024">GenericDescriptorSetFactory.hpp:24</a></div></div>
-<div class="ttc" id="aa05454_html_a90523a76c8c43813c8eac0c56aab0bfd"><div class="ttname"><a href="a05454.html#a90523a76c8c43813c8eac0c56aab0bfd">bl::rc::ds::GenericDescriptorSetFactory::init</a></div><div class="ttdeci">virtual void init(engine::Engine &amp;engine, Renderer &amp;renderer) override</div><div class="ttdoc">Creates the descriptor set layout.</div><div class="ttdef"><b>Definition</b> <a href="a00917_source.html#l00061">GenericDescriptorSetFactory.hpp:61</a></div></div>
-<div class="ttc" id="aa05454_html_abaa9a27d5980b4010b1c234c81ec2dfd"><div class="ttname"><a href="a05454.html#abaa9a27d5980b4010b1c234c81ec2dfd">bl::rc::ds::GenericDescriptorSetFactory::creates</a></div><div class="ttdeci">virtual std::type_index creates() const override</div><div class="ttdoc">Returns the type of descriptor set that this factory makes.</div><div class="ttdef"><b>Definition</b> <a href="a00917_source.html#l00091">GenericDescriptorSetFactory.hpp:91</a></div></div>
-<div class="ttc" id="aa05454_html_ac08cca33fb7e9bc90abba3e5269bb5e7"><div class="ttname"><a href="a05454.html#ac08cca33fb7e9bc90abba3e5269bb5e7">bl::rc::ds::GenericDescriptorSetFactory::createDescriptorSet</a></div><div class="ttdeci">virtual std::unique_ptr&lt; DescriptorSetInstance &gt; createDescriptorSet() const override</div><div class="ttdoc">Creates the corresponding GenericDescriptorSetInstance.</div><div class="ttdef"><b>Definition</b> <a href="a00917_source.html#l00084">GenericDescriptorSetFactory.hpp:84</a></div></div>
-<div class="ttc" id="aa05454_html_ae54439b5117cedff577411f2a01d3fa1"><div class="ttname"><a href="a05454.html#ae54439b5117cedff577411f2a01d3fa1">bl::rc::ds::GenericDescriptorSetFactory::~GenericDescriptorSetFactory</a></div><div class="ttdeci">virtual ~GenericDescriptorSetFactory()=default</div><div class="ttdoc">Destroys the descriptor set factory.</div></div>
-<div class="ttc" id="aa05458_html"><div class="ttname"><a href="a05458.html">bl::rc::ds::priv::IsBindings</a></div><div class="ttdef"><b>Definition</b> <a href="a00821_source.html#l00022">GenericDescriptorSetInstance.hpp:22</a></div></div>
-<div class="ttc" id="aa05466_html"><div class="ttname"><a href="a05466.html">bl::rc::ds::GenericDescriptorSetInstance</a></div><div class="ttdoc">Generic descriptor set comprised of arbitrary bindings.</div><div class="ttdef"><b>Definition</b> <a href="a00821_source.html#l00035">GenericDescriptorSetInstance.hpp:35</a></div></div>
-<div class="ttc" id="aa05878_html"><div class="ttname"><a href="a05878.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00058">Renderer.hpp:58</a></div></div>
-<div class="ttc" id="aa05878_html_a1c822b87c86ba837de2f57076f14ecf4"><div class="ttname"><a href="a05878.html#a1c822b87c86ba837de2f57076f14ecf4">bl::rc::Renderer::getDescriptorPool</a></div><div class="ttdeci">vk::DescriptorPool &amp; getDescriptorPool()</div><div class="ttdoc">Returns the descriptor pool manager.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00314">Renderer.hpp:314</a></div></div>
-<div class="ttc" id="aa06226_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a06226.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition</b> <a href="a02618_source.html#l00065">DescriptorPool.cpp:65</a></div></div>
-<div class="ttc" id="aa06230_html"><div class="ttname"><a href="a06230.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00038">DescriptorPool.hpp:38</a></div></div>
-<div class="ttc" id="aa06230_html_a7d2425aa3dddcc10fb76fcaf68c372fc"><div class="ttname"><a href="a06230.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, cfg::Limits::MaxDescriptorBindings &gt; bindings</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00041">DescriptorPool.hpp:41</a></div></div>
-<div class="ttc" id="aa06230_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a06230.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition</b> <a href="a01163_source.html#l00042">DescriptorPool.hpp:42</a></div></div>
-<div class="ttc" id="aa09719_html"><div class="ttname"><a href="a09719.html">DescriptorSetFactory.hpp</a></div></div>
-<div class="ttc" id="aa09734_html"><div class="ttname"><a href="a09734.html">Renderer.hpp</a></div></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace dsi</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">InputAttachmentInstance.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04250_html"><div class="ttname"><a href="a04250.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a08863_source.html#l00040">Engine.hpp:40</a></div></div>
+<div class="ttc" id="aa05506_html"><div class="ttname"><a href="a05506.html">bl::rc::dsi::InputAttachmentFactory</a></div><div class="ttdoc">Descriptor set factory that provides a single binding for an attachment set.</div><div class="ttdef"><b>Definition</b> <a href="a00917_source.html#l00025">InputAttachmentFactory.hpp:25</a></div></div>
+<div class="ttc" id="aa05506_html_a2479012c41de5f2ec52da42233f34b09"><div class="ttname"><a href="a05506.html#a2479012c41de5f2ec52da42233f34b09">bl::rc::dsi::InputAttachmentFactory::~InputAttachmentFactory</a></div><div class="ttdeci">virtual ~InputAttachmentFactory()=default</div><div class="ttdoc">Frees resources.</div></div>
+<div class="ttc" id="aa05506_html_a48834be3e9e23b7743687e73149de7a2"><div class="ttname"><a href="a05506.html#a48834be3e9e23b7743687e73149de7a2">bl::rc::dsi::InputAttachmentFactory::InputAttachmentFactory</a></div><div class="ttdeci">InputAttachmentFactory()=default</div><div class="ttdoc">Creates the factory.</div></div>
+<div class="ttc" id="aa05506_html_aaed087f0720218313934c2c9fc03b3c3"><div class="ttname"><a href="a05506.html#aaed087f0720218313934c2c9fc03b3c3">bl::rc::dsi::InputAttachmentFactory::createDescriptorSet</a></div><div class="ttdeci">virtual std::unique_ptr&lt; ds::DescriptorSetInstance &gt; createDescriptorSet() const override</div><div class="ttdoc">Creates a descriptor set instance.</div><div class="ttdef"><b>Definition</b> <a href="a00917_source.html#l00040">InputAttachmentFactory.hpp:40</a></div></div>
+<div class="ttc" id="aa05554_html"><div class="ttname"><a href="a05554.html">bl::rc::ds::DescriptorSetFactory</a></div><div class="ttdoc">Base class for descriptor set instances. Descriptor set factories are given to PipelineParameters and...</div><div class="ttdef"><b>Definition</b> <a href="a08986_source.html#l00031">DescriptorSetFactory.hpp:31</a></div></div>
+<div class="ttc" id="aa05554_html_a272948ed73908bcc35626a495366cba6"><div class="ttname"><a href="a05554.html#a272948ed73908bcc35626a495366cba6">bl::rc::ds::DescriptorSetFactory::descriptorSetLayout</a></div><div class="ttdeci">VkDescriptorSetLayout descriptorSetLayout</div><div class="ttdef"><b>Definition</b> <a href="a08986_source.html#l00072">DescriptorSetFactory.hpp:72</a></div></div>
+<div class="ttc" id="aa06010_html"><div class="ttname"><a href="a06010.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09001_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa06010_html_a1c822b87c86ba837de2f57076f14ecf4"><div class="ttname"><a href="a06010.html#a1c822b87c86ba837de2f57076f14ecf4">bl::rc::Renderer::getDescriptorPool</a></div><div class="ttdeci">vk::DescriptorPool &amp; getDescriptorPool()</div><div class="ttdoc">Returns the descriptor pool manager.</div><div class="ttdef"><b>Definition</b> <a href="a09001_source.html#l00314">Renderer.hpp:314</a></div></div>
+<div class="ttc" id="aa06358_html_a5a206bab1969632a78bca5e79532eb70"><div class="ttname"><a href="a06358.html#a5a206bab1969632a78bca5e79532eb70">bl::rc::vk::DescriptorPool::createLayout</a></div><div class="ttdeci">VkDescriptorSetLayout createLayout(const SetBindingInfo &amp;allocInfo)</div><div class="ttdoc">Creates a descriptor set layout from the set allocation info.</div><div class="ttdef"><b>Definition</b> <a href="a02663_source.html#l00065">DescriptorPool.cpp:65</a></div></div>
+<div class="ttc" id="aa06362_html"><div class="ttname"><a href="a06362.html">bl::rc::vk::DescriptorPool::SetBindingInfo</a></div><div class="ttdoc">Struct containing the data required to create descriptor sets and layouts.</div><div class="ttdef"><b>Definition</b> <a href="a01205_source.html#l00038">DescriptorPool.hpp:38</a></div></div>
+<div class="ttc" id="aa06362_html_a7d2425aa3dddcc10fb76fcaf68c372fc"><div class="ttname"><a href="a06362.html#a7d2425aa3dddcc10fb76fcaf68c372fc">bl::rc::vk::DescriptorPool::SetBindingInfo::bindings</a></div><div class="ttdeci">std::array&lt; VkDescriptorSetLayoutBinding, cfg::Limits::MaxDescriptorBindings &gt; bindings</div><div class="ttdef"><b>Definition</b> <a href="a01205_source.html#l00041">DescriptorPool.hpp:41</a></div></div>
+<div class="ttc" id="aa06362_html_ad44b120901116ab5216ddfdc35d30d95"><div class="ttname"><a href="a06362.html#ad44b120901116ab5216ddfdc35d30d95">bl::rc::vk::DescriptorPool::SetBindingInfo::bindingCount</a></div><div class="ttdeci">std::uint32_t bindingCount</div><div class="ttdef"><b>Definition</b> <a href="a01205_source.html#l00042">DescriptorPool.hpp:42</a></div></div>
+<div class="ttc" id="aa08986_html"><div class="ttname"><a href="a08986.html">DescriptorSetFactory.hpp</a></div></div>
+<div class="ttc" id="aa09001_html"><div class="ttname"><a href="a09001.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Input/ListenerBoundary.hpp Source File</title>
+<title>BLIB: include/BLIB/Util/TaskScheduler.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,48 +79,88 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_c720f75c1eb5aaccd40e24fd6b592b41.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ListenerBoundary.hpp</div></div>
+  <div class="headertitle"><div class="title">TaskScheduler.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01556.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_INPUT_LISTENER_BOUNDARY_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_INPUT_LISTENER_BOUNDARY_HPP</span></div>
+<a href="a01556.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_UTIL_TASKSCHEDULER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_UTIL_TASKSCHEDULER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09836.html">BLIB/Input/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>input</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04562.html">   17</a></span><span class="keyword">class </span><a class="code hl_class" href="a04562.html">ListenerBoundary</a> : <span class="keyword">public</span> <a class="code hl_class" href="a04558.html">Listener</a> {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a04562.html#a069bdca8ecb766d1b09bdadd3e0ede56">   23</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04562.html#a069bdca8ecb766d1b09bdadd3e0ede56">~ListenerBoundary</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> <a class="code hl_class" href="a04518.html">Actor</a>&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>, <a class="code hl_enumeration" href="a03123.html#ga9b480cda76caba52b2ab392fea396ce3">DispatchType</a>, <span class="keywordtype">bool</span>)<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>};</div>
-</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01529.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01538.html">BLIB/Util/ThreadPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;list&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;mutex&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>util</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a07094.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a07094.html">TaskScheduler</a> : <span class="keyword">private</span> <a class="code hl_class" href="a07038.html">NonCopyable</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">   22</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">TaskId</a> = std::size_t;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="a07094.html#a5e81b61806cd48b08b04db8bd4bda73d">TaskScheduler</a>();</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace input</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa03123_html_ga9b480cda76caba52b2ab392fea396ce3"><div class="ttname"><a href="a03123.html#ga9b480cda76caba52b2ab392fea396ce3">bl::input::DispatchType</a></div><div class="ttdeci">DispatchType</div><div class="ttdoc">Indicates if a control notification is the first activation of that control or if it is a repeated si...</div><div class="ttdef"><b>Definition</b> <a href="a01550_source.html#l00016">DispatchType.hpp:16</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04518_html"><div class="ttname"><a href="a04518.html">bl::input::Actor</a></div><div class="ttdoc">Represents a single actor (player) that can give input. Listeners subscribe to a single actor for the...</div><div class="ttdef"><b>Definition</b> <a href="a01565_source.html#l00023">Actor.hpp:23</a></div></div>
-<div class="ttc" id="aa04558_html"><div class="ttname"><a href="a04558.html">bl::input::Listener</a></div><div class="ttdoc">Base class for input listeners that can subscribe to an Actor. The base class keeps the input system ...</div><div class="ttdef"><b>Definition</b> <a href="a09836_source.html#l00019">Listener.hpp:19</a></div></div>
-<div class="ttc" id="aa04562_html"><div class="ttname"><a href="a04562.html">bl::input::ListenerBoundary</a></div><div class="ttdoc">Helper class that ignores and blocks all inputs. Use this as a backstop between menus/states to avoid...</div><div class="ttdef"><b>Definition</b> <a href="a01556_source.html#l00017">ListenerBoundary.hpp:17</a></div></div>
-<div class="ttc" id="aa04562_html_a069bdca8ecb766d1b09bdadd3e0ede56"><div class="ttname"><a href="a04562.html#a069bdca8ecb766d1b09bdadd3e0ede56">bl::input::ListenerBoundary::~ListenerBoundary</a></div><div class="ttdeci">virtual ~ListenerBoundary()=default</div><div class="ttdoc">Destroy the Listener Boundary object.</div></div>
-<div class="ttc" id="aa09836_html"><div class="ttname"><a href="a09836.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <a class="code hl_function" href="a07094.html#a5e81b61806cd48b08b04db8bd4bda73d">TaskScheduler</a>(<a class="code hl_class" href="a07118.html">ThreadPool</a>&amp; threadPool);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_typedef" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">TaskId</a> <a class="code hl_function" href="a07094.html#aa4db8f5b20f5e4950d9288a055ce324a">scheduleTask</a>(<a class="code hl_typedef" href="a07118.html#a1da062602c1bbf14d5d17ce12e777697">ThreadPool::Task</a>&amp;&amp; <a class="code hl_variable" href="a02393.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>, <span class="keywordtype">float</span> timeUntil);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_typedef" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">TaskId</a> <a class="code hl_function" href="a07094.html#af3f953f442f31dcc93f579e879521815">scheduleRepeatedTask</a>(<a class="code hl_typedef" href="a07118.html#a1da062602c1bbf14d5d17ce12e777697">ThreadPool::Task</a>&amp;&amp; <a class="code hl_variable" href="a02393.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>, <span class="keywordtype">float</span> interval, <span class="keywordtype">float</span> timeUntil = -1.f);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a07094.html#a3c1eb1230365b6c7df0775edf59d1db3">cancelTask</a>(<a class="code hl_typedef" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">TaskId</a> <span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a07094.html#a62d381a744b1a54e2f9b1e1b2ceba798">update</a>(<span class="keywordtype">float</span> dt);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a07094.html#a5ae0be84243bfd5ae59d0e65e5ff32b6">drain</a>();</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">struct </span>ScheduledTask {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <a class="code hl_typedef" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">TaskId</a> id;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_typedef" href="a07118.html#a1da062602c1bbf14d5d17ce12e777697">ThreadPool::Task</a> <a class="code hl_variable" href="a02393.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordtype">float</span> timeUntil;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordtype">float</span> interval;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        ScheduledTask(<a class="code hl_typedef" href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">TaskId</a> <span class="keywordtype">id</span>, <a class="code hl_typedef" href="a07118.html#a1da062602c1bbf14d5d17ce12e777697">ThreadPool::Task</a>&amp;&amp; task, <span class="keywordtype">float</span> timeUntil, <span class="keywordtype">float</span> interval = -1.f);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    };</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    std::mutex mutex;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_class" href="a07118.html">ThreadPool</a>* threadPool;</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    std::list&lt;ScheduledTask&gt; tasks;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    std::size_t nextTaskId;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordtype">void</span> dispatch(ScheduledTask&amp; <a class="code hl_variable" href="a02393.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>};</div>
+</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>} <span class="comment">// namespace util</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01529_html"><div class="ttname"><a href="a01529.html">NonCopyable.hpp</a></div></div>
+<div class="ttc" id="aa01538_html"><div class="ttname"><a href="a01538.html">ThreadPool.hpp</a></div></div>
+<div class="ttc" id="aa02393_html_adac025b94121ea5ab5dd2a3a715ca778"><div class="ttname"><a href="a02393.html#adac025b94121ea5ab5dd2a3a715ca778">task</a></div><div class="ttdeci">Task * task</div><div class="ttdef"><b>Definition</b> <a href="a02393_source.html#l00023">Timeline.cpp:23</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa07038_html"><div class="ttname"><a href="a07038.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a01529_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="ttc" id="aa07094_html"><div class="ttname"><a href="a07094.html">bl::util::TaskScheduler</a></div><div class="ttdoc">Lightweight scheduler for delayed and repeated tasks. Optional threadpool integration.</div><div class="ttdef"><b>Definition</b> <a href="a01556_source.html#l00019">TaskScheduler.hpp:19</a></div></div>
+<div class="ttc" id="aa07094_html_a3c1eb1230365b6c7df0775edf59d1db3"><div class="ttname"><a href="a07094.html#a3c1eb1230365b6c7df0775edf59d1db3">bl::util::TaskScheduler::cancelTask</a></div><div class="ttdeci">bool cancelTask(TaskId id)</div><div class="ttdoc">Cancels the task with the given id if it is still pending.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00041">TaskScheduler.cpp:41</a></div></div>
+<div class="ttc" id="aa07094_html_a5ae0be84243bfd5ae59d0e65e5ff32b6"><div class="ttname"><a href="a07094.html#a5ae0be84243bfd5ae59d0e65e5ff32b6">bl::util::TaskScheduler::drain</a></div><div class="ttdeci">void drain()</div><div class="ttdoc">Executes all pending tasks immediately on the calling thread and then removes them.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00069">TaskScheduler.cpp:69</a></div></div>
+<div class="ttc" id="aa07094_html_a5e81b61806cd48b08b04db8bd4bda73d"><div class="ttname"><a href="a07094.html#a5e81b61806cd48b08b04db8bd4bda73d">bl::util::TaskScheduler::TaskScheduler</a></div><div class="ttdeci">TaskScheduler()</div><div class="ttdoc">Creates the scheduler in immediate mode. Tasks are executed directly.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00014">TaskScheduler.cpp:14</a></div></div>
+<div class="ttc" id="aa07094_html_a62d381a744b1a54e2f9b1e1b2ceba798"><div class="ttname"><a href="a07094.html#a62d381a744b1a54e2f9b1e1b2ceba798">bl::util::TaskScheduler::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Advances the scheduler and executes tasks that are ready.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00053">TaskScheduler.cpp:53</a></div></div>
+<div class="ttc" id="aa07094_html_a8317940bc53fc16acbc3063f491a5c35"><div class="ttname"><a href="a07094.html#a8317940bc53fc16acbc3063f491a5c35">bl::util::TaskScheduler::TaskId</a></div><div class="ttdeci">std::size_t TaskId</div><div class="ttdoc">Id for a task.</div><div class="ttdef"><b>Definition</b> <a href="a01556_source.html#l00022">TaskScheduler.hpp:22</a></div></div>
+<div class="ttc" id="aa07094_html_aa4db8f5b20f5e4950d9288a055ce324a"><div class="ttname"><a href="a07094.html#aa4db8f5b20f5e4950d9288a055ce324a">bl::util::TaskScheduler::scheduleTask</a></div><div class="ttdeci">TaskId scheduleTask(ThreadPool::Task &amp;&amp;task, float timeUntil)</div><div class="ttdoc">Schedules a task to be executed after a specified delay.</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00023">TaskScheduler.cpp:23</a></div></div>
+<div class="ttc" id="aa07094_html_af3f953f442f31dcc93f579e879521815"><div class="ttname"><a href="a07094.html#af3f953f442f31dcc93f579e879521815">bl::util::TaskScheduler::scheduleRepeatedTask</a></div><div class="ttdeci">TaskId scheduleRepeatedTask(ThreadPool::Task &amp;&amp;task, float interval, float timeUntil=-1.f)</div><div class="ttdoc">Schedules a task to be executed after a specified delay. Repeats on an interval until cancelled or wh...</div><div class="ttdef"><b>Definition</b> <a href="a02795_source.html#l00031">TaskScheduler.cpp:31</a></div></div>
+<div class="ttc" id="aa07118_html"><div class="ttname"><a href="a07118.html">bl::util::ThreadPool</a></div><div class="ttdoc">Provides a thread pool with variable concurrency and support for draining.</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00024">ThreadPool.hpp:24</a></div></div>
+<div class="ttc" id="aa07118_html_a1da062602c1bbf14d5d17ce12e777697"><div class="ttname"><a href="a07118.html#a1da062602c1bbf14d5d17ce12e777697">bl::util::ThreadPool::Task</a></div><div class="ttdeci">std::function&lt; void()&gt; Task</div><div class="ttdoc">Callback signature of tasks to be submitted.</div><div class="ttdef"><b>Definition</b> <a href="a01538_source.html#l00027">ThreadPool.hpp:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

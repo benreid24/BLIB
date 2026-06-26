@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::as::PayloadGeneric&lt; T &gt; Class Template Reference</title>
+<title>BLIB: bl::asi::MusicDriver Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,135 +74,165 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03146.html">as</a></li><li class="navelem"><a class="el" href="a03642.html">PayloadGeneric</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03195.html">asi</a></li><li class="navelem"><a class="el" href="a03642.html">MusicDriver</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a03639.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::as::PayloadGeneric&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a03114.html">Assets</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::asi::MusicDriver Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a03159.html">Assets</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Generic payload container for arbitrary payload types.  
+<p>Driver for sf::Music assets.  
  <a href="a03642.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01394_source.html">PayloadGeneric.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01319_source.html">MusicDriver.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::as::PayloadGeneric&lt; T &gt;:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::asi::MusicDriver:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a03642.png" usemap="#bl::as::PayloadGeneric_3C_20T_20_3E_map" alt=""/>
-  <map id="bl::as::PayloadGeneric_3C_20T_20_3E_map" name="bl::as::PayloadGeneric_3C_20T_20_3E_map">
-<area href="a03634.html" title="Base class for asset payloads. Payloads are the actual data of assets such as images." alt="bl::as::Payload" shape="rect" coords="0,0,169,24"/>
+  <img src="a03642.png" usemap="#bl::asi::MusicDriver_map" alt=""/>
+  <map id="bl::asi::MusicDriver_map" name="bl::asi::MusicDriver_map">
+<area href="a03574.html" alt="bl::as::Driver&lt; MusicPayload &gt;" shape="rect" coords="0,56,187,80"/>
+<area href="a03570.html" title="Base class for drivers that provide support for different asset formats." alt="bl::as::detail::DriverBase" shape="rect" coords="0,0,187,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03646.html">CreateParams</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Optional creation parameters for music assets using in-memory samples.  <a href="a03646.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aabf864d766821d695583d091f3c71b1a" id="r_aabf864d766821d695583d091f3c71b1a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#aabf864d766821d695583d091f3c71b1a">TPayload</a> = <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a></td></tr>
+<tr class="memdesc:aabf864d766821d695583d091f3c71b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of payload this driver supports.  <br /></td></tr>
+<tr class="separator:aabf864d766821d695583d091f3c71b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a262e2f1820437275eebd38dde7e85fa5" id="r_a262e2f1820437275eebd38dde7e85fa5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a262e2f1820437275eebd38dde7e85fa5">PayloadGeneric</a> (const <a class="el" href="a03638.html">Payload::ConstructContext</a> &amp;<a class="el" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</td></tr>
-<tr class="memdesc:a262e2f1820437275eebd38dde7e85fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the payload.  <br /></td></tr>
-<tr class="separator:a262e2f1820437275eebd38dde7e85fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bd341c447b87c94ec6c6ebd568138b8" id="r_a8bd341c447b87c94ec6c6ebd568138b8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a8bd341c447b87c94ec6c6ebd568138b8">~PayloadGeneric</a> ()=default</td></tr>
-<tr class="memdesc:a8bd341c447b87c94ec6c6ebd568138b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the payload.  <br /></td></tr>
-<tr class="separator:a8bd341c447b87c94ec6c6ebd568138b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05620197b3acb48b0ceb5cc326d829ad" id="r_a05620197b3acb48b0ceb5cc326d829ad"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a05620197b3acb48b0ceb5cc326d829ad">get</a> ()</td></tr>
-<tr class="memdesc:a05620197b3acb48b0ceb5cc326d829ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the payload data.  <br /></td></tr>
-<tr class="separator:a05620197b3acb48b0ceb5cc326d829ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae401e666c77d91952ff04ad509840132" id="r_ae401e666c77d91952ff04ad509840132"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#ae401e666c77d91952ff04ad509840132">get</a> () const</td></tr>
-<tr class="memdesc:ae401e666c77d91952ff04ad509840132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the payload data.  <br /></td></tr>
-<tr class="separator:ae401e666c77d91952ff04ad509840132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7317394ee21147288102a375c4736d2c" id="r_a7317394ee21147288102a375c4736d2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a7317394ee21147288102a375c4736d2c">saveChangesToAssetRepo</a> ()</td></tr>
-<tr class="memdesc:a7317394ee21147288102a375c4736d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes the payload data to the asset repository. Only needs to be called if mutated after creation.  <br /></td></tr>
-<tr class="separator:a7317394ee21147288102a375c4736d2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d4bd64a7ef984f1a30aeadf41ae77af" id="r_a2d4bd64a7ef984f1a30aeadf41ae77af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03662.html">Repository</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a2d4bd64a7ef984f1a30aeadf41ae77af">getRepository</a> ()</td></tr>
-<tr class="memdesc:a2d4bd64a7ef984f1a30aeadf41ae77af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the repository this payload belongs to.  <br /></td></tr>
-<tr class="separator:a2d4bd64a7ef984f1a30aeadf41ae77af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2437f026f020e79e2fe48effadda3d64" id="r_a2437f026f020e79e2fe48effadda3d64"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03330.html">Asset</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a2437f026f020e79e2fe48effadda3d64">getAsset</a> ()</td></tr>
-<tr class="memdesc:a2437f026f020e79e2fe48effadda3d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the asset this payload belongs to.  <br /></td></tr>
-<tr class="separator:a2437f026f020e79e2fe48effadda3d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a583b4ab555d8e8414d0fab91b8477ad3" id="r_a583b4ab555d8e8414d0fab91b8477ad3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a583b4ab555d8e8414d0fab91b8477ad3"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03634.html#a583b4ab555d8e8414d0fab91b8477ad3">as</a> ()</td></tr>
-<tr class="memdesc:a583b4ab555d8e8414d0fab91b8477ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely casts the payload to the given type. Will throw if the cast is invalid.  <br /></td></tr>
-<tr class="separator:a583b4ab555d8e8414d0fab91b8477ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae35ade6d2d238c3c6b082f2e6348a29d" id="r_ae35ade6d2d238c3c6b082f2e6348a29d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae35ade6d2d238c3c6b082f2e6348a29d"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03634.html#ae35ade6d2d238c3c6b082f2e6348a29d">as</a> () const</td></tr>
-<tr class="memdesc:ae35ade6d2d238c3c6b082f2e6348a29d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely casts the payload to the given type. Will throw if the cast is invalid.  <br /></td></tr>
-<tr class="separator:ae35ade6d2d238c3c6b082f2e6348a29d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a392afec322d6cc1f1387cc0001f760c0" id="r_a392afec322d6cc1f1387cc0001f760c0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a392afec322d6cc1f1387cc0001f760c0"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03634.html#a392afec322d6cc1f1387cc0001f760c0">is</a> () const</td></tr>
-<tr class="memdesc:a392afec322d6cc1f1387cc0001f760c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests whether the payload is of the given type.  <br /></td></tr>
-<tr class="separator:a392afec322d6cc1f1387cc0001f760c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cd4861d86fd68298dda54a7bbd814e8" id="r_a7cd4861d86fd68298dda54a7bbd814e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03634.html#a7cd4861d86fd68298dda54a7bbd814e8">flush</a> ()</td></tr>
-<tr class="memdesc:a7cd4861d86fd68298dda54a7bbd814e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call when the payload content changes. Ensures that changes get saved to disk before unload when in editor mode.  <br /></td></tr>
-<tr class="separator:a7cd4861d86fd68298dda54a7bbd814e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87eca0fd2f100422e24edc512ab04a24" id="r_a87eca0fd2f100422e24edc512ab04a24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a87eca0fd2f100422e24edc512ab04a24">MusicDriver</a> ()</td></tr>
+<tr class="memdesc:a87eca0fd2f100422e24edc512ab04a24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the driver.  <br /></td></tr>
+<tr class="separator:a87eca0fd2f100422e24edc512ab04a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c606baf942f3dd262e2a7fcae872102" id="r_a9c606baf942f3dd262e2a7fcae872102"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a9c606baf942f3dd262e2a7fcae872102">~MusicDriver</a> ()=default</td></tr>
+<tr class="memdesc:a9c606baf942f3dd262e2a7fcae872102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the driver.  <br /></td></tr>
+<tr class="separator:a9c606baf942f3dd262e2a7fcae872102"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6a23e1fef9e8c639667855fc6f87838" id="r_ad6a23e1fef9e8c639667855fc6f87838"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#ad6a23e1fef9e8c639667855fc6f87838">doCreate</a> (<a class="el" href="a03538.html">as::CreateContext</a> &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;payload) override</td></tr>
+<tr class="memdesc:ad6a23e1fef9e8c639667855fc6f87838"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new music asset.  <br /></td></tr>
+<tr class="separator:ad6a23e1fef9e8c639667855fc6f87838"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e019dd78bead1538f405467b897324" id="r_aa2e019dd78bead1538f405467b897324"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#aa2e019dd78bead1538f405467b897324">doRead</a> (<a class="el" href="a03530.html">as::ReadContext</a> &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;payload) override</td></tr>
+<tr class="memdesc:aa2e019dd78bead1538f405467b897324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the music asset data from the repository.  <br /></td></tr>
+<tr class="separator:aa2e019dd78bead1538f405467b897324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa178d67e601fff6d8ab38cfbebf76fd8" id="r_aa178d67e601fff6d8ab38cfbebf76fd8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#aa178d67e601fff6d8ab38cfbebf76fd8">doWrite</a> (<a class="el" href="a03534.html">as::WriteContext</a> &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, const <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;payload) override</td></tr>
+<tr class="memdesc:aa178d67e601fff6d8ab38cfbebf76fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the music asset data to the repository.  <br /></td></tr>
+<tr class="separator:aa178d67e601fff6d8ab38cfbebf76fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db52c2403fcdf42526cec0b9fa13436" id="r_a7db52c2403fcdf42526cec0b9fa13436"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; Payload &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#a7db52c2403fcdf42526cec0b9fa13436">create</a> (CreateContext &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) override final</td></tr>
+<tr class="memdesc:a7db52c2403fcdf42526cec0b9fa13436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Imports the asset from an external source. Also used when reloading an existing asset from a source file so should be idempotent.  <br /></td></tr>
+<tr class="separator:a7db52c2403fcdf42526cec0b9fa13436"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2251371c6ebdca4e9861952fe42c47bc" id="r_a2251371c6ebdca4e9861952fe42c47bc"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; Payload &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#a2251371c6ebdca4e9861952fe42c47bc">read</a> (ReadContext &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) override final</td></tr>
+<tr class="memdesc:a2251371c6ebdca4e9861952fe42c47bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads an existing asset into memory.  <br /></td></tr>
+<tr class="separator:a2251371c6ebdca4e9861952fe42c47bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ddfa80be5020eaee24ea8a51fbbebf8" id="r_a5ddfa80be5020eaee24ea8a51fbbebf8"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#a5ddfa80be5020eaee24ea8a51fbbebf8">write</a> (WriteContext &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) override final</td></tr>
+<tr class="memdesc:a5ddfa80be5020eaee24ea8a51fbbebf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes the asset data to disk in the appropriate format.  <br /></td></tr>
+<tr class="separator:a5ddfa80be5020eaee24ea8a51fbbebf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e33f9d35c0bc6a09484f0b263497db7" id="r_a3e33f9d35c0bc6a09484f0b263497db7"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#a3e33f9d35c0bc6a09484f0b263497db7">getSupportedType</a> () const</td></tr>
+<tr class="memdesc:a3e33f9d35c0bc6a09484f0b263497db7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the human friendly type tag the driver supports.  <br /></td></tr>
+<tr class="separator:a3e33f9d35c0bc6a09484f0b263497db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acece287b705aa4853f9f655648ece52e" id="r_acece287b705aa4853f9f655648ece52e"><td class="memItemLeft" align="right" valign="top">const bdl::AssetBundleConfig &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03570.html#acece287b705aa4853f9f655648ece52e">getBundleConfig</a> () const</td></tr>
+<tr class="memdesc:acece287b705aa4853f9f655648ece52e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the bundle config for this asset type.  <br /></td></tr>
+<tr class="separator:acece287b705aa4853f9f655648ece52e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a83382a9f8ee194d2a29eb32dafbe5747" id="r_a83382a9f8ee194d2a29eb32dafbe5747"><td class="memItemLeft" align="right" valign="top">static constexpr std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03642.html#a83382a9f8ee194d2a29eb32dafbe5747">TypeName</a> = &quot;Music&quot;</td></tr>
+<tr class="memdesc:a83382a9f8ee194d2a29eb32dafbe5747"><td class="mdescLeft">&#160;</td><td class="mdescRight">The string id of this driver type.  <br /></td></tr>
+<tr class="separator:a83382a9f8ee194d2a29eb32dafbe5747"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2818ec8562b7d2ac1af36db83561dba2" id="r_a2818ec8562b7d2ac1af36db83561dba2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#a2818ec8562b7d2ac1af36db83561dba2">doCreate</a> (CreateContext &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;payload)=0</td></tr>
+<tr class="memdesc:a2818ec8562b7d2ac1af36db83561dba2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03682.html" title="Base class for asset payloads. Payloads are the actual data of assets such as images.">Payload</a> type specific create logic goes here.  <br /></td></tr>
+<tr class="separator:a2818ec8562b7d2ac1af36db83561dba2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abab6a5ee2947deb69bad0e5894b39e5d" id="r_abab6a5ee2947deb69bad0e5894b39e5d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#abab6a5ee2947deb69bad0e5894b39e5d">doRead</a> (ReadContext &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;payload)=0</td></tr>
+<tr class="memdesc:abab6a5ee2947deb69bad0e5894b39e5d"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03682.html" title="Base class for asset payloads. Payloads are the actual data of assets such as images.">Payload</a> type specific read logic goes here.  <br /></td></tr>
+<tr class="separator:abab6a5ee2947deb69bad0e5894b39e5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a774c018c79a76f9d455f368f02942067" id="r_a774c018c79a76f9d455f368f02942067"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03574.html#a774c018c79a76f9d455f368f02942067">doWrite</a> (WriteContext &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, const <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;payload)=0</td></tr>
+<tr class="memdesc:a774c018c79a76f9d455f368f02942067"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a03682.html" title="Base class for asset payloads. Payloads are the actual data of assets such as images.">Payload</a> type specific write logic goes here.  <br /></td></tr>
+<tr class="separator:a774c018c79a76f9d455f368f02942067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class bl::as::PayloadGeneric&lt; T &gt;</div><p>Generic payload container for arbitrary payload types. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type of data that is stored in the payload </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>Driver for sf::Music assets. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01394_source.html#l00017">17</a> of file <a class="el" href="a01394_source.html">PayloadGeneric.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a262e2f1820437275eebd38dde7e85fa5" name="a262e2f1820437275eebd38dde7e85fa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a262e2f1820437275eebd38dde7e85fa5">&#9670;&#160;</a></span>PayloadGeneric()</h2>
+<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00021">21</a> of file <a class="el" href="a01319_source.html">MusicDriver.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aabf864d766821d695583d091f3c71b1a" name="aabf864d766821d695583d091f3c71b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabf864d766821d695583d091f3c71b1a">&#9670;&#160;</a></span>TPayload</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03642.html">bl::as::PayloadGeneric</a>&lt; T &gt;::PayloadGeneric </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03638.html">Payload::ConstructContext</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::TPayload =  <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the payload. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ctx</td><td>The repo context </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>The type of payload this driver supports. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01394_source.html#l00024">24</a> of file <a class="el" href="a01394_source.html">PayloadGeneric.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00095">95</a> of file <a class="el" href="a01412_source.html">Driver.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8bd341c447b87c94ec6c6ebd568138b8" name="a8bd341c447b87c94ec6c6ebd568138b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bd341c447b87c94ec6c6ebd568138b8">&#9670;&#160;</a></span>~PayloadGeneric()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a87eca0fd2f100422e24edc512ab04a24" name="a87eca0fd2f100422e24edc512ab04a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87eca0fd2f100422e24edc512ab04a24">&#9670;&#160;</a></span>MusicDriver()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::asi::MusicDriver::MusicDriver </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the driver. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02729_source.html#l00015">15</a> of file <a class="el" href="a02729_source.html">MusicDriver.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c606baf942f3dd262e2a7fcae872102" name="a9c606baf942f3dd262e2a7fcae872102"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c606baf942f3dd262e2a7fcae872102">&#9670;&#160;</a></span>~MusicDriver()</h2>
+
+<div class="memitem">
+<div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a03642.html">bl::as::PayloadGeneric</a>&lt; T &gt;::~<a class="el" href="a03642.html">PayloadGeneric</a> </td>
+          <td class="memname">virtual bl::asi::MusicDriver::~MusicDriver </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -215,62 +245,343 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Destroys the payload. </p>
+<p>Destroys the driver. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a583b4ab555d8e8414d0fab91b8477ad3" name="a583b4ab555d8e8414d0fab91b8477ad3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a583b4ab555d8e8414d0fab91b8477ad3">&#9670;&#160;</a></span>as() <span class="overload">[1/2]</span></h2>
+<a id="a7db52c2403fcdf42526cec0b9fa13436" name="a7db52c2403fcdf42526cec0b9fa13436"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db52c2403fcdf42526cec0b9fa13436">&#9670;&#160;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T &amp; bl::as::Payload::as </td>
+          <td class="memname">virtual std::unique_ptr&lt; Payload &gt; <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a03538.html">CreateContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Safely casts the payload to the given type. Will throw if the cast is invalid. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The payload type to cast to </td></tr>
+<p>Imports the asset from an external source. Also used when reloading an existing asset from a source file so should be idempotent. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context for the import operation </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object as the given type </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The payload containing the imported asset data, or nullptr if the import failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01373_source.html#l00063">63</a> of file <a class="el" href="a01373_source.html">Payload.hpp</a>.</p>
+<p>Implements <a class="el" href="a03570.html#adbf417dd37fcee5894995356c7ccff8a">bl::as::detail::DriverBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00109">109</a> of file <a class="el" href="a01412_source.html">Driver.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae35ade6d2d238c3c6b082f2e6348a29d" name="ae35ade6d2d238c3c6b082f2e6348a29d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae35ade6d2d238c3c6b082f2e6348a29d">&#9670;&#160;</a></span>as() <span class="overload">[2/2]</span></h2>
+<a id="ad6a23e1fef9e8c639667855fc6f87838" name="ad6a23e1fef9e8c639667855fc6f87838"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6a23e1fef9e8c639667855fc6f87838">&#9670;&#160;</a></span>doCreate() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const T &amp; bl::as::Payload::as </td>
+          <td class="memname">bool bl::asi::MusicDriver::doCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03538.html">as::CreateContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new music asset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>Context containing a path to load from </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to populate with the created asset data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02729_source.html#l00021">21</a> of file <a class="el" href="a02729_source.html">MusicDriver.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2818ec8562b7d2ac1af36db83561dba2" name="a2818ec8562b7d2ac1af36db83561dba2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2818ec8562b7d2ac1af36db83561dba2">&#9670;&#160;</a></span>doCreate() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::doCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03538.html">CreateContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MusicPayload  &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Payload type specific create logic goes here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context for the create operation </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+</div>
+</div>
+<a id="aa2e019dd78bead1538f405467b897324" name="aa2e019dd78bead1538f405467b897324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e019dd78bead1538f405467b897324">&#9670;&#160;</a></span>doRead() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::asi::MusicDriver::doRead </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03530.html">as::ReadContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reads the music asset data from the repository. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The read context </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to populate with the read asset data </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02729_source.html#l00079">79</a> of file <a class="el" href="a02729_source.html">MusicDriver.cpp</a>.</p>
+
+</div>
+</div>
+<a id="abab6a5ee2947deb69bad0e5894b39e5d" name="abab6a5ee2947deb69bad0e5894b39e5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abab6a5ee2947deb69bad0e5894b39e5d">&#9670;&#160;</a></span>doRead() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::doRead </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03530.html">ReadContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">MusicPayload  &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Payload type specific read logic goes here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context for the read operation </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+</div>
+</div>
+<a id="aa178d67e601fff6d8ab38cfbebf76fd8" name="aa178d67e601fff6d8ab38cfbebf76fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa178d67e601fff6d8ab38cfbebf76fd8">&#9670;&#160;</a></span>doWrite() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::asi::MusicDriver::doWrite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03534.html">as::WriteContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a> &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the music asset data to the repository. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The write context </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload containing the asset data to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02729_source.html#l00086">86</a> of file <a class="el" href="a02729_source.html">MusicDriver.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a774c018c79a76f9d455f368f02942067" name="a774c018c79a76f9d455f368f02942067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a774c018c79a76f9d455f368f02942067">&#9670;&#160;</a></span>doWrite() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::doWrite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03534.html">WriteContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const MusicPayload  &amp;&#160;</td>
+          <td class="paramname"><em>payload</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Payload type specific write logic goes here. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context for the write operation </td></tr>
+    <tr><td class="paramname">payload</td><td>The payload to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
+
+</div>
+</div>
+<a id="acece287b705aa4853f9f655648ece52e" name="acece287b705aa4853f9f655648ece52e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acece287b705aa4853f9f655648ece52e">&#9670;&#160;</a></span>getBundleConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bdl::AssetBundleConfig &amp; bl::as::detail::DriverBase::getBundleConfig </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -283,21 +594,14 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Safely casts the payload to the given type. Will throw if the cast is invalid. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The payload type to cast to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to this object as the given type </dd></dl>
+<p>Returns the bundle config for this asset type. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01373_source.html#l00081">81</a> of file <a class="el" href="a01373_source.html">Payload.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00064">64</a> of file <a class="el" href="a01412_source.html">Driver.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7cd4861d86fd68298dda54a7bbd814e8" name="a7cd4861d86fd68298dda54a7bbd814e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cd4861d86fd68298dda54a7bbd814e8">&#9670;&#160;</a></span>flush()</h2>
+<a id="a3e33f9d35c0bc6a09484f0b263497db7" name="a3e33f9d35c0bc6a09484f0b263497db7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e33f9d35c0bc6a09484f0b263497db7">&#9670;&#160;</a></span>getSupportedType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -306,158 +610,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::as::Payload::flush </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Call when the payload content changes. Ensures that changes get saved to disk before unload when in editor mode. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02732_source.html#l00038">38</a> of file <a class="el" href="a02732_source.html">Payload.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a05620197b3acb48b0ceb5cc326d829ad" name="a05620197b3acb48b0ceb5cc326d829ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05620197b3acb48b0ceb5cc326d829ad">&#9670;&#160;</a></span>get() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T &amp; <a class="el" href="a03642.html">bl::as::PayloadGeneric</a>&lt; T &gt;::get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the payload data. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01394_source.html#l00035">35</a> of file <a class="el" href="a01394_source.html">PayloadGeneric.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae401e666c77d91952ff04ad509840132" name="ae401e666c77d91952ff04ad509840132"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae401e666c77d91952ff04ad509840132">&#9670;&#160;</a></span>get() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T &amp; <a class="el" href="a03642.html">bl::as::PayloadGeneric</a>&lt; T &gt;::get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the payload data. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01394_source.html#l00040">40</a> of file <a class="el" href="a01394_source.html">PayloadGeneric.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2437f026f020e79e2fe48effadda3d64" name="a2437f026f020e79e2fe48effadda3d64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2437f026f020e79e2fe48effadda3d64">&#9670;&#160;</a></span>getAsset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03330.html">Asset</a> &amp; bl::as::Payload::getAsset </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the asset this payload belongs to. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01373_source.html#l00054">54</a> of file <a class="el" href="a01373_source.html">Payload.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2d4bd64a7ef984f1a30aeadf41ae77af" name="a2d4bd64a7ef984f1a30aeadf41ae77af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d4bd64a7ef984f1a30aeadf41ae77af">&#9670;&#160;</a></span>getRepository()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03662.html">Repository</a> &amp; bl::as::Payload::getRepository </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the repository this payload belongs to. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01373_source.html#l00049">49</a> of file <a class="el" href="a01373_source.html">Payload.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a392afec322d6cc1f1387cc0001f760c0" name="a392afec322d6cc1f1387cc0001f760c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a392afec322d6cc1f1387cc0001f760c0">&#9670;&#160;</a></span>is()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::as::Payload::is </td>
+          <td class="memname">std::string_view bl::as::detail::DriverBase::getSupportedType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -470,58 +623,126 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Tests whether the payload is of the given type. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The type to test for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this payload is T, false otherwise </dd></dl>
+<p>Returns the human friendly type tag the driver supports. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01373_source.html#l00099">99</a> of file <a class="el" href="a01373_source.html">Payload.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00035">35</a> of file <a class="el" href="a01412_source.html">Driver.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7317394ee21147288102a375c4736d2c" name="a7317394ee21147288102a375c4736d2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7317394ee21147288102a375c4736d2c">&#9670;&#160;</a></span>saveChangesToAssetRepo()</h2>
+<a id="a2251371c6ebdca4e9861952fe42c47bc" name="a2251371c6ebdca4e9861952fe42c47bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2251371c6ebdca4e9861952fe42c47bc">&#9670;&#160;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03642.html">bl::as::PayloadGeneric</a>&lt; T &gt;::saveChangesToAssetRepo </td>
+          <td class="memname">virtual std::unique_ptr&lt; Payload &gt; <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::read </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a03530.html">ReadContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Flushes the payload data to the asset repository. Only needs to be called if mutated after creation. </p>
+<p>Reads an existing asset into memory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context for the read operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The payload containing the read asset data, or nullptr if the read failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01394_source.html#l00046">46</a> of file <a class="el" href="a01394_source.html">PayloadGeneric.hpp</a>.</p>
+<p>Implements <a class="el" href="a03570.html#ae29dd726dd5518a5f3664f203fcfa37b">bl::as::detail::DriverBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00122">122</a> of file <a class="el" href="a01412_source.html">Driver.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Assets/<a class="el" href="a01394_source.html">PayloadGeneric.hpp</a></li>
+<a id="a5ddfa80be5020eaee24ea8a51fbbebf8" name="a5ddfa80be5020eaee24ea8a51fbbebf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ddfa80be5020eaee24ea8a51fbbebf8">&#9670;&#160;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool <a class="el" href="a03574.html">bl::as::Driver</a>&lt; <a class="el" href="a03159.html#ga8f0fd2cd8f61f859e0406c7cf26c1f93">MusicPayload</a>  &gt;::write </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03534.html">WriteContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Writes the asset data to disk in the appropriate format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The context for the write operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the write succeeded, false otherwise </dd></dl>
+
+<p>Implements <a class="el" href="a03570.html#a8b2e24af08bb99c357df806aa7f20f1a">bl::as::detail::DriverBase</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01412_source.html#l00139">139</a> of file <a class="el" href="a01412_source.html">Driver.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a83382a9f8ee194d2a29eb32dafbe5747" name="a83382a9f8ee194d2a29eb32dafbe5747"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83382a9f8ee194d2a29eb32dafbe5747">&#9670;&#160;</a></span>TypeName</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::string_view bl::asi::MusicDriver::TypeName = &quot;Music&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The string id of this driver type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01319_source.html#l00024">24</a> of file <a class="el" href="a01319_source.html">MusicDriver.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Assets/Drivers/<a class="el" href="a01319_source.html">MusicDriver.hpp</a></li>
+<li>src/Assets/Drivers/<a class="el" href="a02729_source.html">MusicDriver.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

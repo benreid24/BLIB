@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/AssetFactory.hpp Source File</title>
+<title>BLIB: include/BLIB/Serialization/JSON/Detail/SerializeStreamVisitor.inl Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,73 +79,56 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_0603dcfd3f324f38b3f10f913306f40f.html">Serialization</a></li><li class="navelem"><a class="el" href="dir_df8d21eabdb65a3ab23aec3cddd09ad9.html">JSON</a></li><li class="navelem"><a class="el" href="dir_b50adca05df96764a6cd2220a2d62662.html">Detail</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">AssetFactory.hpp</div></div>
+  <div class="headertitle"><div class="title">SerializeStreamVisitor.inl</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00527.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETFACTORY_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETFACTORY_HPP</span></div>
+<a href="a00527.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_SERIALIZATION_JSON_DETAIL_SERIALIZESTREAMVISITOR_INL</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno"><a class="line" href="a00527.html#acf1995c93e7b1c83712dc07e288d6965">    2</a></span><span class="preprocessor">#define BLIB_SERIALIZATION_JSON_DETAIL_SERIALIZESTREAMVISITOR_INL</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00515.html">BLIB/Render/Graph/AssetProvider.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;initializer_list&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rg</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a05526.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a05526.html">AssetFactory</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a05526.html#ad0920c14fe35af9234cd2d3c271c1a25">   33</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05526.html#ad0920c14fe35af9234cd2d3c271c1a25">addProvider</a>(std::string_view tag, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        <span class="keyword">auto</span>&amp; p = assetProviders.emplace_back(std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...));</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        providers.try_emplace(tag, p.get());</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    }</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03269.html">detail</a></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a03269.html#a32b830b93dab1f09fa7ec0a9d595a7da">    7</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03269.html#a32b830b93dab1f09fa7ec0a9d595a7da">serializeStreamVisitor</a>(stream::OutputStream&amp; stream, <span class="keyword">const</span> T&amp; value, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tabSize,</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>                            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentIndent) {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    stream &lt;&lt; <span class="stringliteral">&quot;{&quot;</span>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">if</span> (tabSize &gt; 0) { stream &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">constexpr</span> std::size_t memberCount = refl::memberCount&lt;T&gt;;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> sc             = currentIndent + tabSize;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i                    = 0;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    refl::visit(value,</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                [&amp;stream, &amp;i, &amp;sc, &amp;tabSize](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; reflMember, <span class="keyword">const</span> <span class="keyword">auto</span>&amp; memberValue) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>                    util::StreamUtil::writeRepeated(stream, <span class="charliteral">&#39; &#39;</span>, sc);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                    stream &lt;&lt; <span class="charliteral">&#39;&quot;&#39;</span> &lt;&lt; reflMember.getName() &lt;&lt; <span class="stringliteral">&quot;\&quot;: &quot;</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                    json::Serializer&lt;std::decay_t&lt;<span class="keyword">decltype</span>(memberValue)&gt;&gt;::serializeStream(</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                        stream, memberValue, tabSize, sc);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                    <span class="keywordflow">if</span> (i &lt; memberCount - 1) { stream &lt;&lt; <span class="stringliteral">&quot;,&quot;</span>; }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>                    ++i;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>                    <span class="keywordflow">if</span> (tabSize &gt; 0) { stream &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>; }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>                });</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    util::StreamUtil::writeRepeated(stream, <span class="charliteral">&#39; &#39;</span>, currentIndent);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    stream &lt;&lt; <span class="stringliteral">&quot;}&quot;</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> stream.isValid();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00047" data-start="{" data-end="}">
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="a05526.html#ad7d0af1820fb4509e6681ec1aff78854">   47</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05526.html#ad7d0af1820fb4509e6681ec1aff78854">addProvider</a>(std::initializer_list&lt;std::string_view&gt; tags, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">auto</span>&amp; p = assetProviders.emplace_back(std::make_unique&lt;T&gt;(std::forward&lt;TArgs&gt;(args)...));</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tag : tags) { providers.try_emplace(tag, p.get()); }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
-</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a05522.html">Asset</a>* <a class="code hl_function" href="a05526.html#a77e7c1dd5519a1be712b2305d5960a4a">createAsset</a>(std::string_view tag);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    std::vector&lt;std::unique_ptr&lt;AssetProvider&gt;&gt; assetProviders;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    std::unordered_map&lt;std::string_view, AssetProvider*&gt; providers;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
-</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace rg</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">AssetProvider.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05522_html"><div class="ttname"><a href="a05522.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a09752_source.html#l00039">Asset.hpp:39</a></div></div>
-<div class="ttc" id="aa05526_html"><div class="ttname"><a href="a05526.html">bl::rc::rg::AssetFactory</a></div><div class="ttdoc">Factory for render graph assets. Manages the set of providers keyed on tag.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00022">AssetFactory.hpp:22</a></div></div>
-<div class="ttc" id="aa05526_html_a77e7c1dd5519a1be712b2305d5960a4a"><div class="ttname"><a href="a05526.html#a77e7c1dd5519a1be712b2305d5960a4a">bl::rc::rg::AssetFactory::createAsset</a></div><div class="ttdeci">Asset * createAsset(std::string_view tag)</div><div class="ttdoc">Creates a new asset from the given tag.</div><div class="ttdef"><b>Definition</b> <a href="a02345_source.html#l00011">AssetFactory.cpp:11</a></div></div>
-<div class="ttc" id="aa05526_html_ad0920c14fe35af9234cd2d3c271c1a25"><div class="ttname"><a href="a05526.html#ad0920c14fe35af9234cd2d3c271c1a25">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::string_view tag, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a new asset provider to the factory.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00033">AssetFactory.hpp:33</a></div></div>
-<div class="ttc" id="aa05526_html_ad7d0af1820fb4509e6681ec1aff78854"><div class="ttname"><a href="a05526.html#ad7d0af1820fb4509e6681ec1aff78854">bl::rc::rg::AssetFactory::addProvider</a></div><div class="ttdeci">void addProvider(std::initializer_list&lt; std::string_view &gt; tags, TArgs &amp;&amp;... args)</div><div class="ttdoc">Adds a single asset provider for multiple tags.</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00047">AssetFactory.hpp:47</a></div></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace detail</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa03269_html"><div class="ttname"><a href="a03269.html">detail</a></div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00008">DeserializePackedVisitor.inl:9</a></div></div>
+<div class="ttc" id="aa03269_html_a32b830b93dab1f09fa7ec0a9d595a7da"><div class="ttname"><a href="a03269.html#a32b830b93dab1f09fa7ec0a9d595a7da">detail::serializeStreamVisitor</a></div><div class="ttdeci">bool serializeStreamVisitor(stream::OutputStream &amp;stream, const T &amp;value, unsigned int tabSize, unsigned int currentIndent)</div><div class="ttdef"><b>Definition</b> <a href="a00527_source.html#l00007">SerializeStreamVisitor.inl:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

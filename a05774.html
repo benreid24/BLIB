@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::lgt::PointLight3D Struct Reference</title>
+<title>BLIB: bl::rc::rg::Strategy Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,65 +74,65 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03207.html">lgt</a></li><li class="navelem"><a class="el" href="a05774.html">PointLight3D</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03261.html">rg</a></li><li class="navelem"><a class="el" href="a05774.html">Strategy</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a05771.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::lgt::PointLight3D Struct Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::Strategy Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic struct representing a 3d point light.  
+<p>Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created.  
  <a href="a05774.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00929_source.html">PointLight3D.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00659_source.html">Strategy.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::lgt::PointLight3D:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rg::Strategy:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a05774.png" usemap="#bl::rc::lgt::PointLight3D_map" alt=""/>
-  <map id="bl::rc::lgt::PointLight3D_map" name="bl::rc::lgt::PointLight3D_map">
-<area href="a05778.html" title="Omnidirectional light that casts shadows." alt="bl::rc::lgt::PointLight3DShadow" shape="rect" coords="0,56,181,80"/>
+  <img src="a05774.png" usemap="#bl::rc::rg::Strategy_map" alt=""/>
+  <map id="bl::rc::rg::Strategy_map" name="bl::rc::rg::Strategy_map">
+<area href="a05758.html" title="Render strategy for Overlay scenes. Simply adds the RenderOverlayTask." alt="bl::rc::rgi::OverlayRenderStrategy" shape="rect" coords="0,56,258,80"/>
+<area href="a05762.html" title="Render strategy for 2d scenes." alt="bl::rc::rgi::Scene2DRenderStrategy" shape="rect" coords="268,56,526,80"/>
+<area href="a05766.html" title="Deferred render strategy for 3d scenes." alt="bl::rc::rgi::Scene3DDeferredRenderStrategy" shape="rect" coords="536,56,794,80"/>
+<area href="a05770.html" title="Forward render strategy for 3d scenes." alt="bl::rc::rgi::Scene3DForwardRenderStrategy" shape="rect" coords="804,56,1062,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0733e7535c52fa3c97277640724ae32d" id="r_a0733e7535c52fa3c97277640724ae32d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a0733e7535c52fa3c97277640724ae32d">PointLight3D</a> ()=default</td></tr>
-<tr class="memdesc:a0733e7535c52fa3c97277640724ae32d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes to sane defaults.  <br /></td></tr>
-<tr class="separator:a0733e7535c52fa3c97277640724ae32d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad846f278a339bad3f27c6e2b20fe8822" id="r_ad846f278a339bad3f27c6e2b20fe8822"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#ad846f278a339bad3f27c6e2b20fe8822">computeFalloffRadius</a> (float threshold=5.f/256.f) const</td></tr>
-<tr class="memdesc:ad846f278a339bad3f27c6e2b20fe8822"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the radius of the light volume for this light.  <br /></td></tr>
-<tr class="separator:ad846f278a339bad3f27c6e2b20fe8822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3a5761b0140a49b5e46e79ea178f92e" id="r_ab3a5761b0140a49b5e46e79ea178f92e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#ab3a5761b0140a49b5e46e79ea178f92e">copyAsUniform</a> (const <a class="el" href="a05774.html">PointLight3D</a> &amp;other)</td></tr>
-<tr class="memdesc:ab3a5761b0140a49b5e46e79ea178f92e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the light data from another light to this one which will be used by shaders.  <br /></td></tr>
-<tr class="separator:ab3a5761b0140a49b5e46e79ea178f92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac24ca7e18dce4fe3042d7d6ef720fea9" id="r_ac24ca7e18dce4fe3042d7d6ef720fea9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05758.html">Color3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#ac24ca7e18dce4fe3042d7d6ef720fea9">getColor</a> ()</td></tr>
-<tr class="memdesc:ac24ca7e18dce4fe3042d7d6ef720fea9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color of the light. Used to match the ineterface of <a class="el" href="a05806.html" title="Basic struct representing a spotlight in a 3d scene.">SpotLight3D</a>.  <br /></td></tr>
-<tr class="separator:ac24ca7e18dce4fe3042d7d6ef720fea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52d8932e923fc4ceac54ded8232d3e0a" id="r_a52d8932e923fc4ceac54ded8232d3e0a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a52d8932e923fc4ceac54ded8232d3e0a">~Strategy</a> ()=default</td></tr>
+<tr class="memdesc:a52d8932e923fc4ceac54ded8232d3e0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the strategy.  <br /></td></tr>
+<tr class="separator:a52d8932e923fc4ceac54ded8232d3e0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae55bc09629c3a1a0b3e4026cd3044b36" id="r_ae55bc09629c3a1a0b3e4026cd3044b36"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#ae55bc09629c3a1a0b3e4026cd3044b36">populate</a> (<a class="el" href="a05754.html">RenderGraph</a> &amp;graph)=0</td></tr>
+<tr class="memdesc:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populates the given graph with tasks.  <br /></td></tr>
+<tr class="separator:ae55bc09629c3a1a0b3e4026cd3044b36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a579a52d9d6363a354c6e4a82938620b7" id="r_a579a52d9d6363a354c6e4a82938620b7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a579a52d9d6363a354c6e4a82938620b7">getVersion</a> () const</td></tr>
+<tr class="memdesc:a579a52d9d6363a354c6e4a82938620b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version of the strategy. This is used to rebuild graphs on settings change.  <br /></td></tr>
+<tr class="separator:a579a52d9d6363a354c6e4a82938620b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a281aa79d91d5c5be53767f3c85c812b2" id="r_a281aa79d91d5c5be53767f3c85c812b2"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a281aa79d91d5c5be53767f3c85c812b2">pos</a></td></tr>
-<tr class="separator:a281aa79d91d5c5be53767f3c85c812b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b792aa2d28194e30139639ef991c8f" id="r_ab4b792aa2d28194e30139639ef991c8f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05754.html">Attenuation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#ab4b792aa2d28194e30139639ef991c8f">attenuation</a></td></tr>
-<tr class="separator:ab4b792aa2d28194e30139639ef991c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a060cc47d469043d8c772242d9f407f17" id="r_a060cc47d469043d8c772242d9f407f17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05758.html">Color3D</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a060cc47d469043d8c772242d9f407f17">color</a></td></tr>
-<tr class="separator:a060cc47d469043d8c772242d9f407f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a0287f9790da42916bced7e9a22983633" id="r_a0287f9790da42916bced7e9a22983633"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a0287f9790da42916bced7e9a22983633">Strategy</a> ()</td></tr>
+<tr class="memdesc:a0287f9790da42916bced7e9a22983633"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the strategy.  <br /></td></tr>
+<tr class="separator:a0287f9790da42916bced7e9a22983633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bcc11e0775e3e075568142ecaa1f60d" id="r_a0bcc11e0775e3e075568142ecaa1f60d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05774.html#a0bcc11e0775e3e075568142ecaa1f60d">invalidateGraphs</a> ()</td></tr>
+<tr class="memdesc:a0bcc11e0775e3e075568142ecaa1f60d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Causes all created graphs to be rebuilt lazily.  <br /></td></tr>
+<tr class="separator:a0bcc11e0775e3e075568142ecaa1f60d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic struct representing a 3d point light. </p>
+<div class="textblock"><p>Base class for renderer strategies. Render strategies populate render graphs with tasks when they are first created. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00019">19</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00018">18</a> of file <a class="el" href="a00659_source.html">Strategy.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0733e7535c52fa3c97277640724ae32d" name="a0733e7535c52fa3c97277640724ae32d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0733e7535c52fa3c97277640724ae32d">&#9670;&#160;</a></span>PointLight3D()</h2>
+<a id="a52d8932e923fc4ceac54ded8232d3e0a" name="a52d8932e923fc4ceac54ded8232d3e0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52d8932e923fc4ceac54ded8232d3e0a">&#9670;&#160;</a></span>~Strategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -141,7 +141,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::lgt::PointLight3D::PointLight3D </td>
+          <td class="memname">virtual bl::rc::rg::Strategy::~Strategy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -149,18 +149,17 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Initializes to sane defaults. </p>
+<p>Destroys the strategy. </p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad846f278a339bad3f27c6e2b20fe8822" name="ad846f278a339bad3f27c6e2b20fe8822"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad846f278a339bad3f27c6e2b20fe8822">&#9670;&#160;</a></span>computeFalloffRadius()</h2>
+<a id="a0287f9790da42916bced7e9a22983633" name="a0287f9790da42916bced7e9a22983633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0287f9790da42916bced7e9a22983633">&#9670;&#160;</a></span>Strategy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -169,10 +168,39 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float bl::rc::lgt::PointLight3D::computeFalloffRadius </td>
+          <td class="memname">bl::rc::rg::Strategy::Strategy </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>threshold</em> = <code>5.f&#160;/&#160;256.f</code></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the strategy. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00041">41</a> of file <a class="el" href="a00659_source.html">Strategy.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a579a52d9d6363a354c6e4a82938620b7" name="a579a52d9d6363a354c6e4a82938620b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a579a52d9d6363a354c6e4a82938620b7">&#9670;&#160;</a></span>getVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::rc::rg::Strategy::getVersion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -183,21 +211,14 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the radius of the light volume for this light. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">threshold</td><td>The threshold to consider the bounds of the light volume </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The radius of the light volume </dd></dl>
+<p>Returns the version of the strategy. This is used to rebuild graphs on settings change. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00035">35</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00035">35</a> of file <a class="el" href="a00659_source.html">Strategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab3a5761b0140a49b5e46e79ea178f92e" name="ab3a5761b0140a49b5e46e79ea178f92e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3a5761b0140a49b5e46e79ea178f92e">&#9670;&#160;</a></span>copyAsUniform()</h2>
+<a id="a0bcc11e0775e3e075568142ecaa1f60d" name="a0bcc11e0775e3e075568142ecaa1f60d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bcc11e0775e3e075568142ecaa1f60d">&#9670;&#160;</a></span>invalidateGraphs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -206,43 +227,7 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::lgt::PointLight3D::copyAsUniform </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05774.html">PointLight3D</a> &amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copies the light data from another light to this one which will be used by shaders. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">other</td><td>The light to copy from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00044">44</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac24ca7e18dce4fe3042d7d6ef720fea9" name="ac24ca7e18dce4fe3042d7d6ef720fea9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac24ca7e18dce4fe3042d7d6ef720fea9">&#9670;&#160;</a></span>getColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a05758.html">Color3D</a> &amp; bl::rc::lgt::PointLight3D::getColor </td>
+          <td class="memname">void bl::rc::rg::Strategy::invalidateGraphs </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -250,74 +235,61 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the color of the light. Used to match the ineterface of <a class="el" href="a05806.html" title="Basic struct representing a spotlight in a 3d scene.">SpotLight3D</a>. </p>
+<p>Causes all created graphs to be rebuilt lazily. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00053">53</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00047">47</a> of file <a class="el" href="a00659_source.html">Strategy.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab4b792aa2d28194e30139639ef991c8f" name="ab4b792aa2d28194e30139639ef991c8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4b792aa2d28194e30139639ef991c8f">&#9670;&#160;</a></span>attenuation</h2>
+<a id="ae55bc09629c3a1a0b3e4026cd3044b36" name="ae55bc09629c3a1a0b3e4026cd3044b36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae55bc09629c3a1a0b3e4026cd3044b36">&#9670;&#160;</a></span>populate()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a05754.html">Attenuation</a> bl::rc::lgt::PointLight3D::attenuation</td>
+          <td class="memname">virtual void bl::rc::rg::Strategy::populate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05754.html">RenderGraph</a> &amp;&#160;</td>
+          <td class="paramname"><em>graph</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00021">21</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
+<p>Populates the given graph with tasks. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graph</td><td>The graph to populate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a05758.html#a89612278c84cbdd2e8f14bc40c4c269b">bl::rc::rgi::OverlayRenderStrategy</a>, <a class="el" href="a05762.html#a852b7d1f374008880db230fb9997762b">bl::rc::rgi::Scene2DRenderStrategy</a>, <a class="el" href="a05766.html#a52b84dc9157164210d330cfcbd031a0f">bl::rc::rgi::Scene3DDeferredRenderStrategy</a>, and <a class="el" href="a05770.html#a6c9293e1b04c0b3a6ce4b28c041b0e53">bl::rc::rgi::Scene3DForwardRenderStrategy</a>.</p>
 
 </div>
 </div>
-<a id="a060cc47d469043d8c772242d9f407f17" name="a060cc47d469043d8c772242d9f407f17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a060cc47d469043d8c772242d9f407f17">&#9670;&#160;</a></span>color</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a05758.html">Color3D</a> bl::rc::lgt::PointLight3D::color</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00022">22</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a281aa79d91d5c5be53767f3c85c812b2" name="a281aa79d91d5c5be53767f3c85c812b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a281aa79d91d5c5be53767f3c85c812b2">&#9670;&#160;</a></span>pos</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec3 bl::rc::lgt::PointLight3D::pos</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00020">20</a> of file <a class="el" href="a00929_source.html">PointLight3D.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Render/Lighting/<a class="el" href="a00929_source.html">PointLight3D.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00659_source.html">Strategy.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

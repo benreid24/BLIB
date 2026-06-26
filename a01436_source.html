@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Util/Base64.hpp Source File</title>
+<title>BLIB: include/BLIB/Assets/DriverGeneric.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,45 +79,176 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4b3af2b25a05b4f12e892fbe45139fe9.html">Util</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Base64.hpp</div></div>
+  <div class="headertitle"><div class="title">DriverGeneric.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01436.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_UTIL_BASE64_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_UTIL_BASE64_HPP</span></div>
+<a href="a01436.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_DRIVERGENERIC_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_DRIVERGENERIC_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;span&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>util</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a06918.html">   17</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a06918.html">Base64</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">static</span> std::string <a class="code hl_function" href="a06918.html#aaee8ed5b03a8270560c9faccb87be0da">encode</a>(std::span&lt;const char&gt; data);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a06918.html#a7f2f523839b56160ea552d8af5360554">decode</a>(<span class="keyword">const</span> std::string&amp; encoded, std::vector&lt;char&gt;&amp; result);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09082.html">BLIB/Assets/Context.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Assets/Driver.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01439.html">BLIB/Assets/PayloadGeneric.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01799.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01802.html">BLIB/Serialization.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01541.html">BLIB/Util/TemplateString.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span>as</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03269.html">detail</a></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03578.html">   19</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03578.html">ExtractPayload</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a03578.html#aef9b4c405f329eb94f977288f64e77dc">   20</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a03578.html#aef9b4c405f329eb94f977288f64e77dc">Type</a> = T;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>};</div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>} <span class="comment">// namespace util</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa06918_html"><div class="ttname"><a href="a06918.html">bl::util::Base64</a></div><div class="ttdoc">Collection of utilities for base64 encoding and decoding.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00017">Base64.hpp:17</a></div></div>
-<div class="ttc" id="aa06918_html_a7f2f523839b56160ea552d8af5360554"><div class="ttname"><a href="a06918.html#a7f2f523839b56160ea552d8af5360554">bl::util::Base64::decode</a></div><div class="ttdeci">static bool decode(const std::string &amp;encoded, std::vector&lt; char &gt; &amp;result)</div><div class="ttdoc">Decodes a base64 encoded string.</div><div class="ttdef"><b>Definition</b> <a href="a02747_source.html#l00030">Base64.cpp:30</a></div></div>
-<div class="ttc" id="aa06918_html_aaee8ed5b03a8270560c9faccb87be0da"><div class="ttname"><a href="a06918.html#aaee8ed5b03a8270560c9faccb87be0da">bl::util::Base64::encode</a></div><div class="ttdeci">static std::string encode(std::span&lt; const char &gt; data)</div><div class="ttdoc">Encodes the given data to a base64 string.</div><div class="ttdef"><b>Definition</b> <a href="a02747_source.html#l00013">Base64.cpp:13</a></div></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03582.html">   24</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03578.html">ExtractPayload</a>&lt;<a class="code hl_class" href="a03690.html">PayloadGeneric</a>&lt;T&gt;&gt; {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03582.html#a1b997f842ca758d10e07dffbe8f0832c">   25</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a03582.html#a1b997f842ca758d10e07dffbe8f0832c">Type</a> = T;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace detail</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <a class="code hl_struct" href="a07114.html">util::TemplateString</a> Name,</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>         <a class="code hl_struct" href="a03486.html">bdl::AssetBundleConfig</a> BundleConfig = <a class="code hl_struct" href="a03486.html">bdl::AssetBundleConfig</a>()&gt;</div>
+<div class="foldopen" id="foldopen00040" data-start="{" data-end="};">
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="a03586.html">   40</a></span><span class="keyword">class </span><a class="code hl_class" href="a03586.html">DriverGeneric</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03574.html">Driver</a>&lt;T&gt; {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">   43</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">DataType</a> = <span class="keyword">typename</span> <a class="code hl_typedef" href="a03578.html#aef9b4c405f329eb94f977288f64e77dc">detail::ExtractPayload&lt;T&gt;::Type</a>;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03586.html#aac2a7dc58223aa1fac1ae737ad25edde">   46</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="a03586.html#aac2a7dc58223aa1fac1ae737ad25edde">IsPayloadGeneric</a> = std::is_same_v&lt;T, PayloadGeneric&lt;DataType&gt;&gt;;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a03586.html#a872572e8a2dbf2d8cefdb1eb1045b4b3">   49</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="a03586.html#a872572e8a2dbf2d8cefdb1eb1045b4b3">TypeName</a> = Name.toStringView();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="foldopen" id="foldopen00056" data-start="{" data-end="};">
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a03590.html">   56</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="a03590.html">CreateParams</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03542.html">CreateContext::CreateData</a> {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a03590.html#a888703540aa2e08d3ee1990f7dd8a619">   57</a></span>        <span class="keyword">const</span> <a class="code hl_typedef" href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">DataType</a>&amp; <a class="code hl_variable" href="a03590.html#a888703540aa2e08d3ee1990f7dd8a619">data</a>;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00064" data-start="{" data-end="}">
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno"><a class="line" href="a03590.html#a0adcdbc9624fe53ad34fbc91724d63de">   64</a></span>        <a class="code hl_function" href="a03590.html#a0adcdbc9624fe53ad34fbc91724d63de">CreateParams</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">DataType</a>&amp; <a class="code hl_variable" href="a03590.html#a888703540aa2e08d3ee1990f7dd8a619">data</a>)</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        : <a class="code hl_variable" href="a03590.html#a888703540aa2e08d3ee1990f7dd8a619">data</a>(<a class="code hl_variable" href="a03590.html#a888703540aa2e08d3ee1990f7dd8a619">data</a>) {}</div>
+</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    };</div>
+</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="foldopen" id="foldopen00071" data-start="{" data-end="}">
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a03586.html#aaa10c16ad42cf2f25314902aff198717">   71</a></span>    <a class="code hl_function" href="a03586.html#aaa10c16ad42cf2f25314902aff198717">DriverGeneric</a>()</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    : <a class="code hl_class" href="a03574.html">Driver</a>&lt;T&gt;(BundleConfig) {}</div>
+</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a03586.html#aa86fb3780095669efaf86907ad7e2b89">   77</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03586.html#aa86fb3780095669efaf86907ad7e2b89">~DriverGeneric</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a03586.html#ad0d3c104882105b39452e693da72400f">   86</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03586.html#ad0d3c104882105b39452e693da72400f">doCreate</a>(<a class="code hl_class" href="a03538.html">CreateContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, T&amp; payload)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keyword">const</span> <span class="keyword">auto</span>* createData = <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCustomDataAsMaybe&lt;<a class="code hl_struct" href="a03590.html">CreateParams</a>&gt;();</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_copy_assignable_v&lt;DataType&gt;) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <span class="keywordflow">if</span> (createData) { getData(payload) = createData-&gt;data; }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">if</span> (createData) {</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;CreateParams provided for non-copy-assignable type: &quot;</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                             &lt;&lt; <span class="keyword">typeid</span>(T).name();</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            }</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    }</div>
+</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="foldopen" id="foldopen00107" data-start="{" data-end="}">
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno"><a class="line" href="a03586.html#abba83bbedd61026f63ec0fe4066a3401">  107</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03586.html#abba83bbedd61026f63ec0fe4066a3401">doRead</a>(<a class="code hl_class" href="a03530.html">ReadContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, T&amp; payload)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <a class="code hl_class" href="a06882.html">stream::InputStream</a> input;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.setupReadStream(<span class="stringliteral">&quot;payload.json&quot;</span>, input)) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getMode() == <a class="code hl_enumvalue" href="a03159.html#gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257">Mode::Editor</a>) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="a06746.html#a1799ea9e5ed2fbf3100bf1c249981760">serial::json::Serializer&lt;DataType&gt;::deserializeStream</a>(input, getData(payload));</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">else</span> { <span class="keywordflow">return</span> <a class="code hl_function" href="a06586.html#aa149577e62070d609103d406428494bf">serial::binary::Serializer&lt;DataType&gt;::deserialize</a>(input, getData(payload)); }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    }</div>
+</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00123" data-start="{" data-end="}">
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno"><a class="line" href="a03586.html#acf320d0018d1fbc4727c7a15cba623a8">  123</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03586.html#acf320d0018d1fbc4727c7a15cba623a8">doWrite</a>(<a class="code hl_class" href="a03534.html">WriteContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <span class="keyword">const</span> T&amp; payload)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_class" href="a06894.html">stream::OutputStream</a> output;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <span class="keywordflow">if</span> (!<a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.setupWriteStream(<span class="stringliteral">&quot;payload.json&quot;</span>, output)) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">if</span> (<a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getMode() == <a class="code hl_enumvalue" href="a03159.html#gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257">Mode::Editor</a>) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <span class="keywordflow">return</span> <a class="code hl_function" href="a06746.html#a5a4967dbdcb16ad01aefc8d4f5146d54">serial::json::Serializer&lt;DataType&gt;::serializeStream</a>(</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                output, getData(payload), 4, 0);</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        }</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="keywordflow">else</span> { <span class="keywordflow">return</span> <a class="code hl_function" href="a06586.html#ab2efba3138eb7bf3e7f6147f8ab0ce6e">serial::binary::Serializer&lt;DataType&gt;::serialize</a>(output, getData(payload)); }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <a class="code hl_typedef" href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">DataType</a>&amp; getData(T&amp; payload) {</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="a03586.html#aac2a7dc58223aa1fac1ae737ad25edde">IsPayloadGeneric</a>) { <span class="keywordflow">return</span> payload.get(); }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordflow">else</span> { <span class="keywordflow">return</span> payload; }</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">DataType</a>&amp; getData(<span class="keyword">const</span> T&amp; payload)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (<a class="code hl_variable" href="a03586.html#aac2a7dc58223aa1fac1ae737ad25edde">IsPayloadGeneric</a>) { <span class="keywordflow">return</span> payload.get(); }</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="keywordflow">else</span> { <span class="keywordflow">return</span> payload; }</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>};</div>
+</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>} <span class="comment">// namespace as</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00365_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00101">Logger.hpp:101</a></div></div>
+<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Driver.hpp</a></div></div>
+<div class="ttc" id="aa01439_html"><div class="ttname"><a href="a01439.html">PayloadGeneric.hpp</a></div></div>
+<div class="ttc" id="aa01541_html"><div class="ttname"><a href="a01541.html">TemplateString.hpp</a></div></div>
+<div class="ttc" id="aa01799_html"><div class="ttname"><a href="a01799.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa01802_html"><div class="ttname"><a href="a01802.html">Serialization.hpp</a></div></div>
+<div class="ttc" id="aa02912_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02912_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03159_html_gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257"><div class="ttname"><a href="a03159.html#gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257">bl::as::Mode::Editor</a></div><div class="ttdeci">@ Editor</div><div class="ttdoc">Assets are stored in source control friendly formats and loaded directly from files.</div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03269_html"><div class="ttname"><a href="a03269.html">detail</a></div><div class="ttdef"><b>Definition</b> <a href="a00512_source.html#l00008">DeserializePackedVisitor.inl:9</a></div></div>
+<div class="ttc" id="aa03486_html"><div class="ttname"><a href="a03486.html">bl::as::bdl::AssetBundleConfig</a></div><div class="ttdoc">Basic struct representing asset bundle behavior. Provided by drivers per asset type.</div><div class="ttdef"><b>Definition</b> <a href="a01451_source.html#l00015">AssetBundleConfig.hpp:15</a></div></div>
+<div class="ttc" id="aa03530_html"><div class="ttname"><a href="a03530.html">bl::as::ReadContext</a></div><div class="ttdoc">Context for existing assets being loaded into memory.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00114">Context.hpp:114</a></div></div>
+<div class="ttc" id="aa03534_html"><div class="ttname"><a href="a03534.html">bl::as::WriteContext</a></div><div class="ttdoc">Context for writing asset data to disk.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00143">Context.hpp:143</a></div></div>
+<div class="ttc" id="aa03538_html"><div class="ttname"><a href="a03538.html">bl::as::CreateContext</a></div><div class="ttdoc">Context for asset imports. Import is when assets are created from external files.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00194">Context.hpp:194</a></div></div>
+<div class="ttc" id="aa03542_html"><div class="ttname"><a href="a03542.html">bl::as::CreateContext::CreateData</a></div><div class="ttdoc">Custom data can be passed to asset drivers by deriving from this struct.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00197">Context.hpp:197</a></div></div>
+<div class="ttc" id="aa03574_html"><div class="ttname"><a href="a03574.html">bl::as::Driver</a></div><div class="ttdoc">Base class for drivers that provide support for different payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01412_source.html#l00090">Driver.hpp:90</a></div></div>
+<div class="ttc" id="aa03578_html"><div class="ttname"><a href="a03578.html">bl::as::detail::ExtractPayload</a></div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00019">DriverGeneric.hpp:19</a></div></div>
+<div class="ttc" id="aa03578_html_aef9b4c405f329eb94f977288f64e77dc"><div class="ttname"><a href="a03578.html#aef9b4c405f329eb94f977288f64e77dc">bl::as::detail::ExtractPayload::Type</a></div><div class="ttdeci">T Type</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00020">DriverGeneric.hpp:20</a></div></div>
+<div class="ttc" id="aa03582_html_a1b997f842ca758d10e07dffbe8f0832c"><div class="ttname"><a href="a03582.html#a1b997f842ca758d10e07dffbe8f0832c">bl::as::detail::ExtractPayload&lt; PayloadGeneric&lt; T &gt; &gt;::Type</a></div><div class="ttdeci">T Type</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00025">DriverGeneric.hpp:25</a></div></div>
+<div class="ttc" id="aa03586_html"><div class="ttname"><a href="a03586.html">bl::as::DriverGeneric</a></div><div class="ttdoc">Generic driver that can be used for assets that are trivially serializable.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00040">DriverGeneric.hpp:40</a></div></div>
+<div class="ttc" id="aa03586_html_a872572e8a2dbf2d8cefdb1eb1045b4b3"><div class="ttname"><a href="a03586.html#a872572e8a2dbf2d8cefdb1eb1045b4b3">bl::as::DriverGeneric::TypeName</a></div><div class="ttdeci">static constexpr std::string_view TypeName</div><div class="ttdoc">The name of the type that this driver is for.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00049">DriverGeneric.hpp:49</a></div></div>
+<div class="ttc" id="aa03586_html_aa86fb3780095669efaf86907ad7e2b89"><div class="ttname"><a href="a03586.html#aa86fb3780095669efaf86907ad7e2b89">bl::as::DriverGeneric::~DriverGeneric</a></div><div class="ttdeci">virtual ~DriverGeneric()=default</div><div class="ttdoc">Destroys the driver.</div></div>
+<div class="ttc" id="aa03586_html_aaa10c16ad42cf2f25314902aff198717"><div class="ttname"><a href="a03586.html#aaa10c16ad42cf2f25314902aff198717">bl::as::DriverGeneric::DriverGeneric</a></div><div class="ttdeci">DriverGeneric()</div><div class="ttdoc">Creates the driver.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00071">DriverGeneric.hpp:71</a></div></div>
+<div class="ttc" id="aa03586_html_aaaceed0755673d95ba8344a162ccc2c2"><div class="ttname"><a href="a03586.html#aaaceed0755673d95ba8344a162ccc2c2">bl::as::DriverGeneric::DataType</a></div><div class="ttdeci">typename detail::ExtractPayload&lt; T &gt;::Type DataType</div><div class="ttdoc">The type of the underlying payload. Extracts from PayloadGeneric.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00043">DriverGeneric.hpp:43</a></div></div>
+<div class="ttc" id="aa03586_html_aac2a7dc58223aa1fac1ae737ad25edde"><div class="ttname"><a href="a03586.html#aac2a7dc58223aa1fac1ae737ad25edde">bl::as::DriverGeneric::IsPayloadGeneric</a></div><div class="ttdeci">static constexpr bool IsPayloadGeneric</div><div class="ttdoc">Helper to determine if T is an instance of PayloadGeneric.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00046">DriverGeneric.hpp:46</a></div></div>
+<div class="ttc" id="aa03586_html_abba83bbedd61026f63ec0fe4066a3401"><div class="ttname"><a href="a03586.html#abba83bbedd61026f63ec0fe4066a3401">bl::as::DriverGeneric::doRead</a></div><div class="ttdeci">virtual bool doRead(ReadContext &amp;ctx, T &amp;payload) override</div><div class="ttdoc">Reads the asset from storage.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00107">DriverGeneric.hpp:107</a></div></div>
+<div class="ttc" id="aa03586_html_acf320d0018d1fbc4727c7a15cba623a8"><div class="ttname"><a href="a03586.html#acf320d0018d1fbc4727c7a15cba623a8">bl::as::DriverGeneric::doWrite</a></div><div class="ttdeci">virtual bool doWrite(WriteContext &amp;ctx, const T &amp;payload) override</div><div class="ttdoc">Writes the asset to storage.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00123">DriverGeneric.hpp:123</a></div></div>
+<div class="ttc" id="aa03586_html_ad0d3c104882105b39452e693da72400f"><div class="ttname"><a href="a03586.html#ad0d3c104882105b39452e693da72400f">bl::as::DriverGeneric::doCreate</a></div><div class="ttdeci">virtual bool doCreate(CreateContext &amp;ctx, T &amp;payload) override</div><div class="ttdoc">Creates the asset payload, optionally from CreateParams if provided.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00086">DriverGeneric.hpp:86</a></div></div>
+<div class="ttc" id="aa03590_html"><div class="ttname"><a href="a03590.html">bl::as::DriverGeneric::CreateParams</a></div><div class="ttdoc">Optional create parameters to use. Will default construct if not provided.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00056">DriverGeneric.hpp:56</a></div></div>
+<div class="ttc" id="aa03590_html_a0adcdbc9624fe53ad34fbc91724d63de"><div class="ttname"><a href="a03590.html#a0adcdbc9624fe53ad34fbc91724d63de">bl::as::DriverGeneric::CreateParams::CreateParams</a></div><div class="ttdeci">CreateParams(const DataType &amp;data)</div><div class="ttdoc">Creates the create params with the given data.</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00064">DriverGeneric.hpp:64</a></div></div>
+<div class="ttc" id="aa03590_html_a888703540aa2e08d3ee1990f7dd8a619"><div class="ttname"><a href="a03590.html#a888703540aa2e08d3ee1990f7dd8a619">bl::as::DriverGeneric::CreateParams::data</a></div><div class="ttdeci">const DataType &amp; data</div><div class="ttdef"><b>Definition</b> <a href="a01436_source.html#l00057">DriverGeneric.hpp:57</a></div></div>
+<div class="ttc" id="aa03690_html"><div class="ttname"><a href="a03690.html">bl::as::PayloadGeneric</a></div><div class="ttdoc">Generic payload container for arbitrary payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00017">PayloadGeneric.hpp:17</a></div></div>
+<div class="ttc" id="aa06586_html_aa149577e62070d609103d406428494bf"><div class="ttname"><a href="a06586.html#aa149577e62070d609103d406428494bf">bl::serial::binary::Serializer::deserialize</a></div><div class="ttdeci">static bool deserialize(stream::InputStream &amp;input, T &amp;result)</div><div class="ttdoc">Reads the value from input into result.</div></div>
+<div class="ttc" id="aa06586_html_ab2efba3138eb7bf3e7f6147f8ab0ce6e"><div class="ttname"><a href="a06586.html#ab2efba3138eb7bf3e7f6147f8ab0ce6e">bl::serial::binary::Serializer::serialize</a></div><div class="ttdeci">static bool serialize(stream::OutputStream &amp;output, const T &amp;value)</div><div class="ttdoc">Serialize the given value to the given file.</div></div>
+<div class="ttc" id="aa06746_html_a1799ea9e5ed2fbf3100bf1c249981760"><div class="ttname"><a href="a06746.html#a1799ea9e5ed2fbf3100bf1c249981760">bl::serial::json::Serializer::deserializeStream</a></div><div class="ttdeci">static bool deserializeStream(stream::InputStream &amp;stream, T &amp;result)</div><div class="ttdoc">Reads the value directly from the given stream instead of decoding into JSON objects first....</div></div>
+<div class="ttc" id="aa06746_html_a5a4967dbdcb16ad01aefc8d4f5146d54"><div class="ttname"><a href="a06746.html#a5a4967dbdcb16ad01aefc8d4f5146d54">bl::serial::json::Serializer::serializeStream</a></div><div class="ttdeci">static bool serializeStream(stream::OutputStream &amp;stream, const T &amp;value, unsigned int tabSize, unsigned int currentIndent=0)</div><div class="ttdoc">Serializes the given value directly to the given stream instead of creating intermediate JSON objects...</div></div>
+<div class="ttc" id="aa06882_html"><div class="ttname"><a href="a06882.html">bl::stream::InputStream</a></div><div class="ttdoc">Universal input stream which can operate on files, buffers, and other streams.</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00021">InputStream.hpp:21</a></div></div>
+<div class="ttc" id="aa06894_html"><div class="ttname"><a href="a06894.html">bl::stream::OutputStream</a></div><div class="ttdoc">Universal output stream which can operate on files, buffers, and other streams.</div><div class="ttdef"><b>Definition</b> <a href="a00356_source.html#l00022">OutputStream.hpp:22</a></div></div>
+<div class="ttc" id="aa07114_html"><div class="ttname"><a href="a07114.html">bl::util::TemplateString</a></div><div class="ttdef"><b>Definition</b> <a href="a01541_source.html#l00010">TemplateString.hpp:10</a></div></div>
+<div class="ttc" id="aa09082_html"><div class="ttname"><a href="a09082.html">Context.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

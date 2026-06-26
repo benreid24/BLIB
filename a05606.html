@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rgi::GenericTargetProvider&lt; TAsset &gt; Class Template Reference</title>
+<title>BLIB: bl::rc::ds::InstanceTable Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,112 +74,283 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03208.html">rgi</a></li><li class="navelem"><a class="el" href="a05606.html">GenericTargetProvider</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03258.html">ds</a></li><li class="navelem"><a class="el" href="a05606.html">InstanceTable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a05603.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::rgi::GenericTargetProvider&lt; TAsset &gt; Class Template Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::ds::InstanceTable Class Reference<div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provider for <a class="el" href="a05562.html" title="Generic asset for a templated set of attachments.">GenericTargetAsset</a> assets.  
+<p>Table of descriptor set instances. Needed because instances are managed by scenes but descriptors are per render target.  
  <a href="a05606.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::rc::rgi::GenericTargetProvider&lt; TAsset &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05606.png" usemap="#bl::rc::rgi::GenericTargetProvider_3C_20TAsset_20_3E_map" alt=""/>
-  <map id="bl::rc::rgi::GenericTargetProvider_3C_20TAsset_20_3E_map" name="bl::rc::rgi::GenericTargetProvider_3C_20TAsset_20_3E_map">
-<area href="a05534.html" title="Base class for an asset provider. AssetProviders are used by AssetFactory." alt="bl::rc::rg::AssetProvider" shape="rect" coords="0,0,259,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a00956_source.html">InstanceTable.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ab748dd349f4f07e88bd99c6c1e4e1a6b" id="r_ab748dd349f4f07e88bd99c6c1e4e1a6b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#ab748dd349f4f07e88bd99c6c1e4e1a6b">Traits</a> = <a class="el" href="a05566.html">GenericTargetAssetTraits</a>&lt; TAsset &gt;</td></tr>
-<tr class="separator:ab748dd349f4f07e88bd99c6c1e4e1a6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e47dd5fd8cd88d284d99aefa003b70a" id="r_a5e47dd5fd8cd88d284d99aefa003b70a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a5e47dd5fd8cd88d284d99aefa003b70a">LayoutSets</a> = std::array&lt; <a class="el" href="a05562.html">DescriptorSetInstance</a> *, <a class="el" href="a05462.html#a7b6a62b2047e3c5199a081e91135ec6d">cfg::Limits::MaxDescriptorSets</a> &gt;</td></tr>
+<tr class="separator:a5e47dd5fd8cd88d284d99aefa003b70a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af15beaff9c8062f00acccd5d790484a7" id="r_af15beaff9c8062f00acccd5d790484a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#af15beaff9c8062f00acccd5d790484a7">GenericTargetProvider</a> (bool terminal, const std::array&lt; VkClearValue, <a class="el" href="a05606.html#accbf20807dab8c06c5d97e21ba116c33">RenderedAttachmentCount</a> &gt; &amp;clearColors)</td></tr>
-<tr class="memdesc:af15beaff9c8062f00acccd5d790484a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the provider.  <br /></td></tr>
-<tr class="separator:af15beaff9c8062f00acccd5d790484a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2aa2361ec0ad15b824d17b98a28179fb" id="r_a2aa2361ec0ad15b824d17b98a28179fb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a05522.html">rg::Asset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a2aa2361ec0ad15b824d17b98a28179fb">create</a> (std::string_view tag) override</td></tr>
-<tr class="memdesc:a2aa2361ec0ad15b824d17b98a28179fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new generic target asset.  <br /></td></tr>
-<tr class="separator:a2aa2361ec0ad15b824d17b98a28179fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:accbf20807dab8c06c5d97e21ba116c33" id="r_accbf20807dab8c06c5d97e21ba116c33"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#accbf20807dab8c06c5d97e21ba116c33">RenderedAttachmentCount</a> = Traits::RenderedAttachmentCount</td></tr>
-<tr class="separator:accbf20807dab8c06c5d97e21ba116c33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafc005253ce7dea3bedde0c680fe5c35" id="r_aafc005253ce7dea3bedde0c680fe5c35"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#aafc005253ce7dea3bedde0c680fe5c35">InstanceTable</a> ()</td></tr>
+<tr class="memdesc:aafc005253ce7dea3bedde0c680fe5c35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty instance table.  <br /></td></tr>
+<tr class="separator:aafc005253ce7dea3bedde0c680fe5c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00a3dfdc679e7c936a4efa9421b88a8a" id="r_a00a3dfdc679e7c936a4efa9421b88a8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a00a3dfdc679e7c936a4efa9421b88a8a">init</a> (<a class="el" href="a06130.html">Scene</a> *scene, const <a class="el" href="a06418.html">vk::PipelineLayout</a> &amp;layout)</td></tr>
+<tr class="memdesc:a00a3dfdc679e7c936a4efa9421b88a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the table with the layout to create sets with.  <br /></td></tr>
+<tr class="separator:a00a3dfdc679e7c936a4efa9421b88a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34ad3668c14e768b93278276b551ee95" id="r_a34ad3668c14e768b93278276b551ee95"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a34ad3668c14e768b93278276b551ee95">reinit</a> (const <a class="el" href="a06418.html">vk::PipelineLayout</a> &amp;newLayout, <a class="el" href="a06182.html">scene::TargetTable</a> &amp;observers, const <a class="el" href="a06150.html">scene::SceneObject</a> &amp;object)</td></tr>
+<tr class="memdesc:a34ad3668c14e768b93278276b551ee95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reinitializes the table of descriptor sets for the new layout for the object that uses this table. Intended for use when the table is for a single object.  <br /></td></tr>
+<tr class="separator:a34ad3668c14e768b93278276b551ee95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0c5ea3a95e39de793e13004b44bbcf6" id="r_ab0c5ea3a95e39de793e13004b44bbcf6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#ab0c5ea3a95e39de793e13004b44bbcf6">addObserver</a> (unsigned int index, <a class="el" href="a06014.html">RenderTarget</a> &amp;observer)</td></tr>
+<tr class="memdesc:ab0c5ea3a95e39de793e13004b44bbcf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates new descriptor set instances for an observer. It is up to the caller to ensure that all prior added objects get added for the new observer.  <br /></td></tr>
+<tr class="separator:ab0c5ea3a95e39de793e13004b44bbcf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab421a1769bde39173d121ebf114d6972" id="r_ab421a1769bde39173d121ebf114d6972"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#ab421a1769bde39173d121ebf114d6972">addObservers</a> (const <a class="el" href="a06182.html">scene::TargetTable</a> &amp;observers)</td></tr>
+<tr class="memdesc:ab421a1769bde39173d121ebf114d6972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds all observers of a scene.  <br /></td></tr>
+<tr class="separator:ab421a1769bde39173d121ebf114d6972"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30ac377143c0574892f68d1220ac28f5" id="r_a30ac377143c0574892f68d1220ac28f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a30ac377143c0574892f68d1220ac28f5">removeObserver</a> (unsigned int index)</td></tr>
+<tr class="memdesc:a30ac377143c0574892f68d1220ac28f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all descriptor sets to nullptr for the given observer index.  <br /></td></tr>
+<tr class="separator:a30ac377143c0574892f68d1220ac28f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed423eb5433fdfa067b259a521caa3aa" id="r_aed423eb5433fdfa067b259a521caa3aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05606.html#a5e47dd5fd8cd88d284d99aefa003b70a">LayoutSets</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#aed423eb5433fdfa067b259a521caa3aa">get</a> (unsigned int index)</td></tr>
+<tr class="memdesc:aed423eb5433fdfa067b259a521caa3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the descriptor set instance for the given observer index.  <br /></td></tr>
+<tr class="separator:aed423eb5433fdfa067b259a521caa3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e0f98aeed7f73a017523f5e025bc028" id="r_a6e0f98aeed7f73a017523f5e025bc028"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a6e0f98aeed7f73a017523f5e025bc028">allocateObject</a> (<a class="el" href="a04094.html">ecs::Entity</a> entity, <a class="el" href="a06118.html">scene::Key</a> key)</td></tr>
+<tr class="memdesc:a6e0f98aeed7f73a017523f5e025bc028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new object in all set instances.  <br /></td></tr>
+<tr class="separator:a6e0f98aeed7f73a017523f5e025bc028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52923452575e4a8c1a7851315a3fdead" id="r_a52923452575e4a8c1a7851315a3fdead"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a52923452575e4a8c1a7851315a3fdead">allocateObject</a> (unsigned int instanceIndex, <a class="el" href="a04094.html">ecs::Entity</a> entity, <a class="el" href="a06118.html">scene::Key</a> key)</td></tr>
+<tr class="memdesc:a52923452575e4a8c1a7851315a3fdead"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates an object in a single set instance.  <br /></td></tr>
+<tr class="separator:a52923452575e4a8c1a7851315a3fdead"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bf86fe15130a2a3043d5b79096c2d7b" id="r_a2bf86fe15130a2a3043d5b79096c2d7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a2bf86fe15130a2a3043d5b79096c2d7b">releaseObject</a> (<a class="el" href="a04094.html">ecs::Entity</a> entity, <a class="el" href="a06118.html">scene::Key</a> key)</td></tr>
+<tr class="memdesc:a2bf86fe15130a2a3043d5b79096c2d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the scene when an object is destroyed.  <br /></td></tr>
+<tr class="separator:a2bf86fe15130a2a3043d5b79096c2d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3305d373c4063e4b0148a8b786952b" id="r_aaa3305d373c4063e4b0148a8b786952b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#aaa3305d373c4063e4b0148a8b786952b">isBindless</a> () const</td></tr>
+<tr class="memdesc:aaa3305d373c4063e4b0148a8b786952b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the sets for this layout are bindless.  <br /></td></tr>
+<tr class="separator:aaa3305d373c4063e4b0148a8b786952b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bb47a7f352b26152ebe7673349cd380" id="r_a2bb47a7f352b26152ebe7673349cd380"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#a2bb47a7f352b26152ebe7673349cd380">getPerObjectStart</a> () const</td></tr>
+<tr class="memdesc:a2bb47a7f352b26152ebe7673349cd380"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the index of the first per-object descriptor set.  <br /></td></tr>
+<tr class="separator:a2bb47a7f352b26152ebe7673349cd380"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afab2d4d2b792476fc70d6b5ec279be82" id="r_afab2d4d2b792476fc70d6b5ec279be82"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05606.html#afab2d4d2b792476fc70d6b5ec279be82">getDescriptorSetCount</a> () const</td></tr>
+<tr class="memdesc:afab2d4d2b792476fc70d6b5ec279be82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of descriptor sets in the layout.  <br /></td></tr>
+<tr class="separator:afab2d4d2b792476fc70d6b5ec279be82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename TAsset&gt;<br />
-class bl::rc::rgi::GenericTargetProvider&lt; TAsset &gt;</div><p>Provider for <a class="el" href="a05562.html" title="Generic asset for a templated set of attachments.">GenericTargetAsset</a> assets. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">TAsset</td><td>The <a class="el" href="a05562.html" title="Generic asset for a templated set of attachments.">GenericTargetAsset</a> type to create </td></tr>
-  </table>
-  </dd>
-</dl>
+<div class="textblock"><p>Table of descriptor set instances. Needed because instances are managed by scenes but descriptors are per render target. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00021">21</a> of file <a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00039">39</a> of file <a class="el" href="a00956_source.html">InstanceTable.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ab748dd349f4f07e88bd99c6c1e4e1a6b" name="ab748dd349f4f07e88bd99c6c1e4e1a6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab748dd349f4f07e88bd99c6c1e4e1a6b">&#9670;&#160;</a></span>Traits</h2>
+<a id="a5e47dd5fd8cd88d284d99aefa003b70a" name="a5e47dd5fd8cd88d284d99aefa003b70a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e47dd5fd8cd88d284d99aefa003b70a">&#9670;&#160;</a></span>LayoutSets</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename TAsset &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a05606.html">bl::rc::rgi::GenericTargetProvider</a>&lt; TAsset &gt;::Traits =  <a class="el" href="a05566.html">GenericTargetAssetTraits</a>&lt;TAsset&gt;</td>
+          <td class="memname">using <a class="el" href="a05606.html#a5e47dd5fd8cd88d284d99aefa003b70a">bl::rc::ds::InstanceTable::LayoutSets</a> =  std::array&lt;<a class="el" href="a05562.html">DescriptorSetInstance</a>*, <a class="el" href="a05462.html#a7b6a62b2047e3c5199a081e91135ec6d">cfg::Limits::MaxDescriptorSets</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00023">23</a> of file <a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00041">41</a> of file <a class="el" href="a00956_source.html">InstanceTable.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af15beaff9c8062f00acccd5d790484a7" name="af15beaff9c8062f00acccd5d790484a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af15beaff9c8062f00acccd5d790484a7">&#9670;&#160;</a></span>GenericTargetProvider()</h2>
+<a id="aafc005253ce7dea3bedde0c680fe5c35" name="aafc005253ce7dea3bedde0c680fe5c35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafc005253ce7dea3bedde0c680fe5c35">&#9670;&#160;</a></span>InstanceTable()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename TAsset &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a05606.html">bl::rc::rgi::GenericTargetProvider</a>&lt; TAsset &gt;::GenericTargetProvider </td>
+          <td class="memname">bl::rc::ds::InstanceTable::InstanceTable </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>terminal</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty instance table. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00015">15</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab0c5ea3a95e39de793e13004b44bbcf6" name="ab0c5ea3a95e39de793e13004b44bbcf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0c5ea3a95e39de793e13004b44bbcf6">&#9670;&#160;</a></span>addObserver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::ds::InstanceTable::addObserver </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::array&lt; VkClearValue, <a class="el" href="a05606.html#accbf20807dab8c06c5d97e21ba116c33">RenderedAttachmentCount</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>clearColors</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a06014.html">RenderTarget</a> &amp;&#160;</td>
+          <td class="paramname"><em>observer</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates new descriptor set instances for an observer. It is up to the caller to ensure that all prior added objects get added for the new observer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>The scene index of the observer </td></tr>
+    <tr><td class="paramname">observer</td><td>The observer being added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00085">85</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab421a1769bde39173d121ebf114d6972" name="ab421a1769bde39173d121ebf114d6972"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab421a1769bde39173d121ebf114d6972">&#9670;&#160;</a></span>addObservers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::ds::InstanceTable::addObservers </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a06182.html">scene::TargetTable</a> &amp;&#160;</td>
+          <td class="paramname"><em>observers</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds all observers of a scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">observers</td><td>The table of observers to add </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00078">78</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e0f98aeed7f73a017523f5e025bc028" name="a6e0f98aeed7f73a017523f5e025bc028"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e0f98aeed7f73a017523f5e025bc028">&#9670;&#160;</a></span>allocateObject() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::InstanceTable::allocateObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04094.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06118.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates a new object in all set instances. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity id of this object in the ECS </td></tr>
+    <tr><td class="paramname">key</td><td>The scene key of the new object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the object could be added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00111">111</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a52923452575e4a8c1a7851315a3fdead" name="a52923452575e4a8c1a7851315a3fdead"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52923452575e4a8c1a7851315a3fdead">&#9670;&#160;</a></span>allocateObject() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::InstanceTable::allocateObject </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>instanceIndex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a04094.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06118.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Allocates an object in a single set instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">instanceIndex</td><td>The index of the instance to add the object to </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity id of this object in the ECS </td></tr>
+    <tr><td class="paramname">key</td><td>The scene key of the new object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the object could be added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00119">119</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aed423eb5433fdfa067b259a521caa3aa" name="aed423eb5433fdfa067b259a521caa3aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed423eb5433fdfa067b259a521caa3aa">&#9670;&#160;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05606.html#a5e47dd5fd8cd88d284d99aefa003b70a">LayoutSets</a> &amp; bl::rc::ds::InstanceTable::get </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
@@ -189,95 +360,267 @@ template&lt;typename TAsset &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the provider. </p>
+<p>Returns the descriptor set instance for the given observer index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imageUsages</td><td>How the attachments will be used </td></tr>
+    <tr><td class="paramname">index</td><td>The observer scene index </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>The descriptor set instances for the observer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00031">31</a> of file <a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00096">96</a> of file <a class="el" href="a00956_source.html">InstanceTable.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2aa2361ec0ad15b824d17b98a28179fb" name="a2aa2361ec0ad15b824d17b98a28179fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2aa2361ec0ad15b824d17b98a28179fb">&#9670;&#160;</a></span>create()</h2>
+<a id="afab2d4d2b792476fc70d6b5ec279be82" name="afab2d4d2b792476fc70d6b5ec279be82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afab2d4d2b792476fc70d6b5ec279be82">&#9670;&#160;</a></span>getDescriptorSetCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename TAsset &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a05522.html">rg::Asset</a> * <a class="el" href="a05606.html">bl::rc::rgi::GenericTargetProvider</a>&lt; TAsset &gt;::create </td>
+          <td class="memname">unsigned int bl::rc::ds::InstanceTable::getDescriptorSetCount </td>
           <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>tag</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of descriptor sets in the layout. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00138">138</a> of file <a class="el" href="a00956_source.html">InstanceTable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2bb47a7f352b26152ebe7673349cd380" name="a2bb47a7f352b26152ebe7673349cd380"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bb47a7f352b26152ebe7673349cd380">&#9670;&#160;</a></span>getPerObjectStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int bl::rc::ds::InstanceTable::getPerObjectStart </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the index of the first per-object descriptor set. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00133">133</a> of file <a class="el" href="a00956_source.html">InstanceTable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a00a3dfdc679e7c936a4efa9421b88a8a" name="a00a3dfdc679e7c936a4efa9421b88a8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00a3dfdc679e7c936a4efa9421b88a8a">&#9670;&#160;</a></span>init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::ds::InstanceTable::init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a06130.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>scene</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a06418.html">vk::PipelineLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>layout</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the table with the layout to create sets with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The scene that owns this table </td></tr>
+    <tr><td class="paramname">layout</td><td>The pipeline layout to get the set factories from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00021">21</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaa3305d373c4063e4b0148a8b786952b" name="aaa3305d373c4063e4b0148a8b786952b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa3305d373c4063e4b0148a8b786952b">&#9670;&#160;</a></span>isBindless()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::rc::ds::InstanceTable::isBindless </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether the sets for this layout are bindless. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00956_source.html#l00128">128</a> of file <a class="el" href="a00956_source.html">InstanceTable.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a34ad3668c14e768b93278276b551ee95" name="a34ad3668c14e768b93278276b551ee95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34ad3668c14e768b93278276b551ee95">&#9670;&#160;</a></span>reinit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::ds::InstanceTable::reinit </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a06418.html">vk::PipelineLayout</a> &amp;&#160;</td>
+          <td class="paramname"><em>newLayout</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06182.html">scene::TargetTable</a> &amp;&#160;</td>
+          <td class="paramname"><em>observers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a06150.html">scene::SceneObject</a> &amp;&#160;</td>
+          <td class="paramname"><em>object</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reinitializes the table of descriptor sets for the new layout for the object that uses this table. Intended for use when the table is for a single object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">newLayout</td><td>The new pipeline layout </td></tr>
+    <tr><td class="paramname">observers</td><td>The table of observers that use this instance table </td></tr>
+    <tr><td class="paramname">object</td><td>The object that uses this instance table </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00028">28</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2bf86fe15130a2a3043d5b79096c2d7b" name="a2bf86fe15130a2a3043d5b79096c2d7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bf86fe15130a2a3043d5b79096c2d7b">&#9670;&#160;</a></span>releaseObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::ds::InstanceTable::releaseObject </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04094.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06118.html">scene::Key</a>&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called by the scene when an object is destroyed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The ECS id of the object being removed </td></tr>
+    <tr><td class="paramname">key</td><td>The scene key of the object being removed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00128">128</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a30ac377143c0574892f68d1220ac28f5" name="a30ac377143c0574892f68d1220ac28f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30ac377143c0574892f68d1220ac28f5">&#9670;&#160;</a></span>removeObserver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::rc::ds::InstanceTable::removeObserver </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates a new generic target asset. </p>
+<p>Sets all descriptor sets to nullptr for the given observer index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tag</td><td>The tag to create the asset for </td></tr>
+    <tr><td class="paramname">index</td><td>The index of the observer to clear out </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The newly created asset </dd></dl>
 
-<p>Implements <a class="el" href="a05534.html#ae9a1e538d17f529681639b6b2ad3b74b">bl::rc::rg::AssetProvider</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00042">42</a> of file <a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02498_source.html#l00094">94</a> of file <a class="el" href="a02498_source.html">InstanceTable.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="accbf20807dab8c06c5d97e21ba116c33" name="accbf20807dab8c06c5d97e21ba116c33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#accbf20807dab8c06c5d97e21ba116c33">&#9670;&#160;</a></span>RenderedAttachmentCount</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TAsset &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t <a class="el" href="a05606.html">bl::rc::rgi::GenericTargetProvider</a>&lt; TAsset &gt;::RenderedAttachmentCount = Traits::RenderedAttachmentCount</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00641_source.html#l00024">24</a> of file <a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Render/Graph/Providers/<a class="el" href="a00641_source.html">GenericTargetProvider.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Render/Descriptors/<a class="el" href="a00956_source.html">InstanceTable.hpp</a></li>
+<li>src/Render/Descriptors/<a class="el" href="a02498_source.html">InstanceTable.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

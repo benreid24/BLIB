@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/Menu/Selectors/ArrowSelector.cpp Source File</title>
+<title>BLIB: src/Engine/Properties.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,98 +79,69 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_a5850f6e383b3d533b6a0a91dee002d1.html">Menu</a></li><li class="navelem"><a class="el" href="dir_6052e134827b0c62c9d3ffb0e2161a33.html">Selectors</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ArrowSelector.cpp</div></div>
+  <div class="headertitle"><div class="title">Properties.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02939.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01778.html">BLIB/Interfaces/Menu/Selectors/ArrowSelector.hpp</a>&gt;</span></div>
+<a href="a02939.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01712.html">BLIB/Engine/Properties.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>menu</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>engine</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">const</span> <span class="keywordtype">float</span> HeightRatio = 0.5f;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>std::array&lt;glm::vec2, 3&gt; makeTriangle(<span class="keywordtype">float</span> w) {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> std::array&lt;glm::vec2, 3&gt;({glm::vec2{0.f, 0.f},</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                                     glm::vec2{w, w * HeightRatio},</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>                                     glm::vec2{0.f, 2.f * w * HeightRatio}});</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04922.html#ad752b8dacdcc28555b7cdaa84589a97c">   18</a></span><a class="code hl_typedef" href="a04922.html#a54f4f2dd91c4178ea87e6e89cd49ab07">ArrowSelector::Ptr</a> <a class="code hl_function" href="a04922.html#ad752b8dacdcc28555b7cdaa84589a97c">ArrowSelector::create</a>(<span class="keywordtype">float</span> w, <span class="keyword">const</span> sf::Color&amp; f) {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="a04922.html#a54f4f2dd91c4178ea87e6e89cd49ab07">Ptr</a>(<span class="keyword">new</span> <a class="code hl_class" href="a04922.html">ArrowSelector</a>(w, f));</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>priv::PropertyBase* properties[512];</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>std::uint16_t nprops = 0;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a04306.html#a8356ab709fda3e6ece860d046900f0c8">   15</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04306.html#a8356ab709fda3e6ece860d046900f0c8">Properties::syncToConfig</a>() {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">for</span> (std::uint16_t i = 0; i &lt; nprops; ++i) { properties[i]-&gt;syncToConfig(); }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04922.html#a514f3f408dc6276eaf64591de93903bc">   22</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04922.html#a514f3f408dc6276eaf64591de93903bc">ArrowSelector::notifySelection</a>(<a class="code hl_struct" href="a04046.html">ecs::Entity</a>, sf::FloatRect itemArea) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    triangle.<a class="code hl_function" href="a04398.html#a1efa41a9ad2a429474a21a187a494e24">getTransform</a>().<a class="code hl_function" href="a03854.html#ae3f78fc5d6a6aa93a47dcc96f394e798">setPosition</a>(</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        {itemArea.position.x - width - 2.f,</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>         itemArea.position.y + itemArea.size.y * 0.5f - width * HeightRatio * 0.5f});</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04306.html#a5b9321b6e1cf9cf1ed476c0f780bc502">   19</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04306.html#a5b9321b6e1cf9cf1ed476c0f780bc502">Properties::syncFromConfig</a>() {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">for</span> (std::uint16_t i = 0; i &lt; nprops; ++i) { properties[i]-&gt;syncFromConfig(); }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordtype">void</span> Properties::addProperty(<a class="code hl_class" href="a04310.html">priv::PropertyBase</a>* prop) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    properties[nprops] = prop;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    ++nprops;</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="a04922.html#ac6266a2f7a5e95180a2496a9c19bb703">   28</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04922.html#ac6266a2f7a5e95180a2496a9c19bb703">ArrowSelector::doSceneAdd</a>(<a class="code hl_class" href="a05998.html">rc::Scene</a>* s) { triangle.<a class="code hl_function" href="a04414.html#a81b5a660ce27fcf2df19235449a66bfb">addToScene</a>(s, <a class="code hl_enumvalue" href="a03130.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">rc::UpdateSpeed::Static</a>); }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a04922.html#a0c73af8178f717d49cfba1ae8273ef5c">   30</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04922.html#a0c73af8178f717d49cfba1ae8273ef5c">ArrowSelector::doSceneRemove</a>() { triangle.<a class="code hl_function" href="a04414.html#aef1c33b5c27b23b473aef9385af60064">removeFromScene</a>(); }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a04922.html#a203ca2dfada530e7b2db9a86b5635792">   32</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04922.html#a203ca2dfada530e7b2db9a86b5635792">ArrowSelector::draw</a>(<a class="code hl_class" href="a05974.html">rc::scene::CodeScene::RenderContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) { triangle.<a class="code hl_function" href="a04414.html#a9570c58ddf4da8bbb5cc9131dec548ca">draw</a>(<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>); }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>ArrowSelector::ArrowSelector(<span class="keywordtype">float</span> w, <span class="keyword">const</span> sf::Color&amp; f)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>: width(w)</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>, fillColor(f)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>, triangle() {}</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a04922.html#aa22d2ed52cb0520273fddffa023cf0ac">   39</a></span><a class="code hl_class" href="a04506.html">gfx::Triangle</a>&amp; <a class="code hl_function" href="a04922.html#aa22d2ed52cb0520273fddffa023cf0ac">ArrowSelector::getArrow</a>() { <span class="keywordflow">return</span> triangle; }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">void</span> Properties::removeProperty(priv::PropertyBase* prop) {</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span> (nprops &gt; 1) {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">for</span> (std::uint16_t i = 0; i &lt; nprops; ++i) {</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <span class="keywordflow">if</span> (properties[i] == prop) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                properties[i] = properties[nprops - 1];</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                --nprops;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    }</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">else</span> { nprops = 0; }</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04922.html#a81d123c76fba393e7e7d4953b1c92cd7">   41</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04922.html#a81d123c76fba393e7e7d4953b1c92cd7">ArrowSelector::doCreate</a>(<a class="code hl_class" href="a04310.html">engine::World</a>&amp; world, <a class="code hl_struct" href="a04046.html">ecs::Entity</a> parent) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    triangle.<a class="code hl_function" href="a04506.html#a9e18402a4301d270f73775e9def062f8">create</a>(world, makeTriangle(width));</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    triangle.<a class="code hl_function" href="a04462.html#ab9800dbde0fd34cc0c718fffbcda694a">setFillColor</a>(fillColor);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    triangle.<a class="code hl_function" href="a04054.html#af608fdfb20d8ef7314dab276918b80f1">setParent</a>(parent);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>}</div>
-</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace menu</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01778_html"><div class="ttname"><a href="a01778.html">ArrowSelector.hpp</a></div></div>
-<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03130_html_gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16"><div class="ttname"><a href="a03130.html#gga305dcc5dda3e28bd193ab31444664848a84a8921b25f505d0d2077aeb5db4bc16">bl::rc::UpdateSpeed::Static</a></div><div class="ttdeci">@ Static</div><div class="ttdoc">Objects or data are not expected to update often after creation.</div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03854_html_ae3f78fc5d6a6aa93a47dcc96f394e798"><div class="ttname"><a href="a03854.html#ae3f78fc5d6a6aa93a47dcc96f394e798">bl::com::Transform2D::setPosition</a></div><div class="ttdeci">void setPosition(const glm::vec2 &amp;position)</div><div class="ttdoc">Sets the position of this transform. Relative to the parent.</div><div class="ttdef"><b>Definition</b> <a href="a02159_source.html#l00032">Transform2D.cpp:32</a></div></div>
-<div class="ttc" id="aa04046_html"><div class="ttname"><a href="a04046.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04054_html_af608fdfb20d8ef7314dab276918b80f1"><div class="ttname"><a href="a04054.html#af608fdfb20d8ef7314dab276918b80f1">bl::ecs::EntityBacked::setParent</a></div><div class="ttdeci">void setParent(const EntityBacked &amp;parent)</div><div class="ttdoc">Helper method to parent this drawable to another.</div><div class="ttdef"><b>Definition</b> <a href="a02234_source.html#l00059">EntityBacked.cpp:59</a></div></div>
-<div class="ttc" id="aa04310_html"><div class="ttname"><a href="a04310.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00022">World.hpp:22</a></div></div>
-<div class="ttc" id="aa04398_html_a1efa41a9ad2a429474a21a187a494e24"><div class="ttname"><a href="a04398.html#a1efa41a9ad2a429474a21a187a494e24">bl::gfx::bcom::Transform2D::getTransform</a></div><div class="ttdeci">com::Transform2D &amp; getTransform()</div><div class="ttdoc">Returns the transform. Must only be called after create()</div><div class="ttdef"><b>Definition</b> <a href="a09632_source.html#l00054">Transform2D.hpp:54</a></div></div>
-<div class="ttc" id="aa04414_html_a81b5a660ce27fcf2df19235449a66bfb"><div class="ttname"><a href="a04414.html#a81b5a660ce27fcf2df19235449a66bfb">bl::gfx::Drawable::addToScene</a></div><div class="ttdeci">void addToScene(rc::Scene *scene, rc::UpdateSpeed updateFreq)</div><div class="ttdoc">Adds this entity to the given scene.</div><div class="ttdef"><b>Definition</b> <a href="a00113_source.html#l00235">Drawable.hpp:235</a></div></div>
-<div class="ttc" id="aa04414_html_a9570c58ddf4da8bbb5cc9131dec548ca"><div class="ttname"><a href="a04414.html#a9570c58ddf4da8bbb5cc9131dec548ca">bl::gfx::Drawable::draw</a></div><div class="ttdeci">void draw(rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Manually issue the required commands to draw this object. Must be called within the context of a Code...</div><div class="ttdef"><b>Definition</b> <a href="a00113_source.html#l00394">Drawable.hpp:394</a></div></div>
-<div class="ttc" id="aa04414_html_aef1c33b5c27b23b473aef9385af60064"><div class="ttname"><a href="a04414.html#aef1c33b5c27b23b473aef9385af60064">bl::gfx::Drawable::removeFromScene</a></div><div class="ttdeci">void removeFromScene()</div><div class="ttdoc">Removes the entity from the scene or overlay that it is in.</div><div class="ttdef"><b>Definition</b> <a href="a00113_source.html#l00256">Drawable.hpp:256</a></div></div>
-<div class="ttc" id="aa04462_html_ab9800dbde0fd34cc0c718fffbcda694a"><div class="ttname"><a href="a04462.html#ab9800dbde0fd34cc0c718fffbcda694a">bl::gfx::s2d::Shape2D::setFillColor</a></div><div class="ttdeci">void setFillColor(const rc::Color &amp;color)</div><div class="ttdoc">Sets the color to fill the shape with.</div><div class="ttdef"><b>Definition</b> <a href="a09920_source.html#l00023">Shape2D.cpp:23</a></div></div>
-<div class="ttc" id="aa04506_html"><div class="ttname"><a href="a04506.html">bl::gfx::Triangle</a></div><div class="ttdoc">Basic renderable triangle that can be added to scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00016">Triangle.hpp:16</a></div></div>
-<div class="ttc" id="aa04506_html_a9e18402a4301d270f73775e9def062f8"><div class="ttname"><a href="a04506.html#a9e18402a4301d270f73775e9def062f8">bl::gfx::Triangle::create</a></div><div class="ttdeci">void create(engine::World &amp;world, const glm::vec2 &amp;p0, const glm::vec2 &amp;p1, const glm::vec2 &amp;p2)</div><div class="ttdoc">Creates the triangle shape from 3 points (should not be co-linear)</div><div class="ttdef"><b>Definition</b> <a href="a02060_source.html#l00010">Triangle.cpp:10</a></div></div>
-<div class="ttc" id="aa04922_html"><div class="ttname"><a href="a04922.html">bl::menu::ArrowSelector</a></div><div class="ttdoc">Basic selection indicator, draws a triangle to the left of the selected item.</div><div class="ttdef"><b>Definition</b> <a href="a01778_source.html#l00016">ArrowSelector.hpp:16</a></div></div>
-<div class="ttc" id="aa04922_html_a0c73af8178f717d49cfba1ae8273ef5c"><div class="ttname"><a href="a04922.html#a0c73af8178f717d49cfba1ae8273ef5c">bl::menu::ArrowSelector::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the selector should be removed from the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00030">ArrowSelector.cpp:30</a></div></div>
-<div class="ttc" id="aa04922_html_a203ca2dfada530e7b2db9a86b5635792"><div class="ttname"><a href="a04922.html#a203ca2dfada530e7b2db9a86b5635792">bl::menu::ArrowSelector::draw</a></div><div class="ttdeci">virtual void draw(rc::scene::CodeScene::RenderContext &amp;ctx) override</div><div class="ttdoc">Manually draw the selector.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00032">ArrowSelector.cpp:32</a></div></div>
-<div class="ttc" id="aa04922_html_a514f3f408dc6276eaf64591de93903bc"><div class="ttname"><a href="a04922.html#a514f3f408dc6276eaf64591de93903bc">bl::menu::ArrowSelector::notifySelection</a></div><div class="ttdeci">virtual void notifySelection(ecs::Entity item, sf::FloatRect itemArea) override</div><div class="ttdoc">Called when the selector should select an item.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00022">ArrowSelector.cpp:22</a></div></div>
-<div class="ttc" id="aa04922_html_a54f4f2dd91c4178ea87e6e89cd49ab07"><div class="ttname"><a href="a04922.html#a54f4f2dd91c4178ea87e6e89cd49ab07">bl::menu::ArrowSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ArrowSelector &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01778_source.html#l00018">ArrowSelector.hpp:18</a></div></div>
-<div class="ttc" id="aa04922_html_a81d123c76fba393e7e7d4953b1c92cd7"><div class="ttname"><a href="a04922.html#a81d123c76fba393e7e7d4953b1c92cd7">bl::menu::ArrowSelector::doCreate</a></div><div class="ttdeci">virtual void doCreate(engine::World &amp;world, ecs::Entity parent) override</div><div class="ttdoc">Called when the selector is added to a menu.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00041">ArrowSelector.cpp:41</a></div></div>
-<div class="ttc" id="aa04922_html_aa22d2ed52cb0520273fddffa023cf0ac"><div class="ttname"><a href="a04922.html#aa22d2ed52cb0520273fddffa023cf0ac">bl::menu::ArrowSelector::getArrow</a></div><div class="ttdeci">gfx::Triangle &amp; getArrow()</div><div class="ttdoc">Exposes the underlying triangle.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00039">ArrowSelector.cpp:39</a></div></div>
-<div class="ttc" id="aa04922_html_ac6266a2f7a5e95180a2496a9c19bb703"><div class="ttname"><a href="a04922.html#ac6266a2f7a5e95180a2496a9c19bb703">bl::menu::ArrowSelector::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(rc::Scene *scene) override</div><div class="ttdoc">Called when the selector should be added to the scene.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00028">ArrowSelector.cpp:28</a></div></div>
-<div class="ttc" id="aa04922_html_ad752b8dacdcc28555b7cdaa84589a97c"><div class="ttname"><a href="a04922.html#ad752b8dacdcc28555b7cdaa84589a97c">bl::menu::ArrowSelector::create</a></div><div class="ttdeci">static Ptr create(float width, const sf::Color &amp;fill=sf::Color::White)</div><div class="ttdoc">Create a new ArrowSelector with the given width.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00018">ArrowSelector.cpp:18</a></div></div>
-<div class="ttc" id="aa05974_html"><div class="ttname"><a href="a05974.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00031">CodeScene.hpp:31</a></div></div>
-<div class="ttc" id="aa05998_html"><div class="ttname"><a href="a05998.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00059">Scene.hpp:59</a></div></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01712_html"><div class="ttname"><a href="a01712.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04306_html_a5b9321b6e1cf9cf1ed476c0f780bc502"><div class="ttname"><a href="a04306.html#a5b9321b6e1cf9cf1ed476c0f780bc502">bl::engine::Properties::syncFromConfig</a></div><div class="ttdeci">static void syncFromConfig()</div><div class="ttdoc">Syncs all current instances of Property from Configuration.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00019">Properties.cpp:19</a></div></div>
+<div class="ttc" id="aa04306_html_a8356ab709fda3e6ece860d046900f0c8"><div class="ttname"><a href="a04306.html#a8356ab709fda3e6ece860d046900f0c8">bl::engine::Properties::syncToConfig</a></div><div class="ttdeci">static void syncToConfig()</div><div class="ttdoc">Syncs all current instances of Property to Configuration.</div><div class="ttdef"><b>Definition</b> <a href="a02939_source.html#l00015">Properties.cpp:15</a></div></div>
+<div class="ttc" id="aa04310_html"><div class="ttname"><a href="a04310.html">bl::engine::priv::PropertyBase</a></div><div class="ttdef"><b>Definition</b> <a href="a01706_source.html#l00015">Property.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

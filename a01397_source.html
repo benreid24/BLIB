@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Assets/PersistentStream.hpp Source File</title>
+<title>BLIB: include/BLIB/Assets/Builtin/ImagePayload.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,68 +79,37 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li><li class="navelem"><a class="el" href="dir_d5fc7009464099a688f5bd3db1a4dfc7.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">PersistentStream.hpp</div></div>
+  <div class="headertitle"><div class="title">ImagePayload.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01397.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_PERSISTENTSTREAM_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_PERSISTENTSTREAM_HPP</span></div>
+<a href="a01397.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_BUILTIN_IMAGEPAYLOAD_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_BUILTIN_IMAGEPAYLOAD_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00347.html">BLIB/Streams/InputStream.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00350.html">BLIB/Streams/SfInputStreamAdaptor.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01484.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>as</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">class </span>StreamCache;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03646.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a03646.html">PersistentStream</a> : <span class="keyword">private</span> <a class="code hl_class" href="a06974.html">util::NonCopyable</a> {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03646.html#a43c593378caeae901ef9cd54bcee710b">   24</a></span>    <a class="code hl_function" href="a03646.html#a43c593378caeae901ef9cd54bcee710b">PersistentStream</a>()</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    : stream()</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    , adaptor(stream) {}</div>
-</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a03646.html#ae05d6656d4e905bb627f90f2aad9eb99">   31</a></span>    <a class="code hl_class" href="a06818.html">stream::InputStream</a>&amp; <a class="code hl_function" href="a03646.html#ae05d6656d4e905bb627f90f2aad9eb99">getStream</a>() { <span class="keywordflow">return</span> stream; }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a03646.html#a2d412630735fbbd50b90879d61309908">   36</a></span>    <a class="code hl_class" href="a06834.html">stream::SfInputStreamAdaptor</a>&amp; <a class="code hl_function" href="a03646.html#a2d412630735fbbd50b90879d61309908">getSFMLAdaptor</a>() { <span class="keywordflow">return</span> adaptor; }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_class" href="a06818.html">stream::InputStream</a> stream;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a06834.html">stream::SfInputStreamAdaptor</a> adaptor;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a03646.html#a00428b78fdcdfe485d867870ec681d2f">   42</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03674.html">StreamCache</a>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
-</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace as</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">InputStream.hpp</a></div></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">SfInputStreamAdaptor.hpp</a></div></div>
-<div class="ttc" id="aa01484_html"><div class="ttname"><a href="a01484.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03646_html"><div class="ttname"><a href="a03646.html">bl::as::PersistentStream</a></div><div class="ttdoc">Represents a persistent stream to asset data.</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00019">PersistentStream.hpp:19</a></div></div>
-<div class="ttc" id="aa03646_html_a2d412630735fbbd50b90879d61309908"><div class="ttname"><a href="a03646.html#a2d412630735fbbd50b90879d61309908">bl::as::PersistentStream::getSFMLAdaptor</a></div><div class="ttdeci">stream::SfInputStreamAdaptor &amp; getSFMLAdaptor()</div><div class="ttdoc">Returns an SFML compatible stream.</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00036">PersistentStream.hpp:36</a></div></div>
-<div class="ttc" id="aa03646_html_a43c593378caeae901ef9cd54bcee710b"><div class="ttname"><a href="a03646.html#a43c593378caeae901ef9cd54bcee710b">bl::as::PersistentStream::PersistentStream</a></div><div class="ttdeci">PersistentStream()</div><div class="ttdoc">Creates an unitialized persistent stream.</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00024">PersistentStream.hpp:24</a></div></div>
-<div class="ttc" id="aa03646_html_ae05d6656d4e905bb627f90f2aad9eb99"><div class="ttname"><a href="a03646.html#ae05d6656d4e905bb627f90f2aad9eb99">bl::as::PersistentStream::getStream</a></div><div class="ttdeci">stream::InputStream &amp; getStream()</div><div class="ttdoc">Returns the underlying stream.</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00031">PersistentStream.hpp:31</a></div></div>
-<div class="ttc" id="aa03674_html"><div class="ttname"><a href="a03674.html">bl::as::StreamCache</a></div><div class="ttdoc">Utility that provides persistent streams for asset payloads that require continued access to their da...</div><div class="ttdef"><b>Definition</b> <a href="a01376_source.html#l00027">StreamCache.hpp:27</a></div></div>
-<div class="ttc" id="aa06818_html"><div class="ttname"><a href="a06818.html">bl::stream::InputStream</a></div><div class="ttdoc">Universal input stream which can operate on files, buffers, and other streams.</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00021">InputStream.hpp:21</a></div></div>
-<div class="ttc" id="aa06834_html"><div class="ttname"><a href="a06834.html">bl::stream::SfInputStreamAdaptor</a></div><div class="ttdoc">Adaptor class to wrap an InputStream for use with SFML.</div><div class="ttdef"><b>Definition</b> <a href="a00350_source.html#l00016">SfInputStreamAdaptor.hpp:16</a></div></div>
-<div class="ttc" id="aa06974_html"><div class="ttname"><a href="a06974.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a01484_source.html#l00013">NonCopyable.hpp:13</a></div></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01439.html">BLIB/Assets/PayloadGeneric.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>asi</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03159.html#ga0cce5013a9bc1f1e7926dabd1ce5c0cf">   16</a></span><span class="keyword">using </span><a class="code hl_class" href="a03690.html">ImagePayload</a> = <a class="code hl_class" href="a03690.html">as::PayloadGeneric&lt;sf::Image&gt;</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace asi</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01439_html"><div class="ttname"><a href="a01439.html">PayloadGeneric.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03690_html"><div class="ttname"><a href="a03690.html">bl::as::PayloadGeneric</a></div><div class="ttdoc">Generic payload container for arbitrary payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00017">PayloadGeneric.hpp:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

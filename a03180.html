@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui Namespace Reference</title>
+<title>BLIB: Streams</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -51,6 +51,7 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,176 +73,112 @@ $(function() {
 </div>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03180.html">gui</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
 <a href="#func-members">Functions</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui Namespace Reference</div></div>
+  <div class="headertitle"><div class="title">Streams</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>A window based graphical user interface.  
-<a href="a03180.html#details">More...</a></p>
+<p>Custom stream classes for handling file, buffer, and wrapper cases.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a03182" id="r_a03182"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03182.html">defcoms</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03183" id="r_a03183"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03183.html">rdr</a></td></tr>
-<tr class="memdesc:a03183"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer classes. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04590.html">Animation</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple element that displays a constantly playing animation. Similar to <a class="el" href="a04630.html" title="Element that renders an image to its acquisition.">Image</a>.  <a href="a04590.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06882.html">bl::stream::InputStream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal input stream which can operate on files, buffers, and other streams.  <a href="a06882.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04594.html">Box</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple <a class="el" href="a04618.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a> for packing elements into a visible box on screen.  <a href="a04594.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06894.html">bl::stream::OutputStream</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Universal output stream which can operate on files, buffers, and other streams.  <a href="a06894.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04598.html">Button</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A clickable button with a single child element, typically a <a class="el" href="a04634.html" title="Display only text element. Used to display text in a GUI. Note that any render settings changed here ...">Label</a>.  <a href="a04598.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04602.html">Canvas</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> that allows user code to render to its area.  <a href="a04602.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04606.html">CheckButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checkbox button.  <a href="a04606.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04610.html">ComboBox</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A dropdown option selector. Note that fillColor is the background and secondaryFillColor is the mouseover background when opened.  <a href="a04610.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04614.html">CompositeElement</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Intermediate class for elements that consist of other elements. Provides some helper methods to ensure contained elements receive events and position updates.  <a href="a04614.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04618.html">Container</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for Elements that have child elements. Provides coordinate transformation for rendering and events, as well as event propagation.  <a href="a04618.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04622.html">Element</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> elements. Provides the common interface used for positioning, interaction, and rendering. All coordinates and sizes are in the coordinate system of the parent element.  <a href="a04622.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04686.html">Event</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> analog of sf::Event. Represents user actions that can propagate through the <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> tree.  <a href="a04686.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04586.html">FilePicker</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper class for picking files limited to subdirectories of the current directory. For other uses use the tinyfd functions defined in the dialog namespace.  <a href="a04586.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04690.html">Font</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data struct that provides access to the built-in font.  <a href="a04690.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04698.html">GridPacker</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04706.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> that can pack elements into grids.  <a href="a04698.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04694.html">GUI</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level class for creating a graphical user interface.  <a href="a04694.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04626.html">Icon</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic element for a graphical icon. See <a class="el" href="a04422.html" title="A renderable icon comprised of vertices.">gfx::Icon</a>.  <a href="a04626.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04630.html">Image</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> that renders an image to its acquisition.  <a href="a04630.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04634.html">Label</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display only text element. Used to display text in a <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a>. Note that any render settings changed here will take precedence over any overrides the Renderer has set, even id level overrides.  <a href="a04634.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04702.html">LinePacker</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04706.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> that positions Elements all in a single row or column.  <a href="a04702.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04638.html">Notebook</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A notebook with tabs and pages. The tabs are horizontally positioned across the top of the element. Each page is typically a <a class="el" href="a04594.html" title="Simple Container for packing elements into a visible box on screen.">Box</a>. Allows more sophisticated UI's.  <a href="a04638.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04706.html">Packer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> packers. A <a class="el" href="a04706.html" title="Base class for Element packers. A Packer assigns acquisitions to Elements in a Container....">Packer</a> assigns acquisitions to Elements in a <a class="el" href="a04618.html" title="Base class for Elements that have child elements. Provides coordinate transformation for rendering an...">Container</a>. Custom packers may be implemented from this interface. Care must be taken to avoid packing elements that are marked not packable.  <a href="a04706.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04646.html">ProgressBar</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple progress bar.  <a href="a04646.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04650.html">RadioButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A radio button element. Only one button in the group may be active.  <a href="a04650.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04854.html">RenderSettings</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data class to override rendering settings for <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> Elements. Overrides can be done by group or id. All fields are optional. Fields left empty will be defaulted by the renderer. Not all fields are valid for all <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> types.  <a href="a04854.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04658.html">ScrollArea</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Similar to <a class="el" href="a04594.html" title="Simple Container for packing elements into a visible box on screen.">Box</a>, except scrolling is possible both horizontally and vertically if the size of the elements packed exceeds the maximum allowed space.  <a href="a04658.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04662.html">SelectBox</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A scrollable element that packs labels and allows the selection of one.  <a href="a04662.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04666.html">Separator</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04670.html">Slider</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Slide-able button element. Can be used as an input. Used by <a class="el" href="a04658.html" title="Similar to Box, except scrolling is possible both horizontally and vertically if the size of the elem...">ScrollArea</a>.  <a href="a04670.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04674.html">TextEntry</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single or multiline text entry <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Note that the text color is the secondary color in render settings. The box color is the primary.  <a href="a04674.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04678.html">ToggleButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for toggle-able buttons. <a class="el" href="a04650.html" title="A radio button element. Only one button in the group may be active.">RadioButton</a> and CheckBox are derived from this. Cannot be instantiated.  <a href="a04678.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04682.html">Window</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> that represents a window in a <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a>. <a class="el" href="a04682.html" title="Element that represents a window in a GUI. Window elements are the top level element of any GUI....">Window</a> elements are the top level element of any <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a>. Windows can be moveable or fixed and are highly configurable.  <a href="a04682.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06898.html">bl::stream::SfInputStreamAdaptor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adaptor class to wrap an <a class="el" href="a06882.html" title="Universal input stream which can operate on files, buffers, and other streams.">InputStream</a> for use with SFML.  <a href="a06898.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="typedef-members" name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a0d2f488379b11b840372812e04dee005" id="r_a0d2f488379b11b840372812e04dee005"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03180.html#a0d2f488379b11b840372812e04dee005">Signal</a> = <a class="el" href="a07022.html">bl::util::Signal</a>&lt; const <a class="el" href="a04686.html">Event</a> &amp;, <a class="el" href="a04622.html">Element</a> * &gt;</td></tr>
-<tr class="separator:a0d2f488379b11b840372812e04dee005"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gad28ae24b17733287821dbabe2e610c0c" id="r_gad28ae24b17733287821dbabe2e610c0c"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03180.html#gad28ae24b17733287821dbabe2e610c0c">bl::stream::Mode</a> { <br />
+&#160;&#160;<a class="el" href="a03180.html#ggad28ae24b17733287821dbabe2e610c0ca88183b946cc5f0e8c96b2e66e1c74a7e">bl::stream::Mode::Unknown</a>
+, <a class="el" href="a03180.html#ggad28ae24b17733287821dbabe2e610c0ca0b27918290ff5323bea1e3b78a9cf04e">bl::stream::Mode::File</a>
+, <a class="el" href="a03180.html#ggad28ae24b17733287821dbabe2e610c0ca109f548676125cad46c0f2da5db9f8eb">bl::stream::Mode::FileSection</a>
+, <a class="el" href="a03180.html#ggad28ae24b17733287821dbabe2e610c0ca4789f23283b3a61f858b641a1bef19a3">bl::stream::Mode::Memory</a>
+, <br />
+&#160;&#160;<a class="el" href="a03180.html#ggad28ae24b17733287821dbabe2e610c0cae229a672e0df4c202a248ad2e24adab8">bl::stream::Mode::Wrapper</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:gad28ae24b17733287821dbabe2e610c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the various modes a stream may operate in.  <a href="a03180.html#gad28ae24b17733287821dbabe2e610c0c">More...</a><br /></td></tr>
+<tr class="separator:gad28ae24b17733287821dbabe2e610c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a21273b0a358ad17d2498808769286d57" id="r_a21273b0a358ad17d2498808769286d57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03180.html#a21273b0a358ad17d2498808769286d57">operator|</a> (<a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> l, <a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> r)</td></tr>
-<tr class="separator:a21273b0a358ad17d2498808769286d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5eeb9e4f35050f355b7be96ab900b6ca" id="r_a5eeb9e4f35050f355b7be96ab900b6ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03180.html#a5eeb9e4f35050f355b7be96ab900b6ca">operator&amp;</a> (<a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> l, <a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> r)</td></tr>
-<tr class="separator:a5eeb9e4f35050f355b7be96ab900b6ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1d6436746bdb26fe949bc13d6420f97f" id="r_ga1d6436746bdb26fe949bc13d6420f97f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga1d6436746bdb26fe949bc13d6420f97f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a06894.html">OutputStream</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03180.html#ga1d6436746bdb26fe949bc13d6420f97f">bl::stream::operator&lt;&lt;</a> (<a class="el" href="a06894.html">OutputStream</a> &amp;stream, const T &amp;value)</td></tr>
+<tr class="memdesc:ga1d6436746bdb26fe949bc13d6420f97f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to provide stream operator for output stream.  <br /></td></tr>
+<tr class="separator:ga1d6436746bdb26fe949bc13d6420f97f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A window based graphical user interface. </p>
-</div><h2 class="groupheader">Typedef Documentation</h2>
-<a id="a0d2f488379b11b840372812e04dee005" name="a0d2f488379b11b840372812e04dee005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d2f488379b11b840372812e04dee005">&#9670;&#160;</a></span>Signal</h2>
+<p>Custom stream classes for handling file, buffer, and wrapper cases. </p>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="gad28ae24b17733287821dbabe2e610c0c" name="gad28ae24b17733287821dbabe2e610c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad28ae24b17733287821dbabe2e610c0c">&#9670;&#160;</a></span>Mode</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a03180.html#a0d2f488379b11b840372812e04dee005">bl::gui::Signal</a> = typedef <a class="el" href="a07022.html">bl::util::Signal</a>&lt;const <a class="el" href="a04686.html">Event</a>&amp;, <a class="el" href="a04622.html">Element</a>*&gt;</td>
+          <td class="memname">enum struct <a class="el" href="a03180.html#gad28ae24b17733287821dbabe2e610c0c">bl::stream::Mode</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a09857_source.html#l00013">13</a> of file <a class="el" href="a09857_source.html">Signal.hpp</a>.</p>
+<p>Represents the various modes a stream may operate in. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca88183b946cc5f0e8c96b2e66e1c74a7e" name="ggad28ae24b17733287821dbabe2e610c0ca88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>The stream is uninitialized or failed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca0b27918290ff5323bea1e3b78a9cf04e" name="ggad28ae24b17733287821dbabe2e610c0ca0b27918290ff5323bea1e3b78a9cf04e"></a>File&#160;</td><td class="fielddoc"><p>The stream is reading from a file. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca109f548676125cad46c0f2da5db9f8eb" name="ggad28ae24b17733287821dbabe2e610c0ca109f548676125cad46c0f2da5db9f8eb"></a>FileSection&#160;</td><td class="fielddoc"><p>The stream is reading from a section of a file. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0ca4789f23283b3a61f858b641a1bef19a3" name="ggad28ae24b17733287821dbabe2e610c0ca4789f23283b3a61f858b641a1bef19a3"></a>Memory&#160;</td><td class="fielddoc"><p>The stream is reading from a block of memory. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggad28ae24b17733287821dbabe2e610c0cae229a672e0df4c202a248ad2e24adab8" name="ggad28ae24b17733287821dbabe2e610c0cae229a672e0df4c202a248ad2e24adab8"></a>Wrapper&#160;</td><td class="fielddoc"><p>The stream is wrapping an external std::istream. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a09130_source.html#l00013">13</a> of file <a class="el" href="a09130_source.html">Mode.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a5eeb9e4f35050f355b7be96ab900b6ca" name="a5eeb9e4f35050f355b7be96ab900b6ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5eeb9e4f35050f355b7be96ab900b6ca">&#9670;&#160;</a></span>operator&amp;()</h2>
+<a id="ga1d6436746bdb26fe949bc13d6420f97f" name="ga1d6436746bdb26fe949bc13d6420f97f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1d6436746bdb26fe949bc13d6420f97f">&#9670;&#160;</a></span>operator&lt;&lt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> bl::gui::operator&amp; </td>
+          <td class="memname"><a class="el" href="a06894.html">OutputStream</a> &amp; bl::stream::operator&lt;&lt; </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
-          <td class="paramname"><em>l</em>, </td>
+          <td class="paramtype"><a class="el" href="a06894.html">OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -249,52 +186,25 @@ Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01838_source.html#l00168">168</a> of file <a class="el" href="a01838_source.html">TextEntry.hpp</a>.</p>
+<p>Helper method to provide stream operator for output stream. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to write to </td></tr>
+    <tr><td class="paramname">value</td><td>The value to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The stream that was written to </dd></dl>
 
-</div>
-</div>
-<a id="a21273b0a358ad17d2498808769286d57" name="a21273b0a358ad17d2498808769286d57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21273b0a358ad17d2498808769286d57">&#9670;&#160;</a></span>operator|()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a> bl::gui::operator| </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
-          <td class="paramname"><em>l</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a04674.html#a7feddc70c7c990ad6bc0b5174d866707">TextEntry::Mode</a>&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01838_source.html#l00161">161</a> of file <a class="el" href="a01838_source.html">TextEntry.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00356_source.html#l00141">141</a> of file <a class="el" href="a00356_source.html">OutputStream.hpp</a>.</p>
 
 </div>
 </div>
@@ -302,7 +212,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

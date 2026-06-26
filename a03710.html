@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::cam::c3d::CameraShake Class Reference</title>
+<title>BLIB: bl::as::Repository Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,82 +74,127 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03154.html">cam</a></li><li class="navelem"><a class="el" href="a03156.html">c3d</a></li><li class="navelem"><a class="el" href="a03710.html">CameraShake</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03192.html">as</a></li><li class="navelem"><a class="el" href="a03710.html">Repository</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a03707.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::cam::c3d::CameraShake Class Reference<div class="ingroups"><a class="el" href="a03116.html">Cameras</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::as::Repository Class Reference<div class="ingroups"><a class="el" href="a03159.html">Assets</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a> affector that shakes the view.  
+<p>The central asset repository. Stores all asset metadata, manages runtime bundling and loading, and provides access to the underlying assets.  
  <a href="a03710.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a09110_source.html">CameraShake.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::cam::c3d::CameraShake:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03710.png" usemap="#bl::cam::c3d::CameraShake_map" alt=""/>
-  <map id="bl::cam::c3d::CameraShake_map" name="bl::cam::c3d::CameraShake_map">
-<area href="a03718.html" title="Base class for affectors that can be applied to 3d cameras. An affecter modifies the behavior of the ..." alt="bl::cam::CameraAffector3D" shape="rect" coords="0,0,163,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01415_source.html">Repository.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9c3874005a1878368f309a072326f3ba" id="r_a9c3874005a1878368f309a072326f3ba"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a9c3874005a1878368f309a072326f3ba">CameraShake</a> (float magnitude, float shakesPerSecond)</td></tr>
-<tr class="memdesc:a9c3874005a1878368f309a072326f3ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new camera shake affector.  <br /></td></tr>
-<tr class="separator:a9c3874005a1878368f309a072326f3ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5c2828e0770e702d38413e37007dc12" id="r_ab5c2828e0770e702d38413e37007dc12"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ab5c2828e0770e702d38413e37007dc12">~CameraShake</a> ()=default</td></tr>
-<tr class="memdesc:ab5c2828e0770e702d38413e37007dc12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the camera affector.  <br /></td></tr>
-<tr class="separator:ab5c2828e0770e702d38413e37007dc12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab39045ef5e11962aa94863b9649ada2d" id="r_ab39045ef5e11962aa94863b9649ada2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ab39045ef5e11962aa94863b9649ada2d">setMagnitude</a> (float magnitude)</td></tr>
-<tr class="memdesc:ab39045ef5e11962aa94863b9649ada2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the magnitude of the camera shake.  <br /></td></tr>
-<tr class="separator:ab39045ef5e11962aa94863b9649ada2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a469ef49b73af0f8875120a59e5c18129" id="r_a469ef49b73af0f8875120a59e5c18129"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a469ef49b73af0f8875120a59e5c18129">getMagnitude</a> () const</td></tr>
-<tr class="memdesc:a469ef49b73af0f8875120a59e5c18129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the magnitude of the camera shake.  <br /></td></tr>
-<tr class="separator:a469ef49b73af0f8875120a59e5c18129"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58d0c9b8a78e106706c3a6d794767bbe" id="r_a58d0c9b8a78e106706c3a6d794767bbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a58d0c9b8a78e106706c3a6d794767bbe">setShakesPerSecond</a> (float shakesPerSecond)</td></tr>
-<tr class="memdesc:a58d0c9b8a78e106706c3a6d794767bbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the speed of the camera shake.  <br /></td></tr>
-<tr class="separator:a58d0c9b8a78e106706c3a6d794767bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a383c2a89e278a6521d7707654c17d109" id="r_a383c2a89e278a6521d7707654c17d109"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a383c2a89e278a6521d7707654c17d109">applyOnView</a> (glm::vec3 &amp;position, <a class="el" href="a03786.html">com::Orientation3D</a> &amp;orientation) override</td></tr>
-<tr class="memdesc:a383c2a89e278a6521d7707654c17d109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the camera view matrix with the shake.  <br /></td></tr>
-<tr class="separator:a383c2a89e278a6521d7707654c17d109"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf58291e26b4d73d55cd1737be007ce0" id="r_abf58291e26b4d73d55cd1737be007ce0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#abf58291e26b4d73d55cd1737be007ce0">update</a> (float dt, bool &amp;view, bool &amp;proj) override</td></tr>
-<tr class="memdesc:abf58291e26b4d73d55cd1737be007ce0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the camera shaking.  <br /></td></tr>
-<tr class="separator:abf58291e26b4d73d55cd1737be007ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a32abe2726d00383c98194af473ac5cd0" id="r_a32abe2726d00383c98194af473ac5cd0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03718.html#a32abe2726d00383c98194af473ac5cd0">applyOnProjection</a> (float &amp;fov, float &amp;nearValue, float &amp;farValue)</td></tr>
-<tr class="memdesc:a32abe2726d00383c98194af473ac5cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base method does nothing. Use this to make changes to the parameters used to construct the camera's projection matrix.  <br /></td></tr>
-<tr class="separator:a32abe2726d00383c98194af473ac5cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3e436498e8311dfc65cbb41c0b3f8e8" id="r_ab3e436498e8311dfc65cbb41c0b3f8e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ab3e436498e8311dfc65cbb41c0b3f8e8">Repository</a> (<a class="el" href="a03159.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a> mode, const std::string &amp;path)</td></tr>
+<tr class="memdesc:ab3e436498e8311dfc65cbb41c0b3f8e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty asset repository.  <br /></td></tr>
+<tr class="separator:ab3e436498e8311dfc65cbb41c0b3f8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf5ef6a7b8c01f4a11207c06d26d2b6a" id="r_adf5ef6a7b8c01f4a11207c06d26d2b6a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#adf5ef6a7b8c01f4a11207c06d26d2b6a">~Repository</a> ()</td></tr>
+<tr class="memdesc:adf5ef6a7b8c01f4a11207c06d26d2b6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the repository, releasing all assets.  <br /></td></tr>
+<tr class="separator:adf5ef6a7b8c01f4a11207c06d26d2b6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81bb3820451b53515d37551105d86bda" id="r_a81bb3820451b53515d37551105d86bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a81bb3820451b53515d37551105d86bda">createAsset</a> (std::string_view type, const std::string &amp;name, const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;createData={})</td></tr>
+<tr class="memdesc:a81bb3820451b53515d37551105d86bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a new asset with the given type and creation data.  <br /></td></tr>
+<tr class="separator:a81bb3820451b53515d37551105d86bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad751d0302720abb3045477baec5df27d" id="r_ad751d0302720abb3045477baec5df27d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ad751d0302720abb3045477baec5df27d">getOrCreateAsset</a> (std::string_view key, std::string_view type, const std::string &amp;name, const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;createData={})</td></tr>
+<tr class="memdesc:ad751d0302720abb3045477baec5df27d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for an existing asset by the given key, creating a new one if not found.  <br /></td></tr>
+<tr class="separator:ad751d0302720abb3045477baec5df27d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cdef5cdf1e50987c7369ead99ccfe36" id="r_a9cdef5cdf1e50987c7369ead99ccfe36"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9cdef5cdf1e50987c7369ead99ccfe36"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03710.html#a9cdef5cdf1e50987c7369ead99ccfe36">createAsset</a> (const std::string &amp;name, const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;createData={})</td></tr>
+<tr class="memdesc:a9cdef5cdf1e50987c7369ead99ccfe36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates and returns a new asset with the given type and creation data.  <br /></td></tr>
+<tr class="separator:a9cdef5cdf1e50987c7369ead99ccfe36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6868b72c31defc05b1c829b29b08d83" id="r_ad6868b72c31defc05b1c829b29b08d83"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad6868b72c31defc05b1c829b29b08d83"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03710.html#ad6868b72c31defc05b1c829b29b08d83">getOrCreateAsset</a> (std::string_view key, const std::string &amp;name, const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;createData={})</td></tr>
+<tr class="memdesc:ad6868b72c31defc05b1c829b29b08d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for an existing asset by the given key, creating a new one if not found.  <br /></td></tr>
+<tr class="separator:ad6868b72c31defc05b1c829b29b08d83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24d12f62af26f87f507ded9373790f0" id="r_ac24d12f62af26f87f507ded9373790f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ac24d12f62af26f87f507ded9373790f0">getAsset</a> (<a class="el" href="a07138.html">util::UUID</a> uuid, <a class="el" href="a03159.html#ga8f1e3911c576026f3e12be2420f69d86">State</a> desiredState=<a class="el" href="a03159.html#gga8f1e3911c576026f3e12be2420f69d86a7381d487d18845b379422325c0a768d6">State::Loaded</a>)</td></tr>
+<tr class="memdesc:ac24d12f62af26f87f507ded9373790f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a ref to the asset with the given UUID.  <br /></td></tr>
+<tr class="separator:ac24d12f62af26f87f507ded9373790f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35116136712d90f184e56d55708e7b3b" id="r_a35116136712d90f184e56d55708e7b3b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a35116136712d90f184e56d55708e7b3b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03710.html#a35116136712d90f184e56d55708e7b3b">getTypedAsset</a> (<a class="el" href="a07138.html">util::UUID</a> uuid)</td></tr>
+<tr class="memdesc:a35116136712d90f184e56d55708e7b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a ref to the asset with the given UUID.  <br /></td></tr>
+<tr class="separator:a35116136712d90f184e56d55708e7b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5036eaaf2c9c97e04d676f28f9565ef1" id="r_a5036eaaf2c9c97e04d676f28f9565ef1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03698.html">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a5036eaaf2c9c97e04d676f28f9565ef1">getAssetFromSourcePath</a> (std::string_view type, const std::string &amp;path, <a class="el" href="a03159.html#ga8f1e3911c576026f3e12be2420f69d86">State</a> desiredState=<a class="el" href="a03159.html#gga8f1e3911c576026f3e12be2420f69d86a7381d487d18845b379422325c0a768d6">State::Loaded</a>)</td></tr>
+<tr class="memdesc:a5036eaaf2c9c97e04d676f28f9565ef1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds or creates an asset from the given source file path.  <br /></td></tr>
+<tr class="separator:a5036eaaf2c9c97e04d676f28f9565ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74a8f1d9347249ed80d067938a3d52f7" id="r_a74a8f1d9347249ed80d067938a3d52f7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a74a8f1d9347249ed80d067938a3d52f7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03710.html#a74a8f1d9347249ed80d067938a3d52f7">getAssetFromSourcePath</a> (const std::string &amp;path, <a class="el" href="a03159.html#ga8f1e3911c576026f3e12be2420f69d86">State</a> desiredState=<a class="el" href="a03159.html#gga8f1e3911c576026f3e12be2420f69d86a7381d487d18845b379422325c0a768d6">State::Loaded</a>)</td></tr>
+<tr class="memdesc:a74a8f1d9347249ed80d067938a3d52f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds or creates an asset from the given source file path.  <br /></td></tr>
+<tr class="separator:a74a8f1d9347249ed80d067938a3d52f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab87e6a0b7d3cdecc615e3b7f90d370e0" id="r_ab87e6a0b7d3cdecc615e3b7f90d370e0"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="a07138.html">util::UUID</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ab87e6a0b7d3cdecc615e3b7f90d370e0">findAssetIdFromSourcePath</a> (std::string_view type, const std::string &amp;path) const</td></tr>
+<tr class="memdesc:ab87e6a0b7d3cdecc615e3b7f90d370e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a lookup of known static assets by file path.  <br /></td></tr>
+<tr class="separator:ab87e6a0b7d3cdecc615e3b7f90d370e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa442037e3817d7b7f1bc4550bb93a1e2" id="r_aa442037e3817d7b7f1bc4550bb93a1e2"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a03702.html">RepoDependency</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#aa442037e3817d7b7f1bc4550bb93a1e2">getDependencies</a> (<a class="el" href="a07138.html">util::UUID</a> uuid) const</td></tr>
+<tr class="memdesc:aa442037e3817d7b7f1bc4550bb93a1e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the dependency list for the asset with the given UUID.  <br /></td></tr>
+<tr class="separator:aa442037e3817d7b7f1bc4550bb93a1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a878216508c76abdc67feb7314cb3bb" id="r_a2a878216508c76abdc67feb7314cb3bb"><td class="memTemplParams" colspan="2">template&lt;typename TDriver , typename... TArgs&gt; </td></tr>
+<tr class="memitem:a2a878216508c76abdc67feb7314cb3bb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03710.html#a2a878216508c76abdc67feb7314cb3bb">registerDriver</a> (std::string_view type, TArgs &amp;&amp;... args)</td></tr>
+<tr class="memdesc:a2a878216508c76abdc67feb7314cb3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a new driver in the repository. Drivers provide support for different payload formats and allow arbitrary assets to be loaded by ID only.  <br /></td></tr>
+<tr class="separator:a2a878216508c76abdc67feb7314cb3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1cfb50255bc5a63e9dda7e8d95079ec" id="r_ac1cfb50255bc5a63e9dda7e8d95079ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03570.html">detail::DriverBase</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ac1cfb50255bc5a63e9dda7e8d95079ec">getDriver</a> (std::string_view type)</td></tr>
+<tr class="memdesc:ac1cfb50255bc5a63e9dda7e8d95079ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the driver for the given type. May be nullptr.  <br /></td></tr>
+<tr class="separator:ac1cfb50255bc5a63e9dda7e8d95079ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1cb4f6443e12727be610fbf10d16745" id="r_ae1cb4f6443e12727be610fbf10d16745"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#ae1cb4f6443e12727be610fbf10d16745">loadRepository</a> ()</td></tr>
+<tr class="memdesc:ae1cb4f6443e12727be610fbf10d16745"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the repository from disk.  <br /></td></tr>
+<tr class="separator:ae1cb4f6443e12727be610fbf10d16745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ae6fd0afd78b906679431be0d3f283f" id="r_a1ae6fd0afd78b906679431be0d3f283f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a1ae6fd0afd78b906679431be0d3f283f">exportRepository</a> (const std::string &amp;path)</td></tr>
+<tr class="memdesc:a1ae6fd0afd78b906679431be0d3f283f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Exports the repository to the given path, bundling assets and writing their data in game mode format.  <br /></td></tr>
+<tr class="separator:a1ae6fd0afd78b906679431be0d3f283f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc1be37133ddd3abbb9436bb2945f59e" id="r_abc1be37133ddd3abbb9436bb2945f59e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#abc1be37133ddd3abbb9436bb2945f59e">releaseUnused</a> ()</td></tr>
+<tr class="memdesc:abc1be37133ddd3abbb9436bb2945f59e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release payloads for unused assets.  <br /></td></tr>
+<tr class="separator:abc1be37133ddd3abbb9436bb2945f59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1320066ae60170c325616e7551c6c662" id="r_a1320066ae60170c325616e7551c6c662"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03159.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a1320066ae60170c325616e7551c6c662">getMode</a> () const</td></tr>
+<tr class="memdesc:a1320066ae60170c325616e7551c6c662"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the mode the repository is operating in.  <br /></td></tr>
+<tr class="separator:a1320066ae60170c325616e7551c6c662"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7252c14c72e31e3b40d858ddcc0366c0" id="r_a7252c14c72e31e3b40d858ddcc0366c0"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a7252c14c72e31e3b40d858ddcc0366c0">getAssetDirectory</a> () const</td></tr>
+<tr class="memdesc:a7252c14c72e31e3b40d858ddcc0366c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the directory that assets are saved and loaded from.  <br /></td></tr>
+<tr class="separator:a7252c14c72e31e3b40d858ddcc0366c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7bfae3614be201be2e38dab7c054044" id="r_aa7bfae3614be201be2e38dab7c054044"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#aa7bfae3614be201be2e38dab7c054044">reloadFromSource</a> ()</td></tr>
+<tr class="memdesc:aa7bfae3614be201be2e38dab7c054044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reloads all assets from their source files if changed.  <br /></td></tr>
+<tr class="separator:aa7bfae3614be201be2e38dab7c054044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeaec32dcae56d15e1a4f40727c5bb07a" id="r_aeaec32dcae56d15e1a4f40727c5bb07a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#aeaec32dcae56d15e1a4f40727c5bb07a">forceUnloadAll</a> ()</td></tr>
+<tr class="memdesc:aeaec32dcae56d15e1a4f40727c5bb07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Only intended for use during engine shutdown. Will destroy all loaded assets.  <br /></td></tr>
+<tr class="separator:aeaec32dcae56d15e1a4f40727c5bb07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aa64c62d014a14ec88a095d6dfd515ffd" id="r_aa64c62d014a14ec88a095d6dfd515ffd"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#aa64c62d014a14ec88a095d6dfd515ffd">detail::DependencyChain</a></td></tr>
+<tr class="separator:aa64c62d014a14ec88a095d6dfd515ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ea5d13a451b56b46e2c53b8da3e4b35" id="r_a3ea5d13a451b56b46e2c53b8da3e4b35"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a3ea5d13a451b56b46e2c53b8da3e4b35">Ref</a></td></tr>
+<tr class="separator:a3ea5d13a451b56b46e2c53b8da3e4b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbb2d6439646427912dc314907398c42" id="r_abbb2d6439646427912dc314907398c42"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#abbb2d6439646427912dc314907398c42">Asset</a></td></tr>
+<tr class="separator:abbb2d6439646427912dc314907398c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723c54a5da7ba5704fa6c96cd68ca851" id="r_a723c54a5da7ba5704fa6c96cd68ca851"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html#a723c54a5da7ba5704fa6c96cd68ca851">detail::Context</a></td></tr>
+<tr class="separator:a723c54a5da7ba5704fa6c96cd68ca851"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a> affector that shakes the view. </p>
+<div class="textblock"><p>The central asset repository. Stores all asset metadata, manages runtime bundling and loading, and provides access to the underlying assets. </p>
 
-<p class="definition">Definition at line <a class="el" href="a09110_source.html#l00018">18</a> of file <a class="el" href="a09110_source.html">CameraShake.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00033">33</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9c3874005a1878368f309a072326f3ba" name="a9c3874005a1878368f309a072326f3ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c3874005a1878368f309a072326f3ba">&#9670;&#160;</a></span>CameraShake()</h2>
+<a id="ab3e436498e8311dfc65cbb41c0b3f8e8" name="ab3e436498e8311dfc65cbb41c0b3f8e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3e436498e8311dfc65cbb41c0b3f8e8">&#9670;&#160;</a></span>Repository()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::cam::c3d::CameraShake::CameraShake </td>
+          <td class="memname">bl::as::Repository::Repository </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>magnitude</em>, </td>
+          <td class="paramtype"><a class="el" href="a03159.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a>&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>shakesPerSecond</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -159,73 +204,63 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new camera shake affector. </p>
+<p>Creates an empty asset repository. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">magnitude</td><td>The magnitude of the camera shake </td></tr>
-    <tr><td class="paramname">shakesPerSecond</td><td>The speed of the camera shake </td></tr>
+    <tr><td class="paramname">mode</td><td>The mode to create the repository in </td></tr>
+    <tr><td class="paramname">path</td><td>The directory to store assets in </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a09872_source.html#l00012">12</a> of file <a class="el" href="a09872_source.html">CameraShake.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00082">82</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab5c2828e0770e702d38413e37007dc12" name="ab5c2828e0770e702d38413e37007dc12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5c2828e0770e702d38413e37007dc12">&#9670;&#160;</a></span>~CameraShake()</h2>
+<a id="adf5ef6a7b8c01f4a11207c06d26d2b6a" name="adf5ef6a7b8c01f4a11207c06d26d2b6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf5ef6a7b8c01f4a11207c06d26d2b6a">&#9670;&#160;</a></span>~Repository()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::cam::c3d::CameraShake::~CameraShake </td>
+          <td class="memname">bl::as::Repository::~Repository </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destroys the camera affector. </p>
+<p>Destroys the repository, releasing all assets. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00076">76</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a32abe2726d00383c98194af473ac5cd0" name="a32abe2726d00383c98194af473ac5cd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32abe2726d00383c98194af473ac5cd0">&#9670;&#160;</a></span>applyOnProjection()</h2>
+<a id="a9cdef5cdf1e50987c7369ead99ccfe36" name="a9cdef5cdf1e50987c7369ead99ccfe36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cdef5cdf1e50987c7369ead99ccfe36">&#9670;&#160;</a></span>createAsset() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::cam::CameraAffector3D::applyOnProjection </td>
+          <td class="memname"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt; bl::as::Repository::createAsset </td>
           <td>(</td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>fov</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>nearValue</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float &amp;&#160;</td>
-          <td class="paramname"><em>farValue</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;&#160;</td>
+          <td class="paramname"><em>createData</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -235,45 +270,54 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Base method does nothing. Use this to make changes to the parameters used to construct the camera's projection matrix. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fov</td><td>The field of view of the camera in degrees. May be modified </td></tr>
-    <tr><td class="paramname">near</td><td>Distance of the near plane. May be modified </td></tr>
-    <tr><td class="paramname">far</td><td>Distance of the far plane. May be modified </td></tr>
+<p>Creates and returns a new asset with the given type and creation data. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The payload type of the asset to create </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the asset </td></tr>
+    <tr><td class="paramname">createData</td><td>Custom data to pass to the driver for the asset type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="a03726.html" title="Helper class to reference assets with known payload types.">TypedRef</a> to the newly created asset. May be invalid if creation failed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02012_source.html#l00011">11</a> of file <a class="el" href="a02012_source.html">CameraAffector3D.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00080">80</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a383c2a89e278a6521d7707654c17d109" name="a383c2a89e278a6521d7707654c17d109"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a383c2a89e278a6521d7707654c17d109">&#9670;&#160;</a></span>applyOnView()</h2>
+<a id="a81bb3820451b53515d37551105d86bda" name="a81bb3820451b53515d37551105d86bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81bb3820451b53515d37551105d86bda">&#9670;&#160;</a></span>createAsset() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::cam::c3d::CameraShake::applyOnView </td>
+          <td class="memname"><a class="el" href="a03698.html">Ref</a> bl::as::Repository::createAsset </td>
           <td>(</td>
-          <td class="paramtype">glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a03786.html">com::Orientation3D</a> &amp;&#160;</td>
-          <td class="paramname"><em>orientation</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;&#160;</td>
+          <td class="paramname"><em>createData</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -281,30 +325,155 @@ Public Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Modifies the camera view matrix with the shake. </p>
+<p>Creates and returns a new asset with the given type and creation data. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td><a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a> position to modify </td></tr>
-    <tr><td class="paramname">orientation</td><td>Ignored </td></tr>
+    <tr><td class="paramname">type</td><td>The tag of the type of asset to create </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the asset </td></tr>
+    <tr><td class="paramname">createData</td><td>Custom data to pass to the driver for the asset type </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A ref to the newly created asset. May be invalid if creation failed </dd></dl>
 
-<p>Reimplemented from <a class="el" href="a03718.html#afe6279a7c1da47819ff1b92a500f0359">bl::cam::CameraAffector3D</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a09872_source.html#l00022">22</a> of file <a class="el" href="a09872_source.html">CameraShake.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00105">105</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a469ef49b73af0f8875120a59e5c18129" name="a469ef49b73af0f8875120a59e5c18129"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a469ef49b73af0f8875120a59e5c18129">&#9670;&#160;</a></span>getMagnitude()</h2>
+<a id="a1ae6fd0afd78b906679431be0d3f283f" name="a1ae6fd0afd78b906679431be0d3f283f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ae6fd0afd78b906679431be0d3f283f">&#9670;&#160;</a></span>exportRepository()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::as::Repository::exportRepository </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Exports the repository to the given path, bundling assets and writing their data in game mode format. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The directory to write to. Will be written to {path}/Assets </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the export succeeded, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00525">525</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab87e6a0b7d3cdecc615e3b7f90d370e0" name="ab87e6a0b7d3cdecc615e3b7f90d370e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab87e6a0b7d3cdecc615e3b7f90d370e0">&#9670;&#160;</a></span>findAssetIdFromSourcePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; <a class="el" href="a07138.html">util::UUID</a> &gt; bl::as::Repository::findAssetIdFromSourcePath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs a lookup of known static assets by file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type tag of the asset to find </td></tr>
+    <tr><td class="paramname">path</td><td>The path to search for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The UUID of the static asset with the given path </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00232">232</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeaec32dcae56d15e1a4f40727c5bb07a" name="aeaec32dcae56d15e1a4f40727c5bb07a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaec32dcae56d15e1a4f40727c5bb07a">&#9670;&#160;</a></span>forceUnloadAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::as::Repository::forceUnloadAll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Only intended for use during engine shutdown. Will destroy all loaded assets. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00702">702</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac24d12f62af26f87f507ded9373790f0" name="ac24d12f62af26f87f507ded9373790f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac24d12f62af26f87f507ded9373790f0">&#9670;&#160;</a></span>getAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03698.html">Ref</a> bl::as::Repository::getAsset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a07138.html">util::UUID</a>&#160;</td>
+          <td class="paramname"><em>uuid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03159.html#ga8f1e3911c576026f3e12be2420f69d86">State</a>&#160;</td>
+          <td class="paramname"><em>desiredState</em> = <code><a class="el" href="a03159.html#gga8f1e3911c576026f3e12be2420f69d86a7381d487d18845b379422325c0a768d6">State::Loaded</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a ref to the asset with the given UUID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uuid</td><td>The UUID of the asset to get </td></tr>
+    <tr><td class="paramname">desiredState</td><td>The desired state of the asset. Allows fetching metadata only if desired </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="a03698.html" title="Handle to an asset in the repository. Performs ref counting and prevents automatic unloading of asset...">Ref</a> to the asset. May be invalid if the asset does not exist or failed to load </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00179">179</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7252c14c72e31e3b40d858ddcc0366c0" name="a7252c14c72e31e3b40d858ddcc0366c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7252c14c72e31e3b40d858ddcc0366c0">&#9670;&#160;</a></span>getAssetDirectory()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -313,7 +482,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr float bl::cam::c3d::CameraShake::getMagnitude </td>
+          <td class="memname">const std::string &amp; bl::as::Repository::getAssetDirectory </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -321,99 +490,39 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the magnitude of the camera shake. </p>
+<p>Returns the directory that assets are saved and loaded from. </p>
 
-<p class="definition">Definition at line <a class="el" href="a09110_source.html#l00077">77</a> of file <a class="el" href="a09110_source.html">CameraShake.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00232">232</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab39045ef5e11962aa94863b9649ada2d" name="ab39045ef5e11962aa94863b9649ada2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab39045ef5e11962aa94863b9649ada2d">&#9670;&#160;</a></span>setMagnitude()</h2>
+<a id="a74a8f1d9347249ed80d067938a3d52f7" name="a74a8f1d9347249ed80d067938a3d52f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74a8f1d9347249ed80d067938a3d52f7">&#9670;&#160;</a></span>getAssetFromSourcePath() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::c3d::CameraShake::setMagnitude </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>magnitude</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the magnitude of the camera shake. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">magnitude</td><td>The magnitude to shake with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a09872_source.html#l00018">18</a> of file <a class="el" href="a09872_source.html">CameraShake.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a58d0c9b8a78e106706c3a6d794767bbe" name="a58d0c9b8a78e106706c3a6d794767bbe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58d0c9b8a78e106706c3a6d794767bbe">&#9670;&#160;</a></span>setShakesPerSecond()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::c3d::CameraShake::setShakesPerSecond </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>shakesPerSecond</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the speed of the camera shake. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shakesPerSecond</td><td>How many shakes per second to apply </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a09872_source.html#l00020">20</a> of file <a class="el" href="a09872_source.html">CameraShake.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abf58291e26b4d73d55cd1737be007ce0" name="abf58291e26b4d73d55cd1737be007ce0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf58291e26b4d73d55cd1737be007ce0">&#9670;&#160;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::cam::c3d::CameraShake::update </td>
+          <td class="memname"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt; bl::as::Repository::getAssetFromSourcePath </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>view</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool &amp;&#160;</td>
-          <td class="paramname"><em>proj</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a03159.html#ga8f1e3911c576026f3e12be2420f69d86">State</a>&#160;</td>
+          <td class="paramname"><em>desiredState</em> = <code><a class="el" href="a03159.html#gga8f1e3911c576026f3e12be2420f69d86a7381d487d18845b379422325c0a768d6">State::Loaded</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -423,36 +532,557 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Updates the camera shaking. </p>
+<p>Finds or creates an asset from the given source file path. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of payload the asset is expected to have </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-    <tr><td class="paramname">view</td><td>Flag to set to true to mark the view matrix dirty </td></tr>
-    <tr><td class="paramname">proj</td><td>Ignored </td></tr>
+    <tr><td class="paramname">path</td><td>The file path of the asset to get </td></tr>
+    <tr><td class="paramname">desiredState</td><td>The desired state of the asset </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="a03698.html" title="Handle to an asset in the repository. Performs ref counting and prevents automatic unloading of asset...">Ref</a> to the asset. May be invalid if the asset does not exist or failed to load </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00145">145</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5036eaaf2c9c97e04d676f28f9565ef1" name="a5036eaaf2c9c97e04d676f28f9565ef1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5036eaaf2c9c97e04d676f28f9565ef1">&#9670;&#160;</a></span>getAssetFromSourcePath() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03698.html">Ref</a> bl::as::Repository::getAssetFromSourcePath </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a03159.html#ga8f1e3911c576026f3e12be2420f69d86">State</a>&#160;</td>
+          <td class="paramname"><em>desiredState</em> = <code><a class="el" href="a03159.html#gga8f1e3911c576026f3e12be2420f69d86a7381d487d18845b379422325c0a768d6">State::Loaded</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds or creates an asset from the given source file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type tag of the asset to get </td></tr>
+    <tr><td class="paramname">path</td><td>The file path of the asset to get </td></tr>
+    <tr><td class="paramname">desiredState</td><td>The desired state of the asset </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="a03698.html" title="Handle to an asset in the repository. Performs ref counting and prevents automatic unloading of asset...">Ref</a> to the asset. May be invalid if the asset does not exist or failed to load </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00197">197</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa442037e3817d7b7f1bc4550bb93a1e2" name="aa442037e3817d7b7f1bc4550bb93a1e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa442037e3817d7b7f1bc4550bb93a1e2">&#9670;&#160;</a></span>getDependencies()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a03702.html">RepoDependency</a> &gt; &amp; bl::as::Repository::getDependencies </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a07138.html">util::UUID</a>&#160;</td>
+          <td class="paramname"><em>uuid</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the dependency list for the asset with the given UUID. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uuid</td><td>The UUID of the asset to get dependencies for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The dependency list for the asset </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00301">301</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac1cfb50255bc5a63e9dda7e8d95079ec" name="ac1cfb50255bc5a63e9dda7e8d95079ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1cfb50255bc5a63e9dda7e8d95079ec">&#9670;&#160;</a></span>getDriver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03570.html">detail::DriverBase</a> * bl::as::Repository::getDriver </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the driver for the given type. May be nullptr. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The tag name of the type to get the driver for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the driver for the given type name, nullptr if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00313">313</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1320066ae60170c325616e7551c6c662" name="a1320066ae60170c325616e7551c6c662"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1320066ae60170c325616e7551c6c662">&#9670;&#160;</a></span>getMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03159.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a> bl::as::Repository::getMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the mode the repository is operating in. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00227">227</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6868b72c31defc05b1c829b29b08d83" name="ad6868b72c31defc05b1c829b29b08d83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6868b72c31defc05b1c829b29b08d83">&#9670;&#160;</a></span>getOrCreateAsset() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt; bl::as::Repository::getOrCreateAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;&#160;</td>
+          <td class="paramname"><em>createData</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Searches for an existing asset by the given key, creating a new one if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the asset to find or create </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The payload type of the asset to create </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the asset </td></tr>
+    <tr><td class="paramname">createData</td><td>Custom data to pass to the driver for the asset type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="a03726.html" title="Helper class to reference assets with known payload types.">TypedRef</a> to the newly created asset. May be invalid if creation failed </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00097">97</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad751d0302720abb3045477baec5df27d" name="ad751d0302720abb3045477baec5df27d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad751d0302720abb3045477baec5df27d">&#9670;&#160;</a></span>getOrCreateAsset() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03698.html">Ref</a> bl::as::Repository::getOrCreateAsset </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a03542.html">CreateContext::CreateData</a> &amp;&#160;</td>
+          <td class="paramname"><em>createData</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Searches for an existing asset by the given key, creating a new one if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the asset to find or create </td></tr>
+    <tr><td class="paramname">type</td><td>The tag of the type of asset to create </td></tr>
+    <tr><td class="paramname">name</td><td>The name of the asset </td></tr>
+    <tr><td class="paramname">createData</td><td>Custom data to pass to the driver for the asset type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A ref to the newly created asset. May be invalid if creation failed </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00160">160</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a35116136712d90f184e56d55708e7b3b" name="a35116136712d90f184e56d55708e7b3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35116136712d90f184e56d55708e7b3b">&#9670;&#160;</a></span>getTypedAsset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03726.html">TypedRef</a>&lt; T &gt; bl::as::Repository::getTypedAsset </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a07138.html">util::UUID</a>&#160;</td>
+          <td class="paramname"><em>uuid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns a ref to the asset with the given UUID. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of payload the asset is expected to have </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uuid</td><td>The UUID of the asset to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="a03726.html" title="Helper class to reference assets with known payload types.">TypedRef</a> to the asset. May be invalid if the asset does not exist or failed to load </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00121">121</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ae1cb4f6443e12727be610fbf10d16745" name="ae1cb4f6443e12727be610fbf10d16745"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1cb4f6443e12727be610fbf10d16745">&#9670;&#160;</a></span>loadRepository()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::as::Repository::loadRepository </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the repository from disk. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00353">353</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2a878216508c76abdc67feb7314cb3bb" name="a2a878216508c76abdc67feb7314cb3bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a878216508c76abdc67feb7314cb3bb">&#9670;&#160;</a></span>registerDriver()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename TDriver , typename... TArgs&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::as::Repository::registerDriver </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registers a new driver in the repository. Drivers provide support for different payload formats and allow arbitrary assets to be loaded by ID only. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TDriver</td><td>The type of the driver to create </td></tr>
+    <tr><td class="paramname">...TArgs</td><td>Signature of the driver constructor </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type tag to identify assets associated with the driver </td></tr>
+    <tr><td class="paramname">...args</td><td>Arguments to forward to the driver constructor </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Reimplemented from <a class="el" href="a03718.html#a655b6b1305816afaac5b77d6f9b0a7f7">bl::cam::CameraAffector3D</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00180">180</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a09872_source.html#l00030">30</a> of file <a class="el" href="a09872_source.html">CameraShake.cpp</a>.</p>
+</div>
+</div>
+<a id="abc1be37133ddd3abbb9436bb2945f59e" name="abc1be37133ddd3abbb9436bb2945f59e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc1be37133ddd3abbb9436bb2945f59e">&#9670;&#160;</a></span>releaseUnused()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::as::Repository::releaseUnused </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Release payloads for unused assets. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00669">669</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa7bfae3614be201be2e38dab7c054044" name="aa7bfae3614be201be2e38dab7c054044"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7bfae3614be201be2e38dab7c054044">&#9670;&#160;</a></span>reloadFromSource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::as::Repository::reloadFromSource </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reloads all assets from their source files if changed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02774_source.html#l00691">691</a> of file <a class="el" href="a02774_source.html">Repository.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="abbb2d6439646427912dc314907398c42" name="abbb2d6439646427912dc314907398c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb2d6439646427912dc314907398c42">&#9670;&#160;</a></span>Asset</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03378.html">Asset</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00298">298</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a723c54a5da7ba5704fa6c96cd68ca851" name="a723c54a5da7ba5704fa6c96cd68ca851"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a723c54a5da7ba5704fa6c96cd68ca851">&#9670;&#160;</a></span>detail::Context</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03526.html">detail::Context</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00299">299</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa64c62d014a14ec88a095d6dfd515ffd" name="aa64c62d014a14ec88a095d6dfd515ffd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa64c62d014a14ec88a095d6dfd515ffd">&#9670;&#160;</a></span>detail::DependencyChain</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03554.html">detail::DependencyChain</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00296">296</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3ea5d13a451b56b46e2c53b8da3e4b35" name="a3ea5d13a451b56b46e2c53b8da3e4b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ea5d13a451b56b46e2c53b8da3e4b35">&#9670;&#160;</a></span>Ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a03698.html">Ref</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01415_source.html#l00297">297</a> of file <a class="el" href="a01415_source.html">Repository.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Cameras/3D/Affectors/<a class="el" href="a09110_source.html">CameraShake.hpp</a></li>
-<li>src/Cameras/3D/Affectors/<a class="el" href="a09872_source.html">CameraShake.cpp</a></li>
+<li>include/BLIB/Assets/<a class="el" href="a01415_source.html">Repository.hpp</a></li>
+<li>src/Assets/<a class="el" href="a02774_source.html">Repository.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

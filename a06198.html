@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::vk::Buffer Class Reference</title>
+<title>BLIB: bl::rc::sri::AttachmentImageSetResourceTraits&lt; AttachmentImageSetResource&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,642 +74,200 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03172.html">vk</a></li><li class="navelem"><a class="el" href="a06198.html">Buffer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03253.html">sri</a></li><li class="navelem"><a class="el" href="a06198.html">AttachmentImageSetResourceTraits&lt; AttachmentImageSetResource&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a06195.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::vk::Buffer Class Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::sri::AttachmentImageSetResourceTraits&lt; AttachmentImageSetResource&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.  
- <a href="a06198.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a01094_source.html">Buffer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ae8599c386307d38472556aff229f855d" id="r_ae8599c386307d38472556aff229f855d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#ae8599c386307d38472556aff229f855d">Buffer</a> ()</td></tr>
-<tr class="memdesc:ae8599c386307d38472556aff229f855d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <br /></td></tr>
-<tr class="separator:ae8599c386307d38472556aff229f855d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85ef6f357cd442e1a25fcff18e5cb134" id="r_a85ef6f357cd442e1a25fcff18e5cb134"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a85ef6f357cd442e1a25fcff18e5cb134">~Buffer</a> ()</td></tr>
-<tr class="memdesc:a85ef6f357cd442e1a25fcff18e5cb134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the buffer if created.  <br /></td></tr>
-<tr class="separator:a85ef6f357cd442e1a25fcff18e5cb134"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cd58bdd682fb9b88b255554954b174a" id="r_a7cd58bdd682fb9b88b255554954b174a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a7cd58bdd682fb9b88b255554954b174a">create</a> (<a class="el" href="a05878.html">Renderer</a> &amp;renderer, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</td></tr>
-<tr class="memdesc:a7cd58bdd682fb9b88b255554954b174a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer with the given parameters.  <br /></td></tr>
-<tr class="separator:a7cd58bdd682fb9b88b255554954b174a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac98de8bede429c265e4f264eb1f1a5fd" id="r_ac98de8bede429c265e4f264eb1f1a5fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#ac98de8bede429c265e4f264eb1f1a5fd">createWithFallback</a> (<a class="el" href="a05878.html">Renderer</a> &amp;renderer, VkDeviceSize size, VkMemoryPropertyFlags memPool, VkMemoryPropertyFlags fallbackPool, VkBufferUsageFlags usage, VmaAllocationCreateFlags allocFlags)</td></tr>
-<tr class="memdesc:ac98de8bede429c265e4f264eb1f1a5fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the buffer with the given parameters and a backup memory type.  <br /></td></tr>
-<tr class="separator:ac98de8bede429c265e4f264eb1f1a5fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6957a18c79ee307ec194b6968ee9574f" id="r_a6957a18c79ee307ec194b6968ee9574f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a6957a18c79ee307ec194b6968ee9574f">ensureSize</a> (VkDeviceSize size, bool skipCopy=false)</td></tr>
-<tr class="memdesc:a6957a18c79ee307ec194b6968ee9574f"><td class="mdescLeft">&#160;</td><td class="mdescRight">If the buffer size is less than the required size, re-creates the buffer to be at least the given size.  <br /></td></tr>
-<tr class="separator:a6957a18c79ee307ec194b6968ee9574f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e308abc42782a29c15e4766ecc25994" id="r_a6e308abc42782a29c15e4766ecc25994"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a6e308abc42782a29c15e4766ecc25994">created</a> () const</td></tr>
-<tr class="memdesc:a6e308abc42782a29c15e4766ecc25994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the buffer is currently created.  <br /></td></tr>
-<tr class="separator:a6e308abc42782a29c15e4766ecc25994"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a309978f0b161def0aa4b67ce4f763946" id="r_a309978f0b161def0aa4b67ce4f763946"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a309978f0b161def0aa4b67ce4f763946">destroy</a> ()</td></tr>
-<tr class="memdesc:a309978f0b161def0aa4b67ce4f763946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the buffer immediately.  <br /></td></tr>
-<tr class="separator:a309978f0b161def0aa4b67ce4f763946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdc83a0683dd29514aacdac9b8ed13d6" id="r_afdc83a0683dd29514aacdac9b8ed13d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#afdc83a0683dd29514aacdac9b8ed13d6">deferDestruction</a> ()</td></tr>
-<tr class="memdesc:afdc83a0683dd29514aacdac9b8ed13d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Defers destruction of the buffer for <a class="el" href="a05330.html#a6c9c20e6956b85cd0d15deafd998575c">cfg::Limits::MaxConcurrentFrames</a> + 1 frames. <a class="el" href="a06198.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">Buffer</a> can be re-used immediately.  <br /></td></tr>
-<tr class="separator:afdc83a0683dd29514aacdac9b8ed13d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62ae8ed0b1208ef5a2404f3908203499" id="r_a62ae8ed0b1208ef5a2404f3908203499"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a62ae8ed0b1208ef5a2404f3908203499">getBuffer</a> () const</td></tr>
-<tr class="memdesc:a62ae8ed0b1208ef5a2404f3908203499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Vulkan buffer handle.  <br /></td></tr>
-<tr class="separator:a62ae8ed0b1208ef5a2404f3908203499"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33e365623d4aa7dec3f445841d125609" id="r_a33e365623d4aa7dec3f445841d125609"><td class="memItemLeft" align="right" valign="top">VmaAllocation&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a33e365623d4aa7dec3f445841d125609">getAlloc</a> () const</td></tr>
-<tr class="memdesc:a33e365623d4aa7dec3f445841d125609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the VMA allocation.  <br /></td></tr>
-<tr class="separator:a33e365623d4aa7dec3f445841d125609"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e8dc4221e52ccbc2d11d71511b6cd45" id="r_a6e8dc4221e52ccbc2d11d71511b6cd45"><td class="memItemLeft" align="right" valign="top">VkMemoryPropertyFlags&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a6e8dc4221e52ccbc2d11d71511b6cd45">getMemoryPool</a> () const</td></tr>
-<tr class="memdesc:a6e8dc4221e52ccbc2d11d71511b6cd45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the properties of the memory pool that the buffer is in.  <br /></td></tr>
-<tr class="separator:a6e8dc4221e52ccbc2d11d71511b6cd45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59f9f42618fdfb237afec34ca505ac32" id="r_a59f9f42618fdfb237afec34ca505ac32"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a59f9f42618fdfb237afec34ca505ac32">mapMemory</a> ()</td></tr>
-<tr class="memdesc:a59f9f42618fdfb237afec34ca505ac32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps the buffer. Does not check if buffer is map-able or if it is already mapped.  <br /></td></tr>
-<tr class="separator:a59f9f42618fdfb237afec34ca505ac32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a013bb7b579e877c9bb67264ef10532fd" id="r_a013bb7b579e877c9bb67264ef10532fd"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a013bb7b579e877c9bb67264ef10532fd">getMappedMemory</a> () const</td></tr>
-<tr class="memdesc:a013bb7b579e877c9bb67264ef10532fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the mapped buffer memory.  <br /></td></tr>
-<tr class="separator:a013bb7b579e877c9bb67264ef10532fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf2405a0936e0fd85a481405e6435552" id="r_abf2405a0936e0fd85a481405e6435552"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#abf2405a0936e0fd85a481405e6435552">unMapMemory</a> ()</td></tr>
-<tr class="memdesc:abf2405a0936e0fd85a481405e6435552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmaps the buffer. Does not check if the buffer is currently mapped.  <br /></td></tr>
-<tr class="separator:abf2405a0936e0fd85a481405e6435552"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a695ef5856162d7e29ca109d0682abdb0" id="r_a695ef5856162d7e29ca109d0682abdb0"><td class="memItemLeft" align="right" valign="top">VkDeviceSize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a695ef5856162d7e29ca109d0682abdb0">getSize</a> () const</td></tr>
-<tr class="memdesc:a695ef5856162d7e29ca109d0682abdb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the buffer in bytes.  <br /></td></tr>
-<tr class="separator:a695ef5856162d7e29ca109d0682abdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fbdd7c9398e38ce6d22b5dcc9150b39" id="r_a6fbdd7c9398e38ce6d22b5dcc9150b39"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a6fbdd7c9398e38ce6d22b5dcc9150b39">recordBarrier</a> (VkCommandBuffer commandBuffer, VkPipelineStageFlags srcStages, VkAccessFlags srcAccess, VkPipelineStageFlags dstStages, VkAccessFlags dstAccess)</td></tr>
-<tr class="memdesc:a6fbdd7c9398e38ce6d22b5dcc9150b39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Records a pipeline barrier into the specified Vulkan command buffer.  <br /></td></tr>
-<tr class="separator:a6fbdd7c9398e38ce6d22b5dcc9150b39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72d4d58d118f62ae3f58818a5a50187f" id="r_a72d4d58d118f62ae3f58818a5a50187f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a72d4d58d118f62ae3f58818a5a50187f">insertPipelineBarrierBeforeChange</a> ()</td></tr>
-<tr class="memdesc:a72d4d58d118f62ae3f58818a5a50187f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Records a pipeline barrier to prevent writes from occurring before fragment shader reads are completed.  <br /></td></tr>
-<tr class="separator:a72d4d58d118f62ae3f58818a5a50187f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:aba6bbdb2b40279b73d6931e5c7ccfab1" id="r_aba6bbdb2b40279b73d6931e5c7ccfab1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#aba6bbdb2b40279b73d6931e5c7ccfab1">TResourceType</a> = <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt;</td></tr>
+<tr class="separator:aba6bbdb2b40279b73d6931e5c7ccfab1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a81724c39bd5935e86add81f68fa043b8" id="r_a81724c39bd5935e86add81f68fa043b8"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a81724c39bd5935e86add81f68fa043b8">AttachmentCount</a> = AC</td></tr>
+<tr class="separator:a81724c39bd5935e86add81f68fa043b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab600d01d41f33dbc7b74373756f90f48" id="r_ab600d01d41f33dbc7b74373756f90f48"><td class="memItemLeft" align="right" valign="top">static constexpr std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#ab600d01d41f33dbc7b74373756f90f48">Formats</a> = Fmts</td></tr>
+<tr class="separator:ab600d01d41f33dbc7b74373756f90f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f2ddc1f575cc361259a6074beceb066" id="r_a5f2ddc1f575cc361259a6074beceb066"><td class="memItemLeft" align="right" valign="top">static constexpr std::array&lt; VkImageUsageFlags, AC &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a5f2ddc1f575cc361259a6074beceb066">Usages</a> = Usgs</td></tr>
+<tr class="separator:a5f2ddc1f575cc361259a6074beceb066"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f8e69e1a3cfad05711f5369b83c6ad8" id="r_a3f8e69e1a3cfad05711f5369b83c6ad8"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a06286.html">TargetSize</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a3f8e69e1a3cfad05711f5369b83c6ad8">Size</a> = Sz</td></tr>
+<tr class="separator:a3f8e69e1a3cfad05711f5369b83c6ad8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cf735a327fba5e82fe32adac0b472e9" id="r_a1cf735a327fba5e82fe32adac0b472e9"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06198.html#a1cf735a327fba5e82fe32adac0b472e9">MSAA</a> = AA</td></tr>
+<tr class="separator:a1cf735a327fba5e82fe32adac0b472e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00019">19</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae8599c386307d38472556aff229f855d" name="ae8599c386307d38472556aff229f855d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8599c386307d38472556aff229f855d">&#9670;&#160;</a></span>Buffer()</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt;<br />
+struct bl::rc::sri::AttachmentImageSetResourceTraits&lt; AttachmentImageSetResource&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;</div>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00124">124</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aba6bbdb2b40279b73d6931e5c7ccfab1" name="aba6bbdb2b40279b73d6931e5c7ccfab1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba6bbdb2b40279b73d6931e5c7ccfab1">&#9670;&#160;</a></span>TResourceType</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::vk::Buffer::Buffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a06194.html">bl::rc::sri::AttachmentImageSetResourceTraits</a>&lt; <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;::TResourceType =  <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt;AC, Fmts, Usgs, Sz, AA&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Does nothing. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00012">12</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00125">125</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a85ef6f357cd442e1a25fcff18e5cb134" name="a85ef6f357cd442e1a25fcff18e5cb134"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85ef6f357cd442e1a25fcff18e5cb134">&#9670;&#160;</a></span>~Buffer()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a81724c39bd5935e86add81f68fa043b8" name="a81724c39bd5935e86add81f68fa043b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81724c39bd5935e86add81f68fa043b8">&#9670;&#160;</a></span>AttachmentCount</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::vk::Buffer::~Buffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destroys the buffer if created. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00022">22</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7cd58bdd682fb9b88b255554954b174a" name="a7cd58bdd682fb9b88b255554954b174a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cd58bdd682fb9b88b255554954b174a">&#9670;&#160;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05878.html">Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>memPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkBufferUsageFlags&#160;</td>
-          <td class="paramname"><em>usage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
-          <td class="paramname"><em>allocFlags</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the buffer with the given parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the buffer in bytes </td></tr>
-    <tr><td class="paramname">memPool</td><td>Which memory type to use </td></tr>
-    <tr><td class="paramname">usage</td><td>How the buffer will be used </td></tr>
-    <tr><td class="paramname">allocFlags</td><td>VMA allocation flags to use for the VMA allocation </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the buffer was able to be created, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00024">24</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6e308abc42782a29c15e4766ecc25994" name="a6e308abc42782a29c15e4766ecc25994"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e308abc42782a29c15e4766ecc25994">&#9670;&#160;</a></span>created()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::created </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr unsigned int <a class="el" href="a06194.html">bl::rc::sri::AttachmentImageSetResourceTraits</a>&lt; <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;::AttachmentCount = AC</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the buffer is currently created. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00156">156</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00126">126</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac98de8bede429c265e4f264eb1f1a5fd" name="ac98de8bede429c265e4f264eb1f1a5fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac98de8bede429c265e4f264eb1f1a5fd">&#9670;&#160;</a></span>createWithFallback()</h2>
+<a id="ab600d01d41f33dbc7b74373756f90f48" name="ab600d01d41f33dbc7b74373756f90f48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab600d01d41f33dbc7b74373756f90f48">&#9670;&#160;</a></span>Formats</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::createWithFallback </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05878.html">Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>memPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkMemoryPropertyFlags&#160;</td>
-          <td class="paramname"><em>fallbackPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkBufferUsageFlags&#160;</td>
-          <td class="paramname"><em>usage</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VmaAllocationCreateFlags&#160;</td>
-          <td class="paramname"><em>allocFlags</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the buffer with the given parameters and a backup memory type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">renderer</td><td>The renderer instance </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the buffer in bytes </td></tr>
-    <tr><td class="paramname">memPool</td><td>Which memory type to use </td></tr>
-    <tr><td class="paramname">fallbackPool</td><td>Memory type to use if the desired memory type fails creation </td></tr>
-    <tr><td class="paramname">usage</td><td>How the buffer will be used </td></tr>
-    <tr><td class="paramname">allocFlags</td><td>VMA allocation flags to use for the VMA allocation </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the buffer was able to be created, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00060">60</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afdc83a0683dd29514aacdac9b8ed13d6" name="afdc83a0683dd29514aacdac9b8ed13d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdc83a0683dd29514aacdac9b8ed13d6">&#9670;&#160;</a></span>deferDestruction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::deferDestruction </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Defers destruction of the buffer for <a class="el" href="a05330.html#a6c9c20e6956b85cd0d15deafd998575c">cfg::Limits::MaxConcurrentFrames</a> + 1 frames. <a class="el" href="a06198.html" title="Wrapper over Vulkan buffers. Provides simpler interfaces and resize ability.">Buffer</a> can be re-used immediately. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00077">77</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a309978f0b161def0aa4b67ce4f763946" name="a309978f0b161def0aa4b67ce4f763946"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a309978f0b161def0aa4b67ce4f763946">&#9670;&#160;</a></span>destroy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::destroy </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Destroys the buffer immediately. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00069">69</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6957a18c79ee307ec194b6968ee9574f" name="a6957a18c79ee307ec194b6968ee9574f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6957a18c79ee307ec194b6968ee9574f">&#9670;&#160;</a></span>ensureSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::vk::Buffer::ensureSize </td>
-          <td>(</td>
-          <td class="paramtype">VkDeviceSize&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>skipCopy</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>If the buffer size is less than the required size, re-creates the buffer to be at least the given size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">size</td><td>The size the buffer should be, at a minimum </td></tr>
-    <tr><td class="paramname">skipCopy</td><td>Optionally skips copying the old buffer to the new if resized </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the buffer was resized, false if it was big enough </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00092">92</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a33e365623d4aa7dec3f445841d125609" name="a33e365623d4aa7dec3f445841d125609"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33e365623d4aa7dec3f445841d125609">&#9670;&#160;</a></span>getAlloc()</h2>
-
-<div class="memitem">
-<div class="memproto">
+<div class="memtemplate">
+template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VmaAllocation bl::rc::vk::Buffer::getAlloc </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr std::array&lt;<a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC&gt; <a class="el" href="a06194.html">bl::rc::sri::AttachmentImageSetResourceTraits</a>&lt; <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;::Formats = Fmts</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the VMA allocation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00160">160</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00127">127</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a62ae8ed0b1208ef5a2404f3908203499" name="a62ae8ed0b1208ef5a2404f3908203499"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62ae8ed0b1208ef5a2404f3908203499">&#9670;&#160;</a></span>getBuffer()</h2>
+<a id="a1cf735a327fba5e82fe32adac0b472e9" name="a1cf735a327fba5e82fe32adac0b472e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cf735a327fba5e82fe32adac0b472e9">&#9670;&#160;</a></span>MSAA</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkBuffer bl::rc::vk::Buffer::getBuffer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> <a class="el" href="a06194.html">bl::rc::sri::AttachmentImageSetResourceTraits</a>&lt; <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;::MSAA = AA</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the Vulkan buffer handle. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00158">158</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00130">130</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a013bb7b579e877c9bb67264ef10532fd" name="a013bb7b579e877c9bb67264ef10532fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a013bb7b579e877c9bb67264ef10532fd">&#9670;&#160;</a></span>getMappedMemory()</h2>
+<a id="a3f8e69e1a3cfad05711f5369b83c6ad8" name="a3f8e69e1a3cfad05711f5369b83c6ad8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f8e69e1a3cfad05711f5369b83c6ad8">&#9670;&#160;</a></span>Size</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void * bl::rc::vk::Buffer::getMappedMemory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr <a class="el" href="a06286.html">TargetSize</a> <a class="el" href="a06194.html">bl::rc::sri::AttachmentImageSetResourceTraits</a>&lt; <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;::Size = Sz</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a pointer to the mapped buffer memory. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00162">162</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00129">129</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6e8dc4221e52ccbc2d11d71511b6cd45" name="a6e8dc4221e52ccbc2d11d71511b6cd45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e8dc4221e52ccbc2d11d71511b6cd45">&#9670;&#160;</a></span>getMemoryPool()</h2>
+<a id="a5f2ddc1f575cc361259a6074beceb066" name="a5f2ddc1f575cc361259a6074beceb066"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f2ddc1f575cc361259a6074beceb066">&#9670;&#160;</a></span>Usages</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;unsigned int AC, std::array&lt; <a class="el" href="a03176.html#ga5edbf7bf53f275665e759e042079f4b2">vk::SemanticTextureFormat</a>, AC &gt; Fmts, std::array&lt; VkImageUsageFlags, AC &gt; Usgs, <a class="el" href="a06286.html">TargetSize</a> Sz, <a class="el" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> AA&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">VkMemoryPropertyFlags bl::rc::vk::Buffer::getMemoryPool </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr std::array&lt;VkImageUsageFlags, AC&gt; <a class="el" href="a06194.html">bl::rc::sri::AttachmentImageSetResourceTraits</a>&lt; <a class="el" href="a06190.html">AttachmentImageSetResource</a>&lt; AC, Fmts, Usgs, Sz, AA &gt; &gt;::Usages = Usgs</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the properties of the memory pool that the buffer is in. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00098">98</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01004_source.html#l00128">128</a> of file <a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a695ef5856162d7e29ca109d0682abdb0" name="a695ef5856162d7e29ca109d0682abdb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a695ef5856162d7e29ca109d0682abdb0">&#9670;&#160;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">VkDeviceSize bl::rc::vk::Buffer::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the size of the buffer in bytes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01094_source.html#l00164">164</a> of file <a class="el" href="a01094_source.html">Buffer.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a72d4d58d118f62ae3f58818a5a50187f" name="a72d4d58d118f62ae3f58818a5a50187f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72d4d58d118f62ae3f58818a5a50187f">&#9670;&#160;</a></span>insertPipelineBarrierBeforeChange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::insertPipelineBarrierBeforeChange </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Records a pipeline barrier to prevent writes from occurring before fragment shader reads are completed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00164">164</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a59f9f42618fdfb237afec34ca505ac32" name="a59f9f42618fdfb237afec34ca505ac32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59f9f42618fdfb237afec34ca505ac32">&#9670;&#160;</a></span>mapMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void * bl::rc::vk::Buffer::mapMemory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Maps the buffer. Does not check if buffer is map-able or if it is already mapped. </p>
-<dl class="section return"><dt>Returns</dt><dd>A pointer to the mapped memory </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00157">157</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6fbdd7c9398e38ce6d22b5dcc9150b39" name="a6fbdd7c9398e38ce6d22b5dcc9150b39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fbdd7c9398e38ce6d22b5dcc9150b39">&#9670;&#160;</a></span>recordBarrier()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::recordBarrier </td>
-          <td>(</td>
-          <td class="paramtype">VkCommandBuffer&#160;</td>
-          <td class="paramname"><em>commandBuffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkPipelineStageFlags&#160;</td>
-          <td class="paramname"><em>srcStages</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkAccessFlags&#160;</td>
-          <td class="paramname"><em>srcAccess</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkPipelineStageFlags&#160;</td>
-          <td class="paramname"><em>dstStages</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">VkAccessFlags&#160;</td>
-          <td class="paramname"><em>dstAccess</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Records a pipeline barrier into the specified Vulkan command buffer. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">commandBuffer</td><td>The Vulkan command buffer where the barrier will be recorded </td></tr>
-    <tr><td class="paramname">srcStages</td><td>The source pipeline stage mask indicating where the barrier starts </td></tr>
-    <tr><td class="paramname">srcAccess</td><td>The types of memory access before the barrier </td></tr>
-    <tr><td class="paramname">dstStages</td><td>The destination pipeline stage mask indicating where the barrier ends </td></tr>
-    <tr><td class="paramname">dstAccess</td><td>The types of memory access after the barrier </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00188">188</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abf2405a0936e0fd85a481405e6435552" name="abf2405a0936e0fd85a481405e6435552"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf2405a0936e0fd85a481405e6435552">&#9670;&#160;</a></span>unMapMemory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::vk::Buffer::unMapMemory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unmaps the buffer. Does not check if the buffer is currently mapped. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02603_source.html#l00162">162</a> of file <a class="el" href="a02603_source.html">Buffer.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Vulkan/<a class="el" href="a01094_source.html">Buffer.hpp</a></li>
-<li>src/Render/Vulkan/<a class="el" href="a02603_source.html">Buffer.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/ShaderResources/<a class="el" href="a01004_source.html">AttachmentImageSetResource.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

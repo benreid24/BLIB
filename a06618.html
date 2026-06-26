@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::serial::json::priv::Serializer&lt; T &gt; Struct Template Reference</title>
+<title>BLIB: bl::serial::binary::Serializer&lt; std::array&lt; U, N &gt;, false &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,69 +74,80 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03148.html">serial</a></li><li class="navelem"><a class="el" href="a03198.html">json</a></li><li class="navelem"><a class="el" href="a03222.html">priv</a></li><li class="navelem"><a class="el" href="a06618.html">Serializer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03245.html">serial</a></li><li class="navelem"><a class="el" href="a03246.html">binary</a></li><li class="navelem"><a class="el" href="a06618.html">Serializer&lt; std::array&lt; U, N &gt;, false &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a06615.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::serial::json::priv::Serializer&lt; T &gt; Struct Template Reference</div></div>
+  <div class="headertitle"><div class="title">bl::serial::binary::Serializer&lt; std::array&lt; U, N &gt;, false &gt; Struct Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a09824_source.html">Serializer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a09100_source.html">Serializer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a679037fc749855a345ddf0f50fdba25e" id="r_a679037fc749855a345ddf0f50fdba25e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> = std::array&lt; U, N &gt;</td></tr>
+<tr class="separator:a679037fc749855a345ddf0f50fdba25e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2968c6149aa2f28e046f87edb3025e71" id="r_a2968c6149aa2f28e046f87edb3025e71"><td class="memTemplParams" colspan="2">template&lt;typename F &gt; </td></tr>
-<tr class="memitem:a2968c6149aa2f28e046f87edb3025e71"><td class="memTemplItemLeft" align="right" valign="top">static bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a06618.html#a2968c6149aa2f28e046f87edb3025e71">deserializeFrom</a> (const <a class="el" href="a06606.html">Value</a> &amp;val, const std::string &amp;name, T &amp;result, F deserialize)</td></tr>
-<tr class="separator:a2968c6149aa2f28e046f87edb3025e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5f80049f9d80815ebbce39447a78d4" id="r_a8e5f80049f9d80815ebbce39447a78d4"><td class="memTemplParams" colspan="2">template&lt;typename F &gt; </td></tr>
-<tr class="memitem:a8e5f80049f9d80815ebbce39447a78d4"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a06618.html#a8e5f80049f9d80815ebbce39447a78d4">serializeInto</a> (<a class="el" href="a06602.html">Group</a> &amp;group, const std::string &amp;name, const T &amp;val, F serialize)</td></tr>
-<tr class="separator:a8e5f80049f9d80815ebbce39447a78d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5dd55afe3accbbfc8e5f55a05134451" id="r_aa5dd55afe3accbbfc8e5f55a05134451"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06618.html#aa5dd55afe3accbbfc8e5f55a05134451">serialize</a> (<a class="el" href="a06894.html">stream::OutputStream</a> &amp;out, const <a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> &amp;arr)</td></tr>
+<tr class="separator:aa5dd55afe3accbbfc8e5f55a05134451"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8fc0f7abd4dc4127cae77732ef0f357" id="r_aa8fc0f7abd4dc4127cae77732ef0f357"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06618.html#aa8fc0f7abd4dc4127cae77732ef0f357">deserialize</a> (<a class="el" href="a06882.html">stream::InputStream</a> &amp;in, <a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> &amp;arr)</td></tr>
+<tr class="separator:aa8fc0f7abd4dc4127cae77732ef0f357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c4bf4ebb04a4eace428e94b55ba7b2a" id="r_a1c4bf4ebb04a4eace428e94b55ba7b2a"><td class="memItemLeft" align="right" valign="top">static std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06618.html#a1c4bf4ebb04a4eace428e94b55ba7b2a">size</a> (const <a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> &amp;arr)</td></tr>
+<tr class="separator:a1c4bf4ebb04a4eace428e94b55ba7b2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-struct bl::serial::json::priv::Serializer&lt; T &gt;</div>
-<p class="definition">Definition at line <a class="el" href="a09824_source.html#l00114">114</a> of file <a class="el" href="a09824_source.html">Serializer.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2968c6149aa2f28e046f87edb3025e71" name="a2968c6149aa2f28e046f87edb3025e71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2968c6149aa2f28e046f87edb3025e71">&#9670;&#160;</a></span>deserializeFrom()</h2>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename U, std::size_t N&gt;<br />
+struct bl::serial::binary::Serializer&lt; std::array&lt; U, N &gt;, false &gt;</div>
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00240">240</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a679037fc749855a345ddf0f50fdba25e" name="a679037fc749855a345ddf0f50fdba25e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a679037fc749855a345ddf0f50fdba25e">&#9670;&#160;</a></span>T</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename U , std::size_t N&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; std::array&lt; U, N &gt;, false &gt;::T =  std::array&lt;U, N&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00241">241</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa8fc0f7abd4dc4127cae77732ef0f357" name="aa8fc0f7abd4dc4127cae77732ef0f357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8fc0f7abd4dc4127cae77732ef0f357">&#9670;&#160;</a></span>deserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
 <div class="memtemplate">
-template&lt;typename F &gt; </div>
+template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool <a class="el" href="a06618.html">bl::serial::json::priv::Serializer</a>&lt; T &gt;::deserializeFrom </td>
+          <td class="memname">static bool <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; std::array&lt; U, N &gt;, false &gt;::deserialize </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a06606.html">Value</a> &amp;&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
+          <td class="paramtype"><a class="el" href="a06882.html">stream::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">F&#160;</td>
-          <td class="paramname"><em>deserialize</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -151,46 +162,32 @@ template&lt;typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a09824_source.html#l00116">116</a> of file <a class="el" href="a09824_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00252">252</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8e5f80049f9d80815ebbce39447a78d4" name="a8e5f80049f9d80815ebbce39447a78d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e5f80049f9d80815ebbce39447a78d4">&#9670;&#160;</a></span>serializeInto()</h2>
+<a id="aa5dd55afe3accbbfc8e5f55a05134451" name="aa5dd55afe3accbbfc8e5f55a05134451"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5dd55afe3accbbfc8e5f55a05134451">&#9670;&#160;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename F &gt; </div>
+template&lt;typename U , std::size_t N&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void <a class="el" href="a06618.html">bl::serial::json::priv::Serializer</a>&lt; T &gt;::serializeInto </td>
+          <td class="memname">static bool <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; std::array&lt; U, N &gt;, false &gt;::serialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a06602.html">Group</a> &amp;&#160;</td>
-          <td class="paramname"><em>group</em>, </td>
+          <td class="paramtype"><a class="el" href="a06894.html">stream::OutputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>val</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">F&#160;</td>
-          <td class="paramname"><em>serialize</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> &amp;&#160;</td>
+          <td class="paramname"><em>arr</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -205,18 +202,48 @@ template&lt;typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a09824_source.html#l00126">126</a> of file <a class="el" href="a09824_source.html">Serializer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00243">243</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c4bf4ebb04a4eace428e94b55ba7b2a" name="a1c4bf4ebb04a4eace428e94b55ba7b2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c4bf4ebb04a4eace428e94b55ba7b2a">&#9670;&#160;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename U , std::size_t N&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::size_t <a class="el" href="a06586.html">bl::serial::binary::Serializer</a>&lt; std::array&lt; U, N &gt;, false &gt;::size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a06618.html#a679037fc749855a345ddf0f50fdba25e">T</a> &amp;&#160;</td>
+          <td class="paramname"><em>arr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09100_source.html#l00263">263</a> of file <a class="el" href="a09100_source.html">Serializer.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Serialization/JSON/<a class="el" href="a09824_source.html">Serializer.hpp</a></li>
+<li>include/BLIB/Serialization/Binary/<a class="el" href="a09100_source.html">Serializer.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:28 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

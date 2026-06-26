@@ -89,7 +89,7 @@ $(document).ready(function() { init_codefold(0); });
 <a href="a00050.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_AI_PATHFINDING_PATHFINDER_HPP</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_AI_PATHFINDING_PATHFINDER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01508.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01553.html">BLIB/Util/Hashes.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;queue&gt;</span></div>
@@ -98,16 +98,16 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a03144.html">   12</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a03190.html">   12</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
 <div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03145.html">   15</a></span><span class="keyword">namespace </span>ai</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03191.html">   15</a></span><span class="keyword">namespace </span>ai</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNode, <span class="keyword">typename</span> CoordHash&gt;</div>
 <div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03326.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03326.html">PathFinder</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a03374.html">   25</a></span><span class="keyword">struct </span><a class="code hl_struct" href="a03374.html">PathFinder</a> {</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TMapCallback, <span class="keyword">typename</span> TDistFunc&gt;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03326.html#acf1db4fbab14c3a131d71e937d019a89">   43</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03326.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03374.html#acf1db4fbab14c3a131d71e937d019a89">   43</a></span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03374.html#acf1db4fbab14c3a131d71e937d019a89">findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                         TMapCallback&amp;&amp; adjacentNodeCb, TDistFunc&amp;&amp; distCb,</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                         std::vector&lt;TNode&gt;&amp; result);</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>};</div>
@@ -117,7 +117,7 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TNode, <span class="keyword">typename</span> CHash&gt;</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TMapCb, <span class="keyword">typename</span> TDistFunc&gt;</div>
 <div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a03326.html#aa7f7fda9fb55ab275e59b100a12c1602">   52</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03326.html#acf1db4fbab14c3a131d71e937d019a89">PathFinder&lt;TNode, CHash&gt;::findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a03374.html#aa7f7fda9fb55ab275e59b100a12c1602">   52</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03374.html#acf1db4fbab14c3a131d71e937d019a89">PathFinder&lt;TNode, CHash&gt;::findPath</a>(<span class="keyword">const</span> TNode&amp; start, <span class="keyword">const</span> TNode&amp; destination,</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                                        TMapCb&amp;&amp; nodeCb, TDistFunc&amp;&amp; distCb,</div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                                        std::vector&lt;TNode&gt;&amp; result) {</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">static_assert</span>(</div>
@@ -203,15 +203,15 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01508_html"><div class="ttname"><a href="a01508.html">Hashes.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03326_html"><div class="ttname"><a href="a03326.html">bl::ai::PathFinder</a></div><div class="ttdoc">Class for calculating paths between arbitrary points in a PathMap.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00025">PathFinder.hpp:25</a></div></div>
-<div class="ttc" id="aa03326_html_acf1db4fbab14c3a131d71e937d019a89"><div class="ttname"><a href="a03326.html#acf1db4fbab14c3a131d71e937d019a89">bl::ai::PathFinder::findPath</a></div><div class="ttdeci">static bool findPath(const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</div><div class="ttdoc">Calculates the shortest path between the two points using the map callback. Map callback signature sh...</div></div>
+<div class="ttc" id="aa01553_html"><div class="ttname"><a href="a01553.html">Hashes.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03374_html"><div class="ttname"><a href="a03374.html">bl::ai::PathFinder</a></div><div class="ttdoc">Class for calculating paths between arbitrary points in a PathMap.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00025">PathFinder.hpp:25</a></div></div>
+<div class="ttc" id="aa03374_html_acf1db4fbab14c3a131d71e937d019a89"><div class="ttname"><a href="a03374.html#acf1db4fbab14c3a131d71e937d019a89">bl::ai::PathFinder::findPath</a></div><div class="ttdeci">static bool findPath(const TNode &amp;start, const TNode &amp;destination, TMapCallback &amp;&amp;adjacentNodeCb, TDistFunc &amp;&amp;distCb, std::vector&lt; TNode &gt; &amp;result)</div><div class="ttdoc">Calculates the shortest path between the two points using the map callback. Map callback signature sh...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Packers/Packer.cpp Source File</title>
+<title>BLIB: src/Systems/TogglerSystem.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,50 +79,46 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_4ddb0397ff01941c8f7466ec0255d6f8.html">Packers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_900c20bb70493231141df6997ccd6b87.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Packer.cpp</div></div>
+  <div class="headertitle"><div class="title">TogglerSystem.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02966.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01805.html">BLIB/Interfaces/GUI/Packers/Packer.hpp</a>&gt;</span></div>
+<a href="a02966.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01781.html">BLIB/Systems/TogglerSystem.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>gui</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01661.html">BLIB/Engine.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04706.html#a2b942eb90604a301008c4b26d6209793">    7</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04706.html#a2b942eb90604a301008c4b26d6209793">Packer::packElementIntoSpace</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a04622.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; e, <span class="keyword">const</span> sf::FloatRect&amp; space) {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">const</span> sf::Vector2f totalSize(space.size.x, space.size.y);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">const</span> sf::Vector2f size(</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        e-&gt;expandsWidth() ? totalSize.x : std::min(e-&gt;getRequisition().x, totalSize.x),</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        e-&gt;expandsHeight() ? totalSize.y : std::min(e-&gt;getRequisition().y, totalSize.y));</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">const</span> sf::Vector2f pos(space.position.x + space.size.x * 0.5f - size.x * 0.5f,</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                           space.position.y + space.size.y * 0.5f - size.y * 0.5f);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    e-&gt;assignAcquisition({pos, size});</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
-</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a04706.html#a4b254eb49aea88a8a35d4407dfe7cce5">   17</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04706.html#a4b254eb49aea88a8a35d4407dfe7cce5">Packer::manuallyPackElement</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a04622.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>&amp; e, <span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keywordtype">bool</span> f) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span> (f) { e-&gt;assignAcquisition(area); }</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">else</span> { <a class="code hl_function" href="a04706.html#a2b942eb90604a301008c4b26d6209793">packElementIntoSpace</a>(e, area); }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01805_html"><div class="ttname"><a href="a01805.html">Packer.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04622_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a04622.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01820_source.html#l00036">Element.hpp:36</a></div></div>
-<div class="ttc" id="aa04706_html_a2b942eb90604a301008c4b26d6209793"><div class="ttname"><a href="a04706.html#a2b942eb90604a301008c4b26d6209793">bl::gui::Packer::packElementIntoSpace</a></div><div class="ttdeci">static void packElementIntoSpace(const Element::Ptr &amp;element, const sf::FloatRect &amp;space)</div><div class="ttdoc">Packs an element into the given space. Obeys Element expand properties.</div><div class="ttdef"><b>Definition</b> <a href="a02966_source.html#l00007">Packer.cpp:7</a></div></div>
-<div class="ttc" id="aa04706_html_a4b254eb49aea88a8a35d4407dfe7cce5"><div class="ttname"><a href="a04706.html#a4b254eb49aea88a8a35d4407dfe7cce5">bl::gui::Packer::manuallyPackElement</a></div><div class="ttdeci">static void manuallyPackElement(const Element::Ptr &amp;element, const sf::FloatRect &amp;area, bool force=false)</div><div class="ttdoc">Manually pack the element. Note that the acquisition is relative to the parent element and likely doe...</div><div class="ttdef"><b>Definition</b> <a href="a02966_source.html#l00017">Packer.cpp:17</a></div></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>sys</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keywordtype">void</span> TogglerSystem::init(engine::Engine&amp; engine) {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    pool = &amp;engine.ecs().getAllComponents&lt;com::Toggler&gt;();</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keywordtype">void</span> TogglerSystem::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    pool-&gt;forEach([dt](ecs::Entity, com::Toggler&amp; tog) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        tog.time += dt;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <span class="keywordtype">float</span> period = *tog.value ? tog.onPeriod : tog.offPeriod;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <span class="keywordflow">if</span> (tog.time &gt;= period) {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>            *tog.value = !*tog.value;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>            tog.time -= std::floor(tog.time / period) * period;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    });</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace sys</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01661_html"><div class="ttname"><a href="a01661.html">Engine.hpp</a></div></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">TogglerSystem.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

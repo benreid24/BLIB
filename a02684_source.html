@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Assets/Drivers/MusicDriver.cpp Source File</title>
+<title>BLIB: src/Render/Observer.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,181 +79,161 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_e0c1ede47f21c4a643a1257f949f98e0.html">Assets</a></li><li class="navelem"><a class="el" href="dir_e37b0cc003caf99f01d503d3d719fc8f.html">Drivers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">MusicDriver.cpp</div></div>
+  <div class="headertitle"><div class="title">Observer.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02684.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01274.html">BLIB/Assets/Drivers/MusicDriver.hpp</a>&gt;</span></div>
+<a href="a02684.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01286.html">BLIB/Render/Observer.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Util/FileUtil.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>asi</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">constexpr</span> std::string_view TempName = <span class="stringliteral">&quot;asset_sound_temp.wav&quot;</span>;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a03594.html#a87eca0fd2f100422e24edc512ab04a24">   15</a></span><a class="code hl_function" href="a03594.html#a87eca0fd2f100422e24edc512ab04a24">MusicDriver::MusicDriver</a>()</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>: Driver(</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>      as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                                 .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>                                 .onMount = as::bdl::AssetBundleConfig::OnMount::WhenRequested}) {}</div>
-</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a03594.html#ad6a23e1fef9e8c639667855fc6f87838">   21</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03594.html#ad6a23e1fef9e8c639667855fc6f87838">MusicDriver::doCreate</a>(<a class="code hl_class" href="a03490.html">as::CreateContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_class" href="a03642.html">MusicPayload</a>&amp; payload) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getMode() != <a class="code hl_enumvalue" href="a03114.html#gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257">as::Mode::Editor</a>) {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Music assets can only be created in editor mode&quot;</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> std::string filepath = <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getFilePath(<span class="stringliteral">&quot;music.ogg&quot;</span>);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">if</span> (!<a class="code hl_function" href="a06930.html#a53980e3058e8169c3a46d4f3042354d7">util::FileUtil::createDirectory</a>(<a class="code hl_function" href="a06930.html#a29e0c13dcc16b04b6510caede1879cbd">util::FileUtil::getPath</a>(filepath))) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to create directory for music asset at path &quot;</span> &lt;&lt; filepath;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    }</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03598.html">CreateParams</a>* params = <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCustomDataAsMaybe&lt;<a class="code hl_struct" href="a03598.html">CreateParams</a>&gt;();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">if</span> (params &amp;&amp; params-&gt;<a class="code hl_variable" href="a03598.html#a97e5195ed59658526283630f0cfad421">samples</a>) {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        sf::OutputSoundFile outputFile;</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordflow">if</span> (!outputFile.openFromFile(</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>                filepath, params-&gt;<a class="code hl_variable" href="a03598.html#a2f2c22c82dedc58b49b72ad979e95e21">sampleRate</a>, params-&gt;<a class="code hl_variable" href="a03598.html#acb7e24b5fbf7178391cc7255628bb427">channelCount</a>, params-&gt;<a class="code hl_variable" href="a03598.html#ac730ba877c627a946d623ae2d5bb61af">channelMap</a>)) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to open output sound file for writing at path &quot;</span> &lt;&lt; filepath;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        outputFile.write(params-&gt;<a class="code hl_variable" href="a03598.html#a97e5195ed59658526283630f0cfad421">samples</a>, params-&gt;<a class="code hl_variable" href="a03598.html#a1f2975eafbe695cf7f323022b1c0b098">sampleCount</a>);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        outputFile.close();</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordflow">return</span> payload.<a class="code hl_function" href="a03642.html#a05620197b3acb48b0ceb5cc326d829ad">get</a>().openFromFile(filepath);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    }</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCustomData().getPath().empty()) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Music assets require a file path or sample data to import from&quot;</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    sf::InputSoundFile inputFile;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">if</span> (!inputFile.openFromFile(<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getCustomData().getPath())) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    sf::OutputSoundFile outputFile;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span> (!outputFile.openFromFile(filepath,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                                 inputFile.getSampleRate(),</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                                 inputFile.getChannelCount(),</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                                 inputFile.getChannelMap())) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to open output sound file for writing at path &quot;</span> &lt;&lt; filepath;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    std::unique_ptr&lt;std::int16_t[]&gt; sampleBuffer = std::make_unique&lt;std::int16_t[]&gt;(8192);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    std::uint64_t totalSamplesRead               = 0;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordflow">while</span> (totalSamplesRead &lt; inputFile.getSampleCount()) {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        std::uint64_t samplesToRead =</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            std::min&lt;std::uint64_t&gt;(8192, inputFile.getSampleCount() - totalSamplesRead);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">const</span> std::uint64_t samplesRead = inputFile.read(sampleBuffer.get(), samplesToRead);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (samplesRead == 0) { <span class="keywordflow">break</span>; }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        outputFile.write(sampleBuffer.get(), samplesRead);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        totalSamplesRead += samplesRead;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    inputFile.close();</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    outputFile.close();</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">return</span> payload.<a class="code hl_function" href="a03642.html#a05620197b3acb48b0ceb5cc326d829ad">get</a>().openFromFile(filepath);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>}</div>
-</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="a03594.html#aa2e019dd78bead1538f405467b897324">   79</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03594.html#aa2e019dd78bead1538f405467b897324">MusicDriver::doRead</a>(<a class="code hl_class" href="a03482.html">as::ReadContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_class" href="a03642.html">MusicPayload</a>&amp; payload) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_class" href="a03646.html">as::PersistentStream</a>* stream = <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getPersistentStream(<span class="stringliteral">&quot;music.ogg&quot;</span>);</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (!stream) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">if</span> (!payload.<a class="code hl_function" href="a03642.html#a05620197b3acb48b0ceb5cc326d829ad">get</a>().openFromStream(stream-&gt;<a class="code hl_function" href="a03646.html#a2d412630735fbbd50b90879d61309908">getSFMLAdaptor</a>())) { <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}</div>
-</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="a03594.html#aa178d67e601fff6d8ab38cfbebf76fd8">   86</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a03594.html#aa178d67e601fff6d8ab38cfbebf76fd8">MusicDriver::doWrite</a>(<a class="code hl_class" href="a03486.html">as::WriteContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <span class="keyword">const</span> <a class="code hl_class" href="a03642.html">MusicPayload</a>&amp;) {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="comment">// only write in Export mode otherwise we clobber the source file</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getMode() != <a class="code hl_enumvalue" href="a03114.html#gga537fc08995c54793e8c6cb8d44e8a076a33b9f7e23215993af4b11032d18a3469">as::Mode::BundleCreation</a>) { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_class" href="a06818.html">stream::InputStream</a> readStream;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">if</span> (!readStream.<a class="code hl_function" href="a06818.html#aba80865bb5cd4b0f09fc4c3923870836">open</a>(<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.getFilePath(<span class="stringliteral">&quot;music.ogg&quot;</span>))) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to open source music file&quot;</span>;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="a06830.html">stream::OutputStream</a> writeStream;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordflow">if</span> (!<a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>.setupWriteStream(<span class="stringliteral">&quot;music.ogg&quot;</span>, writeStream)) {</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to setup music write stream&quot;</span>;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">constexpr</span> std::size_t ChunkSize = 8192;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keyword">const</span> std::size_t fullChunks    = readStream.<a class="code hl_function" href="a06818.html#ad2e7a87be562de2559943b84b1bbf60b">getSize</a>() / ChunkSize;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">const</span> std::size_t lastChunkSize = readStream.<a class="code hl_function" href="a06818.html#ad2e7a87be562de2559943b84b1bbf60b">getSize</a>() % ChunkSize;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> std::size_t totalChunks   = fullChunks + (lastChunkSize &gt; 0 ? 1 : 0);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    std::vector&lt;char&gt; <a class="code hl_variable" href="a02825.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_variable" href="a02825.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.resize(ChunkSize);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; totalChunks; ++i) {</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <span class="keyword">const</span> std::size_t toRead = i &lt; fullChunks ? ChunkSize : lastChunkSize;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="keywordflow">if</span> (!readStream.<a class="code hl_function" href="a06818.html#adb3dd5c88c53241a86bfe3fec28ebc05">read</a>(<a class="code hl_variable" href="a02825.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>, toRead)) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>            <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to read music chunk&quot;</span>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordflow">if</span> (!writeStream.<a class="code hl_function" href="a06830.html#aaf973f6923512e03ef8b976d6be77aa3">write</a>(<a class="code hl_variable" href="a02825.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.data(), toRead)) {</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to write music chunk&quot;</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
-</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00590.html">BLIB/Render/Graph/Assets/DepthBuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00605.html">BLIB/Render/Graph/Assets/FinalSwapframeAsset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09001.html">BLIB/Render/Renderer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>Observer::Observer(engine::Engine&amp; e, Renderer&amp; r, rg::AssetFactory&amp; f, <span class="keywordtype">bool</span> c, <span class="keywordtype">bool</span> v)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: RenderTarget(e, r, f, false)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>, isCommon(c)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, isVirtual(v) {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    renderingTo = graphAssets.putAsset&lt;rgi::FinalSwapframeAsset&gt;(</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        viewport, scissor, clearColors, std::size(clearColors));</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> sf::Vector2u&amp; windowSize,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>                            <span class="keyword">const</span> sf::Rect&lt;std::uint32_t&gt;&amp; renderRegion, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> count,</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>                            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">bool</span> topBottomFirst) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> std::uint32_t offsetX = (windowSize.x - renderRegion.size.x) / 2;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> std::uint32_t offsetY = (windowSize.y - renderRegion.size.y) / 2;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> sf::Vector2u uSize(renderRegion.size.x, renderRegion.size.y);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> sf::Vector2f fSize(uSize);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">const</span> sf::Vector2f fHalf(fSize * 0.5f);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> sf::Vector2u uHalf(fHalf);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">const</span> sf::Vector2i iHalf(uHalf);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> VkExtent2D oldSize = scissor.extent;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">switch</span> (count) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">case</span> 1:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        scissor.offset  = {0, 0};</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        scissor.extent  = {uSize.x, uSize.y};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        viewport.x      = 0.f;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        viewport.y      = 0.f;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        viewport.width  = fSize.x;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        viewport.height = fSize.y;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">case</span> 2:</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (topBottomFirst) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            scissor.extent  = {uSize.x, uHalf.y};</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>            viewport.width  = fSize.x;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            viewport.height = fHalf.y;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            viewport.x      = 0.f;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <span class="keywordflow">if</span> (i == 0) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                scissor.offset = {0, 0};</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                viewport.y     = 0.f;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                scissor.offset = {0, iHalf.y};</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                viewport.y     = fHalf.y;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            scissor.extent  = {uHalf.x, uSize.y};</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            viewport.width  = fHalf.x;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            viewport.height = fSize.y;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            viewport.y      = 0.f;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keywordflow">if</span> (i == 0) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                scissor.offset = {0, 0};</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                viewport.x     = 0.f;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                scissor.offset = {iHalf.x, 0};</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                viewport.x     = fHalf.x;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">case</span> 3:</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">case</span> 4:</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        scissor.extent  = {uHalf.x, uHalf.y};</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        viewport.width  = fHalf.x;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        viewport.height = fHalf.y;</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="comment">// top or bottom row</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">if</span> (i &lt; 2) { <span class="comment">// top row</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            viewport.y       = 0.f;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            scissor.offset.y = 0;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keywordflow">else</span> { <span class="comment">// bottom row</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            viewport.y       = fHalf.y;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            scissor.offset.y = uHalf.y;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="comment">// left or right column</span></div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">if</span> (i % 2 == 0) { <span class="comment">// left column</span></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            viewport.x       = 0.f;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            scissor.offset.x = 0;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        }</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        <span class="keywordflow">else</span> { <span class="comment">// right column</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>            viewport.x       = fHalf.x;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>            scissor.offset.x = uHalf.x;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid observer count: &quot;</span> &lt;&lt; count;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="comment">// add offsets for letterboxing</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    viewport.x += offsetX;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    viewport.y += offsetY;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    scissor.offset.x += offsetX;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    scissor.offset.y += offsetY;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span> (scissor.extent.width != oldSize.width || scissor.extent.height != oldSize.height) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <a class="code hl_define" href="a01208.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(renderer.vulkanState().getDevice()));</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    }</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a05974.html#abbbfc65202bc680194e8c3746fe4a3bc">  116</a></span><span class="keywordtype">void</span> Observer::assignRegion(<span class="keyword">const</span> VkRect2D&amp; region) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keywordflow">if</span> (!isVirtual) {</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Only virtual Observers may have manually assigned regions&quot;</span>);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace asi</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    scissor           = region;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    viewport.x        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.offset.x);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    viewport.y        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.offset.y);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    viewport.width    = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.extent.width);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    viewport.height   = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(region.extent.height);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    viewport.minDepth = 0.f;</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    viewport.maxDepth = 1.f;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <a class="code hl_define" href="a01208.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a>(vkDeviceWaitIdle(renderer.vulkanState().getDevice()));</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    graphAssets.notifyResize({scissor.extent.width, scissor.extent.height});</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>} <span class="comment">// namespace bl</span></div>
 <div class="ttc" id="aa00365_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa01274_html"><div class="ttname"><a href="a01274.html">MusicDriver.hpp</a></div></div>
-<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">FileUtil.hpp</a></div></div>
-<div class="ttc" id="aa02825_html_aed1171abd529e4d892f21a37c79b5e0b"><div class="ttname"><a href="a02825.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a></div><div class="ttdeci">as::TypedRef&lt; asi::SoundPayload &gt; buffer</div><div class="ttdef"><b>Definition</b> <a href="a02825_source.html#l00023">AudioSystem.cpp:23</a></div></div>
-<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03114_html_gga537fc08995c54793e8c6cb8d44e8a076a33b9f7e23215993af4b11032d18a3469"><div class="ttname"><a href="a03114.html#gga537fc08995c54793e8c6cb8d44e8a076a33b9f7e23215993af4b11032d18a3469">bl::as::Mode::BundleCreation</a></div><div class="ttdeci">@ BundleCreation</div><div class="ttdoc">Special mode for bundle creation. Same as Game but used when writing.</div></div>
-<div class="ttc" id="aa03114_html_gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257"><div class="ttname"><a href="a03114.html#gga537fc08995c54793e8c6cb8d44e8a076a344a7f427fb765610ef96eb7bce95257">bl::as::Mode::Editor</a></div><div class="ttdeci">@ Editor</div><div class="ttdoc">Assets are stored in source control friendly formats and loaded directly from files.</div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03482_html"><div class="ttname"><a href="a03482.html">bl::as::ReadContext</a></div><div class="ttdoc">Context for existing assets being loaded into memory.</div><div class="ttdef"><b>Definition</b> <a href="a09815_source.html#l00114">Context.hpp:114</a></div></div>
-<div class="ttc" id="aa03486_html"><div class="ttname"><a href="a03486.html">bl::as::WriteContext</a></div><div class="ttdoc">Context for writing asset data to disk.</div><div class="ttdef"><b>Definition</b> <a href="a09815_source.html#l00143">Context.hpp:143</a></div></div>
-<div class="ttc" id="aa03490_html"><div class="ttname"><a href="a03490.html">bl::as::CreateContext</a></div><div class="ttdoc">Context for asset imports. Import is when assets are created from external files.</div><div class="ttdef"><b>Definition</b> <a href="a09815_source.html#l00194">Context.hpp:194</a></div></div>
-<div class="ttc" id="aa03594_html_a87eca0fd2f100422e24edc512ab04a24"><div class="ttname"><a href="a03594.html#a87eca0fd2f100422e24edc512ab04a24">bl::asi::MusicDriver::MusicDriver</a></div><div class="ttdeci">MusicDriver()</div><div class="ttdoc">Creates the driver.</div><div class="ttdef"><b>Definition</b> <a href="a02684_source.html#l00015">MusicDriver.cpp:15</a></div></div>
-<div class="ttc" id="aa03594_html_aa178d67e601fff6d8ab38cfbebf76fd8"><div class="ttname"><a href="a03594.html#aa178d67e601fff6d8ab38cfbebf76fd8">bl::asi::MusicDriver::doWrite</a></div><div class="ttdeci">virtual bool doWrite(as::WriteContext &amp;ctx, const MusicPayload &amp;payload) override</div><div class="ttdoc">Writes the music asset data to the repository.</div><div class="ttdef"><b>Definition</b> <a href="a02684_source.html#l00086">MusicDriver.cpp:86</a></div></div>
-<div class="ttc" id="aa03594_html_aa2e019dd78bead1538f405467b897324"><div class="ttname"><a href="a03594.html#aa2e019dd78bead1538f405467b897324">bl::asi::MusicDriver::doRead</a></div><div class="ttdeci">virtual bool doRead(as::ReadContext &amp;ctx, MusicPayload &amp;payload) override</div><div class="ttdoc">Reads the music asset data from the repository.</div><div class="ttdef"><b>Definition</b> <a href="a02684_source.html#l00079">MusicDriver.cpp:79</a></div></div>
-<div class="ttc" id="aa03594_html_ad6a23e1fef9e8c639667855fc6f87838"><div class="ttname"><a href="a03594.html#ad6a23e1fef9e8c639667855fc6f87838">bl::asi::MusicDriver::doCreate</a></div><div class="ttdeci">virtual bool doCreate(as::CreateContext &amp;ctx, MusicPayload &amp;payload) override</div><div class="ttdoc">Creates a new music asset.</div><div class="ttdef"><b>Definition</b> <a href="a02684_source.html#l00021">MusicDriver.cpp:21</a></div></div>
-<div class="ttc" id="aa03598_html"><div class="ttname"><a href="a03598.html">bl::asi::MusicDriver::CreateParams</a></div><div class="ttdoc">Optional creation parameters for music assets using in-memory samples.</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00029">MusicDriver.hpp:29</a></div></div>
-<div class="ttc" id="aa03598_html_a1f2975eafbe695cf7f323022b1c0b098"><div class="ttname"><a href="a03598.html#a1f2975eafbe695cf7f323022b1c0b098">bl::asi::MusicDriver::CreateParams::sampleCount</a></div><div class="ttdeci">std::uint64_t sampleCount</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00032">MusicDriver.hpp:32</a></div></div>
-<div class="ttc" id="aa03598_html_a2f2c22c82dedc58b49b72ad979e95e21"><div class="ttname"><a href="a03598.html#a2f2c22c82dedc58b49b72ad979e95e21">bl::asi::MusicDriver::CreateParams::sampleRate</a></div><div class="ttdeci">unsigned int sampleRate</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00034">MusicDriver.hpp:34</a></div></div>
-<div class="ttc" id="aa03598_html_a97e5195ed59658526283630f0cfad421"><div class="ttname"><a href="a03598.html#a97e5195ed59658526283630f0cfad421">bl::asi::MusicDriver::CreateParams::samples</a></div><div class="ttdeci">const std::int16_t * samples</div><div class="ttdoc">Raw 16-bit audio samples. Takes priority over path.</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00031">MusicDriver.hpp:31</a></div></div>
-<div class="ttc" id="aa03598_html_ac730ba877c627a946d623ae2d5bb61af"><div class="ttname"><a href="a03598.html#ac730ba877c627a946d623ae2d5bb61af">bl::asi::MusicDriver::CreateParams::channelMap</a></div><div class="ttdeci">std::vector&lt; sf::SoundChannel &gt; channelMap</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00035">MusicDriver.hpp:35</a></div></div>
-<div class="ttc" id="aa03598_html_acb7e24b5fbf7178391cc7255628bb427"><div class="ttname"><a href="a03598.html#acb7e24b5fbf7178391cc7255628bb427">bl::asi::MusicDriver::CreateParams::channelCount</a></div><div class="ttdeci">unsigned int channelCount</div><div class="ttdef"><b>Definition</b> <a href="a01274_source.html#l00033">MusicDriver.hpp:33</a></div></div>
-<div class="ttc" id="aa03642_html"><div class="ttname"><a href="a03642.html">bl::as::PayloadGeneric</a></div><div class="ttdoc">Generic payload container for arbitrary payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01394_source.html#l00017">PayloadGeneric.hpp:17</a></div></div>
-<div class="ttc" id="aa03642_html_a05620197b3acb48b0ceb5cc326d829ad"><div class="ttname"><a href="a03642.html#a05620197b3acb48b0ceb5cc326d829ad">bl::as::PayloadGeneric::get</a></div><div class="ttdeci">T &amp; get()</div><div class="ttdoc">Returns the payload data.</div><div class="ttdef"><b>Definition</b> <a href="a01394_source.html#l00035">PayloadGeneric.hpp:35</a></div></div>
-<div class="ttc" id="aa03646_html"><div class="ttname"><a href="a03646.html">bl::as::PersistentStream</a></div><div class="ttdoc">Represents a persistent stream to asset data.</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00019">PersistentStream.hpp:19</a></div></div>
-<div class="ttc" id="aa03646_html_a2d412630735fbbd50b90879d61309908"><div class="ttname"><a href="a03646.html#a2d412630735fbbd50b90879d61309908">bl::as::PersistentStream::getSFMLAdaptor</a></div><div class="ttdeci">stream::SfInputStreamAdaptor &amp; getSFMLAdaptor()</div><div class="ttdoc">Returns an SFML compatible stream.</div><div class="ttdef"><b>Definition</b> <a href="a01397_source.html#l00036">PersistentStream.hpp:36</a></div></div>
-<div class="ttc" id="aa06818_html"><div class="ttname"><a href="a06818.html">bl::stream::InputStream</a></div><div class="ttdoc">Universal input stream which can operate on files, buffers, and other streams.</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00021">InputStream.hpp:21</a></div></div>
-<div class="ttc" id="aa06818_html_aba80865bb5cd4b0f09fc4c3923870836"><div class="ttname"><a href="a06818.html#aba80865bb5cd4b0f09fc4c3923870836">bl::stream::InputStream::open</a></div><div class="ttdeci">bool open(const std::string &amp;path)</div><div class="ttdoc">Opens the stream with the given file path.</div><div class="ttdef"><b>Definition</b> <a href="a02177_source.html#l00048">InputStream.cpp:48</a></div></div>
-<div class="ttc" id="aa06818_html_ad2e7a87be562de2559943b84b1bbf60b"><div class="ttname"><a href="a06818.html#ad2e7a87be562de2559943b84b1bbf60b">bl::stream::InputStream::getSize</a></div><div class="ttdeci">std::size_t getSize() const</div><div class="ttdoc">Returns the total size of the stream in bytes.</div><div class="ttdef"><b>Definition</b> <a href="a00347_source.html#l00182">InputStream.hpp:182</a></div></div>
-<div class="ttc" id="aa06818_html_adb3dd5c88c53241a86bfe3fec28ebc05"><div class="ttname"><a href="a06818.html#adb3dd5c88c53241a86bfe3fec28ebc05">bl::stream::InputStream::read</a></div><div class="ttdeci">std::size_t read(void *data, std::size_t len)</div><div class="ttdoc">Reads data from the stream into the given buffer.</div><div class="ttdef"><b>Definition</b> <a href="a02177_source.html#l00083">InputStream.cpp:83</a></div></div>
-<div class="ttc" id="aa06830_html"><div class="ttname"><a href="a06830.html">bl::stream::OutputStream</a></div><div class="ttdoc">Universal output stream which can operate on files, buffers, and other streams.</div><div class="ttdef"><b>Definition</b> <a href="a00356_source.html#l00022">OutputStream.hpp:22</a></div></div>
-<div class="ttc" id="aa06830_html_aaf973f6923512e03ef8b976d6be77aa3"><div class="ttname"><a href="a06830.html#aaf973f6923512e03ef8b976d6be77aa3">bl::stream::OutputStream::write</a></div><div class="ttdeci">bool write(const void *data, std::size_t len)</div><div class="ttdoc">Writes data into the underlying stream.</div><div class="ttdef"><b>Definition</b> <a href="a02174_source.html#l00059">OutputStream.cpp:59</a></div></div>
-<div class="ttc" id="aa06930_html_a29e0c13dcc16b04b6510caede1879cbd"><div class="ttname"><a href="a06930.html#a29e0c13dcc16b04b6510caede1879cbd">bl::util::FileUtil::getPath</a></div><div class="ttdeci">static std::string getPath(const std::string &amp;file)</div><div class="ttdoc">Returns the directory path of the given filename Example: &quot;folder/subfolder/file.txt&quot; path is &quot;folder...</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00057">FileUtil.cpp:57</a></div></div>
-<div class="ttc" id="aa06930_html_a53980e3058e8169c3a46d4f3042354d7"><div class="ttname"><a href="a06930.html#a53980e3058e8169c3a46d4f3042354d7">bl::util::FileUtil::createDirectory</a></div><div class="ttdeci">static bool createDirectory(const std::string &amp;path)</div><div class="ttdoc">Creates a directory on the file system, creating subdirectories as necessary.</div><div class="ttdef"><b>Definition</b> <a href="a02753_source.html#l00107">FileUtil.cpp:107</a></div></div>
+<div class="ttc" id="aa00590_html"><div class="ttname"><a href="a00590.html">DepthBuffer.hpp</a></div></div>
+<div class="ttc" id="aa00605_html"><div class="ttname"><a href="a00605.html">FinalSwapframeAsset.hpp</a></div></div>
+<div class="ttc" id="aa01208_html_a95c2f7535355f5f3855410ab629f9310"><div class="ttname"><a href="a01208.html#a95c2f7535355f5f3855410ab629f9310">vkCheck</a></div><div class="ttdeci">#define vkCheck(expr)</div><div class="ttdef"><b>Definition</b> <a href="a01208_source.html#l00015">VkCheck.hpp:15</a></div></div>
+<div class="ttc" id="aa01286_html"><div class="ttname"><a href="a01286.html">Observer.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa09001_html"><div class="ttname"><a href="a09001.html">Renderer.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

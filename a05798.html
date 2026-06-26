@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::lgt::Scene3DLighting Class Reference</title>
+<title>BLIB: bl::rc::rg::TaskOutput Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,299 +74,334 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03207.html">lgt</a></li><li class="navelem"><a class="el" href="a05798.html">Scene3DLighting</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03261.html">rg</a></li><li class="navelem"><a class="el" href="a05798.html">TaskOutput</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05795.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::lgt::Scene3DLighting Class Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::TaskOutput Struct Reference<div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Lighting manager for 3d scenes.  
+<p>Wrapper for created task outputs that has some extra info for sharing.  
  <a href="a05798.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00680_source.html">TaskOutput.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05802.html">OutputOption</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descriptor for an output option for this slot.  <a href="a05802.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a2bd198ab7f31ed5baeb3c69a12781902" id="r_a2bd198ab7f31ed5baeb3c69a12781902"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a> { <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902af43efd4199e695d31f15a7ee1f1dc797">CreatedByTask</a>
+, <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902a1eab913b1bbc74fa4e10a9e58feb42a7">CreatedByOtherTask</a>
+, <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902aaef0b5dce6456a27cc7af1a655a1248c">CreatedExternally</a>
+ }</td></tr>
+<tr class="memdesc:a2bd198ab7f31ed5baeb3c69a12781902"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents what creates this task output.  <a href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">More...</a><br /></td></tr>
+<tr class="separator:a2bd198ab7f31ed5baeb3c69a12781902"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011e546063832b13295bf9bf1df0dfb5" id="r_a011e546063832b13295bf9bf1df0dfb5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a> { <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5aa4ee66aeab0e20ea3d5ad3006c4881d9">Exclusive</a>
+, <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac">Shared</a>
+ }</td></tr>
+<tr class="memdesc:a011e546063832b13295bf9bf1df0dfb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents whether tasks can share the same output asset.  <a href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">More...</a><br /></td></tr>
+<tr class="separator:a011e546063832b13295bf9bf1df0dfb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e0941ee60963cd72674d3c76bdf4453" id="r_a2e0941ee60963cd72674d3c76bdf4453"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a> { <a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453abffe2bb084ef9446e97692a49ba63cc3">First</a> = 0
+, <a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb">Middle</a> = 10
+, <a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453a150f77faf8e11cc560fee6133f03ed12">Last</a> = 20
+ }</td></tr>
+<tr class="memdesc:a2e0941ee60963cd72674d3c76bdf4453"><td class="mdescLeft">&#160;</td><td class="mdescRight">The position order that the task should be in when multiple tasks write to this output. Tasks with the same Order will be ordered arbitrarily. Integer values may also be used to order tasks.  <a href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">More...</a><br /></td></tr>
+<tr class="separator:a2e0941ee60963cd72674d3c76bdf4453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a61248ed9b129ba81b675e616b86ba095" id="r_a61248ed9b129ba81b675e616b86ba095"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a61248ed9b129ba81b675e616b86ba095">Scene3DLighting</a> (<a class="el" href="a05770.html">LightingDescriptor3D</a> &amp;uniform)</td></tr>
-<tr class="memdesc:a61248ed9b129ba81b675e616b86ba095"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the lighting manager.  <br /></td></tr>
-<tr class="separator:a61248ed9b129ba81b675e616b86ba095"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1ba112b13b0e26683951832d52833d7" id="r_aa1ba112b13b0e26683951832d52833d7"><td class="memItemLeft" align="right" valign="top">glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#aa1ba112b13b0e26683951832d52833d7">getAmbientLightColor</a> () const</td></tr>
-<tr class="memdesc:aa1ba112b13b0e26683951832d52833d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the global ambient light color.  <br /></td></tr>
-<tr class="separator:aa1ba112b13b0e26683951832d52833d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83025db684888f23e38c4f2f6727d24e" id="r_a83025db684888f23e38c4f2f6727d24e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a83025db684888f23e38c4f2f6727d24e">setAmbientLightColor</a> (const glm::vec3 &amp;color)</td></tr>
-<tr class="memdesc:a83025db684888f23e38c4f2f6727d24e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the global ambient light color.  <br /></td></tr>
-<tr class="separator:a83025db684888f23e38c4f2f6727d24e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11ab12d4c3ad66c9c954361c7ad29018" id="r_a11ab12d4c3ad66c9c954361c7ad29018"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05814.html">SunLight3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a11ab12d4c3ad66c9c954361c7ad29018">getSun</a> () const</td></tr>
-<tr class="memdesc:a11ab12d4c3ad66c9c954361c7ad29018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sun light.  <br /></td></tr>
-<tr class="separator:a11ab12d4c3ad66c9c954361c7ad29018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a753e7962a60f99e8fbdc23f93296012a" id="r_a753e7962a60f99e8fbdc23f93296012a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05814.html">SunLight3D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a753e7962a60f99e8fbdc23f93296012a">modifySun</a> ()</td></tr>
-<tr class="memdesc:a753e7962a60f99e8fbdc23f93296012a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the sun light for modification.  <br /></td></tr>
-<tr class="separator:a753e7962a60f99e8fbdc23f93296012a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a778d9574815a3cbe9b38495fe461e8aa" id="r_a778d9574815a3cbe9b38495fe461e8aa"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:a778d9574815a3cbe9b38495fe461e8aa"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03130.html#ga4901cb82364c48429bc38b53e688465f">SpotLightHandle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05798.html#a778d9574815a3cbe9b38495fe461e8aa">createSpotlight</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a778d9574815a3cbe9b38495fe461e8aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new spot light in the scene.  <br /></td></tr>
-<tr class="separator:a778d9574815a3cbe9b38495fe461e8aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad602f40515844ee6fd84058c844c65f7" id="r_ad602f40515844ee6fd84058c844c65f7"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:ad602f40515844ee6fd84058c844c65f7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03130.html#ga528f3b4db46678f8004d6c073d642a31">SpotLightShadowHandle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05798.html#ad602f40515844ee6fd84058c844c65f7">createSpotlightWithShadow</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ad602f40515844ee6fd84058c844c65f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new spot light in the scene that casts shadows.  <br /></td></tr>
-<tr class="separator:ad602f40515844ee6fd84058c844c65f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89178f0aeaa7a71043a5060a19674e05" id="r_a89178f0aeaa7a71043a5060a19674e05"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a89178f0aeaa7a71043a5060a19674e05">getSpotShadowCount</a> () const</td></tr>
-<tr class="memdesc:a89178f0aeaa7a71043a5060a19674e05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of spotlights with shadows in the scene.  <br /></td></tr>
-<tr class="separator:a89178f0aeaa7a71043a5060a19674e05"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a687f4d544c1d17197121923af1bd8de6" id="r_a687f4d544c1d17197121923af1bd8de6"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a687f4d544c1d17197121923af1bd8de6">getSpotLightCount</a> () const</td></tr>
-<tr class="memdesc:a687f4d544c1d17197121923af1bd8de6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of spotlights in the scene.  <br /></td></tr>
-<tr class="separator:a687f4d544c1d17197121923af1bd8de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56776a13326d4e383e92b8836b2e3c6a" id="r_a56776a13326d4e383e92b8836b2e3c6a"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:a56776a13326d4e383e92b8836b2e3c6a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03130.html#ga43c4ba4ef116220daec99d7ed2e34ed9">PointLightHandle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05798.html#a56776a13326d4e383e92b8836b2e3c6a">createPointLight</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:a56776a13326d4e383e92b8836b2e3c6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new point light in the scene.  <br /></td></tr>
-<tr class="separator:a56776a13326d4e383e92b8836b2e3c6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6f19313dbb925966f51c623f33c0eac" id="r_ab6f19313dbb925966f51c623f33c0eac"><td class="memTemplParams" colspan="2">template&lt;typename... TArgs&gt; </td></tr>
-<tr class="memitem:ab6f19313dbb925966f51c623f33c0eac"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a03130.html#ga7a23e7a8ae6e232a0ef97bcbc5d9c2db">PointLightShadowHandle</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05798.html#ab6f19313dbb925966f51c623f33c0eac">createPointLightWithShadow</a> (TArgs &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ab6f19313dbb925966f51c623f33c0eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new point light in the scene that casts shadows.  <br /></td></tr>
-<tr class="separator:ab6f19313dbb925966f51c623f33c0eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09b962aae09d2492cced2286f7e85863" id="r_a09b962aae09d2492cced2286f7e85863"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a09b962aae09d2492cced2286f7e85863">getPointShadowCount</a> () const</td></tr>
-<tr class="memdesc:a09b962aae09d2492cced2286f7e85863"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of point lights with shadows in the scene.  <br /></td></tr>
-<tr class="separator:a09b962aae09d2492cced2286f7e85863"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d27c82e875b3090bcb0e72f95a3d4bf" id="r_a8d27c82e875b3090bcb0e72f95a3d4bf"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a8d27c82e875b3090bcb0e72f95a3d4bf">getPointLightCount</a> () const</td></tr>
-<tr class="memdesc:a8d27c82e875b3090bcb0e72f95a3d4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of point lights in the scene.  <br /></td></tr>
-<tr class="separator:a8d27c82e875b3090bcb0e72f95a3d4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aece433200082a8af08661d99730f34cb" id="r_aece433200082a8af08661d99730f34cb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#aece433200082a8af08661d99730f34cb">setSceneCenter</a> (const glm::vec3 &amp;center)</td></tr>
-<tr class="memdesc:aece433200082a8af08661d99730f34cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the center of the scene in world coordinates. Used for sun shadows.  <br /></td></tr>
-<tr class="separator:aece433200082a8af08661d99730f34cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace423ca4e7aff9c917b664ee917675d4" id="r_ace423ca4e7aff9c917b664ee917675d4"><td class="memItemLeft" align="right" valign="top">const glm::vec3 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#ace423ca4e7aff9c917b664ee917675d4">getSceneCenter</a> () const</td></tr>
-<tr class="memdesc:ace423ca4e7aff9c917b664ee917675d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the center of the scene in world coordinates.  <br /></td></tr>
-<tr class="separator:ace423ca4e7aff9c917b664ee917675d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a417619383720bc229b3c85735fe7669a" id="r_a417619383720bc229b3c85735fe7669a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a417619383720bc229b3c85735fe7669a">setSunDistance</a> (float distance)</td></tr>
-<tr class="memdesc:a417619383720bc229b3c85735fe7669a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the distance of the sun from the scene center.  <br /></td></tr>
-<tr class="separator:a417619383720bc229b3c85735fe7669a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abde36022e86fd5b0e20c452519497024" id="r_abde36022e86fd5b0e20c452519497024"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#abde36022e86fd5b0e20c452519497024">getSunDistance</a> () const</td></tr>
-<tr class="memdesc:abde36022e86fd5b0e20c452519497024"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance of the sun from the scene center.  <br /></td></tr>
-<tr class="separator:abde36022e86fd5b0e20c452519497024"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c550a829cfc943c9503f60222254dd1" id="r_a9c550a829cfc943c9503f60222254dd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a9c550a829cfc943c9503f60222254dd1">updateSunCameraMatrix</a> ()</td></tr>
-<tr class="memdesc:a9c550a829cfc943c9503f60222254dd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the view projection matrix for the sunlight camera.  <br /></td></tr>
-<tr class="separator:a9c550a829cfc943c9503f60222254dd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a440813ddf4ac13cd038b899009df2875" id="r_a440813ddf4ac13cd038b899009df2875"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a440813ddf4ac13cd038b899009df2875">sync</a> ()</td></tr>
-<tr class="memdesc:a440813ddf4ac13cd038b899009df2875"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by owning scene prior to render. Do not call manually.  <br /></td></tr>
-<tr class="separator:a440813ddf4ac13cd038b899009df2875"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d547d672592fdcddf8449491c5a6c0c" id="r_a7d547d672592fdcddf8449491c5a6c0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a7d547d672592fdcddf8449491c5a6c0c">TaskOutput</a> ()</td></tr>
+<tr class="memdesc:a7d547d672592fdcddf8449491c5a6c0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty task output.  <br /></td></tr>
+<tr class="separator:a7d547d672592fdcddf8449491c5a6c0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58800bbe4b9a3d3ca002e982ce08843a" id="r_a58800bbe4b9a3d3ca002e982ce08843a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a58800bbe4b9a3d3ca002e982ce08843a">TaskOutput</a> (std::string_view tag, <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a> createMode, <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a> shareMode=<a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac">Shared</a>, <a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a> <a class="el" href="a05798.html#a8ccf6796ef468c15a85cc390a7b583f8">order</a>=<a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb">Middle</a>, std::initializer_list&lt; std::string_view &gt; <a class="el" href="a05798.html#a0a1e6725343f67aa915f12711a1dfb55">sharedWith</a>={})</td></tr>
+<tr class="memdesc:a58800bbe4b9a3d3ca002e982ce08843a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the task output.  <br /></td></tr>
+<tr class="separator:a58800bbe4b9a3d3ca002e982ce08843a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4290c553dd0774ea6a1d40d2027a170a" id="r_a4290c553dd0774ea6a1d40d2027a170a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a4290c553dd0774ea6a1d40d2027a170a">TaskOutput</a> (std::initializer_list&lt; std::string_view &gt; tags, std::initializer_list&lt; <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a> &gt; createModes, std::initializer_list&lt; <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a> &gt; shareModes={<a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac">Shared</a>}, <a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a> <a class="el" href="a05798.html#a8ccf6796ef468c15a85cc390a7b583f8">order</a>=<a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb">Middle</a>, std::initializer_list&lt; std::string_view &gt; <a class="el" href="a05798.html#a0a1e6725343f67aa915f12711a1dfb55">sharedWith</a>={})</td></tr>
+<tr class="memdesc:a4290c553dd0774ea6a1d40d2027a170a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the task output with multiple options. Options are prioritized in the order that they are given.  <br /></td></tr>
+<tr class="separator:a4290c553dd0774ea6a1d40d2027a170a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbcfc220f57570791f7c347fa0bb5a6c" id="r_abbcfc220f57570791f7c347fa0bb5a6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05798.html">TaskOutput</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#abbcfc220f57570791f7c347fa0bb5a6c">addOption</a> (std::string_view tag, <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a> shareMode, <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a> createMode)</td></tr>
+<tr class="memdesc:abbcfc220f57570791f7c347fa0bb5a6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an option for this output slot. Options are prioritized in the order they are added, including those passed in the constructor.  <br /></td></tr>
+<tr class="separator:abbcfc220f57570791f7c347fa0bb5a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43408f533f0c567604b3927c22f13689" id="r_a43408f533f0c567604b3927c22f13689"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05798.html">TaskOutput</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a43408f533f0c567604b3927c22f13689">withPurpose</a> (std::string_view p)</td></tr>
+<tr class="memdesc:a43408f533f0c567604b3927c22f13689"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the purpose of this output. purpose is used to disambiguate assets that have the same tags and is generally used by descriptor sets.  <br /></td></tr>
+<tr class="separator:a43408f533f0c567604b3927c22f13689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff7492c138fed71becc355e3e4dcef3" id="r_a1ff7492c138fed71becc355e3e4dcef3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05798.html">TaskOutput</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a1ff7492c138fed71becc355e3e4dcef3">withOrder</a> (<a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a> o)</td></tr>
+<tr class="memdesc:a1ff7492c138fed71becc355e3e4dcef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the order priority of this output. Order is relative to the other outputs being generated in a given timeline slice.  <br /></td></tr>
+<tr class="separator:a1ff7492c138fed71becc355e3e4dcef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e1b209ffdbc0f7dc3b977faf24fc0d3" id="r_a5e1b209ffdbc0f7dc3b977faf24fc0d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05798.html">TaskOutput</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a5e1b209ffdbc0f7dc3b977faf24fc0d3">withSharedWith</a> (std::string_view <a class="el" href="a02393.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>)</td></tr>
+<tr class="memdesc:a5e1b209ffdbc0f7dc3b977faf24fc0d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a task id that this output may be shared with.  <br /></td></tr>
+<tr class="separator:a5e1b209ffdbc0f7dc3b977faf24fc0d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a0bf2770c66b60523bf091f6e4030f036" id="r_a0bf2770c66b60523bf091f6e4030f036"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a0bf2770c66b60523bf091f6e4030f036"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a05798.html#a0bf2770c66b60523bf091f6e4030f036">Light3D</a></td></tr>
-<tr class="separator:a0bf2770c66b60523bf091f6e4030f036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a900c795374088e78b26b029cea4f5579" id="r_a900c795374088e78b26b029cea4f5579"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04046.html">ctr::StaticVector</a>&lt; <a class="el" href="a05802.html">OutputOption</a>, 8 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a900c795374088e78b26b029cea4f5579">options</a></td></tr>
+<tr class="separator:a900c795374088e78b26b029cea4f5579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ccf6796ef468c15a85cc390a7b583f8" id="r_a8ccf6796ef468c15a85cc390a7b583f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a8ccf6796ef468c15a85cc390a7b583f8">order</a></td></tr>
+<tr class="separator:a8ccf6796ef468c15a85cc390a7b583f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a1e6725343f67aa915f12711a1dfb55" id="r_a0a1e6725343f67aa915f12711a1dfb55"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04046.html">ctr::StaticVector</a>&lt; std::string_view, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a0a1e6725343f67aa915f12711a1dfb55">sharedWith</a></td></tr>
+<tr class="separator:a0a1e6725343f67aa915f12711a1dfb55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a393916d03573e4dd9228af582ffed05e" id="r_a393916d03573e4dd9228af582ffed05e"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05798.html#a393916d03573e4dd9228af582ffed05e">purpose</a></td></tr>
+<tr class="separator:a393916d03573e4dd9228af582ffed05e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Lighting manager for 3d scenes. </p>
+<div class="textblock"><p>Wrapper for created task outputs that has some extra info for sharing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00026">26</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a61248ed9b129ba81b675e616b86ba095" name="a61248ed9b129ba81b675e616b86ba095"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61248ed9b129ba81b675e616b86ba095">&#9670;&#160;</a></span>Scene3DLighting()</h2>
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00021">21</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a2bd198ab7f31ed5baeb3c69a12781902" name="a2bd198ab7f31ed5baeb3c69a12781902"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bd198ab7f31ed5baeb3c69a12781902">&#9670;&#160;</a></span>CreateMode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::lgt::Scene3DLighting::Scene3DLighting </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05770.html">LightingDescriptor3D</a> &amp;&#160;</td>
-          <td class="paramname"><em>uniform</em></td><td>)</td>
-          <td></td>
+          <td class="memname">enum <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">bl::rc::rg::TaskOutput::CreateMode</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the lighting manager. </p>
+<p>Represents what creates this task output. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2bd198ab7f31ed5baeb3c69a12781902af43efd4199e695d31f15a7ee1f1dc797" name="a2bd198ab7f31ed5baeb3c69a12781902af43efd4199e695d31f15a7ee1f1dc797"></a>CreatedByTask&#160;</td><td class="fielddoc"><p>The output is created by this task or another task. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2bd198ab7f31ed5baeb3c69a12781902a1eab913b1bbc74fa4e10a9e58feb42a7" name="a2bd198ab7f31ed5baeb3c69a12781902a1eab913b1bbc74fa4e10a9e58feb42a7"></a>CreatedByOtherTask&#160;</td><td class="fielddoc"><p>The output may only be created by another task. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2bd198ab7f31ed5baeb3c69a12781902aaef0b5dce6456a27cc7af1a655a1248c" name="a2bd198ab7f31ed5baeb3c69a12781902aaef0b5dce6456a27cc7af1a655a1248c"></a>CreatedExternally&#160;</td><td class="fielddoc"><p>The output is external to the render graph (ie swapframe) </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00023">23</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2e0941ee60963cd72674d3c76bdf4453" name="a2e0941ee60963cd72674d3c76bdf4453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e0941ee60963cd72674d3c76bdf4453">&#9670;&#160;</a></span>Order</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">bl::rc::rg::TaskOutput::Order</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The position order that the task should be in when multiple tasks write to this output. Tasks with the same Order will be ordered arbitrarily. Integer values may also be used to order tasks. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2e0941ee60963cd72674d3c76bdf4453abffe2bb084ef9446e97692a49ba63cc3" name="a2e0941ee60963cd72674d3c76bdf4453abffe2bb084ef9446e97692a49ba63cc3"></a>First&#160;</td><td class="fielddoc"><p>The task should be the first to write to this output. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb" name="a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb"></a>Middle&#160;</td><td class="fielddoc"><p>The task should not be first or last to write to the output. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2e0941ee60963cd72674d3c76bdf4453a150f77faf8e11cc560fee6133f03ed12" name="a2e0941ee60963cd72674d3c76bdf4453a150f77faf8e11cc560fee6133f03ed12"></a>Last&#160;</td><td class="fielddoc"><p>The task should be the last to write to this output. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00048">48</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a011e546063832b13295bf9bf1df0dfb5" name="a011e546063832b13295bf9bf1df0dfb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a011e546063832b13295bf9bf1df0dfb5">&#9670;&#160;</a></span>ShareMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">bl::rc::rg::TaskOutput::ShareMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Represents whether tasks can share the same output asset. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a011e546063832b13295bf9bf1df0dfb5aa4ee66aeab0e20ea3d5ad3006c4881d9" name="a011e546063832b13295bf9bf1df0dfb5aa4ee66aeab0e20ea3d5ad3006c4881d9"></a>Exclusive&#160;</td><td class="fielddoc"><p>This input may not be shared with other tasks. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac" name="a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac"></a>Shared&#160;</td><td class="fielddoc"><p>This input may be shared with other tasks. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00035">35</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7d547d672592fdcddf8449491c5a6c0c" name="a7d547d672592fdcddf8449491c5a6c0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d547d672592fdcddf8449491c5a6c0c">&#9670;&#160;</a></span>TaskOutput() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::TaskOutput::TaskOutput </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an empty task output. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00093">93</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a58800bbe4b9a3d3ca002e982ce08843a" name="a58800bbe4b9a3d3ca002e982ce08843a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58800bbe4b9a3d3ca002e982ce08843a">&#9670;&#160;</a></span>TaskOutput() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::TaskOutput::TaskOutput </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a>&#160;</td>
+          <td class="paramname"><em>createMode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a>&#160;</td>
+          <td class="paramname"><em>shareMode</em> = <code><a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac">Shared</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a>&#160;</td>
+          <td class="paramname"><em>order</em> = <code><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb">Middle</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; std::string_view &gt;&#160;</td>
+          <td class="paramname"><em>sharedWith</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the task output. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">uniform</td><td>The lighting uniform to update with light data </td></tr>
+    <tr><td class="paramname">tag</td><td>The tag of the output </td></tr>
+    <tr><td class="paramname">createMode</td><td>The creation mode of the output </td></tr>
+    <tr><td class="paramname">order</td><td>The order the task should output in </td></tr>
+    <tr><td class="paramname">sharedWith</td><td>The tags of the possible tasks that this output must be shared with </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00012">12</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00104">104</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4290c553dd0774ea6a1d40d2027a170a" name="a4290c553dd0774ea6a1d40d2027a170a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4290c553dd0774ea6a1d40d2027a170a">&#9670;&#160;</a></span>TaskOutput() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::rg::TaskOutput::TaskOutput </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; std::string_view &gt;&#160;</td>
+          <td class="paramname"><em>tags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; <a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a> &gt;&#160;</td>
+          <td class="paramname"><em>createModes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; <a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a> &gt;&#160;</td>
+          <td class="paramname"><em>shareModes</em> = <code>{<a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5af15bdda613b9e02a4c423efd08ab9bac">Shared</a>}</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a>&#160;</td>
+          <td class="paramname"><em>order</em> = <code><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453ad61dc181b73ebd8865724ae1c94edefb">Middle</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::initializer_list&lt; std::string_view &gt;&#160;</td>
+          <td class="paramname"><em>sharedWith</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates the task output with multiple options. Options are prioritized in the order that they are given. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tags</td><td>The different tags that may be outputted in this slot </td></tr>
+    <tr><td class="paramname">createModes</td><td>The creation modes of the output tags </td></tr>
+    <tr><td class="paramname">order</td><td>The order the task should output in </td></tr>
+    <tr><td class="paramname">sharedWith</td><td>The tags of the possible tasks that this output must be shared with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00120">120</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a56776a13326d4e383e92b8836b2e3c6a" name="a56776a13326d4e383e92b8836b2e3c6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56776a13326d4e383e92b8836b2e3c6a">&#9670;&#160;</a></span>createPointLight()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03130.html#ga43c4ba4ef116220daec99d7ed2e34ed9">PointLightHandle</a> bl::rc::lgt::Scene3DLighting::createPointLight </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new point light in the scene. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...</td><td>Arguments to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A handle to the new light </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00231">231</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab6f19313dbb925966f51c623f33c0eac" name="ab6f19313dbb925966f51c623f33c0eac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6f19313dbb925966f51c623f33c0eac">&#9670;&#160;</a></span>createPointLightWithShadow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03130.html#ga7a23e7a8ae6e232a0ef97bcbc5d9c2db">PointLightShadowHandle</a> bl::rc::lgt::Scene3DLighting::createPointLightWithShadow </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new point light in the scene that casts shadows. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...</td><td>Arguments to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A handle to the new light </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00236">236</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a778d9574815a3cbe9b38495fe461e8aa" name="a778d9574815a3cbe9b38495fe461e8aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a778d9574815a3cbe9b38495fe461e8aa">&#9670;&#160;</a></span>createSpotlight()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03130.html#ga4901cb82364c48429bc38b53e688465f">SpotLightHandle</a> bl::rc::lgt::Scene3DLighting::createSpotlight </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new spot light in the scene. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...</td><td>args Arguments to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A handle to the new light </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00221">221</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad602f40515844ee6fd84058c844c65f7" name="ad602f40515844ee6fd84058c844c65f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad602f40515844ee6fd84058c844c65f7">&#9670;&#160;</a></span>createSpotlightWithShadow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename... TArgs&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03130.html#ga528f3b4db46678f8004d6c073d642a31">SpotLightShadowHandle</a> bl::rc::lgt::Scene3DLighting::createSpotlightWithShadow </td>
-          <td>(</td>
-          <td class="paramtype">TArgs &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>args</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new spot light in the scene that casts shadows. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">...TArgs</td><td>Argument types to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">...</td><td>args Arguments to the light's constructor </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A handle to the new light </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00226">226</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa1ba112b13b0e26683951832d52833d7" name="aa1ba112b13b0e26683951832d52833d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1ba112b13b0e26683951832d52833d7">&#9670;&#160;</a></span>getAmbientLightColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec3 bl::rc::lgt::Scene3DLighting::getAmbientLightColor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the global ambient light color. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00023">23</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8d27c82e875b3090bcb0e72f95a3d4bf" name="a8d27c82e875b3090bcb0e72f95a3d4bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d27c82e875b3090bcb0e72f95a3d4bf">&#9670;&#160;</a></span>getPointLightCount()</h2>
+<a id="abbcfc220f57570791f7c347fa0bb5a6c" name="abbcfc220f57570791f7c347fa0bb5a6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbcfc220f57570791f7c347fa0bb5a6c">&#9670;&#160;</a></span>addOption()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -375,10 +410,27 @@ template&lt;typename... TArgs&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t bl::rc::lgt::Scene3DLighting::getPointLightCount </td>
+          <td class="memname"><a class="el" href="a05798.html">TaskOutput</a> &amp; bl::rc::rg::TaskOutput::addOption </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>tag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05798.html#a011e546063832b13295bf9bf1df0dfb5">ShareMode</a>&#160;</td>
+          <td class="paramname"><em>shareMode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a05798.html#a2bd198ab7f31ed5baeb3c69a12781902">CreateMode</a>&#160;</td>
+          <td class="paramname"><em>createMode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -388,361 +440,205 @@ template&lt;typename... TArgs&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the total number of point lights in the scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00254">254</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a09b962aae09d2492cced2286f7e85863" name="a09b962aae09d2492cced2286f7e85863"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09b962aae09d2492cced2286f7e85863">&#9670;&#160;</a></span>getPointShadowCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::lgt::Scene3DLighting::getPointShadowCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of point lights with shadows in the scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00250">250</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ace423ca4e7aff9c917b664ee917675d4" name="ace423ca4e7aff9c917b664ee917675d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace423ca4e7aff9c917b664ee917675d4">&#9670;&#160;</a></span>getSceneCenter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const glm::vec3 &amp; bl::rc::lgt::Scene3DLighting::getSceneCenter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the center of the scene in world coordinates. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00240">240</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a687f4d544c1d17197121923af1bd8de6" name="a687f4d544c1d17197121923af1bd8de6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a687f4d544c1d17197121923af1bd8de6">&#9670;&#160;</a></span>getSpotLightCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::lgt::Scene3DLighting::getSpotLightCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the total number of spotlights in the scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00248">248</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a89178f0aeaa7a71043a5060a19674e05" name="a89178f0aeaa7a71043a5060a19674e05"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89178f0aeaa7a71043a5060a19674e05">&#9670;&#160;</a></span>getSpotShadowCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::lgt::Scene3DLighting::getSpotShadowCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the number of spotlights with shadows in the scene. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00244">244</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a11ab12d4c3ad66c9c954361c7ad29018" name="a11ab12d4c3ad66c9c954361c7ad29018"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a11ab12d4c3ad66c9c954361c7ad29018">&#9670;&#160;</a></span>getSun()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a05814.html">SunLight3D</a> &amp; bl::rc::lgt::Scene3DLighting::getSun </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the sun light. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00027">27</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abde36022e86fd5b0e20c452519497024" name="abde36022e86fd5b0e20c452519497024"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abde36022e86fd5b0e20c452519497024">&#9670;&#160;</a></span>getSunDistance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float bl::rc::lgt::Scene3DLighting::getSunDistance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the distance of the sun from the scene center. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00242">242</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a753e7962a60f99e8fbdc23f93296012a" name="a753e7962a60f99e8fbdc23f93296012a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a753e7962a60f99e8fbdc23f93296012a">&#9670;&#160;</a></span>modifySun()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a05814.html">SunLight3D</a> &amp; bl::rc::lgt::Scene3DLighting::modifySun </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the sun light for modification. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00029">29</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a83025db684888f23e38c4f2f6727d24e" name="a83025db684888f23e38c4f2f6727d24e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83025db684888f23e38c4f2f6727d24e">&#9670;&#160;</a></span>setAmbientLightColor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::lgt::Scene3DLighting::setAmbientLightColor </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the global ambient light color. </p>
+<p>Adds an option for this output slot. Options are prioritized in the order they are added, including those passed in the constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">color</td><td>The new global ambient light color </td></tr>
+    <tr><td class="paramname">tag</td><td>The tag of the output option </td></tr>
+    <tr><td class="paramname">shareMode</td><td>The share mode of the output option </td></tr>
+    <tr><td class="paramname">createMode</td><td>The create mode of the output option </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00025">25</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00150">150</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aece433200082a8af08661d99730f34cb" name="aece433200082a8af08661d99730f34cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aece433200082a8af08661d99730f34cb">&#9670;&#160;</a></span>setSceneCenter()</h2>
+<a id="a1ff7492c138fed71becc355e3e4dcef3" name="a1ff7492c138fed71becc355e3e4dcef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff7492c138fed71becc355e3e4dcef3">&#9670;&#160;</a></span>withOrder()</h2>
 
 <div class="memitem">
 <div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::lgt::Scene3DLighting::setSceneCenter </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec3 &amp;&#160;</td>
-          <td class="paramname"><em>center</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the center of the scene in world coordinates. Used for sun shadows. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">center</td><td>The center of the scene in world coordinates </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00057">57</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a417619383720bc229b3c85735fe7669a" name="a417619383720bc229b3c85735fe7669a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a417619383720bc229b3c85735fe7669a">&#9670;&#160;</a></span>setSunDistance()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::lgt::Scene3DLighting::setSunDistance </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>distance</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the distance of the sun from the scene center. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">distance</td><td>The distance of the sun from the scene center in world units </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00059">59</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a440813ddf4ac13cd038b899009df2875" name="a440813ddf4ac13cd038b899009df2875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a440813ddf4ac13cd038b899009df2875">&#9670;&#160;</a></span>sync()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::lgt::Scene3DLighting::sync </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called by owning scene prior to render. Do not call manually. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00039">39</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9c550a829cfc943c9503f60222254dd1" name="a9c550a829cfc943c9503f60222254dd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c550a829cfc943c9503f60222254dd1">&#9670;&#160;</a></span>updateSunCameraMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::lgt::Scene3DLighting::updateSunCameraMatrix </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the view projection matrix for the sunlight camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02468_source.html#l00061">61</a> of file <a class="el" href="a02468_source.html">Scene3DLighting.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a0bf2770c66b60523bf091f6e4030f036" name="a0bf2770c66b60523bf091f6e4030f036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bf2770c66b60523bf091f6e4030f036">&#9670;&#160;</a></span>Light3D</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a05766.html">Light3D</a></td>
+          <td class="memname"><a class="el" href="a05798.html">TaskOutput</a> &amp; bl::rc::rg::TaskOutput::withOrder </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a>&#160;</td>
+          <td class="paramname"><em>o</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00210">210</a> of file <a class="el" href="a00953_source.html">Scene3DLighting.hpp</a>.</p>
+<p>Sets the order priority of this output. Order is relative to the other outputs being generated in a given timeline slice. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">o</td><td>The order priority of this output </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00174">174</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Render/Lighting/<a class="el" href="a00953_source.html">Scene3DLighting.hpp</a></li>
-<li>src/Render/Lighting/<a class="el" href="a02468_source.html">Scene3DLighting.cpp</a></li>
+<a id="a43408f533f0c567604b3927c22f13689" name="a43408f533f0c567604b3927c22f13689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43408f533f0c567604b3927c22f13689">&#9670;&#160;</a></span>withPurpose()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05798.html">TaskOutput</a> &amp; bl::rc::rg::TaskOutput::withPurpose </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the purpose of this output. purpose is used to disambiguate assets that have the same tags and is generally used by descriptor sets. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>The purpose of this output </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00162">162</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e1b209ffdbc0f7dc3b977faf24fc0d3" name="a5e1b209ffdbc0f7dc3b977faf24fc0d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e1b209ffdbc0f7dc3b977faf24fc0d3">&#9670;&#160;</a></span>withSharedWith()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05798.html">TaskOutput</a> &amp; bl::rc::rg::TaskOutput::withSharedWith </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>task</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a task id that this output may be shared with. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">task</td><td>The id of the task that this output may be shared with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00185">185</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a900c795374088e78b26b029cea4f5579" name="a900c795374088e78b26b029cea4f5579"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900c795374088e78b26b029cea4f5579">&#9670;&#160;</a></span>options</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04046.html">ctr::StaticVector</a>&lt;<a class="el" href="a05802.html">OutputOption</a>, 8&gt; bl::rc::rg::TaskOutput::options</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00085">85</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8ccf6796ef468c15a85cc390a7b583f8" name="a8ccf6796ef468c15a85cc390a7b583f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ccf6796ef468c15a85cc390a7b583f8">&#9670;&#160;</a></span>order</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05798.html#a2e0941ee60963cd72674d3c76bdf4453">Order</a> bl::rc::rg::TaskOutput::order</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00086">86</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a393916d03573e4dd9228af582ffed05e" name="a393916d03573e4dd9228af582ffed05e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a393916d03573e4dd9228af582ffed05e">&#9670;&#160;</a></span>purpose</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view bl::rc::rg::TaskOutput::purpose</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00088">88</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a1e6725343f67aa915f12711a1dfb55" name="a0a1e6725343f67aa915f12711a1dfb55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a1e6725343f67aa915f12711a1dfb55">&#9670;&#160;</a></span>sharedWith</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04046.html">ctr::StaticVector</a>&lt;std::string_view, 4&gt; bl::rc::rg::TaskOutput::sharedWith</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00680_source.html#l00087">87</a> of file <a class="el" href="a00680_source.html">TaskOutput.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Render/Graph/<a class="el" href="a00680_source.html">TaskOutput.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

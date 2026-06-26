@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::pcl::EcsComponent Struct Reference</title>
+<title>BLIB: bl::parser::Parser Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,126 +74,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03192.html">pcl</a></li><li class="navelem"><a class="el" href="a05166.html">EcsComponent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03236.html">parser</a></li><li class="navelem"><a class="el" href="a05166.html">Parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a05163.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::pcl::EcsComponent Struct Reference<div class="ingroups"><a class="el" href="a03129.html">Particles</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::parser::Parser Class Reference<div class="ingroups"><a class="el" href="a03173.html">Parser</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation. Provides a vertex buffer with a single point located at (0, 0, 0) for each particle. Transparency and pipeline are provided by Renderer&lt;T&gt; via RenderConfig&lt;T&gt; which must be provided by the user.  
+<p>Top level <a class="el" href="a05166.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a05138.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence.">Grammar</a> and <a class="el" href="a05182.html" title="Utility class for a Parser to break down an input string into tokens.">Tokenizer</a>.  
  <a href="a05166.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00290_source.html">EcsComponent.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::pcl::EcsComponent:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a05166.png" usemap="#bl::pcl::EcsComponent_map" alt=""/>
-  <map id="bl::pcl::EcsComponent_map" name="bl::pcl::EcsComponent_map">
-<area href="a05314.html" title="Base class for drawable scene components for the ECS. Provides common members." alt="bl::rc::rcom::DrawableBase" shape="rect" coords="0,0,162,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a08977_source.html">Parser.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acc5cf392d1cd35f1a7da21cb20faf528" id="r_acc5cf392d1cd35f1a7da21cb20faf528"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#acc5cf392d1cd35f1a7da21cb20faf528">EcsComponent</a> (<a class="el" href="a04202.html">engine::Engine</a> &amp;engine, bool transparency)</td></tr>
-<tr class="memdesc:acc5cf392d1cd35f1a7da21cb20faf528"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component and vertex buffer.  <br /></td></tr>
-<tr class="separator:acc5cf392d1cd35f1a7da21cb20faf528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24ed746ea5a4dc39a67f3bfb4436a6d6" id="r_a24ed746ea5a4dc39a67f3bfb4436a6d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a24ed746ea5a4dc39a67f3bfb4436a6d6">makeSprite</a> (const <a class="el" href="a05946.html">rc::res::TextureRef</a> &amp;texture)</td></tr>
-<tr class="memdesc:a24ed746ea5a4dc39a67f3bfb4436a6d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the vertex buffer to 4 points and populates them as a rectangle like a sprite.  <br /></td></tr>
-<tr class="separator:a24ed746ea5a4dc39a67f3bfb4436a6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8385a5f0102a41aa0a7cc61fd7dc0517" id="r_a8385a5f0102a41aa0a7cc61fd7dc0517"><td class="memItemLeft" align="right" valign="top">virtual std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a8385a5f0102a41aa0a7cc61fd7dc0517">getDefaultMaterialPipelineId</a> () const override</td></tr>
-<tr class="memdesc:a8385a5f0102a41aa0a7cc61fd7dc0517"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the default pipeline.  <br /></td></tr>
-<tr class="separator:a8385a5f0102a41aa0a7cc61fd7dc0517"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6734cb46c6a01be5589c748b9956b9e" id="r_ac6734cb46c6a01be5589c748b9956b9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#ac6734cb46c6a01be5589c748b9956b9e">init</a> (<a class="el" href="a03778.html">com::MaterialInstance</a> *material)</td></tr>
-<tr class="memdesc:ac6734cb46c6a01be5589c748b9956b9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Must be called after creation to finish initializing the drawable component.  <br /></td></tr>
-<tr class="separator:ac6734cb46c6a01be5589c748b9956b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8882b94c4192bbb155516e890d407fa5" id="r_a8882b94c4192bbb155516e890d407fa5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a8882b94c4192bbb155516e890d407fa5">addToScene</a> (<a class="el" href="a04094.html">ecs::Registry</a> &amp;ecs, <a class="el" href="a04046.html">ecs::Entity</a> entity, <a class="el" href="a05314.html#a9f8f4345ff7cf858ebd783671bc11e84">Scene</a> *scene, UpdateSpeed updateSpeed)</td></tr>
-<tr class="memdesc:a8882b94c4192bbb155516e890d407fa5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds this component to the given scene.  <br /></td></tr>
-<tr class="separator:a8882b94c4192bbb155516e890d407fa5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8f60ae99d5d5498cceb480c981eae46" id="r_ad8f60ae99d5d5498cceb480c981eae46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#ad8f60ae99d5d5498cceb480c981eae46">removeFromScene</a> (<a class="el" href="a04094.html">ecs::Registry</a> &amp;ecs, <a class="el" href="a04046.html">ecs::Entity</a> entity)</td></tr>
-<tr class="memdesc:ad8f60ae99d5d5498cceb480c981eae46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes this component from its current scene.  <br /></td></tr>
-<tr class="separator:ad8f60ae99d5d5498cceb480c981eae46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee0207a9ccc82d92bfd3a8059ceb4b73" id="r_aee0207a9ccc82d92bfd3a8059ceb4b73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#aee0207a9ccc82d92bfd3a8059ceb4b73">setHidden</a> (bool hide)</td></tr>
-<tr class="memdesc:aee0207a9ccc82d92bfd3a8059ceb4b73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not the object should be rendered.  <br /></td></tr>
-<tr class="separator:aee0207a9ccc82d92bfd3a8059ceb4b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58ebefb943d38f5240c8a0e98be4e9a3" id="r_a58ebefb943d38f5240c8a0e98be4e9a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a58ebefb943d38f5240c8a0e98be4e9a3">isHidden</a> () const</td></tr>
-<tr class="memdesc:a58ebefb943d38f5240c8a0e98be4e9a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the entity is hidden.  <br /></td></tr>
-<tr class="separator:a58ebefb943d38f5240c8a0e98be4e9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b248730663e0bdf069b63ddf71c8176" id="r_a8b248730663e0bdf069b63ddf71c8176"><td class="memItemLeft" align="right" valign="top">bool *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a8b248730663e0bdf069b63ddf71c8176">getVisibleFlagForToggler</a> ()</td></tr>
-<tr class="memdesc:a8b248730663e0bdf069b63ddf71c8176"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer for the Toggler component to use.  <br /></td></tr>
-<tr class="separator:a8b248730663e0bdf069b63ddf71c8176"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26b8ddd2d665d35d61b298aff9d3e09c" id="r_a26b8ddd2d665d35d61b298aff9d3e09c"><td class="memItemLeft" align="right" valign="top">const SceneObjectRef &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a26b8ddd2d665d35d61b298aff9d3e09c">getSceneRef</a> () const</td></tr>
-<tr class="memdesc:a26b8ddd2d665d35d61b298aff9d3e09c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current scene object reference for this component.  <br /></td></tr>
-<tr class="separator:a26b8ddd2d665d35d61b298aff9d3e09c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd260ae8ccd23ad287973753fd3b1e46" id="r_acd260ae8ccd23ad287973753fd3b1e46"><td class="memItemLeft" align="right" valign="top">mat::MaterialPipeline *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#acd260ae8ccd23ad287973753fd3b1e46">getCurrentPipeline</a> () const</td></tr>
-<tr class="memdesc:acd260ae8ccd23ad287973753fd3b1e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current pipeline used to render this component.  <br /></td></tr>
-<tr class="separator:acd260ae8ccd23ad287973753fd3b1e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae45355f25423458c4c47fc73afee4c40" id="r_ae45355f25423458c4c47fc73afee4c40"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#ae45355f25423458c4c47fc73afee4c40">getContainsTransparency</a> () const</td></tr>
-<tr class="memdesc:ae45355f25423458c4c47fc73afee4c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the rendered component has transparency.  <br /></td></tr>
-<tr class="separator:ae45355f25423458c4c47fc73afee4c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bb8775f76513523c663e248a67e1d64" id="r_a8bb8775f76513523c663e248a67e1d64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a8bb8775f76513523c663e248a67e1d64">setContainsTransparency</a> (bool transparent)</td></tr>
-<tr class="memdesc:a8bb8775f76513523c663e248a67e1d64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether the rendered component has transparency.  <br /></td></tr>
-<tr class="separator:a8bb8775f76513523c663e248a67e1d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01069d5244b36cb81b7ed783a1e0561f" id="r_a01069d5244b36cb81b7ed783a1e0561f"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a01069d5244b36cb81b7ed783a1e0561f">getPipelineSpecialization</a> () const</td></tr>
-<tr class="memdesc:a01069d5244b36cb81b7ed783a1e0561f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current pipeline specialization of the object.  <br /></td></tr>
-<tr class="separator:a01069d5244b36cb81b7ed783a1e0561f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0268c0dd256f455ffe279122724707a4" id="r_a0268c0dd256f455ffe279122724707a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a0268c0dd256f455ffe279122724707a4">setPipelineSpecialization</a> (std::uint32_t specialization)</td></tr>
-<tr class="memdesc:a0268c0dd256f455ffe279122724707a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current pipeline specialization for the object.  <br /></td></tr>
-<tr class="separator:a0268c0dd256f455ffe279122724707a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a384850584e064dbe818d32c30b949882" id="r_a384850584e064dbe818d32c30b949882"><td class="memItemLeft" align="right" valign="top">const prim::DrawParameters &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a384850584e064dbe818d32c30b949882">getDrawParameters</a> () const</td></tr>
-<tr class="memdesc:a384850584e064dbe818d32c30b949882"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current draw parameters for this component.  <br /></td></tr>
-<tr class="separator:a384850584e064dbe818d32c30b949882"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d43362deeda9fb67d70fefbeb31cd72" id="r_a8d43362deeda9fb67d70fefbeb31cd72"><td class="memItemLeft" align="right" valign="top">prim::DrawParameters &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a8d43362deeda9fb67d70fefbeb31cd72">getDrawParametersForEdit</a> ()</td></tr>
-<tr class="memdesc:a8d43362deeda9fb67d70fefbeb31cd72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current draw parameters for this component for editing.  <br /></td></tr>
-<tr class="separator:a8d43362deeda9fb67d70fefbeb31cd72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90b4f7dc1b91ff4a26d69865187226ee" id="r_a90b4f7dc1b91ff4a26d69865187226ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a90b4f7dc1b91ff4a26d69865187226ee">rebucket</a> ()</td></tr>
-<tr class="memdesc:a90b4f7dc1b91ff4a26d69865187226ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the owning scene to re-bucket this object. Call when transparency changes.  <br /></td></tr>
-<tr class="separator:a90b4f7dc1b91ff4a26d69865187226ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eb7b71c40074b0ad2b62176e0bf2daa" id="r_a4eb7b71c40074b0ad2b62176e0bf2daa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a4eb7b71c40074b0ad2b62176e0bf2daa">Parser</a> (const <a class="el" href="a05138.html">parser::Grammar</a> &amp;grammar, const <a class="el" href="a05182.html">parser::Tokenizer</a> &amp;tokenizer)</td></tr>
+<tr class="memdesc:a4eb7b71c40074b0ad2b62176e0bf2daa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a05166.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> object.  <br /></td></tr>
+<tr class="separator:a4eb7b71c40074b0ad2b62176e0bf2daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b5c66fa942ffd1ee765d7414ab083c1" id="r_a3b5c66fa942ffd1ee765d7414ab083c1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a3b5c66fa942ffd1ee765d7414ab083c1">valid</a> () const</td></tr>
+<tr class="memdesc:a3b5c66fa942ffd1ee765d7414ab083c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the grammar is supported and parse tables were created.  <br /></td></tr>
+<tr class="separator:a3b5c66fa942ffd1ee765d7414ab083c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4cb0e12c1fa3d6f54ebc0074a1b4491" id="r_ae4cb0e12c1fa3d6f54ebc0074a1b4491"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#ae4cb0e12c1fa3d6f54ebc0074a1b4491">parse</a> (<a class="el" href="a05178.html">parser::Stream</a> &amp;input, std::string *err=nullptr) const</td></tr>
+<tr class="memdesc:ae4cb0e12c1fa3d6f54ebc0074a1b4491"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the input stream into a parse tree of Nodes.  <br /></td></tr>
+<tr class="separator:ae4cb0e12c1fa3d6f54ebc0074a1b4491"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a205695a85995efbe949a307fd7944369" id="r_a205695a85995efbe949a307fd7944369"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a205695a85995efbe949a307fd7944369">parse</a> (const std::string &amp;input, std::string *err=nullptr) const</td></tr>
+<tr class="memdesc:a205695a85995efbe949a307fd7944369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience method to avoid manually creating a <a class="el" href="a05178.html" title="Wrapper class around std::ostream. Used for keeping track of current line and column numbers.">Stream</a>.  <br /></td></tr>
+<tr class="separator:a205695a85995efbe949a307fd7944369"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a27a700e8dad30da017b2fd1ceec4e8fc" id="r_a27a700e8dad30da017b2fd1ceec4e8fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03130.html#ga711b89e5d389c3e62540520ef7f76a25">rc::buf::VertexBuffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a27a700e8dad30da017b2fd1ceec4e8fc">vertexBuffer</a></td></tr>
-<tr class="separator:a27a700e8dad30da017b2fd1ceec4e8fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a9c3ad2caaf2846e720343ec52eaf1073" id="r_a9c3ad2caaf2846e720343ec52eaf1073"><td class="memItemLeft" align="right" valign="top">prim::DrawParameters&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#a9c3ad2caaf2846e720343ec52eaf1073">drawParams</a></td></tr>
-<tr class="separator:a9c3ad2caaf2846e720343ec52eaf1073"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba09d98e0f8f44a23bd45f323771af5d" id="r_aba09d98e0f8f44a23bd45f323771af5d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05314.html#aba09d98e0f8f44a23bd45f323771af5d">containsTransparency</a></td></tr>
-<tr class="separator:aba09d98e0f8f44a23bd45f323771af5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a14010ec614ea08d573fabfb9d00a9ca7" id="r_a14010ec614ea08d573fabfb9d00a9ca7"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05166.html#a14010ec614ea08d573fabfb9d00a9ca7">parser::unittest::TableReader</a></td></tr>
+<tr class="separator:a14010ec614ea08d573fabfb9d00a9ca7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Default drawable component for particle systems. Used by the default Renderer&lt;T&gt; implementation. Provides a vertex buffer with a single point located at (0, 0, 0) for each particle. Transparency and pipeline are provided by Renderer&lt;T&gt; via RenderConfig&lt;T&gt; which must be provided by the user. </p>
+<div class="textblock"><p>Top level <a class="el" href="a05166.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> class. Implements a basic LR0 parser from a <a class="el" href="a05138.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence.">Grammar</a> and <a class="el" href="a05182.html" title="Utility class for a Parser to break down an input string into tokens.">Tokenizer</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00290_source.html#l00026">26</a> of file <a class="el" href="a00290_source.html">EcsComponent.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08977_source.html#l00023">23</a> of file <a class="el" href="a08977_source.html">Parser.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acc5cf392d1cd35f1a7da21cb20faf528" name="acc5cf392d1cd35f1a7da21cb20faf528"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc5cf392d1cd35f1a7da21cb20faf528">&#9670;&#160;</a></span>EcsComponent()</h2>
+<a id="a4eb7b71c40074b0ad2b62176e0bf2daa" name="a4eb7b71c40074b0ad2b62176e0bf2daa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eb7b71c40074b0ad2b62176e0bf2daa">&#9670;&#160;</a></span>Parser()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::pcl::EcsComponent::EcsComponent </td>
+          <td class="memname">bl::parser::Parser::Parser </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04202.html">engine::Engine</a> &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramtype">const <a class="el" href="a05138.html">parser::Grammar</a> &amp;&#160;</td>
+          <td class="paramname"><em>grammar</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>transparency</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a05182.html">parser::Tokenizer</a> &amp;&#160;</td>
+          <td class="paramname"><em>tokenizer</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -203,522 +143,125 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the component and vertex buffer. </p>
+<p>Construct a new <a class="el" href="a05166.html" title="Top level Parser class. Implements a basic LR0 parser from a Grammar and Tokenizer.">Parser</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-    <tr><td class="paramname">transparency</td><td>Whether particles are semi-transparent or not </td></tr>
+    <tr><td class="paramname">grammar</td><td>The <a class="el" href="a05138.html" title="Represents a grammar for a Parser to build a parse tree with from a token sequence.">Grammar</a> to use </td></tr>
+    <tr><td class="paramname">tokenizer</td><td>The <a class="el" href="a05182.html" title="Utility class for a Parser to break down an input string into tokens.">Tokenizer</a> to use </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02165_source.html#l00009">9</a> of file <a class="el" href="a02165_source.html">EcsComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09280_source.html#l00108">108</a> of file <a class="el" href="a09280_source.html">Parser.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8882b94c4192bbb155516e890d407fa5" name="a8882b94c4192bbb155516e890d407fa5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8882b94c4192bbb155516e890d407fa5">&#9670;&#160;</a></span>addToScene()</h2>
+<a id="a205695a85995efbe949a307fd7944369" name="a205695a85995efbe949a307fd7944369"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a205695a85995efbe949a307fd7944369">&#9670;&#160;</a></span>parse() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::addToScene </td>
+          <td class="memname"><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> bl::parser::Parser::parse </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04094.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>ecs</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a04046.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a05998.html">Scene</a> *&#160;</td>
-          <td class="paramname"><em>scene</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateSpeed</em>&#160;</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>err</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Adds this component to the given scene. </p>
+<p>Convenience method to avoid manually creating a <a class="el" href="a05178.html" title="Wrapper class around std::ostream. Used for keeping track of current line and column numbers.">Stream</a>. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> parse(parser::Stream&amp; input)</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ecs</td><td>The engine ECS registry instance </td></tr>
-    <tr><td class="paramname">entity</td><td>The id of the entity that this component belongs to </td></tr>
-    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
-    <tr><td class="paramname">updateSpeed</td><td>The expected frequency of changes to descriptors for this entity </td></tr>
+    <tr><td class="paramname">input</td><td>Input to parse into tree </td></tr>
+    <tr><td class="paramname">err</td><td>String to populate with error message on error </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> The generated parse tree or nullptr on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00048">48</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae45355f25423458c4c47fc73afee4c40" name="ae45355f25423458c4c47fc73afee4c40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae45355f25423458c4c47fc73afee4c40">&#9670;&#160;</a></span>getContainsTransparency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::rcom::DrawableBase::getContainsTransparency </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether the rendered component has transparency. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00109">109</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09280_source.html#l00117">117</a> of file <a class="el" href="a09280_source.html">Parser.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acd260ae8ccd23ad287973753fd3b1e46" name="acd260ae8ccd23ad287973753fd3b1e46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acd260ae8ccd23ad287973753fd3b1e46">&#9670;&#160;</a></span>getCurrentPipeline()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">mat::MaterialPipeline * bl::rc::rcom::DrawableBase::getCurrentPipeline </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the current pipeline used to render this component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00067">67</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8385a5f0102a41aa0a7cc61fd7dc0517" name="a8385a5f0102a41aa0a7cc61fd7dc0517"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8385a5f0102a41aa0a7cc61fd7dc0517">&#9670;&#160;</a></span>getDefaultMaterialPipelineId()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::uint32_t bl::pcl::EcsComponent::getDefaultMaterialPipelineId </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the default pipeline. </p>
-
-<p>Implements <a class="el" href="a05314.html#a4eee8d27096d020aae122f38dd140872">bl::rc::rcom::DrawableBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00290_source.html#l00047">47</a> of file <a class="el" href="a00290_source.html">EcsComponent.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a384850584e064dbe818d32c30b949882" name="a384850584e064dbe818d32c30b949882"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a384850584e064dbe818d32c30b949882">&#9670;&#160;</a></span>getDrawParameters()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const prim::DrawParameters &amp; bl::rc::rcom::DrawableBase::getDrawParameters </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the current draw parameters for this component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00133">133</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8d43362deeda9fb67d70fefbeb31cd72" name="a8d43362deeda9fb67d70fefbeb31cd72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d43362deeda9fb67d70fefbeb31cd72">&#9670;&#160;</a></span>getDrawParametersForEdit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">prim::DrawParameters &amp; bl::rc::rcom::DrawableBase::getDrawParametersForEdit </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the current draw parameters for this component for editing. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00138">138</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a01069d5244b36cb81b7ed783a1e0561f" name="a01069d5244b36cb81b7ed783a1e0561f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01069d5244b36cb81b7ed783a1e0561f">&#9670;&#160;</a></span>getPipelineSpecialization()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint32_t bl::rc::rcom::DrawableBase::getPipelineSpecialization </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the current pipeline specialization of the object. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00121">121</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a26b8ddd2d665d35d61b298aff9d3e09c" name="a26b8ddd2d665d35d61b298aff9d3e09c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26b8ddd2d665d35d61b298aff9d3e09c">&#9670;&#160;</a></span>getSceneRef()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const SceneObjectRef &amp; bl::rc::rcom::DrawableBase::getSceneRef </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the current scene object reference for this component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00099">99</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8b248730663e0bdf069b63ddf71c8176" name="a8b248730663e0bdf069b63ddf71c8176"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b248730663e0bdf069b63ddf71c8176">&#9670;&#160;</a></span>getVisibleFlagForToggler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool * bl::rc::rcom::DrawableBase::getVisibleFlagForToggler </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns a pointer for the Toggler component to use. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00094">94</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac6734cb46c6a01be5589c748b9956b9e" name="ac6734cb46c6a01be5589c748b9956b9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6734cb46c6a01be5589c748b9956b9e">&#9670;&#160;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03778.html">com::MaterialInstance</a> *&#160;</td>
-          <td class="paramname"><em>material</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Must be called after creation to finish initializing the drawable component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">material</td><td>The material of the entity </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00026">26</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a58ebefb943d38f5240c8a0e98be4e9a3" name="a58ebefb943d38f5240c8a0e98be4e9a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58ebefb943d38f5240c8a0e98be4e9a3">&#9670;&#160;</a></span>isHidden()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::rcom::DrawableBase::isHidden </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the entity is hidden. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00089">89</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a24ed746ea5a4dc39a67f3bfb4436a6d6" name="a24ed746ea5a4dc39a67f3bfb4436a6d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a24ed746ea5a4dc39a67f3bfb4436a6d6">&#9670;&#160;</a></span>makeSprite()</h2>
+<a id="ae4cb0e12c1fa3d6f54ebc0074a1b4491" name="ae4cb0e12c1fa3d6f54ebc0074a1b4491"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4cb0e12c1fa3d6f54ebc0074a1b4491">&#9670;&#160;</a></span>parse() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::pcl::EcsComponent::makeSprite </td>
+          <td class="memname"><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">Node::Ptr</a> bl::parser::Parser::parse </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05946.html">rc::res::TextureRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Resizes the vertex buffer to 4 points and populates them as a rectangle like a sprite. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>The texture to use to determine size and texture coords </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02165_source.html#l00025">25</a> of file <a class="el" href="a02165_source.html">EcsComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a90b4f7dc1b91ff4a26d69865187226ee" name="a90b4f7dc1b91ff4a26d69865187226ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90b4f7dc1b91ff4a26d69865187226ee">&#9670;&#160;</a></span>rebucket()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::rebucket </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Triggers the owning scene to re-bucket this object. Call when transparency changes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00030">30</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad8f60ae99d5d5498cceb480c981eae46" name="ad8f60ae99d5d5498cceb480c981eae46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8f60ae99d5d5498cceb480c981eae46">&#9670;&#160;</a></span>removeFromScene()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::removeFromScene </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04094.html">ecs::Registry</a> &amp;&#160;</td>
-          <td class="paramname"><em>ecs</em>, </td>
+          <td class="paramtype"><a class="el" href="a05178.html">parser::Stream</a> &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a04046.html">ecs::Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>&#160;</td>
+          <td class="paramtype">std::string *&#160;</td>
+          <td class="paramname"><em>err</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Removes this component from its current scene. </p>
+<p>Parses the input stream into a parse tree of Nodes. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ecs</td><td>The engine ECS registry instance </td></tr>
-    <tr><td class="paramname">entity</td><td>The id of the entity that this component belongs to </td></tr>
+    <tr><td class="paramname">input</td><td>The stream to tokenize and parse </td></tr>
+    <tr><td class="paramname">err</td><td>String to populate with error message on error </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a05158.html#a3f49fe9da8742463aa757f89f67a8827">parser::Node::Ptr</a> The root of the tree, or nullptr if error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00060">60</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09280_source.html#l00122">122</a> of file <a class="el" href="a09280_source.html">Parser.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8bb8775f76513523c663e248a67e1d64" name="a8bb8775f76513523c663e248a67e1d64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8bb8775f76513523c663e248a67e1d64">&#9670;&#160;</a></span>setContainsTransparency()</h2>
+<a id="a3b5c66fa942ffd1ee765d7414ab083c1" name="a3b5c66fa942ffd1ee765d7414ab083c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b5c66fa942ffd1ee765d7414ab083c1">&#9670;&#160;</a></span>valid()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::setContainsTransparency </td>
+          <td class="memname">bool bl::parser::Parser::valid </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>transparent</em></td><td>)</td>
-          <td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Set whether the rendered component has transparency. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transparent</td><td>True if there is transparency, false if opaque </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Returns true if the grammar is supported and parse tables were created. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00034">34</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09280_source.html#l00115">115</a> of file <a class="el" href="a09280_source.html">Parser.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aee0207a9ccc82d92bfd3a8059ceb4b73" name="aee0207a9ccc82d92bfd3a8059ceb4b73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee0207a9ccc82d92bfd3a8059ceb4b73">&#9670;&#160;</a></span>setHidden()</h2>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a14010ec614ea08d573fabfb9d00a9ca7" name="a14010ec614ea08d573fabfb9d00a9ca7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14010ec614ea08d573fabfb9d00a9ca7">&#9670;&#160;</a></span>parser::unittest::TableReader</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -727,142 +270,29 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::setHidden </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>hide</em></td><td>)</td>
-          <td></td>
+          <td class="memname">friend class parser::unittest::TableReader</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Sets whether or not the object should be rendered. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hide</td><td>True to skip rendering, false to render </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00028">28</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08977_source.html#l00084">84</a> of file <a class="el" href="a08977_source.html">Parser.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0268c0dd256f455ffe279122724707a4" name="a0268c0dd256f455ffe279122724707a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0268c0dd256f455ffe279122724707a4">&#9670;&#160;</a></span>setPipelineSpecialization()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rcom::DrawableBase::setPipelineSpecialization </td>
-          <td>(</td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>specialization</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the current pipeline specialization for the object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">specialization</td><td>The pipeline specialization to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02360_source.html#l00041">41</a> of file <a class="el" href="a02360_source.html">DrawableBase.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aba09d98e0f8f44a23bd45f323771af5d" name="aba09d98e0f8f44a23bd45f323771af5d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba09d98e0f8f44a23bd45f323771af5d">&#9670;&#160;</a></span>containsTransparency</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::rc::rcom::DrawableBase::containsTransparency</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00152">152</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9c3ad2caaf2846e720343ec52eaf1073" name="a9c3ad2caaf2846e720343ec52eaf1073"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c3ad2caaf2846e720343ec52eaf1073">&#9670;&#160;</a></span>drawParams</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">prim::DrawParameters bl::rc::rcom::DrawableBase::drawParams</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00731_source.html#l00151">151</a> of file <a class="el" href="a00731_source.html">DrawableBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a27a700e8dad30da017b2fd1ceec4e8fc" name="a27a700e8dad30da017b2fd1ceec4e8fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27a700e8dad30da017b2fd1ceec4e8fc">&#9670;&#160;</a></span>vertexBuffer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03130.html#ga711b89e5d389c3e62540520ef7f76a25">rc::buf::VertexBuffer</a> bl::pcl::EcsComponent::vertexBuffer</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00290_source.html#l00027">27</a> of file <a class="el" href="a00290_source.html">EcsComponent.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Particles/<a class="el" href="a00290_source.html">EcsComponent.hpp</a></li>
-<li>src/Particles/<a class="el" href="a02165_source.html">EcsComponent.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/BLIB/Parser/<a class="el" href="a08977_source.html">Parser.hpp</a></li>
+<li>src/Parser/<a class="el" href="a09280_source.html">Parser.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

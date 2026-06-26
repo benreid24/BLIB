@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::sri::TargetSize Struct Reference</title>
+<title>BLIB: bl::rc::scene::SceneObjectECSAdaptor&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,242 +74,123 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03204.html">sri</a></li><li class="navelem"><a class="el" href="a06154.html">TargetSize</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03249.html">scene</a></li><li class="navelem"><a class="el" href="a06154.html">SceneObjectECSAdaptor</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a06151.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::sri::TargetSize Struct Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::scene::SceneObjectECSAdaptor&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic struct defining the size of an offscreen target.  
+<p>Similar to <a class="el" href="a06162.html" title="Storage for scene objects. Splits objects by update frequency.">SceneObjectStorage</a>, but uses the ECS as underlying storage.  
  <a href="a06154.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00974_source.html">TargetSize.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06158.html">Size</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a1f7a5ddfd68f5eb1776a5082598c8175" id="r_a1f7a5ddfd68f5eb1776a5082598c8175"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a> { <a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175ae8c2e4dd6f1dc2edfaf19384c0e187a8">ObserverSize</a>
-, <a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175a3e766b11c63d6f91476e5a6397af757b">FixedSize</a>
- }</td></tr>
-<tr class="memdesc:a1f7a5ddfd68f5eb1776a5082598c8175"><td class="mdescLeft">&#160;</td><td class="mdescRight">The behavior of the target size.  <a href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">More...</a><br /></td></tr>
-<tr class="separator:a1f7a5ddfd68f5eb1776a5082598c8175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ab6d7cc25aa54c3e3756f014de5c8c5" id="r_a2ab6d7cc25aa54c3e3756f014de5c8c5"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a2ab6d7cc25aa54c3e3756f014de5c8c5">TargetSize</a> (<a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a> <a class="el" href="a06154.html#aeb8c04560d23ddda9670ec4a2e35024d">type</a>=<a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175ae8c2e4dd6f1dc2edfaf19384c0e187a8">ObserverSize</a>)</td></tr>
-<tr class="memdesc:a2ab6d7cc25aa54c3e3756f014de5c8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the size control with the given type.  <br /></td></tr>
-<tr class="separator:a2ab6d7cc25aa54c3e3756f014de5c8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86fe56abe1f5a418924c50b60b52c681" id="r_a86fe56abe1f5a418924c50b60b52c681"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a86fe56abe1f5a418924c50b60b52c681">TargetSize</a> (<a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a> <a class="el" href="a06154.html#aeb8c04560d23ddda9670ec4a2e35024d">type</a>, unsigned int x, unsigned int y)</td></tr>
-<tr class="memdesc:a86fe56abe1f5a418924c50b60b52c681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the size control with the given type and size.  <br /></td></tr>
-<tr class="separator:a86fe56abe1f5a418924c50b60b52c681"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5d77813f38dffff666af0235779f6ef" id="r_ac5d77813f38dffff666af0235779f6ef"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#ac5d77813f38dffff666af0235779f6ef">TargetSize</a> (const <a class="el" href="a06154.html">TargetSize</a> &amp;copy)=default</td></tr>
-<tr class="memdesc:ac5d77813f38dffff666af0235779f6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <br /></td></tr>
-<tr class="separator:ac5d77813f38dffff666af0235779f6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbaf76b2d1c6d44287a1c8db49da4734" id="r_acbaf76b2d1c6d44287a1c8db49da4734"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#acbaf76b2d1c6d44287a1c8db49da4734">operator==</a> (const <a class="el" href="a06154.html">TargetSize</a> &amp;comp) const</td></tr>
-<tr class="memdesc:acbaf76b2d1c6d44287a1c8db49da4734"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality operator.  <br /></td></tr>
-<tr class="separator:acbaf76b2d1c6d44287a1c8db49da4734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a2a4b6e60719332df49a6201daabb4555" id="r_a2a4b6e60719332df49a6201daabb4555"><td class="memItemLeft" align="right" valign="top">static glm::u32vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a2a4b6e60719332df49a6201daabb4555">getSize</a> (<a class="el" href="a06154.html">TargetSize</a> ts, glm::u32vec2 observerSize)</td></tr>
-<tr class="memdesc:a2a4b6e60719332df49a6201daabb4555"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to get the size of an attachment from the size config.  <br /></td></tr>
-<tr class="separator:a2a4b6e60719332df49a6201daabb4555"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aeb8c04560d23ddda9670ec4a2e35024d" id="r_aeb8c04560d23ddda9670ec4a2e35024d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#aeb8c04560d23ddda9670ec4a2e35024d">type</a></td></tr>
-<tr class="separator:aeb8c04560d23ddda9670ec4a2e35024d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdebd69db0c4d6ac1b2bccce354a9177" id="r_abdebd69db0c4d6ac1b2bccce354a9177"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a06158.html">bl::rc::sri::TargetSize::Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#abdebd69db0c4d6ac1b2bccce354a9177">size</a></td></tr>
-<tr class="separator:abdebd69db0c4d6ac1b2bccce354a9177"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4571d1a9a04cd7e09cda830661cc30a" id="r_ad4571d1a9a04cd7e09cda830661cc30a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#ad4571d1a9a04cd7e09cda830661cc30a">SceneObjectECSAdaptor</a> (<a class="el" href="a04142.html">ecs::Registry</a> &amp;registry)</td></tr>
+<tr class="memdesc:ad4571d1a9a04cd7e09cda830661cc30a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserves some memory.  <br /></td></tr>
+<tr class="separator:ad4571d1a9a04cd7e09cda830661cc30a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f2441c81018008dbc33fe00adaea9c7" id="r_a1f2441c81018008dbc33fe00adaea9c7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a1f2441c81018008dbc33fe00adaea9c7">~SceneObjectECSAdaptor</a> ()</td></tr>
+<tr class="memdesc:a1f2441c81018008dbc33fe00adaea9c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys all created components.  <br /></td></tr>
+<tr class="separator:a1f2441c81018008dbc33fe00adaea9c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a113892f5b9b3259d8f21efce6a501fbf" id="r_a113892f5b9b3259d8f21efce6a501fbf"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a113892f5b9b3259d8f21efce6a501fbf">allocate</a> (<a class="el" href="a03176.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq, <a class="el" href="a04094.html">ecs::Entity</a> entity)</td></tr>
+<tr class="memdesc:a113892f5b9b3259d8f21efce6a501fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a new scene object.  <br /></td></tr>
+<tr class="separator:a113892f5b9b3259d8f21efce6a501fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a461d9aa846cd343d9691f2c20b9b6f48" id="r_a461d9aa846cd343d9691f2c20b9b6f48"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a461d9aa846cd343d9691f2c20b9b6f48">getObject</a> (<a class="el" href="a06118.html">Key</a> key)</td></tr>
+<tr class="memdesc:a461d9aa846cd343d9691f2c20b9b6f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fetches the object with the given key.  <br /></td></tr>
+<tr class="separator:a461d9aa846cd343d9691f2c20b9b6f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2daae5288111cc543eeec8ee98c3b1dd" id="r_a2daae5288111cc543eeec8ee98c3b1dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a2daae5288111cc543eeec8ee98c3b1dd">release</a> (<a class="el" href="a06118.html">Key</a> key)</td></tr>
+<tr class="memdesc:a2daae5288111cc543eeec8ee98c3b1dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the given key as being free. Allows future allocation to reuse it.  <br /></td></tr>
+<tr class="separator:a2daae5288111cc543eeec8ee98c3b1dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93f7f616563486d05bac28c62f630ea6" id="r_a93f7f616563486d05bac28c62f630ea6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06154.html#a93f7f616563486d05bac28c62f630ea6">unlinkAll</a> (<a class="el" href="a05566.html">ds::DescriptorSetInstanceCache</a> &amp;descriptors)</td></tr>
+<tr class="memdesc:a93f7f616563486d05bac28c62f630ea6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unlinks created objects.  <br /></td></tr>
+<tr class="separator:a93f7f616563486d05bac28c62f630ea6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic struct defining the size of an offscreen target. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00017">17</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a1f7a5ddfd68f5eb1776a5082598c8175" name="a1f7a5ddfd68f5eb1776a5082598c8175"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f7a5ddfd68f5eb1776a5082598c8175">&#9670;&#160;</a></span>Type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">bl::rc::sri::TargetSize::Type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The behavior of the target size. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1f7a5ddfd68f5eb1776a5082598c8175ae8c2e4dd6f1dc2edfaf19384c0e187a8" name="a1f7a5ddfd68f5eb1776a5082598c8175ae8c2e4dd6f1dc2edfaf19384c0e187a8"></a>ObserverSize&#160;</td><td class="fielddoc"><p>Target size will match observer size directly. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1f7a5ddfd68f5eb1776a5082598c8175a3e766b11c63d6f91476e5a6397af757b" name="a1f7a5ddfd68f5eb1776a5082598c8175a3e766b11c63d6f91476e5a6397af757b"></a>FixedSize&#160;</td><td class="fielddoc"><p>Target size will be a fixed size. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00019">19</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2ab6d7cc25aa54c3e3756f014de5c8c5" name="a2ab6d7cc25aa54c3e3756f014de5c8c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ab6d7cc25aa54c3e3756f014de5c8c5">&#9670;&#160;</a></span>TargetSize() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bl::rc::sri::TargetSize::TargetSize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a>&#160;</td>
-          <td class="paramname"><em>type</em> = <code><a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175ae8c2e4dd6f1dc2edfaf19384c0e187a8">ObserverSize</a></code></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the size control with the given type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>The type of control </td></tr>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::rc::scene::SceneObjectECSAdaptor&lt; T &gt;</div><p>Similar to <a class="el" href="a06162.html" title="Storage for scene objects. Splits objects by update frequency.">SceneObjectStorage</a>, but uses the ECS as underlying storage. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The type of <a class="el" href="a06150.html" title="Base renderable object. Everything that is rendered will reference an instance of this....">SceneObject</a> to provide storage for </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00032">32</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a86fe56abe1f5a418924c50b60b52c681" name="a86fe56abe1f5a418924c50b60b52c681"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86fe56abe1f5a418924c50b60b52c681">&#9670;&#160;</a></span>TargetSize() <span class="overload">[2/3]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00028">28</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad4571d1a9a04cd7e09cda830661cc30a" name="ad4571d1a9a04cd7e09cda830661cc30a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4571d1a9a04cd7e09cda830661cc30a">&#9670;&#160;</a></span>SceneObjectECSAdaptor()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bl::rc::sri::TargetSize::TargetSize </td>
+          <td class="memname"><a class="el" href="a06154.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::SceneObjectECSAdaptor </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a04142.html">ecs::Registry</a> &amp;&#160;</td>
+          <td class="paramname"><em>registry</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates the size control with the given type and size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>The type of control </td></tr>
-    <tr><td class="paramname">x</td><td>The width to use </td></tr>
-    <tr><td class="paramname">y</td><td>The height to use </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Reserves some memory. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00043">43</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00107">107</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac5d77813f38dffff666af0235779f6ef" name="ac5d77813f38dffff666af0235779f6ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5d77813f38dffff666af0235779f6ef">&#9670;&#160;</a></span>TargetSize() <span class="overload">[3/3]</span></h2>
+<a id="a1f2441c81018008dbc33fe00adaea9c7" name="a1f2441c81018008dbc33fe00adaea9c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f2441c81018008dbc33fe00adaea9c7">&#9670;&#160;</a></span>~SceneObjectECSAdaptor()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bl::rc::sri::TargetSize::TargetSize </td>
+          <td class="memname"><a class="el" href="a06154.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::~<a class="el" href="a06154.html">SceneObjectECSAdaptor</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a06154.html">TargetSize</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Copy constructor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">copy</td><td>The value to copy </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Destroys all created components. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00111">111</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2a4b6e60719332df49a6201daabb4555" name="a2a4b6e60719332df49a6201daabb4555"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a4b6e60719332df49a6201daabb4555">&#9670;&#160;</a></span>getSize()</h2>
+<a id="a113892f5b9b3259d8f21efce6a501fbf" name="a113892f5b9b3259d8f21efce6a501fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a113892f5b9b3259d8f21efce6a501fbf">&#9670;&#160;</a></span>allocate()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">static glm::u32vec2 bl::rc::sri::TargetSize::getSize </td>
+          <td class="memname">T * <a class="el" href="a06154.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::allocate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a06154.html">TargetSize</a>&#160;</td>
-          <td class="paramname"><em>ts</em>, </td>
+          <td class="paramtype"><a class="el" href="a03176.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
+          <td class="paramname"><em>updateFreq</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">glm::u32vec2&#160;</td>
-          <td class="paramname"><em>observerSize</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a04094.html">ecs::Entity</a>&#160;</td>
+          <td class="paramname"><em>entity</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -317,95 +198,129 @@ Public Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Helper method to get the size of an attachment from the size config. </p>
+<p>Allocates a new scene object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">observerSize</td><td>The resolution of the observer space </td></tr>
+    <tr><td class="paramname">updateFreq</td><td>The update speed of the new object </td></tr>
+    <tr><td class="paramname">entity</td><td>The ECS id of the new object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The size to make the attachment </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The new scene object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00067">67</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00123">123</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
 
 </div>
 </div>
-<a id="acbaf76b2d1c6d44287a1c8db49da4734" name="acbaf76b2d1c6d44287a1c8db49da4734"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbaf76b2d1c6d44287a1c8db49da4734">&#9670;&#160;</a></span>operator==()</h2>
+<a id="a461d9aa846cd343d9691f2c20b9b6f48" name="a461d9aa846cd343d9691f2c20b9b6f48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a461d9aa846cd343d9691f2c20b9b6f48">&#9670;&#160;</a></span>getObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::rc::sri::TargetSize::operator== </td>
+          <td class="memname">T &amp; <a class="el" href="a06154.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::getObject </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a06154.html">TargetSize</a> &amp;&#160;</td>
-          <td class="paramname"><em>comp</em></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a06118.html">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Equality operator. </p>
+<p>Fetches the object with the given key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key of the object to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to the given object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00057">57</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00133">133</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abdebd69db0c4d6ac1b2bccce354a9177" name="abdebd69db0c4d6ac1b2bccce354a9177"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdebd69db0c4d6ac1b2bccce354a9177">&#9670;&#160;</a></span>size</h2>
+<a id="a2daae5288111cc543eeec8ee98c3b1dd" name="a2daae5288111cc543eeec8ee98c3b1dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2daae5288111cc543eeec8ee98c3b1dd">&#9670;&#160;</a></span>release()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="a06158.html">bl::rc::sri::TargetSize::Size</a> bl::rc::sri::TargetSize::size</td>
+          <td class="memname">void <a class="el" href="a06154.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::release </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a06118.html">Key</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Marks the given key as being free. Allows future allocation to reuse it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key to release </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00139">139</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
+
 </div>
 </div>
-<a id="aeb8c04560d23ddda9670ec4a2e35024d" name="aeb8c04560d23ddda9670ec4a2e35024d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb8c04560d23ddda9670ec4a2e35024d">&#9670;&#160;</a></span>type</h2>
+<a id="a93f7f616563486d05bac28c62f630ea6" name="a93f7f616563486d05bac28c62f630ea6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93f7f616563486d05bac28c62f630ea6">&#9670;&#160;</a></span>unlinkAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a06154.html#a1f7a5ddfd68f5eb1776a5082598c8175">Type</a> bl::rc::sri::TargetSize::type</td>
+          <td class="memname">void <a class="el" href="a06154.html">bl::rc::scene::SceneObjectECSAdaptor</a>&lt; T &gt;::unlinkAll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a05566.html">ds::DescriptorSetInstanceCache</a> &amp;&#160;</td>
+          <td class="paramname"><em>descriptors</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00974_source.html#l00078">78</a> of file <a class="el" href="a00974_source.html">TargetSize.hpp</a>.</p>
+<p>Unlinks created objects. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">descriptors</td><td>The descriptor sets to unbind </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01076_source.html#l00145">145</a> of file <a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Render/ShaderResources/<a class="el" href="a00974_source.html">TargetSize.hpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Render/Scenes/<a class="el" href="a01076_source.html">SceneObjectECSAdaptor.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

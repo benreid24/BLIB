@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::cam::Camera Class Reference</title>
+<title>BLIB: bl::audio::AudioSystem Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,154 +74,131 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03154.html">cam</a></li><li class="navelem"><a class="el" href="a03730.html">Camera</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03199.html">audio</a></li><li class="navelem"><a class="el" href="a03730.html">AudioSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a03727.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::cam::Camera Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a03116.html">Cameras</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::audio::AudioSystem Class Reference<div class="ingroups"><a class="el" href="a03160.html">Audio</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for all cameras.  
+<p>Centralized audio system for playing sounds and music.  
  <a href="a03730.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00005_source.html">Camera.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::cam::Camera:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03730.png" usemap="#bl::cam::Camera_map" alt=""/>
-  <map id="bl::cam::Camera_map" name="bl::cam::Camera_map">
-<area href="a03694.html" title="Camera for 2d scenes." alt="bl::cam::Camera2D" shape="rect" coords="0,56,147,80"/>
-<area href="a03714.html" title="Camera for 3d scenes." alt="bl::cam::Camera3D" shape="rect" coords="157,56,304,80"/>
-<area href="a03734.html" title="Special camera that provides a fixed view for overlays." alt="bl::cam::OverlayCamera" shape="rect" coords="314,56,461,80"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01616_source.html">AudioSystem.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a434913b782c5325363c947a70959f3c9" id="r_a434913b782c5325363c947a70959f3c9"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a434913b782c5325363c947a70959f3c9">~Camera</a> ()=default</td></tr>
-<tr class="memdesc:a434913b782c5325363c947a70959f3c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a> object.  <br /></td></tr>
-<tr class="separator:a434913b782c5325363c947a70959f3c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcc126b9a6540652fe62605674fcd190" id="r_afcc126b9a6540652fe62605674fcd190"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#afcc126b9a6540652fe62605674fcd190">update</a> (float dt)=0</td></tr>
-<tr class="memdesc:afcc126b9a6540652fe62605674fcd190"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the camera.  <br /></td></tr>
-<tr class="separator:afcc126b9a6540652fe62605674fcd190"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7d175dedf0a83d5acb4abdd7931109f" id="r_aa7d175dedf0a83d5acb4abdd7931109f"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#aa7d175dedf0a83d5acb4abdd7931109f">getViewMatrix</a> ()</td></tr>
-<tr class="memdesc:aa7d175dedf0a83d5acb4abdd7931109f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the view matrix of this camera.  <br /></td></tr>
-<tr class="separator:aa7d175dedf0a83d5acb4abdd7931109f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf354685b1d274c379fe085076fa4051" id="r_acf354685b1d274c379fe085076fa4051"><td class="memItemLeft" align="right" valign="top">const glm::mat4 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#acf354685b1d274c379fe085076fa4051">getProjectionMatrix</a> (const VkViewport &amp;viewport)</td></tr>
-<tr class="memdesc:acf354685b1d274c379fe085076fa4051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the projection matrix of this camera for the given viewport.  <br /></td></tr>
-<tr class="separator:acf354685b1d274c379fe085076fa4051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a395d70678534a5f5b6495bbb5c832598" id="r_a395d70678534a5f5b6495bbb5c832598"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a395d70678534a5f5b6495bbb5c832598">setNearPlane</a> (float nearValue)</td></tr>
-<tr class="memdesc:a395d70678534a5f5b6495bbb5c832598"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the near plane distance.  <br /></td></tr>
-<tr class="separator:a395d70678534a5f5b6495bbb5c832598"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a5b4868ae35b77f52c2f878b18bcc59" id="r_a5a5b4868ae35b77f52c2f878b18bcc59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a5a5b4868ae35b77f52c2f878b18bcc59">setFarPlane</a> (float farValue)</td></tr>
-<tr class="memdesc:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the far plane distance.  <br /></td></tr>
-<tr class="separator:a5a5b4868ae35b77f52c2f878b18bcc59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60e436aa6a89793a9e3fd8c3b0378fbf" id="r_a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a60e436aa6a89793a9e3fd8c3b0378fbf">setNearAndFarPlanes</a> (float nearValue, float farValue)</td></tr>
-<tr class="memdesc:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the distance to the near and far planes.  <br /></td></tr>
-<tr class="separator:a60e436aa6a89793a9e3fd8c3b0378fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cd51f430037b1527bd8f6be0c2ba91b" id="r_a3cd51f430037b1527bd8f6be0c2ba91b"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a3cd51f430037b1527bd8f6be0c2ba91b">getViewerSize</a> () const =0</td></tr>
-<tr class="memdesc:a3cd51f430037b1527bd8f6be0c2ba91b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the rendered pane in camera units. Used by the particle system to scale particles based on window size.  <br /></td></tr>
-<tr class="separator:a3cd51f430037b1527bd8f6be0c2ba91b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3831a9c4f8624e383dd7ae143d83452" id="r_af3831a9c4f8624e383dd7ae143d83452"><td class="memItemLeft" align="right" valign="top">virtual glm::vec3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#af3831a9c4f8624e383dd7ae143d83452">getObserverPosition</a> () const =0</td></tr>
-<tr class="memdesc:af3831a9c4f8624e383dd7ae143d83452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position that the camera is observing from.  <br /></td></tr>
-<tr class="separator:af3831a9c4f8624e383dd7ae143d83452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a1976c9cbec3cb0348a2e6f0381ea9906" id="r_a1976c9cbec3cb0348a2e6f0381ea9906"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> = std::uint32_t</td></tr>
+<tr class="memdesc:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifier of a sound or playlist.  <br /></td></tr>
+<tr class="separator:a1976c9cbec3cb0348a2e6f0381ea9906"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a371f8cb60ba6a690287f556a91163fa8" id="r_a371f8cb60ba6a690287f556a91163fa8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a371f8cb60ba6a690287f556a91163fa8">Camera</a> ()</td></tr>
-<tr class="memdesc:a371f8cb60ba6a690287f556a91163fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a>.  <br /></td></tr>
-<tr class="separator:a371f8cb60ba6a690287f556a91163fa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a194c42e28c9bc4558095265ca862e761" id="r_a194c42e28c9bc4558095265ca862e761"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a194c42e28c9bc4558095265ca862e761">markViewDirty</a> ()</td></tr>
-<tr class="memdesc:a194c42e28c9bc4558095265ca862e761"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mark the view matrix as needing to be refreshed on next use.  <br /></td></tr>
-<tr class="separator:a194c42e28c9bc4558095265ca862e761"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8db0b22739ed85a8dc29ec7082d04640" id="r_a8db0b22739ed85a8dc29ec7082d04640"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a8db0b22739ed85a8dc29ec7082d04640">markProjDirty</a> ()</td></tr>
-<tr class="memdesc:a8db0b22739ed85a8dc29ec7082d04640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the projection matrix as needing to be refreshed on next use.  <br /></td></tr>
-<tr class="separator:a8db0b22739ed85a8dc29ec7082d04640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad997afe84942385e1fc059ad44d59782" id="r_ad997afe84942385e1fc059ad44d59782"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#ad997afe84942385e1fc059ad44d59782">refreshViewMatrix</a> (glm::mat4 &amp;view)=0</td></tr>
-<tr class="memdesc:ad997afe84942385e1fc059ad44d59782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the view matrix needs to be refreshed.  <br /></td></tr>
-<tr class="separator:ad997afe84942385e1fc059ad44d59782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad84589ac3d7c29b7ef31ba89729c4860" id="r_ad84589ac3d7c29b7ef31ba89729c4860"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#ad84589ac3d7c29b7ef31ba89729c4860">refreshProjMatrix</a> (glm::mat4 &amp;proj, const VkViewport &amp;viewport)=0</td></tr>
-<tr class="memdesc:ad84589ac3d7c29b7ef31ba89729c4860"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the projection matrix needs to be refreshed.  <br /></td></tr>
-<tr class="separator:ad84589ac3d7c29b7ef31ba89729c4860"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c66151fa1d297f82526d18b38836c2f" id="r_a9c66151fa1d297f82526d18b38836c2f"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a9c66151fa1d297f82526d18b38836c2f">nearPlane</a> () const</td></tr>
-<tr class="memdesc:a9c66151fa1d297f82526d18b38836c2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance to the near plane.  <br /></td></tr>
-<tr class="separator:a9c66151fa1d297f82526d18b38836c2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e2441211f24e3d0c682ea3ecfe1b168" id="r_a8e2441211f24e3d0c682ea3ecfe1b168"><td class="memItemLeft" align="right" valign="top">constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a8e2441211f24e3d0c682ea3ecfe1b168">farPlane</a> () const</td></tr>
-<tr class="memdesc:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the distance to the far plane.  <br /></td></tr>
-<tr class="separator:a8e2441211f24e3d0c682ea3ecfe1b168"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a8ba3173440d71b1051fa256a874a14f1" id="r_a8ba3173440d71b1051fa256a874a14f1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a8ba3173440d71b1051fa256a874a14f1">setUnloadTimeout</a> (float seconds)</td></tr>
+<tr class="memdesc:a8ba3173440d71b1051fa256a874a14f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the amount of time sounds should be in memory before being cleared.  <br /></td></tr>
+<tr class="separator:a8ba3173440d71b1051fa256a874a14f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60b0de5fdbe1b4c75944fc5108614acb" id="r_a60b0de5fdbe1b4c75944fc5108614acb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a60b0de5fdbe1b4c75944fc5108614acb">getOrLoadSound</a> (<a class="el" href="a03726.html">as::TypedRef</a>&lt; <a class="el" href="a03159.html#gac8abef62beedefcec7126a3b645b9382">asi::SoundPayload</a> &gt; <a class="el" href="a02870.html#aec033227294b0120711fd356ed3801bc">sound</a>)</td></tr>
+<tr class="memdesc:a60b0de5fdbe1b4c75944fc5108614acb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a sound and returns a handle for it. Sounds are loaded at most once.  <br /></td></tr>
+<tr class="separator:a60b0de5fdbe1b4c75944fc5108614acb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a411a127a39b3840f1b7cf7095856df6c" id="r_a411a127a39b3840f1b7cf7095856df6c"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a411a127a39b3840f1b7cf7095856df6c">playSound</a> (<a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="el" href="a02870.html#aec033227294b0120711fd356ed3801bc">sound</a>, float <a class="el" href="a02870.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>=-1.f, bool loop=false)</td></tr>
+<tr class="memdesc:a411a127a39b3840f1b7cf7095856df6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the sound with the given handle.  <br /></td></tr>
+<tr class="separator:a411a127a39b3840f1b7cf7095856df6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a223635ce58d1dbe165f5bdc63f7d2d" id="r_a7a223635ce58d1dbe165f5bdc63f7d2d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a7a223635ce58d1dbe165f5bdc63f7d2d">playOrRestartSound</a> (<a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="el" href="a02870.html#aec033227294b0120711fd356ed3801bc">sound</a>)</td></tr>
+<tr class="memdesc:a7a223635ce58d1dbe165f5bdc63f7d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immediately plays or restarts the given sound, without fade-in and no looping.  <br /></td></tr>
+<tr class="separator:a7a223635ce58d1dbe165f5bdc63f7d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc9d3aa7f98bf5e44c2dc136a9e33593" id="r_afc9d3aa7f98bf5e44c2dc136a9e33593"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#afc9d3aa7f98bf5e44c2dc136a9e33593">stopSound</a> (<a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="el" href="a02870.html#aec033227294b0120711fd356ed3801bc">sound</a>, float fade=-1.f)</td></tr>
+<tr class="memdesc:afc9d3aa7f98bf5e44c2dc136a9e33593"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the given sound if it is playing.  <br /></td></tr>
+<tr class="separator:afc9d3aa7f98bf5e44c2dc136a9e33593"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08e6680475a10517f4c030c510f99224" id="r_a08e6680475a10517f4c030c510f99224"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a08e6680475a10517f4c030c510f99224">stopAllSounds</a> ()</td></tr>
+<tr class="memdesc:a08e6680475a10517f4c030c510f99224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all sounds immediately.  <br /></td></tr>
+<tr class="separator:a08e6680475a10517f4c030c510f99224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10a776084d1871bf975199a6473d0d1d" id="r_a10a776084d1871bf975199a6473d0d1d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a10a776084d1871bf975199a6473d0d1d">getOrLoadPlaylist</a> (<a class="el" href="a03726.html">as::TypedRef</a>&lt; <a class="el" href="a03466.html">asi::PlaylistPayload</a> &gt; <a class="el" href="a02870.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>)</td></tr>
+<tr class="memdesc:a10a776084d1871bf975199a6473d0d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads a playlist and returns a handle for it. Playlists are loaded at most once.  <br /></td></tr>
+<tr class="separator:a10a776084d1871bf975199a6473d0d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acaaf6dbedb9d6f13db2e7db065e06ae8" id="r_acaaf6dbedb9d6f13db2e7db065e06ae8"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#acaaf6dbedb9d6f13db2e7db065e06ae8">pushPlaylist</a> (<a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="el" href="a02870.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>, float <a class="el" href="a02870.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>=2.f, float <a class="el" href="a02870.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>=2.f)</td></tr>
+<tr class="memdesc:acaaf6dbedb9d6f13db2e7db065e06ae8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins playing the new playlist with the optional crossfade. Previously playing playlists are preverved.  <br /></td></tr>
+<tr class="separator:acaaf6dbedb9d6f13db2e7db065e06ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87fa1b9512ba0e687ce5c0bfea25d594" id="r_a87fa1b9512ba0e687ce5c0bfea25d594"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a87fa1b9512ba0e687ce5c0bfea25d594">popPlaylist</a> (float <a class="el" href="a02870.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>=2.f, float <a class="el" href="a02870.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>=2.f)</td></tr>
+<tr class="memdesc:a87fa1b9512ba0e687ce5c0bfea25d594"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops playing the current playlist and resumes the previous, if any.  <br /></td></tr>
+<tr class="separator:a87fa1b9512ba0e687ce5c0bfea25d594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a743641105556c6f3f7ff961d42d25d7b" id="r_a743641105556c6f3f7ff961d42d25d7b"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a743641105556c6f3f7ff961d42d25d7b">replacePlaylist</a> (<a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="el" href="a02870.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>, float <a class="el" href="a02870.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>=2.f, float <a class="el" href="a02870.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>=2.f)</td></tr>
+<tr class="memdesc:a743641105556c6f3f7ff961d42d25d7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the currently playing playlist with the new playlist.  <br /></td></tr>
+<tr class="separator:a743641105556c6f3f7ff961d42d25d7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f0bfd23b8de46ab0016f1bf438b18a4" id="r_a9f0bfd23b8de46ab0016f1bf438b18a4"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a9f0bfd23b8de46ab0016f1bf438b18a4">replaceAllPlaylists</a> (<a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> <a class="el" href="a02870.html#a34cfaee126866c60bb82a2c96e47940d">playlist</a>, float <a class="el" href="a02870.html#afcd9606706aca5711d9607382d158a6a">fadeIn</a>=2.f, float <a class="el" href="a02870.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>=2.f)</td></tr>
+<tr class="memdesc:a9f0bfd23b8de46ab0016f1bf438b18a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces all previous and currently playing playlists with the new playlist.  <br /></td></tr>
+<tr class="separator:a9f0bfd23b8de46ab0016f1bf438b18a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ddbda3b93f954ee29e9b4503bb49fee" id="r_a7ddbda3b93f954ee29e9b4503bb49fee"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a7ddbda3b93f954ee29e9b4503bb49fee">stopAllPlaylists</a> (float <a class="el" href="a02870.html#a369a0540d4dbe20f7c7177677c72dea8">fadeOut</a>=-1.f)</td></tr>
+<tr class="memdesc:a7ddbda3b93f954ee29e9b4503bb49fee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all current and previous playlists.  <br /></td></tr>
+<tr class="separator:a7ddbda3b93f954ee29e9b4503bb49fee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93274a6e8a82bc1c0dc8b0a46b751c26" id="r_a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a93274a6e8a82bc1c0dc8b0a46b751c26">setVolume</a> (float <a class="el" href="a02870.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>)</td></tr>
+<tr class="memdesc:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the global volume of all playlists and sounds.  <br /></td></tr>
+<tr class="separator:a93274a6e8a82bc1c0dc8b0a46b751c26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82543cf82aa923a6a5f5847da6bdf7ca" id="r_a82543cf82aa923a6a5f5847da6bdf7ca"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a82543cf82aa923a6a5f5847da6bdf7ca">getVolume</a> ()</td></tr>
+<tr class="memdesc:a82543cf82aa923a6a5f5847da6bdf7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the global volume.  <br /></td></tr>
+<tr class="separator:a82543cf82aa923a6a5f5847da6bdf7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86fd466894b260de1b2765ca7407cba4" id="r_a86fd466894b260de1b2765ca7407cba4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a86fd466894b260de1b2765ca7407cba4">setMuted</a> (bool <a class="el" href="a02870.html#a3de32eff7fd2ae1c93d4095b57b3f2f7">muted</a>)</td></tr>
+<tr class="memdesc:a86fd466894b260de1b2765ca7407cba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets whether or not audio is muted.  <br /></td></tr>
+<tr class="separator:a86fd466894b260de1b2765ca7407cba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa19ac5a7fef032baaed6a2bd2fa1d126" id="r_aa19ac5a7fef032baaed6a2bd2fa1d126"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#aa19ac5a7fef032baaed6a2bd2fa1d126">getMuted</a> ()</td></tr>
+<tr class="memdesc:aa19ac5a7fef032baaed6a2bd2fa1d126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not audio is muted. Volume of 0 does not count as muted.  <br /></td></tr>
+<tr class="separator:aa19ac5a7fef032baaed6a2bd2fa1d126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105d270062c812ac44f4c525c4d1d918" id="r_a105d270062c812ac44f4c525c4d1d918"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a105d270062c812ac44f4c525c4d1d918">loadFromConfig</a> ()</td></tr>
+<tr class="memdesc:a105d270062c812ac44f4c525c4d1d918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads system settings from the engine config.  <br /></td></tr>
+<tr class="separator:a105d270062c812ac44f4c525c4d1d918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b22e1f5c7ea0c3490c3bd82a89bffad" id="r_a9b22e1f5c7ea0c3490c3bd82a89bffad"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a9b22e1f5c7ea0c3490c3bd82a89bffad">saveToConfig</a> ()</td></tr>
+<tr class="memdesc:a9b22e1f5c7ea0c3490c3bd82a89bffad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves system settings to the engine config.  <br /></td></tr>
+<tr class="separator:a9b22e1f5c7ea0c3490c3bd82a89bffad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892f00cbc45e915c30246a10834359c0" id="r_a892f00cbc45e915c30246a10834359c0"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a892f00cbc45e915c30246a10834359c0">pause</a> ()</td></tr>
+<tr class="memdesc:a892f00cbc45e915c30246a10834359c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses all sounds and playlists.  <br /></td></tr>
+<tr class="separator:a892f00cbc45e915c30246a10834359c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedacf534c5de4c76bb4cf222e174373c" id="r_aedacf534c5de4c76bb4cf222e174373c"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#aedacf534c5de4c76bb4cf222e174373c">resume</a> ()</td></tr>
+<tr class="memdesc:aedacf534c5de4c76bb4cf222e174373c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes all paused sounds and playlists.  <br /></td></tr>
+<tr class="separator:aedacf534c5de4c76bb4cf222e174373c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeca6043efc35cbbfc43f6c342f9a25f" id="r_aeeca6043efc35cbbfc43f6c342f9a25f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#aeeca6043efc35cbbfc43f6c342f9a25f">stop</a> (bool fade=false)</td></tr>
+<tr class="memdesc:aeeca6043efc35cbbfc43f6c342f9a25f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops all sounds and playlists.  <br /></td></tr>
+<tr class="separator:aeeca6043efc35cbbfc43f6c342f9a25f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91def23773aa1174c5f934ac32c9f3fa" id="r_a91def23773aa1174c5f934ac32c9f3fa"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#a91def23773aa1174c5f934ac32c9f3fa">registerSystem</a> (<a class="el" href="a04250.html">engine::Engine</a> &amp;engine)</td></tr>
+<tr class="memdesc:a91def23773aa1174c5f934ac32c9f3fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the engine at creation time.  <br /></td></tr>
+<tr class="separator:a91def23773aa1174c5f934ac32c9f3fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aaba4e74c447f330c9cdd71e99508a15b" id="r_aaba4e74c447f330c9cdd71e99508a15b"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03730.html#aaba4e74c447f330c9cdd71e99508a15b">InvalidHandle</a> = 0</td></tr>
+<tr class="memdesc:aaba4e74c447f330c9cdd71e99508a15b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value to indicate an error loading a sound or playlist.  <br /></td></tr>
+<tr class="separator:aaba4e74c447f330c9cdd71e99508a15b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for all cameras. </p>
+<div class="textblock"><p>Centralized audio system for playing sounds and music. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00017">17</a> of file <a class="el" href="a00005_source.html">Camera.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a434913b782c5325363c947a70959f3c9" name="a434913b782c5325363c947a70959f3c9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a434913b782c5325363c947a70959f3c9">&#9670;&#160;</a></span>~Camera()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::cam::Camera::~Camera </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a> object. </p>
-
-</div>
-</div>
-<a id="a371f8cb60ba6a690287f556a91163fa8" name="a371f8cb60ba6a690287f556a91163fa8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a371f8cb60ba6a690287f556a91163fa8">&#9670;&#160;</a></span>Camera()</h2>
+<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00028">28</a> of file <a class="el" href="a01616_source.html">AudioSystem.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a1976c9cbec3cb0348a2e6f0381ea9906" name="a1976c9cbec3cb0348a2e6f0381ea9906"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1976c9cbec3cb0348a2e6f0381ea9906">&#9670;&#160;</a></span>Handle</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::cam::Camera::Camera </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">bl::audio::AudioSystem::Handle</a> =  std::uint32_t</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a03730.html" title="Base class for all cameras.">Camera</a>. </p>
+<p>Identifier of a sound or playlist. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00009">9</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00031">31</a> of file <a class="el" href="a01616_source.html">AudioSystem.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8e2441211f24e3d0c682ea3ecfe1b168" name="a8e2441211f24e3d0c682ea3ecfe1b168"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e2441211f24e3d0c682ea3ecfe1b168">&#9670;&#160;</a></span>farPlane()</h2>
+<a id="aa19ac5a7fef032baaed6a2bd2fa1d126" name="aa19ac5a7fef032baaed6a2bd2fa1d126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa19ac5a7fef032baaed6a2bd2fa1d126">&#9670;&#160;</a></span>getMuted()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,85 +207,65 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr float bl::cam::Camera::farPlane </td>
+          <td class="memname">bool bl::audio::AudioSystem::getMuted </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the distance to the far plane. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00132">132</a> of file <a class="el" href="a00005_source.html">Camera.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af3831a9c4f8624e383dd7ae143d83452" name="af3831a9c4f8624e383dd7ae143d83452"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3831a9c4f8624e383dd7ae143d83452">&#9670;&#160;</a></span>getObserverPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual glm::vec3 bl::cam::Camera::getObserverPosition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the position that the camera is observing from. </p>
-
-<p>Implemented in <a class="el" href="a03694.html#a88d1cfd5a93cc007a3959b24b338ff6a">bl::cam::Camera2D</a>, <a class="el" href="a03714.html#abf70ddc279e984a6c35ad9e292273778">bl::cam::Camera3D</a>, and <a class="el" href="a03734.html#a223705641443e996c3e42154527092e0">bl::cam::OverlayCamera</a>.</p>
-
-</div>
-</div>
-<a id="acf354685b1d274c379fe085076fa4051" name="acf354685b1d274c379fe085076fa4051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf354685b1d274c379fe085076fa4051">&#9670;&#160;</a></span>getProjectionMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const glm::mat4 &amp; bl::cam::Camera::getProjectionMatrix </td>
-          <td>(</td>
-          <td class="paramtype">const VkViewport &amp;&#160;</td>
-          <td class="paramname"><em>viewport</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns the projection matrix of this camera for the given viewport. </p>
+<p>Returns whether or not audio is muted. Volume of 0 does not count as muted. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if audio is muted, false if it is not </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00333">333</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a10a776084d1871bf975199a6473d0d1d" name="a10a776084d1871bf975199a6473d0d1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10a776084d1871bf975199a6473d0d1d">&#9670;&#160;</a></span>getOrLoadPlaylist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::getOrLoadPlaylist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03726.html">as::TypedRef</a>&lt; <a class="el" href="a03466.html">asi::PlaylistPayload</a> &gt;&#160;</td>
+          <td class="paramname"><em>playlist</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads a playlist and returns a handle for it. Playlists are loaded at most once. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">viewport</td><td>The viewport to project to </td></tr>
+    <tr><td class="paramname">playlist</td><td>The playlist asset to load into the audio system </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The projection matrix to use </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle The handle to the loaded or existing playlist. May be InvalidHandle </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00043">43</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00216">216</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3cd51f430037b1527bd8f6be0c2ba91b" name="a3cd51f430037b1527bd8f6be0c2ba91b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3cd51f430037b1527bd8f6be0c2ba91b">&#9670;&#160;</a></span>getViewerSize()</h2>
+<a id="a60b0de5fdbe1b4c75944fc5108614acb" name="a60b0de5fdbe1b4c75944fc5108614acb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60b0de5fdbe1b4c75944fc5108614acb">&#9670;&#160;</a></span>getOrLoadSound()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -317,48 +274,35 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual glm::vec2 bl::cam::Camera::getViewerSize </td>
+          <td class="memname"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">AudioSystem::Handle</a> bl::audio::AudioSystem::getOrLoadSound </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a03726.html">as::TypedRef</a>&lt; <a class="el" href="a03159.html#gac8abef62beedefcec7126a3b645b9382">asi::SoundPayload</a> &gt;&#160;</td>
+          <td class="paramname"><em>sound</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the size of the rendered pane in camera units. Used by the particle system to scale particles based on window size. </p>
+<p>Loads a sound and returns a handle for it. Sounds are loaded at most once. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sound</td><td>The sound asset to load into the audio system </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Handle The handle to the loaded or existing sound. May be InvalidHandle </dd></dl>
 
-<p>Implemented in <a class="el" href="a03694.html#aebdabda0114b8bf56e8590e30a4cf53a">bl::cam::Camera2D</a>, <a class="el" href="a03714.html#ae9561ec16a55f170d612de4c0ff75ff6">bl::cam::Camera3D</a>, and <a class="el" href="a03734.html#ab4604b5619a5ccd968abf6242668517b">bl::cam::OverlayCamera</a>.</p>
-
-</div>
-</div>
-<a id="aa7d175dedf0a83d5acb4abdd7931109f" name="aa7d175dedf0a83d5acb4abdd7931109f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7d175dedf0a83d5acb4abdd7931109f">&#9670;&#160;</a></span>getViewMatrix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const glm::mat4 &amp; bl::cam::Camera::getViewMatrix </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the view matrix of this camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00035">35</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00119">119</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8db0b22739ed85a8dc29ec7082d04640" name="a8db0b22739ed85a8dc29ec7082d04640"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8db0b22739ed85a8dc29ec7082d04640">&#9670;&#160;</a></span>markProjDirty()</h2>
+<a id="a82543cf82aa923a6a5f5847da6bdf7ca" name="a82543cf82aa923a6a5f5847da6bdf7ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82543cf82aa923a6a5f5847da6bdf7ca">&#9670;&#160;</a></span>getVolume()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -367,7 +311,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::cam::Camera::markProjDirty </td>
+          <td class="memname">float bl::audio::AudioSystem::getVolume </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -375,19 +319,20 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Marks the projection matrix as needing to be refreshed on next use. </p>
+<p>Returns the global volume. </p>
+<dl class="section return"><dt>Returns</dt><dd>float The global volume, in range [0, 100] </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00055">55</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00326">326</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a194c42e28c9bc4558095265ca862e761" name="a194c42e28c9bc4558095265ca862e761"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a194c42e28c9bc4558095265ca862e761">&#9670;&#160;</a></span>markViewDirty()</h2>
+<a id="a105d270062c812ac44f4c525c4d1d918" name="a105d270062c812ac44f4c525c4d1d918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a105d270062c812ac44f4c525c4d1d918">&#9670;&#160;</a></span>loadFromConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -396,7 +341,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::cam::Camera::markViewDirty </td>
+          <td class="memname">void bl::audio::AudioSystem::loadFromConfig </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -404,19 +349,19 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Mark the view matrix as needing to be refreshed on next use. </p>
+<p>Loads system settings from the engine config. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00053">53</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00335">335</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9c66151fa1d297f82526d18b38836c2f" name="a9c66151fa1d297f82526d18b38836c2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c66151fa1d297f82526d18b38836c2f">&#9670;&#160;</a></span>nearPlane()</h2>
+<a id="a892f00cbc45e915c30246a10834359c0" name="a892f00cbc45e915c30246a10834359c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a892f00cbc45e915c30246a10834359c0">&#9670;&#160;</a></span>pause()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -425,27 +370,27 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr float bl::cam::Camera::nearPlane </td>
+          <td class="memname">void bl::audio::AudioSystem::pause </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the distance to the near plane. </p>
+<p>Pauses all sounds and playlists. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00005_source.html#l00130">130</a> of file <a class="el" href="a00005_source.html">Camera.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00347">347</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad84589ac3d7c29b7ef31ba89729c4860" name="ad84589ac3d7c29b7ef31ba89729c4860"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad84589ac3d7c29b7ef31ba89729c4860">&#9670;&#160;</a></span>refreshProjMatrix()</h2>
+<a id="a7a223635ce58d1dbe165f5bdc63f7d2d" name="a7a223635ce58d1dbe165f5bdc63f7d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a223635ce58d1dbe165f5bdc63f7d2d">&#9670;&#160;</a></span>playOrRestartSound()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -454,16 +399,59 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::cam::Camera::refreshProjMatrix </td>
+          <td class="memname">bool bl::audio::AudioSystem::playOrRestartSound </td>
           <td>(</td>
-          <td class="paramtype">glm::mat4 &amp;&#160;</td>
-          <td class="paramname"><em>proj</em>, </td>
+          <td class="paramtype"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>sound</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Immediately plays or restarts the given sound, without fade-in and no looping. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sound</td><td>The sound to play or restart </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the sound could be played, false if not found </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00173">173</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a411a127a39b3840f1b7cf7095856df6c" name="a411a127a39b3840f1b7cf7095856df6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a411a127a39b3840f1b7cf7095856df6c">&#9670;&#160;</a></span>playSound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::audio::AudioSystem::playSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>sound</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const VkViewport &amp;&#160;</td>
-          <td class="paramname"><em>viewport</em>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeIn</em> = <code>-1.f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loop</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -473,24 +461,27 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the projection matrix needs to be refreshed. </p>
+<p>Plays the sound with the given handle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">proj</td><td>Reference to the matrix to populate </td></tr>
-    <tr><td class="paramname">viewport</td><td>The viewport to project to </td></tr>
+    <tr><td class="paramname">sound</td><td>The sound to play </td></tr>
+    <tr><td class="paramname">loop</td><td>True to loop, false to play once </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the sound was able to be played, false if not </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00149">149</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad997afe84942385e1fc059ad44d59782" name="ad997afe84942385e1fc059ad44d59782"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad997afe84942385e1fc059ad44d59782">&#9670;&#160;</a></span>refreshViewMatrix()</h2>
+<a id="a87fa1b9512ba0e687ce5c0bfea25d594" name="a87fa1b9512ba0e687ce5c0bfea25d594"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87fa1b9512ba0e687ce5c0bfea25d594">&#9670;&#160;</a></span>popPlaylist()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -499,75 +490,16 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::cam::Camera::refreshViewMatrix </td>
-          <td>(</td>
-          <td class="paramtype">glm::mat4 &amp;&#160;</td>
-          <td class="paramname"><em>view</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the view matrix needs to be refreshed. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">view</td><td>Reference to the matrix to populate </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a5a5b4868ae35b77f52c2f878b18bcc59" name="a5a5b4868ae35b77f52c2f878b18bcc59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a5b4868ae35b77f52c2f878b18bcc59">&#9670;&#160;</a></span>setFarPlane()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::Camera::setFarPlane </td>
+          <td class="memname">void bl::audio::AudioSystem::popPlaylist </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>farValue</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the far plane distance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">far</td><td>The far plane distance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00024">24</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a60e436aa6a89793a9e3fd8c3b0378fbf" name="a60e436aa6a89793a9e3fd8c3b0378fbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60e436aa6a89793a9e3fd8c3b0378fbf">&#9670;&#160;</a></span>setNearAndFarPlanes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::Camera::setNearAndFarPlanes </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>nearValue</em>, </td>
+          <td class="paramname"><em>fadeIn</em> = <code>2.f</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>farValue</em>&#160;</td>
+          <td class="paramname"><em>fadeOut</em> = <code>2.f</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -575,51 +507,28 @@ Protected Member Functions</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Sets the distance to the near and far planes. </p>
+<p>Stops playing the current playlist and resumes the previous, if any. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">near</td><td>Distance to the near plane </td></tr>
-    <tr><td class="paramname">far</td><td>Distance to the far plane </td></tr>
+    <tr><td class="paramname">fadeIn</td><td>Fade in time of the previous playlist </td></tr>
+    <tr><td class="paramname">fadeOut</td><td>Fade out time of the current playlist </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00029">29</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00278">278</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a395d70678534a5f5b6495bbb5c832598" name="a395d70678534a5f5b6495bbb5c832598"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a395d70678534a5f5b6495bbb5c832598">&#9670;&#160;</a></span>setNearPlane()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::cam::Camera::setNearPlane </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>nearValue</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the near plane distance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">near</td><td>The near plane distance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01988_source.html#l00019">19</a> of file <a class="el" href="a01988_source.html">Camera.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afcc126b9a6540652fe62605674fcd190" name="afcc126b9a6540652fe62605674fcd190"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcc126b9a6540652fe62605674fcd190">&#9670;&#160;</a></span>update()</h2>
+<a id="acaaf6dbedb9d6f13db2e7db065e06ae8" name="acaaf6dbedb9d6f13db2e7db065e06ae8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaaf6dbedb9d6f13db2e7db065e06ae8">&#9670;&#160;</a></span>pushPlaylist()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -628,41 +537,547 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::cam::Camera::update </td>
+          <td class="memname">bool bl::audio::AudioSystem::pushPlaylist </td>
           <td>(</td>
+          <td class="paramtype"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>playlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"><em>fadeIn</em> = <code>2.f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeOut</em> = <code>2.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Begins playing the new playlist with the optional crossfade. Previously playing playlists are preverved. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">playlist</td><td>The playlist to play </td></tr>
+    <tr><td class="paramname">fadeIn</td><td>Fade in time of the new playlist </td></tr>
+    <tr><td class="paramname">fadeOut</td><td>Fade out time of the previously playing playlist, if any </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the playlist was able to be played, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00247">247</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a91def23773aa1174c5f934ac32c9f3fa" name="a91def23773aa1174c5f934ac32c9f3fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91def23773aa1174c5f934ac32c9f3fa">&#9670;&#160;</a></span>registerSystem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::registerSystem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04250.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Updates the camera. </p>
+<p>Called by the engine at creation time. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed since last call to update </td></tr>
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="a03734.html#a402baa1503640cbf7478cda6bb232a19">bl::cam::OverlayCamera</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00415">415</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9f0bfd23b8de46ab0016f1bf438b18a4" name="a9f0bfd23b8de46ab0016f1bf438b18a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f0bfd23b8de46ab0016f1bf438b18a4">&#9670;&#160;</a></span>replaceAllPlaylists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::audio::AudioSystem::replaceAllPlaylists </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>playlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeIn</em> = <code>2.f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeOut</em> = <code>2.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replaces all previous and currently playing playlists with the new playlist. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">playlist</td><td>The new playlist to play </td></tr>
+    <tr><td class="paramname">fadeIn</td><td>Fade in time of the new playlist </td></tr>
+    <tr><td class="paramname">fadeOut</td><td>Fade out time of the previously playing playlist </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the new playlist could be played, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00290">290</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a743641105556c6f3f7ff961d42d25d7b" name="a743641105556c6f3f7ff961d42d25d7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a743641105556c6f3f7ff961d42d25d7b">&#9670;&#160;</a></span>replacePlaylist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::audio::AudioSystem::replacePlaylist </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>playlist</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeIn</em> = <code>2.f</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeOut</em> = <code>2.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Replaces the currently playing playlist with the new playlist. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">playlist</td><td>The new playlist to play </td></tr>
+    <tr><td class="paramname">fadeIn</td><td>Fade in time of the new playlist </td></tr>
+    <tr><td class="paramname">fadeOut</td><td>Fade out time of the current playlist </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the playlist was able to be played, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00260">260</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aedacf534c5de4c76bb4cf222e174373c" name="aedacf534c5de4c76bb4cf222e174373c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedacf534c5de4c76bb4cf222e174373c">&#9670;&#160;</a></span>resume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::resume </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Resumes all paused sounds and playlists. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00365">365</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b22e1f5c7ea0c3490c3bd82a89bffad" name="a9b22e1f5c7ea0c3490c3bd82a89bffad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b22e1f5c7ea0c3490c3bd82a89bffad">&#9670;&#160;</a></span>saveToConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::saveToConfig </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Saves system settings to the engine config. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00342">342</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a86fd466894b260de1b2765ca7407cba4" name="a86fd466894b260de1b2765ca7407cba4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86fd466894b260de1b2765ca7407cba4">&#9670;&#160;</a></span>setMuted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setMuted </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>muted</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets whether or not audio is muted. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">muted</td><td>True to mute, false to play audio at the previously set volume </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00328">328</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8ba3173440d71b1051fa256a874a14f1" name="a8ba3173440d71b1051fa256a874a14f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ba3173440d71b1051fa256a874a14f1">&#9670;&#160;</a></span>setUnloadTimeout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setUnloadTimeout </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>seconds</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the amount of time sounds should be in memory before being cleared. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seconds</td><td>The time to keep sounds loaded. Default is two minutes </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00117">117</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a93274a6e8a82bc1c0dc8b0a46b751c26" name="a93274a6e8a82bc1c0dc8b0a46b751c26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93274a6e8a82bc1c0dc8b0a46b751c26">&#9670;&#160;</a></span>setVolume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::setVolume </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>volume</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the global volume of all playlists and sounds. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">volume</td><td>The global volume, in the range [0, 100] </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00321">321</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeeca6043efc35cbbfc43f6c342f9a25f" name="aeeca6043efc35cbbfc43f6c342f9a25f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeeca6043efc35cbbfc43f6c342f9a25f">&#9670;&#160;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::stop </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fade</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops all sounds and playlists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fade</td><td>True to fade out, false to stop immediately </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00383">383</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ddbda3b93f954ee29e9b4503bb49fee" name="a7ddbda3b93f954ee29e9b4503bb49fee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ddbda3b93f954ee29e9b4503bb49fee">&#9670;&#160;</a></span>stopAllPlaylists()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::stopAllPlaylists </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fadeOut</em> = <code>-1.f</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops all current and previous playlists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fadeOut</td><td>Fade out time of currently playing playlist </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00310">310</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a08e6680475a10517f4c030c510f99224" name="a08e6680475a10517f4c030c510f99224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08e6680475a10517f4c030c510f99224">&#9670;&#160;</a></span>stopAllSounds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::stopAllSounds </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops all sounds immediately. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00206">206</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afc9d3aa7f98bf5e44c2dc136a9e33593" name="afc9d3aa7f98bf5e44c2dc136a9e33593"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc9d3aa7f98bf5e44c2dc136a9e33593">&#9670;&#160;</a></span>stopSound()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bl::audio::AudioSystem::stopSound </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a>&#160;</td>
+          <td class="paramname"><em>sound</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fade</em> = <code>-1.f</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stops the given sound if it is playing. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sound</td><td>The sound to stop </td></tr>
+    <tr><td class="paramname">fade</td><td>Optional fade out time in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02870_source.html#l00189">189</a> of file <a class="el" href="a02870_source.html">AudioSystem.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aaba4e74c447f330c9cdd71e99508a15b" name="aaba4e74c447f330c9cdd71e99508a15b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaba4e74c447f330c9cdd71e99508a15b">&#9670;&#160;</a></span>InvalidHandle</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="a03730.html#a1976c9cbec3cb0348a2e6f0381ea9906">Handle</a> bl::audio::AudioSystem::InvalidHandle = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Special value to indicate an error loading a sound or playlist. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01616_source.html#l00034">34</a> of file <a class="el" href="a01616_source.html">AudioSystem.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Cameras/<a class="el" href="a00005_source.html">Camera.hpp</a></li>
-<li>src/Cameras/<a class="el" href="a01988_source.html">Camera.cpp</a></li>
+<li>include/BLIB/Audio/<a class="el" href="a01616_source.html">AudioSystem.hpp</a></li>
+<li>src/Audio/<a class="el" href="a02870_source.html">AudioSystem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

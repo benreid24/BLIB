@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::particle Namespace Reference</title>
+<title>BLIB: bl::refl Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,32 +74,151 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03194.html">particle</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03194.html">refl</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
-  <div class="headertitle"><div class="title">bl::particle Namespace Reference</div></div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
+  <div class="headertitle"><div class="title">bl::refl Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>A simple bare bones particle system.  
+<p>Object reflection and descriptor system.  
 <a href="a03194.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a03242" id="r_a03242"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03242.html">attr</a></td></tr>
+<tr class="memdesc:a03242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of core built-in attributes for reflection. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03241" id="r_a03241"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03241.html">detail</a></td></tr>
+<tr class="memdesc:a03241"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation details only. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05234.html">System</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A very simple particle system. Particles not provided.  <a href="a05234.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05286.html">AttributeList</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper type for storing arbitrary attributes on reflected types.  <a href="a05286.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05298.html">Attributes</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for getting attributes of reflected objects.  <a href="a05298.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05358.html">ReflectedMember</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for reflected members of reflected objects.  <a href="a05358.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05354.html">ReflectedMemberBase</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Non-template base class for reflected members to provide easy access to common info.  <a href="a05354.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05362.html">ReflectedObject</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The core piece of the reflection system. Specialize this class for any type that requires reflection. The <a class="el" href="a05362.html#afe4f82110829c529ceecc9f07d8afbd0">spec()</a> member must return the result of a call to makeSpec.  <a href="a05362.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03494.html">ReflectedObject&lt; as::bdl::BundleData &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html">ReflectedObject&lt; as::bdl::FileMetadata &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03514.html">ReflectedObject&lt; as::bdl::Manifest &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07198.html">ReflectedObject&lt; as::EditorRuntimeData &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a07202.html">ReflectedObject&lt; as::GameRuntimeData &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03678.html">ReflectedObject&lt; as::Metadata &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03674.html">ReflectedObject&lt; as::Metadata::SourceFileInfo &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03706.html">ReflectedObject&lt; as::RepoDependency &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03718.html">ReflectedObject&lt; as::SourceLink &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03398.html">ReflectedObject&lt; asi::Animation2DPayload &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03402.html">ReflectedObject&lt; asi::Animation2DPayload::Frame &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03406.html">ReflectedObject&lt; asi::Animation2DPayload::Frame::Shard &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03454.html">ReflectedObject&lt; asi::MaterialPayload &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03482.html">ReflectedObject&lt; asi::TexturePayload &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05350.html">ReflectedObject&lt; glm::qua&lt; U, P &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05338.html">ReflectedObject&lt; glm::vec&lt; 2, U, P &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05342.html">ReflectedObject&lt; glm::vec&lt; 3, U, P &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05346.html">ReflectedObject&lt; glm::vec&lt; 4, U, P &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05010.html">ReflectedObject&lt; mdl::Bone &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05018.html">ReflectedObject&lt; mdl::BoneAnimation &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05042.html">ReflectedObject&lt; mdl::KeyframeQuaternion &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05050.html">ReflectedObject&lt; mdl::KeyframeVector &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05058.html">ReflectedObject&lt; mdl::Material &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05130.html">ReflectedObject&lt; mdl::Vertex &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05334.html">ReflectedObject&lt; sf::Rect&lt; U &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05326.html">ReflectedObject&lt; sf::Vector2&lt; U &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05330.html">ReflectedObject&lt; sf::Vector3&lt; U &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05322.html">ReflectedObject&lt; std::pair&lt; U, V &gt; &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a06974.html">ReflectedObject&lt; tmap::Position &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05366.html">Spec</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reflection spec for objects. Contains a member list and a set of arbitrary attributes.  <a href="a05366.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga92fdcbdb8f5d0d66badc9c819c6c2c2d" id="r_ga92fdcbdb8f5d0d66badc9c819c6c2c2d"><td class="memTemplParams" colspan="2">template&lt;typename ObjectType , typename MemberType , typename... Attributes&gt; </td></tr>
+<tr class="memitem:ga92fdcbdb8f5d0d66badc9c819c6c2c2d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a05358.html">ReflectedMember</a>&lt; ObjectType, MemberType, Attributes... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">defineMember</a> (std::uint16_t id, std::string_view <a class="el" href="a03175.html#ga8622d55b2b88700535f3cb0106e8a801">name</a>, MemberType ObjectType::*memberPointer, <a class="el" href="a05298.html">Attributes</a> &amp;&amp;... attrs)</td></tr>
+<tr class="memdesc:ga92fdcbdb8f5d0d66badc9c819c6c2c2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to create a <a class="el" href="a05358.html" title="Class for reflected members of reflected objects.">ReflectedMember</a> object.  <br /></td></tr>
+<tr class="separator:ga92fdcbdb8f5d0d66badc9c819c6c2c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab41b504de5d1cc9b20c7fa5c85b39a29" id="r_gab41b504de5d1cc9b20c7fa5c85b39a29"><td class="memTemplParams" colspan="2">template&lt;typename... Members&gt; </td></tr>
+<tr class="memitem:gab41b504de5d1cc9b20c7fa5c85b39a29"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#gab41b504de5d1cc9b20c7fa5c85b39a29">memberList</a> (Members &amp;&amp;... members)</td></tr>
+<tr class="memdesc:gab41b504de5d1cc9b20c7fa5c85b39a29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to define the list of members for a reflected object.  <br /></td></tr>
+<tr class="separator:gab41b504de5d1cc9b20c7fa5c85b39a29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga71aa5a4160350ee99dc3b0d605aeefec" id="r_ga71aa5a4160350ee99dc3b0d605aeefec"><td class="memTemplParams" colspan="2">template&lt;typename VisitorType , typename ObjectType &gt; </td></tr>
+<tr class="memitem:ga71aa5a4160350ee99dc3b0d605aeefec"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#ga71aa5a4160350ee99dc3b0d605aeefec">visit</a> (ObjectType &amp;object, VisitorType &amp;&amp;visitor)</td></tr>
+<tr class="memdesc:ga71aa5a4160350ee99dc3b0d605aeefec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit all members of a reflected object.  <br /></td></tr>
+<tr class="separator:ga71aa5a4160350ee99dc3b0d605aeefec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1b47b3aa181a01044420ba08ecd4ade0" id="r_ga1b47b3aa181a01044420ba08ecd4ade0"><td class="memTemplParams" colspan="2">template&lt;typename VisitorType , typename ObjectType &gt; </td></tr>
+<tr class="memitem:ga1b47b3aa181a01044420ba08ecd4ade0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#ga1b47b3aa181a01044420ba08ecd4ade0">visit</a> (const ObjectType &amp;object, VisitorType &amp;&amp;visitor)</td></tr>
+<tr class="memdesc:ga1b47b3aa181a01044420ba08ecd4ade0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visit all members of a reflected object.  <br /></td></tr>
+<tr class="separator:ga1b47b3aa181a01044420ba08ecd4ade0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga99065e82f2d98540ba0ba77ce73fc2b7" id="r_ga99065e82f2d98540ba0ba77ce73fc2b7"><td class="memTemplParams" colspan="2">template&lt;typename ObjectType , typename MemberList , typename... TAttrs&gt; </td></tr>
+<tr class="memitem:ga99065e82f2d98540ba0ba77ce73fc2b7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a05366.html">Spec</a>&lt; ObjectType, MemberList, TAttrs... &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#ga99065e82f2d98540ba0ba77ce73fc2b7">makeSpec</a> (std::string_view <a class="el" href="a03175.html#ga8622d55b2b88700535f3cb0106e8a801">name</a>, MemberList members, TAttrs &amp;&amp;... attrs)</td></tr>
+<tr class="memdesc:ga99065e82f2d98540ba0ba77ce73fc2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction helper to create a <a class="el" href="a05366.html" title="Reflection spec for objects. Contains a member list and a set of arbitrary attributes.">Spec</a> object for a reflected type.  <br /></td></tr>
+<tr class="separator:ga99065e82f2d98540ba0ba77ce73fc2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ga8622d55b2b88700535f3cb0106e8a801" id="r_ga8622d55b2b88700535f3cb0106e8a801"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ga8622d55b2b88700535f3cb0106e8a801"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::string_view&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#ga8622d55b2b88700535f3cb0106e8a801">name</a> = <a class="el" href="a05362.html">ReflectedObject</a>&lt;T&gt;::spec.name</td></tr>
+<tr class="memdesc:ga8622d55b2b88700535f3cb0106e8a801"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience accessor for the name of a reflected type.  <br /></td></tr>
+<tr class="separator:ga8622d55b2b88700535f3cb0106e8a801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae1bd8e1ae613d43a590dd59f8558c306" id="r_gae1bd8e1ae613d43a590dd59f8558c306"><td class="memTemplParams" colspan="2">template&lt;typename ObjectType &gt; </td></tr>
+<tr class="memitem:gae1bd8e1ae613d43a590dd59f8558c306"><td class="memTemplItemLeft" align="right" valign="top">constexpr std::size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03175.html#gae1bd8e1ae613d43a590dd59f8558c306">memberCount</a> = <a class="el" href="a05362.html">ReflectedObject</a>&lt;ObjectType&gt;::spec.memberCount</td></tr>
+<tr class="memdesc:gae1bd8e1ae613d43a590dd59f8558c306"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience accessor for the number of members in a reflected type.  <br /></td></tr>
+<tr class="separator:gae1bd8e1ae613d43a590dd59f8558c306"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A simple bare bones particle system. </p>
+<div class="textblock"><p>Object reflection and descriptor system. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

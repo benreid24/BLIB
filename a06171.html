@@ -74,27 +74,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03217.html">tfr</a></li><li class="navelem"><a class="el" href="a06174.html">TransferContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03249.html">scene</a></li><li class="navelem"><a class="el" href="a06174.html">SceneRenderContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">bl::rc::tfr::TransferContext Member List</div></div>
+  <div class="headertitle"><div class="title">bl::rc::scene::SceneRenderContext Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a0095891b196aaca7b289210a8a774bee">createTemporaryStagingBuffer</a>(VkDeviceSize size, VkBuffer &amp;bufferResult, void **mappedMemory)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a37f3aa2f09d5a38a8c6761f09ac26d8c">device</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a06174.html#ad3498b85b2352fb77251503598d24bf0">registerBufferBarrier</a>(const VkBufferMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#ab4518b0ecbee6232e04ea2aab04f05aa">registerImageBarrier</a>(const VkImageMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a0516ada22d07c935ad2a1dbff375a55f">registerMemoryBarrier</a>(const VkMemoryBarrier &amp;barrier)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
-  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a77f9c10eca98f433255c80f8afd2281e">TransferContext</a>(std::mutex &amp;bucketMutex, vk::VulkanLayer &amp;vulkanState, std::vector&lt; VkBuffer &gt; &amp;stagingBuffers, std::vector&lt; VmaAllocation &gt; &amp;stagingAllocs, std::vector&lt; VkMemoryBarrier &gt; &amp;memoryBarriers, std::vector&lt; VkBufferMemoryBarrier &gt; &amp;bufferBarriers, std::vector&lt; VkImageMemoryBarrier &gt; &amp;imageBarriers)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::tfr::TransferContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a9f9dafa91dc6025a8ed7c4b4c5c12d3b">bindDescriptors</a>(VkPipelineLayout layout, UpdateSpeed updateFreq, ds::DescriptorSetInstance **descriptors, std::uint32_t descriptorCount)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a0fe123b89bd8364a4f1ea9c2a7400df7">bindPipeline</a>(mat::MaterialPipeline &amp;pipeline, std::uint32_t specialization)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a324799753fcad12c036226232086d7e1">currentObserverIndex</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#abce4311a40767d910a8197278d506db2">currentRenderPass</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a2c5c79bd74ff1085cf4661469e747c73">getCommandBuffer</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a5ab9826d4e472320a45102eb422e876e">getExtraContext</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a5e7eff4ad311639b4af71122fae06319">getExtraContextType</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a1957948dd78e376271c8419acb3e7fea">getPipelineBindPoint</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a57ad0b33b333ac921d0bc193210e938b">getRenderPhase</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#ad5b59b8d7e48fc07910be6a10939e43f">hasExtraContext</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#a87b2a1a1eb4af4c31c04efc5dce3a523">parentViewport</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a25f6ac72e581b7ac3f387d14c51c8ab4">renderObject</a>(const SceneObject &amp;object)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#ac3709c94d076ccca61788f1a904ac2bb">renderObject</a>(const rcom::DrawableBase &amp;object)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#ad91777bcc74aba2c24a101d9de8bfa49">SceneRenderContext</a>(VkCommandBuffer commandBuffer, std::uint32_t observerIndex, const VkViewport &amp;viewport, RenderPhase renderPhase, std::uint32_t renderPassId, bool renderingToRenderTexture)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a06174.html#aa438852fb9a27980b0a4e86159f5fc5c">setExtraContext</a>(T *ctx)</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="a06174.html#a37041263e1002a5afda27e24ce22f601">targetIsRenderTexture</a>() const</td><td class="entry"><a class="el" href="a06174.html">bl::rc::scene::SceneRenderContext</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

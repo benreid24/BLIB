@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Engine/World.hpp Source File</title>
+<title>BLIB: include/BLIB/Models/MaterialSet.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,95 +79,82 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_21925c401d8b9381bdf61383d8a14cd0.html">Engine</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_dea097b7efa3121d8e11b185c993d8b3.html">Models</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">World.hpp</div></div>
+  <div class="headertitle"><div class="title">MaterialSet.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01628.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ENGINE_WORLD_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ENGINE_WORLD_HPP</span></div>
+<a href="a01628.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MODELS_MATERIALSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MODELS_MATERIALSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00410.html">BLIB/ECS/Entity.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09590.html">BLIB/ECS/Flags.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00416.html">BLIB/ECS/Transaction.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00797.html">BLIB/Render/Resources/SceneRef.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01484.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>engine</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">class </span>Engine;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="};">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="a04310.html">   22</a></span><span class="keyword">class </span><a class="code hl_class" href="a04310.html">World</a> : <span class="keyword">private</span> <a class="code hl_class" href="a06974.html">util::NonCopyable</a> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04310.html#a510cb2022f4be86940fa5f2c27225919">   24</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a04310.html#a510cb2022f4be86940fa5f2c27225919">MaxWorlds</a> = 8;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04310.html#ad3cd3f32dabb64704288f631ba70099f">~World</a>();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_struct" href="a04046.html">ecs::Entity</a> <a class="code hl_function" href="a04310.html#a91b6926ca30495c90225cfb617fc8bec">createEntity</a>(<a class="code hl_enumeration" href="a03119.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags = <a class="code hl_enumvalue" href="a03119.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_struct" href="a04046.html">ecs::Entity</a> <a class="code hl_function" href="a04310.html#a91b6926ca30495c90225cfb617fc8bec">createEntity</a>(<span class="keyword">const</span> <a class="code hl_class" href="a04182.html">ecs::Transaction&lt;ecs::tx::EntityWrite&gt;</a>&amp; transaction,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                             <a class="code hl_enumeration" href="a03119.html#gad22c7b1807fcff9c01b2082084716652">ecs::Flags</a> flags = <a class="code hl_enumvalue" href="a03119.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">ecs::Flags::None</a>);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04310.html#a8826a649acea7872a1278cd86eaf412e">destroyAllEntities</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a04310.html#a1d543f53339633c3e1f27e956a9369d4">   57</a></span>    <a class="code hl_class" href="a04202.html">Engine</a>&amp; <a class="code hl_function" href="a04310.html#a1d543f53339633c3e1f27e956a9369d4">engine</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> owner; }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a04310.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">   62</a></span>    <a class="code hl_class" href="a05934.html">rc::SceneRef</a> <a class="code hl_function" href="a04310.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">scene</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> renderScene; }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a04310.html#a1aaf57b247b9695aeaf9faff2319cdcb">   67</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a04310.html#a1aaf57b247b9695aeaf9faff2319cdcb">worldIndex</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> index; }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="keyword">protected</span>:</div>
-<div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a04310.html#a4a4c689b29b52b5342d820c428e37bc8">   75</a></span>    <a class="code hl_function" href="a04310.html#a4a4c689b29b52b5342d820c428e37bc8">World</a>(<a class="code hl_class" href="a04202.html">Engine</a>&amp; owner, <a class="code hl_class" href="a05934.html">rc::SceneRef</a> renderScene)</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    : owner(owner)</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    , renderScene(renderScene) {}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a09040.html">BLIB/Models/Material.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09142.html">BLIB/Models/Visitor.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Reflection/ReflectedObject.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;assimp/material.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;assimp/scene.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>mdl</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="foldopen" id="foldopen00020" data-start="{" data-end="};">
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a05066.html">   20</a></span><span class="keyword">class </span><a class="code hl_class" href="a05066.html">MaterialSet</a> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a05066.html#abd733779ce23f71f9283fa45fade7033">   25</a></span>    <a class="code hl_function" href="a05066.html#abd733779ce23f71f9283fa45fade7033">MaterialSet</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05066.html#a4454563b681e379401e952a01b80db41">populate</a>(<span class="keyword">const</span> aiScene* scene, <span class="keyword">const</span> std::string&amp; modelPath);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a05066.html#a796c6ff8d1e3bbae951f180e6e8fdd45">   41</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="a05054.html">Material</a>&amp; <a class="code hl_function" href="a05066.html#a796c6ff8d1e3bbae951f180e6e8fdd45">getMaterial</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> materials[i]; }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a05066.html#a59d33bcef1d4eb3a6db4845182d2747b">   46</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a05066.html#a59d33bcef1d4eb3a6db4845182d2747b">numMaterials</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> materials.size(); }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05066.html#a07e0711338ebe169f04dc5cdf250bae5">visitDependencies</a>(<span class="keyword">const</span> <a class="code hl_typedef" href="a03172.html#gad041c8e1116ffd182d7e4bb90df97d74">DependencyVisitor</a>&amp; visitor);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a05066.html#aa0ab9ce40dbb49b6e997670be0b09c1c">   56</a></span>    std::vector&lt;Material&gt; materials;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a05362.html">refl::ReflectedObject</a>&lt;<a class="code hl_class" href="a05066.html">MaterialSet</a>&gt;;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>};</div>
 </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <a class="code hl_class" href="a04202.html">Engine</a>&amp; owner;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_class" href="a05934.html">rc::SceneRef</a> renderScene;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a04310.html#a3e1914489e4bed4f9f23cdeab34a43dc">   84</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a04202.html">Engine</a>;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>};</div>
-</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>} <span class="comment">// namespace engine</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00410_html"><div class="ttname"><a href="a00410.html">Entity.hpp</a></div></div>
-<div class="ttc" id="aa00416_html"><div class="ttname"><a href="a00416.html">Transaction.hpp</a></div></div>
-<div class="ttc" id="aa00797_html"><div class="ttname"><a href="a00797.html">SceneRef.hpp</a></div></div>
-<div class="ttc" id="aa01484_html"><div class="ttname"><a href="a01484.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa03119_html_gad22c7b1807fcff9c01b2082084716652"><div class="ttname"><a href="a03119.html#gad22c7b1807fcff9c01b2082084716652">bl::ecs::Flags</a></div><div class="ttdeci">Flags</div><div class="ttdoc">Collection of flags that may be set on an entity when created.</div><div class="ttdef"><b>Definition</b> <a href="a09590_source.html#l00015">Flags.hpp:15</a></div></div>
-<div class="ttc" id="aa03119_html_ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a03119.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">bl::ecs::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">The entity has no special flags.</div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04046_html"><div class="ttname"><a href="a04046.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04182_html"><div class="ttname"><a href="a04182.html">bl::ecs::Transaction</a></div><div class="ttdef"><b>Definition</b> <a href="a00416_source.html#l00149">Transaction.hpp:149</a></div></div>
-<div class="ttc" id="aa04202_html"><div class="ttname"><a href="a04202.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09596_source.html#l00040">Engine.hpp:40</a></div></div>
-<div class="ttc" id="aa04310_html"><div class="ttname"><a href="a04310.html">bl::engine::World</a></div><div class="ttdoc">Base class for engine worlds. A world is a scene and all the entities in it. Players can be in worlds...</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00022">World.hpp:22</a></div></div>
-<div class="ttc" id="aa04310_html_a1aaf57b247b9695aeaf9faff2319cdcb"><div class="ttname"><a href="a04310.html#a1aaf57b247b9695aeaf9faff2319cdcb">bl::engine::World::worldIndex</a></div><div class="ttdeci">unsigned int worldIndex() const</div><div class="ttdoc">Returns the index of this world.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00067">World.hpp:67</a></div></div>
-<div class="ttc" id="aa04310_html_a1d543f53339633c3e1f27e956a9369d4"><div class="ttname"><a href="a04310.html#a1d543f53339633c3e1f27e956a9369d4">bl::engine::World::engine</a></div><div class="ttdeci">Engine &amp; engine() const</div><div class="ttdoc">Returns the game engine instance.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00057">World.hpp:57</a></div></div>
-<div class="ttc" id="aa04310_html_a4a4c689b29b52b5342d820c428e37bc8"><div class="ttname"><a href="a04310.html#a4a4c689b29b52b5342d820c428e37bc8">bl::engine::World::World</a></div><div class="ttdeci">World(Engine &amp;owner, rc::SceneRef renderScene)</div><div class="ttdoc">Creates the world.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00075">World.hpp:75</a></div></div>
-<div class="ttc" id="aa04310_html_a510cb2022f4be86940fa5f2c27225919"><div class="ttname"><a href="a04310.html#a510cb2022f4be86940fa5f2c27225919">bl::engine::World::MaxWorlds</a></div><div class="ttdeci">static constexpr unsigned int MaxWorlds</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00024">World.hpp:24</a></div></div>
-<div class="ttc" id="aa04310_html_a8826a649acea7872a1278cd86eaf412e"><div class="ttname"><a href="a04310.html#a8826a649acea7872a1278cd86eaf412e">bl::engine::World::destroyAllEntities</a></div><div class="ttdeci">void destroyAllEntities()</div><div class="ttdoc">Destroys all entities in this world.</div><div class="ttdef"><b>Definition</b> <a href="a02876_source.html#l00018">World.cpp:18</a></div></div>
-<div class="ttc" id="aa04310_html_a91b6926ca30495c90225cfb617fc8bec"><div class="ttname"><a href="a04310.html#a91b6926ca30495c90225cfb617fc8bec">bl::engine::World::createEntity</a></div><div class="ttdeci">ecs::Entity createEntity(ecs::Flags flags=ecs::Flags::None)</div><div class="ttdoc">Creates an entity in this world.</div><div class="ttdef"><b>Definition</b> <a href="a02876_source.html#l00011">World.cpp:11</a></div></div>
-<div class="ttc" id="aa04310_html_a9e77c6ef3c0c64ca96d6da94f1ac2ee2"><div class="ttname"><a href="a04310.html#a9e77c6ef3c0c64ca96d6da94f1ac2ee2">bl::engine::World::scene</a></div><div class="ttdeci">rc::SceneRef scene() const</div><div class="ttdoc">Returns the scene for this world.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00062">World.hpp:62</a></div></div>
-<div class="ttc" id="aa04310_html_ad3cd3f32dabb64704288f631ba70099f"><div class="ttname"><a href="a04310.html#ad3cd3f32dabb64704288f631ba70099f">bl::engine::World::~World</a></div><div class="ttdeci">virtual ~World()</div><div class="ttdoc">Destroys the world.</div><div class="ttdef"><b>Definition</b> <a href="a02876_source.html#l00009">World.cpp:9</a></div></div>
-<div class="ttc" id="aa05934_html"><div class="ttname"><a href="a05934.html">bl::rc::SceneRef</a></div><div class="ttdoc">Handle to a scene allocated from ScenePool. Performs reference counting.</div><div class="ttdef"><b>Definition</b> <a href="a00797_source.html#l00020">SceneRef.hpp:20</a></div></div>
-<div class="ttc" id="aa06974_html"><div class="ttname"><a href="a06974.html">bl::util::NonCopyable</a></div><div class="ttdoc">Helper class to make derived classes impossible for user to copy directly.</div><div class="ttdef"><b>Definition</b> <a href="a01484_source.html#l00013">NonCopyable.hpp:13</a></div></div>
-<div class="ttc" id="aa09590_html"><div class="ttname"><a href="a09590.html">Flags.hpp</a></div></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace mdl</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="keyword">namespace </span>refl</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>{</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="keyword">struct </span>ReflectedObject&lt;mdl::MaterialSet&gt; {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_variable" href="a05362.html#afe4f82110829c529ceecc9f07d8afbd0">spec</a> = makeSpec&lt;mdl::MaterialSet&gt;(</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="stringliteral">&quot;MaterialSet&quot;</span>, <a class="code hl_function" href="a03175.html#gab41b504de5d1cc9b20c7fa5c85b39a29">memberList</a>(<a class="code hl_function" href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">defineMember</a>(1, <span class="stringliteral">&quot;materials&quot;</span>, &amp;mdl::MaterialSet::materials)));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace refl</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">ReflectedObject.hpp</a></div></div>
+<div class="ttc" id="aa03172_html_gad041c8e1116ffd182d7e4bb90df97d74"><div class="ttname"><a href="a03172.html#gad041c8e1116ffd182d7e4bb90df97d74">bl::mdl::DependencyVisitor</a></div><div class="ttdeci">std::function&lt; std::string(const std::string &amp;)&gt; DependencyVisitor</div><div class="ttdoc">Signature of a visitor of model dependency files. Takes in the original file path and returns a new f...</div><div class="ttdef"><b>Definition</b> <a href="a09142_source.html#l00018">Visitor.hpp:18</a></div></div>
+<div class="ttc" id="aa03175_html_ga92fdcbdb8f5d0d66badc9c819c6c2c2d"><div class="ttname"><a href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">bl::refl::defineMember</a></div><div class="ttdeci">ReflectedMember&lt; ObjectType, MemberType, Attributes... &gt; defineMember(std::uint16_t id, std::string_view name, MemberType ObjectType::*memberPointer, Attributes &amp;&amp;... attrs)</div><div class="ttdoc">Deduction helper to create a ReflectedMember object.</div><div class="ttdef"><b>Definition</b> <a href="a00380_source.html#l00140">ReflectedMember.hpp:140</a></div></div>
+<div class="ttc" id="aa03175_html_gab41b504de5d1cc9b20c7fa5c85b39a29"><div class="ttname"><a href="a03175.html#gab41b504de5d1cc9b20c7fa5c85b39a29">bl::refl::memberList</a></div><div class="ttdeci">auto memberList(Members &amp;&amp;... members)</div><div class="ttdoc">Deduction helper to define the list of members for a reflected object.</div><div class="ttdef"><b>Definition</b> <a href="a00380_source.html#l00156">ReflectedMember.hpp:156</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05054_html"><div class="ttname"><a href="a05054.html">bl::mdl::Material</a></div><div class="ttdoc">Basic struct with material info for a mesh.</div><div class="ttdef"><b>Definition</b> <a href="a09040_source.html#l00017">Material.hpp:17</a></div></div>
+<div class="ttc" id="aa05066_html"><div class="ttname"><a href="a05066.html">bl::mdl::MaterialSet</a></div><div class="ttdoc">Contains the set of materials in a model.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00020">MaterialSet.hpp:20</a></div></div>
+<div class="ttc" id="aa05066_html_a07e0711338ebe169f04dc5cdf250bae5"><div class="ttname"><a href="a05066.html#a07e0711338ebe169f04dc5cdf250bae5">bl::mdl::MaterialSet::visitDependencies</a></div><div class="ttdeci">void visitDependencies(const DependencyVisitor &amp;visitor)</div><div class="ttdoc">Visits all dependencies of the model with the given visitor.</div><div class="ttdef"><b>Definition</b> <a href="a02897_source.html#l00044">MaterialSet.cpp:44</a></div></div>
+<div class="ttc" id="aa05066_html_a4454563b681e379401e952a01b80db41"><div class="ttname"><a href="a05066.html#a4454563b681e379401e952a01b80db41">bl::mdl::MaterialSet::populate</a></div><div class="ttdeci">void populate(const aiScene *scene, const std::string &amp;modelPath)</div><div class="ttdoc">Populates the material set from the given model.</div><div class="ttdef"><b>Definition</b> <a href="a02897_source.html#l00009">MaterialSet.cpp:9</a></div></div>
+<div class="ttc" id="aa05066_html_a59d33bcef1d4eb3a6db4845182d2747b"><div class="ttname"><a href="a05066.html#a59d33bcef1d4eb3a6db4845182d2747b">bl::mdl::MaterialSet::numMaterials</a></div><div class="ttdeci">unsigned int numMaterials() const</div><div class="ttdoc">Returns the number of materials in the set.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00046">MaterialSet.hpp:46</a></div></div>
+<div class="ttc" id="aa05066_html_a796c6ff8d1e3bbae951f180e6e8fdd45"><div class="ttname"><a href="a05066.html#a796c6ff8d1e3bbae951f180e6e8fdd45">bl::mdl::MaterialSet::getMaterial</a></div><div class="ttdeci">const Material &amp; getMaterial(unsigned int i) const</div><div class="ttdoc">Returns the material with the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01628_source.html#l00041">MaterialSet.hpp:41</a></div></div>
+<div class="ttc" id="aa05066_html_abd733779ce23f71f9283fa45fade7033"><div class="ttname"><a href="a05066.html#abd733779ce23f71f9283fa45fade7033">bl::mdl::MaterialSet::MaterialSet</a></div><div class="ttdeci">MaterialSet()=default</div><div class="ttdoc">Creates an empty material set.</div></div>
+<div class="ttc" id="aa05362_html"><div class="ttname"><a href="a05362.html">bl::refl::ReflectedObject</a></div><div class="ttdoc">The core piece of the reflection system. Specialize this class for any type that requires reflection....</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00022">ReflectedObject.hpp:22</a></div></div>
+<div class="ttc" id="aa05362_html_afe4f82110829c529ceecc9f07d8afbd0"><div class="ttname"><a href="a05362.html#afe4f82110829c529ceecc9f07d8afbd0">bl::refl::ReflectedObject::spec</a></div><div class="ttdeci">static const auto spec</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00025">ReflectedObject.hpp:25</a></div></div>
+<div class="ttc" id="aa09040_html"><div class="ttname"><a href="a09040.html">Material.hpp</a></div></div>
+<div class="ttc" id="aa09142_html"><div class="ttname"><a href="a09142.html">Visitor.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

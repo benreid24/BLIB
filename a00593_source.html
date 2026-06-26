@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Tasks/ShadowMapTask.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Graph/Assets/FinalRenderTextureAsset.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,72 +79,88 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_adf8e29d1ba8d413d8ee6c1365267c96.html">Tasks</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_318f4421f1f7fb4c659a5f109f7dfe6e.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ShadowMapTask.hpp</div></div>
+  <div class="headertitle"><div class="title">FinalRenderTextureAsset.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00593.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_TASKS_SHADOWMAPTASK_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_TASKS_SHADOWMAPTASK_HPP</span></div>
+<a href="a00593.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_FINALRENDERTEXTUREASSET_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_FINALRENDERTEXTUREASSET_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00533.html">BLIB/Render/Graph/Assets/ShadowMapAsset.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00620.html">BLIB/Render/Graph/Task.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00611.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00842.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01151.html">BLIB/Render/Vulkan/AttachmentSet.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01169.html">BLIB/Render/Vulkan/Framebuffer.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>scene</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>rc</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>Scene3D;</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>rgi</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="};">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="a05722.html">   23</a></span><span class="keyword">class </span><a class="code hl_class" href="a05722.html">ShadowMapTask</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05646.html">rg::Task</a> {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_function" href="a05722.html#aa29ca3c0575fb6775aa4f4072c7eb8d4">ShadowMapTask</a>();</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a05722.html#a1aab42cf9a4314f20b99b1f7d985ec15">   33</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05722.html#a1aab42cf9a4314f20b99b1f7d985ec15">~ShadowMapTask</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="a05878.html">Renderer</a>* renderer;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_class" href="a06014.html">scene::Scene3D</a>* scene;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_class" href="a05578.html">ShadowMapAsset</a>* shadowMaps;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> create(<span class="keyword">const</span> <a class="code hl_struct" href="a05602.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onGraphInit() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> execute(<span class="keyword">const</span> <a class="code hl_struct" href="a05590.html">rg::ExecutionContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_class" href="a05522.html">rg::Asset</a>* output) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>};</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span>rgi</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">class </span>DepthBuffer;</div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="};">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a05682.html">   21</a></span><span class="keyword">class </span><a class="code hl_class" href="a05682.html">FinalRenderTextureAsset</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05690.html">FramebufferAsset</a> {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_class" href="a05682.html">FinalRenderTextureAsset</a>(<a class="code hl_class" href="a06078.html">res::TextureRef</a> texture, <span class="keyword">const</span> VkViewport&amp; <a class="code hl_variable" href="a05690.html#a6382f4fc54a3274be43097cd41accf9b">viewport</a>,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                            <span class="keyword">const</span> VkRect2D&amp; <a class="code hl_variable" href="a05690.html#af79eff1acf691c3e36462cc58f102639">scissor</a>, <span class="keyword">const</span> VkClearValue* <a class="code hl_variable" href="a05690.html#a65b9e38cba06e4d65e4d86da6d23ef6c">clearColors</a>,</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                            <span class="keyword">const</span> std::uint32_t <a class="code hl_variable" href="a05690.html#a23d36691b92ad120b391d4709e7d01c0">clearColorCount</a>);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a05682.html#a4d1181e7055d30af2230a846457911fe">   39</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05682.html#a4d1181e7055d30af2230a846457911fe">~FinalRenderTextureAsset</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a06382.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a05682.html#ab6b5940b68d97000a1bec2ad0cccc670">currentFramebuffer</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="a06382.html">vk::Framebuffer</a>&amp; <a class="code hl_function" href="a05682.html#a59da79db09402b682d65f9e86bea90b9">getFramebuffer</a>(std::uint32_t i) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="a06010.html">Renderer</a>* renderer;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="a06078.html">res::TextureRef</a> texture;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="a05678.html">DepthBuffer</a>* depthBuffer;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <a class="code hl_class" href="a06322.html">vk::AttachmentSet</a> attachmentSet;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <a class="code hl_class" href="a06382.html">vk::Framebuffer</a> framebuffer;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doCreate(<span class="keyword">const</span> <a class="code hl_struct" href="a05734.html">rg::InitContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doPrepareForInput(<span class="keyword">const</span> <a class="code hl_struct" href="a05722.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doStartOutput(<span class="keyword">const</span> <a class="code hl_struct" href="a05722.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doEndOutput(<span class="keyword">const</span> <a class="code hl_struct" href="a05722.html">rg::ExecutionContext</a>&amp; context) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onResize(glm::u32vec2 newSize) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>};</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>} <span class="comment">// namespace rgi</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">ShadowMapAsset.hpp</a></div></div>
-<div class="ttc" id="aa00620_html"><div class="ttname"><a href="a00620.html">Task.hpp</a></div></div>
-<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa05522_html"><div class="ttname"><a href="a05522.html">bl::rc::rg::Asset</a></div><div class="ttdoc">Base class for assets in render graphs.</div><div class="ttdef"><b>Definition</b> <a href="a09752_source.html#l00039">Asset.hpp:39</a></div></div>
-<div class="ttc" id="aa05578_html"><div class="ttname"><a href="a05578.html">bl::rc::rgi::ShadowMapAsset</a></div><div class="ttdoc">Asset that contains framebuffers for shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00533_source.html#l00020">ShadowMapAsset.hpp:20</a></div></div>
-<div class="ttc" id="aa05590_html"><div class="ttname"><a href="a05590.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00662_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
-<div class="ttc" id="aa05602_html"><div class="ttname"><a href="a05602.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a09764_source.html#l00032">InitContext.hpp:32</a></div></div>
-<div class="ttc" id="aa05646_html"><div class="ttname"><a href="a05646.html">bl::rc::rg::Task</a></div><div class="ttdoc">Base class for tasks within a RenderGraph.</div><div class="ttdef"><b>Definition</b> <a href="a00620_source.html#l00030">Task.hpp:30</a></div></div>
-<div class="ttc" id="aa05722_html"><div class="ttname"><a href="a05722.html">bl::rc::rgi::ShadowMapTask</a></div><div class="ttdoc">Task that renders shadow maps.</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00023">ShadowMapTask.hpp:23</a></div></div>
-<div class="ttc" id="aa05722_html_a1aab42cf9a4314f20b99b1f7d985ec15"><div class="ttname"><a href="a05722.html#a1aab42cf9a4314f20b99b1f7d985ec15">bl::rc::rgi::ShadowMapTask::~ShadowMapTask</a></div><div class="ttdeci">virtual ~ShadowMapTask()=default</div><div class="ttdoc">Destroys the task.</div></div>
-<div class="ttc" id="aa05722_html_aa29ca3c0575fb6775aa4f4072c7eb8d4"><div class="ttname"><a href="a05722.html#aa29ca3c0575fb6775aa4f4072c7eb8d4">bl::rc::rgi::ShadowMapTask::ShadowMapTask</a></div><div class="ttdeci">ShadowMapTask()</div><div class="ttdoc">Creates the task.</div><div class="ttdef"><b>Definition</b> <a href="a02309_source.html#l00017">ShadowMapTask.cpp:17</a></div></div>
-<div class="ttc" id="aa05878_html"><div class="ttname"><a href="a05878.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00058">Renderer.hpp:58</a></div></div>
-<div class="ttc" id="aa06014_html"><div class="ttname"><a href="a06014.html">bl::rc::scene::Scene3D</a></div><div class="ttdoc">3d scene implementation</div><div class="ttdef"><b>Definition</b> <a href="a01025_source.html#l00018">Scene3D.hpp:18</a></div></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>} <span class="comment">// namespace rgi</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00611_html"><div class="ttname"><a href="a00611.html">FramebufferAsset.hpp</a></div></div>
+<div class="ttc" id="aa00842_html"><div class="ttname"><a href="a00842.html">TextureRef.hpp</a></div></div>
+<div class="ttc" id="aa01151_html"><div class="ttname"><a href="a01151.html">AttachmentSet.hpp</a></div></div>
+<div class="ttc" id="aa01169_html"><div class="ttname"><a href="a01169.html">Framebuffer.hpp</a></div></div>
+<div class="ttc" id="aa02912_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02912_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05678_html"><div class="ttname"><a href="a05678.html">bl::rc::rgi::DepthBuffer</a></div><div class="ttdoc">Wrapper asset around the global renderer depth buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00590_source.html#l00023">DepthBuffer.hpp:23</a></div></div>
+<div class="ttc" id="aa05682_html"><div class="ttname"><a href="a05682.html">bl::rc::rgi::FinalRenderTextureAsset</a></div><div class="ttdoc">Asset for the framebuffer that a render texture renders to.</div><div class="ttdef"><b>Definition</b> <a href="a00593_source.html#l00021">FinalRenderTextureAsset.hpp:21</a></div></div>
+<div class="ttc" id="aa05682_html_a4d1181e7055d30af2230a846457911fe"><div class="ttname"><a href="a05682.html#a4d1181e7055d30af2230a846457911fe">bl::rc::rgi::FinalRenderTextureAsset::~FinalRenderTextureAsset</a></div><div class="ttdeci">virtual ~FinalRenderTextureAsset()=default</div><div class="ttdoc">Does nothing.</div></div>
+<div class="ttc" id="aa05682_html_a59da79db09402b682d65f9e86bea90b9"><div class="ttname"><a href="a05682.html#a59da79db09402b682d65f9e86bea90b9">bl::rc::rgi::FinalRenderTextureAsset::getFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; getFramebuffer(std::uint32_t i) override</div><div class="ttdoc">Returns the framebuffer at the given frame.</div><div class="ttdef"><b>Definition</b> <a href="a02318_source.html#l00061">FinalRenderTextureAsset.cpp:61</a></div></div>
+<div class="ttc" id="aa05682_html_ab6b5940b68d97000a1bec2ad0cccc670"><div class="ttname"><a href="a05682.html#ab6b5940b68d97000a1bec2ad0cccc670">bl::rc::rgi::FinalRenderTextureAsset::currentFramebuffer</a></div><div class="ttdeci">virtual vk::Framebuffer &amp; currentFramebuffer() override</div><div class="ttdoc">Returns the current framebuffer to use.</div><div class="ttdef"><b>Definition</b> <a href="a02318_source.html#l00059">FinalRenderTextureAsset.cpp:59</a></div></div>
+<div class="ttc" id="aa05690_html"><div class="ttname"><a href="a05690.html">bl::rc::rgi::FramebufferAsset</a></div><div class="ttdoc">Intermediate base class for assets that provide framebuffers.</div><div class="ttdef"><b>Definition</b> <a href="a00611_source.html#l00022">FramebufferAsset.hpp:22</a></div></div>
+<div class="ttc" id="aa05690_html_a23d36691b92ad120b391d4709e7d01c0"><div class="ttname"><a href="a05690.html#a23d36691b92ad120b391d4709e7d01c0">bl::rc::rgi::FramebufferAsset::clearColorCount</a></div><div class="ttdeci">const std::uint32_t clearColorCount</div><div class="ttdef"><b>Definition</b> <a href="a00611_source.html#l00097">FramebufferAsset.hpp:97</a></div></div>
+<div class="ttc" id="aa05690_html_a6382f4fc54a3274be43097cd41accf9b"><div class="ttname"><a href="a05690.html#a6382f4fc54a3274be43097cd41accf9b">bl::rc::rgi::FramebufferAsset::viewport</a></div><div class="ttdeci">const VkViewport &amp; viewport</div><div class="ttdef"><b>Definition</b> <a href="a00611_source.html#l00094">FramebufferAsset.hpp:94</a></div></div>
+<div class="ttc" id="aa05690_html_a65b9e38cba06e4d65e4d86da6d23ef6c"><div class="ttname"><a href="a05690.html#a65b9e38cba06e4d65e4d86da6d23ef6c">bl::rc::rgi::FramebufferAsset::clearColors</a></div><div class="ttdeci">const VkClearValue * clearColors</div><div class="ttdef"><b>Definition</b> <a href="a00611_source.html#l00096">FramebufferAsset.hpp:96</a></div></div>
+<div class="ttc" id="aa05690_html_af79eff1acf691c3e36462cc58f102639"><div class="ttname"><a href="a05690.html#af79eff1acf691c3e36462cc58f102639">bl::rc::rgi::FramebufferAsset::scissor</a></div><div class="ttdeci">const VkRect2D &amp; scissor</div><div class="ttdef"><b>Definition</b> <a href="a00611_source.html#l00095">FramebufferAsset.hpp:95</a></div></div>
+<div class="ttc" id="aa05722_html"><div class="ttname"><a href="a05722.html">bl::rc::rg::ExecutionContext</a></div><div class="ttdoc">Context containing graph execution data that is passed down to tasks.</div><div class="ttdef"><b>Definition</b> <a href="a00704_source.html#l00025">ExecutionContext.hpp:25</a></div></div>
+<div class="ttc" id="aa05734_html"><div class="ttname"><a href="a05734.html">bl::rc::rg::InitContext</a></div><div class="ttdoc">Context struct passed to graph tasks and assets during init.</div><div class="ttdef"><b>Definition</b> <a href="a09031_source.html#l00032">InitContext.hpp:32</a></div></div>
+<div class="ttc" id="aa06010_html"><div class="ttname"><a href="a06010.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09001_source.html#l00058">Renderer.hpp:58</a></div></div>
+<div class="ttc" id="aa06078_html"><div class="ttname"><a href="a06078.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition</b> <a href="a00842_source.html#l00025">TextureRef.hpp:25</a></div></div>
+<div class="ttc" id="aa06322_html"><div class="ttname"><a href="a06322.html">bl::rc::vk::AttachmentSet</a></div><div class="ttdoc">Basic class containing a set of attachments for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a01151_source.html#l00024">AttachmentSet.hpp:24</a></div></div>
+<div class="ttc" id="aa06382_html"><div class="ttname"><a href="a06382.html">bl::rc::vk::Framebuffer</a></div><div class="ttdoc">Utility struct that wraps a Vulkan framebuffer.</div><div class="ttdef"><b>Definition</b> <a href="a01169_source.html#l00024">Framebuffer.hpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

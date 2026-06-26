@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::as::detail::DependencySingleBase Class Reference</title>
+<title>BLIB: bl::as::bdl::MountedBundle Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,144 +74,65 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03146.html">as</a></li><li class="navelem"><a class="el" href="a03147.html">detail</a></li><li class="navelem"><a class="el" href="a03518.html">DependencySingleBase</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03192.html">as</a></li><li class="navelem"><a class="el" href="a03197.html">bdl</a></li><li class="navelem"><a class="el" href="a03518.html">MountedBundle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="a03515.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::as::detail::DependencySingleBase Class Reference<div class="ingroups"><a class="el" href="a03114.html">Assets</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::as::bdl::MountedBundle Class Reference<div class="ingroups"><a class="el" href="a03159.html">Assets</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Implementation detail. Intermediate base class for individual dependencies.  
+<p>Interface for a mounted bundle file of asset data.  
  <a href="a03518.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::as::detail::DependencySingleBase:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a03518.png" usemap="#bl::as::detail::DependencySingleBase_map" alt=""/>
-  <map id="bl::as::detail::DependencySingleBase_map" name="bl::as::detail::DependencySingleBase_map">
-<area href="a03506.html" title="Implementation detail. Helps Payload manage its tagged dependency list without allocations." alt="bl::as::detail::DependencyChain" shape="rect" coords="897,56,1485,80"/>
-<area href="a06974.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="897,0,1485,24"/>
-<area href="a03498.html" alt="bl::as::Dependency&lt; bl::as::PayloadGeneric &gt;" shape="rect" coords="0,168,588,192"/>
-<area href="a03498.html" alt="bl::as::Dependency&lt; bl::asi::TexturePayload &gt;" shape="rect" coords="598,168,1186,192"/>
-<area href="a03498.html" alt="bl::as::Dependency&lt; bl::asi::TexturePayload, as::LoadPolicy::Eager, as::DependencyPolicy::Optional &gt;" shape="rect" coords="1196,168,1784,192"/>
-<area href="a03498.html" title="Dependency of a payload on another asset." alt="bl::as::Dependency&lt; T, Policy, DepPolicy &gt;" shape="rect" coords="1794,168,2382,192"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01454_source.html">MountedBundle.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0ea8925608b42bb0cb02a0cfd4295da9" id="r_a0ea8925608b42bb0cb02a0cfd4295da9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a0ea8925608b42bb0cb02a0cfd4295da9">DependencySingleBase</a> (<a class="el" href="a03662.html">Repository</a> &amp;<a class="el" href="a03506.html#a75e9b8f093a6901fc903428a0c4a8f5a">repo</a>, <a class="el" href="a03634.html">Payload</a> &amp;<a class="el" href="a03506.html#afa9ea90d09d7830a42453ae1d0d4f9f1">owner</a>, std::string_view <a class="el" href="a03506.html#a37555cb2c5cb8759989378c56249bbd6">tag</a>, <a class="el" href="a03114.html#ga152b45e4e4a6b4296d6d50f5097ece8c">LoadPolicy</a> <a class="el" href="a03518.html#ab4b2b36b19061c948c9030ef12fcff7b">policy</a>, <a class="el" href="a03114.html#ga1f6bb9317f9b2847cbc615881b36638f">DependencyPolicy</a> <a class="el" href="a03518.html#aad715b6bcdd15e5f855061d21ee05120">depPolicy</a>)</td></tr>
-<tr class="memdesc:a0ea8925608b42bb0cb02a0cfd4295da9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the dependency chain node.  <br /></td></tr>
-<tr class="separator:a0ea8925608b42bb0cb02a0cfd4295da9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa23bb65b288a74237668de171b5188f" id="r_aaa23bb65b288a74237668de171b5188f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aaa23bb65b288a74237668de171b5188f">~DependencySingleBase</a> ()=default</td></tr>
-<tr class="memdesc:aaa23bb65b288a74237668de171b5188f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the ref to the dependency if it is loaded and has no other refs.  <br /></td></tr>
-<tr class="separator:aaa23bb65b288a74237668de171b5188f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac96e25a376b107291360baedfc6d0a98" id="r_ac96e25a376b107291360baedfc6d0a98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03114.html#ga8f1e3911c576026f3e12be2420f69d86">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#ac96e25a376b107291360baedfc6d0a98">getState</a> () const</td></tr>
-<tr class="memdesc:ac96e25a376b107291360baedfc6d0a98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the state of the dependency.  <br /></td></tr>
-<tr class="separator:ac96e25a376b107291360baedfc6d0a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43cfc769b58ea1de9ed02e8145dd9e6f" id="r_a43cfc769b58ea1de9ed02e8145dd9e6f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07074.html">util::UUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a43cfc769b58ea1de9ed02e8145dd9e6f">getUUID</a> () const</td></tr>
-<tr class="memdesc:a43cfc769b58ea1de9ed02e8145dd9e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the UUID of the dependency.  <br /></td></tr>
-<tr class="separator:a43cfc769b58ea1de9ed02e8145dd9e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d717358a1f7ef3443daad7d018bcc5b" id="r_a2d717358a1f7ef3443daad7d018bcc5b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a2d717358a1f7ef3443daad7d018bcc5b">init</a> (<a class="el" href="a07074.html">util::UUID</a> <a class="el" href="a03518.html#a6c47057fd6c8f666b3430c97e6622c60">uuid</a>)</td></tr>
-<tr class="memdesc:a2d717358a1f7ef3443daad7d018bcc5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the dependency. Should only be called during asset creation.  <br /></td></tr>
-<tr class="separator:a2d717358a1f7ef3443daad7d018bcc5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc4d1efbdc5241d9b1ac4c292784e20" id="r_a5dc4d1efbdc5241d9b1ac4c292784e20"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a5dc4d1efbdc5241d9b1ac4c292784e20">load</a> () override</td></tr>
-<tr class="memdesc:a5dc4d1efbdc5241d9b1ac4c292784e20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures that the dependency is valid and loaded.  <br /></td></tr>
-<tr class="separator:a5dc4d1efbdc5241d9b1ac4c292784e20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a156beb3a0fe5c29a6f1a1a61ab1a4d82" id="r_a156beb3a0fe5c29a6f1a1a61ab1a4d82"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a156beb3a0fe5c29a6f1a1a61ab1a4d82">unload</a> () override</td></tr>
-<tr class="memdesc:a156beb3a0fe5c29a6f1a1a61ab1a4d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Release the ref to the depenency which may result in it being unloaded.  <br /></td></tr>
-<tr class="separator:a156beb3a0fe5c29a6f1a1a61ab1a4d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c2a4c7a825b84be96cd7a7e422ecdb3" id="r_a0c2a4c7a825b84be96cd7a7e422ecdb3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a0c2a4c7a825b84be96cd7a7e422ecdb3">isValid</a> () const</td></tr>
-<tr class="memdesc:a0c2a4c7a825b84be96cd7a7e422ecdb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the dependency points to a valid asset.  <br /></td></tr>
-<tr class="separator:a0c2a4c7a825b84be96cd7a7e422ecdb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5dc313e4ee1b47509c74b63d87945f32" id="r_a5dc313e4ee1b47509c74b63d87945f32"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a5dc313e4ee1b47509c74b63d87945f32">matchAndLoad</a> (const std::vector&lt; <a class="el" href="a03654.html">RepoDependency</a> &gt; &amp;dependencies) override</td></tr>
-<tr class="memdesc:a5dc313e4ee1b47509c74b63d87945f32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs post deserialization initialization.  <br /></td></tr>
-<tr class="separator:a5dc313e4ee1b47509c74b63d87945f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319e2f62c22b5c01109366150a08d219" id="r_a319e2f62c22b5c01109366150a08d219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html#a319e2f62c22b5c01109366150a08d219">registerDependency</a> (<a class="el" href="a07074.html">util::UUID</a> <a class="el" href="a03518.html#a6c47057fd6c8f666b3430c97e6622c60">uuid</a>)</td></tr>
-<tr class="memdesc:a319e2f62c22b5c01109366150a08d219"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the given dependency with the repository.  <br /></td></tr>
-<tr class="separator:a319e2f62c22b5c01109366150a08d219"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7c38ee7a33c48f7d0d9a60f3b1f6b08" id="r_ac7c38ee7a33c48f7d0d9a60f3b1f6b08"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html#ac7c38ee7a33c48f7d0d9a60f3b1f6b08">unregisterDependency</a> (<a class="el" href="a07074.html">util::UUID</a> <a class="el" href="a03518.html#a6c47057fd6c8f666b3430c97e6622c60">uuid</a>)</td></tr>
-<tr class="memdesc:ac7c38ee7a33c48f7d0d9a60f3b1f6b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregisters the given dependency with the repository.  <br /></td></tr>
-<tr class="separator:ac7c38ee7a33c48f7d0d9a60f3b1f6b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:ab4b2b36b19061c948c9030ef12fcff7b" id="r_ab4b2b36b19061c948c9030ef12fcff7b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03114.html#ga152b45e4e4a6b4296d6d50f5097ece8c">LoadPolicy</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#ab4b2b36b19061c948c9030ef12fcff7b">policy</a></td></tr>
-<tr class="separator:ab4b2b36b19061c948c9030ef12fcff7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad715b6bcdd15e5f855061d21ee05120" id="r_aad715b6bcdd15e5f855061d21ee05120"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03114.html#ga1f6bb9317f9b2847cbc615881b36638f">DependencyPolicy</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#aad715b6bcdd15e5f855061d21ee05120">depPolicy</a></td></tr>
-<tr class="separator:aad715b6bcdd15e5f855061d21ee05120"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c47057fd6c8f666b3430c97e6622c60" id="r_a6c47057fd6c8f666b3430c97e6622c60"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07074.html">util::UUID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a6c47057fd6c8f666b3430c97e6622c60">uuid</a></td></tr>
-<tr class="separator:a6c47057fd6c8f666b3430c97e6622c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc14748c3504db63eb33bd97a753e64d" id="r_adc14748c3504db63eb33bd97a753e64d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03650.html">Ref</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#adc14748c3504db63eb33bd97a753e64d">dependency</a></td></tr>
-<tr class="separator:adc14748c3504db63eb33bd97a753e64d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37555cb2c5cb8759989378c56249bbd6" id="r_a37555cb2c5cb8759989378c56249bbd6"><td class="memItemLeft" align="right" valign="top">const std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html#a37555cb2c5cb8759989378c56249bbd6">tag</a></td></tr>
-<tr class="separator:a37555cb2c5cb8759989378c56249bbd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75e9b8f093a6901fc903428a0c4a8f5a" id="r_a75e9b8f093a6901fc903428a0c4a8f5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03662.html">Repository</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html#a75e9b8f093a6901fc903428a0c4a8f5a">repo</a></td></tr>
-<tr class="separator:a75e9b8f093a6901fc903428a0c4a8f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa9ea90d09d7830a42453ae1d0d4f9f1" id="r_afa9ea90d09d7830a42453ae1d0d4f9f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03634.html">Payload</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html#afa9ea90d09d7830a42453ae1d0d4f9f1">owner</a></td></tr>
-<tr class="separator:afa9ea90d09d7830a42453ae1d0d4f9f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47d27ce0d9d12bb3291ec0804f058262" id="r_a47d27ce0d9d12bb3291ec0804f058262"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03506.html">DependencyChain</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03506.html#a47d27ce0d9d12bb3291ec0804f058262">next</a></td></tr>
-<tr class="separator:a47d27ce0d9d12bb3291ec0804f058262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af37caf1546cbfc1dbfe082e858088af6" id="r_af37caf1546cbfc1dbfe082e858088af6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#af37caf1546cbfc1dbfe082e858088af6">MountedBundle</a> (<a class="el" href="a03710.html">Repository</a> &amp;repo, const std::string &amp;path)</td></tr>
+<tr class="memdesc:af37caf1546cbfc1dbfe082e858088af6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the mounted bundle.  <br /></td></tr>
+<tr class="separator:af37caf1546cbfc1dbfe082e858088af6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3912e0562dd32fb92fbc6959b268bd1d" id="r_a3912e0562dd32fb92fbc6959b268bd1d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a3912e0562dd32fb92fbc6959b268bd1d">initStream</a> (<a class="el" href="a06882.html">stream::InputStream</a> &amp;stream, <a class="el" href="a07138.html">util::UUID</a> assetId, std::string_view localPath)</td></tr>
+<tr class="memdesc:a3912e0562dd32fb92fbc6959b268bd1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an input stream from the in-memory bundle data. Stream will be invalidated when the bundle is ejected.  <br /></td></tr>
+<tr class="separator:a3912e0562dd32fb92fbc6959b268bd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a4a58783ab917c10f695cc1f154ec6b" id="r_a6a4a58783ab917c10f695cc1f154ec6b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a6a4a58783ab917c10f695cc1f154ec6b">initStreamDirect</a> (<a class="el" href="a06882.html">stream::InputStream</a> &amp;stream, <a class="el" href="a07138.html">util::UUID</a> assetId, std::string_view localPath)</td></tr>
+<tr class="memdesc:a6a4a58783ab917c10f695cc1f154ec6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes an input stream directly from the bundle on disk. Stream remains valid for the program lifetime. Use for persistent streams.  <br /></td></tr>
+<tr class="separator:a6a4a58783ab917c10f695cc1f154ec6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f772e30afd1f42caa4c35e61b5894a7" id="r_a2f772e30afd1f42caa4c35e61b5894a7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a2f772e30afd1f42caa4c35e61b5894a7">isExpired</a> () const</td></tr>
+<tr class="memdesc:a2f772e30afd1f42caa4c35e61b5894a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the bundle is expired.  <br /></td></tr>
+<tr class="separator:a2f772e30afd1f42caa4c35e61b5894a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a3b70f9627e59ffc1b734ce152882391d" id="r_a3b70f9627e59ffc1b734ce152882391d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a3b70f9627e59ffc1b734ce152882391d">Payload</a></td></tr>
-<tr class="separator:a3b70f9627e59ffc1b734ce152882391d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e36b9890c279e6d9ce655b7dfebd8f1" id="r_a6e36b9890c279e6d9ce655b7dfebd8f1"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03518.html#a6e36b9890c279e6d9ce655b7dfebd8f1">BundleRuntime</a></td></tr>
+<tr class="separator:a6e36b9890c279e6d9ce655b7dfebd8f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implementation detail. Intermediate base class for individual dependencies. </p>
+<div class="textblock"><p>Interface for a mounted bundle file of asset data. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00023">23</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01454_source.html#l00024">24</a> of file <a class="el" href="a01454_source.html">MountedBundle.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0ea8925608b42bb0cb02a0cfd4295da9" name="a0ea8925608b42bb0cb02a0cfd4295da9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ea8925608b42bb0cb02a0cfd4295da9">&#9670;&#160;</a></span>DependencySingleBase()</h2>
+<a id="af37caf1546cbfc1dbfe082e858088af6" name="af37caf1546cbfc1dbfe082e858088af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af37caf1546cbfc1dbfe082e858088af6">&#9670;&#160;</a></span>MountedBundle()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::as::detail::DependencySingleBase::DependencySingleBase </td>
+          <td class="memname">bl::as::bdl::MountedBundle::MountedBundle </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a03662.html">Repository</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="a03710.html">Repository</a> &amp;&#160;</td>
           <td class="paramname"><em>repo</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a03634.html">Payload</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>tag</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03114.html#ga152b45e4e4a6b4296d6d50f5097ece8c">LoadPolicy</a>&#160;</td>
-          <td class="paramname"><em>policy</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a03114.html#ga1f6bb9317f9b2847cbc615881b36638f">DependencyPolicy</a>&#160;</td>
-          <td class="paramname"><em>depPolicy</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>path</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -221,58 +142,122 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the dependency chain node. </p>
+<p>Initializes the mounted bundle. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">repo</td><td>The asset repository </td></tr>
-    <tr><td class="paramname">owner</td><td>The payload that owns this dependency </td></tr>
-    <tr><td class="paramname">tag</td><td>The tag of this specific dependency </td></tr>
-    <tr><td class="paramname">policy</td><td>The load policy for this dependency </td></tr>
-    <tr><td class="paramname">depPolicy</td><td>The dependency policy for this dependency </td></tr>
+    <tr><td class="paramname">repo</td><td>The owning asset repository </td></tr>
+    <tr><td class="paramname">path</td><td>The path to the bundle file </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00012">12</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaa23bb65b288a74237668de171b5188f" name="aaa23bb65b288a74237668de171b5188f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa23bb65b288a74237668de171b5188f">&#9670;&#160;</a></span>~DependencySingleBase()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bl::as::detail::DependencySingleBase::~DependencySingleBase </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Releases the ref to the dependency if it is loaded and has no other refs. </p>
+<p class="definition">Definition at line <a class="el" href="a02786_source.html#l00011">11</a> of file <a class="el" href="a02786_source.html">MountedBundle.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac96e25a376b107291360baedfc6d0a98" name="ac96e25a376b107291360baedfc6d0a98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac96e25a376b107291360baedfc6d0a98">&#9670;&#160;</a></span>getState()</h2>
+<a id="a3912e0562dd32fb92fbc6959b268bd1d" name="a3912e0562dd32fb92fbc6959b268bd1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3912e0562dd32fb92fbc6959b268bd1d">&#9670;&#160;</a></span>initStream()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03114.html#ga8f1e3911c576026f3e12be2420f69d86">State</a> bl::as::detail::DependencySingleBase::getState </td>
+          <td class="memname">bool bl::as::bdl::MountedBundle::initStream </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a06882.html">stream::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a07138.html">util::UUID</a>&#160;</td>
+          <td class="paramname"><em>assetId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>localPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes an input stream from the in-memory bundle data. Stream will be invalidated when the bundle is ejected. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to initialize </td></tr>
+    <tr><td class="paramname">assetId</td><td>The UUID of the asset requesting data </td></tr>
+    <tr><td class="paramname">localPath</td><td>The asset local file path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the stream could be initialized, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02786_source.html#l00025">25</a> of file <a class="el" href="a02786_source.html">MountedBundle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a4a58783ab917c10f695cc1f154ec6b" name="a6a4a58783ab917c10f695cc1f154ec6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a4a58783ab917c10f695cc1f154ec6b">&#9670;&#160;</a></span>initStreamDirect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::as::bdl::MountedBundle::initStreamDirect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a06882.html">stream::InputStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a07138.html">util::UUID</a>&#160;</td>
+          <td class="paramname"><em>assetId</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>localPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes an input stream directly from the bundle on disk. Stream remains valid for the program lifetime. Use for persistent streams. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">stream</td><td>The stream to initialize </td></tr>
+    <tr><td class="paramname">assetId</td><td>The UUID of the asset requesting data </td></tr>
+    <tr><td class="paramname">localPath</td><td>The asset local file path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the stream could be initialized, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02786_source.html#l00036">36</a> of file <a class="el" href="a02786_source.html">MountedBundle.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2f772e30afd1f42caa4c35e61b5894a7" name="a2f772e30afd1f42caa4c35e61b5894a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f772e30afd1f42caa4c35e61b5894a7">&#9670;&#160;</a></span>isExpired()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool bl::as::bdl::MountedBundle::isExpired </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -280,262 +265,15 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the state of the dependency. </p>
+<p>Returns whether the bundle is expired. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00018">18</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a43cfc769b58ea1de9ed02e8145dd9e6f" name="a43cfc769b58ea1de9ed02e8145dd9e6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43cfc769b58ea1de9ed02e8145dd9e6f">&#9670;&#160;</a></span>getUUID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07074.html">util::UUID</a> bl::as::detail::DependencySingleBase::getUUID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the UUID of the dependency. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00023">23</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2d717358a1f7ef3443daad7d018bcc5b" name="a2d717358a1f7ef3443daad7d018bcc5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d717358a1f7ef3443daad7d018bcc5b">&#9670;&#160;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::as::detail::DependencySingleBase::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a07074.html">util::UUID</a>&#160;</td>
-          <td class="paramname"><em>uuid</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes the dependency. Should only be called during asset creation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uuid</td><td>The UUID of the asset this dependency points to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the dependency was successfully initialized and loaded, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00025">25</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0c2a4c7a825b84be96cd7a7e422ecdb3" name="a0c2a4c7a825b84be96cd7a7e422ecdb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c2a4c7a825b84be96cd7a7e422ecdb3">&#9670;&#160;</a></span>isValid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::as::detail::DependencySingleBase::isValid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether the dependency points to a valid asset. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00075">75</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5dc4d1efbdc5241d9b1ac4c292784e20" name="a5dc4d1efbdc5241d9b1ac4c292784e20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc4d1efbdc5241d9b1ac4c292784e20">&#9670;&#160;</a></span>load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::as::detail::DependencySingleBase::load </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Ensures that the dependency is valid and loaded. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if the dependency is valid and loaded, false otherwise </dd></dl>
-
-<p>Implements <a class="el" href="a03506.html#a01b712b7c10026890a0c3211f73fabfa">bl::as::detail::DependencyChain</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00041">41</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5dc313e4ee1b47509c74b63d87945f32" name="a5dc313e4ee1b47509c74b63d87945f32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5dc313e4ee1b47509c74b63d87945f32">&#9670;&#160;</a></span>matchAndLoad()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::as::detail::DependencySingleBase::matchAndLoad </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a03654.html">RepoDependency</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>dependencies</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Performs post deserialization initialization. </p>
-
-<p>Implements <a class="el" href="a03506.html#abd47b2f122aa100ac95bbff98196cd02">bl::as::detail::DependencyChain</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00054">54</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a319e2f62c22b5c01109366150a08d219" name="a319e2f62c22b5c01109366150a08d219"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a319e2f62c22b5c01109366150a08d219">&#9670;&#160;</a></span>registerDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::as::detail::DependencyChain::registerDependency </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a07074.html">util::UUID</a>&#160;</td>
-          <td class="paramname"><em>uuid</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Registers the given dependency with the repository. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uuid</td><td>The UUID of the dependency to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02690_source.html#l00020">20</a> of file <a class="el" href="a02690_source.html">DependencyChain.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a156beb3a0fe5c29a6f1a1a61ab1a4d82" name="a156beb3a0fe5c29a6f1a1a61ab1a4d82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a156beb3a0fe5c29a6f1a1a61ab1a4d82">&#9670;&#160;</a></span>unload()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::as::detail::DependencySingleBase::unload </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Release the ref to the depenency which may result in it being unloaded. </p>
-
-<p>Implements <a class="el" href="a03506.html#ae4ca351d4b3639a0a694add5a448af12">bl::as::detail::DependencyChain</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02696_source.html#l00050">50</a> of file <a class="el" href="a02696_source.html">DependencySingleBase.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac7c38ee7a33c48f7d0d9a60f3b1f6b08" name="ac7c38ee7a33c48f7d0d9a60f3b1f6b08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7c38ee7a33c48f7d0d9a60f3b1f6b08">&#9670;&#160;</a></span>unregisterDependency()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::as::detail::DependencyChain::unregisterDependency </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a07074.html">util::UUID</a>&#160;</td>
-          <td class="paramname"><em>uuid</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Unregisters the given dependency with the repository. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">uuid</td><td>The UUID of the dependency to unregister </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the dependency was successfully unregistered, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02690_source.html#l00024">24</a> of file <a class="el" href="a02690_source.html">DependencyChain.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02786_source.html#l00056">56</a> of file <a class="el" href="a02786_source.html">MountedBundle.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a3b70f9627e59ffc1b734ce152882391d" name="a3b70f9627e59ffc1b734ce152882391d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b70f9627e59ffc1b734ce152882391d">&#9670;&#160;</a></span>Payload</h2>
+<a id="a6e36b9890c279e6d9ce655b7dfebd8f1" name="a6e36b9890c279e6d9ce655b7dfebd8f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e36b9890c279e6d9ce655b7dfebd8f1">&#9670;&#160;</a></span>BundleRuntime</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,7 +282,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a03634.html">Payload</a></td>
+          <td class="memname">friend class <a class="el" href="a03498.html">BundleRuntime</a></td>
         </tr>
       </table>
   </td>
@@ -554,212 +292,19 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00088">88</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="adc14748c3504db63eb33bd97a753e64d" name="adc14748c3504db63eb33bd97a753e64d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc14748c3504db63eb33bd97a753e64d">&#9670;&#160;</a></span>dependency</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03650.html">Ref</a> bl::as::detail::DependencySingleBase::dependency</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00081">81</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aad715b6bcdd15e5f855061d21ee05120" name="aad715b6bcdd15e5f855061d21ee05120"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad715b6bcdd15e5f855061d21ee05120">&#9670;&#160;</a></span>depPolicy</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a03114.html#ga1f6bb9317f9b2847cbc615881b36638f">DependencyPolicy</a> bl::as::detail::DependencySingleBase::depPolicy</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00079">79</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a47d27ce0d9d12bb3291ec0804f058262" name="a47d27ce0d9d12bb3291ec0804f058262"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47d27ce0d9d12bb3291ec0804f058262">&#9670;&#160;</a></span>next</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03506.html">DependencyChain</a>* bl::as::detail::DependencyChain::next</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01310_source.html#l00055">55</a> of file <a class="el" href="a01310_source.html">DependencyChain.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afa9ea90d09d7830a42453ae1d0d4f9f1" name="afa9ea90d09d7830a42453ae1d0d4f9f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa9ea90d09d7830a42453ae1d0d4f9f1">&#9670;&#160;</a></span>owner</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03634.html">Payload</a>&amp; bl::as::detail::DependencyChain::owner</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01310_source.html#l00054">54</a> of file <a class="el" href="a01310_source.html">DependencyChain.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab4b2b36b19061c948c9030ef12fcff7b" name="ab4b2b36b19061c948c9030ef12fcff7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4b2b36b19061c948c9030ef12fcff7b">&#9670;&#160;</a></span>policy</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a03114.html#ga152b45e4e4a6b4296d6d50f5097ece8c">LoadPolicy</a> bl::as::detail::DependencySingleBase::policy</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00078">78</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a75e9b8f093a6901fc903428a0c4a8f5a" name="a75e9b8f093a6901fc903428a0c4a8f5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75e9b8f093a6901fc903428a0c4a8f5a">&#9670;&#160;</a></span>repo</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03662.html">Repository</a>&amp; bl::as::detail::DependencyChain::repo</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01310_source.html#l00053">53</a> of file <a class="el" href="a01310_source.html">DependencyChain.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a37555cb2c5cb8759989378c56249bbd6" name="a37555cb2c5cb8759989378c56249bbd6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37555cb2c5cb8759989378c56249bbd6">&#9670;&#160;</a></span>tag</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string_view bl::as::detail::DependencyChain::tag</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01310_source.html#l00052">52</a> of file <a class="el" href="a01310_source.html">DependencyChain.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6c47057fd6c8f666b3430c97e6622c60" name="a6c47057fd6c8f666b3430c97e6622c60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c47057fd6c8f666b3430c97e6622c60">&#9670;&#160;</a></span>uuid</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07074.html">util::UUID</a> bl::as::detail::DependencySingleBase::uuid</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01316_source.html#l00080">80</a> of file <a class="el" href="a01316_source.html">DependencySingleBase.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01454_source.html#l00069">69</a> of file <a class="el" href="a01454_source.html">MountedBundle.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Assets/Detail/<a class="el" href="a01316_source.html">DependencySingleBase.hpp</a></li>
-<li>src/Assets/Detail/<a class="el" href="a02696_source.html">DependencySingleBase.cpp</a></li>
+<li>include/BLIB/Assets/Bundles/<a class="el" href="a01454_source.html">MountedBundle.hpp</a></li>
+<li>src/Assets/Bundles/<a class="el" href="a02786_source.html">MountedBundle.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

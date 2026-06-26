@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ecs::View&lt; TRequire, TOptional, TExclude &gt; Class Template Reference</title>
+<title>BLIB: bl::ctr::Ref&lt; T, TDerived &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,78 +74,124 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03163.html">ecs</a></li><li class="navelem"><a class="el" href="a04014.html">View</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03207.html">ctr</a></li><li class="navelem"><a class="el" href="a04014.html">Ref</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a04011.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::ecs::View&lt; TRequire, TOptional, TExclude &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a03119.html">ECS</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ctr::Ref&lt; T, TDerived &gt; Class Template Reference<div class="ingroups"><a class="el" href="a03163.html">Containers</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base definition of the <a class="el" href="a04014.html" title="Base definition of the View class. Use the tagged specialization.">View</a> class. Use the tagged specialization.  
+<p>Utility for lightweight ref counting of resources.  
  <a href="a04014.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00413_source.html">View.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::ecs::View&lt; TRequire, TOptional, TExclude &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a04014.png" usemap="#bl::ecs::View_3C_20TRequire_2C_20TOptional_2C_20TExclude_20_3E_map" alt=""/>
-  <map id="bl::ecs::View_3C_20TRequire_2C_20TOptional_2C_20TExclude_20_3E_map" name="bl::ecs::View_3C_20TRequire_2C_20TOptional_2C_20TExclude_20_3E_map">
-<area href="a04190.html" title="Helper class not to be used directly." alt="bl::ecs::priv::ViewBase" shape="rect" coords="0,56,280,80"/>
-<area href="a06974.html" title="Helper class to make derived classes impossible for user to copy directly." alt="bl::util::NonCopyable" shape="rect" coords="0,0,280,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a01736_source.html">RefPool.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aafdfd8e3839e65877f319f37996af1aa" id="r_aafdfd8e3839e65877f319f37996af1aa"><td class="memItemLeft" align="right" valign="top">const std::type_index&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04190.html#aafdfd8e3839e65877f319f37996af1aa">id</a></td></tr>
-<tr class="separator:aafdfd8e3839e65877f319f37996af1aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaec4846781fb716ae60bc560bce90dfe" id="r_aaec4846781fb716ae60bc560bce90dfe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a04010.html">ComponentMask</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04190.html#aaec4846781fb716ae60bc560bce90dfe">mask</a></td></tr>
-<tr class="separator:aaec4846781fb716ae60bc560bce90dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a509dc54983ccec17e0df188f83bb6021" id="r_a509dc54983ccec17e0df188f83bb6021"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a509dc54983ccec17e0df188f83bb6021">Ref</a> ()</td></tr>
+<tr class="memdesc:a509dc54983ccec17e0df188f83bb6021"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an invalid ref.  <br /></td></tr>
+<tr class="separator:a509dc54983ccec17e0df188f83bb6021"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97707f118af74e83c121e8afd1d9902c" id="r_a97707f118af74e83c121e8afd1d9902c"><td class="memTemplParams" colspan="2">template&lt;typename TOther &gt; </td></tr>
+<tr class="memitem:a97707f118af74e83c121e8afd1d9902c"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04014.html#a97707f118af74e83c121e8afd1d9902c">Ref</a> (const <a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;other)</td></tr>
+<tr class="memdesc:a97707f118af74e83c121e8afd1d9902c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this ref from another.  <br /></td></tr>
+<tr class="separator:a97707f118af74e83c121e8afd1d9902c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830ea4a5b4778c6a40265a00099b07da" id="r_a830ea4a5b4778c6a40265a00099b07da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a830ea4a5b4778c6a40265a00099b07da">Ref</a> (const <a class="el" href="a04014.html">Ref</a> &amp;other)</td></tr>
+<tr class="memdesc:a830ea4a5b4778c6a40265a00099b07da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this ref from another.  <br /></td></tr>
+<tr class="separator:a830ea4a5b4778c6a40265a00099b07da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae62e61bea5e4c5ee1720e4a7f4878973" id="r_ae62e61bea5e4c5ee1720e4a7f4878973"><td class="memTemplParams" colspan="2">template&lt;typename TOther &gt; </td></tr>
+<tr class="memitem:ae62e61bea5e4c5ee1720e4a7f4878973"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04014.html#ae62e61bea5e4c5ee1720e4a7f4878973">Ref</a> (<a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;&amp;other)</td></tr>
+<tr class="memdesc:ae62e61bea5e4c5ee1720e4a7f4878973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes over ownership from another ref.  <br /></td></tr>
+<tr class="separator:ae62e61bea5e4c5ee1720e4a7f4878973"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedb27e9ce93d8c26a46f1bae8db44ca0" id="r_aedb27e9ce93d8c26a46f1bae8db44ca0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#aedb27e9ce93d8c26a46f1bae8db44ca0">Ref</a> (<a class="el" href="a04014.html">Ref</a> &amp;&amp;other)</td></tr>
+<tr class="memdesc:aedb27e9ce93d8c26a46f1bae8db44ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes over ownership from another ref.  <br /></td></tr>
+<tr class="separator:aedb27e9ce93d8c26a46f1bae8db44ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa325d13813eb060ace627cf14fd6bf" id="r_a4aa325d13813eb060ace627cf14fd6bf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a4aa325d13813eb060ace627cf14fd6bf">~Ref</a> ()</td></tr>
+<tr class="memdesc:a4aa325d13813eb060ace627cf14fd6bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the ref and possibly the resource if the ref count is zero.  <br /></td></tr>
+<tr class="separator:a4aa325d13813eb060ace627cf14fd6bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f9c1aad47e24c23f69a06073cb3a459" id="r_a3f9c1aad47e24c23f69a06073cb3a459"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04014.html">Ref</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a3f9c1aad47e24c23f69a06073cb3a459">operator=</a> (const <a class="el" href="a04014.html">Ref</a> &amp;other)</td></tr>
+<tr class="memdesc:a3f9c1aad47e24c23f69a06073cb3a459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this ref from another.  <br /></td></tr>
+<tr class="separator:a3f9c1aad47e24c23f69a06073cb3a459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94a86330c32f6155667a59ed93fb572e" id="r_a94a86330c32f6155667a59ed93fb572e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04014.html">Ref</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a94a86330c32f6155667a59ed93fb572e">operator=</a> (<a class="el" href="a04014.html">Ref</a> &amp;&amp;other)</td></tr>
+<tr class="memdesc:a94a86330c32f6155667a59ed93fb572e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes over ownership from another ref.  <br /></td></tr>
+<tr class="separator:a94a86330c32f6155667a59ed93fb572e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90939e4eac4d3c9b73f0e2de35854aaf" id="r_a90939e4eac4d3c9b73f0e2de35854aaf"><td class="memTemplParams" colspan="2">template&lt;typename TOther &gt; </td></tr>
+<tr class="memitem:a90939e4eac4d3c9b73f0e2de35854aaf"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a04014.html">Ref</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04014.html#a90939e4eac4d3c9b73f0e2de35854aaf">operator=</a> (const <a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;other)</td></tr>
+<tr class="memdesc:a90939e4eac4d3c9b73f0e2de35854aaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes this ref from another.  <br /></td></tr>
+<tr class="separator:a90939e4eac4d3c9b73f0e2de35854aaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a56ee0ae9720b1a46f37a15cc515db1" id="r_a5a56ee0ae9720b1a46f37a15cc515db1"><td class="memTemplParams" colspan="2">template&lt;typename TOther &gt; </td></tr>
+<tr class="memitem:a5a56ee0ae9720b1a46f37a15cc515db1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="a04014.html">Ref</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04014.html#a5a56ee0ae9720b1a46f37a15cc515db1">operator=</a> (<a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;&amp;other)</td></tr>
+<tr class="memdesc:a5a56ee0ae9720b1a46f37a15cc515db1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes over ownership from another ref.  <br /></td></tr>
+<tr class="separator:a5a56ee0ae9720b1a46f37a15cc515db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adca34583d2a4ba59b6f5d46a30282f46" id="r_adca34583d2a4ba59b6f5d46a30282f46"><td class="memItemLeft" align="right" valign="top">TDerived &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#adca34583d2a4ba59b6f5d46a30282f46">operator*</a> ()</td></tr>
+<tr class="memdesc:adca34583d2a4ba59b6f5d46a30282f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:adca34583d2a4ba59b6f5d46a30282f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfd983f680863fcb4b6537cc62809a46" id="r_acfd983f680863fcb4b6537cc62809a46"><td class="memItemLeft" align="right" valign="top">const TDerived &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#acfd983f680863fcb4b6537cc62809a46">operator*</a> () const</td></tr>
+<tr class="memdesc:acfd983f680863fcb4b6537cc62809a46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:acfd983f680863fcb4b6537cc62809a46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847e98ae0d1ab61ca6dd2cd023b762ec" id="r_a847e98ae0d1ab61ca6dd2cd023b762ec"><td class="memItemLeft" align="right" valign="top">TDerived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a847e98ae0d1ab61ca6dd2cd023b762ec">operator-&gt;</a> ()</td></tr>
+<tr class="memdesc:a847e98ae0d1ab61ca6dd2cd023b762ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:a847e98ae0d1ab61ca6dd2cd023b762ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a536bd9da83b925bc2b0b22cc71df5c55" id="r_a536bd9da83b925bc2b0b22cc71df5c55"><td class="memItemLeft" align="right" valign="top">const TDerived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a536bd9da83b925bc2b0b22cc71df5c55">operator-&gt;</a> () const</td></tr>
+<tr class="memdesc:a536bd9da83b925bc2b0b22cc71df5c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:a536bd9da83b925bc2b0b22cc71df5c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4988a35ae410b24ac206d964cf2d5881" id="r_a4988a35ae410b24ac206d964cf2d5881"><td class="memItemLeft" align="right" valign="top">TDerived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a4988a35ae410b24ac206d964cf2d5881">get</a> ()</td></tr>
+<tr class="memdesc:a4988a35ae410b24ac206d964cf2d5881"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:a4988a35ae410b24ac206d964cf2d5881"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3df6383950208add94973fa3f5cd453" id="r_af3df6383950208add94973fa3f5cd453"><td class="memItemLeft" align="right" valign="top">const TDerived *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#af3df6383950208add94973fa3f5cd453">get</a> () const</td></tr>
+<tr class="memdesc:af3df6383950208add94973fa3f5cd453"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the underlying resource value.  <br /></td></tr>
+<tr class="separator:af3df6383950208add94973fa3f5cd453"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa804bd66179ab5c51b9a265534d2acd7" id="r_aa804bd66179ab5c51b9a265534d2acd7"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#aa804bd66179ab5c51b9a265534d2acd7">refCount</a> () const</td></tr>
+<tr class="memdesc:aa804bd66179ab5c51b9a265534d2acd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of refs pointing to the underlying resource.  <br /></td></tr>
+<tr class="separator:aa804bd66179ab5c51b9a265534d2acd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a042627df6b0219ed42775b675f6bfd9a" id="r_a042627df6b0219ed42775b675f6bfd9a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a042627df6b0219ed42775b675f6bfd9a">isValid</a> () const</td></tr>
+<tr class="memdesc:a042627df6b0219ed42775b675f6bfd9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this ref points to a resource or not.  <br /></td></tr>
+<tr class="separator:a042627df6b0219ed42775b675f6bfd9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cabfb8dd8ae80e9038deb4c948bc856" id="r_a5cabfb8dd8ae80e9038deb4c948bc856"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a5cabfb8dd8ae80e9038deb4c948bc856">operator bool</a> () const</td></tr>
+<tr class="memdesc:a5cabfb8dd8ae80e9038deb4c948bc856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this ref points to a resource or not.  <br /></td></tr>
+<tr class="separator:a5cabfb8dd8ae80e9038deb4c948bc856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a1f84d58c4f9bf70600bfbd57fc33e3" id="r_a0a1f84d58c4f9bf70600bfbd57fc33e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a0a1f84d58c4f9bf70600bfbd57fc33e3">release</a> ()</td></tr>
+<tr class="memdesc:a0a1f84d58c4f9bf70600bfbd57fc33e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases this handle on the underlying resource.  <br /></td></tr>
+<tr class="separator:a0a1f84d58c4f9bf70600bfbd57fc33e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a1b85cace86a9ac96e0709123561754d9" id="r_a1b85cace86a9ac96e0709123561754d9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04190.html#a1b85cace86a9ac96e0709123561754d9">removeEntity</a> (<a class="el" href="a04046.html">Entity</a> entity)=0</td></tr>
-<tr class="separator:a1b85cace86a9ac96e0709123561754d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeac4fe75e62fd655cc93cadc083f5d6e" id="r_aeac4fe75e62fd655cc93cadc083f5d6e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04190.html#aeac4fe75e62fd655cc93cadc083f5d6e">nullEntityComponent</a> (<a class="el" href="a04046.html">Entity</a> entity, void *com)=0</td></tr>
-<tr class="separator:aeac4fe75e62fd655cc93cadc083f5d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af34b9807e8e8ee6f2b6e6acf2fa90f27" id="r_af34b9807e8e8ee6f2b6e6acf2fa90f27"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04190.html#af34b9807e8e8ee6f2b6e6acf2fa90f27">tryAddEntity</a> (<a class="el" href="a04046.html">Entity</a> entity)=0</td></tr>
-<tr class="separator:af34b9807e8e8ee6f2b6e6acf2fa90f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ce0458f819504dbf9c2b7e5b28401a8" id="r_a6ce0458f819504dbf9c2b7e5b28401a8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04190.html#a6ce0458f819504dbf9c2b7e5b28401a8">clearAndRefresh</a> ()=0</td></tr>
-<tr class="separator:a6ce0458f819504dbf9c2b7e5b28401a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:acd36b719fd82af37b0d8a742b3963e42" id="r_acd36b719fd82af37b0d8a742b3963e42"><td class="memTemplParams" colspan="2">template&lt;typename U , typename V &gt; </td></tr>
+<tr class="memitem:acd36b719fd82af37b0d8a742b3963e42"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04014.html#acd36b719fd82af37b0d8a742b3963e42">Ref</a></td></tr>
+<tr class="separator:acd36b719fd82af37b0d8a742b3963e42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c98fcbe98736d99bfbf383b7895fb67" id="r_a1c98fcbe98736d99bfbf383b7895fb67"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04014.html#a1c98fcbe98736d99bfbf383b7895fb67">RefPool&lt; T &gt;</a></td></tr>
+<tr class="separator:a1c98fcbe98736d99bfbf383b7895fb67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename TRequire, typename TOptional = Optional&lt;&gt;, typename TExclude = Exclude&lt;&gt;&gt;<br />
-class bl::ecs::View&lt; TRequire, TOptional, TExclude &gt;</div><p>Base definition of the <a class="el" href="a04014.html" title="Base definition of the View class. Use the tagged specialization.">View</a> class. Use the tagged specialization. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T, typename TDerived = T&gt;<br />
+class bl::ctr::Ref&lt; T, TDerived &gt;</div><p>Utility for lightweight ref counting of resources. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">TRequire</td><td>Required tagged components. ie Require&lt;int, char&gt; </td></tr>
-    <tr><td class="paramname">TOptional</td><td><a class="el" href="a04114.html" title="Tag that indicates a set of components are optional.">Optional</a> tagged components. ie Optional&lt;bool&gt; </td></tr>
-    <tr><td class="paramname">TExclude</td><td>Excluded tagged components. ie Exclude&lt;std::string, unsigned&gt; </td></tr>
+    <tr><td class="paramname">T</td><td>The type of resource being ref counted </td></tr>
+    <tr><td class="paramname">TDerived</td><td>Derived type of T that this ref points to </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00060">60</a> of file <a class="el" href="a00413_source.html">View.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6ce0458f819504dbf9c2b7e5b28401a8" name="a6ce0458f819504dbf9c2b7e5b28401a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ce0458f819504dbf9c2b7e5b28401a8">&#9670;&#160;</a></span>clearAndRefresh()</h2>
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00044">44</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a509dc54983ccec17e0df188f83bb6021" name="a509dc54983ccec17e0df188f83bb6021"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a509dc54983ccec17e0df188f83bb6021">&#9670;&#160;</a></span>Ref() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::ecs::priv::ViewBase::clearAndRefresh </td>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::Ref </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -153,158 +199,750 @@ class bl::ecs::View&lt; TRequire, TOptional, TExclude &gt;</div><p>Base definiti
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Creates an invalid ref. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00051">51</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
 </div>
 </div>
-<a id="aeac4fe75e62fd655cc93cadc083f5d6e" name="aeac4fe75e62fd655cc93cadc083f5d6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeac4fe75e62fd655cc93cadc083f5d6e">&#9670;&#160;</a></span>nullEntityComponent()</h2>
+<a id="a97707f118af74e83c121e8afd1d9902c" name="a97707f118af74e83c121e8afd1d9902c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97707f118af74e83c121e8afd1d9902c">&#9670;&#160;</a></span>Ref() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<div class="memtemplate">
+template&lt;typename TOther &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::ecs::priv::ViewBase::nullEntityComponent </td>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::Ref </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04046.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>com</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Initializes this ref from another. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TOther</td><td>The derived type of the other ref </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00062">62</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
 </div>
 </div>
-<a id="a1b85cace86a9ac96e0709123561754d9" name="a1b85cace86a9ac96e0709123561754d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b85cace86a9ac96e0709123561754d9">&#9670;&#160;</a></span>removeEntity()</h2>
+<a id="a830ea4a5b4778c6a40265a00099b07da" name="a830ea4a5b4778c6a40265a00099b07da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a830ea4a5b4778c6a40265a00099b07da">&#9670;&#160;</a></span>Ref() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::ecs::priv::ViewBase::removeEntity </td>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::Ref </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04046.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a04014.html">Ref</a>&lt; T, TDerived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Initializes this ref from another. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TOther</td><td>The derived type of the other ref </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00073">73</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
 </div>
 </div>
-<a id="af34b9807e8e8ee6f2b6e6acf2fa90f27" name="af34b9807e8e8ee6f2b6e6acf2fa90f27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af34b9807e8e8ee6f2b6e6acf2fa90f27">&#9670;&#160;</a></span>tryAddEntity()</h2>
+<a id="ae62e61bea5e4c5ee1720e4a7f4878973" name="ae62e61bea5e4c5ee1720e4a7f4878973"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae62e61bea5e4c5ee1720e4a7f4878973">&#9670;&#160;</a></span>Ref() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<div class="memtemplate">
+template&lt;typename TOther &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void bl::ecs::priv::ViewBase::tryAddEntity </td>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::Ref </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04046.html">Entity</a>&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Takes over ownership from another ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to assume ownership from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00084">84</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aafdfd8e3839e65877f319f37996af1aa" name="aafdfd8e3839e65877f319f37996af1aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafdfd8e3839e65877f319f37996af1aa">&#9670;&#160;</a></span>id</h2>
+<a id="aedb27e9ce93d8c26a46f1bae8db44ca0" name="aedb27e9ce93d8c26a46f1bae8db44ca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedb27e9ce93d8c26a46f1bae8db44ca0">&#9670;&#160;</a></span>Ref() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::type_index bl::ecs::priv::ViewBase::id</td>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::Ref </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04014.html">Ref</a>&lt; T, TDerived &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00032">32</a> of file <a class="el" href="a00413_source.html">View.hpp</a>.</p>
+<p>Takes over ownership from another ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to assume ownership from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00094">94</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aaec4846781fb716ae60bc560bce90dfe" name="aaec4846781fb716ae60bc560bce90dfe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaec4846781fb716ae60bc560bce90dfe">&#9670;&#160;</a></span>mask</h2>
+<a id="a4aa325d13813eb060ace627cf14fd6bf" name="a4aa325d13813eb060ace627cf14fd6bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa325d13813eb060ace627cf14fd6bf">&#9670;&#160;</a></span>~Ref()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a04010.html">ComponentMask</a> bl::ecs::priv::ViewBase::mask</td>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::~<a class="el" href="a04014.html">Ref</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00033">33</a> of file <a class="el" href="a00413_source.html">View.hpp</a>.</p>
+<p>Releases the ref and possibly the resource if the ref count is zero. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00102">102</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4988a35ae410b24ac206d964cf2d5881" name="a4988a35ae410b24ac206d964cf2d5881"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4988a35ae410b24ac206d964cf2d5881">&#9670;&#160;</a></span>get() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TDerived * <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00203">203</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af3df6383950208add94973fa3f5cd453" name="af3df6383950208add94973fa3f5cd453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3df6383950208add94973fa3f5cd453">&#9670;&#160;</a></span>get() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const TDerived * <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00208">208</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a042627df6b0219ed42775b675f6bfd9a" name="a042627df6b0219ed42775b675f6bfd9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a042627df6b0219ed42775b675f6bfd9a">&#9670;&#160;</a></span>isValid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::isValid </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this ref points to a resource or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00218">218</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5cabfb8dd8ae80e9038deb4c948bc856" name="a5cabfb8dd8ae80e9038deb4c948bc856"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cabfb8dd8ae80e9038deb4c948bc856">&#9670;&#160;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this ref points to a resource or not. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00223">223</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adca34583d2a4ba59b6f5d46a30282f46" name="adca34583d2a4ba59b6f5d46a30282f46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adca34583d2a4ba59b6f5d46a30282f46">&#9670;&#160;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TDerived &amp; <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00183">183</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acfd983f680863fcb4b6537cc62809a46" name="acfd983f680863fcb4b6537cc62809a46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd983f680863fcb4b6537cc62809a46">&#9670;&#160;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const TDerived &amp; <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00188">188</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a847e98ae0d1ab61ca6dd2cd023b762ec" name="a847e98ae0d1ab61ca6dd2cd023b762ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847e98ae0d1ab61ca6dd2cd023b762ec">&#9670;&#160;</a></span>operator-&gt;() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TDerived * <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00193">193</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a536bd9da83b925bc2b0b22cc71df5c55" name="a536bd9da83b925bc2b0b22cc71df5c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a536bd9da83b925bc2b0b22cc71df5c55">&#9670;&#160;</a></span>operator-&gt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const TDerived * <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access the underlying resource value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00198">198</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3f9c1aad47e24c23f69a06073cb3a459" name="a3f9c1aad47e24c23f69a06073cb3a459"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9c1aad47e24c23f69a06073cb3a459">&#9670;&#160;</a></span>operator=() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04014.html">Ref</a> &amp; <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04014.html">Ref</a>&lt; T, TDerived &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes this ref from another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00110">110</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a90939e4eac4d3c9b73f0e2de35854aaf" name="a90939e4eac4d3c9b73f0e2de35854aaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90939e4eac4d3c9b73f0e2de35854aaf">&#9670;&#160;</a></span>operator=() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<div class="memtemplate">
+template&lt;typename TOther &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04014.html">Ref</a> &amp; <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initializes this ref from another. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00144">144</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a94a86330c32f6155667a59ed93fb572e" name="a94a86330c32f6155667a59ed93fb572e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94a86330c32f6155667a59ed93fb572e">&#9670;&#160;</a></span>operator=() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04014.html">Ref</a> &amp; <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04014.html">Ref</a>&lt; T, TDerived &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Takes over ownership from another ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to assume ownership from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00126">126</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5a56ee0ae9720b1a46f37a15cc515db1" name="a5a56ee0ae9720b1a46f37a15cc515db1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a56ee0ae9720b1a46f37a15cc515db1">&#9670;&#160;</a></span>operator=() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<div class="memtemplate">
+template&lt;typename TOther &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a04014.html">Ref</a> &amp; <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04014.html">Ref</a>&lt; T, TOther &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Takes over ownership from another ref. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The ref to assume ownership from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00165">165</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa804bd66179ab5c51b9a265534d2acd7" name="aa804bd66179ab5c51b9a265534d2acd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa804bd66179ab5c51b9a265534d2acd7">&#9670;&#160;</a></span>refCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::refCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the number of refs pointing to the underlying resource. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00213">213</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0a1f84d58c4f9bf70600bfbd57fc33e3" name="a0a1f84d58c4f9bf70600bfbd57fc33e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a1f84d58c4f9bf70600bfbd57fc33e3">&#9670;&#160;</a></span>release()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a04014.html">bl::ctr::Ref</a>&lt; T, TDerived &gt;::release </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Releases this handle on the underlying resource. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00228">228</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="acd36b719fd82af37b0d8a742b3963e42" name="acd36b719fd82af37b0d8a742b3963e42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd36b719fd82af37b0d8a742b3963e42">&#9670;&#160;</a></span>Ref</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<div class="memtemplate">
+template&lt;typename U , typename V &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a04014.html">Ref</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00250">250</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c98fcbe98736d99bfbf383b7895fb67" name="a1c98fcbe98736d99bfbf383b7895fb67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c98fcbe98736d99bfbf383b7895fb67">&#9670;&#160;</a></span>RefPool&lt; T &gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename TDerived  = T&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a04002.html">RefPool</a>&lt; T &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01736_source.html#l00250">250</a> of file <a class="el" href="a01736_source.html">RefPool.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/ECS/<a class="el" href="a00395_source.html">ComponentPool.hpp</a></li>
+<li>include/BLIB/Containers/<a class="el" href="a01736_source.html">RefPool.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

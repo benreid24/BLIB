@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::ctr::QuadTree&lt; TCoord, TPayload &gt; Class Template Reference</title>
+<title>BLIB: bl::ctr::Grid&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,221 +74,180 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03161.html">ctr</a></li><li class="navelem"><a class="el" href="a03934.html">QuadTree</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03207.html">ctr</a></li><li class="navelem"><a class="el" href="a03934.html">Grid</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a03931.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::ctr::QuadTree&lt; TCoord, TPayload &gt; Class Template Reference<div class="ingroups"><a class="el" href="a03118.html">Containers</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::ctr::Grid&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a03163.html">Containers</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position.  
+<p>Basic spatial partitioning grid class for breaking down areas into equal sized boxes. <a class="el" href="a03934.html" title="Basic spatial partitioning grid class for breaking down areas into equal sized boxes....">Grid</a> is meant only to point to objects stored elsewhere, however all trivial types are allowed. Contained values should be unique, otherwise <a class="el" href="a03934.html#a39a0045d718d72a05d2f2bfb68d5705b" title="Moves the given value from it&#39;s old position in the grid to the new position.">move()</a> and <a class="el" href="a03934.html#a05d9c2b2e48e75496d4ff7f5cb527615" title="Removes an entity to the grid at the given position.">remove()</a> may behave unexpectedly.  
  <a href="a03934.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01685_source.html">QuadTree.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01739_source.html">Grid.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03946.html">Area</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper struct that represents a spatial region.  <a href="a03946.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03938.html">ResultSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores an iterable result set from a <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> query.  <a href="a03938.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afd271cd58a09c8f5e7c4375b11336acf" id="r_afd271cd58a09c8f5e7c4375b11336acf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#afd271cd58a09c8f5e7c4375b11336acf">Cell</a> = <a class="el" href="a03926.html">FastEraseVector</a>&lt; T &gt;</td></tr>
+<tr class="memdesc:afd271cd58a09c8f5e7c4375b11336acf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single cell in the grid pointing to objects within that region.  <br /></td></tr>
+<tr class="separator:afd271cd58a09c8f5e7c4375b11336acf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abfd02d9e96ec98d58d9b6b01f2863830" id="r_abfd02d9e96ec98d58d9b6b01f2863830"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#abfd02d9e96ec98d58d9b6b01f2863830">QuadTree</a> ()</td></tr>
-<tr class="memdesc:abfd02d9e96ec98d58d9b6b01f2863830"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a>.  <br /></td></tr>
-<tr class="separator:abfd02d9e96ec98d58d9b6b01f2863830"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb7fc1e30a89016eaaea4e8653010d6d" id="r_adb7fc1e30a89016eaaea4e8653010d6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#adb7fc1e30a89016eaaea4e8653010d6d">QuadTree</a> (const <a class="el" href="a03934.html">QuadTree</a> &amp;copy)</td></tr>
-<tr class="memdesc:adb7fc1e30a89016eaaea4e8653010d6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a>.  <br /></td></tr>
-<tr class="separator:adb7fc1e30a89016eaaea4e8653010d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee5aa129c90705b65f97bbd4163a7597" id="r_aee5aa129c90705b65f97bbd4163a7597"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#aee5aa129c90705b65f97bbd4163a7597">QuadTree</a> (<a class="el" href="a03934.html">QuadTree</a> &amp;&amp;move)</td></tr>
-<tr class="memdesc:aee5aa129c90705b65f97bbd4163a7597"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes ownership of the objects stored in the given tree.  <br /></td></tr>
-<tr class="separator:aee5aa129c90705b65f97bbd4163a7597"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a066b42b0ebed6cbc63502dc547767dc1" id="r_a066b42b0ebed6cbc63502dc547767dc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a066b42b0ebed6cbc63502dc547767dc1">~QuadTree</a> ()</td></tr>
-<tr class="memdesc:a066b42b0ebed6cbc63502dc547767dc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up resources.  <br /></td></tr>
-<tr class="separator:a066b42b0ebed6cbc63502dc547767dc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a475592383a6f577987e327580991de03" id="r_a475592383a6f577987e327580991de03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a475592383a6f577987e327580991de03">setMaxLoad</a> (std::size_t maxLoad)</td></tr>
-<tr class="memdesc:a475592383a6f577987e327580991de03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the max number of objects allowed in a single partition. Partitions that exceed this size are subdivided until each new partition is under the max size.  <br /></td></tr>
-<tr class="separator:a475592383a6f577987e327580991de03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addeebde5271fb7a6962fdd092fe0f953" id="r_addeebde5271fb7a6962fdd092fe0f953"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#addeebde5271fb7a6962fdd092fe0f953">setIndexedArea</a> (const <a class="el" href="a03946.html">Area</a> &amp;area)</td></tr>
-<tr class="memdesc:addeebde5271fb7a6962fdd092fe0f953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the area over which partitioning will occur. <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> can handle objects outside of the given area but is more performant if the area is accurate.  <br /></td></tr>
-<tr class="separator:addeebde5271fb7a6962fdd092fe0f953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44b7d90d8f99c82eda4bbfb97b28c5f4" id="r_a44b7d90d8f99c82eda4bbfb97b28c5f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a44b7d90d8f99c82eda4bbfb97b28c5f4">add</a> (const TCoord &amp;position, const TPayload &amp;value)</td></tr>
-<tr class="memdesc:a44b7d90d8f99c82eda4bbfb97b28c5f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given object to the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> at the given position. Objects are keyed on position and may only be removed if their exact position in the tree is available.  <br /></td></tr>
-<tr class="separator:a44b7d90d8f99c82eda4bbfb97b28c5f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cbd13b3ebc17a4e732921a016fc1600" id="r_a5cbd13b3ebc17a4e732921a016fc1600"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a5cbd13b3ebc17a4e732921a016fc1600">add</a> (const TCoord &amp;position, TPayload &amp;&amp;value)</td></tr>
-<tr class="memdesc:a5cbd13b3ebc17a4e732921a016fc1600"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given object to the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> at the given position. Objects are keyed on position and may only be removed if their exact position in the tree is available.  <br /></td></tr>
-<tr class="separator:a5cbd13b3ebc17a4e732921a016fc1600"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae04dc38235b92b1aeb26db4bbe4a2dfe" id="r_ae04dc38235b92b1aeb26db4bbe4a2dfe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ae04dc38235b92b1aeb26db4bbe4a2dfe">updatePosition</a> (const TCoord &amp;oldPosition, const TCoord &amp;newPosition)</td></tr>
-<tr class="memdesc:ae04dc38235b92b1aeb26db4bbe4a2dfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the position of an object using its old position.  <br /></td></tr>
-<tr class="separator:ae04dc38235b92b1aeb26db4bbe4a2dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed7677189f3749d4f2b1a029f84c0535" id="r_aed7677189f3749d4f2b1a029f84c0535"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#aed7677189f3749d4f2b1a029f84c0535">remove</a> (const TCoord &amp;position)</td></tr>
-<tr class="memdesc:aed7677189f3749d4f2b1a029f84c0535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an object from the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> by its position.  <br /></td></tr>
-<tr class="separator:aed7677189f3749d4f2b1a029f84c0535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0e1281f467bcc929b5a04091dd2edb7" id="r_ae0e1281f467bcc929b5a04091dd2edb7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03938.html">ResultSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ae0e1281f467bcc929b5a04091dd2edb7">all</a> ()</td></tr>
-<tr class="memdesc:ae0e1281f467bcc929b5a04091dd2edb7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterable set of all contained objects.  <br /></td></tr>
-<tr class="separator:ae0e1281f467bcc929b5a04091dd2edb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87a516d2bb12354965b65e384dc72b06" id="r_a87a516d2bb12354965b65e384dc72b06"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03938.html">ResultSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a87a516d2bb12354965b65e384dc72b06">getInArea</a> (const <a class="el" href="a03946.html">Area</a> &amp;area)</td></tr>
-<tr class="memdesc:a87a516d2bb12354965b65e384dc72b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a set of objects contained or nearby the given area.  <br /></td></tr>
-<tr class="separator:a87a516d2bb12354965b65e384dc72b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1542c95871a0ffa5339e128a4bc7c70" id="r_ac1542c95871a0ffa5339e128a4bc7c70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03938.html">ResultSet</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ac1542c95871a0ffa5339e128a4bc7c70">getQuad</a> (const TCoord &amp;position)</td></tr>
-<tr class="memdesc:ac1542c95871a0ffa5339e128a4bc7c70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns objects immediately nearby the given position. This returns a single partition of objects and as such may omit nearby objects if they are in a different partition.  <br /></td></tr>
-<tr class="separator:ac1542c95871a0ffa5339e128a4bc7c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf79a5cd0f34eca8c82237c52ab5c97c" id="r_aaf79a5cd0f34eca8c82237c52ab5c97c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#aaf79a5cd0f34eca8c82237c52ab5c97c">clear</a> ()</td></tr>
-<tr class="memdesc:aaf79a5cd0f34eca8c82237c52ab5c97c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all stored objects.  <br /></td></tr>
-<tr class="separator:aaf79a5cd0f34eca8c82237c52ab5c97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:ac8cfddad9bb13059b371275addb2b65d" id="r_ac8cfddad9bb13059b371275addb2b65d"><td class="memItemLeft" align="right" valign="top">struct&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ac8cfddad9bb13059b371275addb2b65d">Partition</a></td></tr>
-<tr class="separator:ac8cfddad9bb13059b371275addb2b65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9648b30bb567504ca8d8ab285995077" id="r_ae9648b30bb567504ca8d8ab285995077"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ae9648b30bb567504ca8d8ab285995077">Grid</a> (const sf::FloatRect &amp;space, float cellWidth, float cellHeight)</td></tr>
+<tr class="memdesc:ae9648b30bb567504ca8d8ab285995077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the grid.  <br /></td></tr>
+<tr class="separator:ae9648b30bb567504ca8d8ab285995077"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a090b49b4c88e42d6bd9eb0c8712a7651" id="r_a090b49b4c88e42d6bd9eb0c8712a7651"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a090b49b4c88e42d6bd9eb0c8712a7651">setSize</a> (const sf::FloatRect &amp;space, float cellWidth, float cellHeight)</td></tr>
+<tr class="memdesc:a090b49b4c88e42d6bd9eb0c8712a7651"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resizes the grid. Stored elements are cleared.  <br /></td></tr>
+<tr class="separator:a090b49b4c88e42d6bd9eb0c8712a7651"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac742e259d6be5c108f4ab0013df219f7" id="r_ac742e259d6be5c108f4ab0013df219f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ac742e259d6be5c108f4ab0013df219f7">add</a> (const sf::Vector2f &amp;pos, T value)</td></tr>
+<tr class="memdesc:ac742e259d6be5c108f4ab0013df219f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds an entity to the grid at the given position.  <br /></td></tr>
+<tr class="separator:ac742e259d6be5c108f4ab0013df219f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d9c2b2e48e75496d4ff7f5cb527615" id="r_a05d9c2b2e48e75496d4ff7f5cb527615"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a05d9c2b2e48e75496d4ff7f5cb527615">remove</a> (const sf::Vector2f &amp;pos, T value)</td></tr>
+<tr class="memdesc:a05d9c2b2e48e75496d4ff7f5cb527615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes an entity to the grid at the given position.  <br /></td></tr>
+<tr class="separator:a05d9c2b2e48e75496d4ff7f5cb527615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39a0045d718d72a05d2f2bfb68d5705b" id="r_a39a0045d718d72a05d2f2bfb68d5705b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a39a0045d718d72a05d2f2bfb68d5705b">move</a> (const sf::Vector2f &amp;oldPos, const sf::Vector2f &amp;newPos, T value)</td></tr>
+<tr class="memdesc:a39a0045d718d72a05d2f2bfb68d5705b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the given value from it's old position in the grid to the new position.  <br /></td></tr>
+<tr class="separator:a39a0045d718d72a05d2f2bfb68d5705b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a168fb24aa5b3c54a60fe76737c988a1f" id="r_a168fb24aa5b3c54a60fe76737c988a1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#a168fb24aa5b3c54a60fe76737c988a1f">clear</a> ()</td></tr>
+<tr class="memdesc:a168fb24aa5b3c54a60fe76737c988a1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all elements. All iterators invalidated. <a class="el" href="a03934.html" title="Basic spatial partitioning grid class for breaking down areas into equal sized boxes....">Grid</a> size is unchanged.  <br /></td></tr>
+<tr class="separator:a168fb24aa5b3c54a60fe76737c988a1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3263f3ff24261debee5ad2b6197b17c" id="r_ac3263f3ff24261debee5ad2b6197b17c"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03934.html#afd271cd58a09c8f5e7c4375b11336acf">Cell</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ac3263f3ff24261debee5ad2b6197b17c">getCell</a> (const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:ac3263f3ff24261debee5ad2b6197b17c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cell at the given position in spacial units.  <br /></td></tr>
+<tr class="separator:ac3263f3ff24261debee5ad2b6197b17c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab903ac13ef3c5d6095f9897fcdda05e4" id="r_ab903ac13ef3c5d6095f9897fcdda05e4"><td class="memItemLeft" align="right" valign="top">sf::Vector2u&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ab903ac13ef3c5d6095f9897fcdda05e4">getIndexAtPosition</a> (const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:ab903ac13ef3c5d6095f9897fcdda05e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the 0-based cell index containing the given spacial position. Returned value is bounded to the grid size, even if the requested position is outside of the <a class="el" href="a03934.html" title="Basic spatial partitioning grid class for breaking down areas into equal sized boxes....">Grid</a> space.  <br /></td></tr>
+<tr class="separator:ab903ac13ef3c5d6095f9897fcdda05e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac49dc9047a03ee948e05daab19658cec" id="r_ac49dc9047a03ee948e05daab19658cec"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a03934.html#afd271cd58a09c8f5e7c4375b11336acf">Cell</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03934.html#ac49dc9047a03ee948e05daab19658cec">getCellByIndex</a> (const sf::Vector2u &amp;indices)</td></tr>
+<tr class="memdesc:ac49dc9047a03ee948e05daab19658cec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the cell at the given x and y indices.  <br /></td></tr>
+<tr class="separator:ac49dc9047a03ee948e05daab19658cec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d4a22ef55e71b055cdaff50707020a" id="r_a42d4a22ef55e71b055cdaff50707020a"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
+<tr class="memitem:a42d4a22ef55e71b055cdaff50707020a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03934.html#a42d4a22ef55e71b055cdaff50707020a">forAllInRegion</a> (const sf::FloatRect &amp;region, const TCallback &amp;cb)</td></tr>
+<tr class="memdesc:a42d4a22ef55e71b055cdaff50707020a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained values within the given region. Callback can optionally return a boolean to end iteration early. Return true to end early.  <br /></td></tr>
+<tr class="separator:a42d4a22ef55e71b055cdaff50707020a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0b7c594049c25b76b502ffa8e9cb29c" id="r_aa0b7c594049c25b76b502ffa8e9cb29c"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
+<tr class="memitem:aa0b7c594049c25b76b502ffa8e9cb29c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03934.html#aa0b7c594049c25b76b502ffa8e9cb29c">forAllInCellAndNeighbors</a> (const sf::Vector2f &amp;cellPoint, const TCallback &amp;cb)</td></tr>
+<tr class="memdesc:aa0b7c594049c25b76b502ffa8e9cb29c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained values within the cell and it's neighbors. Callback can optionally return a boolean to end iteration early. Return true to end early.  <br /></td></tr>
+<tr class="separator:aa0b7c594049c25b76b502ffa8e9cb29c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88b1d2797a9b6d86b1f0be3a9b73a84c" id="r_a88b1d2797a9b6d86b1f0be3a9b73a84c"><td class="memTemplParams" colspan="2">template&lt;typename TCallback &gt; </td></tr>
+<tr class="memitem:a88b1d2797a9b6d86b1f0be3a9b73a84c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03934.html#a88b1d2797a9b6d86b1f0be3a9b73a84c">forAllInCellAndNeighbors</a> (const glm::vec2 &amp;cellPoint, const TCallback &amp;cb)</td></tr>
+<tr class="memdesc:a88b1d2797a9b6d86b1f0be3a9b73a84c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iterates over all contained values within the cell and it's neighbors. Callback can optionally return a boolean to end iteration early. Return true to end early.  <br /></td></tr>
+<tr class="separator:a88b1d2797a9b6d86b1f0be3a9b73a84c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd60637e50177c06ff0a6824ff9107c" id="r_a8dd60637e50177c06ff0a6824ff9107c"><td class="memTemplParams" colspan="2">template&lt;typename TCb &gt; </td></tr>
+<tr class="memitem:a8dd60637e50177c06ff0a6824ff9107c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03934.html#a8dd60637e50177c06ff0a6824ff9107c">forAllInRegion</a> (const sf::FloatRect &amp;region, const TCb &amp;cb)</td></tr>
+<tr class="separator:a8dd60637e50177c06ff0a6824ff9107c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58520228f7743f7a304abc384a43f872" id="r_a58520228f7743f7a304abc384a43f872"><td class="memTemplParams" colspan="2">template&lt;typename TCb &gt; </td></tr>
+<tr class="memitem:a58520228f7743f7a304abc384a43f872"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03934.html#a58520228f7743f7a304abc384a43f872">forAllInCellAndNeighbors</a> (const sf::Vector2f &amp;pos, const TCb &amp;cb)</td></tr>
+<tr class="separator:a58520228f7743f7a304abc384a43f872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d9b76e3796d4ec2bc58e919796eed55" id="r_a3d9b76e3796d4ec2bc58e919796eed55"><td class="memTemplParams" colspan="2">template&lt;typename TCb &gt; </td></tr>
+<tr class="memitem:a3d9b76e3796d4ec2bc58e919796eed55"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a03934.html#a3d9b76e3796d4ec2bc58e919796eed55">forAllInCellAndNeighbors</a> (const glm::vec2 &amp;pos, const TCb &amp;cb)</td></tr>
+<tr class="separator:a3d9b76e3796d4ec2bc58e919796eed55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename TCoord, typename TPayload&gt;<br />
-class bl::ctr::QuadTree&lt; TCoord, TPayload &gt;</div><p>Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently if the payload type is trivially movable. Stored objects are keyed on position. </p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
+class bl::ctr::Grid&lt; T &gt;</div><p>Basic spatial partitioning grid class for breaking down areas into equal sized boxes. <a class="el" href="a03934.html" title="Basic spatial partitioning grid class for breaking down areas into equal sized boxes....">Grid</a> is meant only to point to objects stored elsewhere, however all trivial types are allowed. Contained values should be unique, otherwise <a class="el" href="a03934.html#a39a0045d718d72a05d2f2bfb68d5705b" title="Moves the given value from it&#39;s old position in the grid to the new position.">move()</a> and <a class="el" href="a03934.html#a05d9c2b2e48e75496d4ff7f5cb527615" title="Removes an entity to the grid at the given position.">remove()</a> may behave unexpectedly. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">TCoord</td><td>The type of coordinate to use. Must contain members x and y and define operator == </td></tr>
-    <tr><td class="paramname">TPayload</td><td>The type of payload to store </td></tr>
+    <tr><td class="paramname">T</td><td>The type of payload to point to </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00020">20</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abfd02d9e96ec98d58d9b6b01f2863830" name="abfd02d9e96ec98d58d9b6b01f2863830"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfd02d9e96ec98d58d9b6b01f2863830">&#9670;&#160;</a></span>QuadTree() <span class="overload">[1/3]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00027">27</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="afd271cd58a09c8f5e7c4375b11336acf" name="afd271cd58a09c8f5e7c4375b11336acf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd271cd58a09c8f5e7c4375b11336acf">&#9670;&#160;</a></span>Cell</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::QuadTree </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::Cell =  <a class="el" href="a03926.html">FastEraseVector</a>&lt;T&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an empty <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a>. </p>
+<p>Single cell in the grid pointing to objects within that region. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00325">325</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00032">32</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adb7fc1e30a89016eaaea4e8653010d6d" name="adb7fc1e30a89016eaaea4e8653010d6d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb7fc1e30a89016eaaea4e8653010d6d">&#9670;&#160;</a></span>QuadTree() <span class="overload">[2/3]</span></h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae9648b30bb567504ca8d8ab285995077" name="ae9648b30bb567504ca8d8ab285995077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9648b30bb567504ca8d8ab285995077">&#9670;&#160;</a></span>Grid()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::QuadTree </td>
+          <td class="memname"><a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::Grid </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03934.html">QuadTree</a>&lt; TCoord, TPayload &gt; &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>space</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>cellWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>cellHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copies the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a>. </p>
+<p>Creates the grid. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">copy</td><td>The tree to copy from </td></tr>
+    <tr><td class="paramname">space</td><td>The spatial region to cover </td></tr>
+    <tr><td class="paramname">cellWidth</td><td>The width of each cell in spatial units </td></tr>
+    <tr><td class="paramname">cellHeight</td><td>The height of each cell in spatial units </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00331">331</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aee5aa129c90705b65f97bbd4163a7597" name="aee5aa129c90705b65f97bbd4163a7597"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee5aa129c90705b65f97bbd4163a7597">&#9670;&#160;</a></span>QuadTree() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::QuadTree </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03934.html">QuadTree</a>&lt; TCoord, TPayload &gt; &amp;&amp;&#160;</td>
-          <td class="paramname"><em>move</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Takes ownership of the objects stored in the given tree. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">move</td><td>The tree to inherit objects and partitions from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00337">337</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a066b42b0ebed6cbc63502dc547767dc1" name="a066b42b0ebed6cbc63502dc547767dc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a066b42b0ebed6cbc63502dc547767dc1">&#9670;&#160;</a></span>~QuadTree()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::~<a class="el" href="a03934.html">QuadTree</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Cleans up resources. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00344">344</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00154">154</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a44b7d90d8f99c82eda4bbfb97b28c5f4" name="a44b7d90d8f99c82eda4bbfb97b28c5f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44b7d90d8f99c82eda4bbfb97b28c5f4">&#9670;&#160;</a></span>add() <span class="overload">[1/2]</span></h2>
+<a id="ac742e259d6be5c108f4ab0013df219f7" name="ac742e259d6be5c108f4ab0013df219f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac742e259d6be5c108f4ab0013df219f7">&#9670;&#160;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::add </td>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::add </td>
           <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TPayload &amp;&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -299,37 +258,402 @@ template&lt;typename TCoord , typename TPayload &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Adds the given object to the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> at the given position. Objects are keyed on position and may only be removed if their exact position in the tree is available. </p>
+<p>Adds an entity to the grid at the given position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position to add the object at </td></tr>
-    <tr><td class="paramname">value</td><td>The object to add </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the entity to add, in spatial units </td></tr>
+    <tr><td class="paramname">value</td><td>The payload to add </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00361">361</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00174">174</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a5cbd13b3ebc17a4e732921a016fc1600" name="a5cbd13b3ebc17a4e732921a016fc1600"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cbd13b3ebc17a4e732921a016fc1600">&#9670;&#160;</a></span>add() <span class="overload">[2/2]</span></h2>
+<a id="a168fb24aa5b3c54a60fe76737c988a1f" name="a168fb24aa5b3c54a60fe76737c988a1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a168fb24aa5b3c54a60fe76737c988a1f">&#9670;&#160;</a></span>clear()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::add </td>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::clear </td>
           <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes all elements. All iterators invalidated. <a class="el" href="a03934.html" title="Basic spatial partitioning grid class for breaking down areas into equal sized boxes....">Grid</a> size is unchanged. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00211">211</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a88b1d2797a9b6d86b1f0be3a9b73a84c" name="a88b1d2797a9b6d86b1f0be3a9b73a84c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88b1d2797a9b6d86b1f0be3a9b73a84c">&#9670;&#160;</a></span>forAllInCellAndNeighbors() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCallback &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::forAllInCellAndNeighbors </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>cellPoint</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">TPayload &amp;&amp;&#160;</td>
+          <td class="paramtype">const TCallback &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iterates over all contained values within the cell and it's neighbors. Callback can optionally return a boolean to end iteration early. Return true to end early. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TCallback</td><td>Callback signature of the visitor to apply </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">region</td><td>The point to get the cell and neighbors for </td></tr>
+    <tr><td class="paramname">cb</td><td>The visitor to invoke for each contained element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3d9b76e3796d4ec2bc58e919796eed55" name="a3d9b76e3796d4ec2bc58e919796eed55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d9b76e3796d4ec2bc58e919796eed55">&#9670;&#160;</a></span>forAllInCellAndNeighbors() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCb &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::forAllInCellAndNeighbors </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TCb &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00288">288</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa0b7c594049c25b76b502ffa8e9cb29c" name="aa0b7c594049c25b76b502ffa8e9cb29c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0b7c594049c25b76b502ffa8e9cb29c">&#9670;&#160;</a></span>forAllInCellAndNeighbors() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCallback &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::forAllInCellAndNeighbors </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>cellPoint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TCallback &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iterates over all contained values within the cell and it's neighbors. Callback can optionally return a boolean to end iteration early. Return true to end early. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TCallback</td><td>Callback signature of the visitor to apply </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">region</td><td>The point to get the cell and neighbors for </td></tr>
+    <tr><td class="paramname">cb</td><td>The visitor to invoke for each contained element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a58520228f7743f7a304abc384a43f872" name="a58520228f7743f7a304abc384a43f872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58520228f7743f7a304abc384a43f872">&#9670;&#160;</a></span>forAllInCellAndNeighbors() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCb &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::forAllInCellAndNeighbors </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TCb &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00263">263</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a42d4a22ef55e71b055cdaff50707020a" name="a42d4a22ef55e71b055cdaff50707020a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d4a22ef55e71b055cdaff50707020a">&#9670;&#160;</a></span>forAllInRegion() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCallback &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::forAllInRegion </td>
+          <td>(</td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>region</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TCallback &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iterates over all contained values within the given region. Callback can optionally return a boolean to end iteration early. Return true to end early. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">TCallback</td><td>Callback signature of the visitor to apply </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">region</td><td>The region to iterate over contained entities within </td></tr>
+    <tr><td class="paramname">cb</td><td>The visitor to invoke for each contained element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8dd60637e50177c06ff0a6824ff9107c" name="a8dd60637e50177c06ff0a6824ff9107c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dd60637e50177c06ff0a6824ff9107c">&#9670;&#160;</a></span>forAllInRegion() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename TCb &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::forAllInRegion </td>
+          <td>(</td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>region</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const TCb &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00241">241</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac3263f3ff24261debee5ad2b6197b17c" name="ac3263f3ff24261debee5ad2b6197b17c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3263f3ff24261debee5ad2b6197b17c">&#9670;&#160;</a></span>getCell()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a03934.html">Grid</a>&lt; T &gt;<a class="el" href="a03934.html#afd271cd58a09c8f5e7c4375b11336acf">::Cell</a> &amp; <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::getCell </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the cell at the given position in spacial units. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The coordinate in spatial units </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Range A range containing elements in the given cell </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00216">216</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac49dc9047a03ee948e05daab19658cec" name="ac49dc9047a03ee948e05daab19658cec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac49dc9047a03ee948e05daab19658cec">&#9670;&#160;</a></span>getCellByIndex()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a03934.html">Grid</a>&lt; T &gt;<a class="el" href="a03934.html#afd271cd58a09c8f5e7c4375b11336acf">::Cell</a> &amp; <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::getCellByIndex </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2u &amp;&#160;</td>
+          <td class="paramname"><em>indices</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the cell at the given x and y indices. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">indices</td><td>The x and y indices to access. No bounds check performed </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const Cell&amp; The cell at the given position </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00235">235</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab903ac13ef3c5d6095f9897fcdda05e4" name="ab903ac13ef3c5d6095f9897fcdda05e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab903ac13ef3c5d6095f9897fcdda05e4">&#9670;&#160;</a></span>getIndexAtPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2u <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::getIndexAtPosition </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the 0-based cell index containing the given spacial position. Returned value is bounded to the grid size, even if the requested position is outside of the <a class="el" href="a03934.html" title="Basic spatial partitioning grid class for breaking down areas into equal sized boxes....">Grid</a> space. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The coordinate in spacial units </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>sf::Vector2u The indices of the cell </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00222">222</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a39a0045d718d72a05d2f2bfb68d5705b" name="a39a0045d718d72a05d2f2bfb68d5705b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39a0045d718d72a05d2f2bfb68d5705b">&#9670;&#160;</a></span>move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::move </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>oldPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>newPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -340,238 +664,39 @@ template&lt;typename TCoord , typename TPayload &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Adds the given object to the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> at the given position. Objects are keyed on position and may only be removed if their exact position in the tree is available. </p>
+<p>Moves the given value from it's old position in the grid to the new position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position to add the object at </td></tr>
-    <tr><td class="paramname">value</td><td>The object to add </td></tr>
+    <tr><td class="paramname">oldPos</td><td>The current position in spatial units </td></tr>
+    <tr><td class="paramname">newPos</td><td>The new position in spacial units </td></tr>
+    <tr><td class="paramname">value</td><td>The value to move </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00368">368</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00201">201</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae0e1281f467bcc929b5a04091dd2edb7" name="ae0e1281f467bcc929b5a04091dd2edb7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0e1281f467bcc929b5a04091dd2edb7">&#9670;&#160;</a></span>all()</h2>
+<a id="a05d9c2b2e48e75496d4ff7f5cb527615" name="a05d9c2b2e48e75496d4ff7f5cb527615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05d9c2b2e48e75496d4ff7f5cb527615">&#9670;&#160;</a></span>remove()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03934.html">QuadTree</a>&lt; TCoord, TPayload &gt;::ResultSet <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::all </td>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::remove </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns an iterable set of all contained objects. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03938.html" title="Stores an iterable result set from a QuadTree query.">ResultSet</a> A set containing all stored objects </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00402">402</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aaf79a5cd0f34eca8c82237c52ab5c97c" name="aaf79a5cd0f34eca8c82237c52ab5c97c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf79a5cd0f34eca8c82237c52ab5c97c">&#9670;&#160;</a></span>clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::clear </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes all stored objects. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00448">448</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a87a516d2bb12354965b65e384dc72b06" name="a87a516d2bb12354965b65e384dc72b06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87a516d2bb12354965b65e384dc72b06">&#9670;&#160;</a></span>getInArea()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03934.html">QuadTree</a>&lt; TCoord, TPayload &gt;::ResultSet <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::getInArea </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03946.html">Area</a> &amp;&#160;</td>
-          <td class="paramname"><em>area</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a set of objects contained or nearby the given area. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">area</td><td>The area to search for objects within </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03938.html" title="Stores an iterable result set from a QuadTree query.">ResultSet</a> A set containing objects near the given area </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00418">418</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac1542c95871a0ffa5339e128a4bc7c70" name="ac1542c95871a0ffa5339e128a4bc7c70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1542c95871a0ffa5339e128a4bc7c70">&#9670;&#160;</a></span>getQuad()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a03934.html">QuadTree</a>&lt; TCoord, TPayload &gt;::ResultSet <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::getQuad </td>
-          <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns objects immediately nearby the given position. This returns a single partition of objects and as such may omit nearby objects if they are in a different partition. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position to query for objects at </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a03938.html" title="Stores an iterable result set from a QuadTree query.">ResultSet</a> A set containing objects in the same partition as the given position </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00409">409</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aed7677189f3749d4f2b1a029f84c0535" name="aed7677189f3749d4f2b1a029f84c0535"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed7677189f3749d4f2b1a029f84c0535">&#9670;&#160;</a></span>remove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::remove </td>
-          <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes an object from the <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> by its position. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position of the object to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if an object was removed, false if no object is at the position </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00389">389</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="addeebde5271fb7a6962fdd092fe0f953" name="addeebde5271fb7a6962fdd092fe0f953"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addeebde5271fb7a6962fdd092fe0f953">&#9670;&#160;</a></span>setIndexedArea()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::setIndexedArea </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a03946.html">Area</a> &amp;&#160;</td>
-          <td class="paramname"><em>area</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the area over which partitioning will occur. <a class="el" href="a03934.html" title="Fairly basic implementation of a quadtree for spatially partitioning objects. Works most efficiently ...">QuadTree</a> can handle objects outside of the given area but is more performant if the area is accurate. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">area</td><td>The spatial region objects will be contained within </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00355">355</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a475592383a6f577987e327580991de03" name="a475592383a6f577987e327580991de03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a475592383a6f577987e327580991de03">&#9670;&#160;</a></span>setMaxLoad()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::setMaxLoad </td>
-          <td>(</td>
-          <td class="paramtype">std::size_t&#160;</td>
-          <td class="paramname"><em>maxLoad</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the max number of objects allowed in a single partition. Partitions that exceed this size are subdivided until each new partition is under the max size. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">maxLoad</td><td>The maximum number of objects allowed in a single quad </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00349">349</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae04dc38235b92b1aeb26db4bbe4a2dfe" name="ae04dc38235b92b1aeb26db4bbe4a2dfe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae04dc38235b92b1aeb26db4bbe4a2dfe">&#9670;&#160;</a></span>updatePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a03934.html">bl::ctr::QuadTree</a>&lt; TCoord, TPayload &gt;::updatePosition </td>
-          <td>(</td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>oldPosition</em>, </td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const TCoord &amp;&#160;</td>
-          <td class="paramname"><em>newPosition</em>&#160;</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -581,55 +706,75 @@ template&lt;typename TCoord , typename TPayload &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the position of an object using its old position. </p>
+<p>Removes an entity to the grid at the given position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">oldPosition</td><td>The position the object is currently at </td></tr>
-    <tr><td class="paramname">newPosition</td><td>The position to move the object to </td></tr>
+    <tr><td class="paramname">pos</td><td>The position of the entity to remove, in spatial units </td></tr>
+    <tr><td class="paramname">value</td><td>The payload to remove </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if an object was moved, false if no object was moved </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00375">375</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00185">185</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="ac8cfddad9bb13059b371275addb2b65d" name="ac8cfddad9bb13059b371275addb2b65d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8cfddad9bb13059b371275addb2b65d">&#9670;&#160;</a></span>Partition</h2>
+<a id="a090b49b4c88e42d6bd9eb0c8712a7651" name="a090b49b4c88e42d6bd9eb0c8712a7651"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a090b49b4c88e42d6bd9eb0c8712a7651">&#9670;&#160;</a></span>setSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename TCoord , typename TPayload &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+template&lt;typename T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">friend struct Partition</td>
+          <td class="memname">void <a class="el" href="a03934.html">bl::ctr::Grid</a>&lt; T &gt;::setSize </td>
+          <td>(</td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>space</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>cellWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>cellHeight</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01685_source.html#l00319">319</a> of file <a class="el" href="a01685_source.html">QuadTree.hpp</a>.</p>
+<p>Resizes the grid. Stored elements are cleared. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">space</td><td>The spatial region to cover </td></tr>
+    <tr><td class="paramname">cellWidth</td><td>The width of each cell in spatial units </td></tr>
+    <tr><td class="paramname">cellHeight</td><td>The height of each cell in spatial units </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01739_source.html#l00163">163</a> of file <a class="el" href="a01739_source.html">Grid.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Containers/<a class="el" href="a01685_source.html">QuadTree.hpp</a></li>
+<li>include/BLIB/Containers/<a class="el" href="a01739_source.html">Grid.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

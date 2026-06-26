@@ -76,8 +76,10 @@ var menudata={children:[
 {text:"d",url:"namespacemembers_vars.html#index_d"},
 {text:"f",url:"namespacemembers_vars.html#index_f"},
 {text:"g",url:"namespacemembers_vars.html#index_g"},
+{text:"h",url:"namespacemembers_vars.html#index_h"},
 {text:"i",url:"namespacemembers_vars.html#index_i"},
 {text:"m",url:"namespacemembers_vars.html#index_m"},
+{text:"n",url:"namespacemembers_vars.html#index_n"},
 {text:"p",url:"namespacemembers_vars.html#index_p"},
 {text:"s",url:"namespacemembers_vars.html#index_s"},
 {text:"t",url:"namespacemembers_vars.html#index_t"}]},
@@ -301,4 +303,10 @@ var menudata={children:[
 {text:"t",url:"globals_vars.html#index_t"},
 {text:"u",url:"globals_vars.html#index_u"},
 {text:"v",url:"globals_vars.html#index_v"}]},
-{text:"Macros",url:"globals_defs.html"}]}]}]}
+{text:"Macros",url:"globals_defs.html",children:[
+{text:"_",url:"globals_defs.html#index__5F"},
+{text:"b",url:"globals_defs.html#index_b"},
+{text:"l",url:"globals_defs.html#index_l"},
+{text:"m",url:"globals_defs.html#index_m"},
+{text:"s",url:"globals_defs.html#index_s"},
+{text:"v",url:"globals_defs.html#index_v"}]}]}]}]}

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::scene::Key Struct Reference</title>
+<title>BLIB: bl::rc::prim::DrawParameters Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,61 +74,70 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03200.html">scene</a></li><li class="navelem"><a class="el" href="a05986.html">Key</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03264.html">prim</a></li><li class="navelem"><a class="el" href="a05986.html">DrawParameters</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a05983.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::scene::Key Struct Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::prim::DrawParameters Struct Reference<div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a05986.html" title="Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...">Key</a> for objects in scenes. Contains update speed and scene id. <a class="el" href="a05998.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a> ids are not unique across update speeds.  
+<p>Collection of the required parameters to issue draw commands per object.  
  <a href="a05986.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a09791_source.html">Key.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01280_source.html">DrawParameters.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:abe53ce802d2125e3553fd3c7fca439f8" id="r_abe53ce802d2125e3553fd3c7fca439f8"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8">DrawType</a> { <a class="el" href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd">VertexBuffer</a>
+, <a class="el" href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0">IndexBuffer</a>
+ }</td></tr>
+<tr class="memdesc:abe53ce802d2125e3553fd3c7fca439f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the drawing command to use.  <a href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8">More...</a><br /></td></tr>
+<tr class="separator:abe53ce802d2125e3553fd3c7fca439f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5682da85e8239915341a400b492f0e80" id="r_a5682da85e8239915341a400b492f0e80"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a5682da85e8239915341a400b492f0e80">Key</a> ()</td></tr>
-<tr class="memdesc:a5682da85e8239915341a400b492f0e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an invalid key.  <br /></td></tr>
-<tr class="separator:a5682da85e8239915341a400b492f0e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab234289f8c76d1913d8d7e0a9d92a3c3" id="r_ab234289f8c76d1913d8d7e0a9d92a3c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#ab234289f8c76d1913d8d7e0a9d92a3c3">Key</a> (<a class="el" href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> <a class="el" href="a05986.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a>, std::uint32_t <a class="el" href="a05986.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a>)</td></tr>
-<tr class="memdesc:ab234289f8c76d1913d8d7e0a9d92a3c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the key from the given components.  <br /></td></tr>
-<tr class="separator:ab234289f8c76d1913d8d7e0a9d92a3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0440da6d709497771c0a6de24f10ef43" id="r_a0440da6d709497771c0a6de24f10ef43"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a0440da6d709497771c0a6de24f10ef43">operator==</a> (const <a class="el" href="a05986.html">Key</a> &amp;right) const</td></tr>
-<tr class="memdesc:a0440da6d709497771c0a6de24f10ef43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests for equality with the given key.  <br /></td></tr>
-<tr class="separator:a0440da6d709497771c0a6de24f10ef43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75bd89485d9b720f14cf307e53d343c4" id="r_a75bd89485d9b720f14cf307e53d343c4"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a75bd89485d9b720f14cf307e53d343c4">operator!=</a> (const <a class="el" href="a05986.html">Key</a> &amp;right) const</td></tr>
-<tr class="memdesc:a75bd89485d9b720f14cf307e53d343c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests for inequality with the given key.  <br /></td></tr>
-<tr class="separator:a75bd89485d9b720f14cf307e53d343c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8c9e566aedcbe77326e97e4f6dfdb10" id="r_ab8c9e566aedcbe77326e97e4f6dfdb10"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#ab8c9e566aedcbe77326e97e4f6dfdb10">operator&lt;</a> (const <a class="el" href="a05986.html">Key</a> &amp;right) const</td></tr>
-<tr class="memdesc:ab8c9e566aedcbe77326e97e4f6dfdb10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comparator for sorting keys.  <br /></td></tr>
-<tr class="separator:ab8c9e566aedcbe77326e97e4f6dfdb10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b5921705d41639a8650608af19324d8" id="r_a8b5921705d41639a8650608af19324d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a8b5921705d41639a8650608af19324d8">DrawParameters</a> ()</td></tr>
+<tr class="memdesc:a8b5921705d41639a8650608af19324d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the draw parameters to reasonable defaults.  <br /></td></tr>
+<tr class="separator:a8b5921705d41639a8650608af19324d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abc689f231a25b15808c61dde6fda1d08" id="r_abc689f231a25b15808c61dde6fda1d08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#abc689f231a25b15808c61dde6fda1d08">updateFreq</a></td></tr>
-<tr class="separator:abc689f231a25b15808c61dde6fda1d08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fa4592fd53a220f89ac7814aebfa6d6" id="r_a5fa4592fd53a220f89ac7814aebfa6d6"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a5fa4592fd53a220f89ac7814aebfa6d6">sceneId</a></td></tr>
-<tr class="separator:a5fa4592fd53a220f89ac7814aebfa6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a580d79a30be461bc410fefee59c32ac3" id="r_a580d79a30be461bc410fefee59c32ac3"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a580d79a30be461bc410fefee59c32ac3">InvalidSceneId</a> = std::numeric_limits&lt;std::uint32_t&gt;::max()</td></tr>
-<tr class="separator:a580d79a30be461bc410fefee59c32ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a326822946f31074ef8df1bed6550039d" id="r_a326822946f31074ef8df1bed6550039d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8">DrawType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a326822946f31074ef8df1bed6550039d">type</a></td></tr>
+<tr class="separator:a326822946f31074ef8df1bed6550039d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962d4d5348b4b6e0f9c11413340d3b5b" id="r_a962d4d5348b4b6e0f9c11413340d3b5b"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a962d4d5348b4b6e0f9c11413340d3b5b">vertexBuffer</a></td></tr>
+<tr class="separator:a962d4d5348b4b6e0f9c11413340d3b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6218e06fd3bbcd7f2739c53b7581a73" id="r_ac6218e06fd3bbcd7f2739c53b7581a73"><td class="memItemLeft" align="right" valign="top">VkBuffer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#ac6218e06fd3bbcd7f2739c53b7581a73">indexBuffer</a></td></tr>
+<tr class="separator:ac6218e06fd3bbcd7f2739c53b7581a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ef0084b3f23e6e3ec892ad5957eaadf" id="r_a1ef0084b3f23e6e3ec892ad5957eaadf"><td class="memItemLeft" >union {&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9203b5f8e234a9ae472b868cf2ce0cb2" id="r_a9203b5f8e234a9ae472b868cf2ce0cb2"><td class="memItemLeft" >&#160;&#160;&#160;std::uint32_t&#160;&#160;&#160;<a class="el" href="a05986.html#a6c514a24c6c747266eaae2e87582f999">indexCount</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a9203b5f8e234a9ae472b868cf2ce0cb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb39679e52c213ae0f503f507d399f6c" id="r_aeb39679e52c213ae0f503f507d399f6c"><td class="memItemLeft" >&#160;&#160;&#160;std::uint32_t&#160;&#160;&#160;<a class="el" href="a05986.html#a4c54893eacb71e55018b88b1822eca52">vertexCount</a>&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:aeb39679e52c213ae0f503f507d399f6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ef0084b3f23e6e3ec892ad5957eaadf" id="r_a1ef0084b3f23e6e3ec892ad5957eaadf"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom">&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a1ef0084b3f23e6e3ec892ad5957eaadf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40a1bb84d0856d3d69d3a46efbf260eb" id="r_a40a1bb84d0856d3d69d3a46efbf260eb"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a40a1bb84d0856d3d69d3a46efbf260eb">indexOffset</a></td></tr>
+<tr class="separator:a40a1bb84d0856d3d69d3a46efbf260eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7efd03d865ca379d80d00c1d13a912b" id="r_ad7efd03d865ca379d80d00c1d13a912b"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#ad7efd03d865ca379d80d00c1d13a912b">vertexOffset</a></td></tr>
+<tr class="separator:ad7efd03d865ca379d80d00c1d13a912b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3946c2a7339aacf2dfb602bd7a471c9b" id="r_a3946c2a7339aacf2dfb602bd7a471c9b"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#a3946c2a7339aacf2dfb602bd7a471c9b">firstInstance</a></td></tr>
+<tr class="separator:a3946c2a7339aacf2dfb602bd7a471c9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af69724acb861a73b0a05592001285584" id="r_af69724acb861a73b0a05592001285584"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05986.html#af69724acb861a73b0a05592001285584">instanceCount</a></td></tr>
+<tr class="separator:af69724acb861a73b0a05592001285584"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a05986.html" title="Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...">Key</a> for objects in scenes. Contains update speed and scene id. <a class="el" href="a05998.html" title="Base class for all scene types and overlays. Provides common scene logic and object management....">Scene</a> ids are not unique across update speeds. </p>
+<div class="textblock"><p>Collection of the required parameters to issue draw commands per object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00023">23</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5682da85e8239915341a400b492f0e80" name="a5682da85e8239915341a400b492f0e80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5682da85e8239915341a400b492f0e80">&#9670;&#160;</a></span>Key() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00018">18</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="abe53ce802d2125e3553fd3c7fca439f8" name="abe53ce802d2125e3553fd3c7fca439f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe53ce802d2125e3553fd3c7fca439f8">&#9670;&#160;</a></span>DrawType</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +146,38 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::scene::Key::Key </td>
+          <td class="memname">enum struct <a class="el" href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8">bl::rc::prim::DrawParameters::DrawType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Represents the drawing command to use. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd" name="abe53ce802d2125e3553fd3c7fca439f8a10461f19cdb5aadba2fc9986be6400bd"></a>VertexBuffer&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0" name="abe53ce802d2125e3553fd3c7fca439f8a7c3895116254ff0417e58b6286de27c0"></a>IndexBuffer&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00022">22</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a8b5921705d41639a8650608af19324d8" name="a8b5921705d41639a8650608af19324d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b5921705d41639a8650608af19324d8">&#9670;&#160;</a></span>DrawParameters()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::rc::prim::DrawParameters::DrawParameters </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -150,236 +190,179 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates an invalid key. </p>
+<p>Initializes the draw parameters to reasonable defaults. </p>
 
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00032">32</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab234289f8c76d1913d8d7e0a9d92a3c3" name="ab234289f8c76d1913d8d7e0a9d92a3c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab234289f8c76d1913d8d7e0a9d92a3c3">&#9670;&#160;</a></span>Key() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::scene::Key::Key </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a>&#160;</td>
-          <td class="paramname"><em>updateFreq</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint32_t&#160;</td>
-          <td class="paramname"><em>sceneId</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates the key from the given components. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">updateFreq</td><td>The update speed of the scene object </td></tr>
-    <tr><td class="paramname">sceneId</td><td>The id of the object in the scene </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00042">42</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a75bd89485d9b720f14cf307e53d343c4" name="a75bd89485d9b720f14cf307e53d343c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75bd89485d9b720f14cf307e53d343c4">&#9670;&#160;</a></span>operator!=()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::rc::scene::Key::operator!= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05986.html">Key</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Tests for inequality with the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The key to compare with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the keys are different, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00062">62</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab8c9e566aedcbe77326e97e4f6dfdb10" name="ab8c9e566aedcbe77326e97e4f6dfdb10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8c9e566aedcbe77326e97e4f6dfdb10">&#9670;&#160;</a></span>operator&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::rc::scene::Key::operator&lt; </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05986.html">Key</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Comparator for sorting keys. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The key to compare with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this key is less than the right key, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00072">72</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0440da6d709497771c0a6de24f10ef43" name="a0440da6d709497771c0a6de24f10ef43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0440da6d709497771c0a6de24f10ef43">&#9670;&#160;</a></span>operator==()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bool bl::rc::scene::Key::operator== </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05986.html">Key</a> &amp;&#160;</td>
-          <td class="paramname"><em>right</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Tests for equality with the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">right</td><td>The key to compare with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the keys are the same, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00052">52</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00039">39</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a580d79a30be461bc410fefee59c32ac3" name="a580d79a30be461bc410fefee59c32ac3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a580d79a30be461bc410fefee59c32ac3">&#9670;&#160;</a></span>InvalidSceneId</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint32_t bl::rc::scene::Key::InvalidSceneId = std::numeric_limits&lt;std::uint32_t&gt;::max()</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00024">24</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5fa4592fd53a220f89ac7814aebfa6d6" name="a5fa4592fd53a220f89ac7814aebfa6d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fa4592fd53a220f89ac7814aebfa6d6">&#9670;&#160;</a></span>sceneId</h2>
+<a id="a1ef0084b3f23e6e3ec892ad5957eaadf" name="a1ef0084b3f23e6e3ec892ad5957eaadf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ef0084b3f23e6e3ec892ad5957eaadf">&#9670;&#160;</a></span>[union]</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t bl::rc::scene::Key::sceneId</td>
+          <td class="memname">union  { ... }  <a class="el" href="a05986.html">bl::rc::prim::DrawParameters</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00027">27</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
-
 </div>
 </div>
-<a id="abc689f231a25b15808c61dde6fda1d08" name="abc689f231a25b15808c61dde6fda1d08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc689f231a25b15808c61dde6fda1d08">&#9670;&#160;</a></span>updateFreq</h2>
+<a id="a3946c2a7339aacf2dfb602bd7a471c9b" name="a3946c2a7339aacf2dfb602bd7a471c9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3946c2a7339aacf2dfb602bd7a471c9b">&#9670;&#160;</a></span>firstInstance</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> bl::rc::scene::Key::updateFreq</td>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::firstInstance</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a09791_source.html#l00026">26</a> of file <a class="el" href="a09791_source.html">Key.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00033">33</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac6218e06fd3bbcd7f2739c53b7581a73" name="ac6218e06fd3bbcd7f2739c53b7581a73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6218e06fd3bbcd7f2739c53b7581a73">&#9670;&#160;</a></span>indexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkBuffer bl::rc::prim::DrawParameters::indexBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00026">26</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c514a24c6c747266eaae2e87582f999" name="a6c514a24c6c747266eaae2e87582f999"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c514a24c6c747266eaae2e87582f999">&#9670;&#160;</a></span>indexCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::indexCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00028">28</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a40a1bb84d0856d3d69d3a46efbf260eb" name="a40a1bb84d0856d3d69d3a46efbf260eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40a1bb84d0856d3d69d3a46efbf260eb">&#9670;&#160;</a></span>indexOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::indexOffset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00031">31</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af69724acb861a73b0a05592001285584" name="af69724acb861a73b0a05592001285584"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af69724acb861a73b0a05592001285584">&#9670;&#160;</a></span>instanceCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::instanceCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00034">34</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a326822946f31074ef8df1bed6550039d" name="a326822946f31074ef8df1bed6550039d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326822946f31074ef8df1bed6550039d">&#9670;&#160;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05986.html#abe53ce802d2125e3553fd3c7fca439f8">DrawType</a> bl::rc::prim::DrawParameters::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00024">24</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a962d4d5348b4b6e0f9c11413340d3b5b" name="a962d4d5348b4b6e0f9c11413340d3b5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962d4d5348b4b6e0f9c11413340d3b5b">&#9670;&#160;</a></span>vertexBuffer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">VkBuffer bl::rc::prim::DrawParameters::vertexBuffer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00025">25</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c54893eacb71e55018b88b1822eca52" name="a4c54893eacb71e55018b88b1822eca52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c54893eacb71e55018b88b1822eca52">&#9670;&#160;</a></span>vertexCount</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::vertexCount</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00029">29</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad7efd03d865ca379d80d00c1d13a912b" name="ad7efd03d865ca379d80d00c1d13a912b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7efd03d865ca379d80d00c1d13a912b">&#9670;&#160;</a></span>vertexOffset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t bl::rc::prim::DrawParameters::vertexOffset</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01280_source.html#l00032">32</a> of file <a class="el" href="a01280_source.html">DrawParameters.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/BLIB/Render/Scenes/<a class="el" href="a09791_source.html">Key.hpp</a></li>
+<li>include/BLIB/Render/Primitives/<a class="el" href="a01280_source.html">DrawParameters.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::engine::Schedulers Struct Reference</title>
+<title>BLIB: bl::engine::event::Shutdown Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,313 +74,91 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03152.html">engine</a></li><li class="navelem"><a class="el" href="a04270.html">Schedulers</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03198.html">engine</a></li><li class="navelem"><a class="el" href="a03216.html">event</a></li><li class="navelem"><a class="el" href="a04270.html">Shutdown</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a04267.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::engine::Schedulers Struct Reference<div class="ingroups"><a class="el" href="a03120.html">Engine</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::engine::event::Shutdown Struct Reference<div class="ingroups"><a class="el" href="a03165.html">Engine</a> &raquo; <a class="el" href="a03184.html">EngineEvents</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of task schedulers for the engine and its various thread pools.  
+<p>Fired when the <a class="el" href="a04250.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> shuts down.  
  <a href="a04270.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01631_source.html">Schedulers.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01682_source.html">Shutdown.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a62c57e1010a7d2222dcc321859d6020b" id="r_a62c57e1010a7d2222dcc321859d6020b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a62c57e1010a7d2222dcc321859d6020b">Schedulers</a> (<a class="el" href="a07054.html">util::ThreadPool</a> &amp;loopPool, <a class="el" href="a07054.html">util::ThreadPool</a> &amp;fastPool, <a class="el" href="a07054.html">util::ThreadPool</a> &amp;slowPool)</td></tr>
-<tr class="memdesc:a62c57e1010a7d2222dcc321859d6020b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the engine schedulers.  <br /></td></tr>
-<tr class="separator:a62c57e1010a7d2222dcc321859d6020b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a610f7ea530340c0339eae47bea563204" id="r_a610f7ea530340c0339eae47bea563204"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204">ShutdownType</a> { <a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786">Terminated</a>
+, <a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea">FinalStatePopped</a>
+, <a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082">WindowClosed</a>
+ }</td></tr>
+<tr class="memdesc:a610f7ea530340c0339eae47bea563204"><td class="mdescLeft">&#160;</td><td class="mdescRight">What triggered the engine to shutdown.  <a href="a04270.html#a610f7ea530340c0339eae47bea563204">More...</a><br /></td></tr>
+<tr class="separator:a610f7ea530340c0339eae47bea563204"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a231549dc5ae4296bb5fdd0b24f785416" id="r_a231549dc5ae4296bb5fdd0b24f785416"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a231549dc5ae4296bb5fdd0b24f785416">frameScheduler</a></td></tr>
-<tr class="memdesc:a231549dc5ae4296bb5fdd0b24f785416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the loop thread pool. Timing based on simulaed time.  <br /></td></tr>
-<tr class="separator:a231549dc5ae4296bb5fdd0b24f785416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d4cc1040e6f9a2876a0c50275bb7e47" id="r_a4d4cc1040e6f9a2876a0c50275bb7e47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a4d4cc1040e6f9a2876a0c50275bb7e47">frameSchedulerRealtime</a></td></tr>
-<tr class="memdesc:a4d4cc1040e6f9a2876a0c50275bb7e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the loop thread pool. Timing based on real time.  <br /></td></tr>
-<tr class="separator:a4d4cc1040e6f9a2876a0c50275bb7e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa1efda8563f5ae2fb11bd159bf63e63" id="r_aaa1efda8563f5ae2fb11bd159bf63e63"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#aaa1efda8563f5ae2fb11bd159bf63e63">frameSchedulerBackground</a></td></tr>
-<tr class="memdesc:aaa1efda8563f5ae2fb11bd159bf63e63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the loop thread pool. Real time and executed even if not focused.  <br /></td></tr>
-<tr class="separator:aaa1efda8563f5ae2fb11bd159bf63e63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7bde4c4f5c5ea5ce214ee9a52d6de97" id="r_ac7bde4c4f5c5ea5ce214ee9a52d6de97"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#ac7bde4c4f5c5ea5ce214ee9a52d6de97">fastPoolScheduler</a></td></tr>
-<tr class="memdesc:ac7bde4c4f5c5ea5ce214ee9a52d6de97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the fast task thread pool. Timing based on simulaed time.  <br /></td></tr>
-<tr class="separator:ac7bde4c4f5c5ea5ce214ee9a52d6de97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6d06f7ddd0ae9303b65d6e23b35a83a" id="r_ae6d06f7ddd0ae9303b65d6e23b35a83a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#ae6d06f7ddd0ae9303b65d6e23b35a83a">fastPoolSchedulerRealtime</a></td></tr>
-<tr class="memdesc:ae6d06f7ddd0ae9303b65d6e23b35a83a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the fast task thread pool. Timing based on real time.  <br /></td></tr>
-<tr class="separator:ae6d06f7ddd0ae9303b65d6e23b35a83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77d7647873da2e2e24bc0e3fbe8ec8a1" id="r_a77d7647873da2e2e24bc0e3fbe8ec8a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a77d7647873da2e2e24bc0e3fbe8ec8a1">fastPoolSchedulerBackground</a></td></tr>
-<tr class="memdesc:a77d7647873da2e2e24bc0e3fbe8ec8a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the fast task thread pool. Real time and executed even if not focused.  <br /></td></tr>
-<tr class="separator:a77d7647873da2e2e24bc0e3fbe8ec8a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20feb6fe86f3f8b8e98bf02f721677b0" id="r_a20feb6fe86f3f8b8e98bf02f721677b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a20feb6fe86f3f8b8e98bf02f721677b0">slowPoolScheduler</a></td></tr>
-<tr class="memdesc:a20feb6fe86f3f8b8e98bf02f721677b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the slow task thread pool. Timing based on simulaed time.  <br /></td></tr>
-<tr class="separator:a20feb6fe86f3f8b8e98bf02f721677b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f7fb80930e84b40bb842a2d9985e9f6" id="r_a1f7fb80930e84b40bb842a2d9985e9f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a1f7fb80930e84b40bb842a2d9985e9f6">slowPoolSchedulerRealtime</a></td></tr>
-<tr class="memdesc:a1f7fb80930e84b40bb842a2d9985e9f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the slow task thread pool. Timing based on real time.  <br /></td></tr>
-<tr class="separator:a1f7fb80930e84b40bb842a2d9985e9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a786eb8c545776428e4c05d12981e8e10" id="r_a786eb8c545776428e4c05d12981e8e10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07030.html">util::TaskScheduler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a786eb8c545776428e4c05d12981e8e10">slowPoolSchedulerBackground</a></td></tr>
-<tr class="memdesc:a786eb8c545776428e4c05d12981e8e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Schedules tasks on the slow task thread pool. Real time and executed even if not focused.  <br /></td></tr>
-<tr class="separator:a786eb8c545776428e4c05d12981e8e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a3e1914489e4bed4f9f23cdeab34a43dc" id="r_a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a3e1914489e4bed4f9f23cdeab34a43dc">Engine</a></td></tr>
-<tr class="separator:a3e1914489e4bed4f9f23cdeab34a43dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43c9a23185a5d8face1114935eb1a523" id="r_a43c9a23185a5d8face1114935eb1a523"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04270.html#a43c9a23185a5d8face1114935eb1a523">cause</a></td></tr>
+<tr class="separator:a43c9a23185a5d8face1114935eb1a523"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of task schedulers for the engine and its various thread pools. </p>
+<div class="textblock"><p>Fired when the <a class="el" href="a04250.html" title="Core engine class that owns engine resources and the main game loop.">Engine</a> shuts down. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00017">17</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a62c57e1010a7d2222dcc321859d6020b" name="a62c57e1010a7d2222dcc321859d6020b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62c57e1010a7d2222dcc321859d6020b">&#9670;&#160;</a></span>Schedulers()</h2>
+<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00016">16</a> of file <a class="el" href="a01682_source.html">Shutdown.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a610f7ea530340c0339eae47bea563204" name="a610f7ea530340c0339eae47bea563204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610f7ea530340c0339eae47bea563204">&#9670;&#160;</a></span>ShutdownType</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::engine::Schedulers::Schedulers </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a07054.html">util::ThreadPool</a> &amp;&#160;</td>
-          <td class="paramname"><em>loopPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a07054.html">util::ThreadPool</a> &amp;&#160;</td>
-          <td class="paramname"><em>fastPool</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a07054.html">util::ThreadPool</a> &amp;&#160;</td>
-          <td class="paramname"><em>slowPool</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">enum <a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the engine schedulers. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">loopPool</td><td>The thread pool for the main engine loop </td></tr>
-    <tr><td class="paramname">fastPool</td><td>The thread pool for fast background tasks </td></tr>
-    <tr><td class="paramname">slowPool</td><td>The thread pool for slow background tasks </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02879_source.html#l00007">7</a> of file <a class="el" href="a02879_source.html">Schedulers.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a3e1914489e4bed4f9f23cdeab34a43dc" name="a3e1914489e4bed4f9f23cdeab34a43dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e1914489e4bed4f9f23cdeab34a43dc">&#9670;&#160;</a></span>Engine</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="a04202.html">Engine</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
+<p>What triggered the engine to shutdown. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786" name="a610f7ea530340c0339eae47bea563204a194337d8c56fb9e4a4d0d3424b4ae786"></a>Terminated&#160;</td><td class="fielddoc"><p>The terminate engine flag was set. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea" name="a610f7ea530340c0339eae47bea563204a8d3b9ffb95b55ffebe0ff64fc83337ea"></a>FinalStatePopped&#160;</td><td class="fielddoc"><p>The final engine state was popped off. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082" name="a610f7ea530340c0339eae47bea563204a124f6c688386414dba77b638454e3082"></a>WindowClosed&#160;</td><td class="fielddoc"><p>The main window was closed. </p>
+</td></tr>
 </table>
-</div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00058">58</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01682_source.html#l00018">18</a> of file <a class="el" href="a01682_source.html">Shutdown.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac7bde4c4f5c5ea5ce214ee9a52d6de97" name="ac7bde4c4f5c5ea5ce214ee9a52d6de97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7bde4c4f5c5ea5ce214ee9a52d6de97">&#9670;&#160;</a></span>fastPoolScheduler</h2>
+<a id="a43c9a23185a5d8face1114935eb1a523" name="a43c9a23185a5d8face1114935eb1a523"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43c9a23185a5d8face1114935eb1a523">&#9670;&#160;</a></span>cause</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::fastPoolScheduler</td>
+          <td class="memname">enum <a class="el" href="a04270.html#a610f7ea530340c0339eae47bea563204">bl::engine::event::Shutdown::ShutdownType</a> bl::engine::event::Shutdown::cause</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Schedules tasks on the fast task thread pool. Timing based on simulaed time. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00028">28</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
 </div>
 </div>
-<a id="a77d7647873da2e2e24bc0e3fbe8ec8a1" name="a77d7647873da2e2e24bc0e3fbe8ec8a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77d7647873da2e2e24bc0e3fbe8ec8a1">&#9670;&#160;</a></span>fastPoolSchedulerBackground</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::fastPoolSchedulerBackground</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the fast task thread pool. Real time and executed even if not focused. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00034">34</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae6d06f7ddd0ae9303b65d6e23b35a83a" name="ae6d06f7ddd0ae9303b65d6e23b35a83a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6d06f7ddd0ae9303b65d6e23b35a83a">&#9670;&#160;</a></span>fastPoolSchedulerRealtime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::fastPoolSchedulerRealtime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the fast task thread pool. Timing based on real time. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00031">31</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a231549dc5ae4296bb5fdd0b24f785416" name="a231549dc5ae4296bb5fdd0b24f785416"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a231549dc5ae4296bb5fdd0b24f785416">&#9670;&#160;</a></span>frameScheduler</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::frameScheduler</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the loop thread pool. Timing based on simulaed time. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00019">19</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aaa1efda8563f5ae2fb11bd159bf63e63" name="aaa1efda8563f5ae2fb11bd159bf63e63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa1efda8563f5ae2fb11bd159bf63e63">&#9670;&#160;</a></span>frameSchedulerBackground</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::frameSchedulerBackground</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the loop thread pool. Real time and executed even if not focused. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00025">25</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4d4cc1040e6f9a2876a0c50275bb7e47" name="a4d4cc1040e6f9a2876a0c50275bb7e47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d4cc1040e6f9a2876a0c50275bb7e47">&#9670;&#160;</a></span>frameSchedulerRealtime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::frameSchedulerRealtime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the loop thread pool. Timing based on real time. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00022">22</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a20feb6fe86f3f8b8e98bf02f721677b0" name="a20feb6fe86f3f8b8e98bf02f721677b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20feb6fe86f3f8b8e98bf02f721677b0">&#9670;&#160;</a></span>slowPoolScheduler</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::slowPoolScheduler</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the slow task thread pool. Timing based on simulaed time. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00037">37</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a786eb8c545776428e4c05d12981e8e10" name="a786eb8c545776428e4c05d12981e8e10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a786eb8c545776428e4c05d12981e8e10">&#9670;&#160;</a></span>slowPoolSchedulerBackground</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::slowPoolSchedulerBackground</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the slow task thread pool. Real time and executed even if not focused. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00043">43</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a1f7fb80930e84b40bb842a2d9985e9f6" name="a1f7fb80930e84b40bb842a2d9985e9f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f7fb80930e84b40bb842a2d9985e9f6">&#9670;&#160;</a></span>slowPoolSchedulerRealtime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07030.html">util::TaskScheduler</a> bl::engine::Schedulers::slowPoolSchedulerRealtime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Schedules tasks on the slow task thread pool. Timing based on real time. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01631_source.html#l00040">40</a> of file <a class="el" href="a01631_source.html">Schedulers.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Engine/<a class="el" href="a01631_source.html">Schedulers.hpp</a></li>
-<li>src/Engine/<a class="el" href="a02879_source.html">Schedulers.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Engine/Events/<a class="el" href="a01682_source.html">Shutdown.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

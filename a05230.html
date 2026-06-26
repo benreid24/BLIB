@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::pcl::Sink&lt; T &gt;::Proxy Class Reference</title>
+<title>BLIB: bl::pcl::Link&lt; T &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,181 +74,150 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03192.html">pcl</a></li><li class="navelem"><a class="el" href="a05226.html">Sink</a></li><li class="navelem"><a class="el" href="a05230.html">Proxy</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03238.html">pcl</a></li><li class="navelem"><a class="el" href="a05230.html">Link</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05227.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::pcl::Sink&lt; T &gt;::Proxy Class Reference</div></div>
+  <div class="headertitle"><div class="title">bl::pcl::Link&lt; T &gt; Struct Template Reference<div class="ingroups"><a class="el" href="a03174.html">Particles</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a05230.html" title="Proxy interface for sinks to destroy particles.">Proxy</a> interface for sinks to destroy particles.  
+<p>ECS component that provides the link between descriptor sets and particle systems.  
  <a href="a05230.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00308_source.html">Sink.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00332_source.html">Link.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8f37d9accdac0cddc97503025ce3b6a8" id="r_a8f37d9accdac0cddc97503025ce3b6a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a8f37d9accdac0cddc97503025ce3b6a8">destroy</a> (const T &amp;particle) const</td></tr>
-<tr class="memdesc:a8f37d9accdac0cddc97503025ce3b6a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to destroy the given particle.  <br /></td></tr>
-<tr class="separator:a8f37d9accdac0cddc97503025ce3b6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cc8842d8efca97b3c7c79cf4abd7635" id="r_a4cc8842d8efca97b3c7c79cf4abd7635"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a4cc8842d8efca97b3c7c79cf4abd7635">eraseMe</a> ()</td></tr>
-<tr class="memdesc:a4cc8842d8efca97b3c7c79cf4abd7635"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to erase this sink.  <br /></td></tr>
-<tr class="separator:a4cc8842d8efca97b3c7c79cf4abd7635"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a909a8b7fc65aad3c0e5d1136516641a9" id="r_a909a8b7fc65aad3c0e5d1136516641a9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a05142.html">ParticleManager</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a909a8b7fc65aad3c0e5d1136516641a9">getManager</a> () const</td></tr>
-<tr class="memdesc:a909a8b7fc65aad3c0e5d1136516641a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the particle manager that owns this sink.  <br /></td></tr>
-<tr class="separator:a909a8b7fc65aad3c0e5d1136516641a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a11085274a4667b51b5bf008e94dc2c76" id="r_a11085274a4667b51b5bf008e94dc2c76"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a11085274a4667b51b5bf008e94dc2c76">TGlobalPayload</a> = typename <a class="el" href="a05262.html">RenderConfigMap</a>&lt; T &gt;::GlobalShaderPayload</td></tr>
+<tr class="separator:a11085274a4667b51b5bf008e94dc2c76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a2ebd68a709a096e577a8a554b5d28f32" id="r_a2ebd68a709a096e577a8a554b5d28f32"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a2ebd68a709a096e577a8a554b5d28f32">ParticleManager&lt; T &gt;</a></td></tr>
-<tr class="separator:a2ebd68a709a096e577a8a554b5d28f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ac8a3c656e258106274db8925d3e452eb" id="r_ac8a3c656e258106274db8925d3e452eb"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#ac8a3c656e258106274db8925d3e452eb">base</a></td></tr>
+<tr class="separator:ac8a3c656e258106274db8925d3e452eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26dd6593a69152ceeb51f5d78f6e9389" id="r_a26dd6593a69152ceeb51f5d78f6e9389"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a26dd6593a69152ceeb51f5d78f6e9389">len</a></td></tr>
+<tr class="separator:a26dd6593a69152ceeb51f5d78f6e9389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f60beea39d59410d2284bd95ab92e5e" id="r_a9f60beea39d59410d2284bd95ab92e5e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05230.html#a11085274a4667b51b5bf008e94dc2c76">TGlobalPayload</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a9f60beea39d59410d2284bd95ab92e5e">globals</a></td></tr>
+<tr class="separator:a9f60beea39d59410d2284bd95ab92e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17e8843930c97fac9ea79a487bd6fddb" id="r_a17e8843930c97fac9ea79a487bd6fddb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05226.html">priv::GlobalParticleSystemInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05230.html#a17e8843930c97fac9ea79a487bd6fddb">systemInfo</a></td></tr>
+<tr class="separator:a17e8843930c97fac9ea79a487bd6fddb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
-class bl::pcl::Sink&lt; T &gt;::Proxy</div><p><a class="el" href="a05230.html" title="Proxy interface for sinks to destroy particles.">Proxy</a> interface for sinks to destroy particles. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00027">27</a> of file <a class="el" href="a00308_source.html">Sink.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8f37d9accdac0cddc97503025ce3b6a8" name="a8f37d9accdac0cddc97503025ce3b6a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f37d9accdac0cddc97503025ce3b6a8">&#9670;&#160;</a></span>destroy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="a05226.html">bl::pcl::Sink</a>&lt; T &gt;::Proxy::destroy </td>
-          <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"><em>particle</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Call to destroy the given particle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">particle</td><td>The particle to destroy </td></tr>
+struct bl::pcl::Link&lt; T &gt;</div><p>ECS component that provides the link between descriptor sets and particle systems. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The particle type </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00033">33</a> of file <a class="el" href="a00308_source.html">Sink.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4cc8842d8efca97b3c7c79cf4abd7635" name="a4cc8842d8efca97b3c7c79cf4abd7635"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4cc8842d8efca97b3c7c79cf4abd7635">&#9670;&#160;</a></span>eraseMe()</h2>
+<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00019">19</a> of file <a class="el" href="a00332_source.html">Link.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a11085274a4667b51b5bf008e94dc2c76" name="a11085274a4667b51b5bf008e94dc2c76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11085274a4667b51b5bf008e94dc2c76">&#9670;&#160;</a></span>TGlobalPayload</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="a05226.html">bl::pcl::Sink</a>&lt; T &gt;::Proxy::eraseMe </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a05230.html">bl::pcl::Link</a>&lt; T &gt;::TGlobalPayload =  typename <a class="el" href="a05262.html">RenderConfigMap</a>&lt;T&gt;::GlobalShaderPayload</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Call to erase this sink. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00046">46</a> of file <a class="el" href="a00308_source.html">Sink.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00020">20</a> of file <a class="el" href="a00332_source.html">Link.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a909a8b7fc65aad3c0e5d1136516641a9" name="a909a8b7fc65aad3c0e5d1136516641a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a909a8b7fc65aad3c0e5d1136516641a9">&#9670;&#160;</a></span>getManager()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac8a3c656e258106274db8925d3e452eb" name="ac8a3c656e258106274db8925d3e452eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8a3c656e258106274db8925d3e452eb">&#9670;&#160;</a></span>base</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a05142.html">ParticleManager</a>&lt; T &gt; &amp; <a class="el" href="a05226.html">bl::pcl::Sink</a>&lt; T &gt;::Proxy::getManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">T* <a class="el" href="a05230.html">bl::pcl::Link</a>&lt; T &gt;::base</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Access the particle manager that owns this sink. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00051">51</a> of file <a class="el" href="a00308_source.html">Sink.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00022">22</a> of file <a class="el" href="a00332_source.html">Link.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a2ebd68a709a096e577a8a554b5d28f32" name="a2ebd68a709a096e577a8a554b5d28f32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ebd68a709a096e577a8a554b5d28f32">&#9670;&#160;</a></span>ParticleManager&lt; T &gt;</h2>
+<a id="a9f60beea39d59410d2284bd95ab92e5e" name="a9f60beea39d59410d2284bd95ab92e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f60beea39d59410d2284bd95ab92e5e">&#9670;&#160;</a></span>globals</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a05142.html">ParticleManager</a>&lt; T &gt;</td>
+          <td class="memname"><a class="el" href="a05230.html#a11085274a4667b51b5bf008e94dc2c76">TGlobalPayload</a>* <a class="el" href="a05230.html">bl::pcl::Link</a>&lt; T &gt;::globals</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00070">70</a> of file <a class="el" href="a00308_source.html">Sink.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00024">24</a> of file <a class="el" href="a00332_source.html">Link.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/BLIB/Particles/<a class="el" href="a00308_source.html">Sink.hpp</a></li>
+<a id="a26dd6593a69152ceeb51f5d78f6e9389" name="a26dd6593a69152ceeb51f5d78f6e9389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26dd6593a69152ceeb51f5d78f6e9389">&#9670;&#160;</a></span>len</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::size_t <a class="el" href="a05230.html">bl::pcl::Link</a>&lt; T &gt;::len</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00023">23</a> of file <a class="el" href="a00332_source.html">Link.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a17e8843930c97fac9ea79a487bd6fddb" name="a17e8843930c97fac9ea79a487bd6fddb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17e8843930c97fac9ea79a487bd6fddb">&#9670;&#160;</a></span>systemInfo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a05226.html">priv::GlobalParticleSystemInfo</a>* <a class="el" href="a05230.html">bl::pcl::Link</a>&lt; T &gt;::systemInfo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00332_source.html#l00025">25</a> of file <a class="el" href="a00332_source.html">Link.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Particles/<a class="el" href="a00332_source.html">Link.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

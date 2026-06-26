@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Graph/Strategies/Scene3DDeferredRenderStrategy.hpp File Reference</title>
+<title>BLIB: include/BLIB/Render/Graph/Tasks/ForwardRenderTransparentTask.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,45 +74,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_149c47c555ddab09021f95e90182a004.html">Strategies</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_70f08ea54355502249f886f7ca541c6e.html">Graph</a></li><li class="navelem"><a class="el" href="dir_adf8e29d1ba8d413d8ee6c1365267c96.html">Tasks</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">Scene3DDeferredRenderStrategy.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">ForwardRenderTransparentTask.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00743_source.html">BLIB/Render/Events/SettingsChanged.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00617_source.html">BLIB/Render/Graph/Strategy.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a09839_source.html">BLIB/Signals/Listener.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00611_source.html">BLIB/Render/Graph/Assets/FramebufferAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00584_source.html">BLIB/Render/Graph/Assets/SceneAsset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00662_source.html">BLIB/Render/Graph/Task.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00632_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05634.html">bl::rc::rgi::Scene3DDeferredRenderStrategy</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deferred render strategy for 3d scenes.  <a href="a05634.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05834.html">bl::rc::rgi::ForwardRenderTransparentTask</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic forward render task that calls scene render transparent method.  <a href="a05834.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl</a></td></tr>
-<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03190" id="r_a03190"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03190.html">bl</a></td></tr>
+<tr class="memdesc:a03190"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03150" id="r_a03150"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03150.html">bl::rc</a></td></tr>
-<tr class="memdesc:a03150"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a05878.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
+<tr class="memitem:a03196" id="r_a03196"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03196.html">bl::rc</a></td></tr>
+<tr class="memdesc:a03196"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a06010.html" title="Top level rendering system of the game engine.">Renderer</a> core implementation classes and functionality. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03208" id="r_a03208"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03208.html">bl::rc::rgi</a></td></tr>
-<tr class="memdesc:a03208"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains render graph asset, task, and strategy implementations. <br /></td></tr>
+<tr class="memitem:a03257" id="r_a03257"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03257.html">bl::rc::rgi</a></td></tr>
+<tr class="memdesc:a03257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains render graph asset, task, and strategy implementations. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

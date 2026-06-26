@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::menu::ImageItem Class Reference</title>
+<title>BLIB: bl::gui::rdr::TooltipProvider Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,208 +74,109 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03184.html">menu</a></li><li class="navelem"><a class="el" href="a04898.html">ImageItem</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03226.html">gui</a></li><li class="navelem"><a class="el" href="a03229.html">rdr</a></li><li class="navelem"><a class="el" href="a04898.html">TooltipProvider</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a04895.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::menu::ImageItem Class Reference<div class="ingroups"><a class="el" href="a03124.html">Interface</a> &raquo; <a class="el" href="a03141.html">Menu</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gui::rdr::TooltipProvider Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a03169.html">Interface</a> &raquo; <a class="el" href="a03186.html">GUI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>RenderItem for displaying sprites in a <a class="el" href="a04914.html" title="Primary class for mouseless menus.">Menu</a>.  
+<p>Base class for providers of element tooltips.  
  <a href="a04898.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01787_source.html">ImageItem.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01994_source.html">TooltipProvider.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::menu::ImageItem:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::rdr::TooltipProvider:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a04898.png" usemap="#bl::menu::ImageItem_map" alt=""/>
-  <map id="bl::menu::ImageItem_map" name="bl::menu::ImageItem_map">
-<area href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,..." alt="bl::menu::Item" shape="rect" coords="0,0,119,24"/>
+  <img src="a04898.png" usemap="#bl::gui::rdr::TooltipProvider_map" alt=""/>
+  <map id="bl::gui::rdr::TooltipProvider_map" name="bl::gui::rdr::TooltipProvider_map">
+<area href="a04762.html" title="Renders tooltips using a basic rectangle background and text with nice defaults." alt="bl::gui::defcoms::BasicTooltipProvider" shape="rect" coords="0,56,221,80"/>
+<area href="a04886.html" title="Does nothing." alt="bl::gui::rdr::NullTooltipProvider" shape="rect" coords="231,56,452,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a372990cfe7881edc72052935d5f65eef" id="r_a372990cfe7881edc72052935d5f65eef"><td class="memItemLeft" align="right" valign="top">typedef std::shared_ptr&lt; <a class="el" href="a04898.html">ImageItem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a372990cfe7881edc72052935d5f65eef">Ptr</a></td></tr>
-<tr class="separator:a372990cfe7881edc72052935d5f65eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59352334626855d0cd8c8ca1b173db68" id="r_a59352334626855d0cd8c8ca1b173db68"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> { <br />
-&#160;&#160;<a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c">Top</a>
-, <a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866">Right</a>
-, <a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d">Bottom</a>
-, <a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f">Left</a>
-, <br />
-&#160;&#160;<a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4">_NUM_ATTACHPOINTS</a>
-<br />
- }</td></tr>
-<tr class="separator:a59352334626855d0cd8c8ca1b173db68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bae0491b79706cac6c93b58cfeb5ec5" id="r_a0bae0491b79706cac6c93b58cfeb5ec5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> { <a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3">Selected</a>
-, <a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369">Deselected</a>
-, <a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250">Activated</a>
-, <a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d">_NUM_EVENTS</a>
- }</td></tr>
-<tr class="separator:a0bae0491b79706cac6c93b58cfeb5ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d4cab9c1462843ae39dde6fd247e664" id="r_a7d4cab9c1462843ae39dde6fd247e664"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a7d4cab9c1462843ae39dde6fd247e664">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a04898.html">TooltipProvider</a> &gt;</td></tr>
+<tr class="separator:a7d4cab9c1462843ae39dde6fd247e664"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7318c30bf125234762f9bb09151d73d6" id="r_a7318c30bf125234762f9bb09151d73d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a7318c30bf125234762f9bb09151d73d6">Factory</a> = std::function&lt; <a class="el" href="a04898.html#a7d4cab9c1462843ae39dde6fd247e664">Ptr</a>()&gt;</td></tr>
+<tr class="separator:a7318c30bf125234762f9bb09151d73d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a707ba69edf9a66bcc929f1e7f9cb96fc" id="r_a707ba69edf9a66bcc929f1e7f9cb96fc"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a707ba69edf9a66bcc929f1e7f9cb96fc">~ImageItem</a> ()=default</td></tr>
-<tr class="memdesc:a707ba69edf9a66bcc929f1e7f9cb96fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Image <a class="el" href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> object.  <br /></td></tr>
-<tr class="separator:a707ba69edf9a66bcc929f1e7f9cb96fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20db2379c125b44c056b19d6c7a266ab" id="r_a20db2379c125b44c056b19d6c7a266ab"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04486.html">gfx::Sprite</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a20db2379c125b44c056b19d6c7a266ab">getSprite</a> ()</td></tr>
-<tr class="memdesc:a20db2379c125b44c056b19d6c7a266ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the contained sprite.  <br /></td></tr>
-<tr class="separator:a20db2379c125b44c056b19d6c7a266ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a296f93658a4886e44393289789cb4a68" id="r_a296f93658a4886e44393289789cb4a68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a296f93658a4886e44393289789cb4a68">setTexture</a> (const <a class="el" href="a05946.html">rc::res::TextureRef</a> &amp;texture)</td></tr>
-<tr class="memdesc:a296f93658a4886e44393289789cb4a68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes the texture of this image. Does not trigger a menu refresh.  <br /></td></tr>
-<tr class="separator:a296f93658a4886e44393289789cb4a68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac356fcdc4df05e1320fda538980c0566" id="r_ac356fcdc4df05e1320fda538980c0566"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#ac356fcdc4df05e1320fda538980c0566">getSize</a> () const override</td></tr>
-<tr class="separator:ac356fcdc4df05e1320fda538980c0566"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6456946a5c7e6ecd87bd21c5fedd57c6" id="r_a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a6456946a5c7e6ecd87bd21c5fedd57c6">isAttached</a> () const</td></tr>
-<tr class="memdesc:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the item has been attached to another.  <br /></td></tr>
-<tr class="separator:a6456946a5c7e6ecd87bd21c5fedd57c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a944e2405bfafe6b3bf4718cab498b4a2" id="r_a944e2405bfafe6b3bf4718cab498b4a2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a944e2405bfafe6b3bf4718cab498b4a2">setSelectable</a> (bool selectable)</td></tr>
-<tr class="memdesc:a944e2405bfafe6b3bf4718cab498b4a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the <a class="el" href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected.  <br /></td></tr>
-<tr class="separator:a944e2405bfafe6b3bf4718cab498b4a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b17ae5ffbb9b3fe97e6105479b601b6" id="r_a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a8b17ae5ffbb9b3fe97e6105479b601b6">isSelectable</a> () const</td></tr>
-<tr class="memdesc:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected.  <br /></td></tr>
-<tr class="separator:a8b17ae5ffbb9b3fe97e6105479b601b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f76cf2dc6f67fb425d09d804d66948" id="r_a84f76cf2dc6f67fb425d09d804d66948"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a84f76cf2dc6f67fb425d09d804d66948">setAllowSelectionCrossing</a> (bool allow)</td></tr>
-<tr class="memdesc:a84f76cf2dc6f67fb425d09d804d66948"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the selection is allowed to move through this item if this item is not selectable itself.  <br /></td></tr>
-<tr class="separator:a84f76cf2dc6f67fb425d09d804d66948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f75c6ebfb7625ff18c0d78afd5c5f0" id="r_ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#ab5f75c6ebfb7625ff18c0d78afd5c5f0">allowsSelectionCrossing</a> () const</td></tr>
-<tr class="memdesc:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the selection may move through this item is it is not selectable itself.  <br /></td></tr>
-<tr class="separator:ab5f75c6ebfb7625ff18c0d78afd5c5f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa484bb2973977732454eb2d5749c9575" id="r_aa484bb2973977732454eb2d5749c9575"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#aa484bb2973977732454eb2d5749c9575">overridePosition</a> (const glm::vec2 &amp;position)</td></tr>
-<tr class="memdesc:aa484bb2973977732454eb2d5749c9575"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set an explicit position for this item. Default behavior is to grid items.  <br /></td></tr>
-<tr class="separator:aa484bb2973977732454eb2d5749c9575"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ec1d4800025cc512ad596ef13cb03fd" id="r_a1ec1d4800025cc512ad596ef13cb03fd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a07022.html">util::Signal</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a1ec1d4800025cc512ad596ef13cb03fd">getSignal</a> (<a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a> event)</td></tr>
-<tr class="memdesc:a1ec1d4800025cc512ad596ef13cb03fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a modifiable reference to the Signal object for the corresponding EventType.  <br /></td></tr>
-<tr class="separator:a1ec1d4800025cc512ad596ef13cb03fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fd9c891d6b5e873f670a6b8a0c62b53" id="r_a9fd9c891d6b5e873f670a6b8a0c62b53"><td class="memItemLeft" align="right" valign="top">const glm::vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a9fd9c891d6b5e873f670a6b8a0c62b53">getPosition</a> () const</td></tr>
-<tr class="memdesc:a9fd9c891d6b5e873f670a6b8a0c62b53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the button relative to it's menu.  <br /></td></tr>
-<tr class="separator:a9fd9c891d6b5e873f670a6b8a0c62b53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:afbede64020e6b925bb066d8c7794e4d6" id="r_afbede64020e6b925bb066d8c7794e4d6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a04898.html#a372990cfe7881edc72052935d5f65eef">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#afbede64020e6b925bb066d8c7794e4d6">create</a> (const <a class="el" href="a05946.html">rc::res::TextureRef</a> &amp;texture)</td></tr>
-<tr class="memdesc:afbede64020e6b925bb066d8c7794e4d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the render item from a sprite.  <br /></td></tr>
-<tr class="separator:afbede64020e6b925bb066d8c7794e4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fec45b0851a45c4f753b91062a518fe" id="r_a8fec45b0851a45c4f753b91062a518fe"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04894.html#a8fec45b0851a45c4f753b91062a518fe">oppositeSide</a> (<a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a> point)</td></tr>
-<tr class="memdesc:a8fec45b0851a45c4f753b91062a518fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the opposite side of the given attach point.  <br /></td></tr>
-<tr class="separator:a8fec45b0851a45c4f753b91062a518fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a90afefde1590a7c2de2b0c7759f39c2e" id="r_a90afefde1590a7c2de2b0c7759f39c2e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a90afefde1590a7c2de2b0c7759f39c2e">doCreate</a> (<a class="el" href="a04310.html">engine::World</a> &amp;world) override</td></tr>
-<tr class="memdesc:a90afefde1590a7c2de2b0c7759f39c2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use.  <br /></td></tr>
-<tr class="separator:a90afefde1590a7c2de2b0c7759f39c2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e7171f22fcec7aa98551264afcc6797" id="r_a8e7171f22fcec7aa98551264afcc6797"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a8e7171f22fcec7aa98551264afcc6797">doSceneAdd</a> (<a class="el" href="a05998.html">rc::Scene</a> *scene) override</td></tr>
-<tr class="memdesc:a8e7171f22fcec7aa98551264afcc6797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be added to the scene.  <br /></td></tr>
-<tr class="separator:a8e7171f22fcec7aa98551264afcc6797"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6096ddd968f950d47a44166757f50e1c" id="r_a6096ddd968f950d47a44166757f50e1c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a6096ddd968f950d47a44166757f50e1c">doSceneRemove</a> () override</td></tr>
-<tr class="memdesc:a6096ddd968f950d47a44166757f50e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be removed from the scene.  <br /></td></tr>
-<tr class="separator:a6096ddd968f950d47a44166757f50e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5291c436b4c3973677e34a525ed573f7" id="r_a5291c436b4c3973677e34a525ed573f7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a04046.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a5291c436b4c3973677e34a525ed573f7">getEntity</a> () const override</td></tr>
-<tr class="memdesc:a5291c436b4c3973677e34a525ed573f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity (or top level entity) of the item.  <br /></td></tr>
-<tr class="separator:a5291c436b4c3973677e34a525ed573f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add5aad3e4a170759d74f90da5cc06218" id="r_add5aad3e4a170759d74f90da5cc06218"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#add5aad3e4a170759d74f90da5cc06218">draw</a> (<a class="el" href="a05974.html">rc::scene::CodeScene::RenderContext</a> &amp;<a class="el" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) override</td></tr>
-<tr class="memdesc:add5aad3e4a170759d74f90da5cc06218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manually draw the item.  <br /></td></tr>
-<tr class="separator:add5aad3e4a170759d74f90da5cc06218"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee3c920413f5456e6f7cdc4f9c844935" id="r_aee3c920413f5456e6f7cdc4f9c844935"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#aee3c920413f5456e6f7cdc4f9c844935">~TooltipProvider</a> ()=default</td></tr>
+<tr class="memdesc:aee3c920413f5456e6f7cdc4f9c844935"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the provider.  <br /></td></tr>
+<tr class="separator:aee3c920413f5456e6f7cdc4f9c844935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484219833b091128b2962dad748bdcab" id="r_a484219833b091128b2962dad748bdcab"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a484219833b091128b2962dad748bdcab">update</a> (float dt)=0</td></tr>
+<tr class="memdesc:a484219833b091128b2962dad748bdcab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the provider.  <br /></td></tr>
+<tr class="separator:a484219833b091128b2962dad748bdcab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f75802145b14cf96bc0fb99d5aa7279" id="r_a1f75802145b14cf96bc0fb99d5aa7279"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a1f75802145b14cf96bc0fb99d5aa7279">displayTooltip</a> (<a class="el" href="a04670.html">Element</a> *element, const glm::vec2 &amp;mousePos)=0</td></tr>
+<tr class="memdesc:a1f75802145b14cf96bc0fb99d5aa7279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element needs a tooltip displayed.  <br /></td></tr>
+<tr class="separator:a1f75802145b14cf96bc0fb99d5aa7279"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0c6fba2fd4e5ed58c6acc8833c88737" id="r_aa0c6fba2fd4e5ed58c6acc8833c88737"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#aa0c6fba2fd4e5ed58c6acc8833c88737">dismissTooltip</a> ()=0</td></tr>
+<tr class="memdesc:aa0c6fba2fd4e5ed58c6acc8833c88737"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the current tooltip, if any, should be dismissed.  <br /></td></tr>
+<tr class="separator:aa0c6fba2fd4e5ed58c6acc8833c88737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729573d2b859339da60945b80b7b3961" id="r_a729573d2b859339da60945b80b7b3961"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a729573d2b859339da60945b80b7b3961">doCreate</a> (<a class="el" href="a04358.html">engine::World</a> &amp;world)=0</td></tr>
+<tr class="memdesc:a729573d2b859339da60945b80b7b3961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called once before use. Derived classes should create resources here.  <br /></td></tr>
+<tr class="separator:a729573d2b859339da60945b80b7b3961"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af63d6ed72e147b08cec60f620fdcbc89" id="r_af63d6ed72e147b08cec60f620fdcbc89"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#af63d6ed72e147b08cec60f620fdcbc89">doSceneAdd</a> (<a class="el" href="a05978.html">rc::Overlay</a> *overlay)=0</td></tr>
+<tr class="memdesc:af63d6ed72e147b08cec60f620fdcbc89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be added to a scene.  <br /></td></tr>
+<tr class="separator:af63d6ed72e147b08cec60f620fdcbc89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a037b94c5370868fe2ecb6bf53a5bff27" id="r_a037b94c5370868fe2ecb6bf53a5bff27"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a037b94c5370868fe2ecb6bf53a5bff27">doSceneRemove</a> ()=0</td></tr>
+<tr class="memdesc:a037b94c5370868fe2ecb6bf53a5bff27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the provider should be removed from the scene.  <br /></td></tr>
+<tr class="separator:a037b94c5370868fe2ecb6bf53a5bff27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cb0b4428118015f4d4fed8ea6c45621" id="r_a8cb0b4428118015f4d4fed8ea6c45621"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04898.html#a8cb0b4428118015f4d4fed8ea6c45621">notifyDestroyed</a> (const <a class="el" href="a04670.html">Element</a> *element)=0</td></tr>
+<tr class="memdesc:a8cb0b4428118015f4d4fed8ea6c45621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when an element is destroyed or removed.  <br /></td></tr>
+<tr class="separator:a8cb0b4428118015f4d4fed8ea6c45621"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>RenderItem for displaying sprites in a <a class="el" href="a04914.html" title="Primary class for mouseless menus.">Menu</a>. </p>
+<div class="textblock"><p>Base class for providers of element tooltips. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01787_source.html#l00018">18</a> of file <a class="el" href="a01787_source.html">ImageItem.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01994_source.html#l00021">21</a> of file <a class="el" href="a01994_source.html">TooltipProvider.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a372990cfe7881edc72052935d5f65eef" name="a372990cfe7881edc72052935d5f65eef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a372990cfe7881edc72052935d5f65eef">&#9670;&#160;</a></span>Ptr</h2>
+<a id="a7318c30bf125234762f9bb09151d73d6" name="a7318c30bf125234762f9bb09151d73d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7318c30bf125234762f9bb09151d73d6">&#9670;&#160;</a></span>Factory</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef std::shared_ptr&lt;<a class="el" href="a04898.html">ImageItem</a>&gt; <a class="el" href="a04898.html#a372990cfe7881edc72052935d5f65eef">bl::menu::ImageItem::Ptr</a></td>
+          <td class="memname">using <a class="el" href="a04898.html#a7318c30bf125234762f9bb09151d73d6">bl::gui::rdr::TooltipProvider::Factory</a> =  std::function&lt;<a class="el" href="a04898.html#a7d4cab9c1462843ae39dde6fd247e664">Ptr</a>()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01787_source.html#l00020">20</a> of file <a class="el" href="a01787_source.html">ImageItem.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01994_source.html#l00024">24</a> of file <a class="el" href="a01994_source.html">TooltipProvider.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a59352334626855d0cd8c8ca1b173db68" name="a59352334626855d0cd8c8ca1b173db68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59352334626855d0cd8c8ca1b173db68">&#9670;&#160;</a></span>AttachPoint</h2>
+<a id="a7d4cab9c1462843ae39dde6fd247e664" name="a7d4cab9c1462843ae39dde6fd247e664"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d4cab9c1462843ae39dde6fd247e664">&#9670;&#160;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></td>
+          <td class="memname">using <a class="el" href="a04898.html#a7d4cab9c1462843ae39dde6fd247e664">bl::gui::rdr::TooltipProvider::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a04898.html">TooltipProvider</a>&gt;</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c" name="a59352334626855d0cd8c8ca1b173db68a8ee44d5181ad1e85a92709f1d0b4937c"></a>Top&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866" name="a59352334626855d0cd8c8ca1b173db68ae5d7a5789d9f7a019ac01873f986e866"></a>Right&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d" name="a59352334626855d0cd8c8ca1b173db68a9b46e5a4c9ffaadc81ac4559e23ebb8d"></a>Bottom&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f" name="a59352334626855d0cd8c8ca1b173db68ad917703e5fdbb06791acd491310bd14f"></a>Left&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4" name="a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4"></a>_NUM_ATTACHPOINTS&#160;</td><td class="fielddoc"></td></tr>
-</table>
 
-<p class="definition">Definition at line <a class="el" href="a01784_source.html#l00036">36</a> of file <a class="el" href="a01784_source.html">Item.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a0bae0491b79706cac6c93b58cfeb5ec5" name="a0bae0491b79706cac6c93b58cfeb5ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0bae0491b79706cac6c93b58cfeb5ec5">&#9670;&#160;</a></span>EventType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5">bl::menu::Item::EventType</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3" name="a0bae0491b79706cac6c93b58cfeb5ec5a78269e44a81151f5e3e97a49dc6a2aa3"></a>Selected&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369" name="a0bae0491b79706cac6c93b58cfeb5ec5a4275858e386e70954b80ef36823ff369"></a>Deselected&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250" name="a0bae0491b79706cac6c93b58cfeb5ec5a6698b73a862c1caef37c9d00070fd250"></a>Activated&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d" name="a0bae0491b79706cac6c93b58cfeb5ec5aa86dd8b1fbfe5e9c37417099d60a5d9d"></a>_NUM_EVENTS&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a01784_source.html#l00037">37</a> of file <a class="el" href="a01784_source.html">Item.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01994_source.html#l00023">23</a> of file <a class="el" href="a01994_source.html">TooltipProvider.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a707ba69edf9a66bcc929f1e7f9cb96fc" name="a707ba69edf9a66bcc929f1e7f9cb96fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a707ba69edf9a66bcc929f1e7f9cb96fc">&#9670;&#160;</a></span>~ImageItem()</h2>
+<a id="aee3c920413f5456e6f7cdc4f9c844935" name="aee3c920413f5456e6f7cdc4f9c844935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee3c920413f5456e6f7cdc4f9c844935">&#9670;&#160;</a></span>~TooltipProvider()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -284,7 +185,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::menu::ImageItem::~ImageItem </td>
+          <td class="memname">virtual bl::gui::rdr::TooltipProvider::~TooltipProvider </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -297,13 +198,13 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Image <a class="el" href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> object. </p>
+<p>Destroys the provider. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab5f75c6ebfb7625ff18c0d78afd5c5f0" name="ab5f75c6ebfb7625ff18c0d78afd5c5f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5f75c6ebfb7625ff18c0d78afd5c5f0">&#9670;&#160;</a></span>allowsSelectionCrossing()</h2>
+<a id="aa0c6fba2fd4e5ed58c6acc8833c88737" name="aa0c6fba2fd4e5ed58c6acc8833c88737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0c6fba2fd4e5ed58c6acc8833c88737">&#9670;&#160;</a></span>dismissTooltip()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,63 +213,27 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::menu::Item::allowsSelectionCrossing </td>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::dismissTooltip </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the selection may move through this item is it is not selectable itself. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00049">49</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afbede64020e6b925bb066d8c7794e4d6" name="afbede64020e6b925bb066d8c7794e4d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbede64020e6b925bb066d8c7794e4d6">&#9670;&#160;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04898.html#a372990cfe7881edc72052935d5f65eef">ImageItem::Ptr</a> bl::menu::ImageItem::create </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05946.html">rc::res::TextureRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create the render item from a sprite. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>The texture to use </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Called when the current tooltip, if any, should be dismissed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00007">7</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04762.html#a94b9131f02c4fd5a3f0073801b013144">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
 
 </div>
 </div>
-<a id="a90afefde1590a7c2de2b0c7759f39c2e" name="a90afefde1590a7c2de2b0c7759f39c2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90afefde1590a7c2de2b0c7759f39c2e">&#9670;&#160;</a></span>doCreate()</h2>
+<a id="a1f75802145b14cf96bc0fb99d5aa7279" name="a1f75802145b14cf96bc0fb99d5aa7279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f75802145b14cf96bc0fb99d5aa7279">&#9670;&#160;</a></span>displayTooltip()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,21 +242,67 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::menu::ImageItem::doCreate </td>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::displayTooltip </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04310.html">engine::World</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="a04670.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>mousePos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when an element needs a tooltip displayed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">element</td><td>The element to show the tooltip for </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="a04762.html#a0152f359ebbea204808246d7274e6327">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
+
+</div>
+</div>
+<a id="a729573d2b859339da60945b80b7b3961" name="a729573d2b859339da60945b80b7b3961"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a729573d2b859339da60945b80b7b3961">&#9670;&#160;</a></span>doCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::doCreate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04358.html">engine::World</a> &amp;&#160;</td>
           <td class="paramname"><em>world</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use. </p>
+<p>Called once before use. Derived classes should create resources here. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">world</td><td>The world to create entities in </td></tr>
@@ -399,14 +310,12 @@ Protected Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a04894.html#a511a40856e9a9d0f31053646f3657bde">bl::menu::Item</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00030">30</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04762.html#a1f5694d13c84909b7146ca995dc44b15">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
 
 </div>
 </div>
-<a id="a8e7171f22fcec7aa98551264afcc6797" name="a8e7171f22fcec7aa98551264afcc6797"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e7171f22fcec7aa98551264afcc6797">&#9670;&#160;</a></span>doSceneAdd()</h2>
+<a id="af63d6ed72e147b08cec60f620fdcbc89" name="af63d6ed72e147b08cec60f620fdcbc89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af63d6ed72e147b08cec60f620fdcbc89">&#9670;&#160;</a></span>doSceneAdd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -415,36 +324,34 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::menu::ImageItem::doSceneAdd </td>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::doSceneAdd </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a05998.html">rc::Scene</a> *&#160;</td>
-          <td class="paramname"><em>scene</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a05978.html">rc::Overlay</a> *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the item should be added to the scene. </p>
+<p>Called when the provider should be added to a scene. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
+    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a04894.html#a330a126dacdde5b6eb210b675cedd951">bl::menu::Item</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00032">32</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04762.html#a0da7482196f73d2dc99c3a736bd3b0d6">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
 
 </div>
 </div>
-<a id="a6096ddd968f950d47a44166757f50e1c" name="a6096ddd968f950d47a44166757f50e1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6096ddd968f950d47a44166757f50e1c">&#9670;&#160;</a></span>doSceneRemove()</h2>
+<a id="a037b94c5370868fe2ecb6bf53a5bff27" name="a037b94c5370868fe2ecb6bf53a5bff27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a037b94c5370868fe2ecb6bf53a5bff27">&#9670;&#160;</a></span>doSceneRemove()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -453,7 +360,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::menu::ImageItem::doSceneRemove </td>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::doSceneRemove </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -461,21 +368,19 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the item should be removed from the scene. </p>
+<p>Called when the provider should be removed from the scene. </p>
 
-<p>Implements <a class="el" href="a04894.html#a22937d4f2963257bb7451681089a2874">bl::menu::Item</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00034">34</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04762.html#a282bbc835d1560c2e9514901bef396ab">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
 
 </div>
 </div>
-<a id="add5aad3e4a170759d74f90da5cc06218" name="add5aad3e4a170759d74f90da5cc06218"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add5aad3e4a170759d74f90da5cc06218">&#9670;&#160;</a></span>draw()</h2>
+<a id="a8cb0b4428118015f4d4fed8ea6c45621" name="a8cb0b4428118015f4d4fed8ea6c45621"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cb0b4428118015f4d4fed8ea6c45621">&#9670;&#160;</a></span>notifyDestroyed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -484,36 +389,34 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::menu::ImageItem::draw </td>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::notifyDestroyed </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a05974.html">rc::scene::CodeScene::RenderContext</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a04670.html">Element</a> *&#160;</td>
+          <td class="paramname"><em>element</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Manually draw the item. </p>
+<p>Called when an element is destroyed or removed. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ctx</td><td>The render context </td></tr>
+    <tr><td class="paramname">element</td><td>The element being destroyed or removed </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a04894.html#a404bde7ecc688e35dc7d2d665fdad28c">bl::menu::Item</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00038">38</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04762.html#a5e2c3ed4ec906009db7e1420551eae8d">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
 
 </div>
 </div>
-<a id="a5291c436b4c3973677e34a525ed573f7" name="a5291c436b4c3973677e34a525ed573f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5291c436b4c3973677e34a525ed573f7">&#9670;&#160;</a></span>getEntity()</h2>
+<a id="a484219833b091128b2962dad748bdcab" name="a484219833b091128b2962dad748bdcab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484219833b091128b2962dad748bdcab">&#9670;&#160;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -522,365 +425,40 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04046.html">ecs::Entity</a> bl::menu::ImageItem::getEntity </td>
+          <td class="memname">virtual void bl::gui::rdr::TooltipProvider::update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the entity (or top level entity) of the item. </p>
-
-<p>Implements <a class="el" href="a04894.html#a2126f9c54fcaf1587c2765c8d11a3e9b">bl::menu::Item</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00036">36</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9fd9c891d6b5e873f670a6b8a0c62b53" name="a9fd9c891d6b5e873f670a6b8a0c62b53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9fd9c891d6b5e873f670a6b8a0c62b53">&#9670;&#160;</a></span>getPosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const glm::vec2 &amp; bl::menu::Item::getPosition </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the position of the button relative to it's menu. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00060">60</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1ec1d4800025cc512ad596ef13cb03fd" name="a1ec1d4800025cc512ad596ef13cb03fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ec1d4800025cc512ad596ef13cb03fd">&#9670;&#160;</a></span>getSignal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a07022.html">util::Signal</a> &amp; bl::menu::Item::getSignal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04894.html#a0bae0491b79706cac6c93b58cfeb5ec5">EventType</a>&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns a modifiable reference to the Signal object for the corresponding EventType. </p>
+<p>Updates the provider. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">event</td><td>The EventType the Signal is triggered by </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Signal&lt;&gt;&amp; The modifiable signal </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00051">51</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac356fcdc4df05e1320fda538980c0566" name="ac356fcdc4df05e1320fda538980c0566"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac356fcdc4df05e1320fda538980c0566">&#9670;&#160;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec2 bl::menu::ImageItem::getSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="a04894.html#a86fe5944b8c3b46b9f7aa2f5d3ac6d52" title="Return the untransformed size of the object.">Item::getSize</a> </dd></dl>
-
-<p>Implements <a class="el" href="a04894.html#a86fe5944b8c3b46b9f7aa2f5d3ac6d52">bl::menu::Item</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00021">21</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a20db2379c125b44c056b19d6c7a266ab" name="a20db2379c125b44c056b19d6c7a266ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20db2379c125b44c056b19d6c7a266ab">&#9670;&#160;</a></span>getSprite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04486.html">gfx::Sprite</a> &amp; bl::menu::ImageItem::getSprite </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns a modifiable reference to the contained sprite. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00014">14</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6456946a5c7e6ecd87bd21c5fedd57c6" name="a6456946a5c7e6ecd87bd21c5fedd57c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6456946a5c7e6ecd87bd21c5fedd57c6">&#9670;&#160;</a></span>isAttached()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::menu::Item::isAttached </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns true if the item has been attached to another. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00036">36</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8b17ae5ffbb9b3fe97e6105479b601b6" name="a8b17ae5ffbb9b3fe97e6105479b601b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b17ae5ffbb9b3fe97e6105479b601b6">&#9670;&#160;</a></span>isSelectable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::menu::Item::isSelectable </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the <a class="el" href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00045">45</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8fec45b0851a45c4f753b91062a518fe" name="a8fec45b0851a45c4f753b91062a518fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fec45b0851a45c4f753b91062a518fe">&#9670;&#160;</a></span>oppositeSide()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> bl::menu::Item::oppositeSide </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">AttachPoint</a>&#160;</td>
-          <td class="paramname"><em>point</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Calculates the opposite side of the given attach point. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00021">21</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa484bb2973977732454eb2d5749c9575" name="aa484bb2973977732454eb2d5749c9575"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa484bb2973977732454eb2d5749c9575">&#9670;&#160;</a></span>overridePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::Item::overridePosition </td>
-          <td>(</td>
-          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set an explicit position for this item. Default behavior is to grid items. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00053">53</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a84f76cf2dc6f67fb425d09d804d66948" name="a84f76cf2dc6f67fb425d09d804d66948"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84f76cf2dc6f67fb425d09d804d66948">&#9670;&#160;</a></span>setAllowSelectionCrossing()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::Item::setAllowSelectionCrossing </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>allow</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set whether or not the selection is allowed to move through this item if this item is not selectable itself. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">allow</td><td>True to allow item on the other side to be selected, false to block </td></tr>
+    <tr><td class="paramname">dt</td><td>Elapsed time in seconds </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00047">47</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a04762.html#ab4a0edb05cf0c235138fe1ba014ee8ec">bl::gui::defcoms::BasicTooltipProvider</a>.</p>
 
 </div>
 </div>
-<a id="a944e2405bfafe6b3bf4718cab498b4a2" name="a944e2405bfafe6b3bf4718cab498b4a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a944e2405bfafe6b3bf4718cab498b4a2">&#9670;&#160;</a></span>setSelectable()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::Item::setSelectable </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>selectable</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Set whether or not the <a class="el" href="a04894.html" title="Item for a mouseless menu. Can be &#39;attached&#39; to other items in a Menu, configured to be selectable,...">Item</a> may be selected. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02960_source.html#l00043">43</a> of file <a class="el" href="a02960_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a296f93658a4886e44393289789cb4a68" name="a296f93658a4886e44393289789cb4a68"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a296f93658a4886e44393289789cb4a68">&#9670;&#160;</a></span>setTexture()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::menu::ImageItem::setTexture </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05946.html">rc::res::TextureRef</a> &amp;&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Changes the texture of this image. Does not trigger a menu refresh. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>The texture to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02954_source.html#l00016">16</a> of file <a class="el" href="a02954_source.html">ImageItem.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/Menu/Items/<a class="el" href="a01787_source.html">ImageItem.hpp</a></li>
-<li>src/Interfaces/Menu/Items/<a class="el" href="a02954_source.html">ImageItem.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/BLIB/Interfaces/GUI/Renderer/<a class="el" href="a01994_source.html">TooltipProvider.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Descriptors/Builtin/CommonBindings.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Descriptors/Builtin/Scene2DInstance.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -83,141 +83,102 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">CommonBindings.hpp</div></div>
+  <div class="headertitle"><div class="title">Scene2DInstance.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00881.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_BUILTIN_COMMONBINDINGS_HPP</span></div>
+<a href="a00881.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_DESCRIPTORS_SCENE2DINSTANCE_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00272.html">BLIB/Components/MaterialInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00230.html">BLIB/Components/Skeleton.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00233.html">BLIB/Components/SkeletonIndexLink.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a09629.html">BLIB/Components/Transform2D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a09635.html">BLIB/Components/Transform3D.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00890.html">BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00896.html">BLIB/Render/Descriptors/Generic/BufferBinding.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00902.html">BLIB/Render/Descriptors/Generic/ObjectBufferBinding.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a00821.html">BLIB/Render/Descriptors/GenericDescriptorSetInstance.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01061.html">BLIB/Render/Materials/MaterialId.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;<a class="code" href="a09794.html">BLIB/Render/ShaderResources/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &lt;<a class="code" href="a00959.html">BLIB/Render/ShaderResources/SkeletalBonesResource.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>Renderer;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03204.html">   24</a></span><span class="keyword">namespace </span>sri</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>{</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a03204.html#a1939a8a6f062dd8622586fedb8e7f465">   26</a></span><span class="keyword">using </span><a class="code hl_class" href="a06098.html">Transform2DBuffer</a> = <a class="code hl_class" href="a06098.html">sr::EntityComponentShaderResource&lt;com::Transform2D, glm::mat4&gt;</a>;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="a03204.html#aeb433dbb5c728ec841963ac26af645dd">   27</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06114.html">sr::Key&lt;Transform2DBuffer&gt;</a> <a class="code hl_variable" href="a03204.html#aeb433dbb5c728ec841963ac26af645dd">Transform2DBufferKey</a>{<span class="stringliteral">&quot;__builtin__Transform2DBuffer&quot;</span>};</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a03204.html#a79bfe740147b3b3ab18c1063534ea1b3">   29</a></span><span class="keyword">using </span><a class="code hl_class" href="a06098.html">TextureIdBuffer</a> =</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_class" href="a06098.html">sr::EntityComponentShaderResource</a>&lt;<a class="code hl_class" href="a03778.html">com::MaterialInstance</a>, std::uint32_t,</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                      <a class="code hl_class" href="a05282.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;std::uint32_t&gt;</a>,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                      <a class="code hl_class" href="a05282.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;std::uint32_t&gt;</a>&gt;;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a03204.html#a9187fda9c3cdc33dbb86ec53427f7255">   33</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06114.html">sr::Key&lt;TextureIdBuffer&gt;</a> <a class="code hl_variable" href="a03204.html#a9187fda9c3cdc33dbb86ec53427f7255">TextureIdBufferKey</a>{<span class="stringliteral">&quot;__builtin_TextureIdBuffer&quot;</span>};</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a03204.html#aefdd9d7a8ec27807b2845c56cf00b2de">   35</a></span><span class="keyword">using </span><a class="code hl_class" href="a06098.html">Transform3DBuffer</a> =</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <a class="code hl_class" href="a06098.html">sr::EntityComponentShaderResource&lt;com::Transform3D, dsi::Transform3DPayload&gt;</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03204.html#a9cda7c22510b16ab5122ad192fd8195e">   37</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06114.html">sr::Key&lt;Transform3DBuffer&gt;</a> <a class="code hl_variable" href="a03204.html#a9cda7c22510b16ab5122ad192fd8195e">Transform3DBufferKey</a>{<span class="stringliteral">&quot;__builtin__Transform3DBuffer&quot;</span>};</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a03204.html#ab90f184d6b750780432f2cc1d41381b0">   39</a></span><span class="keyword">using </span><a class="code hl_class" href="a06098.html">MaterialIdBuffer</a> =</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <a class="code hl_class" href="a06098.html">sr::EntityComponentShaderResource</a>&lt;<a class="code hl_class" href="a03778.html">com::MaterialInstance</a>, <a class="code hl_struct" href="a05826.html">mat::MaterialId</a>,</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                                      <a class="code hl_class" href="a05282.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;mat::MaterialId&gt;</a>,</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                                      <a class="code hl_class" href="a05282.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;mat::MaterialId&gt;</a>&gt;;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a03204.html#a59aba1dc75459cdbe4233ab48901a849">   43</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06114.html">sr::Key&lt;MaterialIdBuffer&gt;</a> <a class="code hl_variable" href="a03204.html#a59aba1dc75459cdbe4233ab48901a849">MaterialIdBufferKey</a>{<span class="stringliteral">&quot;__builtin_MaterialIdBuffer&quot;</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a08992.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00992.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01007.html">BLIB/Render/ShaderResources/CameraBufferShaderResource.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01205.html">BLIB/Render/Vulkan/DescriptorPool.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01166.html">BLIB/Render/Vulkan/PerFrame.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01142.html">BLIB/Render/Vulkan/PerFrameVector.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03256.html">   17</a></span><span class="keyword">namespace </span>lgt</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">class </span><a class="code hl_class" href="a05918.html">Scene2DLighting</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">class </span><a class="code hl_class" href="a05894.html">Light2D</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>} <span class="comment">// namespace lgt</span></div>
+</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>vk</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">struct </span>VulkanLayer;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keyword">namespace </span>dsi</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a05526.html">   35</a></span><span class="keyword">class </span><a class="code hl_class" href="a05526.html">Scene2DInstance</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05562.html">ds::DescriptorSetInstance</a> {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <a class="code hl_class" href="a05526.html">Scene2DInstance</a>(<a class="code hl_struct" href="a06518.html">vk::VulkanLayer</a>&amp; vulkanState, VkDescriptorSetLayout layout);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00045" data-start="{" data-end="};">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="a03204.html#a9e46d73cc7badee1a441d7624e1ffa8b">   45</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06114.html">sr::Key&lt;sri::SkeletalBonesResource&gt;</a> <a class="code hl_variable" href="a03204.html#a9e46d73cc7badee1a441d7624e1ffa8b">SkeletalBonesBufferKey</a>{</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="stringliteral">&quot;__builtin_SkeletalBonesBuffer&quot;</span>};</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05526.html#ae52568a71a9588d556fed4566261ffe2">~Scene2DInstance</a>();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <a class="code hl_struct" href="a06518.html">vk::VulkanLayer</a>&amp; vulkanState;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keyword">const</span> VkDescriptorSetLayout setLayout;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <a class="code hl_struct" href="a06366.html">vk::DescriptorPool::AllocationHandle</a> allocHandle;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_class" href="a06394.html">vk::PerFrame&lt;VkDescriptorSet&gt;</a> descriptorSets;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_class" href="a06214.html">sri::CameraBufferShaderResource</a>* cameraBuffer;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_class" href="a06206.html">sri::LightingBuffer2D</a>* lightingBuffer;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> bindForPipeline(<a class="code hl_class" href="a06174.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                                 std::uint32_t setIndex, <a class="code hl_enumeration" href="a03176.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> bindForObject(<a class="code hl_class" href="a06174.html">scene::SceneRenderContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, VkPipelineLayout layout,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                               std::uint32_t setIndex, <a class="code hl_struct" href="a06118.html">scene::Key</a> objectKey) <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> releaseObject(<a class="code hl_struct" href="a04094.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a06118.html">scene::Key</a> objectKey) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(<a class="code hl_struct" href="a05602.html">ds::InitContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> allocateObject(<a class="code hl_struct" href="a04094.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a06118.html">scene::Key</a> key) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> updateDescriptors() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="a05526.html#a0d7bf05a9304d454bf362565a3075bc2">   67</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05918.html">lgt::Scene2DLighting</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a05526.html#a7689457e73e450dbacc7308faa0a1740">   68</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05894.html">lgt::Light2D</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
 </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="a03204.html#a4b10031c5a18430dab5c382fae9b3274">   48</a></span><span class="keyword">using </span><a class="code hl_class" href="a06098.html">SkeletalBonesOffsetBufferResource</a> =</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_class" href="a06098.html">sr::EntityComponentShaderResource</a>&lt;<a class="code hl_struct" href="a03834.html">com::SkeletonIndexLink</a>, std::uint32_t,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                                      <a class="code hl_class" href="a05282.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;std::uint32_t&gt;</a>,</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                                      <a class="code hl_class" href="a05282.html">buf::BufferSingleDeviceLocalSourcedSSBO&lt;std::uint32_t&gt;</a>&gt;;</div>
-<div class="foldopen" id="foldopen00052" data-start="{" data-end="};">
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a03204.html#ad9ca89ebbbe16f284564e9dc2e6c7d25">   52</a></span><span class="keyword">constexpr</span> <a class="code hl_struct" href="a06114.html">sr::Key&lt;SkeletalBonesOffsetBufferResource&gt;</a> <a class="code hl_variable" href="a03204.html#ad9ca89ebbbe16f284564e9dc2e6c7d25">SkeletalBonesOffsetBufferKey</a>{</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="stringliteral">&quot;__builtin_SkeletalBonesOffsetBuffer&quot;</span>};</div>
-</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace sri</span></div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="keyword">namespace </span>dsi</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>{</div>
-<div class="foldopen" id="foldopen00060" data-start="{" data-end="}">
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="a03205.html">   60</a></span><span class="keyword">namespace </span>priv</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>{</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="a03205.html#a162bd7be49f911b5adc59edc5168dca4">   62</a></span><span class="keyword">using </span><a class="code hl_class" href="a05450.html">Transform2DBinding</a> =</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <a class="code hl_class" href="a05450.html">ds::ObjectBufferBinding&lt;sri::Transform2DBuffer, sri::Transform2DBufferKey&gt;</a>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a03205.html#ab228e415adec945e59c3bcd18ca23a1a">   65</a></span><span class="keyword">using </span><a class="code hl_class" href="a05450.html">Transform3DBinding</a> =</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_class" href="a05450.html">ds::ObjectBufferBinding&lt;sri::Transform3DBuffer, sri::Transform3DBufferKey&gt;</a>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="a03205.html#a47a58ca896aa55ff8a0970ca808132d1">   68</a></span><span class="keyword">using </span><a class="code hl_class" href="a05450.html">TextureBinding</a> = <a class="code hl_class" href="a05450.html">ds::ObjectBufferBinding</a>&lt;<a class="code hl_typedef" href="a03204.html#a79bfe740147b3b3ab18c1063534ea1b3">sri::TextureIdBuffer</a>, <a class="code hl_variable" href="a03204.html#a9187fda9c3cdc33dbb86ec53427f7255">sri::TextureIdBufferKey</a>,</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                                               VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, <span class="keyword">true</span>&gt;;</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="a03205.html#ab3baa9d5d4d2b566ec1e8d498c6a4818">   71</a></span><span class="keyword">using </span><a class="code hl_class" href="a05450.html">MaterialBinding</a> = <a class="code hl_class" href="a05450.html">ds::ObjectBufferBinding</a>&lt;<a class="code hl_typedef" href="a03204.html#ab90f184d6b750780432f2cc1d41381b0">sri::MaterialIdBuffer</a>, <a class="code hl_variable" href="a03204.html#a59aba1dc75459cdbe4233ab48901a849">sri::MaterialIdBufferKey</a>,</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                                                VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, <span class="keyword">true</span>&gt;;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a03205.html#aeab9e2dd31856a7a9513268eb7a00ae0">   74</a></span><span class="keyword">using </span><a class="code hl_class" href="a05446.html">SkeletalBonesBinding</a> =</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_class" href="a05446.html">ds::BufferBinding</a>&lt;<a class="code hl_class" href="a06138.html">sri::SkeletalBonesResource</a>, <a class="code hl_variable" href="a03204.html#a9e46d73cc7badee1a441d7624e1ffa8b">sri::SkeletalBonesBufferKey</a>, <a class="code hl_enumvalue" href="a03130.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">sr::StoreKey::Scene</a>,</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER&gt;;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="a03205.html#ab2f5926e91bc80e729e021bdcca48024">   78</a></span><span class="keyword">using </span><a class="code hl_class" href="a05450.html">SkeletalBonesOffsetBinding</a> =</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <a class="code hl_class" href="a05450.html">ds::ObjectBufferBinding</a>&lt;<a class="code hl_typedef" href="a03204.html#a4b10031c5a18430dab5c382fae9b3274">sri::SkeletalBonesOffsetBufferResource</a>,</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                            <a class="code hl_variable" href="a03204.html#ad9ca89ebbbe16f284564e9dc2e6c7d25">sri::SkeletalBonesOffsetBufferKey</a>, VK_DESCRIPTOR_TYPE_STORAGE_BUFFER,</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                            <span class="keyword">false</span>&gt;;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>} <span class="comment">// namespace priv</span></div>
-</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>} <span class="comment">// namespace dsi</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00230_html"><div class="ttname"><a href="a00230.html">Skeleton.hpp</a></div></div>
-<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">SkeletonIndexLink.hpp</a></div></div>
-<div class="ttc" id="aa00272_html"><div class="ttname"><a href="a00272.html">MaterialInstance.hpp</a></div></div>
-<div class="ttc" id="aa00821_html"><div class="ttname"><a href="a00821.html">GenericDescriptorSetInstance.hpp</a></div></div>
-<div class="ttc" id="aa00890_html"><div class="ttname"><a href="a00890.html">Transform3DPayload.hpp</a></div></div>
-<div class="ttc" id="aa00896_html"><div class="ttname"><a href="a00896.html">BufferBinding.hpp</a></div></div>
-<div class="ttc" id="aa00902_html"><div class="ttname"><a href="a00902.html">ObjectBufferBinding.hpp</a></div></div>
-<div class="ttc" id="aa00959_html"><div class="ttname"><a href="a00959.html">SkeletalBonesResource.hpp</a></div></div>
-<div class="ttc" id="aa01061_html"><div class="ttname"><a href="a01061.html">MaterialId.hpp</a></div></div>
-<div class="ttc" id="aa03130_html_gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b"><div class="ttname"><a href="a03130.html#gga3dcc36a289dbe2cd2b0bac51fcf14713a9ead0d38e06ec253ca0ecbf6ea56e59b">bl::rc::sr::StoreKey::Scene</a></div><div class="ttdeci">@ Scene</div><div class="ttdoc">The resource store specific to a scene/observer pair.</div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03204_html_a4b10031c5a18430dab5c382fae9b3274"><div class="ttname"><a href="a03204.html#a4b10031c5a18430dab5c382fae9b3274">bl::rc::sri::SkeletalBonesOffsetBufferResource</a></div><div class="ttdeci">sr::EntityComponentShaderResource&lt; com::SkeletonIndexLink, std::uint32_t, buf::BufferSingleDeviceLocalSourcedSSBO&lt; std::uint32_t &gt;, buf::BufferSingleDeviceLocalSourcedSSBO&lt; std::uint32_t &gt; &gt; SkeletalBonesOffsetBufferResource</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00048">CommonBindings.hpp:51</a></div></div>
-<div class="ttc" id="aa03204_html_a59aba1dc75459cdbe4233ab48901a849"><div class="ttname"><a href="a03204.html#a59aba1dc75459cdbe4233ab48901a849">bl::rc::sri::MaterialIdBufferKey</a></div><div class="ttdeci">constexpr sr::Key&lt; MaterialIdBuffer &gt; MaterialIdBufferKey</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00043">CommonBindings.hpp:43</a></div></div>
-<div class="ttc" id="aa03204_html_a79bfe740147b3b3ab18c1063534ea1b3"><div class="ttname"><a href="a03204.html#a79bfe740147b3b3ab18c1063534ea1b3">bl::rc::sri::TextureIdBuffer</a></div><div class="ttdeci">sr::EntityComponentShaderResource&lt; com::MaterialInstance, std::uint32_t, buf::BufferSingleDeviceLocalSourcedSSBO&lt; std::uint32_t &gt;, buf::BufferSingleDeviceLocalSourcedSSBO&lt; std::uint32_t &gt; &gt; TextureIdBuffer</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00029">CommonBindings.hpp:32</a></div></div>
-<div class="ttc" id="aa03204_html_a9187fda9c3cdc33dbb86ec53427f7255"><div class="ttname"><a href="a03204.html#a9187fda9c3cdc33dbb86ec53427f7255">bl::rc::sri::TextureIdBufferKey</a></div><div class="ttdeci">constexpr sr::Key&lt; TextureIdBuffer &gt; TextureIdBufferKey</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00033">CommonBindings.hpp:33</a></div></div>
-<div class="ttc" id="aa03204_html_a9cda7c22510b16ab5122ad192fd8195e"><div class="ttname"><a href="a03204.html#a9cda7c22510b16ab5122ad192fd8195e">bl::rc::sri::Transform3DBufferKey</a></div><div class="ttdeci">constexpr sr::Key&lt; Transform3DBuffer &gt; Transform3DBufferKey</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00037">CommonBindings.hpp:37</a></div></div>
-<div class="ttc" id="aa03204_html_a9e46d73cc7badee1a441d7624e1ffa8b"><div class="ttname"><a href="a03204.html#a9e46d73cc7badee1a441d7624e1ffa8b">bl::rc::sri::SkeletalBonesBufferKey</a></div><div class="ttdeci">constexpr sr::Key&lt; sri::SkeletalBonesResource &gt; SkeletalBonesBufferKey</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00045">CommonBindings.hpp:45</a></div></div>
-<div class="ttc" id="aa03204_html_ab90f184d6b750780432f2cc1d41381b0"><div class="ttname"><a href="a03204.html#ab90f184d6b750780432f2cc1d41381b0">bl::rc::sri::MaterialIdBuffer</a></div><div class="ttdeci">sr::EntityComponentShaderResource&lt; com::MaterialInstance, mat::MaterialId, buf::BufferSingleDeviceLocalSourcedSSBO&lt; mat::MaterialId &gt;, buf::BufferSingleDeviceLocalSourcedSSBO&lt; mat::MaterialId &gt; &gt; MaterialIdBuffer</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00039">CommonBindings.hpp:42</a></div></div>
-<div class="ttc" id="aa03204_html_ad9ca89ebbbe16f284564e9dc2e6c7d25"><div class="ttname"><a href="a03204.html#ad9ca89ebbbe16f284564e9dc2e6c7d25">bl::rc::sri::SkeletalBonesOffsetBufferKey</a></div><div class="ttdeci">constexpr sr::Key&lt; SkeletalBonesOffsetBufferResource &gt; SkeletalBonesOffsetBufferKey</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00052">CommonBindings.hpp:52</a></div></div>
-<div class="ttc" id="aa03204_html_aeb433dbb5c728ec841963ac26af645dd"><div class="ttname"><a href="a03204.html#aeb433dbb5c728ec841963ac26af645dd">bl::rc::sri::Transform2DBufferKey</a></div><div class="ttdeci">constexpr sr::Key&lt; Transform2DBuffer &gt; Transform2DBufferKey</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00027">CommonBindings.hpp:27</a></div></div>
-<div class="ttc" id="aa03778_html"><div class="ttname"><a href="a03778.html">bl::com::MaterialInstance</a></div><div class="ttdoc">Component that binds a material and pipeline to an entity.</div><div class="ttdef"><b>Definition</b> <a href="a00272_source.html#l00025">MaterialInstance.hpp:26</a></div></div>
-<div class="ttc" id="aa03834_html"><div class="ttname"><a href="a03834.html">bl::com::SkeletonIndexLink</a></div><div class="ttdoc">Component to store the first bone index of a skeleton used by a skinned mesh.</div><div class="ttdef"><b>Definition</b> <a href="a00233_source.html#l00015">SkeletonIndexLink.hpp:16</a></div></div>
-<div class="ttc" id="aa05282_html"><div class="ttname"><a href="a05282.html">bl::rc::buf::base::BindableBufferSingleSourced</a></div><div class="ttdoc">Single buffered buffer class that provides buffer management and direct access for mapped buffers tha...</div><div class="ttdef"><b>Definition</b> <a href="a00722_source.html#l00032">BindableBufferSingleSourced.hpp:33</a></div></div>
-<div class="ttc" id="aa05446_html"><div class="ttname"><a href="a05446.html">bl::rc::ds::BufferBinding</a></div><div class="ttdoc">Generic binding provider for a data buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00896_source.html#l00028">BufferBinding.hpp:28</a></div></div>
-<div class="ttc" id="aa05450_html"><div class="ttname"><a href="a05450.html">bl::rc::ds::ObjectBufferBinding</a></div><div class="ttdoc">Generic descriptor set binding providing ECS entity components to shaders.</div><div class="ttdef"><b>Definition</b> <a href="a00902_source.html#l00027">ObjectBufferBinding.hpp:27</a></div></div>
-<div class="ttc" id="aa05826_html"><div class="ttname"><a href="a05826.html">bl::rc::mat::MaterialId</a></div><div class="ttdoc">Helper struct to disambiguate material and texture ids for descriptor bindings.</div><div class="ttdef"><b>Definition</b> <a href="a01061_source.html#l00017">MaterialId.hpp:17</a></div></div>
-<div class="ttc" id="aa06098_html"><div class="ttname"><a href="a06098.html">bl::rc::sr::EntityComponentShaderResource</a></div><div class="ttdoc">Generic class to provide per-object storage for descriptor set components.</div><div class="ttdef"><b>Definition</b> <a href="a00980_source.html#l00082">EntityComponentShaderResource.hpp:82</a></div></div>
-<div class="ttc" id="aa06114_html"><div class="ttname"><a href="a06114.html">bl::rc::sr::Key</a></div><div class="ttdoc">Key type for a shader resource. Allows encoding both type and id into one value.</div><div class="ttdef"><b>Definition</b> <a href="a09794_source.html#l00020">Key.hpp:20</a></div></div>
-<div class="ttc" id="aa06138_html"><div class="ttname"><a href="a06138.html">bl::rc::sri::SkeletalBonesResource</a></div><div class="ttdoc">Shader resource for the pool of bones for skeletal animation.</div><div class="ttdef"><b>Definition</b> <a href="a00959_source.html#l00028">SkeletalBonesResource.hpp:29</a></div></div>
-<div class="ttc" id="aa09629_html"><div class="ttname"><a href="a09629.html">Transform2D.hpp</a></div></div>
-<div class="ttc" id="aa09635_html"><div class="ttname"><a href="a09635.html">Transform3D.hpp</a></div></div>
-<div class="ttc" id="aa09794_html"><div class="ttname"><a href="a09794.html">Key.hpp</a></div></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace dsi</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00992_html"><div class="ttname"><a href="a00992.html">Scene2DLighting.hpp</a></div></div>
+<div class="ttc" id="aa01007_html"><div class="ttname"><a href="a01007.html">CameraBufferShaderResource.hpp</a></div></div>
+<div class="ttc" id="aa01142_html"><div class="ttname"><a href="a01142.html">PerFrameVector.hpp</a></div></div>
+<div class="ttc" id="aa01166_html"><div class="ttname"><a href="a01166.html">PerFrame.hpp</a></div></div>
+<div class="ttc" id="aa01205_html"><div class="ttname"><a href="a01205.html">DescriptorPool.hpp</a></div></div>
+<div class="ttc" id="aa02912_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02912_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03176_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a03176.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01232_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04094_html"><div class="ttname"><a href="a04094.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00437_source.html#l00024">Entity.hpp:24</a></div></div>
+<div class="ttc" id="aa05526_html"><div class="ttname"><a href="a05526.html">bl::rc::dsi::Scene2DInstance</a></div><div class="ttdoc">Descriptor set instance for 2d scene data.</div><div class="ttdef"><b>Definition</b> <a href="a00881_source.html#l00035">Scene2DInstance.hpp:35</a></div></div>
+<div class="ttc" id="aa05526_html_ae52568a71a9588d556fed4566261ffe2"><div class="ttname"><a href="a05526.html#ae52568a71a9588d556fed4566261ffe2">bl::rc::dsi::Scene2DInstance::~Scene2DInstance</a></div><div class="ttdeci">virtual ~Scene2DInstance()</div><div class="ttdoc">Destroys the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a02465_source.html#l00021">Scene2DInstance.cpp:21</a></div></div>
+<div class="ttc" id="aa05562_html"><div class="ttname"><a href="a05562.html">bl::rc::ds::DescriptorSetInstance</a></div><div class="ttdoc">Base class for descriptor sets that exist for each scene. Derived classes are created by DescriptorSe...</div><div class="ttdef"><b>Definition</b> <a href="a08992_source.html#l00030">DescriptorSetInstance.hpp:30</a></div></div>
+<div class="ttc" id="aa05602_html"><div class="ttname"><a href="a05602.html">bl::rc::ds::InitContext</a></div><div class="ttdoc">Struct that gets passed to DescriptorSetInstances on init.</div><div class="ttdef"><b>Definition</b> <a href="a09028_source.html#l00030">InitContext.hpp:30</a></div></div>
+<div class="ttc" id="aa05894_html"><div class="ttname"><a href="a05894.html">bl::rc::lgt::Light2D</a></div><div class="ttdoc">Handle for a light in a 2d scene.</div><div class="ttdef"><b>Definition</b> <a href="a00983_source.html#l00020">Light2D.hpp:20</a></div></div>
+<div class="ttc" id="aa05918_html"><div class="ttname"><a href="a05918.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00992_source.html#l00030">Scene2DLighting.hpp:30</a></div></div>
+<div class="ttc" id="aa06118_html"><div class="ttname"><a href="a06118.html">bl::rc::scene::Key</a></div><div class="ttdoc">Key for objects in scenes. Contains update speed and scene id. Scene ids are not unique across update...</div><div class="ttdef"><b>Definition</b> <a href="a09058_source.html#l00023">Key.hpp:23</a></div></div>
+<div class="ttc" id="aa06174_html"><div class="ttname"><a href="a06174.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a01058_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
+<div class="ttc" id="aa06206_html"><div class="ttname"><a href="a06206.html">bl::rc::sr::BufferShaderResource</a></div><div class="ttdoc">Lightweight shader input wrapping a buffer that can be used for uniforms or SSBOs.</div><div class="ttdef"><b>Definition</b> <a href="a01034_source.html#l00024">BufferShaderResource.hpp:24</a></div></div>
+<div class="ttc" id="aa06214_html"><div class="ttname"><a href="a06214.html">bl::rc::sri::CameraBufferShaderResource</a></div><div class="ttdoc">Shader resource for the camera uniform buffer.</div><div class="ttdef"><b>Definition</b> <a href="a01007_source.html#l00036">CameraBufferShaderResource.hpp:37</a></div></div>
+<div class="ttc" id="aa06366_html"><div class="ttname"><a href="a06366.html">bl::rc::vk::DescriptorPool::AllocationHandle</a></div><div class="ttdoc">Handle to an allocation from the pool.</div><div class="ttdef"><b>Definition</b> <a href="a01205_source.html#l00046">DescriptorPool.hpp:46</a></div></div>
+<div class="ttc" id="aa06394_html"><div class="ttname"><a href="a06394.html">bl::rc::vk::PerFrame</a></div><div class="ttdoc">Utility struct to easily double-buffer objects and data on a per-frame basis. One object of type T wi...</div><div class="ttdef"><b>Definition</b> <a href="a01166_source.html#l00024">PerFrame.hpp:24</a></div></div>
+<div class="ttc" id="aa06518_html"><div class="ttname"><a href="a06518.html">bl::rc::vk::VulkanLayer</a></div><div class="ttdoc">Primary owner and manager of the Vulkan renderer's state.</div><div class="ttdef"><b>Definition</b> <a href="a01115_source.html#l00038">VulkanLayer.hpp:38</a></div></div>
+<div class="ttc" id="aa08992_html"><div class="ttname"><a href="a08992.html">DescriptorSetInstance.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

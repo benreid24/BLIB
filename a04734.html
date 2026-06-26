@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::gui::defcoms::ComboBoxComponent Class Reference</title>
+<title>BLIB: bl::gui::Event Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,391 +74,653 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03180.html">gui</a></li><li class="navelem"><a class="el" href="a03182.html">defcoms</a></li><li class="navelem"><a class="el" href="a04734.html">ComboBoxComponent</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03226.html">gui</a></li><li class="navelem"><a class="el" href="a04734.html">Event</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a04731.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::gui::defcoms::ComboBoxComponent Class Reference<div class="ingroups"><a class="el" href="a03124.html">Interface</a> &raquo; <a class="el" href="a03140.html">GUI</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::gui::Event Struct Reference<div class="ingroups"><a class="el" href="a03169.html">Interface</a> &raquo; <a class="el" href="a03186.html">GUI</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Default component type for <a class="el" href="a04610.html" title="A dropdown option selector. Note that fillColor is the background and secondaryFillColor is the mouse...">ComboBox</a> elements.  
+<p><a class="el" href="a04742.html" title="Top level class for creating a graphical user interface.">GUI</a> analog of sf::Event. Represents user actions that can propagate through the <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> tree.  
  <a href="a04734.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01925_source.html">ComboBoxComponent.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::gui::defcoms::ComboBoxComponent:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a04734.png" usemap="#bl::gui::defcoms::ComboBoxComponent_map" alt=""/>
-  <map id="bl::gui::defcoms::ComboBoxComponent_map" name="bl::gui::defcoms::ComboBoxComponent_map">
-<area href="a04802.html" title="Base class for renderer components. Each GUI element owns a handle to a component owned by the render..." alt="bl::gui::rdr::Component" shape="rect" coords="0,0,227,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a08953_source.html">Event.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ae8067b9f5370e7a570688e694a15f6ef" id="r_ae8067b9f5370e7a570688e694a15f6ef"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> { <a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345">Regular</a>
-, <a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c">Highlighted</a>
-, <a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040">Pressed</a>
-, <a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241">Disabled</a>
+<tr class="memitem:a14b67eb968cc68b09a420e989b3a4a54" id="r_a14b67eb968cc68b09a420e989b3a4a54"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> { <br />
+&#160;&#160;<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54ae6e54823adb886719e2cf6e38b66eacc">MouseEntered</a> = 0
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a4ab4824a66183b5dd993c1f4ccc6685e">MouseLeft</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30">MouseMoved</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a33ddfc11905ff50f85e62998a4c1d649">LeftClicked</a>
+, <br />
+&#160;&#160;<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54ab277da88a31c268f809b15d6b3fb47c1">RightClicked</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a4cdcdb79311f3aac1186daccae870804">LeftMousePressed</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54ad3509a120ab771ea42e895c61f48e230">LeftMouseReleased</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54aef1dcfcf6a39c7c40f91f5c58a7d6675">RightMousePressed</a>
+, <br />
+&#160;&#160;<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54af7703fa5f852bb9aea254db6014d8a22">RightMouseReleased</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54ac18fffaeead13a2c932f01714288f726">Dragged</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54addcda45a547ddca8f1de1999468d1143">Scrolled</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a80b5eeed37979c4ca92958794b60f608">KeyPressed</a>
+, <br />
+&#160;&#160;<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a3b85440c88274796b55f22470d435827">KeyReleased</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54acae0dbc6d3192a49d063d96a0bf17b32">TextEntered</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a5c38f5cfaa5c0fefce356667b0cba888">ValueChanged</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2">Moved</a>
+, <br />
+&#160;&#160;<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a67c6af5c83eb2fbe83d360961c3826f1">Closed</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a2d0f8543b4289f279c51e619a27024ea">GainedFocus</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a548c972894bb05b4c39ed277c549bfdb">LostFocus</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6">AcquisitionChanged</a>
+, <br />
+&#160;&#160;<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54ab27cebecbb52652668ac90fb7ae37645">RenderSettingsChanged</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a974244aef4acc9e18457e618038670b9">MouseOutsideWindow</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54af50bc837435473e7aa94186c06a8964c">NUM_ACTIONS</a>
+, <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54a48561acf0451529f1366a31111953ef0">Unknown</a>
+<br />
  }</td></tr>
-<tr class="memdesc:ae8067b9f5370e7a570688e694a15f6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Visible state of the element.  <a href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">More...</a><br /></td></tr>
-<tr class="separator:ae8067b9f5370e7a570688e694a15f6ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad04144636950185c959ad6394f0c5c52" id="r_ad04144636950185c959ad6394f0c5c52"><td class="memItemLeft" align="right" valign="top">enum struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> { <a class="el" href="a04802.html#ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84">IgnoresMouse</a>
-, <a class="el" href="a04802.html#ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98">HighlightedByMouse</a>
- }</td></tr>
-<tr class="memdesc:ad04144636950185c959ad6394f0c5c52"><td class="mdescLeft">&#160;</td><td class="mdescRight">How the component responds to mouse over state.  <a href="a04802.html#ad04144636950185c959ad6394f0c5c52">More...</a><br /></td></tr>
-<tr class="separator:ad04144636950185c959ad6394f0c5c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a947a8f9a8831f3c495cb9aa7ca89a374" id="r_a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a947a8f9a8831f3c495cb9aa7ca89a374">Ptr</a> = std::unique_ptr&lt; <a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &gt;</td></tr>
-<tr class="separator:a947a8f9a8831f3c495cb9aa7ca89a374"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a14b67eb968cc68b09a420e989b3a4a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> that occurred.  <a href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">More...</a><br /></td></tr>
+<tr class="separator:a14b67eb968cc68b09a420e989b3a4a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa0c999fbd0be6212616b1aef6b1fe8f0" id="r_aa0c999fbd0be6212616b1aef6b1fe8f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#aa0c999fbd0be6212616b1aef6b1fe8f0">ComboBoxComponent</a> ()</td></tr>
-<tr class="memdesc:aa0c999fbd0be6212616b1aef6b1fe8f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component.  <br /></td></tr>
-<tr class="separator:aa0c999fbd0be6212616b1aef6b1fe8f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad478260bc01b6a73a679ea8817105463" id="r_ad478260bc01b6a73a679ea8817105463"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#ad478260bc01b6a73a679ea8817105463">~ComboBoxComponent</a> ()=default</td></tr>
-<tr class="memdesc:ad478260bc01b6a73a679ea8817105463"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the component.  <br /></td></tr>
-<tr class="separator:ad478260bc01b6a73a679ea8817105463"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09da83b35713b4b46515a15f57496a0c" id="r_a09da83b35713b4b46515a15f57496a0c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a09da83b35713b4b46515a15f57496a0c">setVisible</a> (bool visible) override</td></tr>
-<tr class="memdesc:a09da83b35713b4b46515a15f57496a0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggle the visibility of the UI component.  <br /></td></tr>
-<tr class="separator:a09da83b35713b4b46515a15f57496a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1e08ce60baa5a99c2fc2a88c1721444" id="r_af1e08ce60baa5a99c2fc2a88c1721444"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#af1e08ce60baa5a99c2fc2a88c1721444">onElementUpdated</a> () override</td></tr>
-<tr class="memdesc:af1e08ce60baa5a99c2fc2a88c1721444"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when element state changes. This is element specific, but can mean toggle state, contents, etc.  <br /></td></tr>
-<tr class="separator:af1e08ce60baa5a99c2fc2a88c1721444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6571203f2c626ebdf462c19312c988ba" id="r_a6571203f2c626ebdf462c19312c988ba"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a6571203f2c626ebdf462c19312c988ba">onRenderSettingChange</a> () override</td></tr>
-<tr class="memdesc:a6571203f2c626ebdf462c19312c988ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the owning elements render settings are changed.  <br /></td></tr>
-<tr class="separator:a6571203f2c626ebdf462c19312c988ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9be5133ede1b01efed6e971ebad8379d" id="r_a9be5133ede1b01efed6e971ebad8379d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a04046.html">ecs::Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a9be5133ede1b01efed6e971ebad8379d">getEntity</a> () const override</td></tr>
-<tr class="memdesc:a9be5133ede1b01efed6e971ebad8379d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived classes should return the ECS entity that children should parent themselves to.  <br /></td></tr>
-<tr class="separator:a9be5133ede1b01efed6e971ebad8379d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e5465bfc08f42e5b5176f9c029dd1c8" id="r_a7e5465bfc08f42e5b5176f9c029dd1c8"><td class="memItemLeft" align="right" valign="top">virtual sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a7e5465bfc08f42e5b5176f9c029dd1c8">getRequisition</a> () const override</td></tr>
-<tr class="memdesc:a7e5465bfc08f42e5b5176f9c029dd1c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the space required to render the largest text option.  <br /></td></tr>
-<tr class="separator:a7e5465bfc08f42e5b5176f9c029dd1c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a350d3389d5be8f1e8f6a5a874fc999b6" id="r_a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a350d3389d5be8f1e8f6a5a874fc999b6">setUIState</a> (<a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
-<tr class="memdesc:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the visual state changes and immediately following creation.  <br /></td></tr>
-<tr class="separator:a350d3389d5be8f1e8f6a5a874fc999b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f914f312bf4700ece09298abf3d9a3a" id="r_a9f914f312bf4700ece09298abf3d9a3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a9f914f312bf4700ece09298abf3d9a3a">overrideHighlightBehavior</a> (<a class="el" href="a04802.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a> behavior)</td></tr>
-<tr class="memdesc:a9f914f312bf4700ece09298abf3d9a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overrides the default highlight behavior for this specific component.  <br /></td></tr>
-<tr class="separator:a9f914f312bf4700ece09298abf3d9a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdd6da199b0858a849eaa74a4857c8e3" id="r_abdd6da199b0858a849eaa74a4857c8e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#abdd6da199b0858a849eaa74a4857c8e3">showTooltip</a> ()</td></tr>
-<tr class="memdesc:abdd6da199b0858a849eaa74a4857c8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to display a tooltip for this component.  <br /></td></tr>
-<tr class="separator:abdd6da199b0858a849eaa74a4857c8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae3b7b2405ed796d1f9e3b3ebcbe12b1" id="r_aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#aae3b7b2405ed796d1f9e3b3ebcbe12b1">dismissTooltip</a> ()</td></tr>
-<tr class="memdesc:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Call to dismiss the tooltip for this component.  <br /></td></tr>
-<tr class="separator:aae3b7b2405ed796d1f9e3b3ebcbe12b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2" id="r_a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">flash</a> ()</td></tr>
-<tr class="memdesc:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers this component to flash briefly.  <br /></td></tr>
-<tr class="separator:a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10c20d7bde9c7d1fc2829b4d984a052b" id="r_a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a10c20d7bde9c7d1fc2829b4d984a052b">onAcquisition</a> ()</td></tr>
-<tr class="memdesc:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element gets its acquisition (re)assigned.  <br /></td></tr>
-<tr class="separator:a10c20d7bde9c7d1fc2829b4d984a052b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa17e61eb9db291663dc6dac5003b5e3f" id="r_aa17e61eb9db291663dc6dac5003b5e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#aa17e61eb9db291663dc6dac5003b5e3f">onMove</a> ()</td></tr>
-<tr class="memdesc:aa17e61eb9db291663dc6dac5003b5e3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the element is moved.  <br /></td></tr>
-<tr class="separator:aa17e61eb9db291663dc6dac5003b5e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbecf74e2fcab82f51d381190f26f110" id="r_afbecf74e2fcab82f51d381190f26f110"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#afbecf74e2fcab82f51d381190f26f110">assignDepth</a> (float depth)</td></tr>
-<tr class="memdesc:afbecf74e2fcab82f51d381190f26f110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a03854.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a04802.html#a040132d760285e4f03d54dade1855e85" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there.  <br /></td></tr>
-<tr class="separator:afbecf74e2fcab82f51d381190f26f110"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad102da27e2d469e84ee3b9f32252eec6" id="r_ad102da27e2d469e84ee3b9f32252eec6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#ad102da27e2d469e84ee3b9f32252eec6">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>)</td></tr>
+<tr class="memdesc:ad102da27e2d469e84ee3b9f32252eec6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes an empty <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> of the given type. For types that have no position or data.  <br /></td></tr>
+<tr class="separator:ad102da27e2d469e84ee3b9f32252eec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf0c753b5507942dcbfaf5be03594c4b" id="r_aaf0c753b5507942dcbfaf5be03594c4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#aaf0c753b5507942dcbfaf5be03594c4b">Event</a> (const <a class="el" href="a04734.html">Event</a> &amp;event, const sf::Vector2f &amp;position)</td></tr>
+<tr class="memdesc:aaf0c753b5507942dcbfaf5be03594c4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special copy constructor that copies an existing event but with a new position.  <br /></td></tr>
+<tr class="separator:aaf0c753b5507942dcbfaf5be03594c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60541a610620ebf83e9a634f280ee34a" id="r_a60541a610620ebf83e9a634f280ee34a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a60541a610620ebf83e9a634f280ee34a">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a60541a610620ebf83e9a634f280ee34a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position.  <br /></td></tr>
+<tr class="separator:a60541a610620ebf83e9a634f280ee34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a852f6cc2b521febd69d24ef70114f03c" id="r_a852f6cc2b521febd69d24ef70114f03c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a852f6cc2b521febd69d24ef70114f03c">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, uint32_t c, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a852f6cc2b521febd69d24ef70114f03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <br /></td></tr>
+<tr class="separator:a852f6cc2b521febd69d24ef70114f03c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aacaced4f0416a664a375b9088ee743" id="r_a2aacaced4f0416a664a375b9088ee743"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a2aacaced4f0416a664a375b9088ee743">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, float s, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a2aacaced4f0416a664a375b9088ee743"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <br /></td></tr>
+<tr class="separator:a2aacaced4f0416a664a375b9088ee743"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0229cb4c663eecf40557c6fedd760324" id="r_a0229cb4c663eecf40557c6fedd760324"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a0229cb4c663eecf40557c6fedd760324">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, float v)</td></tr>
+<tr class="memdesc:a0229cb4c663eecf40557c6fedd760324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> of the given Type and float value. No position.  <br /></td></tr>
+<tr class="separator:a0229cb4c663eecf40557c6fedd760324"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a562885d2e7fff1d15d444be4aaeb8150" id="r_a562885d2e7fff1d15d444be4aaeb8150"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a562885d2e7fff1d15d444be4aaeb8150">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, bool v)</td></tr>
+<tr class="memdesc:a562885d2e7fff1d15d444be4aaeb8150"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> of the given Type and bool value. No position.  <br /></td></tr>
+<tr class="separator:a562885d2e7fff1d15d444be4aaeb8150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6abb5dbf73afd05b61a4d63ca01064b5" id="r_a6abb5dbf73afd05b61a4d63ca01064b5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a6abb5dbf73afd05b61a4d63ca01064b5">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, sf::Event::KeyPressed <a class="el" href="a04734.html#a1a391052b8ec1d1d5aa2b8a310397e28">key</a>, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a6abb5dbf73afd05b61a4d63ca01064b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <br /></td></tr>
+<tr class="separator:a6abb5dbf73afd05b61a4d63ca01064b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a5f41b54fc8f9fd1123ed323aa6732" id="r_a27a5f41b54fc8f9fd1123ed323aa6732"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a27a5f41b54fc8f9fd1123ed323aa6732">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, const sf::Vector2f &amp;drag, const sf::Vector2f &amp;pos)</td></tr>
+<tr class="memdesc:a27a5f41b54fc8f9fd1123ed323aa6732"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an action of the given Type and position and sets the extra data.  <br /></td></tr>
+<tr class="separator:a27a5f41b54fc8f9fd1123ed323aa6732"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd585d9b8b5304de8b7e72d164469fe" id="r_a7dd585d9b8b5304de8b7e72d164469fe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a7dd585d9b8b5304de8b7e72d164469fe">Event</a> (<a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a> <a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a>, const std::string &amp;value)</td></tr>
+<tr class="memdesc:a7dd585d9b8b5304de8b7e72d164469fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an event with a string value.  <br /></td></tr>
+<tr class="separator:a7dd585d9b8b5304de8b7e72d164469fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9647efed7e63b7c601386a9efe4df37d" id="r_a9647efed7e63b7c601386a9efe4df37d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a9647efed7e63b7c601386a9efe4df37d">type</a> () const</td></tr>
+<tr class="memdesc:a9647efed7e63b7c601386a9efe4df37d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of the event.  <br /></td></tr>
+<tr class="separator:a9647efed7e63b7c601386a9efe4df37d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab99184b9b9289eecbe01eeabda8b1fb0" id="r_ab99184b9b9289eecbe01eeabda8b1fb0"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#ab99184b9b9289eecbe01eeabda8b1fb0">mousePosition</a> () const</td></tr>
+<tr class="memdesc:ab99184b9b9289eecbe01eeabda8b1fb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the position of the mouse when the event was fired.  <br /></td></tr>
+<tr class="separator:ab99184b9b9289eecbe01eeabda8b1fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad61559d2ea399e87933edf7c0f9ca053" id="r_ad61559d2ea399e87933edf7c0f9ca053"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#ad61559d2ea399e87933edf7c0f9ca053">character</a> () const</td></tr>
+<tr class="memdesc:ad61559d2ea399e87933edf7c0f9ca053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the character entered for text events.  <br /></td></tr>
+<tr class="separator:ad61559d2ea399e87933edf7c0f9ca053"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55c6f9768a4899ac662711dc7cbcab18" id="r_a55c6f9768a4899ac662711dc7cbcab18"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a55c6f9768a4899ac662711dc7cbcab18">scrollDelta</a> () const</td></tr>
+<tr class="memdesc:a55c6f9768a4899ac662711dc7cbcab18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the amount of scroll that occurred.  <br /></td></tr>
+<tr class="separator:a55c6f9768a4899ac662711dc7cbcab18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a298e2e702a54e359bdc834fbab568389" id="r_a298e2e702a54e359bdc834fbab568389"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a298e2e702a54e359bdc834fbab568389">inputValue</a> () const</td></tr>
+<tr class="memdesc:a298e2e702a54e359bdc834fbab568389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the numeric input value of some event types.  <br /></td></tr>
+<tr class="separator:a298e2e702a54e359bdc834fbab568389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa9ddd885a8410b3efe11fe22442e092f" id="r_aa9ddd885a8410b3efe11fe22442e092f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#aa9ddd885a8410b3efe11fe22442e092f">toggleValue</a> () const</td></tr>
+<tr class="memdesc:aa9ddd885a8410b3efe11fe22442e092f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the boolean input value of some event types.  <br /></td></tr>
+<tr class="separator:aa9ddd885a8410b3efe11fe22442e092f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a391052b8ec1d1d5aa2b8a310397e28" id="r_a1a391052b8ec1d1d5aa2b8a310397e28"><td class="memItemLeft" align="right" valign="top">sf::Event::KeyPressed&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a1a391052b8ec1d1d5aa2b8a310397e28">key</a> () const</td></tr>
+<tr class="memdesc:a1a391052b8ec1d1d5aa2b8a310397e28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the key event data for some event types.  <br /></td></tr>
+<tr class="separator:a1a391052b8ec1d1d5aa2b8a310397e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af34904fcc84a9bde3e50432b38649d2d" id="r_af34904fcc84a9bde3e50432b38649d2d"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#af34904fcc84a9bde3e50432b38649d2d">dragStart</a> () const</td></tr>
+<tr class="memdesc:af34904fcc84a9bde3e50432b38649d2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the starting position of the drag event.  <br /></td></tr>
+<tr class="separator:af34904fcc84a9bde3e50432b38649d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a526b713f4fdd88bac9b3f1dec4229285" id="r_a526b713f4fdd88bac9b3f1dec4229285"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a526b713f4fdd88bac9b3f1dec4229285">stringValue</a> () const</td></tr>
+<tr class="memdesc:a526b713f4fdd88bac9b3f1dec4229285"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string value of the event.  <br /></td></tr>
+<tr class="separator:a526b713f4fdd88bac9b3f1dec4229285"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a441189c3c40bfc9e7619c6b2bb172a11" id="r_a441189c3c40bfc9e7619c6b2bb172a11"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a441189c3c40bfc9e7619c6b2bb172a11">doCreate</a> (<a class="el" href="a04310.html">engine::World</a> &amp;world, <a class="el" href="a04842.html">rdr::Renderer</a> &amp;renderer) override</td></tr>
-<tr class="memdesc:a441189c3c40bfc9e7619c6b2bb172a11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the component.  <br /></td></tr>
-<tr class="separator:a441189c3c40bfc9e7619c6b2bb172a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a546a7b3c1f12d2dadc5564a6efc2f051" id="r_a546a7b3c1f12d2dadc5564a6efc2f051"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a546a7b3c1f12d2dadc5564a6efc2f051">doSceneAdd</a> (<a class="el" href="a05846.html">rc::Overlay</a> *overlay) override</td></tr>
-<tr class="memdesc:a546a7b3c1f12d2dadc5564a6efc2f051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the component to the scene.  <br /></td></tr>
-<tr class="separator:a546a7b3c1f12d2dadc5564a6efc2f051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0164f3fca66c3f1ac4bb4c75d0dfea5" id="r_ac0164f3fca66c3f1ac4bb4c75d0dfea5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#ac0164f3fca66c3f1ac4bb4c75d0dfea5">doSceneRemove</a> () override</td></tr>
-<tr class="memdesc:ac0164f3fca66c3f1ac4bb4c75d0dfea5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the component from the scene.  <br /></td></tr>
-<tr class="separator:ac0164f3fca66c3f1ac4bb4c75d0dfea5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a282103b31fc1899d9e99d0336a9be879" id="r_a282103b31fc1899d9e99d0336a9be879"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a282103b31fc1899d9e99d0336a9be879">handleAcquisition</a> () override</td></tr>
-<tr class="memdesc:a282103b31fc1899d9e99d0336a9be879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the component for the new acquisition.  <br /></td></tr>
-<tr class="separator:a282103b31fc1899d9e99d0336a9be879"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72beb28f775703bafb4f8b7b0aa6ade7" id="r_a72beb28f775703bafb4f8b7b0aa6ade7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#a72beb28f775703bafb4f8b7b0aa6ade7">handleMove</a> () override</td></tr>
-<tr class="memdesc:a72beb28f775703bafb4f8b7b0aa6ade7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Positions the component when it should move.  <br /></td></tr>
-<tr class="separator:a72beb28f775703bafb4f8b7b0aa6ade7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7429f4a869d0eaff8a27e7cdc55cc71" id="r_ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#ab7429f4a869d0eaff8a27e7cdc55cc71">notifyUIState</a> (<a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a> state)</td></tr>
-<tr class="memdesc:ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the UI state changes. Derived classes may implement custom handlers here.  <br /></td></tr>
-<tr class="separator:ab7429f4a869d0eaff8a27e7cdc55cc71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff1761b676cbaa61c2966e9e8ff2d3a3" id="r_aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04802.html#aff1761b676cbaa61c2966e9e8ff2d3a3">getOwnerAs</a> ()</td></tr>
-<tr class="memdesc:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <br /></td></tr>
-<tr class="separator:aff1761b676cbaa61c2966e9e8ff2d3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8a3a6785de7a313df871bb56b428c60" id="r_ab8a3a6785de7a313df871bb56b428c60"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab8a3a6785de7a313df871bb56b428c60"><td class="memTemplItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="a04802.html#ab8a3a6785de7a313df871bb56b428c60">getOwnerAs</a> () const</td></tr>
-<tr class="memdesc:ab8a3a6785de7a313df871bb56b428c60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type safe method to get the owning <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect.  <br /></td></tr>
-<tr class="separator:ab8a3a6785de7a313df871bb56b428c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bf1fb5a90eeaff8f12ed3c373375567" id="r_a2bf1fb5a90eeaff8f12ed3c373375567"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a2bf1fb5a90eeaff8f12ed3c373375567">getParent</a> () const</td></tr>
-<tr class="memdesc:a2bf1fb5a90eeaff8f12ed3c373375567"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the parent component of this component. May be nullptr.  <br /></td></tr>
-<tr class="separator:a2bf1fb5a90eeaff8f12ed3c373375567"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa209c1917994d44f3fd1b0519b89393f" id="r_aa209c1917994d44f3fd1b0519b89393f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#aa209c1917994d44f3fd1b0519b89393f">createChild</a> (<a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;child)</td></tr>
-<tr class="memdesc:aa209c1917994d44f3fd1b0519b89393f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call create on their children.  <br /></td></tr>
-<tr class="separator:aa209c1917994d44f3fd1b0519b89393f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4aad88b1f6627400bbc2bc02714b91cd" id="r_a4aad88b1f6627400bbc2bc02714b91cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#a4aad88b1f6627400bbc2bc02714b91cd">doSceneAdd</a> (<a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;component, <a class="el" href="a05846.html">rc::Overlay</a> *overlay)</td></tr>
-<tr class="memdesc:a4aad88b1f6627400bbc2bc02714b91cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call doSceneAdd on their children.  <br /></td></tr>
-<tr class="separator:a4aad88b1f6627400bbc2bc02714b91cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecf44ca8ecf61e447a5d196a24ecf8e3" id="r_aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04802.html#aecf44ca8ecf61e447a5d196a24ecf8e3">doSceneRemove</a> (<a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> &amp;component)</td></tr>
-<tr class="memdesc:aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method for components containing other components to call doSceneRemove on their children.  <br /></td></tr>
-<tr class="separator:aecf44ca8ecf61e447a5d196a24ecf8e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af312314161b68a237b1475f1f9513da8" id="r_af312314161b68a237b1475f1f9513da8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a04734.html">Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a04734.html#af312314161b68a237b1475f1f9513da8">fromSFML</a> (const sf::Event &amp;event, const sf::Vector2f &amp;position={})</td></tr>
+<tr class="memdesc:af312314161b68a237b1475f1f9513da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to construct an <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> from an SFML event.  <br /></td></tr>
+<tr class="separator:af312314161b68a237b1475f1f9513da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Default component type for <a class="el" href="a04610.html" title="A dropdown option selector. Note that fillColor is the background and secondaryFillColor is the mouse...">ComboBox</a> elements. </p>
+<div class="textblock"><p><a class="el" href="a04742.html" title="Top level class for creating a graphical user interface.">GUI</a> analog of sf::Event. Represents user actions that can propagate through the <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> tree. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01925_source.html#l00024">24</a> of file <a class="el" href="a01925_source.html">ComboBoxComponent.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a947a8f9a8831f3c495cb9aa7ca89a374" name="a947a8f9a8831f3c495cb9aa7ca89a374"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947a8f9a8831f3c495cb9aa7ca89a374">&#9670;&#160;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a04802.html#a947a8f9a8831f3c495cb9aa7ca89a374">bl::gui::rdr::Component::Ptr</a> =  std::unique_ptr&lt;<a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a>&gt;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00034">34</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="ad04144636950185c959ad6394f0c5c52" name="ad04144636950185c959ad6394f0c5c52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad04144636950185c959ad6394f0c5c52">&#9670;&#160;</a></span>HighlightState</h2>
+<p class="definition">Definition at line <a class="el" href="a08953_source.html#l00019">19</a> of file <a class="el" href="a08953_source.html">Event.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a14b67eb968cc68b09a420e989b3a4a54" name="a14b67eb968cc68b09a420e989b3a4a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14b67eb968cc68b09a420e989b3a4a54">&#9670;&#160;</a></span>Type</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum struct <a class="el" href="a04802.html#ad04144636950185c959ad6394f0c5c52">bl::gui::rdr::Component::HighlightState</a></td>
+          <td class="memname">enum <a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">bl::gui::Event::Type</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>How the component responds to mouse over state. </p>
+<p>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> that occurred. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84" name="ad04144636950185c959ad6394f0c5c52a8399b4280b2900bd2b7a6436017bce84"></a>IgnoresMouse&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98" name="ad04144636950185c959ad6394f0c5c52a53f72bbb0757c48efde6e7109e3f8b98"></a>HighlightedByMouse&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54ae6e54823adb886719e2cf6e38b66eacc" name="a14b67eb968cc68b09a420e989b3a4a54ae6e54823adb886719e2cf6e38b66eacc"></a>MouseEntered&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a4ab4824a66183b5dd993c1f4ccc6685e" name="a14b67eb968cc68b09a420e989b3a4a54a4ab4824a66183b5dd993c1f4ccc6685e"></a>MouseLeft&#160;</td><td class="fielddoc"><p>Mouse moved over <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30" name="a14b67eb968cc68b09a420e989b3a4a54a619ccad7d365c0e6069c058de40dfa30"></a>MouseMoved&#160;</td><td class="fielddoc"><p>Mouse moved away from <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a33ddfc11905ff50f85e62998a4c1d649" name="a14b67eb968cc68b09a420e989b3a4a54a33ddfc11905ff50f85e62998a4c1d649"></a>LeftClicked&#160;</td><td class="fielddoc"><p>Mouse moved while over element. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54ab277da88a31c268f809b15d6b3fb47c1" name="a14b67eb968cc68b09a420e989b3a4a54ab277da88a31c268f809b15d6b3fb47c1"></a>RightClicked&#160;</td><td class="fielddoc"><p><a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> left clicked. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a4cdcdb79311f3aac1186daccae870804" name="a14b67eb968cc68b09a420e989b3a4a54a4cdcdb79311f3aac1186daccae870804"></a>LeftMousePressed&#160;</td><td class="fielddoc"><p><a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> right clicked. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54ad3509a120ab771ea42e895c61f48e230" name="a14b67eb968cc68b09a420e989b3a4a54ad3509a120ab771ea42e895c61f48e230"></a>LeftMouseReleased&#160;</td><td class="fielddoc"><p>Left mouse button was pressed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54aef1dcfcf6a39c7c40f91f5c58a7d6675" name="a14b67eb968cc68b09a420e989b3a4a54aef1dcfcf6a39c7c40f91f5c58a7d6675"></a>RightMousePressed&#160;</td><td class="fielddoc"><p>Left mouse button was released. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54af7703fa5f852bb9aea254db6014d8a22" name="a14b67eb968cc68b09a420e989b3a4a54af7703fa5f852bb9aea254db6014d8a22"></a>RightMouseReleased&#160;</td><td class="fielddoc"><p>Right mouse button was pressed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54ac18fffaeead13a2c932f01714288f726" name="a14b67eb968cc68b09a420e989b3a4a54ac18fffaeead13a2c932f01714288f726"></a>Dragged&#160;</td><td class="fielddoc"><p>Right mouse button was released. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54addcda45a547ddca8f1de1999468d1143" name="a14b67eb968cc68b09a420e989b3a4a54addcda45a547ddca8f1de1999468d1143"></a>Scrolled&#160;</td><td class="fielddoc"><p>Mouse moved while left mouse button pressed on <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a80b5eeed37979c4ca92958794b60f608" name="a14b67eb968cc68b09a420e989b3a4a54a80b5eeed37979c4ca92958794b60f608"></a>KeyPressed&#160;</td><td class="fielddoc"><p>Mouse wheel scrolled while over <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a3b85440c88274796b55f22470d435827" name="a14b67eb968cc68b09a420e989b3a4a54a3b85440c88274796b55f22470d435827"></a>KeyReleased&#160;</td><td class="fielddoc"><p>Keyboard key pressed while <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> focused. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54acae0dbc6d3192a49d063d96a0bf17b32" name="a14b67eb968cc68b09a420e989b3a4a54acae0dbc6d3192a49d063d96a0bf17b32"></a>TextEntered&#160;</td><td class="fielddoc"><p>Keyboard key released while <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> focused. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a5c38f5cfaa5c0fefce356667b0cba888" name="a14b67eb968cc68b09a420e989b3a4a54a5c38f5cfaa5c0fefce356667b0cba888"></a>ValueChanged&#160;</td><td class="fielddoc"><p>Text typed in while <a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> focused. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2" name="a14b67eb968cc68b09a420e989b3a4a54a5c7a797c6e665cc925c587a4352212e2"></a>Moved&#160;</td><td class="fielddoc"><p>Generic action for non text inputs to fire on change. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a67c6af5c83eb2fbe83d360961c3826f1" name="a14b67eb968cc68b09a420e989b3a4a54a67c6af5c83eb2fbe83d360961c3826f1"></a>Closed&#160;</td><td class="fielddoc"><p>Fired when the element is moved. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a2d0f8543b4289f279c51e619a27024ea" name="a14b67eb968cc68b09a420e989b3a4a54a2d0f8543b4289f279c51e619a27024ea"></a>GainedFocus&#160;</td><td class="fielddoc"><p>Specific to <a class="el" href="a04730.html" title="Element that represents a window in a GUI. Window elements are the top level element of any GUI....">Window</a> element. Fired when it is closed. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a548c972894bb05b4c39ed277c549bfdb" name="a14b67eb968cc68b09a420e989b3a4a54a548c972894bb05b4c39ed277c549bfdb"></a>LostFocus&#160;</td><td class="fielddoc"><p><a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> came into focus. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6" name="a14b67eb968cc68b09a420e989b3a4a54a640a541b7e49339af9729bbd45b728e6"></a>AcquisitionChanged&#160;</td><td class="fielddoc"><p>Focus was removed from element. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54ab27cebecbb52652668ac90fb7ae37645" name="a14b67eb968cc68b09a420e989b3a4a54ab27cebecbb52652668ac90fb7ae37645"></a>RenderSettingsChanged&#160;</td><td class="fielddoc"><p><a class="el" href="a04670.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> obtained a new acquisition. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a974244aef4acc9e18457e618038670b9" name="a14b67eb968cc68b09a420e989b3a4a54a974244aef4acc9e18457e618038670b9"></a>MouseOutsideWindow&#160;</td><td class="fielddoc"><p>One of the element's render settings was updated. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54af50bc837435473e7aa94186c06a8964c" name="a14b67eb968cc68b09a420e989b3a4a54af50bc837435473e7aa94186c06a8964c"></a>NUM_ACTIONS&#160;</td><td class="fielddoc"><p>The mouse has left the window entirely. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a14b67eb968cc68b09a420e989b3a4a54a48561acf0451529f1366a31111953ef0" name="a14b67eb968cc68b09a420e989b3a4a54a48561acf0451529f1366a31111953ef0"></a>Unknown&#160;</td><td class="fielddoc"><p>How many valid <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> types exist. </p>
+<p>Invalid <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00040">40</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae8067b9f5370e7a570688e694a15f6ef" name="ae8067b9f5370e7a570688e694a15f6ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae8067b9f5370e7a570688e694a15f6ef">&#9670;&#160;</a></span>UIState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum struct <a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">bl::gui::rdr::Component::UIState</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Visible state of the element. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345" name="ae8067b9f5370e7a570688e694a15f6efad2203cb1237cb6460cbad94564e39345"></a>Regular&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c" name="ae8067b9f5370e7a570688e694a15f6efa128f36ec46f7ca11bafb48cd2022a54c"></a>Highlighted&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040" name="ae8067b9f5370e7a570688e694a15f6efad78a68f6a85421ae121c2cb5b73a1040"></a>Pressed&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241" name="ae8067b9f5370e7a570688e694a15f6efab9f5c797ebbf55adccdd8539a65a0241"></a>Disabled&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00037">37</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a08953_source.html#l00023">23</a> of file <a class="el" href="a08953_source.html">Event.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa0c999fbd0be6212616b1aef6b1fe8f0" name="aa0c999fbd0be6212616b1aef6b1fe8f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0c999fbd0be6212616b1aef6b1fe8f0">&#9670;&#160;</a></span>ComboBoxComponent()</h2>
+<a id="ad102da27e2d469e84ee3b9f32252eec6" name="ad102da27e2d469e84ee3b9f32252eec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad102da27e2d469e84ee3b9f32252eec6">&#9670;&#160;</a></span>Event() <span class="overload">[1/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::defcoms::ComboBoxComponent::ComboBoxComponent </td>
+          <td class="memname">bl::gui::Event::Event </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the component. </p>
+<p>Makes an empty <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> of the given type. For types that have no position or data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of action to create </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00019">19</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00053">53</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad478260bc01b6a73a679ea8817105463" name="ad478260bc01b6a73a679ea8817105463"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad478260bc01b6a73a679ea8817105463">&#9670;&#160;</a></span>~ComboBoxComponent()</h2>
+<a id="aaf0c753b5507942dcbfaf5be03594c4b" name="aaf0c753b5507942dcbfaf5be03594c4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf0c753b5507942dcbfaf5be03594c4b">&#9670;&#160;</a></span>Event() <span class="overload">[2/10]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bl::gui::defcoms::ComboBoxComponent::~ComboBoxComponent </td>
+          <td class="memname">bl::gui::Event::Event </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a04734.html">Event</a> &amp;&#160;</td>
+          <td class="paramname"><em>event</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destroys the component. </p>
+<p>Special copy constructor that copies an existing event but with a new position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>The existing event to copy </td></tr>
+    <tr><td class="paramname">position</td><td>The new position to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00058">58</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a60541a610620ebf83e9a634f280ee34a" name="a60541a610620ebf83e9a634f280ee34a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60541a610620ebf83e9a634f280ee34a">&#9670;&#160;</a></span>Event() <span class="overload">[3/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00063">63</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a852f6cc2b521febd69d24ef70114f03c" name="a852f6cc2b521febd69d24ef70114f03c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a852f6cc2b521febd69d24ef70114f03c">&#9670;&#160;</a></span>Event() <span class="overload">[4/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>c</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">c</td><td>Character to set the extra data to </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00068">68</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2aacaced4f0416a664a375b9088ee743" name="a2aacaced4f0416a664a375b9088ee743"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aacaced4f0416a664a375b9088ee743">&#9670;&#160;</a></span>Event() <span class="overload">[5/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">s</td><td>Scroll delta to set the extra data to </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00081">81</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0229cb4c663eecf40557c6fedd760324" name="a0229cb4c663eecf40557c6fedd760324"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0229cb4c663eecf40557c6fedd760324">&#9670;&#160;</a></span>Event() <span class="overload">[6/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> of the given Type and float value. No position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">v</td><td>The value to store </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00073">73</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a562885d2e7fff1d15d444be4aaeb8150" name="a562885d2e7fff1d15d444be4aaeb8150"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a562885d2e7fff1d15d444be4aaeb8150">&#9670;&#160;</a></span>Event() <span class="overload">[7/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> of the given Type and bool value. No position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">v</td><td>The value to store </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00077">77</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6abb5dbf73afd05b61a4d63ca01064b5" name="a6abb5dbf73afd05b61a4d63ca01064b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6abb5dbf73afd05b61a4d63ca01064b5">&#9670;&#160;</a></span>Event() <span class="overload">[8/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">sf::Event::KeyPressed&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">key</td><td>Keyboard key event that was pressed/released </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00086">86</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27a5f41b54fc8f9fd1123ed323aa6732" name="a27a5f41b54fc8f9fd1123ed323aa6732"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a5f41b54fc8f9fd1123ed323aa6732">&#9670;&#160;</a></span>Event() <span class="overload">[9/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>drag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an action of the given Type and position and sets the extra data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">drag</td><td>Start of the drag </td></tr>
+    <tr><td class="paramname">pos</td><td>The mouse position relative to the containing window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00091">91</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7dd585d9b8b5304de8b7e72d164469fe" name="a7dd585d9b8b5304de8b7e72d164469fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd585d9b8b5304de8b7e72d164469fe">&#9670;&#160;</a></span>Event() <span class="overload">[10/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Event::Event </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an event with a string value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> </td></tr>
+    <tr><td class="paramname">value</td><td>The string value of the event </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00096">96</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="afbecf74e2fcab82f51d381190f26f110" name="afbecf74e2fcab82f51d381190f26f110"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbecf74e2fcab82f51d381190f26f110">&#9670;&#160;</a></span>assignDepth()</h2>
+<a id="ad61559d2ea399e87933edf7c0f9ca053" name="ad61559d2ea399e87933edf7c0f9ca053"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad61559d2ea399e87933edf7c0f9ca053">&#9670;&#160;</a></span>character()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::Component::assignDepth </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>depth</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the depth of the component is modified. Default implementation fetches the <a class="el" href="a03854.html" title="Representation of a 2d transform with a depth component to allow the depth buffer to be used when ren...">com::Transform2D</a> for the entity returned by <a class="el" href="a04734.html#a9be5133ede1b01efed6e971ebad8379d" title="Derived classes should return the ECS entity that children should parent themselves to.">getEntity()</a> and sets it there. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">depth</td><td>The depth to set to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00086">86</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa209c1917994d44f3fd1b0519b89393f" name="aa209c1917994d44f3fd1b0519b89393f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa209c1917994d44f3fd1b0519b89393f">&#9670;&#160;</a></span>createChild()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::createChild </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04802.html">Component</a> &amp;&#160;</td>
-          <td class="paramname"><em>child</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method for components containing other components to call create on their children. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">component</td><td>The child component to call create on </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00230">230</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aae3b7b2405ed796d1f9e3b3ebcbe12b1" name="aae3b7b2405ed796d1f9e3b3ebcbe12b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae3b7b2405ed796d1f9e3b3ebcbe12b1">&#9670;&#160;</a></span>dismissTooltip()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::dismissTooltip </td>
+          <td class="memname">std::uint32_t bl::gui::Event::character </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Call to dismiss the tooltip for this component. </p>
+<p>Returns the character entered for text events. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00030">30</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00104">104</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a441189c3c40bfc9e7619c6b2bb172a11" name="a441189c3c40bfc9e7619c6b2bb172a11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a441189c3c40bfc9e7619c6b2bb172a11">&#9670;&#160;</a></span>doCreate()</h2>
+<a id="af34904fcc84a9bde3e50432b38649d2d" name="af34904fcc84a9bde3e50432b38649d2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af34904fcc84a9bde3e50432b38649d2d">&#9670;&#160;</a></span>dragStart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::Vector2f &amp; bl::gui::Event::dragStart </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the starting position of the drag event. </p>
+
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00114">114</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af312314161b68a237b1475f1f9513da8" name="af312314161b68a237b1475f1f9513da8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af312314161b68a237b1475f1f9513da8">&#9670;&#160;</a></span>fromSFML()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,16 +729,16 @@ Static Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::doCreate </td>
+          <td class="memname"><a class="el" href="a04734.html">Event</a> bl::gui::Event::fromSFML </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a04310.html">engine::World</a> &amp;&#160;</td>
-          <td class="paramname"><em>world</em>, </td>
+          <td class="paramtype">const sf::Event &amp;&#160;</td>
+          <td class="paramname"><em>event</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a04842.html">rdr::Renderer</a> &amp;&#160;</td>
-          <td class="paramname"><em>renderer</em>&#160;</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>position</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -486,741 +748,173 @@ Static Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">world</td><td>The world to create entities in </td></tr>
-    <tr><td class="paramname">renderer</td><td>The <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> renderer instance </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Helper method to construct an <a class="el" href="a04734.html" title="GUI analog of sf::Event. Represents user actions that can propagate through the Element tree.">Event</a> from an SFML event. </p>
 
-<p>Implements <a class="el" href="a04802.html#aa65be19a7f22541acb19e88a2c746bbc">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00063">63</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00011">11</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a4aad88b1f6627400bbc2bc02714b91cd" name="a4aad88b1f6627400bbc2bc02714b91cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aad88b1f6627400bbc2bc02714b91cd">&#9670;&#160;</a></span>doSceneAdd() <span class="overload">[1/2]</span></h2>
+<a id="a298e2e702a54e359bdc834fbab568389" name="a298e2e702a54e359bdc834fbab568389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a298e2e702a54e359bdc834fbab568389">&#9670;&#160;</a></span>inputValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void bl::gui::rdr::Component::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04802.html">Component</a> &amp;&#160;</td>
-          <td class="paramname"><em>component</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a05846.html">rc::Overlay</a> *&#160;</td>
-          <td class="paramname"><em>overlay</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method for components containing other components to call doSceneAdd on their children. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">component</td><td>The child component to call doSceneAdd on </td></tr>
-    <tr><td class="paramname">overlay</td><td>The overlay to call with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00212">212</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a546a7b3c1f12d2dadc5564a6efc2f051" name="a546a7b3c1f12d2dadc5564a6efc2f051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a546a7b3c1f12d2dadc5564a6efc2f051">&#9670;&#160;</a></span>doSceneAdd() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05846.html">rc::Overlay</a> *&#160;</td>
-          <td class="paramname"><em>overlay</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds the component to the scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overlay</td><td>The scene to add to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a04802.html#aa0238e45d72ed1a4e66ae8972a25dad0">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00099">99</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac0164f3fca66c3f1ac4bb4c75d0dfea5" name="ac0164f3fca66c3f1ac4bb4c75d0dfea5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0164f3fca66c3f1ac4bb4c75d0dfea5">&#9670;&#160;</a></span>doSceneRemove() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::doSceneRemove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes the component from the scene. </p>
-
-<p>Implements <a class="el" href="a04802.html#a008fdbf2498d7725d3f0159a4365a65f">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00113">113</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aecf44ca8ecf61e447a5d196a24ecf8e3" name="aecf44ca8ecf61e447a5d196a24ecf8e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecf44ca8ecf61e447a5d196a24ecf8e3">&#9670;&#160;</a></span>doSceneRemove() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void bl::gui::rdr::Component::doSceneRemove </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04802.html">Component</a> &amp;&#160;</td>
-          <td class="paramname"><em>component</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper method for components containing other components to call doSceneRemove on their children. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">component</td><td>The child component to call doSceneRemove on </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00222">222</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2" name="a51aa8a8f326fcbef2e5c8ec5b5d4e1d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51aa8a8f326fcbef2e5c8ec5b5d4e1d2">&#9670;&#160;</a></span>flash()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::flash </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Triggers this component to flash briefly. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00064">64</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9be5133ede1b01efed6e971ebad8379d" name="a9be5133ede1b01efed6e971ebad8379d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9be5133ede1b01efed6e971ebad8379d">&#9670;&#160;</a></span>getEntity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a04046.html">ecs::Entity</a> bl::gui::defcoms::ComboBoxComponent::getEntity </td>
+          <td class="memname">float bl::gui::Event::inputValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Derived classes should return the ECS entity that children should parent themselves to. </p>
+<p>Returns the numeric input value of some event types. </p>
 
-<p>Implements <a class="el" href="a04802.html#a040132d760285e4f03d54dade1855e85">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00061">61</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00108">108</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aff1761b676cbaa61c2966e9e8ff2d3a3" name="aff1761b676cbaa61c2966e9e8ff2d3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff1761b676cbaa61c2966e9e8ff2d3a3">&#9670;&#160;</a></span>getOwnerAs() <span class="overload">[1/2]</span></h2>
+<a id="a1a391052b8ec1d1d5aa2b8a310397e28" name="a1a391052b8ec1d1d5aa2b8a310397e28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a391052b8ec1d1d5aa2b8a310397e28">&#9670;&#160;</a></span>key()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T &amp; bl::gui::rdr::Component::getOwnerAs </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Type safe method to get the owning <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00175">175</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab8a3a6785de7a313df871bb56b428c60" name="ab8a3a6785de7a313df871bb56b428c60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8a3a6785de7a313df871bb56b428c60">&#9670;&#160;</a></span>getOwnerAs() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const T &amp; bl::gui::rdr::Component::getOwnerAs </td>
+          <td class="memname">sf::Event::KeyPressed bl::gui::Event::key </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Type safe method to get the owning <a class="el" href="a04694.html" title="Top level class for creating a graphical user interface.">GUI</a> <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a>. Throws if the type is incorrect. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>The derived <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> type to cast to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A reference to the owning <a class="el" href="a04622.html" title="Base class for all GUI elements. Provides the common interface used for positioning,...">Element</a> </dd></dl>
+<p>Returns the key event data for some event types. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00191">191</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00112">112</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2bf1fb5a90eeaff8f12ed3c373375567" name="a2bf1fb5a90eeaff8f12ed3c373375567"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bf1fb5a90eeaff8f12ed3c373375567">&#9670;&#160;</a></span>getParent()</h2>
+<a id="ab99184b9b9289eecbe01eeabda8b1fb0" name="ab99184b9b9289eecbe01eeabda8b1fb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab99184b9b9289eecbe01eeabda8b1fb0">&#9670;&#160;</a></span>mousePosition()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a04802.html#a782d16c5f4e00d3544b20598ddecf6a9">Component</a> * bl::gui::rdr::Component::getParent </td>
+          <td class="memname">const sf::Vector2f &amp; bl::gui::Event::mousePosition </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the parent component of this component. May be nullptr. </p>
+<p>Returns the position of the mouse when the event was fired. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01937_source.html#l00203">203</a> of file <a class="el" href="a01937_source.html">Component.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00102">102</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7e5465bfc08f42e5b5176f9c029dd1c8" name="a7e5465bfc08f42e5b5176f9c029dd1c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e5465bfc08f42e5b5176f9c029dd1c8">&#9670;&#160;</a></span>getRequisition()</h2>
+<a id="a55c6f9768a4899ac662711dc7cbcab18" name="a55c6f9768a4899ac662711dc7cbcab18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55c6f9768a4899ac662711dc7cbcab18">&#9670;&#160;</a></span>scrollDelta()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Vector2f bl::gui::defcoms::ComboBoxComponent::getRequisition </td>
+          <td class="memname">float bl::gui::Event::scrollDelta </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the space required to render the largest text option. </p>
+<p>Returns the amount of scroll that occurred. </p>
 
-<p>Reimplemented from <a class="el" href="a04802.html#a07b3ddf5e3d3426f60d751fe35c78b71">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00159">159</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00106">106</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a282103b31fc1899d9e99d0336a9be879" name="a282103b31fc1899d9e99d0336a9be879"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a282103b31fc1899d9e99d0336a9be879">&#9670;&#160;</a></span>handleAcquisition()</h2>
+<a id="a526b713f4fdd88bac9b3f1dec4229285" name="a526b713f4fdd88bac9b3f1dec4229285"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a526b713f4fdd88bac9b3f1dec4229285">&#9670;&#160;</a></span>stringValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::handleAcquisition </td>
+          <td class="memname">const std::string &amp; bl::gui::Event::stringValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Configures the component for the new acquisition. </p>
+<p>Returns the string value of the event. </p>
 
-<p>Implements <a class="el" href="a04802.html#ab7faea26b0686e1072100a1ad9c9be74">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00118">118</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00116">116</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a72beb28f775703bafb4f8b7b0aa6ade7" name="a72beb28f775703bafb4f8b7b0aa6ade7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72beb28f775703bafb4f8b7b0aa6ade7">&#9670;&#160;</a></span>handleMove()</h2>
+<a id="aa9ddd885a8410b3efe11fe22442e092f" name="aa9ddd885a8410b3efe11fe22442e092f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa9ddd885a8410b3efe11fe22442e092f">&#9670;&#160;</a></span>toggleValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::handleMove </td>
+          <td class="memname">bool bl::gui::Event::toggleValue </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Positions the component when it should move. </p>
+<p>Returns the boolean input value of some event types. </p>
 
-<p>Implements <a class="el" href="a04802.html#a065c482bb68ad4cb52e2158f53011bbc">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00144">144</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00110">110</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab7429f4a869d0eaff8a27e7cdc55cc71" name="ab7429f4a869d0eaff8a27e7cdc55cc71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7429f4a869d0eaff8a27e7cdc55cc71">&#9670;&#160;</a></span>notifyUIState()</h2>
+<a id="a9647efed7e63b7c601386a9efe4df37d" name="a9647efed7e63b7c601386a9efe4df37d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9647efed7e63b7c601386a9efe4df37d">&#9670;&#160;</a></span>type()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::gui::rdr::Component::notifyUIState </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
-          <td class="paramname"><em>state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the UI state changes. Derived classes may implement custom handlers here. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>The element changing state </td></tr>
-    <tr><td class="paramname">state</td><td>The new UI state </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00032">32</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a10c20d7bde9c7d1fc2829b4d984a052b" name="a10c20d7bde9c7d1fc2829b4d984a052b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10c20d7bde9c7d1fc2829b4d984a052b">&#9670;&#160;</a></span>onAcquisition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::onAcquisition </td>
+          <td class="memname"><a class="el" href="a04734.html#a14b67eb968cc68b09a420e989b3a4a54">Event::Type</a> bl::gui::Event::type </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Called when the element gets its acquisition (re)assigned. </p>
+<p>Returns the type of the event. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00066">66</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af1e08ce60baa5a99c2fc2a88c1721444" name="af1e08ce60baa5a99c2fc2a88c1721444"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1e08ce60baa5a99c2fc2a88c1721444">&#9670;&#160;</a></span>onElementUpdated()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::onElementUpdated </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when element state changes. This is element specific, but can mean toggle state, contents, etc. </p>
-
-<p>Implements <a class="el" href="a04802.html#ab518fcd5e31ed334bd0390aea725abed">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00026">26</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09226_source.html#l00100">100</a> of file <a class="el" href="a09226_source.html">Event.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa17e61eb9db291663dc6dac5003b5e3f" name="aa17e61eb9db291663dc6dac5003b5e3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa17e61eb9db291663dc6dac5003b5e3f">&#9670;&#160;</a></span>onMove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::onMove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the element is moved. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00073">73</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6571203f2c626ebdf462c19312c988ba" name="a6571203f2c626ebdf462c19312c988ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6571203f2c626ebdf462c19312c988ba">&#9670;&#160;</a></span>onRenderSettingChange()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::onRenderSettingChange </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the owning elements render settings are changed. </p>
-
-<p>Implements <a class="el" href="a04802.html#abe10305a2bb0f70f28cbe62a7e986ff1">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00047">47</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9f914f312bf4700ece09298abf3d9a3a" name="a9f914f312bf4700ece09298abf3d9a3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f914f312bf4700ece09298abf3d9a3a">&#9670;&#160;</a></span>overrideHighlightBehavior()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::overrideHighlightBehavior </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04802.html#ad04144636950185c959ad6394f0c5c52">HighlightState</a>&#160;</td>
-          <td class="paramname"><em>behavior</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Overrides the default highlight behavior for this specific component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">behavior</td><td>How to behave when moused over </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00034">34</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a350d3389d5be8f1e8f6a5a874fc999b6" name="a350d3389d5be8f1e8f6a5a874fc999b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a350d3389d5be8f1e8f6a5a874fc999b6">&#9670;&#160;</a></span>setUIState()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::setUIState </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a04802.html#ae8067b9f5370e7a570688e694a15f6ef">UIState</a>&#160;</td>
-          <td class="paramname"><em>state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the visual state changes and immediately following creation. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>The visual state of the element </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00021">21</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a09da83b35713b4b46515a15f57496a0c" name="a09da83b35713b4b46515a15f57496a0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09da83b35713b4b46515a15f57496a0c">&#9670;&#160;</a></span>setVisible()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::defcoms::ComboBoxComponent::setVisible </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>visible</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Toggle the visibility of the UI component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">visible</td><td>True to be rendered, false to hide </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a04802.html#a80508b026538fcc66931f12b428b5760">bl::gui::rdr::Component</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a03065_source.html#l00024">24</a> of file <a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abdd6da199b0858a849eaa74a4857c8e3" name="abdd6da199b0858a849eaa74a4857c8e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdd6da199b0858a849eaa74a4857c8e3">&#9670;&#160;</a></span>showTooltip()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::gui::rdr::Component::showTooltip </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Call to display a tooltip for this component. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03098_source.html#l00028">28</a> of file <a class="el" href="a03098_source.html">Component.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Interfaces/GUI/Renderer/Basic/<a class="el" href="a01925_source.html">ComboBoxComponent.hpp</a></li>
-<li>src/Interfaces/GUI/Renderer/Basic/<a class="el" href="a03065_source.html">ComboBoxComponent.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/BLIB/Interfaces/GUI/<a class="el" href="a08953_source.html">Event.hpp</a></li>
+<li>src/Interfaces/GUI/<a class="el" href="a09226_source.html">Event.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:26 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:17 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

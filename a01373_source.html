@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Assets/Payload.hpp Source File</title>
+<title>BLIB: include/BLIB/Assets/Builtin/ModelPayload.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,145 +79,140 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li><li class="navelem"><a class="el" href="dir_d5fc7009464099a688f5bd3db1a4dfc7.html">Builtin</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Payload.hpp</div></div>
+  <div class="headertitle"><div class="title">ModelPayload.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01373.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_PAYLOAD_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_PAYLOAD_HPP</span></div>
+<a href="a01373.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_BUILTIN_MODELPAYLOAD_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_BUILTIN_MODELPAYLOAD_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01310.html">BLIB/Assets/Detail/DependencyChain.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09848.html">BLIB/Assets/Mode.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01379.html">BLIB/Assets/Ref.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a09101.html">BLIB/Assets/State.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01754.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01484.html">BLIB/Util/NonCopyable.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01442.html">BLIB/Util/UUID.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>as</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">class </span>Driver;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">class </span>Payload;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">class </span>Asset;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">class </span>Repository;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00029" data-start="{" data-end="};">
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a03634.html">   29</a></span><span class="keyword">class </span><a class="code hl_class" href="a03634.html">Payload</a> {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00035" data-start="{" data-end="};">
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="a03638.html">   35</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="a03638.html">ConstructContext</a> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a03638.html#a63f376e86b009b8b23c219644cdfc169">   36</a></span>        <a class="code hl_enumeration" href="a03114.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a> <a class="code hl_variable" href="a03638.html#a63f376e86b009b8b23c219644cdfc169">mode</a>;</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03638.html#af2b263c7e0fcb72c0ad8146ecfb09dd2">   37</a></span>        <a class="code hl_class" href="a03662.html">Repository</a>&amp; <a class="code hl_variable" href="a03638.html#af2b263c7e0fcb72c0ad8146ecfb09dd2">repo</a>;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a03638.html#a310b0919331e673860645f421f6307ae">   38</a></span>        <a class="code hl_class" href="a03330.html">Asset</a>&amp; <a class="code hl_variable" href="a03638.html#a310b0919331e673860645f421f6307ae">asset</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    };</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01376.html">BLIB/Assets/Builtin/Animation3DPayload.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01403.html">BLIB/Assets/Builtin/MaterialPayload.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a01406.html">BLIB/Assets/Builtin/TexturePayload.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01475.html">BLIB/Assets/Dependency.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01370.html">BLIB/Assets/DependencyList.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01418.html">BLIB/Assets/Payload.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a01622.html">BLIB/Models/Model.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00368.html">BLIB/Reflection/ReflectedObject.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>asi</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>ModelDriver;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03458.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a03458.html">ModelPayload</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03682.html">as::Payload</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a03458.html">ModelPayload</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03686.html">as::Payload::ConstructContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a03458.html#a1d231a6961bf8cbf37c6ed2fe225d7f9">   36</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03458.html#a1d231a6961bf8cbf37c6ed2fe225d7f9">~ModelPayload</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03458.html#a05dc4e0ecca56748f66ebffae8e04153">flipUVs</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a03458.html#a1ea077657f4a88c025657247f13020ba">   46</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a05098.html">mdl::Node</a>&amp; <a class="code hl_function" href="a03458.html#a1ea077657f4a88c025657247f13020ba">getRoot</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nodes.<a class="code hl_function" href="a05106.html#aa2a65a2e9cf6dafb66583e3f43535ec4">getNode</a>(0); }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a03458.html#a0cf1c3c0af047f59e9c03d652aac3821">   51</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a05106.html">mdl::NodeSet</a>&amp; <a class="code hl_function" href="a03458.html#a0cf1c3c0af047f59e9c03d652aac3821">getNodes</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nodes; }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a03458.html#a6b4942cf41d6c7f721ea4e23706195ac">   56</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a05022.html">mdl::BoneSet</a>&amp; <a class="code hl_function" href="a03458.html#a6b4942cf41d6c7f721ea4e23706195ac">getBones</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bones; }</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="a03458.html#a44aa1ea394e0fb7c0c9678ae6db21de5">   61</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a05082.html">mdl::MeshSet</a>&amp; <a class="code hl_function" href="a03458.html#a44aa1ea394e0fb7c0c9678ae6db21de5">getMeshes</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> meshes; }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="a03458.html#a5532bc863973abd0df43edbe0fa2c1f0">   69</a></span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03446.html">MaterialPayload</a>&amp; <a class="code hl_function" href="a03458.html#a5532bc863973abd0df43edbe0fa2c1f0">getMaterial</a>(std::size_t i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> materials.get(i); }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a03458.html#af6ebfd6414346ccce61d94edb5b20464">   77</a></span>    <a class="code hl_class" href="a03726.html">as::TypedRef&lt;MaterialPayload&gt;</a> <a class="code hl_function" href="a03458.html#af6ebfd6414346ccce61d94edb5b20464">getMaterialRef</a>(std::size_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordflow">return</span> materials.getRef(i);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
 </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="a03634.html#a02593fbbe9c0363dbedb987922626d8c">   44</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03634.html#a02593fbbe9c0363dbedb987922626d8c">~Payload</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a03634.html#a2d4bd64a7ef984f1a30aeadf41ae77af">   49</a></span>    <a class="code hl_class" href="a03662.html">Repository</a>&amp; <a class="code hl_function" href="a03634.html#a2d4bd64a7ef984f1a30aeadf41ae77af">getRepository</a>() { <span class="keywordflow">return</span> repo; }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="a03634.html#a2437f026f020e79e2fe48effadda3d64">   54</a></span>    <a class="code hl_class" href="a03330.html">Asset</a>&amp; <a class="code hl_function" href="a03634.html#a2437f026f020e79e2fe48effadda3d64">getAsset</a>() { <span class="keywordflow">return</span> owner; }</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00063" data-start="{" data-end="}">
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="a03634.html#a583b4ab555d8e8414d0fab91b8477ad3">   63</a></span>    T&amp; <a class="code hl_function" href="a03634.html#a583b4ab555d8e8414d0fab91b8477ad3">as</a>() {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keyword">static_assert</span>(std::is_base_of_v&lt;Payload, T&gt;, <span class="stringliteral">&quot;T must be a subclass of Payload&quot;</span>);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        T* casted = <span class="keyword">dynamic_cast&lt;</span>T*<span class="keyword">&gt;</span>(<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span> (!casted) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid Asset payload cast from &quot;</span> &lt;&lt; <span class="keyword">typeid</span>(*this).name() &lt;&lt; <span class="stringliteral">&quot; to &quot;</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                         &lt;&lt; <span class="keyword">typeid</span>(T).name();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="keywordflow">throw</span> std::bad_cast();</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <span class="keywordflow">return</span> *casted;</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    }</div>
-</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00081" data-start="{" data-end="}">
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a03634.html#ae35ade6d2d238c3c6b082f2e6348a29d">   81</a></span>    <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03634.html#ae35ade6d2d238c3c6b082f2e6348a29d">as</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">static_assert</span>(std::is_base_of_v&lt;Payload, T&gt;, <span class="stringliteral">&quot;T must be a subclass of Payload&quot;</span>);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        <span class="keyword">const</span> T* casted = <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(<span class="keyword">this</span>);</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keywordflow">if</span> (!casted) {</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Invalid Asset payload cast from &quot;</span> &lt;&lt; <span class="keyword">typeid</span>(*this).name() &lt;&lt; <span class="stringliteral">&quot; to &quot;</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                         &lt;&lt; <span class="keyword">typeid</span>(T).name();</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>            <span class="keywordflow">throw</span> std::bad_cast();</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        }</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">return</span> *casted;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    }</div>
-</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="a03458.html#a4f13ed89ec9590a8d8ded8063748aa51">   84</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a03458.html#a4f13ed89ec9590a8d8ded8063748aa51">getMaterialCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> materials.getSize(); }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno"><a class="line" href="a03458.html#a2aae75590a7e9b5dd3baf7e01c38ad9f">   91</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="a03690.html">Animation3DPayload</a>&amp; <a class="code hl_function" href="a03458.html#a2aae75590a7e9b5dd3baf7e01c38ad9f">getAnimation</a>(std::size_t i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> animations.get(i); }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
 <div class="foldopen" id="foldopen00099" data-start="{" data-end="}">
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a03634.html#a392afec322d6cc1f1387cc0001f760c0">   99</a></span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03634.html#a392afec322d6cc1f1387cc0001f760c0">is</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keyword">static_assert</span>(std::is_base_of_v&lt;Payload, T&gt;, <span class="stringliteral">&quot;T must be a subclass of Payload&quot;</span>);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <span class="keywordflow">return</span> <span class="keyword">dynamic_cast&lt;</span><span class="keyword">const </span>T*<span class="keyword">&gt;</span>(<span class="keyword">this</span>) != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a03458.html#a37b75e70e899725dbbe79ca2697045cc">   99</a></span>    <a class="code hl_class" href="a03726.html">as::TypedRef&lt;Animation3DPayload&gt;</a> <a class="code hl_function" href="a03458.html#a37b75e70e899725dbbe79ca2697045cc">getAnimationRef</a>(std::size_t i)<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="keywordflow">return</span> animations.getRef(i);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
 </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03634.html#a7cd4861d86fd68298dda54a7bbd814e8">flush</a>();</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <a class="code hl_class" href="a03634.html">Payload</a>(<span class="keyword">const</span> ConstructContext&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_class" href="a03662.html">Repository</a>&amp; repo;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_class" href="a03330.html">Asset</a>&amp; owner;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <a class="code hl_class" href="a03506.html">detail::DependencyChain</a>* dependencyChain;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordtype">void</span> registerDependency(<a class="code hl_class" href="a03506.html">detail::DependencyChain</a>* chain);</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordtype">bool</span> loadDependencies();</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="a03634.html#a29ff080bd54811c65aa1805997b72d09">  127</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03526.html">Driver</a>;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="a03634.html#aa64c62d014a14ec88a095d6dfd515ffd">  128</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03506.html">detail::DependencyChain</a>;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="a03634.html#abbb2d6439646427912dc314907398c42">  129</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03330.html">Asset</a>;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>};</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="a03458.html#ad503f5a878f826e045e4b3b933d9e8c9">  106</a></span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_function" href="a03458.html#ad503f5a878f826e045e4b3b933d9e8c9">getAnimationCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> animations.getSize(); }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <a class="code hl_class" href="a05106.html">mdl::NodeSet</a> nodes;</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <a class="code hl_class" href="a05082.html">mdl::MeshSet</a> meshes;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <a class="code hl_class" href="a05022.html">mdl::BoneSet</a> bones;</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <a class="code hl_class" href="a03550.html">as::DependencyList&lt;MaterialPayload&gt;</a> materials;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <a class="code hl_class" href="a03550.html">as::DependencyList&lt;Animation3DPayload&gt;</a> animations;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a03458.html#a6c0e89c9336eea46ea9ad2c9a7b5f823">  115</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03634.html">ModelDriver</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">friend</span> <span class="keyword">struct </span><a class="code hl_struct" href="a05362.html">refl::ReflectedObject</a>&lt;<a class="code hl_class" href="a03458.html">ModelPayload</a>&gt;;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>};</div>
 </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>} <span class="comment">// namespace asi</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="keyword">namespace </span>refl</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>{</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">struct </span>ReflectedObject&lt;asi::ModelPayload&gt; {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">inline</span> <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_variable" href="a05362.html#afe4f82110829c529ceecc9f07d8afbd0">spec</a> = makeSpec&lt;asi::ModelPayload&gt;(</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="stringliteral">&quot;ModelPayload&quot;</span>, <a class="code hl_function" href="a03175.html#gab41b504de5d1cc9b20c7fa5c85b39a29">memberList</a>(<a class="code hl_function" href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">defineMember</a>(1, <span class="stringliteral">&quot;nodes&quot;</span>, &amp;asi::ModelPayload::nodes),</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>                                   <a class="code hl_function" href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">defineMember</a>(2, <span class="stringliteral">&quot;meshes&quot;</span>, &amp;asi::ModelPayload::meshes),</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                                   <a class="code hl_function" href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">defineMember</a>(3, <span class="stringliteral">&quot;bones&quot;</span>, &amp;asi::ModelPayload::bones)));</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>};</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>} <span class="comment">// namespace refl</span></div>
 <div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>} <span class="comment">// namespace as</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00365_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa01310_html"><div class="ttname"><a href="a01310.html">DependencyChain.hpp</a></div></div>
-<div class="ttc" id="aa01379_html"><div class="ttname"><a href="a01379.html">Ref.hpp</a></div></div>
-<div class="ttc" id="aa01442_html"><div class="ttname"><a href="a01442.html">UUID.hpp</a></div></div>
-<div class="ttc" id="aa01484_html"><div class="ttname"><a href="a01484.html">NonCopyable.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03114_html_ga537fc08995c54793e8c6cb8d44e8a076"><div class="ttname"><a href="a03114.html#ga537fc08995c54793e8c6cb8d44e8a076">bl::as::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdoc">Represents the mode the asset system is running in.</div><div class="ttdef"><b>Definition</b> <a href="a09848_source.html#l00013">Mode.hpp:13</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03330_html"><div class="ttname"><a href="a03330.html">bl::as::Asset</a></div><div class="ttdoc">Represents an asset in the repository. Contains the metadata and possibly a payload.</div><div class="ttdef"><b>Definition</b> <a href="a09749_source.html#l00032">Asset.hpp:32</a></div></div>
-<div class="ttc" id="aa03506_html"><div class="ttname"><a href="a03506.html">bl::as::detail::DependencyChain</a></div><div class="ttdoc">Implementation detail. Helps Payload manage its tagged dependency list without allocations.</div><div class="ttdef"><b>Definition</b> <a href="a01310_source.html#l00023">DependencyChain.hpp:23</a></div></div>
-<div class="ttc" id="aa03526_html"><div class="ttname"><a href="a03526.html">bl::as::Driver</a></div><div class="ttdoc">Base class for drivers that provide support for different payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01367_source.html#l00090">Driver.hpp:90</a></div></div>
-<div class="ttc" id="aa03634_html"><div class="ttname"><a href="a03634.html">bl::as::Payload</a></div><div class="ttdoc">Base class for asset payloads. Payloads are the actual data of assets such as images.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00029">Payload.hpp:29</a></div></div>
-<div class="ttc" id="aa03634_html_a02593fbbe9c0363dbedb987922626d8c"><div class="ttname"><a href="a03634.html#a02593fbbe9c0363dbedb987922626d8c">bl::as::Payload::~Payload</a></div><div class="ttdeci">virtual ~Payload()=default</div><div class="ttdoc">Destroys the payload.</div></div>
-<div class="ttc" id="aa03634_html_a2437f026f020e79e2fe48effadda3d64"><div class="ttname"><a href="a03634.html#a2437f026f020e79e2fe48effadda3d64">bl::as::Payload::getAsset</a></div><div class="ttdeci">Asset &amp; getAsset()</div><div class="ttdoc">Returns the asset this payload belongs to.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00054">Payload.hpp:54</a></div></div>
-<div class="ttc" id="aa03634_html_a2d4bd64a7ef984f1a30aeadf41ae77af"><div class="ttname"><a href="a03634.html#a2d4bd64a7ef984f1a30aeadf41ae77af">bl::as::Payload::getRepository</a></div><div class="ttdeci">Repository &amp; getRepository()</div><div class="ttdoc">Returns the repository this payload belongs to.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00049">Payload.hpp:49</a></div></div>
-<div class="ttc" id="aa03634_html_a392afec322d6cc1f1387cc0001f760c0"><div class="ttname"><a href="a03634.html#a392afec322d6cc1f1387cc0001f760c0">bl::as::Payload::is</a></div><div class="ttdeci">bool is() const</div><div class="ttdoc">Tests whether the payload is of the given type.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00099">Payload.hpp:99</a></div></div>
-<div class="ttc" id="aa03634_html_a583b4ab555d8e8414d0fab91b8477ad3"><div class="ttname"><a href="a03634.html#a583b4ab555d8e8414d0fab91b8477ad3">bl::as::Payload::as</a></div><div class="ttdeci">T &amp; as()</div><div class="ttdoc">Safely casts the payload to the given type. Will throw if the cast is invalid.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00063">Payload.hpp:63</a></div></div>
-<div class="ttc" id="aa03634_html_a7cd4861d86fd68298dda54a7bbd814e8"><div class="ttname"><a href="a03634.html#a7cd4861d86fd68298dda54a7bbd814e8">bl::as::Payload::flush</a></div><div class="ttdeci">void flush()</div><div class="ttdoc">Call when the payload content changes. Ensures that changes get saved to disk before unload when in e...</div><div class="ttdef"><b>Definition</b> <a href="a02732_source.html#l00038">Payload.cpp:38</a></div></div>
-<div class="ttc" id="aa03634_html_ae35ade6d2d238c3c6b082f2e6348a29d"><div class="ttname"><a href="a03634.html#ae35ade6d2d238c3c6b082f2e6348a29d">bl::as::Payload::as</a></div><div class="ttdeci">const T &amp; as() const</div><div class="ttdoc">Safely casts the payload to the given type. Will throw if the cast is invalid.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00081">Payload.hpp:81</a></div></div>
-<div class="ttc" id="aa03638_html"><div class="ttname"><a href="a03638.html">bl::as::Payload::ConstructContext</a></div><div class="ttdoc">Struct of parameters passed to Payload constructors. All derived classes should be constructible from...</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00035">Payload.hpp:35</a></div></div>
-<div class="ttc" id="aa03638_html_a310b0919331e673860645f421f6307ae"><div class="ttname"><a href="a03638.html#a310b0919331e673860645f421f6307ae">bl::as::Payload::ConstructContext::asset</a></div><div class="ttdeci">Asset &amp; asset</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00038">Payload.hpp:38</a></div></div>
-<div class="ttc" id="aa03638_html_a63f376e86b009b8b23c219644cdfc169"><div class="ttname"><a href="a03638.html#a63f376e86b009b8b23c219644cdfc169">bl::as::Payload::ConstructContext::mode</a></div><div class="ttdeci">Mode mode</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00036">Payload.hpp:36</a></div></div>
-<div class="ttc" id="aa03638_html_af2b263c7e0fcb72c0ad8146ecfb09dd2"><div class="ttname"><a href="a03638.html#af2b263c7e0fcb72c0ad8146ecfb09dd2">bl::as::Payload::ConstructContext::repo</a></div><div class="ttdeci">Repository &amp; repo</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00037">Payload.hpp:37</a></div></div>
-<div class="ttc" id="aa03662_html"><div class="ttname"><a href="a03662.html">bl::as::Repository</a></div><div class="ttdoc">The central asset repository. Stores all asset metadata, manages runtime bundling and loading,...</div><div class="ttdef"><b>Definition</b> <a href="a01370_source.html#l00033">Repository.hpp:33</a></div></div>
-<div class="ttc" id="aa09101_html"><div class="ttname"><a href="a09101.html">State.hpp</a></div></div>
-<div class="ttc" id="aa09848_html"><div class="ttname"><a href="a09848.html">Mode.hpp</a></div></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00368_html"><div class="ttname"><a href="a00368.html">ReflectedObject.hpp</a></div></div>
+<div class="ttc" id="aa01370_html"><div class="ttname"><a href="a01370.html">DependencyList.hpp</a></div></div>
+<div class="ttc" id="aa01376_html"><div class="ttname"><a href="a01376.html">Animation3DPayload.hpp</a></div></div>
+<div class="ttc" id="aa01403_html"><div class="ttname"><a href="a01403.html">MaterialPayload.hpp</a></div></div>
+<div class="ttc" id="aa01406_html"><div class="ttname"><a href="a01406.html">TexturePayload.hpp</a></div></div>
+<div class="ttc" id="aa01418_html"><div class="ttname"><a href="a01418.html">Payload.hpp</a></div></div>
+<div class="ttc" id="aa01475_html"><div class="ttname"><a href="a01475.html">Dependency.hpp</a></div></div>
+<div class="ttc" id="aa01622_html"><div class="ttname"><a href="a01622.html">Model.hpp</a></div></div>
+<div class="ttc" id="aa02912_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02912_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03175_html_ga92fdcbdb8f5d0d66badc9c819c6c2c2d"><div class="ttname"><a href="a03175.html#ga92fdcbdb8f5d0d66badc9c819c6c2c2d">bl::refl::defineMember</a></div><div class="ttdeci">ReflectedMember&lt; ObjectType, MemberType, Attributes... &gt; defineMember(std::uint16_t id, std::string_view name, MemberType ObjectType::*memberPointer, Attributes &amp;&amp;... attrs)</div><div class="ttdoc">Deduction helper to create a ReflectedMember object.</div><div class="ttdef"><b>Definition</b> <a href="a00380_source.html#l00140">ReflectedMember.hpp:140</a></div></div>
+<div class="ttc" id="aa03175_html_gab41b504de5d1cc9b20c7fa5c85b39a29"><div class="ttname"><a href="a03175.html#gab41b504de5d1cc9b20c7fa5c85b39a29">bl::refl::memberList</a></div><div class="ttdeci">auto memberList(Members &amp;&amp;... members)</div><div class="ttdoc">Deduction helper to define the list of members for a reflected object.</div><div class="ttdef"><b>Definition</b> <a href="a00380_source.html#l00156">ReflectedMember.hpp:156</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03446_html"><div class="ttname"><a href="a03446.html">bl::asi::MaterialPayload</a></div><div class="ttdoc">Payload type for 3d materials.</div><div class="ttdef"><b>Definition</b> <a href="a01403_source.html#l00017">MaterialPayload.hpp:17</a></div></div>
+<div class="ttc" id="aa03458_html"><div class="ttname"><a href="a03458.html">bl::asi::ModelPayload</a></div><div class="ttdoc">Payload for a model asset.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00024">ModelPayload.hpp:24</a></div></div>
+<div class="ttc" id="aa03458_html_a05dc4e0ecca56748f66ebffae8e04153"><div class="ttname"><a href="a03458.html#a05dc4e0ecca56748f66ebffae8e04153">bl::asi::ModelPayload::flipUVs</a></div><div class="ttdeci">void flipUVs()</div><div class="ttdoc">Flips the V texture coordinates of all meshes in the model.</div><div class="ttdef"><b>Definition</b> <a href="a02750_source.html#l00015">ModelPayload.cpp:15</a></div></div>
+<div class="ttc" id="aa03458_html_a0cf1c3c0af047f59e9c03d652aac3821"><div class="ttname"><a href="a03458.html#a0cf1c3c0af047f59e9c03d652aac3821">bl::asi::ModelPayload::getNodes</a></div><div class="ttdeci">const mdl::NodeSet &amp; getNodes() const</div><div class="ttdoc">Returns the set of nodes in the model.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00051">ModelPayload.hpp:51</a></div></div>
+<div class="ttc" id="aa03458_html_a1d231a6961bf8cbf37c6ed2fe225d7f9"><div class="ttname"><a href="a03458.html#a1d231a6961bf8cbf37c6ed2fe225d7f9">bl::asi::ModelPayload::~ModelPayload</a></div><div class="ttdeci">virtual ~ModelPayload()=default</div><div class="ttdoc">Destroys the payload.</div></div>
+<div class="ttc" id="aa03458_html_a1ea077657f4a88c025657247f13020ba"><div class="ttname"><a href="a03458.html#a1ea077657f4a88c025657247f13020ba">bl::asi::ModelPayload::getRoot</a></div><div class="ttdeci">const mdl::Node &amp; getRoot() const</div><div class="ttdoc">Returns the root node of the model. Only call after loading.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00046">ModelPayload.hpp:46</a></div></div>
+<div class="ttc" id="aa03458_html_a2aae75590a7e9b5dd3baf7e01c38ad9f"><div class="ttname"><a href="a03458.html#a2aae75590a7e9b5dd3baf7e01c38ad9f">bl::asi::ModelPayload::getAnimation</a></div><div class="ttdeci">const Animation3DPayload &amp; getAnimation(std::size_t i) const</div><div class="ttdoc">Returns the animation at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00091">ModelPayload.hpp:91</a></div></div>
+<div class="ttc" id="aa03458_html_a37b75e70e899725dbbe79ca2697045cc"><div class="ttname"><a href="a03458.html#a37b75e70e899725dbbe79ca2697045cc">bl::asi::ModelPayload::getAnimationRef</a></div><div class="ttdeci">as::TypedRef&lt; Animation3DPayload &gt; getAnimationRef(std::size_t i) const</div><div class="ttdoc">Returns the animation at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00099">ModelPayload.hpp:99</a></div></div>
+<div class="ttc" id="aa03458_html_a44aa1ea394e0fb7c0c9678ae6db21de5"><div class="ttname"><a href="a03458.html#a44aa1ea394e0fb7c0c9678ae6db21de5">bl::asi::ModelPayload::getMeshes</a></div><div class="ttdeci">const mdl::MeshSet &amp; getMeshes() const</div><div class="ttdoc">Returns the set of meshes in the model.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00061">ModelPayload.hpp:61</a></div></div>
+<div class="ttc" id="aa03458_html_a4f13ed89ec9590a8d8ded8063748aa51"><div class="ttname"><a href="a03458.html#a4f13ed89ec9590a8d8ded8063748aa51">bl::asi::ModelPayload::getMaterialCount</a></div><div class="ttdeci">unsigned int getMaterialCount() const</div><div class="ttdoc">Returns the number of materials in the model.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00084">ModelPayload.hpp:84</a></div></div>
+<div class="ttc" id="aa03458_html_a5532bc863973abd0df43edbe0fa2c1f0"><div class="ttname"><a href="a03458.html#a5532bc863973abd0df43edbe0fa2c1f0">bl::asi::ModelPayload::getMaterial</a></div><div class="ttdeci">const MaterialPayload &amp; getMaterial(std::size_t i) const</div><div class="ttdoc">Returns the material at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00069">ModelPayload.hpp:69</a></div></div>
+<div class="ttc" id="aa03458_html_a6b4942cf41d6c7f721ea4e23706195ac"><div class="ttname"><a href="a03458.html#a6b4942cf41d6c7f721ea4e23706195ac">bl::asi::ModelPayload::getBones</a></div><div class="ttdeci">const mdl::BoneSet &amp; getBones() const</div><div class="ttdoc">Returns the bones of the model.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00056">ModelPayload.hpp:56</a></div></div>
+<div class="ttc" id="aa03458_html_ad503f5a878f826e045e4b3b933d9e8c9"><div class="ttname"><a href="a03458.html#ad503f5a878f826e045e4b3b933d9e8c9">bl::asi::ModelPayload::getAnimationCount</a></div><div class="ttdeci">unsigned int getAnimationCount() const</div><div class="ttdoc">Returns the number of animations in the model.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00106">ModelPayload.hpp:106</a></div></div>
+<div class="ttc" id="aa03458_html_af6ebfd6414346ccce61d94edb5b20464"><div class="ttname"><a href="a03458.html#af6ebfd6414346ccce61d94edb5b20464">bl::asi::ModelPayload::getMaterialRef</a></div><div class="ttdeci">as::TypedRef&lt; MaterialPayload &gt; getMaterialRef(std::size_t i) const</div><div class="ttdoc">Returns the material at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00077">ModelPayload.hpp:77</a></div></div>
+<div class="ttc" id="aa03550_html"><div class="ttname"><a href="a03550.html">bl::as::DependencyList</a></div><div class="ttdoc">Dependency of a payload on a list of other assets.</div><div class="ttdef"><b>Definition</b> <a href="a01370_source.html#l00026">DependencyList.hpp:26</a></div></div>
+<div class="ttc" id="aa03634_html"><div class="ttname"><a href="a03634.html">bl::asi::ModelDriver</a></div><div class="ttdoc">Asset driver for loading and saving 3d models using Assimp.</div><div class="ttdef"><b>Definition</b> <a href="a01349_source.html#l00016">ModelDriver.hpp:16</a></div></div>
+<div class="ttc" id="aa03682_html"><div class="ttname"><a href="a03682.html">bl::as::Payload</a></div><div class="ttdoc">Base class for asset payloads. Payloads are the actual data of assets such as images.</div><div class="ttdef"><b>Definition</b> <a href="a01418_source.html#l00029">Payload.hpp:29</a></div></div>
+<div class="ttc" id="aa03686_html"><div class="ttname"><a href="a03686.html">bl::as::Payload::ConstructContext</a></div><div class="ttdoc">Struct of parameters passed to Payload constructors. All derived classes should be constructible from...</div><div class="ttdef"><b>Definition</b> <a href="a01418_source.html#l00035">Payload.hpp:35</a></div></div>
+<div class="ttc" id="aa03690_html"><div class="ttname"><a href="a03690.html">bl::as::PayloadGeneric</a></div><div class="ttdoc">Generic payload container for arbitrary payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01439_source.html#l00017">PayloadGeneric.hpp:17</a></div></div>
+<div class="ttc" id="aa03726_html"><div class="ttname"><a href="a03726.html">bl::as::TypedRef</a></div><div class="ttdoc">Helper class to reference assets with known payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01433_source.html#l00021">TypedRef.hpp:21</a></div></div>
+<div class="ttc" id="aa05022_html"><div class="ttname"><a href="a05022.html">bl::mdl::BoneSet</a></div><div class="ttdoc">The set of bones in a model.</div><div class="ttdef"><b>Definition</b> <a href="a01625_source.html#l00019">BoneSet.hpp:19</a></div></div>
+<div class="ttc" id="aa05082_html"><div class="ttname"><a href="a05082.html">bl::mdl::MeshSet</a></div><div class="ttdoc">Collection of meshes on a model.</div><div class="ttdef"><b>Definition</b> <a href="a01631_source.html#l00020">MeshSet.hpp:20</a></div></div>
+<div class="ttc" id="aa05098_html"><div class="ttname"><a href="a05098.html">bl::mdl::Node</a></div><div class="ttdoc">Represents a node in a model hierarchy.</div><div class="ttdef"><b>Definition</b> <a href="a08968_source.html#l00023">Node.hpp:23</a></div></div>
+<div class="ttc" id="aa05106_html"><div class="ttname"><a href="a05106.html">bl::mdl::NodeSet</a></div><div class="ttdoc">Helper to provide linear storage for model nodes.</div><div class="ttdef"><b>Definition</b> <a href="a01643_source.html#l00017">NodeSet.hpp:17</a></div></div>
+<div class="ttc" id="aa05106_html_aa2a65a2e9cf6dafb66583e3f43535ec4"><div class="ttname"><a href="a05106.html#aa2a65a2e9cf6dafb66583e3f43535ec4">bl::mdl::NodeSet::getNode</a></div><div class="ttdeci">Node &amp; getNode(std::size_t index)</div><div class="ttdoc">Returns the node at the given index.</div><div class="ttdef"><b>Definition</b> <a href="a01643_source.html#l00041">NodeSet.hpp:41</a></div></div>
+<div class="ttc" id="aa05362_html"><div class="ttname"><a href="a05362.html">bl::refl::ReflectedObject</a></div><div class="ttdoc">The core piece of the reflection system. Specialize this class for any type that requires reflection....</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00022">ReflectedObject.hpp:22</a></div></div>
+<div class="ttc" id="aa05362_html_afe4f82110829c529ceecc9f07d8afbd0"><div class="ttname"><a href="a05362.html#afe4f82110829c529ceecc9f07d8afbd0">bl::refl::ReflectedObject::spec</a></div><div class="ttdeci">static const auto spec</div><div class="ttdef"><b>Definition</b> <a href="a00368_source.html#l00025">ReflectedObject.hpp:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

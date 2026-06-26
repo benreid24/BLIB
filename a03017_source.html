@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/GUI/Elements/Box.cpp Source File</title>
+<title>BLIB: src/Interfaces/GUI/Packers/GridPacker.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,124 +79,146 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_2f8d53e1ba10fbf191c8865f2f20ae97.html">Elements</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_8031c595bb16908e26701cd6b5d8df53.html">GUI</a></li><li class="navelem"><a class="el" href="dir_4ddb0397ff01941c8f7466ec0255d6f8.html">Packers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">Box.cpp</div></div>
+  <div class="headertitle"><div class="title">GridPacker.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a03017.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01859.html">BLIB/Interfaces/GUI/Elements/Box.hpp</a>&gt;</span></div>
+<a href="a03017.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01847.html">BLIB/Interfaces/GUI/Packers/GridPacker.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a09728.html">BLIB/Interfaces/GUI/Renderer/Renderer.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>gui</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>gui</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">constexpr</span> <span class="keywordtype">float</span> DefaultOutline = 1.f;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04594.html#a784211be6923ca5955a362aa36583d3c">   14</a></span><a class="code hl_typedef" href="a04594.html#ad3818332d4ae07ebaf60e0458c6b7a57">Box::Ptr</a> <a class="code hl_function" href="a04594.html#a784211be6923ca5955a362aa36583d3c">Box::create</a>(<a class="code hl_typedef" href="a04706.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> packer) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">auto</span> p = <a class="code hl_typedef" href="a04594.html#ad3818332d4ae07ebaf60e0458c6b7a57">Ptr</a>(<span class="keyword">new</span> <a class="code hl_class" href="a04594.html">Box</a>(packer));</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">return</span> p;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>}</div>
+<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04746.html#a503b1a3c6143538393e2420278e4d22d">    7</a></span><a class="code hl_typedef" href="a04746.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> <a class="code hl_function" href="a04746.html#a503b1a3c6143538393e2420278e4d22d">GridPacker::createDynamicGrid</a>(<a class="code hl_enumeration" href="a04746.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> size, <span class="keywordtype">float</span> padding) {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="a04746.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>(<span class="keyword">new</span> <a class="code hl_class" href="a04746.html">GridPacker</a>(Dynamic, dir, padding, size));</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
 </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04594.html#a41cad65eed555a0876638716c4d56961">   19</a></span><a class="code hl_function" href="a04594.html#a41cad65eed555a0876638716c4d56961">Box::Box</a>(<a class="code hl_typedef" href="a04706.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> packer)</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>: <a class="code hl_class" href="a04618.html">Container</a>()</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>, packer(packer)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>, computeView(true) {}</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a04746.html#a95ba394a9c7fdc7944db41f62c20aac1">   11</a></span><a class="code hl_typedef" href="a04746.html#a5213d33ba71adc25f1f870120b2b2c45">GridPacker::Ptr</a> <a class="code hl_function" href="a04746.html#a95ba394a9c7fdc7944db41f62c20aac1">GridPacker::createFixedGrid</a>(<a class="code hl_enumeration" href="a04746.html#a8866a71cf9b5665134713f242cadd94a">Direction</a> dir, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> wrap, <span class="keywordtype">float</span> padding) {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="a04746.html#a5213d33ba71adc25f1f870120b2b2c45">Ptr</a>(<span class="keyword">new</span> <a class="code hl_class" href="a04746.html">GridPacker</a>(FixedAmount, dir, padding, wrap));</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a04594.html#a3e59024eae1cbdc3ea68ecc6543aa69e">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#a3e59024eae1cbdc3ea68ecc6543aa69e">Box::setConstrainView</a>(<span class="keywordtype">bool</span> c) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    computeView = c;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="a04622.html#ae2ef898a5c3dcad2ec030f8ff8bf05ea">getComponent</a>()) { <a class="code hl_function" href="a04622.html#ae2ef898a5c3dcad2ec030f8ff8bf05ea">getComponent</a>()-&gt;<a class="code hl_function" href="a04802.html#ab518fcd5e31ed334bd0390aea725abed">onElementUpdated</a>(); }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>GridPacker::GridPacker(WrapRule r, Direction d, <span class="keywordtype">float</span> pad, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> s)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>: rule(r)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>, dir(d)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>, padding(pad)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>, size(s) {}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="foldopen" id="foldopen00021" data-start="{" data-end="}">
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="a04746.html#a36a922cad484aa072de4bc06fb7940ab">   21</a></span>sf::Vector2f <a class="code hl_function" href="a04746.html#a36a922cad484aa072de4bc06fb7940ab">GridPacker::getRequisition</a>(<span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) {</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    sf::Vector2f req(0, 0);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">auto</span> measure = [&amp;req](<a class="code hl_typedef" href="a04670.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>, <span class="keyword">const</span> sf::FloatRect&amp; area) {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">if</span> (req.x &lt; area.position.x + area.size.x) req.x = area.position.x + area.size.x;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">if</span> (req.y &lt; area.position.y + area.size.y) req.y = area.position.y + area.size.y;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    };</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    doPack({}, elements, measure);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> req;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
 </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a04594.html#a78f4858397093aba9ad1467729fe8c60">   29</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="a04594.html#a78f4858397093aba9ad1467729fe8c60">Box::isViewConstrained</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> computeView; }</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
 <div class="foldopen" id="foldopen00031" data-start="{" data-end="}">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04594.html#a9a0273a03ce0476086cec496e0c9f029">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#a9a0273a03ce0476086cec496e0c9f029">Box::setPacker</a>(<a class="code hl_typedef" href="a04706.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">Packer::Ptr</a> p) {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    packer = p;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_function" href="a04622.html#a25f12a23ffb09b4a0fb6eb92f005d810">makeDirty</a>();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a04746.html#a5c5f6901d35cb15627386cdeaa0351e2">   31</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04746.html#a5c5f6901d35cb15627386cdeaa0351e2">GridPacker::pack</a>(<span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    doPack(area, elements, &amp;<a class="code hl_function" href="a04754.html#a2b942eb90604a301008c4b26d6209793">Packer::packElementIntoSpace</a>);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="a04594.html#ae85eaf76ae1d782b8d63dc4ab46edddb">   36</a></span>sf::Vector2f <a class="code hl_function" href="a04594.html#ae85eaf76ae1d782b8d63dc4ab46edddb">Box::minimumRequisition</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> outline = <a class="code hl_function" href="a04622.html#aea5114a9914b0b8534951d0e488b1419">renderSettings</a>().<a class="code hl_variable" href="a04854.html#a2f17a345da820fb310b8afb40896043f">outlineThickness</a>.value_or(DefaultOutline);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> packer-&gt;getRequisition(<a class="code hl_function" href="a04618.html#adbc88c26ae99dce3addf0d4fd5d128a5">getChildren</a>()) + 2.f * sf::Vector2f(outline, outline);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
-</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keywordtype">void</span> GridPacker::doPack(<span class="keyword">const</span> sf::FloatRect&amp; area, <span class="keyword">const</span> std::vector&lt;Element::Ptr&gt;&amp; elements,</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>                        <span class="keyword">const</span> std::function&lt;<span class="keywordtype">void</span>(<a class="code hl_typedef" href="a04670.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a>, <span class="keyword">const</span> sf::FloatRect&amp;)&gt;&amp; packCb) {</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    sf::Vector2f pos(area.position.x, area.position.y);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pcount = 0;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    sf::Vector2f mreq;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a04594.html#af26fd00097aac9c3f47d2a065d9b136b">   41</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#af26fd00097aac9c3f47d2a065d9b136b">Box::onAcquisition</a>() {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keyword">const</span> <span class="keywordtype">float</span> outline = <a class="code hl_function" href="a04622.html#aea5114a9914b0b8534951d0e488b1419">renderSettings</a>().<a class="code hl_variable" href="a04854.html#a2f17a345da820fb310b8afb40896043f">outlineThickness</a>.value_or(DefaultOutline);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    sf::FloatRect area(</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        {<a class="code hl_function" href="a04622.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().position.x + outline, <a class="code hl_function" href="a04622.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().position.y + outline},</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        {<a class="code hl_function" href="a04622.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().size.x - outline * 2.f, <a class="code hl_function" href="a04622.html#af0695b05e105ed699a612ed3a3c0c84f">getAcquisition</a>().size.y - outline * 2.f});</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    packer-&gt;pack(area, <a class="code hl_function" href="a04618.html#adbc88c26ae99dce3addf0d4fd5d128a5">getChildren</a>());</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
-</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; elements.size(); ++i) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (!elements[i]-&gt;packable()) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="comment">// Pack</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">const</span> sf::Vector2f req = elements[i]-&gt;getRequisition();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        packCb(elements[i], {pos, req});</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        ++pcount;</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a04594.html#a3e71fdb946e0e5dff26e4290a4b06e7c">   49</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#a3e71fdb946e0e5dff26e4290a4b06e7c">Box::pack</a>(<a class="code hl_typedef" href="a04622.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> e) { <a class="code hl_function" href="a04618.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">add</a>(e); }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="foldopen" id="foldopen00051" data-start="{" data-end="}">
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a04594.html#adfe09491e4fadedc94ec5bc758a39607">   51</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04594.html#a3e71fdb946e0e5dff26e4290a4b06e7c">Box::pack</a>(<a class="code hl_typedef" href="a04622.html#a21b57f73febb9e1c62e8abcef64b1654">Element::Ptr</a> e, <span class="keywordtype">bool</span> fx, <span class="keywordtype">bool</span> fy) {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    e-&gt;setExpandsWidth(fx);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    e-&gt;setExpandsHeight(fy);</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <a class="code hl_function" href="a04618.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">add</a>(e);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
-</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="a04594.html#a42fe1aa30b13a7ee3bca86415b2111e7">   57</a></span><a class="code hl_class" href="a04802.html">rdr::Component</a>* <a class="code hl_function" href="a04594.html#a42fe1aa30b13a7ee3bca86415b2111e7">Box::doPrepareRender</a>(<a class="code hl_class" href="a04842.html">rdr::Renderer</a>&amp; renderer) {</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> renderer.<a class="code hl_function" href="a04842.html#aae5311a7dba26b9ab8bb21e175284155">createComponent</a>&lt;<a class="code hl_class" href="a04594.html">Box</a>&gt;(*this);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
-</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace gui</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01859_html"><div class="ttname"><a href="a01859.html">Box.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04594_html"><div class="ttname"><a href="a04594.html">bl::gui::Box</a></div><div class="ttdoc">Simple Container for packing elements into a visible box on screen.</div><div class="ttdef"><b>Definition</b> <a href="a01859_source.html#l00021">Box.hpp:21</a></div></div>
-<div class="ttc" id="aa04594_html_a3e59024eae1cbdc3ea68ecc6543aa69e"><div class="ttname"><a href="a04594.html#a3e59024eae1cbdc3ea68ecc6543aa69e">bl::gui::Box::setConstrainView</a></div><div class="ttdeci">void setConstrainView(bool constrain)</div><div class="ttdoc">Set whether or not to constrain the render view. Default is true.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00024">Box.cpp:24</a></div></div>
-<div class="ttc" id="aa04594_html_a3e71fdb946e0e5dff26e4290a4b06e7c"><div class="ttname"><a href="a04594.html#a3e71fdb946e0e5dff26e4290a4b06e7c">bl::gui::Box::pack</a></div><div class="ttdeci">void pack(Element::Ptr child)</div><div class="ttdoc">Adds the Element as a new child. Causes a refresh of acquisitions.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00049">Box.cpp:49</a></div></div>
-<div class="ttc" id="aa04594_html_a41cad65eed555a0876638716c4d56961"><div class="ttname"><a href="a04594.html#a41cad65eed555a0876638716c4d56961">bl::gui::Box::Box</a></div><div class="ttdeci">Box(Packer::Ptr packer)</div><div class="ttdoc">Construct a new Container with the given id, group, and Packer.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00019">Box.cpp:19</a></div></div>
-<div class="ttc" id="aa04594_html_a42fe1aa30b13a7ee3bca86415b2111e7"><div class="ttname"><a href="a04594.html#a42fe1aa30b13a7ee3bca86415b2111e7">bl::gui::Box::doPrepareRender</a></div><div class="ttdeci">virtual rdr::Component * doPrepareRender(rdr::Renderer &amp;renderer) override</div><div class="ttdoc">Creates the visual component for this element.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00057">Box.cpp:57</a></div></div>
-<div class="ttc" id="aa04594_html_a784211be6923ca5955a362aa36583d3c"><div class="ttname"><a href="a04594.html#a784211be6923ca5955a362aa36583d3c">bl::gui::Box::create</a></div><div class="ttdeci">static Ptr create(Packer::Ptr packer)</div><div class="ttdoc">Construct a new Box with the given id, group, and Packer.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00014">Box.cpp:14</a></div></div>
-<div class="ttc" id="aa04594_html_a78f4858397093aba9ad1467729fe8c60"><div class="ttname"><a href="a04594.html#a78f4858397093aba9ad1467729fe8c60">bl::gui::Box::isViewConstrained</a></div><div class="ttdeci">bool isViewConstrained() const</div><div class="ttdoc">Returns whether or not the view is constrained to the bounds of the box.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00029">Box.cpp:29</a></div></div>
-<div class="ttc" id="aa04594_html_a9a0273a03ce0476086cec496e0c9f029"><div class="ttname"><a href="a04594.html#a9a0273a03ce0476086cec496e0c9f029">bl::gui::Box::setPacker</a></div><div class="ttdeci">void setPacker(Packer::Ptr packer)</div><div class="ttdoc">Update the Packer used. Marks the Element as dirty.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00031">Box.cpp:31</a></div></div>
-<div class="ttc" id="aa04594_html_ad3818332d4ae07ebaf60e0458c6b7a57"><div class="ttname"><a href="a04594.html#ad3818332d4ae07ebaf60e0458c6b7a57">bl::gui::Box::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Box &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01859_source.html#l00023">Box.hpp:23</a></div></div>
-<div class="ttc" id="aa04594_html_ae85eaf76ae1d782b8d63dc4ab46edddb"><div class="ttname"><a href="a04594.html#ae85eaf76ae1d782b8d63dc4ab46edddb">bl::gui::Box::minimumRequisition</a></div><div class="ttdeci">virtual sf::Vector2f minimumRequisition() const override</div><div class="ttdoc">Returns the minimum requisition for the Container. This depends on the child elements and the Packer.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00036">Box.cpp:36</a></div></div>
-<div class="ttc" id="aa04594_html_af26fd00097aac9c3f47d2a065d9b136b"><div class="ttname"><a href="a04594.html#af26fd00097aac9c3f47d2a065d9b136b">bl::gui::Box::onAcquisition</a></div><div class="ttdeci">virtual void onAcquisition() override</div><div class="ttdoc">Packs packable children into the assigned acquisition.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00041">Box.cpp:41</a></div></div>
-<div class="ttc" id="aa04618_html"><div class="ttname"><a href="a04618.html">bl::gui::Container</a></div><div class="ttdoc">Base class for Elements that have child elements. Provides coordinate transformation for rendering an...</div><div class="ttdef"><b>Definition</b> <a href="a01829_source.html#l00021">Container.hpp:21</a></div></div>
-<div class="ttc" id="aa04618_html_a23ad5e0f3e336fcda9fe8ce76c77b2c1"><div class="ttname"><a href="a04618.html#a23ad5e0f3e336fcda9fe8ce76c77b2c1">bl::gui::Container::add</a></div><div class="ttdeci">void add(const Element::Ptr &amp;child)</div><div class="ttdoc">Adds the Element as a new child. Marks dirty. Note that this cannot be called from within the constru...</div><div class="ttdef"><b>Definition</b> <a href="a03023_source.html#l00069">Container.cpp:69</a></div></div>
-<div class="ttc" id="aa04618_html_adbc88c26ae99dce3addf0d4fd5d128a5"><div class="ttname"><a href="a04618.html#adbc88c26ae99dce3addf0d4fd5d128a5">bl::gui::Container::getChildren</a></div><div class="ttdeci">const std::vector&lt; Element::Ptr &gt; &amp; getChildren() const</div><div class="ttdoc">Returns a non mutable list of the child elements. Each element is mutable.</div><div class="ttdef"><b>Definition</b> <a href="a03023_source.html#l00078">Container.cpp:78</a></div></div>
-<div class="ttc" id="aa04622_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a04622.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01820_source.html#l00036">Element.hpp:36</a></div></div>
-<div class="ttc" id="aa04622_html_a25f12a23ffb09b4a0fb6eb92f005d810"><div class="ttname"><a href="a04622.html#a25f12a23ffb09b4a0fb6eb92f005d810">bl::gui::Element::makeDirty</a></div><div class="ttdeci">void makeDirty()</div><div class="ttdoc">Marks this Element as requiring a recalculation of acquisition.</div><div class="ttdef"><b>Definition</b> <a href="a02990_source.html#l00245">Element.cpp:245</a></div></div>
-<div class="ttc" id="aa04622_html_ae2ef898a5c3dcad2ec030f8ff8bf05ea"><div class="ttname"><a href="a04622.html#ae2ef898a5c3dcad2ec030f8ff8bf05ea">bl::gui::Element::getComponent</a></div><div class="ttdeci">rdr::Component * getComponent()</div><div class="ttdoc">Returns the renderer component for this element. May be nullptr.</div><div class="ttdef"><b>Definition</b> <a href="a01820_source.html#l00402">Element.hpp:402</a></div></div>
-<div class="ttc" id="aa04622_html_aea5114a9914b0b8534951d0e488b1419"><div class="ttname"><a href="a04622.html#aea5114a9914b0b8534951d0e488b1419">bl::gui::Element::renderSettings</a></div><div class="ttdeci">const RenderSettings &amp; renderSettings() const</div><div class="ttdoc">Returns the render settings for this object.</div><div class="ttdef"><b>Definition</b> <a href="a02990_source.html#l00355">Element.cpp:355</a></div></div>
-<div class="ttc" id="aa04622_html_af0695b05e105ed699a612ed3a3c0c84f"><div class="ttname"><a href="a04622.html#af0695b05e105ed699a612ed3a3c0c84f">bl::gui::Element::getAcquisition</a></div><div class="ttdeci">const sf::FloatRect &amp; getAcquisition() const</div><div class="ttdoc">Returns the acquisition of the Element. This is the size allocated to it, and mays be larger or equal...</div><div class="ttdef"><b>Definition</b> <a href="a02990_source.html#l00347">Element.cpp:347</a></div></div>
-<div class="ttc" id="aa04706_html_ae16cb4c26ab7e5dd1d8cbdc5598bf073"><div class="ttname"><a href="a04706.html#ae16cb4c26ab7e5dd1d8cbdc5598bf073">bl::gui::Packer::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Packer &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01805_source.html#l00022">Packer.hpp:22</a></div></div>
-<div class="ttc" id="aa04802_html"><div class="ttname"><a href="a04802.html">bl::gui::rdr::Component</a></div><div class="ttdoc">Base class for renderer components. Each GUI element owns a handle to a component owned by the render...</div><div class="ttdef"><b>Definition</b> <a href="a01937_source.html#l00032">Component.hpp:32</a></div></div>
-<div class="ttc" id="aa04802_html_ab518fcd5e31ed334bd0390aea725abed"><div class="ttname"><a href="a04802.html#ab518fcd5e31ed334bd0390aea725abed">bl::gui::rdr::Component::onElementUpdated</a></div><div class="ttdeci">virtual void onElementUpdated()=0</div><div class="ttdoc">Called when element state changes. This is element specific, but can mean toggle state,...</div></div>
-<div class="ttc" id="aa04842_html"><div class="ttname"><a href="a04842.html">bl::gui::rdr::Renderer</a></div><div class="ttdoc">Top level GUI renderer. Manages components for elements. Behavior can be controlled by providing a di...</div><div class="ttdef"><b>Definition</b> <a href="a09728_source.html#l00029">Renderer.hpp:29</a></div></div>
-<div class="ttc" id="aa04842_html_aae5311a7dba26b9ab8bb21e175284155"><div class="ttname"><a href="a04842.html#aae5311a7dba26b9ab8bb21e175284155">bl::gui::rdr::Renderer::createComponent</a></div><div class="ttdeci">Component * createComponent(TElem &amp;element)</div><div class="ttdoc">Creates a component for the given GUI element. Adds it to the current scene if any.</div><div class="ttdef"><b>Definition</b> <a href="a09728_source.html#l00053">Renderer.hpp:53</a></div></div>
-<div class="ttc" id="aa04854_html_a2f17a345da820fb310b8afb40896043f"><div class="ttname"><a href="a04854.html#a2f17a345da820fb310b8afb40896043f">bl::gui::RenderSettings::outlineThickness</a></div><div class="ttdeci">std::optional&lt; float &gt; outlineThickness</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00039">RenderSettings.hpp:39</a></div></div>
-<div class="ttc" id="aa09728_html"><div class="ttname"><a href="a09728.html">Renderer.hpp</a></div></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="comment">// Track size for when we make next row/column</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        mreq.x = std::max(mreq.x, req.x);</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        mreq.y = std::max(mreq.y, req.y);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="comment">// Do wrap based on rule and dir</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">if</span> (i &lt; elements.size() - 1) {</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            <span class="keywordflow">if</span> (dir == <a class="code hl_enumvalue" href="a04746.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">Rows</a>) {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                <span class="keywordflow">if</span> (rule == FixedAmount) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                    <span class="keywordflow">if</span> (pcount == size) { <span class="comment">// wrap</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                        pos.x = area.position.x;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                        pos.y += mreq.y + padding;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                        mreq   = {0, 0};</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                        pcount = 0;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                    }</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                        pos.x += req.x + padding;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                    }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                    <span class="keyword">const</span> sf::Vector2f nreq = elements[i + 1]-&gt;getRequisition();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    <span class="keywordflow">if</span> (pos.x + padding + nreq.x &gt; size) { <span class="comment">// wrap</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                        pos.x = area.position.x;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                        pos.y += mreq.y + padding;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>                        mreq = {0, 0};</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                    }</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                        pos.x += req.x + padding;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                }</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            }</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                <span class="keywordflow">if</span> (rule == FixedAmount) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    <span class="keywordflow">if</span> (pcount == size) { <span class="comment">// wrap</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                        pos.y = area.position.y;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                        pos.x += mreq.x + padding;</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                        mreq   = {0, 0};</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                        pcount = 0;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                        pos.y += req.y + padding;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                    }</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>                <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                    <span class="keyword">const</span> sf::Vector2f nreq = elements[i + 1]-&gt;getRequisition();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                    <span class="keywordflow">if</span> (pos.y + padding + nreq.y &gt; size) { <span class="comment">// wrap</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                        pos.y = area.position.y;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                        pos.x += mreq.x + padding;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                        mreq = {0, 0};</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                    }</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                    <span class="keywordflow">else</span> { <span class="comment">// continue in row/column</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                        pos.y += req.y + padding;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                    }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                }</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>            }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>} <span class="comment">// namespace gui</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa01847_html"><div class="ttname"><a href="a01847.html">GridPacker.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04670_html_a21b57f73febb9e1c62e8abcef64b1654"><div class="ttname"><a href="a04670.html#a21b57f73febb9e1c62e8abcef64b1654">bl::gui::Element::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; Element &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01865_source.html#l00036">Element.hpp:36</a></div></div>
+<div class="ttc" id="aa04746_html"><div class="ttname"><a href="a04746.html">bl::gui::GridPacker</a></div><div class="ttdoc">Packer that can pack elements into grids.</div><div class="ttdef"><b>Definition</b> <a href="a01847_source.html#l00016">GridPacker.hpp:16</a></div></div>
+<div class="ttc" id="aa04746_html_a36a922cad484aa072de4bc06fb7940ab"><div class="ttname"><a href="a04746.html#a36a922cad484aa072de4bc06fb7940ab">bl::gui::GridPacker::getRequisition</a></div><div class="ttdeci">virtual sf::Vector2f getRequisition(const std::vector&lt; Element::Ptr &gt; &amp;elements) override</div><div class="ttdoc">Returns the space required to pack the given list of elements.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00021">GridPacker.cpp:21</a></div></div>
+<div class="ttc" id="aa04746_html_a503b1a3c6143538393e2420278e4d22d"><div class="ttname"><a href="a04746.html#a503b1a3c6143538393e2420278e4d22d">bl::gui::GridPacker::createDynamicGrid</a></div><div class="ttdeci">static Ptr createDynamicGrid(Direction dir, unsigned int size, float padding=2)</div><div class="ttdoc">Creates a new GridPacker that has a dynamic number of elements on each row or column.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00007">GridPacker.cpp:7</a></div></div>
+<div class="ttc" id="aa04746_html_a5213d33ba71adc25f1f870120b2b2c45"><div class="ttname"><a href="a04746.html#a5213d33ba71adc25f1f870120b2b2c45">bl::gui::GridPacker::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; GridPacker &gt; Ptr</div><div class="ttdef"><b>Definition</b> <a href="a01847_source.html#l00018">GridPacker.hpp:18</a></div></div>
+<div class="ttc" id="aa04746_html_a5c5f6901d35cb15627386cdeaa0351e2"><div class="ttname"><a href="a04746.html#a5c5f6901d35cb15627386cdeaa0351e2">bl::gui::GridPacker::pack</a></div><div class="ttdeci">virtual void pack(const sf::FloatRect &amp;acquisition, const std::vector&lt; Element::Ptr &gt; &amp;elements) override</div><div class="ttdoc">Packs the given list of elements into the given region.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00031">GridPacker.cpp:31</a></div></div>
+<div class="ttc" id="aa04746_html_a8866a71cf9b5665134713f242cadd94a"><div class="ttname"><a href="a04746.html#a8866a71cf9b5665134713f242cadd94a">bl::gui::GridPacker::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Indicates whether to pack in rows or columns.</div><div class="ttdef"><b>Definition</b> <a href="a01847_source.html#l00024">GridPacker.hpp:24</a></div></div>
+<div class="ttc" id="aa04746_html_a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7"><div class="ttname"><a href="a04746.html#a8866a71cf9b5665134713f242cadd94aa0b545ff15987e444af36d13bf53428e7">bl::gui::GridPacker::Rows</a></div><div class="ttdeci">@ Rows</div><div class="ttdoc">Elements are packed horizontally in rows and wrapped into multiple rows.</div><div class="ttdef"><b>Definition</b> <a href="a01847_source.html#l00026">GridPacker.hpp:26</a></div></div>
+<div class="ttc" id="aa04746_html_a95ba394a9c7fdc7944db41f62c20aac1"><div class="ttname"><a href="a04746.html#a95ba394a9c7fdc7944db41f62c20aac1">bl::gui::GridPacker::createFixedGrid</a></div><div class="ttdeci">static Ptr createFixedGrid(Direction dir, unsigned int wrapCount, float padding=2)</div><div class="ttdoc">Creates a new GridPacker that has a fixed number of elements on each row or column.</div><div class="ttdef"><b>Definition</b> <a href="a03017_source.html#l00011">GridPacker.cpp:11</a></div></div>
+<div class="ttc" id="aa04754_html_a2b942eb90604a301008c4b26d6209793"><div class="ttname"><a href="a04754.html#a2b942eb90604a301008c4b26d6209793">bl::gui::Packer::packElementIntoSpace</a></div><div class="ttdeci">static void packElementIntoSpace(const Element::Ptr &amp;element, const sf::FloatRect &amp;space)</div><div class="ttdoc">Packs an element into the given space. Obeys Element expand properties.</div><div class="ttdef"><b>Definition</b> <a href="a03011_source.html#l00007">Packer.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

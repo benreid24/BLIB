@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Interfaces/Menu/Drivers/MouseDriver.cpp Source File</title>
+<title>BLIB: src/Engine/Flags.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,64 +79,51 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ce6405ba0afce575b27b3b998c1d24f9.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_a5850f6e383b3d533b6a0a91dee002d1.html">Menu</a></li><li class="navelem"><a class="el" href="dir_8225f553c4118c74e51abfe13787127e.html">Drivers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3072bc1f55ed1280fe4fbe6b21c78379.html">Engine</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">MouseDriver.cpp</div></div>
+  <div class="headertitle"><div class="title">Flags.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02936.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01763.html">BLIB/Interfaces/Menu/Drivers/MouseDriver.hpp</a>&gt;</span></div>
+<a href="a02936.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a08860.html">BLIB/Engine/Flags.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span>{</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>menu</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>engine</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a04862.html#a167ac584a58ce240dc4e4d3a37e85414">    7</a></span><a class="code hl_function" href="a04862.html#a167ac584a58ce240dc4e4d3a37e85414">MouseDriver::MouseDriver</a>(<a class="code hl_class" href="a04914.html">Menu</a>&amp; menu, <span class="keywordtype">bool</span> allowClick, sf::Mouse::Button abutt)</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>: menu(menu)</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>, clickActivates(allowClick)</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>, activateButton(abutt) {}</div>
-</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="a04862.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">   12</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04862.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">MouseDriver::setAllowButtonActivate</a>(<span class="keywordtype">bool</span> allow) { clickActivates = allow; }</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a04862.html#a78b5b19a962df1aba0380023a65f5aab">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04862.html#a78b5b19a962df1aba0380023a65f5aab">MouseDriver::setMouseActivateButton</a>(sf::Mouse::Button butt) { activateButton = butt; }</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">constexpr</span> std::uint32_t StateFlags =</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_enumvalue" href="a04290.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">Flags::PopState</a> | <a class="code hl_enumvalue" href="a04290.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">Flags::_priv_PushState</a> | <a class="code hl_enumvalue" href="a04290.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">Flags::_priv_ReplaceState</a> | <a class="code hl_enumvalue" href="a04290.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">Flags::Terminate</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>} <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>Flags::Flags()</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>: flags(<a class="code hl_enumvalue" href="a03164.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">None</a>) {}</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a04862.html#ac3a7fa331655987c16e82b0b51a26a6d">   16</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a04862.html#ac3a7fa331655987c16e82b0b51a26a6d">MouseDriver::process</a>(<span class="keyword">const</span> sf::Event&amp; event) {</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (event.is&lt;sf::Event::MouseMoved&gt;()) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keyword">const</span> sf::Event::MouseMoved&amp; moveEvent = *<span class="keyword">event</span>.getIf&lt;sf::Event::MouseMoved&gt;();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        menu.<a class="code hl_function" href="a04914.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04874.html">Event</a>(<a class="code hl_struct" href="a04886.html">Event::LocationEvent</a>(sf::Vector2f(moveEvent.position))));</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.is&lt;sf::Event::MouseButtonPressed&gt;() &amp;&amp; clickActivates) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">const</span> sf::Event::MouseButtonPressed&amp; buttonEvent =</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            *<span class="keyword">event</span>.getIf&lt;sf::Event::MouseButtonPressed&gt;();</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">if</span> (buttonEvent.button == activateButton) {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            menu.<a class="code hl_function" href="a04914.html#a994d802c062248a8017e3bcb454073a9">processEvent</a>(<a class="code hl_struct" href="a04874.html">Event</a>(<a class="code hl_struct" href="a04882.html">Event::ActivateEvent</a>()));</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        }</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
-</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace menu</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa01763_html"><div class="ttname"><a href="a01763.html">MouseDriver.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04862_html_a167ac584a58ce240dc4e4d3a37e85414"><div class="ttname"><a href="a04862.html#a167ac584a58ce240dc4e4d3a37e85414">bl::menu::MouseDriver::MouseDriver</a></div><div class="ttdeci">MouseDriver(Menu &amp;menu, bool allowClickActivate=true, sf::Mouse::Button activateButton=sf::Mouse::Button::Left)</div><div class="ttdoc">Create a new mouse generator that services the given menu.</div><div class="ttdef"><b>Definition</b> <a href="a02936_source.html#l00007">MouseDriver.cpp:7</a></div></div>
-<div class="ttc" id="aa04862_html_a4a9cc6c526d12fe1b7a4e2010a8fbeec"><div class="ttname"><a href="a04862.html#a4a9cc6c526d12fe1b7a4e2010a8fbeec">bl::menu::MouseDriver::setAllowButtonActivate</a></div><div class="ttdeci">void setAllowButtonActivate(bool allow)</div><div class="ttdoc">Sets whether or not clicking the mouse sends activation events.</div><div class="ttdef"><b>Definition</b> <a href="a02936_source.html#l00012">MouseDriver.cpp:12</a></div></div>
-<div class="ttc" id="aa04862_html_a78b5b19a962df1aba0380023a65f5aab"><div class="ttname"><a href="a04862.html#a78b5b19a962df1aba0380023a65f5aab">bl::menu::MouseDriver::setMouseActivateButton</a></div><div class="ttdeci">void setMouseActivateButton(sf::Mouse::Button activateButton)</div><div class="ttdoc">Set the mouse button bound to activate events.</div><div class="ttdef"><b>Definition</b> <a href="a02936_source.html#l00014">MouseDriver.cpp:14</a></div></div>
-<div class="ttc" id="aa04862_html_ac3a7fa331655987c16e82b0b51a26a6d"><div class="ttname"><a href="a04862.html#ac3a7fa331655987c16e82b0b51a26a6d">bl::menu::MouseDriver::process</a></div><div class="ttdeci">virtual void process(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition</b> <a href="a02936_source.html#l00016">MouseDriver.cpp:16</a></div></div>
-<div class="ttc" id="aa04874_html"><div class="ttname"><a href="a04874.html">bl::menu::Event</a></div><div class="ttdoc">Data struct representing an event in a Menu.</div><div class="ttdef"><b>Definition</b> <a href="a09689_source.html#l00016">Event.hpp:16</a></div></div>
-<div class="ttc" id="aa04882_html"><div class="ttname"><a href="a04882.html">bl::menu::Event::ActivateEvent</a></div><div class="ttdoc">Data struct for an Activate event.</div><div class="ttdef"><b>Definition</b> <a href="a09689_source.html#l00039">Event.hpp:39</a></div></div>
-<div class="ttc" id="aa04886_html"><div class="ttname"><a href="a04886.html">bl::menu::Event::LocationEvent</a></div><div class="ttdoc">Data struct for a SelectorLocation event.</div><div class="ttdef"><b>Definition</b> <a href="a09689_source.html#l00045">Event.hpp:45</a></div></div>
-<div class="ttc" id="aa04914_html"><div class="ttname"><a href="a04914.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a09692_source.html#l00033">Menu.hpp:33</a></div></div>
-<div class="ttc" id="aa04914_html_a994d802c062248a8017e3bcb454073a9"><div class="ttname"><a href="a04914.html#a994d802c062248a8017e3bcb454073a9">bl::menu::Menu::processEvent</a></div><div class="ttdeci">void processEvent(const Event &amp;event)</div><div class="ttdoc">Processes the event and updates the Menu state.</div><div class="ttdef"><b>Definition</b> <a href="a02957_source.html#l00240">Menu.cpp:240</a></div></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a04290.html#a0ecf9b3771da20f26b5aeb5f3475eb00">   16</a></span><span class="keywordtype">void</span> Flags::set(<a class="code hl_enumeration" href="a04290.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag) { flags |= flag; }</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a04290.html#a062af9a6e0e642fcb4f5f3d1f1957b9b">   18</a></span><span class="keywordtype">bool</span> Flags::active(<a class="code hl_enumeration" href="a04290.html#ae7955b695f60cd16d25d471f25029d8d">Flag</a> flag)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (flags &amp; flag) != 0; }</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="a04290.html#ae9b24580adb96ddf4288424b10cb5800">   20</a></span><span class="keywordtype">bool</span> Flags::stateChangeReady()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> (flags &amp; StateFlags) != 0; }</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keywordtype">void</span> Flags::clear() { flags = None; }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>} <span class="comment">// namespace engine</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa03164_html_ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a03164.html#ggad22c7b1807fcff9c01b2082084716652a6adf97f83acf6453d4a6a4b1070f3754">bl::ecs::Flags::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">The entity has no special flags.</div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa04290_html_ae7955b695f60cd16d25d471f25029d8d"><div class="ttname"><a href="a04290.html#ae7955b695f60cd16d25d471f25029d8d">bl::engine::Flags::Flag</a></div><div class="ttdeci">Flag</div><div class="ttdoc">The flags that may be used to control the Engine.</div><div class="ttdef"><b>Definition</b> <a href="a08860_source.html#l00028">Flags.hpp:28</a></div></div>
+<div class="ttc" id="aa04290_html_ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e"><div class="ttname"><a href="a04290.html#ae7955b695f60cd16d25d471f25029d8da9615eccc4a0ae23cd7c339a58e8bcb2e">bl::engine::Flags::_priv_ReplaceState</a></div><div class="ttdeci">@ _priv_ReplaceState</div><div class="ttdoc">Used internally by the engine, do not use directly.</div><div class="ttdef"><b>Definition</b> <a href="a08860_source.html#l00034">Flags.hpp:33</a></div></div>
+<div class="ttc" id="aa04290_html_ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87"><div class="ttname"><a href="a04290.html#ae7955b695f60cd16d25d471f25029d8da9791dc5708a5a487e2626efe2e4a5a87">bl::engine::Flags::_priv_PushState</a></div><div class="ttdeci">@ _priv_PushState</div><div class="ttdoc">Returns to the previous state. Terminates if no previous state.</div><div class="ttdef"><b>Definition</b> <a href="a08860_source.html#l00032">Flags.hpp:32</a></div></div>
+<div class="ttc" id="aa04290_html_ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d"><div class="ttname"><a href="a04290.html#ae7955b695f60cd16d25d471f25029d8dadbeb889a6d0bd8a174aa2f787f83f39d">bl::engine::Flags::Terminate</a></div><div class="ttdeci">@ Terminate</div><div class="ttdoc">Special value indicating that no flags are set.</div><div class="ttdef"><b>Definition</b> <a href="a08860_source.html#l00030">Flags.hpp:30</a></div></div>
+<div class="ttc" id="aa04290_html_ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9"><div class="ttname"><a href="a04290.html#ae7955b695f60cd16d25d471f25029d8dafd37413afad2613e79b3d725c30147b9">bl::engine::Flags::PopState</a></div><div class="ttdeci">@ PopState</div><div class="ttdoc">Terminates the Engine's run() method.</div><div class="ttdef"><b>Definition</b> <a href="a08860_source.html#l00031">Flags.hpp:31</a></div></div>
+<div class="ttc" id="aa08860_html"><div class="ttname"><a href="a08860.html">Flags.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

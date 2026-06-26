@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: src/Render/Scenes/SceneSync.cpp Source File</title>
+<title>BLIB: src/Render/Descriptors/DescriptorSetInstance.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,114 +79,43 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_90555a6f6bc1bb4149f0b831943ef307.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4c7ee98193a6cba0af9aae7f963a60da.html">Render</a></li><li class="navelem"><a class="el" href="dir_c46d59b26ba1c7a895704386ecf9511b.html">Descriptors</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">SceneSync.cpp</div></div>
+  <div class="headertitle"><div class="title">DescriptorSetInstance.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a02495.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a01010.html">BLIB/Render/Scenes/SceneSync.hpp</a>&gt;</span></div>
+<a href="a02495.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="a08992.html">BLIB/Render/Descriptors/DescriptorSetInstance.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="a00437.html">BLIB/ECS/Registry.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>scene</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>SceneSync::SceneSync(ecs::Registry&amp; r)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: registry(r) {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    ecsRouter.route&lt;ecs::event::ComponentAdded&lt;com::Rendered&gt;&gt;(</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        [<span class="keyword">this</span>](<span class="keyword">const</span> ecs::event::ComponentAdded&lt;com::Rendered&gt;&amp; event) {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>            handleComponentAdd(event);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        });</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    ecsRouter.route&lt;ecs::event::ComponentRemoved&lt;com::Rendered&gt;&gt;(</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        [<span class="keyword">this</span>](<span class="keyword">const</span> ecs::event::ComponentRemoved&lt;com::Rendered&gt;&amp; event) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>            handleComponentRemove(event);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        });</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    renderRouter.route&lt;rc::event::SceneObjectRemoved&gt;(</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        [<span class="keyword">this</span>](<span class="keyword">const</span> rc::event::SceneObjectRemoved&amp; event) { handleSceneRemove(event); });</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    renderRouter.route&lt;rc::event::SceneDestroyed&gt;(</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        [<span class="keyword">this</span>](<span class="keyword">const</span> rc::event::SceneDestroyed&amp; event) { handleSceneDestroy(event); });</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="keywordtype">void</span> SceneSync::subscribe(sig::Channel&amp; renderChanel) {</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    ecsRouter.subscribe(registry.getSignalChannel());</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    renderRouter.subscribe(renderChanel);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keywordtype">void</span> SceneSync::unsubscribe() {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    ecsRouter.unsubscribe();</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    renderRouter.unsubscribe();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keywordtype">void</span> SceneSync::handleComponentAdd(<span class="keyword">const</span> ecs::event::ComponentAdded&lt;com::Rendered&gt;&amp; event) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">event</span>.component.getScene()-&gt;createAndAddObject(</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        event.entity, *event.component.getComponent(), event.component.getUpdateSpeed());</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>}</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keywordtype">void</span> SceneSync::handleComponentRemove(<span class="keyword">const</span> ecs::event::ComponentRemoved&lt;com::Rendered&gt;&amp; event) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keywordflow">if</span> (event.component.getScene()) {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">auto</span>* scene = <span class="keyword">event</span>.component.getScene();</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keyword">const_cast&lt;</span>com::Rendered&amp;<span class="keyword">&gt;</span>(<span class="keyword">event</span>.component).invalidate(); <span class="comment">// prevent delete cycle</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">if</span> (event.component.getComponent() &amp;&amp;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            <span class="keyword">event</span>.component.getComponent()-&gt;getSceneRef().object) {</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            <span class="keyword">auto</span>&amp; sceneRef =</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                <span class="keyword">const_cast&lt;</span>rcom::SceneObjectRef&amp;<span class="keyword">&gt;</span>(<span class="keyword">event</span>.component.getComponent()-&gt;getSceneRef());</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            scene-&gt;removeObject(sceneRef.object);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            sceneRef.scene                                  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            sceneRef.object                                 = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            <span class="keyword">event</span>.component.getComponent()-&gt;renderComponent = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keywordtype">void</span> SceneSync::handleSceneRemove(<span class="keyword">const</span> rc::event::SceneObjectRemoved&amp; event) {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    com::Rendered* r = registry.getComponent&lt;com::Rendered&gt;(<span class="keyword">event</span>.entity);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">if</span> (r &amp;&amp; r-&gt;getScene()) {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        r-&gt;invalidate();</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">if</span> (r-&gt;getComponent()) {</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            r-&gt;getComponent()-&gt;sceneRef.scene  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            r-&gt;getComponent()-&gt;sceneRef.object = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            r-&gt;getComponent()-&gt;renderComponent = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        registry.removeComponent&lt;com::Rendered&gt;(<span class="keyword">event</span>.entity);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="keywordtype">void</span> SceneSync::handleSceneDestroy(<span class="keyword">const</span> rc::event::SceneDestroyed&amp; event) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    std::vector&lt;ecs::Entity&gt; toRm;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    registry.getAllComponents&lt;com::Rendered&gt;().forEach(</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        [<span class="keyword">this</span>, &amp;event, &amp;toRm](ecs::Entity ent, com::Rendered&amp; r) {</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keywordflow">if</span> (r.getScene() == event.scene) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                toRm.reserve(128);</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                r.invalidate();</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">if</span> (r.getComponent()) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                    r.getComponent()-&gt;sceneRef.scene  = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                    r.getComponent()-&gt;sceneRef.object = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                    r.getComponent()-&gt;renderComponent = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                }</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                toRm.emplace_back(ent);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        });</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">for</span> (<span class="keyword">auto</span> ent : toRm) { registry.removeComponent&lt;com::Rendered&gt;(ent); }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>} <span class="comment">// namespace scene</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>} <span class="comment">// namespace bl</span></div>
-<div class="ttc" id="aa00437_html"><div class="ttname"><a href="a00437.html">Registry.hpp</a></div></div>
-<div class="ttc" id="aa01010_html"><div class="ttname"><a href="a01010.html">SceneSync.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;limits&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>ds</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a05562.html#a251468a362a276e66b0a71379d187b4d">   11</a></span><a class="code hl_function" href="a05562.html#a251468a362a276e66b0a71379d187b4d">DescriptorSetInstance::DescriptorSetInstance</a>(<a class="code hl_enumeration" href="a05562.html#a587b054106ae5b4911a145a1d2928eaa">EntityBindMode</a> bindMode,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                                             <a class="code hl_enumeration" href="a05562.html#a56d01a7643e3e65933db3c5a957db66f">SpeedBucketSetting</a> speedSetting)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: bindless(bindMode == Bindless)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, speedBind(speedSetting == RebindForNewSpeed) {}</div>
+</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>} <span class="comment">// namespace ds</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>} <span class="comment">// namespace bl</span></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05562_html_a251468a362a276e66b0a71379d187b4d"><div class="ttname"><a href="a05562.html#a251468a362a276e66b0a71379d187b4d">bl::rc::ds::DescriptorSetInstance::DescriptorSetInstance</a></div><div class="ttdeci">DescriptorSetInstance(EntityBindMode bindMode, SpeedBucketSetting speedSetting)</div><div class="ttdoc">Creates a new DescriptorSetInstance.</div><div class="ttdef"><b>Definition</b> <a href="a02495_source.html#l00011">DescriptorSetInstance.cpp:11</a></div></div>
+<div class="ttc" id="aa05562_html_a56d01a7643e3e65933db3c5a957db66f"><div class="ttname"><a href="a05562.html#a56d01a7643e3e65933db3c5a957db66f">bl::rc::ds::DescriptorSetInstance::SpeedBucketSetting</a></div><div class="ttdeci">SpeedBucketSetting</div><div class="ttdoc">Whether or not the descriptor set needs to be re-bound for different update speeds.</div><div class="ttdef"><b>Definition</b> <a href="a08992_source.html#l00036">DescriptorSetInstance.hpp:36</a></div></div>
+<div class="ttc" id="aa05562_html_a587b054106ae5b4911a145a1d2928eaa"><div class="ttname"><a href="a05562.html#a587b054106ae5b4911a145a1d2928eaa">bl::rc::ds::DescriptorSetInstance::EntityBindMode</a></div><div class="ttdeci">EntityBindMode</div><div class="ttdoc">Bind mode of the descriptor set.</div><div class="ttdef"><b>Definition</b> <a href="a08992_source.html#l00033">DescriptorSetInstance.hpp:33</a></div></div>
+<div class="ttc" id="aa08992_html"><div class="ttname"><a href="a08992.html">DescriptorSetInstance.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

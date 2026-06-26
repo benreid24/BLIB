@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::audio::Playlist Class Reference</title>
+<title>BLIB: bl::as::Payload::ConstructContext Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,359 +74,92 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03153.html">audio</a></li><li class="navelem"><a class="el" href="a03686.html">Playlist</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03192.html">as</a></li><li class="navelem"><a class="el" href="a03682.html">Payload</a></li><li class="navelem"><a class="el" href="a03686.html">ConstructContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a03683.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::audio::Playlist Class Reference<div class="ingroups"><a class="el" href="a03115.html">Audio</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::as::Payload::ConstructContext Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Play state provider for playlist assets.  
+<p>Struct of parameters passed to <a class="el" href="a03682.html" title="Base class for asset payloads. Payloads are the actual data of assets such as images.">Payload</a> constructors. All derived classes should be constructible from this struct.  
  <a href="a03686.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01574_source.html">Playlist.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01418_source.html">Payload.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ac8aacbff4a306153702170b5b7c35197" id="r_ac8aacbff4a306153702170b5b7c35197"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#ac8aacbff4a306153702170b5b7c35197">Playlist</a> (<a class="el" href="a03678.html">as::TypedRef</a>&lt; <a class="el" href="a03418.html">asi::PlaylistPayload</a> &gt; asset)</td></tr>
-<tr class="memdesc:ac8aacbff4a306153702170b5b7c35197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the playlist from the underlying asset.  <br /></td></tr>
-<tr class="separator:ac8aacbff4a306153702170b5b7c35197"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a436545e4a11706a20b240f3662dd1b45" id="r_a436545e4a11706a20b240f3662dd1b45"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a436545e4a11706a20b240f3662dd1b45">isPlaying</a> () const</td></tr>
-<tr class="memdesc:a436545e4a11706a20b240f3662dd1b45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the playlist is playing.  <br /></td></tr>
-<tr class="separator:a436545e4a11706a20b240f3662dd1b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac388d1ce7ec765ca2c7be5cee5736da1" id="r_ac388d1ce7ec765ca2c7be5cee5736da1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1">play</a> ()</td></tr>
-<tr class="memdesc:ac388d1ce7ec765ca2c7be5cee5736da1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs before starting.  <br /></td></tr>
-<tr class="separator:ac388d1ce7ec765ca2c7be5cee5736da1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71892080133f509e4df5ce08f44c4887" id="r_a71892080133f509e4df5ce08f44c4887"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a71892080133f509e4df5ce08f44c4887">pause</a> ()</td></tr>
-<tr class="memdesc:a71892080133f509e4df5ce08f44c4887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses the playlist at the current time and current song. <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a> will resume from the pause point.  <br /></td></tr>
-<tr class="separator:a71892080133f509e4df5ce08f44c4887"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a342fef43f7c2e1fa4298d20d65b1b36c" id="r_a342fef43f7c2e1fa4298d20d65b1b36c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a342fef43f7c2e1fa4298d20d65b1b36c">stop</a> ()</td></tr>
-<tr class="memdesc:a342fef43f7c2e1fa4298d20d65b1b36c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops the playlist. <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a> will restart from the beginning.  <br /></td></tr>
-<tr class="separator:a342fef43f7c2e1fa4298d20d65b1b36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b5be3094112236d5542ff6ed041ec8d" id="r_a4b5be3094112236d5542ff6ed041ec8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a4b5be3094112236d5542ff6ed041ec8d">update</a> ()</td></tr>
-<tr class="memdesc:a4b5be3094112236d5542ff6ed041ec8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state of the playlist. This is called in the background if using <a class="el" href="a03682.html" title="Centralized audio system for playing sounds and music.">AudioSystem</a>. If not, then it must be called periodically. <a class="el" href="a03686.html#a4b5be3094112236d5542ff6ed041ec8d" title="Updates the state of the playlist. This is called in the background if using AudioSystem....">update()</a> switches songs when current ones finish.  <br /></td></tr>
-<tr class="separator:a4b5be3094112236d5542ff6ed041ec8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a259488541d4dcfe925137c24ab990421" id="r_a259488541d4dcfe925137c24ab990421"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a259488541d4dcfe925137c24ab990421">setVolume</a> (float <a class="el" href="a02825.html#a016abda2855c77dcc1630f9d2f9f8d18">volume</a>)</td></tr>
-<tr class="memdesc:a259488541d4dcfe925137c24ab990421"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the volume.  <br /></td></tr>
-<tr class="separator:a259488541d4dcfe925137c24ab990421"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47b95fdccbf663c7b5ab22237ca6849b" id="r_a47b95fdccbf663c7b5ab22237ca6849b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a47b95fdccbf663c7b5ab22237ca6849b">getVolume</a> () const</td></tr>
-<tr class="memdesc:a47b95fdccbf663c7b5ab22237ca6849b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current volume.  <br /></td></tr>
-<tr class="separator:a47b95fdccbf663c7b5ab22237ca6849b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e1be0557240d6b5169aef446aa1065c" id="r_a7e1be0557240d6b5169aef446aa1065c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a7e1be0557240d6b5169aef446aa1065c">setShuffle</a> (bool shuffle)</td></tr>
-<tr class="memdesc:a7e1be0557240d6b5169aef446aa1065c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the playlist should shuffle.  <br /></td></tr>
-<tr class="separator:a7e1be0557240d6b5169aef446aa1065c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac94e8b45cb5fcf11031e438378b8f1eb" id="r_ac94e8b45cb5fcf11031e438378b8f1eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#ac94e8b45cb5fcf11031e438378b8f1eb">shuffling</a> () const</td></tr>
-<tr class="memdesc:ac94e8b45cb5fcf11031e438378b8f1eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the playlist shuffles on <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a>  <br /></td></tr>
-<tr class="separator:ac94e8b45cb5fcf11031e438378b8f1eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33aa23d4c855fabbd526ab373d300adb" id="r_a33aa23d4c855fabbd526ab373d300adb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a33aa23d4c855fabbd526ab373d300adb">setShuffleOnLoop</a> (bool shuffleOnLoop)</td></tr>
-<tr class="memdesc:a33aa23d4c855fabbd526ab373d300adb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set whether or not the <a class="el" href="a03686.html" title="Play state provider for playlist assets.">Playlist</a> reshuffles when it loops.  <br /></td></tr>
-<tr class="separator:a33aa23d4c855fabbd526ab373d300adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4bb5c8276a313c4aa082eba807295bb3" id="r_a4bb5c8276a313c4aa082eba807295bb3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a4bb5c8276a313c4aa082eba807295bb3">shufflingOnLoop</a> () const</td></tr>
-<tr class="memdesc:a4bb5c8276a313c4aa082eba807295bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the <a class="el" href="a03686.html" title="Play state provider for playlist assets.">Playlist</a> shuffles when it loops.  <br /></td></tr>
-<tr class="separator:a4bb5c8276a313c4aa082eba807295bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a63f376e86b009b8b23c219644cdfc169" id="r_a63f376e86b009b8b23c219644cdfc169"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03159.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a63f376e86b009b8b23c219644cdfc169">mode</a></td></tr>
+<tr class="separator:a63f376e86b009b8b23c219644cdfc169"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2b263c7e0fcb72c0ad8146ecfb09dd2" id="r_af2b263c7e0fcb72c0ad8146ecfb09dd2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03710.html">Repository</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#af2b263c7e0fcb72c0ad8146ecfb09dd2">repo</a></td></tr>
+<tr class="separator:af2b263c7e0fcb72c0ad8146ecfb09dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a310b0919331e673860645f421f6307ae" id="r_a310b0919331e673860645f421f6307ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a03378.html">Asset</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03686.html#a310b0919331e673860645f421f6307ae">asset</a></td></tr>
+<tr class="separator:a310b0919331e673860645f421f6307ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Play state provider for playlist assets. </p>
+<div class="textblock"><p>Struct of parameters passed to <a class="el" href="a03682.html" title="Base class for asset payloads. Payloads are the actual data of assets such as images.">Payload</a> constructors. All derived classes should be constructible from this struct. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01574_source.html#l00020">20</a> of file <a class="el" href="a01574_source.html">Playlist.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac8aacbff4a306153702170b5b7c35197" name="ac8aacbff4a306153702170b5b7c35197"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8aacbff4a306153702170b5b7c35197">&#9670;&#160;</a></span>Playlist()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::audio::Playlist::Playlist </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a03678.html">as::TypedRef</a>&lt; <a class="el" href="a03418.html">asi::PlaylistPayload</a> &gt;&#160;</td>
-          <td class="paramname"><em>asset</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates the playlist from the underlying asset. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">asset</td><td>The playlist asset </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00015">15</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a47b95fdccbf663c7b5ab22237ca6849b" name="a47b95fdccbf663c7b5ab22237ca6849b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47b95fdccbf663c7b5ab22237ca6849b">&#9670;&#160;</a></span>getVolume()</h2>
+<p class="definition">Definition at line <a class="el" href="a01418_source.html#l00035">35</a> of file <a class="el" href="a01418_source.html">Payload.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a310b0919331e673860645f421f6307ae" name="a310b0919331e673860645f421f6307ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a310b0919331e673860645f421f6307ae">&#9670;&#160;</a></span>asset</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float bl::audio::Playlist::getVolume </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="a03378.html">Asset</a>&amp; bl::as::Payload::ConstructContext::asset</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the current volume. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00074">74</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01418_source.html#l00038">38</a> of file <a class="el" href="a01418_source.html">Payload.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a436545e4a11706a20b240f3662dd1b45" name="a436545e4a11706a20b240f3662dd1b45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a436545e4a11706a20b240f3662dd1b45">&#9670;&#160;</a></span>isPlaying()</h2>
+<a id="a63f376e86b009b8b23c219644cdfc169" name="a63f376e86b009b8b23c219644cdfc169"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63f376e86b009b8b23c219644cdfc169">&#9670;&#160;</a></span>mode</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool bl::audio::Playlist::isPlaying </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="a03159.html#ga537fc08995c54793e8c6cb8d44e8a076">Mode</a> bl::as::Payload::ConstructContext::mode</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the playlist is playing. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if playing, false if paused or stopped </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00028">28</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01418_source.html#l00036">36</a> of file <a class="el" href="a01418_source.html">Payload.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a71892080133f509e4df5ce08f44c4887" name="a71892080133f509e4df5ce08f44c4887"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a71892080133f509e4df5ce08f44c4887">&#9670;&#160;</a></span>pause()</h2>
+<a id="af2b263c7e0fcb72c0ad8146ecfb09dd2" name="af2b263c7e0fcb72c0ad8146ecfb09dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2b263c7e0fcb72c0ad8146ecfb09dd2">&#9670;&#160;</a></span>repo</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::audio::Playlist::pause </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a03710.html">Repository</a>&amp; bl::as::Payload::ConstructContext::repo</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pauses the playlist at the current time and current song. <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a> will resume from the pause point. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00061">61</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01418_source.html#l00037">37</a> of file <a class="el" href="a01418_source.html">Payload.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac388d1ce7ec765ca2c7be5cee5736da1" name="ac388d1ce7ec765ca2c7be5cee5736da1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac388d1ce7ec765ca2c7be5cee5736da1">&#9670;&#160;</a></span>play()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::Playlist::play </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs before starting. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00030">30</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7e1be0557240d6b5169aef446aa1065c" name="a7e1be0557240d6b5169aef446aa1065c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e1be0557240d6b5169aef446aa1065c">&#9670;&#160;</a></span>setShuffle()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::Playlist::setShuffle </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>shuffle</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set whether or not the playlist should shuffle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shuffle</td><td>True to shuffle on <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a>, false to play in order </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00091">91</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a33aa23d4c855fabbd526ab373d300adb" name="a33aa23d4c855fabbd526ab373d300adb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33aa23d4c855fabbd526ab373d300adb">&#9670;&#160;</a></span>setShuffleOnLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::Playlist::setShuffleOnLoop </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>shuffleOnLoop</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set whether or not the <a class="el" href="a03686.html" title="Play state provider for playlist assets.">Playlist</a> reshuffles when it loops. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">shuffleOnLoop</td><td>True to shuffle again when complete, false to keep order </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00095">95</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a259488541d4dcfe925137c24ab990421" name="a259488541d4dcfe925137c24ab990421"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a259488541d4dcfe925137c24ab990421">&#9670;&#160;</a></span>setVolume()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::Playlist::setVolume </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>volume</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the volume. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">volume</td><td>Volume, [0,100] </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00072">72</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac94e8b45cb5fcf11031e438378b8f1eb" name="ac94e8b45cb5fcf11031e438378b8f1eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94e8b45cb5fcf11031e438378b8f1eb">&#9670;&#160;</a></span>shuffling()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::audio::Playlist::shuffling </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the playlist shuffles on <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a> </p>
-<dl class="section return"><dt>Returns</dt><dd>True if shuffling, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00093">93</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4bb5c8276a313c4aa082eba807295bb3" name="a4bb5c8276a313c4aa082eba807295bb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bb5c8276a313c4aa082eba807295bb3">&#9670;&#160;</a></span>shufflingOnLoop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool bl::audio::Playlist::shufflingOnLoop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the <a class="el" href="a03686.html" title="Play state provider for playlist assets.">Playlist</a> shuffles when it loops. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if shuffling on each loop, false if keeping order </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00097">97</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a342fef43f7c2e1fa4298d20d65b1b36c" name="a342fef43f7c2e1fa4298d20d65b1b36c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a342fef43f7c2e1fa4298d20d65b1b36c">&#9670;&#160;</a></span>stop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::Playlist::stop </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Stops the playlist. <a class="el" href="a03686.html#ac388d1ce7ec765ca2c7be5cee5736da1" title="Plays or resumes the playlist. If set to shuffle and not resuming from pause, shuffles the songs befo...">play()</a> will restart from the beginning. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00067">67</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4b5be3094112236d5542ff6ed041ec8d" name="a4b5be3094112236d5542ff6ed041ec8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b5be3094112236d5542ff6ed041ec8d">&#9670;&#160;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::audio::Playlist::update </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the state of the playlist. This is called in the background if using <a class="el" href="a03682.html" title="Centralized audio system for playing sounds and music.">AudioSystem</a>. If not, then it must be called periodically. <a class="el" href="a03686.html#a4b5be3094112236d5542ff6ed041ec8d" title="Updates the state of the playlist. This is called in the background if using AudioSystem....">update()</a> switches songs when current ones finish. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02822_source.html#l00076">76</a> of file <a class="el" href="a02822_source.html">Playlist.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/BLIB/Audio/<a class="el" href="a01574_source.html">Playlist.hpp</a></li>
-<li>src/Audio/<a class="el" href="a02822_source.html">Playlist.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/BLIB/Assets/<a class="el" href="a01418_source.html">Payload.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

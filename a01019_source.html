@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/Scenes/CodeScene.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/ShaderResources/MSAABehavior.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,129 +79,66 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_1582fe53e8ca010e140dea1b69a5a9f3.html">Scenes</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bb95439065f6a606d9dbc4385f71a79c.html">ShaderResources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">CodeScene.hpp</div></div>
+  <div class="headertitle"><div class="title">MSAABehavior.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01019.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_SCENES_CODESCENE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_SCENES_CODESCENE_HPP</span></div>
+<a href="a01019.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_GRAPH_ASSETS_MSAABEHAVIOR_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_GRAPH_ASSETS_MSAABEHAVIOR_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a00731.html">BLIB/Render/Components/DrawableBase.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00755.html">BLIB/Render/Events/SceneObjectRemoved.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00950.html">BLIB/Render/Lighting/Scene2DLighting.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a01031.html">BLIB/Render/Scenes/CodeSceneObject.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a01022.html">BLIB/Render/Scenes/Scene.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a01028.html">BLIB/Render/Scenes/SceneObjectStorage.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a09833.html">BLIB/Signals/Emitter.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>scene</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05970.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a05970.html">CodeScene</a> : <span class="keyword">public</span> <a class="code hl_class" href="a05998.html">Scene</a> {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00031" data-start="{" data-end="};">
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="a05974.html">   31</a></span>    <span class="keyword">class </span><a class="code hl_class" href="a05974.html">RenderContext</a> {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05974.html#a574e2bdfd78517820fd2d687d482a9e9">renderObject</a>(<a class="code hl_struct" href="a05314.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05974.html#af023b8f7cd5eaa1042e9aaa908be3625">setViewport</a>(<span class="keyword">const</span> VkViewport&amp; viewport, <span class="keywordtype">bool</span> <a class="code hl_function" href="a05974.html#a9df3086c68c68b50b51d2a261062c6ea">setScissor</a> = <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05974.html#a9df3086c68c68b50b51d2a261062c6ea">setScissor</a>(<span class="keyword">const</span> VkRect2D&amp; scissor, <span class="keywordtype">bool</span> <a class="code hl_function" href="a05974.html#af023b8f7cd5eaa1042e9aaa908be3625">setViewport</a> = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span>sri</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="};">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">   17</a></span><span class="keyword">enum struct</span> <a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">MSAABehavior</a> {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_enumvalue" href="a03176.html#gga835fc55db97a5aac2501ef7ce1d36865ab9f5c797ebbf55adccdd8539a65a0241">Disabled</a> = 0,</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_enumvalue" href="a03176.html#gga835fc55db97a5aac2501ef7ce1d36865a4e160a194cf8ee7551b5ed22f6cb6e6e">UseSettings</a> = 0x1 &lt;&lt; 1,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_enumvalue" href="a03176.html#gga835fc55db97a5aac2501ef7ce1d36865aa1682bbdcb4d1680ef6f51ded946931a">ResolveAttachments</a> = 0x1 &lt;&lt; 2</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>};</div>
+</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>} <span class="comment">// namespace sri</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="a01019.html#a6c3573d1437ab1d79dd57ffaad247e0f">   39</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> <a class="code hl_function" href="a01019.html#a6c3573d1437ab1d79dd57ffaad247e0f">operator|</a>(<a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> a,</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                                                     <a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> b) {</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">using </span>T = std::underlying_type&lt;bl::rc::sri::MSAABehavior&gt;::type;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(a) | <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(b));</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="foldopen" id="foldopen00052" data-start="{" data-end="}">
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a01019.html#a7e0a2ad8cf4b5e1be9011113f52f2376">   52</a></span><span class="keyword">inline</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a01019.html#a7e0a2ad8cf4b5e1be9011113f52f2376">operator&amp;</a>(<a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> a, <a class="code hl_enumeration" href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a> b) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keyword">using </span>T = std::underlying_type&lt;bl::rc::sri::MSAABehavior&gt;::type;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> (<span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(a) &amp; <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(b)) != 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05974.html#ac00afe1885338b150c835825ac6c798b">resetScissor</a>();</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05974.html#ac1d6f7c4e0dc033647a3e06a602ebea3">resetViewport</a>();</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a05974.html#a6fbab84a3c928f958460d3e3aeb34ee5">resetViewportAndScissor</a>();</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        <a class="code hl_class" href="a06042.html">scene::SceneRenderContext</a>&amp; renderContext;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_class" href="a05974.html">RenderContext</a>(<a class="code hl_class" href="a06042.html">scene::SceneRenderContext</a>&amp; renderContext);</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="a05974.html#a606ff0893787f48fc3e95cf4b3730d94">   77</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05970.html">CodeScene</a>;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    };</div>
-</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="a05970.html#ae493432ff27af23b11953639a1dc0c41">   81</a></span>    <span class="keyword">using </span><a class="code hl_typedef" href="a05970.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a> = std::function&lt;void(<a class="code hl_class" href="a05974.html">RenderContext</a>&amp;)&gt;;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_class" href="a05970.html">CodeScene</a>(<a class="code hl_class" href="a04202.html">engine::Engine</a>&amp; <a class="code hl_variable" href="a05998.html#ae269da1deff50997662a17a14af08b33">engine</a>, <a class="code hl_typedef" href="a05970.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a>&amp;&amp; renderCallback);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a05970.html#a3c824c709243a14dbb33a429acb0942d">~CodeScene</a>();</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno"><a class="line" href="a05970.html#a66fe7cd8b321b2a4c5158503ca0dd3bd">   99</a></span>    <a class="code hl_class" href="a05786.html">lgt::Scene2DLighting</a>&amp; <a class="code hl_function" href="a05970.html#a66fe7cd8b321b2a4c5158503ca0dd3bd">getLighting</a>() { <span class="keywordflow">return</span> lighting; }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    <span class="keyword">const</span> <a class="code hl_typedef" href="a05970.html#ae493432ff27af23b11953639a1dc0c41">RenderCallback</a> renderCallback;</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <a class="code hl_class" href="a06030.html">SceneObjectStorage&lt;CodeSceneObject&gt;</a> objects;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_class" href="a05786.html">lgt::Scene2DLighting</a> lighting;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_class" href="a06782.html">sig::Emitter&lt;event::SceneObjectRemoved&gt;</a> emitter;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderOpaqueObjects(<a class="code hl_class" href="a06042.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> renderTransparentObjects(<a class="code hl_class" href="a06042.html">scene::SceneRenderContext</a>&amp; context) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keyword">virtual</span> std::unique_ptr&lt;cam::Camera&gt; createDefaultCamera() <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> setDefaultNearAndFarPlanes(<a class="code hl_class" href="a03730.html">cam::Camera</a>&amp; camera) <span class="keyword">const override</span>;</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keyword">virtual</span> <a class="code hl_struct" href="a06018.html">SceneObject</a>* doAdd(<a class="code hl_struct" href="a04046.html">ecs::Entity</a> entity, <a class="code hl_struct" href="a05314.html">rcom::DrawableBase</a>&amp; <span class="keywordtype">object</span>,</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>                               <a class="code hl_enumeration" href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">UpdateSpeed</a> updateFreq) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doBatchChange(<span class="keyword">const</span> BatchChange&amp; change,</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>                               <a class="code hl_class" href="a05830.html">mat::MaterialPipeline</a>* ogPipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doObjectRemoval(<a class="code hl_struct" href="a06018.html">SceneObject</a>* <span class="keywordtype">object</span>, <a class="code hl_class" href="a05830.html">mat::MaterialPipeline</a>* pipeline) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doRegisterObserver(<a class="code hl_class" href="a05882.html">RenderTarget</a>* target, std::uint32_t observerIndex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> doUnregisterObserver(<a class="code hl_class" href="a05882.html">RenderTarget</a>* target, std::uint32_t observerIndex) <span class="keyword">override</span>;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>};</div>
-</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>} <span class="comment">// namespace scene</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00731_html"><div class="ttname"><a href="a00731.html">DrawableBase.hpp</a></div></div>
-<div class="ttc" id="aa00755_html"><div class="ttname"><a href="a00755.html">SceneObjectRemoved.hpp</a></div></div>
-<div class="ttc" id="aa00950_html"><div class="ttname"><a href="a00950.html">Scene2DLighting.hpp</a></div></div>
-<div class="ttc" id="aa01022_html"><div class="ttname"><a href="a01022.html">Scene.hpp</a></div></div>
-<div class="ttc" id="aa01028_html"><div class="ttname"><a href="a01028.html">SceneObjectStorage.hpp</a></div></div>
-<div class="ttc" id="aa01031_html"><div class="ttname"><a href="a01031.html">CodeSceneObject.hpp</a></div></div>
-<div class="ttc" id="aa03130_html_ga305dcc5dda3e28bd193ab31444664848"><div class="ttname"><a href="a03130.html#ga305dcc5dda3e28bd193ab31444664848">bl::rc::UpdateSpeed</a></div><div class="ttdeci">UpdateSpeed</div><div class="ttdoc">Enum representing how frequently an object is expected to be updated.</div><div class="ttdef"><b>Definition</b> <a href="a01190_source.html#l00015">UpdateSpeed.hpp:15</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03730_html"><div class="ttname"><a href="a03730.html">bl::cam::Camera</a></div><div class="ttdoc">Base class for all cameras.</div><div class="ttdef"><b>Definition</b> <a href="a00005_source.html#l00017">Camera.hpp:17</a></div></div>
-<div class="ttc" id="aa04046_html"><div class="ttname"><a href="a04046.html">bl::ecs::Entity</a></div><div class="ttdoc">Entity is simply an id. Components are added via a Registry and they own all the relevant properties....</div><div class="ttdef"><b>Definition</b> <a href="a00410_source.html#l00024">Entity.hpp:24</a></div></div>
-<div class="ttc" id="aa04202_html"><div class="ttname"><a href="a04202.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09596_source.html#l00040">Engine.hpp:40</a></div></div>
-<div class="ttc" id="aa05314_html"><div class="ttname"><a href="a05314.html">bl::rc::rcom::DrawableBase</a></div><div class="ttdoc">Base class for drawable scene components for the ECS. Provides common members.</div><div class="ttdef"><b>Definition</b> <a href="a00731_source.html#l00043">DrawableBase.hpp:43</a></div></div>
-<div class="ttc" id="aa05786_html"><div class="ttname"><a href="a05786.html">bl::rc::lgt::Scene2DLighting</a></div><div class="ttdoc">Lighting manager for 2d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00950_source.html#l00030">Scene2DLighting.hpp:30</a></div></div>
-<div class="ttc" id="aa05830_html"><div class="ttname"><a href="a05830.html">bl::rc::mat::MaterialPipeline</a></div><div class="ttdoc">Rendering pipeline for a material. Contains pipelines for each render phase.</div><div class="ttdef"><b>Definition</b> <a href="a01049_source.html#l00020">MaterialPipeline.hpp:20</a></div></div>
-<div class="ttc" id="aa05882_html"><div class="ttname"><a href="a05882.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a00773_source.html#l00030">RenderTarget.hpp:30</a></div></div>
-<div class="ttc" id="aa05970_html"><div class="ttname"><a href="a05970.html">bl::rc::scene::CodeScene</a></div><div class="ttdoc">A special type of scene that performs rendering by deferring to a user-provided callback that then is...</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00026">CodeScene.hpp:26</a></div></div>
-<div class="ttc" id="aa05970_html_a3c824c709243a14dbb33a429acb0942d"><div class="ttname"><a href="a05970.html#a3c824c709243a14dbb33a429acb0942d">bl::rc::scene::CodeScene::~CodeScene</a></div><div class="ttdeci">virtual ~CodeScene()</div><div class="ttdoc">Destroys the code scene.</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00049">CodeScene.cpp:49</a></div></div>
-<div class="ttc" id="aa05970_html_a66fe7cd8b321b2a4c5158503ca0dd3bd"><div class="ttname"><a href="a05970.html#a66fe7cd8b321b2a4c5158503ca0dd3bd">bl::rc::scene::CodeScene::getLighting</a></div><div class="ttdeci">lgt::Scene2DLighting &amp; getLighting()</div><div class="ttdoc">Returns the scene lighting manager for this scene.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00099">CodeScene.hpp:99</a></div></div>
-<div class="ttc" id="aa05970_html_ae493432ff27af23b11953639a1dc0c41"><div class="ttname"><a href="a05970.html#ae493432ff27af23b11953639a1dc0c41">bl::rc::scene::CodeScene::RenderCallback</a></div><div class="ttdeci">std::function&lt; void(RenderContext &amp;)&gt; RenderCallback</div><div class="ttdoc">Signature of the callback that is called when rendering occurs.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00081">CodeScene.hpp:81</a></div></div>
-<div class="ttc" id="aa05974_html"><div class="ttname"><a href="a05974.html">bl::rc::scene::CodeScene::RenderContext</a></div><div class="ttdoc">Context that gets passed to the render callback.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00031">CodeScene.hpp:31</a></div></div>
-<div class="ttc" id="aa05974_html_a574e2bdfd78517820fd2d687d482a9e9"><div class="ttname"><a href="a05974.html#a574e2bdfd78517820fd2d687d482a9e9">bl::rc::scene::CodeScene::RenderContext::renderObject</a></div><div class="ttdeci">void renderObject(rcom::DrawableBase &amp;object)</div><div class="ttdoc">Issues the commands to render the given object. All BLIB renderable classes provide their own methods...</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00107">CodeScene.cpp:107</a></div></div>
-<div class="ttc" id="aa05974_html_a6fbab84a3c928f958460d3e3aeb34ee5"><div class="ttname"><a href="a05974.html#a6fbab84a3c928f958460d3e3aeb34ee5">bl::rc::scene::CodeScene::RenderContext::resetViewportAndScissor</a></div><div class="ttdeci">void resetViewportAndScissor()</div><div class="ttdoc">Resets both the viewport and scissor to their original values.</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00160">CodeScene.cpp:160</a></div></div>
-<div class="ttc" id="aa05974_html_a9df3086c68c68b50b51d2a261062c6ea"><div class="ttname"><a href="a05974.html#a9df3086c68c68b50b51d2a261062c6ea">bl::rc::scene::CodeScene::RenderContext::setScissor</a></div><div class="ttdeci">void setScissor(const VkRect2D &amp;scissor, bool setViewport=false)</div><div class="ttdoc">Sets the scissor to use for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00144">CodeScene.cpp:144</a></div></div>
-<div class="ttc" id="aa05974_html_ac00afe1885338b150c835825ac6c798b"><div class="ttname"><a href="a05974.html#ac00afe1885338b150c835825ac6c798b">bl::rc::scene::CodeScene::RenderContext::resetScissor</a></div><div class="ttdeci">void resetScissor()</div><div class="ttdoc">Resets the scissor to its original value.</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00156">CodeScene.cpp:156</a></div></div>
-<div class="ttc" id="aa05974_html_ac1d6f7c4e0dc033647a3e06a602ebea3"><div class="ttname"><a href="a05974.html#ac1d6f7c4e0dc033647a3e06a602ebea3">bl::rc::scene::CodeScene::RenderContext::resetViewport</a></div><div class="ttdeci">void resetViewport()</div><div class="ttdoc">Resets the viewport to its original value.</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00152">CodeScene.cpp:152</a></div></div>
-<div class="ttc" id="aa05974_html_af023b8f7cd5eaa1042e9aaa908be3625"><div class="ttname"><a href="a05974.html#af023b8f7cd5eaa1042e9aaa908be3625">bl::rc::scene::CodeScene::RenderContext::setViewport</a></div><div class="ttdeci">void setViewport(const VkViewport &amp;viewport, bool setScissor=true)</div><div class="ttdoc">Issues the command to set the viewport used for rendering.</div><div class="ttdef"><b>Definition</b> <a href="a02504_source.html#l00136">CodeScene.cpp:136</a></div></div>
-<div class="ttc" id="aa05998_html"><div class="ttname"><a href="a05998.html">bl::rc::Scene</a></div><div class="ttdoc">Base class for all scene types and overlays. Provides common scene logic and object management....</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00059">Scene.hpp:59</a></div></div>
-<div class="ttc" id="aa05998_html_ae269da1deff50997662a17a14af08b33"><div class="ttname"><a href="a05998.html#ae269da1deff50997662a17a14af08b33">bl::rc::Scene::engine</a></div><div class="ttdeci">engine::Engine &amp; engine</div><div class="ttdef"><b>Definition</b> <a href="a01022_source.html#l00123">Scene.hpp:123</a></div></div>
-<div class="ttc" id="aa06018_html"><div class="ttname"><a href="a06018.html">bl::rc::scene::SceneObject</a></div><div class="ttdoc">Base renderable object. Everything that is rendered will reference an instance of this....</div><div class="ttdef"><b>Definition</b> <a href="a01046_source.html#l00030">SceneObject.hpp:30</a></div></div>
-<div class="ttc" id="aa06030_html"><div class="ttname"><a href="a06030.html">bl::rc::scene::SceneObjectStorage</a></div><div class="ttdoc">Storage for scene objects. Splits objects by update frequency.</div><div class="ttdef"><b>Definition</b> <a href="a01028_source.html#l00028">SceneObjectStorage.hpp:28</a></div></div>
-<div class="ttc" id="aa06042_html"><div class="ttname"><a href="a06042.html">bl::rc::scene::SceneRenderContext</a></div><div class="ttdoc">Container class that holds the required parameters to render a scene and provides methods for descrip...</div><div class="ttdef"><b>Definition</b> <a href="a01016_source.html#l00026">SceneRenderContext.hpp:26</a></div></div>
-<div class="ttc" id="aa06782_html"><div class="ttname"><a href="a06782.html">bl::sig::Emitter</a></div><div class="ttdoc">Signal emitter that connects to a channel and allows the sending of signals.</div><div class="ttdef"><b>Definition</b> <a href="a09833_source.html#l00022">Emitter.hpp:22</a></div></div>
-<div class="ttc" id="aa09833_html"><div class="ttname"><a href="a09833.html">Emitter.hpp</a></div></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01019_html_a6c3573d1437ab1d79dd57ffaad247e0f"><div class="ttname"><a href="a01019.html#a6c3573d1437ab1d79dd57ffaad247e0f">operator|</a></div><div class="ttdeci">constexpr bl::rc::sri::MSAABehavior operator|(bl::rc::sri::MSAABehavior a, bl::rc::sri::MSAABehavior b)</div><div class="ttdoc">Helper to combine two MSAABehavior flags using bitwise OR.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00039">MSAABehavior.hpp:39</a></div></div>
+<div class="ttc" id="aa01019_html_a7e0a2ad8cf4b5e1be9011113f52f2376"><div class="ttname"><a href="a01019.html#a7e0a2ad8cf4b5e1be9011113f52f2376">operator&amp;</a></div><div class="ttdeci">constexpr bool operator&amp;(bl::rc::sri::MSAABehavior a, bl::rc::sri::MSAABehavior b)</div><div class="ttdoc">Helper to check if a MSAABehavior flag is set.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00052">MSAABehavior.hpp:52</a></div></div>
+<div class="ttc" id="aa03176_html_ga835fc55db97a5aac2501ef7ce1d36865"><div class="ttname"><a href="a03176.html#ga835fc55db97a5aac2501ef7ce1d36865">bl::rc::sri::MSAABehavior</a></div><div class="ttdeci">MSAABehavior</div><div class="ttdoc">Controls the MSAA behavior of an asset.</div><div class="ttdef"><b>Definition</b> <a href="a01019_source.html#l00017">MSAABehavior.hpp:17</a></div></div>
+<div class="ttc" id="aa03176_html_gga835fc55db97a5aac2501ef7ce1d36865a4e160a194cf8ee7551b5ed22f6cb6e6e"><div class="ttname"><a href="a03176.html#gga835fc55db97a5aac2501ef7ce1d36865a4e160a194cf8ee7551b5ed22f6cb6e6e">bl::rc::sri::MSAABehavior::UseSettings</a></div><div class="ttdeci">@ UseSettings</div><div class="ttdoc">MSAA is enabled or disabled based on the renderer settings.</div></div>
+<div class="ttc" id="aa03176_html_gga835fc55db97a5aac2501ef7ce1d36865aa1682bbdcb4d1680ef6f51ded946931a"><div class="ttname"><a href="a03176.html#gga835fc55db97a5aac2501ef7ce1d36865aa1682bbdcb4d1680ef6f51ded946931a">bl::rc::sri::MSAABehavior::ResolveAttachments</a></div><div class="ttdeci">@ ResolveAttachments</div><div class="ttdoc">Attachments should be resolved after rendering.</div></div>
+<div class="ttc" id="aa03176_html_gga835fc55db97a5aac2501ef7ce1d36865ab9f5c797ebbf55adccdd8539a65a0241"><div class="ttname"><a href="a03176.html#gga835fc55db97a5aac2501ef7ce1d36865ab9f5c797ebbf55adccdd8539a65a0241">bl::rc::sri::MSAABehavior::Disabled</a></div><div class="ttdeci">@ Disabled</div><div class="ttdoc">MSAA is disabled always for this asset.</div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:15 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

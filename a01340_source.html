@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Assets/Builtin/FontPayload.hpp Source File</title>
+<title>BLIB: include/BLIB/Assets/Drivers/TextureDriver.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,150 +79,65 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li><li class="navelem"><a class="el" href="dir_d5fc7009464099a688f5bd3db1a4dfc7.html">Builtin</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li><li class="navelem"><a class="el" href="dir_4599895f4162d5d8286a952e0ddc29e1.html">Drivers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">FontPayload.hpp</div></div>
+  <div class="headertitle"><div class="title">TextureDriver.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01340.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_BUILTIN_FONTPAYLOAD_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_BUILTIN_FONTPAYLOAD_HPP</span></div>
+<a href="a01340.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_ASSETS_DRIVERS_TEXTUREDRIVER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_ASSETS_DRIVERS_TEXTUREDRIVER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01373.html">BLIB/Assets/Payload.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00800.html">BLIB/Render/Resources/TextureRef.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;SFML/Graphics/Export.hpp&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;SFML/Graphics/Glyph.hpp&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;SFML/Graphics/Image.hpp&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;SFML/Graphics/Rect.hpp&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a03150.html">   18</a></span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>{</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">class </span><a class="code hl_class" href="a05878.html">Renderer</a>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01406.html">BLIB/Assets/Builtin/TexturePayload.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a01412.html">BLIB/Assets/Driver.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>asi</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="a03658.html">   16</a></span><span class="keyword">class </span><a class="code hl_class" href="a03658.html">TextureDriver</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03574.html">as::Driver</a>&lt;TexturePayload&gt; {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a03658.html#a7bee591c2d5703d9b582e2ce96db97fc">   19</a></span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> std::string_view <a class="code hl_variable" href="a03658.html#a7bee591c2d5703d9b582e2ce96db97fc">TypeName</a> = <span class="stringliteral">&quot;Textures&quot;</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="a03658.html#a6f1c0a461cd3037ce99fac909cef4568">TextureDriver</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="a03658.html#a6e13e6181e17b48dda8168d2be98ff95">   29</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03658.html#a6e13e6181e17b48dda8168d2be98ff95">~TextureDriver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03658.html#a2abf5dfdead1df5776fe225292062ad9">doCreate</a>(<a class="code hl_class" href="a03538.html">as::CreateContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_struct" href="a03474.html">TexturePayload</a>&amp; payload) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03658.html#aa62494a46f331a2f411336cda1ecf723">doRead</a>(<a class="code hl_class" href="a03530.html">as::ReadContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <a class="code hl_struct" href="a03474.html">TexturePayload</a>&amp; payload) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code hl_function" href="a03658.html#acce3df74dff09a985fc72db02cde916b">doWrite</a>(<a class="code hl_class" href="a03534.html">as::WriteContext</a>&amp; <a class="code hl_variable" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, <span class="keyword">const</span> <a class="code hl_struct" href="a03474.html">TexturePayload</a>&amp; payload) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>};</div>
 </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">namespace </span>asi</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">class </span>FontDriver;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="foldopen" id="foldopen00032" data-start="{" data-end="};">
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="a03386.html">   32</a></span><span class="keyword">class </span><a class="code hl_class" href="a03386.html">FontPayload</a> : <span class="keyword">public</span> <a class="code hl_class" href="a03634.html">as::Payload</a> {</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">public</span>:</div>
-<div class="foldopen" id="foldopen00037" data-start="{" data-end="};">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a03390.html">   37</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="a03390.html">Info</a> {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a03390.html#a25e56786c69e4ba2c0c3224577748fea">   38</a></span>        std::string <a class="code hl_variable" href="a03390.html#a25e56786c69e4ba2c0c3224577748fea">family</a>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    };</div>
-</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_class" href="a03386.html">FontPayload</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a03638.html">as::Payload::ConstructContext</a>&amp; <a class="code hl_variable" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a03386.html#ae2cb76253638e123d7523575c3cf4749">~FontPayload</a>();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a03390.html">Info</a>&amp; <a class="code hl_function" href="a03386.html#ac9bf28bf4d4189f28def998f46201f80">getInfo</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">const</span> sf::Glyph&amp; <a class="code hl_function" href="a03386.html#abd05dbe0db62fe69b31f8541f150de62">getGlyph</a>(std::uint32_t codePoint, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize, <span class="keywordtype">bool</span> bold,</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                              <span class="keywordtype">float</span> outlineThickness = 0.f) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="a03386.html#a4acfc91bcb251d61753cf50722ac890d">hasGlyph</a>(std::uint32_t codePoint) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03386.html#a7db05e9ed9b888282503fb9ee21e09f9">getKerning</a>(std::uint32_t first, std::uint32_t second, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize,</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                     <span class="keywordtype">bool</span> bold = <span class="keyword">false</span>) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03386.html#ac8c89a8138f9d060c2542484a8354a51">getLineSpacing</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03386.html#ae38723e4975af23aaee4d061417b57c8">getUnderlinePosition</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a03386.html#af466bee17c78a3e90e9a79bbe22add27">getUnderlineThickness</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keyword">const</span> sf::Image&amp; <a class="code hl_function" href="a03386.html#ad1829b6bed002e486a0f60406b12c5da">getGlyphAtlas</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <a class="code hl_class" href="a05946.html">bl::rc::res::TextureRef</a> <a class="code hl_function" href="a03386.html#adcaca32ee08bab73ed9b8750d8970168">syncTexture</a>(<a class="code hl_class" href="a05878.html">bl::rc::Renderer</a>&amp; renderer) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keyword">struct </span>Row {</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        Row(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rowTop, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> rowHeight)</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        : width(0)</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        , top(rowTop)</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        , height(rowHeight) {}</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width;  </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> top;    </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height; </div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    };</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    <span class="keyword">typedef</span> std::map&lt;std::uint64_t, sf::Glyph&gt; GlyphTable;</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    <span class="keywordtype">bool</span> loadFromMemory();</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordtype">void</span> cleanup(<span class="keywordtype">bool</span> freeBuffer = <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    sf::Glyph loadGlyph(std::uint32_t codePoint, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize, <span class="keywordtype">bool</span> bold,</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>                        <span class="keywordtype">float</span> outlineThickness) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    sf::IntRect findGlyphRect(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    <span class="keywordtype">bool</span> setCurrentSize(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> characterSize) <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">// Runtime data</span></div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keyword">mutable</span> <span class="keywordtype">bool</span> needsUpload;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keyword">mutable</span> <a class="code hl_class" href="a05946.html">bl::rc::res::TextureRef</a> vulkanTexture;</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordtype">void</span>* m_library;</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordtype">void</span>* m_face;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordtype">void</span>* m_streamRec;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordtype">void</span>* m_stroker;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordtype">bool</span> m_isSmooth;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    Info m_info;</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keyword">mutable</span> GlyphTable glyphs;</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keyword">mutable</span> sf::Image texture;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keyword">mutable</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nextRow;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keyword">mutable</span> std::vector&lt;Row&gt; rows;</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keyword">mutable</span> std::vector&lt;std::uint8_t&gt; m_pixelBuffer;</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="comment">// Underlying data. is serialized</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    std::vector&lt;char&gt; buffer;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="a03386.html#ad022e77d0b69bb01777f4c383045d0ae">  173</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a03566.html">FontDriver</a>;</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>};</div>
-</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>} <span class="comment">// namespace asi</span></div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00800_html"><div class="ttname"><a href="a00800.html">TextureRef.hpp</a></div></div>
-<div class="ttc" id="aa01373_html"><div class="ttname"><a href="a01373.html">Payload.hpp</a></div></div>
-<div class="ttc" id="aa02867_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02867_source.html#l00013">World2D.cpp:13</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa03386_html"><div class="ttname"><a href="a03386.html">bl::asi::FontPayload</a></div><div class="ttdoc">Payload for fonts. Derived from sf::Font.</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00032">FontPayload.hpp:32</a></div></div>
-<div class="ttc" id="aa03386_html_a4acfc91bcb251d61753cf50722ac890d"><div class="ttname"><a href="a03386.html#a4acfc91bcb251d61753cf50722ac890d">bl::asi::FontPayload::hasGlyph</a></div><div class="ttdeci">bool hasGlyph(std::uint32_t codePoint) const</div><div class="ttdoc">Returns whether or not the font contains the requested character.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00160">FontPayload.cpp:160</a></div></div>
-<div class="ttc" id="aa03386_html_a7db05e9ed9b888282503fb9ee21e09f9"><div class="ttname"><a href="a03386.html#a7db05e9ed9b888282503fb9ee21e09f9">bl::asi::FontPayload::getKerning</a></div><div class="ttdeci">float getKerning(std::uint32_t first, std::uint32_t second, unsigned int characterSize, bool bold=false) const</div><div class="ttdoc">Returns the kerning between the given characters.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00164">FontPayload.cpp:164</a></div></div>
-<div class="ttc" id="aa03386_html_abd05dbe0db62fe69b31f8541f150de62"><div class="ttname"><a href="a03386.html#abd05dbe0db62fe69b31f8541f150de62">bl::asi::FontPayload::getGlyph</a></div><div class="ttdeci">const sf::Glyph &amp; getGlyph(std::uint32_t codePoint, unsigned int characterSize, bool bold, float outlineThickness=0.f) const</div><div class="ttdoc">Returns the glyph information for the requested character and settings.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00137">FontPayload.cpp:137</a></div></div>
-<div class="ttc" id="aa03386_html_ac8c89a8138f9d060c2542484a8354a51"><div class="ttname"><a href="a03386.html#ac8c89a8138f9d060c2542484a8354a51">bl::asi::FontPayload::getLineSpacing</a></div><div class="ttdeci">float getLineSpacing(unsigned int characterSize) const</div><div class="ttdoc">Returns the amount of space between letters for the given font size.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00201">FontPayload.cpp:201</a></div></div>
-<div class="ttc" id="aa03386_html_ac9bf28bf4d4189f28def998f46201f80"><div class="ttname"><a href="a03386.html#ac9bf28bf4d4189f28def998f46201f80">bl::asi::FontPayload::getInfo</a></div><div class="ttdeci">const Info &amp; getInfo() const</div><div class="ttdoc">Returns the font information.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00135">FontPayload.cpp:135</a></div></div>
-<div class="ttc" id="aa03386_html_ad1829b6bed002e486a0f60406b12c5da"><div class="ttname"><a href="a03386.html#ad1829b6bed002e486a0f60406b12c5da">bl::asi::FontPayload::getGlyphAtlas</a></div><div class="ttdeci">const sf::Image &amp; getGlyphAtlas() const</div><div class="ttdoc">Returns the rendered glyph atlas.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00238">FontPayload.cpp:238</a></div></div>
-<div class="ttc" id="aa03386_html_adcaca32ee08bab73ed9b8750d8970168"><div class="ttname"><a href="a03386.html#adcaca32ee08bab73ed9b8750d8970168">bl::asi::FontPayload::syncTexture</a></div><div class="ttdeci">bl::rc::res::TextureRef syncTexture(bl::rc::Renderer &amp;renderer) const</div><div class="ttdoc">Creates or updates the Vulkan texture for the rendered glyphs if necessary.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00504">FontPayload.cpp:504</a></div></div>
-<div class="ttc" id="aa03386_html_ae2cb76253638e123d7523575c3cf4749"><div class="ttname"><a href="a03386.html#ae2cb76253638e123d7523575c3cf4749">bl::asi::FontPayload::~FontPayload</a></div><div class="ttdeci">virtual ~FontPayload()</div><div class="ttdoc">Destroys the payload.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00080">FontPayload.cpp:80</a></div></div>
-<div class="ttc" id="aa03386_html_ae38723e4975af23aaee4d061417b57c8"><div class="ttname"><a href="a03386.html#ae38723e4975af23aaee4d061417b57c8">bl::asi::FontPayload::getUnderlinePosition</a></div><div class="ttdeci">float getUnderlinePosition(unsigned int characterSize) const</div><div class="ttdoc">Returns the position of the underline for the given font size.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00210">FontPayload.cpp:210</a></div></div>
-<div class="ttc" id="aa03386_html_af466bee17c78a3e90e9a79bbe22add27"><div class="ttname"><a href="a03386.html#af466bee17c78a3e90e9a79bbe22add27">bl::asi::FontPayload::getUnderlineThickness</a></div><div class="ttdeci">float getUnderlineThickness(unsigned int characterSize) const</div><div class="ttdoc">Returns the thickness of the underline for the given font size.</div><div class="ttdef"><b>Definition</b> <a href="a02711_source.html#l00224">FontPayload.cpp:224</a></div></div>
-<div class="ttc" id="aa03390_html"><div class="ttname"><a href="a03390.html">bl::asi::FontPayload::Info</a></div><div class="ttdoc">Contains information about the font.</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00037">FontPayload.hpp:37</a></div></div>
-<div class="ttc" id="aa03390_html_a25e56786c69e4ba2c0c3224577748fea"><div class="ttname"><a href="a03390.html#a25e56786c69e4ba2c0c3224577748fea">bl::asi::FontPayload::Info::family</a></div><div class="ttdeci">std::string family</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00038">FontPayload.hpp:38</a></div></div>
-<div class="ttc" id="aa03566_html"><div class="ttname"><a href="a03566.html">bl::asi::FontDriver</a></div><div class="ttdoc">Driver for font assets.</div><div class="ttdef"><b>Definition</b> <a href="a01301_source.html#l00017">FontDriver.hpp:17</a></div></div>
-<div class="ttc" id="aa03634_html"><div class="ttname"><a href="a03634.html">bl::as::Payload</a></div><div class="ttdoc">Base class for asset payloads. Payloads are the actual data of assets such as images.</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00029">Payload.hpp:29</a></div></div>
-<div class="ttc" id="aa03638_html"><div class="ttname"><a href="a03638.html">bl::as::Payload::ConstructContext</a></div><div class="ttdoc">Struct of parameters passed to Payload constructors. All derived classes should be constructible from...</div><div class="ttdef"><b>Definition</b> <a href="a01373_source.html#l00035">Payload.hpp:35</a></div></div>
-<div class="ttc" id="aa05878_html"><div class="ttname"><a href="a05878.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00058">Renderer.hpp:58</a></div></div>
-<div class="ttc" id="aa05946_html"><div class="ttname"><a href="a05946.html">bl::rc::res::TextureRef</a></div><div class="ttdoc">Lightweight reference to a texture inside of a TexturePool. Once all references to a texture are dest...</div><div class="ttdef"><b>Definition</b> <a href="a00800_source.html#l00025">TextureRef.hpp:25</a></div></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>} <span class="comment">// namespace asi</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01406_html"><div class="ttname"><a href="a01406.html">TexturePayload.hpp</a></div></div>
+<div class="ttc" id="aa01412_html"><div class="ttname"><a href="a01412.html">Driver.hpp</a></div></div>
+<div class="ttc" id="aa02912_html_a1f6d09b30c54854dfca659b7463ac207"><div class="ttname"><a href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a></div><div class="ttdeci">void * ctx</div><div class="ttdef"><b>Definition</b> <a href="a02912_source.html#l00013">World2D.cpp:13</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03474_html"><div class="ttname"><a href="a03474.html">bl::asi::TexturePayload</a></div><div class="ttdoc">Payload for texture assets. Textures depend on an image asset and provide additional metadata for ren...</div><div class="ttdef"><b>Definition</b> <a href="a01406_source.html#l00020">TexturePayload.hpp:20</a></div></div>
+<div class="ttc" id="aa03530_html"><div class="ttname"><a href="a03530.html">bl::as::ReadContext</a></div><div class="ttdoc">Context for existing assets being loaded into memory.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00114">Context.hpp:114</a></div></div>
+<div class="ttc" id="aa03534_html"><div class="ttname"><a href="a03534.html">bl::as::WriteContext</a></div><div class="ttdoc">Context for writing asset data to disk.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00143">Context.hpp:143</a></div></div>
+<div class="ttc" id="aa03538_html"><div class="ttname"><a href="a03538.html">bl::as::CreateContext</a></div><div class="ttdoc">Context for asset imports. Import is when assets are created from external files.</div><div class="ttdef"><b>Definition</b> <a href="a09082_source.html#l00194">Context.hpp:194</a></div></div>
+<div class="ttc" id="aa03574_html"><div class="ttname"><a href="a03574.html">bl::as::Driver</a></div><div class="ttdoc">Base class for drivers that provide support for different payload types.</div><div class="ttdef"><b>Definition</b> <a href="a01412_source.html#l00090">Driver.hpp:90</a></div></div>
+<div class="ttc" id="aa03658_html"><div class="ttname"><a href="a03658.html">bl::asi::TextureDriver</a></div><div class="ttdoc">Asset driver for loading and saving textures.</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00016">TextureDriver.hpp:16</a></div></div>
+<div class="ttc" id="aa03658_html_a2abf5dfdead1df5776fe225292062ad9"><div class="ttname"><a href="a03658.html#a2abf5dfdead1df5776fe225292062ad9">bl::asi::TextureDriver::doCreate</a></div><div class="ttdeci">virtual bool doCreate(as::CreateContext &amp;ctx, TexturePayload &amp;payload) override</div><div class="ttdoc">Creates a new texture asset.</div><div class="ttdef"><b>Definition</b> <a href="a02705_source.html#l00013">TextureDriver.cpp:13</a></div></div>
+<div class="ttc" id="aa03658_html_a6e13e6181e17b48dda8168d2be98ff95"><div class="ttname"><a href="a03658.html#a6e13e6181e17b48dda8168d2be98ff95">bl::asi::TextureDriver::~TextureDriver</a></div><div class="ttdeci">virtual ~TextureDriver()=default</div><div class="ttdoc">Destroys the driver.</div></div>
+<div class="ttc" id="aa03658_html_a6f1c0a461cd3037ce99fac909cef4568"><div class="ttname"><a href="a03658.html#a6f1c0a461cd3037ce99fac909cef4568">bl::asi::TextureDriver::TextureDriver</a></div><div class="ttdeci">TextureDriver()</div><div class="ttdoc">Creates the driver.</div><div class="ttdef"><b>Definition</b> <a href="a02705_source.html#l00007">TextureDriver.cpp:7</a></div></div>
+<div class="ttc" id="aa03658_html_a7bee591c2d5703d9b582e2ce96db97fc"><div class="ttname"><a href="a03658.html#a7bee591c2d5703d9b582e2ce96db97fc">bl::asi::TextureDriver::TypeName</a></div><div class="ttdeci">static constexpr std::string_view TypeName</div><div class="ttdoc">The string id of this driver type.</div><div class="ttdef"><b>Definition</b> <a href="a01340_source.html#l00019">TextureDriver.hpp:19</a></div></div>
+<div class="ttc" id="aa03658_html_aa62494a46f331a2f411336cda1ecf723"><div class="ttname"><a href="a03658.html#aa62494a46f331a2f411336cda1ecf723">bl::asi::TextureDriver::doRead</a></div><div class="ttdeci">virtual bool doRead(as::ReadContext &amp;ctx, TexturePayload &amp;payload) override</div><div class="ttdoc">Reads the texture asset data from the repository.</div><div class="ttdef"><b>Definition</b> <a href="a02705_source.html#l00030">TextureDriver.cpp:30</a></div></div>
+<div class="ttc" id="aa03658_html_acce3df74dff09a985fc72db02cde916b"><div class="ttname"><a href="a03658.html#acce3df74dff09a985fc72db02cde916b">bl::asi::TextureDriver::doWrite</a></div><div class="ttdeci">virtual bool doWrite(as::WriteContext &amp;ctx, const TexturePayload &amp;payload) override</div><div class="ttdoc">Writes the texture asset data to the repository.</div><div class="ttdef"><b>Definition</b> <a href="a02705_source.html#l00039">TextureDriver.cpp:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:23 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

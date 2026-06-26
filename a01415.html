@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Assets/Bundles/RuntimePaths.hpp File Reference</title>
+<title>BLIB: include/BLIB/Assets/Repository.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,46 +74,57 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li><li class="navelem"><a class="el" href="dir_3f5c552459d92063950cedd9f9d2d574.html">Bundles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_49d19b33db1a305bc1ec63c050aed912.html">Assets</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">RuntimePaths.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Repository.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01514_source.html">BLIB/Util/FileUtil.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01442_source.html">BLIB/Util/UUID.hpp</a>&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;string_view&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a09016_source.html">BLIB/Assets/Asset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01463_source.html">BLIB/Assets/Bundles/BundleRuntime.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09082_source.html">BLIB/Assets/Context.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01475_source.html">BLIB/Assets/Dependency.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01370_source.html">BLIB/Assets/DependencyList.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01412_source.html">BLIB/Assets/Driver.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a09127_source.html">BLIB/Assets/Mode.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01472_source.html">BLIB/Assets/SourceLink.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a08365_source.html">BLIB/Assets/State.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01421_source.html">BLIB/Assets/StreamCache.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01433_source.html">BLIB/Assets/TypedRef.hpp</a>&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;optional&gt;</code><br />
+<code>#include &lt;shared_mutex&gt;</code><br />
+<code>#include &lt;typeindex&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a01415_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03474.html">bl::as::bdl::RuntimePaths</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of paths and path helpers for the bundle runtime.  <a href="a03474.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03710.html">bl::as::Repository</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The central asset repository. Stores all asset metadata, manages runtime bundling and loading, and provides access to the underlying assets.  <a href="a03710.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a03144" id="r_a03144"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03144.html">bl</a></td></tr>
-<tr class="memdesc:a03144"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
+<tr class="memitem:a03190" id="r_a03190"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03190.html">bl</a></td></tr>
+<tr class="memdesc:a03190"><td class="mdescLeft">&#160;</td><td class="mdescRight">The parent namespace for all of BLIB. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03146" id="r_a03146"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03146.html">bl::as</a></td></tr>
-<tr class="memdesc:a03146"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a03330.html" title="Represents an asset in the repository. Contains the metadata and possibly a payload.">Asset</a> system. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03151" id="r_a03151"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03151.html">bl::as::bdl</a></td></tr>
-<tr class="memdesc:a03151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for asset bundling. <br /></td></tr>
+<tr class="memitem:a03192" id="r_a03192"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a03192.html">bl::as</a></td></tr>
+<tr class="memdesc:a03192"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the <a class="el" href="a03378.html" title="Represents an asset in the repository. Contains the metadata and possibly a payload.">Asset</a> system. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:25 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:16 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

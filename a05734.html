@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: bl::rc::rg::Timeline::TaskGroup Struct Reference</title>
+<title>BLIB: bl::rc::rg::InitContext Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -74,7 +74,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a03144.html">bl</a></li><li class="navelem"><a class="el" href="a03150.html">rc</a></li><li class="navelem"><a class="el" href="a03212.html">rg</a></li><li class="navelem"><a class="el" href="a05730.html">Timeline</a></li><li class="navelem"><a class="el" href="a05734.html">TaskGroup</a></li>  </ul>
+<li class="navelem"><a class="el" href="a03190.html">bl</a></li><li class="navelem"><a class="el" href="a03196.html">rc</a></li><li class="navelem"><a class="el" href="a03261.html">rg</a></li><li class="navelem"><a class="el" href="a05734.html">InitContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -82,116 +82,83 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a05731.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">bl::rc::rg::Timeline::TaskGroup Struct Reference<div class="ingroups"><a class="el" href="a03130.html">Renderer</a></div></div></div>
+  <div class="headertitle"><div class="title">bl::rc::rg::InitContext Struct Reference<div class="ingroups"><a class="el" href="a03176.html">Renderer</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>A group of assets that must run in sequence and output to the same asset.  
+<p>Context struct passed to graph tasks and assets during init.  
  <a href="a05734.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00521_source.html">Timeline.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a09031_source.html">InitContext.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aec36fc6f324e0e9c8243c3c4aafa64fb" id="r_aec36fc6f324e0e9c8243c3c4aafa64fb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#aec36fc6f324e0e9c8243c3c4aafa64fb">TaskGroup</a> (<a class="el" href="a05594.html">GraphAsset</a> *<a class="el" href="a05734.html#ab91d02cc325806963607b0386b2a7b7d">output</a>)</td></tr>
-<tr class="memdesc:aec36fc6f324e0e9c8243c3c4aafa64fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty task group.  <br /></td></tr>
-<tr class="separator:aec36fc6f324e0e9c8243c3c4aafa64fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ad17713d6a61eb9bd6a1463684d5d73" id="r_a9ad17713d6a61eb9bd6a1463684d5d73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a9ad17713d6a61eb9bd6a1463684d5d73">TaskGroup</a> (<a class="el" href="a05734.html">TaskGroup</a> &amp;&amp;)=default</td></tr>
-<tr class="memdesc:a9ad17713d6a61eb9bd6a1463684d5d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor.  <br /></td></tr>
-<tr class="separator:a9ad17713d6a61eb9bd6a1463684d5d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7eafe15f8222f9866dc94f399e81a36" id="r_aa7eafe15f8222f9866dc94f399e81a36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#aa7eafe15f8222f9866dc94f399e81a36">addTask</a> (<a class="el" href="a05646.html">Task</a> *<a class="el" href="a02348.html#adac025b94121ea5ab5dd2a3a715ca778">task</a>, <a class="el" href="a05666.html#a2e0941ee60963cd72674d3c76bdf4453">TaskOutput::Order</a> order)</td></tr>
-<tr class="memdesc:aa7eafe15f8222f9866dc94f399e81a36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the task to this group in the appropriate order.  <br /></td></tr>
-<tr class="separator:aa7eafe15f8222f9866dc94f399e81a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a258c29089704e3cbe234768fb9510f1a" id="r_a258c29089704e3cbe234768fb9510f1a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a258c29089704e3cbe234768fb9510f1a">execute</a> (const <a class="el" href="a05590.html">ExecutionContext</a> &amp;<a class="el" href="a02867.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>)</td></tr>
-<tr class="memdesc:a258c29089704e3cbe234768fb9510f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Executes the tasks in this group.  <br /></td></tr>
-<tr class="separator:a258c29089704e3cbe234768fb9510f1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d641fa29e1793224a1c4193fdc22ee6" id="r_a2d641fa29e1793224a1c4193fdc22ee6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a2d641fa29e1793224a1c4193fdc22ee6">InitContext</a> (<a class="el" href="a04250.html">engine::Engine</a> &amp;e, <a class="el" href="a06010.html">Renderer</a> &amp;r, <a class="el" href="a06518.html">vk::VulkanLayer</a> &amp;vs, <a class="el" href="a06014.html">RenderTarget</a> &amp;rt, <a class="el" href="a06130.html">Scene</a> *s)</td></tr>
+<tr class="memdesc:a2d641fa29e1793224a1c4193fdc22ee6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the context.  <br /></td></tr>
+<tr class="separator:a2d641fa29e1793224a1c4193fdc22ee6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172ddfdb665e127638d007b6ea010aa7" id="r_a172ddfdb665e127638d007b6ea010aa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a172ddfdb665e127638d007b6ea010aa7">InitContext</a> (const <a class="el" href="a05734.html">InitContext</a> &amp;<a class="el" href="a02912.html#a1f6d09b30c54854dfca659b7463ac207">ctx</a>, unsigned int <a class="el" href="a05734.html#a736f7deb79d5aa5c82d24868d5372052">index</a>)</td></tr>
+<tr class="memdesc:a172ddfdb665e127638d007b6ea010aa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an init context for a specific index (for <a class="el" href="a05650.html" title="Helper class that allows an asset to be duplicated N times while being treated as a single asset by t...">MultiAsset</a>)  <br /></td></tr>
+<tr class="separator:a172ddfdb665e127638d007b6ea010aa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a220b70b42290814f218f99986f67084a" id="r_a220b70b42290814f218f99986f67084a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06254.html">sr::ShaderResourceStore</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a220b70b42290814f218f99986f67084a">getShaderResourceStore</a> (<a class="el" href="a03176.html#ga3dcc36a289dbe2cd2b0bac51fcf14713">sr::StoreKey</a> key) const</td></tr>
+<tr class="memdesc:a220b70b42290814f218f99986f67084a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to select the corresponding shader resource store for the given key.  <br /></td></tr>
+<tr class="separator:a220b70b42290814f218f99986f67084a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3054c53716f3d65dc1e27480fb5c3690" id="r_a3054c53716f3d65dc1e27480fb5c3690"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::pair&lt; <a class="el" href="a05646.html">Task</a> *, <a class="el" href="a05666.html#a2e0941ee60963cd72674d3c76bdf4453">TaskOutput::Order</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a3054c53716f3d65dc1e27480fb5c3690">tasks</a></td></tr>
-<tr class="separator:a3054c53716f3d65dc1e27480fb5c3690"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab91d02cc325806963607b0386b2a7b7d" id="r_ab91d02cc325806963607b0386b2a7b7d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a05594.html">GraphAsset</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#ab91d02cc325806963607b0386b2a7b7d">output</a></td></tr>
-<tr class="separator:ab91d02cc325806963607b0386b2a7b7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8f30d74eb15740bec0a73d5abe0b2f8" id="r_ac8f30d74eb15740bec0a73d5abe0b2f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a04250.html">engine::Engine</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#ac8f30d74eb15740bec0a73d5abe0b2f8">engine</a></td></tr>
+<tr class="separator:ac8f30d74eb15740bec0a73d5abe0b2f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a377cd41fa5f40446025f321438ee30a7" id="r_a377cd41fa5f40446025f321438ee30a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06010.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a377cd41fa5f40446025f321438ee30a7">renderer</a></td></tr>
+<tr class="separator:a377cd41fa5f40446025f321438ee30a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a778863b706b4ac11e536cf6fbc3134b6" id="r_a778863b706b4ac11e536cf6fbc3134b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06518.html">vk::VulkanLayer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a778863b706b4ac11e536cf6fbc3134b6">vulkanState</a></td></tr>
+<tr class="separator:a778863b706b4ac11e536cf6fbc3134b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a09cadfbdc59cca1baff821e9d7276" id="r_a14a09cadfbdc59cca1baff821e9d7276"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06014.html">RenderTarget</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a14a09cadfbdc59cca1baff821e9d7276">target</a></td></tr>
+<tr class="separator:a14a09cadfbdc59cca1baff821e9d7276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac696dfee42dad2c468115d7ebf4c0196" id="r_ac696dfee42dad2c468115d7ebf4c0196"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a06130.html">Scene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#ac696dfee42dad2c468115d7ebf4c0196">scene</a></td></tr>
+<tr class="separator:ac696dfee42dad2c468115d7ebf4c0196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a736f7deb79d5aa5c82d24868d5372052" id="r_a736f7deb79d5aa5c82d24868d5372052"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a05734.html#a736f7deb79d5aa5c82d24868d5372052">index</a></td></tr>
+<tr class="memdesc:a736f7deb79d5aa5c82d24868d5372052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Always 0 unless initializing an asset as part of <a class="el" href="a05650.html" title="Helper class that allows an asset to be duplicated N times while being treated as a single asset by t...">MultiAsset</a>.  <br /></td></tr>
+<tr class="separator:a736f7deb79d5aa5c82d24868d5372052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A group of assets that must run in sequence and output to the same asset. </p>
+<div class="textblock"><p>Context struct passed to graph tasks and assets during init. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00044">44</a> of file <a class="el" href="a00521_source.html">Timeline.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00032">32</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aec36fc6f324e0e9c8243c3c4aafa64fb" name="aec36fc6f324e0e9c8243c3c4aafa64fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec36fc6f324e0e9c8243c3c4aafa64fb">&#9670;&#160;</a></span>TaskGroup() <span class="overload">[1/2]</span></h2>
+<a id="a2d641fa29e1793224a1c4193fdc22ee6" name="a2d641fa29e1793224a1c4193fdc22ee6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d641fa29e1793224a1c4193fdc22ee6">&#9670;&#160;</a></span>InitContext() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::rc::rg::Timeline::TaskGroup::TaskGroup </td>
+          <td class="memname">bl::rc::rg::InitContext::InitContext </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a05594.html">GraphAsset</a> *&#160;</td>
-          <td class="paramname"><em>output</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates an empty task group. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">output</td><td>The asset being created by the group </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00037">37</a> of file <a class="el" href="a02348_source.html">Timeline.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9ad17713d6a61eb9bd6a1463684d5d73" name="a9ad17713d6a61eb9bd6a1463684d5d73"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ad17713d6a61eb9bd6a1463684d5d73">&#9670;&#160;</a></span>TaskGroup() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::rc::rg::Timeline::TaskGroup::TaskGroup </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05734.html">TaskGroup</a> &amp;&amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move constructor. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa7eafe15f8222f9866dc94f399e81a36" name="aa7eafe15f8222f9866dc94f399e81a36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7eafe15f8222f9866dc94f399e81a36">&#9670;&#160;</a></span>addTask()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void bl::rc::rg::Timeline::TaskGroup::addTask </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a05646.html">Task</a> *&#160;</td>
-          <td class="paramname"><em>task</em>, </td>
+          <td class="paramtype"><a class="el" href="a04250.html">engine::Engine</a> &amp;&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a05666.html#a2e0941ee60963cd72674d3c76bdf4453">TaskOutput::Order</a>&#160;</td>
-          <td class="paramname"><em>order</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a06010.html">Renderer</a> &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06518.html">vk::VulkanLayer</a> &amp;&#160;</td>
+          <td class="paramname"><em>vs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06014.html">RenderTarget</a> &amp;&#160;</td>
+          <td class="paramname"><em>rt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a06130.html">Scene</a> *&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -201,89 +168,199 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Adds the task to this group in the appropriate order. </p>
+<p>Creates the context. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">task</td><td>The task to add </td></tr>
-    <tr><td class="paramname">order</td><td>The order the task should be in </td></tr>
+    <tr><td class="paramname">e</td><td>The engine instance </td></tr>
+    <tr><td class="paramname">r</td><td>The renderer instance </td></tr>
+    <tr><td class="paramname">vs</td><td>The vulkan state instance </td></tr>
+    <tr><td class="paramname">rt</td><td>The render target instance </td></tr>
+    <tr><td class="paramname">s</td><td>The scene the graph is for </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00191">191</a> of file <a class="el" href="a02348_source.html">Timeline.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02300_source.html#l00011">11</a> of file <a class="el" href="a02300_source.html">InitContext.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a258c29089704e3cbe234768fb9510f1a" name="a258c29089704e3cbe234768fb9510f1a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a258c29089704e3cbe234768fb9510f1a">&#9670;&#160;</a></span>execute()</h2>
+<a id="a172ddfdb665e127638d007b6ea010aa7" name="a172ddfdb665e127638d007b6ea010aa7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a172ddfdb665e127638d007b6ea010aa7">&#9670;&#160;</a></span>InitContext() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void bl::rc::rg::Timeline::TaskGroup::execute </td>
+          <td class="memname">bl::rc::rg::InitContext::InitContext </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a05590.html">ExecutionContext</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a05734.html">InitContext</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Executes the tasks in this group. </p>
+<p>Creates an init context for a specific index (for <a class="el" href="a05650.html" title="Helper class that allows an asset to be duplicated N times while being treated as a single asset by t...">MultiAsset</a>) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ctx</td><td>The graph execution context </td></tr>
+    <tr><td class="paramname">ctx</td><td>The base context </td></tr>
+    <tr><td class="paramname">index</td><td>The index of the asset being initialized </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02348_source.html#l00069">69</a> of file <a class="el" href="a02348_source.html">Timeline.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02300_source.html#l00020">20</a> of file <a class="el" href="a02300_source.html">InitContext.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a220b70b42290814f218f99986f67084a" name="a220b70b42290814f218f99986f67084a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a220b70b42290814f218f99986f67084a">&#9670;&#160;</a></span>getShaderResourceStore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a06254.html">sr::ShaderResourceStore</a> &amp; bl::rc::rg::InitContext::getShaderResourceStore </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a03176.html#ga3dcc36a289dbe2cd2b0bac51fcf14713">sr::StoreKey</a>&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to select the corresponding shader resource store for the given key. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>The key to get the store for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The shader resource store for the given key </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02300_source.html#l00028">28</a> of file <a class="el" href="a02300_source.html">InitContext.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab91d02cc325806963607b0386b2a7b7d" name="ab91d02cc325806963607b0386b2a7b7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab91d02cc325806963607b0386b2a7b7d">&#9670;&#160;</a></span>output</h2>
+<a id="ac8f30d74eb15740bec0a73d5abe0b2f8" name="ac8f30d74eb15740bec0a73d5abe0b2f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8f30d74eb15740bec0a73d5abe0b2f8">&#9670;&#160;</a></span>engine</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a05594.html">GraphAsset</a>* bl::rc::rg::Timeline::TaskGroup::output</td>
+          <td class="memname"><a class="el" href="a04250.html">engine::Engine</a>&amp; bl::rc::rg::InitContext::engine</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00046">46</a> of file <a class="el" href="a00521_source.html">Timeline.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00033">33</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3054c53716f3d65dc1e27480fb5c3690" name="a3054c53716f3d65dc1e27480fb5c3690"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3054c53716f3d65dc1e27480fb5c3690">&#9670;&#160;</a></span>tasks</h2>
+<a id="a736f7deb79d5aa5c82d24868d5372052" name="a736f7deb79d5aa5c82d24868d5372052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a736f7deb79d5aa5c82d24868d5372052">&#9670;&#160;</a></span>index</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;std::pair&lt;<a class="el" href="a05646.html">Task</a>*, <a class="el" href="a05666.html#a2e0941ee60963cd72674d3c76bdf4453">TaskOutput::Order</a>&gt; &gt; bl::rc::rg::Timeline::TaskGroup::tasks</td>
+          <td class="memname">unsigned int bl::rc::rg::InitContext::index</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00045">45</a> of file <a class="el" href="a00521_source.html">Timeline.hpp</a>.</p>
+<p>Always 0 unless initializing an asset as part of <a class="el" href="a05650.html" title="Helper class that allows an asset to be duplicated N times while being treated as a single asset by t...">MultiAsset</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00040">40</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a377cd41fa5f40446025f321438ee30a7" name="a377cd41fa5f40446025f321438ee30a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a377cd41fa5f40446025f321438ee30a7">&#9670;&#160;</a></span>renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a06010.html">Renderer</a>&amp; bl::rc::rg::InitContext::renderer</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00034">34</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac696dfee42dad2c468115d7ebf4c0196" name="ac696dfee42dad2c468115d7ebf4c0196"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac696dfee42dad2c468115d7ebf4c0196">&#9670;&#160;</a></span>scene</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a06130.html">Scene</a>* bl::rc::rg::InitContext::scene</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00037">37</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a14a09cadfbdc59cca1baff821e9d7276" name="a14a09cadfbdc59cca1baff821e9d7276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a09cadfbdc59cca1baff821e9d7276">&#9670;&#160;</a></span>target</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a06014.html">RenderTarget</a>&amp; bl::rc::rg::InitContext::target</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00036">36</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a778863b706b4ac11e536cf6fbc3134b6" name="a778863b706b4ac11e536cf6fbc3134b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a778863b706b4ac11e536cf6fbc3134b6">&#9670;&#160;</a></span>vulkanState</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a06518.html">vk::VulkanLayer</a>&amp; bl::rc::rg::InitContext::vulkanState</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a09031_source.html#l00035">35</a> of file <a class="el" href="a09031_source.html">InitContext.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/BLIB/Render/Graph/<a class="el" href="a00521_source.html">Timeline.hpp</a></li>
-<li>src/Render/Graph/<a class="el" href="a02348_source.html">Timeline.cpp</a></li>
+<li>include/BLIB/Render/Graph/<a class="el" href="a09031_source.html">InitContext.hpp</a></li>
+<li>src/Render/Graph/<a class="el" href="a02300_source.html">InitContext.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:27 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:18 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

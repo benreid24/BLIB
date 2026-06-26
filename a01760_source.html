@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Interfaces/Menu/Drivers/KeyboardDriver.hpp Source File</title>
+<title>BLIB: include/BLIB/Containers/ObjectWrapper.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,73 +79,145 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_4a89db2e42278000e6aac6ace9db278e.html">Interfaces</a></li><li class="navelem"><a class="el" href="dir_e645930b0d1a2310fc6bb1d1038eb64b.html">Menu</a></li><li class="navelem"><a class="el" href="dir_2c9d1cc57df5d3d4ff35e854d1955f53.html">Drivers</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_32e9a2f6b8be632bf999c595b5284fff.html">Containers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">KeyboardDriver.hpp</div></div>
+  <div class="headertitle"><div class="title">ObjectWrapper.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a01760.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_MENU_DRIVERS_KEYBOARDDRIVER_HPP</span></div>
+<a href="a01760.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_CONTAINERS_OBJECTWRAPPER_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_CONTAINERS_OBJECTWRAPPER_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01784.html">BLIB/Interfaces/Menu/Item.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09692.html">BLIB/Interfaces/Menu/Menu.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a09839.html">BLIB/Signals/Listener.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;SFML/Window.hpp&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{</div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a03184.html">   11</a></span><span class="keyword">namespace </span>menu</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a04858.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="a04858.html">KeyboardDriver</a> : <span class="keyword">public</span> <a class="code hl_class" href="a06794.html">bl::sig::Listener</a>&lt;sf::Event&gt; {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_class" href="a04858.html">KeyboardDriver</a>(<a class="code hl_class" href="a04914.html">Menu</a>&amp; menu, sf::Keyboard::Key upCtrl = sf::Keyboard::Key::Up,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                   sf::Keyboard::Key rightCtrl    = sf::Keyboard::Key::Right,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                   sf::Keyboard::Key downCtrl     = sf::Keyboard::Key::Down,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                   sf::Keyboard::Key leftCtrl     = sf::Keyboard::Key::Left,</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>                   sf::Keyboard::Key activateCtrl = sf::Keyboard::Key::Space);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04858.html#acafe5b641c1bacfa8212898f825d0237">setMoveControl</a>(<a class="code hl_enumeration" href="a04894.html#a59352334626855d0cd8c8ca1b173db68">Item::AttachPoint</a> direction, sf::Keyboard::Key control);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a04858.html#aca60b6e65572c3ed0cc34781030a971d">setActivateControl</a>(sf::Keyboard::Key control);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="a04858.html#a2b2bc6a9377f27b0ac33515501f1bef2">   56</a></span>    <span class="keyword">virtual</span> <a class="code hl_function" href="a04858.html#a2b2bc6a9377f27b0ac33515501f1bef2">~KeyboardDriver</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>ctr</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00024" data-start="{" data-end="};">
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="a03974.html">   24</a></span><span class="keyword">class </span><a class="code hl_class" href="a03974.html">ObjectWrapper</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">   30</a></span>    <a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03974.html">ObjectWrapper</a>&amp; copy);</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>(<a class="code hl_class" href="a03974.html">ObjectWrapper</a>&amp;&amp; copy);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper</a>(std::in_place_t tag, TArgs&amp;&amp;... args);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a04858.html#a46fc8369668d385d80ca21fae97c356a">process</a>(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keyword">constexpr</span> T&amp; <a class="code hl_function" href="a03974.html#a9575f52f7581320a93a8c2dc70d2fd17">get</a>();</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <a class="code hl_class" href="a04914.html">Menu</a>&amp; menu;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    sf::Keyboard::Key moveControls[<a class="code hl_enumvalue" href="a04894.html#a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4">Item::AttachPoint::_NUM_ATTACHPOINTS</a>];</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    sf::Keyboard::Key activateControl;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">constexpr</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03974.html#a9575f52f7581320a93a8c2dc70d2fd17">get</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">constexpr</span> T&amp;&amp; <a class="code hl_function" href="a03974.html#a6fe1ef62320b39c5ee91a8940fe7d564">getRValue</a>();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03974.html#a298adc9a1992468fab5895661e47d6cb">emplace</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a03974.html#ad929075e804a033512689a9f2db51e66">destroy</a>();</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keyword">union </span>Buffer {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        std::uint8_t dummy;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        T object;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        Buffer()</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        : dummy(0) {}</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        Buffer(<span class="keyword">const</span> Buffer&amp; buf)</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        : dummy(0) {</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>            std::memcpy(&amp;<span class="keywordtype">object</span>, &amp;buf.object, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        Buffer(Buffer&amp;&amp; buf)</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        : dummy(0) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            std::memcpy(&amp;<span class="keywordtype">object</span>, &amp;buf.object, <span class="keyword">sizeof</span>(T));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        ~Buffer() {}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    } buffer;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>};</div>
 </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace menu</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="a03974.html#a28db48ac78aa19db6418005c678a969e">  116</a></span><a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper&lt;T&gt;::ObjectWrapper</a>(<span class="keyword">const</span> <a class="code hl_class" href="a03974.html">ObjectWrapper</a>&amp; copy)</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>: <a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>(copy.<a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>) {}</div>
 </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01784_html"><div class="ttname"><a href="a01784.html">Item.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04858_html"><div class="ttname"><a href="a04858.html">bl::menu::KeyboardDriver</a></div><div class="ttdoc">Basic helper class to map keyboard input to menu events.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00019">KeyboardDriver.hpp:19</a></div></div>
-<div class="ttc" id="aa04858_html_a2b2bc6a9377f27b0ac33515501f1bef2"><div class="ttname"><a href="a04858.html#a2b2bc6a9377f27b0ac33515501f1bef2">bl::menu::KeyboardDriver::~KeyboardDriver</a></div><div class="ttdeci">virtual ~KeyboardDriver()=default</div><div class="ttdoc">Destroy the Keyboard Driver object.</div></div>
-<div class="ttc" id="aa04858_html_a46fc8369668d385d80ca21fae97c356a"><div class="ttname"><a href="a04858.html#a46fc8369668d385d80ca21fae97c356a">bl::menu::KeyboardDriver::process</a></div><div class="ttdeci">virtual void process(const sf::Event &amp;event) override</div><div class="ttdoc">Processes the given window event and drives the menu if relevant.</div><div class="ttdef"><b>Definition</b> <a href="a02933_source.html#l00020">KeyboardDriver.cpp:20</a></div></div>
-<div class="ttc" id="aa04858_html_aca60b6e65572c3ed0cc34781030a971d"><div class="ttname"><a href="a04858.html#aca60b6e65572c3ed0cc34781030a971d">bl::menu::KeyboardDriver::setActivateControl</a></div><div class="ttdeci">void setActivateControl(sf::Keyboard::Key control)</div><div class="ttdoc">Set the key that is bound to the activate event. Default is space bar.</div><div class="ttdef"><b>Definition</b> <a href="a02933_source.html#l00018">KeyboardDriver.cpp:18</a></div></div>
-<div class="ttc" id="aa04858_html_acafe5b641c1bacfa8212898f825d0237"><div class="ttname"><a href="a04858.html#acafe5b641c1bacfa8212898f825d0237">bl::menu::KeyboardDriver::setMoveControl</a></div><div class="ttdeci">void setMoveControl(Item::AttachPoint direction, sf::Keyboard::Key control)</div><div class="ttdoc">Set the key bound to the given direction. Defaults are the arrow keys.</div><div class="ttdef"><b>Definition</b> <a href="a02933_source.html#l00014">KeyboardDriver.cpp:14</a></div></div>
-<div class="ttc" id="aa04894_html_a59352334626855d0cd8c8ca1b173db68"><div class="ttname"><a href="a04894.html#a59352334626855d0cd8c8ca1b173db68">bl::menu::Item::AttachPoint</a></div><div class="ttdeci">AttachPoint</div><div class="ttdef"><b>Definition</b> <a href="a01784_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04894_html_a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4"><div class="ttname"><a href="a04894.html#a59352334626855d0cd8c8ca1b173db68a2816176a831a8a4c942a0d09e653a9c4">bl::menu::Item::_NUM_ATTACHPOINTS</a></div><div class="ttdeci">@ _NUM_ATTACHPOINTS</div><div class="ttdef"><b>Definition</b> <a href="a01784_source.html#l00036">Item.hpp:36</a></div></div>
-<div class="ttc" id="aa04914_html"><div class="ttname"><a href="a04914.html">bl::menu::Menu</a></div><div class="ttdoc">Primary class for mouseless menus.</div><div class="ttdef"><b>Definition</b> <a href="a09692_source.html#l00033">Menu.hpp:33</a></div></div>
-<div class="ttc" id="aa06794_html"><div class="ttname"><a href="a06794.html">bl::sig::Listener</a></div><div class="ttdoc">Base class for signal listeners. Create classes that derive from this to process signals.</div><div class="ttdef"><b>Definition</b> <a href="a09839_source.html#l00023">Listener.hpp:23</a></div></div>
-<div class="ttc" id="aa09692_html"><div class="ttname"><a href="a09692.html">Menu.hpp</a></div></div>
-<div class="ttc" id="aa09839_html"><div class="ttname"><a href="a09839.html">Listener.hpp</a></div></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00120" data-start="{" data-end="}">
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="a03974.html#a8f59bea2075ca53d7855e7103e1d5b62">  120</a></span><a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper&lt;T&gt;::ObjectWrapper</a>(<a class="code hl_class" href="a03974.html">ObjectWrapper</a>&amp;&amp; copy)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>: <a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>(<a class="code hl_namespace" href="a03211.html">std</a>::forward&lt;Buffer&gt;(copy.<a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>)) {}</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00125" data-start="{" data-end="}">
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno"><a class="line" href="a03974.html#a2634c40cf150946cb2ac241443207b8d">  125</a></span><a class="code hl_function" href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">ObjectWrapper&lt;T&gt;::ObjectWrapper</a>(std::in_place_t, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">new</span> (&amp;<a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.object) T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>}</div>
+</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00130" data-start="{" data-end="}">
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno"><a class="line" href="a03974.html#a9575f52f7581320a93a8c2dc70d2fd17">  130</a></span><span class="keyword">constexpr</span> T&amp; <a class="code hl_function" href="a03974.html#a9575f52f7581320a93a8c2dc70d2fd17">ObjectWrapper&lt;T&gt;::get</a>() {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.object;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
+</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00135" data-start="{" data-end="}">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="a03974.html#ae2ea5fa11e5a6cad308f7eaf5c7596a0">  135</a></span><span class="keyword">constexpr</span> <span class="keyword">const</span> T&amp; <a class="code hl_function" href="a03974.html#a9575f52f7581320a93a8c2dc70d2fd17">ObjectWrapper&lt;T&gt;::get</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.object;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="}">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="a03974.html#a6fe1ef62320b39c5ee91a8940fe7d564">  140</a></span><span class="keyword">constexpr</span> T&amp;&amp; <a class="code hl_function" href="a03974.html#a6fe1ef62320b39c5ee91a8940fe7d564">ObjectWrapper&lt;T&gt;::getRValue</a>() {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    <span class="keywordflow">return</span> std::move(<a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.object);</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>}</div>
+</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00146" data-start="{" data-end="}">
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="a03974.html#a298adc9a1992468fab5895661e47d6cb">  146</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03974.html#a298adc9a1992468fab5895661e47d6cb">ObjectWrapper&lt;T&gt;::emplace</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>    <span class="keyword">new</span> (&amp;<a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.object) T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>}</div>
+</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00151" data-start="{" data-end="}">
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno"><a class="line" href="a03974.html#ad929075e804a033512689a9f2db51e66">  151</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a03974.html#ad929075e804a033512689a9f2db51e66">ObjectWrapper&lt;T&gt;::destroy</a>() {</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <a class="code hl_variable" href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a>.object.~T();</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>}</div>
+</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>} <span class="comment">// namespace ctr</span></div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa02870_html_aed1171abd529e4d892f21a37c79b5e0b"><div class="ttname"><a href="a02870.html#aed1171abd529e4d892f21a37c79b5e0b">buffer</a></div><div class="ttdeci">as::TypedRef&lt; asi::SoundPayload &gt; buffer</div><div class="ttdef"><b>Definition</b> <a href="a02870_source.html#l00023">AudioSystem.cpp:23</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa03211_html"><div class="ttname"><a href="a03211.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="a00437_source.html#l00193">Entity.hpp:194</a></div></div>
+<div class="ttc" id="aa03974_html"><div class="ttname"><a href="a03974.html">bl::ctr::ObjectWrapper</a></div><div class="ttdoc">Thin wrapper over objects that functions similar to std::optional but does not have any overhead....</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00024">ObjectWrapper.hpp:24</a></div></div>
+<div class="ttc" id="aa03974_html_a298adc9a1992468fab5895661e47d6cb"><div class="ttname"><a href="a03974.html#a298adc9a1992468fab5895661e47d6cb">bl::ctr::ObjectWrapper::emplace</a></div><div class="ttdeci">void emplace(TArgs &amp;&amp;... args)</div><div class="ttdoc">Constructs a new value in place. Does not destruct the prior value if any.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00146">ObjectWrapper.hpp:146</a></div></div>
+<div class="ttc" id="aa03974_html_a6fe1ef62320b39c5ee91a8940fe7d564"><div class="ttname"><a href="a03974.html#a6fe1ef62320b39c5ee91a8940fe7d564">bl::ctr::ObjectWrapper::getRValue</a></div><div class="ttdeci">constexpr T &amp;&amp; getRValue()</div><div class="ttdoc">Returns an RValue reference to the contained object.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00140">ObjectWrapper.hpp:140</a></div></div>
+<div class="ttc" id="aa03974_html_a70e074feebf4a987d2eb0bbf696b83b1"><div class="ttname"><a href="a03974.html#a70e074feebf4a987d2eb0bbf696b83b1">bl::ctr::ObjectWrapper::ObjectWrapper</a></div><div class="ttdeci">ObjectWrapper()=default</div><div class="ttdoc">Construct a new Object Wrapper with no value.</div></div>
+<div class="ttc" id="aa03974_html_a9575f52f7581320a93a8c2dc70d2fd17"><div class="ttname"><a href="a03974.html#a9575f52f7581320a93a8c2dc70d2fd17">bl::ctr::ObjectWrapper::get</a></div><div class="ttdeci">constexpr T &amp; get()</div><div class="ttdoc">Access the wrapped value. Undefined behavior if not constructed.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00130">ObjectWrapper.hpp:130</a></div></div>
+<div class="ttc" id="aa03974_html_ad929075e804a033512689a9f2db51e66"><div class="ttname"><a href="a03974.html#ad929075e804a033512689a9f2db51e66">bl::ctr::ObjectWrapper::destroy</a></div><div class="ttdeci">void destroy()</div><div class="ttdoc">Destructs the contained value. Undefined behavior if no contained value.</div><div class="ttdef"><b>Definition</b> <a href="a01760_source.html#l00151">ObjectWrapper.hpp:151</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>BLIB: include/BLIB/Render/ShaderResources/ShaderResourceStore.hpp Source File</title>
+<title>BLIB: include/BLIB/Render/Lighting/Scene3DLighting.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -79,141 +79,251 @@ $(document).ready(function() { init_codefold(0); });
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_bb95439065f6a606d9dbc4385f71a79c.html">ShaderResources</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_d5c45750d16e9ad1776f541f43d69fb8.html">BLIB</a></li><li class="navelem"><a class="el" href="dir_ea78a1762e0d6b3f328d3a2952203d75.html">Render</a></li><li class="navelem"><a class="el" href="dir_91f9057575a339ed5473f88b0062d2bc.html">Lighting</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="headertitle"><div class="title">ShaderResourceStore.hpp</div></div>
+  <div class="headertitle"><div class="title">Scene3DLighting.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00995.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_SHADERRESOURCES_SHADERRESOURCESTORE_HPP</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_SHADERRESOURCES_SHADERRESOURCESTORE_HPP</span></div>
+<a href="a00995.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef BLIB_RENDER_LIGHTING_SCENE3DLIGHTING_HPP</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define BLIB_RENDER_LIGHTING_SCENE3DLIGHTING_HPP</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01754.html">BLIB/Logging.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a09791.html">BLIB/Render/Scenes/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a09794.html">BLIB/Render/ShaderResources/Key.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00989.html">BLIB/Render/ShaderResources/ShaderResource.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;typeindex&gt;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03144.html">bl</a></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">namespace </span>engine</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">class </span>Engine;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>rc</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>{</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword">class </span>Renderer;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keyword">class </span>RenderTarget;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="keyword">namespace </span>sr</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="};">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="a06122.html">   34</a></span><span class="keyword">class </span><a class="code hl_class" href="a06122.html">ShaderResourceStore</a> {</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_class" href="a06122.html">ShaderResourceStore</a>(<a class="code hl_class" href="a04202.html">engine::Engine</a>&amp; engine, <a class="code hl_class" href="a05882.html">RenderTarget</a>&amp; owner);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <a class="code hl_function" href="a06122.html#aa82fc9ba64f0471f4a34cccf048463b2">~ShaderResourceStore</a>();</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TInput, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    TInput* <a class="code hl_function" href="a06122.html#a51d8af6b23bee0acf0c1c810c0ba884c">getShaderResource</a>(TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TInput, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    TInput* <a class="code hl_function" href="a06122.html#afc27cd20a6a48d719455f97a9e364b80">getShaderResourceWithId</a>(<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> TInput, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    TInput* <a class="code hl_function" href="a06122.html#a9097b6b51fb3fb81f79b1f822afbdcfd">getShaderResourceWithKey</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a06114.html">Key&lt;TInput&gt;</a>&amp; key, TArgs&amp;&amp;... args);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a06122.html#ae266b3d384263f917b03bc9f5e79dd13">performTransfers</a>();</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a06122.html#a832e9f556bfcb15f2d91d3017396a8b6">updateFromSources</a>();</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="a04202.html">engine::Engine</a>&amp; engine;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <a class="code hl_class" href="a05882.html">RenderTarget</a>&amp; owner;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    std::unordered_map&lt;std::string, std::unique_ptr&lt;ShaderResource&gt;&gt; cache;</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">void</span> initInput(<a class="code hl_class" href="a06118.html">ShaderResource</a>&amp; input);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordtype">void</span> cleanup();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno"><a class="line" href="a06122.html#a1fc8c4ea65463b448e068f1287349540">  103</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05878.html">bl::rc::Renderer</a>;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="a06122.html#a0e0ed9324f8490779e277d68872b9579">  104</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05882.html">bl::rc::RenderTarget</a>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>};</div>
-</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="a01799.html">BLIB/Logging.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="a00980.html">BLIB/Render/Lighting/Light3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="a00965.html">BLIB/Render/Lighting/LightingDescriptor3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="a00971.html">BLIB/Render/Lighting/PointLight3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="a00986.html">BLIB/Render/Lighting/PointLight3DShadow.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="a00974.html">BLIB/Render/Lighting/SpotLight3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="a00968.html">BLIB/Render/Lighting/SpotLight3DShadow.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &lt;<a class="code" href="a00977.html">BLIB/Render/Lighting/SunLight3D.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;<a class="code" href="a01562.html">BLIB/Util/IdAllocator.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &lt;<a class="code" href="a01514.html">BLIB/Util/Random.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a03190.html">bl</a></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>{</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">namespace </span>rc</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">namespace </span>lgt</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="};">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a05930.html">   26</a></span><span class="keyword">class </span><a class="code hl_class" href="a05930.html">Scene3DLighting</a> {</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <a class="code hl_class" href="a05930.html">Scene3DLighting</a>(<a class="code hl_struct" href="a05902.html">LightingDescriptor3D</a>&amp; uniform);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    glm::vec3 <a class="code hl_function" href="a05930.html#aa1ba112b13b0e26683951832d52833d7">getAmbientLightColor</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05930.html#a83025db684888f23e38c4f2f6727d24e">setAmbientLightColor</a>(<span class="keyword">const</span> glm::vec3&amp; color);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keyword">const</span> <a class="code hl_struct" href="a05946.html">SunLight3D</a>&amp; <a class="code hl_function" href="a05930.html#a11ab12d4c3ad66c9c954361c7ad29018">getSun</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_struct" href="a05946.html">SunLight3D</a>&amp; <a class="code hl_function" href="a05930.html#a753e7962a60f99e8fbdc23f93296012a">modifySun</a>();</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <a class="code hl_class" href="a05898.html">SpotLightHandle</a> <a class="code hl_function" href="a05930.html#a778d9574815a3cbe9b38495fe461e8aa">createSpotlight</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <a class="code hl_class" href="a05898.html">SpotLightShadowHandle</a> <a class="code hl_function" href="a05930.html#ad602f40515844ee6fd84058c844c65f7">createSpotlightWithShadow</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    std::uint32_t <a class="code hl_function" href="a05930.html#a89178f0aeaa7a71043a5060a19674e05">getSpotShadowCount</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    std::uint32_t <a class="code hl_function" href="a05930.html#a687f4d544c1d17197121923af1bd8de6">getSpotLightCount</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <a class="code hl_class" href="a05898.html">PointLightHandle</a> <a class="code hl_function" href="a05930.html#a56776a13326d4e383e92b8836b2e3c6a">createPointLight</a>(TArgs&amp;&amp;... args);</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <a class="code hl_class" href="a05898.html">PointLightShadowHandle</a> <a class="code hl_function" href="a05930.html#ab6f19313dbb925966f51c623f33c0eac">createPointLightWithShadow</a>(TArgs&amp;&amp;... args);</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TInput, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00110" data-start="{" data-end="}">
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno"><a class="line" href="a06122.html#a51d8af6b23bee0acf0c1c810c0ba884c">  110</a></span>TInput* <a class="code hl_function" href="a06122.html#a51d8af6b23bee0acf0c1c810c0ba884c">ShaderResourceStore::getShaderResource</a>(TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">return</span> getShaderResourceWithId&lt;TInput&gt;(<span class="keyword">typeid</span>(TInput).name(), std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>}</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    std::uint32_t <a class="code hl_function" href="a05930.html#a09b962aae09d2492cced2286f7e85863">getPointShadowCount</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    std::uint32_t <a class="code hl_function" href="a05930.html#a8d27c82e875b3090bcb0e72f95a3d4bf">getPointLightCount</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05930.html#aece433200082a8af08661d99730f34cb">setSceneCenter</a>(<span class="keyword">const</span> glm::vec3&amp; center);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keyword">const</span> glm::vec3&amp; <a class="code hl_function" href="a05930.html#ace423ca4e7aff9c917b664ee917675d4">getSceneCenter</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05930.html#a417619383720bc229b3c85735fe7669a">setSunDistance</a>(<span class="keywordtype">float</span> distance);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordtype">float</span> <a class="code hl_function" href="a05930.html#abde36022e86fd5b0e20c452519497024">getSunDistance</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05930.html#a9c550a829cfc943c9503f60222254dd1">updateSunCameraMatrix</a>();</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a05930.html#a440813ddf4ac13cd038b899009df2875">sync</a>();</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <span class="keyword">struct </span>Lights {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <a class="code hl_class" href="a07014.html">util::IdAllocator&lt;std::size_t&gt;</a> idAllocator;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        std::vector&lt;T&gt; lights;</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        std::vector&lt;std::uint32_t&gt; active;</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        Lights(std::size_t maxCount)</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        : idAllocator(maxCount) {</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>            lights.resize(maxCount);</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>            active.reserve(maxCount);</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        }</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        <a class="code hl_class" href="a05898.html">Light3D&lt;T&gt;</a> createNew(<a class="code hl_class" href="a05930.html">Scene3DLighting</a>* owner, TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>            <span class="keywordflow">if</span> (!idAllocator.<a class="code hl_function" href="a07014.html#a0e4335decc172e313f218e337173021a">available</a>()) {</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>                <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Exceeded max light count&quot;</span>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>                <span class="keywordflow">return</span> {owner, lights, util::Random::get&lt;std::size_t&gt;(0, lights.size() - 1)};</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>            }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            <span class="keyword">const</span> std::size_t i = idAllocator.<a class="code hl_function" href="a07014.html#af110687b026e2b4d9bcbf3cd557e2bc9">allocate</a>();</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>            <span class="keyword">new</span> (&amp;lights[i]) T(std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>            active.emplace_back(i);</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            <span class="keywordflow">return</span> {owner, lights, i};</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        }</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordtype">void</span> remove(<span class="keyword">const</span> <a class="code hl_class" href="a05898.html">Light3D&lt;T&gt;</a>&amp; light) {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>            <span class="keyword">const</span> std::size_t i = &amp;light.<a class="code hl_function" href="a05898.html#a0d2f7228686b0edc362b68a4a22c03a7">get</a>() - lights.data();</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>            <span class="keywordflow">if</span> (i &lt; lights.size()) {</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>                idAllocator.<a class="code hl_function" href="a07014.html#aacb7d0882aa9261efa1fbfb538f73a59">release</a>(i);</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>                <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = active.begin(); it != active.end(); ++it) {</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>                    <span class="keywordflow">if</span> (*it == i) {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>                        active.erase(it);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>                        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>                    }</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>                }</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>            }</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        }</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span> </div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="keywordtype">void</span> copyToUniformBuffer(T* dst) {</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            std::uint32_t ui = 0;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keywordflow">for</span> (std::uint32_t i : active) { dst[ui++].copyAsUniform(lights[i]); }</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        }</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    };</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <a class="code hl_struct" href="a05902.html">LightingDescriptor3D</a>&amp; uniform;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    glm::vec3 sceneCenter;</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordtype">float</span> sunDistance;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    Lights&lt;SpotLight3D&gt; spotLights;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    Lights&lt;SpotLight3DShadow&gt; spotShadows;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    Lights&lt;PointLight3D&gt; pointLights;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    Lights&lt;PointLight3DShadow&gt; pointShadows;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <span class="keywordtype">void</span> removeLight(<span class="keyword">const</span> <a class="code hl_class" href="a05898.html">PointLightHandle</a>&amp; light);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordtype">void</span> removeLight(<span class="keyword">const</span> <a class="code hl_class" href="a05898.html">PointLightShadowHandle</a>&amp; light);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">void</span> removeLight(<span class="keyword">const</span> <a class="code hl_class" href="a05898.html">SpotLightHandle</a>&amp; light);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">void</span> removeLight(<span class="keyword">const</span> <a class="code hl_class" href="a05898.html">SpotLightShadowHandle</a>&amp; light);</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordtype">void</span> addIndex(std::vector&lt;std::uint32_t&gt;&amp; vec, std::uint32_t i);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="a05930.html#a0bf2770c66b60523bf091f6e4030f036">  210</a></span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="a05898.html">Light3D</a>;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>};</div>
 </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TInput, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00115" data-start="{" data-end="}">
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="a06122.html#afc27cd20a6a48d719455f97a9e364b80">  115</a></span>TInput* <a class="code hl_function" href="a06122.html#afc27cd20a6a48d719455f97a9e364b80">ShaderResourceStore::getShaderResourceWithId</a>(<span class="keyword">const</span> std::string&amp; <span class="keywordtype">id</span>, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keyword">static_assert</span>(std::is_base_of&lt;ShaderResource, TInput&gt;::value,</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>                  <span class="stringliteral">&quot;TInput must be derived from ShaderResource&quot;</span>);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">auto</span> it = cache.find(<span class="keywordtype">id</span>);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keywordflow">if</span> (it == cache.end()) {</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_constructible_v&lt;TInput, TArgs...&gt;) {</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>            it =</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>                cache.try_emplace(<span class="keywordtype">id</span>, std::make_unique&lt;TInput&gt;(std::forward&lt;TArgs&gt;(args)...)).first;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>            initInput(*it-&gt;second);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>            <a class="code hl_define" href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a> &lt;&lt; <span class="stringliteral">&quot;Failed to create shader input with id &#39;&quot;</span> &lt;&lt; <span class="keywordtype">id</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>                         &lt;&lt; <span class="stringliteral">&quot;&#39;: no matching constructor&quot;</span>;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>TInput*<span class="keyword">&gt;</span>(it-&gt;second.get());</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="a05898.html#a98543fc40beee41978045d68ffdc859f">  216</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a05898.html#a98543fc40beee41978045d68ffdc859f">Light3D&lt;T&gt;::removeFromScene</a>() {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    owner-&gt;removeLight(*<span class="keyword">this</span>);</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>}</div>
 </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span> TInput, <span class="keyword">typename</span>... TArgs&gt;</div>
-<div class="foldopen" id="foldopen00136" data-start="{" data-end="}">
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno"><a class="line" href="a06122.html#a9097b6b51fb3fb81f79b1f822afbdcfd">  136</a></span>TInput* <a class="code hl_function" href="a06122.html#a9097b6b51fb3fb81f79b1f822afbdcfd">ShaderResourceStore::getShaderResourceWithKey</a>(<span class="keyword">const</span> <a class="code hl_struct" href="a06114.html">Key&lt;TInput&gt;</a>&amp; key, TArgs&amp;&amp;... args) {</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">return</span> getShaderResourceWithId&lt;TInput&gt;(std::string(key.<a class="code hl_variable" href="a06114.html#acebf33ad790b698954c289f77b55b71c">id</a>), std::forward&lt;TArgs&gt;(args)...);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00221" data-start="{" data-end="}">
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno"><a class="line" href="a05930.html#a778d9574815a3cbe9b38495fe461e8aa">  221</a></span><a class="code hl_class" href="a05898.html">SpotLightHandle</a> <a class="code hl_function" href="a05930.html#a778d9574815a3cbe9b38495fe461e8aa">Scene3DLighting::createSpotlight</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">return</span> spotLights.createNew(<span class="keyword">this</span>, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
 </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>} <span class="comment">// namespace sr</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>} <span class="comment">// namespace rc</span></div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>} <span class="comment">// namespace bl</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00226" data-start="{" data-end="}">
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="a05930.html#ad602f40515844ee6fd84058c844c65f7">  226</a></span><a class="code hl_class" href="a05898.html">SpotLightShadowHandle</a> <a class="code hl_function" href="a05930.html#ad602f40515844ee6fd84058c844c65f7">Scene3DLighting::createSpotlightWithShadow</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    <span class="keywordflow">return</span> spotShadows.createNew(<span class="keyword">this</span>, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>}</div>
+</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span> </div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00231" data-start="{" data-end="}">
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno"><a class="line" href="a05930.html#a56776a13326d4e383e92b8836b2e3c6a">  231</a></span><a class="code hl_class" href="a05898.html">PointLightHandle</a> <a class="code hl_function" href="a05930.html#a56776a13326d4e383e92b8836b2e3c6a">Scene3DLighting::createPointLight</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">return</span> pointLights.createNew(<span class="keyword">this</span>, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>}</div>
+</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="keyword">template</span>&lt;<span class="keyword">typename</span>... TArgs&gt;</div>
+<div class="foldopen" id="foldopen00236" data-start="{" data-end="}">
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno"><a class="line" href="a05930.html#ab6f19313dbb925966f51c623f33c0eac">  236</a></span><a class="code hl_class" href="a05898.html">PointLightShadowHandle</a> <a class="code hl_function" href="a05930.html#ab6f19313dbb925966f51c623f33c0eac">Scene3DLighting::createPointLightWithShadow</a>(TArgs&amp;&amp;... args) {</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordflow">return</span> pointShadows.createNew(<span class="keyword">this</span>, std::forward&lt;TArgs&gt;(args)...);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>}</div>
+</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="a05930.html#ace423ca4e7aff9c917b664ee917675d4">  240</a></span><span class="keyword">inline</span> <span class="keyword">const</span> glm::vec3&amp; <a class="code hl_function" href="a05930.html#ace423ca4e7aff9c917b664ee917675d4">Scene3DLighting::getSceneCenter</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> sceneCenter; }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno"><a class="line" href="a05930.html#abde36022e86fd5b0e20c452519497024">  242</a></span><span class="keyword">inline</span> <span class="keywordtype">float</span> <a class="code hl_function" href="a05930.html#abde36022e86fd5b0e20c452519497024">Scene3DLighting::getSunDistance</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> sunDistance; }</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
+<div class="foldopen" id="foldopen00244" data-start="{" data-end="}">
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="a05930.html#a89178f0aeaa7a71043a5060a19674e05">  244</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a05930.html#a89178f0aeaa7a71043a5060a19674e05">Scene3DLighting::getSpotShadowCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    <span class="keywordflow">return</span> spotShadows.active.size();</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>}</div>
+</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="a05930.html#a687f4d544c1d17197121923af1bd8de6">  248</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a05930.html#a687f4d544c1d17197121923af1bd8de6">Scene3DLighting::getSpotLightCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> spotLights.active.size(); }</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="foldopen" id="foldopen00250" data-start="{" data-end="}">
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="a05930.html#a09b962aae09d2492cced2286f7e85863">  250</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a05930.html#a09b962aae09d2492cced2286f7e85863">Scene3DLighting::getPointShadowCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    <span class="keywordflow">return</span> pointShadows.active.size();</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>}</div>
+</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="foldopen" id="foldopen00254" data-start="{" data-end="}">
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="a05930.html#a8d27c82e875b3090bcb0e72f95a3d4bf">  254</a></span><span class="keyword">inline</span> std::uint32_t <a class="code hl_function" href="a05930.html#a8d27c82e875b3090bcb0e72f95a3d4bf">Scene3DLighting::getPointLightCount</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <span class="keywordflow">return</span> pointLights.active.size();</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>}</div>
+</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>} <span class="comment">// namespace lgt</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>} <span class="comment">// namespace rc</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>} <span class="comment">// namespace bl</span></div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00365_html_a927270d671e83a1c6b5382f30bfbf895"><div class="ttname"><a href="a00365.html#a927270d671e83a1c6b5382f30bfbf895">BL_LOG_ERROR</a></div><div class="ttdeci">#define BL_LOG_ERROR</div><div class="ttdoc">Helper macro to log at error level and include file, function, and line information.</div><div class="ttdef"><b>Definition</b> <a href="a00365_source.html#l00101">Logger.hpp:101</a></div></div>
-<div class="ttc" id="aa00989_html"><div class="ttname"><a href="a00989.html">ShaderResource.hpp</a></div></div>
-<div class="ttc" id="aa01754_html"><div class="ttname"><a href="a01754.html">Logging.hpp</a></div></div>
-<div class="ttc" id="aa03144_html"><div class="ttname"><a href="a03144.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
-<div class="ttc" id="aa04202_html"><div class="ttname"><a href="a04202.html">bl::engine::Engine</a></div><div class="ttdoc">Core engine class that owns engine resources and the main game loop.</div><div class="ttdef"><b>Definition</b> <a href="a09596_source.html#l00040">Engine.hpp:40</a></div></div>
-<div class="ttc" id="aa05878_html"><div class="ttname"><a href="a05878.html">bl::rc::Renderer</a></div><div class="ttdoc">Top level rendering system of the game engine.</div><div class="ttdef"><b>Definition</b> <a href="a09734_source.html#l00058">Renderer.hpp:58</a></div></div>
-<div class="ttc" id="aa05882_html"><div class="ttname"><a href="a05882.html">bl::rc::RenderTarget</a></div><div class="ttdef"><b>Definition</b> <a href="a00773_source.html#l00030">RenderTarget.hpp:30</a></div></div>
-<div class="ttc" id="aa06114_html"><div class="ttname"><a href="a06114.html">bl::rc::sr::Key</a></div><div class="ttdoc">Key type for a shader resource. Allows encoding both type and id into one value.</div><div class="ttdef"><b>Definition</b> <a href="a09794_source.html#l00020">Key.hpp:20</a></div></div>
-<div class="ttc" id="aa06114_html_acebf33ad790b698954c289f77b55b71c"><div class="ttname"><a href="a06114.html#acebf33ad790b698954c289f77b55b71c">bl::rc::sr::Key::id</a></div><div class="ttdeci">char id[MaxKeyLen]</div><div class="ttdef"><b>Definition</b> <a href="a09794_source.html#l00047">Key.hpp:47</a></div></div>
-<div class="ttc" id="aa06118_html"><div class="ttname"><a href="a06118.html">bl::rc::sr::ShaderResource</a></div><div class="ttdoc">Base class for shader inputs. Shader inputs are the images and buffers that descriptors point to....</div><div class="ttdef"><b>Definition</b> <a href="a00989_source.html#l00032">ShaderResource.hpp:32</a></div></div>
-<div class="ttc" id="aa06122_html"><div class="ttname"><a href="a06122.html">bl::rc::sr::ShaderResourceStore</a></div><div class="ttdoc">Cache for shader inputs for descriptor sets. Shader inputs are instantiated once and shared across de...</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00034">ShaderResourceStore.hpp:34</a></div></div>
-<div class="ttc" id="aa06122_html_a51d8af6b23bee0acf0c1c810c0ba884c"><div class="ttname"><a href="a06122.html#a51d8af6b23bee0acf0c1c810c0ba884c">bl::rc::sr::ShaderResourceStore::getShaderResource</a></div><div class="ttdeci">TInput * getShaderResource(TArgs &amp;&amp;... args)</div><div class="ttdoc">Gets or creates the requested shader input using the type as the id.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00110">ShaderResourceStore.hpp:110</a></div></div>
-<div class="ttc" id="aa06122_html_a832e9f556bfcb15f2d91d3017396a8b6"><div class="ttname"><a href="a06122.html#a832e9f556bfcb15f2d91d3017396a8b6">bl::rc::sr::ShaderResourceStore::updateFromSources</a></div><div class="ttdeci">void updateFromSources()</div><div class="ttdoc">Copies descriptor data from source (such as ECS components) into local buffers.</div><div class="ttdef"><b>Definition</b> <a href="a02489_source.html#l00026">ShaderResourceStore.cpp:26</a></div></div>
-<div class="ttc" id="aa06122_html_a9097b6b51fb3fb81f79b1f822afbdcfd"><div class="ttname"><a href="a06122.html#a9097b6b51fb3fb81f79b1f822afbdcfd">bl::rc::sr::ShaderResourceStore::getShaderResourceWithKey</a></div><div class="ttdeci">TInput * getShaderResourceWithKey(const Key&lt; TInput &gt; &amp;key, TArgs &amp;&amp;... args)</div><div class="ttdoc">Gets or creates the requested shader input using a scene key.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00136">ShaderResourceStore.hpp:136</a></div></div>
-<div class="ttc" id="aa06122_html_aa82fc9ba64f0471f4a34cccf048463b2"><div class="ttname"><a href="a06122.html#aa82fc9ba64f0471f4a34cccf048463b2">bl::rc::sr::ShaderResourceStore::~ShaderResourceStore</a></div><div class="ttdeci">~ShaderResourceStore()</div><div class="ttdoc">Release resources.</div><div class="ttdef"><b>Definition</b> <a href="a02489_source.html#l00015">ShaderResourceStore.cpp:15</a></div></div>
-<div class="ttc" id="aa06122_html_ae266b3d384263f917b03bc9f5e79dd13"><div class="ttname"><a href="a06122.html#ae266b3d384263f917b03bc9f5e79dd13">bl::rc::sr::ShaderResourceStore::performTransfers</a></div><div class="ttdeci">void performTransfers()</div><div class="ttdoc">Syncs modified descriptor values in the contained storage modules.</div><div class="ttdef"><b>Definition</b> <a href="a02489_source.html#l00022">ShaderResourceStore.cpp:22</a></div></div>
-<div class="ttc" id="aa06122_html_afc27cd20a6a48d719455f97a9e364b80"><div class="ttname"><a href="a06122.html#afc27cd20a6a48d719455f97a9e364b80">bl::rc::sr::ShaderResourceStore::getShaderResourceWithId</a></div><div class="ttdeci">TInput * getShaderResourceWithId(const std::string &amp;id, TArgs &amp;&amp;... args)</div><div class="ttdoc">Gets or creates the requested shader input using an explicit id.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00115">ShaderResourceStore.hpp:115</a></div></div>
-<div class="ttc" id="aa09791_html"><div class="ttname"><a href="a09791.html">Key.hpp</a></div></div>
-<div class="ttc" id="aa09794_html"><div class="ttname"><a href="a09794.html">Key.hpp</a></div></div>
+<div class="ttc" id="aa00965_html"><div class="ttname"><a href="a00965.html">LightingDescriptor3D.hpp</a></div></div>
+<div class="ttc" id="aa00968_html"><div class="ttname"><a href="a00968.html">SpotLight3DShadow.hpp</a></div></div>
+<div class="ttc" id="aa00971_html"><div class="ttname"><a href="a00971.html">PointLight3D.hpp</a></div></div>
+<div class="ttc" id="aa00974_html"><div class="ttname"><a href="a00974.html">SpotLight3D.hpp</a></div></div>
+<div class="ttc" id="aa00977_html"><div class="ttname"><a href="a00977.html">SunLight3D.hpp</a></div></div>
+<div class="ttc" id="aa00980_html"><div class="ttname"><a href="a00980.html">Light3D.hpp</a></div></div>
+<div class="ttc" id="aa00986_html"><div class="ttname"><a href="a00986.html">PointLight3DShadow.hpp</a></div></div>
+<div class="ttc" id="aa01514_html"><div class="ttname"><a href="a01514.html">Random.hpp</a></div></div>
+<div class="ttc" id="aa01562_html"><div class="ttname"><a href="a01562.html">IdAllocator.hpp</a></div></div>
+<div class="ttc" id="aa01799_html"><div class="ttname"><a href="a01799.html">Logging.hpp</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">bl</a></div><div class="ttdoc">The parent namespace for all of BLIB.</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00012">PathFinder.hpp:13</a></div></div>
+<div class="ttc" id="aa05898_html"><div class="ttname"><a href="a05898.html">bl::rc::lgt::Light3D</a></div><div class="ttdoc">Handle to a light in 3d scene.</div><div class="ttdef"><b>Definition</b> <a href="a00980_source.html#l00025">Light3D.hpp:25</a></div></div>
+<div class="ttc" id="aa05898_html_a0d2f7228686b0edc362b68a4a22c03a7"><div class="ttname"><a href="a05898.html#a0d2f7228686b0edc362b68a4a22c03a7">bl::rc::lgt::Light3D::get</a></div><div class="ttdeci">const T &amp; get() const</div><div class="ttdoc">Returns the value of the light.</div><div class="ttdef"><b>Definition</b> <a href="a00980_source.html#l00050">Light3D.hpp:50</a></div></div>
+<div class="ttc" id="aa05898_html_a98543fc40beee41978045d68ffdc859f"><div class="ttname"><a href="a05898.html#a98543fc40beee41978045d68ffdc859f">bl::rc::lgt::Light3D::removeFromScene</a></div><div class="ttdeci">void removeFromScene()</div><div class="ttdoc">Removes the light from the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00216">Scene3DLighting.hpp:216</a></div></div>
+<div class="ttc" id="aa05902_html"><div class="ttname"><a href="a05902.html">bl::rc::lgt::LightingDescriptor3D</a></div><div class="ttdoc">Basic struct containing lighting info for 3d scenes (excluding point &amp; spot lights)</div><div class="ttdef"><b>Definition</b> <a href="a00965_source.html#l00026">LightingDescriptor3D.hpp:26</a></div></div>
+<div class="ttc" id="aa05930_html"><div class="ttname"><a href="a05930.html">bl::rc::lgt::Scene3DLighting</a></div><div class="ttdoc">Lighting manager for 3d scenes.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00026">Scene3DLighting.hpp:26</a></div></div>
+<div class="ttc" id="aa05930_html_a09b962aae09d2492cced2286f7e85863"><div class="ttname"><a href="a05930.html#a09b962aae09d2492cced2286f7e85863">bl::rc::lgt::Scene3DLighting::getPointShadowCount</a></div><div class="ttdeci">std::uint32_t getPointShadowCount() const</div><div class="ttdoc">Returns the number of point lights with shadows in the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00250">Scene3DLighting.hpp:250</a></div></div>
+<div class="ttc" id="aa05930_html_a11ab12d4c3ad66c9c954361c7ad29018"><div class="ttname"><a href="a05930.html#a11ab12d4c3ad66c9c954361c7ad29018">bl::rc::lgt::Scene3DLighting::getSun</a></div><div class="ttdeci">const SunLight3D &amp; getSun() const</div><div class="ttdoc">Returns the sun light.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00027">Scene3DLighting.cpp:27</a></div></div>
+<div class="ttc" id="aa05930_html_a417619383720bc229b3c85735fe7669a"><div class="ttname"><a href="a05930.html#a417619383720bc229b3c85735fe7669a">bl::rc::lgt::Scene3DLighting::setSunDistance</a></div><div class="ttdeci">void setSunDistance(float distance)</div><div class="ttdoc">Sets the distance of the sun from the scene center.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00059">Scene3DLighting.cpp:59</a></div></div>
+<div class="ttc" id="aa05930_html_a440813ddf4ac13cd038b899009df2875"><div class="ttname"><a href="a05930.html#a440813ddf4ac13cd038b899009df2875">bl::rc::lgt::Scene3DLighting::sync</a></div><div class="ttdeci">void sync()</div><div class="ttdoc">Called by owning scene prior to render. Do not call manually.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00039">Scene3DLighting.cpp:39</a></div></div>
+<div class="ttc" id="aa05930_html_a56776a13326d4e383e92b8836b2e3c6a"><div class="ttname"><a href="a05930.html#a56776a13326d4e383e92b8836b2e3c6a">bl::rc::lgt::Scene3DLighting::createPointLight</a></div><div class="ttdeci">PointLightHandle createPointLight(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new point light in the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00231">Scene3DLighting.hpp:231</a></div></div>
+<div class="ttc" id="aa05930_html_a687f4d544c1d17197121923af1bd8de6"><div class="ttname"><a href="a05930.html#a687f4d544c1d17197121923af1bd8de6">bl::rc::lgt::Scene3DLighting::getSpotLightCount</a></div><div class="ttdeci">std::uint32_t getSpotLightCount() const</div><div class="ttdoc">Returns the total number of spotlights in the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00248">Scene3DLighting.hpp:248</a></div></div>
+<div class="ttc" id="aa05930_html_a753e7962a60f99e8fbdc23f93296012a"><div class="ttname"><a href="a05930.html#a753e7962a60f99e8fbdc23f93296012a">bl::rc::lgt::Scene3DLighting::modifySun</a></div><div class="ttdeci">SunLight3D &amp; modifySun()</div><div class="ttdoc">Returns the sun light for modification.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00029">Scene3DLighting.cpp:29</a></div></div>
+<div class="ttc" id="aa05930_html_a778d9574815a3cbe9b38495fe461e8aa"><div class="ttname"><a href="a05930.html#a778d9574815a3cbe9b38495fe461e8aa">bl::rc::lgt::Scene3DLighting::createSpotlight</a></div><div class="ttdeci">SpotLightHandle createSpotlight(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new spot light in the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00221">Scene3DLighting.hpp:221</a></div></div>
+<div class="ttc" id="aa05930_html_a83025db684888f23e38c4f2f6727d24e"><div class="ttname"><a href="a05930.html#a83025db684888f23e38c4f2f6727d24e">bl::rc::lgt::Scene3DLighting::setAmbientLightColor</a></div><div class="ttdeci">void setAmbientLightColor(const glm::vec3 &amp;color)</div><div class="ttdoc">Sets the global ambient light color.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00025">Scene3DLighting.cpp:25</a></div></div>
+<div class="ttc" id="aa05930_html_a89178f0aeaa7a71043a5060a19674e05"><div class="ttname"><a href="a05930.html#a89178f0aeaa7a71043a5060a19674e05">bl::rc::lgt::Scene3DLighting::getSpotShadowCount</a></div><div class="ttdeci">std::uint32_t getSpotShadowCount() const</div><div class="ttdoc">Returns the number of spotlights with shadows in the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00244">Scene3DLighting.hpp:244</a></div></div>
+<div class="ttc" id="aa05930_html_a8d27c82e875b3090bcb0e72f95a3d4bf"><div class="ttname"><a href="a05930.html#a8d27c82e875b3090bcb0e72f95a3d4bf">bl::rc::lgt::Scene3DLighting::getPointLightCount</a></div><div class="ttdeci">std::uint32_t getPointLightCount() const</div><div class="ttdoc">Returns the total number of point lights in the scene.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00254">Scene3DLighting.hpp:254</a></div></div>
+<div class="ttc" id="aa05930_html_a9c550a829cfc943c9503f60222254dd1"><div class="ttname"><a href="a05930.html#a9c550a829cfc943c9503f60222254dd1">bl::rc::lgt::Scene3DLighting::updateSunCameraMatrix</a></div><div class="ttdeci">void updateSunCameraMatrix()</div><div class="ttdoc">Updates the view projection matrix for the sunlight camera.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00061">Scene3DLighting.cpp:61</a></div></div>
+<div class="ttc" id="aa05930_html_aa1ba112b13b0e26683951832d52833d7"><div class="ttname"><a href="a05930.html#aa1ba112b13b0e26683951832d52833d7">bl::rc::lgt::Scene3DLighting::getAmbientLightColor</a></div><div class="ttdeci">glm::vec3 getAmbientLightColor() const</div><div class="ttdoc">Returns the global ambient light color.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00023">Scene3DLighting.cpp:23</a></div></div>
+<div class="ttc" id="aa05930_html_ab6f19313dbb925966f51c623f33c0eac"><div class="ttname"><a href="a05930.html#ab6f19313dbb925966f51c623f33c0eac">bl::rc::lgt::Scene3DLighting::createPointLightWithShadow</a></div><div class="ttdeci">PointLightShadowHandle createPointLightWithShadow(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new point light in the scene that casts shadows.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00236">Scene3DLighting.hpp:236</a></div></div>
+<div class="ttc" id="aa05930_html_abde36022e86fd5b0e20c452519497024"><div class="ttname"><a href="a05930.html#abde36022e86fd5b0e20c452519497024">bl::rc::lgt::Scene3DLighting::getSunDistance</a></div><div class="ttdeci">float getSunDistance() const</div><div class="ttdoc">Returns the distance of the sun from the scene center.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00242">Scene3DLighting.hpp:242</a></div></div>
+<div class="ttc" id="aa05930_html_ace423ca4e7aff9c917b664ee917675d4"><div class="ttname"><a href="a05930.html#ace423ca4e7aff9c917b664ee917675d4">bl::rc::lgt::Scene3DLighting::getSceneCenter</a></div><div class="ttdeci">const glm::vec3 &amp; getSceneCenter() const</div><div class="ttdoc">Returns the center of the scene in world coordinates.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00240">Scene3DLighting.hpp:240</a></div></div>
+<div class="ttc" id="aa05930_html_ad602f40515844ee6fd84058c844c65f7"><div class="ttname"><a href="a05930.html#ad602f40515844ee6fd84058c844c65f7">bl::rc::lgt::Scene3DLighting::createSpotlightWithShadow</a></div><div class="ttdeci">SpotLightShadowHandle createSpotlightWithShadow(TArgs &amp;&amp;... args)</div><div class="ttdoc">Creates a new spot light in the scene that casts shadows.</div><div class="ttdef"><b>Definition</b> <a href="a00995_source.html#l00226">Scene3DLighting.hpp:226</a></div></div>
+<div class="ttc" id="aa05930_html_aece433200082a8af08661d99730f34cb"><div class="ttname"><a href="a05930.html#aece433200082a8af08661d99730f34cb">bl::rc::lgt::Scene3DLighting::setSceneCenter</a></div><div class="ttdeci">void setSceneCenter(const glm::vec3 &amp;center)</div><div class="ttdoc">Sets the center of the scene in world coordinates. Used for sun shadows.</div><div class="ttdef"><b>Definition</b> <a href="a02513_source.html#l00057">Scene3DLighting.cpp:57</a></div></div>
+<div class="ttc" id="aa05946_html"><div class="ttname"><a href="a05946.html">bl::rc::lgt::SunLight3D</a></div><div class="ttdoc">Basic struct representing a global directional light in a scene.</div><div class="ttdef"><b>Definition</b> <a href="a00977_source.html#l00018">SunLight3D.hpp:18</a></div></div>
+<div class="ttc" id="aa07014_html"><div class="ttname"><a href="a07014.html">bl::util::IdAllocator</a></div><div class="ttdoc">Utility to allocate integral ids in some range [0, max). Allows ids to be reused as well as tracks th...</div><div class="ttdef"><b>Definition</b> <a href="a01562_source.html#l00020">IdAllocator.hpp:20</a></div></div>
+<div class="ttc" id="aa07014_html_a0e4335decc172e313f218e337173021a"><div class="ttname"><a href="a07014.html#a0e4335decc172e313f218e337173021a">bl::util::IdAllocator::available</a></div><div class="ttdeci">bool available() const</div><div class="ttdoc">Returns whether or not any ids are available to be allocated. It is undefined behavior to call alloca...</div><div class="ttdef"><b>Definition</b> <a href="a01562_source.html#l00105">IdAllocator.hpp:105</a></div></div>
+<div class="ttc" id="aa07014_html_aacb7d0882aa9261efa1fbfb538f73a59"><div class="ttname"><a href="a07014.html#aacb7d0882aa9261efa1fbfb538f73a59">bl::util::IdAllocator::release</a></div><div class="ttdeci">void release(T id)</div><div class="ttdoc">Marks the given id as being available for use again.</div><div class="ttdef"><b>Definition</b> <a href="a01562_source.html#l00124">IdAllocator.hpp:124</a></div></div>
+<div class="ttc" id="aa07014_html_af110687b026e2b4d9bcbf3cd557e2bc9"><div class="ttname"><a href="a07014.html#af110687b026e2b4d9bcbf3cd557e2bc9">bl::util::IdAllocator::allocate</a></div><div class="ttdeci">T allocate()</div><div class="ttdoc">Allocates an id for use. Undefined behavior if available() returns false.</div><div class="ttdef"><b>Definition</b> <a href="a01562_source.html#l00110">IdAllocator.hpp:110</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 20 2026 20:40:24 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jun 26 2026 22:02:14 for BLIB by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.8
 </small></address>
