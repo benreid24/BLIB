@@ -3,7 +3,6 @@
 
 #include <BLIB/Models/Mesh.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
 #include <vector>
 
@@ -67,23 +66,10 @@ public:
 private:
     std::vector<Mesh> meshes;
 
-    friend struct serial::SerializableObject<MeshSet>;
     friend struct refl::ReflectedObject<MeshSet>;
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<mdl::MeshSet> : public SerializableObjectBase {
-    SerializableField<1, mdl::MeshSet, std::vector<mdl::Mesh>> meshes;
-
-    SerializableObject()
-    : SerializableObjectBase("MeshSet")
-    , meshes("meshes", *this, &mdl::MeshSet::meshes, SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
 
 namespace refl
 {

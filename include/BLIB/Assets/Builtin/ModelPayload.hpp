@@ -9,7 +9,6 @@
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Models/Model.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 
 namespace bl
 {
@@ -114,28 +113,10 @@ private:
     as::DependencyList<Animation3DPayload> animations;
 
     friend class ModelDriver;
-    friend struct serial::SerializableObject<ModelPayload>;
     friend struct refl::ReflectedObject<ModelPayload>;
 };
 
 } // namespace asi
-
-namespace serial
-{
-template<>
-struct SerializableObject<asi::ModelPayload> : public SerializableObjectBase {
-    SerializableField<1, asi::ModelPayload, mdl::NodeSet> nodes;
-    SerializableField<2, asi::ModelPayload, mdl::MeshSet> meshes;
-    SerializableField<3, asi::ModelPayload, mdl::BoneSet> bones;
-
-    SerializableObject()
-    : SerializableObjectBase("ModelPayload")
-    , nodes("nodes", *this, &asi::ModelPayload::nodes, SerializableFieldBase::Required{})
-    , meshes("meshes", *this, &asi::ModelPayload::meshes, SerializableFieldBase::Required{})
-    , bones("bones", *this, &asi::ModelPayload::bones, SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
 
 namespace refl
 {

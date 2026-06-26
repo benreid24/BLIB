@@ -62,29 +62,6 @@ struct ReflectedObject<serial::json::unittest::TestBoi> {
 
 namespace serial
 {
-
-template<>
-struct SerializableObject<json::unittest::TestBoi> : public SerializableObjectBase {
-    using T = json::unittest::TestBoi;
-
-    SerializableField<1, T, bool> bfield;
-    SerializableField<2, T, int> ifield;
-    SerializableField<3, T, float> ffield;
-    SerializableField<4, T, std::string> sfield;
-    SerializableField<5, T, std::vector<int>> vfield;
-    SerializableField<6, T, std::unordered_map<std::string, std::string>> smfield;
-    SerializableField<7, T, std::unordered_map<int, std::string>> imfield;
-
-    SerializableObject()
-    : SerializableObjectBase("TestBoi")
-    , bfield("bfield", *this, &T::bfield, SerializableFieldBase::Required{})
-    , ifield("ifield", *this, &T::ifield, SerializableFieldBase::Required{})
-    , ffield("ffield", *this, &T::ffield, SerializableFieldBase::Required{})
-    , sfield("sfield", *this, &T::sfield, SerializableFieldBase::Required{})
-    , vfield("vfield", *this, &T::vfield, SerializableFieldBase::Required{})
-    , smfield("smfield", *this, &T::smfield, SerializableFieldBase::Required{})
-    , imfield("imfield", *this, &T::imfield, SerializableFieldBase::Required{}) {}
-};
 namespace json
 {
 namespace unittest

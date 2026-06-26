@@ -16,17 +16,6 @@ struct Nested {
     , floatValue(f) {}
 };
 
-template<>
-struct SerializableObject<Nested> : public SerializableObjectBase {
-    SerializableField<1, Nested, bool> boolValue;
-    SerializableField<2, Nested, float> floatValue;
-
-    SerializableObject()
-    : SerializableObjectBase("Nested")
-    , boolValue("bval", *this, &Nested::boolValue, SerializableFieldBase::Required{})
-    , floatValue("fval", *this, &Nested::floatValue, SerializableFieldBase::Required{}) {}
-};
-
 } // namespace serial
 
 namespace refl
@@ -53,18 +42,6 @@ struct Data {
     std::vector<Nested> nestedValue;
 };
 
-template<>
-struct SerializableObject<Data> : public SerializableObjectBase {
-    SerializableField<1, Data, int> intValue;
-    SerializableField<2, Data, std::string> stringValue;
-    SerializableField<3, Data, std::vector<Nested>> nestedValue;
-
-    SerializableObject()
-    : SerializableObjectBase("Data")
-    , intValue("ival", *this, &Data::intValue, SerializableFieldBase::Required{})
-    , stringValue("sval", *this, &Data::stringValue, SerializableFieldBase::Required{})
-    , nestedValue("nval", *this, &Data::nestedValue, SerializableFieldBase::Required{}) {}
-};
 } // namespace serial
 
 namespace refl
@@ -85,21 +62,6 @@ struct Relaxed {
     int one;
     int two;
     int three;
-};
-
-template<>
-struct SerializableObject<Relaxed> : SerializableObjectBase {
-    SerializableField<1, Relaxed, int> one;
-    SerializableField<2, Relaxed, int> two;
-    SerializableField<3, Relaxed, int> three;
-
-    SerializableObject()
-    : SerializableObjectBase("Relaxed")
-    , one("one", *this, &Relaxed::one, SerializableFieldBase::Required{})
-    , two("two", *this, &Relaxed::two, SerializableFieldBase::Optional{})
-    , three("three", *this, &Relaxed::three, SerializableFieldBase::Required{}) {
-        two.setDefault(56);
-    }
 };
 
 } // namespace serial
@@ -196,7 +158,6 @@ private:
     bool b;
     float f;
 
-    friend struct SerializableObject<TestyBoi>;
     friend struct refl::ReflectedObject<TestyBoi>;
 };
 
@@ -218,23 +179,6 @@ struct ReflectedObject<serial::TestyBoi> {
 namespace serial
 {
 
-template<>
-struct SerializableObject<TestyBoi> : public SerializableObjectBase {
-    SerializableField<1, TestyBoi, std::string> str;
-    SerializableField<2, TestyBoi, std::uint32_t> u32;
-    SerializableField<3, TestyBoi, std::int16_t> nowidth;
-    SerializableField<4, TestyBoi, bool> b;
-    SerializableField<5, TestyBoi, float> f;
-
-    SerializableObject()
-    : SerializableObjectBase("TestyBoi")
-    , str("str", *this, &TestyBoi::str, SerializableFieldBase::Required{})
-    , u32("u32", *this, &TestyBoi::u32, SerializableFieldBase::Required{})
-    , nowidth("nowidth", *this, &TestyBoi::nowidth, SerializableFieldBase::Required{})
-    , b("b", *this, &TestyBoi::b, SerializableFieldBase::Required{})
-    , f("f1", *this, &TestyBoi::f, SerializableFieldBase::Optional{}) {}
-};
-
 class TestyBoi2 {
 public:
     std::string& strF() { return str; }
@@ -254,7 +198,6 @@ private:
     bool b;
     std::string newfield;
 
-    friend struct SerializableObject<TestyBoi2>;
     friend struct refl::ReflectedObject<TestyBoi2>;
 };
 
@@ -276,24 +219,6 @@ struct ReflectedObject<serial::TestyBoi2> {
 
 namespace serial
 {
-
-template<>
-struct SerializableObject<TestyBoi2> : public SerializableObjectBase {
-    SerializableField<1, TestyBoi2, std::string> str;
-    SerializableField<2, TestyBoi2, std::uint32_t> u32;
-    SerializableField<3, TestyBoi2, std::int16_t> nowidth;
-    SerializableField<4, TestyBoi2, bool> b;
-    SerializableField<6, TestyBoi2, std::string> newfield;
-
-    SerializableObject()
-    : SerializableObjectBase("TestyBoi2")
-    , str("str", *this, &TestyBoi2::str, SerializableFieldBase::Required{})
-    , u32("u32", *this, &TestyBoi2::u32, SerializableFieldBase::Required{})
-    , nowidth("nowidth", *this, &TestyBoi2::nowidth, SerializableFieldBase::Required{})
-    , b("b", *this, &TestyBoi2::b, SerializableFieldBase::Required{})
-    , newfield("f", *this, &TestyBoi2::newfield, SerializableFieldBase::Optional{}) {}
-};
-
 namespace unittest
 {
 TEST(BinarySerializableObject, SerializeObject) {

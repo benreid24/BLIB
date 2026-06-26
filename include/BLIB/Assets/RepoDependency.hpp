@@ -2,7 +2,6 @@
 #define BLIB_ASSETS_REPODEPENDENCY_HPP
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/UUID.hpp>
 #include <string>
 
@@ -21,21 +20,6 @@ struct RepoDependency {
 };
 
 } // namespace as
-
-namespace serial
-{
-template<>
-struct SerializableObject<as::RepoDependency> : public SerializableObjectBase {
-    SerializableField<1, as::RepoDependency, util::UUID> uuid;
-    SerializableField<2, as::RepoDependency, std::string> tag;
-
-    SerializableObject()
-    : SerializableObjectBase("Dependency")
-    , uuid("uuid", *this, &as::RepoDependency::uuid, SerializableFieldBase::Required{})
-    , tag("tag", *this, &as::RepoDependency::tag, SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
 
 namespace refl
 {

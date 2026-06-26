@@ -5,7 +5,6 @@
 #include <BLIB/Assets/Dependency.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <SFML/System.hpp>
 #include <glm/glm.hpp>
 
@@ -112,68 +111,11 @@ private:
     void computeDerivedData();
     bool isValidSlideshow();
 
-    friend struct serial::SerializableObject<Animation2DPayload>;
     friend struct refl::ReflectedObject<Animation2DPayload>;
     friend class Animation2DDriver;
 };
 
 } // namespace asi
-
-namespace serial
-{
-template<>
-struct SerializableObject<asi::Animation2DPayload> : public SerializableObjectBase {
-    SerializableField<1, asi::Animation2DPayload, std::vector<asi::Animation2DPayload::Frame>>
-        frames;
-    SerializableField<2, asi::Animation2DPayload, bool> loop;
-    SerializableField<3, asi::Animation2DPayload, bool> centerShards;
-
-    SerializableObject()
-    : SerializableObjectBase("Animation2D")
-    , frames("frames", *this, &asi::Animation2DPayload::frames, SerializableFieldBase::Required{})
-    , loop("loop", *this, &asi::Animation2DPayload::loop, SerializableFieldBase::Required{})
-    , centerShards("centerShards", *this, &asi::Animation2DPayload::centerShards,
-                   SerializableFieldBase::Required{}) {}
-};
-
-template<>
-struct SerializableObject<asi::Animation2DPayload::Frame> : public SerializableObjectBase {
-    SerializableField<1, asi::Animation2DPayload::Frame,
-                      std::vector<asi::Animation2DPayload::Frame::Shard>>
-        shards;
-    SerializableField<2, asi::Animation2DPayload::Frame, float> length;
-
-    SerializableObject()
-    : SerializableObjectBase("Animation2DFrame")
-    , shards("shards", *this, &asi::Animation2DPayload::Frame::shards,
-             SerializableFieldBase::Required{})
-    , length("length", *this, &asi::Animation2DPayload::Frame::length,
-             SerializableFieldBase::Required{}) {}
-};
-
-template<>
-struct SerializableObject<asi::Animation2DPayload::Frame::Shard> : public SerializableObjectBase {
-    SerializableField<1, asi::Animation2DPayload::Frame::Shard, sf::IntRect> source;
-    SerializableField<2, asi::Animation2DPayload::Frame::Shard, glm::vec2> offset;
-    SerializableField<3, asi::Animation2DPayload::Frame::Shard, glm::vec2> scale;
-    SerializableField<4, asi::Animation2DPayload::Frame::Shard, float> rotation;
-    SerializableField<5, asi::Animation2DPayload::Frame::Shard, std::uint8_t> alpha;
-
-    SerializableObject()
-    : SerializableObjectBase("Animation2DFrameShard")
-    , source("source", *this, &asi::Animation2DPayload::Frame::Shard::source,
-             SerializableFieldBase::Required{})
-    , offset("offset", *this, &asi::Animation2DPayload::Frame::Shard::offset,
-             SerializableFieldBase::Required{})
-    , scale("scale", *this, &asi::Animation2DPayload::Frame::Shard::scale,
-            SerializableFieldBase::Required{})
-    , rotation("rotation", *this, &asi::Animation2DPayload::Frame::Shard::rotation,
-               SerializableFieldBase::Required{})
-    , alpha("alpha", *this, &asi::Animation2DPayload::Frame::Shard::alpha,
-            SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
 
 namespace refl
 {

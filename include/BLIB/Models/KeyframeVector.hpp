@@ -2,7 +2,6 @@
 #define BLIB_MODELS_KEYFRAMEVECTOR_HPP
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <assimp/anim.h>
 #include <cstdint>
 #include <glm/glm.hpp>
@@ -45,24 +44,6 @@ struct KeyframeVector {
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<mdl::KeyframeVector> : public SerializableObjectBase {
-    SerializableField<1, mdl::KeyframeVector, double> time;
-    SerializableField<2, mdl::KeyframeVector, glm::vec3> value;
-    SerializableField<3, mdl::KeyframeVector, mdl::KeyframeVector::Interpolation> interpolation;
-
-    SerializableObject()
-    : SerializableObjectBase("KeyframeVector")
-    , time("time", *this, &mdl::KeyframeVector::time, SerializableFieldBase::Required{})
-    , value("value", *this, &mdl::KeyframeVector::value, SerializableFieldBase::Required{})
-    , interpolation("interpolation", *this, &mdl::KeyframeVector::interpolation,
-                    SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
 
 namespace refl
 {

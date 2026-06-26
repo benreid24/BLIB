@@ -2,7 +2,6 @@
 #define BLIB_ASSETS_METADATA_HPP
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <chrono>
 #include <cstdint>
 #include <string>
@@ -139,50 +138,10 @@ private:
     Asset* owner;
 
     friend class Asset;
-    friend struct serial::SerializableObject<as::Metadata>;
     friend struct refl::ReflectedObject<as::Metadata>;
 };
 
 } // namespace as
-
-namespace serial
-{
-template<>
-struct SerializableObject<as::Metadata::SourceFileInfo> : public SerializableObjectBase {
-    SerializableField<1, as::Metadata::SourceFileInfo, std::string> path;
-    SerializableField<2, as::Metadata::SourceFileInfo, std::time_t> lastModified;
-
-    SerializableObject()
-    : SerializableObjectBase("SourceFileInfo")
-    , path("path", *this, &as::Metadata::SourceFileInfo::path, SerializableFieldBase::Required{})
-    , lastModified("lastModified", *this, &as::Metadata::SourceFileInfo::lastModified,
-                   SerializableFieldBase::Required{}) {}
-};
-
-template<>
-struct SerializableObject<as::Metadata> : public SerializableObjectBase {
-    SerializableField<1, as::Metadata, std::string> displayName;
-    SerializableField<2, as::Metadata, std::string> description;
-    SerializableField<3, as::Metadata, std::string> path;
-    SerializableField<4, as::Metadata, std::uint64_t> creationTime;
-    SerializableField<5, as::Metadata, bool> isAutoLoaded;
-    SerializableField<6, as::Metadata, std::optional<as::Metadata::SourceFileInfo>> sourceFileInfo;
-
-    SerializableObject()
-    : SerializableObjectBase("AssetMetadata")
-    , displayName("displayName", *this, &as::Metadata::displayName,
-                  SerializableFieldBase::Required{})
-    , description("description", *this, &as::Metadata::description,
-                  SerializableFieldBase::Required{})
-    , path("path", *this, &as::Metadata::path, SerializableFieldBase::Required{})
-    , creationTime("creationTime", *this, &as::Metadata::creationTime,
-                   SerializableFieldBase::Required{})
-    , isAutoLoaded("isAutoLoaded", *this, &as::Metadata::isAutoLoaded,
-                   SerializableFieldBase::Required{})
-    , sourceFileInfo("sourceFileInfo", *this, &as::Metadata::sourceFileInfo,
-                     SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
 
 namespace refl
 {

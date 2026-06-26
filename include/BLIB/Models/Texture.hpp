@@ -3,7 +3,6 @@
 
 #include <BLIB/Models/Visitor.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/HashCombine.hpp>
 #include <SFML/Graphics/Image.hpp>
 #include <assimp/texture.h>
@@ -88,24 +87,10 @@ public:
 private:
     std::variant<std::string, sf::Image> texture;
 
-    friend struct serial::SerializableObject<Texture>;
     friend struct refl::ReflectedObject<Texture>;
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<mdl::Texture> : public SerializableObjectBase {
-    SerializableField<1, mdl::Texture, std::variant<std::string, sf::Image>> texture;
-
-    SerializableObject()
-    : SerializableObjectBase("Texture")
-    , texture("texture", *this, &mdl::Texture::texture, SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
 
 namespace refl
 {

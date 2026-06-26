@@ -2,8 +2,8 @@
 #define BLIB_MODELS_NODE_HPP
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <assimp/scene.h>
+#include <glm/glm.hpp>
 #include <optional>
 
 namespace bl
@@ -100,35 +100,10 @@ private:
     glm::mat4 transform;
     std::optional<std::uint32_t> boneIndex;
 
-    friend struct serial::SerializableObject<Node>;
     friend struct refl::ReflectedObject<Node>;
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<mdl::Node> : public SerializableObjectBase {
-    SerializableField<1, mdl::Node, std::uint32_t> parent;
-    SerializableField<2, mdl::Node, std::uint32_t> ownIndex;
-    SerializableField<3, mdl::Node, std::string> name;
-    SerializableField<4, mdl::Node, std::vector<std::uint32_t>> children;
-    SerializableField<5, mdl::Node, std::vector<std::uint32_t>> meshes;
-    SerializableField<6, mdl::Node, glm::mat4> transform;
-    SerializableField<7, mdl::Node, std::optional<std::uint32_t>> boneIndex;
-
-    SerializableObject()
-    : SerializableObjectBase("Node")
-    , parent("parent", *this, &mdl::Node::parent, SerializableFieldBase::Required{})
-    , ownIndex("ownIndex", *this, &mdl::Node::ownIndex, SerializableFieldBase::Required{})
-    , name("name", *this, &mdl::Node::name, SerializableFieldBase::Required{})
-    , children("children", *this, &mdl::Node::children, SerializableFieldBase::Required{})
-    , meshes("meshes", *this, &mdl::Node::meshes, SerializableFieldBase::Required{})
-    , transform("transform", *this, &mdl::Node::transform, SerializableFieldBase::Required{})
-    , boneIndex("boneIndex", *this, &mdl::Node::boneIndex, SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
 
 namespace refl
 {

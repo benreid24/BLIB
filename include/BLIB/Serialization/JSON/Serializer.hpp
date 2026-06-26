@@ -4,7 +4,6 @@
 #include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Serialization/JSON/JSON.hpp>
 #include <BLIB/Serialization/JSON/JSONLoader.hpp>
-#include <BLIB/Serialization/SerializableObject.hpp>
 #include <BLIB/Streams/InputStream.hpp>
 #include <BLIB/Streams/OutputStream.hpp>
 #include <BLIB/Util/Base64.hpp>
@@ -34,7 +33,7 @@ namespace json
 {
 /**
  * @brief Helper class for SerializableField. Specializations are provided for json native types,
- *        vector, and unordered_map. User defined types should either implement SerializableObject
+ *        vector, and unordered_map. User defined types should either implement ReflectedObject
  *        or provide a specialization of this class
  *
  * @tparam T The type to serialize

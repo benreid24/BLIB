@@ -3,7 +3,6 @@
 
 #include <BLIB/Models/Vertex.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <assimp/mesh.h>
 #include <cstdint>
 #include <vector>
@@ -99,30 +98,10 @@ private:
 
     void transformVertices(const std::vector<Vertex>& src, const glm::mat4& transform);
 
-    friend struct serial::SerializableObject<Mesh>;
     friend struct refl::ReflectedObject<Mesh>;
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<mdl::Mesh> : public SerializableObjectBase {
-    SerializableField<1, mdl::Mesh, std::vector<mdl::Vertex>> vertices;
-    SerializableField<2, mdl::Mesh, std::vector<std::uint32_t>> indices;
-    SerializableField<3, mdl::Mesh, std::uint32_t> materialIndex;
-    SerializableField<4, mdl::Mesh, bool> isSkinned;
-
-    SerializableObject()
-    : SerializableObjectBase("Mesh")
-    , vertices("vertices", *this, &mdl::Mesh::vertices, SerializableFieldBase::Required{})
-    , indices("indices", *this, &mdl::Mesh::indices, SerializableFieldBase::Required{})
-    , materialIndex("materialIndex", *this, &mdl::Mesh::materialIndex,
-                    SerializableFieldBase::Required{})
-    , isSkinned("isSkinned", *this, &mdl::Mesh::isSkinned, SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
 
 namespace refl
 {

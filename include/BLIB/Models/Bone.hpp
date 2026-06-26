@@ -3,7 +3,6 @@
 
 #include <BLIB/Models/ConversionHelpers.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <assimp/mesh.h>
 
 namespace bl
@@ -37,20 +36,6 @@ struct Bone {
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<mdl::Bone> : public SerializableObjectBase {
-    SerializableField<1, mdl::Bone, std::string> name;
-    SerializableField<2, mdl::Bone, glm::mat4> transform;
-
-    SerializableObject()
-    : SerializableObjectBase("Bone")
-    , name("name", *this, &mdl::Bone::name, SerializableFieldBase::Required{})
-    , transform("transform", *this, &mdl::Bone::transform, SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
 
 namespace refl
 {

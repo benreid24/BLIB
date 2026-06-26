@@ -53,22 +53,6 @@ struct MaterialPayload : public as::Payload {
 
 } // namespace asi
 
-namespace serial
-{
-template<>
-struct SerializableObject<asi::MaterialPayload> : public SerializableObjectBase {
-    SerializableField<1, asi::MaterialPayload, float> shininess;
-    SerializableField<2, asi::MaterialPayload, float> heightScale;
-
-    SerializableObject()
-    : SerializableObjectBase("MaterialPayload")
-    , shininess("shininess", *this, &asi::MaterialPayload::shininess,
-                SerializableFieldBase::Required{})
-    , heightScale("heightScale", *this, &asi::MaterialPayload::heightScale,
-                  SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
-
 namespace refl
 {
 template<>

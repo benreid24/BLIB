@@ -36,45 +36,6 @@ struct GameRuntimeData {
 };
 } // namespace as
 
-namespace serial
-{
-template<>
-struct SerializableObject<as::EditorRuntimeData> : public SerializableObjectBase {
-    SerializableField<1, as::EditorRuntimeData, std::unordered_map<util::UUID, as::Asset>*> assets;
-    SerializableField<
-        2, as::EditorRuntimeData,
-        std::unordered_map<std::string, std::unordered_map<std::string, as::SourceLink>>*>
-        sourceLinks;
-    SerializableField<3, as::EditorRuntimeData, std::unordered_map<std::string, util::UUID>*>
-        keyToAsset;
-
-    SerializableObject()
-    : SerializableObjectBase("AssetManifest")
-    , assets("assets", *this, &as::EditorRuntimeData::assets, SerializableFieldBase::Required{})
-    , sourceLinks("sourceLinks", *this, &as::EditorRuntimeData::sourceLinks,
-                  SerializableFieldBase::Required{})
-    , keyToAsset("keyToAsset", *this, &as::EditorRuntimeData::keyToAsset,
-                 SerializableFieldBase::Required{}) {}
-};
-
-template<>
-struct SerializableObject<as::GameRuntimeData> : public SerializableObjectBase {
-    SerializableField<1, as::GameRuntimeData, std::unordered_map<util::UUID, as::Asset>*> assets;
-    // source links slot 2 ommitted
-    SerializableField<3, as::GameRuntimeData, std::unordered_map<std::string, util::UUID>*>
-        keyToAsset;
-    SerializableField<4, as::GameRuntimeData, as::bdl::Manifest*> bundleManifest;
-
-    SerializableObject()
-    : SerializableObjectBase("AssetManifest")
-    , assets("assets", *this, &as::GameRuntimeData::assets, SerializableFieldBase::Required{})
-    , keyToAsset("keyToAsset", *this, &as::GameRuntimeData::keyToAsset,
-                 SerializableFieldBase::Required{})
-    , bundleManifest("bundleManifest", *this, &as::GameRuntimeData::bundleManifest,
-                     SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
-
 namespace refl
 {
 template<>

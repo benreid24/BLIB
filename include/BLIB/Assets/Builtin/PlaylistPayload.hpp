@@ -5,7 +5,6 @@
 #include <BLIB/Assets/DependencyList.hpp>
 #include <BLIB/Assets/Payload.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 
 namespace bl
 {
@@ -87,26 +86,10 @@ private:
     bool shuffle;
     bool reshuffleOnLoop;
 
-    friend struct serial::SerializableObject<PlaylistPayload>;
     friend struct refl::ReflectedObject<PlaylistPayload>;
 };
 
 } // namespace asi
-
-namespace serial
-{
-template<>
-struct SerializableObject<asi::PlaylistPayload> : public SerializableObjectBase {
-    SerializableField<1, asi::PlaylistPayload, bool> shuffle;
-    SerializableField<2, asi::PlaylistPayload, bool> reshuffleOnLoop;
-
-    SerializableObject()
-    : SerializableObjectBase("Playlist")
-    , shuffle("shuffle", *this, &asi::PlaylistPayload::shuffle, SerializableFieldBase::Required{})
-    , reshuffleOnLoop("reshuffleOnLoop", *this, &asi::PlaylistPayload::reshuffleOnLoop,
-                      SerializableFieldBase::Required{}) {}
-};
-} // namespace serial
 
 namespace refl
 {

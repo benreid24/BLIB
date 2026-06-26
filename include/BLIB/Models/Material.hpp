@@ -3,7 +3,6 @@
 
 #include <BLIB/Models/Texture.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Serialization.hpp>
 #include <string>
 
 namespace bl
@@ -44,31 +43,6 @@ struct Material {
 };
 
 } // namespace mdl
-
-namespace serial
-{
-template<>
-struct SerializableObject<bl::mdl::Material> : public SerializableObjectBase {
-    SerializableField<1, bl::mdl::Material, mdl::Texture> diffuse;
-    SerializableField<2, bl::mdl::Material, mdl::Texture> normal;
-    SerializableField<3, bl::mdl::Material, mdl::Texture> specular;
-    SerializableField<4, bl::mdl::Material, mdl::Texture> parallax;
-    SerializableField<5, bl::mdl::Material, float> shininess;
-    SerializableField<6, bl::mdl::Material, float> heightScale;
-
-    SerializableObject()
-    : SerializableObjectBase("Material")
-    , diffuse("diffuse", *this, &bl::mdl::Material::diffuse, SerializableFieldBase::Required{})
-    , normal("normal", *this, &bl::mdl::Material::normal, SerializableFieldBase::Required{})
-    , specular("specular", *this, &bl::mdl::Material::specular, SerializableFieldBase::Required{})
-    , parallax("parallax", *this, &bl::mdl::Material::parallax, SerializableFieldBase::Required{})
-    , shininess("shininess", *this, &bl::mdl::Material::shininess,
-                SerializableFieldBase::Required{})
-    , heightScale("heightScale", *this, &bl::mdl::Material::heightScale,
-                  SerializableFieldBase::Required{}) {}
-};
-
-} // namespace serial
 
 namespace refl
 {
