@@ -10,11 +10,7 @@ endif()
 
 project(BLIB C CXX)
 
-set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-if (NOT CMAKE_PARENT_LIST_FILE STREQUAL CMAKE_CURRENT_LIST_FILE)
-    message(${CMAKE_PARENT_LIST_FILE})
-    set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} PARENT_SCOPE)
-endif()
+set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH "Path to BLIB source directory")
 
 # Use static msvc runtime in sync with assimp
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
