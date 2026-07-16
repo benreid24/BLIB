@@ -135,8 +135,9 @@ void TextEntryComponent::positionItems() {
     const glm::vec2 cpos       = text.findCharacterPosition(0, owner.getCursorPosition());
 
     glm::vec2 textOffset(0.f, 0.f);
-    if ((bounds.size.x + bounds.position.x) > acq.size.x ||
-        (bounds.position.y + bounds.size.y) > acq.size.y) {
+    if (((bounds.size.x + bounds.position.x) > acq.size.x ||
+         (bounds.position.y + bounds.size.y) > acq.size.y) &&
+        owner.getCursorPosition() < text.getSection().getString().getSize()) {
         const glm::vec2 gcpos = cpos + text.getTransform().getLocalPosition();
         const sf::Glyph& g    = text.getFont()->getGlyph(
             text.getSection().getString()[owner.getCursorPosition()],

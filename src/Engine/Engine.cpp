@@ -35,6 +35,7 @@ float toRealSeconds(std::int64_t microseconds, float scale) {
 Engine::Engine(const Settings& settings)
 : engineSettings(settings)
 , timeScale(1.f)
+, isSetup(false)
 , ecsSystems(*this)
 , assetRepository(as::Mode::Editor, std::string(settings.assetsPath()))
 , entityRegistry()
@@ -147,6 +148,9 @@ bool Engine::run(StateFactory&& factory) {
 }
 
 bool Engine::setup() {
+    if (isSetup) { return true; }
+    isSetup = true;
+
     if (engineSettings.createRenderer()) {
         rendererInstance.emplace(*this, engineSettings.getRendererCreationSettings().value());
         if (!rendererInstance->initialize()) {

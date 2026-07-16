@@ -7,6 +7,19 @@ using namespace bl::game;
 
 Game* Game::instance = nullptr;
 
+namespace bl
+{
+namespace engine
+{
+namespace priv
+{
+struct SetupHelper {
+    static bool setup(Engine& engine) { return engine.setup(); }
+};
+} // namespace priv
+} // namespace engine
+} // namespace bl
+
 int main(int argc, char** argv) {
     if (!Game::instance) {
         BL_LOG_CRITICAL
@@ -25,6 +38,10 @@ int main(int argc, char** argv) {
     {
         BL_LOG_INFO << "Creating engine instance";
         bl::engine::Engine engine(game.createStartupParameters());
+        if (!bl::engine::priv::SetupHelper::setup(engine)) {
+            BL_LOG_ERROR << "Engine setup failed";
+            return 1;
+        }
 
         BL_LOG_INFO << "Completing startup";
         if (!game.completeStartup(engine)) {

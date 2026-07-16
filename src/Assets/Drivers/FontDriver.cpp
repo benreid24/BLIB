@@ -24,7 +24,7 @@ bool FontDriver::doCreate(as::CreateContext& ctx, FontPayload& payload) {
             std::memcpy(payload.buffer.data(), params->data.data(), params->data.size());
         }
     }
-    else if (ctx.getCustomData().getPath().empty()) {
+    else if (!ctx.getCustomData().getPath().empty()) {
         if (!util::FileUtil::readFile(ctx.getCustomData().getPath(), payload.buffer)) {
             BL_LOG_ERROR << "Failed to read font file from " << ctx.getCustomData().getPath();
             return false;

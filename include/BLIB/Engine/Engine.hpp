@@ -31,6 +31,12 @@ namespace bl
 /// The core game engine and related classes
 namespace engine
 {
+/// Private implementation details
+namespace priv
+{
+struct SetupHelper;
+}
+
 /**
  * @brief Core engine class that owns engine resources and the main game loop
  *
@@ -276,6 +282,7 @@ private:
     std::array<ctr::Ref<World>, World::MaxWorlds> worlds;
     State::Ptr newState;
     float timeScale;
+    bool isSetup;
 
     Systems ecsSystems;
     script::Manager engineScriptManager;
@@ -307,6 +314,8 @@ private:
 
     bool setup();
     bool loop();
+
+    friend struct priv::SetupHelper;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
