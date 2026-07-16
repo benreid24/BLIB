@@ -12,8 +12,12 @@ project(BLIB C CXX)
 
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH "Path to BLIB source directory")
 
-# Use static msvc runtime in sync with assimp
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+include(set_module_path)
+set_module_path()
+
+include(init_blib_cmake)
+init_blib_cmake()
 
 # Determine glslc path
 if(APPLE)
@@ -44,10 +48,6 @@ add_library(BLIB STATIC)
 # Make vulkan dir in build dir to fix vma include
 set(BLIB_TEMP_INCLUDE_DIR ${CMAKE_BINARY_DIR}/blib_temp_includes)
 file(MAKE_DIRECTORY ${BLIB_TEMP_INCLUDE_DIR})
-
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(set_module_path)
-set_module_path()
 
 include(configure_blib_target)
 configure_blib_target(BLIB)

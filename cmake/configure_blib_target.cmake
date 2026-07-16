@@ -1,7 +1,4 @@
 function(configure_blib_target target_name)
-    # Use static msvc runtime in sync with assimp
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-
     # Platform detection
     if (APPLE)
         target_compile_definitions(${target_name} PUBLIC
@@ -63,9 +60,6 @@ function(configure_blib_target target_name)
             PROPERTIES
             COMPILE_OPTIONS /w
         )
-
-        # Sync runtime library to Assimp
-        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
     else()
         # lots of warnings
         target_compile_options(${target_name} PUBLIC -Wall -Wextra -pedantic)
