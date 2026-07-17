@@ -4,6 +4,7 @@ target_sources(BLIB.t PUBLIC
     FileUtil.t.cpp
     IdAllocator.t.cpp
     IdAllocatorUnbounded.t.cpp
+    Perlin.t.cpp
     RangeAllocatorUnbounded.t.cpp
     Signal.t.cpp
     TaskScheduler.t.cpp

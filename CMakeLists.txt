@@ -11,6 +11,7 @@ endif()
 project(BLIB C CXX)
 
 set(BLIB_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE PATH "Path to BLIB source directory")
+set(BLIB_BINARY_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE PATH "Path to BLIB binary directory")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(set_module_path)

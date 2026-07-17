@@ -9,6 +9,7 @@ target_sources(BLIB PUBLIC
     ImageStitcher.hpp
     LastVariadic.hpp
     NonCopyable.hpp
+    Perlin.hpp
     Random.hpp
     RangeAllocatorUnbounded.hpp
     ReadWriteLock.hpp
