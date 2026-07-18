@@ -148,8 +148,8 @@ public:
 private:
     std::array<std::uint8_t, 256> permutation;
 
-    static constexpr T DefaultY = 0.12345;
-    static constexpr T DefaultZ = 0.34567;
+    static constexpr T DefaultY = static_cast<T>(0.12345);
+    static constexpr T DefaultZ = static_cast<T>(0.34567);
 
     T fade(T t) const;
     T lerp(T a, T b, T t) const;

@@ -28,6 +28,16 @@ public:
      * @brief Destroys the world
      */
     virtual ~BasicWorld() = default;
+
+    /**
+     * @brief Returns the scene for this world cast to the correct type
+     */
+    TScene& typedScene() { return *static_cast<TScene*>(scene().get()); }
+
+    /**
+     * @brief Returns the scene for this world cast to the correct type
+     */
+    const TScene* typedScene() const { return static_cast<const TScene*>(scene().get()); }
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
