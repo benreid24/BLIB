@@ -12,7 +12,7 @@ void Terrain::createFromNoise2d(engine::World& world, util::Perlin<float>& perli
                                 std::uint32_t materialPipelineId) {
     Drawable::createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), entity());
-    component().create(world.engine().renderer(), 0, 0);
+    component().create(world.engine().renderer(), 1, 1);
     regenerateFromNoise2d(perlin, width, height, altitude, step, octaves, persistence);
 }
 
@@ -24,8 +24,7 @@ void Terrain::regenerateFromNoise2d(util::Perlin<float>& perlin, float width, fl
     const unsigned int vertexCount = xCount * yCount;
     const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6; // TODO - correct?
 
-    component().gpuBuffer.vertices().resize(vertexCount);
-    component().gpuBuffer.indices().resize(indexCount);
+    component().gpuBuffer.ensureSize(vertexCount, indexCount);
     auto& indexBuffer = component().gpuBuffer;
 
     // gen heightmap
@@ -59,6 +58,7 @@ void Terrain::regenerateFromNoise2d(util::Perlin<float>& perlin, float width, fl
                                    component().gpuBuffer.indices().size());
 
     component().gpuBuffer.queueTransfer();
+    component().getDrawParametersForEdit() = component().gpuBuffer.getDrawParameters();
 }
 
 void Terrain::scaleToSize(const glm::vec2&) { BL_LOG_WARN << "Cannot scale terrain to size"; }
