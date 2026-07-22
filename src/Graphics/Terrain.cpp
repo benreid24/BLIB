@@ -39,16 +39,15 @@ void Terrain::regenerateFromNoise2d(util::Perlin<float>& perlin, float width, fl
     }
 
     // gen indices
-    // TODO - wtf
     for (unsigned int x = 0; x < xCount - 1; ++x) {
         for (unsigned int y = 0; y < yCount - 1; ++y) {
             const unsigned int i         = (x + y * (xCount - 1)) * 6;
             indexBuffer.indices()[i + 0] = x + y * xCount;
-            indexBuffer.indices()[i + 1] = (x + 1) + y * xCount;
-            indexBuffer.indices()[i + 2] = x + (y + 1) * xCount;
+            indexBuffer.indices()[i + 1] = x + (y + 1) * xCount;
+            indexBuffer.indices()[i + 2] = (x + 1) + y * xCount;
             indexBuffer.indices()[i + 3] = (x + 1) + y * xCount;
-            indexBuffer.indices()[i + 4] = (x + 1) + (y + 1) * xCount;
-            indexBuffer.indices()[i + 5] = x + (y + 1) * xCount;
+            indexBuffer.indices()[i + 4] = x + (y + 1) * xCount;
+            indexBuffer.indices()[i + 5] = (x + 1) + (y + 1) * xCount;
         }
     }
 
