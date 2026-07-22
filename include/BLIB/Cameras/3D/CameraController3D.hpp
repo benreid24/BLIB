@@ -30,7 +30,7 @@ protected:
      * @brief Returns the camera that owns this controller. Undefined behavior if not currently
      * owned
      */
-    constexpr Camera3D& camera();
+    Camera3D& camera();
 
 private:
     Camera3D* cam;
@@ -42,7 +42,7 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr Camera3D& CameraController3D::camera() { return *cam; }
+inline Camera3D& CameraController3D::camera() { return *cam; }
 
 inline void CameraController3D::setCam(Camera3D& c) { cam = &c; }
 

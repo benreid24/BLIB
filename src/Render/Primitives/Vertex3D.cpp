@@ -11,19 +11,23 @@ namespace prim
 namespace
 {
 void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
-    const glm::vec3 edge1    = v2.pos - v1.pos;
-    const glm::vec3 edge2    = v3.pos - v1.pos;
-    const glm::vec2 deltaUV1 = v2.texCoord - v1.texCoord;
-    const glm::vec2 deltaUV2 = v3.texCoord - v1.texCoord;
-
-    const float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+    const glm::vec3 edge1  = v2.pos - v1.pos;
+    const glm::vec3 edge2  = v3.pos - v1.pos;
+    const glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
 
     glm::vec3 tangent;
-    tangent.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
-    tangent.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
-    tangent.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+    const glm::vec2 deltaUV1 = v2.texCoord - v1.texCoord;
+    const glm::vec2 deltaUV2 = v3.texCoord - v1.texCoord;
+    const float det          = deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y;
 
-    const glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
+    if (std::abs(det) >= 0.0001f) {
+        const float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+        tangent.x     = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
+        tangent.y     = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
+        tangent.z     = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
+        tangent       = glm::normalize(tangent);
+    }
+    else { tangent = glm::normalize(edge1); }
 
     v1.normal = normal;
     v2.normal = normal;

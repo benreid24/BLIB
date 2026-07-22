@@ -38,7 +38,7 @@ void Orientation3D::lookAt(const glm::vec3& pos, const glm::vec3& from) {
 }
 
 void Orientation3D::setYawAndPitch(float yaw, float pitch) {
-    const float yawRad   = glm::radians(yaw);
+    const float yawRad = glm::radians(yaw - 90.f); // adjust by -90 so that 0 yaw is facing forward
     const float pitchRad = glm::radians(pitch);
     faceDir              = glm::normalize(glm::vec3{std::cos(yawRad) * std::cos(pitchRad),
                                        std::sin(pitchRad),

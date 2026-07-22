@@ -31,10 +31,10 @@ void Terrain::regenerateFromNoise2d(util::Perlin<float>& perlin, float width, fl
     for (unsigned int x = 0; x < xCount; ++x) {
         for (unsigned int y = 0; y < yCount; ++y) {
             const float xf = static_cast<float>(x) * step - width * 0.5f;
-            const float yf = static_cast<float>(y) * step - height * 0.5f;
-            float normal   = perlin.octave2DNormalized(xf, yf, octaves, persistence);
+            const float zf = static_cast<float>(y) * step - height * 0.5f;
+            float normal   = perlin.octave2DNormalized(xf, zf, octaves, persistence);
             normal         = (normal + 1.f) * 0.5f; // map to [0,1]
-            indexBuffer.vertices()[x + y * xCount].pos = glm::vec3(xf, yf, normal * altitude);
+            indexBuffer.vertices()[x + y * xCount].pos = glm::vec3(xf, normal * altitude, zf);
         }
     }
 
