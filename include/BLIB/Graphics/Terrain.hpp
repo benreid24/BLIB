@@ -2,6 +2,7 @@
 #define BLIB_GRAPHICS_TERRAIN_HPP
 
 #include <BLIB/Components/Mesh.hpp>
+#include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
 #include <BLIB/Render/Buffers/VertexBuffer.hpp>
@@ -26,6 +27,11 @@ public:
      * @brief Creates the uninitialized terrain drawable
      */
     Terrain();
+
+    void createFromHeightmap(
+        engine::World& world, const ctr::Vector2D<float>& heightmap, const glm::vec2& offset,
+        const glm::vec2& size, const bl::rc::res::MaterialRef& material = {},
+        std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
      * @brief Creates the terrain using Perlin noise centered around the origin (0, 0, 0)
@@ -65,12 +71,23 @@ public:
                                float frequency);
 
     /**
+     * @brief Updates the terrain mesh from a heightmap
+     *
+     * @param heightmap The heightmap to use
+     * @param offset The offset of the upper left corner in world coordinates
+     * @param size The size of the terrain in world coordinates
+     */
+    void updateFromHeightmap(const ctr::Vector2D<float>& heightmap, const glm::vec2& offset,
+                             const glm::vec2& size);
+
+    /**
      * @brief Recomputes TBN, queues buffers for transfer, and updates draw parameters
      */
     void commitUpdate();
 
 private:
     virtual void scaleToSize(const glm::vec2& size) override;
+    void setIndices(unsigned int xCount, unsigned int yCount);
 };
 
 } // namespace gfx
