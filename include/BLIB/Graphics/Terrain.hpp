@@ -38,12 +38,14 @@ public:
      * @param step The distance between each vertex in world coordinates
      * @param octaves The number of Perlin octaves to use during generation
      * @param persistence The persistence value to use for amplitude scaling during generation
+     * @param frequency The frequency value to use for scaling during generation
      * @param material The material to assign to the terrain
      * @param materialPipelineId The id of the material pipeline to render with
      */
     void createFromNoise2d(engine::World& world, util::Perlin<float>& perlin, float width,
                            float height, float altitude, float step, unsigned int octaves,
-                           float persistence, const bl::rc::res::MaterialRef& material = {},
+                           float persistence, float frequency,
+                           const bl::rc::res::MaterialRef& material = {},
                            std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
@@ -56,9 +58,16 @@ public:
      * @param step The distance between each vertex in world coordinates
      * @param octaves The number of Perlin octaves to use during generation
      * @param persistence The persistence value to use for amplitude scaling during generation
+     * @param frequency The frequency value to use for scaling during generation
      */
     void regenerateFromNoise2d(util::Perlin<float>& perlin, float width, float height,
-                               float altitude, float step, unsigned int octaves, float persistence);
+                               float altitude, float step, unsigned int octaves, float persistence,
+                               float frequency);
+
+    /**
+     * @brief Recomputes TBN, queues buffers for transfer, and updates draw parameters
+     */
+    void commitUpdate();
 
 private:
     virtual void scaleToSize(const glm::vec2& size) override;
