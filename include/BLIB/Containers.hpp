@@ -11,6 +11,7 @@
 #include <BLIB/Containers/Grid.hpp>
 #include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/Containers/PriorityQueue.hpp>
 #include <BLIB/Containers/QuadTree.hpp>
 #include <BLIB/Containers/RefPool.hpp>
 #include <BLIB/Containers/RingBuffer.hpp>
