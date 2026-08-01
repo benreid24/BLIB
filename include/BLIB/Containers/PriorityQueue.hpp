@@ -1,6 +1,7 @@
 #ifndef BLIB_CONTAINERS_PRIORITYQUEUE_HPP
 #define BLIB_CONTAINERS_PRIORITYQUEUE_HPP
 
+#include <BLIB/Allocators/VectoredPools.hpp>
 #include <algorithm>
 #include <list>
 #include <type_traits>
@@ -14,6 +15,8 @@ template<typename T, typename TCmp = std::less<T>>
 class PriorityQueue {
 public:
     static_assert(std::is_object_v<T>, "T must be an object type");
+
+    using TStorage = std::list<T, alloc::VectoredPools<T>>;
 
     class Reference {
     public:
@@ -39,9 +42,9 @@ public:
 
     private:
         PriorityQueue* ctr;
-        std::vector<T>::iterator iter;
+        TStorage::iterator iter;
 
-        Reference(PriorityQueue* ctr, std::vector<T>::iterator iter);
+        Reference(PriorityQueue* ctr, TStorage::iterator iter);
 
         friend class PriorityQueue;
     };
@@ -74,10 +77,30 @@ public:
     std::size_t size() const;
 
 private:
-    std::vector<T> queue;
-    TCmp cmp;
+    struct Cmp {
+        TCmp cmp;
 
-    std::vector<T>::iterator reposition(std::vector<T>::iterator iter);
+        bool operator()(const TStorage::iterator& lhs, const T& rhs) const {
+            // stored in reverse order
+            return cmp(rhs, *lhs);
+        }
+
+        bool operator()(const TStorage::iterator& lhs, const TStorage::iterator& rhs) const {
+            // stored in reverse order
+            return cmp(*rhs, *lhs);
+        }
+
+        bool operator()(const T& lhs, const TStorage::iterator& rhs) const {
+            // stored in reverse order
+            return cmp(*rhs, lhs);
+        }
+    };
+
+    TStorage queue;
+    std::vector<typename TStorage::iterator> iterators;
+    Cmp cmp;
+
+    TStorage::iterator reposition(TStorage::iterator iter);
 
     friend class Reference;
 };
@@ -86,36 +109,43 @@ private:
 
 template<typename T, typename TCmp>
 T& PriorityQueue<T, TCmp>::front() {
-    return queue.front();
+    // stored in reverse order
+    return queue.back();
 }
 
 template<typename T, typename TCmp>
 const T& PriorityQueue<T, TCmp>::front() const {
-    return queue.front();
+    // stored in reverse order
+    return queue.back();
 }
 
 template<typename T, typename TCmp>
 void PriorityQueue<T, TCmp>::pop() {
+    /*queue.pop_back();
+    std::pop_heap(queue.begin(), queue.end());*/
     queue.pop_back();
-    std::pop_heap(queue.begin(), queue.end());
+    iterators.pop_back();
 }
 
 template<typename T, typename TCmp>
 PriorityQueue<T, TCmp>::Reference PriorityQueue<T, TCmp>::push(const T& value) {
-    // const auto newPos = std::lower_bound(queue.begin(), queue.end(), value, cmp);
-    queue.emplace_back(value);
-    std::push_heap(queue.begin(), queue.end(), cmp);
-    // return Reference(this, iter);
-    return Reference();
+    const auto newPosIt  = std::lower_bound(iterators.begin(), iterators.end(), value, cmp);
+    const auto newPos    = newPosIt != iterators.end() ? *newPosIt : queue.end();
+    const auto queueIter = queue.emplace(newPos, value);
+    iterators.insert(newPosIt, queueIter);
+    /*queue.emplace_back(value);
+    std::push_heap(queue.begin(), queue.end(), cmp);*/
+    return Reference(this, queueIter);
+    // return Reference();
 }
 
 template<typename T, typename TCmp>
 template<typename... TArgs>
 PriorityQueue<T, TCmp>::Reference PriorityQueue<T, TCmp>::emplace(TArgs&&... args) {
-    queue.emplace_back(std::forward<TArgs>(args)...);
-    std::push_heap(queue.begin(), queue.end(), cmp);
-    // return Reference(this, reposition(queue.begin()));
-    return Reference();
+    queue.emplace_front(std::forward<TArgs>(args)...);
+    // std::push_heap(queue.begin(), queue.end(), cmp);
+    return Reference(this, reposition(queue.begin()));
+    // return Reference();
 }
 
 template<typename T, typename TCmp>
@@ -129,12 +159,22 @@ std::size_t PriorityQueue<T, TCmp>::size() const {
 }
 
 template<typename T, typename TCmp>
-std::vector<T>::iterator PriorityQueue<T, TCmp>::reposition(std::vector<T>::iterator iter) {
-    /* const auto newPos = std::lower_bound(queue.begin(), queue.end(), *iter, cmp);
-     const auto newIt  = queue.emplace(newPos, std::move(*iter));
-     queue.erase(iter);
-     return newIt;*/
-    return iter;
+typename PriorityQueue<T, TCmp>::TStorage::iterator PriorityQueue<T, TCmp>::reposition(
+    typename TStorage::iterator iter) {
+    // TODO - custom linked list to avoid delete and re-insert?
+    const auto newPosIt = std::lower_bound(iterators.begin(), iterators.end(), *iter, cmp);
+    const auto newPos   = newPosIt != iterators.end() ? *newPosIt : queue.end();
+    const auto newIt    = queue.emplace(newPos, std::move(*iter));
+    queue.erase(iter);
+    // TODO - can we make this non-linear?
+    for (auto it = iterators.begin(); it != iterators.end(); ++it) {
+        if (*it == iter) {
+            iterators.erase(it);
+            break;
+        }
+    }
+    return newIt;
+    // return iter;
 }
 
 template<typename T, typename TCmp>
@@ -142,8 +182,7 @@ PriorityQueue<T, TCmp>::Reference::Reference()
 : ctr(nullptr) {}
 
 template<typename T, typename TCmp>
-PriorityQueue<T, TCmp>::Reference::Reference(PriorityQueue<T, TCmp>* ctr,
-                                             std::vector<T>::iterator iter)
+PriorityQueue<T, TCmp>::Reference::Reference(PriorityQueue<T, TCmp>* ctr, TStorage::iterator iter)
 : ctr(ctr)
 , iter(iter) {}
 
