@@ -346,6 +346,135 @@ TEST(IntrusiveLinkedList, IteratorReturnedByPushFront) {
     EXPECT_EQ((*it).value, 5);
 }
 
+TEST(IntrusiveLinkedList, PopFrontOnlyElement) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.pop_front();
+    EXPECT_TRUE(list.empty());
+    EXPECT_EQ(list.size(), 0u);
+    EXPECT_EQ(list.begin(), list.end());
+}
+
+TEST(IntrusiveLinkedList, PopFrontMultipleElements) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.push_back(Node(3));
+    list.pop_front();
+    EXPECT_EQ(list.size(), 2u);
+    EXPECT_EQ(list.front().value, 2);
+    EXPECT_EQ(list.back().value, 3);
+}
+
+TEST(IntrusiveLinkedList, PopFrontUntilEmpty) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.pop_front();
+    list.pop_front();
+    EXPECT_TRUE(list.empty());
+    EXPECT_EQ(list.begin(), list.end());
+}
+
+TEST(IntrusiveLinkedList, PopBackOnlyElement) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.pop_back();
+    EXPECT_TRUE(list.empty());
+    EXPECT_EQ(list.size(), 0u);
+    EXPECT_EQ(list.begin(), list.end());
+}
+
+TEST(IntrusiveLinkedList, PopBackMultipleElements) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.push_back(Node(3));
+    list.pop_back();
+    EXPECT_EQ(list.size(), 2u);
+    EXPECT_EQ(list.front().value, 1);
+    EXPECT_EQ(list.back().value, 2);
+}
+
+TEST(IntrusiveLinkedList, PopBackUntilEmpty) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.pop_back();
+    list.pop_back();
+    EXPECT_TRUE(list.empty());
+    EXPECT_EQ(list.begin(), list.end());
+}
+
+TEST(IntrusiveLinkedList, PopFrontAndPopBackInterleaved) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.push_back(Node(3));
+    list.push_back(Node(4));
+    list.pop_front();
+    list.pop_back();
+    EXPECT_EQ(list.size(), 2u);
+    EXPECT_EQ(list.front().value, 2);
+    EXPECT_EQ(list.back().value, 3);
+}
+
+TEST(IntrusiveLinkedList, PopFrontIteratorRemainsValid) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.push_back(Node(3));
+    list.pop_front();
+    auto it = list.begin();
+    EXPECT_EQ((*it).value, 2);
+    ++it;
+    EXPECT_EQ((*it).value, 3);
+    ++it;
+    EXPECT_EQ(it, list.end());
+}
+
+TEST(IntrusiveLinkedList, PopBackIteratorRemainsValid) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    list.push_back(Node(3));
+    list.pop_back();
+    auto it = list.begin();
+    EXPECT_EQ((*it).value, 1);
+    ++it;
+    EXPECT_EQ((*it).value, 2);
+    ++it;
+    EXPECT_EQ(it, list.end());
+}
+
+TEST(IntrusiveLinkedList, MovedListLeavesSourceEmpty) {
+    IntrusiveLinkedList<Node> list;
+    list.push_back(Node(1));
+    list.push_back(Node(2));
+    IntrusiveLinkedList<Node> moved(std::move(list));
+    // Source must be empty — no double-free if both destruct
+    EXPECT_TRUE(list.empty());
+    EXPECT_EQ(list.size(), 0u);
+    EXPECT_EQ(list.begin(), list.end());
+}
+
+TEST(IntrusiveLinkedList, NodeAddressStableAcrossVectorReallocation) {
+    // Simulate storing lists in a std::vector (as PriorityQueue does with Bucket).
+    // Iterator node pointers must remain valid after vector growth.
+    std::vector<IntrusiveLinkedList<Node>> lists;
+    lists.reserve(1); // force a reallocation when we emplace the second element
+
+    lists.emplace_back();
+    lists.back().push_back(Node(10));
+    auto it = lists.back().begin();
+
+    // Trigger reallocation — list must be moved not copied so node* stays valid
+    lists.emplace_back();
+    lists.back().push_back(Node(20));
+
+    EXPECT_EQ((*it).value, 10);
+}
+
 } // namespace unittest
 } // namespace ctr
 } // namespace bl

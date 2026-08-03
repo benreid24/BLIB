@@ -140,6 +140,11 @@ public:
          */
         bool operator!=(const Iterator& other) const;
 
+        /**
+         * @brief Returns the raw node pointer for this iterator
+         */
+        IntrusiveLinkedListNode* getNode() const { return node; }
+
     private:
         IntrusiveLinkedList* list;
         IntrusiveLinkedListNode* node;
@@ -164,7 +169,7 @@ public:
      *
      * @param move The list to adopt nodes from
      */
-    IntrusiveLinkedList(IntrusiveLinkedList&& move);
+    IntrusiveLinkedList(IntrusiveLinkedList&& move) noexcept;
 
     /**
      * @brief Releases all storage
@@ -185,7 +190,7 @@ public:
      * @param move The list to move from.
      * @return A reference to this object
      */
-    IntrusiveLinkedList& operator=(IntrusiveLinkedList&& move);
+    IntrusiveLinkedList& operator=(IntrusiveLinkedList&& move) noexcept;
 
     /**
      * @brief Inserts a new node at the front of the list
@@ -250,6 +255,16 @@ public:
      * @return An iterator pointing to the node after the erased node
      */
     Iterator erase(Iterator iter);
+
+    /**
+     * @brief Erases the first element
+     */
+    void pop_front();
+
+    /**
+     * @brief Erases the last element
+     */
+    void pop_back();
 
     /**
      * @brief Splices all nodes from another list into this list before the given iterator
@@ -336,7 +351,7 @@ IntrusiveLinkedList<T>::IntrusiveLinkedList(const IntrusiveLinkedList& copy)
 }
 
 template<typename T>
-IntrusiveLinkedList<T>::IntrusiveLinkedList(IntrusiveLinkedList&& move)
+IntrusiveLinkedList<T>::IntrusiveLinkedList(IntrusiveLinkedList&& move) noexcept
 : IntrusiveLinkedList() {
     *this = std::move(move);
 }
@@ -358,7 +373,7 @@ IntrusiveLinkedList<T>& IntrusiveLinkedList<T>::operator=(const IntrusiveLinkedL
 }
 
 template<typename T>
-IntrusiveLinkedList<T>& IntrusiveLinkedList<T>::operator=(IntrusiveLinkedList&& move) {
+IntrusiveLinkedList<T>& IntrusiveLinkedList<T>::operator=(IntrusiveLinkedList&& move) noexcept {
     listSize      = move.listSize;
     head          = move.head;
     tail          = move.tail;
@@ -490,6 +505,16 @@ typename IntrusiveLinkedList<T>::Iterator IntrusiveLinkedList<T>::erase(Iterator
 }
 
 template<typename T>
+void IntrusiveLinkedList<T>::pop_front() {
+    erase(begin());
+}
+
+template<typename T>
+void IntrusiveLinkedList<T>::pop_back() {
+    erase(Iterator(this, tail));
+}
+
+template<typename T>
 void IntrusiveLinkedList<T>::splice(Iterator iter, IntrusiveLinkedList<T>& other) {
     IntrusiveLinkedListNode* it   = other.head;
     IntrusiveLinkedListNode* prev = iter.node ? iter.node->prev : nullptr;
@@ -498,6 +523,7 @@ void IntrusiveLinkedList<T>::splice(Iterator iter, IntrusiveLinkedList<T>& other
 
         it->next = iter.node;
         if (it->next == nullptr) { tail = it; }
+        else { iter.node->prev = it; }
         if (prev == nullptr) {
             if (tail == nullptr) { tail = it; }
             head     = it;
@@ -508,7 +534,6 @@ void IntrusiveLinkedList<T>::splice(Iterator iter, IntrusiveLinkedList<T>& other
             it->prev   = prev;
             prev       = it;
         }
-        iter.node->prev = it;
         ++listSize;
         it = nextIt;
     }

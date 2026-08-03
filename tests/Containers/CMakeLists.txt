@@ -7,6 +7,7 @@ target_sources(BLIB.t PUBLIC
     IntrusiveLinkedList.t.cpp
     ObjectPool.t.cpp
     ObjectWrapper.t.cpp
+    PriorityQueue.t.cpp
     QuadTree.t.cpp
     RingBuffer.t.cpp
     RingQueue.t.cpp
