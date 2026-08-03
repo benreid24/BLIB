@@ -4,6 +4,7 @@ target_sources(BLIB.t PUBLIC
     FastQueue.t.cpp
     Grid.t.cpp
     IndexMappedList.t.cpp
+    IntrusiveLinkedList.t.cpp
     ObjectPool.t.cpp
     ObjectWrapper.t.cpp
     QuadTree.t.cpp
