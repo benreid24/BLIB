@@ -23,7 +23,6 @@ target_sources(BLIB PRIVATE
 	Slideshow.cpp
 	Sphere.cpp
 	Sprite.cpp
-	Terrain.cpp
 	Text.cpp
 	Triangle.cpp
 	VertexBuffer2D.cpp

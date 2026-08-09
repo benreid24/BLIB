@@ -1,7 +1,5 @@
 #include <BLIB/Render/Primitives/Vertex3D.hpp>
 
-#include <BLIB/Logging.hpp>
-
 namespace bl
 {
 namespace rc
@@ -9,8 +7,30 @@ namespace rc
 namespace prim
 {
 namespace
-{
-void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
+{} // namespace
+
+Vertex3D::Vertex3D()
+: pos()
+, color(1.f)
+, texCoord()
+, tangent()
+, normal() {}
+
+Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec2& texCoord)
+: pos(pos)
+, texCoord(texCoord)
+, color(1.f)
+, tangent()
+, normal() {}
+
+Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec4& color)
+: pos(pos)
+, texCoord()
+, color(color)
+, tangent()
+, normal() {}
+
+void Vertex3D::computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     const glm::vec3 edge1  = v2.pos - v1.pos;
     const glm::vec3 edge2  = v3.pos - v1.pos;
     const glm::vec3 normal = glm::normalize(glm::cross(edge1, edge2));
@@ -36,44 +56,6 @@ void computeSingleTBN(Vertex3D& v1, Vertex3D& v2, Vertex3D& v3) {
     v1.tangent = tangent;
     v2.tangent = tangent;
     v3.tangent = tangent;
-}
-} // namespace
-
-Vertex3D::Vertex3D()
-: pos()
-, color(1.f)
-, texCoord()
-, tangent()
-, normal() {}
-
-Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec2& texCoord)
-: pos(pos)
-, texCoord(texCoord)
-, color(1.f)
-, tangent()
-, normal() {}
-
-Vertex3D::Vertex3D(const glm::vec3& pos, const glm::vec4& color)
-: pos(pos)
-, texCoord()
-, color(color)
-, tangent()
-, normal() {}
-
-void Vertex3D::computeTBN(Vertex3D* vertices, std::size_t n) {
-    if (n % 3 != 0) { BL_LOG_ERROR << "Number of vertices is not divisible by 3"; }
-
-    for (std::size_t i = 0; i < n; i += 3) {
-        computeSingleTBN(vertices[i], vertices[i + 1], vertices[i + 2]);
-    }
-}
-
-void Vertex3D::computeTBN(Vertex3D* vertices, std::uint32_t* indices, std::size_t n) {
-    if (n % 3 != 0) { BL_LOG_ERROR << "Number of indices is not divisible by 3"; }
-
-    for (std::size_t i = 0; i < n; i += 3) {
-        computeSingleTBN(vertices[indices[i]], vertices[indices[i + 1]], vertices[indices[i + 2]]);
-    }
 }
 
 Vertex3D& Vertex3D::operator=(const mdl::Vertex& copy) {

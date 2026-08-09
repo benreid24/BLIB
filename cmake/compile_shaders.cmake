@@ -65,7 +65,7 @@ function(compile_shaders)
         add_custom_command(
             OUTPUT ${compiled_file}
             COMMENT "Compiling shader '${shader_file}'"
-            COMMAND ${glslc_binary} -MD ${src_abs} -MF ${dep_file} -o ${compiled_file} ${include_flags} ${debug_flags}
+            COMMAND ${glslc_binary} --target-env=vulkan1.3 -MD ${src_abs} -MF ${dep_file} -o ${compiled_file} ${include_flags} ${debug_flags}
             DEPFILE ${dep_file}
             BYPRODUCTS ${dep_file}
             DEPENDS ${shader_file}

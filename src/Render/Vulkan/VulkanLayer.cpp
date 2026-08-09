@@ -27,10 +27,11 @@ VkPhysicalDeviceProperties* globalDeviceProperties = nullptr;
 const std::unordered_set<std::string> RequestedValidationLayers{"VK_LAYER_KHRONOS_validation"};
 #endif
 
-constexpr std::array<const char*, 3> RequiredDeviceExtensions{
+constexpr std::array<const char*, 4> RequiredDeviceExtensions{
     VK_KHR_SWAPCHAIN_EXTENSION_NAME,
     VK_EXT_DEPTH_CLIP_ENABLE_EXTENSION_NAME,
-    VK_EXT_SHADER_ATOMIC_FLOAT_EXTENSION_NAME};
+    VK_EXT_SHADER_ATOMIC_FLOAT_EXTENSION_NAME,
+    VK_KHR_UNIFORM_BUFFER_STANDARD_LAYOUT_EXTENSION_NAME};
 constexpr std::array<const char*, 2> OptionalDeviceExtensions{VK_KHR_MAINTENANCE_4_EXTENSION_NAME,
                                                               VK_EXT_DEBUG_UTILS_EXTENSION_NAME};
 
@@ -382,10 +383,15 @@ void VulkanLayer::createLogicalDevice() {
         physicalDeviceProperties.limits.lineWidthRange[1] > 1.f ? VK_TRUE : VK_FALSE;
     deviceFeatures.sampleRateShading = physicalDeviceFeatures.sampleRateShading;
 
+    VkPhysicalDeviceVulkan12Features vulkan12Features{};
+    vulkan12Features.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VULKAN_1_2_FEATURES;
+    vulkan12Features.uniformBufferStandardLayout = VK_TRUE;
+
     // extension features
     VkPhysicalDeviceShaderAtomicFloatFeaturesEXT atomicFloatFeatures{};
     atomicFloatFeatures.sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_FEATURES_EXT;
     atomicFloatFeatures.shaderBufferFloat32AtomicAdd = VK_TRUE;
+    atomicFloatFeatures.pNext                        = &vulkan12Features;
 
     VkDeviceCreateInfo createInfo{};
     createInfo.sType                   = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;

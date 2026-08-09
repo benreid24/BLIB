@@ -64,6 +64,7 @@ public:
         this->renderer = &renderer;
         alignment      = computeAlignment(sizeof(T), Align);
         doCreate(renderer, numElements);
+        markFullDirty();
     }
 
     /**
@@ -91,9 +92,11 @@ public:
      */
     bool ensureSize(std::uint32_t size) {
         if (size > getSize()) {
-            std::uint32_t newSize = std::max(getSize(), static_cast<std::uint32_t>(1)) * 2;
+            const std::uint32_t oldSize = getSize();
+            std::uint32_t newSize       = std::max(getSize(), static_cast<std::uint32_t>(1)) * 2;
             while (newSize < size) { newSize *= 2; }
             resize(newSize);
+            for (DirtyRange& dirty : dirtyRanges) { dirty.markDirty(oldSize, newSize); }
             return true;
         }
         return false;

@@ -51,10 +51,13 @@ public:
     virtual void cleanup() override {}
 
     /**
-     * @brief Does nothing, derived classes or owners are responsible for transferring updated
-     *        contents of the buffer
+     * @brief Queues immediate transfer if the buffer derives from Transferable
      */
-    virtual void performTransfer() override {}
+    virtual void performTransfer() override {
+        if constexpr (std::is_base_of_v<tfr::Transferable, TBuffer>) {
+            buffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
+        }
+    }
 
     /**
      * @brief Does nothing. Derived classes may copy source data into the buffer here

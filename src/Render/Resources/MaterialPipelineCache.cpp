@@ -53,14 +53,14 @@ void MaterialPipelineCache::createBuiltins() {
                 .withRenderPhasePipelineOverride(cfg::RenderPhases::Overlay, overlayPipelineId)
                 .build());
     };
-    const auto make3D = [this](std::uint32_t materialIds,
+    const auto make3D = [this](std::uint32_t materialId,
                                std::uint32_t pipelineId,
                                std::uint32_t deferredPipelineId,
                                std::uint32_t shadowMapPipelineId,
                                std::uint32_t pointShadowMapPipelineId,
                                std::uint32_t outlinePipelineId) {
         createPipeline(
-            materialIds,
+            materialId,
             mat::MaterialPipelineSettings(pipelineId)
                 .withRenderPhasePipelineOverride(
                     cfg::RenderPhases::Deferred,

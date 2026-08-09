@@ -1,16 +1,7 @@
 #ifndef UNIFORMS_INCLUDED
 #define UNIFORMS_INCLUDED
 
-struct Material {
-    uint diffuseId;
-    uint normalId;
-    uint specularId;
-    uint parallaxId;
-    float shininess;
-    float heightScale;
-    float padding0;
-    float padding1;
-};
+#include <blib_types.glsl>
 
 #ifdef GLOBALS_SET_NUMBER
 struct HdrSettings {

@@ -1,6 +1,8 @@
 #ifndef PARALLAXMAP_INCLUDED
 #define PARALLAXMAP_INCLUDED
 
+#include <blib_types.glsl>
+
 vec2 parallaxMap(Material material, vec3 viewDir, mat3 TBN) {
     // skip if we do not have a map
     if (material.heightScale == 0.0) {
