@@ -30,6 +30,19 @@ public:
     Terrain() = default;
 
     /**
+     * @brief Creates the terrain vertices and indices but does not populate vertices
+     *
+     * @param world The world to create the terrain in
+     * @param offset The offset of the upper left corner in world coordinates
+     * @param size The size of the terrain in world coordinates
+     * @param material The material to assign to the terrain
+     * @param materialPipelineId The id of the material pipeline to render with
+     */
+    void createEmptyGrid(engine::World& world, const glm::vec2& offset, const glm::vec2& size,
+                         float step, const bl::rc::res::MaterialRef& material = {},
+                         std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3D);
+
+    /**
      * @brief Creates the terrain from a heightmap
      *
      * @param world The world to create the terrain in
@@ -133,6 +146,34 @@ private:
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<typename TMesh>
+void Terrain<TMesh>::createEmptyGrid(engine::World& world, const glm::vec2& offset,
+                                     const glm::vec2& size, float step,
+                                     const bl::rc::res::MaterialRef& material,
+                                     std::uint32_t materialPipelineId) {
+    const unsigned int xCount      = static_cast<unsigned int>(std::ceil(size.x / step) + 0.1f);
+    const unsigned int yCount      = static_cast<unsigned int>(std::ceil(size.y / step) + 0.1f);
+    const unsigned int vertexCount = xCount * yCount;
+    const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6;
+
+    this->createWithMaterial(world, materialPipelineId, material);
+    Transform3D::create(world.engine().ecs(), this->entity());
+    this->component().create(world.engine().renderer(), vertexCount, indexCount);
+
+    auto& indexBuffer = this->component().gpuBuffer;
+    for (unsigned int x = 0; x < xCount; ++x) {
+        for (unsigned int y = 0; y < yCount; ++y) {
+            const float xf =
+                static_cast<float>(x) / static_cast<float>(xCount - 1) * size.x + offset.x;
+            const float zf =
+                static_cast<float>(y) / static_cast<float>(yCount - 1) * size.y + offset.y;
+            indexBuffer.vertices()[x + y * xCount].pos = glm::vec3(xf, 0.f, zf);
+        }
+    }
+    // gen indices
+    setIndices(xCount, yCount);
+}
 
 template<typename TMesh>
 void Terrain<TMesh>::createFromHeightmap(engine::World& world,

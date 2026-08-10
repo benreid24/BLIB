@@ -119,5 +119,10 @@ void ThreadPool::worker() {
     BL_LOG_INFO << "Worker thread terminated";
 }
 
+std::size_t ThreadPool::threadCount() const {
+    std::unique_lock lock(taskMutex);
+    return workers.size();
+}
+
 } // namespace util
 } // namespace bl

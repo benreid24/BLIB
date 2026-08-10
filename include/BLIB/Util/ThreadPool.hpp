@@ -62,6 +62,11 @@ public:
     void shutdown();
 
     /**
+     * @brief Returns the number of threads running in the thread pool
+     */
+    std::size_t threadCount() const;
+
+    /**
      * @brief Queues a task to be executed by a worker. Returns an invalid future if the pool is not
      *        accepting tasks
      *
@@ -75,7 +80,7 @@ private:
     std::list<std::thread> workers;
     std::queue<std::packaged_task<void()>> tasks;
     std::atomic_uint32_t inFlightCount;
-    std::mutex taskMutex;
+    mutable std::mutex taskMutex;
     std::condition_variable taskQueuedCv;
     std::condition_variable_any taskDoneCv;
 
