@@ -10,7 +10,7 @@
 #include <BLIB/Render/Lighting/SpotLight3DShadow.hpp>
 #include <BLIB/Render/Lighting/SunLight3D.hpp>
 #include <BLIB/Util/IdAllocator.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 
 namespace bl
 {
@@ -165,7 +165,7 @@ private:
         Light3D<T> createNew(Scene3DLighting* owner, TArgs&&... args) {
             if (!idAllocator.available()) {
                 BL_LOG_ERROR << "Exceeded max light count";
-                return {owner, lights, util::Random::get<std::size_t>(0, lights.size() - 1)};
+                return {owner, lights, rand::Random::get<std::size_t>(0, lights.size() - 1)};
             }
             const std::size_t i = idAllocator.allocate();
             new (&lights[i]) T(std::forward<TArgs>(args)...);

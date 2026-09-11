@@ -6,7 +6,7 @@
 #include "Movable.hpp"
 #include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Particles/Affector.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 
 class SimpleGravityAffector
 : public bl::pcl::Affector<Particle>
@@ -19,7 +19,7 @@ public:
 
     SimpleGravityAffector(const glm::vec2& pos, bl::engine::World& world, bl::rc::Scene* scene)
     : Movable(pos)
-    , radius(bl::util::Random::get<float>(MinRadius, MaxRadius)) {
+    , radius(bl::rand::Random::get<float>(MinRadius, MaxRadius)) {
         circle.create(world, 5.f);
         circle.setFillColor(sf::Color(79, 50, 2));
         circle.setOutlineThickness(1.f);

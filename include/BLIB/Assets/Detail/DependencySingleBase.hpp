@@ -47,7 +47,7 @@ public:
     /**
      * @brief Returns the UUID of the dependency
      */
-    util::UUID getUUID() const;
+    rand::UUID getUUID() const;
 
     /**
      * @brief Initializes the dependency. Should only be called during asset creation
@@ -55,7 +55,7 @@ public:
      * @param uuid The UUID of the asset this dependency points to
      * @return True if the dependency was successfully initialized and loaded, false otherwise
      */
-    bool init(util::UUID uuid);
+    bool init(rand::UUID uuid);
 
     /**
      * @brief Ensures that the dependency is valid and loaded
@@ -77,7 +77,7 @@ public:
 protected:
     const LoadPolicy policy;
     const DependencyPolicy depPolicy;
-    util::UUID uuid;
+    rand::UUID uuid;
     Ref dependency;
 
     /**

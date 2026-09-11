@@ -12,7 +12,7 @@ namespace as
 namespace unittest
 {
 TEST_F(RepositoryTest, ImageDriver) {
-    util::UUID uuid;
+    rand::UUID uuid;
     sf::Image sourceImage;
     sourceImage.resize({10, 10}, sf::Color::Red);
     sourceImage.setPixel({5, 5}, sf::Color::Green);

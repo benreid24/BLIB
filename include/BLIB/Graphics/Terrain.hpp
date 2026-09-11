@@ -5,10 +5,10 @@
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Graphics/Components/Transform3D.hpp>
 #include <BLIB/Graphics/Drawable.hpp>
+#include <BLIB/Random/Perlin.hpp>
 #include <BLIB/Render/Buffers/VertexBuffer.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
-#include <BLIB/Util/Perlin.hpp>
 
 namespace bl
 {
@@ -90,7 +90,7 @@ public:
      * @param material The material to assign to the terrain
      * @param materialPipelineId The id of the material pipeline to render with
      */
-    void createFromNoise2d(engine::World& world, util::Perlin<float>& perlin, float width,
+    void createFromNoise2d(engine::World& world, rand::Perlin<float>& perlin, float width,
                            float height, float altitude, float step, unsigned int octaves,
                            float persistence, float frequency,
                            const bl::rc::res::MaterialRef& material = {},
@@ -108,7 +108,7 @@ public:
      * @param persistence The persistence value to use for amplitude scaling during generation
      * @param frequency The frequency value to use for scaling during generation
      */
-    void regenerateFromNoise2d(util::Perlin<float>& perlin, float width, float height,
+    void regenerateFromNoise2d(rand::Perlin<float>& perlin, float width, float height,
                                float altitude, float step, unsigned int octaves, float persistence,
                                float frequency);
 
@@ -218,7 +218,7 @@ void Terrain<TMesh>::updateFromHeightmap(const ctr::Vector2D<float>& heightmap,
 }
 
 template<typename TMesh>
-void Terrain<TMesh>::createFromNoise2d(engine::World& world, util::Perlin<float>& perlin,
+void Terrain<TMesh>::createFromNoise2d(engine::World& world, rand::Perlin<float>& perlin,
                                        float width, float height, float altitude, float step,
                                        unsigned int octaves, float persistence, float frequency,
                                        const bl::rc::res::MaterialRef& material,
@@ -230,7 +230,7 @@ void Terrain<TMesh>::createFromNoise2d(engine::World& world, util::Perlin<float>
 }
 
 template<typename TMesh>
-void Terrain<TMesh>::regenerateFromNoise2d(util::Perlin<float>& perlin, float width, float height,
+void Terrain<TMesh>::regenerateFromNoise2d(rand::Perlin<float>& perlin, float width, float height,
                                            float altitude, float step, unsigned int octaves,
                                            float persistence, float frequency) {
     const unsigned int xCount      = std::ceil(width / step) + 0.1f;

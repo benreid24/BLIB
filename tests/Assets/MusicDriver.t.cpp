@@ -26,7 +26,7 @@ TEST_F(RepositoryTest, MusicDriver) {
         sourceSamples[i] = static_cast<std::int16_t>((i % 256) * 256 - 32768);
     }
 
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

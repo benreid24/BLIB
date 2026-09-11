@@ -40,7 +40,7 @@ public:
      * @param localPath The asset local file path
      * @return True if the stream could be initialized, false otherwise
      */
-    bool initStream(stream::InputStream& stream, util::UUID assetId, std::string_view localPath);
+    bool initStream(stream::InputStream& stream, rand::UUID assetId, std::string_view localPath);
 
     /**
      * @brief Initializes an input stream directly from the bundle on disk. Stream remains valid for
@@ -51,7 +51,7 @@ public:
      * @param localPath The asset local file path
      * @return True if the stream could be initialized, false otherwise
      */
-    bool initStreamDirect(stream::InputStream& stream, util::UUID assetId,
+    bool initStreamDirect(stream::InputStream& stream, rand::UUID assetId,
                           std::string_view localPath);
 
     /**
@@ -64,7 +64,7 @@ private:
     BundleData data;
     std::chrono::steady_clock::time_point touchTime;
 
-    const FileMetadata* findFile(util::UUID uuid, std::string_view path);
+    const FileMetadata* findFile(rand::UUID uuid, std::string_view path);
 
     friend class BundleRuntime;
 };

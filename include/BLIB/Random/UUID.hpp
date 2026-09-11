@@ -1,5 +1,5 @@
-#ifndef BLIB_UTIL_UUID_HPP
-#define BLIB_UTIL_UUID_HPP
+#ifndef BLIB_RANDOM_UUID_HPP
+#define BLIB_RANDOM_UUID_HPP
 
 #include <BLIB/Serialization/Binary/Serializer.hpp>
 #include <BLIB/Serialization/JSON/Serializer.hpp>
@@ -11,12 +11,12 @@
 
 namespace bl
 {
-namespace util
+namespace rand
 {
 /**
  * @brief UUID Generator
  *
- * @ingroup Util
+ * @ingroup Random
  */
 class UUID {
 public:
@@ -127,63 +127,63 @@ inline std::ostream& operator<<(std::ostream& os, const UUID& uuid) {
     return os;
 }
 
-} // namespace util
+} // namespace rand
 
 namespace serial
 {
 namespace binary
 {
 template<>
-struct Serializer<util::UUID> {
-    static bool serialize(stream::OutputStream& output, const util::UUID& uuid) {
+struct Serializer<rand::UUID> {
+    static bool serialize(stream::OutputStream& output, const rand::UUID& uuid) {
         detail::OutputStreamWrapper wrapper(output);
         if (!wrapper.write<std::uint64_t>(uuid.getPart1())) return false;
         return wrapper.write<std::uint64_t>(uuid.getPart2());
     }
-    static bool deserialize(stream::InputStream& input, util::UUID& uuid) {
+    static bool deserialize(stream::InputStream& input, rand::UUID& uuid) {
         detail::InputStreamWrapper wrapper(input);
         std::uint64_t part1, part2;
         if (!wrapper.read<std::uint64_t>(part1)) return false;
         if (!wrapper.read<std::uint64_t>(part2)) return false;
-        uuid = util::UUID(part1, part2);
+        uuid = rand::UUID(part1, part2);
         return true;
     }
-    static std::uint32_t size(const util::UUID&) { return sizeof(std::uint64_t) * 2; }
+    static std::uint32_t size(const rand::UUID&) { return sizeof(std::uint64_t) * 2; }
 };
 } // namespace binary
 
 namespace json
 {
 template<>
-struct Serializer<util::UUID> {
-    static bool deserialize(util::UUID& result, const Value& v) {
+struct Serializer<rand::UUID> {
+    static bool deserialize(rand::UUID& result, const Value& v) {
         const std::string* r = v.getAsString();
         if (r != nullptr) {
-            result = util::UUID(*r);
+            result = rand::UUID(*r);
             return true;
         }
         return false;
     }
 
-    static bool deserializeFrom(const Value& val, const std::string& name, util::UUID& result) {
-        return priv::Serializer<util::UUID>::deserializeFrom(val, name, result, &deserialize);
+    static bool deserializeFrom(const Value& val, const std::string& name, rand::UUID& result) {
+        return priv::Serializer<rand::UUID>::deserializeFrom(val, name, result, &deserialize);
     }
 
-    static Value serialize(const util::UUID& value) { return Value(value.toString()); }
+    static Value serialize(const rand::UUID& value) { return Value(value.toString()); }
 
-    static void serializeInto(Group& result, const std::string& name, const util::UUID& value) {
-        priv::Serializer<util::UUID>::serializeInto(result, name, value, &serialize);
+    static void serializeInto(Group& result, const std::string& name, const rand::UUID& value) {
+        priv::Serializer<rand::UUID>::serializeInto(result, name, value, &serialize);
     }
 
-    static bool deserializeStream(stream::InputStream& stream, util::UUID& result) {
+    static bool deserializeStream(stream::InputStream& stream, rand::UUID& result) {
         json::Loader loader(stream);
         std::string str;
         if (!loader.loadString(str)) { return false; }
-        result = util::UUID(str);
+        result = rand::UUID(str);
         return true;
     }
 
-    static bool serializeStream(stream::OutputStream& stream, const util::UUID& value, unsigned int,
+    static bool serializeStream(stream::OutputStream& stream, const rand::UUID& value, unsigned int,
                                 unsigned int) {
         return Serializer<std::string>::serializeStream(stream, value.toString(), 0, 0);
     }
@@ -195,8 +195,8 @@ struct Serializer<util::UUID> {
 namespace std
 {
 template<>
-struct hash<bl::util::UUID> {
-    std::size_t operator()(const bl::util::UUID& uuid) const noexcept {
+struct hash<bl::rand::UUID> {
+    std::size_t operator()(const bl::rand::UUID& uuid) const noexcept {
         std::size_t h1 = std::hash<std::uint64_t>{}(uuid.getPart1());
         std::size_t h2 = std::hash<std::uint64_t>{}(uuid.getPart2());
         return bl::util::hashCombine(h1, h2);

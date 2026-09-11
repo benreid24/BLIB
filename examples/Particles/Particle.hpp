@@ -1,7 +1,7 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 #include <glm/glm.hpp>
 
 struct Particle {
@@ -19,13 +19,13 @@ struct Particle {
     : pos(pos)
     , vel(vel)
     , color(makeColor())
-    , radius(bl::util::Random::get<float>(1.f, 3.f))
+    , radius(bl::rand::Random::get<float>(1.f, 3.f))
     , variant(variant) {}
 
     static glm::vec4 makeColor() {
-        return glm::vec4(bl::util::Random::get<float>(0.1f, 1.f),
-                         bl::util::Random::get<float>(0.1f, 1.f),
-                         bl::util::Random::get<float>(0.1f, 1.f),
+        return glm::vec4(bl::rand::Random::get<float>(0.1f, 1.f),
+                         bl::rand::Random::get<float>(0.1f, 1.f),
+                         bl::rand::Random::get<float>(0.1f, 1.f),
                          1.f);
     }
 };

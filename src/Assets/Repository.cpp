@@ -24,14 +24,14 @@ namespace bl
 namespace as
 {
 struct EditorRuntimeData {
-    std::unordered_map<util::UUID, as::Asset>* assets;
+    std::unordered_map<rand::UUID, as::Asset>* assets;
     std::unordered_map<std::string, std::unordered_map<std::string, as::SourceLink>>* sourceLinks;
-    std::unordered_map<std::string, util::UUID>* keyToAsset;
+    std::unordered_map<std::string, rand::UUID>* keyToAsset;
 };
 
 struct GameRuntimeData {
-    std::unordered_map<util::UUID, as::Asset>* assets;
-    std::unordered_map<std::string, util::UUID>* keyToAsset;
+    std::unordered_map<rand::UUID, as::Asset>* assets;
+    std::unordered_map<std::string, rand::UUID>* keyToAsset;
     bdl::Manifest* bundleManifest;
 };
 } // namespace as
@@ -116,7 +116,7 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
     }
 
     std::unique_lock assetLock(assetMutex);
-    util::UUID uuid = util::UUID::generate();
+    rand::UUID uuid = rand::UUID::generate();
     auto it         = assets.try_emplace(uuid, *this).first;
     it->second.getMetadata().setDisplayName(name);
     it->second.uuid = uuid;
@@ -176,7 +176,7 @@ Ref Repository::getOrCreateAsset(std::string_view key, std::string_view type,
     return ref;
 }
 
-Ref Repository::getAsset(util::UUID uuid, State desiredState) {
+Ref Repository::getAsset(rand::UUID uuid, State desiredState) {
     std::unique_lock lock(assetMutex);
     auto it = assets.find(uuid);
     if (it == assets.end()) {
@@ -229,7 +229,7 @@ Ref Repository::getAssetFromSourcePath(std::string_view type, const std::string&
     }
 }
 
-std::optional<util::UUID> Repository::findAssetIdFromSourcePath(std::string_view type,
+std::optional<rand::UUID> Repository::findAssetIdFromSourcePath(std::string_view type,
                                                                 const std::string& path) const {
     std::unique_lock lock(sourceLinkMutex);
 
@@ -240,7 +240,7 @@ std::optional<util::UUID> Repository::findAssetIdFromSourcePath(std::string_view
     return it->second.uuid;
 }
 
-void Repository::registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency) {
+void Repository::registerDependency(rand::UUID uuid, std::string_view tag, rand::UUID dependency) {
     std::unique_lock lock(assetMutex);
     auto it = assets.find(uuid);
     if (it == assets.end()) {
@@ -268,7 +268,7 @@ void Repository::registerDependency(util::UUID uuid, std::string_view tag, util:
     }
 }
 
-bool Repository::unregisterDependency(util::UUID uuid, std::string_view tag, util::UUID dep) {
+bool Repository::unregisterDependency(rand::UUID uuid, std::string_view tag, rand::UUID dep) {
     std::unique_lock lock(assetMutex);
     auto it = assets.find(uuid);
     if (it == assets.end()) {
@@ -293,12 +293,12 @@ bool Repository::unregisterDependency(util::UUID uuid, std::string_view tag, uti
     return false;
 }
 
-void Repository::queueUnload(util::UUID uuid) {
+void Repository::queueUnload(rand::UUID uuid) {
     std::unique_lock lock(unloadQueueMutex);
     unloadQueue.push_back(uuid);
 }
 
-const std::vector<RepoDependency>& Repository::getDependencies(util::UUID uuid) const {
+const std::vector<RepoDependency>& Repository::getDependencies(rand::UUID uuid) const {
     std::unique_lock lock(assetMutex);
     auto it = assets.find(uuid);
     if (it == assets.end()) {
@@ -406,7 +406,7 @@ bool Repository::loadRepository() {
                     const std::size_t rmStart = assetDirectory.size() + 1;
                     const std::size_t rmSize  = rmStart + assetFolder.size() + 1 +
                                                EditorPaths::MetadataExtension.size() +
-                                               util::UUID::StringLength;
+                                               rand::UUID::StringLength;
                     folder = folder.substr(rmStart, folder.size() - rmSize);
 
                     if (!folder.empty()) {
@@ -430,7 +430,7 @@ bool Repository::loadRepository() {
 
         // search discovered assets for any unregistered and add them to manifest
         for (const auto& pair : foundAssetPaths) {
-            const util::UUID uuid(pair.first);
+            const rand::UUID uuid(pair.first);
             if (assets.find(uuid) == assets.end()) {
                 BL_LOG_INFO << "Found unregistered asset with UUID " << pair.first << " at "
                             << pair.second << ". Adding to repository manifest";
@@ -516,7 +516,7 @@ bool Repository::loadRepository() {
     return true;
 }
 
-Asset* Repository::getDependencyForInit(util::UUID uuid) {
+Asset* Repository::getDependencyForInit(rand::UUID uuid) {
     auto it = assets.find(uuid);
     if (it == assets.end()) { return nullptr; }
     return &it->second;
@@ -533,7 +533,7 @@ bool Repository::exportRepository(const std::string& path) {
     }
 
     // build set of root assets
-    std::unordered_set<util::UUID> roots;
+    std::unordered_set<rand::UUID> roots;
     for (const auto& asset : assets) {
         for (const auto& dep : asset.second.dependencies) { roots.erase(dep.uuid); }
         roots.emplace(asset.second.getUUID());
@@ -547,8 +547,8 @@ bool Repository::exportRepository(const std::string& path) {
 
     constexpr std::size_t BundleSoftSize = 10485760; // 10M
     bdl::Manifest manifest;
-    std::unordered_set<util::UUID> bundled;
-    std::queue<util::UUID> toVisit;
+    std::unordered_set<rand::UUID> bundled;
+    std::queue<rand::UUID> toVisit;
     for (auto root : roots) { toVisit.emplace(root); }
 
     const auto addToBundle = [this, &manifest](bdl::BundleData& bundle, Asset& asset) -> bool {
@@ -570,7 +570,7 @@ bool Repository::exportRepository(const std::string& path) {
     // add root trees to export based on affinity
     bdl::BundleData currentBundle;
     while (!toVisit.empty()) {
-        util::UUID uuid = toVisit.front();
+        rand::UUID uuid = toVisit.front();
         toVisit.pop();
 
         Asset& asset               = assets[uuid];
@@ -670,7 +670,7 @@ void Repository::releaseUnused() {
     std::unique_lock lock(assetMutex);
     std::unique_lock unloadLock(unloadQueueMutex);
 
-    for (const util::UUID& uuid : unloadQueue) {
+    for (const rand::UUID& uuid : unloadQueue) {
         auto it = assets.find(uuid);
         if (it == assets.end()) {
             BL_LOG_ERROR << "Attempted to unload asset with UUID " << uuid.toString()

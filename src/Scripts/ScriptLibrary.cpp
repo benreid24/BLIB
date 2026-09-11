@@ -141,7 +141,7 @@ void randomFloat(SymbolTable&, const std::vector<Value>& args, Value& result) {
 
     const float l = args[0].value().getAsFloat();
     const float r = args[1].value().getAsFloat();
-    result        = util::Random::get(std::min(l, r), std::max(l, r));
+    result        = rand::Random::get(std::min(l, r), std::max(l, r));
 }
 
 void randomInt(SymbolTable&, const std::vector<Value>& args, Value& result) {
@@ -149,7 +149,7 @@ void randomInt(SymbolTable&, const std::vector<Value>& args, Value& result) {
 
     const long l = args[0].value().getAsInt();
     const long r = args[1].value().getAsInt();
-    result       = util::Random::get(std::min(l, r), std::max(l, r));
+    result       = rand::Random::get(std::min(l, r), std::max(l, r));
 }
 
 void toInt(SymbolTable&, const std::vector<Value>& args, Value& result) {

@@ -9,8 +9,6 @@ target_sources(BLIB PUBLIC
     ImageStitcher.hpp
     LastVariadic.hpp
     NonCopyable.hpp
-    Perlin.hpp
-    Random.hpp
     RangeAllocatorUnbounded.hpp
     ReadWriteLock.hpp
     Signal.hpp
@@ -24,5 +22,4 @@ target_sources(BLIB PUBLIC
     VectorRef.hpp
     Visitor.hpp
     Waiter.hpp
-    Natvis/UUID.natvis
 )

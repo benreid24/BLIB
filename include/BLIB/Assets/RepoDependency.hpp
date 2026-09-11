@@ -2,7 +2,7 @@
 #define BLIB_ASSETS_REPODEPENDENCY_HPP
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <string>
 
 namespace bl
@@ -15,7 +15,7 @@ namespace as
  * @ingroup Assets
  */
 struct RepoDependency {
-    util::UUID uuid;
+    rand::UUID uuid;
     std::string tag;
 };
 

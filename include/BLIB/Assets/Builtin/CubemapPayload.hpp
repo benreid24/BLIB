@@ -20,12 +20,12 @@ struct CubemapPayload : public as::Payload {
      * @ingroup Assets
      */
     struct CreateParams : public as::CreateContext::CreateData {
-        util::UUID top;
-        util::UUID bottom;
-        util::UUID left;
-        util::UUID right;
-        util::UUID front;
-        util::UUID back;
+        rand::UUID top;
+        rand::UUID bottom;
+        rand::UUID left;
+        rand::UUID right;
+        rand::UUID front;
+        rand::UUID back;
 
         /**
          * @brief Creates empty create params
@@ -42,8 +42,8 @@ struct CubemapPayload : public as::Payload {
          * @param front The UUID of the texture for the front face
          * @param back The UUID of the texture for the back face
          */
-        CreateParams(util::UUID top, util::UUID bottom, util::UUID left, util::UUID right,
-                     util::UUID front, util::UUID back)
+        CreateParams(rand::UUID top, rand::UUID bottom, rand::UUID left, rand::UUID right,
+                     rand::UUID front, rand::UUID back)
         : top(top)
         , bottom(bottom)
         , left(left)

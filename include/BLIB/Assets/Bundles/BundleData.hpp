@@ -3,7 +3,7 @@
 
 #include <BLIB/Assets/Bundles/FileMetadata.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <unordered_map>
 #include <vector>
 
@@ -20,9 +20,9 @@ namespace bdl
  */
 struct BundleData {
     std::uint32_t headerSize;
-    util::UUID uuid;
-    std::unordered_map<util::UUID, std::unordered_map<std::string, FileMetadata>> assetFileManifest;
-    std::vector<util::UUID> autoLoadAssets;
+    rand::UUID uuid;
+    std::unordered_map<rand::UUID, std::unordered_map<std::string, FileMetadata>> assetFileManifest;
+    std::vector<rand::UUID> autoLoadAssets;
     std::vector<char> data;
 
     /**

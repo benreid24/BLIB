@@ -1,5 +1,5 @@
-#ifndef BLIB_UTIL_PERLIN_HPP
-#define BLIB_UTIL_PERLIN_HPP
+#ifndef BLIB_RANDOM_PERLIN_HPP
+#define BLIB_RANDOM_PERLIN_HPP
 
 #include <array>
 #include <cmath>
@@ -9,13 +9,14 @@
 
 namespace bl
 {
-namespace util
+/// Collection of utilities for randomness and noise
+namespace rand
 {
 /**
  * @brief Perlin noise generator
  *
  * @tparam T The type of random value to generate
- * @ingroup Util
+ * @ingroup Random
  */
 template<typename T>
 class Perlin {
@@ -341,7 +342,7 @@ T Perlin<T>::grad(std::uint8_t hash, T x, T y, T z) const {
     return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
 }
 
-} // namespace util
+} // namespace rand
 } // namespace bl
 
 #endif

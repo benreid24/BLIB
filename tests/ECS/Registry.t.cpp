@@ -1,6 +1,6 @@
 #include <BLIB/ECS.hpp>
 #include <BLIB/Signals/Listener.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
@@ -169,7 +169,7 @@ TEST(ECS, ComponentIterate) {
     std::unordered_map<Entity, int> values;
     for (unsigned int i = 0; i < MaxEntities; ++i) {
         const Entity e = testRegistry.createEntity(0);
-        const int v    = util::Random::get<int>(0, 100000);
+        const int v    = rand::Random::get<int>(0, 100000);
         testRegistry.addComponent<int>(e, v);
         values.emplace(e, v);
     }
@@ -196,13 +196,13 @@ TEST(ECS, ViewIterate) {
     std::vector<Entity> toAdd;
     for (unsigned int i = 0; i < MaxEntities; ++i) {
         const Entity e = testRegistry.createEntity(0);
-        const int v    = util::Random::get<int>(0, 100000);
+        const int v    = rand::Random::get<int>(0, 100000);
         testRegistry.addComponent<int>(e, v);
-        if (util::Random::get<int>(0, 100) < 50) {
-            const char cv = util::Random::get<char>('a', 'z');
+        if (rand::Random::get<int>(0, 100) < 50) {
+            const char cv = rand::Random::get<char>('a', 'z');
             testRegistry.addComponent<char>(e, cv);
             ogValues.emplace(e, std::make_pair(v, cv));
-            if (util::Random::get<int>(0, 100) < 50) { toRemove.push_back(e); }
+            if (rand::Random::get<int>(0, 100) < 50) { toRemove.push_back(e); }
             else { afterRmValues.emplace(e, std::make_pair(v, cv)); }
         }
         else { toAdd.push_back(e); }
@@ -229,7 +229,7 @@ TEST(ECS, ViewIterate) {
 
     // add components and retest view
     for (const Entity& ent : toAdd) {
-        const char cv = util::Random::get<char>('a', 'z');
+        const char cv = rand::Random::get<char>('a', 'z');
         testRegistry.addComponent<char>(ent, cv);
         int* ic = testRegistry.getComponent<int>(ent);
         ASSERT_NE(ic, nullptr);
@@ -241,7 +241,7 @@ TEST(ECS, ViewIterate) {
 
     // remove components and entities and retest view
     for (const Entity& ent : toRemove) {
-        if (util::Random::get<int>(0, 100) < 50) { testRegistry.removeComponent<char>(ent); }
+        if (rand::Random::get<int>(0, 100) < 50) { testRegistry.removeComponent<char>(ent); }
         else { testRegistry.destroyEntity(ent); }
     }
     testRegistry.flushDeletions();
@@ -325,7 +325,7 @@ TEST(ECS, ClearRegistry) {
     ents.reserve(MaxEntities);
     for (unsigned int i = 0; i < MaxEntities; ++i) {
         ents.push_back(testRegistry.createEntity(0));
-        testRegistry.addComponent<int>(ents.back(), util::Random::get<int>(0, 10000));
+        testRegistry.addComponent<int>(ents.back(), rand::Random::get<int>(0, 10000));
     }
 
     testRegistry.destroyAllEntities();

@@ -2,7 +2,7 @@
 #define MOVABLE_HPP
 
 #include "../Constants.hpp"
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 #include <glm/glm.hpp>
 
 class Movable {
@@ -22,7 +22,7 @@ protected:
 
     Movable(const glm::vec2& pos)
     : pos(pos)
-    , vel(bl::util::Random::get<float>(-50.f, 50.f), bl::util::Random::get<float>(-50.f, 50.f)) {}
+    , vel(bl::rand::Random::get<float>(-50.f, 50.f), bl::rand::Random::get<float>(-50.f, 50.f)) {}
 
 private:
     const glm::vec2 vel;

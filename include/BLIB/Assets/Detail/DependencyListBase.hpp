@@ -44,7 +44,7 @@ public:
      * @param uuid The UUID of the asset to add as a dependency
      * @return True if the dependency was successfully initialized and loaded, false otherwise
      */
-    bool addDependency(util::UUID uuid);
+    bool addDependency(rand::UUID uuid);
 
     /**
      * @brief Removes the dependency at the given index from the list
@@ -81,7 +81,7 @@ public:
 
 protected:
     struct Entry {
-        util::UUID uuid;
+        rand::UUID uuid;
         Ref dependency;
     };
 

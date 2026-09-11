@@ -81,8 +81,8 @@ const Asset& Ref::getAsset() const {
     return *asset;
 }
 
-util::UUID Ref::getUUID() const {
-    if (!asset) { return util::UUID(); }
+rand::UUID Ref::getUUID() const {
+    if (!asset) { return rand::UUID(); }
     return asset->getUUID();
 }
 

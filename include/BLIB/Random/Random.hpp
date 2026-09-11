@@ -1,5 +1,5 @@
-#ifndef BLIB_UTIL_RANDOM_HPP
-#define BLIB_UTIL_RANDOM_HPP
+#ifndef BLIB_RANDOM_RANDOM_HPP
+#define BLIB_RANDOM_RANDOM_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -12,13 +12,12 @@
 /// The parent namespace for all of BLIB
 namespace bl
 {
-/// Contains a set of common utility classes that do not fit into any other modules
-namespace util
+namespace rand
 {
 /**
  * @brief Random number generator for integral and floating point numbers
  *
- * @ingroup Util
+ * @ingroup Random
  */
 class Random : private util::NonCopyable {
     template<typename U>
@@ -96,6 +95,11 @@ public:
         std::shuffle(begin, end, Shuffler());
     }
 
+    /**
+     * @brief Returns the underlying random number generator
+     */
+    static std::mt19937& getRNG() { return _priv().rng; }
+
 private:
     Random()
     : rng(rngdev()) {}
@@ -128,7 +132,7 @@ struct Random::CharHelper<unsigned char> {
     using T = unsigned short;
 };
 
-} // namespace util
+} // namespace rand
 } // namespace bl
 
 #endif

@@ -1,15 +1,15 @@
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Random/Random.hpp>
 #include <BLIB/Util/FileUtil.hpp>
-#include <BLIB/Util/Random.hpp>
 #include <algorithm>
 #include <cstdint>
 #include <numeric>
 
 namespace bl
 {
-namespace util
+namespace rand
 {
 namespace
 {
@@ -22,8 +22,10 @@ std::uint64_t byteSwap64(std::uint64_t value) {
 } // namespace
 
 UUID UUID::generate() {
-    std::uint64_t part1 = Random::get<std::uint64_t>(0, std::numeric_limits<std::uint64_t>::max());
-    std::uint64_t part2 = Random::get<std::uint64_t>(0, std::numeric_limits<std::uint64_t>::max());
+    std::uint64_t part1 =
+        rand::Random::get<std::uint64_t>(0, std::numeric_limits<std::uint64_t>::max());
+    std::uint64_t part2 =
+        rand::Random::get<std::uint64_t>(0, std::numeric_limits<std::uint64_t>::max());
     return UUID(part1, part2);
 }
 
@@ -152,5 +154,5 @@ bool UUID::parse(std::string_view str) {
     return true;
 }
 
-} // namespace util
+} // namespace rand
 } // namespace bl

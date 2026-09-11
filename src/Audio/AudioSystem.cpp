@@ -3,7 +3,7 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Engine/System.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 #include <SFML/Audio.hpp>
 #include <atomic>
 #include <condition_variable>
@@ -59,15 +59,15 @@ public:
     sf::Clock timer;
     float unloadTimeout = 120.f;
 
-    std::unordered_map<util::UUID, AudioSystem::Handle> soundHandles;
-    std::unordered_map<AudioSystem::Handle, util::UUID> soundSources;
+    std::unordered_map<rand::UUID, AudioSystem::Handle> soundHandles;
+    std::unordered_map<AudioSystem::Handle, rand::UUID> soundSources;
     std::unordered_map<AudioSystem::Handle, Sound> sounds;
     std::list<SoundFader> fadingSounds;
     sf::Clock soundTimer;
     std::shared_mutex soundMutex;
 
-    std::unordered_map<util::UUID, AudioSystem::Handle> playlistHandles;
-    std::unordered_map<AudioSystem::Handle, util::UUID> playlistSources;
+    std::unordered_map<rand::UUID, AudioSystem::Handle> playlistHandles;
+    std::unordered_map<AudioSystem::Handle, rand::UUID> playlistSources;
     std::unordered_map<AudioSystem::Handle, as::TypedRef<asi::PlaylistPayload>> playlists;
     std::list<Playlist> playlistStack;
     sf::Clock fadeTimer;
@@ -107,7 +107,7 @@ AudioSystem::Handle makeHandle() {
     auto& s = Runner::get().soundSources;
     AudioSystem::Handle h;
     do {
-        h = util::Random::get<AudioSystem::Handle>(1,
+        h = rand::Random::get<AudioSystem::Handle>(1,
                                                    std::numeric_limits<AudioSystem::Handle>::max());
     } while (s.find(h) != s.end());
     return h;

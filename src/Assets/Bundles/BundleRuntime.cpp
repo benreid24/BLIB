@@ -14,21 +14,21 @@ BundleRuntime::BundleRuntime(Repository& repo, const std::string& path)
 : repo(repo)
 , path(path) {}
 
-bool BundleRuntime::initStream(stream::InputStream& stream, util::UUID uuid,
+bool BundleRuntime::initStream(stream::InputStream& stream, rand::UUID uuid,
                                std::string_view path) {
     MountedBundle* bundle = getBundle(uuid);
     if (!bundle) { return false; }
     return bundle->initStream(stream, uuid, path);
 }
 
-bool BundleRuntime::initStreamDirect(stream::InputStream& stream, util::UUID uuid,
+bool BundleRuntime::initStreamDirect(stream::InputStream& stream, rand::UUID uuid,
                                      std::string_view path) {
     MountedBundle* bundle = getBundle(uuid);
     if (!bundle) { return false; }
     return bundle->initStreamDirect(stream, uuid, path);
 }
 
-MountedBundle* BundleRuntime::getBundle(util::UUID uuid) {
+MountedBundle* BundleRuntime::getBundle(rand::UUID uuid) {
     const auto assetIt = manifest.assetToBundle.find(uuid);
     if (assetIt == manifest.assetToBundle.end()) {
         BL_LOG_ERROR << "Asset " << uuid << " not found in manifest";
@@ -46,14 +46,14 @@ MountedBundle* BundleRuntime::getBundle(util::UUID uuid) {
 }
 
 void BundleRuntime::releaseStale() {
-    std::erase_if(mountedBundles, [](const std::pair<util::UUID, MountedBundle>& bundle) -> bool {
+    std::erase_if(mountedBundles, [](const std::pair<rand::UUID, MountedBundle>& bundle) -> bool {
         return bundle.second.isExpired();
     });
 }
 
 void BundleRuntime::performPostMountAutoload() {
     for (MountedBundle* bundle : bundlesToAutoload) {
-        for (const util::UUID& asset : bundle->data.autoLoadAssets) {
+        for (const rand::UUID& asset : bundle->data.autoLoadAssets) {
             repo.getAsset(asset, State::Loaded);
         }
     }

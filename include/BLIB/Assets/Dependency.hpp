@@ -95,7 +95,7 @@ public:
 
 private:
     void ensure() const {
-        if (uuid == util::UUID()) {
+        if (uuid == rand::UUID()) {
             BL_LOG_ERROR << "Accessing invalid dependency: " << uuid.toString() << " (" << tag
                          << ")";
             return;

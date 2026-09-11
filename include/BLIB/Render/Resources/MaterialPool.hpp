@@ -136,7 +136,7 @@ private:
         util::PairHash<std::uint32_t, std::pair<std::uint32_t, std::uint32_t>,
                        std::hash<std::uint32_t>, util::PairHash<std::uint32_t, std::uint32_t>>>
         normalParallaxToMaterialId;
-    std::unordered_map<util::UUID, std::uint32_t> materialAssetToId;
+    std::unordered_map<rand::UUID, std::uint32_t> materialAssetToId;
 
     MaterialPool(Renderer& renderer);
     void init(vk::PerFrame<VkDescriptorSet>& descriptorSets,

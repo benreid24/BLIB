@@ -34,7 +34,7 @@ public:
      * @param song The UUID of the song to add
      * @return True if the song was successfully added, false otherwise
      */
-    bool addSong(util::UUID song);
+    bool addSong(rand::UUID song);
 
     /**
      * @brief Removes the song at the given index from the playlist

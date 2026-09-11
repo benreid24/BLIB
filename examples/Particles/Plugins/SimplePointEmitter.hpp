@@ -6,7 +6,7 @@
 #include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Math.hpp>
 #include <BLIB/Particles/Emitter.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 
 class SimplePointEmitter : public bl::pcl::Emitter<Particle> {
 public:
@@ -20,9 +20,9 @@ public:
 
     SimplePointEmitter(const glm::vec2& pos, bl::engine::World& world, bl::rc::Scene* scene)
     : pos(pos)
-    , angle(bl::util::Random::get<float>(0.f, 2.f * bl::math::Pi))
+    , angle(bl::rand::Random::get<float>(0.f, 2.f * bl::math::Pi))
     , angularVel(makeAngularVel())
-    , spawnRate(bl::util::Random::get<float>(MinSpawnRate, MaxSpawnRate))
+    , spawnRate(bl::rand::Random::get<float>(MinSpawnRate, MaxSpawnRate))
     , spawnResidual(0.f)
     , spawned(0) {
         circle.create(world, 3.f);
@@ -47,7 +47,7 @@ public:
         const float pcos = std::cos(angle);
         const float psin = std::sin(angle);
         while (spawned < SpawnCount && spawnResidual >= 1.f) {
-            const float vel = bl::util::Random::get<float>(MinVel, MaxVel);
+            const float vel = bl::rand::Random::get<float>(MinVel, MaxVel);
             proxy.emit(pos, glm::vec2(vel * pcos, vel * psin), Particle::Regular);
             spawnResidual -= 1.f;
             ++spawned;
@@ -69,8 +69,8 @@ private:
     unsigned int spawned;
 
     static float makeAngularVel() {
-        const float rate = bl::util::Random::get<float>(MinRotRate, MaxRotRate);
-        if (bl::util::Random::chance(50, 100)) { return -rate; }
+        const float rate = bl::rand::Random::get<float>(MinRotRate, MaxRotRate);
+        if (bl::rand::Random::chance(50, 100)) { return -rate; }
         return rate;
     }
 };

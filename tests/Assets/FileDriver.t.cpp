@@ -26,7 +26,7 @@ TEST_F(RepositoryTest, FileDriver) {
         out.write(sourceContent.data(), static_cast<std::streamsize>(sourceContent.size()));
     }
 
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

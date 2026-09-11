@@ -7,6 +7,7 @@
 
 namespace bl
 {
+/// Contains a set of common utility classes that do not fit into any other modules
 namespace util
 {
 /**

@@ -184,9 +184,9 @@ void TexturePool::doRelease(vk::Texture* texture) {
 
         if (i < reverseAssetMap.size()) {
             freeSlots.release(i);
-            if (reverseAssetMap[i] != util::UUID()) {
+            if (reverseAssetMap[i] != rand::UUID()) {
                 assetMap.erase(reverseAssetMap[i]);
-                reverseAssetMap[i] = util::UUID();
+                reverseAssetMap[i] = rand::UUID();
             }
             if (reverseImageMap[i]) {
                 imageMap.erase(reverseImageMap[i]);
@@ -201,7 +201,7 @@ void TexturePool::doRelease(vk::Texture* texture) {
         cubemapRefCounts[i] = 0;
         cubemapFreeSlots.release(i);
         cubemapAssetMap.erase(reverseCubemapAssetMap[i]);
-        reverseCubemapAssetMap[i] = util::UUID();
+        reverseCubemapAssetMap[i] = rand::UUID();
     }
     resetTexture(texture);
 }
@@ -219,7 +219,7 @@ TextureRef TexturePool::allocateTexture() {
 
     const std::uint32_t i = freeSlots.allocate();
     refCounts[i].store(0);
-    reverseAssetMap[i] = util::UUID();
+    reverseAssetMap[i] = rand::UUID();
     reverseImageMap[i] = nullptr;
 
     return TextureRef{*this, textures[i], i};

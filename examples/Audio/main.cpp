@@ -27,10 +27,10 @@ public:
     virtual ~DemoState() = default;
 
 private:
-    bl::util::UUID list1Id;
-    bl::util::UUID list2Id;
-    bl::util::UUID list3Id;
-    bl::util::UUID biglistId;
+    bl::rand::UUID list1Id;
+    bl::rand::UUID list2Id;
+    bl::rand::UUID list3Id;
+    bl::rand::UUID biglistId;
     AudioSystem::Handle loopedSound;
 
     Step step;

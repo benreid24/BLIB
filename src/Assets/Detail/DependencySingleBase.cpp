@@ -20,15 +20,15 @@ State DependencySingleBase::getState() const {
     return dependency.getState();
 }
 
-util::UUID DependencySingleBase::getUUID() const { return uuid; }
+rand::UUID DependencySingleBase::getUUID() const { return uuid; }
 
-bool DependencySingleBase::init(util::UUID uuid) {
-    if (uuid == util::UUID()) {
+bool DependencySingleBase::init(rand::UUID uuid) {
+    if (uuid == rand::UUID()) {
         BL_LOG_WARN << "Ignoring attempt to initialize dependency with empty UUID for asset "
                     << owner.getAsset().getUUID().toString() << " and tag '" << tag << "'";
         return true;
     }
-    if (this->uuid != util::UUID()) {
+    if (this->uuid != rand::UUID()) {
         BL_LOG_ERROR << "Attempted to initialize dependency with UUID " << uuid.toString()
                      << " but it is already initialized with UUID " << this->uuid.toString();
         throw std::runtime_error("Dependency is already initialized");
@@ -40,7 +40,7 @@ bool DependencySingleBase::init(util::UUID uuid) {
 
 bool DependencySingleBase::load() {
     if (dependency && dependency->getState() == State::Loaded) { return true; }
-    if (uuid == util::UUID()) { return true; }
+    if (uuid == rand::UUID()) { return true; }
 
     const State desiredState = policy == LoadPolicy::Eager ? State::Loaded : State::Unloaded;
     dependency               = repo.getAsset(uuid, desiredState);

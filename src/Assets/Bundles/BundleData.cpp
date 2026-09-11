@@ -10,7 +10,7 @@ namespace bdl
 {
 BundleData::BundleData()
 : headerSize(0)
-, uuid(util::UUID::generate()) {}
+, uuid(rand::UUID::generate()) {}
 
 bool BundleData::flush(const std::string& base) {
     stream::OutputStream output(RuntimePaths::getBundlePath(base, uuid));
@@ -21,7 +21,7 @@ bool BundleData::flush(const std::string& base) {
 }
 
 void BundleData::reset() {
-    uuid = util::UUID::generate();
+    uuid = rand::UUID::generate();
     data.clear();
     assetFileManifest.clear();
     autoLoadAssets.clear();

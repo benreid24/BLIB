@@ -16,7 +16,7 @@ bool TextureDriver::doCreate(as::CreateContext& ctx, TexturePayload& payload) {
     if (createData) {
         payload.type       = createData->type;
         payload.colorSpace = createData->colorSpace;
-        if (createData->image != util::UUID()) { return payload.image.init(createData->image); }
+        if (createData->image != rand::UUID()) { return payload.image.init(createData->image); }
     }
 
     if (ctx.getCustomData().getPath().empty()) { return false; }

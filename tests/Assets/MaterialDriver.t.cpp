@@ -26,7 +26,7 @@ TEST_F(RepositoryTest, MaterialDriver) {
     sourceMaterial.shininess   = 0.75f;
     sourceMaterial.heightScale = 0.1f;
 
-    util::UUID matUuid;
+    rand::UUID matUuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

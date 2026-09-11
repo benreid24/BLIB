@@ -33,11 +33,11 @@ TEST_F(RepositoryTest, CubemapDriver) {
         "CubemapTop", "CubemapBottom", "CubemapLeft", "CubemapRight", "CubemapFront", "CubemapBack"
     };
 
-    util::UUID cubemapUuid;
+    rand::UUID cubemapUuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 
-        std::array<util::UUID, 6> texUuids;
+        std::array<rand::UUID, 6> texUuids;
         for (int i = 0; i < 6; ++i) {
             sf::Image img;
             img.resize({4, 4}, faceColors[i]);

@@ -17,15 +17,15 @@ namespace
 {
 
 struct TestCreateContext : public CreateContext::CreateData {
-    TestCreateContext(const std::string& data, util::UUID dep = {})
+    TestCreateContext(const std::string& data, rand::UUID dep = {})
     : data(data)
     , dep(dep) {}
 
     std::string data;
-    util::UUID dep;
-    util::UUID depLazy;
-    std::vector<util::UUID> depList;
-    std::vector<util::UUID> lazyList;
+    rand::UUID dep;
+    rand::UUID depLazy;
+    std::vector<rand::UUID> depList;
+    std::vector<rand::UUID> lazyList;
 };
 
 struct TestPayload : public Payload {
@@ -82,11 +82,11 @@ struct TestPayloadWithDependency : public Payload {
     bool init(CreateContext& ctx) {
         if (const TestCreateContext* createData = ctx.getCustomDataAsMaybe<TestCreateContext>()) {
             localData = createData->data;
-            for (const util::UUID& dep : createData->depList) {
+            for (const rand::UUID& dep : createData->depList) {
                 if (!dependencyList.addDependency(dep)) { return false; }
             }
             if (!dependencyLazy.init(createData->depLazy)) { return false; }
-            for (const util::UUID& dep : createData->lazyList) {
+            for (const rand::UUID& dep : createData->lazyList) {
                 if (!dependencyListLazy.addDependency(dep)) { return false; }
             }
             return dependency.init(createData->dep);
@@ -155,7 +155,7 @@ TEST_F(RepositoryTest, Dependencies) {
     auto asset = repo.createAsset<TestPayloadWithDependency>(
         "TestName", TestCreateContext("test_data", child.getAsset().getUUID()));
     auto badAsset = repo.createAsset<TestPayloadWithDependency>(
-        "BadTestName", TestCreateContext("test_data", util::UUID::generate()));
+        "BadTestName", TestCreateContext("test_data", rand::UUID::generate()));
 
     ASSERT_TRUE(asset.isValid());
     EXPECT_EQ(asset.getState(), State::Loaded);
@@ -166,7 +166,7 @@ TEST_F(RepositoryTest, Dependencies) {
 }
 
 TEST_F(RepositoryTest, LazyDependencies) {
-    util::UUID assetUUID;
+    rand::UUID assetUUID;
 
     {
         Repository repo(Mode::Editor, AssetDirectory);
@@ -199,7 +199,7 @@ TEST_F(RepositoryTest, LazyDependencies) {
 }
 
 TEST_F(RepositoryTest, DependencyLists) {
-    util::UUID assetUUID;
+    rand::UUID assetUUID;
 
     {
         Repository repo(Mode::Editor, AssetDirectory);
@@ -235,7 +235,7 @@ TEST_F(RepositoryTest, DependencyLists) {
 }
 
 TEST_F(RepositoryTest, DependencyLazyLists) {
-    util::UUID assetUUID;
+    rand::UUID assetUUID;
 
     {
         Repository repo(Mode::Editor, AssetDirectory);
@@ -305,7 +305,7 @@ TEST_F(RepositoryTest, Drivers) {
 }
 
 TEST_F(RepositoryTest, EditorSaveLoad) {
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
@@ -326,7 +326,7 @@ TEST_F(RepositoryTest, EditorSaveLoad) {
 }
 
 TEST_F(RepositoryTest, EditorLoadMissingDependency) {
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
@@ -351,8 +351,8 @@ TEST_F(RepositoryTest, EditorLoadMissingDependency) {
 }
 
 TEST_F(RepositoryTest, AutoLoad) {
-    util::UUID uuid;
-    util::UUID autoLoadUUID;
+    rand::UUID uuid;
+    rand::UUID autoLoadUUID;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
@@ -401,8 +401,8 @@ TEST_F(RepositoryTest, ReleaseUnused) {
 }
 
 TEST_F(RepositoryTest, FindMissing) {
-    util::UUID uuid1;
-    util::UUID uuid2;
+    rand::UUID uuid1;
+    rand::UUID uuid2;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
@@ -439,7 +439,7 @@ TEST_F(RepositoryTest, FindMissing) {
 }
 
 TEST_F(RepositoryTest, SourceLinkAssets) {
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);
@@ -501,7 +501,7 @@ TEST_F(RepositoryTest, SourceFileInfo) {
 }
 
 TEST_F(RepositoryTest, BasicBundle) {
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         repo.registerDriver<TestDriver>(TestTypeTag);

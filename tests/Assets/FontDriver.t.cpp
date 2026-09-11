@@ -16,7 +16,7 @@ TEST_F(RepositoryTest, FontDriver) {
     std::span<const char> fontData = gui::Font::getData();
     ASSERT_GT(fontData.size(), 0u);
 
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

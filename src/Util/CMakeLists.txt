@@ -7,6 +7,5 @@ target_sources(BLIB PRIVATE
     TaskScheduler.cpp
     ThreadPool.cpp
     Timer.cpp
-    UUID.cpp
     Waiter.cpp
 )

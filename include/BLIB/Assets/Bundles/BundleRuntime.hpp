@@ -37,7 +37,7 @@ public:
      * @param localPath The asset local file path
      * @return True if the stream could be initialized, false otherwise
      */
-    bool initStream(stream::InputStream& stream, util::UUID assetId, std::string_view localPath);
+    bool initStream(stream::InputStream& stream, rand::UUID assetId, std::string_view localPath);
 
     /**
      * @brief Initializes an input stream directly from the bundle on disk. Stream remains valid for
@@ -48,7 +48,7 @@ public:
      * @param localPath The asset local file path
      * @return True if the stream could be initialized, false otherwise
      */
-    bool initStreamDirect(stream::InputStream& stream, util::UUID assetId,
+    bool initStreamDirect(stream::InputStream& stream, rand::UUID assetId,
                           std::string_view localPath);
 
     /**
@@ -66,10 +66,10 @@ private:
     Repository& repo;
     std::string path;
     Manifest manifest;
-    std::unordered_map<util::UUID, MountedBundle> mountedBundles;
+    std::unordered_map<rand::UUID, MountedBundle> mountedBundles;
     std::vector<MountedBundle*> bundlesToAutoload;
 
-    MountedBundle* getBundle(util::UUID uuid);
+    MountedBundle* getBundle(rand::UUID uuid);
 
     friend class ::bl::as::Repository;
 };

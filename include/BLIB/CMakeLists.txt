@@ -14,6 +14,7 @@ target_sources(BLIB PUBLIC
     Models.hpp
     Parser.hpp
     Particles.hpp
+    Random.hpp
     Render.hpp
     Scripts.hpp
     Serialization.hpp
@@ -38,6 +39,7 @@ add_subdirectory(Math)
 add_subdirectory(Models)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
+add_subdirectory(Random)
 add_subdirectory(Render)
 add_subdirectory(Scripts)
 add_subdirectory(Serialization)

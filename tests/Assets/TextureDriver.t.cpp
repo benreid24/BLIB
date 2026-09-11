@@ -15,7 +15,7 @@ namespace as
 namespace unittest
 {
 TEST_F(RepositoryTest, TextureDriver) {
-    util::UUID textureUuid;
+    rand::UUID textureUuid;
     sf::Image sourceImage;
     sourceImage.resize({4, 4}, sf::Color::Blue);
 

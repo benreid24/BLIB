@@ -2,7 +2,7 @@
 #define BLIB_ASSETS_STREAMCACHE_HPP
 
 #include <BLIB/Assets/PersistentStream.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <list>
 #include <unordered_map>
 
@@ -54,11 +54,11 @@ public:
      *
      * @param uuid The asset uuid to release streams for
      */
-    void releaseStreams(util::UUID uuid);
+    void releaseStreams(rand::UUID uuid);
 
 private:
     const std::string& repoRoot;
-    std::unordered_map<util::UUID, std::list<PersistentStream>> streams;
+    std::unordered_map<rand::UUID, std::list<PersistentStream>> streams;
     bdl::BundleRuntime* runtime;
 };
 

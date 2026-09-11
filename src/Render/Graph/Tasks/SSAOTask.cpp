@@ -9,7 +9,7 @@
 #include <BLIB/Render/Graph/Purpose.hpp>
 #include <BLIB/Render/Graph/TaskIds.hpp>
 #include <BLIB/Render/Renderer.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 
 namespace bl
 {

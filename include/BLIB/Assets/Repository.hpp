@@ -108,7 +108,7 @@ public:
      * @param desiredState The desired state of the asset. Allows fetching metadata only if desired
      * @return A Ref to the asset. May be invalid if the asset does not exist or failed to load
      */
-    Ref getAsset(util::UUID uuid, State desiredState = State::Loaded);
+    Ref getAsset(rand::UUID uuid, State desiredState = State::Loaded);
 
     /**
      * @brief Returns a ref to the asset with the given UUID
@@ -118,7 +118,7 @@ public:
      * @return A TypedRef to the asset. May be invalid if the asset does not exist or failed to load
      */
     template<typename T>
-    TypedRef<T> getTypedAsset(util::UUID uuid) {
+    TypedRef<T> getTypedAsset(rand::UUID uuid) {
         return TypedRef<T>(getAsset(uuid, State::Loaded));
     }
 
@@ -156,7 +156,7 @@ public:
      * @param path The path to search for
      * @return The UUID of the static asset with the given path
      */
-    std::optional<util::UUID> findAssetIdFromSourcePath(std::string_view type,
+    std::optional<rand::UUID> findAssetIdFromSourcePath(std::string_view type,
                                                         const std::string& path) const;
 
     /**
@@ -165,7 +165,7 @@ public:
      * @param uuid The UUID of the asset to get dependencies for
      * @return The dependency list for the asset
      */
-    const std::vector<RepoDependency>& getDependencies(util::UUID uuid) const;
+    const std::vector<RepoDependency>& getDependencies(rand::UUID uuid) const;
 
     /**
      * @brief Registers a new driver in the repository. Drivers provide support for different
@@ -245,8 +245,8 @@ private:
     mutable std::recursive_mutex assetMutex;
     const Mode mode;
     const std::string assetDirectory;
-    std::unordered_map<util::UUID, Asset> assets;
-    std::unordered_map<std::string, util::UUID> keyToAsset;
+    std::unordered_map<rand::UUID, Asset> assets;
+    std::unordered_map<std::string, rand::UUID> keyToAsset;
     StreamCache streamCache;
     bdl::BundleRuntime bundleRuntime;
 
@@ -259,7 +259,7 @@ private:
     std::unordered_map<std::string_view, detail::DriverBase*> driversByName;
 
     std::recursive_mutex unloadQueueMutex;
-    std::vector<util::UUID> unloadQueue;
+    std::vector<rand::UUID> unloadQueue;
 
     template<typename T>
     std::string_view getTagForType() {
@@ -276,14 +276,14 @@ private:
     detail::DriverBase* getDriverLocked(std::string_view type);
 
     // used by Dependency
-    void registerDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
-    bool unregisterDependency(util::UUID uuid, std::string_view tag, util::UUID dependency);
+    void registerDependency(rand::UUID uuid, std::string_view tag, rand::UUID dependency);
+    bool unregisterDependency(rand::UUID uuid, std::string_view tag, rand::UUID dependency);
 
     // used by Ref
-    void queueUnload(util::UUID uuid);
+    void queueUnload(rand::UUID uuid);
 
     // used by Asset
-    Asset* getDependencyForInit(util::UUID uuid);
+    Asset* getDependencyForInit(rand::UUID uuid);
     bool writeManifest();
 
     // used by Context

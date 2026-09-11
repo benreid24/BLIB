@@ -2,7 +2,7 @@
 #define BLIB_ASSETS_BUNDLES_RUNTIMEPATHS_HPP
 
 #include <BLIB/Util/FileUtil.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <string>
 #include <string_view>
 
@@ -28,7 +28,7 @@ struct RuntimePaths {
      * @param uuid The UUID of the bundle to get the path for
      * @return The full path to the bundle file
      */
-    static std::string getBundlePath(const std::string& base, util::UUID uuid) {
+    static std::string getBundlePath(const std::string& base, rand::UUID uuid) {
         return util::FileUtil::joinPath(base, uuid.toString()) + BundleExtention;
     }
 };

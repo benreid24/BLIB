@@ -17,11 +17,11 @@ DependencyChain::DependencyChain(Repository& repo, Payload& owner, std::string_v
     owner.registerDependency(this);
 }
 
-void DependencyChain::registerDependency(util::UUID uuid) {
+void DependencyChain::registerDependency(rand::UUID uuid) {
     repo.registerDependency(owner.getAsset().getUUID(), tag, uuid);
 }
 
-bool DependencyChain::unregisterDependency(util::UUID uuid) {
+bool DependencyChain::unregisterDependency(rand::UUID uuid) {
     return repo.unregisterDependency(owner.getAsset().getUUID(), tag, uuid);
 }
 

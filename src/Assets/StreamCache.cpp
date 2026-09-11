@@ -45,7 +45,7 @@ PersistentStream* StreamCache::getStream(Asset& asset, std::string_view localPat
     return &stream;
 }
 
-void StreamCache::releaseStreams(util::UUID uuid) { streams.erase(uuid); }
+void StreamCache::releaseStreams(rand::UUID uuid) { streams.erase(uuid); }
 
 } // namespace as
 } // namespace bl

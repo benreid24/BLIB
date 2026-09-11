@@ -2,7 +2,7 @@
 #define BLIB_ASSETS_BUNDLES_MANIFEST_HPP
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <string>
 #include <unordered_map>
 
@@ -19,7 +19,7 @@ namespace bdl
  * @ingroup Assets
  */
 struct Manifest {
-    std::unordered_map<util::UUID, util::UUID> assetToBundle;
+    std::unordered_map<rand::UUID, rand::UUID> assetToBundle;
 };
 
 } // namespace bdl

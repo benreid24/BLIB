@@ -37,7 +37,7 @@ TEST_F(RepositoryTest, Animation2DDriver) {
     sf::Image sourceImage;
     sourceImage.resize({32, 16}, sf::Color::White);
 
-    util::UUID animUuid;
+    rand::UUID animUuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

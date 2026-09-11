@@ -34,7 +34,7 @@ TEST_F(RepositoryTest, SoundDriver) {
                                              SampleRate,
                                              {sf::SoundChannel::Mono}));
 
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         asi::SoundDriver::CreateParams params;

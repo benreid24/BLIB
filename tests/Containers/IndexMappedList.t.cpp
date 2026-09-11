@@ -1,5 +1,5 @@
 #include <BLIB/Containers/IndexMappedList.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 #include <gtest/gtest.h>
 #include <string_view>
 
@@ -59,10 +59,10 @@ TEST(IndexMappedList, RandomKeysAndValues) {
     std::vector<std::vector<int>> expected;
     expected.resize(KeyCount);
     for (auto& set : expected) {
-        const std::uint32_t count = util::Random::get<std::uint32_t>(0, 50);
+        const std::uint32_t count = rand::Random::get<std::uint32_t>(0, 50);
         set.reserve(count);
         for (std::uint32_t i = 0; i < count; ++i) {
-            set.push_back(util::Random::get<int>(0, KeyCount));
+            set.push_back(rand::Random::get<int>(0, KeyCount));
         }
     }
 
@@ -92,11 +92,11 @@ TEST(IndexMappedList, RandomKeysAndValues) {
     verify("Initial Setup");
 
     // randomly delete some values and verify
-    unsigned int rmCount = util::Random::get<unsigned int>(500, 5000);
+    unsigned int rmCount = rand::Random::get<unsigned int>(500, 5000);
     for (unsigned int i = 0; i < rmCount; ++i) {
-        const std::uint32_t key = util::Random::get<std::uint32_t>(0, expected.size() - 1);
+        const std::uint32_t key = rand::Random::get<std::uint32_t>(0, expected.size() - 1);
         if (!expected[key].empty()) {
-            const unsigned int j = util::Random::get<unsigned int>(0, expected[key].size() - 1);
+            const unsigned int j = rand::Random::get<unsigned int>(0, expected[key].size() - 1);
             map.removeValue(key, expected[key][j]);
             expected[key].erase(expected[key].begin() + j);
         }
@@ -104,10 +104,10 @@ TEST(IndexMappedList, RandomKeysAndValues) {
     verify("Random Value Deletion");
 
     // randomly delete some keys and verify
-    rmCount = util::Random::get<unsigned int>(500, 5000);
+    rmCount = rand::Random::get<unsigned int>(500, 5000);
     std::vector<unsigned int> toRm;
     for (unsigned int i = 0; i < rmCount; ++i) {
-        const std::uint32_t key = util::Random::get<std::uint32_t>(0, expected.size() - 1);
+        const std::uint32_t key = rand::Random::get<std::uint32_t>(0, expected.size() - 1);
         map.remove(key);
         removed[key] = true;
     }

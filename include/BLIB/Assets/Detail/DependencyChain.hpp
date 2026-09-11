@@ -3,7 +3,7 @@
 
 #include <BLIB/Assets/RepoDependency.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <string_view>
 
 namespace bl
@@ -59,7 +59,7 @@ protected:
      *
      * @param uuid The UUID of the dependency to register
      */
-    void registerDependency(util::UUID uuid);
+    void registerDependency(rand::UUID uuid);
 
     /**
      * @brief Unregisters the given dependency with the repository
@@ -67,7 +67,7 @@ protected:
      * @param uuid The UUID of the dependency to unregister
      * @return True if the dependency was successfully unregistered, false otherwise
      */
-    bool unregisterDependency(util::UUID uuid);
+    bool unregisterDependency(rand::UUID uuid);
 
     /**
      * @brief Performs post deserialization initialization and loads the dependency

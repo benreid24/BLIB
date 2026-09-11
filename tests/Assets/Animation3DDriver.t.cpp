@@ -56,7 +56,7 @@ TEST_F(RepositoryTest, Animation3DDriver) {
     sourceAnim.init("WalkCycle", 60.0, 30.0);
     sourceAnim.addBoneAnimation(std::move(boneAnim));
 
-    util::UUID uuid;
+    rand::UUID uuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
         asi::Animation3DDriver::CreateParams params(sourceAnim);

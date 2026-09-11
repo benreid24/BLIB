@@ -39,7 +39,7 @@ TEST_F(RepositoryTest, ModelDriver) {
     mdl::Node& root = nodes.addNode(0);
     root.init("Root", glm::mat4(1.0f), {0}, std::nullopt);
 
-    util::UUID modelUuid;
+    rand::UUID modelUuid;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

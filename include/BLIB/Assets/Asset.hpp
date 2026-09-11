@@ -5,8 +5,8 @@
 #include <BLIB/Assets/Metadata.hpp>
 #include <BLIB/Assets/RepoDependency.hpp>
 #include <BLIB/Assets/State.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
-#include <BLIB/Util/UUID.hpp>
 #include <atomic>
 #include <memory>
 #include <vector>
@@ -47,7 +47,7 @@ public:
     /**
      * @brief Returns the UUID of the asset
      */
-    const util::UUID& getUUID() const { return uuid; }
+    const rand::UUID& getUUID() const { return uuid; }
 
     /**
      * @brief Returns the type of the asset
@@ -103,7 +103,7 @@ public:
 
 private:
     Repository* repo;
-    util::UUID uuid;
+    rand::UUID uuid;
     std::string type;
     Metadata metadata;
     std::unique_ptr<Payload> payload;

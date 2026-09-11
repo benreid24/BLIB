@@ -27,8 +27,8 @@ TEST_F(RepositoryTest, PlaylistDriver) {
         samples[i] = static_cast<std::int16_t>((i % 256) * 256 - 32768);
     }
 
-    util::UUID playlistUuid;
-    std::array<util::UUID, 2> songUuids;
+    rand::UUID playlistUuid;
+    std::array<rand::UUID, 2> songUuids;
     {
         Repository repo(Mode::Editor, AssetDirectory);
 

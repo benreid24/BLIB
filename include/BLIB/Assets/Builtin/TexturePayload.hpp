@@ -37,7 +37,7 @@ struct TexturePayload : public as::Payload {
      */
     struct CreateData : public as::CreateContext::CreateData {
         /// Mutually exclusive with path. The UUID of an existing image asset to use
-        util::UUID image;
+        rand::UUID image;
         Type type;
         ColorSpace colorSpace;
 
@@ -58,7 +58,7 @@ struct TexturePayload : public as::Payload {
          *
          * @param image The UUID of the existing image asset to use
          */
-        CreateData(util::UUID image);
+        CreateData(rand::UUID image);
     };
 
     /**

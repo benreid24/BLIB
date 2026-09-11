@@ -1,7 +1,7 @@
 #ifndef BLIB_ASSETS_EDITORPATHS_HPP
 #define BLIB_ASSETS_EDITORPATHS_HPP
 
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <string>
 #include <string_view>
 
@@ -30,7 +30,7 @@ struct EditorPaths {
      * @param displayName The display name of the asset
      * @return The folder name. In form "{DisplayName}_{UUID}"
      */
-    static std::string getAssetFolderName(util::UUID uuid, const std::string& displayName);
+    static std::string getAssetFolderName(rand::UUID uuid, const std::string& displayName);
 
     /**
      * @brief Parses a foldername into a UUID and asset display name
@@ -38,7 +38,7 @@ struct EditorPaths {
      * @param folderName The name of the folder to parse
      * @return The parsed parts or std::nullopt if parsing fails
      */
-    static std::optional<std::pair<util::UUID, std::string>> parseAssetFolderName(
+    static std::optional<std::pair<rand::UUID, std::string>> parseAssetFolderName(
         const std::string& folderName);
 
     /**
@@ -60,7 +60,7 @@ struct EditorPaths {
      * @return The path to the asset on disk
      */
     static std::string getAssetPath(const std::string& repoRoot, const std::string& assetFolder,
-                                    util::UUID uuid, const std::string& assetName);
+                                    rand::UUID uuid, const std::string& assetName);
 
     /**
      * @brief Returns the path to the directory containing the asset files on disk

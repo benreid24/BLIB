@@ -15,7 +15,7 @@ TexturePayload::CreateData::CreateData(const std::string& path)
 , type(Type::Generic)
 , colorSpace(ColorSpace::sRGB) {}
 
-TexturePayload::CreateData::CreateData(util::UUID image)
+TexturePayload::CreateData::CreateData(rand::UUID image)
 : CreateData() {
     this->image = image;
 }

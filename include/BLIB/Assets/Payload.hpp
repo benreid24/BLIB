@@ -7,7 +7,7 @@
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
-#include <BLIB/Util/UUID.hpp>
+#include <BLIB/Random/UUID.hpp>
 #include <stdexcept>
 #include <type_traits>
 

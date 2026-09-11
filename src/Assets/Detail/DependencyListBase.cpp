@@ -15,7 +15,7 @@ DependencyListBase::DependencyListBase(Repository& repo, Payload& owner, std::st
 , policy(policy)
 , depPolicy(depPolicy) {}
 
-bool DependencyListBase::addDependency(util::UUID uuid) {
+bool DependencyListBase::addDependency(rand::UUID uuid) {
     for (const auto& dep : dependencies) {
         if (dep.uuid == uuid) {
             BL_LOG_WARN << "Ignoring duplicate dependency with UUID " << uuid.toString()

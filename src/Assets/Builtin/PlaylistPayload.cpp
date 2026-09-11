@@ -10,7 +10,7 @@ PlaylistPayload::PlaylistPayload(const as::Payload::ConstructContext& ctx)
 , shuffle(true)
 , reshuffleOnLoop(true) {}
 
-bool PlaylistPayload::addSong(util::UUID song) { return songs.addDependency(song); }
+bool PlaylistPayload::addSong(rand::UUID song) { return songs.addDependency(song); }
 
 bool PlaylistPayload::removeSong(unsigned int i) { return songs.removeDependency(i); }
 

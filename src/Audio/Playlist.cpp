@@ -5,7 +5,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/FileUtil.hpp>
-#include <BLIB/Util/Random.hpp>
+#include <BLIB/Random/Random.hpp>
 
 namespace bl
 {
@@ -101,7 +101,7 @@ void Playlist::shuffle() {
 
     playOrder.clear();
     while (!priorOrder.empty()) {
-        const unsigned int i = util::Random::get<unsigned int>(0, priorOrder.size() - 1);
+        const unsigned int i = rand::Random::get<unsigned int>(0, priorOrder.size() - 1);
         playOrder.push_back(priorOrder[i]);
         priorOrder.erase(priorOrder.begin() + i);
     }

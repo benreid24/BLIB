@@ -1,9 +1,9 @@
-#include <BLIB/Util/Perlin.hpp>
+#include <BLIB/Random/Perlin.hpp>
 #include <gtest/gtest.h>
 
 namespace bl
 {
-namespace util
+namespace rand
 {
 namespace unittest
 {
@@ -25,5 +25,5 @@ TEST(Perlin, Seed) {
 }
 
 } // namespace unittest
-} // namespace util
+} // namespace rand
 } // namespace bl

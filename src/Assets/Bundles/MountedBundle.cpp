@@ -22,7 +22,7 @@ MountedBundle::MountedBundle(Repository&, const std::string& path)
     }
 }
 
-bool MountedBundle::initStream(stream::InputStream& stream, util::UUID uuid,
+bool MountedBundle::initStream(stream::InputStream& stream, rand::UUID uuid,
                                std::string_view path) {
     touchTime = std::chrono::steady_clock::now();
 
@@ -33,7 +33,7 @@ bool MountedBundle::initStream(stream::InputStream& stream, util::UUID uuid,
     return true;
 }
 
-bool MountedBundle::initStreamDirect(stream::InputStream& stream, util::UUID uuid,
+bool MountedBundle::initStreamDirect(stream::InputStream& stream, rand::UUID uuid,
                                      std::string_view path) {
     touchTime = std::chrono::steady_clock::now();
 
@@ -43,7 +43,7 @@ bool MountedBundle::initStreamDirect(stream::InputStream& stream, util::UUID uui
     return stream.open(bundlePath, data.headerSize + md->offset, md->size);
 }
 
-const FileMetadata* MountedBundle::findFile(util::UUID uuid, std::string_view path) {
+const FileMetadata* MountedBundle::findFile(rand::UUID uuid, std::string_view path) {
     const auto assetIt = data.assetFileManifest.find(uuid);
     if (assetIt == data.assetFileManifest.end()) { return nullptr; }
 

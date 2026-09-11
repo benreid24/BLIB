@@ -84,8 +84,8 @@ private:
     as::TypedRef<asi::Animation2DSetPayload> errorAnim;
 
     // slideshow data
-    std::unordered_map<util::UUID, std::uint32_t> slideshowFrameMap;
-    std::unordered_map<util::UUID, std::uint32_t> slideshowDataRefCounts;
+    std::unordered_map<rand::UUID, std::uint32_t> slideshowFrameMap;
+    std::unordered_map<rand::UUID, std::uint32_t> slideshowDataRefCounts;
     util::IdAllocatorUnbounded<std::uint32_t> slideshowPlayerIds;
     util::RangeAllocatorUnbounded<std::uint32_t> slideshowFrameRangeAllocator;
     rc::buf::BufferSingleDeviceLocalSourcedSSBO<SlideshowFrame>
@@ -101,7 +101,7 @@ private:
     std::uint8_t slideshowLastFrameUpdated; // renderer frame index to prevent multiple updates
 
     // non-slideshow data
-    std::unordered_map<util::UUID, VertexAnimation> vertexAnimationData;
+    std::unordered_map<rand::UUID, VertexAnimation> vertexAnimationData;
     std::vector<com::Animation2D*> vertexAnimations;
 
     virtual void init(engine::Engine& engine) override;

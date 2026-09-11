@@ -71,7 +71,7 @@ public:
     /**
      * @brief Returns the UUID of the spritesheet asset
      */
-    util::UUID getSpritesheetId() const { return spritesheet.getUUID(); }
+    rand::UUID getSpritesheetId() const { return spritesheet.getUUID(); }
 
     /**
      * @brief Returns the frames of the animation

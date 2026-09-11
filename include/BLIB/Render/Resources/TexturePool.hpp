@@ -174,12 +174,12 @@ private:
     util::IdAllocator<std::uint32_t> cubemapFreeSlots;
 
     // indices
-    std::unordered_map<util::UUID, std::uint32_t> assetMap;
+    std::unordered_map<rand::UUID, std::uint32_t> assetMap;
     std::unordered_map<const sf::Image*, std::uint32_t> imageMap;
-    std::unordered_map<util::UUID, std::uint32_t> cubemapAssetMap;
-    std::vector<util::UUID> reverseAssetMap;
+    std::unordered_map<rand::UUID, std::uint32_t> cubemapAssetMap;
+    std::vector<rand::UUID> reverseAssetMap;
     std::vector<const sf::Image*> reverseImageMap;
-    std::vector<util::UUID> reverseCubemapAssetMap;
+    std::vector<rand::UUID> reverseCubemapAssetMap;
 
     // dynamics
     std::vector<vk::Texture*> toRelease;
