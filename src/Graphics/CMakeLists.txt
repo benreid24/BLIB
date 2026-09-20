@@ -16,6 +16,7 @@ target_sources(BLIB PRIVATE
 	Cube.cpp
 	Dummy2D.cpp
 	Icon.cpp
+	IndexBuffer3D.cpp
 	ModelStatic.cpp
 	ModelSkeletal.cpp
 	Rectangle.cpp
