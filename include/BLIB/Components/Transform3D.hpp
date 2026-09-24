@@ -2,6 +2,7 @@
 #define BLIB_COMPONENTS_TRANSFORM3D_HPP
 
 #include <BLIB/ECS/Traits/ParentAwareVersioned.hpp>
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
 #include <glm/glm.hpp>
@@ -25,6 +26,14 @@ public:
      * @brief Creates a new transform with no scaling and sane defaults
      */
     Transform3D();
+
+    /**
+     * @brief Copies the transform from another
+     *
+     * @param copy The transform to copy
+     * @return A reference to this transform
+     */
+    Transform3D& operator=(const Transform3D& copy);
 
     /**
      * @brief Sets the position of the transform
@@ -157,6 +166,8 @@ private:
     glm::vec3 scaleFactors;
 
     void makeDirty();
+
+    friend struct refl::ReflectedObject<Transform3D>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -168,6 +179,17 @@ inline const glm::quat& Transform3D::getRotation() const { return rotation; }
 inline const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
 
 } // namespace com
+namespace refl
+{
+template<>
+struct ReflectedObject<com::Transform3D> {
+    inline static const auto spec = makeSpec<com::Transform3D>(
+        "Transform3D", memberList(defineMember(1, "position", &com::Transform3D::position),
+                                  defineMember(2, "rotation", &com::Transform3D::rotation),
+                                  defineMember(3, "scale", &com::Transform3D::scaleFactors)));
+};
+
+} // namespace refl
 } // namespace bl
 
 #endif

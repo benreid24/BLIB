@@ -13,6 +13,14 @@ Transform3D::Transform3D()
 , rotation(glm::identity<glm::quat>())
 , scaleFactors(1.f, 1.f, 1.f) {}
 
+Transform3D& Transform3D::operator=(const Transform3D& copy) {
+    position     = copy.position;
+    rotation     = copy.rotation;
+    scaleFactors = copy.scaleFactors;
+    makeDirty();
+    return *this;
+}
+
 void Transform3D::setPosition(const glm::vec3& pos) {
     position = pos;
     makeDirty();

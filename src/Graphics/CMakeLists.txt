@@ -14,12 +14,14 @@ target_sources(BLIB PRIVATE
 	Circle.cpp
 	Cone.cpp
 	Cube.cpp
+	Cylinder.cpp
 	Dummy2D.cpp
 	Icon.cpp
 	IndexBuffer3D.cpp
 	ModelStatic.cpp
 	ModelSkeletal.cpp
 	Rectangle.cpp
+	RectangularPrism.cpp
 	Skybox.cpp
 	Slideshow.cpp
 	Sphere.cpp

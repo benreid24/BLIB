@@ -32,7 +32,7 @@ public:
      *
      * @param world The world to create the cone in
      * @param height The height of the cone
-     * @param radius The radius of the sphere in world coordinates
+     * @param radius The radius of the cone in world coordinates
      * @param pointCount The number of points to make the bottom of the cone with
      * @param material The material to assign to the cone
      * @param materialPipelineId The id of the material pipeline to render with
@@ -42,11 +42,11 @@ public:
          std::uint32_t materialPipelineId         = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
-     * @brief Creates the sphere with a given size and material
+     * @brief Creates the cone with a given size and material
      *
      * @param world The world to create the cone in
      * @param height The height of the cone
-     * @param radius The radius of the sphere in world coordinates
+     * @param radius The radius of the cone in world coordinates
      * @param pointCount The number of points to make the bottom of the cone with
      * @param material The material to assign to the cone
      * @param materialPipelineId The id of the material pipeline to render with
@@ -56,7 +56,7 @@ public:
                 std::uint32_t materialPipelineId         = rc::cfg::MaterialPipelineIds::Mesh3D);
 
     /**
-     * @brief Sets the color of the sphere
+     * @brief Sets the color of the cone
      *
      * @param color The color to assign to all the vertices
      */

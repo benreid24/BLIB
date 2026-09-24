@@ -1,6 +1,7 @@
 #ifndef BLIB_COMPONENTS_ORIENTATION3D_HPP
 #define BLIB_COMPONENTS_ORIENTATION3D_HPP
 
+#include <BLIB/Reflection/ReflectedObject.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
@@ -129,6 +130,8 @@ public:
 private:
     glm::vec3 faceDir;
     float roll;
+
+    friend struct refl::ReflectedObject<Orientation3D>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -138,6 +141,16 @@ inline float Orientation3D::getRoll() const { return roll; }
 inline const glm::vec3& Orientation3D::getFaceDirection() const { return faceDir; }
 
 } // namespace com
+
+namespace refl
+{
+template<>
+struct ReflectedObject<com::Orientation3D> {
+    inline static const auto spec = makeSpec<com::Orientation3D>(
+        "Orientation3D", memberList(defineMember(1, "faceDir", &com::Orientation3D::faceDir),
+                                    defineMember(2, "roll", &com::Orientation3D::roll)));
+};
+} // namespace refl
 } // namespace bl
 
 #endif
