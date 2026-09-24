@@ -56,8 +56,12 @@ void Transform3D::rotate(const glm::vec3& axis, float angle) {
 
 void Transform3D::lookAt(const glm::vec3& pos, const glm::vec3& worldUp) {
     glm::vec3 forward = glm::normalize(pos - position);
+    setForwardDir(forward, worldUp);
+}
 
-    glm::vec3 up = worldUp;
+void Transform3D::setForwardDir(const glm::vec3& f, const glm::vec3& worldUp) {
+    const glm::vec3 forward = glm::normalize(f);
+    glm::vec3 up            = worldUp;
     if (glm::abs(glm::dot(forward, worldUp)) > 0.999f) {
         up = glm::abs(forward.y) > 0.999f ? glm::vec3(1, 0, 0) : glm::vec3(0, 1, 0);
     }

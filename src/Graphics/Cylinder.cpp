@@ -41,23 +41,30 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
     };
 
     // side faces
-    for (unsigned int i = 0; i < pointCount; i += 2) {
-        const unsigned int i2 = (i + 1) % pointCount;
-        vb[vbIndex + 0].pos   = makePoint(i, -h);
-        vb[vbIndex + 1].pos   = makePoint(i, h);
-        vb[vbIndex + 2].pos   = makePoint(i2, h);
-        vb[vbIndex + 3].pos   = makePoint(i2, -h);
+    const unsigned int firstSide = vbIndex;
+    vb[vbIndex + 0].pos          = makePoint(0, h);
+    vb[vbIndex + 1].pos          = makePoint(0, -h);
+    vbIndex += 2;
+    for (unsigned int i = 1; i < pointCount; ++i) {
+        vb[vbIndex + 0].pos = makePoint(i, h);
+        vb[vbIndex + 1].pos = makePoint(i, -h);
 
-        ib[ibIndex + 0] = vbIndex;
-        ib[ibIndex + 1] = vbIndex + 1;
-        ib[ibIndex + 2] = vbIndex + 2;
-        ib[ibIndex + 3] = vbIndex;
-        ib[ibIndex + 4] = vbIndex + 2;
-        ib[ibIndex + 5] = vbIndex + 3;
-
-        vbIndex += 4;
+        ib[ibIndex + 0] = vbIndex - 1;
+        ib[ibIndex + 1] = vbIndex - 2;
+        ib[ibIndex + 2] = vbIndex + 0;
+        ib[ibIndex + 3] = vbIndex - 1;
+        ib[ibIndex + 4] = vbIndex + 0;
+        ib[ibIndex + 5] = vbIndex + 1;
+        vbIndex += 2;
         ibIndex += 6;
     }
+    ib[ibIndex + 0] = firstSide;
+    ib[ibIndex + 1] = firstSide + 1;
+    ib[ibIndex + 2] = vbIndex - 2;
+    ib[ibIndex + 3] = firstSide + 1;
+    ib[ibIndex + 5] = vbIndex - 2;
+    ib[ibIndex + 4] = vbIndex - 1;
+    ibIndex += 6;
 
     // top and bottom circle faces
     const auto makeCircle = [&vb, &ib, &vbIndex, &ibIndex, &makePoint, pointCount](float h) {
@@ -65,17 +72,25 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
         vb[centerIndex].pos            = {0.f, h, 0.f};
         ++vbIndex;
 
-        for (unsigned int i = 0; i < pointCount; i += 2) {
-            vb[vbIndex + 0].pos = makePoint(i, h);
-            vb[vbIndex + 1].pos = makePoint((i + 1) % pointCount, h);
+        const unsigned int i1 = (h > 0.f) ? 2 : 1;
+        const unsigned int i2 = (h > 0.f) ? 1 : 2;
 
-            ib[ibIndex + 0] = centerIndex;
-            ib[ibIndex + 1] = vbIndex + 0;
-            ib[ibIndex + 2] = vbIndex + 1;
+        const unsigned int firstPoint = vbIndex;
+        vb[vbIndex]                   = makePoint(0, h);
+        for (unsigned int i = 1; i < pointCount; ++i) {
+            vb[vbIndex].pos = makePoint(i, h);
 
-            vbIndex += 2;
+            ib[ibIndex + 0]  = centerIndex;
+            ib[ibIndex + i1] = vbIndex - 1;
+            ib[ibIndex + i2] = vbIndex;
+
+            vbIndex += 1;
             ibIndex += 3;
         }
+        ib[ibIndex + 0]  = centerIndex;
+        ib[ibIndex + i1] = vbIndex - 1;
+        ib[ibIndex + i2] = firstPoint;
+        ibIndex += 3;
     };
 
     makeCircle(h);

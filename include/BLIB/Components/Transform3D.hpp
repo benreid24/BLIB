@@ -90,6 +90,14 @@ public:
     void lookAt(const glm::vec3& pos, const glm::vec3& up = {0.f, 1.f, 0.f});
 
     /**
+     * @brief Sets the forward direction of the transform to the given direction
+     *
+     * @param dir The direction to face
+     * @param up The world up vector
+     */
+    void setForwardDir(const glm::vec3& dir, const glm::vec3& up = {0.f, 1.f, 0.f});
+
+    /**
      * @brief Returns the forward direction unit vector local to this transform
      */
     glm::vec3 getForwardDir() const;
