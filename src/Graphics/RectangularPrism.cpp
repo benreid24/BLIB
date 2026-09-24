@@ -21,9 +21,9 @@ void RectangularPrism::create(engine::World& world, float length, const glm::vec
     Outline3D::init(world.engine().ecs(), entity(), &component());
     component().create(world.engine().renderer(), 24, 36);
 
-    const float hy = length * 0.5f;
     const float hx = crossSection.x * 0.5f;
-    const float hz = crossSection.y * 0.5f;
+    const float hy = crossSection.y * 0.5f;
+    const float hz = length * 0.5f;
 
     // top vertices
     component().gpuBuffer.vertices()[0].pos = {-hx, hy, -hz}; // back left
@@ -100,6 +100,13 @@ void RectangularPrism::create(engine::World& world, float length, const glm::vec
 
 void RectangularPrism::scaleToSize(const glm::vec2&) {
     // noop
+}
+
+void RectangularPrism::setColor(const rc::Color& color) {
+    for (std::size_t i = 0; i < component().gpuBuffer.vertices().size(); ++i) {
+        component().gpuBuffer.vertices()[i].color = color;
+    }
+    component().gpuBuffer.queueTransfer();
 }
 
 } // namespace gfx

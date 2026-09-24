@@ -53,6 +53,13 @@ public:
                 const bl::rc::res::MaterialRef& material = {},
                 std::uint32_t materialPipelineId         = rc::cfg::MaterialPipelineIds::Mesh3D);
 
+    /**
+     * @brief Sets the color of the rectangular prism
+     *
+     * @param color The color to assign to all the vertices
+     */
+    void setColor(const rc::Color& color);
+
 private:
     virtual void scaleToSize(const glm::vec2& size) override;
 };
