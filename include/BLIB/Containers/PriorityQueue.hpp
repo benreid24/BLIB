@@ -3,8 +3,10 @@
 
 #include <BLIB/Containers/InstrusiveLinkedList.hpp>
 #include <algorithm>
+#include <cstdint>
 #include <list>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace bl
@@ -389,7 +391,7 @@ const T& PriorityQueueReference<T, TPriority>::operator*() const {
 
 template<typename T, typename TPriority>
 void PriorityQueueReference<T, TPriority>::reposition() {
-    ctr->reposition(detail::PriorityQueueStorage<T>::Iterator(node));
+    ctr->reposition(typename detail::PriorityQueueStorage<T>::Iterator(node));
 }
 
 } // namespace ctr

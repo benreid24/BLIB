@@ -2,6 +2,7 @@
 #define BLIB_CONTAINERS_INTRUSIVELINKEDLIST_HPP
 
 #include <type_traits>
+#include <utility>
 
 namespace bl
 {
