@@ -104,6 +104,13 @@ public:
     }
 
     /**
+     * @brief Fills the vector with the given value
+     *
+     * @param val The value to fill the vector with
+     */
+    void fill(const T& val) { std::fill(data.begin(), data.end(), val); }
+
+    /**
      * @brief Returns the width of the vector
      */
     unsigned int getWidth() const { return W; }
