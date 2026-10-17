@@ -1,7 +1,7 @@
 #ifndef INPUTLISTENER_HPP
 #define INPUTLISTENER_HPP
 
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Input/Listener.hpp>
 #include <BLIB/Render.hpp>
 
@@ -21,7 +21,7 @@ public:
 
 private:
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::gfx::Text text;
+    bl::obj::Text text;
     bool rebindExample;
     bool rebindMovement;
 

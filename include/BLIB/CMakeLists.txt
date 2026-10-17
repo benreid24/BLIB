@@ -7,11 +7,11 @@ target_sources(BLIB PUBLIC
     ECS.hpp
     Engine.hpp
     Game.hpp
-    Graphics.hpp
     Input.hpp
     Interfaces.hpp
     Logging.hpp
     Models.hpp
+    Objects.hpp
     Parser.hpp
     Particles.hpp
     Random.hpp
@@ -31,12 +31,12 @@ add_subdirectory(Containers)
 add_subdirectory(Components)
 add_subdirectory(ECS)
 add_subdirectory(Engine)
-add_subdirectory(Graphics)
 add_subdirectory(Input)
 add_subdirectory(Interfaces)
 add_subdirectory(Logging)
 add_subdirectory(Math)
 add_subdirectory(Models)
+add_subdirectory(Objects)
 add_subdirectory(Parser)
 add_subdirectory(Particles)
 add_subdirectory(Random)

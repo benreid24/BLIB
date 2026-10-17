@@ -4,7 +4,7 @@
 #include <BLIB/Assets/Builtin/FontPayload.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Engine.hpp>
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Input.hpp>
 
 class RebindState : public bl::engine::State {
@@ -23,7 +23,7 @@ private:
     bl::input::Configurator configurator;
 
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::gfx::Text text;
+    bl::obj::Text text;
     const unsigned int ctrl;
     bool inited;
 

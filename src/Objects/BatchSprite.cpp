@@ -1,0 +1,123 @@
+#include <BLIB/Objects/BatchSprite.hpp>
+
+#include <BLIB/Engine/Engine.hpp>
+
+namespace bl
+{
+namespace obj
+{
+BatchSprite::BatchSprite()
+: engine(nullptr)
+, owner(nullptr)
+, dirty(false)
+, autoCommit(true) {}
+
+BatchSprite::BatchSprite(engine::Engine& engine, BatchedSprites& batch,
+                         const sf::FloatRect& textureSource)
+: BatchSprite() {
+    create(engine, batch, textureSource);
+}
+
+BatchSprite::~BatchSprite() { remove(); }
+
+void BatchSprite::create(engine::Engine& e, BatchedSprites& batch,
+                         const sf::FloatRect& textureSource) {
+    engine = &e;
+    owner  = &batch;
+    source = textureSource;
+    markDirty();
+}
+
+void BatchSprite::updateSourceRect(const sf::FloatRect& textureSource) {
+    source = textureSource;
+    markDirty();
+}
+
+void BatchSprite::scaleToSize(const glm::vec2& size) {
+    getLocalTransform().setScale({size.x / source.size.x, size.y / source.size.y});
+}
+
+com::Transform2D& BatchSprite::getLocalTransform() {
+    markDirty();
+    return transform;
+}
+
+void BatchSprite::remove() {
+    if (alloc.isValid()) {
+        if (alloc.release() && owner) {
+            owner->component().updateDrawParams();
+            owner = nullptr;
+        }
+    }
+}
+
+void BatchSprite::orphan() {
+    if (isCreated()) {
+        commit();
+        owner = nullptr;
+        alloc.orphan();
+        updateHandle.cancel();
+    }
+}
+
+bool BatchSprite::isCreated() const { return owner != nullptr; }
+
+void BatchSprite::markDirty() {
+    dirty = true;
+    if (autoCommit && owner && !updateHandle.isQueued()) {
+        updateHandle = engine->systems().addFrameTask(engine::FrameStage::RendererDataSync,
+                                                      std::bind(&BatchSprite::commit, this));
+    }
+}
+
+void BatchSprite::commit() {
+    if (dirty && owner) {
+        dirty = false;
+        updateHandle.cancel();
+
+        if (!alloc.isValid()) {
+            alloc = owner->component().getBuffer().allocate(4, 6);
+
+            alloc.getIndices()[0] = 0 + alloc.getInfo().vertexStart;
+            alloc.getIndices()[1] = 1 + alloc.getInfo().vertexStart;
+            alloc.getIndices()[2] = 2 + alloc.getInfo().vertexStart;
+            alloc.getIndices()[3] = 0 + alloc.getInfo().vertexStart;
+            alloc.getIndices()[4] = 2 + alloc.getInfo().vertexStart;
+            alloc.getIndices()[5] = 3 + alloc.getInfo().vertexStart;
+        }
+
+        rc::prim::Vertex* vertices = alloc.getVertices();
+        const float leftX          = source.position.x / owner->getTexture()->size().x;
+        const float topY           = source.position.y / owner->getTexture()->size().y;
+        const float rightX  = (source.position.x + source.size.x) / owner->getTexture()->size().x;
+        const float bottomY = (source.position.y + source.size.y) / owner->getTexture()->size().y;
+
+        vertices[0].texCoord = owner->getTexture()->convertCoord({leftX, topY});
+        vertices[0].pos      = {0.f, 0.f, 0.f};
+        vertices[0].color    = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[1].texCoord = owner->getTexture()->convertCoord({rightX, topY});
+        vertices[1].pos      = {source.size.x, 0.f, 0.f};
+        vertices[1].color    = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[2].texCoord = owner->getTexture()->convertCoord({rightX, bottomY});
+        vertices[2].pos      = {source.size.x, source.size.y, 0.f};
+        vertices[2].color    = {1.f, 1.f, 1.f, 1.f};
+
+        vertices[3].texCoord = owner->getTexture()->convertCoord({leftX, bottomY});
+        vertices[3].pos      = {0.f, source.size.y, 0.f};
+        vertices[3].color    = {1.f, 1.f, 1.f, 1.f};
+
+        for (unsigned int i = 0; i < 4; ++i) {
+            vertices[i].pos = transform.transformPoint(vertices[i].pos);
+        }
+
+        alloc.commit();
+        owner->component().updateDrawParams();
+    }
+}
+
+void BatchSprite::disableAutoCommit(bool d) { autoCommit = !d; }
+
+} // namespace obj
+} // namespace bl

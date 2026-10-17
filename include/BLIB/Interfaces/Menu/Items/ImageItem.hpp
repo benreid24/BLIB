@@ -1,7 +1,7 @@
 #ifndef BLIB_MENU_ITEMS_IMAGEITEM_HPP
 #define BLIB_MENU_ITEMS_IMAGEITEM_HPP
 
-#include <BLIB/Graphics/Sprite.hpp>
+#include <BLIB/Objects/Sprite.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Render/Resources/TextureRef.hpp>
 
@@ -34,7 +34,7 @@ public:
     /**
      * @brief Returns a modifiable reference to the contained sprite
      */
-    gfx::Sprite& getSprite();
+    obj::Sprite& getSprite();
 
     /**
      * @brief Changes the texture of this image. Does not trigger a menu refresh
@@ -83,7 +83,7 @@ protected:
 
 private:
     rc::res::TextureRef texture;
-    gfx::Sprite sprite;
+    obj::Sprite sprite;
 
     ImageItem(const rc::res::TextureRef& texture);
 };

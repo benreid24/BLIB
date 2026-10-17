@@ -2,7 +2,7 @@
 
 #include <BLIB/Cameras/OverlayCamera.hpp>
 #include <BLIB/Engine/Engine.hpp>
-#include <BLIB/Graphics/Components/OverlayScalable.hpp>
+#include <BLIB/Objects/Components/OverlayScalable.hpp>
 #include <BLIB/Render/Overlays/Overlay.hpp>
 
 namespace bl

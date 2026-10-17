@@ -3,7 +3,7 @@
 
 #include "../Constants.hpp"
 #include "../Particle.hpp"
-#include <BLIB/Graphics/Circle.hpp>
+#include <BLIB/Objects/Circle.hpp>
 #include <BLIB/Math.hpp>
 #include <BLIB/Particles/Emitter.hpp>
 #include <BLIB/Random/Random.hpp>
@@ -60,7 +60,7 @@ public:
     }
 
 private:
-    bl::gfx::Circle circle;
+    bl::obj::Circle circle;
     const glm::vec2 pos;
     float angle;
     const float angularVel;

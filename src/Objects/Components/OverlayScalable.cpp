@@ -1,0 +1,36 @@
+#include <BLIB/Objects/Components/OverlayScalable.hpp>
+
+#include <BLIB/Render/Overlays/Overlay.hpp>
+#include <BLIB/Systems/OverlayScalerSystem.hpp>
+
+namespace bl
+{
+namespace obj
+{
+namespace bcom
+{
+OverlayScalable::OverlayScalable()
+: registry(nullptr)
+, ecsId(ecs::InvalidEntity)
+, handle(nullptr) {}
+
+void OverlayScalable::setScissorToSelf(bool setToSelf) {
+    handle->setScissorMode(setToSelf ? com::OverlayScaler::ScissorSelf :
+                                       com::OverlayScaler::ScissorInherit);
+}
+
+glm::vec2 OverlayScalable::getLocalSize() const {
+    const_cast<OverlayScalable*>(this)->ensureLocalSizeUpdated();
+    const sf::FloatRect& bounds = handle->getEntityBounds();
+    return {bounds.size.x, bounds.size.y};
+}
+
+glm::vec2 OverlayScalable::getGlobalSize() const {
+    const glm::vec2 ls     = getLocalSize();
+    const glm::vec2& scale = Transform2D::getTransform().getScale();
+    return {ls.x * scale.x, ls.y * scale.y};
+}
+
+} // namespace bcom
+} // namespace obj
+} // namespace bl

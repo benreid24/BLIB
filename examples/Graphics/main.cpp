@@ -1,7 +1,7 @@
 #include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Util/ImageStitcher.hpp>
@@ -17,28 +17,28 @@ public:
 
 private:
     bl::rc::Scene* scene;
-    bl::gfx::Slideshow slideshow;
-    bl::gfx::Animation2D animation;
-    bl::gfx::Rectangle rectangle;
-    bl::gfx::Circle circle;
-    bl::gfx::Triangle triangle;
+    bl::obj::Slideshow slideshow;
+    bl::obj::Animation2D animation;
+    bl::obj::Rectangle rectangle;
+    bl::obj::Circle circle;
+    bl::obj::Triangle triangle;
 
-    bl::gfx::BatchedShapes2D batched;
-    bl::gfx::BatchRectangle batchRect;
-    bl::gfx::BatchRectangle batchRect2;
-    bl::gfx::BatchCircle batchCircle;
-    bl::gfx::BatchTriangle batchTriangle;
+    bl::obj::BatchedShapes2D batched;
+    bl::obj::BatchRectangle batchRect;
+    bl::obj::BatchRectangle batchRect2;
+    bl::obj::BatchCircle batchCircle;
+    bl::obj::BatchTriangle batchTriangle;
 
-    bl::gfx::BatchedSprites spriteBatch;
-    bl::gfx::BatchSprite water1;
-    bl::gfx::BatchSprite water2;
-    bl::gfx::BatchSprite water3;
+    bl::obj::BatchedSprites spriteBatch;
+    bl::obj::BatchSprite water1;
+    bl::obj::BatchSprite water2;
+    bl::obj::BatchSprite water3;
 
-    bl::gfx::BatchedSlideshows waterBatch;
-    bl::gfx::DiscreteAnimation2DPlayer waterPlayer;
-    bl::gfx::BatchSlideshow slideshow1;
-    bl::gfx::BatchSlideshow slideshow2;
-    bl::gfx::BatchSlideshow slideshow3;
+    bl::obj::BatchedSlideshows waterBatch;
+    bl::obj::DiscreteAnimation2DPlayer waterPlayer;
+    bl::obj::BatchSlideshow slideshow1;
+    bl::obj::BatchSlideshow slideshow2;
+    bl::obj::BatchSlideshow slideshow3;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -162,7 +162,7 @@ private:
         waterPlayer.create(*world,
                            engine.assets().getAssetFromSourcePath<bl::asi::Animation2DSetPayload>(
                                "resources/water.anim"),
-                           bl::gfx::DiscreteAnimation2DPlayer::Slideshow,
+                           bl::obj::DiscreteAnimation2DPlayer::Slideshow,
                            true,
                            true);
 

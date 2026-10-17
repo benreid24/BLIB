@@ -3,7 +3,7 @@
 
 #include "InputListener.hpp"
 #include <BLIB/Engine.hpp>
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 
 class MainState : public bl::engine::State {
 public:
@@ -20,9 +20,9 @@ public:
 private:
     bl::ctr::Ref<bl::engine::World> world;
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::gfx::Text kbmControls;
-    bl::gfx::Text jsControls;
-    bl::gfx::Rectangle cover;
+    bl::obj::Text kbmControls;
+    bl::obj::Text jsControls;
+    bl::obj::Rectangle cover;
     bool inited;
     InputListener listener;
 

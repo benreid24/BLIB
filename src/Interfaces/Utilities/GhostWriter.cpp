@@ -56,12 +56,12 @@ void GhostWriter::showAll() {
     syncText();
 }
 
-void GhostWriter::manage(gfx::Text& t) {
+void GhostWriter::manage(obj::Text& t) {
     managing = &t.getSection();
     syncText();
 }
 
-void GhostWriter::manage(gfx::txt::BasicText& s) {
+void GhostWriter::manage(obj::txt::BasicText& s) {
     managing = &s;
     syncText();
 }

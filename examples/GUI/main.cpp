@@ -1,7 +1,7 @@
 #include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Render.hpp>
 #include <SFML/Graphics.hpp>
@@ -214,7 +214,7 @@ public:
 private:
     gui::GUI::Ptr gui;
     gui::ProgressBar::Ptr progressBar;
-    gfx::Rectangle spinRect;
+    obj::Rectangle spinRect;
     gui::FilePicker filePicker;
 
     void openFilePicker() {

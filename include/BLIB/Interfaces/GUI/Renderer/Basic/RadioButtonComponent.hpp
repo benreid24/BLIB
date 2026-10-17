@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_RADIOBUTTONCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_RADIOBUTTONCOMPONENT_HPP
 
-#include <BLIB/Graphics/Circle.hpp>
-#include <BLIB/Graphics/Dummy2D.hpp>
+#include <BLIB/Objects/Circle.hpp>
+#include <BLIB/Objects/Dummy2D.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -83,9 +83,9 @@ protected:
     virtual void handleMove() override;
 
 private:
-    gfx::Dummy2D dummy;
-    gfx::Circle circle;
-    gfx::Circle fill;
+    obj::Dummy2D dummy;
+    obj::Circle circle;
+    obj::Circle fill;
 };
 
 } // namespace defcoms

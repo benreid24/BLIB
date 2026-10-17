@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_RENDERER_BASIC_BASICTOOLTIPPROVIDER_HPP
 #define BLIB_GUI_RENDERER_BASIC_BASICTOOLTIPPROVIDER_HPP
 
-#include <BLIB/Graphics/Rectangle.hpp>
-#include <BLIB/Graphics/Text.hpp>
+#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/Text.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/TooltipProvider.hpp>
 
 namespace bl
@@ -75,8 +75,8 @@ public:
 
 private:
     Element* currentElement;
-    gfx::Rectangle box;
-    gfx::Text text;
+    obj::Rectangle box;
+    obj::Text text;
 };
 
 } // namespace defcoms

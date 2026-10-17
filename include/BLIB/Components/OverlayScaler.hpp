@@ -15,13 +15,13 @@ namespace sys
 class OverlayScalerSystem;
 }
 
-namespace gfx
+namespace obj
 {
 namespace bcom
 {
 class OverlayScalable;
 }
-} // namespace gfx
+} // namespace obj
 
 namespace rc
 {
@@ -188,7 +188,7 @@ private:
     std::uint16_t transformVersion;
 
     friend class sys::OverlayScalerSystem;
-    friend class gfx::bcom::OverlayScalable;
+    friend class obj::bcom::OverlayScalable;
     friend class rc::Overlay;
 };
 

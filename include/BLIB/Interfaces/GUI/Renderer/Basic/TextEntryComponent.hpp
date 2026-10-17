@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_TEXTENTRYCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_TEXTENTRYCOMPONENT_HPP
 
-#include <BLIB/Graphics/Rectangle.hpp>
-#include <BLIB/Graphics/Text.hpp>
+#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/Text.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/TextEntryComponentBase.hpp>
 
 namespace bl
@@ -101,9 +101,9 @@ protected:
     virtual void handleMove() override;
 
 private:
-    gfx::Rectangle box;
-    gfx::Text text;
-    gfx::Rectangle carat;
+    obj::Rectangle box;
+    obj::Text text;
+    obj::Rectangle carat;
 
     void positionItems();
 };

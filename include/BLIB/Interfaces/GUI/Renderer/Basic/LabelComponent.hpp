@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_LABELCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_LABELCOMPONENT_HPP
 
-#include <BLIB/Graphics/Text.hpp>
+#include <BLIB/Objects/Text.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -87,7 +87,7 @@ protected:
     virtual void handleMove() override;
 
 private:
-    gfx::Text text;
+    obj::Text text;
 
     void reposition();
 };

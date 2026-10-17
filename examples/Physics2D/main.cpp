@@ -1,7 +1,7 @@
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Game.hpp>
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Systems/Physics2D.hpp>
 
 class DemoState
@@ -104,9 +104,9 @@ public:
     }
 
 private:
-    bl::gfx::Rectangle floor;
-    bl::gfx::Rectangle playerBox;
-    bl::gfx::Circle ball;
+    bl::obj::Rectangle floor;
+    bl::obj::Rectangle playerBox;
+    bl::obj::Circle ball;
     bl::com::Physics2D* playerPhysics;
     bool onGround;
     float teleportCooldown;

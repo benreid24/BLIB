@@ -1,7 +1,7 @@
 #include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
-#include <BLIB/Graphics.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -204,21 +204,21 @@ public:
 private:
     bl::engine::Engine* engine;
     bl::rc::Renderer* renderer;
-    bl::gfx::Sprite sprite;
-    bl::gfx::Sprite sprite2;
-    bl::gfx::Sprite messageBox;
+    bl::obj::Sprite sprite;
+    bl::obj::Sprite sprite2;
+    bl::obj::Sprite messageBox;
     bl::com::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::gfx::Text text;
+    bl::obj::Text text;
     bl::rc::vk::RenderTexture::Handle renderTexture;
-    bl::gfx::Sprite renderTextureInnerSprite;
-    bl::gfx::Sprite renderTextureOuterSprite;
+    bl::obj::Sprite renderTextureInnerSprite;
+    bl::obj::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
     bl::rc::vk::RenderTexture::Handle renderTextureNested;
-    bl::gfx::Sprite renderTextureNestedSprite;
+    bl::obj::Sprite renderTextureNestedSprite;
     std::atomic_bool exportInProgress;
 
     virtual void process(const sf::Event& event) override {

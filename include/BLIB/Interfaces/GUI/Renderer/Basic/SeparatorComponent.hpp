@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_SEPARATORCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_SEPARATORCOMPONENT_HPP
 
-#include <BLIB/Graphics/Rectangle.hpp>
+#include <BLIB/Objects/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -82,7 +82,7 @@ protected:
     virtual void handleMove() override;
 
 private:
-    gfx::Rectangle sep;
+    obj::Rectangle sep;
 
     glm::vec2 computeSize();
     glm::vec2 computePos();

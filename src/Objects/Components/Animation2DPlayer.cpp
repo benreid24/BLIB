@@ -1,0 +1,82 @@
+#include <BLIB/Objects/Components/Animation2DPlayer.hpp>
+
+#include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Engine/World.hpp>
+
+namespace bl
+{
+namespace obj
+{
+namespace bcom
+{
+Animation2DPlayer::Animation2DPlayer(bool fs)
+: forSlideshow(fs)
+, world(nullptr)
+, me(ecs::InvalidEntity)
+, playerEntity(ecs::InvalidEntity)
+, player(nullptr) {}
+
+void Animation2DPlayer::createNewPlayer(as::TypedRef<asi::Animation2DSetPayload> animation,
+                                        bool play, bool forceLoop) {
+    // cleanup prior player. will be marked for removal only if other users still
+    const bool isUpdate = cleanupPlayerDep();
+
+    // create new player entity and component
+    playerEntity = world->createEntity();
+    player       = world->engine().ecs().emplaceComponent<com::Animation2DPlayer>(
+        playerEntity, animation, forSlideshow, play, forceLoop);
+    addPlayerDep();
+    if (isUpdate) {
+        Textured::setTexture(world->engine().renderer().texturePool().getOrLoadTexture(
+            player->getAnimation()->getSpritesheet()));
+    }
+}
+
+void Animation2DPlayer::useExistingPlayer(ecs::Entity pent) {
+    const bool isUpdate = cleanupPlayerDep();
+    playerEntity        = pent;
+    player              = world->engine().ecs().getComponent<com::Animation2DPlayer>(pent);
+    addPlayerDep();
+    if (isUpdate) {
+        Textured::setTexture(world->engine().renderer().texturePool().getOrLoadTexture(
+            player->getAnimation()->getSpritesheet()));
+    }
+}
+
+void Animation2DPlayer::create(engine::World& w, ecs::Entity entity, ecs::Entity pent,
+                               com::MaterialInstance& material) {
+    world = &w;
+    me    = entity;
+    useExistingPlayer(pent);
+    Textured::create(w.engine().renderer(),
+                     &material,
+                     world->engine().renderer().texturePool().getOrLoadTexture(
+                         player->getAnimation()->getSpritesheet()));
+}
+
+void Animation2DPlayer::create(engine::World& w, ecs::Entity entity,
+                               com::MaterialInstance& material,
+                               as::TypedRef<asi::Animation2DSetPayload> anim, bool play,
+                               bool forceLoop) {
+    world = &w;
+    me    = entity;
+    createNewPlayer(anim, play, forceLoop);
+    Textured::create(w.engine().renderer(),
+                     &material,
+                     world->engine().renderer().texturePool().getOrLoadTexture(
+                         player->getAnimation()->getSpritesheet()));
+}
+
+void Animation2DPlayer::addPlayerDep() { world->engine().ecs().addDependency(playerEntity, me); }
+
+bool Animation2DPlayer::cleanupPlayerDep() {
+    if (world != nullptr && playerEntity != ecs::InvalidEntity && me != ecs::InvalidEntity) {
+        world->engine().ecs().removeDependencyAndDestroyIfPossible(playerEntity, me);
+        return true;
+    }
+    return false;
+}
+
+} // namespace bcom
+} // namespace obj
+} // namespace bl
