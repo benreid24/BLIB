@@ -41,7 +41,7 @@
 #include <BLIB/Objects/3D/Cone.hpp>
 #include <BLIB/Objects/3D/Cube.hpp>
 #include <BLIB/Objects/3D/Cylinder.hpp>
-#include <BLIB/Objects/3D/IndexBuffer.hpp>
+#include <BLIB/Objects/3D/Mesh.hpp>
 #include <BLIB/Objects/3D/ModelSkeletal.hpp>
 #include <BLIB/Objects/3D/ModelStatic.hpp>
 #include <BLIB/Objects/3D/RectangularPrism.hpp>

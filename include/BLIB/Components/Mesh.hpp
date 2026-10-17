@@ -68,6 +68,25 @@ struct Mesh : public rc::rcom::DrawableBase {
     }
 
     /**
+     * @brief Resizes the buffers and queues a commit
+     *
+     * @param vertexCount The number of vertices to resize to
+     * @param indexCount The number of indices to resize to
+     */
+    void resize(std::uint32_t vertexCount, std::uint32_t indexCount) {
+        gpuBuffer.ensureSize(vertexCount, indexCount);
+        commit();
+    }
+
+    /**
+     * @brief Updates draw parameters and queues buffers for transfer
+     */
+    void commit() {
+        gpuBuffer.queueTransfer();
+        drawParams = gpuBuffer.getDrawParameters();
+    }
+
+    /**
      * @brief Returns the default material pipeline for rendering
      */
     virtual std::uint32_t getDefaultMaterialPipelineId() const override {
