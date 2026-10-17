@@ -1,8 +1,8 @@
 #ifndef BLIB_RANDOM_RANDOM_HPP
 #define BLIB_RANDOM_RANDOM_HPP
 
+#include <BLIB/Random/Seed.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
-
 #include <algorithm>
 #include <chrono>
 #include <limits>
@@ -20,11 +20,6 @@ namespace rand
  * @ingroup Random
  */
 class Random : private util::NonCopyable {
-    template<typename U>
-    struct CharHelper {
-        using T = U;
-    };
-
 public:
     /**
      * @brief Returns a random number in the given range of an integral type
@@ -36,10 +31,7 @@ public:
      */
     template<typename T>
     static std::enable_if_t<std::is_integral_v<T>, T> get(T min, T max) {
-        if (min > max) std::swap(min, max);
-        using U = typename CharHelper<T>::T;
-        std::uniform_int_distribution<U> rgen(static_cast<U>(min), static_cast<U>(max));
-        return rgen(_priv().rng);
+        return _priv().seed.getInt(min, max);
     }
 
     /**
@@ -52,8 +44,7 @@ public:
      */
     template<typename T>
     static std::enable_if_t<std::is_enum_v<T>, T> get(T min, T max) {
-        using U = std::underlying_type_t<T>;
-        return static_cast<T>(get<U>(static_cast<U>(min), static_cast<U>(max)));
+        return _priv().seed.getEnum<T>(min, max);
     }
 
     /**
@@ -66,9 +57,7 @@ public:
      */
     template<typename T>
     static std::enable_if_t<std::is_floating_point_v<T>, T> get(T min, T max) {
-        if (min > max) std::swap(min, max);
-        std::uniform_real_distribution<T> rgen(min, max);
-        return rgen(_priv().rng);
+        return _priv().seed.getFloat(min, max);
     }
 
     /**
@@ -92,17 +81,21 @@ public:
      */
     template<typename RandomIter>
     static void shuffle(RandomIter begin, RandomIter end) {
-        std::shuffle(begin, end, Shuffler());
+        _priv().seed.shuffle(begin, end);
     }
 
     /**
      * @brief Returns the underlying random number generator
      */
-    static std::mt19937& getRNG() { return _priv().rng; }
+    static std::mt19937_64& getRNG() { return _priv().seed.getRNG(); }
+
+    /**
+     * @brief Returns the seed being used by the global random number generator
+     */
+    static Seed& getSeed() { return _priv().seed; }
 
 private:
-    Random()
-    : rng(rngdev()) {}
+    Random() = default;
 
     static Random& _priv() {
         static Random rng;
@@ -116,20 +109,7 @@ private:
         result_type operator()() const { return Random::get<result_type>(min(), max()); }
     };
 
-    std::random_device rngdev;
-    std::mt19937 rng;
-};
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-template<>
-struct Random::CharHelper<char> {
-    using T = short;
-};
-
-template<>
-struct Random::CharHelper<unsigned char> {
-    using T = unsigned short;
+    Seed seed;
 };
 
 } // namespace rand

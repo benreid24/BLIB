@@ -17,6 +17,11 @@ namespace rand
  * @ingroup Random
  */
 class Seed {
+    template<typename U>
+    struct ResolveChar {
+        using T = U;
+    };
+
 public:
     /**
      * @brief Creates the generator with a random seed
@@ -78,10 +83,11 @@ public:
      */
     template<typename T = int>
     T getInt(T min, T max) {
-        static_assert(std::is_integral_v<T>, "getInt requires an integral type");
+        using U = typename ResolveChar<T>::T;
+        static_assert(std::is_integral_v<U>, "getInt requires an integral type");
         if (min > max) std::swap(min, max);
-        std::uniform_int_distribution<T> rgen(min, max);
-        return rgen(rng);
+        std::uniform_int_distribution<U> rgen(static_cast<U>(min), static_cast<U>(max));
+        return static_cast<T>(rgen(rng));
     }
 
     /**
@@ -121,6 +127,11 @@ public:
         std::shuffle(begin, end, Shuffler());
     }
 
+    /**
+     * @brief Returns the underlying random number generator
+     */
+    std::mt19937_64& getRNG() { return rng; }
+
 private:
     std::uint64_t seed;
     std::mt19937_64 rng;
@@ -142,6 +153,18 @@ private:
 
         std::mt19937_64& rng;
     };
+};
+
+//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
+
+template<>
+struct Seed::ResolveChar<char> {
+    using T = int;
+};
+
+template<>
+struct Seed::ResolveChar<unsigned char> {
+    using T = unsigned int;
 };
 
 } // namespace rand
