@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_CANVASCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_CANVASCOMPONENT_HPP
 
-#include <BLIB/Objects/Sprite.hpp>
+#include <BLIB/Objects/2D/Sprite.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/CanvasComponentBase.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 #include <BLIB/Render/Vulkan/RenderTexture.hpp>
@@ -91,7 +91,7 @@ protected:
 private:
     engine::Engine* enginePtr;
     rc::vk::RenderTexture::Handle texture;
-    obj::Sprite img;
+    obj::o2d::Sprite img;
     sf::Vector2f pos;
 };
 

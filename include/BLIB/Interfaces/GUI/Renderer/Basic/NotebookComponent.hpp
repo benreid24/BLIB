@@ -1,9 +1,9 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_NOTEBOOKCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_NOTEBOOKCOMPONENT_HPP
 
-#include <BLIB/Objects/BatchRectangle.hpp>
-#include <BLIB/Objects/BatchedShapes2D.hpp>
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/BatchRectangle.hpp>
+#include <BLIB/Objects/2D/BatchedShapes.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -84,9 +84,9 @@ protected:
     virtual void handleMove() override;
 
 private:
-    obj::Rectangle box;
-    obj::BatchedShapes2D tabBoxBatch;
-    std::vector<std::unique_ptr<obj::BatchRectangle>> tabBoxes;
+    obj::o2d::Rectangle box;
+    obj::o2d::BatchedShapes tabBoxBatch;
+    std::vector<std::unique_ptr<obj::o2d::BatchRectangle>> tabBoxes;
 };
 
 } // namespace defcoms

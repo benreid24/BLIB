@@ -1,7 +1,7 @@
 #ifndef BLIB_INTERFACES_MENU_ITEMS_TOGGLETEXTITEM_HPP
 #define BLIB_INTERFACES_MENU_ITEMS_TOGGLETEXTITEM_HPP
 
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/Menu/Items/TextItem.hpp>
 
 namespace bl
@@ -116,8 +116,8 @@ private:
     bool checked;
     bool leftSide;
     float padding;
-    obj::Rectangle box;
-    obj::Rectangle innerBox;
+    obj::o2d::Rectangle box;
+    obj::o2d::Rectangle innerBox;
 
     // box props
     sf::Color fillColor;

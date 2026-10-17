@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_ANIMATIONCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_ANIMATIONCOMPONENT_HPP
 
-#include <BLIB/Objects/Animation2D.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
+#include <BLIB/Objects/2D/Animation.hpp>
 
 namespace bl
 {
@@ -83,7 +83,7 @@ protected:
 
 private:
     as::TypedRef<asi::Animation2DSetPayload> source;
-    obj::Animation2D anim;
+    obj::o2d::Animation anim;
     engine::Engine* enginePtr;
     rc::Overlay* currentOverlay;
 

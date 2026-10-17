@@ -204,21 +204,21 @@ public:
 private:
     bl::engine::Engine* engine;
     bl::rc::Renderer* renderer;
-    bl::obj::Sprite sprite;
-    bl::obj::Sprite sprite2;
-    bl::obj::Sprite messageBox;
+    bl::obj::o2d::Sprite sprite;
+    bl::obj::o2d::Sprite sprite2;
+    bl::obj::o2d::Sprite messageBox;
     bl::com::Transform2D* spritePosition;
     bl::ecs::Entity meshEntity;
     bl::rc::res::TextureRef texture;
     bl::rc::res::TextureRef messageBoxTxtr;
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::obj::Text text;
+    bl::obj::o2d::Text text;
     bl::rc::vk::RenderTexture::Handle renderTexture;
-    bl::obj::Sprite renderTextureInnerSprite;
-    bl::obj::Sprite renderTextureOuterSprite;
+    bl::obj::o2d::Sprite renderTextureInnerSprite;
+    bl::obj::o2d::Sprite renderTextureOuterSprite;
     bl::rc::rgi::FadeEffectTask* fadeout;
     bl::rc::vk::RenderTexture::Handle renderTextureNested;
-    bl::obj::Sprite renderTextureNestedSprite;
+    bl::obj::o2d::Sprite renderTextureNestedSprite;
     std::atomic_bool exportInProgress;
 
     virtual void process(const sf::Event& event) override {

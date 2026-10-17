@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_CHECKBUTTONCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_CHECKBUTTONCOMPONENT_HPP
 
-#include <BLIB/Objects/Dummy2D.hpp>
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/Dummy.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -83,9 +83,9 @@ protected:
     virtual void handleMove() override;
 
 private:
-    obj::Dummy2D dummy;
-    obj::Rectangle box;
-    obj::Rectangle fill;
+    obj::o2d::Dummy dummy;
+    obj::o2d::Rectangle box;
+    obj::o2d::Rectangle fill;
 };
 
 } // namespace defcoms

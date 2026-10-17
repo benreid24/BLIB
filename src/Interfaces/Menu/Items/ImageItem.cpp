@@ -11,7 +11,7 @@ ImageItem::Ptr ImageItem::create(const rc::res::TextureRef& texture) {
 ImageItem::ImageItem(const rc::res::TextureRef& texture)
 : texture(texture) {}
 
-obj::Sprite& ImageItem::getSprite() { return sprite; }
+obj::o2d::Sprite& ImageItem::getSprite() { return sprite; }
 
 void ImageItem::setTexture(const rc::res::TextureRef& t) {
     texture = t;

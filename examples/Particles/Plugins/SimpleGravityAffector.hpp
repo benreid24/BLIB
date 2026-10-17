@@ -4,7 +4,7 @@
 #include "../Constants.hpp"
 #include "../Particle.hpp"
 #include "Movable.hpp"
-#include <BLIB/Objects/Circle.hpp>
+#include <BLIB/Objects/2D/Circle.hpp>
 #include <BLIB/Particles/Affector.hpp>
 #include <BLIB/Random/Random.hpp>
 
@@ -52,7 +52,7 @@ public:
     }
 
 private:
-    bl::obj::Circle circle;
+    bl::obj::o2d::Circle circle;
     const float radius;
 };
 

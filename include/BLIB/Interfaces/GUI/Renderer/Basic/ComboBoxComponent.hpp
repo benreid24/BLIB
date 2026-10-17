@@ -1,11 +1,11 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_COMBOBOXCOMPONENT_HPP
 
-#include <BLIB/Objects/BatchRectangle.hpp>
-#include <BLIB/Objects/BatchedShapes2D.hpp>
-#include <BLIB/Objects/Rectangle.hpp>
-#include <BLIB/Objects/Text.hpp>
-#include <BLIB/Objects/Triangle.hpp>
+#include <BLIB/Objects/2D/BatchRectangle.hpp>
+#include <BLIB/Objects/2D/BatchedShapes.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
+#include <BLIB/Objects/2D/Text.hpp>
+#include <BLIB/Objects/2D/Triangle.hpp>
 #include <BLIB/Interfaces/GUI/RenderSettings.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 #include <list>
@@ -94,8 +94,8 @@ protected:
 
 private:
     struct Option {
-        obj::BatchRectangle background;
-        obj::Text text;
+        obj::o2d::BatchRectangle background;
+        obj::o2d::Text text;
         bool created;
 
         Option()
@@ -104,19 +104,19 @@ private:
 
     engine::World* worldPtr;
     rc::Overlay* currentOverlay;
-    obj::Rectangle box;
-    obj::Rectangle arrowBox;
-    obj::Triangle arrow;
+    obj::o2d::Rectangle box;
+    obj::o2d::Rectangle arrowBox;
+    obj::o2d::Triangle arrow;
 
     // closed elements
-    obj::Text selectedOption;
+    obj::o2d::Text selectedOption;
 
     // open elements
-    obj::Rectangle openBackground;
-    obj::BatchedShapes2D openOptionBoxes;
+    obj::o2d::Rectangle openBackground;
+    obj::o2d::BatchedShapes openOptionBoxes;
     std::list<Option> openOptions;
 
-    void configureText(obj::Text& text, const RenderSettings& settings);
+    void configureText(obj::o2d::Text& text, const RenderSettings& settings);
     void updateOptions();
     bool optionsOutdated() const;
     void positionSelectedText();

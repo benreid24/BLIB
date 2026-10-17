@@ -36,7 +36,7 @@ ArrowSelector::ArrowSelector(float w, const sf::Color& f)
 , fillColor(f)
 , triangle() {}
 
-obj::Triangle& ArrowSelector::getArrow() { return triangle; }
+obj::o2d::Triangle& ArrowSelector::getArrow() { return triangle; }
 
 void ArrowSelector::doCreate(engine::World& world, ecs::Entity parent) {
     triangle.create(world, makeTriangle(width));

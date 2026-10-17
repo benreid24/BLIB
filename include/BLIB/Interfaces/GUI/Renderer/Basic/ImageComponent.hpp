@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_IMAGECOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_IMAGECOMPONENT_HPP
 
-#include <BLIB/Objects/Sprite.hpp>
+#include <BLIB/Objects/2D/Sprite.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -84,7 +84,7 @@ protected:
 private:
     engine::Engine* engine;
     const sf::Image* src;
-    obj::Sprite image;
+    obj::o2d::Sprite image;
     sf::Vector2f localPos;
 };
 

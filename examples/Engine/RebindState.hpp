@@ -23,7 +23,7 @@ private:
     bl::input::Configurator configurator;
 
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::obj::Text text;
+    bl::obj::o2d::Text text;
     const unsigned int ctrl;
     bool inited;
 

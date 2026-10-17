@@ -2,7 +2,7 @@
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Objects.hpp>
-#include <BLIB/Objects/ModelStatic.hpp>
+#include <BLIB/Objects/3D/ModelStatic.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
@@ -105,24 +105,24 @@ private:
     bl::rc::Renderer* renderer;
     CameraController* controller;
     bl::rc::scene::Scene3D* scene;
-    bl::obj::Skybox skybox;
+    bl::obj::o3d::Skybox skybox;
 
-    bl::obj::VertexBuffer3D floor;
-    bl::obj::Cube cube1;
-    bl::obj::Cube cube2;
-    bl::obj::Cube cube3;
-    bl::obj::Cube cube4;
-    bl::obj::Cube cube5;
-    bl::obj::Cube cube6;
-    bl::obj::Cube cube7;
+    bl::obj::o3d::VertexBuffer floor;
+    bl::obj::o3d::Cube cube1;
+    bl::obj::o3d::Cube cube2;
+    bl::obj::o3d::Cube cube3;
+    bl::obj::o3d::Cube cube4;
+    bl::obj::o3d::Cube cube5;
+    bl::obj::o3d::Cube cube6;
+    bl::obj::o3d::Cube cube7;
 
-    bl::obj::ModelStatic model1;
-    bl::obj::ModelStatic model2;
-    bl::obj::ModelSkeletal shark;
+    bl::obj::o3d::ModelStatic model1;
+    bl::obj::o3d::ModelStatic model2;
+    bl::obj::o3d::ModelSkeletal shark;
 
-    bl::obj::Sphere light1;
-    bl::obj::Sphere light2;
-    bl::obj::Cone light3;
+    bl::obj::o3d::Sphere light1;
+    bl::obj::o3d::Sphere light2;
+    bl::obj::o3d::Cone light3;
 
     virtual const char* name() const override { return "DemoState"; }
 

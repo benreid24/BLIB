@@ -2,7 +2,7 @@
 #define BLIB_MENU_MENU_HPP
 
 #include <BLIB/Audio/AudioSystem.hpp>
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/Menu/Event.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
@@ -289,7 +289,7 @@ private:
     glm::vec2 position;
     glm::vec2 padding;
     glm::vec2 minSize;
-    obj::Rectangle background;
+    obj::o2d::Rectangle background;
     glm::vec2 totalSize;
     sf::FloatRect bgndPadding;
     audio::AudioSystem::Handle moveSound;

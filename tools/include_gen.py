@@ -20,7 +20,8 @@ def main():
             if header.endswith(".hpp") or header.endswith(".h"):
                 full_header = os.path.join(root, header)
                 rel_path = os.path.relpath(full_header, args.path)
-                print(f"#include <{prefix}/{rel_path}>")
+                full_path = os.path.join(prefix, rel_path)
+                print(f"#include <{full_path.replace(os.sep, '/')}>")
 
 
 if __name__ == "__main__":

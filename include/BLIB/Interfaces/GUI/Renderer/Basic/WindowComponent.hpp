@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_WINDOWCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_WINDOWCOMPONENT_HPP
 
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -82,7 +82,7 @@ protected:
     virtual void handleMove() override;
 
 private:
-    obj::Rectangle box;
+    obj::o2d::Rectangle box;
 };
 
 } // namespace defcoms

@@ -214,7 +214,7 @@ public:
 private:
     gui::GUI::Ptr gui;
     gui::ProgressBar::Ptr progressBar;
-    obj::Rectangle spinRect;
+    obj::o2d::Rectangle spinRect;
     gui::FilePicker filePicker;
 
     void openFilePicker() {

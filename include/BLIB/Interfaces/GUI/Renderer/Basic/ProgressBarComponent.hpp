@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_PROGRESSBARCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_PROGRESSBARCOMPONENT_HPP
 
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 
 namespace bl
@@ -82,8 +82,8 @@ protected:
     virtual void handleMove() override;
 
 private:
-    obj::Rectangle background;
-    obj::Rectangle bar;
+    obj::o2d::Rectangle background;
+    obj::o2d::Rectangle bar;
 };
 
 } // namespace defcoms

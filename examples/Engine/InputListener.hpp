@@ -21,7 +21,7 @@ public:
 
 private:
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::obj::Text text;
+    bl::obj::o2d::Text text;
     bool rebindExample;
     bool rebindMovement;
 

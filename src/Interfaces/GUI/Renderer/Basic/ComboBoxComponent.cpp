@@ -146,7 +146,7 @@ void ComboBoxComponent::handleMove() {
     box.getTransform().setPosition({owner.getLocalPosition().x, owner.getLocalPosition().y});
 }
 
-void ComboBoxComponent::configureText(obj::Text& text, const RenderSettings& settings) {
+void ComboBoxComponent::configureText(obj::o2d::Text& text, const RenderSettings& settings) {
     auto& sec = text.getSection();
     text.setFont(settings.font.value_or(Font::get(engine::Engine::getInstance()->assets())));
     sec.setCharacterSize(settings.characterSize.value_or(Label::DefaultFontSize));

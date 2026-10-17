@@ -1,7 +1,7 @@
 #ifndef BLIB_INTERFACES_UTILITIES_GHOSTWRITER_HPP
 #define BLIB_INTERFACES_UTILITIES_GHOSTWRITER_HPP
 
-#include <BLIB/Objects/Text.hpp>
+#include <BLIB/Objects/2D/Text.hpp>
 #include <string>
 #include <string_view>
 
@@ -71,14 +71,14 @@ public:
      *
      * @param text The text object to manage
      */
-    void manage(obj::Text& text);
+    void manage(obj::o2d::Text& text);
 
     /**
      * @brief The ghost writer will update the given section of text
      *
      * @param section The specific section of text to manage
      */
-    void manage(obj::txt::BasicText& section);
+    void manage(obj::o2d::txt::BasicText& section);
 
     /**
      * @brief The ghost writer will stop managing graphical text
@@ -90,7 +90,7 @@ private:
     std::string content;
     unsigned int showing;
     float residual;
-    obj::txt::BasicText* managing;
+    obj::o2d::txt::BasicText* managing;
 
     void syncText();
 };

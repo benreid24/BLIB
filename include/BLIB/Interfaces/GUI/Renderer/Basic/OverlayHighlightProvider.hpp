@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_BASIC_OVERLAYHIGHLIGHTPROVIDER_HPP
 #define BLIB_GUI_RENDERER_BASIC_OVERLAYHIGHLIGHTPROVIDER_HPP
 
-#include <BLIB/Objects/Rectangle.hpp>
+#include <BLIB/Objects/2D/Rectangle.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/HighlightProvider.hpp>
 
 namespace bl
@@ -70,7 +70,7 @@ public:
 
 private:
     engine::Engine* enginePtr;
-    obj::Rectangle cover;
+    obj::o2d::Rectangle cover;
     Element* currentElement;
     rdr::Component::UIState currentState;
 };

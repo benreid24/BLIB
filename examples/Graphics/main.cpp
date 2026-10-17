@@ -17,28 +17,28 @@ public:
 
 private:
     bl::rc::Scene* scene;
-    bl::obj::Slideshow slideshow;
-    bl::obj::Animation2D animation;
-    bl::obj::Rectangle rectangle;
-    bl::obj::Circle circle;
-    bl::obj::Triangle triangle;
+    bl::obj::o2d::Slideshow slideshow;
+    bl::obj::o2d::Animation animation;
+    bl::obj::o2d::Rectangle rectangle;
+    bl::obj::o2d::Circle circle;
+    bl::obj::o2d::Triangle triangle;
 
-    bl::obj::BatchedShapes2D batched;
-    bl::obj::BatchRectangle batchRect;
-    bl::obj::BatchRectangle batchRect2;
-    bl::obj::BatchCircle batchCircle;
-    bl::obj::BatchTriangle batchTriangle;
+    bl::obj::o2d::BatchedShapes batched;
+    bl::obj::o2d::BatchRectangle batchRect;
+    bl::obj::o2d::BatchRectangle batchRect2;
+    bl::obj::o2d::BatchCircle batchCircle;
+    bl::obj::o2d::BatchTriangle batchTriangle;
 
-    bl::obj::BatchedSprites spriteBatch;
-    bl::obj::BatchSprite water1;
-    bl::obj::BatchSprite water2;
-    bl::obj::BatchSprite water3;
+    bl::obj::o2d::BatchedSprites spriteBatch;
+    bl::obj::o2d::BatchSprite water1;
+    bl::obj::o2d::BatchSprite water2;
+    bl::obj::o2d::BatchSprite water3;
 
-    bl::obj::BatchedSlideshows waterBatch;
-    bl::obj::DiscreteAnimation2DPlayer waterPlayer;
-    bl::obj::BatchSlideshow slideshow1;
-    bl::obj::BatchSlideshow slideshow2;
-    bl::obj::BatchSlideshow slideshow3;
+    bl::obj::o2d::BatchedSlideshows waterBatch;
+    bl::obj::o2d::DiscreteAnimationPlayer waterPlayer;
+    bl::obj::o2d::BatchSlideshow slideshow1;
+    bl::obj::o2d::BatchSlideshow slideshow2;
+    bl::obj::o2d::BatchSlideshow slideshow3;
 
     virtual const char* name() const override { return "DemoState"; }
 
@@ -162,7 +162,7 @@ private:
         waterPlayer.create(*world,
                            engine.assets().getAssetFromSourcePath<bl::asi::Animation2DSetPayload>(
                                "resources/water.anim"),
-                           bl::obj::DiscreteAnimation2DPlayer::Slideshow,
+                           bl::obj::o2d::DiscreteAnimationPlayer::Slideshow,
                            true,
                            true);
 

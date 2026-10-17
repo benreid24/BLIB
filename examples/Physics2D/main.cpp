@@ -104,9 +104,9 @@ public:
     }
 
 private:
-    bl::obj::Rectangle floor;
-    bl::obj::Rectangle playerBox;
-    bl::obj::Circle ball;
+    bl::obj::o2d::Rectangle floor;
+    bl::obj::o2d::Rectangle playerBox;
+    bl::obj::o2d::Circle ball;
     bl::com::Physics2D* playerPhysics;
     bool onGround;
     float teleportCooldown;

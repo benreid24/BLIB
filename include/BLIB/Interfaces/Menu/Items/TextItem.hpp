@@ -1,7 +1,7 @@
 #ifndef BLIB_MENU_RENDERITEMS_TEXTITEM_HPP
 #define BLIB_MENU_RENDERITEMS_TEXTITEM_HPP
 
-#include <BLIB/Objects/Text.hpp>
+#include <BLIB/Objects/2D/Text.hpp>
 #include <BLIB/Interfaces/Menu/Item.hpp>
 
 namespace bl
@@ -40,7 +40,7 @@ public:
     /**
      * @brief Returns a modifiable reference to the Text object
      */
-    obj::Text& getTextObject();
+    obj::o2d::Text& getTextObject();
 
     /**
      * @see Item::getSize
@@ -98,7 +98,7 @@ private:
     const sf::Color color;
     const unsigned int fontSize;
     const std::uint32_t style;
-    obj::Text text;
+    obj::o2d::Text text;
 };
 
 } // namespace menu

@@ -47,7 +47,7 @@ void DeferredCompositeTask::create(const rg::InitContext& ctx) {
     // make unit sphere index buffer
     std::vector<prim::Vertex3D> sphereVertices;
     std::vector<std::uint32_t> sphereIndices;
-    obj::Sphere::makeSphere(1.f, 3, sphereVertices, sphereIndices);
+    obj::o3d::Sphere::makeSphere(1.f, 3, sphereVertices, sphereIndices);
     sphereBuffer.create(ctx.renderer, std::move(sphereVertices), std::move(sphereIndices));
     sphereBuffer.queueTransfer(tfr::Transferable::SyncRequirement::Immediate);
 }

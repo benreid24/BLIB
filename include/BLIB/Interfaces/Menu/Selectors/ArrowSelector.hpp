@@ -1,7 +1,7 @@
 #ifndef BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP
 #define BLIB_MENU_SELECTORS_ARROWSELECTOR_HPP
 
-#include <BLIB/Objects/Triangle.hpp>
+#include <BLIB/Objects/2D/Triangle.hpp>
 #include <BLIB/Interfaces/Menu/Selector.hpp>
 
 namespace bl
@@ -33,7 +33,7 @@ public:
     /**
      * @brief Exposes the underlying triangle
      */
-    obj::Triangle& getArrow();
+    obj::o2d::Triangle& getArrow();
 
     /**
      * @brief Called when the selector is added to a menu
@@ -73,7 +73,7 @@ public:
 private:
     const float width;
     const sf::Color fillColor;
-    obj::Triangle triangle;
+    obj::o2d::Triangle triangle;
 
     ArrowSelector(float width, const sf::Color& f);
 };

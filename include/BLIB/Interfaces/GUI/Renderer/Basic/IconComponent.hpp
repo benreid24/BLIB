@@ -1,7 +1,7 @@
 #ifndef BLIB_GUI_RENDERER_COMPONENTS_ICONCOMPONENT_HPP
 #define BLIB_GUI_RENDERER_COMPONENTS_ICONCOMPONENT_HPP
 
-#include <BLIB/Objects/Icon.hpp>
+#include <BLIB/Objects/2D/Icon.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
 #include <optional>
 
@@ -83,7 +83,7 @@ protected:
     virtual void handleMove() override;
 
 private:
-    std::optional<obj::Icon> icon;
+    std::optional<obj::o2d::Icon> icon;
 
     void setPosition();
 };

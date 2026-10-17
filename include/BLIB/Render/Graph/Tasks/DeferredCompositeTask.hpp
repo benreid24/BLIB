@@ -1,7 +1,7 @@
 #ifndef BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP
 #define BLIB_RENDER_GRAPH_TASKS_DEFERREDCOMPOSITETASK_HPP
 
-#include <BLIB/Objects/Sphere.hpp>
+#include <BLIB/Objects/3D/Sphere.hpp>
 #include <BLIB/Render/Buffers/IndexBuffer.hpp>
 #include <BLIB/Render/Descriptors/Builtin/InputAttachmentInstance.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Scene3DInstance.hpp>
@@ -39,7 +39,7 @@ private:
     Scene* scene;
     buf::IndexBuffer3D sunRectBuffer;
     buf::IndexBuffer3D sphereBuffer;
-    obj::Sphere sphere;
+    obj::o3d::Sphere sphere;
     vk::Pipeline* pipeline;
     sri::LightingBuffer3D* lightingBuffer;
     dsi::Scene3DInstance* sceneDescriptor;

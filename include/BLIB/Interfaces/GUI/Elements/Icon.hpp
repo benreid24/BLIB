@@ -1,8 +1,8 @@
 #ifndef BLIB_GUI_ELEMENTS_ICON_HPP
 #define BLIB_GUI_ELEMENTS_ICON_HPP
 
-#include <BLIB/Objects/Icon.hpp>
 #include <BLIB/Interfaces/GUI/Elements/Element.hpp>
+#include <BLIB/Objects/2D/Icon.hpp>
 
 namespace bl
 {
@@ -16,7 +16,7 @@ namespace gui
 class Icon : public Element {
 public:
     using Ptr  = std::shared_ptr<Icon>;
-    using Type = obj::Icon::Type;
+    using Type = obj::o2d::Icon::Type;
 
     /**
      * @brief Creates a new Icon element

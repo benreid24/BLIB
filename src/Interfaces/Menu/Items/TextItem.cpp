@@ -27,7 +27,7 @@ void TextItem::doSceneRemove() { text.removeFromScene(); }
 
 ecs::Entity TextItem::getEntity() const { return text.entity(); }
 
-obj::Text& TextItem::getTextObject() { return text; }
+obj::o2d::Text& TextItem::getTextObject() { return text; }
 
 glm::vec2 TextItem::getSize() const { return text.getGlobalSize(); }
 

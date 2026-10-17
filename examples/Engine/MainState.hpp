@@ -20,9 +20,9 @@ public:
 private:
     bl::ctr::Ref<bl::engine::World> world;
     bl::as::TypedRef<bl::asi::FontPayload> font;
-    bl::obj::Text kbmControls;
-    bl::obj::Text jsControls;
-    bl::obj::Rectangle cover;
+    bl::obj::o2d::Text kbmControls;
+    bl::obj::o2d::Text jsControls;
+    bl::obj::o2d::Rectangle cover;
     bool inited;
     InputListener listener;
 
