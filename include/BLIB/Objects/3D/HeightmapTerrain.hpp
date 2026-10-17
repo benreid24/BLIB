@@ -1,12 +1,12 @@
-#ifndef BLIB_OBJECTS_3D_TERRAIN_HPP
-#define BLIB_OBJECTS_3D_TERRAIN_HPP
+#ifndef BLIB_OBJECTS_3D_HEIGHTMAPTERRAIN_HPP
+#define BLIB_OBJECTS_3D_HEIGHTMAPTERRAIN_HPP
 
+#include <BLIB/Components/Heightmap.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Objects/Components/Transform3D.hpp>
 #include <BLIB/Objects/Drawable.hpp>
 #include <BLIB/Random/Perlin.hpp>
-#include <BLIB/Render/Buffers/VertexBuffer.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 
@@ -17,19 +17,27 @@ namespace obj
 namespace o3d
 {
 /**
- * @brief Basic single mesh for terrain with perlin noise generation
+ * @brief Basic single mesh for heightmap based terrain
  *
  * @ingroup Objects
  */
-template<typename TMesh = com::BasicMesh>
-class Terrain
-: public Drawable<TMesh>
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+class HeightmapTerrain
+: public Drawable<com::Mesh<TVertex, MaterialPipelineId>>
 , public bcom::Transform3D {
 public:
     /**
+     * @brief Default callback for populating a vertex from a position
+     *
+     * @param pos The position of the vertex
+     * @param vertex The vertex to populate
+     */
+    static void populateVertexDefault(const glm::vec3& pos, TVertex& vertex);
+
+    /**
      * @brief Creates the uninitialized terrain drawable
      */
-    Terrain() = default;
+    HeightmapTerrain();
 
     /**
      * @brief Creates the terrain vertices and indices but does not populate vertices
@@ -125,6 +133,19 @@ public:
                              const glm::vec2& size);
 
     /**
+     * @brief Updates the terrain mesh from a heightmap
+     *
+     * @tparam TFunc The type of the callback function. Should be void(const glm::vec3&, TVertex&)
+     * @param heightmap The heightmap to use
+     * @param offset The offset of the upper left corner in world coordinates
+     * @param size The size of the terrain in world coordinates
+     * @param populateVertexCb The callback function to populate the vertex data from the heightmap
+     */
+    template<typename TFunc>
+    void updateFromHeightmap(const ctr::Vector2D<float>& heightmap, const glm::vec2& offset,
+                             const glm::vec2& size, TFunc&& populateVertexCb);
+
+    /**
      * @brief Updates the terrain mesh from a height function
      *
      * @tparam TFunc The type of the height function. Should be float(glm::vec2)
@@ -138,22 +159,47 @@ public:
                                   const glm::vec2& size, float step);
 
     /**
+     * @brief Returns the heightmap component for this terrain
+     */
+    const com::Heightmap& getHeightmap() const { return *heightmap; }
+
+    /**
+     * @brief Synchronizes changes to the heightmap to the mesh
+     *
+     * @tparam TFunc The type of the callback function. Should be void(const glm::vec3&, TVertex&)
+     * @param populateVertexCb The callback function to populate the vertex data from the heightmap
+     */
+    template<typename TFunc>
+    void syncFromHeightmap(TFunc&& populateVertexCb);
+
+    /**
+     * @brief Synchronizes changes to the heightmap to the mesh using default vertex population
+     */
+    void syncFromHeightmap();
+
+    /**
      * @brief Recomputes TBN, queues buffers for transfer, and updates draw parameters
      */
     void commitUpdate();
 
 private:
+    com::Heightmap* heightmap;
+
+    void createHeightmapComponent(engine::World& world);
     virtual void scaleToSize(const glm::vec2& size) override;
     void setIndices(unsigned int xCount, unsigned int yCount);
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-template<typename TMesh>
-void Terrain<TMesh>::createEmptyGrid(engine::World& world, const glm::vec2& offset,
-                                     const glm::vec2& size, float step,
-                                     const bl::rc::res::MaterialRef& material,
-                                     std::uint32_t materialPipelineId) {
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+HeightmapTerrain<TVertex, MaterialPipelineId>::HeightmapTerrain()
+: heightmap(nullptr) {}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::createEmptyGrid(
+    engine::World& world, const glm::vec2& offset, const glm::vec2& size, float step,
+    const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
     const unsigned int xCount      = static_cast<unsigned int>(std::ceil(size.x / step) + 0.1f);
     const unsigned int yCount      = static_cast<unsigned int>(std::ceil(size.y / step) + 0.1f);
     const unsigned int vertexCount = xCount * yCount;
@@ -163,85 +209,65 @@ void Terrain<TMesh>::createEmptyGrid(engine::World& world, const glm::vec2& offs
     Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
 
-    auto& indexBuffer = this->component().gpuBuffer;
-    for (unsigned int x = 0; x < xCount; ++x) {
-        for (unsigned int y = 0; y < yCount; ++y) {
-            const float xf =
-                static_cast<float>(x) / static_cast<float>(xCount - 1) * size.x + offset.x;
-            const float zf =
-                static_cast<float>(y) / static_cast<float>(yCount - 1) * size.y + offset.y;
-            indexBuffer.vertices()[x + y * xCount].pos = glm::vec3(xf, 0.f, zf);
-        }
-    }
-    // gen indices
-    setIndices(xCount, yCount);
+    createHeightmapComponent(world);
+    heightmap->create(offset, size, step);
+    heightmap->heightmap.fill(0.f);
+
+    syncFromHeightmap();
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::createFromHeightmap(engine::World& world,
-                                         const ctr::Vector2D<float>& heightmap,
-                                         const glm::vec2& offset, const glm::vec2& size,
-                                         const bl::rc::res::MaterialRef& material,
-                                         std::uint32_t materialPipelineId) {
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::createFromHeightmap(
+    engine::World& world, const ctr::Vector2D<float>& heightmap, const glm::vec2& offset,
+    const glm::vec2& size, const bl::rc::res::MaterialRef& material,
+    std::uint32_t materialPipelineId) {
     const unsigned int vertexCount = heightmap.getWidth() * heightmap.getHeight();
     const unsigned int indexCount  = (heightmap.getWidth() - 1) * (heightmap.getHeight() - 1) * 6;
 
     this->createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
+    createHeightmapComponent(world);
     updateFromHeightmap(heightmap, offset, size);
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::updateFromHeightmap(const ctr::Vector2D<float>& heightmap,
-                                         const glm::vec2& offset, const glm::vec2& size) {
-    const unsigned int xCount      = heightmap.getWidth();
-    const unsigned int yCount      = heightmap.getHeight();
-    const unsigned int vertexCount = xCount * yCount;
-    const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6;
-
-    this->component().gpuBuffer.ensureSize(vertexCount, indexCount);
-    auto& indexBuffer = this->component().gpuBuffer;
-
-    for (unsigned int x = 0; x < xCount; ++x) {
-        for (unsigned int y = 0; y < yCount; ++y) {
-            const float xf =
-                static_cast<float>(x) / static_cast<float>(xCount - 1) * size.x + offset.x;
-            const float zf =
-                static_cast<float>(y) / static_cast<float>(yCount - 1) * size.y + offset.y;
-            indexBuffer.vertices()[x + y * xCount].pos = glm::vec3(xf, heightmap(x, y), zf);
-        }
-    }
-    // gen indices
-    setIndices(xCount, yCount);
-
-    // finalize and commit
-    commitUpdate();
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::updateFromHeightmap(
+    const ctr::Vector2D<float>& heightmap, const glm::vec2& offset, const glm::vec2& size) {
+    this->heightmap->create(heightmap, offset, size);
+    syncFromHeightmap();
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::createFromNoise2d(engine::World& world, rand::Perlin<float>& perlin,
-                                       float width, float height, float altitude, float step,
-                                       unsigned int octaves, float persistence, float frequency,
-                                       const bl::rc::res::MaterialRef& material,
-                                       std::uint32_t materialPipelineId) {
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+template<typename TFunc>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::updateFromHeightmap(
+    const ctr::Vector2D<float>& heightmap, const glm::vec2& offset, const glm::vec2& size,
+    TFunc&& populateVertexCb) {
+    this->heightmap->create(heightmap, offset, size);
+    syncFromHeightmap(populateVertexCb);
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::createFromNoise2d(
+    engine::World& world, rand::Perlin<float>& perlin, float width, float height, float altitude,
+    float step, unsigned int octaves, float persistence, float frequency,
+    const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
     this->createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), 1, 1);
+    createHeightmapComponent(world);
     regenerateFromNoise2d(perlin, width, height, altitude, step, octaves, persistence, frequency);
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::regenerateFromNoise2d(rand::Perlin<float>& perlin, float width, float height,
-                                           float altitude, float step, unsigned int octaves,
-                                           float persistence, float frequency) {
-    const unsigned int xCount      = std::ceil(width / step) + 0.1f;
-    const unsigned int yCount      = std::ceil(height / step) + 0.1f;
-    const unsigned int vertexCount = xCount * yCount;
-    const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6;
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::regenerateFromNoise2d(
+    rand::Perlin<float>& perlin, float width, float height, float altitude, float step,
+    unsigned int octaves, float persistence, float frequency) {
+    const unsigned int xCount = std::ceil(width / step) + 0.1f;
+    const unsigned int yCount = std::ceil(height / step) + 0.1f;
 
-    this->component().gpuBuffer.ensureSize(vertexCount, indexCount);
-    auto& indexBuffer = this->component().gpuBuffer;
+    const glm::vec2 size(width, height);
+    heightmap->create(-size * 0.5f, size, step);
 
     // gen heightmap
     for (unsigned int x = 0; x < xCount; ++x) {
@@ -250,24 +276,19 @@ void Terrain<TMesh>::regenerateFromNoise2d(rand::Perlin<float>& perlin, float wi
             const float zf = static_cast<float>(y) * step - height * 0.5f;
             float normal =
                 perlin.octave2DNormalized(xf * frequency, zf * frequency, octaves, persistence);
-            normal                                     = (normal + 1.f) * 0.5f; // map to [0,1]
-            indexBuffer.vertices()[x + y * xCount].pos = glm::vec3(xf, normal * altitude, zf);
+            normal                     = (normal + 1.f) * 0.5f; // map to [0,1]
+            heightmap->heightmap(x, y) = normal * altitude;
         }
     }
 
-    // gen indices
-    setIndices(xCount, yCount);
-
-    // finalize and commit
-    commitUpdate();
+    syncFromHeightmap();
 }
 
-template<typename TMesh>
+template<typename TVertex, std::uint32_t MaterialPipelineId>
 template<typename TFunc>
-void Terrain<TMesh>::createFromHeightFunction(engine::World& world, TFunc&& heightFunction,
-                                              const glm::vec2& offset, const glm::vec2& size,
-                                              float step, const bl::rc::res::MaterialRef& material,
-                                              std::uint32_t materialPipelineId) {
+void HeightmapTerrain<TVertex, MaterialPipelineId>::createFromHeightFunction(
+    engine::World& world, TFunc&& heightFunction, const glm::vec2& offset, const glm::vec2& size,
+    float step, const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
     const unsigned int xCount      = static_cast<unsigned int>(std::ceil(size.x / step) + 0.1f);
     const unsigned int yCount      = static_cast<unsigned int>(std::ceil(size.y / step) + 0.1f);
     const unsigned int vertexCount = xCount * yCount;
@@ -276,15 +297,46 @@ void Terrain<TMesh>::createFromHeightFunction(engine::World& world, TFunc&& heig
     this->createWithMaterial(world, materialPipelineId, material);
     Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
+    createHeightmapComponent(world);
     updateFromHeightFunction(std::forward<TFunc>(heightFunction), offset, size, step);
 }
 
-template<typename TMesh>
+template<typename TVertex, std::uint32_t MaterialPipelineId>
 template<typename TFunc>
-void Terrain<TMesh>::updateFromHeightFunction(TFunc&& heightFunction, const glm::vec2& offset,
-                                              const glm::vec2& size, float step) {
-    const unsigned int xCount      = static_cast<unsigned int>(std::ceil(size.x / step) + 0.1f);
-    const unsigned int yCount      = static_cast<unsigned int>(std::ceil(size.y / step) + 0.1f);
+void HeightmapTerrain<TVertex, MaterialPipelineId>::updateFromHeightFunction(
+    TFunc&& heightFunction, const glm::vec2& offset, const glm::vec2& size, float step) {
+    const unsigned int xCount = static_cast<unsigned int>(std::ceil(size.x / step) + 0.1f);
+    const unsigned int yCount = static_cast<unsigned int>(std::ceil(size.y / step) + 0.1f);
+
+    heightmap->create(offset, size, step);
+    this->size   = size;
+    this->offset = offset;
+
+    for (unsigned int x = 0; x < xCount; ++x) {
+        for (unsigned int y = 0; y < yCount; ++y) {
+            const float xf =
+                static_cast<float>(x) / static_cast<float>(xCount - 1) * size.x + offset.x;
+            const float zf =
+                static_cast<float>(y) / static_cast<float>(yCount - 1) * size.y + offset.y;
+            heightmap->heightmap(x, y) = heightFunction(glm::vec2(xf, zf));
+        }
+    }
+
+    syncFromHeightmap();
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::syncFromHeightmap() {
+    syncFromHeightmap(&populateVertexDefault);
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+template<typename TFunc>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::syncFromHeightmap(TFunc&& populateVertex) {
+    const glm::vec2& size          = heightmap->size;
+    const glm::vec2& offset        = heightmap->offset;
+    const unsigned int xCount      = heightmap->heightmap.getWidth();
+    const unsigned int yCount      = heightmap->heightmap.getHeight();
     const unsigned int vertexCount = xCount * yCount;
     const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6;
 
@@ -297,10 +349,11 @@ void Terrain<TMesh>::updateFromHeightFunction(TFunc&& heightFunction, const glm:
                 static_cast<float>(x) / static_cast<float>(xCount - 1) * size.x + offset.x;
             const float zf =
                 static_cast<float>(y) / static_cast<float>(yCount - 1) * size.y + offset.y;
-            indexBuffer.vertices()[x + y * xCount].pos =
-                glm::vec3(xf, heightFunction(glm::vec2(xf, zf)), zf);
+            const glm::vec3 pos(xf, heightmap->heightmap(x, y), zf);
+            populateVertex(pos, indexBuffer.vertices()[x + y * xCount]);
         }
     }
+
     // gen indices
     setIndices(xCount, yCount);
 
@@ -308,18 +361,25 @@ void Terrain<TMesh>::updateFromHeightFunction(TFunc&& heightFunction, const glm:
     commitUpdate();
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::commitUpdate() {
-    rc::prim::Vertex3D::computeTBN(this->component().gpuBuffer.vertices().data(),
-                                   this->component().gpuBuffer.indices().data(),
-                                   this->component().gpuBuffer.indices().size());
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::populateVertexDefault(const glm::vec3& pos,
+                                                                          TVertex& v) {
+    v.pos = pos;
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::commitUpdate() {
+    TVertex::computeTBN(this->component().gpuBuffer.vertices().data(),
+                        this->component().gpuBuffer.indices().data(),
+                        this->component().gpuBuffer.indices().size());
 
     this->component().gpuBuffer.queueTransfer();
     this->component().getDrawParametersForEdit() = this->component().gpuBuffer.getDrawParameters();
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::setIndices(unsigned int xCount, unsigned int yCount) {
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCount,
+                                                               unsigned int yCount) {
     auto& indexBuffer = this->component().gpuBuffer;
     for (unsigned int x = 0; x < xCount - 1; ++x) {
         for (unsigned int y = 0; y < yCount - 1; ++y) {
@@ -334,9 +394,14 @@ void Terrain<TMesh>::setIndices(unsigned int xCount, unsigned int yCount) {
     }
 }
 
-template<typename TMesh>
-void Terrain<TMesh>::scaleToSize(const glm::vec2&) {
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::scaleToSize(const glm::vec2&) {
     BL_LOG_WARN << "Cannot scale terrain to size";
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+void HeightmapTerrain<TVertex, MaterialPipelineId>::createHeightmapComponent(engine::World& world) {
+    heightmap = world.engine().ecs().emplaceComponent<com::Heightmap>(this->entity());
 }
 
 } // namespace o3d

@@ -41,13 +41,13 @@
 #include <BLIB/Objects/3D/Cone.hpp>
 #include <BLIB/Objects/3D/Cube.hpp>
 #include <BLIB/Objects/3D/Cylinder.hpp>
+#include <BLIB/Objects/3D/HeightmapTerrain.hpp>
 #include <BLIB/Objects/3D/Mesh.hpp>
 #include <BLIB/Objects/3D/ModelSkeletal.hpp>
 #include <BLIB/Objects/3D/ModelStatic.hpp>
 #include <BLIB/Objects/3D/RectangularPrism.hpp>
 #include <BLIB/Objects/3D/Skybox.hpp>
 #include <BLIB/Objects/3D/Sphere.hpp>
-#include <BLIB/Objects/3D/Terrain.hpp>
 #include <BLIB/Objects/3D/VertexBuffer.hpp>
 #include <BLIB/Objects/Components/Animation2DPlayer.hpp>
 #include <BLIB/Objects/Components/Outline3D.hpp>
