@@ -2,7 +2,7 @@
 #define BLIB_OBJECTS_2D_DISCRETEANIMATIONPLAYER_HPP
 
 #include <BLIB/Components/Animation2DPlayer.hpp>
-#include <BLIB/ECS/EntityBacked.hpp>
+#include <BLIB/Objects/Object.hpp>
 
 namespace bl
 {
@@ -15,7 +15,7 @@ namespace o2d
  *
  * @ingroup Objects
  */
-class DiscreteAnimationPlayer : public ecs::EntityBacked {
+class DiscreteAnimationPlayer : public Object {
 public:
     /// The type of animation to create the player for
     enum Mode { Slideshow, VertexAnimation, Auto };

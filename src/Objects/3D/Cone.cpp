@@ -17,9 +17,7 @@ Cone::Cone(engine::World& world, float height, float radius, unsigned int pointC
 
 void Cone::create(engine::World& world, float height, float radius, unsigned int pointCount,
                   const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
-    Drawable::createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, materialPipelineId, material);
     component().create(world.engine().renderer(), pointCount * 4 + 1, pointCount * 6);
 
     const float h  = height * 0.5f;
@@ -79,10 +77,6 @@ void Cone::create(engine::World& world, float height, float radius, unsigned int
 void Cone::setColor(const rc::Color& c) {
     for (auto& v : component().gpuBuffer.vertices()) { v.color = c.toVec4(); }
     component().gpuBuffer.queueTransfer();
-}
-
-void Cone::scaleToSize(const glm::vec2&) {
-    // noop
 }
 
 } // namespace o3d

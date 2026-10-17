@@ -3,10 +3,10 @@
 
 #include <BLIB/Components/Shape2D.hpp>
 #include <BLIB/Engine/Systems.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/2D/Shapes/Shape.hpp>
 #include <BLIB/Objects/Components/OverlayScalable.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -23,8 +23,7 @@ namespace s2d
  */
 class SingleShape
 : public Shape
-, public Drawable<com::Shape2D>
-, public bcom::OverlayScalable {
+, public DrawableObject2D<com::Shape2D> {
 public:
     /**
      * @brief Destroys the shape

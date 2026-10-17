@@ -18,9 +18,7 @@ RectangularPrism::RectangularPrism(engine::World& world, float length,
 void RectangularPrism::create(engine::World& world, float length, const glm::vec2& crossSection,
                               const bl::rc::res::MaterialRef& material,
                               std::uint32_t materialPipelineId) {
-    Drawable::createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, materialPipelineId, material);
     component().create(world.engine().renderer(), 24, 36);
 
     const float hx = crossSection.x * 0.5f;
@@ -98,10 +96,6 @@ void RectangularPrism::create(engine::World& world, float length, const glm::vec
                                    component().gpuBuffer.indices().size());
 
     component().gpuBuffer.queueTransfer();
-}
-
-void RectangularPrism::scaleToSize(const glm::vec2&) {
-    // noop
 }
 
 void RectangularPrism::setColor(const rc::Color& color) {

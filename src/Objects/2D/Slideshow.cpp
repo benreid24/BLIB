@@ -44,8 +44,7 @@ Slideshow::Slideshow(engine::World& world, ecs::Entity existing, const Slideshow
 void Slideshow::createWithUniquePlayer(engine::World& world,
                                        as::TypedRef<asi::Animation2DSetPayload> animation,
                                        bool play, bool forceLoop) {
-    Drawable::create(world);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::create(world);
     OverlayScalable::setLocalSize(getSize(animation));
     Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine().renderer(), Animation2DPlayer::getPlayer());
@@ -55,8 +54,7 @@ void Slideshow::createWithUniquePlayer(engine::World& world,
 void Slideshow::createWithUniquePlayer(engine::World& world, ecs::Entity existing,
                                        as::TypedRef<asi::Animation2DSetPayload> animation,
                                        bool play, bool forceLoop) {
-    Drawable::createComponentOnly(world, existing);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::createComponentOnly(world, existing);
     OverlayScalable::setLocalSize(getSize(animation));
     Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine().renderer(), Animation2DPlayer::getPlayer());
@@ -64,8 +62,7 @@ void Slideshow::createWithUniquePlayer(engine::World& world, ecs::Entity existin
 }
 
 void Slideshow::createWithSharedPlayer(engine::World& world, const Slideshow& player) {
-    Drawable::create(world);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::create(world);
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine().renderer(), Animation2DPlayer::getPlayer());
@@ -74,8 +71,7 @@ void Slideshow::createWithSharedPlayer(engine::World& world, const Slideshow& pl
 
 void Slideshow::createWithSharedPlayer(engine::World& world, ecs::Entity existing,
                                        const Slideshow& player) {
-    Drawable::createComponentOnly(world, existing);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::createComponentOnly(world, existing);
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine().renderer(), Animation2DPlayer::getPlayer());

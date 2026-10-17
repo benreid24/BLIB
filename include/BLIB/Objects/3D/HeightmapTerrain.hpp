@@ -4,8 +4,7 @@
 #include <BLIB/Components/Heightmap.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Containers/Vector2d.hpp>
-#include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Random/Perlin.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
@@ -22,9 +21,7 @@ namespace o3d
  * @ingroup Objects
  */
 template<typename TVertex, std::uint32_t MaterialPipelineId>
-class HeightmapTerrain
-: public Drawable<com::Mesh<TVertex, MaterialPipelineId>>
-, public bcom::Transform3D {
+class HeightmapTerrain : public DrawableObject3D<com::Mesh<TVertex, MaterialPipelineId>> {
 public:
     /**
      * @brief Default callback for populating a vertex from a position
@@ -186,7 +183,6 @@ private:
     com::Heightmap* heightmap;
 
     void createHeightmapComponent(engine::World& world);
-    virtual void scaleToSize(const glm::vec2& size) override;
     void setIndices(unsigned int xCount, unsigned int yCount);
 };
 
@@ -206,7 +202,6 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::createEmptyGrid(
     const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6;
 
     this->createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
 
     createHeightmapComponent(world);
@@ -225,7 +220,6 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::createFromHeightmap(
     const unsigned int indexCount  = (heightmap.getWidth() - 1) * (heightmap.getHeight() - 1) * 6;
 
     this->createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
     createHeightmapComponent(world);
     updateFromHeightmap(heightmap, offset, size);
@@ -253,7 +247,6 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::createFromNoise2d(
     float step, unsigned int octaves, float persistence, float frequency,
     const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
     this->createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), 1, 1);
     createHeightmapComponent(world);
     regenerateFromNoise2d(perlin, width, height, altitude, step, octaves, persistence, frequency);
@@ -295,7 +288,6 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::createFromHeightFunction(
     const unsigned int indexCount  = (xCount - 1) * (yCount - 1) * 6;
 
     this->createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), this->entity());
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
     createHeightmapComponent(world);
     updateFromHeightFunction(std::forward<TFunc>(heightFunction), offset, size, step);
@@ -392,11 +384,6 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCou
             indexBuffer.indices()[i + 5] = (x + 1) + (y + 1) * xCount;
         }
     }
-}
-
-template<typename TVertex, std::uint32_t MaterialPipelineId>
-void HeightmapTerrain<TVertex, MaterialPipelineId>::scaleToSize(const glm::vec2&) {
-    BL_LOG_WARN << "Cannot scale terrain to size";
 }
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>

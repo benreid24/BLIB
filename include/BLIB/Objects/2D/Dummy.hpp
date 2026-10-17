@@ -2,8 +2,8 @@
 #define BLIB_OBJECTS_2D_DUMMY_HPP
 
 #include <BLIB/ECS.hpp>
-#include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Objects/Components/OverlayScalable.hpp>
+#include <BLIB/Objects/Object.hpp>
 
 namespace bl
 {
@@ -22,7 +22,7 @@ namespace o2d
  * @ingroup Objects
  */
 class Dummy
-: public ecs::EntityBacked
+: public Object
 , public bcom::OverlayScalable {
 public:
     /**

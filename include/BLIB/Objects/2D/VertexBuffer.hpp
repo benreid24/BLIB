@@ -2,9 +2,9 @@
 #define BLIB_OBJECTS_2D_VERTEXBUFFER_HPP
 
 #include <BLIB/Components/VertexBuffer.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/Components/Textured.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -18,8 +18,7 @@ namespace o2d
  * @ingroup Objects
  */
 class VertexBuffer
-: public Drawable<com::VertexBuffer>
-, public bcom::Transform2D
+: public DrawableObject2D<com::VertexBuffer>
 , public bcom::Textured {
 public:
     /**
@@ -86,6 +85,16 @@ public:
      * @param size The size to scale to
      */
     virtual void scaleToSize(const glm::vec2& size) override;
+
+    /**
+     * @brief Computes the local bounds for overlay scaling
+     */
+    virtual void ensureLocalSizeUpdated() override;
+
+    /**
+     * @brief Computes and returns the local bounds of the vertex buffer
+     */
+    sf::FloatRect getLocalBounds() const;
 };
 
 } // namespace o2d

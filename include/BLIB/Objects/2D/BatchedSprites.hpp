@@ -2,9 +2,9 @@
 #define BLIB_OBJECTS_2D_BATCHEDSPRITES_HPP
 
 #include <BLIB/Components/BatchedSprites.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/Components/Textured.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -18,8 +18,7 @@ namespace o2d
  * @ingroup Objects
  */
 class BatchedSprites
-: public Drawable<com::BatchedSprites>
-, public bcom::Transform2D
+: public DrawableObject2D<com::BatchedSprites>
 , public bcom::Textured {
 public:
     /**

@@ -4,7 +4,7 @@
 #include <BLIB/Assets/Builtin/FontPayload.hpp>
 #include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Mesh.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/DrawableObject.hpp>
 #include <BLIB/Render/Primitives/Vertex.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>

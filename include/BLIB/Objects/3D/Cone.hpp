@@ -2,9 +2,7 @@
 #define BLIB_OBJECTS_3D_CONE_HPP
 
 #include <BLIB/Components/Mesh.hpp>
-#include <BLIB/Objects/Components/Outline3D.hpp>
-#include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 
@@ -16,14 +14,11 @@ namespace obj
 namespace o3d
 {
 /**
- * @brief Basic drawable for 3d cones
+ * @brief Basic object for 3d cones
  *
  * @ingroup Objects
  */
-class Cone
-: public Drawable<com::BasicMesh>
-, public bcom::Transform3D
-, public bcom::Outline3D {
+class Cone : public DrawableObject3D<com::BasicMesh> {
 public:
     /**
      * @brief Does nothing
@@ -64,9 +59,6 @@ public:
      * @param color The color to assign to all the vertices
      */
     void setColor(const rc::Color& color);
-
-private:
-    virtual void scaleToSize(const glm::vec2& size) override;
 };
 
 } // namespace o3d

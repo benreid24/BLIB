@@ -2,10 +2,10 @@
 #define BILB_OBJECTS_2D_SLIDESHOW_HPP
 
 #include <BLIB/Components/Slideshow.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/Components/Animation2DPlayer.hpp>
 #include <BLIB/Objects/Components/OverlayScalable.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -19,8 +19,7 @@ namespace o2d
  * @ingroup Objects
  */
 class Slideshow
-: public Drawable<com::Slideshow>
-, public bcom::OverlayScalable
+: public DrawableObject2D<com::Slideshow>
 , public bcom::Animation2DPlayer {
 public:
     /**

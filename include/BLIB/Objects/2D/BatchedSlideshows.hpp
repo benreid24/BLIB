@@ -2,8 +2,8 @@
 #define BLIB_OBJECTS_2D_BATCHEDSLIDESHOWS_HPP
 
 #include <BLIB/Components/BatchedSlideshows.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -16,9 +16,7 @@ namespace o2d
  *
  * @ingroup Objects
  */
-class BatchedSlideshows
-: public Drawable<com::BatchedSlideshows>
-, public bcom::Transform2D {
+class BatchedSlideshows : public DrawableObject2D<com::BatchedSlideshows> {
 public:
     /**
      * @brief Does nothing

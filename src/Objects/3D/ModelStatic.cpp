@@ -23,10 +23,8 @@ bool ModelStatic::create(engine::World& world, as::TypedRef<asi::ModelPayload> m
                          std::uint32_t mpid) {
     ecs = &world.engine().ecs();
 
-    Drawable::createWithMaterial(world, mpid);
-    Drawable::setRequiresComponentOnSelf(false);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, mpid);
+    DrawableObject::setRequiresComponentOnSelf(false);
 
     drawableEntities.reserve(model->getMeshes().getMeshCount());
 

@@ -27,10 +27,9 @@ void Text::create(engine::World& world, as::TypedRef<asi::FontPayload> f, const 
     font    = f;
     queueCommit();
 
-    Drawable::create(world);
+    DrawableObject2D::create(world);
     Textured::create(
         world.engine().renderer(), &material(), font->syncTexture(world.engine().renderer()));
-    OverlayScalable::create(world.engine(), entity());
     OverlayScalable::getOverlayScaler().setScaleCallback([this]() {
         if (wordWrapWidth > 0.f) { queueCommit(); }
     });

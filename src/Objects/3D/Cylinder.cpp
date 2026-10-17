@@ -17,9 +17,7 @@ Cylinder::Cylinder(engine::World& world, float height, float radius, unsigned in
 
 void Cylinder::create(engine::World& world, float height, float radius, unsigned int pointCount,
                       const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
-    Drawable::createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, materialPipelineId, material);
 
     const unsigned int circleVertexCount = pointCount + 1;
     const unsigned int circleIndexCount  = pointCount * 3;
@@ -109,10 +107,6 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
 void Cylinder::setColor(const rc::Color& c) {
     for (auto& v : component().gpuBuffer.vertices()) { v.color = c.toVec4(); }
     component().gpuBuffer.queueTransfer();
-}
-
-void Cylinder::scaleToSize(const glm::vec2&) {
-    // noop
 }
 
 } // namespace o3d

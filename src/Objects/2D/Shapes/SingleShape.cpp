@@ -10,8 +10,7 @@ namespace s2d
 {
 
 SingleShape::SingleShape()
-: Drawable()
-, OverlayScalable()
+: DrawableObject2D()
 , dirty(true) {}
 
 SingleShape::~SingleShape() {
@@ -27,14 +26,12 @@ void SingleShape::notifyDirty() {
 }
 
 void SingleShape::create(engine::World& world) {
-    Drawable::create(world);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::create(world);
     ensureUpdated();
 }
 
 void SingleShape::create(engine::World& world, ecs::Entity existing) {
-    Drawable::createComponentOnly(world, existing);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::createComponentOnly(world, existing);
     ensureUpdated();
 }
 

@@ -13,8 +13,7 @@ BatchedSlideshows::BatchedSlideshows(engine::World& world, unsigned int initialC
 }
 
 void BatchedSlideshows::create(engine::World& world, unsigned int initialCapacity) {
-    Drawable::create(world, world.engine().renderer(), initialCapacity);
-    Transform2D::create(world.engine().ecs(), entity());
+    DrawableObject2D::create(world, world.engine().renderer(), initialCapacity);
 }
 
 void BatchedSlideshows::scaleToSize(const glm::vec2&) {

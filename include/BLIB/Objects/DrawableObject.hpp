@@ -4,9 +4,9 @@
 #include <BLIB/Components/MaterialInstance.hpp>
 #include <BLIB/Components/Toggler.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/ECS/EntityBacked.hpp>
 #include <BLIB/Engine.hpp>
 #include <BLIB/Engine/HeaderHelpers.hpp>
+#include <BLIB/Objects/Object.hpp>
 #include <BLIB/Render/Components/DrawableBase.hpp>
 #include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <type_traits>
@@ -30,7 +30,7 @@ namespace obj
  * @ingroup Objects
  */
 template<typename TCom>
-class Drawable : public ecs::EntityBacked {
+class DrawableObject : public Object {
     static_assert(std::is_base_of_v<rc::rcom::DrawableBase, TCom>,
                   "TCom must derive from DrawableBase");
 
@@ -40,12 +40,12 @@ public:
      *
      * @param move The drawable to move from
      */
-    Drawable(Drawable&& move) = default;
+    DrawableObject(DrawableObject&& move) = default;
 
     /**
      * @brief Destroys the entity
      */
-    virtual ~Drawable();
+    virtual ~DrawableObject();
 
     /**
      * @brief Assumes ownership of the underlying entity from the given drawable
@@ -53,7 +53,7 @@ public:
      * @param move The drawable to move from
      * @return A reference to this object
      */
-    Drawable& operator=(Drawable&& move) = default;
+    DrawableObject& operator=(DrawableObject&& move) = default;
 
     /**
      * @brief Adds this entity to the given scene
@@ -114,13 +114,6 @@ public:
     void stopFlashing();
 
     /**
-     * @brief Helper method to set the scale so that the entity is a certain size
-     *
-     * @param size The size to scale to
-     */
-    virtual void scaleToSize(const glm::vec2& size) = 0;
-
-    /**
      * @brief Manually issue the required commands to draw this object. Must be called within the
      *        context of a CodeScene
      *
@@ -132,7 +125,7 @@ protected:
     /**
      * @brief Initializes the drawable
      */
-    Drawable();
+    DrawableObject();
 
     /**
      * @brief Creates the ECS entity and drawable component. Will destroy the prior instance if any
@@ -208,7 +201,7 @@ private:
     bool isNoHandleError;
 
     template<typename U>
-    friend class Drawable;
+    friend class DrawableObject;
 
     void doFlash(float on, float off);
     void retryFlash(float on, float off);
@@ -218,12 +211,12 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TCom>
-Drawable<TCom>::Drawable()
+DrawableObject<TCom>::DrawableObject()
 : handle(nullptr)
 , isNoHandleError(true) {}
 
 template<typename TCom>
-Drawable<TCom>::~Drawable() {
+DrawableObject<TCom>::~DrawableObject() {
     if (exists() && component().getSceneRef().scene && component().getSceneRef().object &&
         entityIsDeletedOnDestruction() &&
         engine::HeaderHelpers::getPhase(engine()) == engine::Phase::Running) {
@@ -232,11 +225,11 @@ Drawable<TCom>::~Drawable() {
 }
 
 template<typename TCom>
-void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
+void DrawableObject<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
     const bool hasHandle = handle != nullptr;
 
     if (entity() == ecs::InvalidEntity || (!hasHandle && isNoHandleError)) {
-        throw std::runtime_error("Drawable must be created before adding to scene");
+        throw std::runtime_error("DrawableObject must be created before adding to scene");
     }
 
     if (hasHandle) { component().addToScene(engine().ecs(), entity(), scene, updateFreq); }
@@ -244,7 +237,7 @@ void Drawable<TCom>::addToScene(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
 }
 
 template<typename TCom>
-void Drawable<TCom>::setHidden(bool hide) {
+void DrawableObject<TCom>::setHidden(bool hide) {
 #ifdef BLIB_DEBUG
     if (!handle) { throw std::runtime_error("Cannot hide un-created entity"); }
 #endif
@@ -253,10 +246,10 @@ void Drawable<TCom>::setHidden(bool hide) {
 }
 
 template<typename TCom>
-void Drawable<TCom>::removeFromScene() {
+void DrawableObject<TCom>::removeFromScene() {
 #ifdef BLIB_DEBUG
     if (entity() == ecs::InvalidEntity) {
-        throw std::runtime_error("Drawable must be created before removing from scene");
+        throw std::runtime_error("DrawableObject must be created before removing from scene");
     }
 #endif
 
@@ -266,27 +259,27 @@ void Drawable<TCom>::removeFromScene() {
 }
 
 template<typename TCom>
-TCom& Drawable<TCom>::component() {
+TCom& DrawableObject<TCom>::component() {
     return *handle;
 }
 
 template<typename TCom>
-const TCom& Drawable<TCom>::component() const {
+const TCom& DrawableObject<TCom>::component() const {
     return *handle;
 }
 
 template<typename TCom>
-com::MaterialInstance& Drawable<TCom>::material() {
+com::MaterialInstance& DrawableObject<TCom>::material() {
     return *materialInstance;
 }
 
 template<typename TCom>
-const com::MaterialInstance& Drawable<TCom>::material() const {
+const com::MaterialInstance& DrawableObject<TCom>::material() const {
     return *materialInstance;
 }
 
 template<typename TCom>
-void Drawable<TCom>::flash(float onPeriod, float offPeriod) {
+void DrawableObject<TCom>::flash(float onPeriod, float offPeriod) {
     if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
     else {
         engine().renderer().getCleanupManager().add(
@@ -295,7 +288,7 @@ void Drawable<TCom>::flash(float onPeriod, float offPeriod) {
 }
 
 template<typename TCom>
-void Drawable<TCom>::retryFlash(float onPeriod, float offPeriod) {
+void DrawableObject<TCom>::retryFlash(float onPeriod, float offPeriod) {
     if (component().getSceneRef().object) { doFlash(onPeriod, offPeriod); }
     else {
         BL_LOG_WARN << "Failed to flash object (" << entity()
@@ -304,21 +297,21 @@ void Drawable<TCom>::retryFlash(float onPeriod, float offPeriod) {
 }
 
 template<typename TCom>
-void Drawable<TCom>::initMaterial() {
+void DrawableObject<TCom>::initMaterial() {
     materialInstance = engine().ecs().template emplaceComponent<com::MaterialInstance>(
         entity(), engine().renderer(), component());
     component().init(materialInstance);
 }
 
 template<typename TCom>
-void Drawable<TCom>::doFlash(float onPeriod, float offPeriod) {
+void DrawableObject<TCom>::doFlash(float onPeriod, float offPeriod) {
     // swap off/on period because we have hidden toggle instead of visible toggle
     engine().ecs().template emplaceComponent<com::Toggler>(
         entity(), offPeriod, onPeriod, handle->getVisibleFlagForToggler());
 }
 
 template<typename TCom>
-void Drawable<TCom>::resetFlash() {
+void DrawableObject<TCom>::resetFlash() {
     com::Toggler* tog = engine().ecs().template getComponent<com::Toggler>(entity());
     if (tog) {
         tog->time   = 0.f;
@@ -327,27 +320,27 @@ void Drawable<TCom>::resetFlash() {
 }
 
 template<typename TCom>
-void Drawable<TCom>::stopFlashing() {
+void DrawableObject<TCom>::stopFlashing() {
     if (entity() != ecs::InvalidEntity) {
         engine().ecs().template removeComponent<com::Toggler>(entity());
     }
 }
 
 template<typename TCom>
-void Drawable<TCom>::onAdd(rc::Scene*, rc::UpdateSpeed) {}
+void DrawableObject<TCom>::onAdd(rc::Scene*, rc::UpdateSpeed) {}
 
 template<typename TCom>
-void Drawable<TCom>::onRemove() {}
+void DrawableObject<TCom>::onRemove() {}
 
 template<typename TCom>
-void Drawable<TCom>::setRequiresComponentOnSelf(bool require) {
+void DrawableObject<TCom>::setRequiresComponentOnSelf(bool require) {
     isNoHandleError = require;
 }
 
 template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
-                                        TArgs&&... args) {
+void DrawableObject<TCom>::createWithMaterial(engine::World& world,
+                                              std::uint32_t materialPipelineId, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(world);
     handle           = world.engine().ecs().template emplaceComponent<TCom>(entity(),
@@ -359,8 +352,10 @@ void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t mate
 
 template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t materialPipelineId,
-                                        const bl::rc::res::MaterialRef& material, TArgs&&... args) {
+void DrawableObject<TCom>::createWithMaterial(engine::World& world,
+                                              std::uint32_t materialPipelineId,
+                                              const bl::rc::res::MaterialRef& material,
+                                              TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(world);
     handle           = world.engine().ecs().template emplaceComponent<TCom>(entity(),
@@ -372,8 +367,8 @@ void Drawable<TCom>::createWithMaterial(engine::World& world, std::uint32_t mate
 
 template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom>::createComponentOnly(engine::World& world, ecs::Entity existing,
-                                         TArgs&&... args) {
+void DrawableObject<TCom>::createComponentOnly(engine::World& world, ecs::Entity existing,
+                                               TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createFromExistingEntity(world, existing);
     handle = engine().ecs().template emplaceComponent<TCom>(entity(), std::forward<TArgs>(args)...);
@@ -382,7 +377,7 @@ void Drawable<TCom>::createComponentOnly(engine::World& world, ecs::Entity exist
 
 template<typename TCom>
 template<typename... TArgs>
-void Drawable<TCom>::create(engine::World& world, TArgs&&... args) {
+void DrawableObject<TCom>::create(engine::World& world, TArgs&&... args) {
     if (handle != nullptr) { destroy(); }
     createEntityOnly(world);
     handle = world.engine().ecs().template emplaceComponent<TCom>(entity(),
@@ -391,7 +386,7 @@ void Drawable<TCom>::create(engine::World& world, TArgs&&... args) {
 }
 
 template<typename TCom>
-void Drawable<TCom>::draw(rc::scene::CodeScene::RenderContext& ctx) {
+void DrawableObject<TCom>::draw(rc::scene::CodeScene::RenderContext& ctx) {
     ctx.renderObject(*handle);
 }
 

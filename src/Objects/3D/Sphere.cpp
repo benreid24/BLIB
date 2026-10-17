@@ -79,9 +79,7 @@ Sphere::Sphere(engine::World& world, float size, int detailLevel,
 
 void Sphere::create(engine::World& world, float size, int detailLevel,
                     const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
-    Drawable::createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, materialPipelineId, material);
 
     std::vector<rc::prim::Vertex3D> vertices;
     std::vector<std::uint32_t> indices;
@@ -141,10 +139,6 @@ void Sphere::makeSphere(float radius, int detailLevel, std::vector<rc::prim::Ver
 void Sphere::setColor(const rc::Color& c) {
     for (auto& v : component().gpuBuffer.vertices()) { v.color = c.toVec4(); }
     component().gpuBuffer.queueTransfer();
-}
-
-void Sphere::scaleToSize(const glm::vec2&) {
-    // noop
 }
 
 } // namespace o3d

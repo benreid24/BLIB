@@ -5,9 +5,7 @@
 #include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Models.hpp>
-#include <BLIB/Objects/Components/Outline3D.hpp>
-#include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 
 namespace bl
@@ -21,10 +19,7 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class ModelStatic
-: public Drawable<com::BasicMesh>
-, public bcom::Transform3D
-, public bcom::Outline3D {
+class ModelStatic : public DrawableObject3D<com::BasicMesh> {
 public:
     /**
      * @brief Does nothing
@@ -79,7 +74,6 @@ private:
 
     virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;
     virtual void onRemove() override;
-    virtual void scaleToSize(const glm::vec2&) override {}
 };
 
 } // namespace o3d

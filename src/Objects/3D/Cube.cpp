@@ -15,9 +15,7 @@ Cube::Cube(engine::World& world, float size, const bl::rc::res::MaterialRef& mat
 
 void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialRef& material,
                   std::uint32_t materialPipelineId) {
-    Drawable::createWithMaterial(world, materialPipelineId, material);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, materialPipelineId, material);
     component().create(world.engine().renderer(), 24, 36);
 
     const float s = size * 0.5f;
@@ -93,10 +91,6 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
                                    component().gpuBuffer.indices().size());
 
     component().gpuBuffer.queueTransfer();
-}
-
-void Cube::scaleToSize(const glm::vec2&) {
-    // noop
 }
 
 } // namespace o3d

@@ -5,11 +5,11 @@
 #include <BLIB/Assets/TypedRef.hpp>
 #include <BLIB/Components/Text.hpp>
 #include <BLIB/Engine/Systems.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/2D/Text/BasicText.hpp>
 #include <BLIB/Objects/Components/OverlayScalable.hpp>
 #include <BLIB/Objects/Components/Textured.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 #include <BLIB/Render/Color.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <initializer_list>
@@ -33,9 +33,8 @@ namespace o2d
  * @ingroup Objects
  */
 class Text
-: public Drawable<com::Text>
-, private bcom::Textured
-, public bcom::OverlayScalable {
+: public DrawableObject2D<com::Text>
+, private bcom::Textured {
 public:
     /**
      * @brief Basic struct representing a lookup from position to character

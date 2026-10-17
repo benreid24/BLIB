@@ -2,10 +2,7 @@
 #define BLIB_OBJECTS_3D_MESH_HPP
 
 #include <BLIB/Components/Mesh.hpp>
-#include <BLIB/Objects/Components/Outline3D.hpp>
-#include <BLIB/Objects/Components/Textured.hpp>
-#include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/3D/DrawableObject3D.hpp>
 
 namespace bl
 {
@@ -19,10 +16,7 @@ namespace o3d
  * @ingroup Objects
  */
 template<typename TVertex, std::uint32_t DefaultMaterialPipelineId>
-class Mesh
-: public Drawable<com::Mesh<TVertex, DefaultMaterialPipelineId>>
-, public bcom::Transform3D
-, public bcom::Outline3D {
+class Mesh : public DrawableObject3D<com::Mesh<TVertex, DefaultMaterialPipelineId>> {
 public:
     /**
      * @brief Creates an uninitialized mesh
@@ -80,9 +74,6 @@ public:
      * @brief Writes the buffer and syncs the draw parameters
      */
     void commit();
-
-private:
-    virtual void scaleToSize(const glm::vec2&) override {}
 };
 
 /**
@@ -105,9 +96,7 @@ template<typename TVertex, std::uint32_t DefaultMaterialPipelineId>
 void Mesh<TVertex, DefaultMaterialPipelineId>::create(engine::World& world,
                                                       unsigned int vertexCount,
                                                       unsigned int indexCount) {
-    Drawable<com::Mesh<TVertex, DefaultMaterialPipelineId>>::create(world);
-    Transform3D::create(world.engine().ecs(), this->entity());
-    Outline3D::init(world.engine().ecs(), this->entity(), &this->component());
+    DrawableObject3D<com::Mesh<TVertex, DefaultMaterialPipelineId>>::create(world);
     this->component().create(world.engine().renderer(), vertexCount, indexCount);
 }
 

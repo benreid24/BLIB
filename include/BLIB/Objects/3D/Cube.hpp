@@ -2,9 +2,7 @@
 #define BLIB_OBJECTS_3D_CUBE_HPP
 
 #include <BLIB/Components/Mesh.hpp>
-#include <BLIB/Objects/Components/Outline3D.hpp>
-#include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 
@@ -19,10 +17,7 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class Cube
-: public Drawable<com::BasicMesh>
-, public bcom::Transform3D
-, public bcom::Outline3D {
+class Cube : public DrawableObject3D<com::BasicMesh> {
 public:
     /**
      * @brief Does nothing
@@ -50,9 +45,6 @@ public:
      */
     void create(engine::World& world, float size, const bl::rc::res::MaterialRef& material = {},
                 std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3D);
-
-private:
-    virtual void scaleToSize(const glm::vec2& size) override;
 };
 
 } // namespace o3d

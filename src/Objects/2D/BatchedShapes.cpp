@@ -9,8 +9,7 @@ namespace obj
 namespace o2d
 {
 void BatchedShapes::create(engine::World& world, std::uint32_t vc) {
-    Drawable::create(world, world.engine().renderer(), vc, vc * 3);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::create(world, world.engine().renderer(), vc, vc * 3);
     component().commit();
 }
 

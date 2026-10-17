@@ -2,10 +2,10 @@
 #define BLIB_OBJECTS_2D_BATCHEDSHAPES_HPP
 
 #include <BLIB/Components/BatchedShapes2D.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/2D/Shapes/BatchShape.hpp>
 #include <BLIB/Objects/2D/Shapes/Shape.hpp>
 #include <BLIB/Objects/Components/OverlayScalable.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -19,9 +19,7 @@ namespace o2d
  *
  * @ingroup Objects
  */
-class BatchedShapes
-: public Drawable<com::BatchedShapes2D>
-, public bcom::OverlayScalable {
+class BatchedShapes : public DrawableObject2D<com::BatchedShapes2D> {
 public:
     /**
      * @brief Initializes with sane defaults

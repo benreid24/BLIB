@@ -47,8 +47,7 @@ Animation::Animation(engine::World& world, ecs::Entity existing, const Animation
 void Animation::createWithUniquePlayer(engine::World& world,
                                        as::TypedRef<asi::Animation2DSetPayload> animation,
                                        bool play, bool forceLoop) {
-    Drawable::create(world);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::create(world);
     OverlayScalable::setLocalSize(getSize(animation));
     Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine(), Animation2DPlayer::getPlayer());
@@ -58,8 +57,7 @@ void Animation::createWithUniquePlayer(engine::World& world,
 void Animation::createWithUniquePlayer(engine::World& world, ecs::Entity existing,
                                        as::TypedRef<asi::Animation2DSetPayload> animation,
                                        bool play, bool forceLoop) {
-    Drawable::createComponentOnly(world, existing);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::createComponentOnly(world, existing);
     OverlayScalable::setLocalSize(getSize(animation));
     Animation2DPlayer::create(world, entity(), material(), animation, play, forceLoop);
     component().create(world.engine(), Animation2DPlayer::getPlayer());
@@ -67,8 +65,7 @@ void Animation::createWithUniquePlayer(engine::World& world, ecs::Entity existin
 }
 
 void Animation::createWithSharedPlayer(engine::World& world, const Animation& player) {
-    Drawable::create(world);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::create(world);
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine(), Animation2DPlayer::getPlayer());
@@ -77,8 +74,7 @@ void Animation::createWithSharedPlayer(engine::World& world, const Animation& pl
 
 void Animation::createWithSharedPlayer(engine::World& world, ecs::Entity existing,
                                        const Animation& player) {
-    Drawable::createComponentOnly(world, existing);
-    OverlayScalable::create(world.engine(), entity());
+    DrawableObject2D::createComponentOnly(world, existing);
     OverlayScalable::setLocalSize(player.getLocalSize());
     Animation2DPlayer::create(world, entity(), player.getPlayerEntity(), material());
     component().create(world.engine(), Animation2DPlayer::getPlayer());

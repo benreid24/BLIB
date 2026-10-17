@@ -26,10 +26,8 @@ bool ModelSkeletal::create(engine::World& world, as::TypedRef<asi::ModelPayload>
 
     ecs = &world.engine().ecs();
 
-    Drawable::createWithMaterial(world, skinnedMaterial);
-    Drawable::setRequiresComponentOnSelf(false);
-    Transform3D::create(world.engine().ecs(), entity());
-    Outline3D::init(world.engine().ecs(), entity(), &component());
+    DrawableObject3D::createWithMaterial(world, skinnedMaterial);
+    DrawableObject::setRequiresComponentOnSelf(false);
 
     Tx tx(world.engine().ecs());
 

@@ -2,10 +2,7 @@
 #define BLIB_OBJECTS_3D_VERTEXBUFFER_HPP
 
 #include <BLIB/Components/VertexBuffer3D.hpp>
-#include <BLIB/Objects/Components/Outline3D.hpp>
-#include <BLIB/Objects/Components/Textured.hpp>
-#include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/3D/DrawableObject3D.hpp>
 
 namespace bl
 {
@@ -18,10 +15,7 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class VertexBuffer
-: public Drawable<com::VertexBuffer3D>
-, public bcom::Transform3D
-, public bcom::Outline3D {
+class VertexBuffer : public DrawableObject3D<com::VertexBuffer3D> {
 public:
     /**
      * @brief Creates an uninitialized vertex buffer
@@ -71,9 +65,6 @@ public:
      * @brief Writes the buffer and syncs the draw parameters
      */
     void commit();
-
-private:
-    virtual void scaleToSize(const glm::vec2& size) override;
 };
 } // namespace o3d
 } // namespace obj

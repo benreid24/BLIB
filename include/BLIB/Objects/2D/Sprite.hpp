@@ -2,10 +2,10 @@
 #define BLIB_OBJECTS_2D_SPRITE_HPP
 
 #include <BLIB/Components/Sprite.hpp>
+#include <BLIB/Objects/2D/DrawableObject2D.hpp>
 #include <BLIB/Objects/Components/OverlayScalable.hpp>
 #include <BLIB/Objects/Components/Textured.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
 
 namespace bl
 {
@@ -24,8 +24,7 @@ namespace o2d
  * @ingroup Objects
  */
 class Sprite
-: public Drawable<com::Sprite>
-, public bcom::OverlayScalable
+: public DrawableObject2D<com::Sprite>
 , public bcom::Textured {
 public:
     /**

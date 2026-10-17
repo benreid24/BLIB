@@ -55,6 +55,6 @@
 #include <BLIB/Objects/Components/Textured.hpp>
 #include <BLIB/Objects/Components/Transform2D.hpp>
 #include <BLIB/Objects/Components/Transform3D.hpp>
-#include <BLIB/Objects/Drawable.hpp>
+#include <BLIB/Objects/DrawableObject.hpp>
 
 #endif
