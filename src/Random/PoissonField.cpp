@@ -17,8 +17,15 @@ PoissonField::PoissonField(const glm::vec2& size, float minDistance) {
     generate(size, minDistance);
 }
 
-// TODO - support custom seed
+PoissonField::PoissonField(const glm::vec2& size, float minDistance, Seed& seed) {
+    generate(size, minDistance, seed);
+}
+
 void PoissonField::generate(const glm::vec2& size, float r) {
+    generate(size, r, Random::getSeed());
+}
+
+void PoissonField::generate(const glm::vec2& size, float r, Seed& seed) {
     const float cellSize                = r / std::sqrt(2.f);
     const unsigned int estimatedSamples = std::ceil(size.x / r) * std::ceil(size.y / r);
 
@@ -31,9 +38,9 @@ void PoissonField::generate(const glm::vec2& size, float r) {
     std::vector<std::uint32_t> activeList;
     activeList.reserve(estimatedSamples);
 
-    const auto sample = [&size, r](unsigned int i, const glm::vec2& center) {
+    const auto sample = [&seed, &size, r](unsigned int i, const glm::vec2& center) {
         const float angle  = RadiansPerSample * static_cast<float>(i);
-        const float radius = rand::Random::get<float>(r, 2.f * r);
+        const float radius = seed.getFloat(r, 2.f * r);
         return glm::vec2(center.x + radius * std::cos(angle), center.y + radius * std::sin(angle));
     };
 
@@ -69,12 +76,11 @@ void PoissonField::generate(const glm::vec2& size, float r) {
         return true;
     };
 
-    const glm::vec2 firstPoint(rand::Random::get<float>(0.f, size.x),
-                               rand::Random::get<float>(0.f, size.y));
+    const glm::vec2 firstPoint(seed.getFloat(0.f, size.x), seed.getFloat(0.f, size.y));
     addPoint(firstPoint);
 
     while (!activeList.empty()) {
-        const unsigned int activeIndex = rand::Random::get<unsigned int>(0, activeList.size() - 1);
+        const unsigned int activeIndex = seed.getInt<unsigned int>(0, activeList.size() - 1);
         const glm::vec2& activePoint   = samplePoints[activeList[activeIndex]];
 
         bool added = false;

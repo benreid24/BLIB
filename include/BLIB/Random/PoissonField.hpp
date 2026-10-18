@@ -1,6 +1,7 @@
 #ifndef BLIB_RANDOM_POISSONFIELD_HPP
 #define BLIB_RANDOM_POISSONFIELD_HPP
 
+#include <BLIB/Random/Seed.hpp>
 #include <glm/glm.hpp>
 #include <random>
 #include <vector>
@@ -40,6 +41,15 @@ public:
     PoissonField(const glm::vec2& size, float minDistance);
 
     /**
+     * @brief Creates a poisson field with the given parameters
+     *
+     * @param size The size of the field in world coordinates
+     * @param minDistance The minimum distance between points
+     * @param seed The random seed to use for generation
+     */
+    PoissonField(const glm::vec2& size, float minDistance, Seed& seed);
+
+    /**
      * @brief Copy assignment operator
      */
     PoissonField& operator=(const PoissonField&) = default;
@@ -56,6 +66,15 @@ public:
      * @param minDistance The minimum distance between points
      */
     void generate(const glm::vec2& size, float minDistance);
+
+    /**
+     * @brief Generates a new poisson field with the given parameters
+     *
+     * @param size The size of the field in world coordinates
+     * @param minDistance The minimum distance between points
+     * @param seed The random seed to use for generation
+     */
+    void generate(const glm::vec2& size, float minDistance, Seed& seed);
 
     /**
      * @brief Returns the generated sample points
