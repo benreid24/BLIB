@@ -81,6 +81,10 @@ set(USE_STATIC_CRT On)
 set(ASSIMP_BUILD_ZLIB Off)
 add_subdirectory(lib/assimp)
 
+set(RECASTNAVIGATION_DEMO OFF CACHE BOOL "" FORCE)
+set(RECASTNAVIGATION_TESTS OFF CACHE BOOL "" FORCE)
+add_subdirectory(lib/recastnavigation)
+
 if(APPLE)
     set(GLFW_LIBRARY_TYPE "STATIC")
     add_subdirectory(lib/glfw)

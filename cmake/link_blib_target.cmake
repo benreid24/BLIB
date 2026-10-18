@@ -22,5 +22,10 @@ function(link_blib_target target_name)
 		sfml-audio
 		sfml-system
 		Freetype::Freetype
+		RecastNavigation::Recast
+		RecastNavigation::Detour
+		RecastNavigation::DetourCrowd
+		RecastNavigation::DetourTileCache
+		"$<$<CONFIG:Debug>:RecastNavigation::DebugUtils>"
 	)
 endfunction()
