@@ -7,6 +7,7 @@ target_sources(BLIB PRIVATE
 	Heightmap.cpp
 	Hitbox2D.cpp
 	MaterialInstance.cpp
+	Navmesh.cpp
 	Orientation3D.cpp
 	OverlayScaler.cpp
 	Physics2D.cpp
