@@ -2,6 +2,7 @@
 #define BLIB_COMPONENTS_NAVMESH_HPP
 
 #include <DetourNavMesh.h>
+#include <DetourNavMeshQuery.h>
 #include <Recast.h>
 #include <glm/glm.hpp>
 
@@ -53,6 +54,7 @@ public:
 
 private:
     dtNavMesh* navmesh;
+    dtNavMeshQuery* navQuery;
 };
 
 } // namespace com

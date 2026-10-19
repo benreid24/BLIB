@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/RAIICleanup.hpp>
+#include <DetourNavMeshBuilder.h>
 #include <cmath>
 
 namespace bl
@@ -178,7 +179,56 @@ bool Navmesh::build(const BuildParams& params, const GeometryInput& geometry,
         return false;
     }
 
-    // TODO - build the navmesh itself. A bunch of other geometry inputs look required?
+    dtNavMeshCreateParams navParams{};
+    navParams.verts            = polyMesh->verts;
+    navParams.vertCount        = polyMesh->nverts;
+    navParams.polys            = polyMesh->polys;
+    navParams.polyAreas        = polyMesh->areas;
+    navParams.polyFlags        = polyMesh->flags;
+    navParams.polyCount        = polyMesh->npolys;
+    navParams.nvp              = polyMesh->nvp;
+    navParams.detailMeshes     = polyMeshDetail->meshes;
+    navParams.detailVerts      = polyMeshDetail->verts;
+    navParams.detailVertsCount = polyMeshDetail->nverts;
+    navParams.detailTris       = polyMeshDetail->tris;
+    navParams.detailTriCount   = polyMeshDetail->ntris;
+    navParams.walkableHeight   = params.agentHeight;
+    navParams.walkableRadius   = params.agentRadius;
+    navParams.walkableClimb    = params.agentMaxClimb;
+    rcVcopy(navParams.bmin, polyMesh->bmin);
+    rcVcopy(navParams.bmax, polyMesh->bmax);
+    navParams.cs          = config.cs;
+    navParams.ch          = config.ch;
+    navParams.buildBvTree = true;
+
+    unsigned char* navData = 0;
+    int navDataSize        = 0;
+    if (!dtCreateNavMeshData(&navParams, &navData, &navDataSize)) {
+        BL_LOG_ERROR << "Failed to create navmesh data";
+        return false;
+    }
+
+    navmesh = dtAllocNavMesh();
+    cleaner.add([this]() {
+        dtFreeNavMesh(navmesh);
+        navmesh = nullptr;
+    });
+
+    dtStatus status = navmesh->init(navData, navDataSize, DT_TILE_FREE_DATA);
+    if (dtStatusFailed(status)) {
+        dtFree(navData);
+        BL_LOG_ERROR << "Failed to init navmesh";
+        return false;
+    }
+
+    status = navQuery->init(navmesh, 2048); // TODO - parameterize max nodes?
+    if (dtStatusFailed(status)) {
+        BL_LOG_ERROR << "Failed to init navmesh query";
+        return false;
+    }
+
+    cleaner.disarm();
+    return true;
 }
 
 } // namespace com
