@@ -3,7 +3,9 @@
 
 #include <BLIB/Components/Heightmap.hpp>
 #include <BLIB/Components/Mesh.hpp>
+#include <BLIB/Components/Navmesh.hpp>
 #include <BLIB/Containers/Vector2d.hpp>
+#include <BLIB/Engine/Worlds/World3D.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Random/Perlin.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
@@ -35,6 +37,11 @@ public:
      * @brief Creates the uninitialized terrain drawable
      */
     HeightmapTerrain();
+
+    /**
+     * @brief Unregisters the navmesh from the world if one was created
+     */
+    virtual ~HeightmapTerrain() = default;
 
     /**
      * @brief Creates the terrain vertices and indices but does not populate vertices
@@ -175,12 +182,29 @@ public:
     void syncFromHeightmap();
 
     /**
+     * @brief Creates a navmesh for the terrain and registers it with the world
+     *
+     * @param params The parameters to use for navmesh generation
+     * @param flags The postprocessing flags to use for navmesh generation
+     * @return True if the navmesh was created successfully, false otherwise
+     */
+    bool createNavmesh(const com::Navmesh::BuildParams& params,
+                       const com::Navmesh::PostprocessingFlags& flags = {});
+
+    /**
+     * @brief Returns the navmesh component for this terrain
+     */
+    com::Navmesh* getNavmesh() const { return navmesh; }
+
+    /**
      * @brief Recomputes TBN, queues buffers for transfer, and updates draw parameters
      */
     void commitUpdate();
 
 private:
+    engine::World3D* world;
     com::Heightmap* heightmap;
+    com::Navmesh* navmesh;
 
     void createHeightmapComponent(engine::World& world);
     void setIndices(unsigned int xCount, unsigned int yCount);
@@ -190,7 +214,9 @@ private:
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
 HeightmapTerrain<TVertex, MaterialPipelineId>::HeightmapTerrain()
-: heightmap(nullptr) {}
+: world(nullptr)
+, heightmap(nullptr)
+, navmesh(nullptr) {}
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
 void HeightmapTerrain<TVertex, MaterialPipelineId>::createEmptyGrid(
@@ -320,6 +346,27 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::updateFromHeightFunction(
 template<typename TVertex, std::uint32_t MaterialPipelineId>
 void HeightmapTerrain<TVertex, MaterialPipelineId>::syncFromHeightmap() {
     syncFromHeightmap(&populateVertexDefault);
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+bool HeightmapTerrain<TVertex, MaterialPipelineId>::createNavmesh(
+    const com::Navmesh::BuildParams& params, const com::Navmesh::PostprocessingFlags& flags) {
+    if (!navmesh) {
+        navmesh = world->engine().ecs().emplaceComponent<com::Navmesh>(this->entity());
+    }
+
+    com::Navmesh::GeometryInput geometry;
+    geometry.vertices     = &this->component().gpuBuffer.vertices()[0].pos;
+    geometry.vertexStride = sizeof(TVertex);
+    geometry.vertexCount  = this->component().gpuBuffer.vertices().size();
+    geometry.indices      = &this->component().gpuBuffer.indices()[0];
+    geometry.indexCount   = this->component().gpuBuffer.indices().size();
+
+    if (navmesh->build(params, geometry, flags)) {
+        // TODO - register with world
+        return true;
+    }
+    return false;
 }
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>

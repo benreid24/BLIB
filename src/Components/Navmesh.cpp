@@ -39,12 +39,31 @@ private:
 } // namespace
 
 Navmesh::Navmesh()
-: navmesh(dtAllocNavMesh()) {}
+: navmesh(nullptr)
+, polyMesh(nullptr)
+, polyMeshDetail(nullptr) {}
 
-Navmesh::~Navmesh() { dtFreeNavMesh(navmesh); }
+Navmesh::~Navmesh() { cleanup(); }
+
+void Navmesh::cleanup() {
+    if (navmesh) {
+        dtFreeNavMesh(navmesh);
+        navmesh = nullptr;
+    }
+    if (polyMesh) {
+        rcFreePolyMesh(polyMesh);
+        polyMesh = nullptr;
+    }
+    if (polyMeshDetail) {
+        rcFreePolyMeshDetail(polyMeshDetail);
+        polyMeshDetail = nullptr;
+    }
+}
 
 bool Navmesh::build(const BuildParams& params, const GeometryInput& geometry,
                     const PostprocessingFlags& ppFlags) {
+    cleanup();
+
     // TODO - make custom context?
     rcContext context;
     util::RAIICleanup cleaner(4);
@@ -160,15 +179,15 @@ bool Navmesh::build(const BuildParams& params, const GeometryInput& geometry,
         return false;
     }
 
-    rcPolyMesh* polyMesh = rcAllocPolyMesh();
-    cleaner.add([polyMesh]() { rcFreePolyMesh(polyMesh); });
+    polyMesh = rcAllocPolyMesh();
+    cleaner.add([this]() { rcFreePolyMesh(polyMesh); });
     if (!rcBuildPolyMesh(&context, *contourSet, config.maxVertsPerPoly, *polyMesh)) {
         BL_LOG_ERROR << "Failed to build poly mesh";
         return false;
     }
 
-    rcPolyMeshDetail* polyMeshDetail = rcAllocPolyMeshDetail();
-    cleaner.add([polyMeshDetail]() { rcFreePolyMeshDetail(polyMeshDetail); });
+    polyMeshDetail = rcAllocPolyMeshDetail();
+    cleaner.add([this]() { rcFreePolyMeshDetail(polyMeshDetail); });
     if (!rcBuildPolyMeshDetail(&context,
                                *polyMesh,
                                *compactHeightfield,
@@ -228,6 +247,10 @@ bool Navmesh::build(const BuildParams& params, const GeometryInput& geometry,
     }
 
     cleaner.disarm();
+    delete[] walkableTriangles;
+    rcFreeCompactHeightfield(compactHeightfield);
+    rcFreeHeightField(heightfield);
+    rcFreeContourSet(contourSet);
     return true;
 }
 
