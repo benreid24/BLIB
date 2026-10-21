@@ -1,6 +1,8 @@
 #ifndef BLIB_ENGINE_SYSTEM_HPP
 #define BLIB_ENGINE_SYSTEM_HPP
 
+#include <BLIB/Engine/FrameStage.hpp>
+#include <BLIB/Engine/StateMask.hpp>
 #include <cstdint>
 #include <mutex>
 
@@ -17,6 +19,14 @@ class Engine;
  */
 class System {
 public:
+    /**
+     * @brief Creates the system
+     *
+     * @param frameStage The stage of the engine frame that the system is executed during
+     * @param stateMask The mask of engine states that the system should execute in
+     */
+    System(FrameStage::V frameStage, StateMask::V stateMask);
+
     /**
      * @brief Destroys the system
      */
@@ -53,6 +63,20 @@ public:
      *        entities and resources all being freed
      */
     virtual void earlyCleanup() {}
+
+    /**
+     * @brief Returns the engine frame stage that the system is executed in
+     */
+    FrameStage::V getFrameStage() const { return frameStage; }
+
+    /**
+     * @brief Returns the engine state mask that the system is executed in
+     */
+    StateMask::V getStateMask() const { return stateMask; }
+
+private:
+    FrameStage::V frameStage;
+    StateMask::V stateMask;
 };
 
 } // namespace engine

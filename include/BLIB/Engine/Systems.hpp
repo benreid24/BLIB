@@ -112,13 +112,20 @@ public:
      *
      * @tparam T The type of system to add
      * @tparam ...TArgs Constructor argument types for the system
-     * @param stage The frame stage to run the system in. Systems in the same stage may be
-     *              ran simultaneously. Dependencies should run in later stages
-     * @param stateMask Mask to use to selectively run the system during certain engine states
      * @param ...args Arguments to the system's constructor
      */
     template<typename T, typename... TArgs>
-    T& registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args);
+    T& registerSystem(TArgs&&... args);
+
+    /**
+     * @brief Creates and adds a new system to the registry if it does not already exist
+     *
+     * @tparam T The type of system to add
+     * @tparam ...TArgs Constructor argument types for the system
+     * @param ...args Arguments to the system's constructor
+     */
+    template<typename T, typename... TArgs>
+    T& registerSystemIfNotExists(TArgs&&... args);
 
     /**
      * @brief Creates and adds a new system to the registry. Background systems run even if the
@@ -127,13 +134,10 @@ public:
      *
      * @tparam T The type of system to add
      * @tparam ...TArgs Constructor argument types for the system
-     * @param stage The frame stage to run the system in. Systems in the same stage may be
-     *              ran simultaneously. Dependencies should run in later stages
-     * @param stateMask Mask to use to selectively run the system during certain engine states
      * @param ...args Arguments to the system's constructor
      */
     template<typename T, typename... TArgs>
-    T& registerBackgroundSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args);
+    T& registerBackgroundSystem(TArgs&&... args);
 
     /**
      * @brief Returns a reference to the given system. System must exist
@@ -220,31 +224,34 @@ private:
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T, typename... TArgs>
-T& Systems::registerSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args) {
-#ifdef BLIB_DEBUG
+T& Systems::registerSystem(TArgs&&... args) {
     const auto it = typeMap.find(typeid(T));
     if (it != typeMap.end()) {
         BL_LOG_CRITICAL << "System duplicated: " << typeid(T).name();
         throw std::runtime_error("Systems may only appear once per type");
     }
 
-    if (stage >= systems.size()) {
-        BL_LOG_CRITICAL << "Out of range frame stage index: " << stage;
-        throw std::runtime_error("Out of range engine frame stage index");
-    }
-#endif
-
-    systems[stage].systems.emplace_back(
-        stateMask, std::move(std::make_unique<T>(std::forward<TArgs>(args)...)));
-    System* s          = systems[stage].systems.back().system.get();
-    typeMap[typeid(T)] = s;
-    if (inited) { s->init(engine); }
-    return static_cast<T&>(*s);
+    return registerSystemIfNotExists<T, TArgs...>(std::forward<TArgs>(args)...);
 }
 
 template<typename T, typename... TArgs>
-T& Systems::registerBackgroundSystem(FrameStage::V stage, StateMask::V stateMask, TArgs&&... args) {
-    T& s = registerSystem<T, TArgs...>(stage, stateMask, std::forward<TArgs>(args)...);
+T& Systems::registerSystemIfNotExists(TArgs&&... args) {
+    std::unique_ptr<T> sys = std::make_unique<T>(std::forward<TArgs>(args)...);
+    if (sys->getFrameStage() >= systems.size()) {
+        BL_LOG_CRITICAL << "Out of range frame stage index: " << sys->getFrameStage();
+        throw std::runtime_error("Out of range engine frame stage index");
+    }
+
+    auto& sysInstance =
+        systems[sys->getFrameStage()].systems.emplace_back(sys->getStateMask(), std::move(sys));
+    typeMap[typeid(T)] = sysInstance.system.get();
+    if (inited) { sysInstance.system->init(engine); }
+    return static_cast<T&>(*sysInstance.system);
+}
+
+template<typename T, typename... TArgs>
+T& Systems::registerBackgroundSystem(TArgs&&... args) {
+    T& s = registerSystem<T, TArgs...>(std::forward<TArgs>(args)...);
     backgroundSystems.push_back(&s);
     return s;
 }

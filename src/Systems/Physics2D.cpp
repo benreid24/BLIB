@@ -20,7 +20,8 @@ bool worldOverlapCallback(b2ShapeId shape, void* ctx) {
 } // namespace
 
 Physics2D::Physics2D()
-: engine(nullptr) {
+: System(engine::FrameStage::Physics, engine::StateMask::Running)
+, engine(nullptr) {
     worlds.resize(engine::World::MaxWorlds, nullptr);
 
     ecsRouter.route<ecs::event::ComponentRemoved<com::Physics2D>>(

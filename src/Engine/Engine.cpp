@@ -49,12 +49,10 @@ Engine::Engine(const Settings& settings)
 
     settings.syncToConfig();
 
-    systems().registerSystem<sys::TogglerSystem>(FrameStage::Update0, StateMask::All);
-    systems().registerSystem<sys::VelocitySystem>(FrameStage::Animate,
-                                                  StateMask::Running | engine::StateMask::Editor);
-    systems().registerSystem<pcl::ParticleSystem>(FrameStage::Update0, StateMask::All);
-    systems().registerSystem<sys::MarkedForDeath>(FrameStage::Update0, StateMask::All);
-    systems().registerSystem<sys::Physics2D>(FrameStage::Physics, StateMask::Running);
+    systems().registerSystem<sys::TogglerSystem>();
+    systems().registerSystem<sys::VelocitySystem>();
+    systems().registerSystem<pcl::ParticleSystem>();
+    systems().registerSystem<sys::MarkedForDeath>();
     audio::AudioSystem::registerSystem(*this);
 
     eventEmitter.connect(signalChannel);

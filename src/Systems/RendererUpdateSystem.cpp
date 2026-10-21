@@ -7,7 +7,8 @@ namespace bl
 namespace sys
 {
 RendererUpdateSystem::RendererUpdateSystem(rc::Renderer& r)
-: renderer(r) {}
+: System(engine::FrameStage::RendererDataSync, engine::StateMask::All)
+, renderer(r) {}
 
 void RendererUpdateSystem::init(engine::Engine&) {}
 

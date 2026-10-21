@@ -52,6 +52,9 @@ void constrainScissor(VkRect2D& scissor, const VkRect2D& limits) {
 
 } // namespace
 
+OverlayScalerSystem::OverlayScalerSystem()
+: System(engine::FrameStage::RendererDataSync, engine::StateMask::All) {}
+
 void OverlayScalerSystem::init(engine::Engine& engine) {
     registry = &engine.ecs();
     overlays.reserve(4);

@@ -64,23 +64,12 @@ bool Renderer::initialize() {
     renderRegion.size.x = window.getSfWindow().getSize().x;
     renderRegion.size.y = window.getSfWindow().getSize().y;
 
-    constexpr engine::StateMask::V AllMask = engine::StateMask::All;
-    using engine::FrameStage;
-
     textureFormatManager.init(*this);
 
     // core renderer systems
-    engine.systems().registerSystem<sys::RendererUpdateSystem>(
-        FrameStage::RendererDataSync, AllMask, *this);
-    engine.systems().registerSystem<sys::OverlayScalerSystem>(FrameStage::RendererDataSync,
-                                                              AllMask);
-    engine.systems().registerSystem<sys::Animation2DSystem>(
-        FrameStage::Animate,
-        engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor,
-        *this);
-    engine.systems().registerSystem<sys::SkeletalAnimationSystem>(
-        FrameStage::Animate,
-        engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor);
+    engine.systems().registerSystem<sys::RendererUpdateSystem>(*this);
+    engine.systems().registerSystem<sys::OverlayScalerSystem>();
+    engine.systems().registerSystem<sys::Animation2DSystem>(*this);
 
     // create renderer instance data
     state.init();

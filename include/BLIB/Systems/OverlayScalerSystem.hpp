@@ -29,7 +29,7 @@ public:
     /**
      * @brief Creates the system
      */
-    OverlayScalerSystem() = default;
+    OverlayScalerSystem();
 
     /**
      * @brief Destroys the system

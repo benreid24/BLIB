@@ -59,6 +59,8 @@ World2D::World2D(Engine& owner)
 : BasicWorld(owner)
 , worldToBoxScale(1.f)
 , gravity(0.f, 0.f) {
+    owner.systems().registerSystemIfNotExists<sys::Physics2D>();
+
     b2WorldDef def = b2DefaultWorldDef();
     def.gravity.x  = gravity.x;
     def.gravity.y  = gravity.y;

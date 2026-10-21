@@ -8,6 +8,7 @@ target_sources(BLIB PRIVATE
     Property.cpp
     Schedulers.cpp
     Settings.cpp
+    System.cpp
     Systems.cpp
     World.cpp
 )

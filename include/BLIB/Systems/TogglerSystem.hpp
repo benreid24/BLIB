@@ -19,7 +19,7 @@ public:
     /**
      * @brief Creates the system
      */
-    TogglerSystem() = default;
+    TogglerSystem();
 
     /**
      * @brief Destroys the system

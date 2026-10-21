@@ -19,7 +19,7 @@ public:
     /**
      * @brief Creates the system
      */
-    SkeletalAnimationSystem() = default;
+    SkeletalAnimationSystem();
 
     /**
      * @brief Destroys the system

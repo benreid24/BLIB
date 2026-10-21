@@ -16,7 +16,9 @@ constexpr std::uint32_t InitialSlideshowFrameCapacity = 128;
 } // namespace
 
 Animation2DSystem::Animation2DSystem(rc::Renderer& renderer)
-: renderer(renderer)
+: System(engine::FrameStage::Animate,
+         engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor)
+, renderer(renderer)
 , players(nullptr)
 , slideshowFrameRangeAllocator(InitialSlideshowFrameCapacity)
 , slideshowRefreshRequired(rc::cfg::Limits::MaxConcurrentFrames)

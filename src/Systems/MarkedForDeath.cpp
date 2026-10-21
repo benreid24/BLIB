@@ -7,7 +7,8 @@ namespace bl
 namespace sys
 {
 MarkedForDeath::MarkedForDeath()
-: engine(nullptr)
+: System(engine::FrameStage::Update0, engine::StateMask::All)
+, engine(nullptr)
 , registry(nullptr)
 , pool(nullptr) {
     toDelete.reserve(64);

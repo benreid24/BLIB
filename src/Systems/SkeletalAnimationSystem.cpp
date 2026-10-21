@@ -10,6 +10,10 @@ namespace bl
 {
 namespace sys
 {
+SkeletalAnimationSystem::SkeletalAnimationSystem()
+: System(engine::FrameStage::Animate,
+         engine::StateMask::Running | engine::StateMask::Menu | engine::StateMask::Editor) {}
+
 void SkeletalAnimationSystem::init(engine::Engine& engine) {
     skeletons = &engine.ecs().getAllComponents<com::Skeleton>();
 }

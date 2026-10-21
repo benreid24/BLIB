@@ -7,7 +7,8 @@ namespace bl
 namespace sys
 {
 VelocitySystem::VelocitySystem()
-: view2d(nullptr) {}
+: System(engine::FrameStage::Animate, engine::StateMask::Running | engine::StateMask::Editor)
+, view2d(nullptr) {}
 
 void VelocitySystem::update(std::mutex&, float dt, float, float, float) {
     view2d->forEach([dt](Tags2D::TComponentSet& cset) {

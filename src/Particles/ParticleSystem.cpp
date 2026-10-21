@@ -7,7 +7,8 @@ namespace bl
 namespace pcl
 {
 ParticleSystem::ParticleSystem()
-: engine(nullptr)
+: System(engine::FrameStage::Update0, engine::StateMask::All)
+, engine(nullptr)
 , engineThreadpool(nullptr) {}
 
 void ParticleSystem::removeUniqueSystem(ParticleManagerBase* system) {

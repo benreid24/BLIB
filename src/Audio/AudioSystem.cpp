@@ -413,8 +413,7 @@ void AudioSystem::stop(bool fade) {
 }
 
 void AudioSystem::registerSystem(engine::Engine& engine) {
-    engine.systems().registerBackgroundSystem<Runner>(engine::FrameStage::FrameStart,
-                                                      engine::StateMask::All);
+    engine.systems().registerBackgroundSystem<Runner>();
 }
 
 namespace
@@ -425,7 +424,8 @@ Sound::Sound(as::TypedRef<asi::SoundPayload>&& buffer)
 , lastInteractTime(Runner::get().timer.getElapsedTime().asSeconds()) {}
 
 Runner::Runner()
-: paused(false) {}
+: System(engine::FrameStage::FrameStart, engine::StateMask::All)
+, paused(false) {}
 
 Runner::~Runner() {
     if (instance == this) { instance = nullptr; }

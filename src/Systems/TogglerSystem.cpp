@@ -6,6 +6,9 @@ namespace bl
 {
 namespace sys
 {
+TogglerSystem::TogglerSystem()
+: System(engine::FrameStage::Update0, engine::StateMask::All) {}
+
 void TogglerSystem::init(engine::Engine& engine) {
     pool = &engine.ecs().getAllComponents<com::Toggler>();
 }
