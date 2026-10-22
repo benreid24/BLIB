@@ -27,5 +27,6 @@ function(link_blib_target target_name)
 		RecastNavigation::DetourCrowd
 		RecastNavigation::DetourTileCache
 		"$<$<CONFIG:Debug>:RecastNavigation::DebugUtils>"
+		Jolt::Jolt
 	)
 endfunction()

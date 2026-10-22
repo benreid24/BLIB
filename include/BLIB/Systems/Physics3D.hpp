@@ -1,7 +1,11 @@
 #ifndef BLIB_SYSTEMS_PHYSICS3D_HPP
 #define BLIB_SYSTEMS_PHYSICS3D_HPP
 
+#include <Jolt/Jolt.h>
+
+#include <BLIB/Components/Physics3D.hpp>
 #include <BLIB/Engine/System.hpp>
+#include <Jolt/Core/TempAllocator.h>
 
 namespace bl
 {
@@ -23,7 +27,7 @@ public:
     virtual ~Physics3D() = default;
 
 private:
-    // TODO - jolt
+    JPH::TempAllocatorImpl joltFrameAllocator;
 
     virtual void init(engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
