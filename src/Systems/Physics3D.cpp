@@ -1,6 +1,8 @@
 #include <BLIB/Systems/Physics3D.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
+#include <BLIB/Engine/Worlds/World3D.hpp>
+#include <BLIB/Systems/Jolt/Constants.hpp>
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Physics/PhysicsSettings.h>
@@ -16,9 +18,8 @@
       - Object pair layer filter impl (ObjectLayerPairFilterImpl)
     - Signals for collisions
     - Signals for sensors
-    - World to physics scale?
-    - Custom job system on top of engine threadpool
-    - Physics system update (instanced per world)
+    X Custom job system on top of engine threadpool
+    X Physics system update (instanced per world)
     - Can we automatically call OptimizeBroadPhase at certain points?
 
   Reference: https://github.com/jrouwe/JoltPhysicsHelloWorld/blob/main/Source/HelloWorld.cpp
@@ -31,7 +32,8 @@ namespace sys
 namespace
 {
 constexpr unsigned int FrameMemory = 16 * 1024 * 1024; // 16 MB
-}
+constexpr float NominalDt          = 1.f / 60.f;       // 60 Hz
+} // namespace
 
 Physics3D::Physics3D()
 : System(engine::FrameStage::Physics, engine::StateMask::Running)
@@ -45,9 +47,38 @@ void Physics3D::init(engine::Engine& engine) {
     JPH::RegisterTypes();
 }
 
-void Physics3D::update(std::mutex& stageMutex, float dt, float realDt, float residual,
-                       float realResidual) {
-    // TODO
+void Physics3D::earlyCleanup() {
+    JPH::UnregisterTypes();
+    delete JPH::Factory::sInstance;
+    JPH::Factory::sInstance = nullptr;
+}
+
+void Physics3D::update(std::mutex&, float dt, float, float, float) {
+    const unsigned int multipleOf60FPS = std::ceil(dt / NominalDt);
+    const unsigned int collisionSteps =
+        std::max(multipleOf60FPS * jolt::Constants::CollisionStepsPer60FPS, 1u);
+    for (JPH::PhysicsSystem* simulation : activePhysicsSystems) {
+        if (!simulation) { continue; }
+        simulation->Update(dt, collisionSteps, &joltFrameAllocator, &jobSystem.value());
+    }
+}
+
+void Physics3D::process(const engine::event::WorldCreated& worldCreate) {
+    engine::World3D* world = dynamic_cast<engine::World3D*>(&worldCreate.world);
+    if (world) {
+        if (world->worldIndex() >= activePhysicsSystems.size()) {
+            activePhysicsSystems.resize(world->worldIndex() + 1, nullptr);
+        }
+        activePhysicsSystems[world->worldIndex()] = &world->getPhysicsSystem();
+    }
+}
+
+void Physics3D::process(const engine::event::WorldDestroyed& worldDestroy) {
+    engine::World3D* world = dynamic_cast<engine::World3D*>(&worldDestroy.world);
+    if (world) {
+        if (world->worldIndex() >= activePhysicsSystems.size()) { return; }
+        activePhysicsSystems[world->worldIndex()] = nullptr;
+    }
 }
 
 } // namespace sys
