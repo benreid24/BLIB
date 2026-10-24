@@ -15,7 +15,7 @@
     - Entity layers
       - Mapping to broadphase layers (BPLayerInterfaceImpl)
       - Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
-      - Object pair layer filter impl (ObjectLayerPairFilterImpl)
+      X Object pair layer filter impl (ObjectLayerPairFilterImpl)
     - Signals for collisions
     - Signals for sensors
     X Custom job system on top of engine threadpool
@@ -79,6 +79,10 @@ void Physics3D::process(const engine::event::WorldDestroyed& worldDestroy) {
         if (world->worldIndex() >= activePhysicsSystems.size()) { return; }
         activePhysicsSystems[world->worldIndex()] = nullptr;
     }
+}
+
+void Physics3D::setObjectLayerCollisionMask(com::Physics3D::ObjectLayer layer, std::uint16_t mask) {
+    objectLayerFilter.setObjectLayerCollisionMask(layer, mask);
 }
 
 } // namespace sys

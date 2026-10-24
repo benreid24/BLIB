@@ -64,21 +64,20 @@ private:
 
 World3D::World3D(Engine& owner)
 : BasicWorld(owner) {
-    owner.systems().registerSystemIfNotExists<sys::Physics3D>();
+    auto& physics = owner.systems().registerSystemIfNotExists<sys::Physics3D>();
     owner.systems().registerSystemIfNotExists<sys::PathfindingSystem3D>();
     owner.systems().registerSystemIfNotExists<sys::SkeletalAnimationSystem>();
 
     // TODO - customize these
     BPLayerInterfaceImpl broadPhaseLayerInterface;
     JPH::ObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
-    JPH::ObjectLayerPairFilter objectLayerPairFilter;
     physicsSystem.Init(sys::jolt::Constants::MaxBodies,
                        sys::jolt::Constants::MaxBodyPairs,
                        sys::jolt::Constants::MaxContactConstraints,
                        sys::jolt::Constants::MaxBodyMutexes,
                        broadPhaseLayerInterface,
                        objectVsBroadPhaseLayerFilter,
-                       objectLayerPairFilter);
+                       physics.getObjectLayerPairFilter());
 }
 
 World3D::~World3D() {}
