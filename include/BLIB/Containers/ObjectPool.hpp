@@ -5,6 +5,7 @@
 #include <BLIB/Logging.hpp>
 #include <cstdlib>
 #include <cstring>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -28,7 +29,7 @@ class ObjectPool {
 public:
     /// @brief Policy which dictates how the pool handles adding new objects when it is full
     enum struct GrowthPolicy {
-        /// @brief The pool is reallocated  to a larger buffer. Addresses are not stable
+        /// @brief The pool is reallocated to a larger buffer. Addresses are not stable
         ExpandBuffer,
 
         /// @brief add() will fail and return end() when the pool is full. Addresses are stable
@@ -219,7 +220,8 @@ public:
      * @param obj Object to add
      * @return Iterator Iterator to the newly created object
      */
-    Iterator add(const T& obj);
+    Iterator add(const T& obj)
+        requires std::is_copy_constructible_v<T>;
 
     /**
      * @brief Adds the given object to the pool. Either reuses an empty object slot or expands the
@@ -228,7 +230,8 @@ public:
      * @param obj Object to add
      * @return Iterator Iterator to the newly created object
      */
-    Iterator add(T&& obj);
+    Iterator add(T&& obj)
+        requires std::is_move_constructible_v<T>;
 
     /**
      * @brief Constructs a new object in-place in the pool
@@ -255,6 +258,14 @@ public:
      * @return A reference to the object at the given index
      */
     T& getWithId(std::size_t id);
+
+    /**
+     * @brief Returns an iterator to the stored object
+     *
+     * @param obj The object in the pool to get the iterator of
+     * @return An iterator to the object in the pool
+     */
+    Iterator find(const T& obj);
 
     /**
      * @brief Removes the given iterator from the pool and marks the object slot for reuse. All
@@ -336,24 +347,44 @@ private:
         , _next(-1) {}
 
         Entry(const T& data)
+            requires std::is_copy_constructible_v<T>
         : _alive(true) {
             payload.emplace(data);
         }
 
         Entry(T&& data)
+            requires std::is_move_constructible_v<T>
         : _alive(true) {
             payload.emplace(std::forward<T>(data));
         }
 
         template<typename... TArgs>
         Entry(TArgs&&... args)
+            requires(!(sizeof...(TArgs) == 1 &&
+                       (std::is_same_v<std::remove_cvref_t<TArgs>, Entry> && ...)))
         : _alive(true) {
             payload.emplace(std::forward<TArgs>(args)...);
         }
 
+        Entry(const Entry& copy)
+            requires std::is_copy_constructible_v<T>
+        : _alive(copy._alive) {
+            if (copy._alive) { payload.emplace(copy.payload.get()); }
+            else { _next = copy._next; }
+        }
+
         Entry(Entry&& copy)
         : _alive(copy._alive) {
-            if (copy._alive) { payload.emplace(std::forward<T>(copy.payload.getRValue())); }
+            if (copy._alive) {
+                if constexpr (std::is_move_constructible_v<T>) {
+                    payload.emplace(std::forward<T>(copy.payload.getRValue()));
+                }
+                else {
+                    BL_LOG_CRITICAL << typeid(T).name()
+                                    << " is not movable. Live entries cannot be relocated";
+                    std::exit(1);
+                }
+            }
             else { _next = copy._next; }
         }
 
@@ -406,11 +437,20 @@ ObjectPool<T>::ObjectPool(GrowthPolicy pl, std::size_t cap)
 , trackedSize(0)
 , next(-1)
 , oldest(-1) {
+    if constexpr (!std::is_default_constructible_v<T>) {
+        if (pl == GrowthPolicy::ExpandBuffer) {
+            throw std::runtime_error("ObjectPool: ExpandBuffer growth policy is not supported for "
+                                     "non-move-constructible types");
+        }
+    }
+
     pool.reserve(cap);
 }
 
 template<typename T>
-typename ObjectPool<T>::Iterator ObjectPool<T>::add(const T& obj) {
+typename ObjectPool<T>::Iterator ObjectPool<T>::add(const T& obj)
+    requires std::is_copy_constructible_v<T>
+{
     Entry* e = doAdd();
     if (e != nullptr) {
         e->emplace(obj);
@@ -420,7 +460,9 @@ typename ObjectPool<T>::Iterator ObjectPool<T>::add(const T& obj) {
 }
 
 template<typename T>
-typename ObjectPool<T>::Iterator ObjectPool<T>::add(T&& obj) {
+typename ObjectPool<T>::Iterator ObjectPool<T>::add(T&& obj)
+    requires std::is_move_constructible_v<T>
+{
     Entry* e = doAdd();
     if (e != nullptr) {
         e->emplace(std::forward<T>(obj));
@@ -449,6 +491,18 @@ typename ObjectPool<T>::FixedRef ObjectPool<T>::getStableRef(Iterator it) {
 template<typename T>
 T& ObjectPool<T>::getWithId(std::size_t i) {
     return pool[i].get();
+}
+
+template<typename T>
+typename ObjectPool<T>::Iterator ObjectPool<T>::find(const T& obj) {
+    constexpr std::size_t stride = sizeof(Entry);
+    const std::size_t base       = reinterpret_cast<std::size_t>(&pool[0].get());
+    const std::size_t addr       = reinterpret_cast<std::size_t>(&obj);
+    if ((addr - base) % stride == 0) {
+        const std::size_t index = (addr - base) / stride;
+        if (index < pool.size() && pool[index].alive()) { return {&pool[index], endPointer()}; }
+    }
+    return end();
 }
 
 template<typename T>

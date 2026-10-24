@@ -5,7 +5,9 @@
 
 #include <BLIB/Components/Physics3D.hpp>
 #include <BLIB/Engine/System.hpp>
+#include <BLIB/Systems/Jolt/JobSystem.hpp>
 #include <Jolt/Core/TempAllocator.h>
+#include <optional>
 
 namespace bl
 {
@@ -27,6 +29,7 @@ public:
     virtual ~Physics3D() = default;
 
 private:
+    std::optional<jolt::JobSystem> jobSystem;
     JPH::TempAllocatorImpl joltFrameAllocator;
 
     virtual void init(engine::Engine& engine) override;

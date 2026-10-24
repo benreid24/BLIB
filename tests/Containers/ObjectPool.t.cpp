@@ -283,6 +283,18 @@ TEST(ObjectPool, FullTerminate) {
     ASSERT_DEATH(pool.add(5), "");
 }
 
+TEST(ObjectPool, Find) {
+    ObjectPool<int> pool(ObjectPool<int>::GrowthPolicy::FailContinue, 3);
+
+    pool.add(5);
+    auto it = pool.emplace(15);
+    pool.add(32);
+
+    auto foundIt = pool.find(*it);
+    ASSERT_NE(foundIt, pool.end());
+    EXPECT_EQ(*foundIt, 15);
+}
+
 } // namespace unittest
 } // namespace ctr
 } // namespace bl

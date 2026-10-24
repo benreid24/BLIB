@@ -1,5 +1,6 @@
 #include <BLIB/Systems/Physics3D.hpp>
 
+#include <BLIB/Engine/Engine.hpp>
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Physics/PhysicsSettings.h>
@@ -37,6 +38,8 @@ Physics3D::Physics3D()
 , joltFrameAllocator(FrameMemory) {}
 
 void Physics3D::init(engine::Engine& engine) {
+    jobSystem.emplace(engine.engineLoopThreadpool());
+
     JPH::RegisterDefaultAllocator();
     JPH::Factory::sInstance = new JPH::Factory();
     JPH::RegisterTypes();

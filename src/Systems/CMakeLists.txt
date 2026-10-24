@@ -10,3 +10,5 @@ target_sources(BLIB PRIVATE
 	TogglerSystem.cpp
 	VelocitySystem.cpp
 )
+
+add_subdirectory(Jolt)
