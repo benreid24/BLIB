@@ -16,14 +16,12 @@ World3D::World3D(Engine& owner)
     owner.systems().registerSystemIfNotExists<sys::PathfindingSystem3D>();
     owner.systems().registerSystemIfNotExists<sys::SkeletalAnimationSystem>();
 
-    // TODO - customize these
-    JPH::ObjectVsBroadPhaseLayerFilter objectVsBroadPhaseLayerFilter;
     physicsSystem.Init(sys::jolt::Constants::MaxBodies,
                        sys::jolt::Constants::MaxBodyPairs,
                        sys::jolt::Constants::MaxContactConstraints,
                        sys::jolt::Constants::MaxBodyMutexes,
                        physics.getBroadphaseLayerInterface(),
-                       objectVsBroadPhaseLayerFilter,
+                       physics.getObjectLayerVsBroadphaseFilter(),
                        physics.getObjectLayerPairFilter());
 }
 

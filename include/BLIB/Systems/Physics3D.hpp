@@ -10,6 +10,7 @@
 #include <BLIB/Systems/Jolt/BroadphaseLayerInterface.hpp>
 #include <BLIB/Systems/Jolt/JobSystem.hpp>
 #include <BLIB/Systems/Jolt/ObjectLayerPairFilter.hpp>
+#include <BLIB/Systems/Jolt/ObjectVsBroadphaseLayerFilter.hpp>
 #include <Jolt/Core/TempAllocator.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <optional>
@@ -49,6 +50,13 @@ public:
     }
 
     /**
+     * @brief Returns the Jolt object vs broadphase layer filter. Used internally
+     */
+    JPH::ObjectVsBroadPhaseLayerFilter& getObjectLayerVsBroadphaseFilter() {
+        return objectVsBroadphaseFilter;
+    }
+
+    /**
      * @brief Overrides the collision mask for the given object layer. Defaults are in
      *        com::Physics3D::ObjectCollisionMasks and do not usually need to be overridden
      *
@@ -79,6 +87,7 @@ private:
     JPH::TempAllocatorImpl joltFrameAllocator;
     jolt::ObjectLayerPairFilter objectLayerFilter;
     jolt::BroadPhaseLayerInterface broadphaseLayerInterface;
+    jolt::ObjectVsBroadPhaseLayerFilter objectVsBroadphaseFilter;
     std::vector<JPH::PhysicsSystem*> activePhysicsSystems;
 
     virtual void init(engine::Engine& engine) override;

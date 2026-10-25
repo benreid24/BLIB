@@ -30,7 +30,7 @@ public:
     };
 
     static constexpr std::size_t MaxBroadphaseLayers =
-        std::numeric_limits<JPH::BroadPhaseLayer::Type>::max();
+        std::numeric_limits<JPH::BroadPhaseLayer::Type>::digits;
 
     struct Bitmasks {
         static constexpr std::uint16_t TerrainBitmask = 0x1 << int(ObjectLayer::Terrain);

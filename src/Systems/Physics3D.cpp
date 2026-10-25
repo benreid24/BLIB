@@ -12,9 +12,9 @@
 /*
   Integration TODO:
     - Interface for adding hitboxes and physics to entities
-    - Entity layers
+    X Entity layers
       X Mapping to broadphase layers (BPLayerInterfaceImpl)
-      - Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
+      X Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
       X Object pair layer filter impl (ObjectLayerPairFilterImpl)
     - Signals for collisions
     - Signals for sensors
@@ -37,7 +37,9 @@ constexpr float NominalDt          = 1.f / 60.f;       // 60 Hz
 
 Physics3D::Physics3D()
 : System(engine::FrameStage::Physics, engine::StateMask::Running)
-, joltFrameAllocator(FrameMemory) {}
+, joltFrameAllocator(FrameMemory) {
+    objectVsBroadphaseFilter.update(objectLayerFilter, broadphaseLayerInterface);
+}
 
 void Physics3D::init(engine::Engine& engine) {
     jobSystem.emplace(engine.engineLoopThreadpool());
@@ -83,6 +85,7 @@ void Physics3D::process(const engine::event::WorldDestroyed& worldDestroy) {
 
 void Physics3D::setObjectLayerCollisionMask(com::Physics3D::ObjectLayer layer, std::uint16_t mask) {
     objectLayerFilter.setObjectLayerCollisionMask(layer, mask);
+    objectVsBroadphaseFilter.update(objectLayerFilter, broadphaseLayerInterface);
 }
 
 void Physics3D::addBroadphaseLayer(com::Physics3D::BroadphaseLayer layer, const char* name) {
@@ -92,6 +95,7 @@ void Physics3D::addBroadphaseLayer(com::Physics3D::BroadphaseLayer layer, const 
 void Physics3D::setObjectLayerToBroadphaseMapping(com::Physics3D::ObjectLayer layer,
                                                   com::Physics3D::BroadphaseLayer broadphase) {
     broadphaseLayerInterface.setObjectLayerBroadphase(layer, broadphase);
+    objectVsBroadphaseFilter.update(objectLayerFilter, broadphaseLayerInterface);
 }
 
 } // namespace sys
