@@ -7,6 +7,7 @@
 #include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Signals/Listener.hpp>
+#include <BLIB/Systems/Jolt/BroadphaseLayerInterface.hpp>
 #include <BLIB/Systems/Jolt/JobSystem.hpp>
 #include <BLIB/Systems/Jolt/ObjectLayerPairFilter.hpp>
 #include <Jolt/Core/TempAllocator.h>
@@ -41,6 +42,13 @@ public:
     JPH::ObjectLayerPairFilter& getObjectLayerPairFilter() { return objectLayerFilter; }
 
     /**
+     * @brief Returns the Jolt broadphase layer interface. Used internally
+     */
+    JPH::BroadPhaseLayerInterface& getBroadphaseLayerInterface() {
+        return broadphaseLayerInterface;
+    }
+
+    /**
      * @brief Overrides the collision mask for the given object layer. Defaults are in
      *        com::Physics3D::ObjectCollisionMasks and do not usually need to be overridden
      *
@@ -49,10 +57,28 @@ public:
      */
     void setObjectLayerCollisionMask(com::Physics3D::ObjectLayer layer, std::uint16_t mask);
 
+    /**
+     * @brief Adds or overwrites a new broadphase layer. Only needed for custom layers
+     *
+     * @param layer The broadphase layer to add or overwrite
+     * @param name The name of the layer
+     */
+    void addBroadphaseLayer(com::Physics3D::BroadphaseLayer layer, const char* name);
+
+    /**
+     * @brief Sets the mapping from object layer to broadphase layer. Only needed for custom layers
+     *
+     * @param layerThe object layer to set the mapping for
+     * @param broadphase The broadphase layer to map the object layer to
+     */
+    void setObjectLayerToBroadphaseMapping(com::Physics3D::ObjectLayer layer,
+                                           com::Physics3D::BroadphaseLayer broadphase);
+
 private:
     std::optional<jolt::JobSystem> jobSystem;
     JPH::TempAllocatorImpl joltFrameAllocator;
     jolt::ObjectLayerPairFilter objectLayerFilter;
+    jolt::BroadPhaseLayerInterface broadphaseLayerInterface;
     std::vector<JPH::PhysicsSystem*> activePhysicsSystems;
 
     virtual void init(engine::Engine& engine) override;

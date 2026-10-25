@@ -13,7 +13,7 @@
   Integration TODO:
     - Interface for adding hitboxes and physics to entities
     - Entity layers
-      - Mapping to broadphase layers (BPLayerInterfaceImpl)
+      X Mapping to broadphase layers (BPLayerInterfaceImpl)
       - Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
       X Object pair layer filter impl (ObjectLayerPairFilterImpl)
     - Signals for collisions
@@ -83,6 +83,15 @@ void Physics3D::process(const engine::event::WorldDestroyed& worldDestroy) {
 
 void Physics3D::setObjectLayerCollisionMask(com::Physics3D::ObjectLayer layer, std::uint16_t mask) {
     objectLayerFilter.setObjectLayerCollisionMask(layer, mask);
+}
+
+void Physics3D::addBroadphaseLayer(com::Physics3D::BroadphaseLayer layer, const char* name) {
+    broadphaseLayerInterface.addBroadphaseLayer(layer, name);
+}
+
+void Physics3D::setObjectLayerToBroadphaseMapping(com::Physics3D::ObjectLayer layer,
+                                                  com::Physics3D::BroadphaseLayer broadphase) {
+    broadphaseLayerInterface.setObjectLayerBroadphase(layer, broadphase);
 }
 
 } // namespace sys

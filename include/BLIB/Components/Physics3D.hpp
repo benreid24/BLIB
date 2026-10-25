@@ -5,6 +5,7 @@
 
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <Jolt/Physics/Collision/ObjectLayer.h>
+#include <limits>
 
 namespace bl
 {
@@ -20,11 +21,16 @@ public:
         Count   = 4
     };
 
+    static constexpr std::size_t MaxObjectLayers = std::numeric_limits<JPH::ObjectLayer>::digits;
+
     enum struct BroadphaseLayer : JPH::BroadPhaseLayer::Type {
         Moving    = 0,
         NonMoving = 1,
         Count     = 2
     };
+
+    static constexpr std::size_t MaxBroadphaseLayers =
+        std::numeric_limits<JPH::BroadPhaseLayer::Type>::max();
 
     struct Bitmasks {
         static constexpr std::uint16_t TerrainBitmask = 0x1 << int(ObjectLayer::Terrain);
