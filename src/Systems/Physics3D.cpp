@@ -2,16 +2,18 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Engine/Worlds/World3D.hpp>
+#include <BLIB/Logging.hpp>
 #include <BLIB/Systems/Jolt/Constants.hpp>
 #include <Jolt/Core/Factory.h>
 #include <Jolt/Core/JobSystemThreadPool.h>
 #include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/RegisterTypes.h>
+#include <cstdarg>
 
 /*
   Integration TODO:
-    - Interface for adding hitboxes and physics to entities
+    X Interface for adding hitboxes and physics to entities
     X Entity layers
       X Mapping to broadphase layers (BPLayerInterfaceImpl)
       X Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
@@ -21,6 +23,7 @@
     X Custom job system on top of engine threadpool
     X Physics system update (instanced per world)
     - Can we automatically call OptimizeBroadPhase at certain points?
+    X Writeback position & orientation (body activation listener to filter?)
 
   Reference: https://github.com/jrouwe/JoltPhysicsHelloWorld/blob/main/Source/HelloWorld.cpp
 */
@@ -33,17 +36,30 @@ namespace
 {
 constexpr unsigned int FrameMemory = 16 * 1024 * 1024; // 16 MB
 constexpr float NominalDt          = 1.f / 60.f;       // 60 Hz
+
+void joltLog(const char* fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    char buffer[2048];
+    std::vsnprintf(buffer, sizeof(buffer), fmt, args);
+    va_end(args);
+
+    BL_LOG_INFO << "Jolt: " << buffer;
+}
 } // namespace
 
 Physics3D::Physics3D()
 : System(engine::FrameStage::Physics, engine::StateMask::Running)
-, joltFrameAllocator(FrameMemory) {
+, joltFrameAllocator(FrameMemory)
+, physicsComponents(nullptr) {
     objectVsBroadphaseFilter.update(objectLayerFilter, broadphaseLayerInterface);
 }
 
 void Physics3D::init(engine::Engine& engine) {
     jobSystem.emplace(engine.engineLoopThreadpool());
+    physicsComponents = &engine.ecs().getAllComponents<com::Physics3D>();
 
+    JPH::Trace = &joltLog;
     JPH::RegisterDefaultAllocator();
     JPH::Factory::sInstance = new JPH::Factory();
     JPH::RegisterTypes();
@@ -63,6 +79,9 @@ void Physics3D::update(std::mutex&, float dt, float, float, float) {
         if (!simulation) { continue; }
         simulation->Update(dt, collisionSteps, &joltFrameAllocator, &jobSystem.value());
     }
+
+    // TODO - maybe we could reduce the scope of this loop via a list of active bodies?
+    physicsComponents->forEach([](ecs::Entity, com::Physics3D& p) { p.writebackTransform(); });
 }
 
 void Physics3D::process(const engine::event::WorldCreated& worldCreate) {

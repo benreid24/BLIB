@@ -89,6 +89,7 @@ private:
     jolt::BroadPhaseLayerInterface broadphaseLayerInterface;
     jolt::ObjectVsBroadPhaseLayerFilter objectVsBroadphaseFilter;
     std::vector<JPH::PhysicsSystem*> activePhysicsSystems;
+    ecs::ComponentPool<com::Physics3D>* physicsComponents;
 
     virtual void init(engine::Engine& engine) override;
     virtual void earlyCleanup() override;
