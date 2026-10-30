@@ -3,8 +3,10 @@
 
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <Jolt/Physics/Collision/Shape/TaperedCylinderShape.h>
 
 namespace bl
 {
@@ -18,7 +20,9 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class Cone : public DrawableObject3D<com::BasicMesh> {
+class Cone
+: public DrawableObject3D<com::BasicMesh>
+, public bcom::Physics3D {
 public:
     /**
      * @brief Does nothing
@@ -59,6 +63,12 @@ public:
      * @param color The color to assign to all the vertices
      */
     void setColor(const rc::Color& color);
+
+private:
+    JPH::TaperedCylinderShapeSettings physicsShapeSettings;
+
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+    virtual void getEngineAndEntity(engine::Engine*& engine, ecs::Entity& entity) override;
 };
 
 } // namespace o3d

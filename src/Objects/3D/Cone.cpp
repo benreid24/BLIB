@@ -8,10 +8,11 @@ namespace obj
 {
 namespace o3d
 {
-Cone::Cone() {}
+Cone::Cone() { physicsShapeSettings.SetEmbedded(); }
 
 Cone::Cone(engine::World& world, float height, float radius, unsigned int pointCount,
-           const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId) {
+           const bl::rc::res::MaterialRef& material, std::uint32_t materialPipelineId)
+: Cone() {
     create(world, height, radius, pointCount, material, materialPipelineId);
 }
 
@@ -72,11 +73,24 @@ void Cone::create(engine::World& world, float height, float radius, unsigned int
                                    component().gpuBuffer.indices().size());
 
     component().gpuBuffer.queueTransfer();
+
+    // store values for physics
+    physicsShapeSettings = JPH::TaperedCylinderShapeSettings(h * 0.5f, 0.f, radius);
 }
 
 void Cone::setColor(const rc::Color& c) {
     for (auto& v : component().gpuBuffer.vertices()) { v.color = c.toVec4(); }
     component().gpuBuffer.queueTransfer();
+}
+
+std::unique_ptr<JPH::Shape> Cone::createPhysicsShape() {
+    JPH::ShapeSettings::ShapeResult result;
+    return std::make_unique<JPH::TaperedCylinderShape>(physicsShapeSettings, result);
+}
+
+void Cone::getEngineAndEntity(engine::Engine*& engineOut, ecs::Entity& entityOut) {
+    engineOut = &engine();
+    entityOut = entity();
 }
 
 } // namespace o3d

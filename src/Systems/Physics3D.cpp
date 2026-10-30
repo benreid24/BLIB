@@ -24,6 +24,7 @@
     X Physics system update (instanced per world)
     - Can we automatically call OptimizeBroadPhase at certain points?
     X Writeback position & orientation (body activation listener to filter?)
+    - Physics material support
 
   Reference: https://github.com/jrouwe/JoltPhysicsHelloWorld/blob/main/Source/HelloWorld.cpp
 */
