@@ -90,7 +90,15 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
                                    component().gpuBuffer.indices().data(),
                                    component().gpuBuffer.indices().size());
 
+    // Record physics settings
+    physicsShapeSettings = JPH::BoxShapeSettings({s, s, s});
+
     component().gpuBuffer.queueTransfer();
+}
+
+std::unique_ptr<JPH::Shape> Cube::createPhysicsShape() {
+    JPH::ShapeSettings::ShapeResult result;
+    return std::make_unique<JPH::BoxShape>(physicsShapeSettings, result);
 }
 
 } // namespace o3d

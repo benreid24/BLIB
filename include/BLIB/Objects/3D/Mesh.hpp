@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <Jolt/Physics/Collision/Shape/ConvexHullShape.h>
 
 namespace bl
 {
@@ -74,6 +75,12 @@ public:
      * @brief Writes the buffer and syncs the draw parameters
      */
     void commit();
+
+protected:
+    /**
+     * @brief Creates a convex hull physics shape from the mesh vertices and indices
+     */
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
 };
 
 /**
@@ -106,6 +113,20 @@ void Mesh<TVertex, DefaultMaterialPipelineId>::commit() {
                         this->component().gpuBuffer.indices().data(),
                         this->component().gpuBuffer.indices().size());
     this->component().commit();
+}
+
+template<typename TVertex, std::uint32_t DefaultMaterialPipelineId>
+std::unique_ptr<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhysicsShape() {
+    std::vector<JPH::Vec3> points;
+    points.reserve(this->component().gpuBuffer.indices().size());
+    for (std::uint32_t index : this->component().gpuBuffer.indices()) {
+        const auto& v = this->component().gpuBuffer.vertices()[index];
+        points.emplace_back(v.position.x, v.position.y, v.position.z);
+    }
+
+    JPH::ConvexHullShapeSettings settings(points.data(), points.size());
+    JPH::Shape::ShapeResult result;
+    return std::make_unique<JPH::ConvexHullShape>(settings, result);
 }
 
 } // namespace o3d

@@ -5,6 +5,7 @@
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
 
 namespace bl
 {
@@ -45,6 +46,11 @@ public:
      */
     void create(engine::World& world, float size, const bl::rc::res::MaterialRef& material = {},
                 std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3D);
+
+private:
+    JPH::BoxShapeSettings physicsShapeSettings;
+
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
 };
 
 } // namespace o3d

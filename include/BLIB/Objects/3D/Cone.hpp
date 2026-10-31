@@ -68,7 +68,6 @@ private:
     JPH::TaperedCylinderShapeSettings physicsShapeSettings;
 
     virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
-    virtual void getEngineAndEntity(engine::Engine*& engine, ecs::Entity& entity) override;
 };
 
 } // namespace o3d

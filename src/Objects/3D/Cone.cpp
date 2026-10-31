@@ -88,11 +88,6 @@ std::unique_ptr<JPH::Shape> Cone::createPhysicsShape() {
     return std::make_unique<JPH::TaperedCylinderShape>(physicsShapeSettings, result);
 }
 
-void Cone::getEngineAndEntity(engine::Engine*& engineOut, ecs::Entity& entityOut) {
-    engineOut = &engine();
-    entityOut = entity();
-}
-
 } // namespace o3d
 } // namespace obj
 } // namespace bl

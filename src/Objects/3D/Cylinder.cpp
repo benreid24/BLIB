@@ -101,12 +101,20 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
                                    component().gpuBuffer.indices().data(),
                                    component().gpuBuffer.indices().size());
 
+    // Record physics settings
+    physicsShapeSettings = JPH::CylinderShapeSettings(h, radius);
+
     component().gpuBuffer.queueTransfer();
 }
 
 void Cylinder::setColor(const rc::Color& c) {
     for (auto& v : component().gpuBuffer.vertices()) { v.color = c.toVec4(); }
     component().gpuBuffer.queueTransfer();
+}
+
+std::unique_ptr<JPH::Shape> Cylinder::createPhysicsShape() {
+    JPH::Shape::ShapeResult result;
+    return std::make_unique<JPH::CylinderShape>(physicsShapeSettings, result);
 }
 
 } // namespace o3d

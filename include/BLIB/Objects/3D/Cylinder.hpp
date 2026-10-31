@@ -5,6 +5,7 @@
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <Jolt/Physics/Collision/Shape/CylinderShape.h>
 
 namespace bl
 {
@@ -58,6 +59,11 @@ public:
      * @param color The color to assign to all the vertices
      */
     void setColor(const rc::Color& color);
+
+private:
+    JPH::CylinderShapeSettings physicsShapeSettings;
+
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
 };
 
 } // namespace o3d

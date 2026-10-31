@@ -9,6 +9,7 @@
 #include <BLIB/Models.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
+#include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 #include <variant>
 
 namespace bl
@@ -64,6 +65,12 @@ public:
         std::uint32_t unskinnedMeshMaterialPipelineId =
             rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
 
+protected:
+    /**
+     * @brief Creates a capsule the covers the model
+     */
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+
 private:
     using Tx = ecs::Transaction<
         ecs::tx::EntityWrite, ecs::tx::ComponentRead<>,
@@ -83,15 +90,23 @@ private:
         , mesh(mesh) {}
     };
 
+    struct PhysicsData {
+        glm::vec2 heightRange;
+        glm::vec2 radiusRange;
+    };
+
     ecs::Registry* ecs;
     com::Skeleton* skeleton;
     std::vector<Child> children;
     bool createdMeshOnSelf;
+    PhysicsData physicsShapeSettings;
 
     void processNode(engine::World& world, Tx& tx, std::uint32_t skinnedMaterialPipelineId,
                      std::uint32_t nonSkinnedMaterialPipelineId, com::Skeleton& skeleton,
                      const as::TypedRef<asi::ModelPayload>& model, const mdl::Node& node,
                      ecs::Entity parentEntity);
+    void computePhysicsData(const as::TypedRef<asi::ModelPayload>& model,
+                            const glm::mat4& parentTransform, PhysicsData& data);
 
     virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;
     virtual void onRemove() override;

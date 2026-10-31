@@ -2,6 +2,7 @@
 #define BLIB_OBJECTS_3D_DRAWABLEOBJECT3D_HPP
 
 #include <BLIB/Objects/Components/Outline3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
 #include <BLIB/Objects/Components/Transform3D.hpp>
 #include <BLIB/Objects/DrawableObject.hpp>
 
@@ -21,7 +22,8 @@ template<typename TCom>
 class DrawableObject3D
 : public DrawableObject<TCom>
 , public bcom::Transform3D
-, public bcom::Outline3D {
+, public bcom::Outline3D
+, public bcom::Physics3D {
 public:
     /**
      * @brief Destroys the object
@@ -78,6 +80,17 @@ protected:
             world, materialPipelineId, material, std::forward<TArgs>(args)...);
         Transform3D::create(world.engine().ecs(), this->entity());
         Outline3D::init(world.engine().ecs(), this->entity(), &this->component());
+    }
+
+    /**
+     * @brief Populates the engine and entity for physics component creation
+     *
+     * @param engineOut The game engine instance to populate
+     * @param entityOut The entity of this object to populate
+     */
+    virtual void getEngineAndEntity(engine::Engine*& engineOut, ecs::Entity& entityOut) override {
+        engineOut = &this->engine();
+        entityOut = this->entity();
     }
 };
 

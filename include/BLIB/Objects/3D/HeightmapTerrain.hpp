@@ -10,6 +10,7 @@
 #include <BLIB/Random/Perlin.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <Jolt/Physics/Collision/Shape/HeightFieldShape.h>
 
 namespace bl
 {
@@ -208,6 +209,7 @@ private:
 
     void createHeightmapComponent(engine::World& world);
     void setIndices(unsigned int xCount, unsigned int yCount);
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -431,6 +433,17 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCou
             indexBuffer.indices()[i + 5] = (x + 1) + (y + 1) * xCount;
         }
     }
+}
+
+template<typename TVertex, std::uint32_t MaterialPipelineId>
+std::unique_ptr<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape() {
+    const JPH::Vec3 offset(heightmap->offset.x, 0.f, heightmap->offset.y);
+    const JPH::Vec3 scale(heightmap->step, 1.f, heightmap->step);
+    const std::uint32_t sampleCount =
+        heightmap->heightmap.getWidth() * heightmap->heightmap.getHeight();
+    JPH::HeightFieldShapeSettings settings(heightmap->heightmap.data(), offset, scale, sampleCount);
+    JPH::Shape::ShapeResult result;
+    return std::make_unique<JPH::HeightFieldShape>(settings, result);
 }
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
