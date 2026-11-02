@@ -75,6 +75,11 @@ public:
      */
     void visitDependencies(const DependencyVisitor& visitor);
 
+    /**
+     * @brief Computes and returns the bounding box of the model in model space
+     */
+    std::pair<glm::vec3, glm::vec3> getBoundingBox() const;
+
 private:
     NodeSet nodes;
     MaterialSet materials;

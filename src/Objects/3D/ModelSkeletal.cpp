@@ -1,4 +1,3 @@
-#include "ModelSkeletal.hpp"
 #include <BLIB/Objects/3D/ModelSkeletal.hpp>
 
 #include <BLIB/Components/Bone.hpp>
@@ -52,15 +51,11 @@ bool ModelSkeletal::create(engine::World& world, as::TypedRef<asi::ModelPayload>
     tx.unlock();
 
     // compute and store physics bounds
-    PhysicsData physicsData;
-    physicsData.heightRange = {std::numeric_limits<float>::max(),
-                               std::numeric_limits<float>::lowest()};
-    physicsData.radiusRange = {std::numeric_limits<float>::max(),
-                               std::numeric_limits<float>::lowest()};
-    computePhysicsData(model, model->getRoot(), glm::identity<glm::mat4>(), physicsData);
+    const auto bounds = model->getBoundingBox();
+    const float radius =
+        std::max(bounds.second.x - bounds.first.x, bounds.second.z - bounds.first.z) * 0.5f;
     physicsShapeSettings =
-        JPH::CapsuleShapeSettings((physicsData.heightRange.y - physicsData.heightRange.x) * 0.5f,
-                                  (physicsData.radiusRange.y - physicsData.radiusRange.x) * 0.5f);
+        JPH::CapsuleShapeSettings((bounds.second.y - bounds.first.y) * 0.5f, radius);
 
     // validate that all bones populated
     for (auto& bone : skeleton->bones) {
@@ -207,30 +202,6 @@ void ModelSkeletal::onRemove() {
 std::unique_ptr<JPH::Shape> ModelSkeletal::createPhysicsShape() {
     JPH::Shape::ShapeResult result;
     return std::make_unique<JPH::CapsuleShape>(physicsShapeSettings, result);
-}
-
-void ModelSkeletal::computePhysicsData(const as::TypedRef<asi::ModelPayload>& model,
-                                       const mdl::Node& node, const glm::mat4& parentTransform,
-                                       PhysicsData& data) {
-    const glm::mat4 globalTransform = parentTransform * node.getTransform();
-
-    for (const std::uint32_t meshIndex : node.getMeshes()) {
-        const auto& mesh = model->getMeshes().getMesh(meshIndex);
-
-        for (const auto& vertex : mesh.getVertices()) {
-            const glm::vec4 transformedVertex = globalTransform * glm::vec4(vertex.pos, 1.0f);
-            const float r      = glm::length(glm::vec2(transformedVertex.x, transformedVertex.z));
-            data.heightRange.x = std::min(data.heightRange.x, transformedVertex.y);
-            data.heightRange.y = std::max(data.heightRange.y, transformedVertex.y);
-            data.radiusRange.x = std::min(data.radiusRange.x, r);
-            data.radiusRange.y = std::max(data.radiusRange.y, r);
-        }
-    }
-
-    for (std::uint32_t ci : node.getChildren()) {
-        const mdl::Node& childNode = model->getNodes().getNode(ci);
-        computePhysicsData(model, childNode, globalTransform, data);
-    }
 }
 
 } // namespace o3d

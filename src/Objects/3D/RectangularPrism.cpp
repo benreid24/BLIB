@@ -95,6 +95,9 @@ void RectangularPrism::create(engine::World& world, float length, const glm::vec
                                    component().gpuBuffer.indices().data(),
                                    component().gpuBuffer.indices().size());
 
+    // store physics data
+    physicsShapeSettings = JPH::BoxShapeSettings({hx, hy, hz});
+
     component().gpuBuffer.queueTransfer();
 }
 
@@ -103,6 +106,11 @@ void RectangularPrism::setColor(const rc::Color& color) {
         component().gpuBuffer.vertices()[i].color = color;
     }
     component().gpuBuffer.queueTransfer();
+}
+
+std::unique_ptr<JPH::Shape> RectangularPrism::createPhysicsShape() {
+    JPH::Shape::ShapeResult result;
+    return std::make_unique<JPH::BoxShape>(physicsShapeSettings, result);
 }
 
 } // namespace o3d

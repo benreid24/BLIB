@@ -5,6 +5,7 @@
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <Jolt/Physics/Collision/Shape/BoxShape.h>
 
 namespace bl
 {
@@ -56,6 +57,15 @@ public:
      * @param color The color to assign to all the vertices
      */
     void setColor(const rc::Color& color);
+
+protected:
+    /**
+     * @brief Creates a box shape for the rectangular prism
+     */
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+
+private:
+    JPH::BoxShapeSettings physicsShapeSettings;
 };
 
 } // namespace o3d

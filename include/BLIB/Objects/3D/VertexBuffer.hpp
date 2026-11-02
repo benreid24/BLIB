@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/VertexBuffer3D.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <Jolt/Physics/Collision/Shape/ConvexHullShape.h>
 
 namespace bl
 {
@@ -65,7 +66,14 @@ public:
      * @brief Writes the buffer and syncs the draw parameters
      */
     void commit();
+
+protected:
+    /**
+     * @brief Creates the physics shape for the vertex buffer
+     */
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
 };
+
 } // namespace o3d
 } // namespace obj
 } // namespace bl

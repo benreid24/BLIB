@@ -7,6 +7,7 @@
 #include <BLIB/Models.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
+#include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 
 namespace bl
 {
@@ -48,6 +49,12 @@ public:
     bool create(engine::World& world, as::TypedRef<asi::ModelPayload> model,
                 std::uint32_t materialPipelineId = rc::cfg::MaterialPipelineIds::Mesh3DMaterial);
 
+protected:
+    /**
+     * @brief Creates a capsule the covers the model
+     */
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+
 private:
     using Tx = ecs::Transaction<
         ecs::tx::EntityWrite, ecs::tx::ComponentRead<>,
@@ -60,6 +67,7 @@ private:
 
     ecs::Registry* ecs;
     std::vector<EntityNode> drawableEntities;
+    JPH::CapsuleShapeSettings physicsShapeSettings;
 
     com::BasicMesh* createComponents(engine::World& world, Tx& tx, ecs::Entity entity,
                                      std::uint32_t materialPipelineId,

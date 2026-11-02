@@ -31,6 +31,13 @@ bool ModelStatic::create(engine::World& world, as::TypedRef<asi::ModelPayload> m
     Tx tx(world.engine().ecs());
     processNode(world, tx, entity(), mpid, model, model->getRoot());
 
+    // compute and store physics bounds
+    const auto bounds = model->getBoundingBox();
+    const float radius =
+        std::max(bounds.second.x - bounds.first.x, bounds.second.z - bounds.first.z) * 0.5f;
+    physicsShapeSettings =
+        JPH::CapsuleShapeSettings((bounds.second.y - bounds.first.y) * 0.5f, radius);
+
     return true;
 }
 
@@ -102,6 +109,11 @@ void ModelStatic::onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) {
 
 void ModelStatic::onRemove() {
     for (auto& child : drawableEntities) { child.mesh->removeFromScene(*ecs, child.entity); }
+}
+
+std::unique_ptr<JPH::Shape> ModelStatic::createPhysicsShape() {
+    JPH::Shape::ShapeResult result;
+    return std::make_unique<JPH::CapsuleShape>(physicsShapeSettings, result);
 }
 
 } // namespace o3d

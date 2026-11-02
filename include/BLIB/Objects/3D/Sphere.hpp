@@ -5,6 +5,7 @@
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
+#include <Jolt/Physics/Collision/Shape/SphereShape.h>
 
 namespace bl
 {
@@ -68,6 +69,15 @@ public:
      * @param color The color to assign to all the vertices
      */
     void setColor(const rc::Color& color);
+
+protected:
+    /**
+     * @brief Creates a sphere shape for the sphere
+     */
+    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+
+private:
+    JPH::SphereShapeSettings physicsShapeSettings;
 };
 
 } // namespace o3d

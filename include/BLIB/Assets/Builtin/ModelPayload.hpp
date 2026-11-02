@@ -105,7 +105,13 @@ public:
      */
     unsigned int getAnimationCount() const { return animations.getSize(); }
 
+    /**
+     * @brief Computes and returns the bounding box of the model in model space
+     */
+    const std::pair<glm::vec3, glm::vec3>& getBoundingBox() const { return bounds; }
+
 private:
+    std::pair<glm::vec3, glm::vec3> bounds;
     mdl::NodeSet nodes;
     mdl::MeshSet meshes;
     mdl::BoneSet bones;

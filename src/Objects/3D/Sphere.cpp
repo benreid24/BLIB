@@ -93,6 +93,9 @@ void Sphere::create(engine::World& world, float size, int detailLevel,
     rc::prim::Vertex3D::computeTBN(component().gpuBuffer.vertices().data(),
                                    component().gpuBuffer.indices().data(),
                                    component().gpuBuffer.indices().size());
+
+    // store physics settings
+    physicsShapeSettings = JPH::SphereShapeSettings(size);
 }
 
 void Sphere::makeSphere(float radius, int detailLevel, std::vector<rc::prim::Vertex3D>& vertices,
@@ -139,6 +142,11 @@ void Sphere::makeSphere(float radius, int detailLevel, std::vector<rc::prim::Ver
 void Sphere::setColor(const rc::Color& c) {
     for (auto& v : component().gpuBuffer.vertices()) { v.color = c.toVec4(); }
     component().gpuBuffer.queueTransfer();
+}
+
+std::unique_ptr<JPH::Shape> Sphere::createPhysicsShape() {
+    JPH::Shape::ShapeResult result;
+    return std::make_unique<JPH::SphereShape>(physicsShapeSettings, result);
 }
 
 } // namespace o3d

@@ -121,6 +121,21 @@ public:
     unsigned int getHeight() const { return H; }
 
     /**
+     * @brief Returns the area of the vector
+     */
+    unsigned int getArea() const { return W * H; }
+
+    /**
+     * @brief Returns a pointer to the underlying data
+     */
+    T* dataPtr() { return data.data(); }
+
+    /**
+     * @brief Returns a const pointer to the underlying data
+     */
+    const T* dataPtr() const { return data.data(); }
+
+    /**
      * @brief Clears all memory used by the vector, erasing all elements
      */
     void clear() { data.clear(); }

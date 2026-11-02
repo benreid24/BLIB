@@ -8,6 +8,33 @@ namespace bl
 {
 namespace asi
 {
+namespace
+{
+std::pair<glm::vec3, glm::vec3> computeNodeBox(const mdl::Node& node, const mdl::NodeSet& nodes,
+                                               const mdl::MeshSet& meshes,
+                                               const glm::mat4& globalTransform,
+                                               const std::pair<glm::vec3, glm::vec3>& parentBox) {
+    std::pair<glm::vec3, glm::vec3> box = parentBox;
+    const glm::mat4 nodeTransform       = globalTransform * node.getTransform();
+
+    for (unsigned int meshIndex : node.getMeshes()) {
+        const mdl::Mesh& mesh = meshes.getMesh(meshIndex);
+        for (const mdl::Vertex& vertex : mesh.getVertices()) {
+            const glm::vec4 transformedVertex = nodeTransform * glm::vec4(vertex.pos, 1.0f);
+            box.first                         = glm::min(box.first, glm::vec3(transformedVertex));
+            box.second                        = glm::max(box.second, glm::vec3(transformedVertex));
+        }
+    }
+
+    for (std::uint32_t childIndex : node.getChildren()) {
+        const mdl::Node& childNode = nodes.getNode(childIndex);
+        box                        = computeNodeBox(childNode, nodes, meshes, nodeTransform, box);
+    }
+
+    return box;
+}
+} // namespace
+
 ModelDriver::ModelDriver()
 : Driver(
       as::bdl::AssetBundleConfig{.affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
@@ -17,6 +44,12 @@ ModelDriver::ModelDriver()
 bool ModelDriver::doCreate(as::CreateContext& ctx, ModelPayload& payload) {
     const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>();
     if (params) {
+        std::pair<glm::vec3, glm::vec3> box = {glm::vec3(std::numeric_limits<float>::max()),
+                                               glm::vec3(std::numeric_limits<float>::lowest())};
+        box                                 = computeNodeBox(
+            params->nodes.getNode(0), params->nodes, params->meshes, glm::mat4(1.0f), box);
+
+        payload.bounds = box;
         payload.nodes  = params->nodes;
         payload.meshes = params->meshes;
         payload.bones  = params->bones;
@@ -46,6 +79,7 @@ bool ModelDriver::doCreate(as::CreateContext& ctx, ModelPayload& payload) {
         return false;
     }
 
+    payload.bounds = data.getBoundingBox();
     payload.nodes  = data.getNodes();
     payload.meshes = data.getMeshes();
     payload.bones  = data.getBones();

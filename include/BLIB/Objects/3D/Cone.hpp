@@ -20,9 +20,7 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class Cone
-: public DrawableObject3D<com::BasicMesh>
-, public bcom::Physics3D {
+class Cone : public DrawableObject3D<com::BasicMesh> {
 public:
     /**
      * @brief Does nothing

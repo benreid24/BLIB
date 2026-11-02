@@ -121,7 +121,7 @@ std::unique_ptr<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhys
     points.reserve(this->component().gpuBuffer.indices().size());
     for (std::uint32_t index : this->component().gpuBuffer.indices()) {
         const auto& v = this->component().gpuBuffer.vertices()[index];
-        points.emplace_back(v.position.x, v.position.y, v.position.z);
+        points.emplace_back(v.pos.x, v.pos.y, v.pos.z);
     }
 
     JPH::ConvexHullShapeSettings settings(points.data(), points.size());

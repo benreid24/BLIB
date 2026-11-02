@@ -364,10 +364,7 @@ bool HeightmapTerrain<TVertex, MaterialPipelineId>::createNavmesh(
     geometry.indices      = &this->component().gpuBuffer.indices()[0];
     geometry.indexCount   = this->component().gpuBuffer.indices().size();
 
-    if (navmesh->build(params, geometry, flags)) {
-        // TODO - register with world
-        return true;
-    }
+    if (navmesh->build(params, geometry, flags)) { return true; }
     return false;
 }
 
@@ -438,10 +435,12 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCou
 template<typename TVertex, std::uint32_t MaterialPipelineId>
 std::unique_ptr<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape() {
     const JPH::Vec3 offset(heightmap->offset.x, 0.f, heightmap->offset.y);
-    const JPH::Vec3 scale(heightmap->step, 1.f, heightmap->step);
-    const std::uint32_t sampleCount =
-        heightmap->heightmap.getWidth() * heightmap->heightmap.getHeight();
-    JPH::HeightFieldShapeSettings settings(heightmap->heightmap.data(), offset, scale, sampleCount);
+    const JPH::Vec3 scale(static_cast<float>(heightmap->heightmap.getWidth()) / heightmap->size.x,
+                          1.f,
+                          static_cast<float>(heightmap->heightmap.getHeight()) / heightmap->size.y);
+
+    JPH::HeightFieldShapeSettings settings(
+        heightmap->heightmap.dataPtr(), offset, scale, heightmap->heightmap.getArea());
     JPH::Shape::ShapeResult result;
     return std::make_unique<JPH::HeightFieldShape>(settings, result);
 }

@@ -90,23 +90,16 @@ private:
         , mesh(mesh) {}
     };
 
-    struct PhysicsData {
-        glm::vec2 heightRange;
-        glm::vec2 radiusRange;
-    };
-
     ecs::Registry* ecs;
     com::Skeleton* skeleton;
     std::vector<Child> children;
     bool createdMeshOnSelf;
-    PhysicsData physicsShapeSettings;
+    JPH::CapsuleShapeSettings physicsShapeSettings;
 
     void processNode(engine::World& world, Tx& tx, std::uint32_t skinnedMaterialPipelineId,
                      std::uint32_t nonSkinnedMaterialPipelineId, com::Skeleton& skeleton,
                      const as::TypedRef<asi::ModelPayload>& model, const mdl::Node& node,
                      ecs::Entity parentEntity);
-    void computePhysicsData(const as::TypedRef<asi::ModelPayload>& model,
-                            const glm::mat4& parentTransform, PhysicsData& data);
 
     virtual void onAdd(rc::Scene* scene, rc::UpdateSpeed updateFreq) override;
     virtual void onRemove() override;
