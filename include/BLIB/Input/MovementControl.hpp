@@ -113,9 +113,9 @@ public:
      * @brief Returns a normlized vector indicating which direction is being moved in. up/forward is
      *        positive y, right is positive x
      *
-     * @return sf::Vector2f The direction being moved in. Components in range [-1, 1]
+     * @return The direction being moved in. Components in range [-1, 1]
      */
-    sf::Vector2f readValue() const;
+    glm::vec2 readValue() const;
 
     /**
      * @brief Saves this control config to the engine configuration store
@@ -133,7 +133,7 @@ public:
 
     /**
      * @brief Returns a user-readable string signifying what this control is
-     * 
+     *
      */
     std::string toString() const;
 

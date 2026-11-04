@@ -27,7 +27,7 @@ bool DirectionalControl::process(const InputSystem& system, const sf::Event& eve
         return true;
     }
     else if (type == Type::Joystick && joystick.process(event)) {
-        normalizedDirection = math::normalized(joystick.cachedPosition);
+        normalizedDirection = glm::normalize(joystick.cachedPosition);
         return true;
     }
     return false;

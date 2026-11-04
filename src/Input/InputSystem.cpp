@@ -13,7 +13,8 @@ std::string actorPrefix(unsigned int i) { return "blib.input.player." + std::to_
 } // namespace
 
 InputSystem::InputSystem(engine::Engine& engine)
-: engine(engine) {}
+: engine(engine)
+, mouseCaptured(false) {}
 
 void InputSystem::setControlCount(unsigned int c) {
     controlTemplate.resize(c, Control::Type::SingleTrigger);
@@ -52,7 +53,19 @@ void InputSystem::removeActor(unsigned int i) { actors.erase(actors.begin() + i)
 
 unsigned int InputSystem::actorCount() const { return actors.size(); }
 
-const sf::Vector2f& InputSystem::mouseUnitVector() const { return mouseVector; }
+const glm::vec2& InputSystem::mouseUnitVector() const { return mouseVector; }
+
+void InputSystem::captureMouse(bool hide) {
+    if (mouseCaptured) { return; }
+    engine.renderer().getWindow().getSfWindow().setMouseCursorGrabbed(true);
+    if (hide) { engine.renderer().getWindow().getSfWindow().setMouseCursorVisible(false); }
+}
+
+void InputSystem::releaseMouse() {
+    mouseCaptured = false;
+    engine.renderer().getWindow().getSfWindow().setMouseCursorGrabbed(false);
+    engine.renderer().getWindow().getSfWindow().setMouseCursorVisible(true);
+}
 
 void InputSystem::update() {
     for (auto& ap : actors) { ap->update(); }
@@ -61,9 +74,18 @@ void InputSystem::update() {
 void InputSystem::process(const sf::Event& event) {
     const sf::Event::MouseMoved* mm = event.getIf<sf::Event::MouseMoved>();
     if (mm) {
-        mouseVector = math::normalized(
-            sf::Vector2f(mm->position.x, mm->position.y) -
-            sf::Vector2f(engine.renderer().getWindow().getSfWindow().getSize()) * 0.5f);
+        const sf::Vector2i si(engine.renderer().getWindow().getSfWindow().getSize());
+        const sf::Vector2i halfI = si / 2;
+        const glm::vec2 hw       = glm::vec2(halfI.x, halfI.y);
+
+        // prevent infinite loop
+        if (mouseCaptured && mm->position == halfI) { return; }
+
+        mouseVector = glm::normalize(glm::vec2(mm->position.x, mm->position.y) - hw);
+
+        if (mouseCaptured) {
+            sf::Mouse::setPosition(halfI, engine.renderer().getWindow().getSfWindow());
+        }
     }
 
     for (auto& ap : actors) { ap->process(event); }

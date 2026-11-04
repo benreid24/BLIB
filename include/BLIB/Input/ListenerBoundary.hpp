@@ -23,7 +23,9 @@ public:
     virtual ~ListenerBoundary() = default;
 
 private:
-    virtual bool observe(const Actor&, unsigned int, DispatchType, bool) override { return true; }
+    virtual bool processControl(const Actor&, unsigned int, DispatchType, bool) override {
+        return true;
+    }
 };
 
 } // namespace input

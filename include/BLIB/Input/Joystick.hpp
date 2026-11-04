@@ -4,6 +4,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/Joystick.hpp>
+#include <glm/glm.hpp>
 
 namespace bl
 {
@@ -20,7 +21,7 @@ struct Joystick {
     sf::Joystick::Axis horizontalAxis;
     bool verticalInverted;
     bool horizontalInverted;
-    sf::Vector2f cachedPosition; // not normalized
+    glm::vec2 cachedPosition; // not normalized
 
     /**
      * @brief Construct a new Joystick with sane defaults
@@ -34,7 +35,7 @@ struct Joystick {
      * @param joystick The index of the joystick to read from
      *
      */
-    sf::Vector2f read(unsigned int joystick) const;
+    glm::vec2 read(unsigned int joystick) const;
 
     /**
      * @brief Updates the cached position from the given event

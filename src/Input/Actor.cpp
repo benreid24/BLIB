@@ -114,7 +114,7 @@ bool Actor::controlActive(unsigned int c) const {
     return (*activeControls)[c].triggerControl.active();
 }
 
-sf::Vector2f Actor::readControl(unsigned int c) const {
+glm::vec2 Actor::readControl(unsigned int c) const {
     switch ((*activeControls)[c].type) {
     case Control::Type::Directional:
         return (*activeControls)[c].directionalControl.normalizedDirection;
@@ -145,7 +145,7 @@ void Actor::update() {
                 if (keys.left.active()) { dispatch(i, DispatchType::MovementLeft, false); }
             }
             else {
-                const sf::Vector2f& pos = ctrl.movementControl.joystick.cachedPosition;
+                const glm::vec2& pos = ctrl.movementControl.joystick.cachedPosition;
                 if (pos.x >= StickThreshold) { dispatch(i, DispatchType::MovementRight, false); }
                 if (pos.x <= -StickThreshold) { dispatch(i, DispatchType::MovementLeft, false); }
                 if (pos.y >= StickThreshold) { dispatch(i, DispatchType::MovementUp, false); }
@@ -189,61 +189,61 @@ void Actor::replaceListener(Listener& old, Listener& l) {
 
 void Actor::dispatch(unsigned int ctrl, DispatchType dt, bool onEvent) {
     for (auto it = listeners.rbegin(); it != listeners.rend(); ++it) {
-        if ((*it)->observe(*this, ctrl, dt, onEvent)) break;
+        if ((*it)->processControl(*this, ctrl, dt, onEvent)) break;
     }
 }
 
 void Actor::process(const sf::Event& event) {
     // Determine if keyboard or controller is being used, then process controls
     bool shouldProcess = false;
-    
-    event.visit(util::Visitor{
-        [this, &shouldProcess](const sf::Event::JoystickButtonPressed& jbEvent) {
-            if (joystick >= sf::Joystick::Count || jbEvent.joystickId == joystick) {
-                activeControls = &joystickControls;
-                shouldProcess  = true;
-            }
-        },
-        [this, &shouldProcess](const sf::Event::JoystickButtonReleased& jbEvent) {
-            if (joystick >= sf::Joystick::Count || jbEvent.joystickId == joystick) {
-                activeControls = &joystickControls;
-                shouldProcess  = true;
-            }
-        },
-        [this, &shouldProcess](const sf::Event::JoystickMoved& jmEvent) {
-            if (joystick >= sf::Joystick::Count || jmEvent.joystickId == joystick) {
-                activeControls = &joystickControls;
-                shouldProcess  = true;
-            }
-        },
-        [this, &shouldProcess](const sf::Event::KeyPressed&) {
-            activeControls = &kbmControls;
-            shouldProcess  = true;
-        },
-        [this, &shouldProcess](const sf::Event::KeyReleased&) {
-            activeControls = &kbmControls;
-            shouldProcess  = true;
-        },
-        [this, &shouldProcess](const sf::Event::MouseButtonPressed&) {
-            activeControls = &kbmControls;
-            shouldProcess  = true;
-        },
-        [this, &shouldProcess](const sf::Event::MouseButtonReleased&) {
-            activeControls = &kbmControls;
-            shouldProcess  = true;
-        },
-        [this, &shouldProcess](const sf::Event::MouseWheelScrolled&) {
-            activeControls = &kbmControls;
-            shouldProcess  = true;
-        },
-        [this, &shouldProcess](const sf::Event::MouseMoved&) {
-            activeControls = &kbmControls;
-            shouldProcess  = true;
-        },
-        [](const auto&) {
-            // Handle any other event types - do nothing
-        }});
-    
+
+    event.visit(
+        util::Visitor{[this, &shouldProcess](const sf::Event::JoystickButtonPressed& jbEvent) {
+                          if (joystick >= sf::Joystick::Count || jbEvent.joystickId == joystick) {
+                              activeControls = &joystickControls;
+                              shouldProcess  = true;
+                          }
+                      },
+                      [this, &shouldProcess](const sf::Event::JoystickButtonReleased& jbEvent) {
+                          if (joystick >= sf::Joystick::Count || jbEvent.joystickId == joystick) {
+                              activeControls = &joystickControls;
+                              shouldProcess  = true;
+                          }
+                      },
+                      [this, &shouldProcess](const sf::Event::JoystickMoved& jmEvent) {
+                          if (joystick >= sf::Joystick::Count || jmEvent.joystickId == joystick) {
+                              activeControls = &joystickControls;
+                              shouldProcess  = true;
+                          }
+                      },
+                      [this, &shouldProcess](const sf::Event::KeyPressed&) {
+                          activeControls = &kbmControls;
+                          shouldProcess  = true;
+                      },
+                      [this, &shouldProcess](const sf::Event::KeyReleased&) {
+                          activeControls = &kbmControls;
+                          shouldProcess  = true;
+                      },
+                      [this, &shouldProcess](const sf::Event::MouseButtonPressed&) {
+                          activeControls = &kbmControls;
+                          shouldProcess  = true;
+                      },
+                      [this, &shouldProcess](const sf::Event::MouseButtonReleased&) {
+                          activeControls = &kbmControls;
+                          shouldProcess  = true;
+                      },
+                      [this, &shouldProcess](const sf::Event::MouseWheelScrolled&) {
+                          activeControls = &kbmControls;
+                          shouldProcess  = true;
+                      },
+                      [this, &shouldProcess](const sf::Event::MouseMoved&) {
+                          activeControls = &kbmControls;
+                          shouldProcess  = true;
+                      },
+                      [](const auto&) {
+                          // Handle any other event types - do nothing
+                      }});
+
     if (!shouldProcess) { return; }
 
     // Process control

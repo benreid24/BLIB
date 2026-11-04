@@ -26,11 +26,17 @@ enum struct DispatchType {
     /// @brief Movement control was activated in the up/forward direction
     MovementUp,
 
+    /// @brief Movement control was activated in the up/forward direction
+    MovementForward = MovementUp,
+
     /// @brief Movement control was activated in the right direction
     MovementRight,
 
     /// @brief Movement control was activated in the down/backward direction
     MovementDown,
+
+    /// @brief Movement control was activated in the down/backward direction
+    MovementBackward = MovementDown,
 
     /// @brief Movement control was activated in the left direction
     MovementLeft

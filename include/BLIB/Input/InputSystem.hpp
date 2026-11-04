@@ -83,7 +83,18 @@ public:
      * @brief Returns a normalized vector representing the direction of the mouse from the window
      *        center. Does not account for the window viewport or letterboxing
      */
-    const sf::Vector2f& mouseUnitVector() const;
+    const glm::vec2& mouseUnitVector() const;
+
+    /**
+     * @brief Captures the mouse to the center of the window. Directional mouse controls based on
+     *        delta movement each frame
+     */
+    void captureMouse(bool hide = true);
+
+    /**
+     * @brief Releases the mouse. Directional mouse controls based on mouse position
+     */
+    void releaseMouse();
 
     /**
      * @brief Called once per frame by the game engine
@@ -104,7 +115,8 @@ private:
     engine::Engine& engine;
     std::vector<Control::Type> controlTemplate;
     std::vector<std::unique_ptr<Actor>> actors;
-    sf::Vector2f mouseVector;
+    glm::vec2 mouseVector;
+    bool mouseCaptured;
 
     virtual void process(const sf::Event& event) override;
 

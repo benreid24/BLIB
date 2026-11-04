@@ -1,8 +1,8 @@
 #ifndef INPUTLISTENER_HPP
 #define INPUTLISTENER_HPP
 
-#include <BLIB/Objects.hpp>
 #include <BLIB/Input/Listener.hpp>
+#include <BLIB/Objects.hpp>
 #include <BLIB/Render.hpp>
 
 class InputListener : public bl::input::Listener {
@@ -25,8 +25,8 @@ private:
     bool rebindExample;
     bool rebindMovement;
 
-    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
-                         bl::input::DispatchType eventType, bool eventTriggered) override;
+    virtual bool processControl(const bl::input::Actor&, unsigned int activatedControl,
+                                bl::input::DispatchType eventType, bool eventTriggered) override;
 };
 
 #endif

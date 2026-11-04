@@ -1,6 +1,8 @@
 #include <BLIB/Cameras/3D/Controllers/FreeController.hpp>
 
 #include <BLIB/Cameras/3D/Camera3D.hpp>
+#include <BLIB/Engine/Player.hpp>
+#include <BLIB/Input/Actor.hpp>
 #include <BLIB/Math/Constants.hpp>
 
 namespace bl
@@ -23,7 +25,25 @@ FreeController::FreeController(float maxSpeed, float acceleration, float timeToS
 , appliedRotation(0.f)
 , dampening(std::pow(StoppedSpeed, 1.f / timeToStop))
 , acceleration(acceleration)
-, maxSpeed(maxSpeed) {}
+, maxSpeed(maxSpeed)
+, actor(nullptr)
+, controls{}
+, speedFactor(1.f) {}
+
+void FreeController::setControlScheme(const ControlScheme& scheme) { controls = scheme; }
+
+void FreeController::subscribeToInput(engine::Player& player) {
+    subscribeToInput(player.getInputActor());
+}
+
+void FreeController::subscribeToInput(input::Actor& actor) {
+    actor.addListener(*this);
+    this->actor = &actor;
+}
+
+void FreeController::unsubscribeFromInput() {
+    if (actor) { actor->removeListener(*this); }
+}
 
 void FreeController::applyYaw(float factor) { appliedRotation.y = factor; }
 
@@ -80,8 +100,41 @@ void FreeController::update(float dt) {
     const glm::vec3 up      = glm::normalize(glm::cross(right, forward));
     glm::vec3 pos           = camera().getPosition();
     glm::vec3 worldVelocity = right * velocity.x + up * velocity.y + forward * velocity.z;
-    pos += worldVelocity * dt;
+    pos += worldVelocity * dt * speedFactor;
+    speedFactor = 1.f;
     camera().setPosition(pos);
+}
+
+bool FreeController::processControl(const input::Actor& actor, unsigned int activatedControl,
+                                    input::DispatchType eventType, bool) {
+    if (!this->actor || this->actor != &actor) { return false; }
+
+    if (activatedControl == controls.movement) {
+        switch (eventType) {
+        case input::DispatchType::MovementForward:
+            moveForward(1.f);
+            break;
+        case input::DispatchType::MovementBackward:
+            moveForward(-1.f);
+            break;
+        case input::DispatchType::MovementRight:
+            moveRight(1.f);
+            break;
+        case input::DispatchType::MovementLeft:
+            moveRight(-1.f);
+            break;
+        default:
+            break;
+        }
+    }
+    else if (activatedControl == controls.up) { moveUp(1.f); }
+    else if (activatedControl == controls.down) { moveUp(-1.f); }
+    else if (activatedControl == controls.speed) { speedFactor = controls.speedFactor; }
+    else if (activatedControl == controls.direction) {
+        const glm::vec2 dir = actor.readControl(activatedControl);
+        applyYaw(dir.x * controls.rotationSpeed);
+        applyPitch(-dir.y * controls.rotationSpeed);
+    }
 }
 
 } // namespace c3d

@@ -36,7 +36,7 @@ DispatchType MovementControl::process(const sf::Event& event) {
         if (keys.left.process(event)) return DispatchType::MovementLeft;
     }
     else if (type == Type::Joystick) {
-        const sf::Vector2f old = joystick.cachedPosition;
+        const glm::vec2 old = joystick.cachedPosition;
 
         if (joystick.process(event)) {
             const sf::Event::JoystickMoved& jm = *event.getIf<sf::Event::JoystickMoved>();
@@ -79,16 +79,16 @@ Joystick& MovementControl::joystickControl() { return joystick; }
 
 const Joystick& MovementControl::joystickControl() const { return joystick; }
 
-sf::Vector2f MovementControl::readValue() const {
+glm::vec2 MovementControl::readValue() const {
     if (type == Type::Triggers) {
-        sf::Vector2f dir;
+        glm::vec2 dir;
         if (keys.up.active()) dir.y += 1.f;
         if (keys.right.active()) dir.x += 1.f;
         if (keys.down.active()) dir.y -= 1.f;
         if (keys.left.active()) dir.x -= 1.f;
-        return math::normalized(dir);
+        return glm::normalize(dir);
     }
-    else { return math::normalized(joystick.cachedPosition); }
+    else { return glm::normalize(joystick.cachedPosition); }
 }
 
 void MovementControl::saveToConfig(const std::string& prefix) const {

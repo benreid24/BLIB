@@ -29,8 +29,8 @@ bool InputListener::shouldRebindMovement() {
     return r;
 }
 
-bool InputListener::observe(const bl::input::Actor& actor, unsigned int activatedControl,
-                            bl::input::DispatchType eventType, bool fromEvent) {
+bool InputListener::processControl(const bl::input::Actor& actor, unsigned int activatedControl,
+                                   bl::input::DispatchType eventType, bool fromEvent) {
     BL_LOG_DEBUG << "Received control: " << activatedControl;
 
     std::string ctrl;

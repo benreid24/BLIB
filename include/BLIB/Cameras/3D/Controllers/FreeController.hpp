@@ -2,10 +2,15 @@
 #define BLIB_CAMERAS_3D_CONTROLLERS_FREECONTROLLER_HPP
 
 #include <BLIB/Cameras/3D/CameraController3D.hpp>
+#include <BLIB/Input/Listener.hpp>
 #include <glm/glm.hpp>
 
 namespace bl
 {
+namespace engine
+{
+class Player;
+}
 namespace cam
 {
 namespace c3d
@@ -15,8 +20,21 @@ namespace c3d
  *
  * @ingroup Cameras
  */
-class FreeController : public CameraController3D {
+class FreeController
+: public CameraController3D
+, public input::Listener {
 public:
+    struct ControlScheme {
+        unsigned int movement;
+        unsigned int up;
+        unsigned int down;
+        unsigned int speed;
+        float speedFactor;
+
+        unsigned int direction;
+        float rotationSpeed;
+    };
+
     /**
      * @brief Creates the camera controller
      *
@@ -30,6 +48,32 @@ public:
      * @brief Destroys the camera controller
      */
     virtual ~FreeController() = default;
+
+    /**
+     * @brief Sets the control scheme for the camera
+     *
+     * @param scheme The control scheme to use
+     */
+    void setControlScheme(const ControlScheme& scheme);
+
+    /**
+     * @brief Subscribes to receive input events
+     *
+     * @param actor A reference to the actor to get input from
+     */
+    void subscribeToInput(input::Actor& actor);
+
+    /**
+     * @brief Subscribes to receive input events
+     *
+     * @param actor A reference to the player to get input from
+     */
+    void subscribeToInput(engine::Player& player);
+
+    /**
+     * @brief Unsubscribes from the input system
+     */
+    void unsubscribeFromInput();
 
     /**
      * @brief Applies a yaw movement with the given delta in the next update
@@ -87,6 +131,14 @@ private:
     float dampening;
     float acceleration;
     float maxSpeed;
+
+    // if using controls
+    input::Actor* actor = nullptr;
+    ControlScheme controls;
+    float speedFactor;
+
+    virtual bool processControl(const input::Actor& actor, unsigned int activatedControl,
+                                input::DispatchType eventType, bool eventTriggered) override;
 };
 
 } // namespace c3d

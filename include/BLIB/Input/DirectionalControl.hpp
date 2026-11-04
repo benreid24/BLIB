@@ -2,6 +2,7 @@
 #define BLIB_INPUT_DIRECTIONALCONTROL_HPP
 
 #include <BLIB/Input/Joystick.hpp>
+#include <glm/glm.hpp>
 
 namespace bl
 {
@@ -23,7 +24,7 @@ struct DirectionalControl {
     union {
         Joystick joystick;
     };
-    sf::Vector2f normalizedDirection;
+    glm::vec2 normalizedDirection;
 
     /**
      * @brief Creates the directional control in either mouse or joystick mode
@@ -58,7 +59,7 @@ struct DirectionalControl {
 
     /**
      * @brief Returns a user-readable string signifying what this control is
-     * 
+     *
      */
     std::string toString() const;
 };

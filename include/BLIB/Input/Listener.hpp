@@ -57,8 +57,8 @@ public:
      *                       notification of active controls
      * @return True to consume the event and stop the dispatches, false to send to other listeners
      */
-    virtual bool observe(const Actor& actor, unsigned int activatedControl, DispatchType eventType,
-                         bool eventTriggered) = 0;
+    virtual bool processControl(const Actor& actor, unsigned int activatedControl,
+                                DispatchType eventType, bool eventTriggered) = 0;
 
 private:
     Actor* owner;

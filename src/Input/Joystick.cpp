@@ -22,12 +22,12 @@ Joystick::Joystick()
 , verticalInverted(false)
 , horizontalInverted(false) {}
 
-sf::Vector2f Joystick::read(unsigned int joystick) const {
+glm::vec2 Joystick::read(unsigned int joystick) const {
     float x = sf::Joystick::getAxisPosition(joystick, horizontalAxis);
     float y = sf::Joystick::getAxisPosition(joystick, verticalAxis);
     if (horizontalInverted) x = -x;
     if (verticalInverted) y = -y;
-    return math::normalized(sf::Vector2f{x, y});
+    return glm::normalize(glm::vec2{x, y});
 }
 
 bool Joystick::process(const sf::Event& event) {

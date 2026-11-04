@@ -4,6 +4,7 @@
 #include <BLIB/Input/Control.hpp>
 #include <BLIB/Input/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <glm/glm.hpp>
 #include <stack>
 #include <vector>
 
@@ -160,9 +161,9 @@ public:
      * @brief Reads the given directional or movement control
      *
      * @param controlIndex The control to get. In range [0, controlCount)
-     * @return sf::Vector2f The control value. Directional controls will be normalized
+     * @return The control value. Directional controls will be normalized
      */
-    sf::Vector2f readControl(unsigned int controlIndex) const;
+    glm::vec2 readControl(unsigned int controlIndex) const;
 
     /**
      * @brief Returns whether or not this actor is using a joystick (last valid input was joystick)
