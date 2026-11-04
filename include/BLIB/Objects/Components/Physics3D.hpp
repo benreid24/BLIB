@@ -27,6 +27,18 @@ public:
                            JPH::EActivation activation = JPH::EActivation::Activate);
 
     /**
+     * @brief Creates the physics component and body for this object
+     *
+     * @param shape The shape to use for the physics body
+     * @param motionType The motion type of the body
+     * @param layer The object layer of the body
+     * @param activation The activation state of the body
+     */
+    void createPhysicsBody(std::unique_ptr<JPH::Shape>&& shape, JPH::EMotionType motionType,
+                           com::Physics3D::ObjectLayer layer,
+                           JPH::EActivation activation = JPH::EActivation::Activate);
+
+    /**
      * @brief Returns whether the physics body is currently added to the simulation
      */
     bool isAddedToPhysicsSimulation() const;
