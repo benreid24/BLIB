@@ -4,6 +4,7 @@
 #include "vk_mem_alloc.h"
 
 #include <BLIB/Engine/Configuration.hpp>
+#include <BLIB/Engine/Settings.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Render/Vulkan/CleanupManager.hpp>
 #include <BLIB/Render/Vulkan/Framebuffer.hpp>
@@ -202,8 +203,8 @@ void VulkanLayer::incrementFrame() {
 
 void VulkanLayer::createInstance() {
     // app info
-    const std::string appName =
-        engine::Configuration::getOrDefault<std::string>("blib.app.name", "BLIB Application");
+    const std::string appName = engine::Configuration::getOrDefault<std::string>(
+        engine::Settings::AppNameKey, std::string(engine::Settings::DefaultAppName));
     VkApplicationInfo appInfo{};
     appInfo.sType              = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName   = appName.c_str();

@@ -19,17 +19,21 @@ namespace engine
  */
 class Settings {
 public:
-    static constexpr std::string_view DefaultAssetsPath = "Assets";
-    static constexpr float DefaultUpdateInterval        = 1.f / 120.f;
-    static constexpr float DefaultMaximumFramerate      = 0.f;
-    static constexpr bool DefaultAllowVariableTimestep  = true;
-    static constexpr bool DefaultCreateWindow           = true;
+    static constexpr std::string_view DefaultAppName        = "BLIB Project";
+    static constexpr std::string_view DefaultConfigFilePath = "blib.cfg";
+    static constexpr std::string_view DefaultAssetsPath     = "Assets";
+    static constexpr float DefaultUpdateInterval            = 1.f / 120.f;
+    static constexpr float DefaultMaximumFramerate          = 0.f;
+    static constexpr bool DefaultAllowVariableTimestep      = true;
+    static constexpr bool DefaultCreateWindow               = true;
 #ifdef BLIB_DEBUG
     static constexpr bool DefaultLogFps = true;
 #else
     static constexpr bool DefaultLogFps = false;
 #endif
 
+    static constexpr const char* AppNameKey          = "blib.engine.app_name";
+    static constexpr const char* ConfigFileKey       = "blib.engine.config_file";
     static constexpr const char* AssetsPathKey       = "blib.engine.assets_path";
     static constexpr const char* UpdatePeriodKey     = "blib.engine.update_period";
     static constexpr const char* MaxFpsKey           = "blib.engine.max_fps";
@@ -41,6 +45,21 @@ public:
      * @brief Creates a new settings object with all default settings
      */
     Settings();
+
+    /**
+     * @brief Sets the file path to load the engine config from (local to the app data path)
+     * @param path The path to the config file
+     * @return A reference to this object
+     */
+    Settings& withConfigFile(std::string_view path);
+
+    /**
+     * @brief Sets the name of the application
+     *
+     * @param name The name of the application
+     * @return Settings& Reference to this object
+     */
+    Settings& withAppName(std::string_view name);
 
     /**
      * @brief Sets the update interval to use for fixed physics updates
@@ -107,6 +126,16 @@ public:
     void syncToConfig() const;
 
     /**
+     * @brief Returns the name of the application
+     */
+    std::string_view applicationName() const;
+
+    /**
+     * @brief Returns the path to the engine config file
+     */
+    std::string_view configFilePath() const;
+
+    /**
      * @brief Returns the fixed physics update interval, in seconds
      */
     float updateTimestep() const;
@@ -147,6 +176,8 @@ public:
     std::string_view assetsPath() const;
 
 private:
+    std::string_view appName;
+    std::string_view configFile;
     float updateTime;
     float maxFps;
     bool allowVariableInterval;

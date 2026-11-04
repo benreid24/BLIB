@@ -1,6 +1,8 @@
 #include <BLIB/Engine/Configuration.hpp>
 
 #include <BLIB/Audio/AudioSystem.hpp>
+#include <BLIB/Engine/Settings.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <fstream>
 
 namespace bl
@@ -52,6 +54,15 @@ void logValues(
 Configuration& Configuration::get() {
     static Configuration configuration;
     return configuration;
+}
+
+const Configuration::FixedConfiguration& Configuration::fixedConfig() { return get().fixed; }
+
+void Configuration::setFixedConfig(const engine::Settings& settings) {
+    fixed.appName       = settings.applicationName();
+    fixed.dataDirectory = util::FileUtil::getDataDirectory(fixed.appName);
+    fixed.configFilePath =
+        util::FileUtil::joinPath(fixed.dataDirectory, std::string(settings.configFilePath()));
 }
 
 bool Configuration::load(const std::string& file) {
@@ -110,6 +121,8 @@ bool Configuration::load(const std::string& file) {
     return true;
 }
 
+bool Configuration::load() { return load(get().fixed.configFilePath); }
+
 bool Configuration::save(const std::string& file) {
     std::ofstream output(file.c_str(), std::ios::out);
     if (!output.good()) return false;
@@ -124,6 +137,8 @@ bool Configuration::save(const std::string& file) {
 
     return output.good();
 }
+
+bool Configuration::save() { return save(get().fixed.configFilePath); }
 
 void Configuration::log() {
     logValues<bool>(get().config);

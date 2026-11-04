@@ -14,11 +14,23 @@ constexpr const char* RendererPrefix    = "blib.engine.renderer.0";
 } // namespace
 
 Settings::Settings()
-: updateTime(DefaultUpdateInterval)
+: appName(DefaultAppName)
+, configFile(DefaultConfigFilePath)
+, updateTime(DefaultUpdateInterval)
 , maxFps(DefaultMaximumFramerate)
 , allowVariableInterval(DefaultAllowVariableTimestep)
 , loggingFps(DefaultLogFps)
 , assetsDir(DefaultAssetsPath) {}
+
+Settings& Settings::withConfigFile(std::string_view path) {
+    configFile = path;
+    return *this;
+}
+
+Settings& Settings::withAppName(std::string_view name) {
+    appName = name;
+    return *this;
+}
 
 Settings& Settings::withMaxFramerate(float fps) {
     maxFps = fps;
@@ -93,6 +105,10 @@ const std::optional<rc::CreationSettings>& Settings::getRendererCreationSettings
 }
 
 std::string_view Settings::assetsPath() const { return assetsDir; }
+
+std::string_view Settings::applicationName() const { return appName; }
+
+std::string_view Settings::configFilePath() const { return configFile; }
 
 } // namespace engine
 } // namespace bl

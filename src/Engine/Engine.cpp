@@ -1,6 +1,7 @@
 #include <BLIB/Engine/Engine.hpp>
 
 #include <BLIB/Audio.hpp>
+#include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Particles/ParticleSystem.hpp>
 #include <BLIB/Signals/Table.hpp>
@@ -47,7 +48,12 @@ Engine::Engine(const Settings& settings)
         BL_LOG_WARN << "Multiple engine instances created. Some features may break or misbehave";
     }
 
+    Configuration::get().setFixedConfig(settings);
     settings.syncToConfig();
+    if (!Configuration::load()) {
+        BL_LOG_WARN << "Failed to load engine configuration from file: "
+                    << Configuration::fixedConfig().configFilePath;
+    }
 
     systems().registerSystem<sys::TogglerSystem>();
     systems().registerSystem<sys::VelocitySystem>();
@@ -148,6 +154,9 @@ bool Engine::run(StateFactory&& factory) {
 bool Engine::setup() {
     if (isSetup) { return true; }
     isSetup = true;
+
+    inputSystem().loadFromConfig();
+    input.saveToConfig();
 
     if (engineSettings.createRenderer()) {
         rendererInstance.emplace(*this, engineSettings.getRendererCreationSettings().value());

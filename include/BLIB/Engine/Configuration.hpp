@@ -13,6 +13,8 @@ namespace bl
 {
 namespace engine
 {
+class Settings;
+
 /**
  * @brief Global typeless configuration store for engine settings. Applications may add their own
  *        configuration settings to the store as well. Some examples of configuration are the path
@@ -25,6 +27,15 @@ namespace engine
  */
 class Configuration {
 public:
+    /**
+     * @brief Set of fixed configuration values that are always set
+     */
+    struct FixedConfiguration {
+        std::string appName;
+        std::string configFilePath;
+        std::string dataDirectory;
+    };
+
     /**
      * @brief Returns the stored value for the given configuration type and key. If the key does not
      *        exist or is a different type then the default value is returned
@@ -88,6 +99,14 @@ public:
     static bool load(const std::string& file);
 
     /**
+     * @brief Loads the configuration from the configured file
+     * @see load(const std::string&)
+     *
+     * @return True if loaded without error, false if any error. Default values still present
+     */
+    static bool load();
+
+    /**
      * @brief Saves the configuration to the given file. See load() for the file format
      * @see load
      *
@@ -97,23 +116,37 @@ public:
     static bool save(const std::string& file);
 
     /**
-     * @brief Logs the configuration via the included logging utility
+     * @brief Saves the configuration to the configured file. See load() for the file format
+     * @see save(const std::string&)
      *
+     * @return True on successful write, false for any error
+     */
+    static bool save();
+
+    /**
+     * @brief Logs the configuration via the included logging utility
      */
     static void log();
 
     /**
      * @brief Clears out all stored config data. Useful for doing a fresh reload
-     *
      */
     static void clear();
 
+    /**
+     * @brief Returns the fixed configuration values that are always set
+     */
+    static const FixedConfiguration& fixedConfig();
+
 private:
+    FixedConfiguration fixed;
     std::unordered_map<std::type_index, std::unordered_map<std::string, std::any>> config;
 
     Configuration() = default;
-
     static Configuration& get();
+    void setFixedConfig(const engine::Settings& settings);
+
+    friend class Engine;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
