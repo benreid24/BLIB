@@ -52,12 +52,14 @@ void joltLog(const char* fmt, ...) {
 
 Physics3D::Physics3D()
 : System(engine::FrameStage::Physics, engine::StateMask::Running)
-, joltFrameAllocator(FrameMemory)
 , physicsComponents(nullptr) {
     objectVsBroadphaseFilter.update(objectLayerFilter, broadphaseLayerInterface);
 }
 
 void Physics3D::init(engine::Engine& engine) {
+    JPH::RegisterDefaultAllocator();
+    joltFrameAllocator.emplace(FrameMemory);
+
     jobSystem.emplace(engine.engineLoopThreadpool());
     physicsComponents = &engine.ecs().getAllComponents<com::Physics3D>();
 
@@ -79,7 +81,7 @@ void Physics3D::update(std::mutex&, float dt, float, float, float) {
         std::max(multipleOf60FPS * jolt::Constants::CollisionStepsPer60FPS, 1u);
     for (JPH::PhysicsSystem* simulation : activePhysicsSystems) {
         if (!simulation) { continue; }
-        simulation->Update(dt, collisionSteps, &joltFrameAllocator, &jobSystem.value());
+        simulation->Update(dt, collisionSteps, &*joltFrameAllocator, &jobSystem.value());
     }
 
     // TODO - maybe we could reduce the scope of this loop via a list of active bodies?

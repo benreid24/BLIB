@@ -212,6 +212,14 @@ private:
     virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
 };
 
+/**
+ * @brief Basic heightmap terrain instantiation
+ *
+ * @ingroup Objects
+ */
+using HeightmapTerrainBasic =
+    HeightmapTerrain<rc::prim::Vertex3D, rc::cfg::MaterialPipelineIds::Mesh3D>;
+
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
@@ -434,13 +442,29 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCou
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
 std::unique_ptr<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape() {
+    ctr::Vector2D<float> localHeightmap;
+    ctr::Vector2D<float>* usedHeightmap = &heightmap->heightmap;
+    if (usedHeightmap->getWidth() != usedHeightmap->getHeight()) {
+        const unsigned int s = std::max(usedHeightmap->getWidth(), usedHeightmap->getHeight());
+        localHeightmap.setSize(s, s);
+        for (unsigned int x = 0; x < s; ++x) {
+            for (unsigned int y = 0; y < s; ++y) {
+                if (x < usedHeightmap->getWidth() && y < usedHeightmap->getHeight()) {
+                    localHeightmap(x, y) = (*usedHeightmap)(x, y);
+                }
+                else { localHeightmap(x, y) = JPH::HeightFieldShapeConstants::cNoCollisionValue; }
+            }
+        }
+        usedHeightmap = &localHeightmap;
+    }
+
     const JPH::Vec3 offset(heightmap->offset.x, 0.f, heightmap->offset.y);
-    const JPH::Vec3 scale(static_cast<float>(heightmap->heightmap.getWidth()) / heightmap->size.x,
+    const JPH::Vec3 scale(static_cast<float>(usedHeightmap->getWidth()) / heightmap->size.x,
                           1.f,
-                          static_cast<float>(heightmap->heightmap.getHeight()) / heightmap->size.y);
+                          static_cast<float>(usedHeightmap->getHeight()) / heightmap->size.y);
 
     JPH::HeightFieldShapeSettings settings(
-        heightmap->heightmap.dataPtr(), offset, scale, heightmap->heightmap.getArea());
+        usedHeightmap->dataPtr(), offset, scale, usedHeightmap->getWidth());
     JPH::Shape::ShapeResult result;
     return std::make_unique<JPH::HeightFieldShape>(settings, result);
 }

@@ -84,7 +84,7 @@ public:
 
 private:
     std::optional<jolt::JobSystem> jobSystem;
-    JPH::TempAllocatorImpl joltFrameAllocator;
+    std::optional<JPH::TempAllocatorImpl> joltFrameAllocator;
     jolt::ObjectLayerPairFilter objectLayerFilter;
     jolt::BroadPhaseLayerInterface broadphaseLayerInterface;
     jolt::ObjectVsBroadPhaseLayerFilter objectVsBroadphaseFilter;

@@ -47,7 +47,23 @@ const bl::input::InputConfiguration
                     {.directional = {.type = bl::input::DirectionalControl::Type::Mouse}},
                     {}},
                }};
+
+const bl::cam::c3d::FreeController::ControlScheme CameraControls{.movement      = Movement,
+                                                                 .up            = Up,
+                                                                 .down          = Down,
+                                                                 .speed         = Speed,
+                                                                 .speedFactor   = 2.f,
+                                                                 .direction     = Direction,
+                                                                 .rotationSpeed = 0.1f};
+
 } // namespace controls
+
+namespace
+{
+void colorVertex(bl::rc::prim::Vertex3D& v) {
+    v.color = glm::vec4{v.pos.x / 300.f + 0.5f, v.pos.y / 30.f, v.pos.z / 300.f + 0.5f, 1.f};
+}
+} // namespace
 
 class DemoState : public bl::engine::State {
 public:
@@ -66,18 +82,28 @@ public:
         auto& cam = *player.getRenderObserver().setCamera<bl::cam::Camera3D>(
             glm::vec3{0.f, 3.f, -5.f}, glm::vec3{0.f, 1.f, 0.f});
         auto& controller = *cam.setController<bl::cam::c3d::FreeController>(5.f, 10.f);
+        controller.setControlScheme(controls::CameraControls);
+
+        bl::rand::Perlin<float> perlin(1234);
+        terrain.createFromNoise2d(*world, perlin, 300.f, 300.f, 30.f, 1.f, 6, 0.5f, 0.01f);
+        terrain.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        terrain.createPhysicsBody(JPH::EMotionType::Static,
+                                  bl::com::Physics3D::ObjectLayer::Terrain);
+        for (auto& v : terrain.component().gpuBuffer.vertices()) { colorVertex(v); }
+
+        engine.inputSystem().captureMouse();
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
-        // TODO
+        engine.getPlayer().leaveWorld();
     }
 
-    virtual void update(bl::engine::Engine&, float dt, float) override {
-        // TODO
+    virtual void update(bl::engine::Engine&, float, float) override {
+        // noop
     }
 
 private:
-    //
+    bl::obj::o3d::HeightmapTerrainBasic terrain;
 };
 
 class Physics3DExample : public bl::game::Game {
