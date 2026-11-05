@@ -74,7 +74,7 @@ protected:
     /**
      * @brief Creates a sphere shape for the sphere
      */
-    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
 
 private:
     JPH::SphereShapeSettings physicsShapeSettings;

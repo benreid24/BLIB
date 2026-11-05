@@ -111,9 +111,8 @@ void ModelStatic::onRemove() {
     for (auto& child : drawableEntities) { child.mesh->removeFromScene(*ecs, child.entity); }
 }
 
-std::unique_ptr<JPH::Shape> ModelStatic::createPhysicsShape() {
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::CapsuleShape>(physicsShapeSettings, result);
+JPH::Ref<JPH::Shape> ModelStatic::createPhysicsShape() {
+    return physicsShapeSettings.Create().Get();
 }
 
 } // namespace o3d

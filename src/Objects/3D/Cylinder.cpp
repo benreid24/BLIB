@@ -112,10 +112,7 @@ void Cylinder::setColor(const rc::Color& c) {
     component().gpuBuffer.queueTransfer();
 }
 
-std::unique_ptr<JPH::Shape> Cylinder::createPhysicsShape() {
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::CylinderShape>(physicsShapeSettings, result);
-}
+JPH::Ref<JPH::Shape> Cylinder::createPhysicsShape() { return physicsShapeSettings.Create().Get(); }
 
 } // namespace o3d
 } // namespace obj

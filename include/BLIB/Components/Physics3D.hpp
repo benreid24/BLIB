@@ -118,7 +118,7 @@ public:
      * @param layer The object layer of the entity
      * @param activation The activation state of the entity
      */
-    Physics3D(engine::Engine& engine, ecs::Entity entity, std::unique_ptr<JPH::Shape>&& shape,
+    Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
               JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation);
 
     /**
@@ -130,7 +130,7 @@ public:
      * @param motionType The motion type of the entity
      * @param layer The object layer of the entity
      */
-    Physics3D(engine::Engine& engine, ecs::Entity entity, std::unique_ptr<JPH::Shape>&& shape,
+    Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
               JPH::EMotionType motionType, ObjectLayer layer);
 
     /**
@@ -175,7 +175,7 @@ public:
 private:
     ecs::Entity entity;
     JPH::BodyInterface* bodyInterface;
-    std::unique_ptr<JPH::Shape> shape;
+    JPH::Ref<JPH::Shape> shape;
     com::Transform3D* transform;
     JPH::Body* body;
     bool isAdded;

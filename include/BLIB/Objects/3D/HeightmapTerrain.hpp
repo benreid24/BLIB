@@ -209,7 +209,7 @@ private:
 
     void createHeightmapComponent(engine::World& world);
     void setIndices(unsigned int xCount, unsigned int yCount);
-    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
 };
 
 /**
@@ -441,7 +441,7 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCou
 }
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
-std::unique_ptr<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape() {
+JPH::Ref<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape() {
     ctr::Vector2D<float> localHeightmap;
     ctr::Vector2D<float>* usedHeightmap = &heightmap->heightmap;
     if (usedHeightmap->getWidth() != usedHeightmap->getHeight()) {
@@ -465,8 +465,7 @@ std::unique_ptr<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::creat
 
     JPH::HeightFieldShapeSettings settings(
         usedHeightmap->dataPtr(), offset, scale, usedHeightmap->getWidth());
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::HeightFieldShape>(settings, result);
+    return settings.Create().Get();
 }
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>

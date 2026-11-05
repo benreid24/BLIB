@@ -62,7 +62,7 @@ protected:
     /**
      * @brief Creates a box shape for the rectangular prism
      */
-    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
 
 private:
     JPH::BoxShapeSettings physicsShapeSettings;

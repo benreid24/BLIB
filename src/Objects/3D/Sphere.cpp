@@ -144,10 +144,7 @@ void Sphere::setColor(const rc::Color& c) {
     component().gpuBuffer.queueTransfer();
 }
 
-std::unique_ptr<JPH::Shape> Sphere::createPhysicsShape() {
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::SphereShape>(physicsShapeSettings, result);
-}
+JPH::Ref<JPH::Shape> Sphere::createPhysicsShape() { return physicsShapeSettings.Create().Get(); }
 
 } // namespace o3d
 } // namespace obj

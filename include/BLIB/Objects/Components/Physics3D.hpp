@@ -34,7 +34,7 @@ public:
      * @param layer The object layer of the body
      * @param activation The activation state of the body
      */
-    void createPhysicsBody(std::unique_ptr<JPH::Shape>&& shape, JPH::EMotionType motionType,
+    void createPhysicsBody(JPH::Ref<JPH::Shape> shape, JPH::EMotionType motionType,
                            com::Physics3D::ObjectLayer layer,
                            JPH::EActivation activation = JPH::EActivation::Activate);
 
@@ -87,7 +87,7 @@ protected:
      *
      * @return A unique pointer to the created shape
      */
-    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() = 0;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape() = 0;
 
     /**
      * @brief Must be implemented by derived classes

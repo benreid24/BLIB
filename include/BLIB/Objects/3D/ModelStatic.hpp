@@ -53,7 +53,7 @@ protected:
     /**
      * @brief Creates a capsule the covers the model
      */
-    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
 
 private:
     using Tx = ecs::Transaction<

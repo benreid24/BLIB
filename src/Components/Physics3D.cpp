@@ -15,16 +15,14 @@ JPH::RVec3 jvec(const glm::vec3& v) { return JPH::RVec3(v.x, v.y, v.z); }
 JPH::Quat jquat(const glm::quat& q) { return JPH::Quat(q.x, q.y, q.z, q.w); }
 } // namespace
 
-Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity,
-                     std::unique_ptr<JPH::Shape>&& shape, JPH::EMotionType motionType,
-                     ObjectLayer layer, JPH::EActivation activation)
+Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
+                     JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation)
 : Physics3D(engine, entity, std::move(shape), motionType, layer) {
     addToSimulation(activation);
 }
 
-Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity,
-                     std::unique_ptr<JPH::Shape>&& shape, JPH::EMotionType motionType,
-                     ObjectLayer layer)
+Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
+                     JPH::EMotionType motionType, ObjectLayer layer)
 : entity(entity)
 , bodyInterface(nullptr)
 , shape(std::move(shape))
@@ -41,7 +39,7 @@ Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity,
     engine::World3D* world3d = dynamic_cast<engine::World3D*>(world.get());
     if (world3d) {
         bodyInterface = &world3d->getPhysicsSystem().GetBodyInterface();
-        JPH::BodyCreationSettings settings(this->shape.get(),
+        JPH::BodyCreationSettings settings(this->shape,
                                            jvec(transform->getPosition()),
                                            jquat(transform->getRotation()),
                                            motionType,

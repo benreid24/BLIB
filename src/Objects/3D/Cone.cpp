@@ -83,10 +83,7 @@ void Cone::setColor(const rc::Color& c) {
     component().gpuBuffer.queueTransfer();
 }
 
-std::unique_ptr<JPH::Shape> Cone::createPhysicsShape() {
-    JPH::ShapeSettings::ShapeResult result;
-    return std::make_unique<JPH::TaperedCylinderShape>(physicsShapeSettings, result);
-}
+JPH::Ref<JPH::Shape> Cone::createPhysicsShape() { return physicsShapeSettings.Create().Get(); }
 
 } // namespace o3d
 } // namespace obj

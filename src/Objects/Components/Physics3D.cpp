@@ -17,7 +17,7 @@ void bl::obj::bcom::Physics3D::createPhysicsBody(JPH::EMotionType motionType,
     createPhysicsBody(createPhysicsShape(), motionType, layer, activation);
 }
 
-void bl::obj::bcom::Physics3D::createPhysicsBody(std::unique_ptr<JPH::Shape>&& shape,
+void bl::obj::bcom::Physics3D::createPhysicsBody(JPH::Ref<JPH::Shape> shape,
                                                  JPH::EMotionType motionType,
                                                  com::Physics3D::ObjectLayer layer,
                                                  JPH::EActivation activation) {

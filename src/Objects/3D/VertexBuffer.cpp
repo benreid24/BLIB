@@ -16,7 +16,7 @@ void VertexBuffer::commit() {
     component().commit();
 }
 
-std::unique_ptr<JPH::Shape> VertexBuffer::createPhysicsShape() {
+JPH::Ref<JPH::Shape> VertexBuffer::createPhysicsShape() {
     std::vector<JPH::Vec3> points;
     points.reserve(component().getSize());
 
@@ -25,8 +25,7 @@ std::unique_ptr<JPH::Shape> VertexBuffer::createPhysicsShape() {
     }
 
     JPH::ConvexHullShapeSettings settings(points.data(), points.size());
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::ConvexHullShape>(settings, result);
+    return settings.Create().Get();
 }
 
 } // namespace o3d

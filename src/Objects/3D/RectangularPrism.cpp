@@ -108,9 +108,8 @@ void RectangularPrism::setColor(const rc::Color& color) {
     component().gpuBuffer.queueTransfer();
 }
 
-std::unique_ptr<JPH::Shape> RectangularPrism::createPhysicsShape() {
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::BoxShape>(physicsShapeSettings, result);
+JPH::Ref<JPH::Shape> RectangularPrism::createPhysicsShape() {
+    return physicsShapeSettings.Create().Get();
 }
 
 } // namespace o3d

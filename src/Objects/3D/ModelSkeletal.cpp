@@ -199,9 +199,8 @@ void ModelSkeletal::onRemove() {
     }
 }
 
-std::unique_ptr<JPH::Shape> ModelSkeletal::createPhysicsShape() {
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::CapsuleShape>(physicsShapeSettings, result);
+JPH::Ref<JPH::Shape> ModelSkeletal::createPhysicsShape() {
+    return physicsShapeSettings.Create().Get();
 }
 
 } // namespace o3d

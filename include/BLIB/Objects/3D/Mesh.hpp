@@ -80,7 +80,7 @@ protected:
     /**
      * @brief Creates a convex hull physics shape from the mesh vertices and indices
      */
-    virtual std::unique_ptr<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
 };
 
 /**
@@ -116,7 +116,7 @@ void Mesh<TVertex, DefaultMaterialPipelineId>::commit() {
 }
 
 template<typename TVertex, std::uint32_t DefaultMaterialPipelineId>
-std::unique_ptr<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhysicsShape() {
+JPH::Ref<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhysicsShape() {
     std::vector<JPH::Vec3> points;
     points.reserve(this->component().gpuBuffer.indices().size());
     for (std::uint32_t index : this->component().gpuBuffer.indices()) {
@@ -125,8 +125,7 @@ std::unique_ptr<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhys
     }
 
     JPH::ConvexHullShapeSettings settings(points.data(), points.size());
-    JPH::Shape::ShapeResult result;
-    return std::make_unique<JPH::ConvexHullShape>(settings, result);
+    return settings.Create().Get();
 }
 
 } // namespace o3d
