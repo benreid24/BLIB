@@ -3,6 +3,41 @@
 #include "RebindState.hpp"
 #include <BLIB/Cameras.hpp>
 
+namespace
+{
+using MovementControl = bl::input::MovementControl;
+using Trigger         = bl::input::Trigger;
+using C               = bl::input::Control;
+
+const bl::input::InputConfiguration InputConfig{
+    .controls = {
+        {::Control::Movement,
+         C::Type::Movement,
+         {.movement = {.type = MovementControl::Type::Triggers}},
+         {}},
+        {::Control::Example,
+         C::Type::SingleTrigger,
+         {.trigger = {.type = Trigger::Type::Key, .key = sf::Keyboard::Key::Space}},
+         {}},
+        {::Control::RebindExample,
+         C::Type::SingleTrigger,
+         {.trigger = {.type = Trigger::Type::Key, .key = sf::Keyboard::Key::E}},
+         {}},
+        {::Control::RebindMovementVert,
+         C::Type::SingleTrigger,
+         {.trigger = {.type = Trigger::Type::Key, .key = sf::Keyboard::Key::Q}},
+         {}},
+        {::Control::Back,
+         C::Type::SingleTrigger,
+         {.trigger = {.type = Trigger::Type::Key, .key = sf::Keyboard::Key::Backspace}},
+         {}},
+        {::Control::Close,
+         C::Type::SingleTrigger,
+         {.trigger = {.type = Trigger::Type::Key, .key = sf::Keyboard::Key::Escape}},
+         {}},
+    }};
+} // namespace
+
 bl::engine::State::Ptr MainState::create() { return Ptr{new MainState()}; }
 
 void configureInput(bl::engine::Engine& engine) {
@@ -10,13 +45,7 @@ void configureInput(bl::engine::Engine& engine) {
     bl::input::Actor& user              = engine.getPlayer().getInputActor();
 
     // register our controls
-    inputSystem.setControlCount(Control::Count);
-    inputSystem.configureMovementControl(Control::Movement);
-    inputSystem.configureTriggerControl(Control::Example);
-    inputSystem.configureTriggerControl(Control::RebindExample);
-    inputSystem.configureTriggerControl(Control::RebindMovementVert);
-    inputSystem.configureTriggerControl(Control::Back);
-    inputSystem.configureTriggerControl(Control::Close);
+    inputSystem.configure(InputConfig);
 
     // keyboard and mouse default config
     user.getKBMMovementUpControl(Control::Movement).triggerOnKey(sf::Keyboard::Key::W);

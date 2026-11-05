@@ -19,7 +19,7 @@ std::string joystickPrefix(const std::string& prefix, unsigned int i) {
 }
 } // namespace
 
-Actor::Actor(InputSystem& owner, const std::vector<Control::Type>& schema)
+Actor::Actor(InputSystem& owner, const InputConfiguration& schema)
 : owner(owner)
 , joystick(sf::Joystick::Count)
 , activeControls(&kbmControls) {
@@ -27,12 +27,12 @@ Actor::Actor(InputSystem& owner, const std::vector<Control::Type>& schema)
     listeners.reserve(8);
 }
 
-void Actor::resetControls(const std::vector<Control::Type>& schema) {
-    kbmControls.reserve(schema.size());
-    joystickControls.reserve(schema.size());
-    for (const Control::Type ctype : schema) {
-        kbmControls.emplace_back(ctype, false);
-        joystickControls.emplace_back(ctype, true);
+void Actor::resetControls(const InputConfiguration& schema) {
+    kbmControls.resize(schema.controls.size(), Control(Control::Type::SingleTrigger, false));
+    joystickControls.resize(schema.controls.size(), Control(Control::Type::SingleTrigger, true));
+    for (const InputControlConfig& c : schema.controls) {
+        kbmControls[c.control].configure(c.type, c.kbmConfig);
+        joystickControls[c.control].configure(c.type, c.joystickConfig);
     }
 }
 
@@ -97,11 +97,11 @@ const Joystick& Actor::getJoystickMovementControl(unsigned int c) const {
 }
 
 Joystick& Actor::getJoystickDirectionalControl(unsigned int c) {
-    return joystickControls[c].directionalControl.joystick;
+    return joystickControls[c].directionalControl.config.joystick;
 }
 
 const Joystick& Actor::getJoystickDirectionalControl(unsigned int c) const {
-    return joystickControls[c].directionalControl.joystick;
+    return joystickControls[c].directionalControl.config.joystick;
 }
 
 bool Actor::joystickMode() const { return activeControls == &joystickControls; }

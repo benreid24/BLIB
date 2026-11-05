@@ -142,21 +142,20 @@ void Engine::popState() { flags().set(Flags::PopState); }
 bool Engine::run(State::Ptr initialState) {
     if (!setup()) { return false; }
     states.push(std::move(initialState));
+    finalSetup();
     return loop();
 }
 
 bool Engine::run(StateFactory&& factory) {
     if (!setup()) { return false; }
     states.push(factory());
+    finalSetup();
     return loop();
 }
 
 bool Engine::setup() {
     if (isSetup) { return true; }
     isSetup = true;
-
-    inputSystem().loadFromConfig();
-    input.saveToConfig();
 
     if (engineSettings.createRenderer()) {
         rendererInstance.emplace(*this, engineSettings.getRendererCreationSettings().value());
@@ -174,7 +173,22 @@ bool Engine::setup() {
         renderingThread.emplace(&Engine::renderThreadBody, this);
     }
     ecsSystems.init();
+
+    BL_LOG_INFO << "Loading engine configuration from file: "
+                << Configuration::fixedConfig().configFilePath;
+    Configuration::load();
+
     return true;
+}
+
+void Engine::finalSetup() {
+    // needs to be after input system configuration so it lives here
+    inputSystem().loadFromConfig();
+    input.saveToConfig();
+
+    BL_LOG_INFO << "Writing back engine configuration to file: "
+                << Configuration::fixedConfig().configFilePath;
+    Configuration::save();
 }
 
 bool Engine::loop() {
@@ -500,7 +514,7 @@ pcl::ParticleSystem& Engine::particleSystem() {
 
 Player& Engine::addPlayer() {
     auto& observer = rendererInstance->addObserver();
-    auto& actor    = input.addActor();
+    auto& actor    = players.empty() ? input.getActor(0) : input.addActor();
     auto& player   = players.emplace_back(new Player(*this, &observer, &actor));
     eventEmitter.emit<event::PlayerAdded>({*player});
     return *player;

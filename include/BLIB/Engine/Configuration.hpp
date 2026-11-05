@@ -142,7 +142,7 @@ private:
     FixedConfiguration fixed;
     std::unordered_map<std::type_index, std::unordered_map<std::string, std::any>> config;
 
-    Configuration() = default;
+    Configuration();
     static Configuration& get();
     void setFixedConfig(const engine::Settings& settings);
 

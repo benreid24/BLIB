@@ -19,15 +19,15 @@ std::string stickKey(const std::string& prefix) { return prefix + ".joystick"; }
 } // namespace
 
 DirectionalControl::DirectionalControl(bool jm)
-: type(jm ? Type::Joystick : Type::Mouse) {}
+: config{Config{.type = jm ? Type::Joystick : Type::Mouse}} {}
 
 bool DirectionalControl::process(const InputSystem& system, const sf::Event& event) {
-    if (type == Type::Mouse && event.is<sf::Event::MouseMoved>()) {
+    if (config.type == Type::Mouse && event.is<sf::Event::MouseMoved>()) {
         normalizedDirection = system.mouseUnitVector();
         return true;
     }
-    else if (type == Type::Joystick && joystick.process(event)) {
-        normalizedDirection = glm::normalize(joystick.cachedPosition);
+    else if (config.type == Type::Joystick && config.joystick.process(event)) {
+        normalizedDirection = glm::normalize(config.joystick.cachedPosition);
         return true;
     }
     return false;
@@ -35,20 +35,20 @@ bool DirectionalControl::process(const InputSystem& system, const sf::Event& eve
 
 void DirectionalControl::saveToConfig(const std::string& prefix) const {
     bl::engine::Configuration::set<std::string>(typeKey(prefix),
-                                                type == Type::Mouse ? MouseStr : StickStr);
-    if (type == Type::Joystick) { joystick.saveToConfig(stickKey(prefix)); }
+                                                config.type == Type::Mouse ? MouseStr : StickStr);
+    if (config.type == Type::Joystick) { config.joystick.saveToConfig(stickKey(prefix)); }
 }
 
 void DirectionalControl::loadFromConfig(const std::string& prefix) {
-    type = bl::engine::Configuration::getOrDefault<std::string>(typeKey(prefix), MouseStr) ==
-                   MouseStr ?
-               Type::Mouse :
-               Type::Joystick;
-    if (type == Type::Joystick) { joystick.loadFromConfig(stickKey(prefix)); }
+    config.type = bl::engine::Configuration::getOrDefault<std::string>(typeKey(prefix), MouseStr) ==
+                          MouseStr ?
+                      Type::Mouse :
+                      Type::Joystick;
+    if (config.type == Type::Joystick) { config.joystick.loadFromConfig(stickKey(prefix)); }
 }
 
 std::string DirectionalControl::toString() const {
-    if (type == Type::Joystick) { return joystick.toString(); }
+    if (config.type == Type::Joystick) { return config.joystick.toString(); }
     else { return "Mouse"; }
 }
 

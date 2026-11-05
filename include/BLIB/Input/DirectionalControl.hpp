@@ -20,10 +20,17 @@ struct DirectionalControl {
     /// @brief The type of input that drives the control
     enum struct Type { Mouse, Joystick };
 
-    Type type;
-    union {
-        Joystick joystick;
+    /**
+     * @brief The stored config of the directional control
+     */
+    struct Config {
+        Type type;
+        union {
+            Joystick joystick;
+        };
     };
+
+    Config config;
     glm::vec2 normalizedDirection;
 
     /**

@@ -18,8 +18,7 @@ std::string inputKey(const std::string& prefix) { return prefix + ".trigger"; }
 
 Trigger::Trigger(bool jm)
 : joystickMode(jm)
-, type(Type::Invalid)
-, toggle(false)
+, config{Config{.type = Type::Invalid, .toggle = false, .key = sf::Keyboard::Key::Unknown}}
 , nowActive(false) {}
 
 void Trigger::triggerOnKey(sf::Keyboard::Key k) {
@@ -27,8 +26,8 @@ void Trigger::triggerOnKey(sf::Keyboard::Key k) {
         BL_LOG_ERROR << "Trying to set Key trigger on joystick control";
         return;
     }
-    key  = k;
-    type = Type::Key;
+    config.key  = k;
+    config.type = Type::Key;
 }
 
 void Trigger::triggerOnMouseButton(sf::Mouse::Button mb) {
@@ -36,8 +35,8 @@ void Trigger::triggerOnMouseButton(sf::Mouse::Button mb) {
         BL_LOG_ERROR << "Trying to set MouseButton trigger on joystick control";
         return;
     }
-    mouseButton = mb;
-    type        = Type::MouseButton;
+    config.mouseButton = mb;
+    config.type        = Type::MouseButton;
 }
 
 void Trigger::triggerOnMouseWheel(sf::Mouse::Wheel w, bool up) {
@@ -45,8 +44,8 @@ void Trigger::triggerOnMouseWheel(sf::Mouse::Wheel w, bool up) {
         BL_LOG_ERROR << "Trying to set MouseWheel trigger on joystick control";
         return;
     }
-    mouseWheel = w;
-    type       = up ? Type::MouseWheelUp : Type::MouseWheelDown;
+    config.mouseWheel = w;
+    config.type       = up ? Type::MouseWheelUp : Type::MouseWheelDown;
 }
 
 void Trigger::triggerOnJoystickButton(unsigned int but) {
@@ -54,8 +53,8 @@ void Trigger::triggerOnJoystickButton(unsigned int but) {
         BL_LOG_ERROR << "Trying to set JoystickButton trigger on keyboard+mouse control";
         return;
     }
-    joystickButton = but;
-    type           = Type::JoystickButton;
+    config.joystickButton = but;
+    config.type           = Type::JoystickButton;
 }
 
 void Trigger::triggerOnJoystickAxis(sf::Joystick::Axis a, bool pos) {
@@ -63,8 +62,34 @@ void Trigger::triggerOnJoystickAxis(sf::Joystick::Axis a, bool pos) {
         BL_LOG_ERROR << "Trying to set JoystickAxis trigger on keyboard+mouse control";
         return;
     }
-    joystickAxis = a;
-    type         = pos ? Type::JoystickPositive : Type::JoystickNegative;
+    config.joystickAxis = a;
+    config.type         = pos ? Type::JoystickPositive : Type::JoystickNegative;
+}
+
+void Trigger::triggerOnConfig(const Config& cfg) {
+    switch (cfg.type) {
+    case Type::Key:
+    case Type::MouseButton:
+    case Type::MouseWheelUp:
+    case Type::MouseWheelDown:
+        if (joystickMode) {
+            BL_LOG_ERROR << "Trying to set non-joystick trigger on joystick control";
+            return;
+        }
+        break;
+    case Type::JoystickButton:
+    case Type::JoystickPositive:
+    case Type::JoystickNegative:
+        if (!joystickMode) {
+            BL_LOG_ERROR << "Trying to set joystick trigger on keyboard+mouse control";
+            return;
+        }
+        break;
+    default:
+        BL_LOG_ERROR << "Trying to set invalid trigger type";
+        return;
+    }
+    config = cfg;
 }
 
 bool Trigger::active() const { return nowActive; }
@@ -73,68 +98,61 @@ bool Trigger::process(const sf::Event& event) {
     bool result = false;
     event.visit(util::Visitor{
         [this, &result](const sf::Event::KeyPressed& keyEvent) {
-            if (type == Type::Key && keyEvent.code == key) {
+            if (config.type == Type::Key && keyEvent.code == config.key) {
                 result = makeOrtoggleActive();
             }
         },
         [this](const sf::Event::KeyReleased& keyEvent) {
-            if (type == Type::Key && keyEvent.code == key) {
-                makeInactive();
-            }
+            if (config.type == Type::Key && keyEvent.code == config.key) { makeInactive(); }
         },
         [this, &result](const sf::Event::MouseButtonPressed& mbEvent) {
-            if (type == Type::MouseButton && mbEvent.button == mouseButton) {
+            if (config.type == Type::MouseButton && mbEvent.button == config.mouseButton) {
                 result = makeOrtoggleActive();
             }
         },
         [this](const sf::Event::MouseButtonReleased& mbEvent) {
-            if (type == Type::MouseButton && mbEvent.button == mouseButton) {
+            if (config.type == Type::MouseButton && mbEvent.button == config.mouseButton) {
                 makeInactive();
             }
         },
         [this, &result](const sf::Event::MouseWheelScrolled& mwEvent) {
-            if (mwEvent.wheel == mouseWheel) {
-                if (type == Type::MouseWheelUp && mwEvent.delta > 0.f) {
-                    if (toggle) {
+            if (mwEvent.wheel == config.mouseWheel) {
+                if (config.type == Type::MouseWheelUp && mwEvent.delta > 0.f) {
+                    if (config.toggle) {
                         nowActive = !nowActive;
                         result    = nowActive;
                     }
-                    else {
-                        result = true;
-                    }
+                    else { result = true; }
                 }
-                else if (type == Type::MouseWheelDown && mwEvent.delta < 0.f) {
-                    if (toggle) {
+                else if (config.type == Type::MouseWheelDown && mwEvent.delta < 0.f) {
+                    if (config.toggle) {
                         nowActive = !nowActive;
                         result    = nowActive;
                     }
-                    else {
-                        result = true;
-                    }
+                    else { result = true; }
                 }
             }
         },
         [this, &result](const sf::Event::JoystickButtonPressed& jbEvent) {
-            if (type == Type::JoystickButton && jbEvent.button == joystickButton) {
+            if (config.type == Type::JoystickButton && jbEvent.button == config.joystickButton) {
                 result = makeOrtoggleActive();
             }
         },
         [this](const sf::Event::JoystickButtonReleased& jbEvent) {
-            if (type == Type::JoystickButton && jbEvent.button == joystickButton) {
+            if (config.type == Type::JoystickButton && jbEvent.button == config.joystickButton) {
                 makeInactive();
             }
         },
         [this, &result](const sf::Event::JoystickMoved& jmEvent) {
-            if (jmEvent.axis == joystickAxis) {
-                if (type == Type::JoystickPositive && jmEvent.position >= StickThreshold) {
+            if (jmEvent.axis == config.joystickAxis) {
+                if (config.type == Type::JoystickPositive && jmEvent.position >= StickThreshold) {
                     result = makeOrtoggleActive();
                 }
-                else if (type == Type::JoystickNegative && jmEvent.position <= -StickThreshold) {
+                else if (config.type == Type::JoystickNegative &&
+                         jmEvent.position <= -StickThreshold) {
                     result = makeOrtoggleActive();
                 }
-                else {
-                    makeInactive();
-                }
+                else { makeInactive(); }
             }
         },
         [](const auto&) {
@@ -145,61 +163,61 @@ bool Trigger::process(const sf::Event& event) {
 
 bool Trigger::configureFromEvent(const sf::Event& event) {
     bool result = false;
-    event.visit(util::Visitor{
-        [this, &result](const sf::Event::KeyPressed& keyEvent) {
-            if (!joystickMode) {
-                type   = Type::Key;
-                key    = keyEvent.code;
-                result = true;
-            }
-        },
-        [this, &result](const sf::Event::MouseButtonPressed& mbEvent) {
-            if (!joystickMode) {
-                type        = Type::MouseButton;
-                mouseButton = mbEvent.button;
-                result      = true;
-            }
-        },
-        [this, &result](const sf::Event::MouseWheelScrolled& mwEvent) {
-            if (!joystickMode) {
-                type       = mwEvent.delta > 0.f ? Type::MouseWheelUp : Type::MouseWheelDown;
-                mouseWheel = mwEvent.wheel;
-                result     = true;
-            }
-        },
-        [this, &result](const sf::Event::JoystickButtonPressed& jbEvent) {
-            if (joystickMode) {
-                type           = Type::JoystickButton;
-                joystickButton = jbEvent.button;
-                result         = true;
-            }
-        },
-        [this, &result](const sf::Event::JoystickMoved& jmEvent) {
-            if (joystickMode) {
-                if (jmEvent.position >= StickThreshold) {
-                    type         = Type::JoystickPositive;
-                    joystickAxis = jmEvent.axis;
-                    result       = true;
-                }
-                else if (jmEvent.position <= -StickThreshold) {
-                    type         = Type::JoystickNegative;
-                    joystickAxis = jmEvent.axis;
-                    result       = true;
-                }
-            }
-        },
-        [](const auto&) {
-            // Handle any other event types
-        }});
+    event.visit(util::Visitor{[this, &result](const sf::Event::KeyPressed& keyEvent) {
+                                  if (!joystickMode) {
+                                      config.type = Type::Key;
+                                      config.key  = keyEvent.code;
+                                      result      = true;
+                                  }
+                              },
+                              [this, &result](const sf::Event::MouseButtonPressed& mbEvent) {
+                                  if (!joystickMode) {
+                                      config.type        = Type::MouseButton;
+                                      config.mouseButton = mbEvent.button;
+                                      result             = true;
+                                  }
+                              },
+                              [this, &result](const sf::Event::MouseWheelScrolled& mwEvent) {
+                                  if (!joystickMode) {
+                                      config.type       = mwEvent.delta > 0.f ? Type::MouseWheelUp :
+                                                                                Type::MouseWheelDown;
+                                      config.mouseWheel = mwEvent.wheel;
+                                      result            = true;
+                                  }
+                              },
+                              [this, &result](const sf::Event::JoystickButtonPressed& jbEvent) {
+                                  if (joystickMode) {
+                                      config.type           = Type::JoystickButton;
+                                      config.joystickButton = jbEvent.button;
+                                      result                = true;
+                                  }
+                              },
+                              [this, &result](const sf::Event::JoystickMoved& jmEvent) {
+                                  if (joystickMode) {
+                                      if (jmEvent.position >= StickThreshold) {
+                                          config.type         = Type::JoystickPositive;
+                                          config.joystickAxis = jmEvent.axis;
+                                          result              = true;
+                                      }
+                                      else if (jmEvent.position <= -StickThreshold) {
+                                          config.type         = Type::JoystickNegative;
+                                          config.joystickAxis = jmEvent.axis;
+                                          result              = true;
+                                      }
+                                  }
+                              },
+                              [](const auto&) {
+                                  // Handle any other event types
+                              }});
     return result;
 }
 
 void Trigger::saveToConfig(const std::string& prefix) const {
-    if (type == Type::Invalid) {
+    if (config.type == Type::Invalid) {
         BL_LOG_WARN << "Refusing to save unset control: " << prefix;
         return;
     }
-    bl::engine::Configuration::set<bool>(toggleKey(prefix), toggle);
+    bl::engine::Configuration::set<bool>(toggleKey(prefix), config.toggle);
     bl::engine::Configuration::set<std::string>(inputKey(prefix), toString());
 }
 
@@ -210,73 +228,73 @@ void Trigger::loadFromConfig(const std::string& prefix) {
         bl::engine::Configuration::getOrDefault<std::string>(inputKey(prefix), "");
     if (str.empty()) return; // don't clobber default state if no config
     const Encoder::ControlInfo ctrl = Encoder::fromString(str);
-    toggle = bl::engine::Configuration::getOrDefault<bool>(toggleKey(prefix));
+    config.toggle = bl::engine::Configuration::getOrDefault<bool>(toggleKey(prefix));
 
     switch (ctrl.type) {
     case T::Key:
-        type = Type::Key;
-        key  = ctrl.key;
+        config.type = Type::Key;
+        config.key  = ctrl.key;
         break;
 
     case T::MouseButton:
-        type        = Type::MouseButton;
-        mouseButton = ctrl.mouseButton;
+        config.type        = Type::MouseButton;
+        config.mouseButton = ctrl.mouseButton;
         break;
 
     case T::MouseWheelUp:
-        type       = Type::MouseWheelUp;
-        mouseWheel = ctrl.mouseWheel;
+        config.type       = Type::MouseWheelUp;
+        config.mouseWheel = ctrl.mouseWheel;
         break;
 
     case T::MouseWheelDown:
-        type       = Type::MouseWheelDown;
-        mouseWheel = ctrl.mouseWheel;
+        config.type       = Type::MouseWheelDown;
+        config.mouseWheel = ctrl.mouseWheel;
         break;
 
     case T::JoystickButton:
-        type           = Type::JoystickButton;
-        joystickButton = ctrl.joystickButton;
+        config.type           = Type::JoystickButton;
+        config.joystickButton = ctrl.joystickButton;
         break;
 
     case T::JoystickAxisPositive:
-        type         = Type::JoystickPositive;
-        joystickAxis = ctrl.joystickAxis;
+        config.type         = Type::JoystickPositive;
+        config.joystickAxis = ctrl.joystickAxis;
         break;
 
     case T::JoystickAxisNegative:
-        type         = Type::JoystickNegative;
-        joystickAxis = ctrl.joystickAxis;
+        config.type         = Type::JoystickNegative;
+        config.joystickAxis = ctrl.joystickAxis;
         break;
 
     default:
-        type = Type::Invalid;
+        config.type = Type::Invalid;
         break;
     }
 }
 
 std::string Trigger::toString() const {
     Encoder::ControlInfo ctrl;
-    switch (type) {
+    switch (config.type) {
     case Type::Key:
-        ctrl = Encoder::ControlInfo(key);
+        ctrl = Encoder::ControlInfo(config.key);
         break;
     case Type::MouseButton:
-        ctrl = Encoder::ControlInfo(mouseButton);
+        ctrl = Encoder::ControlInfo(config.mouseButton);
         break;
     case Type::MouseWheelUp:
-        ctrl = Encoder::ControlInfo(mouseWheel, true);
+        ctrl = Encoder::ControlInfo(config.mouseWheel, true);
         break;
     case Type::MouseWheelDown:
-        ctrl = Encoder::ControlInfo(mouseWheel, false);
+        ctrl = Encoder::ControlInfo(config.mouseWheel, false);
         break;
     case Type::JoystickButton:
-        ctrl = Encoder::ControlInfo(joystickButton);
+        ctrl = Encoder::ControlInfo(config.joystickButton);
         break;
     case Type::JoystickPositive:
-        ctrl = Encoder::ControlInfo(joystickAxis, true);
+        ctrl = Encoder::ControlInfo(config.joystickAxis, true);
         break;
     case Type::JoystickNegative:
-        ctrl = Encoder::ControlInfo(joystickAxis, false);
+        ctrl = Encoder::ControlInfo(config.joystickAxis, false);
         break;
     case Type::Invalid:
     default:
@@ -287,33 +305,31 @@ std::string Trigger::toString() const {
     return Encoder::toString(ctrl);
 }
 
-Trigger::Type Trigger::triggerType() const { return type; }
+Trigger::Type Trigger::triggerType() const { return config.type; }
 
-bool Trigger::isToggle() const { return toggle; }
+bool Trigger::isToggle() const { return config.toggle; }
 
-void Trigger::setIsToggle(bool t) { toggle = t; }
+void Trigger::setIsToggle(bool t) { config.toggle = t; }
 
-sf::Keyboard::Key Trigger::keyTrigger() const { return key; }
+sf::Keyboard::Key Trigger::keyTrigger() const { return config.key; }
 
-sf::Mouse::Button Trigger::mouseButtonTrigger() const { return mouseButton; }
+sf::Mouse::Button Trigger::mouseButtonTrigger() const { return config.mouseButton; }
 
-sf::Mouse::Wheel Trigger::mouseWheelTrigger() const { return mouseWheel; }
+sf::Mouse::Wheel Trigger::mouseWheelTrigger() const { return config.mouseWheel; }
 
-unsigned int Trigger::joystickButtonTrigger() const { return joystickButton; }
+unsigned int Trigger::joystickButtonTrigger() const { return config.joystickButton; }
 
-sf::Joystick::Axis Trigger::joystickAxisTrigger() const { return joystickAxis; }
+sf::Joystick::Axis Trigger::joystickAxisTrigger() const { return config.joystickAxis; }
 
 bool Trigger::makeOrtoggleActive() {
     const bool wasActive = nowActive;
-    if (toggle) { nowActive = !nowActive; }
-    else {
-        nowActive = true;
-    }
+    if (config.toggle) { nowActive = !nowActive; }
+    else { nowActive = true; }
     return nowActive && !wasActive;
 }
 
 void Trigger::makeInactive() {
-    if (!toggle) { nowActive = false; }
+    if (!config.toggle) { nowActive = false; }
 }
 
 } // namespace input

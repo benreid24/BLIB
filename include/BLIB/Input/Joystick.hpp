@@ -14,26 +14,18 @@ namespace input
  * @brief Helper struct representing a full joystick for inputs
  *
  * @ingroup Input
- *
  */
 struct Joystick {
-    sf::Joystick::Axis verticalAxis;
-    sf::Joystick::Axis horizontalAxis;
-    bool verticalInverted;
-    bool horizontalInverted;
-    glm::vec2 cachedPosition; // not normalized
-
-    /**
-     * @brief Construct a new Joystick with sane defaults
-     *
-     */
-    Joystick();
+    sf::Joystick::Axis verticalAxis   = sf::Joystick::Axis::Y;
+    sf::Joystick::Axis horizontalAxis = sf::Joystick::Axis::X;
+    bool verticalInverted             = false;
+    bool horizontalInverted           = false;
+    glm::vec2 cachedPosition          = {}; // not normalized
 
     /**
      * @brief Reads the joystick value into a normalized vector
      *
      * @param joystick The index of the joystick to read from
-     *
      */
     glm::vec2 read(unsigned int joystick) const;
 
@@ -47,7 +39,6 @@ struct Joystick {
 
     /**
      * @brief Returns a user-readable string signifying what this control is
-     *
      */
     std::string toString() const;
 

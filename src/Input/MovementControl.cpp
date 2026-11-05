@@ -28,6 +28,20 @@ MovementControl::MovementControl(bool jm)
     else { new (&keys) KeyConfig(jm); }
 }
 
+void MovementControl::configure(const Config& config) {
+    if (type != config.type) {
+        BL_LOG_ERROR << "Type mismatch when configuring MovementControl";
+        return;
+    }
+    if (type == Type::Triggers) {
+        keys.up.triggerOnConfig(config.triggers.up);
+        keys.right.triggerOnConfig(config.triggers.right);
+        keys.down.triggerOnConfig(config.triggers.down);
+        keys.left.triggerOnConfig(config.triggers.left);
+    }
+    else { joystick = config.joystick; }
+}
+
 DispatchType MovementControl::process(const sf::Event& event) {
     if (type == Type::Triggers) {
         if (keys.up.process(event)) return DispatchType::MovementUp;

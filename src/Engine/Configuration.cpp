@@ -51,6 +51,8 @@ void logValues(
 
 } // namespace
 
+Configuration::Configuration() { setFixedConfig(Settings()); }
+
 Configuration& Configuration::get() {
     static Configuration configuration;
     return configuration;

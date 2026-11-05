@@ -313,6 +313,7 @@ private:
     void postStateChange(State::Ptr& prev);
 
     bool setup();
+    void finalSetup();
     bool loop();
 
     friend struct priv::SetupHelper;

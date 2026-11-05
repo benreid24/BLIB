@@ -1,21 +1,45 @@
 #include <BLIB/Input/Control.hpp>
 
+#include <BLIB/Logging.hpp>
+
 namespace bl
 {
 namespace input
 {
 Control::Control(Type t, bool jm)
-: type(t) {
+: isJoystickControl(jm)
+, type(t) {
     switch (type) {
     case Type::Movement:
-        new (&movementControl) MovementControl(jm);
+        new (&movementControl) MovementControl(isJoystickControl);
         break;
     case Type::Directional:
-        new (&directionalControl) DirectionalControl(jm);
+        new (&directionalControl) DirectionalControl(isJoystickControl);
         break;
     case Type::SingleTrigger:
     default:
-        new (&triggerControl) Trigger(jm);
+        new (&triggerControl) Trigger(isJoystickControl);
+        break;
+    }
+}
+
+void Control::configure(Type t, const Config& config) {
+    type = t;
+    switch (type) {
+    case Type::Movement:
+        new (&movementControl) MovementControl(isJoystickControl);
+        movementControl.configure(config.movement);
+        break;
+    case Type::Directional:
+        new (&directionalControl) DirectionalControl(isJoystickControl);
+        directionalControl.config = config.directional;
+        break;
+    case Type::SingleTrigger:
+        new (&triggerControl) Trigger(isJoystickControl);
+        triggerControl.triggerOnConfig(config.trigger);
+        break;
+    default:
+        BL_LOG_ERROR << "Invalid control type when configuring";
         break;
     }
 }

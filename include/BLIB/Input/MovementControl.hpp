@@ -27,6 +27,27 @@ public:
     enum struct Type { Joystick, Triggers };
 
     /**
+     * @brief Config storage for movement defined by four directional triggers
+     */
+    struct Triggers {
+        Trigger::Config up;
+        Trigger::Config right;
+        Trigger::Config down;
+        Trigger::Config left;
+    };
+
+    /**
+     * @brief Minimal config representation for a movement control
+     */
+    struct Config {
+        Type type;
+        union {
+            Joystick joystick;
+            Triggers triggers;
+        };
+    };
+
+    /**
      * @brief Creates the movement control with the given mode
      *
      * @param joystickMode True to be a joystick control, false for keyboard and mouse
@@ -48,6 +69,13 @@ public:
      * @return Type The type of movement control being used
      */
     Type controlType() const;
+
+    /**
+     * @brief Updates this movement control to use the given config
+     *
+     * @param config The config to use
+     */
+    void configure(const Config& config);
 
     /**
      * @brief Returns the up trigger control

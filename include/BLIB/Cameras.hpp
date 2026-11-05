@@ -15,6 +15,7 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 #include <BLIB/Cameras/3D/CameraAffector3D.hpp>
 #include <BLIB/Cameras/3D/CameraController3D.hpp>
+#include <BLIB/Cameras/3D/Controllers/FreeController.hpp>
 #include <BLIB/Cameras/3D/Controllers/OrbiterController.hpp>
 #include <BLIB/Cameras/Camera.hpp>
 #include <BLIB/Cameras/OverlayCamera.hpp>

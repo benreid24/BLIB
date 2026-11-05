@@ -2,6 +2,7 @@
 #define BLIB_INPUT_INPUTSYSTEM_HPP
 
 #include <BLIB/Input/Actor.hpp>
+#include <BLIB/Input/InputConfiguration.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <memory>
 
@@ -30,33 +31,11 @@ public:
     InputSystem(engine::Engine& engine);
 
     /**
-     * @brief Set how many controls there will be. This is intended to be called once before adding
-     *        any actors
+     * @brief Configures the entire input system using the convenience type
      *
-     * @param controlCount The number of controls to create within each actor
+     * @param config The full input configuration to use for the system
      */
-    void setControlCount(unsigned int controlCount);
-
-    /**
-     * @brief Configures the given control to a trigger control with the given policy
-     *
-     * @param controlIndex The control to make a trigger control
-     */
-    void configureTriggerControl(unsigned int controlIndex);
-
-    /**
-     * @brief Configures the given control to a directional control
-     *
-     * @param controlIndex The control to make a directional control
-     */
-    void configureDirectionalControl(unsigned int controlIndex);
-
-    /**
-     * @brief Configures the given control to a movement control
-     *
-     * @param controlIndex The control to make a movement control
-     */
-    void configureMovementControl(unsigned int controlIndex);
+    void configure(const InputConfiguration& config);
 
     /**
      * @brief Get the given Actor
@@ -113,7 +92,7 @@ public:
 
 private:
     engine::Engine& engine;
-    std::vector<Control::Type> controlTemplate;
+    InputConfiguration controlTemplate;
     std::vector<std::unique_ptr<Actor>> actors;
     glm::vec2 mouseVector;
     bool mouseCaptured;

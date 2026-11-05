@@ -15,7 +15,6 @@ namespace input
  *        which fully define the control and its behavior
  *
  * @ingroup Input
- *
  */
 struct Control {
     /// The type of control
@@ -31,12 +30,31 @@ struct Control {
     };
 
     /**
+     * @brief Stored configuration for a control
+     */
+    struct Config {
+        union {
+            Trigger::Config trigger;
+            DirectionalControl::Config directional;
+            MovementControl::Config movement;
+        };
+    };
+
+    /**
      * @brief Construct a new Control of the given type
      *
      * @param type The type of control to create
      * @param joystickMode True to be a joystick control, false for keyboard and mouse
      */
     Control(Type type, bool joystickMode);
+
+    /**
+     * @brief Updates this control to use the given config
+     *
+     * @param type The type of control to configure
+     * @param config The config to use
+     */
+    void configure(Type type, const Config& config);
 
     /**
      * @brief Saves this control config to the engine configuration store
@@ -54,10 +72,10 @@ struct Control {
 
     /**
      * @brief Returns a user-readable string signifying what this control is
-     * 
      */
     std::string toString() const;
 
+    const bool isJoystickControl;
     Type type;
     union {
         Trigger triggerControl;

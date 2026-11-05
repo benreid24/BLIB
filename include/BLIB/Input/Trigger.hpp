@@ -16,13 +16,11 @@ namespace input
  * @brief Wrapper around keyboard and mouse buttons. Triggers activate Controls
  *
  * @ingroup Input
- *
  */
 struct Trigger {
     /**
      * @brief The type of Trigger. Mouse wheel triggers never stay active and only fire events when
      *        they are first moved, unless the Trigger is in Toggle mode
-     *
      */
     enum Type : std::uint8_t {
         Invalid          = 0,
@@ -36,10 +34,24 @@ struct Trigger {
     };
 
     /**
+     * @brief The stored config of the trigger control
+     */
+    struct Config {
+        Type type;
+        bool toggle = false;
+        union {
+            sf::Keyboard::Key key;
+            sf::Mouse::Button mouseButton;
+            sf::Mouse::Wheel mouseWheel;
+            unsigned int joystickButton;
+            sf::Joystick::Axis joystickAxis;
+        };
+    };
+
+    /**
      * @brief Creates an empty invalid Trigger
      *
      * @param joystickMode True to be a joystick control, false for keyboard and mouse
-     *
      */
     Trigger(bool joystickMode);
 
@@ -81,8 +93,14 @@ struct Trigger {
     void triggerOnJoystickAxis(sf::Joystick::Axis axis, bool positive);
 
     /**
-     * @brief Returns whether or not this trigger is currently active
+     * @brief Directly adopts the given config for this trigger
      *
+     * @param config The config to adopt
+     */
+    void triggerOnConfig(const Config& config);
+
+    /**
+     * @brief Returns whether or not this trigger is currently active
      */
     bool active() const;
 
@@ -118,19 +136,16 @@ struct Trigger {
 
     /**
      * @brief Returns a string representation of this trigger for presenting to a user
-     *
      */
     std::string toString() const;
 
     /**
      * @brief Returns the type of input that triggers this
-     *
      */
     Type triggerType() const;
 
     /**
      * @brief Returns whether or not this input is toggled or needs to be held
-     *
      */
     bool isToggle() const;
 
@@ -143,13 +158,11 @@ struct Trigger {
 
     /**
      * @brief Returns the key that triggers this input
-     *
      */
     sf::Keyboard::Key keyTrigger() const;
 
     /**
      * @brief Returns the mouse button that triggers this input
-     *
      */
     sf::Mouse::Button mouseButtonTrigger() const;
 
@@ -161,27 +174,17 @@ struct Trigger {
 
     /**
      * @brief Returns the joystick button that triggers this input
-     *
      */
     unsigned int joystickButtonTrigger() const;
 
     /**
      * @brief Returns the joystick axis that triggers this input
-     *
      */
     sf::Joystick::Axis joystickAxisTrigger() const;
 
 private:
     const bool joystickMode;
-    Type type;
-    bool toggle;
-    union {
-        sf::Keyboard::Key key;
-        sf::Mouse::Button mouseButton;
-        sf::Mouse::Wheel mouseWheel;
-        unsigned int joystickButton;
-        sf::Joystick::Axis joystickAxis;
-    };
+    Config config;
     bool nowActive;
 
     bool makeOrtoggleActive();

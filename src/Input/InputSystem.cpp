@@ -14,25 +14,12 @@ std::string actorPrefix(unsigned int i) { return "blib.input.player." + std::to_
 
 InputSystem::InputSystem(engine::Engine& engine)
 : engine(engine)
-, mouseCaptured(false) {}
-
-void InputSystem::setControlCount(unsigned int c) {
-    controlTemplate.resize(c, Control::Type::SingleTrigger);
-    resetControls();
+, mouseCaptured(false) {
+    addActor();
 }
 
-void InputSystem::configureDirectionalControl(unsigned int c) {
-    controlTemplate[c] = Control::Type::Directional;
-    resetControls();
-}
-
-void InputSystem::configureMovementControl(unsigned int c) {
-    controlTemplate[c] = Control::Type::Movement;
-    resetControls();
-}
-
-void InputSystem::configureTriggerControl(unsigned int c) {
-    controlTemplate[c] = Control::Type::SingleTrigger;
+void InputSystem::configure(const InputConfiguration& config) {
+    controlTemplate = config;
     resetControls();
 }
 

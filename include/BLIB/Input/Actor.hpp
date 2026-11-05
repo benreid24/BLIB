@@ -2,6 +2,7 @@
 #define BLIB_INPUT_ACTOR_HPP
 
 #include <BLIB/Input/Control.hpp>
+#include <BLIB/Input/InputConfiguration.hpp>
 #include <BLIB/Input/Listener.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <glm/glm.hpp>
@@ -219,10 +220,10 @@ private:
     void dispatch(unsigned int ctrl, DispatchType dtype, bool onEvent);
 
     // meant to be called by InputSystem
-    Actor(InputSystem& owner, const std::vector<Control::Type>& schema);
+    Actor(InputSystem& owner, const InputConfiguration& schema);
     void process(const sf::Event& event);
     void update();
-    void resetControls(const std::vector<Control::Type>& schema);
+    void resetControls(const InputConfiguration& schema);
 
     friend class InputSystem;
 };

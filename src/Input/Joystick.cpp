@@ -16,12 +16,6 @@ std::string vertKey(const std::string& prefix) { return prefix + ".vertical.axis
 std::string vertInvKey(const std::string& prefix) { return prefix + ".vertical.inverted"; }
 } // namespace
 
-Joystick::Joystick()
-: verticalAxis(sf::Joystick::Axis::Y)
-, horizontalAxis(sf::Joystick::Axis::X)
-, verticalInverted(false)
-, horizontalInverted(false) {}
-
 glm::vec2 Joystick::read(unsigned int joystick) const {
     float x = sf::Joystick::getAxisPosition(joystick, horizontalAxis);
     float y = sf::Joystick::getAxisPosition(joystick, verticalAxis);
