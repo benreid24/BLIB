@@ -44,6 +44,7 @@ const glm::vec2& InputSystem::mouseUnitVector() const { return mouseVector; }
 
 void InputSystem::captureMouse(bool hide) {
     if (mouseCaptured) { return; }
+    mouseCaptured = true;
     engine.renderer().getWindow().getSfWindow().setMouseCursorGrabbed(true);
     if (hide) { engine.renderer().getWindow().getSfWindow().setMouseCursorVisible(false); }
 }
@@ -63,14 +64,16 @@ void InputSystem::process(const sf::Event& event) {
     if (mm) {
         const sf::Vector2i si(engine.renderer().getWindow().getSfWindow().getSize());
         const sf::Vector2i halfI = si / 2;
-        const glm::vec2 hw       = glm::vec2(halfI.x, halfI.y);
 
         // prevent infinite loop
         if (mouseCaptured && mm->position == halfI) { return; }
 
-        mouseVector = glm::normalize(glm::vec2(mm->position.x, mm->position.y) - hw);
+        const glm::vec2 hw = glm::vec2(halfI.x, halfI.y);
+        const float l      = glm::length(hw);
+        mouseVector        = (glm::vec2(mm->position.x, mm->position.y) - hw) / l;
 
         if (mouseCaptured) {
+            BL_LOG_INFO << "Set mouse position to " << halfI << " from " << mm->position;
             sf::Mouse::setPosition(halfI, engine.renderer().getWindow().getSfWindow());
         }
     }

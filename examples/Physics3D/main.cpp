@@ -52,9 +52,9 @@ const bl::cam::c3d::FreeController::ControlScheme CameraControls{.movement      
                                                                  .up            = Up,
                                                                  .down          = Down,
                                                                  .speed         = Speed,
-                                                                 .speedFactor   = 2.f,
+                                                                 .speedFactor   = 3.f,
                                                                  .direction     = Direction,
-                                                                 .rotationSpeed = 0.1f};
+                                                                 .rotationSpeed = 1.5f};
 
 } // namespace controls
 
@@ -65,7 +65,9 @@ void colorVertex(bl::rc::prim::Vertex3D& v) {
 }
 } // namespace
 
-class DemoState : public bl::engine::State {
+class DemoState
+: public bl::engine::State
+, bl::sig::Listener<sf::Event> {
 public:
     DemoState()
     : State(bl::engine::StateMask::All) {}
@@ -78,11 +80,13 @@ public:
         auto& player = engine.getPlayer();
         auto world   = player.enterWorld<bl::engine::World3D>();
         auto scene   = world->scene();
+        inputSystem  = &engine.inputSystem();
 
         auto& cam = *player.getRenderObserver().setCamera<bl::cam::Camera3D>(
-            glm::vec3{0.f, 3.f, -5.f}, glm::vec3{0.f, 1.f, 0.f});
-        auto& controller = *cam.setController<bl::cam::c3d::FreeController>(5.f, 10.f);
+            glm::vec3{0.f, 35.f, -50.f}, glm::vec3{0.f, 1.f, 0.f});
+        auto& controller = *cam.setController<bl::cam::c3d::FreeController>(10.f, 15.f);
         controller.setControlScheme(controls::CameraControls);
+        controller.subscribeToInput(player);
 
         bl::rand::Perlin<float> perlin(1234);
         terrain.createFromNoise2d(*world, perlin, 300.f, 300.f, 30.f, 1.f, 6, 0.5f, 0.01f);
@@ -92,9 +96,11 @@ public:
         for (auto& v : terrain.component().gpuBuffer.vertices()) { colorVertex(v); }
 
         engine.inputSystem().captureMouse();
+        subscribe(engine.getSignalChannel());
     }
 
     virtual void deactivate(bl::engine::Engine& engine) override {
+        unsubscribe();
         engine.getPlayer().leaveWorld();
     }
 
@@ -102,8 +108,32 @@ public:
         // noop
     }
 
+    virtual void process(const sf::Event& event) override {
+        const sf::Event::KeyPressed* keyEvent = event.getIf<sf::Event::KeyPressed>();
+        if (keyEvent && keyEvent->code == sf::Keyboard::Key::Escape) { release(); }
+
+        const sf::Event::FocusGained* focusEvent = event.getIf<sf::Event::FocusGained>();
+        if (focusEvent) { capture(); }
+
+        const sf::Event::MouseButtonPressed* mouseEvent =
+            event.getIf<sf::Event::MouseButtonPressed>();
+        if (mouseEvent && mouseEvent->button == sf::Mouse::Button::Left) { capture(); }
+    }
+
 private:
+    bl::input::InputSystem* inputSystem;
+    bl::input::ListenerBoundary listenerBoundary;
     bl::obj::o3d::HeightmapTerrainBasic terrain;
+
+    void capture() {
+        inputSystem->getActor().removeListener(listenerBoundary);
+        inputSystem->captureMouse();
+    }
+
+    void release() {
+        inputSystem->getActor().addListener(listenerBoundary);
+        inputSystem->releaseMouse();
+    }
 };
 
 class Physics3DExample : public bl::game::Game {

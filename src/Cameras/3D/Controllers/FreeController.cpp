@@ -132,8 +132,8 @@ bool FreeController::processControl(const input::Actor& actor, unsigned int acti
     else if (activatedControl == controls.speed) { speedFactor = controls.speedFactor; }
     else if (activatedControl == controls.direction) {
         const glm::vec2 dir = actor.readControl(activatedControl);
-        applyYaw(dir.x * controls.rotationSpeed);
-        applyPitch(-dir.y * controls.rotationSpeed);
+        applyYaw(-dir.x * controls.rotationSpeed);
+        applyPitch(dir.y * controls.rotationSpeed);
     }
 }
 
