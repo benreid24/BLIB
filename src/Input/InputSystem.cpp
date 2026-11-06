@@ -73,7 +73,6 @@ void InputSystem::process(const sf::Event& event) {
         mouseVector        = (glm::vec2(mm->position.x, mm->position.y) - hw) / l;
 
         if (mouseCaptured) {
-            BL_LOG_INFO << "Set mouse position to " << halfI << " from " << mm->position;
             sf::Mouse::setPosition(halfI, engine.renderer().getWindow().getSfWindow());
         }
     }

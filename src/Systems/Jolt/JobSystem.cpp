@@ -35,6 +35,7 @@ JobSystem::JobHandle JobSystem::CreateJob(const char* inName, JPH::ColorArg inCo
 }
 
 void JobSystem::QueueJob(Job* inJob) {
+    inJob->AddRef();
     threadPool.queueTask([job = inJob]() {
         job->Execute();
         job->Release();

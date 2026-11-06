@@ -444,7 +444,11 @@ ObjectPool<T>::ObjectPool(GrowthPolicy pl, std::size_t cap)
         }
     }
 
-    pool.reserve(cap);
+    if (cap > 0) {
+        pool.resize(cap);
+        next = 0;
+        for (unsigned int i = 0; i < cap - 1; ++i) { pool[i].next() = i + 1; }
+    }
 }
 
 template<typename T>
@@ -523,6 +527,7 @@ typename ObjectPool<T>::Entry* ObjectPool<T>::doAdd() {
             case GrowthPolicy::FailContinue:
                 BL_LOG_WARN << typeid(T).name() << " pool exceeded capacity (" << capacity()
                             << "). Increase allocation";
+                --trackedSize;
                 return nullptr;
             case GrowthPolicy::FailTerminate:
                 BL_LOG_CRITICAL << typeid(T).name() << " pool exceeded capacity (" << capacity()

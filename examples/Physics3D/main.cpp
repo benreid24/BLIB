@@ -95,6 +95,12 @@ public:
                                   bl::com::Physics3D::ObjectLayer::Terrain);
         for (auto& v : terrain.component().gpuBuffer.vertices()) { colorVertex(v); }
 
+        sphere.create(*world, 1.f, 3);
+        sphere.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+        sphere.getTransform().setPosition({0.f, 50.f, 0.f});
+        sphere.createPhysicsBody(JPH::EMotionType::Dynamic,
+                                 bl::com::Physics3D::ObjectLayer::Dynamic);
+
         engine.inputSystem().captureMouse();
         subscribe(engine.getSignalChannel());
     }
@@ -124,6 +130,7 @@ private:
     bl::input::InputSystem* inputSystem;
     bl::input::ListenerBoundary listenerBoundary;
     bl::obj::o3d::HeightmapTerrainBasic terrain;
+    bl::obj::o3d::Sphere sphere;
 
     void capture() {
         inputSystem->getActor().removeListener(listenerBoundary);

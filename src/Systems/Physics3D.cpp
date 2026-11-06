@@ -67,6 +67,8 @@ void Physics3D::init(engine::Engine& engine) {
     JPH::RegisterDefaultAllocator();
     JPH::Factory::sInstance = new JPH::Factory();
     JPH::RegisterTypes();
+
+    subscribe(engine.getSignalChannel());
 }
 
 void Physics3D::earlyCleanup() {
