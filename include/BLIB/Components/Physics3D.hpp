@@ -80,9 +80,10 @@ public:
      * @brief Contains the default interation rules for the builtin set of object layers
      */
     struct ObjectCollisionMasks {
-        static constexpr std::uint16_t TerrainMask = Bitmasks::None;
+        static constexpr std::uint16_t TerrainMask =
+            Bitmasks::DynamicBitmask | Bitmasks::BulletBitmask | Bitmasks::DebrisBitmask;
         static constexpr std::uint16_t DynamicMask =
-            Bitmasks::TerrainBitmask | Bitmasks::DynamicBitmask;
+            Bitmasks::TerrainBitmask | Bitmasks::DynamicBitmask | Bitmasks::DebrisBitmask;
         static constexpr std::uint16_t BulletMask =
             Bitmasks::TerrainBitmask | Bitmasks::DynamicBitmask;
         static constexpr std::uint16_t DebrisMask =
@@ -101,10 +102,10 @@ public:
      */
     struct BroadphaseObjectMapping {
         static constexpr BroadphaseLayer Mapping[] = {
-            BroadphaseLayer::Moving,    // Terrain
+            BroadphaseLayer::NonMoving, // Terrain
             BroadphaseLayer::Moving,    // Dynamic
             BroadphaseLayer::Moving,    // Bullet
-            BroadphaseLayer::NonMoving, // Debris
+            BroadphaseLayer::Moving,    // Debris
         };
     };
 

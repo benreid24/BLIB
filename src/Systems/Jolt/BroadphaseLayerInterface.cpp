@@ -15,8 +15,7 @@ const char* MissingLayerName = "LayerNotNamed";
 
 BroadPhaseLayerInterface::BroadPhaseLayerInterface()
 : numLayers(static_cast<std::uint32_t>(com::Physics3D::BroadphaseLayer::Count)) {
-    layerMap.fill(JPH::BroadPhaseLayer(
-        static_cast<JPH::BroadPhaseLayer::Type>(com::Physics3D::BroadphaseLayer::Moving)));
+    layerMap.fill(DefaultLayer);
 
     constexpr unsigned int ObjectLayerCount =
         std::size(com::Physics3D::BroadphaseObjectMapping::Mapping);
