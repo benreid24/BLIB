@@ -194,6 +194,12 @@ void Engine::finalSetup() {
 bool Engine::loop() {
     BL_LOG_INFO << "Starting engine with state: " << states.top()->name();
 
+    workers.start();
+    fastTaskWorkers.start(2);
+    longTaskWorkers.start(2);
+    states.top()->activate(*this);
+    eventEmitter.emit<event::Startup>({states.top()});
+
     sf::Clock loopTimer;        // measures duration of entire loop top to bottom
     sf::Clock updateOuterTimer; // measure duration from update tick start to start
     const float minFrameLengthSeconds =
@@ -227,11 +233,21 @@ bool Engine::loop() {
     sf::Clock fpsTimer;
     float frameCount = 0.f;
 
-    workers.start();
-    fastTaskWorkers.start(2);
-    longTaskWorkers.start(2);
-    states.top()->activate(*this);
-    eventEmitter.emit<event::Startup>({states.top()});
+    const auto resetTimers = [&updateMeasureTimer,
+                              &loopTimer,
+                              &updateOuterTimer,
+                              &lag,
+                              &fpsTimer,
+                              &lastWarnTime,
+                              &followupLog]() {
+        updateMeasureTimer.restart();
+        loopTimer.restart();
+        updateOuterTimer.restart();
+        fpsTimer.restart();
+        lag          = 0;
+        lastWarnTime = -6.f;
+        followupLog  = false;
+    };
 
     while (true) {
         // Clear flags from last loop
@@ -310,7 +326,7 @@ bool Engine::loop() {
 
             // check if we should end early
             if (engineFlags.stateChangeReady()) {
-                lag = 0.f;
+                lag = 0;
                 break;
             }
 
@@ -394,8 +410,7 @@ bool Engine::loop() {
                 postStateChange(prev);
             }
 
-            updateOuterTimer.restart();
-            loopTimer.restart();
+            resetTimers();
         }
 
         if (!stateChanged) {

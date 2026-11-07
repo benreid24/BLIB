@@ -17,9 +17,9 @@ World3D::World3D(Engine& owner)
     owner.systems().registerSystemIfNotExists<sys::SkeletalAnimationSystem>();
 
     physicsSystem.Init(sys::jolt::Constants::MaxBodies,
+                       sys::jolt::Constants::MaxBodyMutexes,
                        sys::jolt::Constants::MaxBodyPairs,
                        sys::jolt::Constants::MaxContactConstraints,
-                       sys::jolt::Constants::MaxBodyMutexes,
                        physics.getBroadphaseLayerInterface(),
                        physics.getObjectLayerVsBroadphaseFilter(),
                        physics.getObjectLayerPairFilter());

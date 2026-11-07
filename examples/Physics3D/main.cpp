@@ -101,6 +101,30 @@ public:
         sphere.createPhysicsBody(JPH::EMotionType::Dynamic,
                                  bl::com::Physics3D::ObjectLayer::Dynamic);
 
+        cone.create(*world, 3.f, 1.f, 300);
+        cone.getTransform().setPosition({-10.f, 50.f, 0.f});
+        cone.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+        cone.createPhysicsBody(JPH::EMotionType::Dynamic, bl::com::Physics3D::ObjectLayer::Dynamic);
+
+        cube.create(*world, 2.f);
+        cube.getTransform().setPosition({10.f, 50.f, 0.f});
+        cube.getTransform().rotate({0.f, 1.f, 1.f}, 45.f);
+        cube.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+        cube.createPhysicsBody(JPH::EMotionType::Dynamic, bl::com::Physics3D::ObjectLayer::Dynamic);
+
+        cylinder.create(*world, 2.f, 1.f, 300);
+        cylinder.getTransform().setPosition({10.f, 50.f, 20.f});
+        cylinder.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+        cylinder.createPhysicsBody(JPH::EMotionType::Dynamic,
+                                   bl::com::Physics3D::ObjectLayer::Dynamic);
+
+        model.create(*world, "Resources/Models/bruce/shark.glb");
+        model.getTransform().setPosition({0.f, 50.f, -20.f});
+        model.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+        model.createPhysicsBody(JPH::EMotionType::Dynamic,
+                                bl::com::Physics3D::ObjectLayer::Dynamic);
+        model.getSkeleton().playAnimation(0);
+
         engine.inputSystem().captureMouse();
         subscribe(engine.getSignalChannel());
     }
@@ -131,6 +155,10 @@ private:
     bl::input::ListenerBoundary listenerBoundary;
     bl::obj::o3d::HeightmapTerrainBasic terrain;
     bl::obj::o3d::Sphere sphere;
+    bl::obj::o3d::Cone cone;
+    bl::obj::o3d::Cube cube;
+    bl::obj::o3d::Cylinder cylinder;
+    bl::obj::o3d::ModelSkeletal model;
 
     void capture() {
         inputSystem->getActor().removeListener(listenerBoundary);

@@ -37,8 +37,13 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
 
     const auto makePoint = [pc, radius](unsigned int i, float z) -> glm::vec3 {
         const float r = static_cast<float>(i) / pc * 2.f * math::Pi;
-        return glm::vec3(std::cos(r) * radius, std::sin(r) * radius, z);
+        return glm::vec3(std::cos(r) * radius, z, std::sin(r) * radius);
     };
+
+    // TODO - fix point 0
+    // TODO - fix winding order
+    // TODO - apply same to cone
+    // TODO - cone color
 
     // side faces
     const unsigned int firstSide = vbIndex;
