@@ -30,36 +30,29 @@ void Cone::create(engine::World& world, float height, float radius, unsigned int
 
     const auto makePoint = [pc, radius, h](unsigned int i) -> glm::vec3 {
         const float r = static_cast<float>(i) / pc * 2.f * math::Pi;
-        return glm::vec3(std::cos(r) * radius, std::sin(r) * radius, h);
+        return glm::vec3(std::cos(r) * radius, -h, std::sin(r) * radius);
     };
 
     // cone faces
     for (unsigned int i = 0; i < pointCount; ++i) {
         const unsigned int b = i * 3;
 
-        const glm::vec4 color =
-            i % 2 == 0 ? glm::vec4{0.f, 1.f, 0.f, 1.f} : glm::vec4{0.f, 0.f, 1.f, 1.f};
-        vb[b].color     = color;
-        vb[b + 1].color = color;
-        vb[b + 2].color = color;
-
-        vb[b + 0].pos = {0.f, 0.f, -h};
+        vb[b + 0].pos = {0.f, h, 0.f};
         vb[b + 1].pos = makePoint(i);
         vb[b + 2].pos = makePoint(i + 1);
 
         ib[ii + 0] = b;
-        ib[ii + 1] = b + 2;
         ib[ii + 2] = b + 1;
+        ib[ii + 1] = b + 2;
         ii += 3;
     }
 
     // bottom face
     const unsigned int cb = pointCount * 3;
-    vb[cb].pos            = {0.f, 0.f, h};
+    vb[cb].pos            = {0.f, -h, 0.f};
     for (unsigned int i = 0; i < pointCount; ++i) {
         const unsigned int b = cb + i + 1;
         vb[b].pos            = makePoint(i);
-        vb[b].color          = {1.f, 0.f, 0.f, 1.f};
 
         ib[ii + 0] = cb;
         ib[ii + 1] = b + 0;

@@ -40,8 +40,6 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
         return glm::vec3(std::cos(r) * radius, z, std::sin(r) * radius);
     };
 
-    // TODO - fix point 0
-    // TODO - fix winding order
     // TODO - apply same to cone
     // TODO - cone color
 
@@ -54,27 +52,27 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
         vb[vbIndex + 0].pos = makePoint(i, h);
         vb[vbIndex + 1].pos = makePoint(i, -h);
 
-        ib[ibIndex + 0] = vbIndex - 2;
-        ib[ibIndex + 1] = vbIndex - 1;
+        ib[ibIndex + 0] = vbIndex - 1;
+        ib[ibIndex + 1] = vbIndex - 2;
         ib[ibIndex + 2] = vbIndex + 0;
-        ib[ibIndex + 3] = vbIndex - 1;
-        ib[ibIndex + 4] = vbIndex + 1;
+        ib[ibIndex + 3] = vbIndex + 1;
+        ib[ibIndex + 4] = vbIndex - 1;
         ib[ibIndex + 5] = vbIndex + 0;
         vbIndex += 2;
         ibIndex += 6;
     }
-    ib[ibIndex + 0] = firstSide + 1;
-    ib[ibIndex + 1] = firstSide;
+    ib[ibIndex + 0] = firstSide;
+    ib[ibIndex + 1] = firstSide + 1;
     ib[ibIndex + 2] = vbIndex - 2;
     ib[ibIndex + 3] = firstSide + 1;
-    ib[ibIndex + 5] = vbIndex - 1;
-    ib[ibIndex + 4] = vbIndex - 2;
+    ib[ibIndex + 5] = vbIndex - 2;
+    ib[ibIndex + 4] = vbIndex - 1;
     ibIndex += 6;
 
     // top and bottom circle faces
     const auto makeCircle = [&vb, &ib, &vbIndex, &ibIndex, &makePoint, pointCount](float h) {
         const unsigned int centerIndex = vbIndex;
-        vb[centerIndex].pos            = {0.f, 0.f, h};
+        vb[centerIndex].pos            = {0.f, h, 0.f};
         ++vbIndex;
 
         const unsigned int i1 = (h > 0.f) ? 1 : 2;
@@ -86,15 +84,15 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
             vb[vbIndex].pos = makePoint(i, h);
 
             ib[ibIndex + 0]  = centerIndex;
-            ib[ibIndex + i1] = vbIndex - 1;
-            ib[ibIndex + i2] = vbIndex;
+            ib[ibIndex + i1] = vbIndex;
+            ib[ibIndex + i2] = vbIndex - 1;
 
             vbIndex += 1;
             ibIndex += 3;
         }
         ib[ibIndex + 0]  = centerIndex;
-        ib[ibIndex + i1] = vbIndex - 1;
-        ib[ibIndex + i2] = firstPoint;
+        ib[ibIndex + i1] = firstPoint;
+        ib[ibIndex + i2] = vbIndex - 1;
         ibIndex += 3;
     };
 

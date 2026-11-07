@@ -103,6 +103,7 @@ public:
 
         cone.create(*world, 3.f, 1.f, 300);
         cone.getTransform().setPosition({-10.f, 50.f, 0.f});
+        cone.getTransform().rotate({0.f, 1.f, 1.f}, 120.f);
         cone.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
         cone.createPhysicsBody(JPH::EMotionType::Dynamic, bl::com::Physics3D::ObjectLayer::Dynamic);
 
