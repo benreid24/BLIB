@@ -52,8 +52,11 @@ public:
 protected:
     /**
      * @brief Creates a capsule the covers the model
+     *
+     * @param material The physics material to use for the shape
      */
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape(
+        JPH::Ref<JPH::PhysicsMaterial> material) override;
 
 private:
     using Tx = ecs::Transaction<

@@ -21,10 +21,13 @@ public:
      *
      * @param motionType The motion type of the body
      * @param layer The object layer of the body
+     * @param bodySettings The settings to use for the body
      * @param activation The activation state of the body
      */
-    void createPhysicsBody(JPH::EMotionType motionType, com::Physics3D::ObjectLayer layer,
-                           JPH::EActivation activation = JPH::EActivation::Activate);
+    void createPhysicsBody(
+        JPH::EMotionType motionType, com::Physics3D::ObjectLayer layer,
+        const com::Physics3D::BodySettings& bodySettings = com::Physics3D::BodySettings(),
+        JPH::EActivation activation                      = JPH::EActivation::Activate);
 
     /**
      * @brief Creates the physics component and body for this object
@@ -32,11 +35,13 @@ public:
      * @param shape The shape to use for the physics body
      * @param motionType The motion type of the body
      * @param layer The object layer of the body
+     * @param bodySettings The settings to use for the body
      * @param activation The activation state of the body
      */
-    void createPhysicsBody(JPH::Ref<JPH::Shape> shape, JPH::EMotionType motionType,
-                           com::Physics3D::ObjectLayer layer,
-                           JPH::EActivation activation = JPH::EActivation::Activate);
+    void createPhysicsBody(
+        JPH::Ref<JPH::Shape> shape, JPH::EMotionType motionType, com::Physics3D::ObjectLayer layer,
+        const com::Physics3D::BodySettings& bodySettings = com::Physics3D::BodySettings(),
+        JPH::EActivation activation                      = JPH::EActivation::Activate);
 
     /**
      * @brief Returns whether the physics body is currently added to the simulation
@@ -85,9 +90,10 @@ protected:
     /**
      * @brief Must be implemented by derived classes to define their shape
      *
+     * @param material The physics material to use for the shape
      * @return A unique pointer to the created shape
      */
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape() = 0;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) = 0;
 
     /**
      * @brief Must be implemented by derived classes

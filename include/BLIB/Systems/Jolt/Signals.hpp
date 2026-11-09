@@ -1,7 +1,10 @@
 #ifndef BLIB_SYSTEMS_JOLT_SIGNALS_HPP
 #define BLIB_SYSTEMS_JOLT_SIGNALS_HPP
 
+#include <Jolt/Jolt.h>
+
 #include <BLIB/ECS/Entity.hpp>
+#include <Jolt/Physics/Body/Body.h>
 
 namespace bl
 {
@@ -16,7 +19,9 @@ namespace jolt
  */
 struct CollisionStartedEvent {
     ecs::Entity entityA;
+    const JPH::Body& entityABody;
     ecs::Entity entityB;
+    const JPH::Body& entityBBody;
 };
 
 /**
@@ -26,7 +31,9 @@ struct CollisionStartedEvent {
  */
 struct CollisionPersistedEvent {
     ecs::Entity entityA;
+    const JPH::Body& entityABody;
     ecs::Entity entityB;
+    const JPH::Body& entityBBody;
 };
 
 /**

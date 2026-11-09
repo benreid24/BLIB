@@ -4,11 +4,13 @@
 #include <Jolt/Jolt.h>
 
 #include <BLIB/Components/Transform3D.hpp>
+#include <BLIB/Math/Constants.hpp>
 #include <Jolt/Physics/Body/Body.h>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 #include <Jolt/Physics/Body/BodyInterface.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <Jolt/Physics/Collision/ObjectLayer.h>
+#include <Jolt/Physics/Collision/PhysicsMaterial.h>
 #include <Jolt/Physics/EActivation.h>
 #include <limits>
 
@@ -110,6 +112,24 @@ public:
     };
 
     /**
+     * @brief Physics body settings
+     */
+    struct BodySettings {
+        JPH::Ref<JPH::PhysicsMaterial> material = JPH::Ref<JPH::PhysicsMaterial>();
+        JPH::EAllowedDOFs allowedDOFs           = JPH::EAllowedDOFs::All;
+        bool isSensor                           = false;
+        JPH::EMotionQuality motionQuality       = JPH::EMotionQuality::Discrete;
+        bool allowSleeping                      = true;
+        float friction                          = 0.2f;
+        float restitution                       = 0.0f;
+        float linearDamping                     = 0.05f;
+        float maxLinearVelocity                 = 500.0f;
+        float angularDamping                    = 0.05f;
+        float maxAngularVelocity                = 0.25f * math::Pi * 60.f;
+        float gravityFactor                     = 1.0f;
+    };
+
+    /**
      * @brief Adds physics to the entity and adds it to the simulation
      *
      * @param engine The engine instance
@@ -118,9 +138,11 @@ public:
      * @param motionType The motion type of the entity
      * @param layer The object layer of the entity
      * @param activation The activation state of the entity
+     * @param bodySettings The physics body settings of the entity
      */
     Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
-              JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation);
+              JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation,
+              const BodySettings& bodySettings = BodySettings());
 
     /**
      * @brief Adds physics to the entity but does not add it to the simulation
@@ -130,9 +152,11 @@ public:
      * @param shape The physics shape to use for the entity
      * @param motionType The motion type of the entity
      * @param layer The object layer of the entity
+     * @param bodySettings The physics body settings of the entity
      */
     Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
-              JPH::EMotionType motionType, ObjectLayer layer);
+              JPH::EMotionType motionType, ObjectLayer layer,
+              const BodySettings& bodySettings = BodySettings());
 
     /**
      * @brief Returns whether the entity is currently added to the simulation

@@ -112,7 +112,10 @@ void Cylinder::setColor(const rc::Color& c) {
     component().gpuBuffer.queueTransfer();
 }
 
-JPH::Ref<JPH::Shape> Cylinder::createPhysicsShape() { return physicsShapeSettings.Create().Get(); }
+JPH::Ref<JPH::Shape> Cylinder::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
+    physicsShapeSettings.mMaterial = material;
+    return physicsShapeSettings.Create().Get();
+}
 
 } // namespace o3d
 } // namespace obj

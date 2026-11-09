@@ -16,13 +16,15 @@ JPH::Quat jquat(const glm::quat& q) { return JPH::Quat(q.x, q.y, q.z, q.w); }
 } // namespace
 
 Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
-                     JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation)
-: Physics3D(engine, entity, std::move(shape), motionType, layer) {
+                     JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation,
+                     const BodySettings& bodySettings)
+: Physics3D(engine, entity, std::move(shape), motionType, layer, bodySettings) {
     addToSimulation(activation);
 }
 
 Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
-                     JPH::EMotionType motionType, ObjectLayer layer)
+                     JPH::EMotionType motionType, ObjectLayer layer,
+                     const BodySettings& bodySettings)
 : entity(entity)
 , bodyInterface(nullptr)
 , shape(std::move(shape))
@@ -44,11 +46,22 @@ Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::S
                                            jquat(transform->getRotation()),
                                            motionType,
                                            static_cast<JPH::ObjectLayer>(layer));
-        body = bodyInterface->CreateBody(settings);
+        settings.mUserData           = entity.id;
+        settings.mAllowedDOFs        = bodySettings.allowedDOFs;
+        settings.mIsSensor           = bodySettings.isSensor;
+        settings.mMotionQuality      = bodySettings.motionQuality;
+        settings.mAllowSleeping      = bodySettings.allowSleeping;
+        settings.mFriction           = bodySettings.friction;
+        settings.mRestitution        = bodySettings.restitution;
+        settings.mLinearDamping      = bodySettings.linearDamping;
+        settings.mMaxLinearVelocity  = bodySettings.maxLinearVelocity;
+        settings.mAngularDamping     = bodySettings.angularDamping;
+        settings.mMaxAngularVelocity = bodySettings.maxAngularVelocity;
+        settings.mGravityFactor      = bodySettings.gravityFactor;
+        body                         = bodyInterface->CreateBody(settings);
         if (body == nullptr) {
             BL_LOG_ERROR << "Failed to create physics body for entity" << entity;
         }
-        bodyInterface->SetUserData(body->GetID(), entity.id);
     }
     else {
         BL_LOG_ERROR << "Physics3D component created for entity (" << entity

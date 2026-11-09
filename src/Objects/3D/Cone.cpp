@@ -76,7 +76,10 @@ void Cone::setColor(const rc::Color& c) {
     component().gpuBuffer.queueTransfer();
 }
 
-JPH::Ref<JPH::Shape> Cone::createPhysicsShape() { return physicsShapeSettings.Create().Get(); }
+JPH::Ref<JPH::Shape> Cone::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
+    physicsShapeSettings.mMaterial = material;
+    return physicsShapeSettings.Create().Get();
+}
 
 } // namespace o3d
 } // namespace obj

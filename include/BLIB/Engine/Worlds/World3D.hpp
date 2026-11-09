@@ -36,11 +36,6 @@ public:
      */
     JPH::PhysicsSystem& getPhysicsSystem() { return physicsSystem; }
 
-    /**
-     * @brief Called once per frame by the physics system
-     */
-    void flushCollisionSignals();
-
 private:
     JPH::PhysicsSystem physicsSystem;
     sys::jolt::ContactListener contactListener;

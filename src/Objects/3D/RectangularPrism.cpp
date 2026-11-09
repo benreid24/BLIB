@@ -108,7 +108,8 @@ void RectangularPrism::setColor(const rc::Color& color) {
     component().gpuBuffer.queueTransfer();
 }
 
-JPH::Ref<JPH::Shape> RectangularPrism::createPhysicsShape() {
+JPH::Ref<JPH::Shape> RectangularPrism::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
+    physicsShapeSettings.mMaterial = material;
     return physicsShapeSettings.Create().Get();
 }
 

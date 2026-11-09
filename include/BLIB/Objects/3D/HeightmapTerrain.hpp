@@ -209,7 +209,8 @@ private:
 
     void createHeightmapComponent(engine::World& world);
     void setIndices(unsigned int xCount, unsigned int yCount);
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape(
+        JPH::Ref<JPH::PhysicsMaterial> material) override;
 };
 
 /**
@@ -441,7 +442,8 @@ void HeightmapTerrain<TVertex, MaterialPipelineId>::setIndices(unsigned int xCou
 }
 
 template<typename TVertex, std::uint32_t MaterialPipelineId>
-JPH::Ref<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape() {
+JPH::Ref<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysicsShape(
+    JPH::Ref<JPH::PhysicsMaterial> material) {
     ctr::Vector2D<float> localHeightmap;
     ctr::Vector2D<float>* usedHeightmap = &heightmap->heightmap;
     if (usedHeightmap->getWidth() != usedHeightmap->getHeight()) {
@@ -463,8 +465,21 @@ JPH::Ref<JPH::Shape> HeightmapTerrain<TVertex, MaterialPipelineId>::createPhysic
                           1.f,
                           static_cast<float>(usedHeightmap->getHeight()) / heightmap->size.y);
 
-    JPH::HeightFieldShapeSettings settings(
-        usedHeightmap->dataPtr(), offset, scale, usedHeightmap->getWidth());
+    std::vector<std::uint8_t> materialIndices;
+    JPH::PhysicsMaterialList materialList;
+    std::uint8_t* materialIndicesPtr = nullptr;
+    if (material.GetPtr()) {
+        materialIndices.resize(usedHeightmap->getArea(), 0);
+        materialIndicesPtr = materialIndices.data();
+        materialList.push_back(material);
+    }
+
+    JPH::HeightFieldShapeSettings settings(usedHeightmap->dataPtr(),
+                                           offset,
+                                           scale,
+                                           usedHeightmap->getWidth(),
+                                           materialIndicesPtr,
+                                           materialList);
     return settings.Create().Get();
 }
 

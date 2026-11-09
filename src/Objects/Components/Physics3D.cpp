@@ -13,13 +13,16 @@ Physics3D::Physics3D()
 
 void bl::obj::bcom::Physics3D::createPhysicsBody(JPH::EMotionType motionType,
                                                  com::Physics3D::ObjectLayer layer,
+                                                 const com::Physics3D::BodySettings& bodySettings,
                                                  JPH::EActivation activation) {
-    createPhysicsBody(createPhysicsShape(), motionType, layer, activation);
+    createPhysicsBody(
+        createPhysicsShape(bodySettings.material), motionType, layer, bodySettings, activation);
 }
 
 void bl::obj::bcom::Physics3D::createPhysicsBody(JPH::Ref<JPH::Shape> shape,
                                                  JPH::EMotionType motionType,
                                                  com::Physics3D::ObjectLayer layer,
+                                                 const com::Physics3D::BodySettings& bodySettings,
                                                  JPH::EActivation activation) {
     engine::Engine* engine = nullptr;
     ecs::Entity entity;

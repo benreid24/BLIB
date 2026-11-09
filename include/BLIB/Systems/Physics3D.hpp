@@ -9,12 +9,10 @@
 #include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Systems/Jolt/BroadphaseLayerInterface.hpp>
-#include <BLIB/Systems/Jolt/ContactListener.hpp>
 #include <BLIB/Systems/Jolt/JobSystem.hpp>
 #include <BLIB/Systems/Jolt/ObjectLayerPairFilter.hpp>
 #include <BLIB/Systems/Jolt/ObjectVsBroadphaseLayerFilter.hpp>
 #include <Jolt/Core/TempAllocator.h>
-#include <Jolt/Physics/PhysicsSystem.h>
 #include <optional>
 #include <vector>
 

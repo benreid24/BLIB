@@ -111,7 +111,8 @@ void ModelStatic::onRemove() {
     for (auto& child : drawableEntities) { child.mesh->removeFromScene(*ecs, child.entity); }
 }
 
-JPH::Ref<JPH::Shape> ModelStatic::createPhysicsShape() {
+JPH::Ref<JPH::Shape> ModelStatic::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
+    physicsShapeSettings.mMaterial = material;
     return physicsShapeSettings.Create().Get();
 }
 

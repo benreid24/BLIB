@@ -23,13 +23,11 @@ World3D::World3D(Engine& owner)
                        physics.getBroadphaseLayerInterface(),
                        physics.getObjectLayerVsBroadphaseFilter(),
                        physics.getObjectLayerPairFilter());
-    contactListener.init(physics.getSignalChannel(), physicsSystem.GetBodyInterface());
+    contactListener.init(physics.getSignalChannel(), physicsSystem.GetBodyInterfaceNoLock());
     physicsSystem.SetContactListener(&contactListener);
 }
 
 World3D::~World3D() {}
-
-void World3D::flushCollisionSignals() { contactListener.flushContactRemovals(); }
 
 } // namespace engine
 } // namespace bl

@@ -96,7 +96,10 @@ void Cube::create(engine::World& world, float size, const bl::rc::res::MaterialR
     component().gpuBuffer.queueTransfer();
 }
 
-JPH::Ref<JPH::Shape> Cube::createPhysicsShape() { return physicsShapeSettings.Create().Get(); }
+JPH::Ref<JPH::Shape> Cube::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
+    physicsShapeSettings.mMaterial = material;
+    return physicsShapeSettings.Create().Get();
+}
 
 } // namespace o3d
 } // namespace obj

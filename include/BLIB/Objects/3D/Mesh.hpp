@@ -79,8 +79,11 @@ public:
 protected:
     /**
      * @brief Creates a convex hull physics shape from the mesh vertices and indices
+     *
+     * @param material The physics material to use for the shape
      */
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape(
+        JPH::Ref<JPH::PhysicsMaterial> material) override;
 };
 
 /**
@@ -116,7 +119,8 @@ void Mesh<TVertex, DefaultMaterialPipelineId>::commit() {
 }
 
 template<typename TVertex, std::uint32_t DefaultMaterialPipelineId>
-JPH::Ref<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhysicsShape() {
+JPH::Ref<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhysicsShape(
+    JPH::Ref<JPH::PhysicsMaterial> material) {
     std::vector<JPH::Vec3> points;
     points.reserve(this->component().gpuBuffer.indices().size());
     for (std::uint32_t index : this->component().gpuBuffer.indices()) {
@@ -125,6 +129,7 @@ JPH::Ref<JPH::Shape> Mesh<TVertex, DefaultMaterialPipelineId>::createPhysicsShap
     }
 
     JPH::ConvexHullShapeSettings settings(points.data(), points.size());
+    settings.mMaterial = material;
     return settings.Create().Get();
 }
 

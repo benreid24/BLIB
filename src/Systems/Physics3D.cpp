@@ -22,7 +22,7 @@
     X Physics system update (instanced per world)
     - Can we automatically call OptimizeBroadPhase at certain points?
     X Writeback position & orientation (body activation listener to filter?)
-    - Physics material support
+    X Physics material support
     - Character component
 
   Reference: https://github.com/jrouwe/JoltPhysicsHelloWorld/blob/main/Source/HelloWorld.cpp
@@ -85,7 +85,6 @@ void Physics3D::update(std::mutex&, float dt, float, float, float) {
         if (!world) { continue; }
         world->getPhysicsSystem().Update(
             dt, collisionSteps, &*joltFrameAllocator, &jobSystem.value());
-        world->flushCollisionSignals();
     }
 
     // TODO - maybe we could reduce the scope of this loop via a list of active bodies?

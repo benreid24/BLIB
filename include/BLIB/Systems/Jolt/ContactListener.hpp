@@ -40,15 +40,9 @@ public:
      */
     virtual ~ContactListener() = default;
 
-    /**
-     * @brief Called once per frame and emits contact removal events
-     */
-    void flushContactRemovals();
-
 private:
     sig::Emitter<CollisionStartedEvent, CollisionPersistedEvent, CollisionEndedEvent> emitter;
     JPH::BodyInterface* bodyInterface;
-    std::vector<std::pair<JPH::BodyID, JPH::BodyID>> queuedContactRemovals;
 
     virtual void OnContactAdded(const JPH::Body& body1, const JPH::Body& body2,
                                 const JPH::ContactManifold& manifold,

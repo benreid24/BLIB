@@ -199,7 +199,8 @@ void ModelSkeletal::onRemove() {
     }
 }
 
-JPH::Ref<JPH::Shape> ModelSkeletal::createPhysicsShape() {
+JPH::Ref<JPH::Shape> ModelSkeletal::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
+    physicsShapeSettings.mMaterial = material;
     return physicsShapeSettings.Create().Get();
 }
 

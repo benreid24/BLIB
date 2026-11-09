@@ -16,7 +16,7 @@ void VertexBuffer::commit() {
     component().commit();
 }
 
-JPH::Ref<JPH::Shape> VertexBuffer::createPhysicsShape() {
+JPH::Ref<JPH::Shape> VertexBuffer::createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) {
     std::vector<JPH::Vec3> points;
     points.reserve(component().getSize());
 
@@ -25,6 +25,7 @@ JPH::Ref<JPH::Shape> VertexBuffer::createPhysicsShape() {
     }
 
     JPH::ConvexHullShapeSettings settings(points.data(), points.size());
+    settings.mMaterial = material;
     return settings.Create().Get();
 }
 

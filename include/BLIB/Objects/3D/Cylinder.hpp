@@ -63,7 +63,8 @@ public:
 private:
     JPH::CylinderShapeSettings physicsShapeSettings;
 
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape(
+        JPH::Ref<JPH::PhysicsMaterial> material) override;
 };
 
 } // namespace o3d

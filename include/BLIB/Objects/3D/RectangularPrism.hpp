@@ -61,8 +61,11 @@ public:
 protected:
     /**
      * @brief Creates a box shape for the rectangular prism
+     *
+     * @param material The physics material to use for the shape
      */
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape() override;
+    virtual JPH::Ref<JPH::Shape> createPhysicsShape(
+        JPH::Ref<JPH::PhysicsMaterial> material) override;
 
 private:
     JPH::BoxShapeSettings physicsShapeSettings;
