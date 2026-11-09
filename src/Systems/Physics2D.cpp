@@ -2,7 +2,6 @@
 
 #include <BLIB/Engine.hpp>
 #include <BLIB/Math.hpp>
-#include <thread>
 #include <vector>
 
 namespace bl

@@ -5,6 +5,7 @@
 
 #include <BLIB/Engine/Worlds/BasicWorld.hpp>
 #include <BLIB/Render/Scenes/Scene3D.hpp>
+#include <BLIB/Systems/Jolt/ContactListener.hpp>
 #include <Jolt/Physics/PhysicsSystem.h>
 
 namespace bl
@@ -35,8 +36,14 @@ public:
      */
     JPH::PhysicsSystem& getPhysicsSystem() { return physicsSystem; }
 
+    /**
+     * @brief Called once per frame by the physics system
+     */
+    void flushCollisionSignals();
+
 private:
     JPH::PhysicsSystem physicsSystem;
+    sys::jolt::ContactListener contactListener;
 };
 
 } // namespace engine

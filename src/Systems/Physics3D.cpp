@@ -5,8 +5,6 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Systems/Jolt/Constants.hpp>
 #include <Jolt/Core/Factory.h>
-#include <Jolt/Core/JobSystemThreadPool.h>
-#include <Jolt/Physics/PhysicsSettings.h>
 #include <Jolt/Physics/PhysicsSystem.h>
 #include <Jolt/RegisterTypes.h>
 #include <cstdarg>
@@ -18,8 +16,8 @@
       X Mapping to broadphase layers (BPLayerInterfaceImpl)
       X Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
       X Object pair layer filter impl (ObjectLayerPairFilterImpl)
-    - Signals for collisions
-    - Signals for sensors
+    X Signals for collisions
+    X Signals for sensors
     X Custom job system on top of engine threadpool
     X Physics system update (instanced per world)
     - Can we automatically call OptimizeBroadPhase at certain points?
@@ -57,6 +55,8 @@ Physics3D::Physics3D()
 }
 
 void Physics3D::init(engine::Engine& engine) {
+    signalChannel.setParent(engine.getSignalChannel());
+
     JPH::RegisterDefaultAllocator();
     joltFrameAllocator.emplace(FrameMemory);
 
@@ -81,12 +81,15 @@ void Physics3D::update(std::mutex&, float dt, float, float, float) {
     const unsigned int multipleOf60FPS = std::ceil(dt / NominalDt);
     const unsigned int collisionSteps =
         std::max(multipleOf60FPS * jolt::Constants::CollisionStepsPer60FPS, 1u);
-    for (JPH::PhysicsSystem* simulation : activePhysicsSystems) {
-        if (!simulation) { continue; }
-        simulation->Update(dt, collisionSteps, &*joltFrameAllocator, &jobSystem.value());
+    for (engine::World3D* world : activePhysicsSystems) {
+        if (!world) { continue; }
+        world->getPhysicsSystem().Update(
+            dt, collisionSteps, &*joltFrameAllocator, &jobSystem.value());
+        world->flushCollisionSignals();
     }
 
     // TODO - maybe we could reduce the scope of this loop via a list of active bodies?
+    // TODO - do we want the ability for the component to sync both ways?
     physicsComponents->forEach([](ecs::Entity, com::Physics3D& p) { p.writebackTransform(); });
 }
 
@@ -96,7 +99,7 @@ void Physics3D::process(const engine::event::WorldCreated& worldCreate) {
         if (world->worldIndex() >= activePhysicsSystems.size()) {
             activePhysicsSystems.resize(world->worldIndex() + 1, nullptr);
         }
-        activePhysicsSystems[world->worldIndex()] = &world->getPhysicsSystem();
+        activePhysicsSystems[world->worldIndex()] = world;
     }
 }
 

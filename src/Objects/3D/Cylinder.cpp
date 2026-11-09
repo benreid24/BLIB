@@ -40,9 +40,6 @@ void Cylinder::create(engine::World& world, float height, float radius, unsigned
         return glm::vec3(std::cos(r) * radius, z, std::sin(r) * radius);
     };
 
-    // TODO - apply same to cone
-    // TODO - cone color
-
     // side faces
     const unsigned int firstSide = vbIndex;
     vb[vbIndex + 0].pos          = makePoint(0, h);

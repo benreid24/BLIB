@@ -48,6 +48,7 @@ Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::S
         if (body == nullptr) {
             BL_LOG_ERROR << "Failed to create physics body for entity" << entity;
         }
+        bodyInterface->SetUserData(body->GetID(), entity.id);
     }
     else {
         BL_LOG_ERROR << "Physics3D component created for entity (" << entity

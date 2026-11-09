@@ -6,8 +6,10 @@
 #include <BLIB/Components/Physics3D.hpp>
 #include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/System.hpp>
+#include <BLIB/Signals/Emitter.hpp>
 #include <BLIB/Signals/Listener.hpp>
 #include <BLIB/Systems/Jolt/BroadphaseLayerInterface.hpp>
+#include <BLIB/Systems/Jolt/ContactListener.hpp>
 #include <BLIB/Systems/Jolt/JobSystem.hpp>
 #include <BLIB/Systems/Jolt/ObjectLayerPairFilter.hpp>
 #include <BLIB/Systems/Jolt/ObjectVsBroadphaseLayerFilter.hpp>
@@ -18,6 +20,11 @@
 
 namespace bl
 {
+namespace engine
+{
+class World3D;
+}
+
 namespace sys
 {
 /**
@@ -82,14 +89,20 @@ public:
     void setObjectLayerToBroadphaseMapping(com::Physics3D::ObjectLayer layer,
                                            com::Physics3D::BroadphaseLayer broadphase);
 
+    /**
+     * @brief Returns the signal channel that physics events are fired on
+     */
+    sig::Channel& getSignalChannel() { return signalChannel; }
+
 private:
     std::optional<jolt::JobSystem> jobSystem;
     std::optional<JPH::TempAllocatorImpl> joltFrameAllocator;
     jolt::ObjectLayerPairFilter objectLayerFilter;
     jolt::BroadPhaseLayerInterface broadphaseLayerInterface;
     jolt::ObjectVsBroadPhaseLayerFilter objectVsBroadphaseFilter;
-    std::vector<JPH::PhysicsSystem*> activePhysicsSystems;
+    std::vector<engine::World3D*> activePhysicsSystems;
     ecs::ComponentPool<com::Physics3D>* physicsComponents;
+    sig::Channel signalChannel;
 
     virtual void init(engine::Engine& engine) override;
     virtual void earlyCleanup() override;
