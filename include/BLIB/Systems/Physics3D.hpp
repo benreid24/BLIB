@@ -4,6 +4,7 @@
 #include <Jolt/Jolt.h>
 
 #include <BLIB/Components/Physics3D.hpp>
+#include <BLIB/Components/Physics3DCharacter.hpp>
 #include <BLIB/Engine/Events/Worlds.hpp>
 #include <BLIB/Engine/System.hpp>
 #include <BLIB/Signals/Emitter.hpp>
@@ -100,6 +101,7 @@ private:
     jolt::ObjectVsBroadPhaseLayerFilter objectVsBroadphaseFilter;
     std::vector<engine::World3D*> activePhysicsSystems;
     ecs::ComponentPool<com::Physics3D>* physicsComponents;
+    ecs::ComponentPool<com::Physics3DCharacter>* characterComponents;
     sig::Channel signalChannel;
 
     virtual void init(engine::Engine& engine) override;

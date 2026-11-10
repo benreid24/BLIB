@@ -6,7 +6,6 @@
 #include <BLIB/Components/Transform3D.hpp>
 #include <BLIB/Math/Constants.hpp>
 #include <Jolt/Physics/Body/Body.h>
-#include <Jolt/Physics/Body/BodyCreationSettings.h>
 #include <Jolt/Physics/Body/BodyInterface.h>
 #include <Jolt/Physics/Collision/BroadPhase/BroadPhaseLayer.h>
 #include <Jolt/Physics/Collision/ObjectLayer.h>

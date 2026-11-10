@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Engine/Worlds/World3D.hpp>
 #include <BLIB/Logging.hpp>
+#include <Jolt/Physics/Body/BodyCreationSettings.h>
 
 namespace bl
 {

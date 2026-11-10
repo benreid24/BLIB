@@ -12,6 +12,7 @@ target_sources(BLIB PRIVATE
 	OverlayScaler.cpp
 	Physics2D.cpp
 	Physics3D.cpp
+	Physics3DCharacter.cpp
 	Shape2D.cpp
 	Skeleton.cpp
 	Slideshow.cpp
