@@ -12,7 +12,13 @@ namespace bcom
 Physics3DCharacter::Physics3DCharacter()
 : character(nullptr) {}
 
-void Physics3DCharacter::createPhysicsCharacter(const JPH::CharacterSettings& settings, bool add) {
+void Physics3DCharacter::createPhysicsCharacter(const JPH::CharacterSettings& settings, bool add,
+                                                JPH::Ref<JPH::PhysicsMaterial> material) {
+    createPhysicsCharacter(settings, createPhysicsShape(material), add);
+}
+
+void Physics3DCharacter::createPhysicsCharacter(const JPH::CharacterSettings& settings,
+                                                JPH::Ref<JPH::Shape> shape, bool add) {
     if (character) {
         BL_LOG_WARN << "Physics character already created for entity " << entity()
                     << ". Ignoring request to create a new physics character";
@@ -29,6 +35,7 @@ void Physics3DCharacter::createPhysicsCharacter(const JPH::CharacterSettings& se
 
     character = engine().ecs().emplaceComponent<com::Physics3DCharacter>(
         entity(), entity(), *world3d, settings);
+    character->setShape(shape);
     if (add) { character->addToSimulation(); }
 }
 

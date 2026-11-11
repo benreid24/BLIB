@@ -23,7 +23,7 @@
     - Can we automatically call OptimizeBroadPhase at certain points?
     X Writeback position & orientation (body activation listener to filter?)
     X Physics material support
-    - Character component
+    X Character component
 
   Reference: https://github.com/jrouwe/JoltPhysicsHelloWorld/blob/main/Source/HelloWorld.cpp
 */

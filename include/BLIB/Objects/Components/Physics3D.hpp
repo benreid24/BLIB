@@ -3,6 +3,7 @@
 
 #include <BLIB/Components/Physics3D.hpp>
 #include <BLIB/ECS/EntityBacked.hpp>
+#include <BLIB/Objects/Components/Shape3D.hpp>
 
 namespace bl
 {
@@ -15,7 +16,9 @@ namespace bcom
  *
  * @ingroup Objects
  */
-class Physics3D : protected virtual ecs::EntityBacked {
+class Physics3D
+: protected virtual ecs::EntityBacked
+, protected virtual Shape3D {
 public:
     /**
      * @brief Creates the physics component and body for this object
@@ -87,14 +90,6 @@ protected:
      * @brief Initializes the state to empty
      */
     Physics3D();
-
-    /**
-     * @brief Must be implemented by derived classes to define their shape
-     *
-     * @param material The physics material to use for the shape
-     * @return A unique pointer to the created shape
-     */
-    virtual JPH::Ref<JPH::Shape> createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) = 0;
 
 private:
     com::Physics3D* physics;
