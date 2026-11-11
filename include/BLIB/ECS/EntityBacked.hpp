@@ -41,7 +41,7 @@ public:
     /**
      * @brief Destroys the ECS entity
      */
-    ~EntityBacked();
+    virtual ~EntityBacked();
 
     /**
      * @brief Deleted

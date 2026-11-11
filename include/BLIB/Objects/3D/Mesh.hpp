@@ -3,6 +3,8 @@
 
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
+#include <BLIB/Objects/Components/Physics3DCharacter.hpp>
 #include <Jolt/Physics/Collision/Shape/ConvexHullShape.h>
 
 namespace bl
@@ -17,7 +19,10 @@ namespace o3d
  * @ingroup Objects
  */
 template<typename TVertex, std::uint32_t DefaultMaterialPipelineId>
-class Mesh : public DrawableObject3D<com::Mesh<TVertex, DefaultMaterialPipelineId>> {
+class Mesh
+: public DrawableObject3D<com::Mesh<TVertex, DefaultMaterialPipelineId>>
+, public bcom::Physics3D
+, public bcom::Physics3DCharacter {
 public:
     /**
      * @brief Creates an uninitialized mesh

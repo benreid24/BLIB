@@ -3,6 +3,8 @@
 
 #include <BLIB/Components/Mesh.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
+#include <BLIB/Objects/Components/Physics3DCharacter.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
 #include <Jolt/Physics/Collision/Shape/CylinderShape.h>
@@ -18,7 +20,10 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class Cylinder : public DrawableObject3D<com::BasicMesh> {
+class Cylinder
+: public DrawableObject3D<com::BasicMesh>
+, public bcom::Physics3D
+, public bcom::Physics3DCharacter {
 public:
     /**
      * @brief Does nothing

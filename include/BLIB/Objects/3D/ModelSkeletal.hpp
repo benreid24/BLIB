@@ -8,6 +8,8 @@
 #include <BLIB/Components/SkeletonIndexLink.hpp>
 #include <BLIB/Models.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
+#include <BLIB/Objects/Components/Physics3DCharacter.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <Jolt/Physics/Collision/Shape/CapsuleShape.h>
 #include <variant>
@@ -23,7 +25,10 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class ModelSkeletal : public DrawableObject3D<com::SkinnedMesh> {
+class ModelSkeletal
+: public DrawableObject3D<com::SkinnedMesh>
+, public bcom::Physics3D
+, public bcom::Physics3DCharacter {
 public:
     /**
      * @brief Does nothing

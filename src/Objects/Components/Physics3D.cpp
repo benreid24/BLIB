@@ -24,24 +24,14 @@ void bl::obj::bcom::Physics3D::createPhysicsBody(JPH::Ref<JPH::Shape> shape,
                                                  com::Physics3D::ObjectLayer layer,
                                                  const com::Physics3D::BodySettings& bodySettings,
                                                  JPH::EActivation activation) {
-    engine::Engine* engine = nullptr;
-    ecs::Entity entity;
-    getEngineAndEntity(engine, entity);
-
     if (physics) {
-        BL_LOG_WARN << "Physics body already created for entity " << entity
+        BL_LOG_WARN << "Physics body already created for entity " << entity()
                     << ". Ignoring request to create a new physics body";
         return;
     }
 
-    if (engine) {
-        physics = engine->ecs().emplaceComponent<com::Physics3D>(
-            entity, *engine, entity, std::move(shape), motionType, layer, activation);
-    }
-    else {
-        BL_LOG_ERROR << "Failed to create physics body for entity " << entity
-                     << " because the engine instance could not be retrieved";
-    }
+    physics = engine().ecs().emplaceComponent<com::Physics3D>(
+        entity(), engine(), entity(), std::move(shape), motionType, layer, activation);
 }
 
 bool Physics3D::isAddedToPhysicsSimulation() const {

@@ -61,7 +61,8 @@ void Physics3D::init(engine::Engine& engine) {
     joltFrameAllocator.emplace(FrameMemory);
 
     jobSystem.emplace(engine.engineLoopThreadpool());
-    physicsComponents = &engine.ecs().getAllComponents<com::Physics3D>();
+    physicsComponents   = &engine.ecs().getAllComponents<com::Physics3D>();
+    characterComponents = &engine.ecs().getAllComponents<com::Physics3DCharacter>();
 
     JPH::Trace = &joltLog;
     JPH::RegisterDefaultAllocator();

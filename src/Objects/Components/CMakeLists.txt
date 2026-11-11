@@ -3,5 +3,6 @@ target_sources(BLIB PRIVATE
 	Outline3D.cpp
 	OverlayScalable.cpp
 	Physics3D.cpp
+	Physics3DCharacter.cpp
 	Textured.cpp
 )

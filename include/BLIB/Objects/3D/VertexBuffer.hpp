@@ -3,6 +3,8 @@
 
 #include <BLIB/Components/VertexBuffer3D.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
+#include <BLIB/Objects/Components/Physics3DCharacter.hpp>
 #include <Jolt/Physics/Collision/Shape/ConvexHullShape.h>
 
 namespace bl
@@ -16,7 +18,10 @@ namespace o3d
  *
  * @ingroup Objects
  */
-class VertexBuffer : public DrawableObject3D<com::VertexBuffer3D> {
+class VertexBuffer
+: public DrawableObject3D<com::VertexBuffer3D>
+, public bcom::Physics3D
+, public bcom::Physics3DCharacter {
 public:
     /**
      * @brief Creates an uninitialized vertex buffer

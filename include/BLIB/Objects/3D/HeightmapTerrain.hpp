@@ -7,6 +7,7 @@
 #include <BLIB/Containers/Vector2d.hpp>
 #include <BLIB/Engine/Worlds/World3D.hpp>
 #include <BLIB/Objects/3D/DrawableObject3D.hpp>
+#include <BLIB/Objects/Components/Physics3D.hpp>
 #include <BLIB/Random/Perlin.hpp>
 #include <BLIB/Render/Config/MaterialPipelineIds.hpp>
 #include <BLIB/Render/Resources/MaterialPool.hpp>
@@ -24,7 +25,9 @@ namespace o3d
  * @ingroup Objects
  */
 template<typename TVertex, std::uint32_t MaterialPipelineId>
-class HeightmapTerrain : public DrawableObject3D<com::Mesh<TVertex, MaterialPipelineId>> {
+class HeightmapTerrain
+: public DrawableObject3D<com::Mesh<TVertex, MaterialPipelineId>>
+, public bcom::Physics3D {
 public:
     /**
      * @brief Default callback for populating a vertex from a position

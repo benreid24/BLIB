@@ -2,6 +2,7 @@
 #define BLIB_OBJECTS_COMPONENTS_PHYSICS3D_HPP
 
 #include <BLIB/Components/Physics3D.hpp>
+#include <BLIB/ECS/EntityBacked.hpp>
 
 namespace bl
 {
@@ -14,7 +15,7 @@ namespace bcom
  *
  * @ingroup Objects
  */
-class Physics3D {
+class Physics3D : protected virtual ecs::EntityBacked {
 public:
     /**
      * @brief Creates the physics component and body for this object
@@ -94,14 +95,6 @@ protected:
      * @return A unique pointer to the created shape
      */
     virtual JPH::Ref<JPH::Shape> createPhysicsShape(JPH::Ref<JPH::PhysicsMaterial> material) = 0;
-
-    /**
-     * @brief Must be implemented by derived classes
-     *
-     * @param engine The game engine instance
-     * @param entity The entity that this component is attached to
-     */
-    virtual void getEngineAndEntity(engine::Engine*& engine, ecs::Entity& entity) = 0;
 
 private:
     com::Physics3D* physics;

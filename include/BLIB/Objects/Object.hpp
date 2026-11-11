@@ -12,7 +12,7 @@ namespace obj
  *
  * @ingroup Objects
  */
-class Object : public ecs::EntityBacked {
+class Object : public virtual ecs::EntityBacked {
 public:
     /**
      * @brief Destroys the object
