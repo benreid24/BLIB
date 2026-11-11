@@ -124,14 +124,27 @@ void Physics3D::setPosition(const glm::vec3& position, JPH::EActivation activati
         body->GetID(), jvec(position), activation);
 }
 
-void Physics3D::writebackTransform() {
+void Physics3D::writebackTransform(float dt) {
     if (!isAdded || !body) { return; }
 
     JPH::RVec3 pos;
     JPH::Quat rot;
     world->getPhysicsSystem().GetBodyInterface().GetPositionAndRotation(body->GetID(), pos, rot);
-    transform->setPosition(glm::vec3(pos.GetX(), pos.GetY(), pos.GetZ()));
-    transform->setRotation(glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
+
+    switch (body->GetMotionType()) {
+    case JPH::EMotionType::Dynamic:
+        transform->setPosition(glm::vec3(pos.GetX(), pos.GetY(), pos.GetZ()));
+        transform->setRotation(glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
+        break;
+
+    case JPH::EMotionType::Kinematic:
+        body->MoveKinematic(jvec(transform->getPosition()), jquat(transform->getRotation()), dt);
+        break;
+
+    case JPH::EMotionType::Static:
+    default:
+        break;
+    }
 }
 
 } // namespace com

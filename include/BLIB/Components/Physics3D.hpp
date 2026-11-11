@@ -207,8 +207,10 @@ public:
     /**
      * @brief Pulls the position and rotation from the simulation and writes it to the ECS. Does not
      *        need to be manually called
+     *
+     * @param dt The delta time since the last frame
      */
-    void writebackTransform();
+    void writebackTransform(float dt);
 
 private:
     ecs::Entity entity;

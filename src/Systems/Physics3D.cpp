@@ -80,9 +80,7 @@ void Physics3D::update(std::mutex&, float dt, float, float, float) {
             dt, collisionSteps, &*joltFrameAllocator, &jobSystem.value());
     }
 
-    // TODO - maybe we could reduce the scope of this loop via a list of active bodies?
-    // TODO - do we want the ability for the component to sync both ways?
-    physicsComponents->forEach([](ecs::Entity, com::Physics3D& p) { p.writebackTransform(); });
+    physicsComponents->forEach([dt](ecs::Entity, com::Physics3D& p) { p.writebackTransform(dt); });
     characterComponents->forEach([](ecs::Entity, com::Physics3DCharacter& c) { c.postUpdate(); });
 }
 
