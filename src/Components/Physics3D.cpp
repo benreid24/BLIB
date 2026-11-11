@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Engine/Worlds/World3D.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Systems/Physics3D.hpp>
 #include <Jolt/Physics/Body/BodyCreationSettings.h>
 
 namespace bl
@@ -18,16 +19,16 @@ JPH::Quat jquat(const glm::quat& q) { return JPH::Quat(q.x, q.y, q.z, q.w); }
 
 Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
                      JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation,
-                     const BodySettings& bodySettings)
+                     const BodySettings& bodySettings, bool batch)
 : Physics3D(engine, entity, std::move(shape), motionType, layer, bodySettings) {
-    addToSimulation(activation);
+    addToSimulation(activation, batch);
 }
 
 Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
                      JPH::EMotionType motionType, ObjectLayer layer,
                      const BodySettings& bodySettings)
 : entity(entity)
-, bodyInterface(nullptr)
+, world(nullptr)
 , shape(std::move(shape))
 , transform(engine.ecs().getComponent<com::Transform3D>(entity))
 , body(nullptr)
@@ -38,10 +39,9 @@ Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::S
         transform = engine.ecs().emplaceComponent<com::Transform3D>(entity);
     }
 
-    auto world               = engine.getWorld(entity.getWorldIndex());
-    engine::World3D* world3d = dynamic_cast<engine::World3D*>(world.get());
-    if (world3d) {
-        bodyInterface = &world3d->getPhysicsSystem().GetBodyInterface();
+    auto w = engine.getWorld(entity.getWorldIndex());
+    world  = dynamic_cast<engine::World3D*>(w.get());
+    if (world) {
         JPH::BodyCreationSettings settings(this->shape,
                                            jvec(transform->getPosition()),
                                            jquat(transform->getRotation()),
@@ -59,7 +59,8 @@ Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::S
         settings.mAngularDamping     = bodySettings.angularDamping;
         settings.mMaxAngularVelocity = bodySettings.maxAngularVelocity;
         settings.mGravityFactor      = bodySettings.gravityFactor;
-        body                         = bodyInterface->CreateBody(settings);
+
+        body = world->getPhysicsSystem().GetBodyInterface().CreateBody(settings);
         if (body == nullptr) {
             BL_LOG_ERROR << "Failed to create physics body for entity" << entity;
         }
@@ -70,47 +71,61 @@ Physics3D::Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::S
     }
 }
 
-void Physics3D::addToSimulation(JPH::EActivation activation) {
+Physics3D::~Physics3D() {
+    if (world && body) {
+        if (isAdded) { world->queueRemovePhysicsBody(body->GetID()); }
+        world->queueDestroyPhysicsBody(body->GetID());
+    }
+}
+
+void Physics3D::addToSimulation(JPH::EActivation activation, bool batch) {
     if (isAdded) { return; }
-    if (!bodyInterface || !body) {
+    if (!world || !body) {
         BL_LOG_WARN << "Cannot add entity " << entity << " to simulation as body creation failed";
         return;
     }
 
-    bodyInterface->AddBody(body->GetID(), activation);
-    isAdded = true;
+    if (!batch) {
+        world->getPhysicsSystem().GetBodyInterface().AddBody(body->GetID(), activation);
+        isAdded = true;
+    }
+    else { world->queueAddPhysicsBody(body->GetID(), activation); }
 }
 
-void Physics3D::removeFromSimulation() {
+void Physics3D::removeFromSimulation(bool batch) {
     if (!isAdded) { return; }
-    if (!bodyInterface || !body) {
+    if (!world || !body) {
         BL_LOG_WARN << "Cannot remove entity " << entity
                     << " from simulation as body creation failed";
         return;
     }
 
-    bodyInterface->RemoveBody(body->GetID());
-    isAdded = false;
+    if (!batch) {
+        world->getPhysicsSystem().GetBodyInterface().RemoveBody(body->GetID());
+        isAdded = false;
+    }
+    else { world->queueRemovePhysicsBody(body->GetID()); }
 }
 
 void Physics3D::setLinearVelocity(const glm::vec3& velocity) {
     if (!isAdded) { return; }
-    if (!bodyInterface || !body) {
+    if (!world || !body) {
         BL_LOG_WARN << "Cannot set velocity on entity " << entity << " as body creation failed";
         return;
     }
 
-    bodyInterface->SetLinearVelocity(body->GetID(), jvec(velocity));
+    world->getPhysicsSystem().GetBodyInterface().SetLinearVelocity(body->GetID(), jvec(velocity));
 }
 
 void Physics3D::setPosition(const glm::vec3& position, JPH::EActivation activation) {
     if (!isAdded) { return; }
-    if (!bodyInterface || !body) {
+    if (!world || !body) {
         BL_LOG_WARN << "Cannot set position on entity " << entity << " as body creation failed";
         return;
     }
 
-    bodyInterface->SetPosition(body->GetID(), jvec(position), activation);
+    world->getPhysicsSystem().GetBodyInterface().SetPosition(
+        body->GetID(), jvec(position), activation);
 }
 
 void Physics3D::writebackTransform() {
@@ -118,7 +133,7 @@ void Physics3D::writebackTransform() {
 
     JPH::RVec3 pos;
     JPH::Quat rot;
-    bodyInterface->GetPositionAndRotation(body->GetID(), pos, rot);
+    world->getPhysicsSystem().GetBodyInterface().GetPositionAndRotation(body->GetID(), pos, rot);
     transform->setPosition(glm::vec3(pos.GetX(), pos.GetY(), pos.GetZ()));
     transform->setRotation(glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
 }

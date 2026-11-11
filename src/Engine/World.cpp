@@ -6,7 +6,10 @@ namespace bl
 {
 namespace engine
 {
-World::~World() { destroyAllEntities(); }
+World::~World() {
+    destroyAllEntities();
+    owner.ecs().flushDeletions();
+}
 
 ecs::Entity World::createEntity(ecs::Flags flags) { return owner.ecs().createEntity(index, flags); }
 

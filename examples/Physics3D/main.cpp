@@ -65,6 +65,8 @@ void colorVertex(bl::rc::prim::Vertex3D& v) {
 }
 } // namespace
 
+bl::ctr::Ref<bl::engine::World, bl::engine::World3D> world;
+
 class DemoState
 : public bl::engine::State
 , bl::sig::Listener<sf::Event> {
@@ -119,12 +121,12 @@ public:
         cylinder.createPhysicsBody(JPH::EMotionType::Dynamic,
                                    bl::com::Physics3D::ObjectLayer::Dynamic);
 
-        model.create(*world, "Resources/Models/bruce/shark.glb");
-        model.getTransform().setPosition({0.f, 50.f, -20.f});
-        model.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
-        model.createPhysicsBody(JPH::EMotionType::Dynamic,
-                                bl::com::Physics3D::ObjectLayer::Dynamic);
-        model.getSkeleton().playAnimation(0);
+        // model.create(*world, "Resources/Models/bruce/shark.glb");
+        // model.getTransform().setPosition({0.f, 50.f, -20.f});
+        // model.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+        // model.createPhysicsBody(JPH::EMotionType::Dynamic,
+        //                         bl::com::Physics3D::ObjectLayer::Dynamic);
+        // model.getSkeleton().playAnimation(0);
 
         engine.inputSystem().captureMouse();
         subscribe(engine.getSignalChannel());

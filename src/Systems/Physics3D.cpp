@@ -9,25 +9,6 @@
 #include <Jolt/RegisterTypes.h>
 #include <cstdarg>
 
-/*
-  Integration TODO:
-    X Interface for adding hitboxes and physics to entities
-    X Entity layers
-      X Mapping to broadphase layers (BPLayerInterfaceImpl)
-      X Object layer filter impl (ObjectVsBroadPhaseLayerFilterImpl)
-      X Object pair layer filter impl (ObjectLayerPairFilterImpl)
-    X Signals for collisions
-    X Signals for sensors
-    X Custom job system on top of engine threadpool
-    X Physics system update (instanced per world)
-    - Can we automatically call OptimizeBroadPhase at certain points?
-    X Writeback position & orientation (body activation listener to filter?)
-    X Physics material support
-    X Character component
-
-  Reference: https://github.com/jrouwe/JoltPhysicsHelloWorld/blob/main/Source/HelloWorld.cpp
-*/
-
 namespace bl
 {
 namespace sys
@@ -52,6 +33,8 @@ Physics3D::Physics3D()
 : System(engine::FrameStage::Physics, engine::StateMask::Running)
 , physicsComponents(nullptr) {
     objectVsBroadphaseFilter.update(objectLayerFilter, broadphaseLayerInterface);
+    activePhysicsSystems.reserve(4);
+    firstTickWorlds.reserve(4);
 }
 
 void Physics3D::init(engine::Engine& engine) {
@@ -79,6 +62,15 @@ void Physics3D::earlyCleanup() {
 }
 
 void Physics3D::update(std::mutex&, float dt, float, float, float) {
+    for (engine::World3D* world : activePhysicsSystems) {
+        if (world) { world->drainPhysicsQueues(); }
+    }
+
+    for (engine::World3D* world : firstTickWorlds) {
+        world->getPhysicsSystem().OptimizeBroadPhase();
+    }
+    firstTickWorlds.clear();
+
     const unsigned int multipleOf60FPS = std::ceil(dt / NominalDt);
     const unsigned int collisionSteps =
         std::max(multipleOf60FPS * jolt::Constants::CollisionStepsPer60FPS, 1u);
@@ -101,6 +93,7 @@ void Physics3D::process(const engine::event::WorldCreated& worldCreate) {
             activePhysicsSystems.resize(world->worldIndex() + 1, nullptr);
         }
         activePhysicsSystems[world->worldIndex()] = world;
+        firstTickWorlds.push_back(world);
     }
 }
 

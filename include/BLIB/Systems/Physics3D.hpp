@@ -100,6 +100,7 @@ private:
     jolt::BroadPhaseLayerInterface broadphaseLayerInterface;
     jolt::ObjectVsBroadPhaseLayerFilter objectVsBroadphaseFilter;
     std::vector<engine::World3D*> activePhysicsSystems;
+    std::vector<engine::World3D*> firstTickWorlds;
     ecs::ComponentPool<com::Physics3D>* physicsComponents;
     ecs::ComponentPool<com::Physics3DCharacter>* characterComponents;
     sig::Channel signalChannel;

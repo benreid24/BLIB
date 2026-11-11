@@ -27,11 +27,12 @@ public:
      * @param layer The object layer of the body
      * @param bodySettings The settings to use for the body
      * @param activation The activation state of the body
+     * @param batch True to batch the addition to the simulation on the next frame
      */
     void createPhysicsBody(
         JPH::EMotionType motionType, com::Physics3D::ObjectLayer layer,
         const com::Physics3D::BodySettings& bodySettings = com::Physics3D::BodySettings(),
-        JPH::EActivation activation                      = JPH::EActivation::Activate);
+        JPH::EActivation activation = JPH::EActivation::Activate, bool batch = true);
 
     /**
      * @brief Creates the physics component and body for this object
@@ -41,44 +42,12 @@ public:
      * @param layer The object layer of the body
      * @param bodySettings The settings to use for the body
      * @param activation The activation state of the body
+     * @param batch True to batch the addition to the simulation on the next frame
      */
     void createPhysicsBody(
         JPH::Ref<JPH::Shape> shape, JPH::EMotionType motionType, com::Physics3D::ObjectLayer layer,
         const com::Physics3D::BodySettings& bodySettings = com::Physics3D::BodySettings(),
-        JPH::EActivation activation                      = JPH::EActivation::Activate);
-
-    /**
-     * @brief Returns whether the physics body is currently added to the simulation
-     */
-    bool isAddedToPhysicsSimulation() const;
-
-    /**
-     * @brief Adds the physics body to the simulation if it is not already added
-     *
-     * @param activation The activation state of the body
-     */
-    void addToPhysicsSimulation(JPH::EActivation activation = JPH::EActivation::Activate);
-
-    /**
-     * @brief Removes the physics body from the simulation if it is currently added
-     */
-    void removeFromPhysicsSimulation();
-
-    /**
-     * @brief Manually sets the linear velocity of the physics body
-     *
-     * @param velocity The new linear velocity to set for the body
-     */
-    void setLinearVelocity(const glm::vec3& velocity);
-
-    /**
-     * @brief Manually sets the position of the physics body
-     *
-     * @param position The new position to set for the body
-     * @param activation The activation state of the body
-     */
-    void setPosition(const glm::vec3& position,
-                     JPH::EActivation activation = JPH::EActivation::Activate);
+        JPH::EActivation activation = JPH::EActivation::Activate, bool batch = true);
 
     /**
      * @brief Returns a direct handle to the physics component

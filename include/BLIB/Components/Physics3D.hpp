@@ -19,6 +19,10 @@ namespace sys
 {
 class Physics3D;
 }
+namespace engine
+{
+class World3D;
+}
 
 namespace com
 {
@@ -138,10 +142,11 @@ public:
      * @param layer The object layer of the entity
      * @param activation The activation state of the entity
      * @param bodySettings The physics body settings of the entity
+     * @param batch True to batch the addition to the simulation on the next frame
      */
     Physics3D(engine::Engine& engine, ecs::Entity entity, JPH::Ref<JPH::Shape> shape,
               JPH::EMotionType motionType, ObjectLayer layer, JPH::EActivation activation,
-              const BodySettings& bodySettings = BodySettings());
+              const BodySettings& bodySettings = BodySettings(), bool batch = true);
 
     /**
      * @brief Adds physics to the entity but does not add it to the simulation
@@ -158,6 +163,11 @@ public:
               const BodySettings& bodySettings = BodySettings());
 
     /**
+     * @brief Removes from the physics simulation
+     */
+    ~Physics3D();
+
+    /**
      * @brief Returns whether the entity is currently added to the simulation
      */
     bool isAddedToSimulation() const { return isAdded; }
@@ -166,13 +176,17 @@ public:
      * @brief Adds the entity to the simulation if it is not already added
      *
      * @param activation The activation state of the entity
+     * @param batch True to batch the addition to the simulation on the next frame
      */
-    void addToSimulation(JPH::EActivation activation = JPH::EActivation::Activate);
+    void addToSimulation(JPH::EActivation activation = JPH::EActivation::Activate,
+                         bool batch                  = true);
 
     /**
      * @brief Removes the entity from the simulation if it is currently added
+     *
+     * @param batch True to batch the removal from the simulation on the next frame
      */
-    void removeFromSimulation();
+    void removeFromSimulation(bool batch = true);
 
     /**
      * @brief Manually sets the linear velocity of the entity
@@ -198,7 +212,7 @@ public:
 
 private:
     ecs::Entity entity;
-    JPH::BodyInterface* bodyInterface;
+    engine::World3D* world;
     JPH::Ref<JPH::Shape> shape;
     com::Transform3D* transform;
     JPH::Body* body;
