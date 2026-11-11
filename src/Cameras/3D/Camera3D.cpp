@@ -1,6 +1,5 @@
 #include <BLIB/Cameras/3D/Camera3D.hpp>
 
-#include <BLIB/Math/Trig.hpp>
 #include <BLIB/Render/Config/Constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>

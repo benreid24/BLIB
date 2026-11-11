@@ -55,9 +55,19 @@ public:
     const glm::vec3& getPosition() const;
 
     /**
+     * @brief Computes and returns the global position of the transform
+     */
+    glm::vec3 getGlobalPosition() const;
+
+    /**
      * @brief Returns the rotation quaternion of the transform
      */
     const glm::quat& getRotation() const;
+
+    /**
+     * @brief Computes and returns the global rotation of the transform
+     */
+    glm::quat getGlobalRotation() const;
 
     /**
      * @brief Sets the rotation of the transform to the given Euler angles

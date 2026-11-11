@@ -135,6 +135,24 @@ public:
     void removeAllControllers();
 
     /**
+     * @brief Returns the current camera controller
+     *
+     * @tparam TController The type of controller expected
+     * @return The current controller, or nullptr if none or type does not match
+     */
+    template<typename TController = CameraController3D>
+    TController* getCurrentController() const;
+
+    /**
+     * @brief Returns all controllers in the stack of the given type
+     *
+     * @tparam TController The controller type to return
+     * @return The set of controllers of the type in the stack
+     */
+    template<typename TController>
+    std::vector<TController*> getControllers() const;
+
+    /**
      * @brief Creates and adds an affector to the camera
      *
      * @tparam TAffector The type of affector to create
@@ -227,6 +245,25 @@ TController* Camera3D::pushController(std::unique_ptr<TController>&& c) {
     auto& ca         = controllers.emplace_back(std::move(c));
     ca->setCam(*this);
     return ptr;
+}
+
+template<typename TController>
+TController* Camera3D::getCurrentController() const {
+    static_assert(std::is_base_of<CameraController3D, TController>::value,
+                  "Controller must inherit from CameraController3D");
+    if (controllers.empty()) { return nullptr; }
+    return dynamic_cast<TController*>(controllers.back().get());
+}
+
+template<typename TController>
+std::vector<TController*> Camera3D::getControllers() const {
+    std::vector<TController*> result;
+    result.reserve(controllers.size());
+    for (auto& c : controllers) {
+        TController* casted = dynamic_cast<TController*>(c.get());
+        if (casted) { result.push_back(casted); }
+    }
+    return result;
 }
 
 inline const com::Orientation3D& Camera3D::getOrientation() const { return orientation; }

@@ -120,5 +120,17 @@ void Transform3D::setRotation(const glm::quat& quat) {
     makeDirty();
 }
 
+glm::vec3 Transform3D::getGlobalPosition() const {
+    if (hasParent()) {
+        return glm::vec3(getParent().getGlobalTransform() * glm::vec4(position, 1.f));
+    }
+    return position;
+}
+
+glm::quat Transform3D::getGlobalRotation() const {
+    if (hasParent()) { return getParent().getGlobalRotation() * rotation; }
+    return rotation;
+}
+
 } // namespace com
 } // namespace bl
