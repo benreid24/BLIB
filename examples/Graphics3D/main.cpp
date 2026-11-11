@@ -136,7 +136,7 @@ private:
         scene      = static_cast<bl::rc::scene::Scene3D*>(world->scene().get());
         auto& o    = engine.renderer().getObserver();
         auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, 3.f, 5.f), glm::vec3(0.f));
-        controller = cam->setController<CameraController>();
+        controller = cam->pushController<CameraController>();
 
         auto woodTexture = engine.renderer().texturePool().getOrLoadTexture(
             engine.assets().getAssetFromSourcePath<bl::asi::TexturePayload>(

@@ -86,7 +86,7 @@ public:
 
         auto& cam = *player.getRenderObserver().setCamera<bl::cam::Camera3D>(
             glm::vec3{0.f, 35.f, -50.f}, glm::vec3{0.f, 1.f, 0.f});
-        auto& controller = *cam.setController<bl::cam::c3d::FreeController>(10.f, 15.f);
+        auto& controller = *cam.pushController<bl::cam::c3d::FreeController>(10.f, 15.f);
         controller.setControlScheme(controls::CameraControls);
         controller.subscribeToInput(player);
 

@@ -103,7 +103,7 @@ public:
         p2.setClearColor({0.f, 1.f, 0.f, 1.f});
         bl::cam::Camera3D* player2Cam = p2.setCamera<bl::cam::Camera3D>(
             glm::vec3{0.f, 0.5f, 2.f}, glm::vec3{0.f, 0.f, 0.f}, 75.f);
-        player2Cam->setController<bl::cam::c3d::OrbiterController>(
+        player2Cam->pushController<bl::cam::c3d::OrbiterController>(
             glm::vec3{0.f, 0.f, 0.f}, 4.f, glm::vec3{0.3f, 1.f, 0.1f}, 2.f, 4.f);
         player2Cam->addAffector<bl::cam::c3d::CameraShake>(0.1f, 7.f);
 

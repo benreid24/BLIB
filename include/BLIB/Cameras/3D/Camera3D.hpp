@@ -63,12 +63,12 @@ public:
     /**
      * @brief Returns the position of the camera in world space
      */
-    constexpr const glm::vec3& getPosition() const;
+    const glm::vec3& getPosition() const;
 
     /**
      * @brief Returns the orientation of the camera
      */
-    constexpr const com::Orientation3D& getOrientation() const;
+    const com::Orientation3D& getOrientation() const;
 
     /**
      * @brief Returns the orientation of the camera and marks the camera as needing to refresh the
@@ -86,10 +86,10 @@ public:
     /**
      * @brief Returns the FOV of the camera
      */
-    constexpr float getFov() const;
+    float getFov() const;
 
     /**
-     * @brief Sets the controller of this camera, freeing the previous controller, if any
+     * @brief Pushes a new controller onto the camera, superseceding the previous
      *
      * @tparam TController The type of controller to create. Must inherit from CameraController3D
      * @tparam ...TArgs Argument types to the controller constructor
@@ -97,17 +97,42 @@ public:
      * @return Pointer to the newly created controller
      */
     template<typename TController, typename... TArgs>
-    TController* setController(TArgs&&... args);
+    TController* pushController(TArgs&&... args);
 
     /**
-     * @brief Sets the controller of this camera, freeing the previous controller, if any
+     * @brief Pushes a new controller onto the camera, superseceding the previous
      *
      * @tparam TController The type of controller to add
      * @param controller Pointer to the controller to add
      * @return Pointer to the controller
      */
     template<typename TController>
-    TController* setController(std::unique_ptr<TController>&& controller);
+    TController* pushController(std::unique_ptr<TController>&& controller);
+
+    /**
+     * @brief Pops the current controller, making the prior controller active again
+     */
+    void popController();
+
+    /**
+     * @brief Removes the specific controller from the controller stack
+     *
+     * @param controller The camera controller to remove
+     */
+    void removeController(const CameraController3D* controller);
+
+    /**
+     * @brief Removes all controllers of the given type from the controller stack
+     *
+     * @tparam TController The type of controller to remove
+     */
+    template<typename TController>
+    void removeController();
+
+    /**
+     * @brief Clears the entire controller stack
+     */
+    void removeAllControllers();
 
     /**
      * @brief Creates and adds an affector to the camera
@@ -168,7 +193,7 @@ private:
     float fov;
     glm::vec2 cachedViewportSize;
 
-    std::unique_ptr<CameraController3D> controller;
+    std::vector<std::unique_ptr<CameraController3D>> controllers;
     std::vector<std::unique_ptr<CameraAffector3D>> affectors;
 
     virtual void refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) override;
@@ -178,34 +203,40 @@ private:
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
-inline constexpr const glm::vec3& Camera3D::getPosition() const { return position; }
+inline const glm::vec3& Camera3D::getPosition() const { return position; }
 
-inline constexpr float Camera3D::getFov() const { return fov; }
+inline float Camera3D::getFov() const { return fov; }
 
 template<typename TController, typename... TArgs>
-TController* Camera3D::setController(TArgs&&... args) {
+TController* Camera3D::pushController(TArgs&&... args) {
     static_assert(std::is_base_of<CameraController3D, TController>::value,
                   "Controller must inherit from CameraController3D");
 
-    TController* c = new TController(std::forward<TArgs>(args)...);
-    controller.reset(c);
-    controller->setCam(*this);
-    return c;
+    TController* ptr = new TController(std::forward<TArgs>(args)...);
+    auto& c          = controllers.emplace_back(ptr);
+    c->setCam(*this);
+    return ptr;
 }
 
 template<typename TController>
-TController* Camera3D::setController(std::unique_ptr<TController>&& c) {
+TController* Camera3D::pushController(std::unique_ptr<TController>&& c) {
     static_assert(std::is_base_of<CameraController3D, TController>::value,
                   "Controller must inherit from CameraController3D");
 
-    TController* cr = c.get();
-    controller.release();
-    controller.swap(c);
-    controller->setCam(*this);
-    return c;
+    TController* ptr = c.get();
+    auto& ca         = controllers.emplace_back(std::move(c));
+    ca->setCam(*this);
+    return ptr;
 }
 
-inline constexpr const com::Orientation3D& Camera3D::getOrientation() const { return orientation; }
+inline const com::Orientation3D& Camera3D::getOrientation() const { return orientation; }
+
+template<typename TController>
+void Camera3D::removeController() {
+    std::erase_if(controllers, [](const std::unique_ptr<CameraController3D>& c) {
+        return dynamic_cast<TController*>(c.get()) != nullptr;
+    });
+}
 
 template<typename TAffector, typename... TArgs>
 TAffector* Camera3D::addAffector(TArgs&&... args) {

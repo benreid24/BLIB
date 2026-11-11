@@ -66,7 +66,7 @@ void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {
 }
 
 void Camera3D::update(float dt) {
-    if (controller) { controller->update(dt); }
+    if (!controllers.empty()) { controllers.back()->update(dt); }
     bool view = false;
     bool proj = false;
     for (auto& a : affectors) { a->update(dt, view, proj); }
@@ -86,6 +86,21 @@ void Camera3D::removeAffector(const CameraAffector3D* a) {
 glm::vec2 Camera3D::getViewerSize() const { return cachedViewportSize; }
 
 glm::vec3 Camera3D::getObserverPosition() const { return getPosition(); }
+
+void Camera3D::popController() {
+    if (!controllers.empty()) { controllers.pop_back(); }
+}
+
+void Camera3D::removeController(const CameraController3D* c) {
+    for (auto it = controllers.begin(); it != controllers.end(); ++it) {
+        if (static_cast<CameraController3D*>(it->get()) == c) {
+            controllers.erase(it);
+            break;
+        }
+    }
+}
+
+void Camera3D::removeAllControllers() { controllers.clear(); }
 
 } // namespace cam
 } // namespace bl
