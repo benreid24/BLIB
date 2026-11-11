@@ -85,10 +85,8 @@ void Physics3D::addToSimulation(JPH::EActivation activation, bool batch) {
         return;
     }
 
-    if (!batch) {
-        world->getPhysicsSystem().GetBodyInterface().AddBody(body->GetID(), activation);
-        isAdded = true;
-    }
+    isAdded = true;
+    if (!batch) { world->getPhysicsSystem().GetBodyInterface().AddBody(body->GetID(), activation); }
     else { world->queueAddPhysicsBody(body->GetID(), activation); }
 }
 
@@ -100,10 +98,8 @@ void Physics3D::removeFromSimulation(bool batch) {
         return;
     }
 
-    if (!batch) {
-        world->getPhysicsSystem().GetBodyInterface().RemoveBody(body->GetID());
-        isAdded = false;
-    }
+    isAdded = false;
+    if (!batch) { world->getPhysicsSystem().GetBodyInterface().RemoveBody(body->GetID()); }
     else { world->queueRemovePhysicsBody(body->GetID()); }
 }
 
