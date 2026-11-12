@@ -141,13 +141,8 @@ bool Loader::loadNumeric(Value& val) {
             bool decimal = false;
 
             char n = static_cast<char>(input.peek());
-            while (isNumber(n) || n == '.') {
-                if (n == '.' && decimal) {
-                    BL_LOG_ERROR << error() << "Too many decimal points in number";
-                    return false;
-                }
-                else if (n == '.')
-                    decimal = true;
+            while (isNumber(n) || n == '.' || std::tolower(n) == 'e' || n == '+' || n == '-') {
+                if (!isNumber(n)) { decimal = true; }
 
                 num.push_back(n);
                 input.get();

@@ -157,6 +157,8 @@ bool Engine::setup() {
     if (isSetup) { return true; }
     isSetup = true;
 
+    assetRepository.loadRepository();
+
     if (engineSettings.createRenderer()) {
         rendererInstance.emplace(*this, engineSettings.getRendererCreationSettings().value());
         if (!rendererInstance->initialize()) {

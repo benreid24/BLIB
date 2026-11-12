@@ -131,7 +131,8 @@ struct ReflectedObject<asi::ModelPayload> {
     inline static const auto spec = makeSpec<asi::ModelPayload>(
         "ModelPayload", memberList(defineMember(1, "nodes", &asi::ModelPayload::nodes),
                                    defineMember(2, "meshes", &asi::ModelPayload::meshes),
-                                   defineMember(3, "bones", &asi::ModelPayload::bones)));
+                                   defineMember(3, "bones", &asi::ModelPayload::bones),
+                                   defineMember(4, "bounds", &asi::ModelPayload::bounds)));
 };
 } // namespace refl
 

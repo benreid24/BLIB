@@ -25,23 +25,27 @@ bool deserializeStreamVisitor(stream::InputStream& stream, T& value) {
         if (!util::StreamUtil::skipUntil(stream, ':')) { return false; }
         stream.get();
 
+        bool foundField  = false;
         bool parsedField = false;
         refl::visit(value,
-                    [&stream, &name, &parsedField, &foundFields](const auto& reflMember,
-                                                                 auto& memberValue) {
+                    [&stream, &name, &parsedField, &foundFields, &foundField](
+                        const auto& reflMember, auto& memberValue) {
                         if (parsedField) { return; }
                         using MemberType = std::decay_t<decltype(memberValue)>;
                         if (name == reflMember.getName()) {
-                            parsedField                     = true;
-                            foundFields[reflMember.getId()] = 1;
-                            if (!Serializer<MemberType>::deserializeStream(stream, memberValue)) {
-                                parsedField = false;
+                            foundField = true;
+                            if (Serializer<MemberType>::deserializeStream(stream, memberValue)) {
+                                parsedField                     = true;
+                                foundFields[reflMember.getId()] = 1; // allow optionals to fail
                             }
                         }
                     });
 
+        // stream may be in an invalid state, give up
+        if (!parsedField) { return false; }
+
         // field not found, skip data
-        if (!parsedField) {
+        if (!foundField) {
             json::Loader loader(stream);
             json::Value trash(false);
             if (!loader.loadValue(trash)) { return false; }
@@ -59,14 +63,15 @@ bool deserializeStreamVisitor(stream::InputStream& stream, T& value) {
                         using DefaultTrait =
                             refl::attr::DefaultValue<std::decay_t<decltype(memberValue)>>;
                         if constexpr (reflMember.template hasAttribute<DefaultTrait>()) {
-                            const auto* defaultAttr = reflMember.template getAttribute<DefaultTrait>();
+                            const auto* defaultAttr =
+                                reflMember.template getAttribute<DefaultTrait>();
                             if (defaultAttr) { memberValue = defaultAttr->value; }
                         }
                     }
                     else { result = false; }
                 }
             });
-            return true;
+            return result;
         }
         else if (c != ',') { return false; }
     }
