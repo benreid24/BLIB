@@ -138,13 +138,29 @@ public:
      */
     static const FixedConfiguration& fixedConfig();
 
+    /**
+     * @brief Sets the fixed config values from the given engine settings
+     *
+     * @param settings The engine settings to pull from
+     */
+    static void setFixedConfig(const engine::Settings& settings);
+
+    /**
+     * @brief Sets the fixed config values from the given app name and config file path
+     *
+     * @param appName The name of the application
+     * @param configFilePath The path to the configuration file
+     */
+    static void setFixedConfig(const std::string& appName, const std::string& configFilePath);
+
 private:
     FixedConfiguration fixed;
     std::unordered_map<std::type_index, std::unordered_map<std::string, std::any>> config;
 
     Configuration();
     static Configuration& get();
-    void setFixedConfig(const engine::Settings& settings);
+
+    void setFixedConfigInstance(const std::string& appName, const std::string& configFilePath);
 
     friend class Engine;
 };

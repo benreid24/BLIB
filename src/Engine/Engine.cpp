@@ -48,7 +48,7 @@ Engine::Engine(const Settings& settings)
         BL_LOG_WARN << "Multiple engine instances created. Some features may break or misbehave";
     }
 
-    Configuration::get().setFixedConfig(settings);
+    Configuration::setFixedConfig(settings);
     settings.syncToConfig();
     if (!Configuration::load()) {
         BL_LOG_WARN << "Failed to load engine configuration from file: "

@@ -51,7 +51,11 @@ void logValues(
 
 } // namespace
 
-Configuration::Configuration() { setFixedConfig(Settings()); }
+Configuration::Configuration() {
+    Settings defaultSettings;
+    setFixedConfigInstance(std::string(defaultSettings.applicationName()),
+                           std::string(defaultSettings.configFilePath()));
+}
 
 Configuration& Configuration::get() {
     static Configuration configuration;
@@ -61,10 +65,19 @@ Configuration& Configuration::get() {
 const Configuration::FixedConfiguration& Configuration::fixedConfig() { return get().fixed; }
 
 void Configuration::setFixedConfig(const engine::Settings& settings) {
-    fixed.appName       = settings.applicationName();
+    setFixedConfig(std::string(settings.applicationName()), std::string(settings.configFilePath()));
+}
+
+void Configuration::setFixedConfig(const std::string& appName, const std::string& configFilePath) {
+    get().setFixedConfigInstance(appName, configFilePath);
+}
+
+void Configuration::setFixedConfigInstance(const std::string& appName,
+                                           const std::string& configFilePath) {
+    fixed.appName       = appName;
     fixed.dataDirectory = util::FileUtil::getDataDirectory(fixed.appName);
     fixed.configFilePath =
-        util::FileUtil::joinPath(fixed.dataDirectory, std::string(settings.configFilePath()));
+        util::FileUtil::joinPath(fixed.dataDirectory, std::string(configFilePath));
 }
 
 bool Configuration::load(const std::string& file) {
