@@ -44,6 +44,14 @@ public:
      */
     const T& getParent() const;
 
+protected:
+    /**
+     * @brief Sets the parent component pointer. Usually called automatically
+     *
+     * @param p The parent component pointer
+     */
+    void setParent(T* p) { parent = p; }
+
 private:
     T* parent;
 

@@ -13,9 +13,10 @@ namespace c3d
 {
 namespace
 {
-constexpr float TwoPi        = bl::math::Pi * 2.f;
-constexpr float HalfPi       = bl::math::Pi * 0.5f;
-constexpr float SafeHalfPi   = HalfPi - 0.001f;
+constexpr float Pi           = glm::degrees(bl::math::Pi);
+constexpr float TwoPi        = glm::degrees(bl::math::Pi * 2.f);
+constexpr float HalfPi       = glm::degrees(bl::math::Pi * 0.5f);
+constexpr float SafeHalfPi   = glm::degrees(HalfPi - 0.001f);
 constexpr float StoppedSpeed = 0.01f;
 } // namespace
 
@@ -58,28 +59,23 @@ void FreeController::moveRight(float factor) { appliedMovement.x = factor; }
 void FreeController::moveUp(float factor) { appliedMovement.y = factor; }
 
 void FreeController::update(float dt) {
-    glm::vec3 forward = camera().getOrientation().getFaceDirection();
-    float yaw         = std::atan2(forward.x, forward.z);
-    float pitch       = std::asin(glm::clamp(-forward.y, -1.f, 1.f));
-    float roll        = camera().getOrientation().getRoll();
+    float yaw   = camera().getOrientation().getYaw();
+    float pitch = camera().getOrientation().getPitch();
+    float roll  = camera().getOrientation().getRoll();
 
     // orientation
-    yaw = std::fmod(yaw + appliedRotation.y, TwoPi);
+    appliedRotation = glm::degrees(appliedRotation);
+    yaw             = std::fmod(yaw + appliedRotation.y, TwoPi);
 
     pitch += appliedRotation.x;
     if (pitch > SafeHalfPi) { pitch = SafeHalfPi; }
     else if (pitch < -SafeHalfPi) { pitch = -SafeHalfPi; }
 
     roll += appliedRotation.z;
-    if (roll > math::Pi) { roll -= TwoPi; }
-    else if (roll < -math::Pi) { roll += TwoPi; }
+    if (roll > Pi) { roll -= TwoPi; }
+    else if (roll < -Pi) { roll += TwoPi; }
 
-    forward.x = std::cos(pitch) * std::sin(yaw);
-    forward.y = -std::sin(pitch);
-    forward.z = std::cos(pitch) * std::cos(yaw);
-
-    camera().getOrientationForChange().setFaceDirection(forward);
-    camera().getOrientationForChange().setRoll(roll);
+    camera().getOrientationForChange().setEulerAngles(yaw, pitch, roll);
     appliedRotation = glm::vec3(0.f);
 
     // velocity
@@ -96,8 +92,9 @@ void FreeController::update(float dt) {
     applyVelocity(velocity.z, appliedMovement.z);
 
     // position
-    const glm::vec3 right   = glm::normalize(glm::cross(forward, glm::vec3(0.f, 1.f, 0.f)));
-    const glm::vec3 up      = glm::normalize(glm::cross(right, forward));
+    const glm::vec3 forward = camera().getOrientation().getForwardDir();
+    const glm::vec3 right   = camera().getOrientation().getRightDir();
+    const glm::vec3 up      = camera().getOrientation().getUpDir();
     glm::vec3 pos           = camera().getPosition();
     glm::vec3 worldVelocity = right * velocity.x + up * velocity.y + forward * velocity.z;
     pos += worldVelocity * dt * speedFactor;
@@ -113,28 +110,40 @@ bool FreeController::processControl(const input::Actor& actor, unsigned int acti
         switch (eventType) {
         case input::DispatchType::MovementForward:
             moveForward(1.f);
-            break;
+            return true;
         case input::DispatchType::MovementBackward:
             moveForward(-1.f);
-            break;
+            return true;
         case input::DispatchType::MovementRight:
             moveRight(1.f);
-            break;
+            return true;
         case input::DispatchType::MovementLeft:
             moveRight(-1.f);
-            break;
+            return true;
         default:
             break;
         }
     }
-    else if (activatedControl == controls.up) { moveUp(1.f); }
-    else if (activatedControl == controls.down) { moveUp(-1.f); }
-    else if (activatedControl == controls.speed) { speedFactor = controls.speedFactor; }
+    else if (activatedControl == controls.up) {
+        moveUp(1.f);
+        return true;
+    }
+    else if (activatedControl == controls.down) {
+        moveUp(-1.f);
+        return true;
+    }
+    else if (activatedControl == controls.speed) {
+        speedFactor = controls.speedFactor;
+        return true;
+    }
     else if (activatedControl == controls.direction) {
         const glm::vec2 dir = actor.readControl(activatedControl);
-        applyYaw(-dir.x * controls.rotationSpeed);
+        applyYaw(dir.x * controls.rotationSpeed);
         applyPitch(dir.y * controls.rotationSpeed);
+        return true;
     }
+
+    return false;
 }
 
 } // namespace c3d

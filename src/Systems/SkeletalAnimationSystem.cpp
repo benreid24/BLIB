@@ -64,7 +64,8 @@ void SkeletalAnimationSystem::update(std::mutex&, float dt, float, float, float)
                     }
 
                     bone.transform->setPosition(animatedPosition);
-                    bone.transform->setRotation(animatedRotation);
+                    bone.transform->getOrientationForChange().setRotationQuaternion(
+                        animatedRotation);
                     bone.transform->setScale(animatedScale);
                 }
                 else { bone.transform->setTransform(bone.bone->nodeBindPoseLocal); }

@@ -1,8 +1,8 @@
 #ifndef BLIB_OBJECTS_3D_DRAWABLEOBJECT3D_HPP
 #define BLIB_OBJECTS_3D_DRAWABLEOBJECT3D_HPP
 
+#include <BLIB/Objects/Components/Camera3D.hpp>
 #include <BLIB/Objects/Components/Outline3D.hpp>
-#include <BLIB/Objects/Components/Physics3D.hpp>
 #include <BLIB/Objects/Components/Transform3D.hpp>
 #include <BLIB/Objects/DrawableObject.hpp>
 
@@ -22,7 +22,8 @@ template<typename TCom>
 class DrawableObject3D
 : public DrawableObject<TCom>
 , public bcom::Transform3D
-, public bcom::Outline3D {
+, public bcom::Outline3D
+, public bcom::Camera3D {
 public:
     /**
      * @brief Destroys the object

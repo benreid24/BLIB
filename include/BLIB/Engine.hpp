@@ -21,5 +21,6 @@
 #include <BLIB/Engine/World.hpp>
 #include <BLIB/Engine/Worlds/BasicWorld.hpp>
 #include <BLIB/Engine/Worlds/World2D.hpp>
+#include <BLIB/Engine/Worlds/World3D.hpp>
 
 #endif

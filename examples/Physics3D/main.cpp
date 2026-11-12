@@ -72,7 +72,8 @@ class DemoState
 , bl::sig::Listener<sf::Event> {
 public:
     DemoState()
-    : State(bl::engine::StateMask::All) {}
+    : State(bl::engine::StateMask::All)
+    , camOnSphere(false) {}
 
     virtual ~DemoState() = default;
 
@@ -84,9 +85,9 @@ public:
         auto scene   = world->scene();
         inputSystem  = &engine.inputSystem();
 
-        auto& cam = *player.getRenderObserver().setCamera<bl::cam::Camera3D>(
+        camera = player.getRenderObserver().setCamera<bl::cam::Camera3D>(
             glm::vec3{0.f, 35.f, -50.f}, glm::vec3{0.f, 1.f, 0.f});
-        auto& controller = *cam.pushController<bl::cam::c3d::FreeController>(10.f, 15.f);
+        auto& controller = *camera->pushController<bl::cam::c3d::FreeController>(10.f, 15.f);
         controller.setControlScheme(controls::CameraControls);
         controller.subscribeToInput(player);
 
@@ -102,16 +103,17 @@ public:
         sphere.getTransform().setPosition({0.f, 50.f, 0.f});
         sphere.createPhysicsBody(JPH::EMotionType::Dynamic,
                                  bl::com::Physics3D::ObjectLayer::Dynamic);
+        sphere.attachCamera(glm::vec3(0.f, 0.f, -1.2f));
 
         cone.create(*world, 3.f, 1.f, 300);
         cone.getTransform().setPosition({-10.f, 50.f, 0.f});
-        cone.getTransform().rotate({0.f, 1.f, 1.f}, 120.f);
+        cone.getTransform().getOrientationForChange().setEulerAngles(70.f, 45.f, 15.f);
         cone.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
         cone.createPhysicsBody(JPH::EMotionType::Dynamic, bl::com::Physics3D::ObjectLayer::Dynamic);
 
         cube.create(*world, 2.f);
         cube.getTransform().setPosition({10.f, 50.f, 0.f});
-        cube.getTransform().rotate({0.f, 1.f, 1.f}, 45.f);
+        cube.getTransform().getOrientationForChange().setEulerAngles(45.f, 45.f, 45.f);
         cube.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
         cube.createPhysicsBody(JPH::EMotionType::Dynamic, bl::com::Physics3D::ObjectLayer::Dynamic);
 
@@ -143,7 +145,24 @@ public:
 
     virtual void process(const sf::Event& event) override {
         const sf::Event::KeyPressed* keyEvent = event.getIf<sf::Event::KeyPressed>();
-        if (keyEvent && keyEvent->code == sf::Keyboard::Key::Escape) { release(); }
+        if (keyEvent) {
+            switch (keyEvent->code) {
+            case sf::Keyboard::Key::Escape:
+                release();
+                break;
+            case sf::Keyboard::Key::C:
+                if (!camOnSphere) {
+                    camOnSphere = true;
+                    sphere.makeCameraActive();
+                }
+                else {
+                    camOnSphere = false;
+                    sphere.makeCameraInactive();
+                    camera->getOrientationForChange().setRoll(0.f);
+                }
+                break;
+            }
+        }
 
         const sf::Event::FocusGained* focusEvent = event.getIf<sf::Event::FocusGained>();
         if (focusEvent) { capture(); }
@@ -155,6 +174,7 @@ public:
 
 private:
     bl::input::InputSystem* inputSystem;
+    bl::cam::Camera3D* camera;
     bl::input::ListenerBoundary listenerBoundary;
     bl::obj::o3d::HeightmapTerrainBasic terrain;
     bl::obj::o3d::Sphere sphere;
@@ -162,6 +182,7 @@ private:
     bl::obj::o3d::Cube cube;
     bl::obj::o3d::Cylinder cylinder;
     bl::obj::o3d::ModelSkeletal model;
+    bool camOnSphere;
 
     void capture() {
         inputSystem->getActor().removeListener(listenerBoundary);

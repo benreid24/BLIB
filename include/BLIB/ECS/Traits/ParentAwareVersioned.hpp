@@ -80,6 +80,16 @@ protected:
         else { lastParent = nullptr; }
     }
 
+    /**
+     * @brief Sets the parent component pointer. Usually called automatically
+     *
+     * @param p The parent component pointer
+     */
+    void setParent(T* p) {
+        ParentAware<T>::setParent(p);
+        lastParent = p;
+    }
+
 private:
     std::uint16_t lastRefreshVersion;
     std::uint16_t lastParentVersion;

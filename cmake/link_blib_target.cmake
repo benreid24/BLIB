@@ -22,11 +22,13 @@ function(link_blib_target target_name)
 		sfml-audio
 		sfml-system
 		Freetype::Freetype
+		
+		PUBLIC
+		Jolt::Jolt
 		RecastNavigation::Recast
 		RecastNavigation::Detour
 		RecastNavigation::DetourCrowd
 		RecastNavigation::DetourTileCache
 		"$<$<CONFIG:Debug>:RecastNavigation::DebugUtils>"
-		Jolt::Jolt
 	)
 endfunction()

@@ -12,32 +12,17 @@ namespace com
 Camera3D::Camera3D(engine::Engine& engine, ecs::Entity entity, float fov)
 : engine(engine)
 , transform(engine.ecs().getComponent<Transform3D>(entity))
-, fov(fov)
-, roll(0.f) {
+, fov(fov) {
     if (!transform) {
         BL_LOG_WARN << "Camera3D component created for entity " << entity.id
                     << " but no Transform3D component was found. Creating one";
         transform = engine.ecs().emplaceComponent<Transform3D>(entity);
     }
+
+    localTransform.setParent(*transform);
 }
 
 void Camera3D::setFOV(float f) { fov = f; }
-
-void Camera3D::setRoll(float r) { roll = r; }
-
-void Camera3D::setLocalPosition(const glm::vec3& position) { localPosition = position; }
-
-void Camera3D::setLocalForwardDirection(const glm::vec3& dir) {
-    localDirection = glm::normalize(dir);
-}
-
-glm::vec3 Camera3D::getWorldPosition() const {
-    return glm::vec3(transform->getGlobalTransform() * glm::vec4(localPosition, 1.f));
-}
-
-glm::vec3 Camera3D::getWorldForwardDirection() const {
-    return transform->getGlobalRotation() * localDirection;
-}
 
 bool Camera3D::makeActive(unsigned int playerIndex) {
     auto& player       = engine.getPlayer(playerIndex);

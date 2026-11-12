@@ -43,12 +43,10 @@ void Camera3D::refreshViewMatrix(glm::mat4& view) {
     com::Orientation3D orient = orientation;
     for (auto& a : affectors) { a->applyOnView(pos, orient); }
 
-    // roll by rotating up vector around look vector
-    const glm::vec3 up =
-        glm::mat3(glm::rotate(glm::radians(orient.getRoll()), orient.getFaceDirection())) *
-        rc::cfg::Constants::UpDirection;
+    const glm::vec3 forward = orient.getRotationQuaternion() * rc::cfg::Constants::ForwardDirection;
+    const glm::vec3 up      = orient.getRotationQuaternion() * rc::cfg::Constants::UpDirection;
 
-    view = glm::lookAt(pos, pos + orient.getFaceDirection(), up);
+    view = glm::lookAt(pos, pos + forward, up);
 }
 
 void Camera3D::refreshProjMatrix(glm::mat4& proj, const VkViewport& viewport) {

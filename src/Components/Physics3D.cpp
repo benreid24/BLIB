@@ -134,7 +134,8 @@ void Physics3D::writebackTransform(float dt) {
     switch (body->GetMotionType()) {
     case JPH::EMotionType::Dynamic:
         transform->setPosition(glm::vec3(pos.GetX(), pos.GetY(), pos.GetZ()));
-        transform->setRotation(glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
+        transform->getOrientationForChange().setRotationQuaternion(
+            glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
         break;
 
     case JPH::EMotionType::Kinematic:

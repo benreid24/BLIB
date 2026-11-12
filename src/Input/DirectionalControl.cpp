@@ -23,7 +23,8 @@ DirectionalControl::DirectionalControl(bool jm)
 
 bool DirectionalControl::process(const InputSystem& system, const sf::Event& event) {
     if (config.type == Type::Mouse && event.is<sf::Event::MouseMoved>()) {
-        normalizedDirection = system.mouseUnitVector();
+        normalizedDirection   = system.mouseUnitVector();
+        normalizedDirection.y = -normalizedDirection.y;
         return true;
     }
     else if (config.type == Type::Joystick && config.joystick.process(event)) {
@@ -40,10 +41,11 @@ void DirectionalControl::saveToConfig(const std::string& prefix) const {
 }
 
 void DirectionalControl::loadFromConfig(const std::string& prefix) {
-    config.type = bl::engine::Configuration::getOrDefault<std::string>(typeKey(prefix), MouseStr) ==
-                          MouseStr ?
-                      Type::Mouse :
-                      Type::Joystick;
+    config.type =
+        bl::engine::Configuration::getOrDefault<std::string>(
+            typeKey(prefix), config.type == Type::Mouse ? MouseStr : StickStr) == MouseStr ?
+            Type::Mouse :
+            Type::Joystick;
     if (config.type == Type::Joystick) { config.joystick.loadFromConfig(stickKey(prefix)); }
 }
 

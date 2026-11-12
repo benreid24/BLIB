@@ -16,9 +16,9 @@ ComponentController::ComponentController(engine::Engine& engine) {
 void ComponentController::update(float) {
     if (!cameras.empty()) {
         auto& cam = *cameras.back();
-        camera().setPosition(cam.getWorldPosition());
-        camera().getOrientationForChange().setFaceDirection(cam.getWorldForwardDirection());
-        camera().getOrientationForChange().setRoll(cam.getRoll());
+        camera().setPosition(cam.getTransform().getGlobalPosition());
+        camera().getOrientationForChange().setRotationQuaternion(
+            cam.getTransform().getGlobalRotation());
         camera().setFov(cam.getFOV());
     }
 }

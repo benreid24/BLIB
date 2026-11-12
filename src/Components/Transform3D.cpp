@@ -10,12 +10,12 @@ namespace com
 {
 Transform3D::Transform3D()
 : position(0.f, 0.f, 0.f)
-, rotation(glm::identity<glm::quat>())
+, orientation()
 , scaleFactors(1.f, 1.f, 1.f) {}
 
 Transform3D& Transform3D::operator=(const Transform3D& copy) {
     position     = copy.position;
-    rotation     = copy.rotation;
+    orientation  = copy.orientation;
     scaleFactors = copy.scaleFactors;
     makeDirty();
     return *this;
@@ -43,43 +43,17 @@ void Transform3D::scale(const glm::vec3& f) {
     makeDirty();
 }
 
-void Transform3D::setRotationEulerAngles(const glm::vec3& euler) {
-    rotation = glm::quat(glm::radians(euler));
-    makeDirty();
+glm::vec3 Transform3D::getGlobalForwardDir() const {
+    return getGlobalRotation() * rc::cfg::Constants::ForwardDirection;
 }
 
-void Transform3D::rotate(const glm::vec3& axis, float angle) {
-    glm::quat rot = glm::angleAxis(glm::radians(angle), glm::normalize(axis));
-    rotation      = rot * rotation;
-    makeDirty();
+glm::vec3 Transform3D::getGlobalRightDir() const {
+    return getGlobalRotation() * rc::cfg::Constants::RightDirection;
 }
 
-void Transform3D::lookAt(const glm::vec3& pos, const glm::vec3& worldUp) {
-    glm::vec3 forward = glm::normalize(pos - position);
-    setForwardDir(forward, worldUp);
+glm::vec3 Transform3D::getGlobalUpDir() const {
+    return getGlobalRotation() * rc::cfg::Constants::UpDirection;
 }
-
-void Transform3D::setForwardDir(const glm::vec3& f, const glm::vec3& worldUp) {
-    const glm::vec3 forward = glm::normalize(f);
-    glm::vec3 up            = worldUp;
-    if (glm::abs(glm::dot(forward, worldUp)) > 0.999f) {
-        up = glm::abs(forward.y) > 0.999f ? glm::vec3(1, 0, 0) : glm::vec3(0, 1, 0);
-    }
-
-    glm::vec3 right = glm::normalize(glm::cross(up, forward));
-    glm::vec3 newUp = glm::cross(forward, right);
-
-    glm::mat3 rotationMatrix(right, newUp, forward);
-    rotation = glm::quat_cast(rotationMatrix);
-
-    makeDirty();
-}
-
-glm::vec3 Transform3D::getForwardDir() const { return rotation * glm::vec3(0.f, 0.f, 1.f); }
-
-glm::vec3 Transform3D::getRightDir() const { return rotation * glm::vec3(1.f, 0.f, 0.f); }
-
-glm::vec3 Transform3D::getUpDir() const { return rotation * glm::vec3(0.f, 1.f, 0.f); }
 
 void Transform3D::refreshDescriptor(rc::dsi::Transform3DPayload& dest) {
     dest = getGlobalTransform();
@@ -91,7 +65,8 @@ void Transform3D::makeDirty() {
 }
 
 glm::mat4 Transform3D::getLocalTransform() const {
-    return glm::translate(position) * glm::toMat4(rotation) * glm::scale(scaleFactors);
+    return glm::translate(position) * glm::toMat4(orientation.getRotationQuaternion()) *
+           glm::scale(scaleFactors);
 }
 
 glm::mat4 Transform3D::getGlobalTransform() const {
@@ -106,7 +81,9 @@ glm::vec3 Transform3D::transformPoint(const glm::vec3& point) const {
 void Transform3D::setTransform(const glm::mat4& mat) {
     glm::vec3 skew;
     glm::vec4 perspective;
+    glm::quat rotation;
     glm::decompose(mat, scaleFactors, rotation, position, skew, perspective);
+    orientation.setRotationQuaternion(rotation);
     makeDirty();
 }
 
@@ -115,8 +92,8 @@ bool Transform3D::isDirty() const {
     return DescriptorComponentBase::isDirty();
 }
 
-void Transform3D::setRotation(const glm::quat& quat) {
-    rotation = quat;
+void Transform3D::setParent(Transform3D& parent) {
+    ParentAwareVersioned<Transform3D>::setParent(&parent);
     makeDirty();
 }
 
@@ -128,8 +105,15 @@ glm::vec3 Transform3D::getGlobalPosition() const {
 }
 
 glm::quat Transform3D::getGlobalRotation() const {
-    if (hasParent()) { return getParent().getGlobalRotation() * rotation; }
-    return rotation;
+    if (hasParent()) {
+        return getParent().getGlobalRotation() * orientation.getRotationQuaternion();
+    }
+    return orientation.getRotationQuaternion();
+}
+
+Orientation3D& Transform3D::getOrientationForChange() {
+    makeDirty();
+    return orientation;
 }
 
 } // namespace com

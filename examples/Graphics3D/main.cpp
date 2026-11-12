@@ -1,9 +1,9 @@
 #include <BLIB/Cameras.hpp>
 #include <BLIB/Components.hpp>
 #include <BLIB/Engine.hpp>
+#include <BLIB/Models.hpp>
 #include <BLIB/Objects.hpp>
 #include <BLIB/Objects/3D/ModelStatic.hpp>
-#include <BLIB/Models.hpp>
 #include <BLIB/Render.hpp>
 #include <BLIB/Systems.hpp>
 #include <BLIB/Util/Visitor.hpp>
@@ -131,8 +131,7 @@ private:
         engine.renderer().getSettings().setAutoHDREnabled(true);
 
         // create scene and camera
-        auto world =
-            engine.getPlayer().enterWorld<bl::engine::BasicWorld<bl::rc::scene::Scene3D>>();
+        auto world = engine.getPlayer().enterWorld<bl::engine::World3D>();
         scene      = static_cast<bl::rc::scene::Scene3D*>(world->scene().get());
         auto& o    = engine.renderer().getObserver();
         auto* cam  = o.setCamera<bl::cam::Camera3D>(glm::vec3(0.f, 3.f, 5.f), glm::vec3(0.f));
@@ -320,7 +319,8 @@ private:
         const bl::rc::Color light3Color(sf::Color(255, 150, 100));
         light3.create(*world, 0.4f, 0.12f, 4, {}, bl::rc::cfg::MaterialPipelineIds::Mesh3D);
         light3.getTransform().setPosition({0.5f, 1.5f, 3.f});
-        light3.getTransform().lookAt(light3PointAt);
+        light3.getTransform().getOrientationForChange().setFaceDirection(light3PointAt);
+        light3.getTransform().getOrientationForChange().applyPitch(-90.f);
         light3.setColor(light3Color);
         light3.component().setPipelineSpecialization(
             bl::rc::cfg::Specializations3D::LightingDisabled);
@@ -332,7 +332,7 @@ private:
         light3Handle.get().getAttenuation().quadratic = 0.05f;
         light3Handle.get().getAttenuation().updateRadius();
         light3Handle.get().setPosition(light3.getTransform().getPosition() +
-                                       light3.getTransform().getForwardDir() * 0.2f);
+                                       light3.getTransform().getGlobalForwardDir() * 0.2f);
         light3Handle.get().pointAt(light3PointAt);
 
         // light1Handle.removeFromScene();

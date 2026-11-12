@@ -3,6 +3,7 @@
 
 #include <BLIB/Reflection/ReflectedObject.hpp>
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 namespace bl
 {
@@ -42,6 +43,13 @@ public:
     Orientation3D(const glm::vec3& lookAt, const glm::vec3& from, float roll = 0.f);
 
     /**
+     * @brief Construct directly from the rotation quaternion
+     *
+     * @param rotation The quaternion representing the orientation
+     */
+    Orientation3D(const glm::quat& rotation);
+
+    /**
      * @brief Orients the orientation to look at the given position from its current position
      *
      * @param lookAt The position to look at
@@ -57,9 +65,12 @@ public:
     void setFaceDirection(const glm ::vec3& faceDir);
 
     /**
-     * @brief Returns a normalized direction vector that the orientation is facing
+     * @brief Sets the forward direction vector with a custom up direction as well
+     *
+     * @param forwardDir The forward unit vector
+     * @param upDir The local up direction unit vector
      */
-    const glm::vec3& getFaceDirection() const;
+    void setForwardDirection(const glm::vec3& forwardDir, const glm::vec3& upDir);
 
     /**
      * @brief Sets the pitch angle of the orientation
@@ -78,7 +89,7 @@ public:
     /**
      * @brief Returns the pitch of the orientation in degrees
      */
-    float getPitch() const;
+    float getPitch() const { return pitch; }
 
     /**
      * @brief Sets the yaw angle of the orientation
@@ -97,7 +108,7 @@ public:
     /**
      * @brief Returns the yaw of the orientation in degrees
      */
-    float getYaw() const;
+    float getYaw() const { return yaw; }
 
     /**
      * @brief Sets both the yaw and pitch of the orientation. Call this if both are changing as it's
@@ -111,7 +122,7 @@ public:
     /**
      * @brief Returns the roll of the orientation in degrees
      */
-    float getRoll() const;
+    float getRoll() const { return roll; }
 
     /**
      * @brief Sets the roll of the orientation
@@ -127,18 +138,52 @@ public:
      */
     void applyRoll(float roll);
 
+    /**
+     * @brief Sets the yaw, pitch, and roll of the orientation
+     *
+     * @param yaw The yaw of the orientation in degrees
+     * @param pitch The pitch of the orientation in degrees
+     * @param roll The roll of the orientation in degrees
+     */
+    void setEulerAngles(float yaw, float pitch, float roll);
+
+    /**
+     * @brief Returns the underlying quaternion representing this orientation
+     */
+    glm::quat getRotationQuaternion() const;
+
+    /**
+     * @brief Direct set the rotation quaternion of the orientation
+     *
+     * @param quat The quaternion to set the rotation to
+     */
+    void setRotationQuaternion(const glm::quat& quat);
+
+    /**
+     * @brief Returns the forward direction unit vector local to this orientation
+     */
+    glm::vec3 getForwardDir() const;
+
+    /**
+     * @brief Returns the right direction unit vector local to this orientation
+     */
+    glm::vec3 getRightDir() const;
+
+    /**
+     * @brief Returns the up direction unit vector local to this orientation
+     */
+    glm::vec3 getUpDir() const;
+
 private:
-    glm::vec3 faceDir;
+    float yaw;
     float roll;
+    float pitch;
+    glm::quat cachedRotation;
+
+    void updateRotation();
 
     friend struct refl::ReflectedObject<Orientation3D>;
 };
-
-//////////////////////////// INLINE FUNCTIONS /////////////////////////////////
-
-inline float Orientation3D::getRoll() const { return roll; }
-
-inline const glm::vec3& Orientation3D::getFaceDirection() const { return faceDir; }
 
 } // namespace com
 
@@ -147,8 +192,9 @@ namespace refl
 template<>
 struct ReflectedObject<com::Orientation3D> {
     inline static const auto spec = makeSpec<com::Orientation3D>(
-        "Orientation3D", memberList(defineMember(1, "faceDir", &com::Orientation3D::faceDir),
-                                    defineMember(2, "roll", &com::Orientation3D::roll)));
+        "Orientation3D", memberList(defineMember(1, "yaw", &com::Orientation3D::yaw),
+                                    defineMember(2, "pitch", &com::Orientation3D::pitch),
+                                    defineMember(3, "roll", &com::Orientation3D::roll)));
 };
 } // namespace refl
 } // namespace bl

@@ -1,9 +1,11 @@
 #ifndef BLIB_COMPONENTS_TRANSFORM3D_HPP
 #define BLIB_COMPONENTS_TRANSFORM3D_HPP
 
+#include <BLIB/Components/Orientation3D.hpp>
 #include <BLIB/ECS/Traits/ParentAwareVersioned.hpp>
 #include <BLIB/Reflection/ReflectedObject.hpp>
 #include <BLIB/Render/Components/DescriptorComponentBase.hpp>
+#include <BLIB/Render/Config/Constants.hpp>
 #include <BLIB/Render/Descriptors/Builtin/Transform3DPayload.hpp>
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
@@ -70,57 +72,19 @@ public:
     glm::quat getGlobalRotation() const;
 
     /**
-     * @brief Sets the rotation of the transform to the given Euler angles
-     *
-     * @param eulerAngles The Euler angles to rotate to
+     * @brief Returns the forward direction unit vector in world space
      */
-    void setRotationEulerAngles(const glm::vec3& eulerAngles);
+    glm::vec3 getGlobalForwardDir() const;
 
     /**
-     * @brief Directly set the rotation quaternion of the transform
-     *
-     * @param quat The quaternion to set the rotation to
+     * @brief Returns the right direction unit vector in world space
      */
-    void setRotation(const glm::quat& quat);
+    glm::vec3 getGlobalRightDir() const;
 
     /**
-     * @brief Rotates the transform about a given axis
-     *
-     * @param axis The axis to rotate about
-     * @param angle The angle to rotate in degrees
+     * @brief Returns the up direction unit vector in world space
      */
-    void rotate(const glm::vec3& axis, float angle);
-
-    /**
-     * @brief Orients the transform to face the given position
-     *
-     * @param pos The position to look at
-     * @param up The up vector
-     */
-    void lookAt(const glm::vec3& pos, const glm::vec3& up = {0.f, 1.f, 0.f});
-
-    /**
-     * @brief Sets the forward direction of the transform to the given direction
-     *
-     * @param dir The direction to face
-     * @param up The world up vector
-     */
-    void setForwardDir(const glm::vec3& dir, const glm::vec3& up = {0.f, 1.f, 0.f});
-
-    /**
-     * @brief Returns the forward direction unit vector local to this transform
-     */
-    glm::vec3 getForwardDir() const;
-
-    /**
-     * @brief Returns the right direction unit vector local to this transform
-     */
-    glm::vec3 getRightDir() const;
-
-    /**
-     * @brief Returns the up direction unit vector local to this transform
-     */
-    glm::vec3 getUpDir() const;
+    glm::vec3 getGlobalUpDir() const;
 
     /**
      * @brief Sets the scale of the transform
@@ -140,6 +104,17 @@ public:
      * @brief Returns the current scale factors of the transform
      */
     const glm::vec3& getScale() const;
+
+    /**
+     * @brief Returns the local orientation of the transform and marks the transform as needing to
+     *        refresh the transform matrix. Use this method to when modifying the orientation
+     */
+    Orientation3D& getOrientationForChange();
+
+    /**
+     * @brief Returns the local orientation of the transform
+     */
+    const Orientation3D& getOrientation() const { return orientation; }
 
     /**
      * @brief Sets the transform matrix directly
@@ -178,9 +153,16 @@ public:
      */
     bool isDirty() const;
 
+    /**
+     * @brief Manually set the parent transform. Called by the ECS but can be used manually
+     *
+     * @param parent The parent transform to set
+     */
+    void setParent(Transform3D& parent);
+
 private:
     glm::vec3 position;
-    glm::quat rotation;
+    Orientation3D orientation;
     glm::vec3 scaleFactors;
 
     void makeDirty();
@@ -192,7 +174,9 @@ private:
 
 inline const glm::vec3& Transform3D::getPosition() const { return position; }
 
-inline const glm::quat& Transform3D::getRotation() const { return rotation; }
+inline const glm::quat& Transform3D::getRotation() const {
+    return orientation.getRotationQuaternion();
+}
 
 inline const glm::vec3& Transform3D::getScale() const { return scaleFactors; }
 
@@ -203,7 +187,7 @@ template<>
 struct ReflectedObject<com::Transform3D> {
     inline static const auto spec = makeSpec<com::Transform3D>(
         "Transform3D", memberList(defineMember(1, "position", &com::Transform3D::position),
-                                  defineMember(2, "rotation", &com::Transform3D::rotation),
+                                  defineMember(2, "orientation", &com::Transform3D::orientation),
                                   defineMember(3, "scale", &com::Transform3D::scaleFactors)));
 };
 

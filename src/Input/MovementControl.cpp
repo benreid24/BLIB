@@ -95,7 +95,7 @@ const Joystick& MovementControl::joystickControl() const { return joystick; }
 
 glm::vec2 MovementControl::readValue() const {
     if (type == Type::Triggers) {
-        glm::vec2 dir;
+        glm::vec2 dir(0.f);
         if (keys.up.active()) dir.y += 1.f;
         if (keys.right.active()) dir.x += 1.f;
         if (keys.down.active()) dir.y -= 1.f;
@@ -121,7 +121,8 @@ void MovementControl::saveToConfig(const std::string& prefix) const {
 void MovementControl::loadFromConfig(const std::string& prefix) {
     using Config = bl::engine::Configuration;
 
-    type = Config::getOrDefault<std::string>(typeKey(prefix), TriggerStr) == TriggerStr ?
+    type = Config::getOrDefault<std::string>(
+               typeKey(prefix), type == Type::Triggers ? TriggerStr : JoystickStr) == TriggerStr ?
                Type::Triggers :
                Type::Joystick;
     if (type == Type::Triggers) {

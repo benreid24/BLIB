@@ -174,10 +174,6 @@ bool Engine::setup() {
     }
     ecsSystems.init();
 
-    BL_LOG_INFO << "Loading engine configuration from file: "
-                << Configuration::fixedConfig().configFilePath;
-    Configuration::load();
-
     return true;
 }
 

@@ -83,7 +83,8 @@ void Physics3DCharacter::postUpdate() {
         JPH::Quat rot;
         character.GetPositionAndRotation(pos, rot);
         transform->setPosition(glm::vec3(pos.GetX(), pos.GetY(), pos.GetZ()));
-        transform->setRotation(glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
+        transform->getOrientationForChange().setRotationQuaternion(
+            glm::quat(rot.GetW(), rot.GetX(), rot.GetY(), rot.GetZ()));
     }
 }
 

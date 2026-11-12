@@ -37,55 +37,19 @@ public:
     void setFOV(float fov);
 
     /**
-     * @brief Sets the roll angle of the camera
-     *
-     * @param roll The roll in degrees
+     * @brief Returns the transform of the camera
      */
-    void setRoll(float roll);
+    Transform3D& getTransform() { return localTransform; }
 
     /**
-     * @brief Sets the local position of the camera relative to the entity's transform
-     *
-     * @param position The local position to set
+     * @brief Returns the transform of the camera
      */
-    void setLocalPosition(const glm::vec3& position);
-
-    /**
-     * @brief Returns the local position of the camera relative to the entity's transform
-     */
-    const glm::vec3& getLocalPosition() const { return localPosition; }
-
-    /**
-     * @brief Sets the local forward direction of the camera relative to the entity's transform
-     *
-     * @param dir The local forward direction to set
-     */
-    void setLocalForwardDirection(const glm::vec3& dir);
-
-    /**
-     * @brief Returns the local forward direction of the camera relative to the entity's transform
-     */
-    const glm::vec3& getLocalForwardDirection() const { return localDirection; }
-
-    /**
-     * @brief Computes and returns the world position of the camera
-     */
-    glm::vec3 getWorldPosition() const;
-
-    /**
-     * @brief Computes and returns the forward direction of the camera
-     */
-    glm::vec3 getWorldForwardDirection() const;
+    const Transform3D& getTransform() const { return localTransform; }
 
     /**
      * @brief Returns the field of view in degrees
      */
     float getFOV() const { return fov; }
-
-    /**
-     * @brief Returns the roll angle in degrees
-     */
-    float getRoll() const { return roll; }
 
     /**
      * @brief Makes this camera the active camera for the given player
@@ -116,10 +80,9 @@ public:
 private:
     engine::Engine& engine;
     Transform3D* transform;
+    Transform3D localTransform;
     glm::vec3 localPosition;
-    glm::vec3 localDirection;
     float fov;
-    float roll;
 };
 
 } // namespace com
