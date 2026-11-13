@@ -1,6 +1,7 @@
 #ifndef BLIB_ASSETS_PAYLOADGENERIC_HPP
 #define BLIB_ASSETS_PAYLOADGENERIC_HPP
 
+#include <BLIB/Assets/Context.hpp>
 #include <BLIB/Assets/Payload.hpp>
 
 namespace bl
@@ -11,11 +12,15 @@ namespace as
  * @brief Generic payload container for arbitrary payload types
  *
  * @tparam T The type of data that is stored in the payload
+ * @param TCreateData The type of custom data that can be passed to the driver
  * @ingroup Assets
  */
-template<typename T>
+template<typename T, typename TCreateData = CreateContext::CreateData>
 class PayloadGeneric : public Payload {
 public:
+    /// The type of custom data that can be used for payload creation
+    using CreateData = TCreateData;
+
     /**
      * @brief Creates the payload
      *

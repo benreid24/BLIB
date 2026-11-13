@@ -26,38 +26,64 @@ bool MaterialDriver::doCreate(as::CreateContext& ctx, MaterialPayload& payload) 
         if (!tex.isEmbedded() && tex.getFilePath().empty()) { return true; }
 
         if (tex.isEmbedded()) {
-            ImageDriver::CreateParams createParams;
+            ImagePayload::CreateData createParams;
             createParams.sourceImage = &tex.getEmbedded();
-            auto imageAsset          = ctx.getRepository().createAsset<ImagePayload>(
-                ctx.getAsset().getMetadata().getDisplayName() + "_embeddedTexture", createParams);
-            if (!imageAsset) {
-                BL_LOG_ERROR << "Failed to create image asset for embedded texture in material "
-                             << ctx.getAsset().getUUID();
-                return false;
-            }
 
-            TexturePayload::CreateData texCreateData;
-            texCreateData.image = imageAsset->getAsset().getUUID();
-            texCreateData.type  = type;
-            auto textureAsset   = ctx.getRepository().createAsset<TexturePayload>(
-                ctx.getAsset().getMetadata().getDisplayName() + "_texture", texCreateData);
-            if (!textureAsset) {
-                BL_LOG_ERROR << "Failed to create texture asset for embedded texture in material "
-                             << ctx.getAsset().getUUID();
-                return false;
-            }
+            if (!ctx.getCustomData().getIsSourceReload() || !dst.getRef().isValid()) {
+                auto imageAsset = ctx.getRepository().createAsset<ImagePayload>(
+                    ctx.getAsset().getMetadata().getDisplayName() + "_embeddedTexture",
+                    createParams);
+                if (!imageAsset) {
+                    BL_LOG_ERROR << "Failed to create image asset for embedded texture in material "
+                                 << ctx.getAsset();
+                    return false;
+                }
 
-            return dst.init(textureAsset->getAsset().getUUID());
+                TexturePayload::CreateData texCreateData;
+                texCreateData.image = imageAsset->getAsset().getUUID();
+                texCreateData.type  = type;
+                auto textureAsset   = ctx.getRepository().createAsset<TexturePayload>(
+                    ctx.getAsset().getMetadata().getDisplayName() + "_texture", texCreateData);
+                if (!textureAsset) {
+                    BL_LOG_ERROR
+                        << "Failed to create texture asset for embedded texture in material "
+                        << ctx.getAsset();
+                    return false;
+                }
+
+                return dst.init(textureAsset->getAsset().getUUID());
+            }
+            else {
+                // recreating
+                dst.get().type = type;
+                if (!dst.get().image.getAsset().forceRecreatePayload(createParams)) {
+                    BL_LOG_ERROR << "Failed to force recreate image asset for embedded texture in "
+                                    "material "
+                                 << ctx.getAsset();
+                    return false;
+                }
+                return true;
+            }
         }
         else {
             auto texture =
                 ctx.getRepository().getAssetFromSourcePath<TexturePayload>(tex.getFilePath());
             if (!texture) {
                 BL_LOG_ERROR << "Failed to find or create texture asset for texture file "
-                             << tex.getFilePath() << " in material " << ctx.getAsset().getUUID();
+                             << tex.getFilePath() << " in material " << ctx.getAsset();
                 return false;
             }
             texture->type = type;
+
+            if (ctx.getCustomData().getIsSourceReload()) {
+                if (!texture.getAsset().reloadFromSource()) {
+                    BL_LOG_ERROR << "Failed to reload texture asset for texture file "
+                                 << tex.getFilePath() << " in material "
+                                 << ctx.getAsset();
+                    return false;
+                }
+            }
+
             texture->flush();
 
             return dst.init(texture->getAsset().getUUID());

@@ -86,29 +86,71 @@ bool ModelDriver::doCreate(as::CreateContext& ctx, ModelPayload& payload) {
 
     for (unsigned int i = 0; i < data.getMaterials().numMaterials(); ++i) {
         MaterialPayload::CreateData matCreateData{data.getMaterials().getMaterial(i)};
-        auto materialAsset = ctx.getRepository().createAsset<MaterialPayload>(
-            ctx.getAsset().getMetadata().getDisplayName() + "_material_" + std::to_string(i),
-            matCreateData);
-        if (!materialAsset) {
-            BL_LOG_ERROR << "Failed to create material asset for model "
-                         << ctx.getAsset().getUUID();
-            return false;
+        const std::string name =
+            ctx.getAsset().getMetadata().getDisplayName() + "_material_" + std::to_string(i);
+
+        if (!ctx.getCustomData().getIsSourceReload() || i >= payload.materials.getSize()) {
+            auto materialAsset =
+                ctx.getRepository().createAsset<MaterialPayload>(name, matCreateData);
+            if (!materialAsset) {
+                BL_LOG_ERROR << "Failed to create material asset for model " << ctx.getAsset();
+                return false;
+            }
+
+            payload.materials.addDependency(materialAsset->getAsset().getUUID());
         }
-        payload.materials.addDependency(materialAsset->getAsset().getUUID());
+        else {
+            auto& mat = payload.materials.getAsset(i);
+            if (!mat.forceRecreatePayload(matCreateData)) {
+                BL_LOG_ERROR << "Failed to force recreate material asset for model "
+                             << ctx.getAsset();
+                return false;
+            }
+        }
+    }
+
+    // remove extra materials not needed after recreate
+    if (ctx.getCustomData().getIsSourceReload() &&
+        payload.materials.getSize() > data.getMaterials().numMaterials()) {
+        while (payload.materials.getSize() > data.getMaterials().numMaterials()) {
+            payload.materials.removeDependency(data.getMaterials().numMaterials());
+        }
     }
 
     unsigned int i = 0;
     for (const mdl::Animation& anim : data.getAnimations().getAnimations()) {
         Animation3DDriver::CreateParams animCreateData{anim};
-        auto animationAsset = ctx.getRepository().createAsset<Animation3DPayload>(
-            ctx.getAsset().getMetadata().getDisplayName() + "_animation_" + std::to_string(i++),
-            animCreateData);
-        if (!animationAsset) {
-            BL_LOG_ERROR << "Failed to create animation asset for model "
-                         << ctx.getAsset().getUUID();
-            return false;
+        const std::string name =
+            ctx.getAsset().getMetadata().getDisplayName() + "_animation_" + std::to_string(i);
+
+        if (!ctx.getCustomData().getIsSourceReload() || i >= payload.animations.getSize()) {
+            auto animationAsset =
+                ctx.getRepository().createAsset<Animation3DPayload>(name, animCreateData);
+            if (!animationAsset) {
+                BL_LOG_ERROR << "Failed to create animation asset for model " << ctx.getAsset();
+                return false;
+            }
+            payload.animations.addDependency(animationAsset->getAsset().getUUID());
         }
-        payload.animations.addDependency(animationAsset->getAsset().getUUID());
+        else {
+            // TODO - how did we get two animations?
+            auto& anim = payload.animations.getAsset(i);
+            if (!anim.forceRecreatePayload(animCreateData)) {
+                BL_LOG_ERROR << "Failed to force recreate animation asset for model "
+                             << ctx.getAsset();
+                return false;
+            }
+        }
+
+        ++i;
+    }
+
+    // remove extra animations not needed after recreate
+    if (ctx.getCustomData().getIsSourceReload() &&
+        payload.animations.getSize() > data.getAnimations().getAnimations().size()) {
+        while (payload.animations.getSize() > data.getAnimations().getAnimations().size()) {
+            payload.animations.removeDependency(data.getAnimations().getAnimations().size());
+        }
     }
 
     return true;

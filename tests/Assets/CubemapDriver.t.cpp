@@ -22,16 +22,19 @@ namespace unittest
 TEST_F(RepositoryTest, CubemapDriver) {
     // One distinct colour per face for unambiguous per-face verification
     constexpr std::array<sf::Color, 6> faceColors = {
-        sf::Color::Red,     // top
-        sf::Color::Green,   // bottom
-        sf::Color::Blue,    // left
-        sf::Color::Yellow,  // right
-        sf::Color::Cyan,    // front
-        sf::Color::Magenta  // back
+        sf::Color::Red,    // top
+        sf::Color::Green,  // bottom
+        sf::Color::Blue,   // left
+        sf::Color::Yellow, // right
+        sf::Color::Cyan,   // front
+        sf::Color::Magenta // back
     };
-    constexpr std::array<const char*, 6> faceNames = {
-        "CubemapTop", "CubemapBottom", "CubemapLeft", "CubemapRight", "CubemapFront", "CubemapBack"
-    };
+    constexpr std::array<const char*, 6> faceNames = {"CubemapTop",
+                                                      "CubemapBottom",
+                                                      "CubemapLeft",
+                                                      "CubemapRight",
+                                                      "CubemapFront",
+                                                      "CubemapBack"};
 
     rand::UUID cubemapUuid;
     {
@@ -42,15 +45,15 @@ TEST_F(RepositoryTest, CubemapDriver) {
             sf::Image img;
             img.resize({4, 4}, faceColors[i]);
 
-            asi::ImageDriver::CreateParams imageParams;
+            asi::ImagePayload::CreateData imageParams;
             imageParams.sourceImage = &img;
-            auto imageAsset = repo.createAsset<asi::ImagePayload>(
+            auto imageAsset         = repo.createAsset<asi::ImagePayload>(
                 std::string(faceNames[i]) + "_img", imageParams);
             ASSERT_TRUE(imageAsset.isValid());
 
             asi::TexturePayload::CreateData texData(imageAsset.getUUID());
-            auto texAsset = repo.createAsset<asi::TexturePayload>(
-                std::string(faceNames[i]) + "_tex", texData);
+            auto texAsset =
+                repo.createAsset<asi::TexturePayload>(std::string(faceNames[i]) + "_tex", texData);
             ASSERT_TRUE(texAsset.isValid());
             texUuids[i] = texAsset.getUUID();
         }
@@ -71,16 +74,19 @@ TEST_F(RepositoryTest, CubemapDriver) {
 
     const asi::CubemapPayload& cubemap = *cubemapAsset;
 
-    const std::array<const as::Dependency<asi::TexturePayload>*, 6> faces = {
-        &cubemap.top, &cubemap.bottom, &cubemap.left,
-        &cubemap.right, &cubemap.front, &cubemap.back
-    };
+    const std::array<const as::Dependency<asi::TexturePayload>*, 6> faces = {&cubemap.top,
+                                                                             &cubemap.bottom,
+                                                                             &cubemap.left,
+                                                                             &cubemap.right,
+                                                                             &cubemap.front,
+                                                                             &cubemap.back};
 
     for (int i = 0; i < 6; ++i) {
         ASSERT_TRUE(faces[i]->isValid()) << "Face " << faceNames[i] << " is not valid";
         const sf::Image& img = faces[i]->get().image.get().get();
         ASSERT_EQ(img.getSize(), (sf::Vector2u{4, 4})) << "Face " << faceNames[i] << " wrong size";
-        EXPECT_EQ(img.getPixel({0, 0}), faceColors[i]) << "Face " << faceNames[i] << " wrong colour";
+        EXPECT_EQ(img.getPixel({0, 0}), faceColors[i])
+            << "Face " << faceNames[i] << " wrong colour";
     }
 }
 

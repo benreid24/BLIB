@@ -25,12 +25,13 @@ rand::UUID DependencySingleBase::getUUID() const { return uuid; }
 bool DependencySingleBase::init(rand::UUID uuid) {
     if (uuid == rand::UUID()) {
         BL_LOG_WARN << "Ignoring attempt to initialize dependency with empty UUID for asset "
-                    << owner.getAsset().getUUID().toString() << " and tag '" << tag << "'";
+                    << owner.getAsset() << " and tag '" << tag << "'";
         return true;
     }
     if (this->uuid != rand::UUID()) {
         BL_LOG_ERROR << "Attempted to initialize dependency with UUID " << uuid.toString()
-                     << " but it is already initialized with UUID " << this->uuid.toString();
+                     << " but it is already initialized with UUID " << this->uuid.toString()
+                     << " for asset " << owner.getAsset();
         throw std::runtime_error("Dependency is already initialized");
     }
     this->uuid = uuid;
@@ -51,26 +52,35 @@ void DependencySingleBase::unload() {
     if (dependency) { dependency.release(); }
 }
 
-bool DependencySingleBase::matchAndLoad(const std::vector<RepoDependency>& dependencies) {
+bool DependencySingleBase::matchAndLoad(const std::vector<RepoDependency>& dependencies,
+                                        bool isForSourceReload) {
     const RepoDependency* match = nullptr;
     for (const auto& dep : dependencies) {
         if (dep.tag == tag) {
             if (!match) { match = &dep; }
             else {
                 BL_LOG_ERROR << "Multiple dependencies with tag '" << tag << "' found for asset "
-                             << owner.getAsset().getUUID().toString();
+                             << owner.getAsset();
             }
         }
     }
     if (!match) {
-        BL_LOG_ERROR << "Failed to find dependency with tag '" << tag << "' for asset "
-                     << owner.getAsset().getUUID().toString();
-        return depPolicy != DependencyPolicy::Required;
+        if (depPolicy == DependencyPolicy::Required) {
+            BL_LOG_ERROR << "Failed to find dependency with tag '" << tag << "' for asset "
+                         << owner.getAsset();
+            return false;
+        }
+        return true;
     }
     uuid = match->uuid;
     if (!load()) {
+        if (isForSourceReload) {
+            // extra permissive for reload as recreate can fix failed assets
+            dependency = repo.getAsset(uuid, State::Failed);
+            return dependency.isValid();
+        }
         BL_LOG_ERROR << "Failed to load dependency with UUID " << uuid.toString() << " for asset "
-                     << owner.getAsset().getUUID().toString();
+                     << owner.getAsset();
         return depPolicy != DependencyPolicy::Required;
     }
     return true;

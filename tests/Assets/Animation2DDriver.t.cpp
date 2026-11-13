@@ -17,22 +17,22 @@ namespace unittest
 TEST_F(RepositoryTest, Animation2DDriver) {
     // Build a minimal 2-frame animation with 1 shard per frame
     asi::Animation2DPayload::Frame frame0;
-    frame0.length              = 0.1f;
-    auto& shard0               = frame0.shards.emplace_back();
-    shard0.source              = sf::IntRect({0, 0}, {16, 16});
-    shard0.offset              = {0.0f, 0.0f};
-    shard0.scale               = {1.0f, 1.0f};
-    shard0.rotation            = 0.0f;
-    shard0.alpha               = 255;
+    frame0.length   = 0.1f;
+    auto& shard0    = frame0.shards.emplace_back();
+    shard0.source   = sf::IntRect({0, 0}, {16, 16});
+    shard0.offset   = {0.0f, 0.0f};
+    shard0.scale    = {1.0f, 1.0f};
+    shard0.rotation = 0.0f;
+    shard0.alpha    = 255;
 
     asi::Animation2DPayload::Frame frame1;
-    frame1.length              = 0.2f;
-    auto& shard1               = frame1.shards.emplace_back();
-    shard1.source              = sf::IntRect({16, 0}, {16, 16});
-    shard1.offset              = {4.0f, 2.0f};
-    shard1.scale               = {2.0f, 2.0f};
-    shard1.rotation            = 45.0f;
-    shard1.alpha               = 128;
+    frame1.length   = 0.2f;
+    auto& shard1    = frame1.shards.emplace_back();
+    shard1.source   = sf::IntRect({16, 0}, {16, 16});
+    shard1.offset   = {4.0f, 2.0f};
+    shard1.scale    = {2.0f, 2.0f};
+    shard1.rotation = 45.0f;
+    shard1.alpha    = 128;
 
     sf::Image sourceImage;
     sourceImage.resize({32, 16}, sf::Color::White);
@@ -41,15 +41,15 @@ TEST_F(RepositoryTest, Animation2DDriver) {
     {
         Repository repo(Mode::Editor, AssetDirectory);
 
-        asi::ImageDriver::CreateParams imageParams;
+        asi::ImagePayload::CreateData imageParams;
         imageParams.sourceImage = &sourceImage;
         auto imageAsset         = repo.createAsset<asi::ImagePayload>("TestAnimSheet", imageParams);
         ASSERT_TRUE(imageAsset.isValid());
 
         asi::Animation2DDriver::CreateParams animParams;
-        animParams.spritesheet = imageAsset;
-        animParams.frames      = {frame0, frame1};
-        animParams.loop        = true;
+        animParams.spritesheet  = imageAsset;
+        animParams.frames       = {frame0, frame1};
+        animParams.loop         = true;
         animParams.centerShards = false;
 
         auto animAsset = repo.createAsset<asi::Animation2DPayload>("TestAnim", animParams);

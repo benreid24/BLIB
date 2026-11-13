@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/Waiter.hpp>
+#include <iostream>
 
 using namespace bl::game;
 

@@ -21,18 +21,6 @@ public:
     static constexpr std::string_view TypeName = "Images";
 
     /**
-     * @brief Optional creation parameters for image assets
-     */
-    struct CreateParams : public as::CreateContext::CreateData {
-        unsigned int width;
-        unsigned int height;
-        sf::Color fillColor;
-
-        /// Takes priority over above parameters
-        const sf::Image* sourceImage = nullptr;
-    };
-
-    /**
      * @brief Creates the driver
      */
     ImageDriver();

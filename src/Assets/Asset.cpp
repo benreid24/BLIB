@@ -39,14 +39,14 @@ bool Asset::initAfterDeserialize(Repository& r) {
         if (!depAsset) {
             state = State::Failed;
             BL_LOG_ERROR << "Failed to find dependency with UUID " << dep.uuid.toString()
-                         << " for asset " << uuid.toString();
+                         << " for asset " << *this;
             return false;
         }
 
         if (!depAsset->initAfterDeserialize(r)) {
             state = State::Failed;
             BL_LOG_ERROR << "Failed to initialize dependency with UUID " << dep.uuid.toString()
-                         << " for asset " << uuid.toString();
+                         << " for asset " << *this;
             return false;
         }
     }
@@ -56,7 +56,7 @@ bool Asset::initAfterDeserialize(Repository& r) {
 
 Payload& Asset::getPayload() {
     if (state != State::Loaded) {
-        BL_LOG_ERROR << "Attempted to access asset payload when asset is not loaded";
+        BL_LOG_ERROR << "Attempted to access asset payload when asset is not loaded: " << *this;
         throw std::runtime_error("Asset payload is not loaded");
     }
     return *payload;
@@ -64,7 +64,7 @@ Payload& Asset::getPayload() {
 
 const Payload& Asset::getPayload() const {
     if (state != State::Loaded) {
-        BL_LOG_ERROR << "Attempted to access asset payload when asset is not loaded";
+        BL_LOG_ERROR << "Attempted to access asset payload when asset is not loaded: " << *this;
         throw std::runtime_error("Asset payload is not loaded");
     }
     return *payload;
@@ -80,7 +80,7 @@ bool Asset::create(const CreateContext::CreateData& createData) {
     CreateContext context(*repo, *this, createData);
     payload = driver->create(context);
     if (!payload) {
-        BL_LOG_ERROR << "Driver failed to create asset of type " << type;
+        BL_LOG_ERROR << "Driver failed to create asset " << *this;
         state = State::Failed;
         return false;
     }
@@ -99,7 +99,7 @@ bool Asset::load() {
     ReadContext context(*repo, repo->bundleRuntime, *this);
     payload = driver->read(context);
     if (!payload) {
-        BL_LOG_ERROR << "Driver failed to read asset of type " << type;
+        BL_LOG_ERROR << "Driver failed to read asset " << *this;
         state = State::Failed;
         return false;
     }
@@ -111,7 +111,8 @@ bool Asset::unload(bool force) {
     if (state != State::Loaded) { return true; }
 
     if (refCount > 0 && !force) {
-        BL_LOG_WARN << "Attempted to unload asset with " << refCount << " outstanding references";
+        BL_LOG_WARN << "Attempted to unload asset with " << refCount << " outstanding references. "
+                    << *this;
         return false;
     }
 
@@ -161,35 +162,43 @@ bool Asset::writePayload() {
 }
 
 void Asset::flushPayload() {
-    if (!writePayload()) {
-        BL_LOG_ERROR << "Failed to flush asset " << uuid.toString() << " to disk";
-    }
+    if (!writePayload()) { BL_LOG_ERROR << "Failed to flush asset " << *this << " to disk"; }
 }
 
 bool Asset::reloadFromSource() {
+    bool valid = true;
     if (state != State::Loaded) {
-        if (!load()) { return false; }
+        if (!load()) { valid = false; }
     }
 
-    if (!metadata.hasSourceFileInfo()) { return true; }
+    if (!metadata.hasSourceFileInfo()) { return valid; }
 
     util::FileUtil::FileInfo info;
     if (!util::FileUtil::queryFileInfo(metadata.getSourceFileInfo()->path, info)) {
         BL_LOG_WARN << "Failed to query source file '" << metadata.getSourceFileInfo()->path
-                    << "' for asset " << uuid.toString();
+                    << "' for asset " << *this;
         return false;
     }
 
-    if (metadata.getSourceFileInfo()->lastModified < info.modifiedTime) {
-        CreateContext::CreateData createData(metadata.getSourceFileInfo()->path);
+    if (metadata.getSourceFileInfo()->lastModified < info.modifiedTime || !valid) {
+        CreateContext::CreateData createData(metadata.getSourceFileInfo()->path, true);
         if (!create(createData)) {
-            BL_LOG_ERROR << "Failed to reload asset " << uuid.toString() << " from source file "
+            BL_LOG_ERROR << "Failed to reload asset " << *this << " from source file "
                          << metadata.getSourceFileInfo()->path;
             return false;
         }
         metadata.updateSourceFileModifiedTime();
     }
 
+    return true;
+}
+
+bool Asset::forceRecreatePayload(const CreateContext::CreateData& createData) {
+    createData.setIsSourceReload(true);
+    if (!create(createData)) {
+        BL_LOG_ERROR << "Failed to force recreate asset " << *this;
+        return false;
+    }
     return true;
 }
 
@@ -228,6 +237,13 @@ detail::DriverBase* Asset::getDriver() const {
         return nullptr;
     }
     return driver;
+}
+
+std::ostream& operator<<(std::ostream& os, const Asset& asset) {
+    os << asset.uuid.toString() << "[Type: " << asset.type
+       << ", DisplayName: " << asset.metadata.getDisplayName() << ", State: " << asset.state.load()
+       << "]";
+    return os;
 }
 
 } // namespace as

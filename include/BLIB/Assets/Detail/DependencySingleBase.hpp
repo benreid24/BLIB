@@ -82,8 +82,12 @@ protected:
 
     /**
      * @brief Performs post deserialization initialization
+     *
+     * @param dependencies The list of dependencies to match against
+     * @param isForSourceReload Whether this is being called during a source reload
      */
-    virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies) override;
+    virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies,
+                              bool isForSourceReload) override;
 
     friend class Payload;
 };

@@ -146,13 +146,11 @@ bool Animation2DDriver::doCreate(as::CreateContext& ctx, Animation2DPayload& pay
 bool Animation2DDriver::doRead(as::ReadContext& ctx, Animation2DPayload& payload) {
     stream::InputStream stream;
     if (!ctx.setupReadStream("animation.banim", stream)) {
-        BL_LOG_ERROR << "Failed to setup read stream for Animation2D asset with UUID: "
-                     << ctx.getAsset().getUUID();
+        BL_LOG_ERROR << "Failed to setup read stream for Animation2D asset: " << ctx.getAsset();
         return false;
     }
     if (!serial::binary::Serializer<Animation2DPayload>::deserialize(stream, payload)) {
-        BL_LOG_ERROR << "Failed to deserialize Animation2D asset with UUID: "
-                     << ctx.getAsset().getUUID();
+        BL_LOG_ERROR << "Failed to deserialize Animation2D asset: " << ctx.getAsset();
         return false;
     }
     payload.computeDerivedData();
@@ -162,13 +160,11 @@ bool Animation2DDriver::doRead(as::ReadContext& ctx, Animation2DPayload& payload
 bool Animation2DDriver::doWrite(as::WriteContext& ctx, const Animation2DPayload& payload) {
     stream::OutputStream stream;
     if (!ctx.setupWriteStream("animation.banim", stream)) {
-        BL_LOG_ERROR << "Failed to setup write stream for Animation2D asset with UUID: "
-                     << ctx.getAsset().getUUID();
+        BL_LOG_ERROR << "Failed to setup write stream for Animation2D asset: " << ctx.getAsset();
         return false;
     }
     if (!serial::binary::Serializer<Animation2DPayload>::serialize(stream, payload)) {
-        BL_LOG_ERROR << "Failed to serialize Animation2D asset with UUID: "
-                     << ctx.getAsset().getUUID();
+        BL_LOG_ERROR << "Failed to serialize Animation2D asset: " << ctx.getAsset();
         return false;
     }
     return true;

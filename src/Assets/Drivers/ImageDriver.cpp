@@ -15,7 +15,7 @@ bool ImageDriver::doCreate(as::CreateContext& ctx, ImagePayload& payload) {
         return payload.get().loadFromFile(ctx.getCustomData().getPath());
     }
 
-    const CreateParams* params = ctx.getCustomDataAsMaybe<CreateParams>();
+    const ImagePayload::CreateData* params = ctx.getCustomDataAsMaybe<ImagePayload::CreateData>();
     if (params) {
         if (params->sourceImage) {
             payload.get().resize(

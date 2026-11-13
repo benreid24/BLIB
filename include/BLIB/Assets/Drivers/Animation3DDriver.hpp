@@ -19,7 +19,8 @@ using Animation3DDriver =
                       as::bdl::AssetBundleConfig{
                           .affinity  = as::bdl::AssetBundleConfig::Affinity::Parent,
                           .selection = as::bdl::AssetBundleConfig::Selection::NonRoot,
-                          .onMount   = as::bdl::AssetBundleConfig::OnMount::WhenRequested}>;
+                          .onMount   = as::bdl::AssetBundleConfig::OnMount::WhenRequested},
+                      false>;
 
 } // namespace asi
 } // namespace bl

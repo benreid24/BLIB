@@ -19,7 +19,7 @@ bool DependencyListBase::addDependency(rand::UUID uuid) {
     for (const auto& dep : dependencies) {
         if (dep.uuid == uuid) {
             BL_LOG_WARN << "Ignoring duplicate dependency with UUID " << uuid.toString()
-                        << " for asset " << owner.getAsset().getUUID().toString();
+                        << " for asset " << owner.getAsset();
             return true;
         }
     }
@@ -27,7 +27,7 @@ bool DependencyListBase::addDependency(rand::UUID uuid) {
     Entry& entry = dependencies.emplace_back(Entry{uuid, Ref()});
     if (!loadEntry(entry)) {
         BL_LOG_ERROR << "Failed to load dependency with UUID " << uuid.toString() << " for asset "
-                     << owner.getAsset().getUUID().toString();
+                     << owner.getAsset();
         dependencies.pop_back();
         return false;
     }
@@ -39,8 +39,7 @@ bool DependencyListBase::addDependency(rand::UUID uuid) {
 bool DependencyListBase::removeDependency(std::size_t i) {
     if (i >= dependencies.size()) {
         BL_LOG_ERROR << "Attempted to remove dependency at index " << i << " but there are only "
-                     << dependencies.size() << " dependencies for asset "
-                     << owner.getAsset().getUUID().toString();
+                     << dependencies.size() << " dependencies for asset " << owner.getAsset();
         return false;
     }
     auto& entry = dependencies[i];
@@ -81,10 +80,12 @@ void DependencyListBase::unload() {
     }
 }
 
-bool DependencyListBase::matchAndLoad(const std::vector<RepoDependency>& taggedDeps) {
+bool DependencyListBase::matchAndLoad(const std::vector<RepoDependency>& taggedDeps,
+                                      bool isForSourceReload) {
     const auto n = std::count_if(taggedDeps.begin(),
                                  taggedDeps.end(),
                                  [this](const RepoDependency& dep) { return dep.tag == tag; });
+    dependencies.clear();
     dependencies.reserve(n);
 
     bool success = true;
@@ -93,9 +94,9 @@ bool DependencyListBase::matchAndLoad(const std::vector<RepoDependency>& taggedD
         if (dep.tag != tag) { continue; }
 
         auto& entry = dependencies.emplace_back(Entry{dep.uuid, Ref()});
-        if (!loadEntry(entry)) {
+        if (!loadEntry(entry, isForSourceReload)) {
             BL_LOG_ERROR << "Failed to load dependency with UUID " << dep.uuid.toString()
-                         << " for asset " << owner.getAsset().getUUID().toString();
+                         << " for asset " << owner.getAsset();
             success = false;
         }
         else { any = true; }
@@ -104,19 +105,23 @@ bool DependencyListBase::matchAndLoad(const std::vector<RepoDependency>& taggedD
     return getStatus(success, any);
 }
 
-bool DependencyListBase::loadEntry(Entry& entry) {
+bool DependencyListBase::loadEntry(Entry& entry, bool isForSourceReload) {
     if (entry.dependency && entry.dependency->getState() == State::Loaded) { return true; }
 
     const State desiredState = policy == LoadPolicy::Eager ? State::Loaded : State::Unloaded;
     entry.dependency         = repo.getAsset(entry.uuid, desiredState);
+    if (!entry.dependency && isForSourceReload) {
+        // extra permissive as recreate can fix failed assets
+        entry.dependency = repo.getAsset(entry.uuid, State::Failed);
+        return entry.dependency;
+    }
     return entry.dependency && entry.dependency->getState() >= desiredState;
 }
 
 Ref DependencyListBase::getItem(std::size_t index) const {
     if (index >= dependencies.size()) {
         BL_LOG_ERROR << "Attempted to get dependency at index " << index << " but there are only "
-                     << dependencies.size() << " dependencies for asset "
-                     << owner.getAsset().getUUID().toString();
+                     << dependencies.size() << " dependencies for asset " << owner.getAsset();
         return Ref();
     }
     return dependencies[index].dependency;

@@ -6,8 +6,8 @@
 #include <BLIB/Assets/Ref.hpp>
 #include <BLIB/Assets/State.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Random/UUID.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
 #include <stdexcept>
 #include <type_traits>
 
@@ -121,7 +121,7 @@ private:
     detail::DependencyChain* dependencyChain;
 
     void registerDependency(detail::DependencyChain* chain);
-    bool loadDependencies();
+    bool loadDependencies(bool isForSourceReload);
 
     template<typename T>
     friend class Driver;

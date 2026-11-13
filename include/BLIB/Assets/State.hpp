@@ -1,6 +1,8 @@
 #ifndef BLIB_ASSETS_STATE_HPP
 #define BLIB_ASSETS_STATE_HPP
 
+#include <ostream>
+
 namespace bl
 {
 namespace as
@@ -18,6 +20,32 @@ enum struct State {
     Unknown  = -2, ///< Used when invalid UUIDs are searched
     Missing  = -3  ///< Used when an asset is missing
 };
+
+/**
+ * @brief Output operator for asset states
+ *
+ * @param os The output stream
+ * @param state The asset state to output
+ * @return A reference to the output stream
+ */
+inline std::ostream& operator<<(std::ostream& os, State state) {
+    switch (state) {
+    case State::Unloaded:
+        return os << "Unloaded";
+    case State::Loading:
+        return os << "Loading";
+    case State::Loaded:
+        return os << "Loaded";
+    case State::Failed:
+        return os << "Failed";
+    case State::Unknown:
+        return os << "Unknown";
+    case State::Missing:
+        return os << "Missing";
+    default:
+        return os << "Invalid(" << static_cast<int>(state) << ")";
+    }
+}
 
 } // namespace as
 } // namespace bl

@@ -205,9 +205,11 @@ public:
          * @brief Creates the custom data. Path is provided for convenience
          *
          * @param path The path to create from
+         * @param sourceReload Whether this is an existing asset being reloaded from source
          */
-        CreateData(const std::string& path)
-        : path(&path) {}
+        CreateData(const std::string& path, bool sourceReload = false)
+        : path(&path)
+        , isSourceReload(sourceReload) {}
 
         /**
          * @brief Destroys the custom data
@@ -219,8 +221,24 @@ public:
          */
         const std::string& getPath() const { return *path; }
 
+        /**
+         * @brief Returns whether this is an existing asset being reloaded from source
+         */
+        bool getIsSourceReload() const { return isSourceReload; }
+
+        /**
+         * @brief Set whether the create is actually a reload from source files. Called
+         *        automatically by the asset system
+         *
+         * @param reload True if reloading from source, false if creating new
+         */
+        void setIsSourceReload(bool reload) const {
+            const_cast<CreateData*>(this)->isSourceReload = reload;
+        }
+
     private:
         const std::string* path;
+        bool isSourceReload;
     };
 
     /**

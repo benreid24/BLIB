@@ -91,11 +91,15 @@ protected:
 
     /**
      * @brief Performs post deserialization initialization
+     *
+     * @param dependencies The dependencies to of the asset to match and load
+     * @param isForSourceReload True if this is being called for a source reload,
      */
-    virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies) override;
+    virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies,
+                              bool isForSourceReload) override;
 
 private:
-    bool loadEntry(Entry& entry);
+    bool loadEntry(Entry& entry, bool isForSourceReload = false);
     bool getStatus(bool allSuccess, bool anySuccess) const;
 
     friend class Payload;

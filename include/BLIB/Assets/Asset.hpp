@@ -101,6 +101,24 @@ public:
      */
     bool reloadFromSource();
 
+    /**
+     * @brief Recreates the payload in the existing asset. Use when updating created dependencies of
+     *        assets reloading from source (ie a model updating a material)
+     *
+     * @param data The custom data to pass to the driver for asset creation
+     * @return True if the payload was recreated successfully, false otherwise
+     */
+    bool forceRecreatePayload(const CreateContext::CreateData& data);
+
+    /**
+     * @brief Output operator for logging asset info
+     *
+     * @param os The output stream
+     * @param asset The asset to output
+     * @return A reference to the output stream
+     */
+    friend std::ostream& operator<<(std::ostream& os, const Asset& asset);
+
 private:
     Repository* repo;
     rand::UUID uuid;

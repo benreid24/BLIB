@@ -19,7 +19,7 @@ TEST_F(RepositoryTest, ImageDriver) {
 
     {
         Repository repo(Mode::Editor, AssetDirectory);
-        asi::ImageDriver::CreateParams createParams;
+        asi::ImagePayload::CreateData createParams;
         createParams.sourceImage = &sourceImage;
         auto asset               = repo.createAsset<asi::ImagePayload>("TestImage", createParams);
         ASSERT_TRUE(asset.isValid());

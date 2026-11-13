@@ -22,13 +22,13 @@ void Payload::registerDependency(detail::DependencyChain* chain) {
     else { dependencyChain = chain; }
 }
 
-bool Payload::loadDependencies() {
+bool Payload::loadDependencies(bool isForSourceReload) {
     bool success            = true;
     const auto dependencies = repo.getDependencies(owner.getUUID());
 
     detail::DependencyChain* current = dependencyChain;
     while (current) {
-        if (!current->matchAndLoad(dependencies)) { success = false; }
+        if (!current->matchAndLoad(dependencies, isForSourceReload)) { success = false; }
         current = current->next;
     }
 

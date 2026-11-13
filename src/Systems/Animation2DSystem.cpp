@@ -425,7 +425,7 @@ void Animation2DSystem::createErrorAnimation(engine::Engine& engine) {
     fillSquare(0, c1, c2);
     fillSquare(102, c2, c1);
 
-    asi::ImageDriver::CreateParams params;
+    asi::ImagePayload::CreateData params;
     params.sourceImage = &img;
     auto spritesheet   = engine.assets().getOrCreateAsset<asi::ImagePayload>(
         SpritesheetKey, std::string(SpritesheetKey), params);

@@ -22,7 +22,7 @@ TEST_F(RepositoryTest, TextureDriver) {
     {
         Repository repo(Mode::Editor, AssetDirectory);
 
-        asi::ImageDriver::CreateParams imageParams;
+        asi::ImagePayload::CreateData imageParams;
         imageParams.sourceImage = &sourceImage;
         auto imageAsset = repo.createAsset<asi::ImagePayload>("TestTextureImage", imageParams);
         ASSERT_TRUE(imageAsset.isValid());

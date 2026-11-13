@@ -32,7 +32,8 @@ bool Animation2DSetDriver::doCreate(as::CreateContext& ctx, Animation2DSetPayloa
 
     if (!baseAnim) {
         if (data->debugCreateData.has_value()) {
-            auto animation = ctx.getRepository().createAsset<Animation2DPayload>("", *data);
+            const std::string name = ctx.getAsset().getMetadata().getDisplayName() + "_baseAnim";
+            auto animation = ctx.getRepository().createAsset<Animation2DPayload>(name, *data);
             if (!animation) {
                 BL_LOG_ERROR << "Failed to create base animation from debug data for animation set "
                                 "asset creation";

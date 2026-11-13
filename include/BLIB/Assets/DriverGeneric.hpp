@@ -33,10 +33,11 @@ struct ExtractPayload<PayloadGeneric<T>> {
  * @tparam T The type of data stored in the payload. Must be serializable
  * @tparam Name The string literal name of this driver type
  * @tparam BundleConfig The bundle config for assets of this type
+ * @tparam EditorSaveJson If true, assets will be saved as JSON in editor mode, otherwise binary
  * @ingroup Assets
  */
 template<typename T, util::TemplateString Name,
-         bdl::AssetBundleConfig BundleConfig = bdl::AssetBundleConfig()>
+         bdl::AssetBundleConfig BundleConfig = bdl::AssetBundleConfig(), bool EditorSaveJson = true>
 class DriverGeneric : public Driver<T> {
 public:
     /// The type of the underlying payload. Extracts from PayloadGeneric
@@ -47,6 +48,9 @@ public:
 
     /// The name of the type that this driver is for
     static constexpr std::string_view TypeName = Name.toStringView();
+
+    /// The filename of the payload file
+    static constexpr const char* Filename = EditorSaveJson ? "payload.json" : "payload.bin";
 
     /**
      * @brief Optional create parameters to use. Will default construct if not provided
@@ -106,11 +110,14 @@ public:
      */
     virtual bool doRead(ReadContext& ctx, T& payload) override {
         stream::InputStream input;
-        if (!ctx.setupReadStream("payload.json", input)) { return false; }
-        if (ctx.getMode() == Mode::Editor) {
-            return serial::json::Serializer<DataType>::deserializeStream(input, getData(payload));
+        if (!ctx.setupReadStream(Filename, input)) { return false; }
+        if constexpr (EditorSaveJson) {
+            if (ctx.getMode() == Mode::Editor) {
+                return serial::json::Serializer<DataType>::deserializeStream(input,
+                                                                             getData(payload));
+            }
         }
-        else { return serial::binary::Serializer<DataType>::deserialize(input, getData(payload)); }
+        return serial::binary::Serializer<DataType>::deserialize(input, getData(payload));
     }
 
     /**
@@ -122,12 +129,14 @@ public:
      */
     virtual bool doWrite(WriteContext& ctx, const T& payload) override {
         stream::OutputStream output;
-        if (!ctx.setupWriteStream("payload.json", output)) { return false; }
-        if (ctx.getMode() == Mode::Editor) {
-            return serial::json::Serializer<DataType>::serializeStream(
-                output, getData(payload), 4, 0);
+        if (!ctx.setupWriteStream(Filename, output)) { return false; }
+        if constexpr (EditorSaveJson) {
+            if (ctx.getMode() == Mode::Editor) {
+                return serial::json::Serializer<DataType>::serializeStream(
+                    output, getData(payload), 4, 0);
+            }
         }
-        else { return serial::binary::Serializer<DataType>::serialize(output, getData(payload)); }
+        return serial::binary::Serializer<DataType>::serialize(output, getData(payload));
     }
 
 private:

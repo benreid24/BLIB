@@ -26,7 +26,7 @@ Logger::Logger(int level)
 Logger::~Logger() {
     if (ss.str().back() != '\n') { ss << '\n'; }
     engine::Engine* engine = engine::Engine::getInstance();
-    if (engine) {
+    if (engine && engine->fastTaskThreadpool().running()) {
         engine->fastTaskThreadpool().queueTask(
             std::bind(&Config::doWrite, &Config::get(), ss.str(), level));
     }

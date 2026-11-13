@@ -109,6 +109,10 @@ public:
     virtual std::unique_ptr<Payload> create(CreateContext& ctx) override final {
         Payload::ConstructContext constructCtx{ctx.getMode(), ctx.getRepository(), ctx.getAsset()};
         std::unique_ptr<Payload> payload = std::make_unique<T>(constructCtx);
+        if (ctx.getCustomData().getIsSourceReload()) {
+            // populates dependency info in the payload, failure is ok here. allows reuse of assets
+            payload->loadDependencies(true);
+        }
         if (!doCreate(ctx, payload->as<T>())) { return nullptr; }
         return payload;
     }
@@ -122,8 +126,8 @@ public:
     virtual std::unique_ptr<Payload> read(ReadContext& ctx) override final {
         Payload::ConstructContext constructCtx{ctx.getMode(), ctx.getRepository(), ctx.getAsset()};
         std::unique_ptr<Payload> payload = std::make_unique<T>(constructCtx);
-        if (!payload->loadDependencies()) {
-            BL_LOG_ERROR << "Failed to load dependencies for asset " << ctx.getAsset().getUUID();
+        if (!payload->loadDependencies(false)) {
+            BL_LOG_ERROR << "Failed to load dependencies for asset " << ctx.getAsset();
             return nullptr;
         }
         if (!doRead(ctx, payload->as<T>())) { return nullptr; }

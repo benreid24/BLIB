@@ -71,6 +71,16 @@ std::string makeStaticPath(std::string_view type) {
     return path;
 }
 
+std::string makeTypePath(std::string_view type) {
+    constexpr std::string_view prefix = "NoFolder - ";
+
+    std::string path;
+    path.reserve(prefix.size() + type.size());
+    path += prefix;
+    path += type;
+    return path;
+}
+
 } // namespace
 
 Repository::~Repository() {
@@ -119,6 +129,7 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
     rand::UUID uuid = rand::UUID::generate();
     auto it         = assets.try_emplace(uuid, *this).first;
     it->second.getMetadata().setDisplayName(name);
+    it->second.getMetadata().setPath(makeTypePath(type));
     it->second.uuid = uuid;
     it->second.type = type;
     if (!it->second.create(createData)) {
@@ -145,12 +156,10 @@ Ref Repository::createAssetShared(std::string_view type, const std::string& name
         it->second.markReadyForAutoSync();
 
         if (!it->second.saveEditor()) {
-            BL_LOG_WARN << "Failed to save newly created asset '" << name << "' of type " << type
-                        << " to disk";
+            BL_LOG_WARN << "Failed to save newly created asset " << it->second << " to disk";
         }
         if (!writeManifestLocked()) {
-            BL_LOG_WARN << "Failed to save asset manifest after creating new asset '" << name
-                        << "' of type " << type;
+            BL_LOG_WARN << "Failed to save asset manifest after creating new asset " << it->second;
         }
     }
 
@@ -222,7 +231,8 @@ Ref Repository::getAssetFromSourcePath(std::string_view type, const std::string&
     else {
         if (it->second.type != type) {
             BL_LOG_ERROR << "Attempted to get asset with path " << path << " and type " << type
-                         << " but an asset with that path exists with type " << it->second.type;
+                         << " but an asset with that path exists with different type: "
+                         << it->second.type;
             return Ref();
         }
         return getAsset(it->second.uuid, desiredState);
@@ -253,7 +263,7 @@ void Repository::registerDependency(rand::UUID uuid, std::string_view tag, rand:
     for (const auto& dep : stored.dependencies) {
         if (dep.uuid == dependency && dep.tag == tag) {
             BL_LOG_WARN << "Ignoring duplicate dependency with UUID " << dependency.toString()
-                        << " and tag " << tag << " for asset " << uuid.toString();
+                        << " and tag " << tag << " for asset " << stored;
             return;
         }
     }
@@ -389,15 +399,14 @@ bool Repository::loadRepository() {
             const std::string assetPath =
                 EditorPaths::getAssetMetadataFilePath(assetDirectory, pair.second);
             if (!util::FileUtil::exists(assetPath)) {
-                BL_LOG_WARN << "Asset with UUID " << pair.first.toString()
+                BL_LOG_WARN << "Asset " << pair.second
                             << " is missing its metadata file at expected path " << assetPath;
 
                 // see if our missing asset was moved or deleted
                 const auto it = foundAssetPaths.find(pair.first.toString());
                 if (it != foundAssetPaths.end()) {
-                    BL_LOG_INFO << "Found metadata file for asset with UUID "
-                                << pair.first.toString() << " at " << it->second
-                                << ". Updating asset path and display name";
+                    BL_LOG_INFO << "Found metadata file for asset " << pair.second << " at "
+                                << it->second << ". Updating asset path and display name";
                     const std::string assetFolder = util::FileUtil::getFolder(it->second);
                     auto parsed                   = EditorPaths::parseAssetFolderName(assetFolder);
                     const std::string displayName = parsed ? parsed->second : "RecoveredAsset";
@@ -405,9 +414,9 @@ bool Repository::loadRepository() {
                     // remove folder + filename + assetDirectory
                     const std::size_t rmStart = assetDirectory.size() + 1;
                     const std::size_t rmSize  = rmStart + assetFolder.size() + 1 +
-                                               EditorPaths::MetadataExtension.size() +
-                                               rand::UUID::StringLength;
-                    folder = folder.substr(rmStart, folder.size() - rmSize);
+                                                EditorPaths::MetadataExtension.size() +
+                                                rand::UUID::StringLength;
+                    folder                    = folder.substr(rmStart, folder.size() - rmSize);
 
                     if (!folder.empty()) {
                         if (folder.front() == '/' || folder.front() == '\\') { folder.erase(0, 1); }
@@ -420,7 +429,7 @@ bool Repository::loadRepository() {
                     pair.second.getMetadata().setPath(folder);
                 }
                 else {
-                    BL_LOG_ERROR << "Asset with UUID " << pair.first.toString()
+                    BL_LOG_ERROR << "Asset " << pair.second
                                  << " is missing its metadata file and could not be found in "
                                     "asset directory";
                     pair.second.state = State::Missing;
@@ -487,12 +496,11 @@ bool Repository::loadRepository() {
         if (pair.second.getMetadata().getIsAutoLoaded()) {
             if (hasAllDeps) {
                 if (!pair.second.load()) {
-                    BL_LOG_ERROR << "Failed to auto load auto-load asset with UUID "
-                                 << pair.first.toString();
+                    BL_LOG_ERROR << "Failed to auto load auto-load asset " << pair.second;
                 }
             }
             else {
-                BL_LOG_ERROR << "Skipping auto-load of asset " << pair.first.toString()
+                BL_LOG_ERROR << "Skipping auto-load of asset " << pair.second
                              << " due to missing dependencies";
             }
         }
@@ -505,8 +513,7 @@ bool Repository::loadRepository() {
             if (asset.getState() < State::Unloaded) { continue; }
             const bool wasLoaded = asset.getState() == State::Loaded;
             if (!asset.reloadFromSource()) {
-                BL_LOG_WARN << "Failed to reload asset with UUID " << pair.first.toString()
-                            << " from source";
+                BL_LOG_WARN << "Failed to reload asset " << pair.second << " from source";
             }
             if (!wasLoaded) { asset.unload(); }
         }
@@ -598,7 +605,7 @@ bool Repository::exportRepository(const std::string& path) {
         }
 
         if (!addToBundle(currentBundle, asset)) {
-            BL_LOG_ERROR << "Failed to bundle asset " << asset.getUUID();
+            BL_LOG_ERROR << "Failed to bundle asset " << asset;
         }
 
         for (auto dep : asset.dependencies) {
@@ -678,9 +685,7 @@ void Repository::releaseUnused() {
             continue;
         }
         Asset& stored = it->second;
-        if (!stored.unload()) {
-            BL_LOG_WARN << "Failed to unload asset with UUID " << uuid.toString();
-        }
+        if (!stored.unload()) { BL_LOG_WARN << "Failed to unload asset " << stored; }
     }
 }
 
@@ -693,8 +698,7 @@ void Repository::reloadFromSource() {
     for (auto& pair : assets) {
         Asset& asset = pair.second;
         if (!asset.reloadFromSource()) {
-            BL_LOG_WARN << "Failed to reload asset with UUID " << pair.first.toString()
-                        << " from source";
+            BL_LOG_WARN << "Failed to reload asset " << pair.second << " from source";
         }
     }
 }

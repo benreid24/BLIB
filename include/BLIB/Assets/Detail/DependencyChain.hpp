@@ -2,8 +2,8 @@
 #define BLIB_ASSETS_DETAIL_DEPENDENCYCHAIN_HPP
 
 #include <BLIB/Assets/RepoDependency.hpp>
-#include <BLIB/Util/NonCopyable.hpp>
 #include <BLIB/Random/UUID.hpp>
+#include <BLIB/Util/NonCopyable.hpp>
 #include <string_view>
 
 namespace bl
@@ -71,8 +71,12 @@ protected:
 
     /**
      * @brief Performs post deserialization initialization and loads the dependency
+     *
+     * @param dependencies The list of dependencies to match against
+     * @param isForSourceReload True if for a reload of the asset. Relaxes load checks
      */
-    virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies) = 0;
+    virtual bool matchAndLoad(const std::vector<RepoDependency>& dependencies,
+                              bool isForSourceReload) = 0;
 
     friend class ::bl::as::Payload;
 };
